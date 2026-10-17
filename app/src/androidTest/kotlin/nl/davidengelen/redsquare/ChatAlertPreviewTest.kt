@@ -14,6 +14,7 @@ import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -88,6 +89,11 @@ class ChatAlertPreviewTest {
                         ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
                         ui.onNodeWithText("Private messages are encrypted.").assertIsDisplayed()
                         capture("private-warm-opened")
+                        val savedDraft = ChatWorkStore(context, wallet, SaitoBackend.OWNER, editingContact).load()
+                        assertEquals(latestDraft, savedDraft.draft)
+                        assertNull(savedDraft.transaction)
+                        assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
+                        assertFalse(savedDraft.automatic)
                         click(hasText("Back"))
                         click(hasText(editingContact))
                         val restoredDraft = hasSetTextAction() and isEnabled() and

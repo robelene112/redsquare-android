@@ -16,23 +16,26 @@ Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc. Original33/34 remain
 OPEN with32 dependencies unchanged. No Google transport/deployment acceptance.
 The existing native receipt/navigation foundation has no outstanding code blocker.
 
-First tracer: actual controlled signed private receipt while editing another
-conversation, generic Android alert, real shade tap opens exact sender, then
-return to the latest mounted draft without sending. Existing Android UI,
-controlled-peer, actual-notification and persistence seams from spec1 apply.
-Focused chat-alerts/chat-alerts-android17 scopes run the one native class, with
-180s class bound and existing20s observations. Full wiring includes it. No
-production change yet. Local first tracer build29451 PASS2m39s, core UP-TO-DATE;
-no owned first-tracer build. Android17 RED39034915868 at exact3dbeefbd1 failed
-1/1/48.07s at20s destination wait88 after the actual generic alert/shade tap.
-Root viewed two original PNGs/parsed2XML;9hashes in ticket44/first-red/android17.
-The previous conversation/draft remained visible; later recovery/no-write tails
-were unexecuted. First production correction adds wallet/backend/original-bound
-private alert URI, one shared notification route slot/generation and the existing
-mounted-draft navigation guard before opening the sender. Local correction build
-96432 PASS4m11s, core UP-TO-DATE; no owned build. Corrected focused Android17
-dispatch follows; no GREEN outcome yet. No extra grill needed for this settled
-behavior. Public beta26 remains current, protected group contract untouched.
+First actual private warm-tap tracer at3dbeefbd1: Android17 run39034915868
+FAILURE1/1/48.07s at20s target wait88 after signed receipt, generic Android alert
+and real shade tap. Old contact/draft remained visible. Later recovery/no-write
+assertions unexecuted. Root viewed two original PNGs/parsed2XML;9hashes in
+`docs/evidence/ticket44/first-red/android17`. Local first build29451 PASS2m39s.
+
+Production21f2a340c adds wallet/backend/original-bound private Chat URI and local
+cached verification, one shared notification route slot/generation retaining
+legacy SavedStateHandle keys, and existing mounted-draft guard before opening
+the sender. Local96432 PASS4m11s, core UP-TO-DATE. Corrected Android17 native
+run39035902031 at exact21f2a340c2460e2ae632e6fdc7dc746cce44865c PENDING.
+Bounded Standards0; Spec1 verification finding: return-to-editor alone could use
+ChatComposerMemory. The test now also requires exact durable ChatWorkStore draft,
+no transaction, statusNONE and automaticfalse after positive target observation,
+before Back. Local strengthened build91514 PASS2m2s, core UP-TO-DATE. No owned
+local build. Production unchanged by this test correction. Fix review and native
+recheck follow; no GREEN/full acceptance claim yet. Group/cold/preview slices
+remain. Same approved UI/controlled-peer/notification/persistence seams; no new
+grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
+Public beta26 remains current, protected group contract untouched.
 
 ## Accepted native Chat GIF slice (#43)
 
