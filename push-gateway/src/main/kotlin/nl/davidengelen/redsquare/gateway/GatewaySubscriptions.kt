@@ -311,18 +311,23 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         prune(state, now)
         val events = state.getAsJsonObject("events")
         val expiresAt = minOf(now + GatewayChatOriginals.RETENTION, signed.createdAt + LIFETIME)
-        for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
+        val recipients = state.getAsJsonObject("subscriptions").entrySet().filter { (subscription, value) ->
             val binding = value.asJsonObject
             val owner = savedText(binding, "owner")
-            if (savedText(binding, "backend") != backend.id || savedNumber(binding, "expiresAt") <= now ||
-                "private-chats" !in savedText(binding, "categories").split(',') ||
-                owner == signed.author || owner !in signed.recipients) continue
-            if (events.entrySet().any { (_, event) -> event.asJsonObject.let {
-                savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
-                    savedText(it, "signature") == signed.id
-            } }) continue
-            if (events.size() >= 4096) throw IOException("Gateway event capacity reached")
-            val originalExpiresAt = chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
+            savedText(binding, "backend") == backend.id && savedNumber(binding, "expiresAt") > now &&
+                "private-chats" in savedText(binding, "categories").split(',') &&
+                owner != signed.author && owner in signed.recipients &&
+                events.entrySet().none { (_, event) -> event.asJsonObject.let {
+                    savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
+                        savedText(it, "signature") == signed.id
+                } }
+        }
+        if (recipients.isEmpty()) return
+        if (events.size() + recipients.size > 4096) throw IOException("Gateway event capacity reached")
+        val originalExpiresAt = chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
+        for ((subscription, value) in recipients) {
+            val binding = value.asJsonObject
+            val owner = savedText(binding, "owner")
             events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
                 addProperty("subscription", subscription); addProperty("owner", owner)
                 addProperty("backend", backend.id); addProperty("signature", signed.id); addProperty("category", "private-chats")

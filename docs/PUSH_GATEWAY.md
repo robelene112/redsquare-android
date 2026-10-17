@@ -418,9 +418,14 @@ returns the thin reference with `kind: private-chat`; separate
 The device must authenticate participants and decrypt/verify Chat locally before
 any alert. The gateway never receives a participant's private/decryption key.
 Original ciphertext is stored once per backend/signature in private files outside
-the4MiB subscription journal, for at most24hours. The cache bounds are4096 files,
+the4MiB subscription journal. Each retained record expires for retrieval within
+24hours. The cache bounds are4096 files,
 128MiB total and8MiB per original; new wake expiry cannot exceed retained expiry.
-The existing one-minute retention loop removes expired originals. In-memory
+The one-minute retention loop attempts removal of expired originals; physical
+bytes can remain longer while cleanup fails or the process is stopped, until
+successful cleanup resumes. Routine saves check an existing original directly
+and retain it once per candidate, rather than rescanning ciphertext per recipient.
+In-memory
 stream queues hold at most64 frames and8MiB per backend, plus the active frame;
 unsupported size/overflow and disconnection remain explicit Chat stream gaps.
 Initial controlled [minimum evidence](evidence/ticket46/gateway-minimum-full/README.md)

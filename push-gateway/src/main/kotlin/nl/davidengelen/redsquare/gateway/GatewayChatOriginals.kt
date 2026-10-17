@@ -22,13 +22,21 @@ internal class GatewayChatOriginals(private val directory: Path) {
         require(envelope.toByteArray(Charsets.UTF_8).size <= MAX_ORIGINAL && expiresAt > now)
         Files.createDirectories(directory)
         Files.setPosixFilePermissions(directory, PosixFilePermissions.fromString("rwx------"))
-        cleanup(now)
         val target = path(backend, signature)
-        if (Files.exists(target)) { val retained = read(target); sync(); return retained.expiresAt }
+        if (Files.exists(target)) {
+            val retained = read(target)
+            if (retained.expiresAt > now) { sync(); return retained.expiresAt }
+            Files.delete(target)
+            sync()
+        }
         val contents = JsonObject().apply {
             addProperty("version", 1); addProperty("expiresAt", expiresAt); addProperty("envelope", envelope)
         }.toString().toByteArray(Charsets.UTF_8)
-        val entries = entries()
+        var entries = entries()
+        if (entries.size >= MAX_FILES || entries.sumOf { Files.size(it) } + contents.size > MAX_TOTAL) {
+            cleanup(now)
+            entries = entries()
+        }
         if (entries.size >= MAX_FILES || entries.sumOf { Files.size(it) } + contents.size > MAX_TOTAL) {
             throw IOException("Chat original capacity reached")
         }
