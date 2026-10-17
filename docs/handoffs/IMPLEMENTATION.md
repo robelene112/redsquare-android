@@ -66,12 +66,19 @@ retained. Two PNG pairs byte-identical despite renderer differences; title crop
 and truthful unavailable history/live status qualified. See canonical README.
 Both whole-source reviews FIXED2fff4587e...598dd89ff are Standards0/Spec0.
 
-Production source frozen at44f5a34b3, final native fixture598dd89ff. Next: one full
-Android10/17 pair for the same exact committed checkpoint with public_feed_read
-explicitly enabled, inspect/retain actual complete outcomes, final evidence review,
+Production source frozen at44f5a34b3, final native fixture598dd89ff. Next: full pair at exact9a37c19ba5182b8f0f26f7c2947ec6a511a457f9:
+Android10 run39044590725 andAndroid17 run39044590715, public_feed_read=true,
+both PENDING. Inspect/retain actual complete outcomes, final evidence review,
 signed review publication and #44 close only then. Original33/34 and real32 blockers
 remain unchanged. No Google or physical/process-death claim from these focused
-journeys. No owned local build. Same approved seams/180s class/20s observations.
+journeys. Signed27/0.1.27 is prepared, NOT published, source exactly9a37c19ba. Wrapper0/
+GradlePASS4m38s and independent certificate/package/min29/hash checks pass.
+APK8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159,
+establishedcert unchanged. Nine hashed prepared records and source/fixture Git
+object equality in signed-preview27-prepared. Artifact moved after build to
+/mnt/storage/redsquare-android-artifacts/chat44-review27-prepared; existing26
+not moved. Do not rebuild/reserve a new version unless source changes require it.
+No owned local build. Same approved seams/180s class/20s observations.
 Temporary work outside checkout /tmp/redsquare-chat44-work-20261017; large original
 artifacts /mnt/storage/redsquare-android-artifacts. Do not bulk-clean older files or
 touch unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
