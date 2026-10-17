@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
+import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.saito.*
 
@@ -12,7 +13,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     private val backend: SaitoBackend, val contact: String) {
     enum class Status { NONE, QUEUED, UNKNOWN, SUBMITTED, FORWARDED, AVAILABLE }
     data class Saved(val draft: String = "", val transaction: SaitoTransaction? = null, val status: Status = Status.NONE,
-        val automatic:Boolean=false) {
+        val automatic:Boolean=false, val gifAttribution: GiphyAttribution? = null) {
         val frozen:Boolean get()=status==Status.QUEUED||status==Status.UNKNOWN||(automatic&&status==Status.SUBMITTED)
         val deliveryComplete:Boolean get()=status==Status.FORWARDED||status==Status.AVAILABLE
     }
@@ -25,17 +26,27 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         decode(contents, wallet, PrivateChat.conversationId(wallet.publicKey, contact))
     }
 
-    fun saveDraft(text: String): Saved = synchronized(SaitoLocalState.lock) {
+    fun saveDraft(text: String, selectedGif: GiphyAttribution? = null): Saved = synchronized(SaitoLocalState.lock) {
         val previous = load()
         check(!previous.frozen)
-        save(previous.copy(draft = text))
+        val source = chatPhoto(privateMessageBody(text))?.source
+        val credit = source?.let { selectedGif ?: previous.gifAttribution?.takeIf {
+            chatPhoto(privateMessageBody(previous.draft))?.source == source
+        } }
+        save(previous.copy(draft = text, gifAttribution = credit))
     }
 
     fun prepare(transaction: SaitoTransaction, queued:Boolean=false): Saved = synchronized(SaitoLocalState.lock) {
         assertSelected()
-        check(!load().frozen)
-        require(PrivateChat.read(wallet, transaction.envelope(), contact).author == wallet.publicKey)
-        save(Saved("", transaction, if(queued)Status.QUEUED else Status.UNKNOWN))
+        val previous = load()
+        check(!previous.frozen)
+        val message = PrivateChat.read(wallet, transaction.envelope(), contact)
+        require(message.author == wallet.publicKey)
+        val source = chatPhoto(privateMessageBody(message.text))?.source
+        val credit = previous.gifAttribution?.takeIf {
+            source != null && chatPhoto(privateMessageBody(previous.draft))?.source == source
+        }
+        save(Saved("", transaction, if(queued)Status.QUEUED else Status.UNKNOWN, gifAttribution = credit))
     }
 
     /** Cancellation and socket claim share the identity/selection lock. */
@@ -45,7 +56,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         val candidate=requireNotNull(previous.transaction)
         check(candidate.id==id&&previous.status==Status.QUEUED)
         val text=PrivateChat.read(wallet,candidate.envelope(),contact).text
-        save(Saved(draft=text))
+        save(Saved(draft=text, gifAttribution=previous.gifAttribution))
     }
 
     fun enableAutomatic(id:String):Saved = synchronized(SaitoLocalState.lock) {
@@ -88,15 +99,17 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     }
 
     private fun save(saved: Saved): Saved {
+        require(saved.gifAttribution == null || GiphyAttribution.fromJson(saved.gifAttribution.toJson()) == saved.gifAttribution)
         val record = JsonObject().apply {
             addProperty("draft", saved.draft)
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("status", saved.status.name)
             addProperty("automatic",saved.automatic)
+            saved.gifAttribution?.let { add("gifAttribution", it.toJson()) }
         }
         file.save(EncryptedLocalFile.Contents(1, record.toString()))
         check(load().let{it.draft==saved.draft&&it.transaction?.encoded()==saved.transaction?.encoded()&&
-            it.status==saved.status&&it.automatic==saved.automatic})
+            it.status==saved.status&&it.automatic==saved.automatic&&it.gifAttribution==saved.gifAttribution})
         changes.value+=1
         return saved
     }
@@ -150,7 +163,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
             require((transaction == null) == (status == Status.NONE))
             require(!automatic||transaction!=null)
             transaction?.let { require(PrivateChat.recover(wallet, it.envelope(), group).message.author == wallet.publicKey) }
-            return Saved(draft, transaction, status,automatic)
+            return Saved(draft, transaction, status,automatic, record.get("gifAttribution")?.let(GiphyAttribution::fromJson))
         }
     }
 }

@@ -9,18 +9,20 @@ internal data class ChatPhoto(val source: String, val text: String)
 
 internal fun chatPhoto(message: String): ChatPhoto? {
     val match = imageMessage.matchEntire(message) ?: return null
-    val source = RedSquareImages.safeSource(match.groupValues[1]) ?: return null
+    val source = RedSquareImages.safeSource(unescapePhotoText(match.groupValues[1])) ?: return null
     val escaped = match.groupValues[2]
-    val text = escaped.replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"")
-        .replace("&#39;", "'").replace("&amp;", "&")
+    val text = unescapePhotoText(escaped)
     if (escapePhotoText(text) != escaped) return null // Interpret only canonical escaped text, never arbitrary markup.
     return ChatPhoto(source, text)
 }
 
 internal fun composeChatPhoto(source: String, text: String): String {
     require(RedSquareImages.safeSource(source) == source)
-    return "<img class=\"img-prev\" src=\"$source\">" + if (text.isEmpty()) "" else "\n<div>${escapePhotoText(text)}</div>"
+    return "<img class=\"img-prev\" src=\"${escapePhotoText(source)}\">" + if (text.isEmpty()) "" else "\n<div>${escapePhotoText(text)}</div>"
 }
 
 private fun escapePhotoText(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     .replace("\"", "&quot;").replace("'", "&#39;")
+
+private fun unescapePhotoText(text: String) = text.replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"")
+    .replace("&#39;", "'").replace("&amp;", "&")

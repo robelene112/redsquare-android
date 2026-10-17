@@ -147,7 +147,13 @@ class ChatGiphyPreviewTest {
                                         val delivered = PrivateChat.read(wallet, sent.envelope(), contact)
                                         check(delivered.author == wallet.publicKey && delivered.text == expected)
                                         val caption = hasText(draft) and !hasSetTextAction()
-                                        ui.waitUntil(20_000) { displayed(caption) }
+                                        ui.waitUntil(20_000) {
+                                            if (!displayed(caption)) {
+                                                try { ui.onNode(hasContentDescription("Private messages")).performScrollToNode(caption) }
+                                                catch (_: AssertionError) { /* Receipt can precede history publication. */ }
+                                            }
+                                            displayed(caption)
+                                        }
                                         credits("$prefix-sent-credits")
                                         File(context.cacheDir, "chat-giphy-evidence/native-private-gif-envelope.json").writeText(sent.envelope())
                                         File(context.cacheDir, "chat-giphy-evidence/native-private-gif-source.txt").writeText(source + "\n")

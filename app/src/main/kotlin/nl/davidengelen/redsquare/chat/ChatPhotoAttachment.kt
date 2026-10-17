@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.media.GiphyItem
 import nl.davidengelen.redsquare.media.GiphyPicker
 import nl.davidengelen.redsquare.R
@@ -28,7 +29,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
-    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null) = key(session) {
+    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -61,7 +62,10 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
     Column {
         photo?.let { attachment ->
             PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) },
-                removalEnabled = enabled && !preparing, previewHeight = if (WindowInsets.isImeVisible) 72.dp else 100.dp)
+                removalEnabled = enabled && !preparing && !selectingGif,
+                previewHeight = if (WindowInsets.isImeVisible) 72.dp else 100.dp,
+                gifAttributions = gifAttribution?.let { mapOf(attachment.source to it) }.orEmpty(),
+                onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
         }
         if (photo == null) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
             scope.launch {

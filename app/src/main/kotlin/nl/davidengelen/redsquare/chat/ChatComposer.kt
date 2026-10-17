@@ -36,6 +36,7 @@ internal class ChatReplyActions {
 @Composable
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
     permitted: Boolean, replies: ChatReplyActions, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
+    val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -182,7 +183,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                 val previewScroll=rememberScrollState()
                 val previewLabel=stringResource(R.string.chat_composition_preview)
                 Column {
-                    Column((if(quote!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
+                    Column((if(quote!=null || photo!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
                         .semantics{contentDescription=previewLabel}) {
                         if (quote != null) {
                             Text(quote.quote, style = MaterialTheme.typography.bodyMedium)
@@ -194,6 +195,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                             beforePicker = { !navigation.transitioning && persist() && !navigation.transitioning },
                             onPreparing = { preparingPhoto = it },
                             onChange = { if (!navigation.transitioning) changeText((quote?.prefix ?: "") + it) },
+                            gifAttribution = saved.gifAttribution,
                             onSelectGif = { item ->
                                 writes.withLock {
                                     if (!ready || sending || saved.frozen || !permitted || navigation.transitioning) false
@@ -204,7 +206,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                         else {
                                             val next = (currentReply?.prefix ?: "") + composeChatPhoto(item.originalUrl, currentBody)
                                             withContext(NonCancellable) {
-                                                saved = withContext(Dispatchers.IO) { work.assertSelected(); work.saveDraft(next) }
+                                                saved = withContext(Dispatchers.IO) { work.assertSelected(); work.saveDraft(next, item.attribution) }
                                                 changeText(next)
                                             }
                                             failed = false
@@ -231,6 +233,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 scope.launch {
                                     try {
                                         val candidate = writes.withLock {
+                                            saved.gifAttribution?.let { credit ->
+                                                chatPhoto(privateMessageBody(outgoing))?.source?.let { source ->
+                                                    withContext(Dispatchers.IO) { requireNotNull(gifCredits).retain(mapOf(source to credit)) }
+                                                }
+                                            }
                                             val prepared = original ?: withContext(Dispatchers.IO) {
                                                 val mentioned = privateReply(outgoing)?.author?.let { author ->
                                                     require(author in setOf(wallet.publicKey, contact))

@@ -34,6 +34,19 @@ correction; no application/compiler failure claimed. Corrected tracer build28271
 fixture gaps: offscreen Use GIF readiness before scrolling and missing explicit
 outgoing signer/final identity/write assertions. Both are corrected without
 changing deadlines; hosted build/runtime will compile and run the corrected test.
+Selection RED at04ef0dab in39023335733:2cases/1pass/1failure/45.506s,
+creator/source missing at125/131 after actual selection/caption/two nativecolors.
+Canonical HTML, fresh-Activity and signed-send tails unexecuted. Root viewed
+2originalPNGs/parsed2XMLs, seven hashes in ticket43/selection-red/android17.
+Current private correction adds optional encrypted per-work credits, carries
+those through preparation/cancel/retry, saves wallet-local sent credits before
+transmission, and bounds/scrolls the attachment preview. Source URL HTML entities
+now follow pinned DOM outerHTML; exact original/query is decoded for viewing.
+Both pinned A/B sanitize/newline outputs independently pass offline Chromium
+exactURL/caption and ownedGIF16x16 decode (scratchchat43-gif-web*); no native
+frame/live-client claim yet. Existing caption observer gains ordinary history
+scrolling like the accepted photo-send fixture, retaining20s/identity/write checks.
+Local credits build43700 is running; no corrected runtime acceptance yet.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 
