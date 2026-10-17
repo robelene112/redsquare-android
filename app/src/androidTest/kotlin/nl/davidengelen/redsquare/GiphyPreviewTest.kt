@@ -148,7 +148,7 @@ class GiphyPreviewTest {
                             ui.onNode(hasSetTextAction()).performTextReplacement("My text survives changing GIF searches")
                             ui.onNodeWithText("Add GIF").performScrollTo().performClick()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("No GIFs found.").fetchSemanticsNodes().isNotEmpty() }
-                            ui.onNode(hasSetTextAction()).performTextReplacement(query)
+                            ui.onNode(hasSetTextAction() and hasText("Search GIFs")).performTextReplacement(query)
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("GIF search is busy. Try again later.").fetchSemanticsNodes().isNotEmpty() }
                             capture("search-rate-limit")
                             ui.onNodeWithText("Retry").performClick()
@@ -163,14 +163,14 @@ class GiphyPreviewTest {
                                 assertEquals("0", request.url.queryParameter("offset"))
                                 assertEquals("pg-13", request.url.queryParameter("rating"))
                             }
-                            ui.onNode(hasSetTextAction()).performTextReplacement("x".repeat(51))
+                            ui.onNode(hasSetTextAction() and hasText("Search GIFs")).performTextReplacement("x".repeat(51))
                             ui.onNodeWithText("Use no more than 50 characters for GIF search.").assertIsDisplayed()
                             ui.mainClock.advanceTimeBy(1000)
                             ui.waitForIdle()
                             assertEquals(3, requests.size)
-                            ui.onNode(hasSetTextAction()).performTextReplacement("Old cats")
+                            ui.onNode(hasSetTextAction() and hasText("Search GIFs")).performTextReplacement("Old cats")
                             ui.waitUntil(10_000) { oldStarted.count == 0L }
-                            ui.onNode(hasSetTextAction()).performTextReplacement("New cats 🐈")
+                            ui.onNode(hasSetTextAction() and hasText("Search GIFs")).performTextReplacement("New cats 🐈")
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Newer result").fetchSemanticsNodes().isNotEmpty() }
                             releaseOld.countDown()
                             ui.waitUntil(10_000) { oldDispatched.count == 0L }
