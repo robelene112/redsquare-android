@@ -43,7 +43,12 @@ class GatewayChainDeliveryTest {
         val fixture = requireNotNull(javaClass.getResourceAsStream("/gateway-social-block-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val now = fixture.get("now").asLong
-        val clock = Clock.fixed(Instant.ofEpochMilli(now), ZoneOffset.UTC)
+        val time = java.util.concurrent.atomic.AtomicLong(now)
+        val clock = object : Clock() {
+            override fun getZone() = ZoneOffset.UTC
+            override fun withZone(zone: java.time.ZoneId): Clock = this
+            override fun instant(): Instant = Instant.ofEpochMilli(time.get())
+        }
         val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture, never fund.
         assertEquals(fixture.get("owner").asString, owner.publicKey)
         val original = fixture.getAsJsonObject("original")
@@ -70,6 +75,7 @@ class GatewayChainDeliveryTest {
                 return connection.send(builder.build(), HttpResponse.BodyHandlers.ofString())
             }
             GatewayDeliveryTest.ArchivePeer(identity, JsonArray().apply { add(root); add(reply) }).use { archivePeer ->
+                archivePeer.exposeHead.set(false) // Exact chain-discovered IDs remain available; ordinary head discovery cannot pass.
                 MockWebServer().use { chainPeer ->
                     chainPeer.dispatcher = object : mockwebserver3.Dispatcher() {
                         override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
@@ -125,7 +131,7 @@ class GatewayChainDeliveryTest {
                         fcm.dispatcher = object : mockwebserver3.Dispatcher() {
                             override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
                                 verifiedBeforeSend.set(archivePeer.exactReads.containsAll(setOf(root.get("sig").asString, reply.get("sig").asString)))
-                                return MockResponse.Builder().code(503).header("Retry-After", "60").build()
+                                return MockResponse.Builder().code(503).addHeader("Retry-After", "60").build()
                             }
                         }
                         fcm.start(InetAddress.getByName("127.0.0.1"), 0)
@@ -174,6 +180,7 @@ class GatewayChainDeliveryTest {
                             assertEquals(1, fcm.requestCount)
                             assertEquals(listOf(original, alternate).map { it.get("hash").asString }, downloads.toList())
                         }
+                        time.set(now + 61_001) // Past Retry-After60s plus the maximum999ms jitter; still inside receipt/binding expiry.
                         PushGateway(state, origin, clock = clock).use { recovered ->
                             recovered.start(); assertEquals(410, resolve(recovered, wake).statusCode()); observe(recovered)
                             assertEquals(3, calls.get()); assertEquals(1, fcm.requestCount)
