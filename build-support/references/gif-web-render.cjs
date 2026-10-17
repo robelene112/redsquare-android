@@ -65,7 +65,10 @@ for (const pin of ['A', 'B']) {
     assert.deepEqual(Array.from(tweet.embedded.images), proof.original.body.data.images);
     expectedImages.push(...proof.original.body.data.images);
     assert(html.includes(`data-id="${proof.original.signature}"`));
-    assert(html.includes(proof.original.body.data.text));
+    // These unchanged pins omit embedded.app and therefore omit the original
+    // text body. Preserve and report that known limitation; do not inject app.
+    assert(!Object.hasOwn(tweet.embedded, 'app'));
+    assert(!html.includes(proof.original.body.data.text));
   }
   const renderedImages = [...html.matchAll(/<img\b[^>]*src="([^"]*)"/g)].map(match => match[1].replaceAll('&amp;', '&'))
     .filter(src => src === proof.outer.body.data.images[0] || src.startsWith('data:image/'));
@@ -75,9 +78,12 @@ for (const pin of ['A', 'B']) {
   observations.push({pin, commit: pins[pin], hashes, kind,
     outerCommentaryRendered: html.includes(proof.outer.body.data.text),
     originalIdentityRendered: kind === 'quote' ? html.includes(`data-id="${proof.original.signature}"`) : null,
+    originalTextRendered: kind === 'quote' ? html.includes(proof.original.body.data.text) : null,
+    normalizedOriginalHasApp: kind === 'quote' ? Object.hasOwn(tweet.embedded, 'app') : null,
     exactGifUrlRendered: renderedImages[0] === proof.outer.body.data.images[0],
     expectedImages, html});
 }
 console.log(JSON.stringify({nodeVersion: process.version, frameSha256: proof.frameSha256,
   boundary: 'Verified decoded data adapter plus unmodified pinned constructor/template graph; no DOM/network acceptance proof',
+  limitations: kind === 'quote' ? ['Pinned A/B templates omit the quoted original text body; authenticated payload/model text and visible identity/images are checked separately.'] : [],
   observations}, null, 2));
