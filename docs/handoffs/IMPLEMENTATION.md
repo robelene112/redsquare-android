@@ -24,7 +24,8 @@ protocols pass currentfullsuite. Protectedgroupdoc remainsuntrackeduntouched.
 
 ## Active missing-parent availability
 
-History checkpoint1c62eb31 accepted/pushed; source CI for that push pending.
+History checkpoint1c62eb31 accepted/pushed; sourceCI39001380385 SUCCESS,
+retained history-recovery-source-ci(2hashes). NewercandidateCI39001786605 is separate.
 Sole42 remainsopen. Parent tracer182848ae extends the existing owned reply journey:
 first withhold exact signed root, require noFCM and retained archive-parent-unavailable
 warning, restore root and clear read observations, then preserve the prior fresh
