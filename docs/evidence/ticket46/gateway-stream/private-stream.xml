@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-17T18:18:41" hostname="384f0217d5cc" time="6.59">
+  <properties/>
+  <testcase name="oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="3.936"/>
+  <testcase name="privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="2.654"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

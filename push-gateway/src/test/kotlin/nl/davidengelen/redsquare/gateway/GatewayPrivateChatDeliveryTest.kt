@@ -32,7 +32,11 @@ import java.util.concurrent.atomic.AtomicReference
 class GatewayPrivateChatDeliveryTest {
     @get:Rule val directory = TemporaryFolder()
 
-    @Test(timeout = 30_000) fun privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal() {
+    @Test(timeout = 30_000) fun privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal() = privateJourney()
+
+    @Test(timeout = 30_000) fun oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal() = privateJourney(continueStream = true)
+
+    private fun privateJourney(continueStream: Boolean = false) {
         // Published unsafe fixture identities. Never fund or use outside owned fixtures.
         val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
@@ -46,6 +50,7 @@ class GatewayPrivateChatDeliveryTest {
             val original = PrivateChat.create(author, recipient.publicKey, text, now)
             // Fresh ordinary transport fixture; independent encryption interoperability stays with the pinned core cases.
             val failure = AtomicReference<Throwable?>()
+            val stream = AtomicReference<WebSocket?>()
             MockWebServer().use { peer ->
                 val counter = ByteArray(32) { 7 }
                 peer.enqueue(MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
@@ -58,6 +63,7 @@ class GatewayPrivateChatDeliveryTest {
                                     frame.copyOfRange(1, 33), counter).toByteString())
                                 2 -> {
                                     require(SaitoWire.verifyHandshake(frame, counter) == identity.publicKey)
+                                    stream.set(webSocket)
                                     webSocket.send(original.broadcast(author, identity.publicKey).toByteString())
                                 }
                                 20 -> webSocket.send(byteArrayOf(9).toByteString())
@@ -134,6 +140,37 @@ class GatewayPrivateChatDeliveryTest {
                                 assertEquals(text, received.message.text)
                                 assertEquals(author.publicKey, received.counterparty)
                                 assertEquals(1, fcm.requestCount)
+                                if (continueStream) {
+                                    fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/next-private\"}").build())
+                                    val next = PrivateChat.create(author, recipient.publicKey, "Another message on the same connection",
+                                        System.currentTimeMillis())
+                                    val socket = requireNotNull(stream.get())
+                                    assertTrue(socket.send(original.broadcast(author, identity.publicKey).toByteString()))
+                                    assertTrue(socket.send(next.broadcast(author, identity.publicKey).toByteString()))
+                                    val nextSent = fcm.takeRequest(5, TimeUnit.SECONDS)
+                                    failure.get()?.let { throw AssertionError("Owned continuing Chat failed", it) }
+                                    assertNotNull("The existing authenticated stream must deliver the next distinct message", nextSent)
+                                    val nextMessage = JsonParser.parseString(requireNotNull(nextSent?.body).utf8())
+                                        .asJsonObject.getAsJsonObject("message")
+                                    assertEquals(setOf("fid", "data", "android"), nextMessage.keySet())
+                                    assertEquals(fid, nextMessage.get("fid").asString)
+                                    val nextData = nextMessage.getAsJsonObject("data")
+                                    assertEquals(setOf("version", "wake"), nextData.keySet())
+                                    assertEquals("1", nextData.get("version").asString)
+                                    val nextWake = nextData.get("wake").asString
+                                    assertNotEquals(wake, nextWake)
+                                    val nextRequest = JsonObject().apply { addProperty("version", 1); addProperty("wake", nextWake) }
+                                    val nextResolved = post("/v1/wakes/resolve", nextRequest, recipient.sign(
+                                        "Saito push resolve v1\n$origin/v1/wakes/resolve\n$nextWake".toByteArray()))
+                                    assertEquals(next.id, nextResolved.get("signature").asString)
+                                    val nextRetained = post("/v1/wakes/original", nextRequest, recipient.sign(
+                                        "Saito push original v1\n$origin/v1/wakes/original\n$nextWake".toByteArray()))
+                                    val nextReceived = PrivateChat.recover(recipient, nextRetained.get("envelope").asString)
+                                    assertEquals(next.id, nextReceived.message.id)
+                                    assertEquals("Another message on the same connection", nextReceived.message.text)
+                                    assertEquals(author.publicKey, nextReceived.counterparty)
+                                    assertEquals("Repeating the first original must not send another alert", 2, fcm.requestCount)
+                                }
                             }
                         }
                     }
