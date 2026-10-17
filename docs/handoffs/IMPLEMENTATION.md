@@ -145,8 +145,9 @@ retainedciphertext/reference thenrealdisconnect/reconnect oldduplicate+newmessag
 andexplicitgap. Firsta6323run1FAIL18.840s timestampobserverrace, notappRED;
 dbebdispatchreadiness3PASS40.969s (lifecycle34.286s), localbuild1m27s/exit0.
 Final1cfa usesexisting synchronized nullcandidate tick topositivelydrain first
-send/backoff beforeobserverclose; sourcebothaxes0. Packetgateway-lifecycle11hashes
-retains qualifiedintermediates andsourcepins; exactcorrectedruntime pendingfull.
+send/backoff beforeobserverclose; sourcebothaxes0. Packetgateway-lifecycle13hashes
+retains qualifiedintermediates/sourcepins andexact1cfa sourcecheck39069243342
+SUCCESS core/gateway/native/test/release/lint. FullSDK appacceptance stillpending.
 Gracefulcomponentreopen isnotabruptJVMdeath. No localgatewaybuild remains.
 
 FreshfullAndroid10 run39069243011 andAndroid17 run39069244764 are activeat
