@@ -183,8 +183,25 @@ Owned51625 ended PASS1m1s/gateway7/0/0/coreUPTODATE, no owned local build.
 Final Spec0/Standards0 atf9983893 after the stale preceding next-step sentence was corrected.
 The concurrency interleaving, retry branch,
 expiry and pubkey mentions are source-reviewed, not exercised by this reply case.
-Next: interrupted-send recovery, verified-name mentions, chain/gaps/cleanup/runtime.
+Lost-send recovery is now verified below. Next: verified-name mentions, chain/gaps/cleanup/runtime.
 No full42/32, production deployment or Google/Pixel claim. Beta24 unchanged.
+
+## Lost send acknowledgement recovery
+
+Production unchanged; stronger existing journey7facb232 firstPASS1m10s/new27.577s
+bothloops. Reviews Standards1/Spec1: early silence assumes restart finishes before
+retrydeadline; immediate+latersample does notprovefullschedulerfloor.
+[First observation](../evidence/ticket42/delivery-retry-first/README.md),8hashes.
+Fixtureaea14801 records actualFCMarrivaltimes, permits legitimate due retry during
+restart and checks the observed retry interval>=10s. Source0/0.
+Owned80481 nowPASS1m9s/gateway7/0/0/new27.577s/coreUPTODATE, no owned build.
+[Corrected observation](../evidence/ticket42/delivery-retry-green/README.md),8hashes/
+13sourcehashes. Bothloops losefirstsendack, retainpendingresolver throughnewserver,
+hidehead, retrySAMEwake, restorehead→noduplicate, newpostoptout→nosend/410.
+Final evidence review pending. Configuredschedulerfloor/jitter are sourcefacts,
+not boundaryproof. No actualGoogle or forcedeventprocessstop. Exactf9983893
+sourceCI38996698848 SUCCESS, [retained2hashes](../evidence/ticket42/delivery-source-ci/README.md).
+Next source slice: registrar-backed username mentions. Whole42/32 staysopen.
 
 ## Accepted #32 foundation
 
