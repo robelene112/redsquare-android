@@ -24,9 +24,10 @@ Forty-nine raw files are hashed across preflight(3), both SDKs(22each) and
 sourceCI(2). Root viewed14 originals and parsed14 XMLs. Several bitmaps omit
 fields, explicitly excluded in SDK notes; semantic bounds are not proof of
 pixels or physical-device performance. No decoded real media or provider cause
-is inferred from controlled text. Actual public run39004585910 is pending at
+is inferred from controlled text. Actual public run39004585910 FAILED at
 this exact source, using the same second signed reference after this changed
-ordinary error handling. Actual Playing/no-autoplay/close/feed/no-write gates
+ordinary error handling. Its [separate packet](../error-surface-public/android17/README.md)
+shows the provider's actual visible bot-check, not playback acceptance. Actual Playing/no-autoplay/close/feed/no-write gates
 remain unchanged. No header/identity/login/proxy/node/account change. Beta24
 unchanged; #17 remains open. Giphy source research is preparation for a later
 sequential ticket, not parallel implementation.

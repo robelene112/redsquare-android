@@ -24,51 +24,40 @@ close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
 providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
 no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
 
-## Current YouTube diagnostic checkpoint
+## Current YouTube recovery checkpoint
 
-Sole issue #17, fixed review base c0f2da7e. Prearmed source7d9e1d0c had
-Standards0/Spec0; corrected APK passed1m46s. Pushed candidate34bcf2f7 sourceCI
-39002708691 SUCCESS (JVM tests FROM-CACHE, release/lint included).
-Actual publicAndroid17 run39002714443 FAILED at unchanged Playing wait:1/1,
-49.627s. Readiness and Play completed; native ready0/error150 retained. No
-providerError text was captured before the frame-layout collector failed.
-No provider message/cause established. Root viewed all three original PNGs and
-parsed both XMLs. Canonical local packet:
-`docs/evidence/ticket17/native-visible-error-oct17/`.
-No unchanged rerun. #17 stays open; beta24 unchanged. No active owned localbuild.
+Sole #17 remains open, fixed review base c0f2da7e. App sourcec9b114a8 keeps the
+normal101/150 provider surface visible until retry/close, with separate native
+Retry/external escape and truthful generic refusal copy. `key(browser)` remounts
+the actual replacement on Retry. Source reviews Standards0/Spec0 after that fix.
 
-Production destroys the provider surface on every failed status. Next bounded
-app correction to assess against #17 recovery behavior: keep the ordinary
-provider error surface visible for101/150, with native Retry and external escape,
-until the user closes or retries. This is user-visible error handling, not a
-special diagnostic delay or provider workaround. First extend the existing
-controlled thread/provider recovery journey to prove delayed error text survives,
-then apply the minimum source correction and verify both Android versions.
-Tracer ed0afa190977191237fe7c7ac78e7148f92099ed is now pushed, local debug/test
-APK passed1m45s and source reviews0/0. Controlled `videos-android17` RED candidate
-39003354073 FAILED at that exact source:4cases/1failure/68.276s at delayed
-explanation assertion233, after third ready/trusted150. Later method tails were
-unexecuted; the other three cases pass. SourceCI39003354360 SUCCESS is separate.
-RED packet `docs/evidence/ticket17/error-surface-red/android17/` has8hashes; root
-viewed the failurePNG/parsedXML. Production is unchanged at this RED checkpoint.
-Functional candidate c9b114a8 keeps101/150 provider error content with separate
-Retry and truthful generic refusal copy. Review found retained-view Retry could
-leave a closed old AndroidView; corrected `key(browser)` remounts the replacement.
-The stronger GREEN oracle now requires visible-bounds text for both explanation
-and fourth ready response. Source Standards0/Spec0 at c9b114a8.
-First b36build was uniquely retired before the correction, exec46456 exit143,
-not a PASS. Corrected core/debug/test build75378 passed3m31s (coreUPTODATE), raw
-`.scratch/video17-error-surface-reviewed-build.log`. Pushedc9b114a8: active controlled
-Android10 run39004102308, Android17 run39004103787, sourceCI39004102110. All exact
-headc9b114a868cace2c75527c523eac939c53f30bc5. All three SUCCESS: Android10
-4/0/22.074s, Android17 4/0/56.491s, source5m43s (JVMFROM-CACHE/release/lint).
-GREEN packet `docs/evidence/ticket17/error-surface-green/`49hashes/14XML; root
-viewed14originals. Android17refusaltextvisible, omitted fields inothercaptures
-explicitly excluded fromvisualacceptance. Actual changed publicAndroid17
-run39004585910 is ACTIVE atsamec9source withsame2ndsignedreference; pending.
-Actual public playback acceptance remains separate and unchanged. Giphy source
-research is available for a later sequential #16 preparation; no second ticket
-implementation has begun. Pending configuration questions are not repeated.
+- Original prearmed public34bcf2f7 run39002714443 FAILED1/1/49.627s, native150,
+  no providerError text captured. No cause established by that attempt.
+- Controlled REDed0afa19 run39003354073 FAILED4cases/1/68.276s at missing delayed
+  explanation; other3pass. Later failed-method tails unexecuted.
+- Corrected local c9 build75378 PASS3m31s, coreUPTODATE/debug/test. Earlier b36
+  build46456 was deliberately retired143 before compiled-source correction.
+- Exact c9 controlled Android10 run39004102308 SUCCESS4/0/22.074s; Android17
+  39004103787 SUCCESS4/0/56.491s. Source39004102110 SUCCESS5m43s, JVMFROMCACHE,
+  debug/test/release/lint. GREEN49hashes/14XML, rootviewed14PNGs. Android17
+  explanation visibly retained; omitted bitmap fields expressly excluded.
+- Changed actual public c9 run39004585910 FAILED1/1/56.741s at unchanged actual
+  Playing wait81 after readiness+realPlay. Ordinary failurePNG/XML now visibly
+  show YouTube's bot-check. CDP produced no providerError record; no underlying
+  IP/cookie/attestation cause or physical behavior inferred. Rootviewed3originals,
+  parsed2XML,14hashes. Later close/feed/no-write assertions unexecuted.
+
+Canonical controlled packet `docs/evidence/ticket17/error-surface-green/` and
+actual public `docs/evidence/ticket17/error-surface-public/android17/`.
+No active owned build/CI. No provider sign-in/header/origin/proxy change, account
+request or node operation. No unchanged public retry. #17 actual playback stays
+open, beta24 unchanged. Final native-public evidence review pending before
+freezing this checkpoint and claiming the next sequential source preparation.
+Next useful #16 work can build native Giphy UI/state/animated rendering and
+controlled interoperability without a live key. Its actual Android-authorized
+key/provider acceptance remains pending; do not repeat the existing question.
+Read `docs/research/GIPHY_SOURCE_PREPARATION_2026_10_17.md` (research only, not yet
+committed) and existing contract. No second ticket implementation has begun.
 
 ## Historical gateway checkpoint records
 
