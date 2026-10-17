@@ -155,5 +155,5 @@ private fun EmbeddedVideo(video: YouTubeVideo, attempt: Int, modifier: Modifier,
             previous = now
         }
     }
-    AndroidView(factory = { browser.view }, modifier = modifier)
+    key(browser) { AndroidView(factory = { browser.view }, modifier = modifier) }
 }

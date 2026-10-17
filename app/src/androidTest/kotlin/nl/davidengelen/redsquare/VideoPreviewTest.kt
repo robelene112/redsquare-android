@@ -230,14 +230,13 @@ class VideoPreviewTest {
                             val device = UiDevice.getInstance(instrumentation)
                             requireNotNull(device.wait(Until.findObject(By.text("Play controlled refused video")), 10_000)).click()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty() }
-                            val explanation = device.wait(Until.findObject(By.text("Controlled provider explanation remains visible.")), 5_000)
-                            assertNotNull("The provider explanation must remain visible after an embedding refusal", explanation)
-                            assertFalse("The explanation needs visible on-screen bounds", requireNotNull(explanation).visibleBounds.isEmpty)
+                            assertProviderTextVisible(device, "Controlled provider explanation remains visible.")
                             ui.onNodeWithText("YouTube cannot play this video here. Retry or open it in YouTube.").assertIsDisplayed()
                             capture("video-evidence/embed-refused-explanation.png")
                             ui.onNodeWithText("Retry").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
                             assertEquals(4, api.requestCount)
+                            assertProviderTextVisible(device, "Controlled YouTube player")
                             ui.onNodeWithText("Close video").performClick()
                             ui.onNodeWithText("Conversation").assertIsDisplayed()
                             ui.onNodeWithText(postText).assertExists()
@@ -328,6 +327,12 @@ class VideoPreviewTest {
                 }
             }
         }
+    }
+
+    private fun assertProviderTextVisible(device: UiDevice, text: String) {
+        val node = device.wait(Until.findObject(By.text(text)), 5_000)
+        assertNotNull("The provider surface must expose: $text", node)
+        assertFalse("Provider text needs visible on-screen bounds", requireNotNull(node).visibleBounds.isEmpty)
     }
 
     private fun readyResponse() = MockResponse.Builder().setHeader("Content-Type", "application/javascript").body("""
