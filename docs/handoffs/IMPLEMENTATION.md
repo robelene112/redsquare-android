@@ -87,7 +87,8 @@ actual death, distinct PID, post-death available reads and exact visible Android
 alert without target instrumentation/Activity or forced job during observation.
 Cleanup follows observation, stops the target, cancels/drains owned work and
 independently restores device-only originals/full wallet/backend. Source and17
-evidence reviews report0/0; combined final10/evidence review is next.
+evidence reviews report0/0; combined final reviews atcae9abe5 report Standards0/Spec0.
+This bounded autonomous-scheduling observation is accepted.
 
 [Initial10 failure](../evidence/ticket32/scheduled-process-stop-failure/android10/README.md)
 38984563727 at57 remains FAILURE at external run-as kill exit1, exact cause unknown

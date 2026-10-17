@@ -44,7 +44,8 @@ Android17 evidence review at47be60d8 reports0/0. Initial local build5m32s, corre
 local2m27s/core114, plus isolated host readiness/clean-stop smoke pass; later marker
 correction is compiled by exact-source CI. [Eight objects](production-equivalence.json)
 prove unchanged production source/build trees from57→47. Combined final evidence
-review is next.
+reviews atcae9abe5 report Standards0/Spec0, including all85 manifested files,
+12 GREEN XMLs and the preserved initial failure. This bounded observation is accepted.
 
 This proves autonomous scheduling of an already queued local receipt. Incoming
 FCM, gateway binding/observer integration on both backends, locked/Doze/Pixel
