@@ -5,7 +5,7 @@ Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), s
 subscription binding/status/retirement. It is not a deployed gateway or a complete
 observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
 `start()`, `port` and `close()` support the owned HTTP fixture. A standalone command,
-Android binding client, resolver, renewal, observer, FCM sender and operational
+Android binding client, resolver, observer, FCM sender and operational
 acceptance remain later work. No account, credentials or live node state is used.
 
 ## Subscription interface, version1
@@ -27,7 +27,11 @@ categories, expiresAt and revocationHash. IDs/nonce/hash are64lowerhex; installa
 is a canonical UUID. The FID contains1–256 ASCII letters/digits/underscore/hyphen.
 Backend is `owner` or `official`. Categories are exactly `mentions`, `replies` or
 `mentions,replies`. Expiry must be future and at most7days from the server clock.
-A changed binding currently retires the old ID first; renewal is not implemented.
+A fresh signed challenge renews the same subscription with a changed FID, backend,
+categories or expiry. Owner, installation and revocation hash stay fixed. A later
+issued challenge supersedes an earlier one, so a delayed older request returns409.
+After a server-instance restart, only newly issued challenges can renew. Changing
+wallet identity requires retiring the previous subscription first.
 The device must persist its random subscription ID and revocation secret before
 sending so it can retire an uncertain/in-flight bind after wallet replacement.
 
@@ -66,7 +70,7 @@ filesystems with atomic rename/directory sync and fails if unavailable.
 At most2048 active subscriptions,2048 retirement records and2048 pending challenges;
 state is at most4MiB. Requests are at most8192bytes. HTTP work uses four threads and
 a32-entry queue. A nonce is removed after its successful binding commit. Exact
-retransmission is idempotent; a retired ID returns410 and cannot be reused.
+retransmission is idempotent; a retired ID returns410 while its retirement record is retained.
 Retirement records have7day expiry. Expired records are pruned on mutation;
 automatic physical retention cleanup is not yet implemented or claimed. HTTP
 request-body timeouts and operational process/hosting supervision also remain
@@ -83,10 +87,17 @@ HTTP/storage error classification and CI wiring pass34s. Initial source review
 found a numeric request conversion classified as503; a correction preserves400
 for invalid request integers and503 for stored-record failures. Corrected
 build PASS36s and source41cf0c76 reviews Standards0/Spec0.
-[Retained first acceptance](evidence/ticket42/subscription-green/README.md) awaits
-final evidence review and exact-source CI; whole#42 remains open. This is one owned HTTP/protocol journey, not a JVM process crash,
+[Retained first acceptance](evidence/ticket42/subscription-green/README.md) has
+final Standards0/Spec0 reviews. Exact c35cb6be source CI38991601083 succeeds,
+including gateway tests, core, release assembly and lint. Whole#42 remains open. This is one owned HTTP/protocol journey, not a JVM process crash,
 Android SDK binding, Google delivery, both-backend observer or whole#42 acceptance.
 The earlier SDK checkpoint is[separate](evidence/ticket32/firebase-client-preparation/README.md).
+
+The renewal journey first fails28s at expected201/got409. The minimum then passes
+39s with both gateway journeys passing and the core task up-to-date. It observes
+new backend/expiry, rejected delayed renewal, idempotent retransmission and a
+fresh renewal after a server-instance restart. It does not observe an outgoing
+FCM target or actual Firebase identifier replacement. Minimum review is pending.
 
 Run the owned protocol/core checks with
 `scripts/android-build :core:test :push-gateway:test`. CI includes the gateway

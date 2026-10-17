@@ -24,8 +24,10 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         URI("https", null, it.host.lowercase(Locale.ROOT), if (it.port == 443) -1 else it.port, null, null, null)
     }.toASCIIString()
     private val store = GatewayStateFile(directory, this.origin)
-    private data class Challenge(val owner: String, val expiresAt: Long)
+    private data class Challenge(val owner: String, val expiresAt: Long, val sequence: Long)
     private val challenges = mutableMapOf<String, Challenge>()
+    private val challengeEpoch = UUID.randomUUID().toString()
+    private var challengeSequence = 0L
 
     @Synchronized fun handle(path: String, body: JsonObject, signature: String?): GatewayReply {
         val now = System.currentTimeMillis()
@@ -37,7 +39,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                 if (challenges.size >= CAPACITY) throw GatewayProblem(503)
                 val nonce = ByteArray(32).also(SecureRandom()::nextBytes).hex()
                 val expiresAt = now + 5 * 60 * 1000L
-                challenges[nonce] = Challenge(owner, expiresAt)
+                challengeSequence = Math.incrementExact(challengeSequence)
+                challenges[nonce] = Challenge(owner, expiresAt, challengeSequence)
                 GatewayReply(201, JsonObject().apply {
                     addProperty("version", 1); addProperty("nonce", nonce); addProperty("expiresAt", expiresAt)
                 })
@@ -71,18 +74,29 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         if (retired.has(id)) throw GatewayProblem(410)
         val subscriptions = state.getAsJsonObject("subscriptions")
         val digest = sha256(intent)
-        if (subscriptions.has(id)) {
-            if (savedText(subscriptions.getAsJsonObject(id), "intentHash") != digest) throw GatewayProblem(409)
-            // Exact retransmission acknowledges the same operation without consuming another nonce.
-        } else {
+        val existing = subscriptions.get(id)?.asJsonObject
+        if (existing == null || savedText(existing, "intentHash") != digest) {
             val challenge = challenges[nonce]
             if (challenge == null || challenge.owner != owner || challenge.expiresAt <= now) throw GatewayProblem(410)
-            if (subscriptions.size() >= CAPACITY) throw GatewayProblem(503)
-            if (subscriptions.entrySet().any { savedText(it.value.asJsonObject, "installation") == installation }) {
-                throw GatewayProblem(409) // Retire the previous installation binding first.
+            if (existing != null) {
+                if (savedText(existing, "owner") != owner || savedText(existing, "installation") != installation ||
+                    savedText(existing, "revocationHash") != revocation) throw GatewayProblem(409)
+                // An older, still-valid challenge must not undo a newer accepted renewal.
+                // A new runtime has no prior challenges, so a new epoch can safely start at1.
+                if (existing.has("nonceEpoch") && savedText(existing, "nonceEpoch") == challengeEpoch &&
+                    savedNumber(existing, "nonceSequence") >= challenge.sequence) throw GatewayProblem(409)
+            } else {
+                if (subscriptions.size() >= CAPACITY) throw GatewayProblem(503)
+                if (subscriptions.entrySet().any { savedText(it.value.asJsonObject, "installation") == installation }) {
+                    throw GatewayProblem(409) // Retire the previous installation binding first.
+                }
             }
-            subscriptions.add(id, body.deepCopy().apply { addProperty("intentHash", digest) })
+            subscriptions.add(id, body.deepCopy().apply {
+                addProperty("intentHash", digest)
+                addProperty("nonceEpoch", challengeEpoch); addProperty("nonceSequence", challenge.sequence)
+            })
         }
+        // Otherwise exact retransmission acknowledges the existing operation without a new mutation.
         store.save(state)
         challenges.remove(nonce)
         return GatewayReply(201, JsonObject().apply {

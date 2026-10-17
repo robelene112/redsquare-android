@@ -47,7 +47,7 @@ record decoding stays an IO/503 failure. Corrected core/gateway PASS36s, exec483
 Corrected source41cf0c76 reviews Standards0/Spec0.
 [First local GREEN](../evidence/ticket42/subscription-green/README.md) retains
 7 hashes and exact source metadata. Final first-slice evidence reviews atc35cb6be report Standards0/Spec0.
-Exact c35cb6be source CI38991601083 remains active; no CI success inferred. [Current contract](../PUSH_GATEWAY.md) describes
+Exact c35cb6be source CI38991601083 SUCCESS, including gateway/core, release and lint. [Current contract](../PUSH_GATEWAY.md) describes
 the implemented first slice and explicit remaining deployment/runtime limits.
 
 Current renewal tracer adds one ordinary HTTP journey, sourcebcf0ca97. Actual
@@ -55,9 +55,13 @@ local gateway-only RED28s:2completed/1PASS(original)/1FAIL(newrenewal), current
 signed renewal expected201/got409 atline131. New setup bind passes; later stale
 request/currentstatus/idempotency/post-restart renewal tails are unexecuted.
 [Retained RED](../evidence/ticket42/renewal-red/README.md),3hashes/7sourcehashes.
-No owned local build remains. Renewal production minimum not yet implemented.
+Renewal minimum now passes39s, core task up-to-date and gateway2/0/0; exec18711
+ended. Same subscription accepts fresh proof to renew FID/backend/categories/expiry
+while owner/installation/revocation hash remain fixed. Per-runtime nonce ordering
+rejects a delayed older request; a new runtime requires a fresh challenge. Exact
+retransmission remains idempotent. Source review is pending. No owned local build.
 
-No standalone command, Android gateway binding, resolver, renewal, observer,
+No standalone command, Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays
