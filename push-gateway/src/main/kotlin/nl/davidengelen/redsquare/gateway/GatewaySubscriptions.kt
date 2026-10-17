@@ -154,9 +154,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                 val post = candidate.post
                 if (post.author == owner || post.createdAt > now || now - post.createdAt >= LIFETIME) continue
                 val category = if (candidate.parentAuthor == owner && "replies" in categories) "replies"
-                else if ("mentions" in categories && RedSquareFeed.readMentions(JsonArray().apply {
+                else if ("mentions" in categories && (owner in candidate.namedRecipients || RedSquareFeed.readMentions(JsonArray().apply {
                     add(JsonObject().apply { addProperty("tx", post.envelope) })
-                }.toString(), owner).posts.any { it.id == post.id }) "mentions" else continue
+                }.toString(), owner).posts.any { it.id == post.id })) "mentions" else continue
                 if (events.entrySet().any { (_, existing) -> existing.asJsonObject.let {
                     savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
                         savedText(it, "signature") == post.id

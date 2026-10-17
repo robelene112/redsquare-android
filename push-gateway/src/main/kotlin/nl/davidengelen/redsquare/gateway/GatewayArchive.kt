@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.gateway
 
 import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.SaitoRegistry
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.ArchiveFeedPage
 import nl.davidengelen.redsquare.saito.RedSquareFeed
@@ -37,11 +38,13 @@ import java.util.concurrent.atomic.AtomicInteger
 class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBackend,
     localOrigin: String? = null, fixtureRegistrar: Boolean = false) : Closeable {
     init { require(!fixtureRegistrar || localOrigin != null) }
+    private val registrar = if (fixtureRegistrar) "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" else SaitoRegistry.REGISTRAR
     private val ready = CompletableFuture<Unit>()
     private val services = CompletableFuture<Set<String>>()
     private val disconnected = AtomicBoolean(false)
     private val nextIndex = AtomicInteger()
-    private val pending = ConcurrentHashMap<Int, CompletableFuture<ByteArray>>()
+    private data class Pending(val response: CompletableFuture<ByteArray>, val registrarCallback: Boolean)
+    private val pending = ConcurrentHashMap<Int, Pending>()
     private val challenges = mutableListOf(nonce())
     private var identifiedKey: String? = null
     private val socket = client.newWebSocket(Request.Builder().url(endpoint(backend, localOrigin)).build(),
@@ -90,9 +93,13 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
                         }
                         13, 14 -> {
                             require(frame.size >= 5 && ready.isDone && !ready.isCompletedExceptionally)
-                            val response = pending.remove(ByteBuffer.wrap(frame, 1, 4).int) ?: return
-                            if (frame[0] == 14.toByte()) response.completeExceptionally(IOException("Archive request rejected"))
-                            else response.complete(frame.copyOfRange(5, frame.size))
+                            val index = ByteBuffer.wrap(frame, 1, 4).int
+                            val request = pending[index] ?: return
+                            if (request.registrarCallback && frame[0] == 13.toByte() &&
+                                frame.copyOfRange(5, frame.size).contentEquals(REGISTRY_NO_RESPONSE)) return
+                            if (!pending.remove(index, request)) return
+                            if (frame[0] == 14.toByte()) request.response.completeExceptionally(IOException("Peer request rejected"))
+                            else request.response.complete(frame.copyOfRange(5, frame.size))
                         }
                     }
                 } catch (_: Exception) {
@@ -107,13 +114,23 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
 
     fun recentSocial(): ArchiveFeedPage = RedSquareFeed.readSearch(archive(null))
 
-    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?)
+    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>)
 
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
     internal fun verifiedSocial(): List<VerifiedSocial> = recentSocial().posts.mapNotNull { hint ->
         val post = exact(hint.id) ?: return@mapNotNull null
         if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
-        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author })
+        val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().toList()
+        require(names.size <= 50) { "Too many mentioned names in one discovery candidate" }
+        val recipients = names.mapNotNull { identifier ->
+            val query = JsonObject().apply {
+                addProperty("request", "registry query")
+                add("data", JsonObject().apply { addProperty("request", "registry namecheck"); addProperty("identifier", identifier) })
+            }
+            SaitoRegistry.readNamecheck(request(query.toString(), "registry", true), identifier, registrar)
+                ?.takeIf { it.active }?.publicKey
+        }.toSet()
+        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, recipients)
     }
 
     private fun exact(signature: String): FeedPost? {
@@ -123,21 +140,24 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
     }
 
     private fun archive(signature: String?): String {
+        val criteria = JsonObject().apply {
+            addProperty("request", "load"); addProperty("field1", "RedSquare")
+            addProperty("flagged_ne", 1); addProperty("limit", if (signature == null) 100 else 1)
+            if (signature != null) addProperty("sig", signature)
+        }
+        return request(JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }.toString(), "archive")
+    }
+
+    private fun request(message: String, service: String, registrarCallback: Boolean = false): String {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(12)
         await(ready, deadline)
-        if ("archive" !in await(services, deadline)) throw IOException("Selected peer has no Archive service")
+        if (service !in await(services, deadline)) throw IOException("Selected peer does not advertise the required service")
         val index = nextIndex.incrementAndGet()
         if (index <= 0) throw IOException("Peer request identifiers exhausted")
         val response = CompletableFuture<ByteArray>()
-        pending[index] = response
+        pending[index] = Pending(response, registrarCallback)
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
-            val criteria = JsonObject().apply {
-                addProperty("request", "load"); addProperty("field1", "RedSquare")
-                addProperty("flagged_ne", 1); addProperty("limit", if (signature == null) 100 else 1)
-                if (signature != null) addProperty("sig", signature)
-            }
-            val message = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }.toString()
             send(socket, SaitoWire.applicationRequest(identity.publicKey, message.toByteArray(Charsets.UTF_8),
                 index, System.currentTimeMillis()))
             return utf8(await(response, deadline))
@@ -154,12 +174,14 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
         val failure = IOException("Peer disconnected")
         ready.completeExceptionally(failure)
         services.completeExceptionally(failure)
-        pending.values.forEach { it.completeExceptionally(failure) }
+        pending.values.forEach { it.response.completeExceptionally(failure) }
         pending.clear()
     }
     override fun close() { fail(); socket.cancel() }
 
     companion object {
+        private val NAME_MENTION = Regex("(?<![\\p{L}\\p{N}_@])@([A-Za-z0-9]{1,45}@saito)(?![\\p{L}\\p{N}_@])")
+        private val REGISTRY_NO_RESPONSE = "{\"err\":\"no response\"}".toByteArray(Charsets.UTF_8)
         private const val MAX_RESPONSE_BYTES = 16 * 1024 * 1024
         private val client = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
             .connectTimeout(5, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS)
