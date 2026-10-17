@@ -25,9 +25,9 @@ close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
 providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
 no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
 
-## Current YouTube recovery checkpoint
+## Frozen YouTube recovery checkpoint
 
-Sole #17 remains open, fixed review base c0f2da7e. App sourcec9b114a8 keeps the
+Issue #17 remains open, fixed review base c0f2da7e. App sourcec9b114a8 keeps the
 normal101/150 provider surface visible until retry/close, with separate native
 Retry/external escape and truthful generic refusal copy. `key(browser)` remounts
 the actual replacement on Retry. Source reviews Standards0/Spec0 after that fix.
@@ -50,7 +50,7 @@ the actual replacement on Retry. Source reviews Standards0/Spec0 after that fix.
 
 Canonical controlled packet `docs/evidence/ticket17/error-surface-green/` and
 actual public `docs/evidence/ticket17/error-surface-public/android17/`.
-No active owned build/CI. No provider sign-in/header/origin/proxy change, account
+No active #17 build/CI. No provider sign-in/header/origin/proxy change, account
 request or node operation. No unchanged public retry. #17 actual playback stays
 open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Standards0/Spec0. This
 source checkpoint is frozen; claim the next sequential source preparation.
@@ -72,7 +72,14 @@ GIF button; expected RED is missing Add GIF, not yet observed. Tracer20098d5a
 source reviews Standards0/Spec0 and local debug/test APK build passed2minutes. New focused
 `gifs`/`gifs-android17` scopes retain a180s class bound; full includes the same
 class. Existing gates unchanged. No production source changed in this tracer.
-Next: compile/review/run the tracer, implement the minimum failure-recovery path,
+Pushed candidatef3b272d20408e1b99188ffb3f194620d600dda8e: actual focused
+Android17 RED39005341020 FAILED1/1/22.301s at missing Add GIF55; later provider/
+retry/cancel/restoration/no-write tails unexecuted. Separate sourceCI39005341145
+SUCCESS, same head. RED6hashes at docs/evidence/ticket16/failure-red/android17;
+root viewed failurePNG/parsedXML. No liveGiphy request/key. No active local build. Owned two-frame16x16 GIF asset is prepared locally
+(`owned-giphy-animation.gif`,467bytes), Android decoding not yet verified. Initial
+Python/Pillow attempt failed because Pillow is absent; no package installed.
+Next: retain the actual tracer result, implement the minimum failure-recovery path,
 then extend one journey into actual selection/animated uncached display and
 signed URL interoperability. Keep first-release scope and four-image cap.
 Beta24 unchanged. Protected untracked group doc remains untouched.
