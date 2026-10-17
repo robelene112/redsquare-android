@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayProcessTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T01:46:21" hostname="4aa0ce32fa27" time="0.597">
+  <properties/>
+  <testcase name="acknowledgedBindingSurvivesAbruptStandaloneProcessDeath" classname="nl.davidengelen.redsquare.gateway.GatewayProcessTest" time="0.597">
+    <failure message="java.lang.AssertionError: Standalone gateway must stay running until ready" type="java.lang.AssertionError">java.lang.AssertionError: Standalone gateway must stay running until ready
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.gateway.GatewayProcessTest.start(GatewayProcessTest.kt:89)
+	at nl.davidengelen.redsquare.gateway.GatewayProcessTest.acknowledgedBindingSurvivesAbruptStandaloneProcessDeath(GatewayProcessTest.kt:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
