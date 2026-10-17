@@ -20,6 +20,6 @@ Exact Archive candidate/parent work now precedes all optional name lookup. This
 preserves independently collected work if Registry transport later disconnects.
 That specific disconnect interleaving is source-reviewed only, not fixture-executed.
 The passing missing-service correctioncfa56b23 and earlier availability failure
-remain separate superseded records. Source Standards0/Spec0; final evidence review
-pending. No actual Google, public-backend availability, exhaustive history, forced
+remain separate superseded records. Source Standards0/Spec0; final evidence review atbc76dd81 reports
+Standards0/Spec0. No actual Google, public-backend availability, exhaustive history, forced
 event-process death, full continuous observer or whole42/32 claim.

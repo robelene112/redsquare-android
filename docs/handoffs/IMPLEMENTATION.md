@@ -29,7 +29,7 @@ reads. Two-phasead8a226a completesALLexactArchivecandidate/parent reads beforeAN
 optionalRegistrylookup. Transportdisconnectis source-reviewed only, notexecuted.
 Source Spec0/Standards0. Owned27444 endedPASS1m27s/gateway8/0/0/coreUPTODATE,
 no owned build. [Retained GREEN](../evidence/ticket42/name-green/README.md),
-8hashes/13sourcehashes. Final evidence/docsreview and push pending. No new native source, node/cloud/accountoperations.
+8hashes/13sourcehashes. Final evidence/docsreviews atbc76dd81 report0/0. Accepted name checkpoint is ready to push. No new native source, node/cloud/accountoperations.
 Protectedgroupcontractuntrackeduntouched. No whole42/32claim.
 
 ## Latest owner scope
