@@ -44,8 +44,12 @@ Spec0/Standards1 persists for accepted numeric-port aliases. Canonical correctio
 now compares GatewayPeer.endpoint on both origins, using exactly the same strict
 validation/numeric-port serialization as the transport. The same Official journey
 uses both leading-zero port and trailing slash; no extra campaign or deadline.
-Corrected final local core/gateway/installDist42021 active; no source edits until
-it completes. Both corrected source reviews/final evidence remain pending.
+Canonical local core/gateway/installDist at5c5c333db SUCCESS2m8s, gateway11/0
+across9suites, coreUPTODATE114/0/0; newtwo-binding journey1PASS/2.846s.
+Source CI39055116089 exact5c SUCCESScore/gateway/debug/test/release/lint.
+Canonical-full-green retains16hashrecords/allgatewayJUnit/CIcore+lint+buildlogs/
+source+unchanged7clientobjects. Both source reviews5c reportStandards0/Spec0.
+Final evidence reviews/tracker closure remain. No owned local build.
 No actual Google/deployed-node/Android acceptance.
 
 ## Accepted native Chat alert presentation (#44)

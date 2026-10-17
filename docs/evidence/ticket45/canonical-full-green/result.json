@@ -1,0 +1,136 @@
+{
+  "source": "5c5c333db23abd59b7f88044f824539d0440c1eb",
+  "reviewBase": "6a9b749ad16f91810334c369bbf29cd647a9cf0c",
+  "command": "scripts/android-build :core:test :push-gateway:test :push-gateway:installDist",
+  "exitCode": 0,
+  "coreTask": "UP-TO-DATE",
+  "gatewaySuites": [
+    {
+      "name": "nl.davidengelen.redsquare.gateway.FcmSenderTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:45:47",
+      "hostname": "9346c80e3da7",
+      "time": "1.87"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayArchiveTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:45:49",
+      "hostname": "9346c80e3da7",
+      "time": "0.516"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:45:50",
+      "hostname": "9346c80e3da7",
+      "time": "7.763"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:45:57",
+      "hostname": "9346c80e3da7",
+      "time": "9.85"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayDeliveryTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:46:07",
+      "hostname": "9346c80e3da7",
+      "time": "30.487"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayProcessTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:46:38",
+      "hostname": "9346c80e3da7",
+      "time": "2.743"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:46:41",
+      "hostname": "9346c80e3da7",
+      "time": "2.846"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionClientTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:46:43",
+      "hostname": "9346c80e3da7",
+      "time": "1.629"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:46:45",
+      "hostname": "9346c80e3da7",
+      "time": "4.837"
+    }
+  ],
+  "unchangedClientObjects": {
+    "6a9b749ad16f91810334c369bbf29cd647a9cf0c": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    },
+    "5c5c333db23abd59b7f88044f824539d0440c1eb": {
+      "app/src/main": "5341391aeb02f62e793c417ccff231160ecdab8c",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle.properties": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    }
+  },
+  "sourceSha256": {
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayObserver.kt": "558685b57801f0460c5d092454256bab2991a71aff8ecadf1d0f3ef62a184a03",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "b6eb7a7d58807805f44c222ec79e807eb9daf663b60fd52b680f2423a7b97808",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChain.kt": "d8ee911aa3225a106aec997b964dfb5c129cb113be1168ec6f6e1f3c2d26f86f",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt": "4182ba765e4779a9e92e29426f0d6a34a8cac49204ef757ac4e7c552f76f10c2",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt": "2474398761b7e47fddb596b9977cdafc24f388c246f30c955ada0e6e611c7867"
+  },
+  "sourceCiRun": 39055116089,
+  "sourceCiConclusion": "success",
+  "sourceCiIncludes": [
+    "core:test",
+    "push-gateway:test",
+    "app:assembleDebug",
+    "app:assembleDebugAndroidTest",
+    "app:assembleRelease",
+    "app:lintDebug"
+  ]
+}

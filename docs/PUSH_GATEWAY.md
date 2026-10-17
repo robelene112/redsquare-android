@@ -415,6 +415,13 @@ shared reader cancels the pass session. It does not switch subscribers
 between backends. The gateway creates an ephemeral, unfunded signing identity
 in process memory; it rotates on restart and never uses a subscriber secret.
 
+[Shared-session compatibility](evidence/ticket45/canonical-full-green/README.md)
+retains the actual competing-socket RED and corrected complete gateway suite.
+The sharing decision reuses the transport's validated endpoint, including parsed
+numeric ports and the accepted trailing slash. Both logical backend bindings
+read the independent full-block candidate and exact signed Archive parent before
+one owned opaque send; this is server-code evidence, not Google delivery.
+
 The operator must separately provision supported Application Default Credentials
 with the messaging scope and `cloudmessaging.messages.create` on that target
 project, matching the app's configured Firebase project/FID contract. Credentials
