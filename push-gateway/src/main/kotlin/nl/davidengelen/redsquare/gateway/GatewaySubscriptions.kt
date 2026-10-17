@@ -192,6 +192,18 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         }
     }
 
+    /** Re-read durable demand for each queued send, rather than trusting the batch snapshot. */
+    @Synchronized fun current(delivery: Delivery): Delivery? {
+        val now = System.currentTimeMillis()
+        val state = store.load()
+        val event = state.getAsJsonObject("events").get(delivery.wake)?.asJsonObject ?: return null
+        if (savedText(event, "state") != "pending" || savedNumber(event, "expiresAt") <= now ||
+            savedNumber(event, "nextAttempt") > now) return null
+        val binding = currentBinding(state, event, now) ?: return null
+        return Delivery(delivery.wake, savedText(event, "subscription"), savedText(binding, "intentHash"),
+            savedText(binding, "fid"), savedNumber(event, "expiresAt"))
+    }
+
     @Synchronized fun complete(delivery: Delivery, result: FcmSender.Result) {
         val now = System.currentTimeMillis()
         val state = store.load()

@@ -54,9 +54,10 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
     }
 
     /** One bounded read/queue/delivery pass for this explicitly selected backend. */
-    fun poll(archive: GatewayArchive, sender: FcmSender) {
+    @Synchronized fun poll(archive: GatewayArchive, sender: FcmSender) {
         subscriptions.enqueue(archive.backend, archive.verifiedSocial())
-        for (delivery in subscriptions.pending(archive.backend)) {
+        for (queued in subscriptions.pending(archive.backend)) {
+            val delivery = subscriptions.current(queued) ?: continue
             subscriptions.complete(delivery, sender.send(delivery.fid, delivery.wake, delivery.expiresAt))
         }
     }
