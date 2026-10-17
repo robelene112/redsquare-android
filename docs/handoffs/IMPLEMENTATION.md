@@ -124,7 +124,7 @@ SDK worker hook are reviewed source, not executed OS toggle/liveSDK proofs.
 Corrected duplicate localbuild2522 retired only after all three exact-source hosted
 runs completedSUCCESS, actualexit143, never a localpass. No owned local build.
 Final evidence reviews pending. Next slice is remaining gateway observer/events/
-resolver/sender; do not close42/32 or repeat unchanged native runs. No configured SDK or native GREEN claim.
+resolver/sender; do not close42/32 or repeat unchanged native runs. No configured SDK or Google-delivery claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
 no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.
