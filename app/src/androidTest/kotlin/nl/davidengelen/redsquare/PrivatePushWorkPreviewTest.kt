@@ -18,6 +18,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
+import nl.davidengelen.redsquare.chat.ChatAlertSettings
 import nl.davidengelen.redsquare.chat.receiveChat
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.notifications.ChatPushSettings
@@ -43,34 +44,55 @@ class PrivatePushWorkPreviewTest {
     @Test fun aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking() =
         privateJourney(Journey.BLOCKED_PENDING)
 
-    private enum class Journey { WORKER_FIRST, ORDINARY_FIRST, RECEIPT_RECOVERY, BLOCKED_PENDING }
+    @Test fun aRetainedOfficialWakeChecksCurrentIdentityThenUsesTheChosenPreviewAndOpensItsExactConversation() =
+        privateJourney(Journey.SCOPED_PREVIEW)
+
+    private enum class Journey { WORKER_FIRST, ORDINARY_FIRST, RECEIPT_RECOVERY, BLOCKED_PENDING, SCOPED_PREVIEW }
 
     private fun privateJourney(journey: Journey = Journey.WORKER_FIRST) {
-        val ordinaryFirst = journey != Journey.WORKER_FIRST
+        val scoped = journey == Journey.SCOPED_PREVIEW
+        val backend = if (scoped) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
+        val ordinaryFirst = journey != Journey.WORKER_FIRST && !scoped
         val ledgerUnavailable = journey == Journey.RECEIPT_RECOVERY || journey == Journey.BLOCKED_PENDING
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         check(!BuildConfig.PUSH_CONFIGURED)
-        fun assertNoActivity() = instrumentation.runOnMainSync {
-            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
-            assertTrue(Stage.values().filter { it != Stage.DESTROYED }
-                .flatMap { monitor.getActivitiesInStage(it) }.none { it is MainActivity })
+        fun activities(): List<MainActivity> {
+            var result = emptyList<MainActivity>()
+            instrumentation.runOnMainSync {
+                val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+                result = Stage.values().filter { it != Stage.DESTROYED }
+                    .flatMap { monitor.getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
+            }
+            return result
+        }
+        fun assertNoActivity() = assertTrue(activities().isEmpty())
+        fun finishActivities() {
+            val active = activities()
+            instrumentation.runOnMainSync { active.forEach { it.finish() } }
+            instrumentation.waitForIdleSync()
+            val deadline = SystemClock.elapsedRealtime() + 5_000
+            while (activities().isNotEmpty() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(25)
+            assertNoActivity()
         }
         assertNoActivity()
         // Published unsafe fixture identities; fresh transport fixture, not independent encryption interoperability.
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").let {
+            if (scoped) it.withChatContact(sender.publicKey) else it
+        }
         val text = "Keep this private text on the receiving device"
         val original = PrivateChat.create(sender, wallet.publicKey, text, System.currentTimeMillis())
-        val opaque = (if (journey == Journey.BLOCKED_PENDING) "50" else if (ledgerUnavailable) "48" else if (ordinaryFirst) "47" else "46").repeat(32)
+        val opaque = (if (scoped) "51" else if (journey == Journey.BLOCKED_PENDING) "50" else if (ledgerUnavailable) "48" else if (ordinaryFirst) "47" else "46").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
         val backends = AndroidBackendStore(context)
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("chatpush.${wallet.publicKey}.", "socialpush.${wallet.publicKey}.",
-            "chat.owner.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
+            "chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
+            "chatreactions.${backend.id}.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
         val failure = AtomicReference<Throwable?>()
         val resolves = AtomicInteger()
         val originals = AtomicInteger()
@@ -91,7 +113,7 @@ class PrivatePushWorkPreviewTest {
                         addProperty("version", 1)
                         if (operation == "resolve") {
                             resolves.incrementAndGet()
-                            addProperty("wallet", wallet.publicKey); addProperty("backend", "owner")
+                            addProperty("wallet", wallet.publicKey); addProperty("backend", backend.id)
                             addProperty("signature", original.id); addProperty("kind", "private-chat")
                         } else {
                             originals.incrementAndGet(); addProperty("envelope", original.envelope())
@@ -104,10 +126,10 @@ class PrivatePushWorkPreviewTest {
         }
         val work = WorkManager.getInstance(context)
         val manager = context.getSystemService(NotificationManager::class.java)
-        val tag = "chat:${wallet.publicKey}:owner:${original.id}"
+        val tag = "chat:${wallet.publicKey}:${backend.id}:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val capturePrefix = if (journey == Journey.BLOCKED_PENDING) "blocked-pending" else if (ledgerUnavailable) "receipt-storage" else if (ordinaryFirst) "ordinary-first" else "worker"
+        val capturePrefix = if (scoped) "scoped-preview" else if (journey == Journey.BLOCKED_PENDING) "blocked-pending" else if (ledgerUnavailable) "receipt-storage" else if (ordinaryFirst) "ordinary-first" else "worker"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-$capturePrefix-$name.png"))
         fun assertSilent(label: String) {
             val silentUntil = SystemClock.elapsedRealtime() + 2_000
@@ -131,15 +153,87 @@ class PrivatePushWorkPreviewTest {
         }
         var primary: Throwable? = null
         var stopped = false
+        val peer = if (scoped) ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" }) else null
+        var peerServer: mockwebserver3.MockWebServer? = null
         fun requireStopped() { check(stopped); assertNoActivity() }
         try {
             retained.prepare()
-            wallets.replace(previous, wallet); backends.save(SaitoBackend.OWNER)
+            wallets.replace(previous, wallet); backends.save(backend)
             ChatPushSettings(context, wallet.publicKey).setEnabled(true)
+            peerServer = peer?.start()
             gateway.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             withFailureCapture({ capture("failure") }) {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, opaque,
-                    "http://127.0.0.1:${gateway.port}/v1/wakes/resolve") }
+                    "http://127.0.0.1:${gateway.port}/v1/wakes/resolve",
+                    peerServer?.let { "ws://127.0.0.1:${it.port}/wsopen" }) }
+                if (scoped) {
+                    val obstruction = File(context.noBackupFilesDir, "chatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    val first: UUID
+                    try {
+                        first = schedule()
+                        val deadline = SystemClock.elapsedRealtime() + 40_000
+                        var pending = false
+                        while (!pending && SystemClock.elapsedRealtime() < deadline) {
+                            failure.get()?.let { throw AssertionError("Owned private gateway rejected receipt", it) }
+                            val info = work.getWorkInfoById(first).get(5, TimeUnit.SECONDS)
+                            assertFalse("The obstructed receipt must remain retryable", info?.state?.isFinished == true)
+                            pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
+                            if (!pending) SystemClock.sleep(50)
+                        }
+                        assertTrue("The actual worker must retain a pending receipt", pending)
+                        assertEquals(text, ChatHistoryStore(context, wallet, backend, sender.publicKey).load().entries.single().message.text)
+                        assertSilent("A retained pending receipt must not publish before bookkeeping recovers")
+                        assertNoActivity()
+                        backends.save(SaitoBackend.OWNER)
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                    await(first)
+                    assertSilent("The Official receipt must not alert on the Owner backend")
+                    assertEquals(SaitoBackend.OWNER, backends.load())
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    backends.save(backend)
+                    val replacement = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+                    wallets.replace(wallet, replacement)
+                    await(schedule())
+                    assertSilent("An inactive wallet's receipt must not alert under its replacement")
+                    assertEquals(replacement.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
+                    assertEquals(text, ChatHistoryStore(context, wallet, backend, sender.publicKey).load().entries.single().message.text)
+                    assertNoActivity()
+                    capture("inactive-scopes-silent")
+                    wallets.replace(replacement, wallet)
+                    ChatAlertSettings(context, wallet.publicKey).setPreviewsEnabled(true)
+                    await(schedule())
+                    val preview = manager.activeNotifications.single { it.tag == tag }
+                    assertEquals("private-chats", preview.notification.channelId)
+                    assertEquals(text, preview.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
+                    assertNoActivity()
+                    assertTrue(device.openNotification())
+                    val row = requireNotNull(device.wait(Until.findObject(By.text(text)), 10_000))
+                    capture("preview-alert")
+                    row.click()
+                    assertTrue("Tapping the actual card must show the cached message in the app",
+                        device.wait(Until.hasObject(By.pkg(context.packageName).text(text)), 20_000))
+                    assertTrue("The destination must be the exact sender's conversation",
+                        device.wait(Until.hasObject(By.pkg(context.packageName).text(sender.publicKey)), 20_000))
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    requireNotNull(peer).assertHealthy()
+                    assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
+                    capture("exact-conversation")
+                    finishActivities()
+                    val dismissedBy = SystemClock.elapsedRealtime() + 5_000
+                    while (manager.activeNotifications.any { it.tag == tag } && SystemClock.elapsedRealtime() < dismissedBy) SystemClock.sleep(25)
+                    await(schedule())
+                    assertSilent("The opened private receipt must not alert again")
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
+                    assertEquals(1, ChatHistoryStore(context, wallet, backend, sender.publicKey).load().entries.size)
+                    assertNoActivity()
+                    return@withFailureCapture
+                }
                 if (ordinaryFirst) {
                     val obstruction = File(context.noBackupFilesDir, "chatpush.${wallet.publicKey}.owner.ledger.v1.new")
                     if (ledgerUnavailable) check(obstruction.mkdir())
@@ -218,8 +312,8 @@ class PrivatePushWorkPreviewTest {
         } catch (caught: Throwable) { primary = caught; throw caught }
         finally {
             cleanupAfterTest(primary,
-                { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, opaque) }; assertNoActivity(); stopped = true },
-                { gateway.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
+                { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, opaque) }; finishActivities(); stopped = true },
+                { gateway.close() }, { peerServer?.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
                 { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
                 { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
                 { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
