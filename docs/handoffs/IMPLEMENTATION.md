@@ -51,6 +51,21 @@ explanation assertion233, after third ready/trusted150. Later method tails were
 unexecuted; the other three cases pass. SourceCI39003354360 SUCCESS is separate.
 RED packet `docs/evidence/ticket17/error-surface-red/android17/` has8hashes; root
 viewed the failurePNG/parsedXML. Production is unchanged at this RED checkpoint.
+Functional candidate c9b114a8 keeps101/150 provider error content with separate
+Retry and truthful generic refusal copy. Review found retained-view Retry could
+leave a closed old AndroidView; corrected `key(browser)` remounts the replacement.
+The stronger GREEN oracle now requires visible-bounds text for both explanation
+and fourth ready response. Source Standards0/Spec0 at c9b114a8.
+First b36build was uniquely retired before the correction, exec46456 exit143,
+not a PASS. Corrected core/debug/test build75378 passed3m31s (coreUPTODATE), raw
+`.scratch/video17-error-surface-reviewed-build.log`. Pushedc9b114a8: active controlled
+Android10 run39004102308, Android17 run39004103787, sourceCI39004102110. All exact
+headc9b114a868cace2c75527c523eac939c53f30bc5. All three SUCCESS: Android10
+4/0/22.074s, Android17 4/0/56.491s, source5m43s (JVMFROM-CACHE/release/lint).
+GREEN packet `docs/evidence/ticket17/error-surface-green/`49hashes/14XML; root
+viewed14originals. Android17refusaltextvisible, omitted fields inothercaptures
+explicitly excluded fromvisualacceptance. Actual changed publicAndroid17
+run39004585910 is ACTIVE atsamec9source withsame2ndsignedreference; pending.
 Actual public playback acceptance remains separate and unchanged. Giphy source
 research is available for a later sequential #16 preparation; no second ticket
 implementation has begun. Pending configuration questions are not repeated.

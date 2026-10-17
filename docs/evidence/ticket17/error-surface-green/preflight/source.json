@@ -1,0 +1,28 @@
+{
+  "commit": "c9b114a868cace2c75527c523eac939c53f30bc5",
+  "files": {
+    "app/src/main/kotlin/nl/davidengelen/redsquare/feed/PostVideo.kt": "68d30c4513002c5bb92b85e3bd9aba795c2a3fc1371dc7155eb7223789cec43b",
+    "app/src/main/res/values/strings.xml": "0486862dd701558bb0dfecf9ea92cc98a94cc9ec326ee73946ff7676a19122a0",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/VideoPreviewTest.kt": "64d9865c562cc24dd241d65fc763e6c4d48a5e0b3a3ba5743dd94d0a71b6f109"
+  },
+  "buildAttempts": [
+    {
+      "source": "b36ba387",
+      "execSession": 46456,
+      "result": 143,
+      "reason": "Root stopped uniquely identified owned build before correcting reviewed Retry view identity"
+    },
+    {
+      "source": "c9b114a8",
+      "execSession": 75378,
+      "result": 0,
+      "duration": "3m31s",
+      "tasks": [
+        ":core:test",
+        ":app:assembleDebug",
+        ":app:assembleDebugAndroidTest"
+      ],
+      "coreTask": "UP-TO-DATE"
+    }
+  ]
+}
