@@ -95,7 +95,7 @@ class GiphyPreviewTest {
         }
     }
 
-    @Test fun selectedAnimatedGifSurvivesSavedDraftAndRecreation() {
+    @Test fun selectedAnimatedGifSurvivesSavedDraftAndFreshActivity() {
         val reference = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val gif = instrumentation.context.assets.open("owned-giphy-animation.gif").use { it.readBytes() }
@@ -127,9 +127,12 @@ class GiphyPreviewTest {
                 }
             }
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                val launchIntent = Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")).use { scenario ->
+                    .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")
+                ActivityScenario.launch<MainActivity>(launchIntent).use { scenario ->
+                    var originalActivity = 0
+                    scenario.onActivity { originalActivity = System.identityHashCode(it) }
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
                             ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
@@ -158,28 +161,36 @@ class GiphyPreviewTest {
                         assertAnimation("Image 1 of 1")
                         assertGifContained("Image 1 of 1", "selected-image")
                         assertTrue(paths.contains(originalPath))
-                        assertSelectedCredits()
+                        assertSelectedCredits("selected-credits")
                         ui.onNodeWithText("Save draft").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
-                        scenario.recreate()
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
-                        paths.clear()
-                        ui.onNodeWithText("New post").performClick()
-                        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
-                        assertAnimation("Image 1 of 1")
-                        assertTrue("Restoration must freshly load the exact original URL", paths.contains(originalPath))
-                        assertGifContained("Image 1 of 1", "restored-image")
-                        capture("animated-restored-draft")
-                        assertSelectedCredits()
-                        ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
-                        ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
-                        ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
-                        ui.onNodeWithText("By Owned fixture artist").assertDoesNotExist()
-                        ui.onNodeWithText("Source").assertDoesNotExist()
-                        ui.onNodeWithText("Powered by GIPHY").assertDoesNotExist()
-                        assertTrue(peer.transactions.isEmpty())
-                        peer.assertHealthy()
+                        scenario.close()
+                        ActivityScenario.launch<MainActivity>(launchIntent).use { fresh ->
+                            fresh.onActivity { assertNotEquals("Reopening must use a new Activity", originalActivity, System.identityHashCode(it)) }
+                            try {
+                                ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                                paths.clear()
+                                ui.onNodeWithText("New post").performClick()
+                                ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                                assertAnimation("Image 1 of 1")
+                                assertTrue("Restoration must freshly load the exact original URL", paths.contains(originalPath))
+                                assertGifContained("Image 1 of 1", "restored-image")
+                                capture("animated-restored-draft")
+                                assertSelectedCredits("fresh-activity-credits")
+                                ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
+                                ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
+                                ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                                ui.onNodeWithText("By Owned fixture artist").assertDoesNotExist()
+                                ui.onNodeWithText("Source").assertDoesNotExist()
+                                ui.onNodeWithText("Powered by GIPHY").assertDoesNotExist()
+                                assertTrue(peer.transactions.isEmpty())
+                                peer.assertHealthy()
+                            } catch (failure: Throwable) {
+                                try { capture("fresh-activity-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                                throw failure
+                            }
+                        }
                     } catch (failure: Throwable) {
                         try { capture("animation-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
@@ -189,10 +200,11 @@ class GiphyPreviewTest {
         }
     }
 
-    private fun assertSelectedCredits() {
+    private fun assertSelectedCredits(name: String) {
         ui.onNodeWithText("Powered by GIPHY").performScrollTo().assertIsDisplayed()
         ui.onNodeWithText("By Owned fixture artist").performScrollTo().assertIsDisplayed()
         ui.onNodeWithText("Source").performScrollTo().assertIsDisplayed()
+        capture(name)
     }
 
     private fun assertGifContained(label: String, name: String) {

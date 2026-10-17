@@ -545,6 +545,13 @@ verify_gifs() {
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - giphy-evidence \
         > "$evidence/giphy-evidence.tar" || true
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/giphy-ui.txt"
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.GiphyPostingTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/giphy-posting-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - giphy-posting-evidence \
+        > "$evidence/giphy-posting-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/giphy-posting-ui.txt"
 }
 if [[ "${TEST_SCOPE:-full}" == gifs* ]]; then
     verify_gifs

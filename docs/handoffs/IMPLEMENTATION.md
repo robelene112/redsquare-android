@@ -845,3 +845,21 @@ tracer proves activity recreation plus codec readback, not actual process death.
 Also complete controlled search/empty/rate-limit/retry/query handling and signed
 post/reply/quote interoperability at existing UI/HTTP/Saito seams, with final
 Android10/17 verification. Avoid expanding into unrelated node/provider work.
+
+
+## Selected-credit GREEN and next compatibility verification
+
+Exactd423666d Android17 run39010198233 SUCCESS2/0/36.558s. Canonical
+[credits GREEN](../evidence/ticket16/credits-green/android17/README.md) retains
+13 originals, root viewed four PNGs/parsed four XMLs. UI display assertions prove
+selected/recreated credits and removal; captures precede credit scrolling and
+are not a complete visual credit proof. Local42514 PASS3m46s; obsolete88421
+retired143. Source39010198373 pending at collection. No local build active.
+
+Next verification keeps production unchanged: saved GIF reopens through an
+actually fresh Activity/VM using normal launch/close, explicit credit PNG/XML
+captures, and six controlled post/reply/quote UI/socket cases across both backend
+bindings. New raw public frames retained for independent pinned-client checks.
+Existing image posting/read paths are reused; no missing-feature RED is claimed
+for this verification extension. Each UI class retains its180second bound.
+Current new test build/review/runtime still required; full16 is not accepted.
