@@ -45,7 +45,8 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
 
 /** Ordinary and background delivery commit pending state with history before optional publication. */
 internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    received: ReceivedPrivateChat, endpoint: String): ChatNotificationResult = synchronized(SaitoLocalState.lock) {
+    received: ReceivedPrivateChat, endpoint: String,
+    retryPublication: Boolean = false): ChatNotificationResult = synchronized(SaitoLocalState.lock) {
     val history = ChatHistoryStore(context, wallet, backend, received.counterparty)
     val message = received.message
     if (!history.retainIncoming(received.envelope)) return@synchronized ChatNotificationResult.SUPPRESSED
@@ -61,8 +62,11 @@ internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: S
         val outcome = notifyPrivateChat(context, wallet, backend, message, endpoint)
         if (outcome == ChatNotificationResult.PUBLISHED) {
             ledger.recordPublication(now)
-            history.completeAlert(message.id)
         }
+        // Deliberately silenced originals stay seen after unmute. Ordinary Chat also
+        // preserves its existing no-retrospective-alert behavior after notifier errors.
+        // Bookkeeping exceptions still leave the independently retained attempt pending.
+        if (outcome != ChatNotificationResult.RETRY || !retryPublication) history.completeAlert(message.id)
         outcome
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }

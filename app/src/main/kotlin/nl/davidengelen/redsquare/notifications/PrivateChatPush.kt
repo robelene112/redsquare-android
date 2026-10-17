@@ -39,7 +39,7 @@ internal object PrivateChatPush {
                 return@synchronized ChatNotificationResult.SUPPRESSED
             if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            retainPrivateChat(context, wallet, reference.backend, received, endpoint)
+            retainPrivateChat(context, wallet, reference.backend, received, endpoint, retryPublication = true)
         }
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }
