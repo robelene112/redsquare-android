@@ -160,6 +160,10 @@ class GatewayGroupChatDeliveryTest {
                                     Files.writeString(stateFile, state.toString())
                                     resolve("resolve", 503)
                                     resolve("original", 503)
+                                    state.getAsJsonObject("subscriptions").getAsJsonObject(subscription).remove("groups")
+                                    Files.writeString(stateFile, state.toString())
+                                    resolve("resolve", 503)
+                                    resolve("original", 503)
                                 }
                             }
                         }
