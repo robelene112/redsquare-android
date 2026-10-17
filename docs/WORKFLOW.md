@@ -133,7 +133,18 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    commit concurrently. Each runs source/core/release/lint and the complete
    selected SDK suite, mapped to the harness's `full` scope. Record and inspect
    both runs, including separately enabled public reads, before acceptance.
-   Full-suite job ceilings are75minutes per SDK or120minutes for the combined
+   Full Android17 dispatch now uses three isolated matrix jobs: chat (appearance,
+   Social push and all Chat/push/recovery checks), social (browse/post/media/profile/
+   controls/payment/notifications and their recovery) and wallet (export/import/
+   storage/feed/public reads/compatibility/update/final diagnostic). All three jobs
+   must succeed at the same source; each retains a distinct named artifact and a
+   partition-complete marker. Their combined original class/test identities must
+   cover the accepted complete suite, including API-specific cases. A passing
+   partition alone is never full acceptance. Android10 and focused scopes retain
+   their existing dispatch. This follows an actual75minute Android17 timeout with
+   missing wallet/tail gates, not an application acceptance failure. Application
+   assertions, class/request deadlines and production are unchanged.
+   Full-suite job ceilings are75minutes per SDK job or120minutes for the combined
    `full` scope; source/focused jobs retain60minutes. The previous complete
    Android17 job took over57minutes, leaving little room below60 for runner
    variation and artifact retention. Application, request, assertion and class

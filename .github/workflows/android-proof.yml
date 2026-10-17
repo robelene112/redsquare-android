@@ -24,6 +24,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   native-proof:
+    name: native-proof (${{ matrix.partition }})
+    strategy:
+      fail-fast: false
+      matrix:
+        partition: ${{ fromJSON(inputs.scope == 'full-android17' && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.scope == 'full' && 120 || startsWith(inputs.scope, 'full-') && 75 || 60 }}
     steps:
@@ -113,6 +118,7 @@ jobs:
       - name: Verify Android 17 runtime
         if: github.event_name == 'workflow_dispatch' && inputs.scope != 'chat-alerts' && inputs.scope != 'chat-history-process' && inputs.scope != 'chat-gifs' && inputs.scope != 'gifs' && inputs.scope != 'social-push-process' && inputs.scope != 'social-push' && inputs.scope != 'chat-viewport' && inputs.scope != 'chat-keyboard' && inputs.scope != 'chat-image-storage' && inputs.scope != 'chat-images' && inputs.scope != 'chat-mute' && inputs.scope != 'release-tail' && inputs.scope != 'chat-queue-process' && inputs.scope != 'chat-queue-group' && inputs.scope != 'chat-queue' && inputs.scope != 'group-admin' && inputs.scope != 'group-ui' && inputs.scope != 'beta-ui' && inputs.scope != 'full-android10' && inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting' && inputs.scope != 'queue' && inputs.scope != 'social' && inputs.scope != 'quotes' && inputs.scope != 'author' && inputs.scope != 'images' && inputs.scope != 'videos' && inputs.scope != 'profiles' && inputs.scope != 'usernames' && inputs.scope != 'video-public' && inputs.scope != 'registry-public' && inputs.scope != 'search' && inputs.scope != 'controls' && inputs.scope != 'reports' && inputs.scope != 'transfers' && inputs.scope != 'notifications' && inputs.scope != 'chat' && inputs.scope != 'chat-ui' && inputs.scope != 'chat-actions' && inputs.scope != 'chat-public'
         env:
+          TEST_PARTITION: ${{ matrix.partition }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android17' && 'full' || inputs.scope || 'full' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
@@ -122,7 +128,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: android-native-proof
+          name: android-native-proof${{ matrix.partition != 'all' && format('-{0}', matrix.partition) || '' }}
           path: |
             .scratch/device-evidence/
             core/build/reports/tests/
