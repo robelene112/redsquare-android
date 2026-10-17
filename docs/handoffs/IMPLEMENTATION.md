@@ -93,15 +93,26 @@ autonomous scheduled post-death receipt and restoration1/0/0.765s also pass.
 Dismissal-green/android10 retains33hashrecords, five archiveXML/PNG and three
 selected pairs without new visual claims. Both bounded source reviews0/0.
 
-Current full acceptance remains PENDING, public_feed_read=true on both:
-- Android17 run39046446190 at4f0d7ce1af31564e7b212752e2ecab3545e5265b continues.
-- Replacement Android10 run39047572445 atd68c30d3998546f02ac96d6216494d46a36a56a2
-  continues. Both source/release/lint stages passed; native suites are running.
-Do not cancel the ongoing17 run merely for this fixture-only10 correction.
-Source-equivalence in full-regression proves APK9a/8113/4f0/f739/d68 production
-and build equality, and corrected Settings fixture equality8113/full174f0.
-The later full10d68 differs from full17 only by the physical swipe fixture.
-Root viewed both first-failure Settings PNGs.
+Second full17 run39046446190 at4f0 FAILED later at existing private reaction
+backend isolation, PrivateChatHistoryFixture478. Three dynamic backend.domain
+selectors had been missed by the literal-only search (private reactions, posts,
+transfer status). Same offscreen Official Settings choice in the viewed PNG/XML.
+160PASS/1FAIL,36JUnit151,10intentional interruptions; later gates unexecuted.
+Canonical full-second/android17 retains raw records and the explicit CANCELLED
+concurrent10 run39047572445/d68, withdrawn after that fixture defect was found.
+No acceptance or completed-count claim from the cancelled run.
+
+Fixture-only16a0c1bc6 adds ordinary scrolling to those three dynamic selectors,
+preserving every assertion/deadline. Both bounded source reviews0/0; README and
+push configuration docs now describe current native launch/review/presentation
+without claiming Google Chat transport. Production/build sources are unchanged.
+Current acceptance PENDING, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
+- Focused chat-actions17 run39048726834.
+- Full Android10 run39048729211, public_feed_read=true.
+- Full Android17 run39048730979, public_feed_read=true.
+Retain actual results, then final evidence review and publication. Update the
+full-regression/source-equivalence matrix with this final fixture revision;
+prepared27 still has exactly matching production/build objects.
 
 Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
 4m38s and independent certificate/package/min29/hash checks pass. APK SHA256
