@@ -94,15 +94,17 @@ private fun VideoPlayer(video: YouTubeVideo, modifier: Modifier) {
     var attempt by remember(video) { mutableIntStateOf(0) }
     var status by remember(video, attempt) { mutableStateOf(VideoStatus.LOADING) }
     var externalUnavailable by remember(video) { mutableStateOf(false) }
+    val providerRefusal = status == VideoStatus.EMBED_DISABLED
     Column(modifier) {
         Text(stringResource(status.message))
         BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
             when {
                 maxWidth < 200.dp || maxHeight < 200.dp -> Text(stringResource(R.string.video_small_window))
-                status.failed -> TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
+                status.failed && !providerRefusal -> TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
                 else -> EmbeddedVideo(video, attempt, Modifier.fillMaxSize()) { status = it }
             }
         }
+        if (providerRefusal) TextButton(onClick = { attempt++ }) { Text(stringResource(R.string.retry)) }
         TextButton(onClick = {
             try {
                 context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(video.url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

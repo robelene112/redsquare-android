@@ -230,8 +230,10 @@ class VideoPreviewTest {
                             val device = UiDevice.getInstance(instrumentation)
                             requireNotNull(device.wait(Until.findObject(By.text("Play controlled refused video")), 10_000)).click()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty() }
-                            assertTrue("The provider explanation must remain visible after an embedding refusal",
-                                device.wait(Until.hasObject(By.text("Controlled provider explanation remains visible.")), 5_000))
+                            val explanation = device.wait(Until.findObject(By.text("Controlled provider explanation remains visible.")), 5_000)
+                            assertNotNull("The provider explanation must remain visible after an embedding refusal", explanation)
+                            assertFalse("The explanation needs visible on-screen bounds", requireNotNull(explanation).visibleBounds.isEmpty)
+                            ui.onNodeWithText("YouTube cannot play this video here. Retry or open it in YouTube.").assertIsDisplayed()
                             capture("video-evidence/embed-refused-explanation.png")
                             ui.onNodeWithText("Retry").performClick()
                             ui.waitUntil(20_000) { ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() }
