@@ -20,6 +20,6 @@ The source also signals retry if fresh null demand appears while binding authori
 remains, instead of silently returning success. This inter-read race is reviewed
 source behavior, not a separately executed controlled race in this journey.
 Six manifested outputs retain build, three JUnit files, fresh core index and
-eleven source hashes. Final evidence reviews are pending. Android Keystore,
+eleven source hashes. Final evidence reviews at724a8455 report Standards0/Spec0. Android Keystore,
 actual SDK/FID rotation, client-process crash, Google delivery, public deployment
 and whole#42 acceptance remain unclaimed. Beta24 unchanged.

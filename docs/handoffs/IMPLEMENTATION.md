@@ -91,10 +91,16 @@ reenable/newestoptout tails unexecuted. Correction persists retiring phase befor
 request, completes it before opt-in and signals retry on fresh null demand with
 retained authority. Corrected core/gateway PASS1m29s, gateway4/0/0/corefresh114/0/0; exec23936 ended.
 Source2a1d774d reviews Standards0/Spec0. [Retained GREEN](../evidence/ticket42/client-green/README.md),
-sixhashes/eleven source hashes. Final evidence reviews pending. No owned local build. Native adapter is not wired yet. Earlier standalone CI
+sixhashes/eleven source hashes. Final evidence reviews at724a8455 report Standards0/Spec0. Native adapter tracer8b0f03f9 is now committed, stub no-op plus real-device
+PushBindingPreviewTest and first gate in existing social-push/full harness. Local compile19129 PASS3m53s, core/gateway tasks up-to-date, debug/test APKs built;
+exec ended. No runtime RED or minimum yet. Tracer reviews Spec0/Standards1 fixed:
+fail-fast PUSH_CONFIGURED=false now precedes fixture mutation, so consent writes
+cannot schedule real SDK work. The one-line correction awaits actual CI compile.
+No owned local build. Client source CI38993005106 at724a8455 still active. Prior native UI11/worker3 assertions unchanged behind new gate.
+Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
-No Android gateway binding, resolver, observer,
+No implemented Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays

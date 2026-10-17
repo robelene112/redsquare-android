@@ -21,6 +21,7 @@ class PushBindingPreviewTest {
     @Test fun bindingFollowsDurableWalletBackendAndConsentWithoutRetainingTheOutgoingWallet() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        check(!BuildConfig.PUSH_CONFIGURED) { "The owned binding fixture requires an unconfigured Firebase build" }
         val first = SaitoWallet.create()
         val second = SaitoWallet.create()
         val wallets = AndroidWalletStore(context)

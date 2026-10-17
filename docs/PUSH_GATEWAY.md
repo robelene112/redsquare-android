@@ -156,6 +156,6 @@ same-wallet opt-in gets410 instead of201. The correction persists retirement pha
 signals retry for fresh null demand with a retained binding, and requires final
 opt-out to target the newest ID. Corrected source2a1d774d reviews Standards0/Spec0.
 [Retained corrected build](evidence/ticket42/client-green/README.md) passes1m29s,
-corefresh114/0/0 and gateway4/0/0. Final evidence reviews are pending.
+corefresh114/0/0 and gateway4/0/0. Final evidence reviews at724a8455 report Standards0/Spec0.
 This is not Android Keystore, actual Firebase registration/rotation, cloud delivery
 or a real client-process crash proof. Native SDK and device acceptance stay open.
