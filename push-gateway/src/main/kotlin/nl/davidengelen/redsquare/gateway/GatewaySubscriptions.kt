@@ -172,6 +172,13 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         if (index < 0) return null
         while (history.size() > index + 1) history.remove(history.size() - 1)
         chain.addProperty("height", height.toString()); chain.addProperty("hash", hash); chain.addProperty("forkId", forkId)
+        for ((_, value) in state.getAsJsonObject("events").entrySet()) {
+            val event = value.asJsonObject
+            if (savedText(event, "backend") == backend.id && savedText(event, "state") == "pending" &&
+                event.has("sourceHeight") && BigInteger(savedText(event, "sourceHeight")) > height) {
+                event.addProperty("state", "withdrawn")
+            }
+        }
         recordGap(state, backend, "chain-reorganization", clock.millis())
         store.save(state)
         return GatewayChain.Cursor(height, hash, forkId)
@@ -184,7 +191,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         if (previous != null && (block.height != previous.height + BigInteger.ONE || block.previousHash != previous.hash)) {
             throw IOException("Processed block does not extend retained cursor")
         }
-        enqueue(backend, candidates)
+        enqueue(backend, candidates, block)
         val state = store.load()
         val chains = state.getAsJsonObject("chains")
         val history = chains.get(backend.id)?.asJsonObject?.getAsJsonArray("history") ?: JsonArray()
@@ -212,7 +219,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     }
 
     /** Verified originals are supplied only by the selected read-only Archive adapter. */
-    @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>) {
+    @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>, source: SaitoFullBlock? = null) {
         val now = clock.millis()
         val state = store.load()
         prune(state, now)
@@ -230,10 +237,20 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                 else if ("mentions" in categories && (owner in candidate.namedRecipients || RedSquareFeed.readMentions(JsonArray().apply {
                     add(JsonObject().apply { addProperty("tx", post.envelope) })
                 }.toString(), owner).posts.any { it.id == post.id })) "mentions" else continue
-                if (events.entrySet().any { (_, existing) -> existing.asJsonObject.let {
+                val existing = events.entrySet().firstOrNull { (_, value) -> value.asJsonObject.let {
                     savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
                         savedText(it, "signature") == post.id
-                } }) continue
+                } }?.value?.asJsonObject
+                if (existing != null) {
+                    if (source != null) {
+                        existing.addProperty("sourceHeight", source.height.toString()); existing.addProperty("sourceHash", source.hash)
+                        // Re-inclusion can restore the same logical wake, but never acknowledge an unsent attempt.
+                        if (savedText(existing, "state") == "withdrawn") {
+                            existing.addProperty("state", "pending"); existing.addProperty("attempts", 0); existing.addProperty("nextAttempt", 0)
+                        }
+                    }
+                    continue
+                }
                 if (events.size() >= 4096) throw IOException("Gateway event capacity reached")
                 val wake = ByteArray(32).also(SecureRandom()::nextBytes).hex()
                 events.add(wake, JsonObject().apply {
@@ -243,6 +260,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                         savedNumber(binding, "expiresAt")))
                     addProperty("retainUntil", post.createdAt + LIFETIME)
                     addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
+                    if (source != null) {
+                        addProperty("sourceHeight", source.height.toString()); addProperty("sourceHash", source.hash)
+                    }
                 })
             }
         }
@@ -321,7 +341,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val state = store.load()
         val event = state.getAsJsonObject("events").get(wake)?.asJsonObject ?: throw GatewayProblem(404)
         if (savedText(event, "owner") != recipient) throw GatewayProblem(401)
-        if (savedNumber(event, "expiresAt") <= now || currentBinding(state, event, now) == null) throw GatewayProblem(410)
+        if (savedText(event, "state") == "withdrawn" || savedNumber(event, "expiresAt") <= now ||
+            currentBinding(state, event, now) == null) throw GatewayProblem(410)
         return GatewayReply(200, JsonObject().apply {
             addProperty("version", 1); addProperty("wallet", recipient)
             addProperty("backend", savedText(event, "backend")); addProperty("signature", savedText(event, "signature"))

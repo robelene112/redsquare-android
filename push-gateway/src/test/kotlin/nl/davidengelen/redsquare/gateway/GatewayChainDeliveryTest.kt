@@ -60,6 +60,7 @@ class GatewayChainDeliveryTest {
         fun sha(value: String) = MessageDigest.getInstance("SHA-256").digest(value.toByteArray())
             .joinToString("") { "%02x".format(it.toInt() and 255) }
         for (backend in SaitoBackend.entries) {
+            time.set(now)
             val identity = SaitoWallet.create()
             val state = directory.newFolder("chain-social-${backend.id}").toPath()
             val calls = AtomicInteger()
