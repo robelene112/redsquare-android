@@ -154,6 +154,8 @@ between reads, and an opt-out assertion that could observe an older binding. The
 strengthened journey reproduces lost retirement acknowledgement as FAIL35s:
 same-wallet opt-in gets410 instead of201. The correction persists retirement phase,
 signals retry for fresh null demand with a retained binding, and requires final
-opt-out to target the newest ID. Corrected verification and review are pending.
+opt-out to target the newest ID. Corrected source2a1d774d reviews Standards0/Spec0.
+[Retained corrected build](evidence/ticket42/client-green/README.md) passes1m29s,
+corefresh114/0/0 and gateway4/0/0. Final evidence reviews are pending.
 This is not Android Keystore, actual Firebase registration/rotation, cloud delivery
 or a real client-process crash proof. Native SDK and device acceptance stay open.

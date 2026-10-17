@@ -89,8 +89,9 @@ lost revoke acknowledgement. [Retained](../evidence/ticket42/client-retirement-r
 fivehashes/eleven source hashes; previous tails through lost revoke ran, later
 reenable/newestoptout tails unexecuted. Correction persists retiring phase before
 request, completes it before opt-in and signals retry on fresh null demand with
-retained authority. Corrected core/gateway build23936 active, no pass inferred.
-Source review pending. Native adapter is not wired yet. Earlier standalone CI
+retained authority. Corrected core/gateway PASS1m29s, gateway4/0/0/corefresh114/0/0; exec23936 ended.
+Source2a1d774d reviews Standards0/Spec0. [Retained GREEN](../evidence/ticket42/client-green/README.md),
+sixhashes/eleven source hashes. Final evidence reviews pending. No owned local build. Native adapter is not wired yet. Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
 No Android gateway binding, resolver, observer,
