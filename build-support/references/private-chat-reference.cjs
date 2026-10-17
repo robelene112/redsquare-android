@@ -74,15 +74,16 @@ const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
 // Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
-if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send', '--check-native-photo-send', '--check-native-gif-send'].includes(process.argv[2])) {
+if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send', '--check-native-photo-send', '--check-native-gif-send', '--check-native-gif-reply-send'].includes(process.argv[2])) {
   const photoSend = process.argv[2] === '--check-native-photo-send';
-  const gifSend = process.argv[2] === '--check-native-gif-send';
+  const gifReply = process.argv[2] === '--check-native-gif-reply-send';
+  const gifSend = gifReply || process.argv[2] === '--check-native-gif-send';
   const imageSend = photoSend || gifSend;
   const replySend = !imageSend && process.argv[2] !== '--check-native-send';
   const zeroReply = process.argv[2] === '--check-native-zero-reply-send';
   const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat[zeroReply ? 'compositionZero' : 'composition'] : null;
   let expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
-  const expectedMentions = replySend ? expectedReply.mentioned : [];
+  const expectedMentions = gifReply ? [publicKeys['1']] : replySend ? expectedReply.mentioned : [];
   const input = fs.readFileSync('/reference/native-sent-envelope.json');
   const envelope = JSON.parse(input);
   const detached = Buffer.from(envelope.t, 'base64');
@@ -119,6 +120,7 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
     assert.equal(url.search, '?token=owned%2Bonly&keep=1');
     expectedMessage = `<img class="img-prev" src="${gifSource.replace(/&/g, '&amp;')}">\n` +
       '<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>';
+    if (gifReply) expectedMessage = `<blockquote href="${publicKeys['1']}1700000123457">Earlier &amp; quoted text</blockquote>` + expectedMessage;
   }
   assert.deepEqual(plaintext, {
     module: 'Chat', request: 'chat message', group_id: groupId,
@@ -189,7 +191,8 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
     browserStorageNotificationBoundariesAdapted: true,
     ...(imageSend ? {pinnedReceiverMethodsIdentical:true} : {}),
     ...(photoSend ? {nativePhoto:{message:plaintext.message,caption:photoCaption}} : {}),
-    ...(gifSend ? {nativeGif:{message:plaintext.message,caption:gifCaption,source:gifSource},exactOriginalGifUrl:true} : {}),
+    ...(gifSend ? {nativeGif:{message:plaintext.message,caption:gifCaption,source:gifSource,
+      ...(gifReply ? {quote:{reference:publicKeys['1']+'1700000123457',text:'Earlier & quoted text'}} : {})},exactOriginalGifUrl:true} : {}),
   }, null, 2));
   process.exit(0);
 }

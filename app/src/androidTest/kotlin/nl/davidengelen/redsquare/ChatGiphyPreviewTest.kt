@@ -29,7 +29,7 @@ class ChatGiphyPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    private enum class GifFlow { FAILURE, SEND, QUEUED_CANCEL }
+    private enum class GifFlow { FAILURE, SEND, QUEUED_CANCEL, REPLY }
 
     @Test fun privateGifFailureCanRetryAndCancelWithoutLosingTheDraft() = exercise(GifFlow.FAILURE)
 
@@ -42,6 +42,8 @@ class ChatGiphyPreviewTest {
 
     @Test fun anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent() =
         exercise(GifFlow.QUEUED_CANCEL, group = true, backend = SaitoBackend.OFFICIAL)
+
+    @Test fun aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent() = exercise(GifFlow.REPLY)
 
     private fun exercise(flow: GifFlow, group: Boolean = false, backend: SaitoBackend = SaitoBackend.OWNER) {
         val selection = flow != GifFlow.FAILURE
@@ -77,6 +79,13 @@ class ChatGiphyPreviewTest {
                 val creation = GroupChat.create(admin, groupId, groupName, listOf(wallet.publicKey), 1700000123400)
                 nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).receive(creation.envelope())
             }
+            val quote = "Earlier & quoted text"
+            val replyPrefix = if (flow == GifFlow.REPLY) {
+                val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").withChatContact(wallet.publicKey)
+                val incoming = PrivateChat.create(sender, wallet.publicKey, quote, 1700000123457)
+                nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, backend, contact).save(listOf(incoming.envelope()))
+                "<blockquote href=\"${contact}1700000123457\">Earlier &amp; quoted text</blockquote>"
+            } else ""
             MockWebServer().use { provider ->
                 val paths = java.util.concurrent.ConcurrentLinkedQueue<String>()
                 provider.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
@@ -134,8 +143,17 @@ class ChatGiphyPreviewTest {
                                 }
                                 ui.waitUntil(20_000) { displayed(target) }
                                 ui.onNode(target).assertIsDisplayed()
+                                if (flow == GifFlow.REPLY) {
+                                    ui.onNodeWithText("Remove reply").performScrollTo().assertIsDisplayed()
+                                }
                             }
                             open()
+                            if (flow == GifFlow.REPLY) {
+                                val reply = hasText("Reply") and hasClickAction() and isEnabled()
+                                ui.waitUntil(20_000) { displayed(reply) }
+                                ui.onNode(reply).performClick()
+                                ui.onNodeWithText("Remove reply").assertIsDisplayed()
+                            }
                             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                             androidx.test.espresso.Espresso.closeSoftKeyboard()
                             assertEquals(0, provider.requestCount)
@@ -159,7 +177,7 @@ class ChatGiphyPreviewTest {
                                     capture(name)
                                 }
                                 credits("$prefix-selected-credits")
-                                val expected = "<img class=\"img-prev\" src=\"${source.replace("&", "&amp;")}\">\n" +
+                                val expected = replyPrefix + "<img class=\"img-prev\" src=\"${source.replace("&", "&amp;")}\">\n" +
                                     "<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>"
                                 val savedDraft = if (group) nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet,
                                     backend).load(groupId)?.draft else nl.davidengelen.redsquare.chat.ChatWorkStore(
@@ -239,8 +257,9 @@ class ChatGiphyPreviewTest {
                                             displayed(caption)
                                         }
                                         credits("$prefix-sent-credits")
-                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-${backend.id}-gif-envelope.json").writeText(sent.envelope())
-                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-${backend.id}-gif-source.txt").writeText(source + "\n")
+                                        val output = "native-$kind-${backend.id}-gif" + if (flow == GifFlow.REPLY) "-reply" else ""
+                                        File(context.cacheDir, "chat-giphy-evidence/$output-envelope.json").writeText(sent.envelope())
+                                        File(context.cacheDir, "chat-giphy-evidence/$output-source.txt").writeText(source + "\n")
                                         peer.assertHealthy()
                                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == backend)
                                         check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
@@ -284,7 +303,9 @@ class ChatGiphyPreviewTest {
 
     private fun assertAnimation() {
         val image = hasContentDescription("Image 1 of 1")
-        ui.waitUntil(10_000) { displayed(image) }
+        ui.waitUntil(10_000) { ui.onAllNodes(image).fetchSemanticsNodes().size == 1 }
+        if (!displayed(image)) ui.onNode(image).performScrollTo()
+        ui.onNode(image).assertIsDisplayed()
         var red = false; var blue = false
         ui.waitUntil(10_000) {
             val bitmap = ui.onNode(image).captureToImage().asAndroidBitmap()

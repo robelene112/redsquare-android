@@ -25,7 +25,7 @@ for(const [pin,file,expected] of pins){
  const sanitized=browser.sanitize(message,true);assert(sanitized.includes('class="img-prev"'));if(!native)assert(sanitized.includes(image));
  // returnChatBody performs this newline conversion after the actual sanitize call.
  const html=sanitized.split('\n').join('<br>');
- vectors.push({pin,browserSha256:expected,message,caption,html,...(gif?{source:media.source}:{})});
+ vectors.push({pin,browserSha256:expected,message,caption,html,...(gif?{source:media.source,...(media.quote?{quote:media.quote}:{})}:{})});
 }
 assert.equal(vectors[0].html,vectors[1].html);
 console.log(JSON.stringify({scope:'Actual pinned Browser.sanitize(msg,true), followed by inspected returnChatBody newline conversion. No initialized Saito app claim.',...(native?{nativeEnvelopeSha256:native.nativeEnvelopeSha256}:{}),...(gif?{mediaKind:'gif'}:{}),vectors},null,2));
