@@ -8,6 +8,7 @@ import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
 import nl.davidengelen.redsquare.saito.PrivateChat
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoWire
 import okhttp3.WebSocket
@@ -26,6 +27,7 @@ import java.net.http.HttpResponse
 import java.security.MessageDigest
 import java.util.Date
 import java.util.UUID
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 
@@ -36,7 +38,10 @@ class GatewayPrivateChatDeliveryTest {
 
     @Test(timeout = 30_000) fun oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal() = privateJourney(continueStream = true)
 
-    private fun privateJourney(continueStream: Boolean = false) {
+    @Test(timeout = 60_000) fun pendingPrivateDeliveryAndCiphertextSurviveRestartThenTheLiveStreamReconnectsWithoutDuplicates() =
+        privateJourney(lifecycle = true)
+
+    private fun privateJourney(continueStream: Boolean = false, lifecycle: Boolean = false) {
         // Published unsafe fixture identities. Never fund or use outside owned fixtures.
         val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
@@ -51,9 +56,25 @@ class GatewayPrivateChatDeliveryTest {
             // Fresh ordinary transport fixture; independent encryption interoperability stays with the pinned core cases.
             val failure = AtomicReference<Throwable?>()
             val stream = AtomicReference<WebSocket?>()
+            val state = directory.newFolder(backend.id).toPath()
+            var port = 0
+            var retainedWake: String? = null
+            val connection = HttpClient.newBuilder().connectTimeout(java.time.Duration.ofSeconds(3)).build()
+            fun post(path: String, body: JsonObject, signature: String? = null, status: Int = 200): JsonObject {
+                val request = HttpRequest.newBuilder(URI("http://127.0.0.1:$port$path"))
+                    .timeout(java.time.Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(body.toString()))
+                    .header("X-Saito-Owner", recipient.publicKey)
+                signature?.let { request.header("X-Saito-Signature", it) }
+                val response = connection.send(request.build(), HttpResponse.BodyHandlers.ofString())
+                assertEquals("HTTP $path", status, response.statusCode())
+                return JsonParser.parseString(response.body()).asJsonObject
+            }
+            fun resolve(wake: String, operation: String = "resolve") = post("/v1/wakes/$operation", JsonObject().apply {
+                addProperty("version", 1); addProperty("wake", wake)
+            }, recipient.sign("Saito push $operation v1\n$origin/v1/wakes/$operation\n$wake".toByteArray()))
             MockWebServer().use { peer ->
                 val counter = ByteArray(32) { 7 }
-                peer.enqueue(MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
+                fun upgrade(candidates: List<SaitoTransaction>) = MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
                     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { webSocket.close(code, reason) }
                     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                         try {
@@ -64,7 +85,7 @@ class GatewayPrivateChatDeliveryTest {
                                 2 -> {
                                     require(SaitoWire.verifyHandshake(frame, counter) == identity.publicKey)
                                     stream.set(webSocket)
-                                    webSocket.send(original.broadcast(author, identity.publicKey).toByteString())
+                                    candidates.forEach { webSocket.send(it.broadcast(author, identity.publicKey).toByteString()) }
                                 }
                                 20 -> webSocket.send(byteArrayOf(9).toByteString())
                                 16 -> Unit
@@ -72,25 +93,24 @@ class GatewayPrivateChatDeliveryTest {
                             }
                         } catch (caught: Throwable) { failure.set(caught); webSocket.close(1008, "Owned Chat mismatch") }
                     }
-                }).build())
+                }).build()
+                peer.enqueue(upgrade(listOf(original)))
                 peer.start(InetAddress.getByName("127.0.0.1"), 0)
                 MockWebServer().use { fcm ->
-                    fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/private\"}").build())
+                    val attempts = CopyOnWriteArrayList<Long>()
+                    if (lifecycle) fcm.dispatcher = object : mockwebserver3.Dispatcher() {
+                        override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                            attempts.add(System.nanoTime())
+                            return if (attempts.size == 1) MockResponse.Builder().code(503).build()
+                            else MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/recovered\"}").build()
+                        }
+                    } else fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/private\"}").build())
                     fcm.start(InetAddress.getByName("127.0.0.1"), 0)
                     FcmSender("owned-fixture", GoogleCredentials.create(AccessToken("synthetic-owned-oauth", Date(now + 3_600_000))),
                         "http://127.0.0.1:${fcm.port}").use { sender ->
-                        PushGateway(directory.newFolder(backend.id).toPath(), origin).use { gateway ->
+                        PushGateway(state, origin).use { gateway ->
                             gateway.start()
-                            val connection = HttpClient.newBuilder().connectTimeout(java.time.Duration.ofSeconds(3)).build()
-                            fun post(path: String, body: JsonObject, signature: String? = null, status: Int = 200): JsonObject {
-                                val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}$path"))
-                                    .timeout(java.time.Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(body.toString()))
-                                    .header("X-Saito-Owner", recipient.publicKey)
-                                signature?.let { request.header("X-Saito-Signature", it) }
-                                val response = connection.send(request.build(), HttpResponse.BodyHandlers.ofString())
-                                assertEquals("HTTP $path", status, response.statusCode())
-                                return JsonParser.parseString(response.body()).asJsonObject
-                            }
+                            port = gateway.port
                             val nonce = post("/v1/challenges", JsonObject().apply {
                                 addProperty("version", 1); addProperty("owner", recipient.publicKey)
                             }, status = 201).get("nonce").asString
@@ -123,6 +143,7 @@ class GatewayPrivateChatDeliveryTest {
                                 assertEquals(setOf("version", "wake"), data.keySet())
                                 assertEquals("1", data.get("version").asString)
                                 val wake = data.get("wake").asString
+                                retainedWake = wake
                                 assertTrue(wake.matches(Regex("[0-9a-f]{64}")))
                                 val request = JsonObject().apply { addProperty("version", 1); addProperty("wake", wake) }
                                 val resolved = post("/v1/wakes/resolve", request, recipient.sign(
@@ -170,6 +191,50 @@ class GatewayPrivateChatDeliveryTest {
                                     assertEquals("Another message on the same connection", nextReceived.message.text)
                                     assertEquals(author.publicKey, nextReceived.counterparty)
                                     assertEquals("Repeating the first original must not send another alert", 2, fcm.requestCount)
+                                }
+                            }
+                        }
+                        if (lifecycle) {
+                            val wake = requireNotNull(retainedWake)
+                            PushGateway(state, origin).use { restarted ->
+                                restarted.start(); port = restarted.port
+                                val restored = resolve(wake)
+                                assertEquals(original.id, restored.get("signature").asString)
+                                assertEquals(backend.id, restored.get("backend").asString)
+                                val cached = PrivateChat.recover(recipient, resolve(wake, "original").get("envelope").asString)
+                                assertEquals(text, cached.message.text)
+                                assertEquals(original.id, cached.message.id)
+                                assertEquals(1, fcm.requestCount)
+                                peer.enqueue(upgrade(listOf(original)))
+                                GatewayChatObserver(restarted, identity, backend, sender, "http://127.0.0.1:${peer.port}").use { observer ->
+                                    observer.start()
+                                    val retried = requireNotNull(fcm.takeRequest(15, TimeUnit.SECONDS))
+                                    val retryData = JsonParser.parseString(requireNotNull(retried.body).utf8())
+                                        .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
+                                    assertEquals(setOf("version", "wake"), retryData.keySet())
+                                    assertEquals("1", retryData.get("version").asString)
+                                    assertEquals("A restart must reuse the pending logical wake", wake, retryData.get("wake").asString)
+                                    assertEquals(2, fcm.requestCount)
+                                    assertTrue("The recovered send must respect the actual minimum backoff",
+                                        attempts[1] - attempts[0] >= TimeUnit.SECONDS.toNanos(10))
+                                    val next = PrivateChat.create(author, recipient.publicKey, "A private message after reconnect", System.currentTimeMillis())
+                                    peer.enqueue(upgrade(listOf(original, next)))
+                                    assertTrue(requireNotNull(stream.get()).close(1012, "Owned fixture reconnect"))
+                                    val fresh = requireNotNull(fcm.takeRequest(10, TimeUnit.SECONDS))
+                                    val freshData = JsonParser.parseString(requireNotNull(fresh.body).utf8())
+                                        .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
+                                    assertEquals(setOf("version", "wake"), freshData.keySet())
+                                    val nextWake = freshData.get("wake").asString
+                                    assertNotEquals(wake, nextWake)
+                                    assertEquals(next.id, resolve(nextWake).get("signature").asString)
+                                    assertEquals("A private message after reconnect", PrivateChat.recover(recipient,
+                                        resolve(nextWake, "original").get("envelope").asString).message.text)
+                                    assertEquals("Replayed originals must not create additional sends", 3, fcm.requestCount)
+                                    val status = post("/v1/observer/status", JsonObject().apply {
+                                        addProperty("version", 1); addProperty("backend", backend.id)
+                                    })
+                                    assertTrue("The reconnect must preserve the explicit stream coverage gap",
+                                        status.getAsJsonArray("gaps").any { it.asJsonObject.get("reason").asString == "chat-stream-unavailable" })
                                 }
                             }
                         }
