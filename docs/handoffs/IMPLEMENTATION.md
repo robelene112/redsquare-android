@@ -24,8 +24,13 @@ originalPNG and parsedXML; five original hashes in ticket43/first-red/android17.
 Local tracer build PASS2m23s, Standards0/Spec0. Provider/retry/reopen tails
 unexecuted. Current minimum adds separate Chat configuration, shared picker and
 private draft commit before dismissal; group and retained credits are later
-tracers, not yet complete. Local picker build16461 is running. Next run the
-unchanged private recovery tracer, then selection/send/recovery.
+tracers, not yet complete. Local picker build16461 PASS4m48s, both bounded reviews0/0. Unchanged private
+recovery tracer39022580631 atdc320ec1 SUCCESS1/0/26.011s. Root viewed2PNGs,
+parsed2XMLs, eight hashed originals in ticket43/recovery-green/android17.
+Next tracer adds actual selection, two motion colors, displayed/reopened/sent
+credits, canonical exact-query HTML and explicit signed-send proof. Its initial
+local build26696 was deliberately stopped143 before a known fixture scrolling
+correction; no application/compiler failure claimed. Corrected tracer build follows.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 
