@@ -61,6 +61,7 @@ class GatewayChain(private val identity: SaitoWallet, val backend: SaitoBackend,
                 require(u64(body, 112) == tip.height && hex(body, 120) == tip.hash &&
                     u64(body, 152) == tip.height && hex(body, 160) == tip.hash)
             } else {
+                require(references.last().height != tip.height || references.last().hash == tip.hash)
                 require(u64(body, 112) == references.first().height && hex(body, 120) == references.first().hash &&
                     u64(body, 152) == references.last().height && hex(body, 160) == references.last().hash)
             }
