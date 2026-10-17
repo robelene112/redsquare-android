@@ -30,6 +30,7 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
     private val ready = CompletableFuture<Unit>()
     private val services = CompletableFuture<Set<String>>()
     private val disconnected = AtomicBoolean(false)
+    private val chainReply = java.util.concurrent.atomic.AtomicReference<CompletableFuture<ByteArray>?>()
     private val nextIndex = AtomicInteger()
     private data class Pending(val response: CompletableFuture<ByteArray>, val registrarCallback: Boolean)
     private val pending = ConcurrentHashMap<Int, Pending>()
@@ -79,6 +80,11 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
                                 fields[0]
                             }.toSet())
                         }
+                        22 -> {
+                            require(frame.size in 197..6981 && ready.isDone && !ready.isCompletedExceptionally)
+                            requireNotNull(chainReply.getAndSet(null)) { "Unsolicited chain response" }
+                                .complete(frame.copyOfRange(1, frame.size))
+                        }
                         13, 14 -> {
                             require(frame.size >= 5 && ready.isDone && !ready.isCompletedExceptionally)
                             val index = ByteBuffer.wrap(frame, 1, 4).int
@@ -118,6 +124,22 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
         } finally { pending.remove(index) }
     }
 
+    /** Chain replies have no request ID. Any uncertain outcome retires this connection. */
+    fun chainRequest(frame: ByteArray): ByteArray {
+        require(frame.size == 111 && frame[0] == 21.toByte())
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(12)
+        await(ready, deadline)
+        val response = CompletableFuture<ByteArray>()
+        if (!chainReply.compareAndSet(null, response)) throw IOException("Chain request already pending")
+        try {
+            if (disconnected.get()) throw IOException("Peer disconnected")
+            send(socket, frame)
+            return await(response, deadline)
+        } catch (failure: Exception) {
+            fail(); socket.cancel(); throw failure
+        } finally { chainReply.compareAndSet(response, null) }
+    }
+
     private fun send(socket: WebSocket, bytes: ByteArray) {
         if (!socket.send(bytes.toByteString())) { fail(); throw IOException("Peer disconnected") }
     }
@@ -126,6 +148,7 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
         val failure = IOException("Peer disconnected")
         ready.completeExceptionally(failure)
         services.completeExceptionally(failure)
+        chainReply.getAndSet(null)?.completeExceptionally(failure)
         pending.values.forEach { it.response.completeExceptionally(failure) }
         pending.clear()
     }

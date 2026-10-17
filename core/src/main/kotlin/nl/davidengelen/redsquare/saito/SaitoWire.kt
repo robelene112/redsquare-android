@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.saito
 
 import java.nio.ByteBuffer
+import java.math.BigInteger
 
 /** Saito binary framing, independent of Android and individual modules. */
 object SaitoWire {
@@ -15,6 +16,16 @@ object SaitoWire {
         repeat(4) { buffer.put(key).put(ByteArray(26)) }
         buffer.put(message)
         return buffer.array()
+    }
+
+    /** Recent SPV bootstrap, then full continuation from an explicitly processed cursor. */
+    fun blockchainRequest(publicKey: String, height: BigInteger, hash: String, forkId: String): ByteArray {
+        require(height.signum() >= 0 && height.bitLength() <= 64)
+        require(hash.matches(Regex("[0-9a-f]{64}")) && forkId.matches(Regex("[0-9a-f]{64}")))
+        val key = Base58.decode(publicKey).also { require(it.size == 33) }
+        fun bytes(hex: String) = hex.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+        return ByteBuffer.allocate(111).put(21).putLong(height.toLong()).put(bytes(hash)).put(bytes(forkId))
+            .put(if (height.signum() == 0) 1.toByte() else 0.toByte()).put(key).putInt(0).array()
     }
 
     fun handshakeReply(wallet: SaitoWallet, nonce: ByteArray, counter: ByteArray): ByteArray {
