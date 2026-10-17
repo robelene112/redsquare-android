@@ -74,10 +74,20 @@ original retrieval dispatch. GroupChatPush validates signature/module/request/gr
 age, requires known active local membership, retains before generic alert and
 skips cached duplicates. No automatic group creation/join or membership override.
 Both source reviews0. Local compile PASS1m58s; three-hash packet retained. Actual
-focused group GREEN39080458000 and sourceCI39080455619 are running atcf755f1fb.
-No owned local Gradle job. Whole47 still requires durable pending publication/
-shared ordinary receipt recovery, broader current control/tap/legacy/PID checks,
-final full10/17 and signed successor. Do not claim these from the first minimum.
+focused group GREEN39080458000 atcf755f1fb passes1case/22.528s with the unchanged
+RED fixture: known history retained, actual fully visible generic group card,
+physical dismissal and continuous quiet duplicate without Activity. Root viewed
+both selected original captures. Nine-hash native-worker-first-green packet.
+SourceCI39080455619 also SUCCESS (release/lint included). Both evidence reviews
+are next. No owned local Gradle job.
+
+The next tracer is one ordinary-group/publication-fault story. Its temporary
+ledger .new directory must leave received history readable without publishing,
+then the opaque wake must recover after repair. First worker story assertions
+are retained in a shared fixture helper. No ledger/pending implementation yet;
+commit/push and run isolated group-push-android17 for actual RED first. Whole47
+still requires that durable pending/shared ordinary recovery, broader current
+control/tap/legacy/PID checks, final full10/17 and signed successor.
 
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
 Original32/34 retain configured Google/hosting/deployment/physical gates. Published

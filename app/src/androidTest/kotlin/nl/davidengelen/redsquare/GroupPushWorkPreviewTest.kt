@@ -18,6 +18,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.chat.GroupChatStore
+import nl.davidengelen.redsquare.chat.receiveChat
 import nl.davidengelen.redsquare.notifications.ChatPushSettings
 import nl.davidengelen.redsquare.notifications.SocialPushWakeScheduling
 import nl.davidengelen.redsquare.saito.*
@@ -31,7 +32,12 @@ import java.util.concurrent.atomic.AtomicReference
 
 /** Real worker, signed original, retained known group and Android shade; owned opaque injection only. */
 class GroupPushWorkPreviewTest {
-    @Test fun aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() {
+    @Test fun aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() = groupJourney()
+
+    @Test fun ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication() =
+        groupJourney(ordinaryRecovery = true)
+
+    private fun groupJourney(ordinaryRecovery: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -66,7 +72,7 @@ class GroupPushWorkPreviewTest {
         val text = "A group message retained in the local conversation"
         val original = GroupChat.message(author, group, text, now)
         assertFalse(wallet.publicKey in SaitoEnvelope.decode(original.envelope()).recipients)
-        val wake = "71".repeat(32)
+        val wake = (if (ordinaryRecovery) "72" else "71").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -111,7 +117,15 @@ class GroupPushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:${backend.id}:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "group-push-evidence/group-worker-$name.png"))
+        val capturePrefix = if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
+        fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "group-push-evidence/$capturePrefix-$name.png"))
+        fun assertSilent(label: String) {
+            val silentUntil = SystemClock.elapsedRealtime() + 2_000
+            do {
+                assertTrue(label, manager.activeNotifications.none { it.tag == tag })
+                SystemClock.sleep(50)
+            } while (SystemClock.elapsedRealtime() < silentUntil)
+        }
         fun await(id: UUID) {
             val deadline = SystemClock.elapsedRealtime() + 40_000
             while (SystemClock.elapsedRealtime() < deadline) {
@@ -137,6 +151,20 @@ class GroupPushWorkPreviewTest {
             withFailureCapture({ capture("failure") }) {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, wake,
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve") }
+                if (ordinaryRecovery) {
+                    val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    try {
+                        receiveChat(context, wallet, backend, original.applicationRequest(1).drop(5).toByteArray())
+                        val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single()
+                        assertEquals(original.id, saved.id)
+                        assertEquals(text, saved.text)
+                        assertSilent("Unavailable publication bookkeeping must preserve readable group history without publishing")
+                        capture("retained-before-recovery")
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                }
                 await(schedule())
                 assertNoActivity()
                 val publishedBy = SystemClock.elapsedRealtime() + 5_000
@@ -170,11 +198,7 @@ class GroupPushWorkPreviewTest {
                 assertTrue(manager.activeNotifications.none { it.tag == tag })
                 device.pressBack()
                 await(schedule())
-                val silentUntil = SystemClock.elapsedRealtime() + 2_000
-                do {
-                    assertTrue("Redelivery must not re-alert a dismissed group message", manager.activeNotifications.none { it.tag == tag })
-                    SystemClock.sleep(50)
-                } while (SystemClock.elapsedRealtime() < silentUntil)
+                assertSilent("Redelivery must not re-alert a dismissed group message")
                 assertEquals(1, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.size)
                 assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                 assertEquals(backend, backends.load())
