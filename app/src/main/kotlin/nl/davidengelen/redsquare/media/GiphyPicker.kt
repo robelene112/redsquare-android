@@ -40,9 +40,13 @@ internal fun GiphyPicker(onClose: () -> Unit) {
         try {
             if (query.isNotBlank()) delay(400)
             results = provider.search(query)
+            loading = false
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (failure: Exception) { failed = true; limited = (failure as? GiphyUnavailable)?.rateLimited == true }
-        finally { loading = false }
+        catch (failure: Exception) {
+            failed = true
+            limited = (failure as? GiphyUnavailable)?.rateLimited == true
+            loading = false
+        }
     }
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         Surface(Modifier.fillMaxSize()) {
