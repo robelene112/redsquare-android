@@ -1,7 +1,7 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is CLOSED with complete server-code acceptance. #43 is CLOSED after native acceptance and verified signed26 publication. #44 is the sole app work.
+#42 is CLOSED with complete server-code acceptance. #43 is CLOSED after native acceptance and verified signed26 publication. #44 is CLOSED after complete native acceptance and verified signed27 publication.
 #16 is frozen at its accepted native checkpoint,
 review base`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. #17 remains open at its
 frozen sourcec9b114a8 recovery checkpoint; actual playback is unresolved. #32 staysopen for configured
@@ -9,13 +9,14 @@ Google/device acceptance; its native dependency42 is now closed. Its earlier ove
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
-## Active native Chat alert presentation (#44)
+## Accepted native Chat alert presentation (#44)
 
-Sole writer root. GitHub44 assigned/unblocked, native child33, related34.
+GitHub44 CLOSED2026-10-17T17:24:38Z, native child33, related34.
+[Accepted checkpoint](https://github.com/robelene112/redsquare-android/issues/44#issuecomment-6237553011).
 Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc stays fixed. Parents33/34
 remain OPEN with genuine32 dependencies. Public beta27 is published and verified.
-Both complete SDK runs and combined evidence reviews pass. Publication bookend/
-tracker closure remain. No Google/physical Pixel claim. No owned local build.
+Both complete SDK runs, combined evidence and publication reviews pass.
+No Google/physical Pixel claim. No owned local build.
 
 Implemented: authenticated cached private/group original references bound to
 wallet/backend; current membership/author/conversation policy; shared social/Chat
@@ -141,7 +142,8 @@ page/latest/immutable27/APK/hash/certificate/package/min29 checks PASS; immutabl
 manifest/APK unchanged. Thirteen records in signed-preview27-published.
 No owned local build. Same approved seams/180s new alert class/20s observations.
 Original33/34 and real32 blockers remain unchanged. No Google or physical/process-
-death claim from focused alert journeys. Next: publication bookend review, close44.
+death claim from focused alert journeys. Publication bookend84ac82746 reports Standards0/Spec0;44 is CLOSED.
+Continue remaining genuinely available work sequentially.
 Temporary work stays outside checkout /tmp/redsquare-chat44-work-20261017; large
 original artifacts /mnt/storage/redsquare-android-artifacts. Preserve unrelated
 untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
