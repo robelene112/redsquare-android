@@ -42,10 +42,16 @@ Matching callbacks avoid self-cancellation; unexpected callbacks request fresh
 reconciliation. These are reviewed source properties, not configured callback,
 timeout, rotation, process-loss or remote-ordering runtime proof.
 
-Final committed-evidence review pending. No unchanged rerun needed. Required
+Final committed-evidence reviews atbf75f7e1 report Standards0/Spec0;
+both independently checked24 manifested files/2XML and source/manifest provenance. No unchanged rerun needed. Required
 separate[gateway#42](https://github.com/robelene112/redsquare-android/issues/42)
-is published as a #32 sub-issue and remains unassigned until this checkpoint is
-finished. Signed gateway binding/revocation/observer, actual Firebase configuration,
+is published as a #32 sub-issue. This source-preparation checkpoint is accepted;
+the sole writer can now switch to that required server work. Signed gateway binding/revocation/observer, actual Firebase configuration,
 Google delivery, both-backend transport and full/physical acceptance remain open.
 No project/account/IAM/node/deployment mutation or new beta. Existing owner setup
 question stays pending, without repeating it. Public signed beta24 is unchanged.
+
+The later full-harness correction1037dc95 adds existing social UI/work and both
+process observers to full scope; focused behavior/app/core are unchanged. Shell
+syntax and separate Standards0/Spec0 reviews pass. The new full invocation has
+not been executed yet and is not part of the exact2310 native evidence above.

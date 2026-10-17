@@ -181,7 +181,8 @@ remains. Exact2310e0df source38989625277 SUCCESS release/lint; Android10
 contains24 hashes/2XML, two actual alert originals root viewed. Other assertions
 pass in retained logs; remaining captures stay raw, not newly claimed viewed.
 Merged debug/release manifest and default config checks pass, SDK AAR matches
-prior independent binary. Final committed-evidence reviews pending. This is source
+prior independent binary. Final committed-evidence reviews atbf75f7e1 report Standards0/Spec0;
+this bounded SDK source-preparation checkpoint is accepted. This is source
 preparation, not a new TDD RED/GREEN or configured Google delivery proof. No new
 mock SDK/internal tests were added in place of actual external transport.
 
@@ -193,10 +194,14 @@ still requires configured runtime verification, both backends/fullSDKs/Pixel too
 No node/deployment/account mutation or new beta; signed beta24 unchanged.
 
 Required separate[gateway ticket#42](https://github.com/robelene112/redsquare-android/issues/42)
-is now published and linked as a #32 sub-issue. It is ready/unassigned, not a
-parallel implementation. Finish this SDK-preparation checkpoint first, then switch
-the sole writer to the bounded server ticket. Source/local verification only;
+is now published and linked as a #32 sub-issue. It is ready for the next sole implementation after this accepted SDK checkpoint.
+No parallel ticket writer. Source/local verification only;
 production deployment keeps its separately authorized boundary.
+
+The full-harness omission is corrected at1037dc95: full now invokes existing
+social UI/work checks then both process helpers. Focused default behavior/app/core
+are unchanged. bash -n and source reviews Standards0/Spec0 pass. The new full
+invocation is unexecuted; exact2310 native evidence does not claim that wiring.
 
 ## Earlier accepted username slice
 
