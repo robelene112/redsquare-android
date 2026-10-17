@@ -22,3 +22,5 @@ heights and other unavailable-history paths are also source-reviewed.
 This resumes available recent history; it does not reconstruct unavailable blocks
 or prove consensus/finality, actual Google/device delivery or whole42/32 completion.
 Parent-proof availability and whole-ticket integrated review remain next.
+
+Final evidence/doc reviews ate13a6a12 report Standards0/Spec0.

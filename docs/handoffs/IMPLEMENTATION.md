@@ -24,7 +24,7 @@ uncertainpendingchainwork, clearsactivecursor andrecordsreason, so nextpasscan
 bootstraprecentavailableconsecutivesuffix. Missinginteriorheighttailtrimis
 source-only, notexecutedfixturecoverage. Owned77177 endedPASS1m50s/gateway10/0/0/chain10.588s/coreUPTODATE.
 [GREEN](../evidence/ticket42/history-recovery-green/README.md),10hashes/23sources/source0/0.
-No ownedbuild. Final evidence reviews pending.
+No ownedbuild. Final evidence reviews ate13a6a12 Standards0/Spec0.
 Bindings/pending withdrawal during this reset are source-reviewed; this tracer
 is non-social and does not separately exercise those combinations.
 Need preserve subscriptions and withdraw uncertain pending sourced events during
