@@ -71,15 +71,16 @@ Root viewed retained launcher and actual generic shade; tests prove history/sile
 Actual local Docker child passed native/test assembly3m50s/exit0 after its wrapper
 disconnected143; no exact final-comment-source compile claim from that local log.
 
-NEW OPEN Standards finding: deliberate suppression and ordinary notifier RETRY
-leave history eligibility pending, so redelivery after unmute/policy repair can
-produce retrospective alerts. Existing ChatMutePreviewTest requires silence.
-Spec resolved the independent history finding. Existing unchanged chat-mute
-runtime39062885447 atd815 is pending. Proposed correction preserves pending after
-bookkeeping failures, completes eligibility after deliberate suppression, and
-retries notifier failures only for background delivery. Not written yet.
+Mute/policy replay finding fixed in sourceb1e2d3330: deliberate suppression clears
+pending eligibility, ordinary notifier errors preserve existing seen behavior, and
+background notifier/storage failures remain retryable. Existing unchanged mute
+RED39062885447 atd815 runs8cases/3FAIL82.164s, precisely two post-unmute replays
+and repaired-policy replay. Packet native-muted-red. Both bounded source reviews0.
+Exact muteGREEN39063261318 passes8cases98.755s plus actual existing mute-policy
+process recovery/restoration. Chat-alerts regression39063263234 passes9cases81.855s.
+Source39063259852 succeeds release/lint. Packet native-muted-green.
 
-Next: resolve this replay finding, then actual interruption/retry, worker preview/
+Next: actual private-wake interruption/retry, worker preview/
 exacttap/currentpolicy/identity and applicable gateway persistence/reconnect.
 Final full Android10/17, core/gateway/release/lint, both source/evidence reviews and
 next signed28 remain required before native46 completion. Controlled injection

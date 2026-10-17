@@ -1,0 +1,228 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatMutePreviewTest:
+INSTRUMENTATION_STATUS: test=groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnmutedGroupMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnmutedGroupMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedGroupUnmuteKeepsReadableMessagesSilentAndAllowsRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedGroupUnmuteKeepsReadableMessagesSilentAndAllowsRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=conversationChoicesFollowTheBackendAndRemainIsolatedWhenTheWalletChanges
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=conversationChoicesFollowTheBackendAndRemainIsolatedWhenTheWalletChanges
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anUnmutedPrivateMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anUnmutedPrivateMessageShowsAGenericAndroidNotification
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertUnreadablePolicyRetainsMessages(ChatMutePreviewTest.kt:429)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts(ChatMutePreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts(nl.davidengelen.redsquare.ChatMutePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertUnreadablePolicyRetainsMessages(ChatMutePreviewTest.kt:429)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts(ChatMutePreviewTest.kt:30)
+
+INSTRUMENTATION_STATUS: test=unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$default(ChatMutePreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(nl.davidengelen.redsquare.ChatMutePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$default(ChatMutePreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMutePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair(ChatMutePreviewTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair(nl.davidengelen.redsquare.ChatMutePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair(ChatMutePreviewTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 82.164
+There were 3 failures:
+1) unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts(nl.davidengelen.redsquare.ChatMutePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertUnreadablePolicyRetainsMessages(ChatMutePreviewTest.kt:429)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:89)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts(ChatMutePreviewTest.kt:30)
+2) privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(nl.davidengelen.redsquare.ChatMutePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$default(ChatMutePreviewTest.kt:32)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening(ChatMutePreviewTest.kt:21)
+3) aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair(nl.davidengelen.redsquare.ChatMutePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$FixtureAlerts.assertSilence(ChatMutePreviewTest.kt:504)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent(ChatMutePreviewTest.kt:471)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.assertRedeliveryStaysSilent$default(ChatMutePreviewTest.kt:461)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute$lambda$17$lambda$16$lambda$15(ChatMutePreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.$r8$lambda$h_y5Q3pL5HhY4EfQOKK52w4MV-A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.exercisePrivateMute(ChatMutePreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ChatMutePreviewTest.aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair(ChatMutePreviewTest.kt:25)
+
+FAILURES!!!
+Tests run: 8,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

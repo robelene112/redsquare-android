@@ -218,6 +218,9 @@ verify_chat_alerts() {
         fi
     fi
     verify_group_chat_native "ChatAlertPreviewTest,nl.davidengelen.redsquare.ChatPushConsentPreviewTest,nl.davidengelen.redsquare.PrivatePushWorkPreviewTest" 180 chat-alerts chat-alert-evidence || native_exit=$?
+    if [[ "$native_exit" == 0 ]]; then
+        python3 "$repo_dir/scripts/private-push-process-check" --evidence "$evidence/private-push-process" || native_exit=$?
+    fi
     if [[ "$granted_for_test" == 1 ]]; then
         adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
     fi
