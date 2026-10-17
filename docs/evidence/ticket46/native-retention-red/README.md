@@ -1,0 +1,7 @@
+# History retention through unavailable alert bookkeeping RED
+
+Actual Android10 run39061775953 at7eb609b591e28f0ea1494e65775194c9f04b3764 runs nine cases in73.409s. Eight pass. The added ordinary receiver case fails in NotificationReceiptLedger.read/prepare before history retention when its owned pending-file path is a directory. The cache, silence and later worker-recovery assertions are not reached. Root viewed the launcher failure capture. This reproduces the independently reviewed history-retention finding.
+
+Six hashed records retain raw instrumentation/exit, run metadata, failure PNG/XML and the exact test-source hash. Later fixture corrections23c25b9f and56499aa0 preserve primary failures and observe continuous silence before removing the obstruction. They are absent from this immutable RED.
+
+The source correctiond81516f commits history and pending eligibility atomically before optional bookkeeping. Its local native/test assembly passed in3m50s in the actual Docker child with exit0; the disconnected wrapper returned143 and is not that child result. A subsequent comment-only edit preceded commit. Actual runtime39062647592 passes9cases in73.995s; see [the separate GREEN](../native-retention-green/README.md). Source reviews resolved the history finding, but Standards identified a separate ordinary mute/policy replay regression requiring correction. Whole#46 and Google delivery remain unaccepted.

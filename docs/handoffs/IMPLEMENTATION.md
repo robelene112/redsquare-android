@@ -60,26 +60,31 @@ constructor clarification and continuous duplicate silence. Root viewed both
 ordinary-first captures. Packets native-ordinary-red/native-ordinary-local/
 native-ordinary-green retain all exact qualifications and sources.
 
-IMPORTANT OPEN SOURCE FINDING on both axes: ledger reads/preparation before
-history.save can prevent ordinary history retention if bookkeeping is unreadable
-or at1000unexpiredreceipt capacity. NormalGREEN does not resolve this. Preserve
-history independently and keep background retry eligibility. Proposed fix is
-pending-alert metadata committed atomically with cached originals, retaining
-legacy array readability; implementation not written yet.
+History bookkeeping finding resolved in d81516f485: ChatHistoryStore stores original
+ciphertexts and pending eligibility atomically, reads legacy arrays and preserves
+contact discovery. Optional ledger failures no longer block ordinary history.
+Actual owned-obstruction RED39061775953 at7eb:9run/1FAIL73.409s before history.
+GREEN39062647592 atd815:9PASS73.995s, including final fixture corrections,
+continuous pre-recovery silence, later real worker alert, physical dismissal and
+continuous duplicate silence. Packets native-retention-red/native-retention-green.
+Root viewed retained launcher and actual generic shade; tests prove history/silence.
+Actual local Docker child passed native/test assembly3m50s/exit0 after its wrapper
+disconnected143; no exact final-comment-source compile claim from that local log.
 
-Next tracer7eb609b59 adds one owned ledger.new-directory case: ordinary Chat must
-retain/read history without alert while bookkeeping unavailable, then removal plus
-real opaque worker recovers the cached pending alert and duplicates stay quiet.
-Actual RED39061775953 immutable7eb pending. Fixture corrections23c25b9f preserve
-primary failures during obstruction cleanup;56499aa0 observes continuous2s absence
-before removing obstruction. Spec correction0, Standards residualcheck pending.
-Existing production finding remains open. No owned local build.
+NEW OPEN Standards finding: deliberate suppression and ordinary notifier RETRY
+leave history eligibility pending, so redelivery after unmute/policy repair can
+produce retrospective alerts. Existing ChatMutePreviewTest requires silence.
+Spec resolved the independent history finding. Existing unchanged chat-mute
+runtime39062885447 atd815 is pending. Proposed correction preserves pending after
+bookkeeping failures, completes eligibility after deliberate suppression, and
+retries notifier failures only for background delivery. Not written yet.
 
-Next: observe storageRED, fix independent history/pending persistence, then actual
-retry/process recovery, preview/exacttap/currentpolicy/identity and gateway stream/
-persistence coverage as needed. Final full Android10/17, core/gateway/release/lint,
-both source/evidence reviews and next signed28 publication remain required before
-native46 completion. Controlled wake injection is never real Google closed-app proof.
+Next: resolve this replay finding, then actual interruption/retry, worker preview/
+exacttap/currentpolicy/identity and applicable gateway persistence/reconnect.
+Final full Android10/17, core/gateway/release/lint, both source/evidence reviews and
+next signed28 remain required before native46 completion. Controlled injection
+never establishes real Google closed-app delivery. Public beta27 unchanged.
+
 
 ## Accepted gateway session compatibility (#45)
 
