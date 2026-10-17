@@ -9,7 +9,8 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Active unavailable-history recovery
 
-Runtime checkpoint41cc6baa accepted/pushed; sourceCI for that push is pending.
+Runtime checkpoint41cc6baa accepted/pushed; sourceCI39001070761 SUCCESS,
+retained runtime-source-ci(2hashes), covers earlier runtime only.
 Sole42 remains open. Current history tracer4cadda5c extends the non-social raw
 chain/HTTP journey beyond accepted six requests. Seventh Full advertises a
 different tip and an unretained2m0/cc ancestor. Expected: explicit ancestry gap,
@@ -21,7 +22,11 @@ Tracerreviews1/1 explicitJsonNullmismatch; correctedtoabsent-or-JsonNull.
 Currentminimum restartObservation atomicallyretainsbindings/dedup, withdraws
 uncertainpendingchainwork, clearsactivecursor andrecordsreason, so nextpasscan
 bootstraprecentavailableconsecutivesuffix. Missinginteriorheighttailtrimis
-source-only, notexecutedfixturecoverage. Build not startedyet.
+source-only, notexecutedfixturecoverage. Owned77177 endedPASS1m50s/gateway10/0/0/chain10.588s/coreUPTODATE.
+[GREEN](../evidence/ticket42/history-recovery-green/README.md),10hashes/23sources/source0/0.
+No ownedbuild. Final evidence reviews pending.
+Bindings/pending withdrawal during this reset are source-reviewed; this tracer
+is non-social and does not separately exercise those combinations.
 Need preserve subscriptions and withdraw uncertain pending sourced events during
 recovery; unavailable old history remains explicit. Parent-proof availability and
 whole42 review/verification/operatingdocs remain after this slice. Protectedgroupdocuntouched.

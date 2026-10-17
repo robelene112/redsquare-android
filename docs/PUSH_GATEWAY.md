@@ -332,7 +332,7 @@ A range contains at most128 references. The reader verifies header bounds, stric
 increasing heights, serializer-supported golden flags and matching final tip
 identity when heights coincide. Height gaps remain visible. Empty bounds describe
 the advertised tip, which does not alone prove the caller has processed that tip.
-The ancestor full hash and a durable local journal must govern later reorg choices;
+The ancestor full hash and a durable local journal govern reorg choices;
 a fork-ID hint is not ancestry proof.
 
 `block(reference)` fetches one full block over the selected backend's HTTP origin,
@@ -372,8 +372,12 @@ The implementation can rewind only to a matching full height/hash already in
 that retained history, trimming abandoned points and saving a reorganization
 warning before replacement processing. The verified first block's predecessor
 is explicitly retained as `processed:false`: its hash is authenticated by that
-header, but its block has not been processed. Unknown ancestors stop advancement.
-This bounded journal cannot recover an arbitrary old fork. Social-event source
+header, but its block has not been processed. Unknown ancestry stops that pass,
+withdraws uncertain pending chain-derived wakes and clears only that backend's
+active cursor in one snapshot. Bindings and dedup survive. The next pass bootstraps
+available recent full blocks, retaining the missing-history warning. A bootstrap
+with interior missing heights uses only its latest consecutive suffix. This
+bounded recovery cannot reconstruct unavailable old blocks or an arbitrary old fork. Social-event source
 provenance is retained with each chain-derived event. Rewinding atomically marks
 pending descendants withdrawn; their resolver returns410 and they are not sent.
 An ordinary Archive head read cannot reactivate them. Verified re-inclusion can
@@ -435,5 +439,8 @@ passes both approved selectors: verified re-inclusion restores the same wake,
 a second owned FCM attempt and another Full range request. Exact7394d9f8 owned
 build PASS1m52s/gateway10/0/0 plus installDist. Source reviews have no outstanding
 code findings. Initial RED and superseded passing minima remain retained with
-their limits. Missing-history recovery and parent-proof availability remain open;
-no whole42 acceptance is claimed.
+their limits. [Unknown-history recovery](evidence/ticket42/history-recovery-green/README.md)
+passes both selectors across restart and subsequent exact Full continuation,
+retaining coverage warnings. Exact0d3b3e94 PASS1m50s/gateway10/0/0; source0/0.
+Reset binding/event combinations and interior suffix trimming are source-reviewed.
+Parent-proof availability remains open. No whole42 acceptance is claimed.
