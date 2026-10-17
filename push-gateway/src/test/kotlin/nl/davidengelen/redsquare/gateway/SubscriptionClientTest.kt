@@ -34,6 +34,7 @@ class SubscriptionClientTest {
             var uncertain: JsonObject? = null
             var latest: JsonObject? = null
             var authority: JsonObject? = null
+            var dropRetirementAck = false
             val http = PushSubscriptionClient.Http { requestedOrigin, path, body, signature ->
                 assertEquals(origin, requestedOrigin)
                 val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}$path"))
@@ -54,6 +55,10 @@ class SubscriptionClientTest {
                     assertNull("Retirement must not need the outgoing wallet's signature", signature)
                     assertEquals(200, response.statusCode())
                     authority = JsonParser.parseString(body).asJsonObject
+                    if (dropRetirementAck) {
+                        dropRetirementAck = false
+                        throw IOException("Owned boundary drops retirement acknowledgement after commit")
+                    }
                 }
                 PushSubscriptionClient.Reply(response.statusCode(), response.body())
             }
@@ -80,8 +85,21 @@ class SubscriptionClientTest {
             assertEquals("d-replacement-fid", current.get("fid").asString)
             assertNotEquals(old.get("subscription").asString, current.get("subscription").asString)
 
-            // Opt-out after another client reconstruction also uses only installation authority.
+            // Interrupted opt-out must complete before the same wallet can opt back in.
+            dropRetirementAck = true
+            try {
+                PushSubscriptionClient(origin, DurableJournal(journal), http).reconcile { null }
+                fail("A dropped retirement acknowledgement must remain uncertain")
+            } catch (_: IOException) { }
+            assertEquals(current.get("subscription").asString, requireNotNull(authority).get("subscription").asString)
+            PushSubscriptionClient(origin, DurableJournal(journal), http).reconcile {
+                PushSubscriptionClient.Demand(replacement, SaitoBackend.OFFICIAL, "d-replacement-fid")
+            }
+            val reenabled = requireNotNull(latest)
+            assertNotEquals(current.get("subscription").asString, reenabled.get("subscription").asString)
+            // Final opt-out must target this newest binding, not the already-retired original.
             PushSubscriptionClient(origin, DurableJournal(journal), http).reconcile { null }
+            assertEquals(reenabled.get("subscription").asString, requireNotNull(authority).get("subscription").asString)
             val off = http.post(origin, "/v1/subscriptions/status", requireNotNull(authority).toString(), null)
             assertEquals(200, off.status)
             assertFalse(JsonParser.parseString(off.body).asJsonObject.get("active").asBoolean)
