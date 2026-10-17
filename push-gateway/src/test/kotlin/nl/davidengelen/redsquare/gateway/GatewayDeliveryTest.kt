@@ -167,7 +167,13 @@ class GatewayDeliveryTest {
             val identity = SaitoWallet.create()
             ArchivePeer(identity, listOf(mention), now, rows).use { peer ->
                 MockWebServer().use { fcm ->
-                    fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/name-mention\"}").build())
+                    val proofBeforeSend = java.util.concurrent.atomic.AtomicBoolean(false)
+                    fcm.dispatcher = object : mockwebserver3.Dispatcher() {
+                        override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                            proofBeforeSend.set(peer.exactReads.contains(mention.id) && peer.proofCallbacks.get() > 0)
+                            return MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/name-mention\"}").build()
+                        }
+                    }
                     fcm.start(InetAddress.getByName("127.0.0.1"), 0)
                     PushGateway(directory.newFolder("name-${backend.id}").toPath(), "https://push.fixture.invalid").use { gateway ->
                         gateway.start()
@@ -186,11 +192,18 @@ class GatewayDeliveryTest {
                         }).reconcile { PushSubscriptionClient.Demand(owner, backend, "controlled-name-fid", "mentions") }
                         val sender = FcmSender("owned-fixture", GoogleCredentials.create(
                             AccessToken("synthetic-owned-oauth", Date(now + 3_600_000))), "http://127.0.0.1:${fcm.port}")
+                        peer.nameAvailable.set(false)
+                        GatewayArchive(identity, backend, peer.origin, fixtureRegistrar = true).use { gateway.poll(it, sender) }
+                        peer.check()
+                        assertEquals("A currently unavailable name must not produce a wake", 0, fcm.requestCount)
+                        assertEquals(1, peer.nameChecks.get())
+                        peer.nameAvailable.set(true)
                         GatewayArchive(identity, backend, peer.origin, fixtureRegistrar = true).use { gateway.poll(it, sender) }
                         peer.check()
                         val sent = fcm.takeRequest(2, TimeUnit.SECONDS)
                         assertNotNull("A current registrar-confirmed username mention must reach its recipient", sent)
-                        assertEquals(1, peer.nameChecks.get())
+                        assertTrue("Exact post and signed proof callback must precede sending", proofBeforeSend.get())
+                        assertEquals(2, peer.nameChecks.get())
                         val data = JsonParser.parseString(requireNotNull(requireNotNull(sent).body).utf8())
                             .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
                         val wake = data.get("wake").asString
@@ -215,6 +228,8 @@ class GatewayDeliveryTest {
     private class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long, private val registryRows: JsonArray? = null) : Closeable {
         private val failure = AtomicReference<Throwable?>()
         private val server = MockWebServer()
+        val nameAvailable = java.util.concurrent.atomic.AtomicBoolean(true)
+        val proofCallbacks = java.util.concurrent.atomic.AtomicInteger()
         val nameChecks = java.util.concurrent.atomic.AtomicInteger()
         val exposeHead = java.util.concurrent.atomic.AtomicBoolean(true)
         val exactReads = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
@@ -257,7 +272,9 @@ class GatewayDeliveryTest {
                                         // Existing dispatcher fallback is provisional; the signed registrar callback follows.
                                         webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) +
                                             "{\"err\":\"no response\"}".toByteArray()).toByteString())
-                                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + registryRows.toString().toByteArray()).toByteString())
+                                        val answer = if (nameAvailable.get()) registryRows else JsonArray()
+                                        if (!answer.isEmpty) proofCallbacks.incrementAndGet()
+                                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + answer.toString().toByteArray()).toByteString())
                                         return
                                     }
                                     require(request.get("request").asString == "archive")
