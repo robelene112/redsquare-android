@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 /** Shared authenticated transport; request identities remain local to one owned connection. */
 internal class GatewayPeer(private val identity: SaitoWallet, val backend: SaitoBackend,
-    localOrigin: String? = null) : Closeable {
+    localOrigin: String? = null, private val onTransaction: ((ByteArray) -> Unit)? = null) : Closeable {
     private val ready = CompletableFuture<Unit>()
     private val services = CompletableFuture<Set<String>>()
     private val disconnected = AtomicBoolean(false)
@@ -68,6 +68,8 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
                             }
                             ready.complete(Unit)
                         }
+                        4 -> if (ready.isDone && !ready.isCompletedExceptionally && frame.size > 1)
+                            onTransaction?.invoke(frame.copyOfRange(1, frame.size))
                         7 -> send(webSocket, byteArrayOf(16))
                         20 -> send(webSocket, byteArrayOf(9))
                         9 -> {
@@ -105,6 +107,9 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { fail(); webSocket.close(code, null) }
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail() }
         })
+
+    internal val isDisconnected: Boolean get() = disconnected.get()
+    internal fun awaitAuthentication() = await(ready, System.nanoTime() + TimeUnit.SECONDS.toNanos(12))
 
     fun request(message: String, service: String, registrarCallback: Boolean = false): String {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(12)

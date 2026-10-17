@@ -27,9 +27,18 @@ private-chats category rejected400 instead of201. No observer/FCM/original fetch
 assertions reached; Official loop unexecuted. GatewayChatObserver is explicitly a
 no-op executable seam at this checkpoint, not implemented observation. Three
 hashed raw/source records in docs/evidence/ticket46/gateway-first-red. No Android
-source changes, no owned local build. Temporary work stays outside checkout at
-/tmp/redsquare-private46-work-20261017. Next: minimum first gateway journey, then
-native worker/consent/receipt integration as that tracer passes; final full SDKs,
+source changes. No owned local build. Temporary work stays outside checkout at
+/tmp/redsquare-private46-work-20261017. First gateway GREEN1m5s passes both logical backend loops through actual owned
+propagation/opaqueFCM/thinrecipient-proofresolve/originalfetch/localfixturedecrypt.
+Three raw/source hashes in gateway-first-green. Main --observe is not wired to
+this new observer yet; Core client categories and Android remain unchanged.
+No retry/second-stream event/process-death/larger-media claim from this first case.
+The implementation keeps a bounded persistent owned peer and private ciphertext
+cache (24h/128MiB/4096files) separate from the4MiB subscription journal; stream
+gaps remain visible. Minimum source review remains pending.
+Next: correct cache-existing-expiry clamp (a later binding must not outlive its
+original), wire Main lifecycle, complete gateway checks/reviews, then native
+worker/consent/receipt integration; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 

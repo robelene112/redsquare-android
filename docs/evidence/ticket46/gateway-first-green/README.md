@@ -1,0 +1,7 @@
+# First private gateway GREEN
+
+The focused local task succeeds1m5s. One complete JUnit case loops both logical backend bindings through actual private subscription, authenticated gateway-owned peer receiving an ordinary signed encrypted transaction, one owned opaque FCM request, thin current-recipient reference, separately proved original retrieval and local fixture decryption. Three hashed raw build/JUnit/source records retain the tested minimum. The prior HTTP400 RED stays failed with its later tails unexecuted.
+
+The gateway never receives either participant's private/decryption key. The sender payload retains only version/wake; only the current recipient-proof HTTP route returns the signed ciphertext. The fixture's fresh native-generated transaction tests transport behavior; independent encryption interoperability still belongs to the unchanged pinned core cases. Logical backend selectors share an owned fixture, not live public endpoint proof.
+
+This first case does not establish reconnection, a second stream event, retry/process death, media capacity or Android notification display. Main's --observe path is not wired to the new observer yet, and Core client categories/Android code remain unchanged. The minimum source has a persistent bounded observer and separate bounded ciphertext cache, but their broader acceptance and source reviews remain pending. Whole#46, Google/configuration/deployment and physical acceptance remain open.

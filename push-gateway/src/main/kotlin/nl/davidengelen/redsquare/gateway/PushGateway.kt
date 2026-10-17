@@ -120,6 +120,16 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
         return true
     }
 
+    @Synchronized fun privateCandidate(backend: nl.davidengelen.redsquare.saito.SaitoBackend,
+        wire: ByteArray?, sender: FcmSender) {
+        if (Thread.currentThread().isInterrupted) throw InterruptedException()
+        if (wire != null) subscriptions.enqueuePrivate(backend, wire)
+        deliverPending(backend, sender)
+    }
+
+    @Synchronized fun chatStreamGap(backend: nl.davidengelen.redsquare.saito.SaitoBackend, reason: String) =
+        subscriptions.gap(backend, reason)
+
     private fun deliverPending(backend: nl.davidengelen.redsquare.saito.SaitoBackend, sender: FcmSender) {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30)
         for (queued in subscriptions.pending(backend).take(32)) {

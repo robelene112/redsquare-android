@@ -7,6 +7,8 @@ import nl.davidengelen.redsquare.saito.SaitoFullBlock
 import java.math.BigInteger
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.PrivateChat
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import java.io.Closeable
 import java.io.IOException
 import java.net.URI
@@ -28,6 +30,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         URI("https", null, it.host.lowercase(Locale.ROOT), if (it.port == 443) -1 else it.port, null, null, null)
     }.toASCIIString()
     private val store = GatewayStateFile(directory, this.origin)
+    private val chatOriginals = GatewayChatOriginals(directory.resolve("chat-originals"))
     private data class Challenge(val owner: String, val expiresAt: Long, val sequence: Long)
     private val challenges = mutableMapOf<String, Challenge>()
     private val challengeEpoch = UUID.randomUUID().toString()
@@ -63,6 +66,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                 })
             }
             "/v1/wakes/resolve" -> resolve(body, signature, recipient, now)
+            "/v1/wakes/original" -> resolve(body, signature, recipient, now, original = true)
             "/v1/subscriptions/bind" -> bind(body, signature, now)
             "/v1/subscriptions/status", "/v1/subscriptions/revoke" -> authority(path, body, now)
             else -> throw GatewayProblem(404)
@@ -78,7 +82,11 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val fid = text(body, "fid").also { require(it.matches(Regex("[A-Za-z0-9_-]{1,256}"))) }
         val owner = text(body, "owner").also { require(SaitoWallet.isPublicKey(it)) }
         val backend = text(body, "backend").also { value -> require(SaitoBackend.entries.any { it.id == value }) }
-        val categories = text(body, "categories").also { require(it in listOf("mentions", "replies", "mentions,replies")) }
+        val categories = text(body, "categories").also { value ->
+            val parts = value.split(',')
+            require(parts.all { it in setOf("mentions", "private-chats", "replies") } &&
+                parts.distinct().sorted().joinToString(",") == value)
+        }
         val expiresAt = number(body, "expiresAt").also { require(it > now && it - now <= LIFETIME) }
         val revocation = hex(body, "revocationHash")
         val intent = "Saito push bind v1\n$origin/v1/subscriptions/bind\n$nonce\n$id\n$installation\n" +
@@ -292,6 +300,40 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         }
     }
 
+    /** The gateway sees encrypted recipients, not the private module/text; only the device can classify/decrypt it. */
+    @Synchronized fun enqueuePrivate(backend: SaitoBackend, wire: ByteArray) {
+        val envelope = try { PrivateChat.originalEnvelope(wire) } catch (_: Exception) { return }
+        val signed = try { SaitoEnvelope.decodePayload(envelope) } catch (_: Exception) { return }
+        if (!signed.body.isJsonPrimitive || !signed.body.asJsonPrimitive.isString) return
+        val now = clock.millis()
+        if (signed.createdAt > now || now - signed.createdAt >= LIFETIME) return
+        val state = store.load()
+        prune(state, now)
+        val events = state.getAsJsonObject("events")
+        val expiresAt = minOf(now + GatewayChatOriginals.RETENTION, signed.createdAt + LIFETIME)
+        for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
+            val binding = value.asJsonObject
+            val owner = savedText(binding, "owner")
+            if (savedText(binding, "backend") != backend.id || savedNumber(binding, "expiresAt") <= now ||
+                "private-chats" !in savedText(binding, "categories").split(',') ||
+                owner == signed.author || owner !in signed.recipients) continue
+            if (events.entrySet().any { (_, event) -> event.asJsonObject.let {
+                savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
+                    savedText(it, "signature") == signed.id
+            } }) continue
+            if (events.size() >= 4096) throw IOException("Gateway event capacity reached")
+            chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
+            events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
+                addProperty("subscription", subscription); addProperty("owner", owner)
+                addProperty("backend", backend.id); addProperty("signature", signed.id); addProperty("category", "private-chats")
+                addProperty("expiresAt", minOf(expiresAt, savedNumber(binding, "expiresAt")))
+                addProperty("retainUntil", signed.createdAt + LIFETIME)
+                addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
+            })
+        }
+        store.save(state)
+    }
+
     internal data class Delivery(val wake: String, val subscription: String, val generation: String,
         val fid: String, val expiresAt: Long)
 
@@ -354,11 +396,13 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         }
     }
 
-    private fun resolve(body: JsonObject, signature: String?, recipient: String?, now: Long): GatewayReply {
+    private fun resolve(body: JsonObject, signature: String?, recipient: String?, now: Long,
+        original: Boolean = false): GatewayReply {
         fields(body, setOf("version", "wake"))
         val wake = hex(body, "wake")
+        val operation = if (original) "original" else "resolve"
         if (recipient == null || !SaitoWallet.isPublicKey(recipient) || signature == null || !SaitoWallet.verify(
-            "Saito push resolve v1\n$origin/v1/wakes/resolve\n$wake".toByteArray(Charsets.UTF_8), signature, recipient)) {
+            "Saito push $operation v1\n$origin/v1/wakes/$operation\n$wake".toByteArray(Charsets.UTF_8), signature, recipient)) {
             throw GatewayProblem(401)
         }
         val state = store.load()
@@ -366,9 +410,20 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         if (savedText(event, "owner") != recipient) throw GatewayProblem(401)
         if (savedText(event, "state") == "withdrawn" || savedNumber(event, "expiresAt") <= now ||
             currentBinding(state, event, now) == null) throw GatewayProblem(410)
+        if (original) {
+            if (savedText(event, "category") != "private-chats") throw GatewayProblem(404)
+            val backend = SaitoBackend.entries.single { it.id == savedText(event, "backend") }
+            val envelope = chatOriginals.load(backend, savedText(event, "signature"), now) ?: throw GatewayProblem(410)
+            try {
+                val signed = SaitoEnvelope.decodePayload(envelope)
+                require(signed.id == savedText(event, "signature") && recipient in signed.recipients && signed.author != recipient)
+            } catch (failure: Exception) { throw IOException("Retained Chat original unavailable", failure) }
+            return GatewayReply(200, JsonObject().apply { addProperty("version", 1); addProperty("envelope", envelope) })
+        }
         return GatewayReply(200, JsonObject().apply {
             addProperty("version", 1); addProperty("wallet", recipient)
             addProperty("backend", savedText(event, "backend")); addProperty("signature", savedText(event, "signature"))
+            if (savedText(event, "category") == "private-chats") addProperty("kind", "private-chat")
         })
     }
 
@@ -376,7 +431,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     private fun recordGap(state: JsonObject, backend: SaitoBackend, reason: String, now: Long) {
         require(reason in setOf("bootstrap-history-unavailable", "chain-unavailable", "chain-ancestry-unavailable",
             "chain-history-unavailable", "full-block-unavailable", "archive-candidate-unavailable",
-            "name-proof-unavailable", "chain-reorganization", "archive-unavailable", "archive-parent-unavailable"))
+            "name-proof-unavailable", "chain-reorganization", "archive-unavailable", "archive-parent-unavailable",
+            "chat-stream-unavailable", "chat-stream-capacity"))
         val gaps = state.getAsJsonObject("gaps")
         val records = gapRecords(gaps.get(backend.id)?.asJsonObject, now)
         val previous = records.firstOrNull { savedText(it.asJsonObject, "reason") == reason }?.asJsonObject
@@ -418,6 +474,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val state = store.load()
         prune(state, now)
         store.save(state)
+        chatOriginals.cleanup(now)
     }
 
     @Synchronized override fun close() = store.close()

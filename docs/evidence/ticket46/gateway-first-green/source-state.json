@@ -1,0 +1,14 @@
+{
+  "reviewBase": "4703fabeccb0ba86be0b7711ff546226b0f50a83",
+  "tracer": "8b08cb84e37fe8a5c285c6e05533968210683e6f",
+  "command": "scripts/android-build :push-gateway:test --tests nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest",
+  "exitCode": 0,
+  "sourceSha256": {
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatObserver.kt": "fb7b1be52fce0f03a849d8b4bfb285108fa7fb940fb10e82f7099c98699cd5e1",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatOriginals.kt": "b03382781a59658cb32f9ca9101535c55cc4144a12a371bc2b069a2d2836a52c",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "41d6ca4025d09f1b0c516fd3b74c21c26adfa6db6f0a9b8e29c918a7f4d046fd",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "0370f216a490fc1e1575080297ff1f9390fe4d8dde268348194cff6a365afd89",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "c11370c77ce3d6231fffddb8bd999b6a4bdf3a581f41fa2c3728a9191a0e5562",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayPrivateChatDeliveryTest.kt": "a4282c2bbfc2ada60c484a01e7ea2382edf738d0a48dc6df05bb0f9328b5812c"
+  }
+}
