@@ -83,9 +83,14 @@ configured SDK callbacks/rotation and actual Google/device delivery remain#32
 acceptance. Android reconciliation binds the registered FID to the gateway through
 its separately verified signed contract. Chat must join the shared consent
 calculation before using this installation transport, so one module cannot
-unregister another. Configured push acceptance on Android10/17 and physical
-Pixel/locked/Doze checks remain outstanding.
-Public beta24 is unchanged.
+unregister another. Native Chat presentation in#44 now implements cached private
+and group alert destinations, mounted-work recovery and wallet-scoped private
+message previews in Settings. Previews default off; unsupported content stays
+generic, and disabling previews withdraws older private alerts for that wallet.
+This retained-alert presentation does not connect Chat to Firebase or the gateway.
+See[the current handoff](handoffs/IMPLEMENTATION.md) for its actual verification
+status and signed review publication. Configured push acceptance on Android10/17
+and physical Pixel/locked/Doze checks remain outstanding.
 
 ## Dependency compatibility
 

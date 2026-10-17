@@ -15,9 +15,17 @@ scripts/android-build :core:test :app:assembleDebug :app:lintDebug
 ```
 
 The first build installs the SDK in an isolated Docker image and accepts its
-SDK licenses. Gradle caches and build artifacts stay outside Git. The debug
-variant currently launches a local compatibility diagnostic; it is not a live
-feed or a release preview. Synthetic reference keys are confined to tests.
+SDK licenses. Gradle caches and build artifacts stay outside Git. The app opens the native
+Red Square feed and uses one local wallet across Red Square and Chat. The debug
+package is separate from signed phone-review builds; synthetic reference keys
+are confined to tests.
+
+Signed review updates and build notes are available at
+[the review page](https://davidengelen.nl/redsquare/). Install updates over the
+existing app to retain its wallet and local work. See
+[review-build operations](docs/REVIEW_BUILDS.md) for signing and publication, and
+[the current handoff](docs/handoffs/IMPLEMENTATION.md) for accepted features and
+outstanding integrations.
 
 The core wallet uses native JVM cryptography. The Compose UI is native Android;
 no remote browser page owns wallet keys. Imported wallet options are protected
