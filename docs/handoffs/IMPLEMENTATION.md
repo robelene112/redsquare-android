@@ -86,7 +86,7 @@ core.test and app.androidTest. A bounded host JVM launcher, runtime-classpath bu
 hook, device-only snapshot fixture and Python supervisor are prepared. The existing
 social-push-process scope first retains its dismissal-replay check, then attempts
 an autonomous scheduled-receipt observation. The supervisor keeps setup
-instrumentation alive, kills the verified PID, and observes a distinct PID, new
+instrumentation alive, requests the waiting fixture to terminate its verified PID, and observes a distinct PID, new
 peer reads and exact system alert before any target relaunch. Cleanup then stops
 the target, independently cancels/drains owned work and restores originals. This
 is additional verification of the accepted worker, not a new RED claim. Initial local core/debug/test build passes5m32s with114 core cases. Source review
@@ -96,8 +96,16 @@ failures. Positive available-mode reads avoid a stale host counter baseline; the
 shade capture follows visible XML confirmation. Corrected source reviews atda0a039d report Standards0/Spec0. Corrected local
 core/debug/test/classpath build passes2m27s, core114/0/0. An isolated JDK17 host
 smoke confirms loopback readiness/zero-read metadata and clean owned stop. This
-is not Android recovery evidence. Exact-source CI/native verification is next;
-no autonomous-restart pass is claimed. No SDK/client config/service/gateway/node change was made.
+is not Android recovery evidence. Initial exact-source57ffd6f8 Android10 run38984563727 remains FAILURE at the
+external run-as kill command (exit1, stderr not retained, exact cause unknown).
+The new fixture reaches pending work/PID3819; recovery tails remain unexecuted.
+Independent restoration passes. The earlier dismissal journey passes PID3440→3630.
+[Retained failure](../evidence/ticket32/scheduled-process-stop-failure/android10/README.md)
+includes32 hashes,5 XMLs and the new pending original viewed by root. Android17
+and source checks are still running. The correction uses a PID-specific marker
+for the waiting native fixture's own Process.killProcess, matching established
+fixtures; actual gone-PID and unchanged autonomous observation gates remain.
+Corrected review/compilation/native verification are pending; no restart pass. No SDK/client config/service/gateway/node change was made.
 The existing owner Firebase setup question remains pending, do not repeat it.
 Public signed beta24 is unchanged.
 

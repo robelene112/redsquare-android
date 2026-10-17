@@ -35,8 +35,10 @@ class SocialPushScheduledProcessTest {
     private val originals get() = File(context.noBackupFilesDir, "social-push-scheduled-originals")
     private val manager get() = context.getSystemService(NotificationManager::class.java)
 
-    @Test fun holdPendingReceiptUntilTheHostTerminatesThisProcess() {
+    @Test fun holdPendingReceiptUntilTheHostRequestsProcessTermination() {
         check(!checkpoint.exists() && !originals.exists())
+        val stop = File(context.cacheDir, "social-push-scheduled-stop-${Process.myPid()}")
+        check(!stop.exists())
         val port = requireNotNull(InstrumentationRegistry.getArguments().getString("hostPeerPort")).toInt()
         require(port in 1024..65535)
         assertNoActivity()
@@ -100,9 +102,18 @@ class SocialPushScheduledProcessTest {
         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
         captureNativeScreen(File(context.cacheDir, "social-push-scheduled-evidence/pending-before-death.png"))
         row.addProperty("workId", id.toString()); row.addProperty("phase", "pending"); write(row)
-        // The supervisor must kill this verified-live process. Completing this test would weaken the proof.
-        SystemClock.sleep(90_000)
-        error("The host did not terminate the pending receipt process")
+        // Like the established process fixtures, terminate from the test itself after the host's request.
+        // The supervisor verifies death, then starts no target code during autonomous observation.
+        val stopBy = SystemClock.elapsedRealtime() + 90_000
+        while (SystemClock.elapsedRealtime() < stopBy) {
+            if (stop.exists()) {
+                check(stop.delete())
+                Process.killProcess(Process.myPid())
+                error("Expected deliberate process termination")
+            }
+            SystemClock.sleep(50)
+        }
+        error("The host did not request termination of the pending receipt process")
     }
 
     @Test fun restoreOriginalEncryptedInstallationFiles() {
@@ -110,6 +121,9 @@ class SocialPushScheduledProcessTest {
         val row = JsonParser.parseString(checkpoint.readText()).asJsonObject
         require(row.get("owner").asString == wallet.publicKey && row.get("backend").asString == "owner")
         require(row.get("phase").asString in setOf("copying", "prepared", "pending"))
+        val originalPid = row.get("pid").asInt.also { require(it > 0) }
+        val stop = File(context.cacheDir, "social-push-scheduled-stop-$originalPid")
+        check(!stop.exists() || stop.delete())
         // Even enqueue acknowledgement failure retains payload ownership in the public checkpoint.
         runBlocking(Dispatchers.IO) { SocialPushScheduling.cancelAndAwait(context, row.get("payload").asString) }
         manager.cancel(row.get("tag").asString, 0)

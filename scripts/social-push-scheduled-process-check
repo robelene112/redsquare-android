@@ -89,7 +89,7 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
         if not any(line.split()[-2:] == [mapping, mapping] for line in mappings.splitlines()):
             raise AssertionError('Owned reverse mapping is absent')
         setup = subprocess.Popen(['adb', 'shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
-            'nl.davidengelen.redsquare.SocialPushScheduledProcessTest#holdPendingReceiptUntilTheHostTerminatesThisProcess',
+            'nl.davidengelen.redsquare.SocialPushScheduledProcessTest#holdPendingReceiptUntilTheHostRequestsProcessTermination',
             '-e', 'hostPeerPort', str(port), runner], stdout=setup_log, stderr=subprocess.STDOUT)
         row = wait_for('Persisted retry checkpoint', public_checkpoint, 75, setup)
         pid = row['pid']
@@ -101,7 +101,9 @@ with (control / 'host.log').open('w') as host_log, (args.evidence / 'interrupted
         if not re.fullmatch(r'[0-9a-f]{128}', signature) or row['tag'] != f"social:{row['owner']}:owner:{signature}":
             raise AssertionError('Invalid exact notification identity')
         (args.evidence / 'pending-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
-        adb('shell', 'run-as', package, 'kill', '-9', str(pid))
+        # Ask only this waiting test fixture to terminate itself, as established fixtures do.
+        adb('shell', 'run-as', package, 'touch', 'cache/social-push-scheduled-stop-' + str(pid))
+        wait_for('Requested target process death', lambda: pid not in target_pids(), 10, host)
         assert_process_gone(adb, package, pid)
         setup.wait(timeout=15)
         setup_log.flush()
