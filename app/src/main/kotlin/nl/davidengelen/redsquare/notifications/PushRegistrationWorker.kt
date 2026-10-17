@@ -55,7 +55,7 @@ private object RegistrationExecution {
     }
 }
 
-/** Shared installation transport. Chat must join its consent calculation before using this SDK. */
+/** Shared installation transport reconciles the union of deliberately requested feature categories. */
 internal object PushRegistration {
     private val connected = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
@@ -157,11 +157,18 @@ internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, 
 
 /** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
 internal fun pushIdentity(context: Context): PushIdentity? {
-    val categories = SocialPush.requestedCategories(context) ?: return null
+    val manager = context.getSystemService(android.app.NotificationManager::class.java)
+    if (!manager.areNotificationsEnabled()) return null
     return synchronized(SaitoLocalState.lock) {
         val wallet = AndroidWalletStore(context).loadExisting()
         val backend = AndroidBackendStore(context).load()
-        if (SocialPushSettings(context, wallet.publicKey).enabled()) PushIdentity(wallet, backend, categories) else null
+        val social = if (SocialPushSettings(context, wallet.publicKey).enabled())
+            SocialPush.requestedCategories(context)?.split(',').orEmpty() else emptyList()
+        val chat = if (ChatPushSettings(context, wallet.publicKey).enabled() &&
+            manager.getNotificationChannel("private-chats")?.importance != android.app.NotificationManager.IMPORTANCE_NONE)
+            listOf("private-chats") else emptyList()
+        (social + chat).distinct().sorted().joinToString(",").takeIf { it.isNotEmpty() }
+            ?.let { PushIdentity(wallet, backend, it) }
     }
 }
 

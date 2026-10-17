@@ -41,7 +41,11 @@ import nl.davidengelen.redsquare.saito.*
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {},
     onBack: () -> Unit) {
-    nl.davidengelen.redsquare.NotificationPermissionPrompt()
+    val promptContext = LocalContext.current.applicationContext
+    nl.davidengelen.redsquare.NotificationPermissionPrompt(detail = R.string.chat_background_offer_detail,
+        onEnable = { withContext(Dispatchers.IO) {
+            nl.davidengelen.redsquare.notifications.ChatPushSettings(promptContext, wallet.publicKey).setEnabled(true)
+        } })
     var groupDestination by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     if (reviewingGroups) {

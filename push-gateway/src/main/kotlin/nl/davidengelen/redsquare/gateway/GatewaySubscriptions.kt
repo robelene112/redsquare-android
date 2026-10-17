@@ -83,9 +83,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val owner = text(body, "owner").also { require(SaitoWallet.isPublicKey(it)) }
         val backend = text(body, "backend").also { value -> require(SaitoBackend.entries.any { it.id == value }) }
         val categories = text(body, "categories").also { value ->
-            val parts = value.split(',')
-            require(parts.all { it in setOf("mentions", "private-chats", "replies") } &&
-                parts.distinct().sorted().joinToString(",") == value)
+            nl.davidengelen.redsquare.saito.PushCategories.requireCanonical(value)
         }
         val expiresAt = number(body, "expiresAt").also { require(it > now && it - now <= LIFETIME) }
         val revocation = hex(body, "revocationHash")

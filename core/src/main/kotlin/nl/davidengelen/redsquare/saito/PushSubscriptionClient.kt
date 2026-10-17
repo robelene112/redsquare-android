@@ -27,7 +27,7 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
         val categories: String = "mentions,replies") {
         init {
             require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")))
-            require(categories in listOf("mentions", "replies", "mentions,replies"))
+            PushCategories.requireCanonical(categories)
         }
     }
 
