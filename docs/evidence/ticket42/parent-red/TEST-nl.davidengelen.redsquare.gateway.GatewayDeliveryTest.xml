@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayDeliveryTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T04:08:15" hostname="9c77e320ffe1" time="2.252">
+  <properties/>
+  <testcase name="selectedArchiveReplyRetainsOneWakeAcrossLostSendAcknowledgementRestartAndOptOut" classname="nl.davidengelen.redsquare.gateway.GatewayDeliveryTest" time="2.252">
+    <failure message="java.lang.AssertionError: Missing selected-Archive parent proof must remain an explicit coverage gap" type="java.lang.AssertionError">java.lang.AssertionError: Missing selected-Archive parent proof must remain an explicit coverage gap
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.gateway.GatewayDeliveryTest.selectedArchiveReplyRetainsOneWakeAcrossLostSendAcknowledgementRestartAndOptOut(GatewayDeliveryTest.kt:108)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

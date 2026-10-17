@@ -7,6 +7,24 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active missing-parent availability
+
+History checkpoint1c62eb31 accepted/pushed; source CI for that push pending.
+Sole42 remainsopen. Parent tracer182848ae extends the existing owned reply journey:
+first withhold exact signed root, require noFCM and retained archive-parent-unavailable
+warning, restore root and clear read observations, then preserve the prior fresh
+exact-proof→FCM/lostack/restart/retry/optout path for bothselectors.
+Owned35676 focusedFAIL37s/1method1failure: noFCMwhileparentwithheldpassed,
+thenmissingparentgapassertionfails. Restoration/latertails/OFFICIALunexecuted.
+[RED](../evidence/ticket42/parent-red/README.md),3hashes/23sources, tracer0/0.
+Currentminimum marks unavailableParent when exactsignedroot isabsent, preserves
+independentmentions andrecordsarchive-parent-unavailable. No build outcome yet.
+Focused RED retention must copy only actual GatewayDeliveryTest report (retainer
+has label parent-red exception), avoiding older unrelated JUnit. Source list23.
+After parent acceptance: whole42 integrated source/protocol/native-evidence review
+and finalcheck/operatingfacts, without Google/deployment/#32 completion claims.
+Protectedgroupdocuntouched. No code edits while owned build active.
+
 ## Active unavailable-history recovery
 
 Runtime checkpoint41cc6baa accepted/pushed; sourceCI39001070761 SUCCESS,

@@ -16,7 +16,7 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
     private val peer = GatewayPeer(identity, backend, localOrigin)
     fun recentSocial(): ArchiveFeedPage = RedSquareFeed.readSearch(archive(null))
 
-    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean)
+    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean, val unavailableParent: Boolean = false)
 
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
     internal fun verifiedSocial(signatures: List<String>? = null): List<VerifiedSocial> {
@@ -30,7 +30,8 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
             budget()
             val post = exact(signature) ?: return@mapNotNull null
             if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
-            VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { budget(); exact(it)?.author }, emptySet(), false)
+            val parentAuthor = post.parentId.takeIf { it.isNotEmpty() }?.let { budget(); exact(it)?.author }
+            VerifiedSocial(post, parentAuthor, emptySet(), false, post.parentId.isNotEmpty() && parentAuthor == null)
         }
         val namesRead = mutableMapOf<String, String?>()
         return verified.map { candidate ->

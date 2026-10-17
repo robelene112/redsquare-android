@@ -247,6 +247,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     private fun enqueue(state: JsonObject, backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>,
         source: SaitoFullBlock?, now: Long) {
         val events = state.getAsJsonObject("events")
+        if (candidates.any { it.unavailableParent }) recordGap(state, backend, "archive-parent-unavailable", now)
         if (candidates.any { it.unavailableNames }) recordGap(state, backend, "name-proof-unavailable", now)
         for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
             val binding = value.asJsonObject
@@ -375,7 +376,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     private fun recordGap(state: JsonObject, backend: SaitoBackend, reason: String, now: Long) {
         require(reason in setOf("bootstrap-history-unavailable", "chain-unavailable", "chain-ancestry-unavailable",
             "chain-history-unavailable", "full-block-unavailable", "archive-candidate-unavailable",
-            "name-proof-unavailable", "chain-reorganization", "archive-unavailable"))
+            "name-proof-unavailable", "chain-reorganization", "archive-unavailable", "archive-parent-unavailable"))
         val gaps = state.getAsJsonObject("gaps")
         val records = gapRecords(gaps.get(backend.id)?.asJsonObject, now)
         val previous = records.firstOrNull { savedText(it.asJsonObject, "reason") == reason }?.asJsonObject
