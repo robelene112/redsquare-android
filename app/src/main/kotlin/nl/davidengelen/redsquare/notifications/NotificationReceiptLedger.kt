@@ -10,25 +10,28 @@ import nl.davidengelen.redsquare.saito.SaitoLocalState
 import java.io.File
 
 /** Android publication receipts are independent of in-app unread activity and scoped to wallet/server. */
-internal class SocialPushLedger(context: Context, private val reference: SocialPushReference) {
-    private val name = "socialpush.${reference.owner}.${reference.backend.id}.ledger.v1"
+internal class NotificationReceiptLedger(context: Context, owner: String, backend: nl.davidengelen.redsquare.saito.SaitoBackend,
+    private val signature: String, domain: Domain) {
+    enum class Domain(val prefix: String) { SOCIAL("socialpush"), PRIVATE_CHAT("chatpush") }
+    private val prefix = domain.prefix
+    private val name = "$prefix.$owner.${backend.id}.ledger.v1"
     private val pendingFile = File(context.noBackupFilesDir, "$name.new")
-    private val file = EncryptedLocalFile(context, name, "redsquare.socialpush.${reference.owner}", "socialpush.${reference.owner}.")
+    private val file = EncryptedLocalFile(context, name, "redsquare.$prefix.$owner", "$prefix.$owner.")
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     private data class Receipt(val signature: String, val receivedAt: Long, val published: Boolean)
 
     fun wasPublished(now: Long): Boolean = synchronized(SaitoLocalState.lock) {
-        read(now).any { it.signature == reference.signature && it.published }
+        read(now).any { it.signature == signature && it.published }
     }
 
     /** Record the recoverable attempt before calling Android. Never evict an unexpired receipt. */
     fun prepare(now: Long): Boolean = synchronized(SaitoLocalState.lock) {
         val receipts = read(now)
-        val existing = receipts.singleOrNull { it.signature == reference.signature }
+        val existing = receipts.singleOrNull { it.signature == signature }
         if (existing?.published == true) return@synchronized false
         if (existing == null) {
-            check(receipts.size < MAX_RECEIPTS) { "Social alert receipt capacity reached" }
-            write(receipts + Receipt(reference.signature, now, false))
+            check(receipts.size < MAX_RECEIPTS) { "Alert receipt capacity reached" }
+            write(receipts + Receipt(signature, now, false))
         }
         true
     }
@@ -36,8 +39,8 @@ internal class SocialPushLedger(context: Context, private val reference: SocialP
     /** notify returning is not a user-display receipt; its separate disk acknowledgement is not atomic. */
     fun recordPublication(now: Long) = synchronized(SaitoLocalState.lock) {
         val receipts = read(now)
-        require(receipts.any { it.signature == reference.signature })
-        write(receipts.map { if (it.signature == reference.signature) it.copy(published = true) else it })
+        require(receipts.any { it.signature == signature })
+        write(receipts.map { if (it.signature == signature) it.copy(published = true) else it })
     }
 
     private fun read(now: Long): List<Receipt> {

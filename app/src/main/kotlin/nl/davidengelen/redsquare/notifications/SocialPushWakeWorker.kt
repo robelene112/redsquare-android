@@ -89,11 +89,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 resolver.path != "/v1/wakes/resolve") return@work Result.failure()
             val selected = try {
                 synchronized(SaitoLocalState.lock) {
-                    val wallet = AndroidWalletStore(applicationContext).loadExisting()
-                    val backend = AndroidBackendStore(applicationContext).load()
-                    if (!SocialPushSettings(applicationContext, wallet.publicKey).enabled() ||
-                        !applicationContext.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) null
-                    else wallet to backend
+                    pushIdentity(applicationContext)?.let { it.wallet to it.backend }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { return@work Result.retry() }
@@ -132,10 +128,31 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 return@work Result.retry()
             }
             currentCoroutineContext().ensureActive()
-            val reference = try { SocialPushReference.parse(payload) }
-            catch (_: IllegalArgumentException) { return@work Result.failure() }
+            val privateReference = try { PrivateChatPush.reference(payload) }
+            catch (_: Exception) { return@work Result.failure() }
+            val reference = try { privateReference ?: SocialPushReference.parse(payload) }
+            catch (_: Exception) { return@work Result.failure() }
             if (reference.owner != wallet.publicKey || reference.backend != backend) return@work Result.success()
             val archive = if (fixture) inputData.getString("archive") ?: backend.peerUrl else backend.peerUrl
+            if (privateReference != null) {
+                val current = try { pushIdentity(applicationContext) }
+                catch (_: Exception) { return@work Result.retry() }
+                if (current == null || current.wallet.publicKey != reference.owner || current.backend != reference.backend ||
+                    "private-chats" !in current.categories.split(',')) return@work Result.success()
+                val envelope = try { original(current.wallet, wake, url) ?: return@work Result.success() }
+                catch (_: IOException) { currentCoroutineContext().ensureActive(); return@work Result.retry() }
+                catch (_: Exception) { return@work Result.failure() }
+                currentCoroutineContext().ensureActive()
+                return@work receiptExecution.withLock {
+                    currentCoroutineContext().ensureActive()
+                    if (isStopped) return@withLock Result.failure()
+                    when (PrivateChatPush.receive(applicationContext, reference, envelope, archive)) {
+                        nl.davidengelen.redsquare.chat.ChatNotificationResult.PUBLISHED,
+                        nl.davidengelen.redsquare.chat.ChatNotificationResult.SUPPRESSED -> Result.success()
+                        nl.davidengelen.redsquare.chat.ChatNotificationResult.RETRY -> Result.retry()
+                    }
+                }
+            }
             receiptExecution.withLock receipt@{
                 currentCoroutineContext().ensureActive()
                 if (isStopped) return@receipt Result.failure()
@@ -149,6 +166,41 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                     SocialPushResult.RETRY -> Result.retry()
                 }
             }
+        }
+    }
+
+    private fun original(wallet: nl.davidengelen.redsquare.saito.SaitoWallet, wake: String, resolver: okhttp3.HttpUrl): String? {
+        val url = resolver.newBuilder().encodedPath("/v1/wakes/original").build()
+        val intent = "Saito push original v1\n$url\n$wake"
+        val body = JsonObject().apply { addProperty("version", 1); addProperty("wake", wake) }
+        val request = Request.Builder().url(url).header("X-Saito-Owner", wallet.publicKey)
+            .header("X-Saito-Signature", wallet.sign(intent.toByteArray(Charsets.UTF_8)))
+            .post(body.toString().toRequestBody("application/json".toMediaType())).build()
+        return client.newCall(request).execute().use { response ->
+            if (response.code in listOf(404, 410)) return null
+            if (response.code != 200) throw IOException("Private original unavailable")
+            val limit = 8 * 1024 * 1024 + 512
+            val bytes = ByteArray(limit + 1)
+            var size = 0
+            response.body.byteStream().use { input ->
+                while (size < bytes.size) {
+                    val count = input.read(bytes, size, bytes.size - size)
+                    if (count < 0) break
+                    check(count > 0); size += count
+                }
+            }
+            require(size in 1..limit)
+            val text = Charsets.UTF_8.newDecoder().onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+                .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
+                .decode(java.nio.ByteBuffer.wrap(bytes, 0, size)).toString()
+            val retained = requireNotNull(com.google.gson.GsonBuilder().setStrictness(com.google.gson.Strictness.STRICT)
+                .create().fromJson(text, JsonObject::class.java))
+            require(retained.keySet() == setOf("version", "envelope"))
+            val version = retained.get("version")
+            require(version.isJsonPrimitive && version.asJsonPrimitive.isNumber && version.asBigDecimal.intValueExact() == 1)
+            val envelope = retained.get("envelope")
+            require(envelope.isJsonPrimitive && envelope.asJsonPrimitive.isString)
+            envelope.asString.also { require(it.toByteArray(Charsets.UTF_8).size <= 8 * 1024 * 1024) }
         }
     }
 

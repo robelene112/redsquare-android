@@ -87,7 +87,8 @@ internal object SocialPush {
         if (!allowedEndpoint(endpoint, reference.backend)) return@withContext SocialPushResult.SUPPRESSED
         val registrar = RegistryAuthority.forPeer(endpoint, fixtureRegistrar)
         try {
-            val ledger = SocialPushLedger(context, reference)
+            val ledger = NotificationReceiptLedger(context, reference.owner, reference.backend, reference.signature,
+                NotificationReceiptLedger.Domain.SOCIAL)
             val wallet = synchronized(SaitoLocalState.lock) {
                 AndroidWalletStore(context).loadExisting().takeIf {
                     it.publicKey == reference.owner && AndroidBackendStore(context).load() == reference.backend &&

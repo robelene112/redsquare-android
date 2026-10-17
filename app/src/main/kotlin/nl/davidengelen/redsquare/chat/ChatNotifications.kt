@@ -24,6 +24,8 @@ private enum class ChatAlertKind(val channel: String, val label: Int) {
 private data class IncomingChatAlert(val id: String, val author: String, val conversationId: String,
     val kind: ChatAlertKind, val privateText: String? = null)
 
+internal enum class ChatNotificationResult { PUBLISHED, SUPPRESSED, RETRY }
+
 internal fun notifyPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     message: PrivateChatMessage, endpoint: String = backend.peerUrl) = notifyChat(context, wallet, backend,
         IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE, message.text), endpoint)
@@ -34,23 +36,25 @@ internal fun notifyGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
 
 /** Optional system alerts follow retention. Failures never undo an authenticated saved message. */
 private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    message: IncomingChatAlert, endpoint: String) {
-    if (message.author == wallet.publicKey) return
-    try {
+    message: IncomingChatAlert, endpoint: String): ChatNotificationResult {
+    if (message.author == wallet.publicKey) return ChatNotificationResult.SUPPRESSED
+    return try {
         synchronized(SaitoLocalState.lock) {
             if (AndroidWalletStore(context).loadExisting().publicKey != wallet.publicKey ||
-                AndroidBackendStore(context).load() != backend) return
+                AndroidBackendStore(context).load() != backend) return@synchronized ChatNotificationResult.SUPPRESSED
             val policy = AndroidPersonalControls(context, wallet.publicKey).load()
-            if (policy.hidesSocial(message.author) || message.conversationId in policy.mutedConversations) return
+            if (policy.hidesSocial(message.author) || message.conversationId in policy.mutedConversations) return@synchronized ChatNotificationResult.SUPPRESSED
             if (message.kind == ChatAlertKind.GROUP && GroupChatStore(context, wallet, backend)
-                .load(message.conversationId)?.group?.memberRoles?.get(wallet.publicKey)?.active != true) return
+                .load(message.conversationId)?.group?.memberRoles?.get(wallet.publicKey)?.active != true) return@synchronized ChatNotificationResult.SUPPRESSED
             if (Build.VERSION.SDK_INT >= 33 && context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED) return
+                PackageManager.PERMISSION_GRANTED) return@synchronized ChatNotificationResult.SUPPRESSED
             val notifications = context.getSystemService(NotificationManager::class.java)
-            if (!notifications.areNotificationsEnabled()) return
+            if (!notifications.areNotificationsEnabled()) return@synchronized ChatNotificationResult.SUPPRESSED
             val channel = message.kind.channel
             notifications.createNotificationChannel(NotificationChannel(channel,
                 context.getString(message.kind.label), NotificationManager.IMPORTANCE_DEFAULT))
+            if (notifications.getNotificationChannel(channel).importance == NotificationManager.IMPORTANCE_NONE)
+                return@synchronized ChatNotificationResult.SUPPRESSED
             val previews = message.kind == ChatAlertKind.PRIVATE && try {
                 ChatAlertSettings(context, wallet.publicKey).previewsEnabled()
             } catch (_: Exception) { false }
@@ -81,9 +85,11 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
                 .setContentIntent(open)
                 .build()
             notifications.notify("chat:${wallet.publicKey}:${backend.id}:${message.id}", 0, notification)
+            ChatNotificationResult.PUBLISHED
         }
     } catch (_: Exception) {
-        // Missing permission, unreadable policy or an unavailable system service stays silent.
+        // Ordinary foreground Chat stays usable; a background receipt can retain and retry this attempt.
+        ChatNotificationResult.RETRY
     }
 }
 
