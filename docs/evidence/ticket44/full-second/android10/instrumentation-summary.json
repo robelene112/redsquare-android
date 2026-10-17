@@ -1,0 +1,206 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/chat44-full10-second-39046444313/.scratch/device-evidence/api-29",
+  "status_codes": {
+    "0": 17,
+    "-2": 1
+  },
+  "totals": {
+    "completion_records": 5,
+    "reported_ok_test_counts": 17,
+    "crash_outputs": 0,
+    "explicit_failed_files": 1
+  },
+  "excluded_exact_aggregates": [],
+  "files": [
+    {
+      "path": "appearance-ui.txt",
+      "sha256": "9e6069852ebda036110cbf191dddb18dfad09b2bfa51dca27ff00b44e295dc79",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.AppearancePreviewTest",
+          "test": "systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "11.389"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "sha256": "6e44b77a4cf75ea873aa6b619d8ea0aa075303e91ce90874551895ebfa38e471",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PushBindingPreviewTest",
+          "test": "bindingFollowsDurableWalletBackendAndConsentWithoutRetainingTheOutgoingWallet",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.169"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "sha256": "a162b9443a39b0221a22f76d467a89345747b6bc7feecd4cbb03d957eaec0ad6",
+      "statuses": {
+        "-2": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushProcessRecoveryTest",
+          "test": "terminateAfterPublishingAndPhysicallyDismissingAReply",
+          "code": -2
+        }
+      ],
+      "junit_ok": [],
+      "junit_times": [
+        "7.62"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": true
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "sha256": "6aeb6dee0cf531167c40ca975eeabce46991bd231692f5d74e9f02b0b2c1039f",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.689"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-ui.txt",
+      "sha256": "48af92c9984b37252218d89613f40a92d8fa1b9113fc94961b9e29ad0f9a3e82",
+      "statuses": {
+        "0": 11
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushPreviewTest",
+          "test": "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushPreviewTest",
+          "test": "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        11
+      ],
+      "junit_times": [
+        "87.615"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "sha256": "25a13a74d1c33e290cb99c9479e457eff4ee600053c43bb2ea26c08ffab047c6",
+      "statuses": {
+        "0": 3
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        3
+      ],
+      "junit_times": [
+        "47.136"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    }
+  ]
+}

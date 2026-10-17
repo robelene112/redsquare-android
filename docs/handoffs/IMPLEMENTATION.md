@@ -80,8 +80,7 @@ SUCCESS: UI8/0/95.265s, actual policy process recovery1/0/12.708s (PID6796to7265
 restoration1/0/0.081s, core114/0/0. Canonical settings-scroll-green/android10
 retains19hashes/inventory38XML38PNG. New alert-specific process death is not proved.
 Fresh full pair exact4f0d7ce1af31564e7b212752e2ecab3545e5265b is PENDING:
-Android10 run39046444313 andAndroid17 run39046446190, public_feed_read=true.
-Both source/release/lint stages passed, native suites running. Source-equivalence
+Android10 run39046444313 FAILED early at existing SocialPushProcessRecoveryTest84: actual reply remained after coordinate swipe and5s wait. Seventeen early passes/one failure; no deliberate death, restoration1PASS. Full-second/android10 retains originals; identical before/after PNGs, rootviewedfailure, XMLsamefullyvisiblecard. Cause beyond ineffective gesture unproved. Fixture-onlyf7395a26a uses one UiObject2-bound swipe, preserving all observable assertions/deadlines and no retries/cancelAPI. Focus social-push-process10 pending. Android17 run39046446190 continues at4f0; do not cancel blindly. Both source/release/lint stages passed; public_feed_read=true. Source-equivalence
 in full-regression proves APK9a/focused8113/full4f0 production/build equality and
 corrected fixture equality8113/full4f0. Root viewed both first-failure Settings PNGs.
 

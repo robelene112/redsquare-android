@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateAfterPublishingAndPhysicallyDismissingAReply
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply$lambda$9$lambda$8(SocialPushProcessRecoveryTest.kt:84)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.$r8$lambda$WLEg7Lb9PBrO97Mxh801Yg5Y11M(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply(SocialPushProcessRecoveryTest.kt:69)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateAfterPublishingAndPhysicallyDismissingAReply(nl.davidengelen.redsquare.SocialPushProcessRecoveryTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply$lambda$9$lambda$8(SocialPushProcessRecoveryTest.kt:84)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.$r8$lambda$WLEg7Lb9PBrO97Mxh801Yg5Y11M(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply(SocialPushProcessRecoveryTest.kt:69)
+
+INSTRUMENTATION_STATUS: test=terminateAfterPublishingAndPhysicallyDismissingAReply
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.62
+There was 1 failure:
+1) terminateAfterPublishingAndPhysicallyDismissingAReply(nl.davidengelen.redsquare.SocialPushProcessRecoveryTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply$lambda$9$lambda$8(SocialPushProcessRecoveryTest.kt:84)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.$r8$lambda$WLEg7Lb9PBrO97Mxh801Yg5Y11M(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushProcessRecoveryTest.terminateAfterPublishingAndPhysicallyDismissingAReply(SocialPushProcessRecoveryTest.kt:69)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
