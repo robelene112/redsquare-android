@@ -195,14 +195,20 @@ class GiphyPreviewTest {
         try {
             val x = bounds.centerX()
             assertTrue("The image boundary x sample must be visible", x in 0 until screenshot.width)
-            for (y in listOf(bounds.top - 8, bounds.bottom + 8)) {
-                assertTrue("The image boundary sample must be visible", y in 0 until screenshot.height)
-                val pixel = screenshot.getPixel(x, y)
+            fun isFixturePixel(pixel: Int): Boolean {
                 val red = kotlin.math.abs(Color.red(pixel) - 220) <= 5 &&
                     kotlin.math.abs(Color.green(pixel) - 30) <= 5 && kotlin.math.abs(Color.blue(pixel) - 40) <= 5
                 val blue = kotlin.math.abs(Color.red(pixel) - 20) <= 5 &&
                     kotlin.math.abs(Color.green(pixel) - 60) <= 5 && kotlin.math.abs(Color.blue(pixel) - 220) <= 5
-                assertFalse("GIF pixels must stay inside the image bounds ($label, y=$y, bounds=$bounds)", red || blue)
+                return red || blue
+            }
+            assertTrue("The image center sample must be visible", bounds.centerY() in 0 until screenshot.height)
+            assertTrue("The same window screenshot must positively contain the GIF",
+                isFixturePixel(screenshot.getPixel(x, bounds.centerY())))
+            for (y in listOf(bounds.top - 8, bounds.bottom + 8)) {
+                assertTrue("The image boundary sample must be visible", y in 0 until screenshot.height)
+                assertFalse("GIF pixels must stay inside the image bounds ($label, y=$y, bounds=$bounds)",
+                    isFixturePixel(screenshot.getPixel(x, y)))
             }
         } finally { screenshot.recycle() }
     }

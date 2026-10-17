@@ -875,3 +875,10 @@ window-relative Compose bounds versus full-display screenshot coordinates.
 Corrected tracer uses UiAutomator visibleBounds in the same screen coordinates
 and validates x/y. Run39008263619 cancellation requested, no application failure
 or RED inferred from that discarded observer. Corrected native run required.
+
+Second discarded observer run39008310559 cancellation requested after review
+required a positive center-pixel observation in the SAME full-screen bitmap.
+Otherwise a bitmap omitting the native view could pass outside-absence checks.
+Final tracer adds center known-color/positive coordinates before unchanged
+outside samples. Neither discarded run establishes application RED. Wait for
+both bounded reviews before dispatching this corrected tracer.
