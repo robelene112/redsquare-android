@@ -45,60 +45,64 @@ class PublicYouTubeReadTest {
             addProperty("videoId", if (alternate) "bHQqvYy5KYo" else "M7lc1UVf-VE")
             addProperty("nonce", java.util.UUID.randomUUID().toString())
         }
-        observerRequest.writeText(request.toString())
-        val peer = ControlledFeedPeer("[$row]")
-        val device = UiDevice.getInstance(instrumentation)
-        peer.start().use { server ->
-            // No provider fixture: this uses the real API/iframe and its public controls.
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                .putExtra("publicVideoDiagnostics", true)).use { scenario ->
-                var primaryFailure: Throwable? = null
-                try {
-                    ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
-                    if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    val button = hasText("Watch on YouTube") and hasAnyAncestor(
-                        hasAnyChild(hasText(postText) and hasClickAction()))
-                    ui.onNode(hasScrollAction()).performScrollToNode(button)
-                    ui.onNode(button).assertIsDisplayed().performClick()
-                    ui.waitUntil(30_000) {
-                        ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() ||
-                            ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty()
-                    }
-                    capture("public-ready")
-                    ui.onNodeWithText("Use the player controls to start playback.").assertIsDisplayed()
-                    ui.onNodeWithText("Playing YouTube video.").assertDoesNotExist()
-                    ui.waitUntil(15_000) {
-                        try { observerReady.isFile && observerReady.length() <= 512 &&
-                            com.google.gson.JsonParser.parseString(observerReady.readText()) == request }
-                        catch (_: Exception) { false }
-                    }
-                    val label = Pattern.compile("Play(?: video)?", Pattern.CASE_INSENSITIVE)
-                    val play = device.wait(Until.findObject(By.desc(label)), 15_000)
-                        ?: device.wait(Until.findObject(By.text(label)), 5_000)
-                    requireNotNull(play) { "The public provider Play control was not exposed" }.click()
-                    ui.waitUntil(30_000) { ui.onAllNodesWithText("Playing YouTube video.").fetchSemanticsNodes().isNotEmpty() }
-                    capture("public-playing")
-                    ui.onNodeWithText("Close video").performClick()
-                    ui.onNodeWithText("All posts").assertIsDisplayed()
-                    assertTrue(peer.transactions.isEmpty())
-                    peer.assertHealthy()
-                } catch (failure: Throwable) {
-                    primaryFailure = failure
-                    try { capture("public-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
-                    throw failure
-                } finally {
-                    observerRequest.delete(); observerReady.delete()
+        try {
+            observerRequest.writeText(request.toString())
+            val peer = ControlledFeedPeer("[$row]")
+            val device = UiDevice.getInstance(instrumentation)
+            peer.start().use { server ->
+                // No provider fixture: this uses the real API/iframe and its public controls.
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("publicVideoDiagnostics", true)).use { scenario ->
+                    var primaryFailure: Throwable? = null
                     try {
-                        var snapshot: String? = null
-                        scenario.onActivity { snapshot = it.videoDiagnosticsSnapshot() }
-                        File(context.cacheDir, "video-evidence/public-native-diagnostic.json")
-                            .apply { parentFile?.mkdirs() }.writeText(requireNotNull(snapshot))
-                    } catch (diagnostic: Throwable) {
-                        primaryFailure?.addSuppressed(diagnostic) ?: throw diagnostic
+                        ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        val button = hasText("Watch on YouTube") and hasAnyAncestor(
+                            hasAnyChild(hasText(postText) and hasClickAction()))
+                        ui.onNode(hasScrollAction()).performScrollToNode(button)
+                        ui.onNode(button).assertIsDisplayed().performClick()
+                        ui.waitUntil(30_000) {
+                            ui.onAllNodesWithText("Use the player controls to start playback.").fetchSemanticsNodes().isNotEmpty() ||
+                                ui.onAllNodesWithText("Retry").fetchSemanticsNodes().isNotEmpty()
+                        }
+                        capture("public-ready")
+                        ui.onNodeWithText("Use the player controls to start playback.").assertIsDisplayed()
+                        ui.onNodeWithText("Playing YouTube video.").assertDoesNotExist()
+                        ui.waitUntil(15_000) {
+                            try { observerReady.isFile && observerReady.length() <= 512 &&
+                                com.google.gson.JsonParser.parseString(observerReady.readText()) == request }
+                            catch (_: Exception) { false }
+                        }
+                        val label = Pattern.compile("Play(?: video)?", Pattern.CASE_INSENSITIVE)
+                        val play = device.wait(Until.findObject(By.desc(label)), 15_000)
+                            ?: device.wait(Until.findObject(By.text(label)), 5_000)
+                        requireNotNull(play) { "The public provider Play control was not exposed" }.click()
+                        ui.waitUntil(30_000) { ui.onAllNodesWithText("Playing YouTube video.").fetchSemanticsNodes().isNotEmpty() }
+                        capture("public-playing")
+                        ui.onNodeWithText("Close video").performClick()
+                        ui.onNodeWithText("All posts").assertIsDisplayed()
+                        assertTrue(peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                    } catch (failure: Throwable) {
+                        primaryFailure = failure
+                        try { capture("public-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        throw failure
+                    } finally {
+                        try {
+                            var snapshot: String? = null
+                            scenario.onActivity { snapshot = it.videoDiagnosticsSnapshot() }
+                            File(context.cacheDir, "video-evidence/public-native-diagnostic.json")
+                                .apply { parentFile?.mkdirs() }.writeText(requireNotNull(snapshot))
+                        } catch (diagnostic: Throwable) {
+                            primaryFailure?.addSuppressed(diagnostic) ?: throw diagnostic
+                        }
                     }
                 }
             }
+        } finally {
+            observerRequest.delete()
+            observerReady.delete()
         }
     }
 

@@ -30,6 +30,7 @@ const allowed = value => {
 async function inspect(target, request) {
   const socket = new WebSocket(target.webSocketDebuggerUrl);
   activeSocket = socket;
+  let observerContext;
   let next = 0;
   const pending = new Map();
   socket.addEventListener('message', event => {
@@ -64,16 +65,30 @@ async function inspect(target, request) {
       });
       if (!frame) throw Error('Selected public embed is not ready');
       const world = await call('Page.createIsolatedWorld', {frameId:frame.id, worldName:'public-video-error-diagnostic'});
+      observerContext = world.executionContextId;
       const arm = await call('Runtime.evaluate', {contextId:world.executionContextId, returnByValue:true, expression:`(() => {
         const videoId=${JSON.stringify(request.videoId)};
         if(location.origin!=='https://www.youtube.com'||location.pathname!=='/embed/'+videoId)return {armed:false};
+        globalThis.rsPublicProviderError?.close();
         let observer,timer,finish;
         const promise=new Promise(resolve=>{finish=value=>{observer?.disconnect();clearTimeout(timer);resolve(value);};});
         const read=selector=>{
           const node=document.querySelector(selector);if(!node)return null;
-          const r=node.getBoundingClientRect(),style=getComputedStyle(node);
-          if(!node.getClientRects().length||r.width<=0||r.height<=0||r.right<=0||r.bottom<=0||r.x>=innerWidth||r.y>=innerHeight||style.display==='none'||style.visibility!=='visible'||style.opacity==='0')return null;
-          const text=(node.textContent||'').replace(/\s+/g,' ').trim().slice(0,512);
+          const r=node.getBoundingClientRect();
+          if(!node.getClientRects().length||r.width<=0||r.height<=0)return null;
+          let left=Math.max(0,r.left),top=Math.max(0,r.top),right=Math.min(innerWidth,r.right),bottom=Math.min(innerHeight,r.bottom);
+          let ancestor=node,depth=0;
+          for(;ancestor&&depth<128;ancestor=ancestor.parentElement,depth++){
+            const style=getComputedStyle(ancestor);
+            if(style.display==='none'||style.visibility!=='visible'||Number(style.opacity)===0||style.contentVisibility==='hidden')return null;
+            if(ancestor!==node){
+              const box=ancestor.getBoundingClientRect();
+              if(/^(hidden|clip|scroll|auto)$/.test(style.overflowX)){left=Math.max(left,box.left);right=Math.min(right,box.right);}
+              if(/^(hidden|clip|scroll|auto)$/.test(style.overflowY)){top=Math.max(top,box.top);bottom=Math.min(bottom,box.bottom);}
+            }
+          }
+          if(ancestor||left>=right||top>=bottom)return null;
+          const text=(node.textContent||'').replace(/\\s+/g,' ').trim().slice(0,512);
           return text?{text,box:{x:r.x,y:r.y,width:r.width,height:r.height}}:null;
         };
         const inspect=phase=>{
@@ -113,6 +128,9 @@ async function inspect(target, request) {
       if (result.result?.value) output({frame:result.result.value});
     }
   } finally {
+    if (observerContext !== undefined && socket.readyState === WebSocket.OPEN) {
+      try {await call('Runtime.evaluate', {contextId:observerContext,expression:'globalThis.rsPublicProviderError?.close()'},1000);} catch { }
+    }
     socket.close();
     activeSocket = undefined;
     disconnected();
