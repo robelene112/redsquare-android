@@ -71,7 +71,7 @@ internal object PushGatewayBinding {
                 PushSubscriptionClient(origin, DeviceJournal(context), exchange).reconcile {
                     executionContext.ensureActive()
                     if (fid == null) null else pushIdentity(context)?.let {
-                        PushSubscriptionClient.Demand(it.wallet, it.backend, fid, it.categories)
+                        PushSubscriptionClient.Demand(it.wallet, it.backend, fid, it.categories, it.groups)
                     }
                 }
             }

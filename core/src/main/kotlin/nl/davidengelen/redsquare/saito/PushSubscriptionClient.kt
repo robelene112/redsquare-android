@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.saito
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
+import com.google.gson.JsonArray
 import com.google.gson.Strictness
 import java.io.IOException
 import java.net.URI
@@ -24,10 +25,14 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
     }
     data class Reply(val status: Int, val body: String)
     class Demand(val wallet: SaitoWallet, val backend: SaitoBackend, val fid: String,
-        val categories: String = "mentions,replies") {
+        val categories: String = "mentions,replies", groups: List<String> = emptyList()) {
+        val groups: List<String> = java.util.Collections.unmodifiableList(groups.toList())
         init {
             require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")))
             PushCategories.requireCanonical(categories)
+            require(this.groups.size <= 100 && this.groups.distinct().sorted() == this.groups &&
+                this.groups.all { SaitoWallet.isPublicKey(it) && it != wallet.publicKey })
+            require("group-chats" in categories.split(',') || this.groups.isEmpty())
         }
     }
 
@@ -89,10 +94,12 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
             addProperty("owner", desired.wallet.publicKey); addProperty("backend", desired.backend.id)
             addProperty("categories", desired.categories); addProperty("expiresAt", expiry)
             addProperty("revocationHash", hash)
+            if ("group-chats" in desired.categories.split(',')) add("groups", JsonArray().apply { desired.groups.forEach(::add) })
         }
         val intent = "Saito push bind v1\n$origin/v1/subscriptions/bind\n$nonce\n$id\n$installation\n" +
             "${sha256(desired.fid)}\n${desired.wallet.publicKey}\n${desired.backend.id}\n" +
-            "${desired.categories}\n$expiry\n$hash"
+            "${desired.categories}\n$expiry\n$hash" +
+            if ("group-chats" in desired.categories.split(',')) "\n${desired.groups.joinToString(",")}" else ""
         val reply = response(http.post(origin, "/v1/subscriptions/bind", body.toString(),
             desired.wallet.sign(intent.toByteArray(Charsets.UTF_8))), 201, setOf("version", "subscription", "expiresAt"))
         check(text(reply, "subscription") == id && number(reply, "expiresAt") == expiry)
@@ -102,7 +109,7 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
     private fun requireCurrent(expected: Demand, current: () -> Demand?) {
         val fresh = current()
         if (fresh == null || fresh.wallet.publicKey != expected.wallet.publicKey || fresh.backend != expected.backend ||
-            fresh.fid != expected.fid || fresh.categories != expected.categories) {
+            fresh.fid != expected.fid || fresh.categories != expected.categories || fresh.groups != expected.groups) {
             throw IOException("Push demand changed during reconciliation")
         }
     }

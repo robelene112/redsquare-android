@@ -115,7 +115,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(creationKey==null || creationKey.publicKey==group.id)
         check(load(group.id) == null)
         requireNewRecord(group.id)
-        save(Entry(group,candidate,Status.UNKNOWN,creationKey))
+        saveMembership(null, Entry(group,candidate,Status.UNKNOWN,creationKey))
     }
 
     /** Confirmation belongs to this active wallet; unsigned link origin never chooses a backend. */
@@ -130,10 +130,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.recipients==listOf(effective.id,wallet.publicKey,effective.admin,effective.sender).distinct())
         if(previous==null) {
             requireNewRecord(group.id)
-            save(Entry(group,candidate,Status.UNKNOWN))
+            saveMembership(null, Entry(group,candidate,Status.UNKNOWN))
         } else {
             check(!previous.hasPendingAction)
-            save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope(),automaticMessage=false))
+            saveMembership(previous, previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope(),automaticMessage=false))
         }
     }
 
@@ -166,7 +166,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         require(signed.body.get("member_id").asString==wallet.publicKey)
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
-        save(previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope(),automaticMessage=false))
+        saveMembership(previous, previous.copy(group=GroupChat.applyControl(previous.group,candidate.envelope()),candidate=candidate,status=Status.UNKNOWN,originals=previous.originals+candidate.envelope(),automaticMessage=false))
     }
 
     /** Persist authenticated group originals in observation order before incoming RPC acknowledgement. */
@@ -182,7 +182,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 return@synchronized previous
             }
             requireNewRecord(group.id)
-            return@synchronized save(Entry(group,null,Status.RECEIVED))
+            return@synchronized saveMembership(null, Entry(group,null,Status.RECEIVED))
         }
         val id=signed.body.get("group_id").asString
         val previous=requireNotNull(load(id))
@@ -199,7 +199,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     }
 
     private fun retainReplay(previous:Entry,replay:GroupChatReplay):Entry =
-        if(replay.originals==previous.originals)previous else save(previous.copy(
+        if(replay.originals==previous.originals)previous else saveMembership(previous, previous.copy(
             group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions))
 
     fun prepareReaction(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
@@ -351,6 +351,13 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         check(previous.candidate?.id == signature && previous.status!=Status.STOPPED)
         check(status in listOf(Status.SUBMITTED,Status.FORWARDED))
         save(previous.copy(status=status))
+    }
+
+    /** Only a changed active-group set schedules registration; drafts and ordinary messages do not. */
+    private fun saveMembership(previous: Entry?, entry: Entry): Entry = save(entry).also {
+        if ((previous?.group?.memberRoles?.get(wallet.publicKey)?.active == true) !=
+            (it.group.memberRoles[wallet.publicKey]?.active == true))
+            nl.davidengelen.redsquare.notifications.PushRegistration.request(context)
     }
 
     private fun save(entry: Entry): Entry {

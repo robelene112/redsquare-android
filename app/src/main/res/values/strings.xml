@@ -516,9 +516,9 @@
     <string name="social_push_open_failed">Could not open this notification here. Your current work is still here. Check the selected wallet and server, then try again.</string>
     <string name="social_push_dismiss">Dismiss notification link</string>
     <string name="chat_background_alerts">Chat alerts when closed</string>
-    <string name="chat_background_alerts_detail">Allow private chat alerts for this wallet on this phone, including when the app is closed. Android permissions and category settings also apply. Message previews are a separate choice.</string>
+    <string name="chat_background_alerts_detail">Allow private and group chat alerts for this wallet on this phone, including when the app is closed. Android permissions and category settings also apply. Message previews are a separate choice.</string>
     <string name="chat_background_alerts_error">Could not load or save your chat alert choice. Try again.</string>
-    <string name="chat_background_offer_detail">Allow private chat alerts even when Red Square is closed? Messages show New message unless you choose previews in Settings. You can skip this and continue chatting.</string>
+    <string name="chat_background_offer_detail">Allow private and group chat alerts even when Red Square is closed? Group alerts show New message. Private previews are optional in Settings. You can skip this and continue chatting.</string>
     <string name="chat_private_previews">Private message previews</string>
     <string name="chat_private_previews_detail">Show private message text and image captions in notifications. Off by default. Android controls lock screen visibility.</string>
     <string name="chat_private_previews_error">Could not load or save this choice. Try again.</string>

@@ -26,6 +26,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.BuildConfig
+import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -148,12 +149,12 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
     private companion object { const val DAY = 24 * 60 * 60 * 1000L }
 }
 
-private data class RegistrationDemand(val owner: String, val backend: SaitoBackend, val categories: String)
+private data class RegistrationDemand(val owner: String, val backend: SaitoBackend, val categories: String, val groups: List<String>)
 
 private fun registrationDemand(context: Context): RegistrationDemand? =
-    pushIdentity(context)?.let { RegistrationDemand(it.wallet.publicKey, it.backend, it.categories) }
+    pushIdentity(context)?.let { RegistrationDemand(it.wallet.publicKey, it.backend, it.categories, it.groups) }
 
-internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String)
+internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String, val groups: List<String>)
 
 /** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
 internal fun pushIdentity(context: Context): PushIdentity? {
@@ -164,11 +165,14 @@ internal fun pushIdentity(context: Context): PushIdentity? {
         val backend = AndroidBackendStore(context).load()
         val social = if (SocialPushSettings(context, wallet.publicKey).enabled())
             SocialPush.requestedCategories(context)?.split(',').orEmpty() else emptyList()
-        val chat = if (ChatPushSettings(context, wallet.publicKey).enabled() &&
-            manager.getNotificationChannel("private-chats")?.importance != android.app.NotificationManager.IMPORTANCE_NONE)
-            listOf("private-chats") else emptyList()
+        val chat = if (ChatPushSettings(context, wallet.publicKey).enabled())
+            listOf("group-chats", "private-chats").filter {
+                manager.getNotificationChannel(it)?.importance != android.app.NotificationManager.IMPORTANCE_NONE
+            } else emptyList()
+        val groups = if ("group-chats" in chat) GroupChatStore(context, wallet, backend).entries()
+            .filter { it.group.memberRoles[wallet.publicKey]?.active == true }.map { it.group.id }.sorted() else emptyList()
         (social + chat).distinct().sorted().joinToString(",").takeIf { it.isNotEmpty() }
-            ?.let { PushIdentity(wallet, backend, it) }
+            ?.let { PushIdentity(wallet, backend, it, groups) }
     }
 }
 
