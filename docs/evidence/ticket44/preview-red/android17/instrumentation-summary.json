@@ -1,0 +1,42 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/chat44-preview-red-39037078435/.scratch/device-evidence/api-37.0",
+  "status_codes": {
+    "0": 1,
+    "-2": 1
+  },
+  "totals": {
+    "completion_records": 0,
+    "reported_ok_test_counts": 0,
+    "crash_outputs": 0,
+    "explicit_failed_files": 1
+  },
+  "excluded_exact_aggregates": [],
+  "files": [
+    {
+      "path": "chat-alerts-ui.txt",
+      "sha256": "9298f99d7e4017505ade916551f6add755fe1819d400b9d0fcb5aad0f635c1f8",
+      "statuses": {
+        "0": 1,
+        "-2": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled",
+          "code": -2
+        }
+      ],
+      "junit_ok": [],
+      "junit_times": [
+        "71.8"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": true
+    }
+  ]
+}

@@ -21,11 +21,11 @@ private enum class ChatAlertKind(val channel: String, val label: Int) {
 }
 
 private data class IncomingChatAlert(val id: String, val author: String, val conversationId: String,
-    val kind: ChatAlertKind)
+    val kind: ChatAlertKind, val privateText: String? = null)
 
 internal fun notifyPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     message: PrivateChatMessage) = notifyChat(context, wallet, backend,
-        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE))
+        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE, message.text))
 
 internal fun notifyGroupChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     message: GroupChatMessage) = notifyChat(context, wallet, backend,
@@ -50,6 +50,10 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
             val channel = message.kind.channel
             notifications.createNotificationChannel(NotificationChannel(channel,
                 context.getString(message.kind.label), NotificationManager.IMPORTANCE_DEFAULT))
+            val previews = message.kind == ChatAlertKind.PRIVATE && try {
+                ChatAlertSettings(context, wallet.publicKey).previewsEnabled()
+            } catch (_: Exception) { false }
+            val preview = if (previews) message.privateText?.let(::privateNotificationPreview) else null
             val destination = Intent(context, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             if (message.kind == ChatAlertKind.PRIVATE) {
@@ -60,7 +64,7 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
             val notification = Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getString(R.string.chat_new_message))
+                .setContentText(preview ?: context.getString(R.string.chat_new_message))
                 .setCategory(Notification.CATEGORY_MESSAGE)
                 .setVisibility(Notification.VISIBILITY_PRIVATE)
                 .setOnlyAlertOnce(true)
@@ -72,4 +76,16 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
     } catch (_: Exception) {
         // Missing permission, unreadable policy or an unavailable system service stays silent.
     }
+}
+
+/** Interpret only the existing reply/photo wrappers; attachment source data never becomes preview text. */
+private fun privateNotificationPreview(original: String): String? {
+    val body = privateMessageBody(original)
+    val photo = chatPhoto(body)
+    if (photo == null && (body.contains("<img", ignoreCase = true) || body.contains("data:image", ignoreCase = true))) {
+        return null
+    }
+    val text = (photo?.text ?: body).trim().takeIf { it.isNotEmpty() } ?: return null
+    val excerpt = text.take(200)
+    return if (excerpt.last().isHighSurrogate()) excerpt.dropLast(1).takeIf { it.isNotEmpty() } else excerpt
 }

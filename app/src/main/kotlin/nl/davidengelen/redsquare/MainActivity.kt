@@ -420,6 +420,7 @@ class MainActivity : ComponentActivity() {
                                             true
                                         }
                                     }
+                                    nl.davidengelen.redsquare.chat.ChatAlertPreviewChoice(owner)
                                 }
                                 Text(stringResource(R.string.server_choice))
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)

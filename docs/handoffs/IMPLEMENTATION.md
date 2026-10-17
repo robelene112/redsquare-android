@@ -45,7 +45,15 @@ explicit choice/recreate, text/caption previews and disable clearing old preview
 alerts before generic new messages. Local84621 preview-draft build PASS1m54s;
 small grounded merged-toggle selector/capture-name changes follow and will be
 compiled by hostedCI. No owned local build. Preview source unchanged/missing,
-its first RED dispatch follows. No whole44/full acceptance. Group/cold slices
+its first Android17 RED39037078435 at exact4d04f79c5c5388171cefb2032a1f8e0131c32cc4
+failed2cases/1failure/71.8s: strengthened warm case passes, privacycase fails
+at missing enabled previewtoggle142 after generic alert. Later privacytails
+unexecuted.15hashes/5XML, root vieweddefaultshade/Settingsfailure PNGs, other
+3warm PNGs retained. New preview source now adds separate encrypted wallet-local
+choice, truthful retry/error UI, defaultgeneric vs opt-in text/caption excerpt,
+and withdrawal of existing private alerts when disabled. Social consent/group
+content remain separate. Local preview build6695 RUNNING, no GREEN claim.
+No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
 grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
 Public beta26 remains current, protected group contract untouched.
