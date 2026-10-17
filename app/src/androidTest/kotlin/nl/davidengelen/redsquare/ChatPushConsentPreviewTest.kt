@@ -6,6 +6,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
+import androidx.test.runner.lifecycle.Stage
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
@@ -85,6 +87,8 @@ class ChatPushConsentPreviewTest {
             }
         }
         var primary: Throwable? = null
+        var stopped = false
+        fun requireStopped() { check(stopped && activeMainActivities().isEmpty()) }
         try {
             retained.prepare()
             wallets.replace(previous, wallet); backends.save(SaitoBackend.OWNER)
@@ -128,17 +132,37 @@ class ChatPushConsentPreviewTest {
                         reconcile(null)
                         peer.assertHealthy()
                     } catch (caught: Throwable) {
-                        captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-background-consent-failure.png"))
+                        try { captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-background-consent-failure.png")) }
+                        catch (diagnostic: Throwable) { caught.addSuppressed(diagnostic) }
                         throw caught
                     }
                 }
             }
         } catch (caught: Throwable) { primary = caught; throw caught }
         finally {
-            cleanupAfterTest(primary, { gateway.close() }, { retained.restoreFiles() }, { retained.restorePreferences() },
-                { wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
-                { backends.save(previousBackend); check(backends.load() == previousBackend) })
+            cleanupAfterTest(primary,
+                {
+                    val instrumentation = InstrumentationRegistry.getInstrumentation()
+                    val activities = activeMainActivities()
+                    instrumentation.runOnMainSync { activities.forEach { it.finish() } }
+                    instrumentation.waitForIdleSync()
+                    ui.waitUntil(5_000) { activeMainActivities().isEmpty() }
+                    stopped = true
+                }, { gateway.close() },
+                { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
+                { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
+                { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
         }
+    }
+
+    private fun activeMainActivities(): List<MainActivity> {
+        var activities = emptyList<MainActivity>()
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+            activities = Stage.values().filter { it != Stage.DESTROYED }
+                .flatMap { monitor.getActivitiesInStage(it) }.filterIsInstance<MainActivity>().distinct()
+        }
+        return activities
     }
 
     private fun click(text: String) {
