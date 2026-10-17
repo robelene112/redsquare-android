@@ -78,23 +78,31 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
         }
         if (cursor != null && (page.ancestorHeight != cursor.height || page.ancestorHash != cursor.hash)) {
             cursor = subscriptions.rewind(backend, page.ancestorHeight, page.ancestorHash, page.tip.forkId)
-            if (cursor == null) { subscriptions.gap(backend, "chain-ancestry-unavailable"); return false }
+            if (cursor == null) { subscriptions.restartObservation(backend, "chain-ancestry-unavailable"); return false }
         }
         if (page.references.isEmpty() && (cursor == null || page.tip.height != cursor.height || page.tip.hash != cursor.hash)) {
-            subscriptions.gap(backend, "chain-history-unavailable"); return false
+            subscriptions.restartObservation(backend, "chain-history-unavailable"); return false
+        }
+        var references = page.references
+        if (cursor == null) {
+            val gap = references.zipWithNext().indexOfLast { (first, next) -> next.height != first.height + java.math.BigInteger.ONE }
+            if (gap >= 0) {
+                subscriptions.gap(backend, "chain-history-unavailable")
+                references = references.drop(gap + 1) // Only the latest available consecutive suffix can be verified end to end.
+            }
         }
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(90)
-        for (reference in page.references.take(8)) {
+        for (reference in references.take(8)) {
             if (Thread.currentThread().isInterrupted) throw InterruptedException()
             if (System.nanoTime() >= deadline) break
             if (cursor != null && reference.height != cursor.height + java.math.BigInteger.ONE) {
-                subscriptions.gap(backend, "chain-history-unavailable"); return false
+                subscriptions.restartObservation(backend, "chain-history-unavailable"); return false
             }
             val block = try { chain.block(reference) } catch (failure: Exception) {
                 unavailable(backend, "full-block-unavailable", failure)
             }
             if (cursor != null && block.previousHash != cursor.hash) {
-                subscriptions.gap(backend, "chain-ancestry-unavailable"); return false
+                subscriptions.restartObservation(backend, "chain-ancestry-unavailable"); return false
             }
             if (cursor == null && block.height > java.math.BigInteger.ONE) subscriptions.gap(backend, "bootstrap-history-unavailable")
             val signatures = block.applicationMessages().filter { message ->

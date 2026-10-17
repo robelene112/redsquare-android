@@ -7,6 +7,25 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active unavailable-history recovery
+
+Runtime checkpoint41cc6baa accepted/pushed; sourceCI for that push is pending.
+Sole42 remains open. Current history tracer4cadda5c extends the non-social raw
+chain/HTTP journey beyond accepted six requests. Seventh Full advertises a
+different tip and an unretained2m0/cc ancestor. Expected: explicit ancestry gap,
+no new block download, durable null active cursor; fresh-instance eighth SPV
+bootstrap of available independently signed full blocks, ninth exact Full cursor.
+Owned25077 endedFAIL1m26/gateway10/1 at198 retainedoldcursorobject.
+[RED](../evidence/ticket42/history-recovery-red/README.md),10hashes/23sources.
+Tracerreviews1/1 explicitJsonNullmismatch; correctedtoabsent-or-JsonNull.
+Currentminimum restartObservation atomicallyretainsbindings/dedup, withdraws
+uncertainpendingchainwork, clearsactivecursor andrecordsreason, so nextpasscan
+bootstraprecentavailableconsecutivesuffix. Missinginteriorheighttailtrimis
+source-only, notexecutedfixturecoverage. Build not startedyet.
+Need preserve subscriptions and withdraw uncertain pending sourced events during
+recovery; unavailable old history remains explicit. Parent-proof availability and
+whole42 review/verification/operatingdocs remain after this slice. Protectedgroupdocuntouched.
+
 ## Active autonomous runtime
 
 Chain-social checkpoint810fa14c accepted/pushed. SourceCI39000330915 SUCCESS;

@@ -1,0 +1,28 @@
+{
+  "source": "4cadda5c78502bccd61405767908d2a3ed800ade",
+  "sourceFiles": {
+    "build-support/references/gateway-social-block-reference.cjs": "8bcc7ed7893d00658334de8d81a8aa044e17ecf34f885a618fea140396d8beee",
+    "push-gateway/src/test/resources/gateway-social-block-reference.json": "23f6451e3f190d9a4723c6acaa84b1a17a2490db8e23acd90bb796493a88b73e",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoWire.kt": "3f01dea7ef62d27704f4c25d28cb10e7d41d15f88e48e981b3356643e8d45a67",
+    "core/src/main/kotlin/nl/davidengelen/redsquare/saito/SaitoFullBlock.kt": "989f06cb0e69be868ce4091065833463425bd82ad7adadd8dfdf851704ad2ac4",
+    "push-gateway/build.gradle.kts": "721a28063d87dcfa5acf8b9c9ab4b9b56a2f4decdf505a253704ff703bd517dd",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/FcmSender.kt": "0e6cb0de736370e707a6a697a3f5241088725b222116da426e0eb5ded584ac09",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt": "ef4d95dbdcbf8af252cbf13d6fa66151ed093680e7019f12d0b271322db62529",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChain.kt": "7940ca7bc49f4b43130ca1416bfc5e7f62b2dc6668bcd763024662328e67919b",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayMain.kt": "72be21df554ac443828886f2b30bc8d21df34f512d297818891b9b7e5ab7abd2",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayObserver.kt": "b39ab6cfb28be6086534e72abe5eaeeeb88c7b6f14cd3f5707d9b09603b281f5",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "8d0c60e75170d9e3fe2d4b59bb53d58a811f99d9d4218a2e05bdb59bebac3024",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayShutdown.kt": "7571d00ac49b18a7c70206d64efa70eb51f429dd8563edab7f652550d6bf9742",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayStateFile.kt": "e8c94b89a6a830b05aefa66de0f2831160f5f66d4326b0c6b6cbbc9409b2e5c9",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "0e43c610b1790860b227ba8f9717f6e06e5c890b3b0b8e2dc56d6af7aebd55f5",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "ba5d65e383c6b0205cdcf8576f936b17c680cd528cebd1990a631bb22a797466",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/FcmSenderTest.kt": "8cdbef22e11553b1cc56cf59ea8b65cdd3b2ec04468f775d379f0b6fc9ace153",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchiveTest.kt": "32ba04510b989ffc0a187ec0f2d34ae8fa4e864aedcdb626425846ae97b29856",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayChainDeliveryTest.kt": "b2991c553b9b7b7d3cfe649864d0396fab169ca6fb2092a36492a95fb32320ca",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayChainTest.kt": "1d993042aca9ad7f8cd6382fb13c3ab231820410e0a1c827a878227dfd60c222",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayDeliveryTest.kt": "084e55a49de6cf4be0742f6bb80a751b8f6e9bac94c88c0535d517b16712988e",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayProcessTest.kt": "51378efa38ae74f21216a6eaabac19cbdc8d256760db1bbdff24c397392f8af0",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionClientTest.kt": "cf22233d63e3e5f8e4c8e19e34137e456272a979884314f4e09f0d2c8ebaf9ec",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionLifecycleTest.kt": "7eb80723924d153cc18fec2cd724dbba5547c7d0d14d20c9a628693954811cc0"
+  }
+}

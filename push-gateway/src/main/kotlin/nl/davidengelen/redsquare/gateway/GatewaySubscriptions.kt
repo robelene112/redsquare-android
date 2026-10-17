@@ -184,6 +184,21 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         return GatewayChain.Cursor(height, hash, forkId)
     }
 
+    /** Keep bindings/dedup, withdraw uncertain unsent chain work, and resume only available recent history. */
+    @Synchronized fun restartObservation(backend: SaitoBackend, reason: String) {
+        require(reason in setOf("chain-ancestry-unavailable", "chain-history-unavailable"))
+        val state = store.load()
+        state.getAsJsonObject("chains").remove(backend.id)
+        for ((_, value) in state.getAsJsonObject("events").entrySet()) {
+            val event = value.asJsonObject
+            if (savedText(event, "backend") == backend.id && savedText(event, "state") == "pending" && event.has("sourceHeight")) {
+                event.addProperty("state", "withdrawn")
+            }
+        }
+        recordGap(state, backend, reason, clock.millis())
+        store.save(state)
+    }
+
     /** Candidate outcomes and processed cursor share one atomic durable snapshot. */
     @Synchronized fun processed(backend: SaitoBackend, block: SaitoFullBlock, forkId: String,
         candidates: List<GatewayArchive.VerifiedSocial>) {

@@ -195,13 +195,13 @@ class GatewayChainTest {
                     assertEquals(hashes + hashes + alternateHashes, downloads.toList())
                     observe(recovered)
                     val unavailable = status(recovered)
-                    assertNull("Unknown ancestry must prepare a durable recent-history bootstrap", unavailable.get("cursor"))
+                    assertTrue("Unknown ancestry must prepare a durable recent-history bootstrap", unavailable.get("cursor")?.isJsonNull != false)
                     assertEquals("chain-ancestry-unavailable", unavailable.getAsJsonObject("gap").get("reason").asString)
                     assertEquals(hashes + hashes + alternateHashes, downloads.toList())
                 }
                 PushGateway(state, "https://push.fixture.invalid").use { resuming ->
                     resuming.start()
-                    assertNull(status(resuming).get("cursor"))
+                    assertTrue(status(resuming).get("cursor")?.isJsonNull != false)
                     observe(resuming)
                     assertEquals(hashes.last(), cursor(resuming).get("hash").asString)
                     observe(resuming)
