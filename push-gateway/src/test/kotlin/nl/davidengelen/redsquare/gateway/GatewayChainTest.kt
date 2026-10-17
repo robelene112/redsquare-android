@@ -37,10 +37,13 @@ class GatewayChainTest {
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
         val known = listOf("oddBlock", "chainTip").map { fixture.getAsJsonObject(it) }
         val hashes = known.map { it.get("hash").asString }
+        val alternate = listOf("alternateBlock", "alternateTip").map { fixture.getAsJsonObject(it) }
+        val alternateHashes = alternate.map { it.get("hash").asString }
         val heights = listOf(2_000_002L, 2_000_003L)
         val times = listOf(1_700_000_010_000L, 1_700_000_020_000L)
         fun hex(value: String) = value.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
         val fork = ByteArray(32) { 11 }
+        val alternateFork = ByteArray(32) { 12 }
         for (backend in SaitoBackend.entries) {
             val identity = SaitoWallet.create()
             val failure = AtomicReference<Throwable?>()
@@ -55,11 +58,11 @@ class GatewayChainTest {
                         val path = request.url.encodedPath
                         if (request.method == "GET" && path.startsWith("/block/")) {
                             val hash = path.removePrefix("/block/")
-                            val index = hashes.indexOf(hash)
-                            require(index >= 0)
+                            val full = (known + alternate).firstOrNull { it.get("hash").asString == hash }
+                            requireNotNull(full)
                             downloads.add(hash)
                             return MockResponse.Builder().body(Buffer().write(Base64.getDecoder()
-                                .decode(known[index].get("fullBase64").asString))).build()
+                                .decode(full.get("fullBase64").asString))).build()
                         }
                         require(request.method == "GET" && path == "/wsopen")
                         return MockResponse.Builder().webSocketUpgrade(object : WebSocketListener() {
@@ -79,26 +82,30 @@ class GatewayChainTest {
                                             require(frame.copyOfRange(74, 107).contentEquals(requireNotNull(peerKey.get())))
                                             val sequence = reads.incrementAndGet()
                                             val continuation = ByteBuffer.wrap(frame, 1, 8).long != 0L
-                                            require(sequence in 1..4 && continuation == (sequence == 2 || sequence == 4))
+                                            require(sequence in 1..6 && continuation == (sequence !in listOf(1, 3)))
+                                            val changed = sequence >= 5
+                                            val responseHashes = if (changed) alternateHashes else hashes
+                                            val responseFork = if (changed) alternateFork else fork
                                             if (!continuation) {
                                                 require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                             } else {
                                                 require(ByteBuffer.wrap(frame, 1, 8).long == heights.last() && frame[73] == 0.toByte())
-                                                require(frame.copyOfRange(9, 41).contentEquals(hex(hashes.last())))
-                                                require(frame.copyOfRange(41, 73).contentEquals(fork))
+                                                require(frame.copyOfRange(9, 41).contentEquals(hex(if (sequence == 6) alternateHashes.last() else hashes.last())))
+                                                require(frame.copyOfRange(41, 73).contentEquals(if (sequence == 6) alternateFork else fork))
                                             }
                                             // Pinned wire schema:196-byte body header,53 bytes per reference.
-                                            val count = if (continuation) 0 else 2
+                                            val count = if (!continuation || sequence == 5) 2 else 0
                                             val body = ByteBuffer.allocate(196 + 53 * count)
-                                            body.putLong(heights.last()).put(hex(hashes.last())).put(fork)
-                                            body.putLong(if (continuation) heights.last() else 0L)
-                                                .put(if (continuation) hex(hashes.last()) else ByteArray(32))
-                                            body.putLong(if (continuation) heights.last() else heights.first())
-                                                .put(hex(if (continuation) hashes.last() else hashes.first()))
-                                            body.putLong(heights.last()).put(hex(hashes.last())).putInt(count)
+                                            body.putLong(heights.last()).put(hex(responseHashes.last())).put(responseFork)
+                                            val ancestorHeight = if (sequence == 5) 2_000_001L else if (continuation) heights.last() else 0L
+                                            val ancestorHash = if (sequence == 5) hex("ab".repeat(32)) else if (continuation) hex(responseHashes.last()) else ByteArray(32)
+                                            body.putLong(ancestorHeight).put(ancestorHash)
+                                            body.putLong(if (count == 0) heights.last() else heights.first())
+                                                .put(hex(if (count == 0) responseHashes.last() else responseHashes.first()))
+                                            body.putLong(heights.last()).put(hex(responseHashes.last())).putInt(count)
                                             repeat(count) { index ->
                                                 // SPV relevance is zero for both; neither full block may be skipped.
-                                                body.putLong(heights[index]).put(hex(hashes[index])).putLong(times[index]).putInt(0).put(0)
+                                                body.putLong(heights[index]).put(hex(responseHashes[index])).putLong(times[index]).putInt(0).put(0)
                                             }
                                             webSocket.send((byteArrayOf(22) + body.array()).toByteString())
                                         }
@@ -144,6 +151,7 @@ class GatewayChainTest {
                     assertEquals(200, response.statusCode())
                     val status = JsonParser.parseString(response.body()).asJsonObject
                     assertNotNull("Processed chain cursor must be durably observable", status.get("cursor"))
+                    if (reads.get() >= 5) assertEquals("chain-reorganization", status.getAsJsonObject("gap").get("reason").asString)
                     return status.getAsJsonObject("cursor")
                 }
                 PushGateway(state, "https://push.fixture.invalid").use { gateway ->
@@ -159,6 +167,17 @@ class GatewayChainTest {
                     assertEquals("2000003", cursor(restarted).get("height").asString)
                     assertEquals(4, reads.get())
                     assertEquals(hashes + hashes, downloads.toList())
+                    observe(restarted)
+                    assertEquals("Replacement branch must become the processed cursor", alternateHashes.last(), cursor(restarted).get("hash").asString)
+                    assertEquals(hashes + hashes + alternateHashes, downloads.toList())
+                }
+                PushGateway(state, "https://push.fixture.invalid").use { recovered ->
+                    recovered.start()
+                    assertEquals(alternateHashes.last(), cursor(recovered).get("hash").asString)
+                    observe(recovered)
+                    assertEquals(alternateHashes.last(), cursor(recovered).get("hash").asString)
+                    assertEquals(6, reads.get())
+                    assertEquals(hashes + hashes + alternateHashes, downloads.toList())
                 }
                 failure.get()?.let { throw AssertionError("Owned chain peer failed", it) }
             }
