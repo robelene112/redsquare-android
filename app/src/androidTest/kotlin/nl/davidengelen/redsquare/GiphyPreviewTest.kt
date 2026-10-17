@@ -98,6 +98,7 @@ class GiphyPreviewTest {
         val reference = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
         val gif = instrumentation.context.assets.open("owned-giphy-animation.gif").use { it.readBytes() }
+        val thumbnail = android.util.Base64.decode(reference.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)
         val paths = ConcurrentLinkedQueue<String>()
         val peer = ControlledFeedPeer("[${reference.getAsJsonObject("ordinary")}]")
         MockWebServer().use { provider ->
@@ -111,12 +112,14 @@ class GiphyPreviewTest {
                         "/v1/gifs/trending" -> MockResponse.Builder().setHeader("Content-Type", "application/json").body("""
                             {"meta":{"status":200},"pagination":{"offset":0,"count":1,"total_count":1},"data":[{
                               "id":"owned-two-frame","alt_text":"Owned two-frame GIF","title":"Owned animation",
-                              "images":{"original":{"url":"$original"},"fixed_width_small":{"url":"http://127.0.0.1:${provider.port}/media/thumbnail.gif"}},
+                              "images":{"original":{"url":"$original"},"fixed_width_small":{"url":"http://127.0.0.1:${provider.port}/media/thumbnail.png"}},
                               "user":{"display_name":"Owned fixture artist","profile_url":"https://giphy.com/owned-fixture"},
                               "source_post_url":"https://example.com/owned-fixture"
                             }]}
                         """.trimIndent()).build()
-                        "/media/thumbnail.gif", "/media/original.gif" -> MockResponse.Builder()
+                        "/media/thumbnail.png" -> MockResponse.Builder().setHeader("Content-Type", "image/png")
+                            .body(Buffer().write(thumbnail)).build()
+                        "/media/original.gif" -> MockResponse.Builder()
                             .setHeader("Content-Type", "image/gif").body(Buffer().write(gif)).build()
                         else -> MockResponse.Builder().code(404).build()
                     }
@@ -139,8 +142,14 @@ class GiphyPreviewTest {
                         ui.onNodeWithText("Powered by GIPHY").assertIsDisplayed()
                         ui.onNodeWithText("By Owned fixture artist").assertIsDisplayed()
                         ui.onNodeWithText("Source").assertIsDisplayed()
-                        assertAnimation("GIF preview: Owned two-frame GIF")
-                        capture("animated-search")
+                        ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("GIF preview: Owned two-frame GIF").fetchSemanticsNodes().isNotEmpty() }
+                        val preview = ui.onNodeWithContentDescription("GIF preview: Owned two-frame GIF").performScrollTo().assertIsDisplayed()
+                        ui.waitUntil(10_000) {
+                            val bitmap = preview.captureToImage().asAndroidBitmap()
+                            bitmap.getPixel(bitmap.width / 2, bitmap.height / 2) == 0xffdc1e28.toInt()
+                        }
+                        capture("search-preview")
+                        paths.clear()
                         ui.onNodeWithText("Use GIF").performScrollTo().assertIsDisplayed().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithText("Close GIF search").fetchSemanticsNodes().isEmpty() }
                         ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
@@ -150,10 +159,12 @@ class GiphyPreviewTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                         scenario.recreate()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                        paths.clear()
                         ui.onNodeWithText("New post").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
                         assertAnimation("Image 1 of 1")
+                        assertTrue("Restoration must freshly load the exact original URL", paths.contains(originalPath))
                         capture("animated-restored-draft")
                         ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
