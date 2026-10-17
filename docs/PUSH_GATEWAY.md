@@ -82,7 +82,9 @@ bind. Bounded executor/origin/resource review changes then pass39s. Final ordina
 HTTP/storage error classification and CI wiring pass34s. Initial source review
 found a numeric request conversion classified as503; a correction preserves400
 for invalid request integers and503 for stored-record failures. Corrected
-build/review are pending. This is one owned HTTP/protocol journey, not a JVM process crash,
+build PASS36s and source41cf0c76 reviews Standards0/Spec0.
+[Retained first acceptance](evidence/ticket42/subscription-green/README.md) awaits
+final evidence review and exact-source CI; whole#42 remains open. This is one owned HTTP/protocol journey, not a JVM process crash,
 Android SDK binding, Google delivery, both-backend observer or whole#42 acceptance.
 The earlier SDK checkpoint is[separate](evidence/ticket32/firebase-client-preparation/README.md).
 

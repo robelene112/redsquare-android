@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-17T01:35:49" hostname="2abe7ccd42fe" time="2.968">
+  <properties/>
+  <testcase name="aWalletSubscriptionSurvivesServerRestartAndCanBeRetiredWithoutItsWalletKey" classname="nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest" time="2.968"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

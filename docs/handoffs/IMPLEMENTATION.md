@@ -43,9 +43,10 @@ cleanup changes PASS39s (exec81310 ended). Final ordinary HTTP/storage error
 classification and CI gateway-test/cache wiring PASS34s (exec84118 ended).
 Source review atc3abb7a6: Spec0/Standards1, numeric request conversion incorrectly
 classified as503. Correction maps invalid request integers to400 while stored
-record decoding stays an IO/503 failure. Its core/gateway build is active in
-exec48363, log .scratch/push42-subscription-review-fix-build.log. Do not edit
-compiled source until that owned build finishes. Corrected review pending. [Current contract](../PUSH_GATEWAY.md) describes
+record decoding stays an IO/503 failure. Corrected core/gateway PASS36s, exec48363 ended; no owned local build.
+Corrected source41cf0c76 reviews Standards0/Spec0.
+[First local GREEN](../evidence/ticket42/subscription-green/README.md) retains
+7 hashes and exact source metadata. Final evidence review/exact-source CI pending. [Current contract](../PUSH_GATEWAY.md) describes
 the implemented first slice and explicit remaining deployment/runtime limits.
 
 No standalone command, Android gateway binding, resolver, renewal, observer,
