@@ -824,3 +824,15 @@ decoder unverified. No live provider acceptance or new APK publication.
 Tracker correction: #17 was automatically closed by commitb36ba387 despite the
 subsequent explicit OPEN evidence comments. Reopened2026-10-17 to preserve
 actual-playback acceptance; no criteria or provider behavior changed.
+
+## First GIF recovery GREEN
+
+Exact e5ba44fd Android17 run39006305712 SUCCESS1/0/30.684s. Canonical
+[recovery evidence](../evidence/ticket16/failure-green/android17/README.md)
+retains9originals; root viewed both PNGs/parsed both XMLs. Two owned503s,
+Retry/close, text saved and restored via recreation, zero Saito writes passed.
+Firstslice accepted, not whole16. SourceCI39006306206 pending at collection.
+Next one tracer: select an owned GIF, prove animation and draft restoration;
+then exact original URL signed interoperability. Native provider remains unconfigured
+without authorized key. No beta change. Ownedasset independently ImageIO decoded
+as two16x16 frames, all red/blue pixels; Android decoder not yet proven.
