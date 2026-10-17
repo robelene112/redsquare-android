@@ -11,6 +11,28 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
+## Active issue47: group Chat background transport
+
+[Issue47](https://github.com/robelene112/redsquare-android/issues/47) is OPEN,
+assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSED;
+zero OPEN blockers verified. Child of34, under specification1. Review base is
+`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. No group code/acceptance yet.
+
+Deliver group interests through the authenticated shared subscription, opaque
+wakes and actual native worker/notification/history boundaries. Group messages
+address a group public key, so private recipient matching is insufficient. Use
+current retained membership and preserve LEFT/REMOVED decisions, shared ordinary/
+background durable deduplication, generic group alerts and exact unencrypted group
+entry. Keep current wallet/backend/category/account/conversation controls and the
+union of consenting Social/private/group demand. Existing controlled peer/gateway/
+FCM and Android seams are approved; do not ask again. Start with one actual group
+wire/HTTP journey RED before the minimum implementation. Reuse independent pinned
+group vectors; fresh transport fixtures are not new cross-client evidence.
+
+Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
+Original32/34 retain configured Google/hosting/deployment/physical gates. Published
+beta28 remains the review baseline until47's accepted signed update.
+
 ## Accepted issue46: private Chat background transport
 
 [Issue46](https://github.com/robelene112/redsquare-android/issues/46) is verified CLOSED2026-10-17T23:00:05Z, a native child of33 after closed45. Whole review base remains
@@ -103,8 +125,8 @@ Next actions:
 1. Issue46 accepted checkpoint: https://github.com/robelene112/redsquare-android/issues/46#issuecomment-6242725149 .
    Complete source/evidence95cb40952 and publication9148ecabb both report0/0.
    Original32/33 remain OPEN for their genuine external criteria.
-2. Verify47 has zero OPEN native blockers, claim it, read issue/spec and implement
-   sequentially, starting with one actual group gateway wire/HTTP RED. No47 code yet.
+2. Issue47 is now claimed after verifying zero OPEN blockers. Resume its active
+   section above;46 is complete and no longer the implementation owner.
 
 ## Published beta28
 
@@ -138,7 +160,7 @@ blocker. Fetch current state before reporting counts or changing dependencies.
 |19| Owner Registry checks time out; Official works. Native callback checkpoint accepted. No blind node update or unchanged public probe. See `ticket19/FINAL_REGRESSION_CHECKPOINT.md`. |
 |32| Native gateway/client children42/45 accepted. Actual Firebase/GCP Android app/project/sender, authorized hosting/deployment and physical closed-app delivery remain. Configuration question is already pending. |
 |33| Native46 accepted/closed above; configured Google delivery and original32 dependency remain. |
-|34| Native child47 is prepared, UNASSIGNED and blocked by46. Parent34 also retains its genuine33 and native dependencies. No47 implementation yet. |
+|34| Native child47 is assigned/active above after accepted46. Parent34 retains its genuine33 and native dependencies. No group acceptance yet. |
 |35| Integrated release/device acceptance. An isolated release-equivalent performance variant is still actual code preparation: current Gradle only has debug/release. Follow `FEED_PERFORMANCE_PROTOCOL.md`: five cached Pixel7 launches≤2000ms, five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger; never clear the owner's wallet. Physical installation/update/data continuity also remain. |
 |36| Real publisher/account/test-track/legal/contact/retention/declaration facts and reviewable Play submission preparation remain. Do not invent facts or submit without the applicable final authorization. |
 
