@@ -64,9 +64,16 @@ Productionb2600cda6 adds wallet-local defaultoff background consent, new Setting
 row/existing skippable Chat prompt callback and shared social/private category
 union with a common Core/gateway category validator. Local build PASS5m10s,
 core114/0 and gateway13/0across10suites, native/test Kotlin compilation. Thirteen
-hashed raw/source records in native-consent-local. Bounded consent source reviews
-and runtime GREEN39058689594 pending. No worker/private receipts implemented yet.
-Next: complete consent GREEN/review, then native worker/receipt integration; final full SDKs,
+hashed raw/source records in native-consent-local. Both bounded consent source
+reviews zero actionable findings. Actual Android10 runtime GREEN39058689594 atb260:
+six Chat cases PASS60.021s, including defaultoff/recreate and actual signed union
+HTTP changes with stable subscription. Six hashed records in native-consent-green;
+root viewed actual Settings PNG. This is bounded consent acceptance only.
+Next tracer ec0917c5b adds PrivatePushWorkPreviewTest to existing chat-alerts scope:
+Chat-only consent, no-Activity real WorkManager, recipient-proof original fetch,
+local decrypt/history, real generic shade and dismissed-redelivery suppression.
+Actual worker RED39059204747 pending; production worker/receipts remain unchanged.
+Next: worker RED then implementation and persistence/control coverage; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 

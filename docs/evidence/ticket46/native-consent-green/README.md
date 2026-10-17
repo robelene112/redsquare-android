@@ -1,0 +1,5 @@
+# Native consent runtime GREEN
+
+Actual Android10 run39058689594 atb2600cda61509733a26fd7bf2766625b95051c2f passes all six Chat alert/consent tests in60.021s. The new real Settings journey verifies defaultoff, enabled choice across Activity recreation and recipient-signed HTTP category changes: private only, social plus private, social only, private only, then revocation. The same subscription identity persists while either feature requests alerts. Five prior presentation/tap/preview cases remain passing. Root inspected the actual new Settings screenshot.
+
+Six hashed records retain instrumentation, exit, exact run metadata, PNG/XML and eleven source/test/harness hashes. Source hashes intentionally identify the immutable b260 runtime, before the next worker tracer changed the harness. Consent source reviews each return zero actionable findings; earlier fixture corrections likewise have zero remaining findings. Android17, final full acceptance, actual Google registration/delivery and whole#46 acceptance remain pending. Native worker and private receipt implementation follow next. Beta27 is unchanged.
