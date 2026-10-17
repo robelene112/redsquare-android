@@ -97,9 +97,10 @@ class GatewaySessionDeliveryTest {
                             val intent = "Saito push bind v1\n$origin/v1/subscriptions/bind\n$challenge\n$subscription\n$installation\n" +
                                 "${sha("owned-session-fid")}\n${owner.publicKey}\n${backend.id}\nreplies\n$expiry\n$revocation"
                             request("/v1/subscriptions/bind", binding, owner.sign(intent.toByteArray()))
+                            val archiveOrigin = if (backend == SaitoBackend.OFFICIAL)
+                                "http://127.0.0.1:0${URI(peer.origin).port}/" else peer.origin
                             GatewayObserver(gateway, identity, backend, sender, intervalMillis = 60_000,
-                                localChainOrigin = peer.origin,
-                                localArchiveOrigin = peer.origin + if (backend == SaitoBackend.OFFICIAL) "/" else "").use { observer ->
+                                localChainOrigin = peer.origin, localArchiveOrigin = archiveOrigin).use { observer ->
                                 observer.start()
                                 val sent = fcm.takeRequest(5, TimeUnit.SECONDS)
                                 peer.check()

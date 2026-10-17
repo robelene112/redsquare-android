@@ -161,7 +161,7 @@ internal class GatewayPeer(private val identity: SaitoWallet, val backend: Saito
             .connectTimeout(5, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS)
             .pingInterval(10, TimeUnit.SECONDS).build()
         private fun nonce() = ByteArray(32).also(SecureRandom()::nextBytes)
-        private fun endpoint(backend: SaitoBackend, local: String?): String {
+        internal fun endpoint(backend: SaitoBackend, local: String?): String {
             if (local == null) return backend.peerUrl
             val uri = URI(local)
             require(uri.scheme == "http" && uri.host == "127.0.0.1" && uri.port in 1..65535 &&

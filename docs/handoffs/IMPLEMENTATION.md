@@ -38,9 +38,15 @@ accepted trailing slash; all endpoint validation/deadlines remain.
 Source CI39054176895 at7f7cefb86 SUCCESS(core/gateway/release/lint). The redundant
 local broad run was explicitly stopped143 during lint after the review finding,
 not accepted as a full run. Corrected final core/gateway/installDist is running.
-Both corrected source reviews/final evidence remain pending. No actual Google or
-deployed-node acceptance. Owned local build42701 is active; no source edits until
-it completes.
+Intermediate local core/gateway/installDist atbe8f821c5 SUCCESS2m6s, gateway11/0
+in9JUnit suites; coreUPTODATE114/0/0. Twelve hashes in slash-full-green.
+Spec0/Standards1 persists for accepted numeric-port aliases. Canonical correction
+now compares GatewayPeer.endpoint on both origins, using exactly the same strict
+validation/numeric-port serialization as the transport. The same Official journey
+uses both leading-zero port and trailing slash; no extra campaign or deadline.
+Corrected final local core/gateway/installDist42021 active; no source edits until
+it completes. Both corrected source reviews/final evidence remain pending.
+No actual Google/deployed-node/Android acceptance.
 
 ## Accepted native Chat alert presentation (#44)
 

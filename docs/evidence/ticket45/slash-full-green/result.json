@@ -1,0 +1,99 @@
+{
+  "source": "be8f821c56c36ba266fa388522056711851ab85c",
+  "command": "scripts/android-build :core:test :push-gateway:test :push-gateway:installDist",
+  "exitCode": 0,
+  "coreTask": "UP-TO-DATE",
+  "gatewaySuites": [
+    {
+      "name": "nl.davidengelen.redsquare.gateway.FcmSenderTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:14",
+      "hostname": "993666fa62f9",
+      "time": "1.363"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayArchiveTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:15",
+      "hostname": "993666fa62f9",
+      "time": "0.178"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:15",
+      "hostname": "993666fa62f9",
+      "time": "7.559"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:23",
+      "hostname": "993666fa62f9",
+      "time": "9.729"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayDeliveryTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:32",
+      "hostname": "993666fa62f9",
+      "time": "30.587"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayProcessTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:44:03",
+      "hostname": "993666fa62f9",
+      "time": "2.745"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:43:09",
+      "hostname": "993666fa62f9",
+      "time": "4.236"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionClientTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:44:06",
+      "hostname": "993666fa62f9",
+      "time": "1.642"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T17:44:07",
+      "hostname": "993666fa62f9",
+      "time": "4.885"
+    }
+  ],
+  "finalAcceptance": false
+}

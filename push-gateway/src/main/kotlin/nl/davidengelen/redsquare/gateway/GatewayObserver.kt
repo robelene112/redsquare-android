@@ -33,7 +33,7 @@ class GatewayObserver(private val gateway: PushGateway, private val identity: Sa
                 chain.set(selectedChain)
                 // Deployed chain and Archive requests use the same authenticated socket.
                 // Distinct loopback origins preserve the existing split-service fixture only.
-                val selectedArchive = if (localChainOrigin?.removeSuffix("/") == localArchiveOrigin?.removeSuffix("/"))
+                val selectedArchive = if (GatewayPeer.endpoint(backend, localChainOrigin) == GatewayPeer.endpoint(backend, localArchiveOrigin))
                     GatewayArchive(backend, selectedChain.peer)
                     else GatewayArchive(identity, backend, localArchiveOrigin)
                 selectedArchive.use {
