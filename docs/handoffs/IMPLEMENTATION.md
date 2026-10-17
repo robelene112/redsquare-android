@@ -1,12 +1,26 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is CLOSED with complete server-code acceptance. #16 is the sole app work,
+#42 is CLOSED with complete server-code acceptance. #43 is now the sole app work.
+#16 is frozen at its accepted native checkpoint,
 review base`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. #17 remains open at its
 frozen sourcec9b114a8 recovery checkpoint; actual playback is unresolved. #32 staysopen for configured
 Google/device acceptance; its native dependency42 is now closed. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
+
+## Active native Chat GIF slice (#43)
+
+Owner renewed continue-all authorization after beta25. Sole implementation is
+now #43, a bounded child of #31, review base06e4ef27f55042f59bb79f3db9a97ebafeff4f78.
+The already reviewed/tested native16 provider and animation paths satisfy its
+actual source prerequisite. Live-key acceptance remains outside this child;
+#31 stays OPEN with its16 dependency unchanged. No dependency is removed.
+First tracer: private Chat provider failure, explicit retry/cancel and exact
+text restored after reopening, through existing approved native UI/owned peers.
+Observe RED before adding the Chat entry point; then selection/send/recovery.
+No real key, live provider query, production write or node/account change.
+Preserve protected untracked group contract. Keep one ticket in implementation.
 
 ## Accepted gateway, returning to app frontier
 
@@ -897,7 +911,9 @@ Extra#37,#39,#40,#41,#42 are closed. Fetch actual tracker state before changing 
 Native blocker counts rechecked after publication:16/17/19/32 have0;31/33/34
 have1;35 has4;36 has1. Every unblocked original issue is already assigned and
 has its specific external acceptance gate above. No next unblocked/unassigned
-original implementation ticket exists. Do not remove dependencies or report
+original implementation ticket exists. The owner renewed continue-all work;
+#43 above explicitly separates the already possible native Chat GIF work
+from31 live integration acceptance, without removing original blockers. Do not remove dependencies or report
 Chat GIF/private/group push source complete to manufacture progress. Resume
 from concrete new configuration/provider/device evidence; no repeated setup
 questions, unchanged public probes or node changes.
