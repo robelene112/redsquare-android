@@ -909,3 +909,35 @@ label for all four modal query edits. Values/assertions/deadlines unchanged,
 reviews0/0; later search behavior and posting remain unexecuted in that run.
 This selector failure is not an application RED. Separate a275 source39011892199
 SUCCESS. No owned local build; no new APK or production/key/node change.
+
+
+## Reviewed GIF buffer and published-credit candidate
+
+Current app source7ad1742e (includes direct-buffer fixeb840006). Both bounded
+source reviews Standards0/Spec0. Earlier integrated Spec1 is resolved in source,
+not yet runtime accepted. Owned local build59382 is active, log
+`.scratch/gif16-buffer-published-credits-build.log`; do not edit compiled source
+until that owned build finishes or is uniquely retired with its actual result.
+
+Actual3bd Android10 diagnostic39012426099 FAILED: AnimatedImageTh SIGABRT,
+ByteArrayStream::read cannot obtain JNIEnv, then GIF decode stack. Search/posting
+unexecuted. [Five originals and source inventory](../evidence/ticket16/android10-buffer-red/README.md).
+Representative AOSP Android10 sources route heap arrays through JNI reads and
+direct buffers through a retained memory stream. eb840006 supplies direct
+read-only bytes with base Buffer.rewind, unchanged limits/lifecycle/assertions.
+This supports the proposed correction; no runtime GREEN yet.
+
+Actual3bd Android17 run39012427386 preview PASS3/0/46.306s: search/retry/empty/
+exact UTF8 query/local length/newer-result/close/text/no-write now execute.
+Posting FAILED6/1/35.72s: only owner published credits missing185/152; others5
+pass. Later blank-composer/fresh credit tails unexecuted.
+[12 originals](../evidence/ticket16/published-credits-red/android17/README.md),
+root viewed4 PNGs/parsed4 XMLs. No web/live acceptance inferred.
+Separate source39012426447 SUCCESS at3bd.
+
+7ad1742e retains selected sent metadata independently of disposable drafts,
+encrypted per wallet, bounded128references/2MiB. Saved signed work retains it
+before transmission; shared PostImages asynchronously resolves it for feed,
+threads/profile/search/quotes/viewer. Explicit draft credits take precedence.
+No signed-field change, API catalogue/media cache or invented historical credits.
+Runtime confirmation is pending. No active CI, no new beta or key/node change.

@@ -1,0 +1,35 @@
+10-17 07:10:32.977  3392  3649 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 3649 (AnimatedImageTh), pid 3392 (n.redsquare.dev)
+10-17 07:10:33.029  3652  3652 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-17 07:10:33.029  3652  3652 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-17 07:10:33.029  3652  3652 F DEBUG   : Revision: '0'
+10-17 07:10:33.029  3652  3652 F DEBUG   : ABI: 'x86_64'
+10-17 07:10:33.030  3652  3652 F DEBUG   : Timestamp: 2026-10-17 07:10:33+0000
+10-17 07:10:33.030  3652  3652 F DEBUG   : pid: 3392, tid: 3649, name: AnimatedImageTh  >>> nl.davidengelen.redsquare.dev <<<
+10-17 07:10:33.030  3652  3652 F DEBUG   : uid: 10116
+10-17 07:10:33.030  3652  3652 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-17 07:10:33.030  3652  3652 F DEBUG   : Abort message: 'Failed to get JNIEnv for JavaVM: 0x7d47dedb61c0'
+10-17 07:10:33.030  3652  3652 F DEBUG   :     rax 0000000000000000  rbx 0000000000000d40  rcx 00007d47db99d3f8  rdx 0000000000000006
+10-17 07:10:33.030  3652  3652 F DEBUG   :     r8  00007d4704495228  r9  0000000000000000  r10 00007d46f86c7340  r11 0000000000000246
+10-17 07:10:33.030  3652  3652 F DEBUG   :     r12 00007d4704495228  r13 00007d47deda7478  r14 00007d46f86c73c8  r15 0000000000000e41
+10-17 07:10:33.030  3652  3652 F DEBUG   :     rdi 0000000000000d40  rsi 0000000000000e41
+10-17 07:10:33.030  3652  3652 F DEBUG   :     rbp 00000000000000c1  rsp 00007d46f86c7338  rip 00007d47db99d3f8
+10-17 07:10:33.064  3652  3652 F DEBUG   : 
+10-17 07:10:33.064  3652  3652 F DEBUG   : backtrace:
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #03 pc 000000000017e806  /system/lib64/libandroid_runtime.so (android::get_env_or_die(_JavaVM*)+86) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #04 pc 000000000016aa9a  /system/lib64/libandroid_runtime.so (ByteArrayStream::read(void*, unsigned long)+42) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #05 pc 00000000003c01b9  /system/lib64/libhwui.so (SkStreamBuffer::getDataAtPosition(unsigned long, unsigned long)+121) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #06 pc 00000000004d394b  /system/lib64/libhwui.so (SkGIFFrameContext::decode(SkStreamBuffer*, SkGifCodec*, bool*)+123) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #07 pc 00000000003b6f9f  /system/lib64/libhwui.so (SkGifCodec::decodeFrame(bool, SkCodec::Options const&, int*)+143) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #08 pc 00000000003aaef5  /system/lib64/libhwui.so (SkCodec::getPixels(SkImageInfo const&, void*, unsigned long, SkCodec::Options const*)+773) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #09 pc 000000000036e611  /system/lib64/libhwui.so (SkAnimatedImage::decodeNextFrame()+737) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #10 pc 000000000036e302  /system/lib64/libhwui.so (android::AnimatedImageDrawable::decodeNextFrame()+34) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #11 pc 000000000037042c  /system/lib64/libhwui.so (_ZNSt3__120__packaged_task_funcIZN7android10uirenderer19AnimatedImageThread15decodeNextFrameERK5sk_spINS1_21AnimatedImageDrawableEEE3$_0NS_9allocatorIS9_EEFNS5_8SnapshotEvEEclEv$82368545c9fc97378d5f7462866213ce+12) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #12 pc 000000000037049c  /system/lib64/libhwui.so (std::__1::packaged_task<android::AnimatedImageDrawable::Snapshot ()>::operator()()+76) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #13 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #14 pc 000000000036feaf  /system/lib64/libhwui.so (android::uirenderer::ThreadBase::threadLoop()+79) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #15 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #16 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-17 07:10:33.064  3652  3652 F DEBUG   :       #17 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
