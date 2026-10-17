@@ -29,7 +29,9 @@ internal fun NotificationPermissionPrompt(needsConsent: Boolean = false,
         (Build.VERSION.SDK_INT < 33 || context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED))) }
     var failure by remember { mutableStateOf<Int?>(null) }
     var saving by remember { mutableStateOf(false) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        nl.davidengelen.redsquare.notifications.PushRegistration.request(context.applicationContext)
+    }
     fun choose(allow: Boolean) {
         if (saving) return
         saving = true

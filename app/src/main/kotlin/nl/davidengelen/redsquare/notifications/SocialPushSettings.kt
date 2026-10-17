@@ -7,7 +7,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.File
 
 /** Deliberate app consent is independent of Android permission and the previously offered prompt. */
-internal class SocialPushSettings(context: Context, owner: String) {
+internal class SocialPushSettings(private val context: Context, owner: String) {
     init { require(SaitoWallet.isPublicKey(owner)) }
     private val name = "socialpush.$owner.settings.v1"
     private val pending = File(context.noBackupFilesDir, "$name.new")
@@ -26,5 +26,6 @@ internal class SocialPushSettings(context: Context, owner: String) {
         enabled()
         file.save(EncryptedLocalFile.Contents(1, if (enabled) "enabled" else "disabled"))
         check(enabled() == enabled)
+        PushRegistration.request(context)
     }
 }

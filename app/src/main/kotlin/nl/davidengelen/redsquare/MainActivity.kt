@@ -183,6 +183,7 @@ class MainActivity : ComponentActivity() {
                     if (result.successful) walletExport.clearMessage()
                     wallet = result.wallet
                     failed = result.wallet == null
+                    nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
                     result
                 }, chooseDocument = { openWalletDocument.launch(arrayOf("*/*")) }) }
             DisposableEffect(walletExport) {
@@ -213,7 +214,10 @@ class MainActivity : ComponentActivity() {
             var updateCheck by remember { mutableIntStateOf(0) }
             DisposableEffect(Unit) {
                 val observer = LifecycleEventObserver { _, event ->
-                    if (event == Lifecycle.Event.ON_RESUME) updateCheck++
+                    if (event == Lifecycle.Event.ON_RESUME) {
+                        updateCheck++
+                        nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
+                    }
                 }
                 lifecycle.addObserver(observer)
                 onDispose { lifecycle.removeObserver(observer) }
@@ -245,6 +249,11 @@ class MainActivity : ComponentActivity() {
                     catch (_: Exception) { null }
                 }
                 failed = wallet == null
+            }
+            LaunchedEffect(address, backend) {
+                if (address != null && backend != null) {
+                    nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
+                }
             }
             RedSquareTheme(this@MainActivity, appearance) {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),

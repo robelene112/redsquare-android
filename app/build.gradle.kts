@@ -1,7 +1,36 @@
+import java.net.URI
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("plugin.compose")
+}
+
+// Public Android-app options, supplied independently for .dev and release.
+fun com.android.build.api.dsl.ApplicationBuildType.configurePush(variant: String, packageName: String) {
+    val fields = linkedMapOf(
+        "PACKAGE" to "Package", "APP_ID" to "FirebaseAppId", "API_KEY" to "FirebaseApiKey",
+        "PROJECT_ID" to "FirebaseProjectId", "SENDER_ID" to "FirebaseSenderId", "RESOLVER" to "ResolverUrl")
+    val values = fields.mapValues { (_, suffix) -> providers.gradleProperty("push${variant}$suffix").orElse("").get() }
+    val configured = values.values.any { it.isNotEmpty() }
+    if (configured) {
+        require(values.values.all { it.isNotBlank() && it.length <= 512 && it.none { c -> c.isWhitespace() || c.code < 32 } }) {
+            "Push configuration requires every option for $variant"
+        }
+        require(values.getValue("PACKAGE") == packageName) { "Push Android package does not match $variant" }
+        val sender = values.getValue("SENDER_ID")
+        require(sender.matches(Regex("[1-9][0-9]*")) &&
+            values.getValue("APP_ID").matches(Regex("1:$sender:android:[0-9a-f]+"))) { "Invalid Firebase Android app/sender association" }
+        val resolver = URI(values.getValue("RESOLVER"))
+        require(resolver.scheme == "https" && !resolver.host.isNullOrBlank() &&
+            resolver.rawUserInfo == null && resolver.rawQuery == null && resolver.rawFragment == null &&
+            resolver.path == "/v1/wakes/resolve") { "Push resolver requires its HTTPS resolve URL" }
+    }
+    buildConfigField("boolean", "PUSH_CONFIGURED", configured.toString())
+    values.forEach { (field, value) ->
+        val literal = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+        buildConfigField("String", "PUSH_$field", literal)
+    }
 }
 android {
     namespace = "nl.davidengelen.redsquare"
@@ -19,7 +48,9 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".dev"
+            configurePush("Debug", "nl.davidengelen.redsquare.dev")
         }
+        release { configurePush("Release", "nl.davidengelen.redsquare") }
     }
     sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
@@ -40,6 +71,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
+    implementation("com.google.firebase:firebase-messaging:26.0.0")
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.4.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")

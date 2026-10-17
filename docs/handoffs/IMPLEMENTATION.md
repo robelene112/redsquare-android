@@ -136,14 +136,45 @@ The bounded local opaque-wake slice is accepted; next is SDK/client preparation.
 nullable request body, corrected1m47s pass. Tracer/correction reviews at553df5b0,
 dc48e398/452f4595 report0/0. Existing150s worker class retains both Archive journeys.
 
-[Lifecycle preparation](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
-and[manual Firebase setup](../research/FCM_MANUAL_INITIALIZATION_2026_10_17.md)
-are source-only proposals/API facts. The service/SDK, opt-in registration, gateway
-binding/observer/deployment and actual Google delivery remain unimplemented.
-Existing owner Firebase setup question stays pending, do not repeat it. No
-SDK/client config/service, deployed gateway/node/account mutation or beta change.
-Future push data is planned to carry only opaque wake/version, no wallet/text.
-Local scheduling/resolution cannot prove incoming FCM/locked/Doze/Pixel or full#32.
+The[entry-point research](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
+and[manual setup research](../research/FCM_MANUAL_INITIALIZATION_2026_10_17.md)
+prepared the SDK/client work below. Opaque acceptance itself did not add the SDK.
+Local scheduling/resolution is not proof of incoming FCM/locked/Doze/Pixel/full#32.
+
+## Current Firebase client preparation
+
+Bounded source base4f7000c29463a044a2060887bfdcd4d28a21cf25. Actual Messaging26.0.0
+now added with per-variant public build options, manual default-app initialization,
+removed FirebaseInitProvider, explicit FID mode, automatic registration/analytics/
+default collection/delegation disabled. All options absent leaves it unconfigured;
+partial options or declared package/appId/sender mismatch fail the build.
+[Configuration and lifecycle](../PUSH_CLIENT_CONFIGURATION.md) lists the options
+and explicitly distinguishes syntax validation from real project association.
+
+The Application supports cold service initialization without wallet creation.
+The messaging service accepts only data version/wake, using the configured
+resolver and awaiting durable existing wake scheduling. The registration worker
+serializes explicit SDK tasks, encrypted installation phase/FID/time, pending
+phase before each request, fresh wallet/backend/consent/OS-permission demand,
+post-task demand reread, daily refresh and callback-triggered corrective work.
+Callbacks do not blindly overwrite the stored phase. Hooks cover committed social
+choice, permission result, startup/resume, wallet import/recovery and backend state.
+No signing wallet material is retained in installation registration storage.
+
+Initial local build FAIL23s at Gradle java.net name shadowing, corrected explicit
+URI import. Corrected core/debug/test/release/lint build is active in exec77684,
+log .scratch/push32-sdk-client-build-corrected.log. Merged debug manifest confirms
+service/metadata and removal of FirebaseInitProvider; no runtime result claimed.
+Source reviews and native unconfigured regressions are pending. This is source
+preparation, not a new TDD RED/GREEN or configured Google delivery proof. No new
+mock SDK/internal tests were added in place of actual external transport.
+
+Owner Firebase setup question stays pending, do not repeat it. No real project
+options/account/IAM/sender credentials or deployed gateway have been supplied.
+Signed gateway binding/revocation, observer/events/reconciliation and actual Google
+delivery remain unimplemented. Task timeout/rotation/callback/process behavior
+still requires configured runtime verification, both backends/fullSDKs/Pixel too.
+No node/deployment/account mutation or new beta; signed beta24 unchanged.
 
 ## Earlier accepted username slice
 
@@ -196,7 +227,7 @@ instrumentation status0 diagnostic messages are progress, not extra passing case
 Native-listed mention proof, receipt permission/category controls and
 recovery, other mounted forms, registration, real transport and full Android10/17
 acceptance remain. Legacy unguarded forms retain work with Retry. Local injection
-cannot close#32; no production caller invokes the local social receiver yet.
+cannot close#32; the new configured SDK entry has no real cloud runtime evidence.
 Firebase project/IAM and gateway setup remain external; the existing owner
 question stays pending. Do not repeat it. Production gateway deployment/node
 changes require concrete bounded separate authorization, after reviewable work.
@@ -209,7 +240,8 @@ Transport references: [local seam](../research/SOCIAL_PUSH_LOCAL_SEAM_2026_10_15
 No public/private wallet data or live-node changes are authorized by fixture work.
 Later source-only[FCM API observation](../research/FCM_ANDROID_API_2026_10_16.md)
 confirms new FID APIs in current Messaging26.0.0 and server fid target, superseding
-only the dated token API observation. No SDK/config/service added.
+only the dated token API observation. That research added no SDK/config/service;
+current client preparation is described above.
 
 ## Current public build
 
