@@ -55,7 +55,7 @@ class FcmSenderTest {
             // The external credential provider may renew over the network before a send.
             val refreshed = java.util.concurrent.atomic.AtomicBoolean(false)
             val slowCredentials = object : GoogleCredentials() {
-                override fun getRequestMetadata(uri: java.net.URI): Map<String, List<String>> {
+                override fun getRequestMetadata(uri: java.net.URI?): Map<String, List<String>> {
                     Thread.sleep(1250)
                     refreshed.set(true)
                     return credentials.getRequestMetadata(uri)
