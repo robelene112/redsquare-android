@@ -229,15 +229,25 @@ verify_chat_alerts() {
             granted_for_test=1
         fi
     fi
-    verify_group_chat_native "ChatAlertPreviewTest,nl.davidengelen.redsquare.ChatPushConsentPreviewTest,nl.davidengelen.redsquare.PrivatePushWorkPreviewTest" 180 chat-alerts chat-alert-evidence || native_exit=$?
+    if [[ "${1:-all}" != group ]]; then
+        verify_group_chat_native "ChatAlertPreviewTest,nl.davidengelen.redsquare.ChatPushConsentPreviewTest,nl.davidengelen.redsquare.PrivatePushWorkPreviewTest" 180 chat-alerts chat-alert-evidence || native_exit=$?
+        if [[ "$native_exit" == 0 ]]; then
+            python3 "$repo_dir/scripts/private-push-process-check" --evidence "$evidence/private-push-process" || native_exit=$?
+        fi
+    fi
     if [[ "$native_exit" == 0 ]]; then
-        python3 "$repo_dir/scripts/private-push-process-check" --evidence "$evidence/private-push-process" || native_exit=$?
+        verify_group_chat_native GroupPushWorkPreviewTest 180 group-push group-push-evidence || native_exit=$?
     fi
     if [[ "$granted_for_test" == 1 ]]; then
         adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
     fi
     return "$native_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == group-push* ]]; then
+    verify_chat_alerts group
+    printf '%s\n' 'Focused owned group wake receiver only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-alerts* ]]; then
     verify_chat_alerts
     printf '%s\n' 'Focused retained Chat alert UI and shade taps only; Google transport and full acceptance not run.' > "$evidence/scope.txt"

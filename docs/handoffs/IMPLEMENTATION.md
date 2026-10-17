@@ -44,6 +44,23 @@ A separate compile failure is retained without acceptance. Next is the
 actual Android group-consent/interest reconciliation RED in39078383744 at8762f20d3; client demand/native group receiver,
 actual alerts, membership/policy/identity/dedup/PID and full SDK acceptance remain.
 
+Native group-consent RED39078383744 at8762f20d3 is retained:11cases/10PASS/1FAIL,
+153.292s, subscription operation unavailable; rejected status/body not recorded.
+Later union/membership tails and private process gate unexecuted. Viewed actual
+Settings failure PNG. Minimum5c039 adds signed immutable group interests and
+current native category union; localcore114/gateway16 and debug/testAPK build
+PASS6m25s. Both reviewers caught unrelated receipt dependence on group storage.
+Correctedb61cbdfdd separates identity preflight from registration-only enumeration,
+retains conservative registration retry and adds an orphan group .new to the
+existing private worker-first fixture. Both source reviews0. Native GREEN
+39079544898 and source39079543130 are currently running atb61cbdfdd.
+
+First actual group-worker tracer is now prepared asGroupPushWorkPreviewTest,
+with isolated `group-push` SDK scopes; full and Chat scopes retain original checks
+and add its separate180second class. Production is unchanged fromb61cbdfdd.
+No group receiver code exists yet. Dispatch the isolated group trace for actual
+RED before implementing the missing group-reference/original/history path.
+
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
 Original32/34 retain configured Google/hosting/deployment/physical gates. Published
 beta28 remains the review baseline until47's accepted signed update.
