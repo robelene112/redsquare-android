@@ -131,8 +131,8 @@ worker3PASS47.545s. Both core114/0/0; source38987439730 SUCCESS release/lint.
 [Combined evidence](../evidence/ticket32/opaque-wake-green/README.md) retains51
 per-device hashes/18XML plus source metadata. Root viewed6 new opaque originals;
 12 earlier-mode originals retained without claiming new visual inspection. Full
-native assertions and scoped restoration pass. Final combined evidence review
-remains pending. Tracer local compile failed2m26s at
+native assertions and scoped restoration pass. Final combined evidence reviews at22d65f7b report Standards0/Spec0.
+The bounded local opaque-wake slice is accepted; next is SDK/client preparation. Tracer local compile failed2m26s at
 nullable request body, corrected1m47s pass. Tracer/correction reviews at553df5b0,
 dc48e398/452f4595 report0/0. Existing150s worker class retains both Archive journeys.
 

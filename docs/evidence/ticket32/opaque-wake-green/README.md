@@ -30,8 +30,8 @@ The gateway is controlled test infrastructure, not a deployed implementation.
 The initial RED remains FAILURE; later positive request/auth/recovery/alert tails
 were unexecuted there. Recipient proof assertions were added after that RED.
 Minimum local core/debug/test passes3m10s. Source reviews at861e795c and handoff
-correction5aac5d04 report Standards0/Spec0. Final committed-evidence review is
-pending. Both native runs use the exact same source; no equivalence exception.
+correction5aac5d04 report Standards0/Spec0. Final committed-evidence reviews at22d65f7b report Standards0/Spec0;
+both independently checked52 GREEN hashes/18XML and retained RED provenance. Both native runs use the exact same source; no equivalence exception.
 
 This proves local opaque-wake resolution and verified publication, not Firebase
 SDK/registration, actual Google delivery, independent web interoperability,
