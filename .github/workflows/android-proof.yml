@@ -40,6 +40,7 @@ jobs:
             build.gradle.kts
             core/build.gradle.kts
             app/build.gradle.kts
+            push-gateway/build.gradle.kts
             gradle/wrapper/gradle-wrapper.properties
       - name: Locate dependency cache
         id: cache-path
@@ -50,13 +51,13 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: redsquare-gradle-v1-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          key: redsquare-gradle-v1-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
       - name: Restore verified build dependencies
         id: dependencies
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches
-          key: redsquare-gradle-v2-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          key: redsquare-gradle-v2-${{ hashFiles('settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
           restore-keys: |
             redsquare-gradle-v2-
             setup-java-Linux-x64-gradle-
@@ -65,9 +66,9 @@ jobs:
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches/build-cache-1
-          key: redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-${{ github.sha }}
+          key: redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-${{ github.sha }}
           restore-keys: |
-            redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-
+            redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-
       - name: Check runner SDK and acceleration
         run: |
           test -c /dev/kvm
@@ -85,9 +86,9 @@ jobs:
           VERIFICATION_SCOPE: ${{ inputs.scope || 'source' }}
         run: |
           if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
-            ./gradlew --no-daemon --console=plain :core:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
+            ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug
           else
-            ./gradlew --no-daemon --console=plain :core:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
+            ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Retain Gradle task outputs before device tests
         if: steps.build.outcome == 'success' && steps.task-cache.outputs.cache-hit != 'true'

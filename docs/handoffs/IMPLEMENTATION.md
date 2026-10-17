@@ -24,14 +24,32 @@ Do not invent one. Repository state was verified before ordinary app work resume
 
 ## Current gateway implementation
 
-#42 is assigned to the sole writer after accepted SDK preparation. Its native
-blocker count is0. First vertical slice: a public HTTP subscription bound by the
-local wallet signature, retained across a server-instance restart, then retired
-using installation revocation authority without the outgoing wallet secret. This
-uses the parent's controlled protocol/wallet boundary; no cloud/runtime success
-is inferred. Start with one intended failing HTTP journey, then implement only
-that slice and review. Local source/module only, no deployment/node/account/IAM
-operations. Existing owner Firebase setup question remains pending.
+#42 is assigned to the sole writer after accepted SDK preparation. Native blocker
+count0; #32 is natively blocked by#42. Fixed base5a048524d8681781c1763f850cc3e0773b8e753c.
+First vertical slice: public HTTP wallet-signed subscription, retained across a
+server-instance restart, then retired using installation authority without the
+outgoing wallet secret. Parent controlled protocol/wallet seam, not a new campaign.
+
+Tracer6bb9175e: actual local gateway-only RED43s at firstchallenge expected201/got501,
+oneFAIL. Later bind/restart/status/retirement/retry tails unexecuted. Retained at
+[subscription RED](../evidence/ticket42/subscription-red/README.md),3 hashes and
+four committed source byte hashes. Tracer/RED reviews report Standards0/Spec0.
+Core tests were not run by that gateway-only RED task. No process-crash proof.
+
+Minimum source now implements challenge/bind/status/revoke and durable exclusive
+file state, idempotent exact retransmission and retirement tombstones. Initial
+core/gateway task PASS35s. Bounded executor, canonical origin and constructor-error
+cleanup changes PASS39s (exec81310 ended). Final ordinary HTTP/storage error
+classification and CI gateway-test/cache wiring now compile in exec84118, log
+.scratch/push42-subscription-final-build.log. Do not edit compiled source until
+that owned build finishes. [Current contract](../PUSH_GATEWAY.md) describes
+the implemented first slice and explicit remaining deployment/runtime limits.
+
+No standalone command, Android gateway binding, resolver, renewal, observer,
+FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
+Firebase setup remains pending without repeating the question. No deployment,
+node/account/IAM or live-write operations. Protected untracked group contract stays
+untouched. Public signed beta24 unchanged.
 
 ## Accepted #32 foundation
 
