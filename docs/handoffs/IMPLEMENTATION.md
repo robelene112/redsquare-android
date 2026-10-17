@@ -128,13 +128,13 @@ denial was corrected at9c0e9168. Next slice is remaining gateway observer/events
 resolver/sender; do not close42/32 or repeat unchanged native runs. No configured SDK or Google-delivery claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
-no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.
+Google auth1.54.0 is now resolved only in the JVM gateway; no credential/account operations occurred. Prior native UI11/worker3 assertions unchanged behind new gate.
 Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
 Android gateway binding is accepted at the controlled HTTP/storage seam above.
-Resolver, continuous observer, FCM sender, physical retention cleanup and
-whole#42 acceptance remain unfinished. Existing owner
+Resolver, continuous observer, durable FCM retry loop, physical retention cleanup
+and whole#42 acceptance remain unfinished. The isolated sender adapter is described below. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays
 untouched. Public signed beta24 unchanged.
@@ -150,6 +150,21 @@ parsing. Its owned local build52476 finished PASS50s, gateway5/0/0 including bot
 selector loops (new0.888s); core UP-TO-DATE. [Retained](../evidence/ticket42/archive-green/README.md).
 Independent source9967ff40 and evidence d6619625 reviews report Standards0/Spec0.
 No continuous observer, candidate eligibility, durable event or delivery claim.
+
+## Current external sender adapter
+
+Tracer ee01dd91 actualFAIL1m5s/new0.116s missingAcceptance, old5PASS/coreUPTODATE;
+[sender RED](../evidence/ticket42/sender-red/README.md). Firstminimum35e1eb93 FAIL52s/new0.445s,
+expectedAccepted/gotRetry10000; lateroutcome/body tailsunexecuted. Standards2/Spec1
+findings: exact-length read, status/header preservation on unusable body, and
+expiry after credentials refresh. [Retained first failure](../evidence/ticket42/sender-first-minimum/README.md).
+Correction663e2f18 source reviews0/0, but its test override failed compilation36s
+(nullable Google URI), no gateway test ran. [Retained](../evidence/ticket42/sender-compile-failure/README.md).
+Fixture-only2da44ac9 nowPASS41s/gateway6/0/0, new1.897s, coreUPTODATE.
+[Retained GREEN](../evidence/ticket42/sender-green/README.md),7hashes/12sourcehashes.
+Owned55910endedexit0, no owned local build. Final fixture/evidence reviews pending.
+No actual Google/ADC/cloud/account use. Durable event/resolver and send scheduling
+remain next; do not close42/32 or claim device delivery. Beta24 unchanged.
 
 ## Accepted #32 foundation
 

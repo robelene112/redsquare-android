@@ -205,3 +205,34 @@ outage/pruning/reorganization gaps remain continuous-observer work.
 gateway5/0/0, including the new0.888second journey completing both selector loops;
 core task up-to-date, build50s. Independent source and evidence reviews report
 Standards0/Spec0. This is not a current public-backend availability claim.
+
+## External FCM sender adapter
+
+`FcmSender(project, credentials)` sends data-only version/wake to the current
+FID at the Google HTTPS endpoint. It returns acceptance with the actual message
+name, a retry delay, structured UNREGISTERED or terminal HTTP rejection. The
+caller must persist the same logical wake and own bounded retries, backoff/jitter,
+expiry and conditional retirement of the exact target generation. Acceptance is
+not a delivery receipt. No such durable delivery loop is implemented yet.
+
+OAuth metadata is requested afresh per attempt. Expiry and whole-second Android
+TTL are checked after credential retrieval. Payloads contain no wallet, backend,
+content or notification template. Send HTTP has5second connect/15second read/
+20second call timeouts, no redirects and a64KiB response bound. Credential retrieval
+uses the supplied Google SDK provider; the HTTP deadline does not bound that
+provider's own refresh. Retry-After is honored,429 has at least60seconds and
+other server/network failures at least10seconds. Successful bodies need a valid
+message name; only an explicit structured404 marks a target unregistered.
+
+`FcmSender.applicationDefault(project)` is an explicit operator factory for
+externally provisioned Application Default Credentials with the messaging scope.
+It is not called by the current standalone command or owned tests. The target
+project must be supplied separately from the credential project. Authorized ADC,
+FCM API availability, target-project cloudmessaging.messages.create permission
+and a corresponding configured registered FID remain external inputs. Do not
+place credentials in the APK/repository. See the sourced[API observation](research/FCM_GATEWAY_SENDER_2026_10_17.md).
+
+[Controlled sender evidence](evidence/ticket42/sender-green/README.md) verifies
+owned HTTP with synthetic credentials; it does not establish Google delivery.
+The original no-op failure, first-minimum failure and fixture compile failure
+remain retained separately. No production gateway is deployed.
