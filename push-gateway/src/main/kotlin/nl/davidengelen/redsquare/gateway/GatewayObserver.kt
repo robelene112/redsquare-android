@@ -31,7 +31,11 @@ class GatewayObserver(private val gateway: PushGateway, private val identity: Sa
         try {
             GatewayChain(identity, backend, localChainOrigin).use { selectedChain ->
                 chain.set(selectedChain)
-                GatewayArchive(identity, backend, localArchiveOrigin).use { selectedArchive ->
+                // Deployed chain and Archive requests use the same authenticated socket.
+                // Distinct loopback origins preserve the existing split-service fixture only.
+                val selectedArchive = if (localChainOrigin == localArchiveOrigin) GatewayArchive(backend, selectedChain.peer)
+                    else GatewayArchive(identity, backend, localArchiveOrigin)
+                selectedArchive.use {
                     archive.set(selectedArchive)
                     if (closed.get()) return
                     val reconciled = gateway.observe(selectedChain, selectedArchive, sender)

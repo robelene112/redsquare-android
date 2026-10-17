@@ -24,8 +24,14 @@ Archive reply positively routed to the other socket. Owner binding only reached;
 Official and later delivery/privacy assertions remain unexecuted. Raw log/XML and
 source/upstream hashes in docs/evidence/ticket45/routing-red (3hashedrecords).
 An earlier fixture compile error is not this behavioral RED; it was corrected
-before the recorded run. No node or Google was contacted. Next: minimal shared
-session correction, gateway/core acceptance and both reviews. No owned local build.
+before the recorded run. No node or Google was contacted.
+Minimum correction shares the chain peer with Archive for the same endpoint.
+Standalone readers and the existing distinct-loopback fixture keep their public
+contracts. Closing either shared reader cancels the pass session. Focused local
+GREEN1m13s passes the same complete journey on both logical backend bindings.
+Three hashed raw/source records in ticket45/routing-green. No actual Google or
+deployed-node acceptance. Next: complete core/gateway/build checks and both
+reviews. No owned local build.
 
 ## Accepted native Chat alert presentation (#44)
 

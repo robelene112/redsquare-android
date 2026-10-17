@@ -9,11 +9,16 @@ import java.io.Closeable
  * a failed connection is not reusable. A bounded head read does not promise complete history.
  * localOrigin is restricted to an owned loopback HTTP fixture, not another backend choice.
  */
-class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
-    localOrigin: String? = null, fixtureRegistrar: Boolean = false) : Closeable {
-    init { require(!fixtureRegistrar || localOrigin != null) }
-    private val registrar = if (fixtureRegistrar) "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" else SaitoRegistry.REGISTRAR
-    private val peer = GatewayPeer(identity, backend, localOrigin)
+class GatewayArchive private constructor(val backend: SaitoBackend,
+    private val registrar: String, private val peer: GatewayPeer) : Closeable {
+    constructor(identity: SaitoWallet, backend: SaitoBackend, localOrigin: String? = null,
+        fixtureRegistrar: Boolean = false) : this(backend, registrar(localOrigin, fixtureRegistrar),
+        GatewayPeer(identity, backend, localOrigin))
+
+    /** Both readers share the pass lifetime; closing either cancels its authenticated session. */
+    internal constructor(backend: SaitoBackend, peer: GatewayPeer) : this(backend, SaitoRegistry.REGISTRAR, peer) {
+        require(backend == peer.backend)
+    }
     fun recentSocial(): ArchiveFeedPage = RedSquareFeed.readSearch(archive(null))
 
     internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean, val unavailableParent: Boolean = false)
@@ -78,6 +83,10 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
     override fun close() = peer.close()
 
     companion object {
+        private fun registrar(localOrigin: String?, fixture: Boolean): String {
+            require(!fixture || localOrigin != null)
+            return if (fixture) "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU" else SaitoRegistry.REGISTRAR
+        }
         private val NAME_MENTION = Regex("(?<![\\p{L}\\p{N}_@])@([A-Za-z0-9]{1,45}@saito)(?![\\p{L}\\p{N}_@])")
     }
 }

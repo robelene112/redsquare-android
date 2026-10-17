@@ -1,0 +1,7 @@
+# Gateway session routing RED
+
+The focused gateway task failed49s with one completed case/one failure7.538s. Under the pinned214504e routing rules, the first backend's two authenticated gateway-owned sockets completed in the opposite order. The fixture positively counted one Archive response sent to the other socket. The expected verified reply never reached the owned FCM boundary within the unchanged5second wait. Official and later send-contract assertions were unexecuted.
+
+Three hashed records retain raw build/JUnit output and source/upstream hashes. Production source was unchanged at review base6a9b749ad; the new test is committed ind9bb0e017. A prior fixture compile error was corrected before this behavioral RED and is not delivery evidence. Both peers and sender are loopback fixtures; no production node, Google service or user wallet was contacted.
+
+The fixture follows the independently pinned [public-key API reply mapping](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/rust/saito-js/shared_methods.server.ts#L19), separate peer-ID chain routing and [handshake mapping](https://github.com/SaitoTech/saito/blob/214504ecece76d1cd20a245fe4468eccbfca2951/node/lib/saito/modules.ts#L709). A250ms first-handshake delay arranges the competing order; this is an owned transport condition, not an application retry or extended deadline. The test reads independent signed full-block/social vectors, hides Archive head discovery and requires exact reply/parent reads before opaque sending.

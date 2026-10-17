@@ -31,7 +31,7 @@ class GatewayChain(private val identity: SaitoWallet, val backend: SaitoBackend,
         val references: List<Reference>)
     private val closed = AtomicBoolean(false)
     private val download = AtomicReference<Call?>()
-    private val peer = GatewayPeer(identity, backend, localOrigin)
+    internal val peer = GatewayPeer(identity, backend, localOrigin)
     private val origin = localOrigin?.removeSuffix("/") ?: backend.webUrl
 
     /** Missing retained references remain visible as height gaps; empty does not itself mean caught up. */

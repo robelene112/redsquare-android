@@ -1,0 +1,13 @@
+{
+  "reviewBase": "6a9b749ad16f91810334c369bbf29cd647a9cf0c",
+  "tracerCommit": "d9bb0e017",
+  "command": "scripts/android-build :push-gateway:test --tests nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+  "exitCode": 0,
+  "sourceSha256": {
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayObserver.kt": "3e895309a8da7d6f86aa0ddcbadb3fc86a2cdb43f7b1b78bd168154951cb2299",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "8d0c60e75170d9e3fe2d4b59bb53d58a811f99d9d4218a2e05bdb59bebac3024",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChain.kt": "d8ee911aa3225a106aec997b964dfb5c129cb113be1168ec6f6e1f3c2d26f86f",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt": "4182ba765e4779a9e92e29426f0d6a34a8cac49204ef757ac4e7c552f76f10c2",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewaySessionDeliveryTest.kt": "7a7950c8905d6081fef1a6435b9300e69fe767bc72aad8b748969c46cbd5721e"
+  }
+}

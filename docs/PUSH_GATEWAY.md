@@ -322,7 +322,8 @@ live public Registry availability or the source-reviewed disconnect interleaving
 ## Chain references and full-block reader
 
 `GatewayChain(identity, backend)` shares the authenticated transport implementation
-with Archive access, using a separate owned connection. `range(cursor)` bootstraps
+with Archive access. Standalone readers own separate connections; the autonomous
+observer shares one authenticated connection for both readers in each backend pass. `range(cursor)` bootstraps
 with the source-supported recent SPV window, then requests Full continuation from
 the explicit processed cursor. The111byte request contains zero extra keys. Chain
 responses have no request ID, so one may be outstanding; an uncertain outcome
@@ -406,7 +407,11 @@ The six-argument command above runs HTTP and retention only. To enable observati
 append `--observe --project PROJECT_ID`, replacing PROJECT_ID with the authorized
 Firebase project identifier. This starts one completion-based30second loop per
 approved backend, serialized at gateway processing. Each pass reconstructs and
-closes its own selected chain/Archive readers. It does not switch subscribers
+closes its own selected chain/Archive readers on one authenticated socket. This
+avoids competing same-key handshake mappings routing Archive replies to the other
+socket. The existing split-service loopback fixture can still inject distinct
+origins; deployed observers have one approved origin per backend. Closing either
+shared reader cancels the pass session. It does not switch subscribers
 between backends. The gateway creates an ephemeral, unfunded signing identity
 in process memory; it rotates on restart and never uses a subscriber secret.
 
