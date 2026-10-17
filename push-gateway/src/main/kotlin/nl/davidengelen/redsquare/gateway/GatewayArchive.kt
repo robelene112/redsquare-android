@@ -117,26 +117,33 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
     internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean)
 
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
-    internal fun verifiedSocial(): List<VerifiedSocial> = recentSocial().posts.mapNotNull { hint ->
-        val post = exact(hint.id) ?: return@mapNotNull null
-        if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
-        val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().take(51).toList()
-        var unavailableNames = names.size > 50
-        val recipients = (if (unavailableNames) emptyList() else names).mapNotNull { identifier ->
-            val query = JsonObject().apply {
-                addProperty("request", "registry query")
-                add("data", JsonObject().apply { addProperty("request", "registry namecheck"); addProperty("identifier", identifier) })
-            }
-            try {
-                SaitoRegistry.readNamecheck(request(query.toString(), "registry", true), identifier, registrar)
-                    ?.takeIf { it.active }?.publicKey
-            } catch (failure: Exception) {
-                if (Thread.currentThread().isInterrupted) throw failure
-                unavailableNames = true
-                null // Missing optional name evidence cannot invalidate the independent reply/public-key evidence.
-            }
-        }.toSet()
-        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, recipients, unavailableNames)
+    internal fun verifiedSocial(): List<VerifiedSocial> {
+        // Complete independent Archive evidence first. Registry shares this socket and may disconnect it.
+        val verified = recentSocial().posts.mapNotNull { hint ->
+            val post = exact(hint.id) ?: return@mapNotNull null
+            if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
+            VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, emptySet(), false)
+        }
+        return verified.map { candidate ->
+            val post = candidate.post
+            val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().take(51).toList()
+            var unavailableNames = names.size > 50
+            val recipients = (if (unavailableNames) emptyList() else names).mapNotNull { identifier ->
+                val query = JsonObject().apply {
+                    addProperty("request", "registry query")
+                    add("data", JsonObject().apply { addProperty("request", "registry namecheck"); addProperty("identifier", identifier) })
+                }
+                try {
+                    SaitoRegistry.readNamecheck(request(query.toString(), "registry", true), identifier, registrar)
+                        ?.takeIf { it.active }?.publicKey
+                } catch (failure: Exception) {
+                    if (Thread.currentThread().isInterrupted) throw failure
+                    unavailableNames = true
+                    null // Missing optional name evidence cannot invalidate the independent reply/public-key evidence.
+                }
+            }.toSet()
+            candidate.copy(namedRecipients = recipients, unavailableNames = unavailableNames)
+        }
     }
 
     private fun exact(signature: String): FeedPost? {
