@@ -1,0 +1,62 @@
+{
+  "production": {
+    "commit": "15dbae02405a18bd0e2a1c32938a31d35160d00e",
+    "objects": {
+      "app/src/main": "80bc9ef161fd54c331daf247ef273ea74920a68c",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle/wrapper/gradle-wrapper.properties": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  },
+  "finalRuntime": {
+    "commit": "91d8fefecc71d0f71b1aa74f43b866d43b0d1c51",
+    "objects": {
+      "app/src/main": "80bc9ef161fd54c331daf247ef273ea74920a68c",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle/wrapper/gradle-wrapper.properties": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  },
+  "reviewedEvidence": {
+    "commit": "e8b337a30edd70246404cf91d5ae1ca55d779aee",
+    "objects": {
+      "app/src/main": "80bc9ef161fd54c331daf247ef273ea74920a68c",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle/wrapper/gradle-wrapper.properties": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  },
+  "correctedFullRuntime": {
+    "commit": "e85076aaae54605fcf73ad9f424565a3dcffb46a",
+    "objects": {
+      "app/src/main": "80bc9ef161fd54c331daf247ef273ea74920a68c",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle/wrapper/gradle-wrapper.properties": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  },
+  "currentEvidence": {
+    "commit": "7723a8972ac6d6c87a99009721b525ab6cd439c6",
+    "objects": {
+      "app/src/main": "80bc9ef161fd54c331daf247ef273ea74920a68c",
+      "core/src/main": "786679f6635267ca0757ff35369a995979bdf3de",
+      "app/build.gradle.kts": "04b2afc380b894a6b055d40dba9619591e4f71c3",
+      "core/build.gradle.kts": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "build.gradle.kts": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "settings.gradle.kts": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "gradle/wrapper/gradle-wrapper.properties": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  }
+}

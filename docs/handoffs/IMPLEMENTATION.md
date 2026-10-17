@@ -86,11 +86,20 @@ pass. Canonical process-viewport-green/android10/android17 has21hashes/5XML perS
 root viewed two pending-message originals perSDK, remaining3PNGs retained.
 Local correction2m1s and bounded reviews0/0. No owned build, app unchanged.
 
-Corrected full10run39029829620 and17run39029992811 now run exact same
-e85076aaae54605fcf73ad9f424565a3dcffb46a, both public_feed_read=true. Outcomes pending.
-Retain first full failures as failures. Whole-child review base06e4ef27 unchanged;
-final full evidence review/publication remain. Prepared signed26 is valid and
-unpublished; no rebuild needed for the test-only correction.
+Corrected full10run39029829620 and17run39029992811 both SUCCESS at exact
+same e85076aaae54605fcf73ad9f424565a3dcffb46a, public_feed_read=true. Canonical
+full-regression/android10/android17:404PASS+one existing Profile assumption /
+406PASS;95/96completion records;29 intentional interrupted outputs each. Core114/
+0/0, source/release/lint, complete application/recovery/public-read/update gates
+pass. Chat GIF6PASS57.281s/58.695s. Private recovery PIDs6166to6529 and10460to10541,
+with unchanged protected original/draft/reaction/wallet state and no writes.
+235/236 hashed records,711/712 parsed XML entries,845/849 PNG-signature entries;
+five optional diagnostics unavailable perSDK, explicitly qualified. Root viewed
+three named Chat original PNGs perSDK; other captures retained without new visual
+claim. Retain first full failures as failures. Whole-source review at7723a8972
+Standards0/Spec0, including new development-preferences standard. Final combined
+SDK evidence review/publication remain. Prepared signed26 unchanged/unpublished;
+no rebuild required. Whole-child review base06e4ef27 remains fixed.
 Read-only next-work preparation is in .scratch/chat33-native-preparation.txt;
 no next ticket claimed/implemented. After43 closes, consider one bounded child
 covering private/group notification tap destinations and private preview opt-in,
