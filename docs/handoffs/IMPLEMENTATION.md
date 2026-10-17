@@ -29,7 +29,7 @@ retired after verifying its unique workspace/args, actual143, noPASS/JUnitclaim;
 Correctionaadad53f mutates events+cursor in the same snapshot/sole atomic save,
 with shared private enqueue helper. Owned80369 endedPASS1m46s/gateway10/0/0/new6.952s/coreUPTODATE.
 Sourceaadad53f Spec0/Standards0. [GREEN](../evidence/ticket42/chain-social-green/README.md),10hashes/21sources.
-No ownedbuild. Final evidence reviews pending. Event re-inclusion source-reviewed, not yet exercised.
+No ownedbuild. Final evidence reviews atbf1c6655 Standards0/Spec0. Event re-inclusion source-reviewed, not yet exercised.
 Default clock remains systemUTC; no Android/core API change. Generator uses only
 read-only dependencies/networknone/emptyenv, no Saito app initialization or writes.
 Protected group doc untouched; no deployment/cloud/accounts/node changes.
