@@ -52,70 +52,94 @@ open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Stan
 source checkpoint is frozen; claim the next sequential source preparation.
 ## Current Giphy implementation (#16)
 
-Sole writer root, assigned @me, native blockers0. Fixed review base
-`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app source
-`32d0c22c97456a39e4e1330c4ba31c1e61cc17b8` is the reviewed minimum. Native
-metadata run39010198233 atd423666d passed2/0/36.558s. Corrected local build42514 completed successfully;
-no owned local build remains active.
-The Android-authorized key remains pending. Do not repeat its question or borrow
-backend web keys. Use [primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md)
-and existing GIF contracts. No real provider/key/node/account/live-write change.
+Sole writer root, assigned @me, native blockers0. Whole review base
+`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app candidate7ad1742e includes
+Android10 buffer fixeb840006 and published-credit retention. Both bounded source
+reviews Standards0/Spec0. The earlier integrated Spec1 at a275 is resolved in
+source, awaiting native confirmation. No corrected runtime GREEN is claimed.
 
-Native Compose picker uses fixed production API, optional per-variant Posts key,
-explicit DEBUG/emulator/loopback fixture, exact queries, loading/error/retry/empty,
-24 ordered results, returned thumbnails, available creator/source links and
-Powered by GIPHY. Selecting the unchanged original URL durably saves the encrypted
-wallet/backend draft before publishing memory/closing. Existing four-attachment
-and message-size limits remain. Shared PostImages uses an uncached native
-animated drawable for Giphy sources:8MiB/512edge, two slots, lifecycle ownership,
-no raster LRU/disk/search store. Owned GIF has two16x16 frames, independently
-ImageIO-decoded; native frame observations are recorded below.
+Owned local build59382 is active: `.scratch/gif16-buffer-published-credits-build.log`.
+Do not edit compiled source until this build finishes or is uniquely retired
+and its actual result recorded. No active CI. Last source39012426447 at3bd SUCCESS.
+The Android-authorized Giphy key remains pending. Do not repeat its question or
+borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
+No real provider/key/account/node/live-write change. Beta24 remains current.
+Protected untracked group contract stays untouched.
 
-| Checkpoint | Actual result and canonical packet |
+Implemented source: direct native picker with exact debounced searches,24 results,
+retry/empty/rate-limit/length states, thumbnails, available credits and provider
+branding. Selection saves the unchanged original URL and optional attribution in
+an encrypted wallet/backend draft before closing. Four-attachment/message limits
+remain. GIF drawables are uncached, byte/dimension/output/concurrency bounded,
+lifecycle-owned and clipped. Optional malformed credits do not discard text/images.
+Signed Saito payloads retain original URLs, without private draft metadata.
+
+Current corrections:
+
+- Android10 run39011893710 at a275 passed recovery, then crashed during selection.
+  [First12 originals](../evidence/ticket16/android10-first-crash/README.md), root
+  viewed4 PNGs/parsed4 XMLs. Changed diagnostic39012426099 at3bd also FAILED:
+  AnimatedImageTh SIGABRT in ByteArrayStream::read while decoding a GIF frame.
+  [Five originals and AOSP inventory](../evidence/ticket16/android10-buffer-red/README.md).
+  Representative Android10 source routes heap arrays through JNI reads and
+  direct buffers through a retained memory stream. eb840006 supplies direct
+  read-only bytes with base Buffer.rewind, preserving limits/lifecycle/assertions.
+  This supports the mechanism, not an exact emulator-source pin or runtime fix.
+- Published attribution was lost after disposable composer cleanup. Native
+  tracer24787e68 catches it:3bd Android17 run39012427386 preview PASS3/0/46.306s,
+  posting FAILED6/1/35.72s at missing owner credits185/152; other5 methods pass.
+  Later blank-composer/fresh credit tails are unexecuted. [Twelve originals](../evidence/ticket16/published-credits-red/android17/README.md),
+  root viewed4 PNGs/parsed4 XMLs; keyboard crop is qualified. 7ad retains selected
+  explicitly sent presentation references independently, encrypted per wallet,
+  bounded128 references/2MiB. Signed work retains them before transmission;
+  shared PostImages resolves known credits across feed/thread/profile/search/
+  quote/viewer, with explicit draft credits taking precedence. No API catalogue,
+  media cache, extra provider lookup or invented historical credits.
+- Search tracer originally failed from an ambiguous text-field selector:
+  a275 Android17 run39011891934 FAILED3/1/50.923s at151; prior2 methods pass,
+  later search/posting unexecuted. [Five originals](../evidence/ticket16/search-selector-failure/android17/README.md).
+  Root viewed PNG/parsed XML. Correction046a892c addresses the visible Search GIFs
+  label, retaining values/assertions/deadlines. The subsequent3bd preview PASS
+  reaches exact UTF8 query429/retry/empty, local51-character rejection, newer
+  result preservation over1.5seconds after releasing the older request, close/
+  authored text/no Saito writes. Dispatcher completion is not transport proof.
+
+Earlier canonical checkpoints, never relabeling failed/cancelled runs:
+
+| Checkpoint | Actual result and packet |
 | --- | --- |
-| Missing Add GIF RED | f3b272d2 /39005341020 FAILED1/1/22.301s; [six originals](../evidence/ticket16/failure-red/android17/README.md). Later tails unexecuted. |
-| Recovery GREEN | e5ba44fd /39006305712 SUCCESS1/0/30.684s; [nine originals](../evidence/ticket16/failure-green/android17/README.md). Retry503 twice, close, save/recreate/text and zero Saito writes. Source39006306206 SUCCESS. |
-| Missing preview RED | f341a30a /39007107484 FAILED2/1/47.974s; [six originals](../evidence/ticket16/animation-red/android17/README.md). Recovery passed; later failed-method tails unexecuted. Source39007107311 SUCCESS. |
-| Selection/animation checkpoint |40588d70 /39007775320 SUCCESS2/0/29.539s; [thirteen originals](../evidence/ticket16/selection-green/android17/README.md). Distinct static thumbnail, two frames after selection/restoration, fresh exact original URL/query requests, removal/text/no-write. Source39007775786 SUCCESS. **Layout not accepted:** PNGs reveal native crop overdraw. |
-| Boundary RED |0abb1c29 /39008369694 FAILED2/1/32.83s; [seven originals](../evidence/ticket16/clipping-red/android17/README.md). Same-bitmap positive center passed; outside pixel y207 above actual screen bounds(24,215,296,375) failed. Recovery passed; later tails unexecuted. Source39008369597 SUCCESS. |
+| Missing picker RED | f3b272d2 /39005341020 FAILED1/1/22.301s, [six originals](../evidence/ticket16/failure-red/android17/README.md). Later tails unexecuted. |
+| Recovery GREEN | e5ba44fd /39006305712 SUCCESS1/0/30.684s, [nine originals](../evidence/ticket16/failure-green/android17/README.md). |
+| Missing animation RED | f341a30a /39007107484 FAILED2/1/47.974s, [six originals](../evidence/ticket16/animation-red/android17/README.md). Recovery passes, later failed-method tails unexecuted. |
+| Selection checkpoint |40588d70 /39007775320 SUCCESS2/0/29.539s, [13 originals](../evidence/ticket16/selection-green/android17/README.md). Animation/URLs pass, visible crop overdraw excludes layout acceptance. |
+| Clipping RED |0abb1c29 /39008369694 FAILED2/1/32.83s, [seven originals](../evidence/ticket16/clipping-red/android17/README.md). |
+| Clipping GREEN |39e0c245 /39008861337 SUCCESS2/0/49.277s, [12 originals](../evidence/ticket16/clipping-green/android17/README.md). Same-bitmap center/exterior and frames pass, cropToPadding enabled. |
+| Selected-credit RED |b377c2e1 /39009395863 FAILED2/1/42.329s, [seven originals](../evidence/ticket16/credits-red/android17/README.md). Later credit/restoration/removal tails unexecuted. |
+| Draft-credit GREEN |d423666d /39010198233 SUCCESS2/0/36.558s, [13 originals](../evidence/ticket16/credits-green/android17/README.md). Captures precede credit scrolling, not full visual credit proof. |
+| Posting/fresh Activity |92845df9 /39011213336 SUCCESS preview2/0/37.359s and posting6/0/25.056s, [81 originals/outputs](../evidence/ticket16/posting-green/android17/README.md). Fresh VM and visible draft credits pass; this predates the published-credit tracer. |
 
-Root viewed every retained GIF PNG and parsed its XML. Both axes reviewed the
-source/tracers/packets with0 outstanding findings after corrections. Earlier
-observer runs39008263619 and39008310559 were deliberately CANCELLED for
-window/screen coordinate and blank-bitmap oracle fixes; neither is app RED.
+Root inspected the retained images/XML at each stage. Posting packet: root viewed
+all9 preview and3 posting PNGs; Standards reviewer viewed all12 posting PNGs;
+all21 XML parse. Indexed owner-post bitmap shows an older card despite paired
+XML/native display checks; exclude it from visible indexed-post acceptance.
+Available quote captures are partly offscreen. No browser animation/physical proof.
+Earlier observer runs39008263619/39008310559 were CANCELLED for coordinate/
+positive-center oracle fixes, not app REDs. Obsolete metadata build88421 retired143;
+corrected42514 PASS3m46s. Endpoint build30442 PASS1m47s, search build85318 PASS1m41s.
 
-Accepted clipping fix39e0c245 enables ImageView.cropToPadding with zero padding,
-retaining CENTER_CROP/URLs/decoder policy. Both bounded source reviews0/0;
-**Android17 run39008861337 SUCCESS2/0/49.277s**; source39008861427 SUCCESS.
-[Clipping GREEN](../evidence/ticket16/clipping-green/android17/README.md) retains
-12 originals, root viewed four PNGs/parsed four XMLs. Same-bitmap positive center
-and outside checks pass for thumbnail, selected and restored animation; actual
-red/blue frames are visible and text/title remain clear. Earlier overdraw is
-not relabeled as layout PASS. No extra local build was run
-for this setter; source/device CI compile it. Previous selection local build
-13621 PASS3m36s (core UP-TO-DATE).
+Six actual public test frames from928 pass offline WASM signature/hop/body,
+unmodified pinned A/B template and Chromium DOM/decode checks. Twelve source
+hashes match accepted ticket14 baseline. Pinned web original quote text is
+preserved/authenticated in the model but omitted from their HTML because
+embedded.app is absent; identity/images remain. Android preserves original text.
+The mistaken HTML oracle failure remains retained, not app RED. Tool source
+reviews0/0 at96ed9094; reference-script duplication is acknowledged/nonblocking.
 
-Selected-credit tracer b377c2e1 actual run39009395863 FAILED2/1/42.329s at
-missing selected Powered by GIPHY, helper193/call161. Prior recovery passes;
-selection/animation/clipping/exactURL assertions before this point pass, later
-artist/source/restoration/removal tails unexecuted. [Seven RED originals](../evidence/ticket16/credits-red/android17/README.md),
-root viewed both PNGs/parsed both XMLs. Both tracer reviews0/0.
-
-Current minimum retains optional selected ID/title/creator/source metadata in
-existing encrypted draft/VM, preserving it through save/send/queue cancellation,
-ordinary photo adds and source navigation, dropping removed-image metadata.
-Optional malformed credits do not discard text/images. PostImages shows provider
-brand and available credits, including its viewer; signed Saito payload remains
-only original URLs. Source-link navigation persists current work first, reusing
-picker persistence. Draft metadata source reviews and local/native checks passed
-at the checkpoint below. Whole integration review found that published views lose
-selected creator/source metadata after the disposable composer is cleared; this
-is an open implementation finding. Fresh-Activity restoration and controlled signed
-post/reply/quote checks now pass, with the documented pinned-web text limitation.
-Complete remaining search/recovery and Android10/17 acceptance. Live authorized Giphy remains a
-separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.
-Protected untracked group contract stays untouched. Latest issue16 comment
-6230874630 predates the newest runtime checkpoint and is not full acceptance.
+Next: finish owned build, verify corrected native GIF flows on Android10/17,
+then final full regressions once source is stable. Queue-credit and external
+source-navigation runtime coverage remain source-only. Fresh Activity is not
+process death. Authorized live Giphy acceptance remains external. Whole16 and31
+stay open. Latest tracker comment6230874630 predates these newest results.
 
 ## Historical gateway checkpoint records
 
@@ -832,112 +856,3 @@ For earlier ticket chronology, source provenance, failed attempts or previous
 session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md).
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
-
-
-Selected-credit source review3a07e0c1: Standards0, Spec1 because queue view
-omitted its already-available saved metadata. Corrected one PostImages binding
-at32d0c22c; both bounded fix reviews now Standards0/Spec0.
-Obsolete local build88421 was uniquely inspected/retired with exit143 before
-editing; it is not a pass. Corrected source reviews Standards0/Spec0; local build42514 PASS.
-Corrected native metadata checkpoint passed in39010198233, as recorded below.
-Separate source39009396879 SUCCESS at tracerb377c2e1, not new metadata acceptance.
-
-Remaining GIF acceptance covers controlled search/empty/rate-limit/retry/query
-handling and final Android10/17 verification. Fresh Activity/ViewModel reopening
-and signed post/reply/quote checks now pass at the checkpoint below. Actual
-process death is not proved by the fresh-Activity journey. Avoid unrelated
-node/provider work.
-
-## Current GIF verification checkpoint
-
-Production minimum remains32d0c22c. Native candidate92845df9 run39011213336
-SUCCESS on Android17: preview2/0/37.359s and posting6/0/25.056s. Separate source
-39011213667 SUCCESS. Corrected endpoint build30442 PASS1m47s. Both reviews0/0.
-[Canonical packet](../evidence/ticket16/posting-green/android17/README.md) retains
-original native data and six actual public test frames. Fresh Activity/VM reopening
-and full visible credit captures now pass. This is not process-death proof.
-All post/reply/quote cases use their explicit owned backend endpoint extra.
-
-Root viewed9 preview PNGs and three posting PNGs; Standards reviewer viewed all12
-posting PNGs, all21 XMLs parse. Owner-post-indexed bitmap shows the older card
-while XML/native display checks contain the new post; exclude that bitmap from
-visible indexed-post acceptance. Quote available captures are partially offscreen.
-No broader visual/physical acceptance inferred.
-
-Six independent WASM signature/hop/body checks and A/B template/Chromium decode
-checks pass offline. Twelve source hashes match accepted ticket14 baseline.
-Known pinned web limitation persists: original quote text is authenticated and
-normalized, but no embedded.app means no original text body in their HTML.
-Identity/images remain; Android shows original text. Earlier mistaken oracle
-failure is retained, not labeled app RED. Corrected tool reviews0/0 at96ed9094.
-The duplicated reference wire checks remain a documented nonblocking smell.
-
-Additional search verification source2be73e80 has reviews0/0 and local build85318
-PASS1m41s; earlier2097 PASS2m5s preceded its observer correction. It checks
-trending/search, exact UTF8 query,429/retry/empty, local51-character rejection,
-and newer-result preservation over1.5seconds after releasing a held older request,
-then cancellation retaining authored text/no Saito writes. Dispatcher completion
-is not direct transport-cancellation proof. Native execution is still pending.
-No owned local build remains. Whole16 remains open for remaining controlled,
-Android10/17 and authorized live-provider acceptance. Latest tracker comment
-6230874630 predates this latest runtime checkpoint. Beta24 unchanged.
-
-
-## Active published-credit and Android10 corrections
-
-Whole source review0e577ab0...a2753fe8: Standards0, Spec1. Published feed,
-conversation/profile/search/quoted views currently receive no selected attribution,
-and confirmed drafts are disposable. Preserve the already-selected presentation
-metadata independently and supply it to those views, without changing signed
-payloads or inventing historical credits. Native tracer24787e68 extends only
-ownerGifPost: visible published creator/source, cleared composer, fresh Activity
-and same posted credits. Both tracer reviews0/0; expected RED not observed yet.
-No production fix has been written.
-
-Focused a275 Android10 run39011893710 FAILED: recovery method passes, selection
-starts then Process crashed, no final JUnit summary. Search and posting unexecuted.
-[12 originals](../evidence/ticket16/android10-first-crash/README.md), root viewed4
-PNGs/parsed4 XMLs. Existing output does not establish the crash cause. Harness
-1b7ecb93 now retains the device crash buffer on failure; reviews0/0, bash -n PASS.
-A changed diagnostic run is pending; do not guess an application fix.
-
-Focused a275 Android17 run39011891934 FAILED3/1/50.923s: recovery and fresh
-selection pass; search fails151 because SetText matches composer and modal.
-[Five originals](../evidence/ticket16/search-selector-failure/android17/README.md),
-root viewed PNG/parsed XML. Correction046a892c targets the visible Search GIFs
-label for all four modal query edits. Values/assertions/deadlines unchanged,
-reviews0/0; later search behavior and posting remain unexecuted in that run.
-This selector failure is not an application RED. Separate a275 source39011892199
-SUCCESS. No owned local build; no new APK or production/key/node change.
-
-
-## Reviewed GIF buffer and published-credit candidate
-
-Current app source7ad1742e (includes direct-buffer fixeb840006). Both bounded
-source reviews Standards0/Spec0. Earlier integrated Spec1 is resolved in source,
-not yet runtime accepted. Owned local build59382 is active, log
-`.scratch/gif16-buffer-published-credits-build.log`; do not edit compiled source
-until that owned build finishes or is uniquely retired with its actual result.
-
-Actual3bd Android10 diagnostic39012426099 FAILED: AnimatedImageTh SIGABRT,
-ByteArrayStream::read cannot obtain JNIEnv, then GIF decode stack. Search/posting
-unexecuted. [Five originals and source inventory](../evidence/ticket16/android10-buffer-red/README.md).
-Representative AOSP Android10 sources route heap arrays through JNI reads and
-direct buffers through a retained memory stream. eb840006 supplies direct
-read-only bytes with base Buffer.rewind, unchanged limits/lifecycle/assertions.
-This supports the proposed correction; no runtime GREEN yet.
-
-Actual3bd Android17 run39012427386 preview PASS3/0/46.306s: search/retry/empty/
-exact UTF8 query/local length/newer-result/close/text/no-write now execute.
-Posting FAILED6/1/35.72s: only owner published credits missing185/152; others5
-pass. Later blank-composer/fresh credit tails unexecuted.
-[12 originals](../evidence/ticket16/published-credits-red/android17/README.md),
-root viewed4 PNGs/parsed4 XMLs. No web/live acceptance inferred.
-Separate source39012426447 SUCCESS at3bd.
-
-7ad1742e retains selected sent metadata independently of disposable drafts,
-encrypted per wallet, bounded128references/2MiB. Saved signed work retains it
-before transmission; shared PostImages asynchronously resolves it for feed,
-threads/profile/search/quotes/viewer. Explicit draft credits take precedence.
-No signed-field change, API catalogue/media cache or invented historical credits.
-Runtime confirmation is pending. No active CI, no new beta or key/node change.
