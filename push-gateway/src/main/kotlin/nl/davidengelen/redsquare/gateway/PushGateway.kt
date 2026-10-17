@@ -16,9 +16,9 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 /** Isolated gateway runtime. Production hosting is a separate operation. */
-class PushGateway(stateDirectory: Path, publicOrigin: String) : Closeable {
+class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : Closeable {
     private val subscriptions = GatewaySubscriptions(stateDirectory, publicOrigin)
-    private val server = try { HttpServer.create(InetSocketAddress("127.0.0.1", 0), 16) }
+    private val server = try { HttpServer.create(InetSocketAddress("127.0.0.1", port), 16) }
         catch (failure: Exception) { subscriptions.close(); throw failure }
     private val executor = ThreadPoolExecutor(4, 4, 0, TimeUnit.SECONDS, ArrayBlockingQueue(32))
     val port: Int get() = server.address.port

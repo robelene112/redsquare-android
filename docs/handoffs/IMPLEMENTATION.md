@@ -62,10 +62,14 @@ rejects a delayed older request; a new runtime requires a fresh challenge. Exact
 retransmission remains idempotent. Source reviews at1d72826a report Standards0/Spec0. Retained
 [renewal GREEN](../evidence/ticket42/renewal-green/README.md), fourhashes and
 seven source hashes. Final evidence reviews atcc332826 report Standards0/Spec0. No owned local build.
-Next slice: standalone local process and retained subscription after abrupt JVM
-stop, at the same owned HTTP/protocol boundary. No deployment.
+Standalone tracer83cf14dc, actual gateway-only FAIL51s: old2PASS/new1FAIL at
+GatewayProcessTest:89, missing readiness because no-op main exits. New HTTP/bind/
+process-death/restart tails unexecuted. [Retained](../evidence/ticket42/process-red/README.md),
+fourhashes/ninesourcehashes. Minimum adds application distribution, strict local
+command flags, explicit loopback port and shutdown lifecycle. Core/gateway/installDist
+build in owned exec33237 is active; no result inferred. No deployment.
 
-No standalone command, Android gateway binding, resolver, observer,
+No Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays

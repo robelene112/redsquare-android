@@ -4,9 +4,29 @@ Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), s
 #32–34. The current first slice is a loopback Kotlin/JVM17 runtime with durable
 subscription binding/status/retirement. It is not a deployed gateway or a complete
 observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
-`start()`, `port` and `close()` support the owned HTTP fixture. A standalone command,
-Android binding client, resolver, observer, FCM sender and operational
+`start()`, `port` and `close()` support the owned HTTP fixture. The optional
+constructor port defaults to0; all listeners remain IPv4 loopback. An Android binding client, resolver, observer, FCM sender and operational
 acceptance remain later work. No account, credentials or live node state is used.
+
+## Local command
+
+Build the standalone distribution with
+`scripts/android-build :push-gateway:installDist`. With Java17 on the host:
+
+```sh
+push-gateway/build/install/push-gateway/bin/push-gateway \
+  --state /mnt/storage/redsquare-gateway/local-state \
+  --origin https://push.example.invalid --port 8080
+```
+
+This is an example command, not a deployed service or configured app endpoint.
+It listens only on127.0.0.1, prints its listening address after startup and keeps
+running until stopped. Port0 selects an ephemeral port for owned tests. State
+must be on a filesystem supporting the documented sync/rename semantics. Do not
+share its state directory across processes. Normal termination closes the listener,
+handlers and state lock. Abrupt termination relies on already committed snapshots.
+Reverse proxy/TLS, request-body timeouts and process supervision are still required
+for later authorized hosting. The standalone minimum is under verification.
 
 ## Subscription interface, version1
 
