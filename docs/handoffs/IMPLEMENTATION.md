@@ -172,9 +172,16 @@ Initial source reviews at258ec4f7 found Standards1/Spec2: latest demand blocked
 by APPEND retry backoff and waiting timeout releasing an unfinished SDK Task.
 Correction uses REPLACE for current demand, matching-callback suppression and a
 retained outstanding Task drained under the execution lock before another SDK
-operation. Durable phases survive process loss, but remote completion/recovery
-still needs configured-runtime proof. Corrected reviews/build and native
-unconfigured regressions are pending. This is source
+operation. Durable phases survive process loss; configured remote behavior remains
+unverified. Corrected source reviews at2310e0df report Standards0/Spec0. Local
+core/debug/test/release/lint PASS10m15s (exec93880 completed). No owned local build
+remains. Exact2310e0df source38989625277 SUCCESS release/lint; Android10
+38989625467 SUCCESS11/87.193s+3/46.541s; Android17 38989627211 SUCCESS11/129.468s+
+3/47.423s. Both core114/0/0. [Retained source-preparation checkpoint](../evidence/ticket32/firebase-client-preparation/README.md)
+contains24 hashes/2XML, two actual alert originals root viewed. Other assertions
+pass in retained logs; remaining captures stay raw, not newly claimed viewed.
+Merged debug/release manifest and default config checks pass, SDK AAR matches
+prior independent binary. Final committed-evidence reviews pending. This is source
 preparation, not a new TDD RED/GREEN or configured Google delivery proof. No new
 mock SDK/internal tests were added in place of actual external transport.
 
@@ -184,6 +191,12 @@ Signed gateway binding/revocation, observer/events/reconciliation and actual Goo
 delivery remain unimplemented. Task timeout/rotation/callback/process behavior
 still requires configured runtime verification, both backends/fullSDKs/Pixel too.
 No node/deployment/account mutation or new beta; signed beta24 unchanged.
+
+Required separate[gateway ticket#42](https://github.com/robelene112/redsquare-android/issues/42)
+is now published and linked as a #32 sub-issue. It is ready/unassigned, not a
+parallel implementation. Finish this SDK-preparation checkpoint first, then switch
+the sole writer to the bounded server ticket. Source/local verification only;
+production deployment keeps its separately authorized boundary.
 
 ## Earlier accepted username slice
 

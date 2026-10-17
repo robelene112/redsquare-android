@@ -1,0 +1,48 @@
+{
+  "source": "2310e0df56d7715d25fe7b3123bd5031dcd02d10",
+  "localBuild": {
+    "result": "SUCCESS",
+    "duration": "10m15s",
+    "tasks": [
+      ":core:test",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest",
+      ":app:assembleRelease",
+      ":app:lintDebug"
+    ]
+  },
+  "messagingAarSha256": "6677d405b84c38729bbca87059a4ae4b1ae1913ad8e6c5dc6d549aefbd526cac",
+  "variants": {
+    "debug": {
+      "application": "nl.davidengelen.redsquare.RedSquareApplication",
+      "serviceExported": false,
+      "firebaseInitProviderPresent": false,
+      "metadata": {
+        "firebase_messaging_installation_id_enabled": "true",
+        "firebase_messaging_auto_init_enabled": "false",
+        "firebase_analytics_collection_enabled": "false",
+        "firebase_data_collection_default_enabled": "false",
+        "firebase_messaging_notification_delegation_enabled": "false"
+      },
+      "configured": false,
+      "resolvedFragment": "1.8.9",
+      "mergedManifestSha256": "60246809cc0b9c621080563a0d50080fee2b5c3bb3d59b25381dffbc1b85baa5"
+    },
+    "release": {
+      "application": "nl.davidengelen.redsquare.RedSquareApplication",
+      "serviceExported": false,
+      "firebaseInitProviderPresent": false,
+      "metadata": {
+        "firebase_messaging_installation_id_enabled": "true",
+        "firebase_messaging_auto_init_enabled": "false",
+        "firebase_analytics_collection_enabled": "false",
+        "firebase_data_collection_default_enabled": "false",
+        "firebase_messaging_notification_delegation_enabled": "false"
+      },
+      "configured": false,
+      "resolvedFragment": "1.8.9",
+      "mergedManifestSha256": "6fdd908779f5d0c2f58b0daabab645f20bb53b3ead8b92345a101b6cf3de61da"
+    }
+  },
+  "configuredRuntimeObserved": false
+}
