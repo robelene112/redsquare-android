@@ -110,7 +110,11 @@ version/wake, initially503, then resolves the public reference; the existing sig
 Archive verifier must publish the actual alert and preserve duplicate/wallet/backend
 invariants. It extends the existing worker journey and150s class scope. The new
 worker is deliberately no-op until its intended missing-processing RED is observed.
-No runtime/source-compilation claim yet; next review base68e420ee. Existing consent,
+Initial local tracer build fails2m26s on the fixture request body
+being nullable. The correction requires a body, compares the complete expected
+version/wake request and surfaces callback failures. Source reviews at553df5b0
+report0/0; corrected compilation/review and intended native RED remain next.
+Next review base68e420ee. Existing consent,
 wallet/backend choices, strict app fixture endpoints and scoped cancellation/restore
 remain. No Firebase SDK/client config/service or deployed gateway/node/account change. Existing
 owner Firebase setup question stays pending, do not repeat it. Local autonomous

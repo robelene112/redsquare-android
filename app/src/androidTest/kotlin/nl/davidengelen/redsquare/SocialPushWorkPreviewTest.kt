@@ -92,16 +92,19 @@ class SocialPushWorkPreviewTest {
         }.toString()
         val opaque = "ab".repeat(32) // Public transport fixture, never a real installation/event capability.
         val gatewayReads = AtomicInteger()
+        val gatewayFailure = java.util.concurrent.atomic.AtomicReference<Throwable?>()
         val gateway = if (wake) mockwebserver3.MockWebServer().apply {
             dispatcher = object : mockwebserver3.Dispatcher() {
-                override fun dispatch(request: mockwebserver3.RecordedRequest): mockwebserver3.MockResponse {
+                override fun dispatch(request: mockwebserver3.RecordedRequest): mockwebserver3.MockResponse = try {
                     require(request.method == "POST" && request.url.encodedPath == "/v1/wakes/resolve")
-                    val body = JsonParser.parseString(request.body.utf8()).asJsonObject
-                    require(body.keySet() == setOf("version", "wake") && body.get("version").asInt == 1 &&
-                        body.get("wake").asString == opaque)
+                    val body = JsonParser.parseString(requireNotNull(request.body).utf8()).asJsonObject
+                    require(body == JsonParser.parseString("{\"version\":1,\"wake\":\"$opaque\"}"))
                     gatewayReads.incrementAndGet()
-                    return if (!recovering.get()) mockwebserver3.MockResponse.Builder().code(503).build()
+                    if (!recovering.get()) mockwebserver3.MockResponse.Builder().code(503).build()
                     else mockwebserver3.MockResponse.Builder().code(200).body(payload).build()
+                } catch (failure: Throwable) {
+                    gatewayFailure.set(failure)
+                    mockwebserver3.MockResponse.Builder().code(500).build()
                 }
             }
         } else null
@@ -114,7 +117,11 @@ class SocialPushWorkPreviewTest {
         fun info(id: UUID) = work.getWorkInfoById(id).get(5, TimeUnit.SECONDS)
         fun awaitState(label: String, predicate: () -> Boolean) {
             val deadline = SystemClock.elapsedRealtime() + 60_000
-            while (!predicate() && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(50)
+            while (!predicate() && SystemClock.elapsedRealtime() < deadline) {
+                gatewayFailure.get()?.let { throw AssertionError("Controlled gateway rejected the request", it) }
+                SystemClock.sleep(50)
+            }
+            gatewayFailure.get()?.let { throw AssertionError("Controlled gateway rejected the request", it) }
             assertTrue(label, predicate())
         }
         var primary: Throwable? = null
