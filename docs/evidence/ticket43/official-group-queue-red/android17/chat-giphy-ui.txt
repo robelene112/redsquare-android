@@ -1,0 +1,127 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatGiphyPreviewTest:
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.assertAnimation(ChatGiphyPreviewTest.kt:287)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36$lambda$31$lambda$30(ChatGiphyPreviewTest.kt:214)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$ibpwNxYIedhz3niqmBBw8VbS_oM(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36(ChatGiphyPreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$8bKgoC0f8KMnmVeWkOzp-lX0Rfs(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(nl.davidengelen.redsquare.ChatGiphyPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.assertAnimation(ChatGiphyPreviewTest.kt:287)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36$lambda$31$lambda$30(ChatGiphyPreviewTest.kt:214)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$ibpwNxYIedhz3niqmBBw8VbS_oM(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36(ChatGiphyPreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$8bKgoC0f8KMnmVeWkOzp-lX0Rfs(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: test=anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 96.773
+There was 1 failure:
+1) anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(nl.davidengelen.redsquare.ChatGiphyPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.assertAnimation(ChatGiphyPreviewTest.kt:287)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36$lambda$31$lambda$30(ChatGiphyPreviewTest.kt:214)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$ibpwNxYIedhz3niqmBBw8VbS_oM(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$39$lambda$38$lambda$37$lambda$36(ChatGiphyPreviewTest.kt:171)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$8bKgoC0f8KMnmVeWkOzp-lX0Rfs(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+FAILURES!!!
+Tests run: 5,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

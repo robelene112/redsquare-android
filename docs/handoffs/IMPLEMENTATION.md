@@ -45,11 +45,19 @@ observer failure is retained; corrected GIF observer uses DOM/decode only.
 Legacy photo output compatibility remains checked. No live delivery, browser
 motion, routing-hop proof or actual process-death claim from these journeys.
 
-Current one-tracer work extends OFFICIAL queue recovery to group messages,
-retaining every prior assertion and the180s class limit. Private tracer local
-build66616 PASS2m40s; group tracer local build running. Bounded source reviews
-before that tracer were0/0. Whole-child reply/media gaps, final full Android10/17,
-whole-base reviews and signed preview remain. Do not reserve26 prematurely.
+OFFICIAL group queue run39026557695 atf55920820 FAILED5cases/4pass/1failure/
+96.773s. New case reached restored draft/credits after cancel, then failed waiting
+for a displayed image after reconnect/recreate while preview remained scrolled.
+Reconnect quiet/send tails unexecuted. Root viewed7PNGs/parsed7XMLs;18hashes in
+`docs/evidence/ticket43/official-group-queue-red/android17`. The ordinary image
+scroll observer in85a69ff00 retains all deadlines/colors/assertions. That commit
+also adds one private reply/GIF journey with independent exact quote/mention
+verification; both bounded reviews0/0. Native execution pending. Shared provider,
+renderer and existing #30 history/recovery evidence need no expanded matrix:
+whole production source reviews atf55920820 Standards0/Spec0. Private/group tracer
+local builds PASS2m40s/2m5s; reply tracer PASS2m3s. No owned local build remains.
+Final full Android10/17, whole-child evidence review and signed preview remain.
+Do not reserve26 prematurely.
 Public beta25 unchanged. No real key, provider query, production writes or
 node/account changes. Preserve protected untracked group contract.
 
