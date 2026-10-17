@@ -55,12 +55,23 @@ source checkpoint is frozen; claim the next sequential source preparation.
 Sole writer root, assigned @me, native blockers0. Whole review base
 `0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app candidate7ad1742e includes
 Android10 buffer fixeb840006 and published-credit retention. Both bounded source
-reviews Standards0/Spec0. The earlier integrated Spec1 at a275 is resolved in
-source, awaiting native confirmation. No corrected runtime GREEN is claimed.
+reviews Standards0/Spec0. The earlier integrated Spec1 at a275 is resolved.
+Corrected focused native flows now pass on Android10 and17 at19e1083d:
+[83 hashed originals/outputs](../evidence/ticket16/corrected-green/README.md).
+Android10 run39013271535 preview3/0/18.239s and posting6/0/26.229s; Android17
+39013273144 preview3/0/49.985s and posting6/0/30.411s. No final full-suite GREEN yet.
 
 Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
 test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
-No owned local build or CI remains active. Last source39012426447 at3bd SUCCESS.
+No owned local build remains active. Signed beta25 at19e is prepared, unpublished.
+Its Gradle build completed PASS3m26s and final signature/manifest steps ran, but
+outer exec3548 reported143. Independent APK hash/signature/certificate/package/
+version/source checks passed; do not call that wrapper exit0. Logs are
+`.scratch/gif16-beta25-build.log` and `gif16-beta25-independent-verification.txt`.
+APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8,
+version25/0.1.25, established certificate unchanged. Beta24 remains published.
+Full Android10 39013781414 and Android17 39013783536 run at19e with approved
+public feed reads. Separate source39013271917 at19e SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
 No real provider/key/account/node/live-write change. Beta24 remains current.
@@ -135,11 +146,12 @@ embedded.app is absent; identity/images remain. Android preserves original text.
 The mistaken HTML oracle failure remains retained, not app RED. Tool source
 reviews0/0 at96ed9094; reference-script duplication is acknowledged/nonblocking.
 
-Next: verify corrected native GIF flows on Android10/17,
-then final full regressions once source is stable. Queue-credit and external
+Next: finish the active full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
-stay open. Latest tracker comment6230874630 predates these newest results.
+stay open. Latest tracker comment6231144584 predates the corrected native GREEN.
+[Current GIF data flow](../research/GIPHY_DATA_FLOW_2026_10_17.md) supplements the
+dated release inventory without claiming provider/Play/account facts.
 
 ## Historical gateway checkpoint records
 

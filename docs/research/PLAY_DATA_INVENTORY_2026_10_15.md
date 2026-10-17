@@ -8,6 +8,10 @@ state, credentials, network endpoints or production databases were inspected.
 The parent [account-deletion policy note](PLAY_ACCOUNT_DELETION_SCOPE_2026_10_15.md)
 explains why a noncustodial wallet alone does not establish an exemption.
 
+Later GIF implementation is recorded separately in the
+[October17 GIF data-flow addendum](GIPHY_DATA_FLOW_2026_10_17.md). The tables below
+remain the October15 source snapshot, not a claim about every later feature.
+
 ## Local data
 
 The application declares `allowBackup="false"` in

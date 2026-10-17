@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "kind": "post",
+  "frameSha256": "fbd48dfc7ab2e5f0c883db329a2fdf7299bd1a862febb4a4090bae43296df983",
+  "outer": {
+    "signature": "90d13b9df21d9ba66582f67481d3b87a081f440e30b63685eeada0291de0764d1147f13a73ec49ea20d9d548400e2e00ebbbc65c2ae7941513c1ba8ef5b92186",
+    "author": "iGdbP1QNvk8uaTPdqB63YEz8NTwDyCU2VzhDDNHRjZKk",
+    "timestamp": 1792222015155,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native GIF post owner",
+        "images": [
+          "http://127.0.0.1:50985/media/published.gif?token=owned%2Bonly&keep=1"
+        ]
+      }
+    }
+  },
+  "original": null,
+  "recipients": [
+    "iGdbP1QNvk8uaTPdqB63YEz8NTwDyCU2VzhDDNHRjZKk"
+  ],
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  }
+}

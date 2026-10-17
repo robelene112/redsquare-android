@@ -1,0 +1,58 @@
+{
+  "result": "PASS",
+  "kind": "quote",
+  "frameSha256": "5264ca1259559ccfe1ec4e17d6c5825b06374ee4fec0c5a02e2b178a6a57410b",
+  "outer": {
+    "signature": "9c936702c343e55d05c1c273919ccbb71ac5667b88e0b96a134a17b195a451b91df4539eb2ae1b2781a64300d0b08200a7b52fb7d3bbd86d0557a1e9f3c5c6d1",
+    "author": "iGdbP1QNvk8uaTPdqB63YEz8NTwDyCU2VzhDDNHRjZKk",
+    "timestamp": 1792222021491,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native GIF quote official",
+        "images": [
+          "http://127.0.0.1:55431/media/published.gif?token=owned%2Bonly&keep=1"
+        ],
+        "signature": "1a0e645117f07fdb25d82469c4c58f4bd8bc6ec4df96e3e39465ca7c39005fbe5115d82da40a093f7bca817dd70e753d29db0d47d663d3b14d518b0fb871b494",
+        "retweet_tx": "{\"t\":\"AAAAAQAAAAEAAAAAAAAAABoOZFEX8H/bJdgkacTFj0vYvG7E35bj45Rlynw5AF++URXYLaQKCT97yoF91w51PSnbDUfWY9OxTVGLD7hxtJQAAAGLz+aggAAAAAEAAnm+Zn753LusVaBilc6HCwcCm/zbLc4o2VnygVsW+BeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACeb5mfvncu6xVoGKVzocLBwKb/NstzijZWfKBWxb4F5gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiU2lnbmVkIGltYWdlIHJlZmVyZW5jZSIsImltYWdlcyI6WyJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUF3QUFBQUlDQUlBQUFCQ2hvbW1BQUFBRVVsRVFWUjRuR080STZkQkVER01LZ0lBSjFsc3dmU2RMK1VBQUFBQVNVVk9SSzVDWUlJPSIsImRhdGE6aW1hZ2UvcG5nO2Jhc2U2NCxpVkJPUncwS0dnb0FBQUFOU1VoRVVnQUFBQXdBQUFBSUNBSUFBQUJDaG9tbUFBQUFFVWxFUVZSNG5HTVFzYmxERURHTUtnSUF3K2h3Z1UyTlNja0FBQUFBU1VWT1JLNUNZSUk9Il19fQ==\",\"opt\":\"e30=\"}",
+        "embedded": {
+          "signature": "1a0e645117f07fdb25d82469c4c58f4bd8bc6ec4df96e3e39465ca7c39005fbe5115d82da40a093f7bca817dd70e753d29db0d47d663d3b14d518b0fb871b494",
+          "publicKey": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+          "created_at": 1700000080000,
+          "text": "Signed image reference",
+          "images": [
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=",
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGMQsblDEDGMKgIAw+hwgU2NSckAAAAASUVORK5CYII="
+          ]
+        }
+      }
+    }
+  },
+  "original": {
+    "signature": "1a0e645117f07fdb25d82469c4c58f4bd8bc6ec4df96e3e39465ca7c39005fbe5115d82da40a093f7bca817dd70e753d29db0d47d663d3b14d518b0fb871b494",
+    "author": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+    "timestamp": 1700000080000,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Signed image reference",
+        "images": [
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGO4I6dBEDGMKgIAJ1lswfSdL+UAAAAASUVORK5CYII=",
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAIAAABChommAAAAEUlEQVR4nGMQsblDEDGMKgIAw+hwgU2NSckAAAAASUVORK5CYII="
+        ]
+      }
+    }
+  },
+  "recipients": [
+    "iGdbP1QNvk8uaTPdqB63YEz8NTwDyCU2VzhDDNHRjZKk",
+    "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+  ],
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  }
+}

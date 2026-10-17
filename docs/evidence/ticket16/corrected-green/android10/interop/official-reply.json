@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "kind": "reply",
+  "frameSha256": "eafef2513e8c79097d7be7a97bd6a93aa01400ffdb646b8effc9a40637a54b52",
+  "outer": {
+    "signature": "6a7209cad7489ee94bfc81e83fe8a067414b2cb9dad44d0ee2059aeab7bb255c4e566a95ea711825860751d464cca7a7e8a9e57981b131325aa2e8c4e2d5f37a",
+    "author": "ja7vezqLhVXT1ytnqxJWQW4BJ42JiX9q4vnwrSgYFEH8",
+    "timestamp": 1792221921833,
+    "body": {
+      "module": "RedSquare",
+      "request": "create tweet",
+      "data": {
+        "text": "Native GIF reply official",
+        "images": [
+          "http://127.0.0.1:47323/media/published.gif?token=owned%2Bonly&keep=1"
+        ],
+        "parent_id": "1a0e645117f07fdb25d82469c4c58f4bd8bc6ec4df96e3e39465ca7c39005fbe5115d82da40a093f7bca817dd70e753d29db0d47d663d3b14d518b0fb871b494",
+        "thread_id": "1a0e645117f07fdb25d82469c4c58f4bd8bc6ec4df96e3e39465ca7c39005fbe5115d82da40a093f7bca817dd70e753d29db0d47d663d3b14d518b0fb871b494"
+      }
+    }
+  },
+  "original": null,
+  "recipients": [
+    "ja7vezqLhVXT1ytnqxJWQW4BJ42JiX9q4vnwrSgYFEH8",
+    "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+  ],
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  }
+}
