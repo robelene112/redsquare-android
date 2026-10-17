@@ -1,0 +1,40 @@
+// Independent synthetic chain-social fixture. Pure pinned WASM, no app/network initialization.
+const assert = require('node:assert/strict');
+const {reference,signedReference} = require('/references/signed-reference.cjs');
+const wasm = require('/opt/saito/node/node_modules/saito-wasm/pkg/node');
+const base58 = require('/opt/saito/node/node_modules/base-58');
+const EC = require('/opt/saito/node/node_modules/elliptic').ec;
+const owner = wasm.generate_public_key('0'.repeat(63)+'1');
+const root = signedReference('1',{module:'RedSquare',request:'create tweet',data:{text:'Independent gateway parent'}},1700000100000);
+const reply = signedReference('2',{module:'RedSquare',request:'create tweet',data:{text:'Independent gateway reply',parent_id:root.sig,thread_id:root.sig}},1700000101000,[owner]);
+const envelope = JSON.parse(reply.tx);
+const message = Buffer.from(envelope.m,'base64');
+const tx = Buffer.concat([Buffer.from(envelope.t,'base64'),message]);
+tx.writeUInt32BE(message.length,8);
+assert.equal(wasm.WasmTransaction.deserialize(tx).signature,reply.sig);
+const fee = new wasm.WasmTransaction();fee.type=1;fee.timestamp=1700000110000n;fee.txs_replacements=1;
+function block(transaction) {
+ const header=Buffer.alloc(389);header.writeUInt32BE(1,0);header.writeBigUInt64BE(2000002n,4);
+ header.writeBigUInt64BE(1700000110000n,12);Buffer.alloc(32,0xab).copy(header,20);
+ const creator=wasm.generate_public_key('0'.repeat(63)+'3');Buffer.from(base58.decode(creator)).copy(header,52);
+ const generated=new wasm.WasmBlock();assert.equal(generated.deserialize(Buffer.concat([header,transaction])),'');
+ const unsigned=Buffer.from(generated.serialize());const signedHeader=Buffer.from(unsigned.subarray(0,389));
+ const preimage=Buffer.concat([signedHeader.subarray(4,117),signedHeader.subarray(181,213),signedHeader.subarray(221,285)]);
+ const signature=wasm.sign_buffer(preimage,'0'.repeat(63)+'3');
+ assert(wasm.verify_signature(preimage,signature,creator));
+ assert(new EC('secp256k1').verify(wasm.hash(preimage),{r:signature.slice(0,64),s:signature.slice(64)},Buffer.from(base58.decode(creator)).toString('hex'),'hex'));
+ Buffer.from(signature,'hex').copy(signedHeader,117);
+ const bytes=Buffer.concat([signedHeader,unsigned.subarray(389)]);
+ const restored=new wasm.WasmBlock();assert.equal(restored.deserialize(bytes),'');
+ assert(Buffer.from(restored.serialize()).equals(bytes));
+ const hash=wasm.hash(Buffer.concat([signedHeader.subarray(20,52),Buffer.from(wasm.hash(preimage),'hex')]));
+ assert.equal(restored.hash,hash);assert.equal(restored.id,2000002n);
+ assert.equal(restored.previous_block_hash,'ab'.repeat(32));
+ return {hash,height:'2000002',timestamp:'1700000110000',previousHash:'ab'.repeat(32),fullBase64:bytes.toString('base64')};
+}
+const original=block(tx),alternate=block(Buffer.from(fee.serialize()));
+assert.notEqual(original.hash,alternate.hash);
+const originalBlock=new wasm.WasmBlock();assert.equal(originalBlock.deserialize(Buffer.from(original.fullBase64,'base64')),'');
+assert.equal(originalBlock.transactions[0].signature,reply.sig);
+assert.equal(Buffer.from(originalBlock.transactions[0].data).toString(),message.toString());
+console.log(JSON.stringify({synthetic:true,reference,scope:'Creator/Merkle/signed message, not consensus admission or finality',now:1700000120000,owner,root,reply,original,alternate},null,2));

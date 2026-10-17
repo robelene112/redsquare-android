@@ -234,7 +234,7 @@ class GatewayDeliveryTest {
     }
 
     /** The external peer owns signed fixture content and independently enforces the read-only query contract. */
-    private class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long, private val registryRows: JsonArray? = null) : Closeable {
+    internal class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long, private val registryRows: JsonArray? = null) : Closeable {
         private val failure = AtomicReference<Throwable?>()
         private val server = MockWebServer()
         val nameAvailable = java.util.concurrent.atomic.AtomicBoolean(true)
@@ -308,6 +308,9 @@ class GatewayDeliveryTest {
                 }).build())
             }
             server.start(InetAddress.getByName("127.0.0.1"), 0)
+        }
+        constructor(identity: SaitoWallet, fixtureRows: JsonArray) : this(identity, emptyList(), 0) {
+            fixtureRows.forEach { row -> rows[row.asJsonObject.get("sig").asString] = row.asJsonObject.deepCopy() }
         }
         fun check() { failure.get()?.let { throw AssertionError("Owned Archive rejected gateway request", it) } }
         override fun close() { server.close(); check() }

@@ -20,7 +20,7 @@ internal class GatewayProblem(val status: Int) : RuntimeException()
 internal data class GatewayReply(val status: Int, val body: JsonObject)
 
 /** Wallet-signed binding and independent installation retirement share one durable state transition. */
-internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable {
+internal class GatewaySubscriptions(directory: Path, origin: String, private val clock: java.time.Clock) : Closeable {
     private val origin = URI(origin).let {
         require(it.scheme == "https" && !it.host.isNullOrBlank() && it.rawUserInfo == null &&
             it.rawQuery == null && it.rawFragment == null && it.path in listOf("", "/") &&
@@ -34,7 +34,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
     private var challengeSequence = 0L
 
     @Synchronized fun handle(path: String, body: JsonObject, signature: String?, recipient: String? = null): GatewayReply {
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         challenges.entries.removeIf { it.value.expiresAt <= now }
         return when (path) {
             "/v1/challenges" -> {
@@ -172,7 +172,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         if (index < 0) return null
         while (history.size() > index + 1) history.remove(history.size() - 1)
         chain.addProperty("height", height.toString()); chain.addProperty("hash", hash); chain.addProperty("forkId", forkId)
-        recordGap(state, backend, "chain-reorganization", System.currentTimeMillis())
+        recordGap(state, backend, "chain-reorganization", clock.millis())
         store.save(state)
         return GatewayChain.Cursor(height, hash, forkId)
     }
@@ -205,7 +205,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
 
     @Synchronized fun gap(backend: SaitoBackend, reason: String) {
         val state = store.load()
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         prune(state, now)
         recordGap(state, backend, reason, now)
         store.save(state)
@@ -213,7 +213,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
 
     /** Verified originals are supplied only by the selected read-only Archive adapter. */
     @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>) {
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         val state = store.load()
         prune(state, now)
         val events = state.getAsJsonObject("events")
@@ -253,7 +253,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val fid: String, val expiresAt: Long)
 
     @Synchronized fun pending(backend: SaitoBackend): List<Delivery> {
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         val state = store.load()
         return state.getAsJsonObject("events").entrySet().mapNotNull { (wake, value) ->
             val event = value.asJsonObject
@@ -267,7 +267,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
 
     /** Re-read durable demand for each queued send, rather than trusting the batch snapshot. */
     @Synchronized fun current(delivery: Delivery): Delivery? {
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         val state = store.load()
         val event = state.getAsJsonObject("events").get(delivery.wake)?.asJsonObject ?: return null
         if (savedText(event, "state") != "pending" || savedNumber(event, "expiresAt") <= now ||
@@ -278,7 +278,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
     }
 
     @Synchronized fun complete(delivery: Delivery, result: FcmSender.Result) {
-        val now = System.currentTimeMillis()
+        val now = clock.millis()
         val state = store.load()
         val event = state.getAsJsonObject("events").get(delivery.wake)?.asJsonObject ?: return
         val binding = currentBinding(state, event, now) ?: return

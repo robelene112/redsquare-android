@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit
  * The caller supplies an authorized, refreshable credential and explicit target project.
  * localOrigin is limited to owned loopback HTTP fixtures. Production always uses Google HTTPS.
  */
-class FcmSender(private val project: String, private val credentials: GoogleCredentials, localOrigin: String? = null) {
+class FcmSender(private val project: String, private val credentials: GoogleCredentials, localOrigin: String? = null,
+    private val clock: java.time.Clock = java.time.Clock.systemUTC()) {
     sealed interface Result {
         data class Accepted(val name: String) : Result
         data object Unregistered : Result
@@ -41,13 +42,13 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
 
     fun send(fid: String, wake: String, expiresAt: Long): Result {
         require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")) && wake.matches(Regex("[0-9a-f]{64}")))
-        if (expiresAt <= System.currentTimeMillis()) return Result.Rejected(410)
+        if (expiresAt <= clock.millis()) return Result.Rejected(410)
         return try {
             // Refreshable Google credentials obtain fresh metadata for each attempt; never cache a bearer here.
             val authorization = credentials.getRequestMetadata(production).entries
                 .firstOrNull { it.key.equals("Authorization", ignoreCase = true) }?.value?.singleOrNull()
                 ?: throw IOException("FCM authorization unavailable")
-            val now = System.currentTimeMillis()
+            val now = clock.millis()
             if (expiresAt <= now) return Result.Rejected(410)
             val ttl = minOf((expiresAt - now) / 1000, 2_419_200L)
             val message = JsonObject().apply {
@@ -110,7 +111,7 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
         val delay = if (seconds != null && seconds >= 0) {
             if (seconds > Long.MAX_VALUE / 1000) Long.MAX_VALUE else seconds * 1000
         } else try {
-            maxOf(0, ZonedDateTime.parse(value, DateTimeFormatter.RFC_1123_DATE_TIME).toInstant().toEpochMilli() - System.currentTimeMillis())
+            maxOf(0, ZonedDateTime.parse(value, DateTimeFormatter.RFC_1123_DATE_TIME).toInstant().toEpochMilli() - clock.millis())
         } catch (_: Exception) { minimum }
         return maxOf(minimum, delay)
     }
