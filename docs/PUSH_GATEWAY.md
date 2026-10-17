@@ -199,8 +199,7 @@ The gateway does not receive subscriber signing keys or broadcast transactions.
 roots and replies, without recipient filtering. Original signed content is decoded
 using the shared feed reader. This head read can discover newly inserted backdated
 posts but cannot guarantee exhaustive history or recovery beyond the bounded head.
-Exact candidate/parent availability is now checked before reply queuing. Registry
-name proof, durable chain cursors and explicit outage/pruning/reorganization gaps
+Exact candidate/parent availability is now checked before reply queuing. Durable chain cursors and explicit outage/pruning/reorganization gaps
 remain continuous-observer work.
 
 [Controlled evidence](evidence/ticket42/archive-green/README.md) at9967ff40:
@@ -248,8 +247,8 @@ approved backend. A head row is only a discovery hint: candidate and parent are
 read exactly from that selected Archive before eligibility and durable queueing.
 Self-authored posts and signed timestamps outside the seven-day window are
 excluded. Reply-to-owned-parent and explicit public-key mention eligibility use
-the subscription's current categories. Registrar-backed username eligibility
-remains open. Original content is never included in the FCM request or event file.
+the subscription's current categories. Registrar-backed username eligibility now uses exact signed active Registry
+proof on the selected connection, with[controlled acceptance](evidence/ticket42/name-green/README.md). Original content is never included in the FCM request or event file.
 
 Events contain public owner/backend/signature/category, subscription ID, opaque
 wake, expiry and send/retry status. References resolve for at most24hours, further
@@ -272,5 +271,39 @@ the same FID/binding generation. Retry state is retained with bounded exponentia
 backoff, jitter and the sender's minimum delay. A crash after cloud acceptance
 but before durable completion can resend the same wake; device dedup remains
 required. Controlled[reply evidence](evidence/ticket42/delivery-green/README.md)
-passes both selector loops. Interrupted sends, live target renewal during a send,
-registered-name mentions and the continuous runtime still need their own evidence.
+passes both selector loops. [Lost acknowledgement recovery](evidence/ticket42/delivery-retry-green/README.md)
+also passes both selectors. Live target renewal during a send and the continuous
+runtime still need their own evidence; registered-name acceptance is linked below.
+
+
+## Name-proof availability and observer status
+
+Exact Archive candidate/parent evidence is collected before optional Registry
+queries. Username mentions use the registrar-signed active ownership record from
+the selected peer; only the exact provisional dispatcher fallback is ignored
+while awaiting its Registry callback. Production uses the fixed Saito registrar.
+The published unsafe fixture authority is allowed only with the owned loopback
+endpoint and explicit fixture flag, never as a third production backend.
+
+An empty name response means no currently established ownership. Missing service,
+unreadable proof, timeout or over50 distinct name tokens in a candidate marks
+name eligibility unavailable while preserving independently verified replies and
+public-key mentions. Thread interruption still stops the pass. A Registry socket
+disconnect cannot discard candidate/parent evidence already collected first.
+No claim is made that this specific disconnect interleaving has been fixture-tested.
+
+POST `/v1/observer/status` accepts `{version:1,backend}` for either approved backend
+and returns version/backend/gap. The bounded latest name gap contains only reason
+`name-proof-unavailable`, since, lastAt and expiresAt. One record per backend is
+kept for seven days since its latest observation; it is a recent coverage warning,
+not a complete audit trail or proof of a current outage. Old snapshots acquire
+an empty optional gaps map. Gap cleanup currently occurs on mutation. Full chain,
+pruning/outage/reorganization coverage and periodic physical cleanup remain open.
+
+
+[Name acceptance](evidence/ticket42/name-green/README.md) completes both approved
+backend selector loops using owned peers and the existing independent registrar
+fixture. Empty current ownership suppresses the username wake, valid current proof
+permits it, and unavailable name evidence leaves the owned-parent reply working.
+It retains the prior same-wake/restart/opt-out journey. This does not establish
+live public Registry availability or the source-reviewed disconnect interleaving.

@@ -7,6 +7,31 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active name-proof correction
+
+Current sourcead8a226a; remoteacceptedf9983893. #42 remains sole implementation.
+Acceptedlost-ack fixtureaea14801/d4342e90 final reviews0/0, not yetpushed.
+Nametracer216882ee RED1m25s at192 missingOWNERwake, old7PASS/coreUPTODATE;
+[name-red](../evidence/ticket42/name-red/README.md),8hashes/13sourcehashes.
+Orderingoraclegap corrected299817e1. Minimumf6238c51 thenPASS1m30s/gateway8/0/0,
+class2/31.088s; [firstminimum](../evidence/ticket42/name-first-minimum/README.md).
+Reviews Standards1/Spec1: optionalRegistryfailure or over50names aborts unrelated
+replies and retained sends. Strongerordinaryreplytracerf053fae9 adds unavailable
+name in owned-parent reply plus unrelated51namepost; existinglostack/restart/
+optout assertions stay. NewboundedHTTPobserverstatus must retain latestnamegap
+acrossrestart. Actualowned63505 FAIL46s atreply100 IOExceptionmissingRegistry,
+reply1.345s; namecasePASS2.646, total7pass/1fail/coreUPTODATE. Laterreplytails and
+OFFICIAL replyloopunexecuted. [Retained](../evidence/ticket42/name-availability-red/README.md).
+Correctioncfa56b23 isolatesoptionalnames andpersistslatestgap/backend: PASS1m27s/
+gateway8/0/0 class2/31.345/coreUPTODATE. [Retained](../evidence/ticket42/name-isolation-first/README.md).
+Spec0/Standards1: Registrytransportdisconnect canstillprecedeparent/latercandidate
+reads. Two-phasead8a226a completesALLexactArchivecandidate/parent reads beforeANY
+optionalRegistrylookup. Transportdisconnectis source-reviewed only, notexecuted.
+Source Spec0/Standards0. Owned27444 endedPASS1m27s/gateway8/0/0/coreUPTODATE,
+no owned build. [Retained GREEN](../evidence/ticket42/name-green/README.md),
+8hashes/13sourcehashes. Final evidence/docsreview and push pending. No new native source, node/cloud/accountoperations.
+Protectedgroupcontractuntrackeduntouched. No whole42/32claim.
+
 ## Latest owner scope
 
 The owner explicitly asked to stop cybersecurity requests. No Daybreak application
@@ -166,7 +191,7 @@ Fixture-only2da44ac9 nowPASS41s/gateway6/0/0, new1.897s, coreUPTODATE.
 Owned55910endedexit0, no owned local build. Final fixture/evidence reviews at981d1248 report Standards0/Spec0. Pushed;
 source CI38996214676 SUCCESS, [retained](../evidence/ticket42/archive-sender-source-ci/README.md).
 No actual Google/ADC/cloud/account use. The durable callable event/resolver/send pass is now implemented below;
-continuous runtime/chain/name-proof work remains. Do not close42/32 or claim delivery. Beta24 unchanged.
+continuous runtime/chain work remains; current name implementation is described above. Do not close42/32 or claim delivery. Beta24 unchanged.
 
 ## Current durable reply pass
 
@@ -198,10 +223,10 @@ Owned80481 nowPASS1m9s/gateway7/0/0/new27.577s/coreUPTODATE, no owned build.
 [Corrected observation](../evidence/ticket42/delivery-retry-green/README.md),8hashes/
 13sourcehashes. Bothloops losefirstsendack, retainpendingresolver throughnewserver,
 hidehead, retrySAMEwake, restorehead→noduplicate, newpostoptout→nosend/410.
-Final evidence review pending. Configuredschedulerfloor/jitter are sourcefacts,
+Final recovery evidence reviews0/0 atd4342e90. Configuredschedulerfloor/jitter are sourcefacts,
 not boundaryproof. No actualGoogle or forcedeventprocessstop. Exactf9983893
 sourceCI38996698848 SUCCESS, [retained2hashes](../evidence/ticket42/delivery-source-ci/README.md).
-Next source slice: registrar-backed username mentions. Whole42/32 staysopen.
+Registrar-backed username mention source/acceptance is now described above. Whole42/32 staysopen.
 
 ## Accepted #32 foundation
 
