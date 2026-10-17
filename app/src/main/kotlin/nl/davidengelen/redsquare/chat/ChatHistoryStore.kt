@@ -22,6 +22,10 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
         originals().any { authenticated(it).id == id }
     }
 
+    fun retainedOriginal(id: String): String? = synchronized(SaitoLocalState.lock) {
+        originals().firstOrNull { authenticated(it).id == id }
+    }
+
     private data class Record(val envelopes: List<String>, val pendingAlerts: Set<String>)
 
     private fun stored(): Record = file.load()?.let(::parseRecord) ?: Record(emptyList(), emptySet())

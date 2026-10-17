@@ -35,6 +35,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.chat.ChatNotificationResult
 
 private val wakeExecution = Mutex()
 
@@ -87,6 +88,12 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
             if ((!fixture && (resolver.scheme != "https" || resolver.host.isNullOrBlank())) ||
                 resolver.rawUserInfo != null || resolver.rawQuery != null || resolver.rawFragment != null ||
                 resolver.path != "/v1/wakes/resolve") return@work Result.failure()
+            val resumed = receiptExecution.withLock {
+                currentCoroutineContext().ensureActive()
+                if (isStopped) return@work Result.failure()
+                PrivateChatPush.resume(applicationContext, wake, if (fixture) inputData.getString("archive") else null)
+            }
+            if (resumed != null) return@work privateResult(resumed)
             val selected = try {
                 synchronized(SaitoLocalState.lock) {
                     pushIdentity(applicationContext)?.let { it.wallet to it.backend }
@@ -146,11 +153,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 return@work receiptExecution.withLock {
                     currentCoroutineContext().ensureActive()
                     if (isStopped) return@withLock Result.failure()
-                    when (PrivateChatPush.receive(applicationContext, reference, envelope, archive)) {
-                        nl.davidengelen.redsquare.chat.ChatNotificationResult.PUBLISHED,
-                        nl.davidengelen.redsquare.chat.ChatNotificationResult.SUPPRESSED -> Result.success()
-                        nl.davidengelen.redsquare.chat.ChatNotificationResult.RETRY -> Result.retry()
-                    }
+                    privateResult(PrivateChatPush.receive(applicationContext, reference, envelope, archive, wake))
                 }
             }
             receiptExecution.withLock receipt@{
@@ -167,6 +170,11 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 }
             }
         }
+    }
+
+    private fun privateResult(outcome: ChatNotificationResult): Result = when (outcome) {
+        ChatNotificationResult.PUBLISHED, ChatNotificationResult.SUPPRESSED -> Result.success()
+        ChatNotificationResult.RETRY -> Result.retry()
     }
 
     private fun original(wallet: nl.davidengelen.redsquare.saito.SaitoWallet, wake: String, resolver: okhttp3.HttpUrl): String? {

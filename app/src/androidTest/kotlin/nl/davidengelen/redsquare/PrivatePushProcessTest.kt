@@ -280,6 +280,7 @@ class PrivatePushProcessTest {
         "personal.${wallet.publicKey}.v1", "personal.${wallet.publicKey}.guard.v1", "personal.${wallet.publicKey}.recovery.v1",
         "socialpush.${wallet.publicKey}.settings.v1", "chatpush.${wallet.publicKey}.settings.v1",
         "chatpush.${wallet.publicKey}.owner.ledger.v1", "chat-alerts.${wallet.publicKey}.settings.v1",
+        "chatpush.${wallet.publicKey}.owner.wake.$wake.v1",
         historyName)
         .flatMap { listOf(it, "$it.bak", "$it.new") }.toSet()
     private fun write(row: JsonObject) {

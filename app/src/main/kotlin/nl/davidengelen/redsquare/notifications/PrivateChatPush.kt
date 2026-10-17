@@ -7,6 +7,7 @@ import com.google.gson.Strictness
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.chat.retainPrivateChat
 import nl.davidengelen.redsquare.chat.ChatNotificationResult
+import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.saito.*
 
@@ -22,8 +23,29 @@ internal object PrivateChatPush {
         return SocialPushReference.parse(body.toString())
     }
 
+    /** Known retained work can recover without a still-live gateway copy. */
+    fun resume(context: Context, wake: String, endpoint: String?): ChatNotificationResult? = try {
+        synchronized(SaitoLocalState.lock) {
+            val scope = PrivateChatWakeRoute.scope(context, wake) ?: return@synchronized null
+            val wallet = AndroidWalletStore(context).loadExisting()
+            val backend = AndroidBackendStore(context).load()
+            if (scope.owner != wallet.publicKey || scope.backend != backend)
+                return@synchronized ChatNotificationResult.SUPPRESSED
+            val route = PrivateChatWakeRoute(context, scope.owner, backend, wake)
+            val entry = route.load() ?: return@synchronized null
+            val history = ChatHistoryStore(context, wallet, backend, entry.counterparty)
+            val envelope = history.retainedOriginal(entry.signature) ?: return@synchronized null
+            if (!ChatPushSettings(context, wallet.publicKey).enabled()) {
+                history.completeAlert(entry.signature); route.remove()
+                return@synchronized ChatNotificationResult.SUPPRESSED
+            }
+            receive(context, SocialPushReference(wallet.publicKey, backend, entry.signature), envelope,
+                endpoint ?: backend.peerUrl, wake)
+        }
+    } catch (_: Exception) { ChatNotificationResult.RETRY }
+
     fun receive(context: Context, reference: SocialPushReference, envelope: String,
-        endpoint: String): ChatNotificationResult = try {
+        endpoint: String, wake: String): ChatNotificationResult = try {
         synchronized(SaitoLocalState.lock) {
             val wallet = AndroidWalletStore(context).loadExisting()
             if (wallet.publicKey != reference.owner || AndroidBackendStore(context).load() != reference.backend ||
@@ -39,7 +61,11 @@ internal object PrivateChatPush {
                 return@synchronized ChatNotificationResult.SUPPRESSED
             if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            retainPrivateChat(context, wallet, reference.backend, received, endpoint, retryPublication = true)
+            val route = PrivateChatWakeRoute(context, wallet.publicKey, reference.backend, wake)
+            route.remember(wallet, received, now)
+            val outcome = retainPrivateChat(context, wallet, reference.backend, received, endpoint, retryPublication = true)
+            if (outcome != ChatNotificationResult.RETRY) route.remove()
+            outcome
         }
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }
