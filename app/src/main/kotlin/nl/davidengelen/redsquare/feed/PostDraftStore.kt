@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare.feed
 
 import android.content.Context
+import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoTransaction
@@ -27,7 +28,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
     data class Saved(val text: String, val transaction: SaitoTransaction? = null, val queued: Boolean = false,
         val available: Boolean = false, val automatic: Boolean = false, val authorBaseline: String? = null,
-        val images: List<String> = emptyList())
+        val images: List<String> = emptyList(), val gifAttributions: Map<String, GiphyAttribution> = emptyMap())
     data class AuthorWork(val target: String, val kind: AuthorActionKind, val saved: Saved)
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
 
@@ -67,13 +68,20 @@ internal class PostDraftStore private constructor(private val context: Context, 
                 it.asString
             }
             validateBaseline(baseline)
-            Saved(content, transaction, queued, available, automatic, baseline, images)
+            val credits = record.get("gifAttributions")?.takeIf { it.isJsonObject }?.asJsonObject
+                ?.entrySet()?.asSequence()?.filter { it.key in images }?.mapNotNull { entry ->
+                    GiphyAttribution.fromJson(entry.value)?.let { entry.key to it }
+                }?.take(RedSquareImages.MAX_COUNT)?.toMap().orEmpty()
+            Saved(content, transaction, queued, available, automatic, baseline, images, credits)
         }
     }
 
     fun save(saved: Saved) = synchronized(lock) {
         validateTransaction(saved.transaction, saved.text, saved.images)
         validateBaseline(saved.authorBaseline)
+        require(saved.gifAttributions.size <= RedSquareImages.MAX_COUNT && saved.gifAttributions.all { (source, credit) ->
+            source in saved.images && GiphyAttribution.fromJson(credit.toJson()) == credit
+        })
         require(authorKind == null || (!saved.queued && !saved.automatic))
         require(!saved.queued || saved.transaction != null)
         require(!saved.available || (saved.transaction != null && !saved.queued))
@@ -82,6 +90,9 @@ internal class PostDraftStore private constructor(private val context: Context, 
         val record = JsonObject().apply {
             addProperty("text", saved.text)
             add("images", com.google.gson.JsonArray().apply { saved.images.forEach(::add) })
+            if (saved.gifAttributions.isNotEmpty()) add("gifAttributions", JsonObject().apply {
+                saved.gifAttributions.forEach { (source, credit) -> add(source, credit.toJson()) }
+            })
             saved.transaction?.let { addProperty("transaction", it.encoded()) }
             addProperty("queued", saved.queued)
             addProperty("available", saved.available)
@@ -157,7 +168,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
 
     fun cancelQueued(expected: Saved): Boolean = synchronized(lock) {
         if (!expected.queued) return@synchronized false
-        update(expected, Saved(expected.text, images = expected.images))
+        update(expected, Saved(expected.text, images = expected.images, gifAttributions = expected.gifAttributions))
     }
 
     companion object {
@@ -184,7 +195,7 @@ internal class PostDraftStore private constructor(private val context: Context, 
         private fun same(first: Saved, second: Saved) = first.text == second.text &&
             first.transaction?.encoded() == second.transaction?.encoded() &&
             first.queued == second.queued && first.available == second.available && first.automatic == second.automatic &&
-            first.authorBaseline == second.authorBaseline && first.images == second.images
+            first.authorBaseline == second.authorBaseline && first.images == second.images && first.gifAttributions == second.gifAttributions
 
         fun pendingDelivery(context: Context, owner: String, backend: SaitoBackend): List<PostDraftStore> {
             val prefix = "postdraft.${backend.id}.$owner"

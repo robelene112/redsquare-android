@@ -77,7 +77,7 @@ internal fun GiphyPicker(onClose: () -> Unit, onSelect: (GiphyItem) -> Unit,
                                     Text(item.title)
                                     GiphyImage(item.thumbnailUrl, stringResource(R.string.giphy_preview, item.title),
                                         Modifier.fillMaxWidth().height(160.dp))
-                                    GiphyCredits(item)
+                                    GiphyCredits(item.attribution)
                                     TextButton(enabled = selectionEnabled, onClick = { onSelect(item) }) {
                                         Text(stringResource(R.string.giphy_choose))
                                     }
@@ -92,10 +92,10 @@ internal fun GiphyPicker(onClose: () -> Unit, onSelect: (GiphyItem) -> Unit,
 }
 
 @Composable
-internal fun GiphyCredits(item: GiphyItem) {
+internal fun GiphyCredits(item: GiphyAttribution, onNavigate: (() -> Unit) -> Unit = { it() }) {
     val context = LocalContext.current
     var unavailable by remember(item) { mutableStateOf(false) }
-    fun open(url: String) {
+    fun open(url: String) = onNavigate {
         try { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))); unavailable = false }
         catch (_: ActivityNotFoundException) { unavailable = true }
     }

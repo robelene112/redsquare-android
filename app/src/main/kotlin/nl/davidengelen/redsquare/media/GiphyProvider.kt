@@ -55,7 +55,9 @@ internal data class GiphyConfiguration(val apiKey: String, val apiBase: HttpUrl,
 private fun String.toHttpUrlOrNull(): HttpUrl? = try { toHttpUrl() } catch (_: IllegalArgumentException) { null }
 
 internal data class GiphyItem(val id: String, val title: String, val originalUrl: String, val thumbnailUrl: String,
-    val creator: String?, val creatorUrl: String?, val sourceUrl: String?)
+    val creator: String?, val creatorUrl: String?, val sourceUrl: String?) {
+    val attribution get() = GiphyAttribution(id, title, creator, creatorUrl, sourceUrl)
+}
 
 internal class GiphyUnavailable(val rateLimited: Boolean = false) : IOException("GIF provider unavailable")
 

@@ -164,11 +164,12 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 if (preparingImages) Text(stringResource(R.string.image_preparing))
                 OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
                     placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
-                PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending)
+                PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
+                    gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
             }
         }
         if (choosingGif) GiphyPicker(onClose = { choosingGif = false },
-            onSelect = { item -> addGif(item.originalUrl) { choosingGif = false } },
+            onSelect = { item -> addGif(item) { choosingGif = false } },
             selectionEnabled = !saving && !sending, selectionError = imageError)
         if (confirmClear) AlertDialog(
             onDismissRequest = { confirmClear = false },

@@ -25,18 +25,22 @@ import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.media.GiphyImage
+import nl.davidengelen.redsquare.media.GiphyAttribution
+import nl.davidengelen.redsquare.media.GiphyCredits
 import nl.davidengelen.redsquare.media.LocalGiphyConfiguration
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
 internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: ((Int) -> Unit)? = null, removalEnabled: Boolean = true,
-    previewHeight: Dp = 180.dp) {
+    previewHeight: Dp = 180.dp, gifAttributions: Map<String, GiphyAttribution> = emptyMap(),
+    onOpenSource: (() -> Unit) -> Unit = { it() }) {
     if (images.isEmpty()) return
     var selected by remember(images) { mutableStateOf<Int?>(null) }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         images.forEachIndexed { index, source ->
             PostImage(source, backend, stringResource(R.string.image_position, index + 1, images.size),
                 Modifier.fillMaxWidth().height(previewHeight).clickable { selected = index })
+            GifCredits(source, gifAttributions[source], onOpenSource)
             if (onRemove != null) TextButton(enabled = removalEnabled, onClick = { onRemove(index) }) {
                 Text(stringResource(R.string.image_remove, index + 1))
             }
@@ -62,12 +66,21 @@ internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: (
                         }.transformable(transform), ContentScale.Fit)
                     }
                 }
+                GifCredits(images[index], gifAttributions[images[index]], onOpenSource)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     TextButton(onClick = { selected = index - 1 }, enabled = index > 0) { Text(stringResource(R.string.image_previous)) }
                     TextButton(onClick = { selected = index + 1 }, enabled = index < images.lastIndex) { Text(stringResource(R.string.image_next)) }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun GifCredits(source: String, credit: GiphyAttribution?, onOpenSource: (() -> Unit) -> Unit) {
+    if (LocalGiphyConfiguration.current.mediaUrl(source) != null) {
+        Text(stringResource(R.string.giphy_brand), style = MaterialTheme.typography.labelSmall)
+        if (credit != null) GiphyCredits(credit, onNavigate = onOpenSource)
     }
 }
 

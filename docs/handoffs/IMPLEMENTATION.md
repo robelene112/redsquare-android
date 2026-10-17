@@ -93,9 +93,19 @@ not relabeled as layout PASS. No extra local build was run
 for this setter; source/device CI compile it. Previous selection local build
 13621 PASS3m36s (core UP-TO-DATE).
 
-Next tracer adds visible selected Powered by GIPHY/creator/source after selection
-and recreation, and removal clears attribution. It has not run yet; expected
-RED is missing selected credits, not inferred. Then retain selected metadata/
+Selected-credit tracer b377c2e1 actual run39009395863 FAILED2/1/42.329s at
+missing selected Powered by GIPHY, helper193/call161. Prior recovery passes;
+selection/animation/clipping/exactURL assertions before this point pass, later
+artist/source/restoration/removal tails unexecuted. [Seven RED originals](../evidence/ticket16/credits-red/android17/README.md),
+root viewed both PNGs/parsed both XMLs. Both tracer reviews0/0.
+
+Current minimum retains optional selected ID/title/creator/source metadata in
+existing encrypted draft/VM, preserving it through save/send/queue cancellation,
+ordinary photo adds and source navigation, dropping removed-image metadata.
+Optional malformed credits do not discard text/images. PostImages shows provider
+brand and available credits, including its viewer; signed Saito payload remains
+only original URLs. Source-link navigation persists current work first, reusing
+picker persistence. Source reviews/local build/nativeGREEN still required. Then retain selected metadata/
 attribution and prove signed post/reply/quote interoperability; complete
 Android10/17 and recovery/failure acceptance. Live authorized Giphy remains a
 separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.

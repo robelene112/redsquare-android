@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare.feed
 import androidx.compose.runtime.*
 import android.content.ContentResolver
 import android.net.Uri
+import nl.davidengelen.redsquare.media.GiphyAttribution
+import nl.davidengelen.redsquare.media.GiphyItem
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +37,7 @@ internal class PostComposerState(
     private val writes = Mutex()
     var text by mutableStateOf("")
     var images by mutableStateOf<List<String>>(emptyList())
+    var gifAttributions by mutableStateOf<Map<String, GiphyAttribution>>(emptyMap())
     var imageError by mutableStateOf(false)
     var preparingImages by mutableStateOf(false)
     var ready by mutableStateOf(false)
@@ -55,8 +58,11 @@ internal class PostComposerState(
             val saved = withContext(Dispatchers.IO) { store.load() }
             text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
             images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
+            gifAttributions = (if (saved.transaction != null) saved.gifAttributions else memory.gifAttributions ?: saved.gifAttributions)
+                .filterKeys { it in images }
             memory.text = text
             memory.images = images
+            memory.gifAttributions = gifAttributions
             transaction = saved.transaction
             queued = saved.queued
             queueSaved = saved.queued
@@ -69,11 +75,12 @@ internal class PostComposerState(
     suspend fun persist(): Boolean = writes.withLock {
         if (!ready) return@withLock false
         try {
-            val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images)
+            val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images, gifAttributions = gifAttributions)
             withContext(NonCancellable) {
                 val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                 memory.text = persisted.text
                 memory.images = persisted.images
+                memory.gifAttributions = persisted.gifAttributions
                 queueSaved = persisted.queued
             }
             error = false
@@ -108,7 +115,7 @@ internal class PostComposerState(
                     }
                     if (transaction == null) queued = true
                     transaction = prepared
-                    val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images)
+                    val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images, gifAttributions = gifAttributions)
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
                     queued = persisted.queued
                     queueSaved = persisted.queued
@@ -176,7 +183,7 @@ internal class PostComposerState(
                         withContext(Dispatchers.IO) {
                             val saved = store.load()
                             check(saved.queued && saved.transaction?.id == transaction?.id)
-                            check(store.update(saved, PostDraftStore.Saved(text, images = images)))
+                            check(store.update(saved, PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)))
                         }
                         transaction = null
                         queued = false
@@ -184,6 +191,7 @@ internal class PostComposerState(
                         networkError = false
                         memory.text = text
                         memory.images = images
+                        memory.gifAttributions = gifAttributions
                     }
                 }
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -202,8 +210,10 @@ internal class PostComposerState(
                         withContext(Dispatchers.IO) { store.save(PostDraftStore.Saved("")) }
                         memory.text = ""
                         memory.images = emptyList()
+                        memory.gifAttributions = emptyMap()
                         text = ""
                         images = emptyList()
+                        gifAttributions = emptyMap()
                         transaction = null
                     }
                 }
@@ -221,7 +231,13 @@ internal class PostComposerState(
     }
 
     fun openImagePicker(onLaunch: () -> Unit) {
-        if (!ready || saving || sending || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
+        if (transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
+        openMediaSource(onLaunch)
+    }
+
+    /** Source links also persist the latest authored work before leaving the app. */
+    fun openMediaSource(onLaunch: () -> Unit) {
+        if (!ready || saving || sending) return
         saving = true
         scope.launch {
             try {
@@ -245,10 +261,11 @@ internal class PostComposerState(
             try {
                 writes.withLock {
                     // Preserve current work before any provider read or pixel allocation.
-                    val prior = PostDraftStore.Saved(text, images = images)
+                    val prior = PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)
                     val persistedPrior = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(prior) }
                     memory.text = persistedPrior.text
                     memory.images = persistedPrior.images
+                    memory.gifAttributions = persistedPrior.gifAttributions
                     val remaining = withContext(Dispatchers.IO) {
                         SaitoTransaction.MAX_MESSAGE_BYTES - RedSquarePosts.message(text, images, parent, quote)
                             .toString().toByteArray(Charsets.UTF_8).size - 8 * uris.size
@@ -260,11 +277,13 @@ internal class PostComposerState(
                     val combined = images + prepared
                     val finalSize = withContext(Dispatchers.IO) { RedSquarePosts.message(text, combined, parent, quote).toString().toByteArray(Charsets.UTF_8).size }
                     require(finalSize <= SaitoTransaction.MAX_MESSAGE_BYTES)
-                    val snapshot = PostDraftStore.Saved(text, images = combined)
+                    val snapshot = PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions)
                     withContext(NonCancellable) {
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                         images = persisted.images
+                        gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
+                        memory.gifAttributions = persisted.gifAttributions
                         memory.text = persisted.text
                     }
                     error = false
@@ -277,7 +296,8 @@ internal class PostComposerState(
     }
 
     /** A provider selection is its unchanged original URL, never normalized raster bytes. */
-    fun addGif(source: String, onAdded: () -> Unit) {
+    fun addGif(item: GiphyItem, onAdded: () -> Unit) {
+        val source = item.originalUrl
         if (!ready || saving || sending || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
         saving = true
         imageError = false
@@ -291,9 +311,11 @@ internal class PostComposerState(
                     }
                     require(size <= SaitoTransaction.MAX_MESSAGE_BYTES)
                     withContext(NonCancellable) {
-                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = combined)) }
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions + (source to item.attribution))) }
                         images = persisted.images
+                        gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
+                        memory.gifAttributions = persisted.gifAttributions
                         memory.text = persisted.text
                     }
                     imageError = false
@@ -316,9 +338,11 @@ internal class PostComposerState(
                 writes.withLock {
                     val replacement = images.filterIndexed { position, _ -> position != index }
                     withContext(NonCancellable) {
-                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = replacement)) }
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = replacement, gifAttributions = gifAttributions.filterKeys { it in replacement })) }
                         images = persisted.images
+                        gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
+                        memory.gifAttributions = persisted.gifAttributions
                         memory.text = persisted.text
                     }
                     imageError = false
