@@ -24,7 +24,8 @@ tipheightmustalsoequaladvertisedtiphash. Initial699397f4 PASS2m11s/gateway9/0/0/
 Fix319365f8 addsmatchingtipidentity; sourceStandards0/Spec0. Owned51253 endedexit0.
 Correctedowned74343 endedPASS1m30s/gateway9/0/0/coreUPTODATE, no ownedbuild.
 [Retained GREEN](../evidence/ticket42/chain-green/README.md),9hashes/18sources.
-Finalevidence/docsreview thenpush pending. No durabledatacursor,
+Finalevidence/docsreview5a3c202b reportsStandards0/Spec0 afterone stale push-statusclausefix.
+Accepted chain checkpoint ready to push. No durabledatacursor,
 chain/eventintegration or whole42acceptance yet. Nextsourceworkmustimplementdurable
 observer/gaps/cursorprocessing ratherthanmoreprotocolresearch. Protectedgroupdocuntouched.
 

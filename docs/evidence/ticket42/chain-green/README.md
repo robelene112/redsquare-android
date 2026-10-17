@@ -17,4 +17,5 @@ separately executed conflict fixture. Empty ranges and fork IDs do not prove
 complete processing or ancestry. Durable cursor advancement, block-event
 integration, explicit retained chain gaps/reorgs and continuous polling remain
 later work. This does not establish public-chain availability, consensus/finality,
-Google delivery or whole42/32 acceptance. Final evidence reviews pending.
+Google delivery or whole42/32 acceptance. Final evidence reviews at5a3c202b report Standards0/Spec0 after one stale
+handoff push-status clause was corrected.
