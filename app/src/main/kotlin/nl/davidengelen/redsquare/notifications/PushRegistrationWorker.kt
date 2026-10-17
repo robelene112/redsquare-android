@@ -31,6 +31,7 @@ import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoLocalState
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -96,8 +97,15 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         RegistrationExecution.lock.withLock {
             if (!BuildConfig.PUSH_CONFIGURED) return@withLock Result.success()
-            if (!PushTransport.initialize(applicationContext)) return@withLock Result.retry()
             try {
+                val origin = PushGatewayBinding.configuredOrigin()
+                if (registrationDemand(applicationContext) == null) {
+                    // Retire independently of an unavailable SDK or an outstanding Google Task.
+                    try { PushGatewayBinding.reconcile(applicationContext, null, origin) }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { /* Still attempt SDK opt-out; retained authority retries below. */ }
+                }
+                if (!PushTransport.initialize(applicationContext)) return@withLock Result.retry()
                 RegistrationExecution.drain()
                 currentCoroutineContext().ensureActive()
                 val store = RegistrationStore(applicationContext)
@@ -105,12 +113,13 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
                 val desired = registrationDemand(applicationContext)
                 val messaging = FirebaseMessaging.getInstance()
                 if (desired == null) {
-                    if ((saved == null || saved.phase == Phase.UNREGISTERED) &&
-                        inputData.getString("observed") != "true") return@withLock Result.success()
-                    store.save(RegistrationRecord(Phase.UNREGISTERING))
-                    RegistrationExecution.await { messaging.unregister() }
-                    currentCoroutineContext().ensureActive()
-                    store.save(RegistrationRecord(Phase.UNREGISTERED))
+                    if ((saved != null && saved.phase != Phase.UNREGISTERED) ||
+                        inputData.getString("observed") == "true") {
+                        store.save(RegistrationRecord(Phase.UNREGISTERING))
+                        RegistrationExecution.await { messaging.unregister() }
+                        currentCoroutineContext().ensureActive()
+                        store.save(RegistrationRecord(Phase.UNREGISTERED))
+                    }
                 } else {
                     val now = System.currentTimeMillis()
                     val current = RegistrationExecution.await { FirebaseInstallations.getInstance().id }
@@ -128,6 +137,8 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
                         store.save(RegistrationRecord(Phase.REGISTERED, fid, System.currentTimeMillis()))
                     }
                 }
+                val fid = store.load()?.takeIf { it.phase == Phase.REGISTERED }?.fid
+                PushGatewayBinding.reconcile(applicationContext, fid, origin)
                 // Import, server/permission changes and opt-out can race an asynchronous SDK task.
                 if (registrationDemand(applicationContext) == desired) Result.success() else Result.retry()
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -140,12 +151,16 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
 
 private data class RegistrationDemand(val owner: String, val backend: SaitoBackend)
 
-private fun registrationDemand(context: Context): RegistrationDemand? {
+private fun registrationDemand(context: Context): RegistrationDemand? =
+    pushIdentity(context)?.let { (wallet, backend) -> RegistrationDemand(wallet.publicKey, backend) }
+
+/** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
+internal fun pushIdentity(context: Context): Pair<SaitoWallet, SaitoBackend>? {
     if (!context.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) return null
     return synchronized(SaitoLocalState.lock) {
         val wallet = AndroidWalletStore(context).loadExisting()
         val backend = AndroidBackendStore(context).load()
-        if (SocialPushSettings(context, wallet.publicKey).enabled()) RegistrationDemand(wallet.publicKey, backend) else null
+        if (SocialPushSettings(context, wallet.publicKey).enabled()) wallet to backend else null
     }
 }
 

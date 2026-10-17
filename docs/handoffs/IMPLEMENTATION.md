@@ -103,7 +103,13 @@ FAILURE0.205s atPushBindingPreviewTest:103, missing existing-wallet binding.
 Resultphase initial-binding/binds0/revocations0/SDK29. Old11UI/worker3 and later
 new wallet/backend/FID/opt-out tails unexecuted behind first gate. ADBexit0 is not
 JUnitpass. [Retained](../evidence/ticket42/native-binding-red/android10/README.md),
-7hashes/22sourcehashes; sourceCI separately retained. Native minimum is next.
+7hashes/22sourcehashes; sourceCI separately retained. Native minimum now implements encrypted device journal, bounded configured HTTPS
+adapter/debug-emulator-only local fixture transport, shared fresh push identity
+and registration-worker hook. Opt-out attempts keyless gateway retirement before
+SDK initialization/outstanding-task drain, then still attempts SDK unregistration;
+no early unregistered-SDK success can skip remaining gateway cleanup. Owned local
+core/gateway/debug/test/release/lint build18265 active, no result inferred. Source
+review pending. No configured SDK or native GREEN claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
 no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.

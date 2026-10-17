@@ -4,7 +4,8 @@ Part of open[#32](https://github.com/robelene112/redsquare-android/issues/32).
 The client source integrates Firebase Messaging26.0.0 using the supported
 [manual initialization](research/FCM_MANUAL_INITIALIZATION_2026_10_17.md) path.
 It does not require the Google-services Gradle plugin or checked-in JSON.
-Actual Firebase registration, gateway binding and cloud delivery remain unverified.
+Actual Firebase registration and cloud delivery remain unverified. The Android
+gateway adapter is now implemented under#42 and awaiting runtime verification.
 
 ## Build options
 
@@ -71,7 +72,9 @@ process interruption behavior, rotation, Google delivery or real closed-app taps
 The owner Firebase setup question remains pending. No project, IAM role, API,
 account, sender credentials or deployed service is created by this source change.
 
-The signed gateway subscription/revocation contract, durable observer/events,
+The signed gateway contract and portable recovery client have local acceptance;
+the native encrypted journal/HTTP binding adapter is under verification in#42.
+Durable observer/events,
 reconciliation after dropped messages, both-backend coverage and actual cloud
 sender still need implementation and verification. This client registration is
 not a gateway subscription. Chat must join the shared consent calculation before
