@@ -68,7 +68,8 @@ uses owned loopback HTTP503 twice and controlled Saito feed. It requires deliber
 Add GIF, visible error/brand, Retry then Close, authored text and explicit saved
 draft restoration through normal UI, no Saito writes. No successful selection,
 animation, real provider or process-death claim yet. Initial production has no
-GIF button; expected RED is missing Add GIF, not yet observed. New focused
+GIF button; expected RED is missing Add GIF, not yet observed. Tracer20098d5a
+source reviews Standards0/Spec0 and local debug/test APK build passed2minutes. New focused
 `gifs`/`gifs-android17` scopes retain a180s class bound; full includes the same
 class. Existing gates unchanged. No production source changed in this tracer.
 Next: compile/review/run the tracer, implement the minimum failure-recovery path,
