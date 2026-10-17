@@ -50,7 +50,12 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
             val channel = message.kind.channel
             notifications.createNotificationChannel(NotificationChannel(channel,
                 context.getString(message.kind.label), NotificationManager.IMPORTANCE_DEFAULT))
-            val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
+            val destination = Intent(context, MainActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            if (message.kind == ChatAlertKind.PRIVATE) {
+                destination.data = ChatAlertReference(wallet.publicKey, backend, message.author, message.id).uri()
+            }
+            val open = PendingIntent.getActivity(context, 0, destination,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
             val notification = Notification.Builder(context, channel)
                 .setSmallIcon(R.drawable.ic_notifications)

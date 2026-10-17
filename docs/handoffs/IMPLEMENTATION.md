@@ -23,7 +23,15 @@ controlled-peer, actual-notification and persistence seams from spec1 apply.
 Focused chat-alerts/chat-alerts-android17 scopes run the one native class, with
 180s class bound and existing20s observations. Full wiring includes it. No
 production change yet. Local first tracer build29451 PASS2m39s, core UP-TO-DATE;
-no owned local build. First Android17 RED dispatch follows. No extra grill needed for this settled
+no owned first-tracer build. Android17 RED39034915868 at exact3dbeefbd1 failed
+1/1/48.07s at20s destination wait88 after the actual generic alert/shade tap.
+Root viewed two original PNGs/parsed2XML;9hashes in ticket44/first-red/android17.
+The previous conversation/draft remained visible; later recovery/no-write tails
+were unexecuted. First production correction adds wallet/backend/original-bound
+private alert URI, one shared notification route slot/generation and the existing
+mounted-draft navigation guard before opening the sender. Local correction build
+96432 PASS4m11s, core UP-TO-DATE; no owned build. Corrected focused Android17
+dispatch follows; no GREEN outcome yet. No extra grill needed for this settled
 behavior. Public beta26 remains current, protected group contract untouched.
 
 ## Accepted native Chat GIF slice (#43)

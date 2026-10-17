@@ -78,20 +78,21 @@ import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
 
 class MainActivity : ComponentActivity() {
-    private val socialRoutes by lazy {
+    private val notificationRoutes by lazy {
         // This exported Activity's Intent extras are untrusted, not saved route defaults.
         // Keep registry/owner restoration support while admitting only our own route state.
         val arguments = androidx.lifecycle.viewmodel.MutableCreationExtras(defaultViewModelCreationExtras).apply {
             this[androidx.lifecycle.DEFAULT_ARGS_KEY] = Bundle()
         }
         val provider = androidx.lifecycle.ViewModelProvider(viewModelStore, defaultViewModelProviderFactory, arguments)
-        provider[nl.davidengelen.redsquare.notifications.SocialPushRoutes::class.java]
+        provider[nl.davidengelen.redsquare.notifications.NotificationRoutes.VIEW_MODEL_KEY,
+            nl.davidengelen.redsquare.notifications.NotificationRoutes::class.java]
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // Preserve the original launch configuration, including controlled peer endpoints.
-        socialRoutes.enqueue(intent.data)
+        notificationRoutes.enqueue(intent.data)
     }
 
     private var videoDiagnostics: VideoDiagnostics? = null
@@ -117,7 +118,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalLayoutApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        socialRoutes.initialize(intent.data)
+        notificationRoutes.initialize(intent.data)
         videoDiagnostics = VideoDiagnostics.fromIntent(this, intent)
         setContent {
             val appearanceStore = remember { AndroidAppearanceStore(applicationContext) }
@@ -362,7 +363,7 @@ class MainActivity : ComponentActivity() {
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
-                                            lifecycle, Modifier.weight(1f), socialRoutes = socialRoutes,
+                                            lifecycle, Modifier.weight(1f), notificationRoutes = notificationRoutes,
                                             allowPushRoute = !settingsOpen && !personalControlsOpen && !usernameOpen &&
                                                 !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
                                                 !savingBackend && !walletImport.busy && !walletExport.busy,

@@ -42,7 +42,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.ensureActive
 import nl.davidengelen.redsquare.notifications.SocialPush
-import nl.davidengelen.redsquare.notifications.SocialPushRoutes
+import nl.davidengelen.redsquare.notifications.NotificationRoutes
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import java.text.DateFormat
@@ -51,7 +51,7 @@ import java.util.Locale
 
 @Composable
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
-    lifecycle: Lifecycle, modifier: Modifier, socialRoutes: SocialPushRoutes? = null, allowPushRoute: Boolean = true,
+    lifecycle: Lifecycle, modifier: Modifier, notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -84,6 +84,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
     var reviewingChat by rememberSaveable { mutableStateOf(false) }
+    var chatAlert by remember(wallet?.publicKey, backend) { mutableStateOf<nl.davidengelen.redsquare.chat.ChatAlertReference?>(null) }
+    var chatAlertGeneration by remember(wallet?.publicKey, backend) { mutableLongStateOf(0L) }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
@@ -120,16 +122,42 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val position = rememberLazyListState()
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val registrar = LocalRegistryAuthority.current
-    val pendingTap by socialRoutes?.pending?.collectAsState() ?: remember { mutableStateOf<android.os.Bundle?>(null) }
+    val pendingTap by notificationRoutes?.pending?.collectAsState() ?: remember { mutableStateOf<android.os.Bundle?>(null) }
     var tapRetry by remember { mutableIntStateOf(0) }
     var tapFailed by remember(pendingTap) { mutableStateOf(false) }
     LaunchedEffect(pendingTap, wallet?.publicKey, personal?.ready, personal?.saving, allowPushRoute,
         formNavigation.saveCurrent, registrar, tapRetry) {
         val delivery = pendingTap ?: return@LaunchedEffect
-        val routes = socialRoutes ?: return@LaunchedEffect
+        val routes = notificationRoutes ?: return@LaunchedEffect
         val currentWallet = wallet ?: return@LaunchedEffect
         if (!allowPushRoute || personal?.ready != true || personal.saving) return@LaunchedEffect
-        val reference = SocialPushRoutes.reference(delivery) ?: return@LaunchedEffect
+        val chatReference = NotificationRoutes.chatReference(delivery)
+        if (chatReference != null) {
+            tapFailed = false
+            try {
+                if (chatReference.owner != currentWallet.publicKey || chatReference.backend != backend) {
+                    tapFailed = true
+                    return@LaunchedEffect
+                }
+                val opened = formNavigation.navigate {
+                    val permitted = withContext(Dispatchers.IO) { chatReference.canOpen(context) }
+                    currentCoroutineContext().ensureActive()
+                    if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
+                    else {
+                        composing = false; reviewingQueue = false; reviewingChanges = false
+                        chatAlert = chatReference
+                        chatAlertGeneration = delivery.getLong("generation")
+                        reviewingChat = true
+                        routes.consume(delivery)
+                        true
+                    }
+                }
+                tapFailed = !opened
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { tapFailed = true }
+            return@LaunchedEffect
+        }
+        val reference = NotificationRoutes.socialReference(delivery) ?: return@LaunchedEffect
         tapFailed = false
         try {
             if (reference.owner != currentWallet.publicKey || reference.backend != backend) {
@@ -165,7 +193,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 TextButton(enabled = !formNavigation.transitioning, onClick = { tapRetry++ }) {
                     Text(stringResource(R.string.retry))
                 }
-                TextButton(enabled = !formNavigation.transitioning, onClick = { pendingTap?.let { socialRoutes?.consume(it) } }) {
+                TextButton(enabled = !formNavigation.transitioning, onClick = { pendingTap?.let { notificationRoutes?.consume(it) } }) {
                     Text(stringResource(R.string.social_push_dismiss))
                 }
             }
@@ -256,7 +284,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     if (reviewingChat && wallet != null) {
         CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
             nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
-            nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata) { reviewingChat = false }
+            key(chatAlertGeneration) {
+                nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata,
+                    initialContact = chatAlert?.contact) { reviewingChat = false; chatAlert = null }
+            }
         }
         return
     }

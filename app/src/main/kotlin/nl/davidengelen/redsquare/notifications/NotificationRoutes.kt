@@ -4,11 +4,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import nl.davidengelen.redsquare.chat.ChatAlertReference
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 
 /** Public reference state only. Saved state handles recreation, not atomic process-death delivery. */
-internal class SocialPushRoutes(private val saved: SavedStateHandle) : ViewModel() {
+internal class NotificationRoutes(private val saved: SavedStateHandle) : ViewModel() {
     val pending = saved.getStateFlow<Bundle?>("social.pending", null)
 
     fun initialize(uri: Uri?) {
@@ -18,7 +19,7 @@ internal class SocialPushRoutes(private val saved: SavedStateHandle) : ViewModel
     }
 
     fun enqueue(uri: Uri?) {
-        val reference = parse(uri) ?: return
+        if (parse(uri) == null && ChatAlertReference.parse(uri) == null) return
         val generation = (saved.get<Long>("social.generation") ?: 0L) + 1L
         check(generation > 0)
         saved["social.generation"] = generation
@@ -34,7 +35,12 @@ internal class SocialPushRoutes(private val saved: SavedStateHandle) : ViewModel
     }
 
     companion object {
-        fun reference(delivery: Bundle): SocialPushReference? = parse(delivery.getString("uri")?.let(Uri::parse))
+        // Preserve the existing SavedStateHandle owner/key while the router gains Chat destinations.
+        const val VIEW_MODEL_KEY = "androidx.lifecycle.ViewModelProvider.DefaultKey:nl.davidengelen.redsquare.notifications.SocialPushRoutes"
+
+        fun chatReference(delivery: Bundle): ChatAlertReference? = ChatAlertReference.parse(delivery.getString("uri")?.let(Uri::parse))
+
+        fun socialReference(delivery: Bundle): SocialPushReference? = parse(delivery.getString("uri")?.let(Uri::parse))
 
         private fun parse(uri: Uri?): SocialPushReference? = try {
             requireNotNull(uri)

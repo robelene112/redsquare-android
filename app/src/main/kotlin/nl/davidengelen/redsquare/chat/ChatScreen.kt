@@ -39,7 +39,8 @@ import nl.davidengelen.redsquare.saito.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, onBack: () -> Unit) {
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null,
+    onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
     var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(false) }
     if (reviewingGroups) {
@@ -56,7 +57,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
     var contacts by remember(wallet, backend) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
-    var counterparty by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
+    var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
     var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
     var loading by remember(counterparty) { mutableStateOf(false) }
     var failed by remember(counterparty) { mutableStateOf(false) }
