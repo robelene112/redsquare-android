@@ -97,6 +97,18 @@ class GatewayDeliveryTest {
                     }
                     PushGateway(state, origin).use { gateway ->
                         gateway.start(); bind(gateway.port, true)
+                        peer.withheldRows.add(root.id)
+                        GatewayArchive(identity, backend, peer.origin).use { gateway.poll(it, sender) }
+                        peer.check()
+                        assertEquals("A reply without its available signed parent must not be guessed for this recipient", 0, fcm.requestCount)
+                        val missingParent = request(gateway.port, "/v1/observer/status", "{\"version\":1,\"backend\":\"${backend.id}\"}")
+                        assertEquals(200, missingParent.statusCode())
+                        val missingReasons = JsonParser.parseString(missingParent.body()).asJsonObject.getAsJsonArray("gaps")
+                            .map { it.asJsonObject.get("reason").asString }
+                        assertTrue("Missing selected-Archive parent proof must remain an explicit coverage gap",
+                            "archive-parent-unavailable" in missingReasons)
+                        peer.withheldRows.remove(root.id)
+                        peer.exactReads.clear() // The later send must observe fresh exact reads after restoration.
                         GatewayArchive(identity, backend, peer.origin).use { gateway.poll(it, sender) }
                         peer.check()
                         val sent = fcm.takeRequest(2, TimeUnit.SECONDS)
@@ -242,6 +254,7 @@ class GatewayDeliveryTest {
         val nameChecks = java.util.concurrent.atomic.AtomicInteger()
         val exposeHead = java.util.concurrent.atomic.AtomicBoolean(true)
         val exactReads = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
+        val withheldRows = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
         val origin: String get() = "http://127.0.0.1:${server.port}"
         private val rows = java.util.concurrent.ConcurrentHashMap<String, JsonObject>()
         fun add(post: SaitoTransaction, timestamp: Long) {
@@ -294,7 +307,7 @@ class GatewayDeliveryTest {
                                     if (criteria.has("sig")) {
                                         require(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit", "sig") && criteria.get("limit").asInt == 1)
                                         val id = criteria.get("sig").asString
-                                        exactReads.add(id); rows[id]?.let { response.add(it) }
+                                        exactReads.add(id); if (id !in withheldRows) rows[id]?.let { response.add(it) }
                                     } else {
                                         require(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit") && criteria.get("limit").asInt == 100)
                                         if (exposeHead.get()) rows.values.forEach { response.add(it) }
