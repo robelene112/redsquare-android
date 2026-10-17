@@ -26,13 +26,18 @@ Production21f2a340c adds wallet/backend/original-bound private Chat URI and loca
 cached verification, one shared notification route slot/generation retaining
 legacy SavedStateHandle keys, and existing mounted-draft guard before opening
 the sender. Local96432 PASS4m11s, core UP-TO-DATE. Corrected Android17 native
-run39035902031 at exact21f2a340c2460e2ae632e6fdc7dc746cce44865c PENDING.
+run39035902031 at exact21f2a340c2460e2ae632e6fdc7dc746cce44865c SUCCESS1/0/35.712s.
+Root viewed3 original PNGs/parsed3XML;11hashes in private-route-green/android17.
+It proves actual warm tap/target/UI draft return/identity/no outgoing writes,
+not independently durable saving (see the review correction below).
 Bounded Standards0; Spec1 verification finding: return-to-editor alone could use
 ChatComposerMemory. The test now also requires exact durable ChatWorkStore draft,
 no transaction, statusNONE and automaticfalse after positive target observation,
 before Back. Local strengthened build91514 PASS2m2s, core UP-TO-DATE. No owned
-local build. Production unchanged by this test correction. Fix review and native
-recheck follow; no GREEN/full acceptance claim yet. Group/cold/preview slices
+local build. Production unchanged by this test correction; both fix reviews0/0.
+Strengthened Android17 run39036372375 at exact8df60df48a050cf60b149291adf207b356db68a2
+PENDING. It retains the actual tap and adds pre-Back persisted-work assertions.
+No stronger/full acceptance claim yet. Group/cold/preview slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
 grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
 Public beta26 remains current, protected group contract untouched.
