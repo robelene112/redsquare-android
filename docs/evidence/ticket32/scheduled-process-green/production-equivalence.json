@@ -1,0 +1,47 @@
+{
+  "original": "57ffd6f8205426467b455743ca86ccd5f302566c",
+  "corrected": "47be60d8113af9df6ad15117867aeaf20f1b4f10",
+  "objects": [
+    {
+      "path": "app/src/main",
+      "originalObject": "9782311622f9253dae0e32591d15f6eacaaeb6f0",
+      "correctedObject": "9782311622f9253dae0e32591d15f6eacaaeb6f0"
+    },
+    {
+      "path": "core/src/main",
+      "originalObject": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81",
+      "correctedObject": "89854000f1d88fb3d8f6c5c93d1de7ef4a00de81"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "originalObject": "d2c3e46fbf00b129354ef3b7a78b4a60a1fd6fa7",
+      "correctedObject": "d2c3e46fbf00b129354ef3b7a78b4a60a1fd6fa7"
+    },
+    {
+      "path": "core/build.gradle.kts",
+      "originalObject": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "correctedObject": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "originalObject": "f36d1d698ec96f1dcc49640074a67cdc1c34eab5",
+      "correctedObject": "f36d1d698ec96f1dcc49640074a67cdc1c34eab5"
+    },
+    {
+      "path": "build.gradle.kts",
+      "originalObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "correctedObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "gradle.properties",
+      "originalObject": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "correctedObject": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    },
+    {
+      "path": "gradle/wrapper/gradle-wrapper.properties",
+      "originalObject": "eb1a55be0e150907b4442736a9f121cb6de6f2bd",
+      "correctedObject": "eb1a55be0e150907b4442736a9f121cb6de6f2bd"
+    }
+  ],
+  "limit": "Source/build tree equivalence only; Android17 ran original external stop, corrected Android10 uses host-requested fixture self-termination. No claim that Android17 ran the later fixture."
+}

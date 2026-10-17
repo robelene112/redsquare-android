@@ -24,4 +24,5 @@ Android10 initially fails at the external stop command, with its exact cause
 unknown; see[retained failure](../../scheduled-process-stop-failure/android10/README.md).
 Its fixture-only correction uses the existing test's requested self-termination
 and preserves the same recovery gates. This Android17 success is not relabelled
-as a run of that later source. Corrected Android10 verification remains pending.
+as a run of that later source. Corrected[Android10 verification](../android10/README.md) now passes at47be60d8;
+this does not change the source attributed to this17 run.

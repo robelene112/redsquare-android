@@ -74,48 +74,39 @@ also retained with passing assertions/logs. Source reviews0/0 at0f50c2a4; final
 evidence reviews at9663f3a5 report Standards0/Spec0. The bounded timeout
 observation is accepted. No owned local Gradle build or SDK/config/live change.
 
-Current same-ticket work is the actual scheduled-receipt process boundary below.
-Source preparation is in progress; native behavior remains unverified. Remain sequential. Current passes are live
-process with noActivity, not process death/autonomous restart/FCM/locked/Doze/
-Pixel or full#32 acceptance.
+The additional[actual-process observation](../evidence/ticket32/scheduled-process-green/README.md)
+now passes on both SDKs. Original17 run38984566019 at57ffd6f8: scheduled PID4482→4741,
+restorer0.835s. Corrected10 run38985316045 at47be60d8: PID3804→4054, restorer0.874s.
+Both core114/0/0. Original/corrected source38984556683/38985300921 SUCCESS release/lint.
+Both also retain the preceding dismissed-replay process journey/restorer. Root
+viewed4 new GREEN originals and parsed12 XMLs;41 hashes per SDK plus3 root metadata.
 
-A source-only[process-boundary proposal](../research/NATIVE_SCHEDULED_RECEIPT_PROCESS_BOUNDARY_2026_10_16.md)
-recommends reusing the existing JVM peer outside the target process via owned
-adb reverse. The existing peer now moves unchanged to shared test-only sources, compiled by
-core.test and app.androidTest. A bounded host JVM launcher, runtime-classpath build
-hook, device-only snapshot fixture and Python supervisor are prepared. The existing
-social-push-process scope first retains its dismissal-replay check, then attempts
-an autonomous scheduled-receipt observation. The supervisor keeps setup
-instrumentation alive, requests the waiting fixture to terminate its verified PID, and observes a distinct PID, new
-peer reads and exact system alert before any target relaunch. Cleanup then stops
-the target, independently cancels/drains owned work and restores originals. This
-is additional verification of the accepted worker, not a new RED claim. Initial local core/debug/test build passes5m32s with114 core cases. Source review
-found cleanup-client lifetime and concurrent-checkpoint parsing risks; corrections
-retain bounded polling, independently attempt restoration and aggregate cleanup
-failures. Positive available-mode reads avoid a stale host counter baseline; the
-shade capture follows visible XML confirmation. Corrected source reviews atda0a039d report Standards0/Spec0. Corrected local
-core/debug/test/classpath build passes2m27s, core114/0/0. An isolated JDK17 host
-smoke confirms loopback readiness/zero-read metadata and clean owned stop. This
-is not Android recovery evidence. Initial exact-source57ffd6f8 Android10 run38984563727 remains FAILURE at the
-external run-as kill command (exit1, stderr not retained, exact cause unknown).
-The new fixture reaches pending work/PID3819; recovery tails remain unexecuted.
-Independent restoration passes. The earlier dismissal journey passes PID3440→3630.
-[Retained failure](../evidence/ticket32/scheduled-process-stop-failure/android10/README.md)
-includes32 hashes,5 XMLs and the new pending original viewed by root. Android17 run38984566019 succeeds at57ffd6f8: scheduled PID4482→4741,
-peer1/0→3/2 total/available reads, actual system alert, no target relaunch,
-independent restoration0.835s. Earlier dismissal PID3072→4241 also passes.
-[Exact17 evidence](../evidence/ticket32/scheduled-process-green/android17/README.md)
-retains41 hashes/6 XMLs; root viewed both new originals. Source38984556683
-SUCCESS includes release/lint. This is original57 source, not the later fixture.  The correction uses a PID-specific marker
-for the waiting native fixture's own Process.killProcess, matching established
-fixtures; actual gone-PID and unchanged autonomous observation gates remain.
-Corrected source reviews at1738159f and diagnostic follow-up794d145c both
-report Standards0/Spec0. Compilation/native verification of the fixture correction
-remain pending on Android10;17 retains its original actual pass. Production
-source/build trees from57 are unchanged. No new17 rerun is needed for this bounded
-fixture correction; final full#32 acceptance remains required. No SDK/client config/service/gateway/node change was made.
-The existing owner Firebase setup question remains pending, do not repeat it.
-Public signed beta24 is unchanged.
+The byte-identical shared test-only peer runs in a bounded host JVM, survives app
+death and is reached through an owned reverse mapping. Both prove pending retry,
+actual death, distinct PID, post-death available reads and exact visible Android
+alert without target instrumentation/Activity or forced job during observation.
+Cleanup follows observation, stops the target, cancels/drains owned work and
+independently restores device-only originals/full wallet/backend. Source and17
+evidence reviews report0/0; combined final10/evidence review is next.
+
+[Initial10 failure](../evidence/ticket32/scheduled-process-stop-failure/android10/README.md)
+38984563727 at57 remains FAILURE at external run-as kill exit1, exact cause unknown
+(stderr not retained). New setup reaches pending PID3819, recovery tails unexecuted,
+restoration passes. Root viewed1 new failure original/5XML;32 hashes. The marker
+correction1738159f/794d145c requests only the waiting fixture's own termination,
+matching established tests;10 validates acknowledgement and actual gone PID.17
+keeps its actual original external-stop pass, not a claimed later-source run.
+Eight production source/build objects57→47 are identical. No additional unchanged
+native rerun is needed; final full#32 acceptance remains required.
+
+Local initial build5m32s/corrected2m27s/core114 and isolated host readiness/stop smoke
+pass. Later marker source is compiled by exact CI. No owned local build remains.
+Next same-ticket work is actual incoming transport, not another local receipt
+permutation. [Lifecycle preparation](../research/NATIVE_PUSH_TRANSPORT_ENTRY_POINTS_2026_10_17.md)
+and ignored .scratch/push32-next-transport-slice.txt record options, not implementation.
+No Firebase SDK/client config/service/gateway/node/account change was made. Existing
+owner Firebase setup question stays pending, do not repeat it. Local autonomous
+scheduling does not prove incoming FCM/locked/Doze/Pixel or whole#32. Beta24 unchanged.
 
 ## Earlier accepted username slice
 
@@ -131,7 +122,8 @@ allXML parsed. Loading/failed history and earlier failed-run tails remain qualif
 
 ## Accepted bounded #32 work
 
-These are local controlled-transport slices, not actual FCM/closed-process push.
+These are controlled-transport slices. The scheduled receipt includes actual
+process death/autonomous restart, while incoming FCM remains unimplemented.
 Every prior failure retains its actual conclusion and qualified limits. Full raw
 chronology is in the historical handoff; linked evidence is authoritative.
 
