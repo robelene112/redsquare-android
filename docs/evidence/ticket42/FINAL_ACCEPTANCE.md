@@ -2,9 +2,10 @@
 
 Issue[#42](https://github.com/robelene112/redsquare-android/issues/42) supports
 #32–34. Whole review base5a048524d8681781c1763f850cc3e0773b8e753c.
-Latest implementationddfd7005cd20c4c75d04bbe12b9a2fe595fe7d36. Status: source and
-individual evidence accepted; final integrated source CI/evidence review pending.
-Do not close42 until those finish. Configured cloud/device acceptance stays#32.
+Latest implementationddfd7005cd20c4c75d04bbe12b9a2fe595fe7d36. Source, individual
+evidence and[final source CI](final-source-ci/README.md) are accepted. Integrated
+final evidence review is pending; do not close42 until it finishes. Configured
+cloud/device acceptance stays#32.
 
 | Requirement | Controlled evidence |
 | --- | --- |
@@ -19,6 +20,9 @@ Do not close42 until those finish. Configured cloud/device acceptance stays#32.
 Current exact implementation passes the full owned gateway suite10/0/0 in1m53s,
 plus installDist; core:test UP-TO-DATE after prior fresh114-test acceptance.
 [parent-green](parent-green/README.md) retains10 manifested files/23 source hashes.
+Final source run39001786605 SUCCESS atfad81a03 includes core/gateway, debug/test
+APK assembly, release and lint; task/cache states are retained. Device steps are
+skipped. The later handoff/acceptance edits are documentation only.
 Earlier native/source evidence remains pinned to its own implementation; it is
 not presented as new native execution after the later gateway-only changes.
 

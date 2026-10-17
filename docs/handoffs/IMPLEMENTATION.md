@@ -15,8 +15,8 @@ Spec1staleclientdoc corrected48537b27, finalSpec0/Standards0. Stalled unreadable
 unsupportedblock or repeatedArchivebudget limit explicitly retained inPUSH_GATEWAY.
 All gateway sources currently committed; no owned localbuild. Candidate
 [FINAL_ACCEPTANCE](../evidence/ticket42/FINAL_ACCEPTANCE.md) maps42requirements to
-controlledevidence andlimits. Integrated final sourceCI/evidence review pending;
-do notclose42yet. #32 actualconfiguredGoogle/device staysopen, no deployment.
+controlledevidence andlimits. Integrated sourceCI39001786605 SUCCESS atfad81a03, retainedfinal-source-ci2hashes;
+finalevidence reviewpending, do notclose42yet. #32 actualconfiguredGoogle/device staysopen, no deployment.
 NativebindingAndroid10/17 evidence is the earlier pinned17fb7260 ownedcontractpeer
 acceptance; no unchangednative rerun claimed or necessary forlatergateway-only
 changes. PortableJVMclient usesactualgateway. Parent/sender/runtime/history controlled
@@ -25,7 +25,7 @@ protocols pass currentfullsuite. Protectedgroupdoc remainsuntrackeduntouched.
 ## Active missing-parent availability
 
 History checkpoint1c62eb31 accepted/pushed; sourceCI39001380385 SUCCESS,
-retained history-recovery-source-ci(2hashes). NewercandidateCI39001786605 is separate.
+retained history-recovery-source-ci(2hashes). NewercandidateCI39001786605 SUCCESS is separate, retainedfinal-source-ci2hashes.
 Sole42 remainsopen. Parent tracer182848ae extends the existing owned reply journey:
 first withhold exact signed root, require noFCM and retained archive-parent-unavailable
 warning, restore root and clear read observations, then preserve the prior fresh
