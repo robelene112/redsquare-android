@@ -286,7 +286,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
             key(chatAlertGeneration) {
                 nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata,
-                    initialContact = chatAlert?.contact) { reviewingChat = false; chatAlert = null }
+                    initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId) { reviewingChat = false; chatAlert = null }
             }
         }
         return

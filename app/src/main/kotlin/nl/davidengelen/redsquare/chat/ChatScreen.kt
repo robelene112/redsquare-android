@@ -39,12 +39,12 @@ import nl.davidengelen.redsquare.saito.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null,
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null,
     onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
-    var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(false) }
+    var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata) { reviewingGroups=false }
+        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,initialGroup) { reviewingGroups=false }
         return
     }
 

@@ -66,7 +66,15 @@ Preview-green/android17 retains27hashes/11parsed XMLs. Root viewed six named
 originals (see README); grouped caption/text excerpts are truncated visually,
 full text independently checked in extras/UiAutomator. Default/opt-in/recreate/
 text/caption/unsupported/disable-withdrawal/generic-next and strong warm journey
-pass. Next tracer: group alert actual shade tap with mounted work preserved.
+pass. Group tracer7b41131a5 run39038765595 FAILURE3cases/1failure/93.615s at20s
+exact group target110 after actual group shade/tap; old private editor remains.
+Private warm/preview cases pass.31hashes/13parsed XMLs in group-red/android17;
+root viewed two group originals, other11retained. Later group tails unexecuted.
+Minimal group route now binds group/original and rechecks membership/author policy,
+opens existing group UI through shared draft guard. Fixture preloads legitimate
+known-group metadata so normal watch-metadata learning cannot alter exact wallet
+assertion; candidate/message/no-write assertions unchanged. Shared helper renamed
+chatAlertJourney per nonblocking Standards naming observation. Native GREEN pending.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new

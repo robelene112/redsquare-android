@@ -38,7 +38,7 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, onBack: () -> Unit) {
+    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val focus = LocalFocusManager.current
@@ -47,7 +47,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val personal = LocalPersonalControls.current
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
     var entries by remember(wallet.publicKey,backend) { mutableStateOf<List<GroupChatStore.Entry>>(emptyList()) }
-    var selected by remember(wallet.publicKey,backend) { mutableStateOf<String?>(null) }
+    var selected by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var loaded by remember(store) { mutableStateOf(false) }
     val publication = remember(wallet.publicKey,backend) { Mutex() }
     var readFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }

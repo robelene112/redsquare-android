@@ -31,20 +31,24 @@ class ChatAlertPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft() = privateJourney()
+    @Test fun aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft() = chatAlertJourney()
 
-    @Test fun privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled() = privateJourney(previews = true)
+    @Test fun privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled() = chatAlertJourney(previews = true)
 
-    @Test fun aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft() = privateJourney(groupAlert = true)
+    @Test fun aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft() = chatAlertJourney(groupAlert = true)
 
-    private fun privateJourney(previews: Boolean = false, groupAlert: Boolean = false) {
+    private fun chatAlertJourney(previews: Boolean = false, groupAlert: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         // Published unsafe fixture identities only.
         val editingContact = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val groupName = "Exact notification group"
+        val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
-            .withChatContact(editingContact).withChatContact(sender.publicKey)
+            .withChatContact(editingContact).withChatContact(sender.publicKey).let {
+                if (groupAlert) it.withNamedChatGroup(groupKey, groupName) else it
+            }
         val wallets = AndroidWalletStore(context)
         val original = wallets.loadOrCreate()
         val originalJson = original.exportJson()
@@ -65,8 +69,7 @@ class ChatAlertPreviewTest {
             "[]"
         })
         val latestDraft = "Keep my latest unsent draft 🌱\nA different conversation"
-        val groupName = "Exact notification group"
-        val groupCreation = GroupChat.create(sender, SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey,
+        val groupCreation = GroupChat.create(sender, groupKey,
             groupName, listOf(wallet.publicKey), 1700000139900)
         val incomingText = if (groupAlert) "Open this exact group conversation" else "Open this exact private conversation"
         val incoming = if (groupAlert) GroupChat.message(sender, GroupChat.readCreation(groupCreation.envelope()),

@@ -56,8 +56,11 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
             val preview = if (previews) message.privateText?.let(::privateNotificationPreview) else null
             val destination = Intent(context, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            if (message.kind == ChatAlertKind.PRIVATE) {
-                destination.data = ChatAlertReference(wallet.publicKey, backend, message.author, message.id).uri()
+            destination.data = if (message.kind == ChatAlertKind.PRIVATE) {
+                ChatAlertReference(wallet.publicKey, backend, message.author, message.id).uri()
+            } else {
+                ChatAlertReference(wallet.publicKey, backend, message.conversationId, message.id,
+                    ChatAlertReference.Kind.GROUP).uri()
             }
             val open = PendingIntent.getActivity(context, 0, destination,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
