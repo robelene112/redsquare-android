@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-17T21:00:08" hostname="447f2070a716" time="40.969">
+  <properties/>
+  <testcase name="oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="4.234"/>
+  <testcase name="privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="2.449"/>
+  <testcase name="pendingPrivateDeliveryAndCiphertextSurviveRestartThenTheLiveStreamReconnectsWithoutDuplicates" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="34.286"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[private observer owner: unavailable, retry scheduled
+private observer official: unavailable, retry scheduled
+]]></system-err>
+</testsuite>

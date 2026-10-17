@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2026-10-17T20:57:58" hostname="24b706f6422d" time="18.84">
+  <properties/>
+  <testcase name="oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="4.028"/>
+  <testcase name="privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="2.441"/>
+  <testcase name="pendingPrivateDeliveryAndCiphertextSurviveRestartThenTheLiveStreamReconnectsWithoutDuplicates" classname="nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest" time="12.371">
+    <failure message="java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1" type="java.lang.ArrayIndexOutOfBoundsException">java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at java.base/java.util.concurrent.CopyOnWriteArrayList.elementAt(CopyOnWriteArrayList.java:385)
+	at java.base/java.util.concurrent.CopyOnWriteArrayList.get(CopyOnWriteArrayList.java:398)
+	at nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest.privateJourney(GatewayPrivateChatDeliveryTest.kt:219)
+	at nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest.privateJourney$default(GatewayPrivateChatDeliveryTest.kt:44)
+	at nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest.pendingPrivateDeliveryAndCiphertextSurviveRestartThenTheLiveStreamReconnectsWithoutDuplicates(GatewayPrivateChatDeliveryTest.kt:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

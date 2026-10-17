@@ -131,7 +131,34 @@ Packet native-blocked-red retains8hashedrecords. Minimum3059423af clears existin
 pending eligibility and removes wake association before blockedSUPPRESSED; history
 and newblockednonretention unchanged, storagefailuresRETRY. Both bounded source reviews0 afterfix; wholeproduction review through3059423af also Standards0/Spec0.
 fresh exact runtime39067742356 SUCCESS10cases85.954s plus process7423→7637→7825/SAMEUUID recovery, actualdismissal/quietduplicate/history/identity/protectedrestore. Packet native-blocked-green retains16hashedrecords. Both bounded fixture reviews0.
-Combined actual background currentbackend/currentwallet/preview/exacttap fixture881d618bb now runs39068320120; boundedreviews requested. Applicable gateway persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
+Combined actual background currentbackend/currentwallet/preview/exacttap GREEN39068386339
+at2373585d0 passes11cases110.602s plus actualprocess7884→8086→8270/SAMEUUID
+7fcaa3cc-f403-424a-8fd4-59589827b36c/expiredRequests0/history/identity/restore.
+Root viewed actualpreview andexactconversation PNGs. Packet native-scoped-preview
+retains19hashes and qualifiedsuperseded881run39068320120 CANCELLEDduringsetup.
+Boundedfixture/evidence0/0. Inactivewallet/backend make no extra gatewayrequests
+while associationpending; completedduplicates may legitimatelyrefetchbeforehistory
+suppression. Allsourceexact1cfa16a57 consolidatesStandards0/Spec0.
+
+Gatewaylifecycle adds actualtwo-backend503/reopen/samewake≥10sdispatcher retry,
+retainedciphertext/reference thenrealdisconnect/reconnect oldduplicate+newmessage
+andexplicitgap. Firsta6323run1FAIL18.840s timestampobserverrace, notappRED;
+dbebdispatchreadiness3PASS40.969s (lifecycle34.286s), localbuild1m27s/exit0.
+Final1cfa usesexisting synchronized nullcandidate tick topositivelydrain first
+send/backoff beforeobserverclose; sourcebothaxes0. Packetgateway-lifecycle11hashes
+retains qualifiedintermediates andsourcepins; exactcorrectedruntime pendingfull.
+Gracefulcomponentreopen isnotabruptJVMdeath. No localgatewaybuild remains.
+
+FreshfullAndroid10 run39069243011 andAndroid17 run39069244764 are activeat
+1cfa16a57ca7da95bca82aad4c320443c479ddf3 withpublicreads/release/lint.
+Earlier145 fullruns39069177182/39069178823 finalCANCELLED; packet retainsbothinitial
+inprogress andactualfinalmetadata. Noacceptanceclaimfromtheseearlierruns.
+Signed28 canonicalreview-build PASS4m13s/exit0, session10829fullydrained, log
+/tmp/redsquare-private46-work-20261017/signed28-build.log. Artifact.scratch/review-builds/28
+at1cfa16a57, notpublished. No ownedlocalGradle remains. Public27 unchanged.
+No active sourceimplementation, allremaining46workverification/evidence/publication.
+GitHubprogresscomment6241031332 records pendinggates. Nativeproductionlastchanged
+3059423af. Protecteduntrackedgroupcontract unread/untouched. Final full10/17, core/gateway/release/lint, both final
 source/evidence reviews and signed28 remain before native46 completion. Public
 beta27 unchanged; controlled injection never establishes Google closed-app delivery.
 
