@@ -100,14 +100,14 @@ class PostQueuePreviewTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Back").performClick()
                 ui.onNodeWithText("Settings").performClick()
-                ui.onNodeWithText("saito.io").performClick()
+                ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 ui.waitUntil(10_000) { official.requests.get() > 0 }
                 owner.start(port).use {
                     // Keep the original peer reachable while another backend is selected.
                     android.os.SystemClock.sleep(7_000)
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     ui.onNodeWithText("Settings").performClick()
-                    ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                    ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     ui.waitUntil(30_000) { owner.transactions.isNotEmpty() }
                     val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(postingTransaction(owner.transactions.single()).envelope())
                     org.junit.Assert.assertEquals(address, post.author)

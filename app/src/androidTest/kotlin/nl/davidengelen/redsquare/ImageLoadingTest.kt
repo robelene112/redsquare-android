@@ -107,7 +107,7 @@ class ImageLoadingTest {
                         ui.onNodeWithText("Slow images keep navigation usable").assertIsDisplayed()
                         ui.onNodeWithText("Settings").performClick()
                         ui.waitUntil(5_000) { ui.onAllNodesWithText("saito.io").fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNodeWithText("saito.io").performClick()
+                        ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         ui.waitUntil(8_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         assertTrue("New image must not wait for obsolete 12-second HTTP timeouts", SystemClock.uptimeMillis() - began < 10_000)
                         assertColor("Image 1 of 1", intArrayOf(20,60,220))

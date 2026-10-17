@@ -572,7 +572,7 @@ class NotificationsPreviewTest {
     private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
         ui.onNodeWithText("Settings").performClick()
         waitFor(domain)
-        ui.onNodeWithText(domain).performClick()
+        ui.onNodeWithText(domain).performScrollTo().performClick()
         waitFor("Server: $domain")
         if (returningToNotifications) {
             waitFor("No unread activity")

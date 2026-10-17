@@ -194,8 +194,8 @@ class BackendPreviewTest {
 
     private fun chooseServer(domain: String) {
         ui.onNodeWithText("Settings").performClick()
-        waitForText(domain)
-        ui.onNodeWithText(domain).performClick()
+        ui.waitUntil(15_000) { ui.onAllNodes(hasText(domain)).fetchSemanticsNodes().isNotEmpty() }
+        ui.onNodeWithText(domain).performScrollTo().performClick()
     }
     private fun waitForText(text: String) {
         ui.waitUntil(15_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() }

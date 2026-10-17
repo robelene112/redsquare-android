@@ -1005,7 +1005,7 @@ class UsernamePreviewTest {
                             assertEquals(listOf(SaitoRegistry.REGISTRAR, fixture.publicKey), signed.recipients)
                             assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
                             ui.onNodeWithText("Settings").performClick()
-                            ui.onNodeWithText("saito.io").performClick()
+                            ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Server: saito.io")
                             assertEquals(SaitoBackend.OFFICIAL, AndroidBackendStore(context).load())
                             waitForEnabled("Check name")
@@ -1032,7 +1032,7 @@ class UsernamePreviewTest {
                                     it.get("identifier")?.asString == "NativeCase7@saito"
                             }
                             ui.onNodeWithText("Settings").performClick()
-                            ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                            ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                             waitForText("Server: saito.davidengelen.nl")
                             openUsername()
                             waitForEnabled("Retry registration")
@@ -1069,7 +1069,7 @@ class UsernamePreviewTest {
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
                                 .assertIsEnabled()
                             ui.onNodeWithText("Settings").performClick()
-                            ui.onNodeWithText("saito.io").performClick()
+                            ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Server: saito.io")
                             waitForEnabled("Check name")
                             ui.onAllNodesWithText("Retry registration").assertCountEquals(0)

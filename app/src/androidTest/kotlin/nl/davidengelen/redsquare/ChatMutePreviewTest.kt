@@ -328,7 +328,9 @@ class ChatMutePreviewTest {
                         open(first); mute(); returnToChats()
                         open(first, group = true); mute(); returnToChats(group = true)
                         device.pressBack()
-                        click(hasText("Settings")); click(hasText("saito.io"))
+                        click(hasText("Settings"))
+                        ui.onNodeWithText("saito.io").performScrollTo()
+                        click(hasText("saito.io"))
                         ui.waitUntil(20_000) { displayed(hasText("Server: saito.io")) }
                         open(first)
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()

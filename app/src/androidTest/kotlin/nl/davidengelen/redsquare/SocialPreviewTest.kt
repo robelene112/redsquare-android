@@ -390,7 +390,7 @@ class SocialPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
-                    ui.onNodeWithText("saito.io").performClick()
+                    ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Server: saito.io")
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -400,7 +400,7 @@ class SocialPreviewTest {
                     owner.start(originalPort).use {
                         ui.onNodeWithText("Settings").performClick()
                         waitFor("saito.davidengelen.nl")
-                        ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                        ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                         waitFor("Server: saito.davidengelen.nl")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.clickVisiblePostContent("Retry like")

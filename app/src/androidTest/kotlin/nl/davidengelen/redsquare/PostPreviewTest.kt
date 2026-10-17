@@ -182,7 +182,7 @@ class PostPreviewTest {
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
-                    ui.onNodeWithText("saito.io").performClick()
+                    ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Server: saito.io")
                     waitFor("New post")
                     ui.onNodeWithText("New post").performClick()
@@ -193,7 +193,7 @@ class PostPreviewTest {
                     waitFor("New post")
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.davidengelen.nl")
-                    ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                    ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     waitFor("Server: saito.davidengelen.nl")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) {
@@ -307,7 +307,7 @@ class PostPreviewTest {
                             } finally { androidx.test.espresso.intent.Intents.release() }
                         }
                         ui.onNodeWithText("Settings").performClick()
-                        ui.onNodeWithText("saito.io").performClick()
+                        ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
                         ui.waitUntil(10_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
                         ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
@@ -321,11 +321,11 @@ class PostPreviewTest {
                     }
                 }
                 ui.onNodeWithText("Settings").performClick()
-                ui.onNodeWithText("saito.io").performClick()
+                ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 waitFor("Server: saito.io")
                 waitFor("New post")
                 ui.onNodeWithText("Settings").performClick()
-                ui.onNodeWithText("saito.davidengelen.nl").performClick()
+                ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }

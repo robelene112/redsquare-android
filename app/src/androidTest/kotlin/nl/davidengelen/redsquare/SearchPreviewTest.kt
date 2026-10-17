@@ -830,7 +830,7 @@ class SearchPreviewTest {
     private fun chooseServer(domain: String) {
         ui.onNodeWithText("Settings").performClick()
         waitForText(domain)
-        ui.onNodeWithText(domain).performClick()
+        ui.onNodeWithText(domain).performScrollTo().performClick()
     }
 
     private fun waitForText(text: String) {
