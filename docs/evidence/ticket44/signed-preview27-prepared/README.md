@@ -10,12 +10,14 @@ disk at /mnt/storage/redsquare-android-artifacts/chat44-review27-prepared.
 It was moved there after the supported build wrapper completed; its original
 manifest hash remains verified. Existing review versions were not moved.
 
-Prepared APK source9a37c19ba5182b8f0f26f7c2947ec6a511a457f9 is exactly the source
-of both pending full runs39044590725/39044590715. Nine production/build objects
+Prepared APK source9a37c19ba5182b8f0f26f7c2947ec6a511a457f9 was the source
+of first full runs39044590725/39044590715, which later failed existing fixtures. Nine production/build objects
 are identical across accepted production44f5a34b3, focused five-case598dd89ff and
 this full/APK source. Four final fixture/harness objects match focused and full.
 Focused Android17 is SUCCESS5/0/101.527s and both whole-source reviews are0/0.
-Full Android10/17 acceptance, final evidence review and publication remain pending.
+Final full10/17 runs39048729211/39048730979 now pass at fixture-only16a0c1bc6.
+The full-regression/source-equivalence.json matrix binds unchanged production/
+build objects to this APK. Final combined evidence review and publication remain pending.
 
 Eligible for an ordinary in-place update by identity/version, not proof of actual
 physical installation or wallet/data continuity. No Google transport, production

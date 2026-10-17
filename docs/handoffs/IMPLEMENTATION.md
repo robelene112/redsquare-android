@@ -13,8 +13,8 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 Sole writer root. GitHub44 assigned/unblocked, native child33, related34.
 Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc stays fixed. Parents33/34
-remain OPEN with genuine32 dependencies. Public beta26 unchanged. No Google,
-physical Pixel, whole44 or final full acceptance claim. No owned local build.
+remain OPEN with genuine32 dependencies. Public beta26 unchanged. Both final full SDK runs pass. No Google, physical Pixel or whole44 completion
+claim before final reviews/publication. No owned local build.
 
 Implemented: authenticated cached private/group original references bound to
 wallet/backend; current membership/author/conversation policy; shared social/Chat
@@ -106,7 +106,7 @@ Fixture-only16a0c1bc6 adds ordinary scrolling to those three dynamic selectors,
 preserving every assertion/deadline. Both bounded source reviews0/0; README and
 push configuration docs now describe current native launch/review/presentation
 without claiming Google Chat transport. Production/build sources are unchanged.
-Current acceptance PENDING, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
+Final SDK evidence, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
 - Focused chat-actions17 run39048726834 SUCCESS10/0/78.258s, core114/0/0;
   dynamic-settings-green/android17 retains14hashrecords and four raw pairs.
   Namespace case uses both logical bindings on one owned peer. No new visual claim.
@@ -116,9 +116,16 @@ Current acceptance PENDING, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
   Full-regression/android10 retains245hashrecords,399fileinventory739XML873PNG.
   Root viewed7Chat alert originals; work-retained preview contradicts identical
   decoded composer pixels in positive private/refusal captures (helper retained).
-- Full Android17 run39048730979, public_feed_read=true.
+- Full Android17 run39048730979 SUCCESS411PASS,97JUnitcompletions411reported/
+  29intentionalinterruptions; same complete core/release/lint/device/public/tail gates.
+  Full-regression/android17 retains247hashrecords,405fileinventory740XML877PNG.
+  Root viewed7Chat alert originals; decoded restored-editor region matches private/
+  refusal captures despite work-retained viewer preview. Existing private recovery
+  PID10647to10727 preserves candidate/reaction/incoming/wallet digests and restores.
+  Five unavailable optional diagnostics perSDK stay explicit.
 Whole fixed2fff...04cda483e source/evidence bookend Standards0/Spec0.
-Retain remaining17 result, then final combined evidence review and publication. The full-regression/source-equivalence matrix proves63 matching production/build
+Both full10 packet reviews at505a4a963 are0/0. Final combined evidence review and
+publication remain. NATIVE_ACCEPTANCE.md records both complete runs and limits. The full-regression/source-equivalence matrix proves63 matching production/build
 objects across7roles,12identical final fixture objects and18fixture-only changed
 files since the APK source. Prepared27 still has matching production/build objects.
 
@@ -131,7 +138,8 @@ correction; do not rebuild/reserve a new version for test-only changes. Artifact
 /mnt/storage/redsquare-android-artifacts/chat44-review27-prepared. Public26 unchanged.
 No owned local build. Same approved seams/180s new alert class/20s observations.
 Original33/34 and real32 blockers remain unchanged. No Google or physical/process-
-death claim from focused alert journeys. Next: actual full Android10/17 acceptance, final evidence reviews, signed27 publication, close44.
+death claim from focused alert journeys. Next: final combined evidence reviews,
+signed27 publication, close44.
 Temporary work stays outside checkout /tmp/redsquare-chat44-work-20261017; large
 original artifacts /mnt/storage/redsquare-android-artifacts. Preserve unrelated
 untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
