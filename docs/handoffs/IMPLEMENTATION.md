@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-16. Owner authorizes continuing remaining issues sequentially.
+Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
 #32 is the sole implementation, review base
 `dd89bc9108eb002bb260eee709c656cd45348940`, dependency#24 closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
@@ -93,8 +93,11 @@ is additional verification of the accepted worker, not a new RED claim. Initial 
 found cleanup-client lifetime and concurrent-checkpoint parsing risks; corrections
 retain bounded polling, independently attempt restoration and aggregate cleanup
 failures. Positive available-mode reads avoid a stale host counter baseline; the
-shade capture follows visible XML confirmation. Corrected source review and
-exact-source CI/native verification remain pending; no runtime pass is claimed. No SDK/client config/service/gateway/node change was made.
+shade capture follows visible XML confirmation. Corrected source reviews atda0a039d report Standards0/Spec0. Corrected local
+core/debug/test/classpath build passes2m27s, core114/0/0. An isolated JDK17 host
+smoke confirms loopback readiness/zero-read metadata and clean owned stop. This
+is not Android recovery evidence. Exact-source CI/native verification is next;
+no autonomous-restart pass is claimed. No SDK/client config/service/gateway/node change was made.
 The existing owner Firebase setup question remains pending, do not repeat it.
 Public signed beta24 is unchanged.
 
