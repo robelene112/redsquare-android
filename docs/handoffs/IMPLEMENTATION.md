@@ -123,11 +123,10 @@ after durable terminal shared retention; cleanup failures retry through dedup.
 Per-wake files avoid poisoning unrelated Social wakes. Process snapshots include
 exactroute+bak/new; other Chat fixture prefix captures already cover the family.
 Actual local native/test assemblydcb passes5m10s/exit0, fullydrained. No owned local
-build remains. Exact runtime39066680641 pending. Both bounded source reviews0.
+build remains. Exact runtime39066680641 SUCCESS:9cases83.315s plus process7189→7407→7583, sameUUID recovery without gateway access (expiredRequests0), actualcard/physicaldismissal/quietduplicate/history/contact/identity and protectedrestorePASS. Packet native-expired-green retains18hashedrecords; root viewedgenericcard. Both bounded source reviews0.
 
 OPEN Spec finding: blocked-author early return skips clearing already-pending
-history, so later unblock/replay can retrospectively alert. Next after cachedroute
-GREEN: actual blocked-pending tracer, smallest correction, fresh focused result.
+history, so later unblock/replay can retrospectively alert. Actual blocked-pending tracer7c9381c0e running39067365128; source unchanged until RED. Both bounded fixture reviews0. Then smallest correction and fresh focused result.
 Actual background preview/exacttap/currentpolicy/identity and applicable gateway
 persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
 source/evidence reviews and signed28 remain before native46 completion. Public
