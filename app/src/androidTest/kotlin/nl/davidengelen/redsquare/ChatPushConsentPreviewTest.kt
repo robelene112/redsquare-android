@@ -13,6 +13,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.notifications.PushGatewayBinding
+import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -30,15 +31,19 @@ class ChatPushConsentPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         check(!BuildConfig.PUSH_CONFIGURED)
         val wallet = SaitoWallet.create()
+        val author = SaitoWallet.create()
+        val group = SaitoWallet.create().publicKey
+        val creation = GroupChat.create(author, group, "Owned background interest", listOf(wallet.publicKey), System.currentTimeMillis())
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
         val backends = AndroidBackendStore(context)
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("chatpush.${wallet.publicKey}.",
-            "socialpush.${wallet.publicKey}.", "push.binding."), wallet.publicKey)
+            "socialpush.${wallet.publicKey}.", "push.binding.", "groupchat.owner.${wallet.publicKey}."), wallet.publicKey)
         val active = AtomicReference<JsonObject?>()
-        val expected = AtomicReference("private-chats")
+        val expected = AtomicReference("group-chats,private-chats")
+        val expectedGroups = AtomicReference(listOf(group))
         val failure = AtomicReference<Throwable?>()
         val origin = "https://push.fixture.invalid"
         val nonce = "47".repeat(32)
@@ -60,10 +65,14 @@ class ChatPushConsentPreviewTest {
                             require(body.get("owner").asString == wallet.publicKey && body.get("fid").asString == fid)
                             require(body.get("backend").asString == "owner" && body.get("nonce").asString == nonce)
                             require(body.get("categories").asString == expected.get())
+                            if ("group-chats" in expected.get().split(',')) {
+                                require(body.getAsJsonArray("groups").map { it.asString } == expectedGroups.get())
+                            } else require(!body.has("groups"))
                             val intent = "Saito push bind v1\n$origin/v1/subscriptions/bind\n$nonce\n" +
                                 "${body.get("subscription").asString}\n${body.get("installation").asString}\n" +
                                 "${sha256(fid)}\n${wallet.publicKey}\nowner\n${expected.get()}\n" +
-                                "${body.get("expiresAt").asLong}\n${body.get("revocationHash").asString}"
+                                "${body.get("expiresAt").asLong}\n${body.get("revocationHash").asString}" +
+                                if ("group-chats" in expected.get().split(',')) "\n${expectedGroups.get().joinToString(",")}" else ""
                             require(SaitoWallet.verify(intent.toByteArray(),
                                 requireNotNull(request.headers["X-Saito-Signature"]), wallet.publicKey))
                             active.set(body)
@@ -92,6 +101,8 @@ class ChatPushConsentPreviewTest {
         try {
             retained.prepare()
             wallets.replace(previous, wallet); backends.save(SaitoBackend.OWNER)
+            val groups = GroupChatStore(context, wallet, SaitoBackend.OWNER)
+            groups.receive(creation.envelope())
             gateway.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             fun reconcile(categories: String?) {
                 expected.set(categories.orEmpty())
@@ -112,21 +123,26 @@ class ChatPushConsentPreviewTest {
                         choice("Replies and mentions", false)
                         reconcile(null)
                         toggle("Chat alerts when closed", true)
-                        reconcile("private-chats")
+                        reconcile("group-chats,private-chats")
                         val subscription = active.get()!!.get("subscription").asString
                         click("Done")
                         scenario.recreate()
                         click("Settings")
                         choice("Chat alerts when closed", true)
-                        reconcile("private-chats")
+                        reconcile("group-chats,private-chats")
                         toggle("Replies and mentions", true)
-                        reconcile("mentions,private-chats,replies")
+                        reconcile("group-chats,mentions,private-chats,replies")
                         toggle("Chat alerts when closed", false)
                         reconcile("mentions,replies")
                         toggle("Chat alerts when closed", true)
                         toggle("Replies and mentions", false)
-                        reconcile("private-chats")
+                        reconcile("group-chats,private-chats")
                         assertEquals(subscription, active.get()!!.get("subscription").asString)
+                        val known = requireNotNull(groups.load(group)).group
+                        groups.receive(GroupChat.removeMember(author, known, wallet.publicKey, System.currentTimeMillis()).envelope())
+                        expectedGroups.set(emptyList())
+                        reconcile("group-chats,private-chats")
+                        assertEquals(ChatGroupRole.REMOVED, groups.load(group)!!.group.memberRoles[wallet.publicKey])
                         captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-background-consent.png"))
                         toggle("Chat alerts when closed", false)
                         reconcile(null)

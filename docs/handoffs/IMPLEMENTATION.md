@@ -35,8 +35,11 @@ accepts explicit bounded sorted group interests in signed bindings, observes gro
 originals through existing stream/cache and emits group-chat recipient-proof wakes.
 Actual unchanged first GREEN passes both logical bindings,1case/3.729s,
 build1m28s/exit0. Four-hash RED/GREEN packets under ticket47. Cache comment explicitly
-retains private ciphertext versus unencrypted groups. Initial minimum source review
-and whole core/gateway regression are next; client demand/native group receiver,
+retains private ciphertext versus unencrypted groups. Initial core114/gateway15 regression passes. Independent reviews found stored group
+decode400instead503; actualHTTP RED retained1failure/2.404s. Corrected/refactored
+source d820ad996 passes all16gateway cases; both reviewers report0residual source
+findings. A separate compile failure is retained without acceptance. Next is the
+actual Android group-consent/interest reconciliation RED; client demand/native group receiver,
 actual alerts, membership/policy/identity/dedup/PID and full SDK acceptance remain.
 
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
