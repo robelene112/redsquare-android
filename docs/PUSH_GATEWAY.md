@@ -111,6 +111,11 @@ separate hosting requirements. No permanent history is promised.
 
 ## Verification status
 
+The following paragraphs retain historical intermediate checkpoints. Completed
+server-code/Android-adapter acceptance is recorded in
+[the final42 matrix](evidence/ticket42/FINAL_ACCEPTANCE.md); configured Google
+delivery and hosting remain separate open gates.
+
 [Intended RED](evidence/ticket42/subscription-red/README.md) requires a challenge201
 and observes the no-op501 at6bb9175e. Later tails were unexecuted there. Minimum
 local core/gateway test task passes35s, including the complete normal signed
@@ -497,7 +502,9 @@ Reset binding/event combinations and interior suffix trimming are source-reviewe
 [Missing signed parent recovery](evidence/ticket42/parent-green/README.md) passes
 both selectors: unavailable exact parent suppresses the reply and records a gap;
 restoration requires fresh proofs before sending. Exactddfd7005 full gateway10/0/0,
-PASS1m53s plus installDist; source0/0. Whole42 integrated acceptance remains pending.
+PASS1m53s plus installDist; source0/0. Whole42 server-code acceptance is complete;
+see [the final matrix](evidence/ticket42/FINAL_ACCEPTANCE.md). Configured delivery
+and deployment remain open under32 and its successors.
 
 ## Group original selection
 
