@@ -403,6 +403,29 @@ recovery only, with the social-event withdrawal limitation above.
 
 ## Explicit autonomous operation and lifecycle
 
+Private Chat integration is in progress under#46. Public beta27 does not yet
+register private background demand or consume private wakes. The server minimum
+accepts canonical combinations of `mentions`, `private-chats` and `replies`.
+An explicit --observe process also creates independent gateway-owned private
+stream identities for both backends; none competes with a Social identity or
+authenticates as a user. Ordinary propagated transaction frames are candidates,
+not a subscription to recipient-only Relay or a complete history source.
+
+Private FCM still contains only version/wake. A current recipient-proof resolve
+returns the thin reference with `kind: private-chat`; separate
+`POST /v1/wakes/original` uses the signed intent
+`Saito push original v1\nORIGIN/v1/wakes/original\nWAKE` and returns version/envelope.
+The device must authenticate participants and decrypt/verify Chat locally before
+any alert. The gateway never receives a participant's private/decryption key.
+Original ciphertext is stored once per backend/signature in private files outside
+the4MiB subscription journal, for at most24hours. The cache bounds are4096 files,
+128MiB total and8MiB per original; new wake expiry cannot exceed retained expiry.
+The existing one-minute retention loop removes expired originals. In-memory
+stream queues hold at most64 frames and8MiB per backend, plus the active frame;
+unsupported size/overflow and disconnection remain explicit Chat stream gaps.
+Initial controlled [minimum evidence](evidence/ticket46/gateway-minimum-full/README.md)
+is not configured delivery or whole private-Chat acceptance.
+
 The six-argument command above runs HTTP and retention only. To enable observation,
 append `--observe --project PROJECT_ID`, replacing PROJECT_ID with the authorized
 Firebase project identifier. This starts one completion-based30second loop per

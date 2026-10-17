@@ -36,9 +36,15 @@ No retry/second-stream event/process-death/larger-media claim from this first ca
 The implementation keeps a bounded persistent owned peer and private ciphertext
 cache (24h/128MiB/4096files) separate from the4MiB subscription journal; stream
 gaps remain visible. Minimum source review remains pending.
-Next: correct cache-existing-expiry clamp (a later binding must not outlive its
-original), wire Main lifecycle, complete gateway checks/reviews, then native
-worker/consent/receipt integration; final full SDKs,
+Corrected27fd2916f clamps each new event to its already-retained original expiry
+and wires independent per-backend Chat identities into explicit --observe mode.
+All observers are signalled before waiting; HTTP-only mode still loads no ADC.
+Complete local core/gateway/installDist PASS2m9s: gateway12/0across10suites,
+coreUPTODATE114/0/0. Thirteen hashed records in gateway-minimum-full.
+This is gateway minimum only; first source reviews remain pending. No second
+stream/reconnect/media-capacity/process-death claim from the one private case.
+Next: gateway source review/corrections and needed persistence coverage, then
+native worker/consent/receipt integration; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
