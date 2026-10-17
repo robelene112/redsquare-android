@@ -156,8 +156,15 @@ Earlier145 fullruns39069177182/39069178823 finalCANCELLED; packet retainsbothini
 inprogress andactualfinalmetadata. Noacceptanceclaimfromtheseearlierruns.
 Signed28 canonicalreview-build PASS4m13s/exit0, session10829fullydrained, log
 /tmp/redsquare-private46-work-20261017/signed28-build.log. Artifact.scratch/review-builds/28
-at1cfa16a57, notpublished. No ownedlocalGradle remains. Public27 unchanged.
+at1cfa16a57, notpublished. APKsha444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8,
+certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2,
+stablepackage/min29/28/0.1.28 verified. Reuseprepared28 ifsource remains equivalent.
+No ownedlocalGradle remains. Public27 unchanged.
 No active sourceimplementation, allremaining46workverification/evidence/publication.
+Preparednativegroupchild47 under34, UNASSIGNED andblockedby46 (nativeedgeverified).
+Parent34 also has47 asnativeblocker; its existing33 dependency remains. No47code
+implementation/claim until46accepted/closed. Group-key destination fact and
+current native/privacy/control constraints are in47, nottheprotecteduntrackedfile.
 GitHubprogresscomment6241031332 records pendinggates. Nativeproductionlastchanged
 3059423af. Protecteduntrackedgroupcontract unread/untouched. Final full10/17, core/gateway/release/lint, both final
 source/evidence reviews and signed28 remain before native46 completion. Public
