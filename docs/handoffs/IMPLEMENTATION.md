@@ -58,9 +58,9 @@ Android10 buffer fixeb840006 and published-credit retention. Both bounded source
 reviews Standards0/Spec0. The earlier integrated Spec1 at a275 is resolved in
 source, awaiting native confirmation. No corrected runtime GREEN is claimed.
 
-Owned local build59382 is active: `.scratch/gif16-buffer-published-credits-build.log`.
-Do not edit compiled source until this build finishes or is uniquely retired
-and its actual result recorded. No active CI. Last source39012426447 at3bd SUCCESS.
+Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
+test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
+No owned local build or CI remains active. Last source39012426447 at3bd SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
 No real provider/key/account/node/live-write change. Beta24 remains current.
@@ -135,7 +135,7 @@ embedded.app is absent; identity/images remain. Android preserves original text.
 The mistaken HTML oracle failure remains retained, not app RED. Tool source
 reviews0/0 at96ed9094; reference-script duplication is acknowledged/nonblocking.
 
-Next: finish owned build, verify corrected native GIF flows on Android10/17,
+Next: verify corrected native GIF flows on Android10/17,
 then final full regressions once source is stable. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
