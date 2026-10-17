@@ -1,7 +1,7 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is CLOSED with complete server-code acceptance. #43 is now the sole app work.
+#42 is CLOSED with complete server-code acceptance. #43 native acceptance and signed26 publication are complete; tracker closure/bookend review follow.
 #16 is frozen at its accepted native checkpoint,
 review base`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. #17 remains open at its
 frozen sourcec9b114a8 recovery checkpoint; actual playback is unresolved. #32 staysopen for configured
@@ -9,9 +9,9 @@ Google/device acceptance; its native dependency42 is now closed. Its earlier ove
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
-## Active native Chat GIF slice (#43)
+## Accepted native Chat GIF slice (#43)
 
-Sole implementation is #43, bounded native child of #31, review base
+Accepted implementation is #43, bounded native child of #31, review base
 06e4ef27f55042f59bb79f3db9a97ebafeff4f78. Owner renewed continue-all authorization
 after beta25. The accepted native #16 provider/renderer supplies its source
 prerequisite; #31 remains OPEN with its #16 dependency and live-key gate intact.
@@ -98,25 +98,26 @@ five optional diagnostics unavailable perSDK, explicitly qualified. Root viewed
 three named Chat original PNGs perSDK; other captures retained without new visual
 claim. Retain first full failures as failures. Whole-source review at7723a8972
 Standards0/Spec0, including new development-preferences standard. Final combined
-SDK evidence review/publication remain. Prepared signed26 unchanged/unpublished;
-no rebuild required. Whole-child review base06e4ef27 remains fixed.
+SDK evidence reviews atbbdb66236 are Standards0/Spec0. Signed26 is published and
+independently downloaded/verified; immutable25 unchanged. Publication bookend
+review and tracker closure follow. No rebuild required. Whole-child review base06e4ef27 remains fixed.
 Read-only next-work preparation is in .scratch/chat33-native-preparation.txt;
-no next ticket claimed/implemented. After43 closes, consider one bounded child
+no next ticket claimed/implemented. After43 closes, implement one bounded child
 covering private/group notification tap destinations and private preview opt-in,
 linked to33/34 without changing their32 blockers or claiming Google transport.
 That is original settled scope, not a new product interview.
-Whole integrated reviews through e8b337a30 are Standards0/Spec0; final SDK evidence
-review and publication follow. Native acceptance is ready, so26 was prepared
-while full runs execute, updating the earlier defer-reservation plan. Build17593
-wrapper0/GradlePASS4m5s; no owned build remains. Independent APK certificate,
-package26/0.1.26/min29/hash pass. Canonical signed-preview26-prepared, sourcee8b337a30,
-SHA256c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
-Artifact remains unpublished at .scratch/review-builds/26; publication awaits full
-SDK acceptance. Whole review base remains06e4ef27.
-Public beta25 unchanged. No real key, provider query, production writes or
+Signed26 preparation and publication are accepted after full SDK evidence reviews.
+Build17593 wrapper0/GradlePASS4m5s; no owned build remains. Independent APK
+certificate/package26/0.1.26/min29/hash pass. Prepared sourcee8b337a30 is unchanged
+production against both exacte850 full runs. APK SHA256
+c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
+Published at https://davidengelen.nl/redsquare/, publisher0 and independently
+downloaded APK verified. Immutable25 manifest/APK unchanged. Thirteen hashed
+public records in signed-preview26-published. Public beta26 is current.
+No real key, provider query, production writes or
 node/account changes. Preserve protected untracked group contract.
 
-## Accepted gateway, returning to app frontier
+## Historical accepted gateway checkpoint
 
 #42servercode is complete: latestimplementationddfd7005, wholebase5a048524,
 fullownedgateway10/0/0/coreUPTODATE/installDist, sourceCI39001786605 SUCCESS at
@@ -125,7 +126,7 @@ Bookendc0f2da7e pushed; GitHub42 verified CLOSED at04:19:43UTC, comment622955888
 #32 verifiedOPEN/nativeblockers0. #32 configured
 SDK/Google/closed-app/Pixel and deployment stayopen. No account/IAM/node/hosting
 change, beta24unchanged. No ownedlocalbuild, protectedgroupdocuntouched.
-Next sole app work is #16 below. The #17 native public-read checkpoint is
+At this historical checkpoint the next app work was #16 below. The #17 native public-read checkpoint is
 frozen with a visible provider check and no unchanged retry planned. Other
 external inputs remain pending; no repeated owner questions or node changes.
 
@@ -158,9 +159,9 @@ No active #17 build/CI. No provider sign-in/header/origin/proxy change, account
 request or node operation. No unchanged public retry. #17 actual playback stays
 open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Standards0/Spec0. This
 source checkpoint is frozen; claim the next sequential source preparation.
-## Current Giphy implementation (#16)
+## Accepted native Posts Giphy checkpoint (#16)
 
-Sole writer root, assigned @me, native blockers0. Whole review base
+At the #16 checkpoint: sole writer root, assigned @me, native blockers0. Whole review base
 `0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app candidate7ad1742e includes
 Android10 buffer fixeb840006 and published-credit retention. Both bounded source
 reviews Standards0/Spec0. The earlier integrated Spec1 at a275 is resolved.

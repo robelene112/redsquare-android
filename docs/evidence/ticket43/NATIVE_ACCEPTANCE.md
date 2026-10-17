@@ -47,13 +47,17 @@ not atomic screenshot/hierarchy pairs or timing/motion measurements.
 production/build Git objects identical across production15d, focused91d, prepared
 APK sourcee8b, corrected full sourcee850 and reviewed7723. Whole-child review base
 stays06e4ef27f55042f59bb79f3db9a97ebafeff4f78. Integrated source Standards0/Spec0
-at7723 includes the new development-preferences rules. Final full-evidence review
-and publication are still pending at this checkpoint.
+at7723 includes the new development-preferences rules. Final full-evidence
+reviews atbbdb66236 are Standards0/Spec0.
 
 Signed26/0.1.26 is prepared with the established package/certificate and minimum
 SDK29. Wrapper0, Gradle PASS4m5s and independent signature/package/hash checks
 pass; APK SHA256c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
-It remains unpublished until final evidence review. No rebuild is needed for the
-fixture-only correction. This checkpoint is not physical update/data continuity,
+It is now published and independently downloaded/verified; the publisher exited0.
+Public page/latest/immutable26 manifest equality, downloaded hash/certificate/
+package26/0.1.26/min29 pass, and immutable25 manifest/APK are unchanged.
+[Thirteen hashed publication records](signed-preview26-published/README.md) retain
+the observation. No rebuild was needed for the fixture-only correction. This checkpoint is not physical
+update/data continuity,
 live Giphy authorization, Google delivery, production-node or Play acceptance.
 Parent #31 and its external #16 dependency remain open.

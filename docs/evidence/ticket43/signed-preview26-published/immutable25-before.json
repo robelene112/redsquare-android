@@ -1,0 +1,10 @@
+{
+  "versionCode": 25,
+  "versionName": "0.1.25",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "2eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8",
+  "commit": "19e1083dbe38aa0bd2209e535df58a764d3ff654",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/25/redsquare.apk",
+  "notes": "Adds animated GIF viewing with available source credits and clearer YouTube retry/browser recovery. GIF search and closed-app pushes are not configured in this beta. Live YouTube playback and Owner backend username registration remain unverified."
+}
