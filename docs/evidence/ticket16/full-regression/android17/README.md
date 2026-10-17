@@ -41,7 +41,8 @@ additional successful checks. No visual claim relies on them.
 Raw instrumentation, continuity/checkpoints, run metadata/log, core report and
 six selected PNG/XML pairs are retained here. The summary and inventory helpers
 are retained one directory above. Production is identical through the later
-fixture-only5154 candidate and prepared signed25. Beta25 remains unpublished
-pending complete Android10 acceptance and final evidence review. No actual
+fixture-onlye3bf candidate and prepared signed25. Subsequent full Android10
+39018073768 is also SUCCESS; see[the native checkpoint](../../NATIVE_REGRESSION_CHECKPOINT.md).
+Beta25 remains unpublished pending final combined evidence review. No actual
 Pixel timing/update, authorized Giphy, public YouTube playback, Owner Registry
 registration, Google delivery or store approval is established.
