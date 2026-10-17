@@ -1,6 +1,12 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.graphics.Color
+import androidx.compose.ui.graphics.asAndroidBitmap
+import mockwebserver3.Dispatcher
+import mockwebserver3.RecordedRequest
+import okio.Buffer
+import java.util.concurrent.ConcurrentLinkedQueue
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -85,6 +91,97 @@ class GiphyPreviewTest {
                     }
                 }
             }
+        }
+    }
+
+    @Test fun selectedAnimatedGifSurvivesSavedDraftAndRecreation() {
+        val reference = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val gif = instrumentation.context.assets.open("owned-giphy-animation.gif").use { it.readBytes() }
+        val paths = ConcurrentLinkedQueue<String>()
+        val peer = ControlledFeedPeer("[${reference.getAsJsonObject("ordinary")}]")
+        MockWebServer().use { provider ->
+            provider.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+            val originalPath = "/media/original.gif?token=owned%2Bonly&keep=1"
+            val original = "http://127.0.0.1:${provider.port}$originalPath"
+            provider.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    paths.add(request.url.encodedPath + (request.url.encodedQuery?.let { "?$it" } ?: ""))
+                    return when (request.url.encodedPath) {
+                        "/v1/gifs/trending" -> MockResponse.Builder().setHeader("Content-Type", "application/json").body("""
+                            {"meta":{"status":200},"pagination":{"offset":0,"count":1,"total_count":1},"data":[{
+                              "id":"owned-two-frame","alt_text":"Owned two-frame GIF","title":"Owned animation",
+                              "images":{"original":{"url":"$original"},"fixed_width_small":{"url":"http://127.0.0.1:${provider.port}/media/thumbnail.gif"}},
+                              "user":{"display_name":"Owned fixture artist","profile_url":"https://giphy.com/owned-fixture"},
+                              "source_post_url":"https://example.com/owned-fixture"
+                            }]}
+                        """.trimIndent()).build()
+                        "/media/thumbnail.gif", "/media/original.gif" -> MockResponse.Builder()
+                            .setHeader("Content-Type", "image/gif").body(Buffer().write(gif)).build()
+                        else -> MockResponse.Builder().code(404).build()
+                    }
+                }
+            }
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")).use { scenario ->
+                    try {
+                        ui.waitUntil(20_000) { peer.requests.get() >= 2 &&
+                            ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("New post").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNode(hasSetTextAction()).performTextReplacement("My animated GIF draft")
+                        assertEquals(0, provider.requestCount)
+                        ui.onNodeWithText("Add GIF").performScrollTo().performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodesWithText("Owned two-frame GIF").fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("Powered by GIPHY").assertIsDisplayed()
+                        ui.onNodeWithText("By Owned fixture artist").assertIsDisplayed()
+                        ui.onNodeWithText("Source").assertIsDisplayed()
+                        assertAnimation("GIF preview: Owned two-frame GIF")
+                        capture("animated-search")
+                        ui.onNodeWithText("Use GIF").performScrollTo().assertIsDisplayed().performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodesWithText("Close GIF search").fetchSemanticsNodes().isEmpty() }
+                        ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                        assertAnimation("Image 1 of 1")
+                        assertTrue(paths.contains(originalPath))
+                        ui.onNodeWithText("Save draft").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                        scenario.recreate()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNodeWithText("New post").performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                        assertAnimation("Image 1 of 1")
+                        capture("animated-restored-draft")
+                        ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
+                        ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
+                        ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                        assertTrue(peer.transactions.isEmpty())
+                        peer.assertHealthy()
+                    } catch (failure: Throwable) {
+                        try { capture("animation-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                        throw failure
+                    }
+                }
+            }
+        }
+    }
+
+    private fun assertAnimation(label: String) {
+        ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription(label).fetchSemanticsNodes().isNotEmpty() }
+        val image = ui.onNodeWithContentDescription(label).performScrollTo().assertIsDisplayed()
+        var red = false
+        var blue = false
+        ui.waitUntil(10_000) {
+            val bitmap = image.captureToImage().asAndroidBitmap()
+            val pixel = bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)
+            red = red || (kotlin.math.abs(Color.red(pixel) - 220) <= 5 &&
+                kotlin.math.abs(Color.green(pixel) - 30) <= 5 && kotlin.math.abs(Color.blue(pixel) - 40) <= 5)
+            blue = blue || (kotlin.math.abs(Color.red(pixel) - 20) <= 5 &&
+                kotlin.math.abs(Color.green(pixel) - 60) <= 5 && kotlin.math.abs(Color.blue(pixel) - 220) <= 5)
+            red && blue
         }
     }
 
