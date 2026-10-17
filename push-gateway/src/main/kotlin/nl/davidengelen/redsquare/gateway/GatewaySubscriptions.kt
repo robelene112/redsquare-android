@@ -184,15 +184,17 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         return GatewayChain.Cursor(height, hash, forkId)
     }
 
-    /** Candidate records commit first. An interrupted cursor commit only causes safe rediscovery. */
+    /** Candidate outcomes and processed cursor share one atomic durable snapshot. */
     @Synchronized fun processed(backend: SaitoBackend, block: SaitoFullBlock, forkId: String,
         candidates: List<GatewayArchive.VerifiedSocial>) {
         val previous = cursor(backend)
         if (previous != null && (block.height != previous.height + BigInteger.ONE || block.previousHash != previous.hash)) {
             throw IOException("Processed block does not extend retained cursor")
         }
-        enqueue(backend, candidates, block)
         val state = store.load()
+        val now = clock.millis()
+        prune(state, now)
+        enqueue(state, backend, candidates, block, now)
         val chains = state.getAsJsonObject("chains")
         val history = chains.get(backend.id)?.asJsonObject?.getAsJsonArray("history") ?: JsonArray()
         if (history.isEmpty && block.height > BigInteger.ZERO) history.add(JsonObject().apply {
@@ -219,10 +221,16 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     }
 
     /** Verified originals are supplied only by the selected read-only Archive adapter. */
-    @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>, source: SaitoFullBlock? = null) {
+    @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>) {
         val now = clock.millis()
         val state = store.load()
         prune(state, now)
+        enqueue(state, backend, candidates, null, now)
+        store.save(state) // Every opaque reference is durable before the sender sees it.
+    }
+
+    private fun enqueue(state: JsonObject, backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>,
+        source: SaitoFullBlock?, now: Long) {
         val events = state.getAsJsonObject("events")
         if (candidates.any { it.unavailableNames }) recordGap(state, backend, "name-proof-unavailable", now)
         for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
@@ -266,7 +274,6 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                 })
             }
         }
-        store.save(state) // Every opaque reference is durable before the sender sees it.
     }
 
     internal data class Delivery(val wake: String, val subscription: String, val generation: String,

@@ -349,8 +349,9 @@ final tip identity, with the conflict guard reviewed rather than separately fixt
 `PushGateway.observe(chain, archive, sender)` requires the same approved backend
 on both readers. It verifies full-block originals, locates supported signed social
 candidate IDs and verifies their current selected-Archive availability and parent/
-name evidence before queuing. Candidate outcomes commit before the block cursor;
-an interruption before the second commit repeats discovery with existing dedup.
+name evidence before queuing. Candidate outcomes and the processed block cursor
+commit together in one atomic snapshot, before any outgoing delivery. An
+interrupted commit cannot retain an orphan event beyond the processed cursor.
 All exact Archive candidate/parent reads for a block precede optional name queries.
 Input lists are bounded by the65,536 full-block transaction limit; Archive head
 and exact-row request limits stay100 and1 respectively.
@@ -368,7 +369,12 @@ warning before replacement processing. The verified first block's predecessor
 is explicitly retained as `processed:false`: its hash is authenticated by that
 header, but its block has not been processed. Unknown ancestors stop advancement.
 This bounded journal cannot recover an arbitrary old fork. Social-event source
-provenance and withdrawal still remain unfinished.
+provenance is retained with each chain-derived event. Rewinding atomically marks
+pending descendants withdrawn; their resolver returns410 and they are not sent.
+An ordinary Archive head read cannot reactivate them. Verified re-inclusion can
+restore the same logical wake without extending its original expiry. Already
+accepted sends cannot be recalled. Verification of this social withdrawal path is
+pending at this source checkpoint.
 
 Gap status includes the latest warning and retained recent warnings per reason,
 with reason-specific since-times. It is not a complete historical audit.
