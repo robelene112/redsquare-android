@@ -49,6 +49,7 @@ class GatewayProcessTest {
                 "${sha256(fid)}\n${wallet.publicKey}\nowner\nmentions,replies\n$expiry\n$hash"
             assertEquals(201, post(first.port, "/v1/subscriptions/bind", body,
                 wallet.sign(intent.toByteArray(Charsets.UTF_8))).statusCode())
+            assertTrue("Acknowledged gateway must still be running before the forced stop", first.process.isAlive)
             first.process.destroyForcibly() // No shutdown hook or graceful snapshot flush.
             assertTrue("First JVM must exit", first.process.waitFor(5, TimeUnit.SECONDS))
         }
@@ -69,9 +70,18 @@ class GatewayProcessTest {
 
     private class Running(val process: Process, val port: Int) : AutoCloseable {
         override fun close() {
-            if (process.isAlive) process.destroy()
-            if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly()
-            check(process.waitFor(5, TimeUnit.SECONDS))
+            try {
+                if (process.isAlive) process.destroy()
+                if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly()
+                check(process.waitFor(5, TimeUnit.SECONDS))
+            } catch (failure: Throwable) {
+                try {
+                    process.destroyForcibly()
+                    check(process.waitFor(5, TimeUnit.SECONDS))
+                } catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
+                if (failure is InterruptedException) Thread.currentThread().interrupt()
+                throw failure
+            }
         }
     }
 
@@ -91,7 +101,11 @@ class GatewayProcessTest {
             }
             fail("Standalone gateway did not become ready within10seconds")
             error("unreachable")
-        } catch (failure: Throwable) { Running(process, 0).close(); throw failure }
+        } catch (failure: Throwable) {
+            try { Running(process, 0).close() }
+            catch (cleanup: Throwable) { failure.addSuppressed(cleanup) }
+            throw failure
+        }
     }
 
     private fun post(port: Int, path: String, body: JsonObject, signature: String? = null): HttpResponse<String> {
