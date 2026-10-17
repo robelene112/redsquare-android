@@ -30,6 +30,7 @@ import java.io.File
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.ServerSocket
+import java.net.SocketAddress
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -191,10 +192,15 @@ class PrivatePushProcessTest {
     }
 
     private fun gateway(row: JsonObject) = mockwebserver3.MockWebServer().apply {
-        // Both generations opt in before bind, so accepted connections from the killed
-        // process cannot prevent the same owned endpoint from recovering immediately.
+        // Pinned MockWebServer resets reuse after creating a port-zero socket.
+        // Apply it at bind so both the initial and recovering generations retain it.
         serverSocketFactory = object : ServerSocketFactory() {
-            override fun createServerSocket() = ServerSocket().apply { reuseAddress = true }
+            override fun createServerSocket(): ServerSocket = object : ServerSocket() {
+                override fun bind(endpoint: SocketAddress?, backlog: Int) {
+                    reuseAddress = true
+                    super.bind(endpoint, backlog)
+                }
+            }
             override fun createServerSocket(port: Int) = createServerSocket(port, 50)
             override fun createServerSocket(port: Int, backlog: Int) = createServerSocket(port, backlog, null)
             override fun createServerSocket(port: Int, backlog: Int, address: InetAddress?) =
