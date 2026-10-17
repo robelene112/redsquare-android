@@ -40,6 +40,9 @@ class ChatAlertPreviewTest {
 
     @Test fun aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation() = chatAlertJourney(cold = true)
 
+    @Test fun aColdGroupAlertUsesCachedHistoryDuringAnOutageAndRechecksMembershipOnOfficial() =
+        chatAlertJourney(groupAlert = true, cold = true)
+
     private fun chatAlertJourney(previews: Boolean = false, groupAlert: Boolean = false, cold: Boolean = false) {
         val backend = if (cold) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -78,7 +81,8 @@ class ChatAlertPreviewTest {
         val incomingText = if (groupAlert) "Open this exact group conversation" else "Open this exact private conversation"
         val incoming = if (groupAlert) GroupChat.message(sender, GroupChat.readCreation(groupCreation.envelope()),
             incomingText, 1700000140000) else PrivateChat.create(sender, wallet.publicKey, incomingText, 1700000140000)
-        val capturePrefix = if (cold) "private-cold-official" else if (groupAlert) "group-warm" else "private-warm"
+        val targetIdentity = if (groupAlert) groupName else sender.publicKey
+        val capturePrefix = (if (groupAlert) "group" else "private") + if (cold) "-cold-official" else "-warm"
         var primary: Throwable? = null
         var activitiesStopped = false
         fun requireStopped() { check(activitiesStopped && activeMainActivities().isEmpty()) }
@@ -97,7 +101,7 @@ class ChatAlertPreviewTest {
                             if (cold && displayed(hasText(context.getString(R.string.social_push_open_failed)))) {
                                 // Diagnose Retry without changing the original first-open failure outcome.
                                 click(hasText("Retry"))
-                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
+                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
                                 capture("$capturePrefix-diagnostic-retry")
                                 instrumentation.sendStatus(2, android.os.Bundle().apply {
                                     putString("stream", "Diagnostic Retry reached the target; original first-open failure retained.")
@@ -123,13 +127,18 @@ class ChatAlertPreviewTest {
                             assertTrue(activeMainActivities().isEmpty())
                             assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
                             assertEquals(backend, backends.load())
-                            val savedMessage = nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, backend,
-                                sender.publicKey).load().entries.single { it.message.id == incoming.id }.message
-                            assertEquals(sender.publicKey, savedMessage.author)
-                            assertEquals(incomingText, savedMessage.text)
+                            val savedMessage = if (groupAlert) {
+                                requireNotNull(GroupChatStore(context, wallet, backend).load(groupKey)).messages
+                                    .single { it.id == incoming.id }.let { it.author to it.text }
+                            } else nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, backend,
+                                sender.publicKey).load().entries.single { it.message.id == incoming.id }
+                                .message.let { it.author to it.text }
+                            assertEquals(sender.publicKey to incomingText, savedMessage)
                             val policy = nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey).load()
                             assertFalse(policy.hidesSocial(sender.publicKey))
-                            assertFalse(PrivateChat.conversationId(wallet.publicKey, sender.publicKey) in policy.mutedConversations)
+                            assertFalse((if (groupAlert) groupKey else PrivateChat.conversationId(wallet.publicKey,
+                                sender.publicKey)) in policy.mutedConversations)
+                            if (groupAlert) peer.rejectNewConnections = true // The selected backend becomes unavailable.
                         } else peer.sendIncoming(bytes, requestId = 801)
                         ui.waitUntil(20_000) {
                             (cold || peer.incomingAcknowledgements.any {
@@ -149,12 +158,12 @@ class ChatAlertPreviewTest {
                             previewChoice(scenario, peer, sender, wallet, notifications, existingAlerts)
                         } else {
                             visible.click()
-                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(if (groupAlert) groupName else sender.publicKey)) }
+                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
                             ui.onNodeWithText(if (groupAlert) "Group messages are unencrypted." else "Private messages are encrypted.").assertIsDisplayed()
                             capture("$capturePrefix-opened")
                             if (cold) {
                                 recreateCurrentActivity()
-                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
+                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
                                 capture("$capturePrefix-recreated")
                             }
                             val savedDraft = ChatWorkStore(context, wallet, backend, editingContact).load()
@@ -173,14 +182,47 @@ class ChatAlertPreviewTest {
                             ui.waitUntil(20_000) { displayed(restoredDraft) }
                             ui.onNode(restoredDraft).assertIsDisplayed()
                             capture("$capturePrefix-draft-restored")
+                            if (cold && groupAlert) {
+                                val group = GroupChat.readCreation(groupCreation.envelope())
+                                val staleText = "Available group alert before membership removal"
+                                val stale = GroupChat.message(sender, group, staleText, 1700000140400)
+                                receiveChat(context, wallet, backend, stale.applicationRequest(1).drop(5).toByteArray(), endpoint)
+                                ui.waitUntil(20_000) { notifications.activeNotifications.any { it.tag?.endsWith(":" + stale.id) == true } }
+                                val staleAlert = notifications.activeNotifications.single { it.tag?.endsWith(":" + stale.id) == true }
+                                assertEquals("group-chats", staleAlert.notification.channelId)
+                                assertEquals("New message", staleAlert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
+                                assertTrue(device.openNotification())
+                                val staleRow = requireNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
+                                capture("group-cold-official-before-removal")
+                                val removal = GroupChat.removeMember(sender, group, wallet.publicKey, 1700000140500)
+                                receiveChat(context, wallet, backend, removal.applicationRequest(1).drop(5).toByteArray(), endpoint)
+                                val removed = requireNotNull(GroupChatStore(context, wallet, backend).load(groupKey))
+                                assertEquals(ChatGroupRole.REMOVED, removed.group.memberRoles[wallet.publicKey])
+                                assertTrue(removed.messages.any { it.id == stale.id })
+                                staleRow.click()
+                                val openFailed = context.getString(R.string.social_push_open_failed)
+                                ui.waitUntil(20_000) { displayed(hasText(openFailed)) }
+                                ui.onAllNodesWithText(staleText).assertCountEquals(0)
+                                ui.onNode(restoredDraft).assertExists()
+                                val retainedDraft = ChatWorkStore(context, wallet, backend, editingContact).load()
+                                assertEquals(latestDraft, retainedDraft.draft)
+                                assertNull(retainedDraft.transaction)
+                                assertEquals(ChatWorkStore.Status.NONE, retainedDraft.status)
+                                assertFalse(retainedDraft.automatic)
+                                capture("group-cold-official-membership-refused")
+                                click(hasText("Dismiss notification link"))
+                                ui.waitUntil(20_000) { ui.onAllNodesWithText(openFailed).fetchSemanticsNodes().isEmpty() }
+                                ui.onNode(restoredDraft).assertIsDisplayed()
+                                capture("group-cold-official-work-retained")
+                            }
                             if (cold) {
                                 click(hasText("Back"))
                                 recreateCurrentActivity()
                                 ui.waitUntil(20_000) { displayed(hasText("Groups") and hasClickAction()) }
                                 ui.onAllNodesWithText(incomingText).assertCountEquals(0)
-                                capture("private-cold-official-consumed")
+                                capture("$capturePrefix-consumed")
                             }
-                            if (groupAlert) {
+                            if (groupAlert && !cold) {
                                 click(hasText("Back"))
                                 click(hasText("Groups"))
                                 ui.waitUntil(20_000) { displayed(hasText("Create group") and hasClickAction()) }
