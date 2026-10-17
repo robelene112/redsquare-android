@@ -102,14 +102,14 @@ class GatewayChainDeliveryTest {
                                             21 -> {
                                                 require(authenticated && frame.size == 111)
                                                 val sequence = calls.incrementAndGet()
-                                                require(sequence in 1..3)
+                                                require(sequence >= 1)
                                                 val block = if (sequence == 1) original else alternate
                                                 if (sequence == 1) require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                                 else {
                                                     require(ByteBuffer.wrap(frame, 1, 8).long == 2_000_002L && frame[73] == 0.toByte())
                                                     require(frame.copyOfRange(9, 41).contentEquals(hex((if (sequence == 2) original else alternate).get("hash").asString)))
                                                 }
-                                                val count = if (sequence == 3) 0 else 1
+                                                val count = if (sequence >= 3) 0 else 1
                                                 val hash = hex(block.get("hash").asString)
                                                 val body = ByteBuffer.allocate(196 + 53 * count)
                                                 body.putLong(2_000_002).put(hash).put(ByteArray(32) { sequence.toByte() })
@@ -185,6 +185,14 @@ class GatewayChainDeliveryTest {
                         PushGateway(state, origin, clock = clock).use { recovered ->
                             recovered.start(); assertEquals(410, resolve(recovered, wake).statusCode()); observe(recovered)
                             assertEquals(3, calls.get()); assertEquals(1, fcm.requestCount)
+                            GatewayObserver(recovered, identity, backend, sender, intervalMillis = 100,
+                                localChainOrigin = "http://127.0.0.1:${chainPeer.port}", localArchiveOrigin = archivePeer.origin).use { observer ->
+                                observer.start()
+                                val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
+                                while (calls.get() < 5 && System.nanoTime() < deadline) Thread.sleep(20)
+                                assertTrue("Automatic observer must perform successive selected-backend passes", calls.get() >= 5)
+                                assertEquals(410, resolve(recovered, wake).statusCode()); assertEquals(1, fcm.requestCount)
+                            }
                         }
                     }
                     failure.get()?.let { throw AssertionError("Owned chain failed", it) }
