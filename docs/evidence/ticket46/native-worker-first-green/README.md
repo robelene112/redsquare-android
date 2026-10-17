@@ -1,0 +1,7 @@
+# First private worker runtime GREEN
+
+Actual Android10 run39059977863 at8c09aa207e8f9600d6a308d485b6c674ba60708d passes seven cases in67.495s. The new Chat-only-consent case completes a real WorkManager receipt without any MainActivity: recipient-proof resolve and original HTTP, local authenticated decrypt, retained history, actual New message Android shade, physical card dismissal, completed redelivery and continuous2second manager absence. History stays one message and wallet/backend remain unchanged. Root viewed both retained new screenshots. The deduplicated capture shows the launcher; silence is established by the assertions, not that screenshot alone.
+
+Eight hashed records preserve raw instrumentation/exit, run metadata, two PNG/XML pairs and seven exact source/test/harness hashes. This remains opaque-wake injection with controlled HTTP, not Google delivery or process death. Android17/full acceptance remain pending.
+
+First receiver Standards review has zero findings; Spec found unsupported pure-decode errors incorrectly becoming retries. Correction14211039 catches errors only around pure validation/decryption and has zero residual Spec findings. Its changed behavior is not established by this earlier immutable8c runtime. The next ordinary-receipt/cloud-duplicate tracer runs on the corrected source. The ordinary-first integration gap and pending-history/recovery/control/tap work remain explicit. Beta27 is unchanged.

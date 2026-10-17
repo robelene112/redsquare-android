@@ -83,11 +83,20 @@ recipient-proof originals/localverifydecrypt/history/pending/publication receipt
 and existing generic alert with result enum. NotificationReceiptLedger generalizes
 Social storage while preserving exact social filename/keyalias/prefix/schema.
 Localnative/testcompile PASS3m29s, seven source hashes plus build in
-native-worker-first-local. Runtime GREEN39059977863 and Social regression39059979882,
-and bounded firstreceiver source reviews, pending. Ordinary foreground-first then
-cloud duplicate is a known next integration gap, not completed acceptance.
-Next: first worker GREEN, foreground/cloud dedup, pendinghistory/retry/process
-recovery and preview/tap/current policy/identity coverage; final full SDKs,
+native-worker-first-local. ActualAndroid10GREEN39059977863 at8c passes7cases67.495s,
+including workerproof/decrypt/history/actualgenericshade/physicaldismiss/continuous
+2s duplicate absence; root viewed both newPNGs. Eight hashed records in
+native-worker-first-green. ExistingSocial regression39059979882 at8c passes15cases
+(binding1, presentation/tap11, worker3); eight hashed records in native-social-regression.
+Standardsfirstreceiver0findings. Spec1pure-decodeparseerror retry classification,
+fixed14211039 with zero residual Spec findings. Changedpuredecodebehavior is not
+retroactively covered by immutable8c runs. NoSocialprocess-death/new17/fullclaim.
+Next634d5b9de adds ordinary receiveChat seam first then opaque worker after physical
+dismissal; original workerfirst journey retained. Both newfixture reviews0findings.
+Actualordinary-first RED39060436527 pending. Knownordinary/cloudduplicate production
+integration gap remains; newtrace accurately does not claim foregroundActivity.
+Next: ordinary/cloud dedup, pendinghistory/retry/process recovery and preview/tap/
+currentpolicy/identity coverage; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
