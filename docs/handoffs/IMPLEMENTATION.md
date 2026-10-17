@@ -79,13 +79,16 @@ RED fixture: known history retained, actual fully visible generic group card,
 physical dismissal and continuous quiet duplicate without Activity. Root viewed
 both selected original captures. Nine-hash native-worker-first-green packet.
 SourceCI39080455619 also SUCCESS (release/lint included). Both evidence reviews
-are next. No owned local Gradle job.
+report0findings and verify all9hashes/33original bindings, unchanged fixture and
+parsed selected XMLs. No owned local Gradle job.
 
 The next tracer is one ordinary-group/publication-fault story. Its temporary
 ledger .new directory must leave received history readable without publishing,
 then the opaque wake must recover after repair. First worker story assertions
-are retained in a shared fixture helper. No ledger/pending implementation yet;
-commit/push and run isolated group-push-android17 for actual RED first. Whole47
+are retained in a shared fixture helper. Both tracer reviews0. No ledger/pending
+implementation yet; actual ordinary-recovery RED39080952856 and sourceCI39080948077
+are running at4e2f514b2. Native watcher session49254. Inspect and retain the actual
+RED before implementing pending/ledger mechanics. Whole47
 still requires that durable pending/shared ordinary recovery, broader current
 control/tap/legacy/PID checks, final full10/17 and signed successor.
 
