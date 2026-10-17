@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Square Android preview</title>
+<style>
+:root { color-scheme: light dark; font: 17px system-ui, sans-serif; }
+body { max-width: 640px; margin: 4rem auto; padding: 0 1.5rem; line-height: 1.6; }
+h1 { line-height: 1.15; } a { color: #f44350; } #install { display: inline-block;
+background: #df2839; color: white; padding: .8rem 1.3rem; border-radius: 12px;
+text-decoration: none; font-weight: 650; } pre { white-space: pre-wrap; font: inherit; }
+small { overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+</style>
+<h1>Red Square</h1>
+<p>Android development preview</p>
+<p id="status" role="status">Checking the latest build…</p>
+<p><a id="install" hidden>Download preview</a></p>
+<pre id="notes"></pre>
+<p>Open the downloaded APK and follow Android’s installation prompt. On your first
+installation, Android may ask you to allow this browser to install apps.</p>
+<p>For updates, install the newer APK over the existing app. Your wallet and local
+data stay in place. Keep the app installed and keep your wallet backup safe.</p>
+<small id="build"></small>
+<script>
+fetch('latest.json?check=' + Date.now(), {cache: 'no-store'})
+  .then(response => { if (!response.ok) throw Error(); return response.json(); })
+  .then(build => {
+    const target = new URL(build.apkUrl);
+    if (target.origin !== location.origin || !target.pathname.startsWith('/redsquare/releases/')) throw Error();
+    document.querySelector('#status').textContent = 'Version ' + build.versionName;
+    document.querySelector('#notes').textContent = build.notes;
+    const link = document.querySelector('#install');
+    link.href = target.href; link.hidden = false;
+    document.querySelector('#build').textContent = 'Build ' + build.commit.slice(0, 12) + '. APK SHA-256: ' + build.sha256;
+  }).catch(() => { document.querySelector('#status').textContent = 'The build could not be loaded. Please try again.'; });
+</script>
+</html>

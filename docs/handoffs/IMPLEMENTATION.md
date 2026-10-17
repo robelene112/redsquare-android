@@ -13,8 +13,9 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 Sole writer root. GitHub44 assigned/unblocked, native child33, related34.
 Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc stays fixed. Parents33/34
-remain OPEN with genuine32 dependencies. Public beta26 unchanged. Both final full SDK runs pass. No Google, physical Pixel or whole44 completion
-claim before final reviews/publication. No owned local build.
+remain OPEN with genuine32 dependencies. Public beta27 is published and verified.
+Both complete SDK runs and combined evidence reviews pass. Publication bookend/
+tracker closure remain. No Google/physical Pixel claim. No owned local build.
 
 Implemented: authenticated cached private/group original references bound to
 wallet/backend; current membership/author/conversation policy; shared social/Chat
@@ -124,22 +125,23 @@ Final SDK evidence, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
   PID10647to10727 preserves candidate/reaction/incoming/wallet digests and restores.
   Five unavailable optional diagnostics perSDK stay explicit.
 Whole fixed2fff...04cda483e source/evidence bookend Standards0/Spec0.
-Both full10 packet reviews at505a4a963 are0/0. Final combined evidence review and
-publication remain. NATIVE_ACCEPTANCE.md records both complete runs and limits. The full-regression/source-equivalence matrix proves63 matching production/build
+Both full10 packet reviews at505a4a963 are0/0. Final combined evidence review atfc9f905c5 reports Standards0/Spec0.
+NATIVE_ACCEPTANCE.md records both complete runs and limits. The full-regression/source-equivalence matrix proves63 matching production/build
 objects across7roles,12identical final fixture objects and18fixture-only changed
 files since the APK source. Prepared27 still has matching production/build objects.
 
-Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
+Signed27/0.1.27 is published, source9a37c19ba. Wrapper0/GradlePASS
 4m38s and independent certificate/package/min29/hash checks pass. APK SHA256
 8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159; established
 certificate unchanged. Nine hashed prepared records and source/fixture Git object
 equality in signed-preview27-prepared. Production equivalence survives fixture-only
 correction; do not rebuild/reserve a new version for test-only changes. Artifact
-/mnt/storage/redsquare-android-artifacts/chat44-review27-prepared. Public26 unchanged.
+/mnt/storage/redsquare-android-artifacts/chat44-review27-prepared. Direct public
+page/latest/immutable27/APK/hash/certificate/package/min29 checks PASS; immutable26
+manifest/APK unchanged. Thirteen records in signed-preview27-published.
 No owned local build. Same approved seams/180s new alert class/20s observations.
 Original33/34 and real32 blockers remain unchanged. No Google or physical/process-
-death claim from focused alert journeys. Next: final combined evidence reviews,
-signed27 publication, close44.
+death claim from focused alert journeys. Next: publication bookend review, close44.
 Temporary work stays outside checkout /tmp/redsquare-chat44-work-20261017; large
 original artifacts /mnt/storage/redsquare-android-artifacts. Preserve unrelated
 untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
