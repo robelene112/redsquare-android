@@ -81,7 +81,13 @@ message after recovering the prior private draft. Initial64038 run39039390627
 was explicitly CANCELLED before native acceptance to avoid testing known-bad source.
 Local wrapper1823 ended143, but its owned Docker build completed independently
 with exit0/BUILD SUCCESSFUL4m45s, retained container log. No owned local build.
-Corrected native GREEN pending.
+Corrected exacta62e147ea native39039743573 SUCCESS3/0/77.718s. Group actual
+shade/target/unencryptedlabel, durable previous private draft, UI recovery and
+normal Groups re-entry pass, plus both private journeys/identity/no outgoing.
+35hashes/15parsed XMLs in group-green/android17; root viewed three group originals,
+other12 retained; title truncation and still-loading normal list qualified.
+Both bounded group fix reviews Standards0/Spec0. Next: Official private cold-entry
+and Activity-recreation tracer at the same approved receipt/UI/shade seams.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new

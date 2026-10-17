@@ -18,6 +18,7 @@ import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.composeChatPhoto
+import nl.davidengelen.redsquare.chat.receiveChat
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -37,7 +38,10 @@ class ChatAlertPreviewTest {
 
     @Test fun aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft() = chatAlertJourney(groupAlert = true)
 
-    private fun chatAlertJourney(previews: Boolean = false, groupAlert: Boolean = false) {
+    @Test fun aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation() = chatAlertJourney(cold = true)
+
+    private fun chatAlertJourney(previews: Boolean = false, groupAlert: Boolean = false, cold: Boolean = false) {
+        val backend = if (cold) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         // Published unsafe fixture identities only.
@@ -74,13 +78,13 @@ class ChatAlertPreviewTest {
         val incomingText = if (groupAlert) "Open this exact group conversation" else "Open this exact private conversation"
         val incoming = if (groupAlert) GroupChat.message(sender, GroupChat.readCreation(groupCreation.envelope()),
             incomingText, 1700000140000) else PrivateChat.create(sender, wallet.publicKey, incomingText, 1700000140000)
-        val capturePrefix = if (groupAlert) "group-warm" else "private-warm"
+        val capturePrefix = if (cold) "private-cold-official" else if (groupAlert) "group-warm" else "private-warm"
         var primary: Throwable? = null
         try {
             retained.prepare()
             wallets.replace(original, wallet)
-            backends.save(SaitoBackend.OWNER)
-            if (groupAlert) GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(groupCreation.envelope())
+            backends.save(backend)
+            if (groupAlert) GroupChatStore(context, wallet, backend).receive(groupCreation.envelope())
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -91,11 +95,18 @@ class ChatAlertPreviewTest {
                         ui.waitUntil(20_000) { historyReads.get() > 0 && displayed(hasSetTextAction() and isEnabled()) }
                         ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(latestDraft)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
-                        peer.sendIncoming(incoming.applicationRequest(1).drop(5).toByteArray(), requestId = 801)
+                        val bytes = incoming.applicationRequest(1).drop(5).toByteArray()
+                        if (cold) {
+                            click(hasText("Back")) // Save the mounted editor before closing its Activity.
+                            scenario.close()
+                            ui.waitUntil(20_000) { activeMainActivities().isEmpty() }
+                            receiveChat(context, wallet, backend, bytes)
+                            assertTrue(activeMainActivities().isEmpty())
+                        } else peer.sendIncoming(bytes, requestId = 801)
                         ui.waitUntil(20_000) {
-                            peer.incomingAcknowledgements.any {
+                            (cold || peer.incomingAcknowledgements.any {
                                 it[0] == 13.toByte() && java.nio.ByteBuffer.wrap(it, 1, 4).int == 801
-                            } && notifications.activeNotifications.any { (it.tag to it.id) !in existingAlerts }
+                            }) && notifications.activeNotifications.any { (it.tag to it.id) !in existingAlerts }
                         }
                         val alert = notifications.activeNotifications.single { (it.tag to it.id) !in existingAlerts }
                         assertEquals(if (groupAlert) "group-chats" else "private-chats", alert.notification.channelId)
@@ -113,7 +124,12 @@ class ChatAlertPreviewTest {
                             ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(if (groupAlert) groupName else sender.publicKey)) }
                             ui.onNodeWithText(if (groupAlert) "Group messages are unencrypted." else "Private messages are encrypted.").assertIsDisplayed()
                             capture("$capturePrefix-opened")
-                            val savedDraft = ChatWorkStore(context, wallet, SaitoBackend.OWNER, editingContact).load()
+                            if (cold) {
+                                recreateCurrentActivity()
+                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
+                                capture("$capturePrefix-recreated")
+                            }
+                            val savedDraft = ChatWorkStore(context, wallet, backend, editingContact).load()
                             assertEquals(latestDraft, savedDraft.draft)
                             assertNull(savedDraft.transaction)
                             assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
@@ -126,6 +142,13 @@ class ChatAlertPreviewTest {
                             ui.waitUntil(20_000) { displayed(restoredDraft) }
                             ui.onNode(restoredDraft).assertIsDisplayed()
                             capture("$capturePrefix-draft-restored")
+                            if (cold) {
+                                click(hasText("Back"))
+                                recreateCurrentActivity()
+                                ui.waitUntil(20_000) { displayed(hasText("Groups") and hasClickAction()) }
+                                ui.onAllNodesWithText(incomingText).assertCountEquals(0)
+                                capture("private-cold-official-consumed")
+                            }
                             if (groupAlert) {
                                 click(hasText("Back"))
                                 click(hasText("Groups"))
@@ -135,7 +158,7 @@ class ChatAlertPreviewTest {
                             }
                         }
                         assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
-                        assertEquals(SaitoBackend.OWNER, backends.load())
+                        assertEquals(backend, backends.load())
                         assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                         peer.assertHealthy()
                     }
@@ -212,6 +235,23 @@ class ChatAlertPreviewTest {
         device.pressBack()
         published("Private text after disabling previews", 1700000140300, 804,
             "New message", "private-previews-disabled-generic")
+    }
+
+    private fun recreateCurrentActivity() {
+        val previous = activeMainActivities().single()
+        instrumentation.runOnMainSync { previous.recreate() }
+        ui.waitUntil(20_000) { activeMainActivities().singleOrNull()?.let { it !== previous } == true }
+    }
+
+    private fun activeMainActivities(): List<MainActivity> {
+        var result = emptyList<MainActivity>()
+        instrumentation.runOnMainSync {
+            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+            result = Stage.values().filter { it != Stage.DESTROYED }.flatMap {
+                monitor.getActivitiesInStage(it)
+            }.filterIsInstance<MainActivity>().distinct()
+        }
+        return result
     }
 
     private fun finishFixtureActivities() {
