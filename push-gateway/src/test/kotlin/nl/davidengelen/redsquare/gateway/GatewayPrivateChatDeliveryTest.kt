@@ -215,6 +215,9 @@ class GatewayPrivateChatDeliveryTest {
                                     assertEquals("1", retryData.get("version").asString)
                                     assertEquals("A restart must reuse the pending logical wake", wake, retryData.get("wake").asString)
                                     assertEquals(2, fcm.requestCount)
+                                    val dispatchedBy = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
+                                    while (attempts.size < 2 && System.nanoTime() < dispatchedBy) Thread.sleep(10)
+                                    assertEquals("Both real HTTP requests must reach the owned dispatcher", 2, attempts.size)
                                     assertTrue("The recovered send must respect the actual minimum backoff",
                                         attempts[1] - attempts[0] >= TimeUnit.SECONDS.toNanos(10))
                                     val next = PrivateChat.create(author, recipient.publicKey, "A private message after reconnect", System.currentTimeMillis())
