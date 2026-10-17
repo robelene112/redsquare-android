@@ -93,7 +93,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 if (isStopped) return@work Result.failure()
                 PrivateChatPush.resume(applicationContext, wake, if (fixture) inputData.getString("archive") else null)
             }
-            if (resumed != null) return@work privateResult(resumed)
+            if (resumed != null) return@work chatResult(resumed)
             val selected = try {
                 synchronized(SaitoLocalState.lock) {
                     pushIdentity(applicationContext)?.let { it.wallet to it.backend }
@@ -135,17 +135,17 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 return@work Result.retry()
             }
             currentCoroutineContext().ensureActive()
-            val privateReference = try { PrivateChatPush.reference(payload) }
+            val chatReference = try { ChatPushReference.parse(payload) }
             catch (_: Exception) { return@work Result.failure() }
-            val reference = try { privateReference ?: SocialPushReference.parse(payload) }
+            val reference = try { chatReference?.reference ?: SocialPushReference.parse(payload) }
             catch (_: Exception) { return@work Result.failure() }
             if (reference.owner != wallet.publicKey || reference.backend != backend) return@work Result.success()
             val archive = if (fixture) inputData.getString("archive") ?: backend.peerUrl else backend.peerUrl
-            if (privateReference != null) {
+            if (chatReference != null) {
                 val current = try { pushIdentity(applicationContext) }
                 catch (_: Exception) { return@work Result.retry() }
                 if (current == null || current.wallet.publicKey != reference.owner || current.backend != reference.backend ||
-                    "private-chats" !in current.categories.split(',')) return@work Result.success()
+                    chatReference.kind.category !in current.categories.split(',')) return@work Result.success()
                 val envelope = try { original(current.wallet, wake, url) ?: return@work Result.success() }
                 catch (_: IOException) { currentCoroutineContext().ensureActive(); return@work Result.retry() }
                 catch (_: Exception) { return@work Result.failure() }
@@ -153,7 +153,10 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                 return@work receiptExecution.withLock {
                     currentCoroutineContext().ensureActive()
                     if (isStopped) return@withLock Result.failure()
-                    privateResult(PrivateChatPush.receive(applicationContext, reference, envelope, archive, wake))
+                    chatResult(when (chatReference.kind) {
+                        ChatPushReference.Kind.PRIVATE -> PrivateChatPush.receive(applicationContext, reference, envelope, archive, wake)
+                        ChatPushReference.Kind.GROUP -> GroupChatPush.receive(applicationContext, reference, envelope, archive)
+                    })
                 }
             }
             receiptExecution.withLock receipt@{
@@ -172,7 +175,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
         }
     }
 
-    private fun privateResult(outcome: ChatNotificationResult): Result = when (outcome) {
+    private fun chatResult(outcome: ChatNotificationResult): Result = when (outcome) {
         ChatNotificationResult.PUBLISHED, ChatNotificationResult.SUPPRESSED -> Result.success()
         ChatNotificationResult.RETRY -> Result.retry()
     }
@@ -186,7 +189,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
             .post(body.toString().toRequestBody("application/json".toMediaType())).build()
         return client.newCall(request).execute().use { response ->
             if (response.code in listOf(404, 410)) return null
-            if (response.code != 200) throw IOException("Private original unavailable")
+            if (response.code != 200) throw IOException("Chat original unavailable")
             val limit = 8 * 1024 * 1024 + 512
             val bytes = ByteArray(limit + 1)
             var size = 0
