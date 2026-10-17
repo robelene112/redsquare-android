@@ -30,7 +30,10 @@ parsed2XMLs, eight hashed originals in ticket43/recovery-green/android17.
 Next tracer adds actual selection, two motion colors, displayed/reopened/sent
 credits, canonical exact-query HTML and explicit signed-send proof. Its initial
 local build26696 was deliberately stopped143 before a known fixture scrolling
-correction; no application/compiler failure claimed. Corrected tracer build follows.
+correction; no application/compiler failure claimed. Corrected tracer build28271 PASS2m47s. Pre-dispatch reviews found only two
+fixture gaps: offscreen Use GIF readiness before scrolling and missing explicit
+outgoing signer/final identity/write assertions. Both are corrected without
+changing deadlines; hosted build/runtime will compile and run the corrected test.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 

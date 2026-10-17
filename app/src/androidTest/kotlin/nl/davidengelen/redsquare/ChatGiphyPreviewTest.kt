@@ -114,8 +114,8 @@ class ChatGiphyPreviewTest {
                             ui.onNode(add).performClick()
                             if (selection) {
                                 val use = hasText("Use GIF") and hasClickAction() and isEnabled()
-                                ui.waitUntil(10_000) { displayed(use) }
-                                ui.onNode(use).performScrollTo().performClick()
+                                ui.waitUntil(10_000) { ui.onAllNodes(use).fetchSemanticsNodes().size == 1 }
+                                ui.onNode(use).performScrollTo().assertIsDisplayed().performClick()
                                 ui.waitUntil(10_000) { ui.onAllNodesWithText("Close GIF search").fetchSemanticsNodes().isEmpty() }
                                 assertDraft(); assertAnimation()
                                 check(paths.contains(gifPath))
@@ -144,7 +144,8 @@ class ChatGiphyPreviewTest {
                                         val sent = postingTransaction(peer.transactions.single())
                                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
                                         check(peer.relayRecipients.single() == listOf(wallet.publicKey, contact))
-                                        check(PrivateChat.read(wallet, sent.envelope(), contact).text == expected)
+                                        val delivered = PrivateChat.read(wallet, sent.envelope(), contact)
+                                        check(delivered.author == wallet.publicKey && delivered.text == expected)
                                         val caption = hasText(draft) and !hasSetTextAction()
                                         ui.waitUntil(20_000) { displayed(caption) }
                                         credits("$prefix-sent-credits")
@@ -152,6 +153,8 @@ class ChatGiphyPreviewTest {
                                         File(context.cacheDir, "chat-giphy-evidence/native-private-gif-source.txt").writeText(source + "\n")
                                         peer.assertHealthy()
                                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                                        check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
+                                        check(peer.transactions.size == 1 && peer.relayedMessages.size == 1 && peer.reports.isEmpty())
                                     }
                                 }
                                 return@withFailureCapture
