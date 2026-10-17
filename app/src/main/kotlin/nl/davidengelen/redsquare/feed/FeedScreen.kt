@@ -84,8 +84,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
     var reviewingChat by rememberSaveable { mutableStateOf(false) }
-    var chatAlert by remember(wallet?.publicKey, backend) { mutableStateOf<nl.davidengelen.redsquare.chat.ChatAlertReference?>(null) }
-    var chatAlertGeneration by remember(wallet?.publicKey, backend) { mutableLongStateOf(0L) }
+    var chatAlertUri by rememberSaveable(wallet?.publicKey, backend) { mutableStateOf<String?>(null) }
+    val chatAlert = nl.davidengelen.redsquare.chat.ChatAlertReference.parse(chatAlertUri?.let(android.net.Uri::parse))
+        ?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
+    var chatAlertGeneration by rememberSaveable(wallet?.publicKey, backend) { mutableLongStateOf(0L) }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
@@ -145,7 +147,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
                     else {
                         composing = false; reviewingQueue = false; reviewingChanges = false
-                        chatAlert = chatReference
+                        chatAlertUri = chatReference.uri().toString()
                         chatAlertGeneration = delivery.getLong("generation")
                         reviewingChat = true
                         routes.consume(delivery)
@@ -175,7 +177,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     currentCoroutineContext().ensureActive()
                     if (!permitted || !routes.current(delivery) || personal.saving || personal.hidesPosts(target.author)) false
                     else {
-                        composing = false; reviewingChat = false; reviewingQueue = false; reviewingChanges = false
+                        composing = false; reviewingChat = false; chatAlertUri = null; reviewingQueue = false; reviewingChanges = false
                         navigation.add(BrowseDestination.Conversation(target))
                         routes.consume(delivery)
                         true
@@ -286,7 +288,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
             key(chatAlertGeneration) {
                 nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata,
-                    initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId) { reviewingChat = false; chatAlert = null }
+                    initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
+                    onInitialDestinationClosed = { chatAlertUri = null }) { reviewingChat = false; chatAlertUri = null }
             }
         }
         return

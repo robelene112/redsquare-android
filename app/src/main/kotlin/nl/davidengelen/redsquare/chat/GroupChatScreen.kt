@@ -38,7 +38,7 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null, onBack: () -> Unit) {
+    onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {}, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val focus = LocalFocusManager.current
@@ -191,7 +191,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         if(busy||savingForNavigation||navigation.transitioning)return
         savingForNavigation=true
         scope.launch{
-            try{if(persistDraft()){if(selected==null)onBack() else selected=null}}
+            try{if(persistDraft()){if(selected==null)onBack() else {
+                if(selected==initialGroup)onInitialDestinationClosed()
+                selected=null
+            }}}
             finally{savingForNavigation=false}
         }
     }
@@ -276,7 +279,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 while(isActive){
                     try {
                         SaitoPeer(wallet,endpoint,onIncoming={bytes->
-                            try{receiveChat(context,wallet,backend,bytes)}
+                            try{receiveChat(context,wallet,backend,bytes,endpoint)}
                             catch(failure:GroupChatStorageException){
                                 receiveStorageFailed.set(true)
                                 receiveUpdates.trySend(Unit)

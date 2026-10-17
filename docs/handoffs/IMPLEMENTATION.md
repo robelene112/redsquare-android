@@ -88,6 +88,16 @@ normal Groups re-entry pass, plus both private journeys/identity/no outgoing.
 other12 retained; title truncation and still-loading normal list qualified.
 Both bounded group fix reviews Standards0/Spec0. Next: Official private cold-entry
 and Activity-recreation tracer at the same approved receipt/UI/shade seams.
+Cold RED39040413257 exact442c98500 FAILURE4cases/1failure/91.514s at20s target
+wait129 after successful no-Activity shade launch and cached conversation, then
+Activity recreation loses the target. Earlier3cases pass; cold tails unexecuted.
+41hashes/18parsedXMLs; root viewed two cold originals, other16retained. Initial
+PI lacks debug endpoint, so later archive refresh is not controlled acceptance.
+Correction now saves only bound public destination URI/generation across window
+restoration, clears it on selected-conversation exit or committed social handoff,
+and carries resolved peer endpoint only in debug emulator notification intents.
+The same cold journey supplies that endpoint; acceptance assertions unchanged.
+No owned local build; hosted correction compile/native verification pending.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new

@@ -39,13 +39,13 @@ import nl.davidengelen.redsquare.saito.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
-    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null,
+    onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit, initialContact: String? = null, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {},
     onBack: () -> Unit) {
     nl.davidengelen.redsquare.NotificationPermissionPrompt()
     var groupDestination by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
     var reviewingGroups by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup != null) }
     if (reviewingGroups) {
-        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,groupDestination) {
+        GroupChatScreen(wallet,endpoint,backend,modifier,onWalletMetadata,groupDestination, onInitialDestinationClosed) {
             reviewingGroups=false; groupDestination=null
         }
         return
@@ -73,7 +73,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         try { for (ignored in groupReceiveFailures) groupReceiveFailed = true }
         finally { groupReceiveFailures.close() }
     }
-    fun retainIncoming(bytes: ByteArray): String? = try { receiveChat(context, wallet, backend, bytes) }
+    fun retainIncoming(bytes: ByteArray): String? = try { receiveChat(context, wallet, backend, bytes, endpoint) }
         catch (failure: GroupChatStorageException) {
             groupReceiveFailures.trySend(Unit)
             throw failure // Failed retention must keep the negative acknowledgement.
@@ -94,7 +94,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         scope.launch {
             try {
                 if (navigation.save()) {
-                    if (counterparty == null) onBack() else counterparty = null
+                    if (counterparty == null) onBack() else {
+                        if (counterparty == initialContact) onInitialDestinationClosed()
+                        counterparty = null
+                    }
                 }
             } finally { closing = false }
         }

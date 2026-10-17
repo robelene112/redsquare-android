@@ -7,7 +7,7 @@ import nl.davidengelen.redsquare.saito.*
  * Return the private counterparty, or null for a named-group event.
  */
 internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    bytes: ByteArray): String? {
+    bytes: ByteArray, endpoint: String = backend.peerUrl): String? {
     val envelope = try { GroupChat.originalEnvelope(bytes) }
         catch (_: IllegalArgumentException) { PrivateChat.originalEnvelope(bytes) }
     val signed = SaitoEnvelope.decodePayload(envelope)
@@ -24,7 +24,7 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
                 if (!seen && retained.group.memberRoles[wallet.publicKey]?.active == true)
                     retained.messages.singleOrNull { it.id == signed.id } else null
             }
-            message?.let { notifyGroupChat(context, wallet, backend, it) }
+            message?.let { notifyGroupChat(context, wallet, backend, it, endpoint) }
             return null
         }
     }
@@ -44,6 +44,6 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
         history.save(listOf(envelope))
         unseen
     }
-    if (newMessage) notifyPrivateChat(context, wallet, backend, received.message)
+    if (newMessage) notifyPrivateChat(context, wallet, backend, received.message, endpoint)
     return received.counterparty
 }

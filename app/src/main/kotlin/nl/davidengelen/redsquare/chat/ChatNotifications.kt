@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.MainActivity
 import nl.davidengelen.redsquare.R
@@ -24,16 +25,16 @@ private data class IncomingChatAlert(val id: String, val author: String, val con
     val kind: ChatAlertKind, val privateText: String? = null)
 
 internal fun notifyPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    message: PrivateChatMessage) = notifyChat(context, wallet, backend,
-        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE, message.text))
+    message: PrivateChatMessage, endpoint: String = backend.peerUrl) = notifyChat(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE, message.text), endpoint)
 
 internal fun notifyGroupChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    message: GroupChatMessage) = notifyChat(context, wallet, backend,
-        IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP))
+    message: GroupChatMessage, endpoint: String = backend.peerUrl) = notifyChat(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP), endpoint)
 
 /** Optional system alerts follow retention. Failures never undo an authenticated saved message. */
 private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
-    message: IncomingChatAlert) {
+    message: IncomingChatAlert, endpoint: String) {
     if (message.author == wallet.publicKey) return
     try {
         synchronized(SaitoLocalState.lock) {
@@ -61,6 +62,11 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
             } else {
                 ChatAlertReference(wallet.publicKey, backend, message.conversationId, message.id,
                     ChatAlertReference.Kind.GROUP).uri()
+            }
+            // Keep the already resolved emulator peer on no-Activity notification launches.
+            // Release builds always use the two product backends.
+            if (BuildConfig.DEBUG && Build.HARDWARE in listOf("ranchu", "goldfish") && endpoint != backend.peerUrl) {
+                destination.putExtra(if (backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl", endpoint)
             }
             val open = PendingIntent.getActivity(context, 0, destination,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)

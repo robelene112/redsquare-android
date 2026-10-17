@@ -100,7 +100,7 @@ class ChatAlertPreviewTest {
                             click(hasText("Back")) // Save the mounted editor before closing its Activity.
                             scenario.close()
                             ui.waitUntil(20_000) { activeMainActivities().isEmpty() }
-                            receiveChat(context, wallet, backend, bytes)
+                            receiveChat(context, wallet, backend, bytes, endpoint)
                             assertTrue(activeMainActivities().isEmpty())
                         } else peer.sendIncoming(bytes, requestId = 801)
                         ui.waitUntil(20_000) {
