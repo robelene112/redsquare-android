@@ -75,8 +75,10 @@ class GatewayDeliveryTest {
                 MockWebServer().use { fcm ->
                     val verifiedBeforeSend = java.util.concurrent.atomic.AtomicBoolean(false)
                     val attempts = java.util.concurrent.atomic.AtomicInteger()
+                    val attemptTimes = java.util.concurrent.CopyOnWriteArrayList<Long>()
                     fcm.dispatcher = object : mockwebserver3.Dispatcher() {
                         override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                            attemptTimes.add(System.nanoTime())
                             if (attempts.incrementAndGet() == 1) {
                                 verifiedBeforeSend.set(peer.exactReads.containsAll(setOf(root.id, reply.id)))
                                 return MockResponse.Builder().onResponseStart(mockwebserver3.SocketEffect.CloseSocket()).build()
@@ -119,14 +121,20 @@ class GatewayDeliveryTest {
                         assertEquals(200, restored.statusCode()); assertEquals(expected, JsonParser.parseString(restored.body()))
                         peer.exposeHead.set(false)
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
-                        assertEquals("A pending send must respect its retained minimum delay", 1, fcm.requestCount)
-                        Thread.sleep(11_100) // Actual durable10s retry minimum plus bounded jitter, not a fake clock.
+                        // Restart/HTTP observations may themselves outlast the deadline. A due retry is valid.
+                        assertTrue(fcm.requestCount in 1..2)
+                        if (attemptTimes.size == 2) assertTrue("An observed retry must not precede the send minimum",
+                            attemptTimes[1] - attemptTimes[0] >= TimeUnit.SECONDS.toNanos(10))
+                        Thread.sleep(11_100) // Recovery sample after the configured delay+jitter, not proof of every scheduler deadline.
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
                         val retried = requireNotNull(fcm.takeRequest(2, TimeUnit.SECONDS))
                         val retriedData = JsonParser.parseString(requireNotNull(retried.body).utf8())
                             .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
                         assertEquals("A lost acknowledgement must reuse the retained logical wake", wake, retriedData.get("wake").asString)
                         assertEquals(2, fcm.requestCount)
+                        assertEquals(2, attemptTimes.size)
+                        assertTrue("The actual recovered attempt must respect the send minimum",
+                            attemptTimes[1] - attemptTimes[0] >= TimeUnit.SECONDS.toNanos(10))
                         peer.exposeHead.set(true)
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
                         assertEquals("A retained accepted event must not create another wake", 2, fcm.requestCount)

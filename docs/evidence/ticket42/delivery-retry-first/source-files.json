@@ -1,0 +1,18 @@
+{
+  "source": "7facb232d2fa03357dad387eadb1b343ff07f017",
+  "sourceFiles": {
+    "push-gateway/build.gradle.kts": "721a28063d87dcfa5acf8b9c9ab4b9b56a2f4decdf505a253704ff703bd517dd",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/FcmSender.kt": "be7666f5166bed0f4b6d340f55cb71bfb2276534bd1ce2bf95ab618ca9980f11",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchive.kt": "236e25a97e1d38e2cd2fe661acec367c6333bf88b19e3511dce7d1800d0bd03b",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayMain.kt": "5ea700303605f1514b3c736df6854f3c4857569e1999853894e74dde154a4d3b",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayStateFile.kt": "7b32e523577fc03189530450ab8e649a67f5b88eac9fc908201d117469c77a29",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "3c36098082603500bb38e79c923aba43fcc8205fd9a9b8b3fd43c0a0cbcde1c1",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "39d2d5adf0389f23cc41615615bac8a1f255deab1ff04e341c7660b55bec76dc",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/FcmSenderTest.kt": "8cdbef22e11553b1cc56cf59ea8b65cdd3b2ec04468f775d379f0b6fc9ace153",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayArchiveTest.kt": "32ba04510b989ffc0a187ec0f2d34ae8fa4e864aedcdb626425846ae97b29856",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayDeliveryTest.kt": "8b57f22c251c0295ac762fc5b3342d4d21b895f131010d115ce2b1589c41a9e9",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayProcessTest.kt": "51378efa38ae74f21216a6eaabac19cbdc8d256760db1bbdff24c397392f8af0",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionClientTest.kt": "cf22233d63e3e5f8e4c8e19e34137e456272a979884314f4e09f0d2c8ebaf9ec",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionLifecycleTest.kt": "7eb80723924d153cc18fec2cd724dbba5547c7d0d14d20c9a628693954811cc0"
+  }
+}
