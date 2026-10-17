@@ -46,8 +46,16 @@ classified as503. Correction maps invalid request integers to400 while stored
 record decoding stays an IO/503 failure. Corrected core/gateway PASS36s, exec48363 ended; no owned local build.
 Corrected source41cf0c76 reviews Standards0/Spec0.
 [First local GREEN](../evidence/ticket42/subscription-green/README.md) retains
-7 hashes and exact source metadata. Final evidence review/exact-source CI pending. [Current contract](../PUSH_GATEWAY.md) describes
+7 hashes and exact source metadata. Final first-slice evidence reviews atc35cb6be report Standards0/Spec0.
+Exact c35cb6be source CI38991601083 remains active; no CI success inferred. [Current contract](../PUSH_GATEWAY.md) describes
 the implemented first slice and explicit remaining deployment/runtime limits.
+
+Current renewal tracer adds one ordinary HTTP journey, sourcebcf0ca97. Actual
+local gateway-only RED28s:2completed/1PASS(original)/1FAIL(newrenewal), current
+signed renewal expected201/got409 atline131. New setup bind passes; later stale
+request/currentstatus/idempotency/post-restart renewal tails are unexecuted.
+[Retained RED](../evidence/ticket42/renewal-red/README.md),3hashes/7sourcehashes.
+No owned local build remains. Renewal production minimum not yet implemented.
 
 No standalone command, Android gateway binding, resolver, renewal, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
