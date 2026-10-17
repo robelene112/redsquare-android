@@ -29,8 +29,10 @@ internal object PrivateChatPush {
             val wallet = AndroidWalletStore(context).loadExisting()
             if (wallet.publicKey != reference.owner || AndroidBackendStore(context).load() != reference.backend ||
                 !ChatPushSettings(context, reference.owner).enabled()) return@synchronized ChatNotificationResult.SUPPRESSED
+            // This pure validation/decryption boundary has no persistence operations.
+            // Unsupported encrypted candidates are terminal; storage failures below remain retryable.
             val received = try { PrivateChat.recover(wallet, envelope) }
-                catch (_: IllegalArgumentException) { return@synchronized ChatNotificationResult.SUPPRESSED }
+                catch (_: Exception) { return@synchronized ChatNotificationResult.SUPPRESSED }
             val message = received.message
             val now = System.currentTimeMillis()
             if (message.id != reference.signature || message.author == wallet.publicKey ||
