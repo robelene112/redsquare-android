@@ -70,8 +70,11 @@ version/source checks passed; do not call that wrapper exit0. Logs are
 `.scratch/gif16-beta25-build.log` and `gif16-beta25-independent-verification.txt`.
 APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8,
 version25/0.1.25, established certificate unchanged. Beta24 remains published.
-Full Android10 39013781414 and Android17 39013783536 run at19e with approved
-public feed reads. Separate source39013271917 at19e SUCCESS.
+Initial full Android10 39013781414 at19e failed before actual notification
+death. Fixture-only5154e89b now runs full Android10 39014622109 with approved
+public feed reads, plus focused corrected process checks on Android17
+39014623934 SUCCESS (canonical card-process-green/android17). Existing full Android17 39013783536 stays at19e with approved
+public feed reads. Production is identical; source39013271917 at19e SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
 No real provider/key/account/node/live-write change. Beta24 remains current.
@@ -149,12 +152,20 @@ reviews0/0 at96ed9094; reference-script duplication is acknowledged/nonblocking.
 Full Android10 39013781414 failed at the preparatory physical notification
 dismissal, before deliberate death; restoration passed. See
 [retained full-run failure](../evidence/ticket16/full-regression-red/android10/README.md).
-Android17 39013783536 remains running. No full-suite pass is claimed.
+The one-swipe fixture correction5154e89b targets the actual visible reply card,
+without changing production or disappearance/manager-zero/silence/death/replay/
+fresh-alert assertions. Both reviews0/0; local test build96009 PASS1m47s.
+Focused Android17 39014623934 SUCCESS: physical dismissal/actual death/replay/
+fresh liveness and autonomous scheduled recovery pass, both restorers pass.
+[35 retained originals/outputs](../evidence/ticket16/card-process-green/android17/README.md).
+Whole integration reviews at5154e89b Standards0/Spec0; source39014520955 SUCCESS.
+Corrected full Android10 39014622109 and existing full Android17 39013783536
+remain running. No full-suite pass is claimed.
 
 Next: resolve the observed dismissal and finish full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
-stay open. Latest tracker comment6231144584 predates the corrected native GREEN.
+stay open. Latest tracker comment6231310674 predates the corrected native GREEN.
 [Current GIF data flow](../research/GIPHY_DATA_FLOW_2026_10_17.md) supplements the
 dated release inventory without claiming provider/Play/account facts.
 

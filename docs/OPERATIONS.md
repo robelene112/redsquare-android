@@ -83,6 +83,34 @@ mobile feed access require explicit evidence. Wallet/signature reference tests
 now exist in the native implementation; network/feed interoperability remains
 work for the subsequent tickets.
 
+## Android GIF configuration
+
+The Posts integration reads optional Gradle properties
+`giphyDebugPostsApiKey` and `giphyReleasePostsApiKey` for the corresponding
+application variants. Both default to empty. An unconfigured build preserves
+existing GIF viewing but reports Search unavailable. A configured key is built
+into the APK; changing it requires a new build and an ordinary signed update.
+Do not claim live search acceptance from the owned provider fixtures.
+
+Use a key whose holder authorizes this Android/Posts integration. Neither the
+Saito server's browser key nor service discovery establishes that permission.
+Chat configuration is separate work in #31. The existing owner setup question
+remains pending; these instructions do not request another account or key.
+
+For the maintained Docker wrapper, Gradle's user directory is the host's
+ignored `.scratch/gradle-cache`, mounted at `/gradle-cache`. An operator can
+place the appropriate property in its `gradle.properties`, preserving other
+settings and keeping that file private. Do not put values in tracked files,
+command-line arguments, logs or issue comments. `scripts/review-build` uses
+the same wrapper and the Release property. The normal host `~/.gradle`
+directory is not mounted by that wrapper. No configuration was installed here.
+
+After authorized configuration, verify actual provider search, selection,
+attribution and recovery on Android before closing #16. Build and publish the
+next monotonic signed review version through [review operations](REVIEW_BUILDS.md).
+The [data-flow inventory](research/GIPHY_DATA_FLOW_2026_10_17.md) describes
+the implemented direct API and media requests and remaining release facts.
+
 ## Agent workflow provenance
 
 Matt Pocock's skills are pinned to commit
