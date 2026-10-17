@@ -34,4 +34,5 @@ local build remains. No further unchanged run is needed for this checkpoint.
 The SDK worker hook is source-reviewed; these unconfigured builds execute no
 actual Firebase registration/callback/rotation or Google delivery. Client-process
 death, deployed gateway, lock/Doze/Pixel acceptance and whole#42/#32 remain open.
-Beta24 unchanged. Final independent evidence reviews are pending.
+Beta24 unchanged. Final evidence review found one stale handoff sentence on each axis;9c0e9168
+corrects it. Final Standards0/Spec0, with source and all34 evidence hashes unchanged.

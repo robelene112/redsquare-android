@@ -182,5 +182,6 @@ The actual Android10 tracer at60d00271 fails0.205s at its missing first binding;
 later lifecycle tails and prior11UI/3worker cases were not run. Its[retained RED](evidence/ticket42/native-binding-red/android10/README.md)
 and source-build success are separate. Corrected source17fb7260 reviews Standards0/Spec0;
 [both native runs and source/release/lint](evidence/ticket42/native-binding-green/README.md)
-succeed. Final independent evidence reviews are pending. A controlled synthetic FID is not SDK registration,
+succeed. Final independent evidence reviews report Standards0/Spec0 after the handoff
+wording correction9c0e9168. A controlled synthetic FID is not SDK registration,
 actual identifier rotation or Google delivery.

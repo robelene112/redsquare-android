@@ -123,7 +123,8 @@ reports; task cache states in actuallogs. Individual channel choices and configu
 SDK worker hook are reviewed source, not executed OS toggle/liveSDK proofs.
 Corrected duplicate localbuild2522 retired only after all three exact-source hosted
 runs completedSUCCESS, actualexit143, never a localpass. No owned local build.
-Final evidence reviews pending. Next slice is remaining gateway observer/events/
+Final evidence reviews report Standards0/Spec0 after the one stale native-GREEN
+denial was corrected at9c0e9168. Next slice is remaining gateway observer/events/
 resolver/sender; do not close42/32 or repeat unchanged native runs. No configured SDK or Google-delivery claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
