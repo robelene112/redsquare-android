@@ -27,6 +27,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareImages
 import android.net.Uri
+import nl.davidengelen.redsquare.media.GiphyPicker
 
 @Composable
 internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
@@ -45,6 +46,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val scope = rememberCoroutineScope()
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
+    var choosingGif by remember(state) { mutableStateOf(false) }
     var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
     // Only public session metadata enters saved state. Wallet material and draft
     // contents remain in their existing private stores.
@@ -156,6 +158,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
                 TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
                     onClick = launchImagePicker) { Text(stringResource(R.string.image_add)) }
+                TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null,
+                    onClick = { openImagePicker { choosingGif = true } }) { Text(stringResource(R.string.giphy_add)) }
                 if (imageError) Text(stringResource(R.string.image_prepare_failed))
                 if (preparingImages) Text(stringResource(R.string.image_preparing))
                 OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
@@ -163,6 +167,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending)
             }
         }
+        if (choosingGif) GiphyPicker(onClose = { choosingGif = false })
         if (confirmClear) AlertDialog(
             onDismissRequest = { confirmClear = false },
             title = { Text(stringResource(R.string.post_clear_title)) },

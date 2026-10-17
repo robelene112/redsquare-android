@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare
 
+import nl.davidengelen.redsquare.media.LocalGiphyConfiguration
+import nl.davidengelen.redsquare.media.GiphyConfiguration
+
 import android.os.Bundle
 import android.content.Intent
 import android.net.Uri
@@ -257,7 +260,8 @@ class MainActivity : ComponentActivity() {
             }
             RedSquareTheme(this@MainActivity, appearance) {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),
-                    LocalVideoDiagnostics provides videoDiagnostics) {
+                    LocalVideoDiagnostics provides videoDiagnostics,
+                    LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent)) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->
                     if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitTerminate", false)) {

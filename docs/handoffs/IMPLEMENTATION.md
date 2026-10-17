@@ -800,3 +800,18 @@ session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md)
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
 
+
+## Active Giphy failure/search source candidate
+
+Minimum first source adds optional per-variant Android/Posts API key, fixed
+production api.giphy.com and explicit DEBUG/emulator/loopback-only fixture,
+native query/loading/error/retry/cancel/empty and metadata rows with available
+creator/source links. Direct24-result first page, pg-13,400ms debounce, exact
+nonblank queries and codepoint50 local limit; no query/key logging or result
+store. Opening from composer persists authored work first. Real response rows
+are currently text/attribution only: no selection or animated preview is claimed
+in this first error-recovery slice. Those remain the next vertical increment,
+not a release deferral or completed#16. No new APK publication.
+
+Source typecheck/review/runtime still required. Current first RED remains
+f3b272d2 missingAddGIF. Owned GIF467bytes remains untracked, decoder unverified.

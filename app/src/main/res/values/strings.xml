@@ -515,4 +515,18 @@
     <string name="notifications_android_settings_error">Could not open Android notification settings. Save any unfinished work and try again.</string>
     <string name="social_push_open_failed">Could not open this notification here. Your current work is still here. Check the selected wallet and server, then try again.</string>
     <string name="social_push_dismiss">Dismiss notification link</string>
+    <string name="giphy_add">Add GIF</string>
+    <string name="giphy_title">GIF search</string>
+    <string name="giphy_close">Close GIF search</string>
+    <string name="giphy_query">Search GIFs</string>
+    <string name="giphy_brand">Powered by GIPHY</string>
+    <string name="giphy_not_available">GIF search is not available.</string>
+    <string name="giphy_query_limit">Use no more than 50 characters for GIF search.</string>
+    <string name="giphy_loading">Loading GIFs...</string>
+    <string name="giphy_failed">GIF search is unavailable. Try again.</string>
+    <string name="giphy_busy">GIF search is busy. Try again later.</string>
+    <string name="giphy_empty">No GIFs found.</string>
+    <string name="giphy_creator">By %1$s</string>
+    <string name="giphy_source">Source</string>
+    <string name="giphy_source_unavailable">This link could not be opened.</string>
 </resources>

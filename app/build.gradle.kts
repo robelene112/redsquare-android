@@ -32,6 +32,12 @@ fun com.android.build.api.dsl.ApplicationBuildType.configurePush(variant: String
         buildConfigField("String", "PUSH_$field", literal)
     }
 }
+fun com.android.build.api.dsl.ApplicationBuildType.configureGiphy(variant: String) {
+    val key = providers.gradleProperty("giphy${variant}PostsApiKey").orElse("").get()
+    require(key.length <= 256 && key.none { it.isWhitespace() || it.code < 32 }) { "Invalid Giphy Android/Posts API option" }
+    val literal = "\"" + key.replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+    buildConfigField("String", "GIPHY_POSTS_API_KEY", literal)
+}
 android {
     namespace = "nl.davidengelen.redsquare"
     compileSdk = 36
@@ -49,8 +55,12 @@ android {
         debug {
             applicationIdSuffix = ".dev"
             configurePush("Debug", "nl.davidengelen.redsquare.dev")
+            configureGiphy("Debug")
         }
-        release { configurePush("Release", "nl.davidengelen.redsquare") }
+        release {
+            configurePush("Release", "nl.davidengelen.redsquare")
+            configureGiphy("Release")
+        }
     }
     sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))
     packaging.resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
