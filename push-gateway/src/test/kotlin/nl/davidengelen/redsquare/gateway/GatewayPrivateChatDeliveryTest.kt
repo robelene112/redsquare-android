@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicReference
 class GatewayPrivateChatDeliveryTest {
     @get:Rule val directory = TemporaryFolder()
 
-    @Test(timeout = 30_000) fun privateCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal() = privateJourney()
+    @Test(timeout = 30_000) fun chatCandidateProducesOnlyAnOpaqueWakeAndRecipientProofRetrievesItsOriginal() = privateJourney()
 
     @Test(timeout = 30_000) fun oneAuthenticatedStreamDeliversSuccessiveMessagesWithoutRepeatingAnOriginal() = privateJourney(continueStream = true)
 
@@ -164,7 +164,7 @@ class GatewayPrivateChatDeliveryTest {
                                 if (lifecycle) {
                                     // The synchronized idle tick drains the first send and its durable503 backoff
                                     // before observer shutdown can interrupt it. No additional candidate is injected.
-                                    gateway.privateCandidate(backend, null, sender)
+                                    gateway.chatCandidate(backend, null, sender)
                                     assertEquals("Draining a pending attempt must not bypass its backoff", 1, fcm.requestCount)
                                 }
                                 if (continueStream) {

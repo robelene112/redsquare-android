@@ -52,7 +52,7 @@ class GatewayChatObserver(private val gateway: PushGateway, private val identity
                             pending = inbox.poll(1, TimeUnit.SECONDS)
                             pending?.let { synchronized(inbox) { queuedBytes -= it.size } }
                         }
-                        gateway.privateCandidate(backend, pending, sender)
+                        gateway.chatCandidate(backend, pending, sender)
                         pending = null
                     }
                 }

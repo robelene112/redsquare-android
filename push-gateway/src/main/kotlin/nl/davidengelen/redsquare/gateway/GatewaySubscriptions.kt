@@ -309,38 +309,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val envelope = try { PrivateChat.originalEnvelope(wire) } catch (_: Exception) { return }
         val signed = try { SaitoEnvelope.decodePayload(envelope) } catch (_: Exception) { return }
         if (!signed.body.isJsonPrimitive || !signed.body.asJsonPrimitive.isString) return
-        val now = clock.millis()
-        if (signed.createdAt > now || now - signed.createdAt >= LIFETIME) return
-        val state = store.load()
-        prune(state, now)
-        val events = state.getAsJsonObject("events")
-        val expiresAt = minOf(now + GatewayChatOriginals.RETENTION, signed.createdAt + LIFETIME)
-        val recipients = state.getAsJsonObject("subscriptions").entrySet().filter { (subscription, value) ->
-            val binding = value.asJsonObject
-            val owner = savedText(binding, "owner")
-            savedText(binding, "backend") == backend.id && savedNumber(binding, "expiresAt") > now &&
-                "private-chats" in savedText(binding, "categories").split(',') &&
-                owner != signed.author && owner in signed.recipients &&
-                events.entrySet().none { (_, event) -> event.asJsonObject.let {
-                    savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
-                        savedText(it, "signature") == signed.id
-                } }
+        enqueueChat(backend, envelope, signed, "private-chats") { binding ->
+            savedText(binding, "owner") in signed.recipients
         }
-        if (recipients.isEmpty()) return
-        if (events.size() + recipients.size > 4096) throw IOException("Gateway event capacity reached")
-        val originalExpiresAt = chatOriginals.save(backend, signed.id, envelope, expiresAt, now)
-        for ((subscription, value) in recipients) {
-            val binding = value.asJsonObject
-            val owner = savedText(binding, "owner")
-            events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
-                addProperty("subscription", subscription); addProperty("owner", owner)
-                addProperty("backend", backend.id); addProperty("signature", signed.id); addProperty("category", "private-chats")
-                addProperty("expiresAt", minOf(originalExpiresAt, savedNumber(binding, "expiresAt")))
-                addProperty("retainUntil", signed.createdAt + LIFETIME)
-                addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
-            })
-        }
-        store.save(state)
     }
 
     /** Group interests are explicit delivery choices, not server-side proof of group membership. */
@@ -348,6 +319,14 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val envelope = try { GroupChat.originalEnvelope(wire) } catch (_: Exception) { return }
         val signed = try { groupMessage(envelope) } catch (_: Exception) { return }
         val group = text(signed.body, "group_id")
+        enqueueChat(backend, envelope, signed, "group-chats", group) { binding ->
+            group in savedGroups(binding)
+        }
+    }
+
+    /** Both Chat forms share one bounded original cache and durable per-subscription event lifecycle. */
+    private fun enqueueChat(backend: SaitoBackend, envelope: String, signed: SignedSaitoMessage,
+        category: String, group: String? = null, interested: (JsonObject) -> Boolean) {
         val now = clock.millis()
         if (signed.createdAt > now || now - signed.createdAt >= LIFETIME) return
         val state = store.load()
@@ -356,8 +335,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         val recipients = state.getAsJsonObject("subscriptions").entrySet().filter { (subscription, value) ->
             val binding = value.asJsonObject
             savedText(binding, "backend") == backend.id && savedNumber(binding, "expiresAt") > now &&
-                "group-chats" in savedText(binding, "categories").split(',') &&
-                savedText(binding, "owner") != signed.author && group in boundGroups(binding) &&
+                category in savedText(binding, "categories").split(',') &&
+                savedText(binding, "owner") != signed.author && interested(binding) &&
                 events.entrySet().none { (_, event) -> event.asJsonObject.let {
                     savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
                         savedText(it, "signature") == signed.id
@@ -371,8 +350,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
             val binding = value.asJsonObject
             events.add(ByteArray(32).also(SecureRandom()::nextBytes).hex(), JsonObject().apply {
                 addProperty("subscription", subscription); addProperty("owner", savedText(binding, "owner"))
-                addProperty("backend", backend.id); addProperty("signature", signed.id)
-                addProperty("category", "group-chats"); addProperty("group", group)
+                addProperty("backend", backend.id); addProperty("signature", signed.id); addProperty("category", category)
+                if (group != null) addProperty("group", group)
                 addProperty("expiresAt", minOf(originalExpiresAt, savedNumber(binding, "expiresAt")))
                 addProperty("retainUntil", signed.createdAt + LIFETIME)
                 addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
@@ -465,7 +444,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
             savedNumber(it, "expiresAt") > now && savedText(it, "owner") == savedText(event, "owner") &&
                 savedText(it, "backend") == savedText(event, "backend") &&
                 savedText(event, "category") in savedText(it, "categories").split(',') &&
-                (savedText(event, "category") != "group-chats" || savedText(event, "group") in boundGroups(it))
+                (savedText(event, "category") != "group-chats" || savedText(event, "group") in savedGroups(it))
         }
     }
 
@@ -557,6 +536,8 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     @Synchronized override fun close() = store.close()
 
     private fun savedText(body: JsonObject, name: String): String = try { text(body, name) }
+        catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
+    private fun savedGroups(body: JsonObject): List<String> = try { boundGroups(body) }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
     private fun savedNumber(body: JsonObject, name: String): Long = try { number(body, name) }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }

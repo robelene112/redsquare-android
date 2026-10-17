@@ -120,7 +120,7 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
         return true
     }
 
-    @Synchronized fun privateCandidate(backend: nl.davidengelen.redsquare.saito.SaitoBackend,
+    @Synchronized fun chatCandidate(backend: nl.davidengelen.redsquare.saito.SaitoBackend,
         wire: ByteArray?, sender: FcmSender) {
         if (Thread.currentThread().isInterrupted) throw InterruptedException()
         if (wire != null) {
