@@ -58,7 +58,13 @@ Signed25/0.1.25 is prepared from19e with the established certificate and package
 APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8.
 Gradle/signature/manifest checks passed, but its wrapper reported143; independent
 repeated APK signature/package/version/hash verification passed. Do not claim
-the wrapper exited0. It remains unpublished, with final evidence reviews complete.
+the wrapper exited0. It was published after final evidence reviews completed.
 This checkpoint does not establish Pixel performance/update continuity, real
 YouTube playback, Owner Registry registration, Google closed-app delivery,
-provider/operator declarations or Play approval. Beta24 remains published.
+provider/operator declarations or Play approval.
+
+Signed beta25 is now published and independently downloaded from
+https://davidengelen.nl/redsquare/. Publisher exited0; downloaded hash, signature,
+package25/0.1.25, minimum SDK29 and latest/immutable manifest equality pass.
+Immutable24 is unchanged. [Hashed publication records](signed-preview25-published/README.md)
+retain the exact observation. No physical installation is claimed.

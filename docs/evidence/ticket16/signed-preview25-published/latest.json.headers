@@ -1,0 +1,15 @@
+HTTP/2 200 
+date: Sat, 17 Oct 2026 09:35:19 GMT
+content-type: application/json
+content-length: 662
+server: cloudflare
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+last-modified: Sat, 17 Oct 2026 09:35:01 GMT
+etag: "6ad34145-296"
+accept-ranges: bytes
+x-served-by: davidengelen.nl
+cf-cache-status: DYNAMIC
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=31ycY%2Bn8%2Fyiv%2FhKGdm0nl4eO7CWVXHUT5FiNiCiHSfZEB191u1u3he%2BOWhLCBPdkHQZUE3Zu6hN90%2FYsr2tns6WjwPKEpPpFtNlbGfNaqvX71%2FvwSYLF1j49QNx5LHxUug6ifWtiaLfxkr19C5I%3D"}]}
+cf-ray: a4be50044a43d3c0-FRA
+alt-svc: h3=":443"; ma=86400
+

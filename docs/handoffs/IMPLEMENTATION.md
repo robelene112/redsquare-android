@@ -65,14 +65,14 @@ regressions now pass on both SDKs; see[the current checkpoint](../evidence/ticke
 Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
 test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
 Readiness-fixture test build73696 completed PASS1m49s. No owned local build active.
-Signed beta25 at19e is prepared, unpublished. Final combined evidence reviews
-at c365a5f4 are Standards0/Spec0; next action is publication of that exact APK.
+Signed beta25 at19e is published and independently downloaded/verified. Final
+combined evidence reviews at c365a5f4 are Standards0/Spec0.
 Its Gradle build completed PASS3m26s and final signature/manifest steps ran, but
 outer exec3548 reported143. Independent APK hash/signature/certificate/package/
 version/source checks passed; do not call that wrapper exit0. Logs are
 `.scratch/gif16-beta25-build.log` and `gif16-beta25-independent-verification.txt`.
 APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8,
-version25/0.1.25, established certificate unchanged. Beta24 remains published.
+version25/0.1.25, established certificate unchanged. Beta24 is retained unchanged.
 Initial full Android10 39013781414 at19e failed before actual notification
 death. Fixture-only5154e89b full Android10 39014622109 is FAILURE later at
 the username initial-feed observation, after both social process checks pass.
@@ -81,7 +81,7 @@ Focused corrected process checks on Android17 39014623934 SUCCESS
 public feed reads:400PASS/95records/29interrupted outputs, no assumptions. Production is identical; source39013271917 at19e SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
-No real provider/key/account/node/live-write change. Beta24 remains current.
+No real provider/key/account/node/live-write change. Beta25 is now current.
 Protected untracked group contract stays untouched.
 
 Implemented source: direct native picker with exact debounced searches,24 results,
@@ -172,7 +172,7 @@ Corrected full Android10 39014622109 failed later at UsernamePreviewTest443:
 owned Archive not observed in5s while feed still loads,15/16class cases pass.
 [Second retained failure](../evidence/ticket16/full-regression-red/android10-username/README.md).
 Initial feed readiness was corrected in the fixture only; the complete third
-Android10 run now succeeds. Beta25 is still unpublished pending final review.
+Android10 run now succeeds. Beta25 was published after final combined review.
 
 Readiness correction0a6b37bd and corrected metadatae3bf6f4d have both reviews0/0.
 Focused Android10 usernames39017639582 SUCCESS exactlye3bf6f4d:
@@ -181,14 +181,15 @@ Corrected full Android10 39018073768 SUCCESS exactlye3bf6f4d, public reads true:
 398PASS plus the existing Profile assumption,94records,29interrupted outputs.
 [Full10 originals](../evidence/ticket16/full-regression/android10/README.md).
 Source39017616391 at the same candidate SUCCESS release/lint.
-Next: complete combined full10 evidence review, then publish prepared beta25.
+Combined reviews at c365a5f4 are Standards0/Spec0. Exact prepared beta25 is
+published; downloaded APK/hash/signature/package/SDK and manifest checks pass.
 Preserve production19e. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
-stay open. Latest tracker update records full17 acceptance and the second full10 failure;
-focused readiness and corrected complete full10 now pass; final evidence review
-and beta25 publication remain pending. Whole69ce evidence reviews found only these stale handoff status
-lines; the current correction addresses them. No fixture/evidence findings remain.
+stay open. Focused readiness and corrected complete full10 pass; final combined
+evidence reviews are complete. Earlier failures remain retained.
+[Publication records](../evidence/ticket16/signed-preview25-published/README.md)
+retain public HTTPS observations; immutable24 is unchanged.
 [Current GIF data flow](../research/GIPHY_DATA_FLOW_2026_10_17.md) supplements the
 dated release inventory without claiming provider/Play/account facts.
 
@@ -869,9 +870,10 @@ current client preparation is described above.
 
 #41 is CLOSED. Canonical [final acceptance](../evidence/ticket41/FINAL_ACCEPTANCE.md)
 records full Android10/17 gates and final review results.
-Signed beta24/0.1.24 is published and verified at https://davidengelen.nl/redsquare/.
-APK SHA256 `7d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16`.
-Version25 is reserved and prepared, unpublished; see the current #16 section.
+Signed beta25/0.1.25 is published and independently verified at https://davidengelen.nl/redsquare/.
+APK SHA256 `2eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8`.
+Source19e1083d, established certificate, minimum SDK29. Immutable24 is unchanged;
+physical owner installation/continuity remains unobserved.
 Keep signing material outside Git. Use
 [review-build operations](../REVIEW_BUILDS.md) for the next authorized publication.
 
@@ -879,9 +881,10 @@ Keep signing material outside Git. Use
 
 | Issue | Current condition / next useful work |
 | --- | --- |
-| #16, #31 | #16 controlled native work above remains active; live authorized key pending, question already asked. |
+| #16, #31 | #16 controlled native work is reviewed and published in25; live authorized key pending, question already asked. #31 still depends on16. |
 | #17 | Frozen recovery source above; latest actual public run39004585910 shows provider sign-in check, Playing unproved. No unchanged retry. Reopened after unintended commit auto-close. |
 | #19 | Owner Registry name checks time out despite authenticated peer/key mapping. Frozen pending concrete cause/change. Canonical `docs/evidence/ticket19/FINAL_REGRESSION_CHECKPOINT.md`. |
+| #32 | Native/client and gateway source checkpoints accepted; configured Google delivery, deployment and physical closed-app checks remain. |
 | #33, #34 | Depend on#32. Chat transport source audit above is preparation only. |
 | #35 | Integrated acceptance and actual Pixel7 startup/update checks remain. Emulator results do not prove physical targets. |
 | #36 | Real publisher/legal/contact/retention/declarations/submission facts remain. Read the Play research documents before release work. |
