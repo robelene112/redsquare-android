@@ -161,6 +161,12 @@ class GatewayPrivateChatDeliveryTest {
                                 assertEquals(text, received.message.text)
                                 assertEquals(author.publicKey, received.counterparty)
                                 assertEquals(1, fcm.requestCount)
+                                if (lifecycle) {
+                                    // The synchronized idle tick drains the first send and its durable503 backoff
+                                    // before observer shutdown can interrupt it. No additional candidate is injected.
+                                    gateway.privateCandidate(backend, null, sender)
+                                    assertEquals("Draining a pending attempt must not bypass its backoff", 1, fcm.requestCount)
+                                }
                                 if (continueStream) {
                                     fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/next-private\"}").build())
                                     val next = PrivateChat.create(author, recipient.publicKey, "Another message on the same connection",
