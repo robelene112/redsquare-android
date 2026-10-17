@@ -132,11 +132,24 @@ no dependency, credentials or account operations yet. Prior native UI11/worker3 
 Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
-No implemented Android gateway binding, resolver, observer,
-FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
+Android gateway binding is accepted at the controlled HTTP/storage seam above.
+Resolver, continuous observer, FCM sender, physical retention cleanup and
+whole#42 acceptance remain unfinished. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays
 untouched. Public signed beta24 unchanged.
+
+## Current bounded Archive read
+
+Tracer0cba443f has actual intended RED1m15s, exit1: gateway old4PASS/new1FAIL
+atGatewayArchiveTest:87 (expected3/got0), first OWNER loop. OFFICIAL and later
+assertions unexecuted. Core task UP-TO-DATE. [Retained](../evidence/ticket42/archive-red/README.md).
+Minimum9967ff40 adds owned-identity authenticated read-only WebSocket requests,
+bounded service/response handling, strict UTF8 and signed root/reply/mention
+parsing. Its owned local build52476 finished PASS50s, gateway5/0/0 including both
+selector loops (new0.888s); core UP-TO-DATE. [Retained](../evidence/ticket42/archive-green/README.md).
+Independent source reviews are pending.
+No continuous observer, candidate eligibility, durable event or delivery claim.
 
 ## Accepted #32 foundation
 
