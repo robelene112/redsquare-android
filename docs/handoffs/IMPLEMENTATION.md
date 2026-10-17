@@ -54,8 +54,8 @@ source checkpoint is frozen; claim the next sequential source preparation.
 
 Sole writer root, assigned @me, native blockers0. Fixed review base
 `0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app source
-`32d0c22c97456a39e4e1330c4ba31c1e61cc17b8` is the reviewed minimum, awaiting
-its first native metadata result. Corrected local build42514 completed successfully;
+`32d0c22c97456a39e4e1330c4ba31c1e61cc17b8` is the reviewed minimum. Native
+metadata run39010198233 atd423666d passed2/0/36.558s. Corrected local build42514 completed successfully;
 no owned local build remains active.
 The Android-authorized key remains pending. Do not repeat its question or borrow
 backend web keys. Use [primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md)
@@ -107,8 +107,9 @@ ordinary photo adds and source navigation, dropping removed-image metadata.
 Optional malformed credits do not discard text/images. PostImages shows provider
 brand and available credits, including its viewer; signed Saito payload remains
 only original URLs. Source-link navigation persists current work first, reusing
-picker persistence. Source reviews/local build/nativeGREEN still required. Then retain selected metadata/
-attribution and prove signed post/reply/quote interoperability; complete
+picker persistence. Metadata source reviews and local/native checks passed at
+the checkpoint below. Fresh-Activity restoration and signed post/reply/quote
+interoperability verification remain pending; complete
 Android10/17 and recovery/failure acceptance. Live authorized Giphy remains a
 separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.
 Protected untracked group contract stays untouched. Latest issue16 comment
@@ -836,7 +837,7 @@ omitted its already-available saved metadata. Corrected one PostImages binding
 at32d0c22c; both bounded fix reviews now Standards0/Spec0.
 Obsolete local build88421 was uniquely inspected/retired with exit143 before
 editing; it is not a pass. Corrected source reviews Standards0/Spec0; local build42514 PASS.
-Corrected native metadata acceptance remains pending.
+Corrected native metadata checkpoint passed in39010198233, as recorded below.
 Separate source39009396879 SUCCESS at tracerb377c2e1, not new metadata acceptance.
 
 Remaining GIF acceptance should include a fresh Activity/ViewModel launch when
@@ -862,4 +863,7 @@ captures, and six controlled post/reply/quote UI/socket cases across both backen
 bindings. New raw public frames retained for independent pinned-client checks.
 Existing image posting/read paths are reused; no missing-feature RED is claimed
 for this verification extension. Each UI class retains its180second bound.
-Current new test build/review/runtime still required; full16 is not accepted.
+First verification local build55226 PASS2m7s. Review caught the official fixture
+endpoint extra missing; corrected before any push/native execution. Both backend
+cases now select their explicit owned peer extra. Corrected review/build/runtime
+still required; full16 is not accepted.

@@ -109,7 +109,8 @@ class GiphyPostingTest {
             })
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra(if (backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl",
+                        "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")).use {
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
