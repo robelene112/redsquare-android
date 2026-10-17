@@ -151,7 +151,12 @@ class GatewayChainTest {
                     assertEquals(200, response.statusCode())
                     val status = JsonParser.parseString(response.body()).asJsonObject
                     assertNotNull("Processed chain cursor must be durably observable", status.get("cursor"))
-                    if (reads.get() >= 5) assertEquals("chain-reorganization", status.getAsJsonObject("gap").get("reason").asString)
+                    if (reads.get() >= 5) {
+                        assertEquals("chain-reorganization", status.getAsJsonObject("gap").get("reason").asString)
+                        assertNotNull("Earlier coverage gaps must remain observable beside the latest warning", status.get("gaps"))
+                        val reasons = status.getAsJsonArray("gaps").map { it.asJsonObject.get("reason").asString }.toSet()
+                        assertEquals(setOf("bootstrap-history-unavailable", "chain-reorganization"), reasons)
+                    }
                     return status.getAsJsonObject("cursor")
                 }
                 PushGateway(state, "https://push.fixture.invalid").use { gateway ->
