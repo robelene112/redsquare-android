@@ -78,9 +78,24 @@ Android17 full39027473052 also FAILED at the exact same preparation capture:
 Both full attempts keep their actual failures,58hashes/2PNG+XML pairs perSDK in
 full-regression-first-failure. Root viewed all4 originals/parsed4XML. No private
 kill/cold recovery or later full tails are claimed. public_feed_read=true.
-Focused correction10run39029516099 and17run39029618443 execute exact0b43de73b;
-outcomes pending before the final full pair repeats. Production unchanged;
-signed26 is valid and unpublished.
+Focused correction10run39029516099 and17run39029618443 both SUCCESS at exact
+0b43de73b5cdfc4f275a16c80b5fd7e6661a422f. Actual PIDs3341to3769 and3171to4558;
+original/candidate/reaction/draft digests preserved with zero writes. Cold recovery
+1PASS5.85s/12.591s; restoration1PASS0.342s/0.126s. Core114/0/0/source/release/lint
+pass. Canonical process-viewport-green/android10/android17 has21hashes/5XML perSDK;
+root viewed two pending-message originals perSDK, remaining3PNGs retained.
+Local correction2m1s and bounded reviews0/0. No owned build, app unchanged.
+
+Corrected full10run39029829620 and17run39029992811 now run exact same
+e85076aaae54605fcf73ad9f424565a3dcffb46a, both public_feed_read=true. Outcomes pending.
+Retain first full failures as failures. Whole-child review base06e4ef27 unchanged;
+final full evidence review/publication remain. Prepared signed26 is valid and
+unpublished; no rebuild needed for the test-only correction.
+Read-only next-work preparation is in .scratch/chat33-native-preparation.txt;
+no next ticket claimed/implemented. After43 closes, consider one bounded child
+covering private/group notification tap destinations and private preview opt-in,
+linked to33/34 without changing their32 blockers or claiming Google transport.
+That is original settled scope, not a new product interview.
 Whole integrated reviews through e8b337a30 are Standards0/Spec0; final SDK evidence
 review and publication follow. Native acceptance is ready, so26 was prepared
 while full runs execute, updating the earlier defer-reservation plan. Build17593
