@@ -93,10 +93,19 @@ fixed14211039 with zero residual Spec findings. Changedpuredecodebehavior is not
 retroactively covered by immutable8c runs. NoSocialprocess-death/new17/fullclaim.
 Next634d5b9de adds ordinary receiveChat seam first then opaque worker after physical
 dismissal; original workerfirst journey retained. Both newfixture reviews0findings.
-Actualordinary-first RED39060436527 pending. Knownordinary/cloudduplicate production
-integration gap remains; newtrace accurately does not claim foregroundActivity.
-Next: ordinary/cloud dedup, pendinghistory/retry/process recovery and preview/tap/
-currentpolicy/identity coverage; final full SDKs,
+ActualordinaryRED39060436527 at634:8run/1FAIL71.397s after ordinarygenericalert,
+physicaldismiss and completedopaqueWorker; duplicate actualmanageralertviolates
+continuousabsence. SevenothercasesPASS. Eight hashed records native-ordinary-red;
+root viewed failurelauncher/statusicon, no visibleduplicate shade claim.
+Implementation1f6406e7e sharesretainPrivateChat acrossbothpaths: pendingbeforehistory/
+publication, legacycached&&!pendingseen, pendinghistoryremainseligible, selfauthored
+cachewithoutledger. CommonChatFixtureState nowpreservesownerchatpush; manual
+PrivateHistory/Mixed/ChatMuteProcess explicitreceipt-scopesadded. Localproduction+
+testcompilePASS3m35beforefinalfixtureparamclarification declaredPrefixes, production
+unchanged; two hashes in native-ordinary-local intentionally hash only3production
+sources. Exactfinalfixtureassembly/runtime39061294877 and source reviews pending.
+No ownedlocalbuild. Next: ordinaryGREEN/review, controlledpendinghistory/retry/process
+recovery and preview/tap/currentpolicy/identity coverage; final full SDKs,
 both reviews and next signed update are still required before native46 acceptance.
 Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 

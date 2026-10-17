@@ -1,0 +1,5 @@
+# Shared private receipt local build
+
+The three production sources matching1f6406e7e5967a22b0cd6aa8ba5be1bae99fd296 compile in3m35s. The same local task also compiles Android tests, before a final fixture-only constructor parameter clarification to declaredPrefixes. The two hashed records intentionally hash only those three exact production sources. Exact final fixture assembly/runtime is deferred to39061294877; no exact-source final fixture claim is inferred from the earlier log.
+
+The shared ordinary/background retention path prepares a pending receipt before history/publication, preserves legacy seen history and resumes an unpublished pending receipt instead of discarding it because its history already exists. Self-authored messages still cache without alerts. Fixtures now retain the newly produced wallet-local Chat receipt scopes. Both source reviews and actual ordinary-first GREEN remain pending. Later controlled recovery, current policy/tap/preview/identity and final full10/17 remain required. Beta27 is unchanged.
