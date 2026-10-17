@@ -827,3 +827,10 @@ For earlier ticket chronology, source provenance, failed attempts or previous
 session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md).
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
+
+
+Selected-credit source review3a07e0c1: Standards0, Spec1 because queue view
+omitted its already-available saved metadata. Corrected one PostImages binding.
+Obsolete local build88421 was uniquely inspected/retired with exit143 before
+editing; it is not a pass. Corrected source review/build/runtime remain required.
+Separate source39009396879 SUCCESS at tracerb377c2e1, not new metadata acceptance.
