@@ -11,7 +11,9 @@ public reference and fresh nonce. Before the existing deliberate Play action,
 it requires the same request back as readiness. The existing diagnostic helper
 arms an isolated observer of only the provider's reason and subreason nodes.
 It rejects hidden or clipped ancestors before reading those fields, bounds each
-text to512 characters and disposes the observer before replacement or CDP close.
+text to512 characters, disposes the previous observer before replacement and
+attempts best-effort disposal before CDP close while its socket/context remain
+available. A60second observer timer is the fallback when that cleanup cannot run.
 An outer instrumentation finally covers handshake cleanup even if peer startup
 or Activity launch fails. Actual Playing, no-autoplay, close, feed and zero
 Saito-write assertions remain unchanged.

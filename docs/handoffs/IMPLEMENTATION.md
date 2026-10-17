@@ -26,19 +26,27 @@ no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
 
 ## Current YouTube diagnostic checkpoint
 
-Sole issue #17, fixed review base c0f2da7e. Source747f1408 prearms the existing
-public-video diagnostic before Play with a PID/video/nonce cache handshake.
-Corrected source7d9e1d0c fixes cooked-template whitespace, rejects hidden or
-clipped ancestors before reading the two allowed text fields, and cleans up the
-observer plus the full handshake ownership scope. Standards0/Spec0 after fixes.
-Controlled generated-expression check passes; initial APK build passed3m23s.
-Corrected APK build passed1m46s; raw output is retained with preflight.
-Preflight: `docs/evidence/ticket17/native-visible-error-oct17/preflight/`.
-No new native public run yet. Existing public150/Playing failure remains open.
-Next: retain corrected local build, push and dispatch exactly one changed
-`video-public-android17` with the same second signed reference. Preserve real
-Playing/no-autoplay/close/feed/no-Saito-write acceptance. No unchanged retry,
-provider identity/header/proxy/login change or production node operation.
+Sole issue #17, fixed review base c0f2da7e. Prearmed source7d9e1d0c had
+Standards0/Spec0; corrected APK passed1m46s. Pushed candidate34bcf2f7 sourceCI
+39002708691 SUCCESS (JVM tests FROM-CACHE, release/lint included).
+Actual publicAndroid17 run39002714443 FAILED at unchanged Playing wait:1/1,
+49.627s. Readiness and Play completed; native ready0/error150 retained. No
+providerError text was captured before the frame-layout collector failed.
+No provider message/cause established. Root viewed all three original PNGs and
+parsed both XMLs. Canonical local packet:
+`docs/evidence/ticket17/native-visible-error-oct17/`.
+No unchanged rerun. #17 stays open; beta24 unchanged. No active owned localbuild.
+
+Production destroys the provider surface on every failed status. Next bounded
+app correction to assess against #17 recovery behavior: keep the ordinary
+provider error surface visible for101/150, with native Retry and external escape,
+until the user closes or retries. This is user-visible error handling, not a
+special diagnostic delay or provider workaround. First extend the existing
+controlled thread/provider recovery journey to prove delayed error text survives,
+then apply the minimum source correction and verify both Android versions.
+Actual public playback acceptance remains separate and unchanged. Giphy source
+research is available for a later sequential #16 preparation; no second ticket
+implementation has begun. Pending configuration questions are not repeated.
 
 ## Historical gateway checkpoint records
 
