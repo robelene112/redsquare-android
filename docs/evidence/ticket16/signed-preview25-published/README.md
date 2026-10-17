@@ -22,3 +22,6 @@ GIF search has no configured authorized Android key; whole #16 stays OPEN.
 Real Google delivery, live YouTube playback, Owner username registration,
 physical Pixel acceptance and Google Play submission remain unaccepted.
 Chat GIF #31 and private/group push #33/#34 remain separate unfinished work.
+
+Publication bookend735974db also has Standards0/Spec0. Tracker remains OPEN:
+[accepted checkpoint and remaining gates](https://github.com/robelene112/redsquare-android/issues/16#issuecomment-6232363432).

@@ -873,7 +873,9 @@ records full Android10/17 gates and final review results.
 Signed beta25/0.1.25 is published and independently verified at https://davidengelen.nl/redsquare/.
 APK SHA256 `2eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8`.
 Source19e1083d, established certificate, minimum SDK29. Immutable24 is unchanged;
-physical owner installation/continuity remains unobserved.
+physical owner installation/continuity remains unobserved. Publication bookend
+735974db reviews are Standards0/Spec0. Tracker16 comment6232363432 records the
+final full results and published25 while leaving acceptance OPEN.
 Keep signing material outside Git. Use
 [review-build operations](../REVIEW_BUILDS.md) for the next authorized publication.
 
@@ -892,6 +894,13 @@ Keep signing material outside Git. Use
 
 Parent#1 remains open. Original35 tickets:26closed,9open (#16,#17,#19,#31–#36).
 Extra#37,#39,#40,#41,#42 are closed. Fetch actual tracker state before changing claims.
+Native blocker counts rechecked after publication:16/17/19/32 have0;31/33/34
+have1;35 has4;36 has1. Every unblocked original issue is already assigned and
+has its specific external acceptance gate above. No next unblocked/unassigned
+original implementation ticket exists. Do not remove dependencies or report
+Chat GIF/private/group push source complete to manufacture progress. Resume
+from concrete new configuration/provider/device evidence; no repeated setup
+questions, unchanged public probes or node changes.
 
 ## Evidence and environment traps
 
