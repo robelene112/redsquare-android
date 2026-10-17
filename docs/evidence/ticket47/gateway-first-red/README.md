@@ -1,0 +1,5 @@
+# First group-interest gateway RED
+
+Actual local canonical Docker run ataf40014ba34ce731e5a37b55796726628fccab6d fails1case/1failure2.160s; Gradle1m2s and wrapper1. The controlled HTTP /v1/subscriptions/bind response is400, expected201, for explicit signed group-chats interest. The existing gateway does not support that binding. Preceding native fixture assertions confirm the recipient's active known-group role and its absence from the original message's direct recipients. These are public unsafe synthetic identities only.
+
+The first Owner binding fails before observer startup, so peer propagation/FCM/opaque reference/original assertions and the second logical backend are unexecuted. No actual dropped-message, native Android, independent new interoperability or live Google claim. Existing pinned group references remain the compatibility baseline. No production implementation preceded this actual RED. Four hashed records retain original build/JUnit/wrapper/source observations. The owned local build is fully drained.
