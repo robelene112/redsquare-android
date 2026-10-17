@@ -35,7 +35,8 @@ import java.util.concurrent.atomic.AtomicInteger
  * localOrigin is restricted to an owned loopback HTTP fixture, not another backend choice.
  */
 class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBackend,
-    localOrigin: String? = null) : Closeable {
+    localOrigin: String? = null, fixtureRegistrar: Boolean = false) : Closeable {
+    init { require(!fixtureRegistrar || localOrigin != null) }
     private val ready = CompletableFuture<Unit>()
     private val services = CompletableFuture<Set<String>>()
     private val disconnected = AtomicBoolean(false)

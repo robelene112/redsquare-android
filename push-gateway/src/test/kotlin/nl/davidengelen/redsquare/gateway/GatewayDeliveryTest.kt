@@ -151,10 +151,71 @@ class GatewayDeliveryTest {
         }
     }
 
+    @Test(timeout = 30_000) fun registrarConfirmedUsernameMentionProducesARecipientBoundWake() {
+        val reference = requireNotNull(javaClass.getResourceAsStream("/native-registry-reference.json"))
+            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+        val rows = reference.getAsJsonArray("rows")
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture, never fund.
+        assertEquals(owner.publicKey, rows[0].asJsonObject.get("publickey").asString)
+        val actor = SaitoWallet.create()
+        for (backend in SaitoBackend.entries) {
+            val now = System.currentTimeMillis()
+            val mention = SaitoTransaction.create(actor, JsonObject().apply {
+                addProperty("module", "RedSquare"); addProperty("request", "create tweet")
+                add("data", JsonObject().apply { addProperty("text", "Hello @NativeCase7@saito, a fresh name mention") })
+            }, now - 1000)
+            val identity = SaitoWallet.create()
+            ArchivePeer(identity, listOf(mention), now, rows).use { peer ->
+                MockWebServer().use { fcm ->
+                    fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/name-mention\"}").build())
+                    fcm.start(InetAddress.getByName("127.0.0.1"), 0)
+                    PushGateway(directory.newFolder("name-${backend.id}").toPath(), "https://push.fixture.invalid").use { gateway ->
+                        gateway.start()
+                        val connection = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build()
+                        val journal = object : PushSubscriptionClient.Journal {
+                            private var value: String? = null
+                            override fun load() = value
+                            override fun save(value: String) { this.value = value }
+                        }
+                        PushSubscriptionClient("https://push.fixture.invalid", journal, PushSubscriptionClient.Http { _, path, body, signature ->
+                            val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}$path"))
+                                .timeout(Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(body))
+                            if (signature != null) request.header("X-Saito-Signature", signature)
+                            val response = connection.send(request.build(), HttpResponse.BodyHandlers.ofString())
+                            PushSubscriptionClient.Reply(response.statusCode(), response.body())
+                        }).reconcile { PushSubscriptionClient.Demand(owner, backend, "controlled-name-fid", "mentions") }
+                        val sender = FcmSender("owned-fixture", GoogleCredentials.create(
+                            AccessToken("synthetic-owned-oauth", Date(now + 3_600_000))), "http://127.0.0.1:${fcm.port}")
+                        GatewayArchive(identity, backend, peer.origin, fixtureRegistrar = true).use { gateway.poll(it, sender) }
+                        peer.check()
+                        val sent = fcm.takeRequest(2, TimeUnit.SECONDS)
+                        assertNotNull("A current registrar-confirmed username mention must reach its recipient", sent)
+                        assertEquals(1, peer.nameChecks.get())
+                        val data = JsonParser.parseString(requireNotNull(requireNotNull(sent).body).utf8())
+                            .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
+                        val wake = data.get("wake").asString
+                        val intent = "Saito push resolve v1\nhttps://push.fixture.invalid/v1/wakes/resolve\n$wake"
+                        val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}/v1/wakes/resolve"))
+                            .timeout(Duration.ofSeconds(5)).header("X-Saito-Owner", owner.publicKey)
+                            .header("X-Saito-Signature", owner.sign(intent.toByteArray(Charsets.UTF_8)))
+                            .POST(HttpRequest.BodyPublishers.ofString("{\"version\":1,\"wake\":\"$wake\"}"))
+                        val resolved = connection.send(request.build(), HttpResponse.BodyHandlers.ofString())
+                        assertEquals(200, resolved.statusCode())
+                        val result = JsonParser.parseString(resolved.body()).asJsonObject
+                        assertEquals(owner.publicKey, result.get("wallet").asString)
+                        assertEquals(backend.id, result.get("backend").asString)
+                        assertEquals(mention.id, result.get("signature").asString)
+                    }
+                }
+            }
+        }
+    }
+
     /** The external peer owns signed fixture content and independently enforces the read-only query contract. */
-    private class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long) : Closeable {
+    private class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long, private val registryRows: JsonArray? = null) : Closeable {
         private val failure = AtomicReference<Throwable?>()
         private val server = MockWebServer()
+        val nameChecks = java.util.concurrent.atomic.AtomicInteger()
         val exposeHead = java.util.concurrent.atomic.AtomicBoolean(true)
         val exactReads = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
         val origin: String get() = "http://127.0.0.1:${server.port}"
@@ -178,7 +239,7 @@ class GatewayDeliveryTest {
                             when (frame[0].toInt()) {
                                 1 -> webSocket.send(SaitoWire.handshakeReply(serverWallet, frame.copyOfRange(1, 33), counter).toByteString())
                                 2 -> { require(SaitoWire.verifyHandshake(frame, counter) == identity.publicKey); authenticated.set(true) }
-                                20 -> webSocket.send((byteArrayOf(9) + "archive|Archive|".toByteArray()).toByteString())
+                                20 -> webSocket.send((byteArrayOf(9) + ("archive|Archive|" + if (registryRows != null) ";registry|Registry|" else "").toByteArray()).toByteString())
                                 12 -> {
                                     require(authenticated.get())
                                     val inputs = ByteBuffer.wrap(frame, 5, 4).int
@@ -187,7 +248,19 @@ class GatewayDeliveryTest {
                                     val offset = 5 + 93 + (inputs + outputs) * 59
                                     require(offset + length == frame.size)
                                     val request = JsonParser.parseString(String(frame, offset, length, Charsets.UTF_8)).asJsonObject
-                                    require(request.keySet() == setOf("request", "data") && request.get("request").asString == "archive")
+                                    require(request.keySet() == setOf("request", "data"))
+                                    if (request.get("request").asString == "registry query") {
+                                        require(registryRows != null)
+                                        require(request.get("data") == JsonParser.parseString(
+                                            "{\"request\":\"registry namecheck\",\"identifier\":\"NativeCase7@saito\"}"))
+                                        nameChecks.incrementAndGet()
+                                        // Existing dispatcher fallback is provisional; the signed registrar callback follows.
+                                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) +
+                                            "{\"err\":\"no response\"}".toByteArray()).toByteString())
+                                        webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + registryRows.toString().toByteArray()).toByteString())
+                                        return
+                                    }
+                                    require(request.get("request").asString == "archive")
                                     val criteria = request.getAsJsonObject("data")
                                     require(criteria.get("request").asString == "load" && criteria.get("field1").asString == "RedSquare" &&
                                         criteria.get("flagged_ne").asInt == 1)
