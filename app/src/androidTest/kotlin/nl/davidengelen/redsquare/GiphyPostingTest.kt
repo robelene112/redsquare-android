@@ -37,14 +37,14 @@ class GiphyPostingTest {
         }?.forEach { check(it.delete()) }
     }
 
-    @Test fun ownerGifPost() = publish("post", SaitoBackend.OWNER)
+    @Test fun ownerGifPost() = publish("post", SaitoBackend.OWNER, verifyPublishedCredits = true)
     @Test fun ownerGifReply() = publish("reply", SaitoBackend.OWNER)
     @Test fun ownerGifQuote() = publish("quote", SaitoBackend.OWNER)
     @Test fun officialGifPost() = publish("post", SaitoBackend.OFFICIAL)
     @Test fun officialGifReply() = publish("reply", SaitoBackend.OFFICIAL)
     @Test fun officialGifQuote() = publish("quote", SaitoBackend.OFFICIAL)
 
-    private fun publish(kind: String, backend: SaitoBackend) {
+    private fun publish(kind: String, backend: SaitoBackend, verifyPublishedCredits: Boolean = false) {
         AndroidBackendStore(context).save(backend)
         val fixture = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
@@ -108,10 +108,11 @@ class GiphyPostingTest {
                 }.joinToString(prefix = "[", postfix = "]")
             })
             peer.start().use { server ->
-                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                val launchIntent = Intent(context, MainActivity::class.java)
                     .putExtra(if (backend == SaitoBackend.OWNER) "feedPeerUrl" else "feedOfficialPeerUrl",
                         "ws://127.0.0.1:${server.port}/wsopen")
-                    .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")).use {
+                    .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")
+                ActivityScenario.launch<MainActivity>(launchIntent).use { scenario ->
                     try {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
@@ -147,6 +148,30 @@ class GiphyPostingTest {
                         assertEquals(1, peer.transactions.size)
                         peer.assertHealthy()
                         capture("$label-indexed")
+                        if (verifyPublishedCredits) {
+                            assertPublishedCredits("$label-published-credits")
+                            // Reopen the disposable composer, then leave and launch a fresh Activity.
+                            ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                                androidx.compose.ui.semantics.SemanticsProperties.EditableText,
+                                androidx.compose.ui.text.AnnotatedString("")))
+                            ui.onNodeWithText("Back").performClick()
+                            scenario.close()
+                            ActivityScenario.launch<MainActivity>(launchIntent).use {
+                                try {
+                                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                                    ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                                    ui.onNodeWithText(text).assertIsDisplayed()
+                                    assertPublishedCredits("$label-fresh-published-credits")
+                                    assertEquals(1, peer.transactions.size)
+                                    peer.assertHealthy()
+                                } catch (failure: Throwable) {
+                                    try { capture("$label-fresh-published-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                                    throw failure
+                                }
+                            }
+                        }
                     } catch (failure: Throwable) {
                         try { capture("$label-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
                         throw failure
@@ -154,6 +179,14 @@ class GiphyPostingTest {
                 }
             }
         }
+    }
+
+    private fun assertPublishedCredits(name: String) {
+        ui.waitUntil(10_000) { ui.onAllNodesWithText("By Owned publisher").fetchSemanticsNodes().isNotEmpty() }
+        ui.onNode(hasScrollAction()).performScrollToNode(hasText("By Owned publisher"))
+        ui.onNodeWithText("By Owned publisher").assertIsDisplayed()
+        ui.onNodeWithText("Source").assertIsDisplayed()
+        capture(name)
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
