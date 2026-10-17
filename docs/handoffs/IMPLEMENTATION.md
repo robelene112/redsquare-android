@@ -63,7 +63,8 @@ Android10 run39013271535 preview3/0/18.239s and posting6/0/26.229s; Android17
 
 Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
 test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
-No owned local build remains active. Signed beta25 at19e is prepared, unpublished.
+Readiness-fixture test build73696 is active; its result is pending.
+Signed beta25 at19e is prepared, unpublished.
 Its Gradle build completed PASS3m26s and final signature/manifest steps ran, but
 outer exec3548 reported143. Independent APK hash/signature/certificate/package/
 version/source checks passed; do not call that wrapper exit0. Logs are
@@ -71,9 +72,10 @@ version/source checks passed; do not call that wrapper exit0. Logs are
 APK SHA2562eb5f4ffc021e4fc87672e25f7f5ca207b2d19d49a96453a5a422abe10d536c8,
 version25/0.1.25, established certificate unchanged. Beta24 remains published.
 Initial full Android10 39013781414 at19e failed before actual notification
-death. Fixture-only5154e89b now runs full Android10 39014622109 with approved
-public feed reads, plus focused corrected process checks on Android17
-39014623934 SUCCESS (canonical card-process-green/android17). Full Android17 39013783536 SUCCESS at19e with approved
+death. Fixture-only5154e89b full Android10 39014622109 is FAILURE later at
+the username initial-feed observation, after both social process checks pass.
+Focused corrected process checks on Android17 39014623934 SUCCESS
+(canonical card-process-green/android17). Full Android17 39013783536 SUCCESS at19e with approved
 public feed reads:400PASS/95records/29interrupted outputs, no assumptions. Production is identical; source39013271917 at19e SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
@@ -168,10 +170,14 @@ owned Archive not observed in5s while feed still loads,15/16class cases pass.
 Only initial feed readiness is being corrected; no whole Android10 acceptance
 or beta publication is claimed.
 
-Next: resolve the observed dismissal and finish full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
+Next: finish review/build of fixture-only username readiness correction0a6b37bd,
+run focused Android10 usernames and then corrected full Android10. Preserve
+production19e. Publish prepared beta25 after complete acceptance. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
-stay open. Latest tracker comment6231310674 predates the corrected native GREEN.
+stay open. Latest tracker comment6231310674 predates full17 acceptance and the second
+full10 failure. Whole69ce evidence reviews found only these stale handoff status
+lines; the current correction addresses them. No fixture/evidence findings remain.
 [Current GIF data flow](../research/GIPHY_DATA_FLOW_2026_10_17.md) supplements the
 dated release inventory without claiming provider/Play/account facts.
 
