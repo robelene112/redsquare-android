@@ -158,6 +158,7 @@ class GiphyPreviewTest {
                         assertAnimation("Image 1 of 1")
                         assertGifContained("Image 1 of 1", "selected-image")
                         assertTrue(paths.contains(originalPath))
+                        assertSelectedCredits()
                         ui.onNodeWithText("Save draft").performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes().isNotEmpty() }
                         scenario.recreate()
@@ -170,9 +171,13 @@ class GiphyPreviewTest {
                         assertTrue("Restoration must freshly load the exact original URL", paths.contains(originalPath))
                         assertGifContained("Image 1 of 1", "restored-image")
                         capture("animated-restored-draft")
+                        assertSelectedCredits()
                         ui.onNodeWithText("Remove image 1").performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isEmpty() }
                         ui.onNode(hasSetTextAction()).assert(hasText("My animated GIF draft"))
+                        ui.onNodeWithText("By Owned fixture artist").assertDoesNotExist()
+                        ui.onNodeWithText("Source").assertDoesNotExist()
+                        ui.onNodeWithText("Powered by GIPHY").assertDoesNotExist()
                         assertTrue(peer.transactions.isEmpty())
                         peer.assertHealthy()
                     } catch (failure: Throwable) {
@@ -182,6 +187,12 @@ class GiphyPreviewTest {
                 }
             }
         }
+    }
+
+    private fun assertSelectedCredits() {
+        ui.onNodeWithText("Powered by GIPHY").performScrollTo().assertIsDisplayed()
+        ui.onNodeWithText("By Owned fixture artist").performScrollTo().assertIsDisplayed()
+        ui.onNodeWithText("Source").performScrollTo().assertIsDisplayed()
     }
 
     private fun assertGifContained(label: String, name: String) {

@@ -17,13 +17,9 @@ Bookendc0f2da7e pushed; GitHub42 verified CLOSED at04:19:43UTC, comment622955888
 #32 verifiedOPEN/nativeblockers0. #32 configured
 SDK/Google/closed-app/Pixel and deployment stayopen. No account/IAM/node/hosting
 change, beta24unchanged. No ownedlocalbuild, protectedgroupdocuntouched.
-Nextsoleappwork: #17existingactualnativeYouTube150. ReadfrozenOct15evidence and
-.scratch/video17-next-native-observation.md beforechanges. A bounded prearmed
-visibleprovidererror-text capture on the existing owned-emulator/public-fixture
-seam can resolve missingnativecauseinformation; preservePlaying/noautoplay/
-close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
-providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
-no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
+Next sole app work is #16 below. The #17 native public-read checkpoint is
+frozen with a visible provider check and no unchanged retry planned. Other
+external inputs remain pending; no repeated owner questions or node changes.
 
 ## Frozen YouTube recovery checkpoint
 
@@ -54,35 +50,57 @@ No active #17 build/CI. No provider sign-in/header/origin/proxy change, account
 request or node operation. No unchanged public retry. #17 actual playback stays
 open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Standards0/Spec0. This
 source checkpoint is frozen; claim the next sequential source preparation.
-## Current Giphy source preparation
+## Current Giphy implementation (#16)
 
-#16 is assigned @me/nativeblockers0, startcomment6229976608, sole writerroot.
-Review base0e577ab066e9849647dfd53c3766b96c5cb7af7b. Android-authorized Giphy key
-is still pending; no repeat question or backend web-key borrowing. Direct API
-with native Compose fits current app; no Giphy SDK initialized/added.
-Read research `docs/research/GIPHY_SOURCE_PREPARATION_2026_10_17.md` plus existing
-contracts. Research only, not implementation acceptance.
+Sole writer root, assigned @me, native blockers0. Fixed review base
+`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. Current app source
+`39e0c24594fcd8f9f90918210701517687eeb5f8` is pushed; no local build active.
+The Android-authorized key remains pending. Do not repeat its question or borrow
+backend web keys. Use [primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md)
+and existing GIF contracts. No real provider/key/node/account/live-write change.
 
-First vertical tracer `GiphyPreviewTest.providerFailureCanRetryAndCloseWithoutLosingTheDraft`
-uses owned loopback HTTP503 twice and controlled Saito feed. It requires deliberate
-Add GIF, visible error/brand, Retry then Close, authored text and explicit saved
-draft restoration through normal UI, no Saito writes. No successful selection,
-animation, real provider or process-death claim yet. Initial production has no
-GIF button; expected RED is missing Add GIF, not yet observed. Tracer20098d5a
-source reviews Standards0/Spec0 and local debug/test APK build passed2minutes. New focused
-`gifs`/`gifs-android17` scopes retain a180s class bound; full includes the same
-class. Existing gates unchanged. No production source changed in this tracer.
-Pushed candidatef3b272d20408e1b99188ffb3f194620d600dda8e: actual focused
-Android17 RED39005341020 FAILED1/1/22.301s at missing Add GIF55; later provider/
-retry/cancel/restoration/no-write tails unexecuted. Separate sourceCI39005341145
-SUCCESS, same head. RED6hashes at docs/evidence/ticket16/failure-red/android17;
-root viewed failurePNG/parsedXML. No liveGiphy request/key. No active local build. Owned two-frame16x16 GIF asset is prepared locally
-(`owned-giphy-animation.gif`,467bytes), Android decoding not yet verified. Initial
-Python/Pillow attempt failed because Pillow is absent; no package installed.
-Next: retain the actual tracer result, implement the minimum failure-recovery path,
-then extend one journey into actual selection/animated uncached display and
-signed URL interoperability. Keep first-release scope and four-image cap.
-Beta24 unchanged. Protected untracked group doc remains untouched.
+Native Compose picker uses fixed production API, optional per-variant Posts key,
+explicit DEBUG/emulator/loopback fixture, exact queries, loading/error/retry/empty,
+24 ordered results, returned thumbnails, available creator/source links and
+Powered by GIPHY. Selecting the unchanged original URL durably saves the encrypted
+wallet/backend draft before publishing memory/closing. Existing four-attachment
+and message-size limits remain. Shared PostImages uses an uncached native
+animated drawable for Giphy sources:8MiB/512edge, two slots, lifecycle ownership,
+no raster LRU/disk/search store. Owned GIF has two16x16 frames, independently
+ImageIO-decoded; native frame observations are recorded below.
+
+| Checkpoint | Actual result and canonical packet |
+| --- | --- |
+| Missing Add GIF RED | f3b272d2 /39005341020 FAILED1/1/22.301s; [six originals](../evidence/ticket16/failure-red/android17/README.md). Later tails unexecuted. |
+| Recovery GREEN | e5ba44fd /39006305712 SUCCESS1/0/30.684s; [nine originals](../evidence/ticket16/failure-green/android17/README.md). Retry503 twice, close, save/recreate/text and zero Saito writes. Source39006306206 SUCCESS. |
+| Missing preview RED | f341a30a /39007107484 FAILED2/1/47.974s; [six originals](../evidence/ticket16/animation-red/android17/README.md). Recovery passed; later failed-method tails unexecuted. Source39007107311 SUCCESS. |
+| Selection/animation checkpoint |40588d70 /39007775320 SUCCESS2/0/29.539s; [thirteen originals](../evidence/ticket16/selection-green/android17/README.md). Distinct static thumbnail, two frames after selection/restoration, fresh exact original URL/query requests, removal/text/no-write. Source39007775786 SUCCESS. **Layout not accepted:** PNGs reveal native crop overdraw. |
+| Boundary RED |0abb1c29 /39008369694 FAILED2/1/32.83s; [seven originals](../evidence/ticket16/clipping-red/android17/README.md). Same-bitmap positive center passed; outside pixel y207 above actual screen bounds(24,215,296,375) failed. Recovery passed; later tails unexecuted. Source39008369597 SUCCESS. |
+
+Root viewed every retained GIF PNG and parsed its XML. Both axes reviewed the
+source/tracers/packets with0 outstanding findings after corrections. Earlier
+observer runs39008263619 and39008310559 were deliberately CANCELLED for
+window/screen coordinate and blank-bitmap oracle fixes; neither is app RED.
+
+Current one-line fix39e0c245 enables ImageView.cropToPadding with zero padding,
+retaining CENTER_CROP/URLs/decoder policy. Both bounded source reviews0/0;
+**Android17 run39008861337 SUCCESS2/0/49.277s**; source39008861427 SUCCESS.
+[Clipping GREEN](../evidence/ticket16/clipping-green/android17/README.md) retains
+12 originals, root viewed four PNGs/parsed four XMLs. Same-bitmap positive center
+and outside checks pass for thumbnail, selected and restored animation; actual
+red/blue frames are visible and text/title remain clear. Earlier overdraw is
+not relabeled as layout PASS. No extra local build was run
+for this setter; source/device CI compile it. Previous selection local build
+13621 PASS3m36s (core UP-TO-DATE).
+
+Next tracer adds visible selected Powered by GIPHY/creator/source after selection
+and recreation, and removal clears attribution. It has not run yet; expected
+RED is missing selected credits, not inferred. Then retain selected metadata/
+attribution and prove signed post/reply/quote interoperability; complete
+Android10/17 and recovery/failure acceptance. Live authorized Giphy remains a
+separate external gate. #16 and #31 stay open. Beta24 unchanged, no new APK.
+Protected untracked group contract stays untouched. Latest issue16 comment
+6230461462; latest tracker comment is not full acceptance.
 
 ## Historical gateway checkpoint records
 
@@ -770,8 +788,8 @@ No version25 is reserved. Keep signing material outside Git. Use
 
 | Issue | Current condition / next useful work |
 | --- | --- |
-| #16, #31 | Giphy Android key pending owner setup; question already asked. |
-| #17 | Real native YouTube Play fails error150. Preserve failed run38791958201. Prepared bounded provider-reason observation is `.scratch/video17-next-native-observation.md`; unchanged rerun adds no evidence. |
+| #16, #31 | #16 controlled native work above remains active; live authorized key pending, question already asked. |
+| #17 | Frozen recovery source above; latest actual public run39004585910 shows provider sign-in check, Playing unproved. No unchanged retry. Reopened after unintended commit auto-close. |
 | #19 | Owner Registry name checks time out despite authenticated peer/key mapping. Frozen pending concrete cause/change. Canonical `docs/evidence/ticket19/FINAL_REGRESSION_CHECKPOINT.md`. |
 | #33, #34 | Depend on#32. Chat transport source audit above is preparation only. |
 | #35 | Integrated acceptance and actual Pixel7 startup/update checks remain. Emulator results do not prove physical targets. |
@@ -779,7 +797,7 @@ No version25 is reserved. Keep signing material outside Git. Use
 | #38 | Branding decision, not a release blocker. |
 
 Parent#1 remains open. Original35 tickets:26closed,9open (#16,#17,#19,#31–#36).
-Extra#37,#39,#40,#41 are closed. Fetch actual tracker state before changing claims.
+Extra#37,#39,#40,#41,#42 are closed. Fetch actual tracker state before changing claims.
 
 ## Evidence and environment traps
 
@@ -799,98 +817,3 @@ For earlier ticket chronology, source provenance, failed attempts or previous
 session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md).
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
-
-
-## Active Giphy failure/search source candidate
-
-Minimum first source adds optional per-variant Android/Posts API key, fixed
-production api.giphy.com and explicit DEBUG/emulator/loopback-only fixture,
-native query/loading/error/retry/cancel/empty and metadata rows with available
-creator/source links. Direct24-result first page, pg-13,400ms debounce, exact
-nonblank queries and codepoint50 local limit; no query/key logging or result
-store. Opening from composer persists authored work first. Real response rows
-are currently text/attribution only: no selection or animated preview is claimed
-in this first error-recovery slice. Those remain the next vertical increment,
-not a release deferral or completed#16. No new APK publication.
-
-First candidate24cb943f local core/debug/test build6495 PASS4minutes (core
-UP-TO-DATE). Both source reviews found cancelled effects could clear a newer
-loading state; fixd585a6e2 removes cancelled shared-state writes. Corrected
-local build70388 PASS1m49s (coreUP-TO-DATE); corrected source reviews
-Standards0/Spec0. Runtime remains pending. Current
-first RED remains f3b272d2 missingAddGIF. Owned GIF467bytes remains untracked,
-decoder unverified. No live provider acceptance or new APK publication.
-
-Tracker correction: #17 was automatically closed by commitb36ba387 despite the
-subsequent explicit OPEN evidence comments. Reopened2026-10-17 to preserve
-actual-playback acceptance; no criteria or provider behavior changed.
-
-## First GIF recovery GREEN
-
-Exact e5ba44fd Android17 run39006305712 SUCCESS1/0/30.684s. Canonical
-[recovery evidence](../evidence/ticket16/failure-green/android17/README.md)
-retains9originals; root viewed both PNGs/parsed both XMLs. Two owned503s,
-Retry/close, text saved and restored via recreation, zero Saito writes passed.
-Firstslice accepted, not whole16. SourceCI39006306206 pending at collection.
-Next one tracer: select an owned GIF, prove animation and draft restoration;
-then exact original URL signed interoperability. Native provider remains unconfigured
-without authorized key. No beta change. Ownedasset independently ImageIO decoded
-as two16x16 frames, all red/blue pixels; Android decoder not yet proven.
-
-## Animated selection minimum candidate
-
-Current implementation214929e8 follows actualRED39007107484 atf341a30a:
-2cases/1failure/47.974s missingpreview145, earlierrecoveryPASS. Canonical
-[animation RED](../evidence/ticket16/animation-red/android17/README.md),6hashes,
-rootviewedoriginalPNG/parsedXML; later selection/animation/restoration/removal
-and no-write assertions in that failedmethod unexecuted. Separate source39007107311 SUCCESS; no native selection acceptance inferred.
-
-Adds bounded8MiB/512edge Android decodeDrawable using immutable API28ByteBuffer,
-visible-view lifetime,2decode/downloadslots, noLRU/disk/customassetstore,
-pause/resume/dispose. Picker displays returned thumbnail/credits and UseGIF.
-Selected originalURL persists through existing encrypted draft before memory
-publication/close; shared PostImages routes recognized Giphy sources away from
-rastercache, including quote views. Fourattachment/messagebytes remain enforced.
-No selectedmetadata sidecar, signedpost/reply/quote fixture or livekey acceptance
-yet; these are later increments, not scope deferrals. Localbuild13621
-PASS3m36s (coreUP-TO-DATE); both source reviews Standards0/Spec0.
-NativeGREEN pending, no result inferred. No newAPK; beta24unchanged.
-
-
-## Selection animation passes, visual clipping correction next
-
-Exact40588d70 Android17 run39007775320 SUCCESS2/0/29.539s, including two
-literal frames after selection/recreation and fresh unchanged originalURL/query.
-[Selection checkpoint](../evidence/ticket16/selection-green/android17/README.md)
-retains13originals; root viewed4PNGs/parsed4XML. Actual PNGs show crop overdraw
-outside nativeImageView bounds, obscuring title/text. No layout acceptance.
-New boundary tracer samples window pixels8px above/below actual semantic image
-bounds, without changing prior animation/exactURL assertions. It is not yet
-native executed; no RED inferred. SourceCI39007775786 pending at collection.
-Next correct ImageView clipping after actual boundary RED, then metadata and
-signed post/reply/quote acceptance. Still sole16; protected groupdoc untouched.
-
-Boundary tracer42234413 discarded before acceptance: both reviews identified
-window-relative Compose bounds versus full-display screenshot coordinates.
-Corrected tracer uses UiAutomator visibleBounds in the same screen coordinates
-and validates x/y. Run39008263619 cancellation requested, no application failure
-or RED inferred from that discarded observer. Corrected native run required.
-
-Second discarded observer run39008310559 cancellation requested after review
-required a positive center-pixel observation in the SAME full-screen bitmap.
-Otherwise a bitmap omitting the native view could pass outside-absence checks.
-Final tracer adds center known-color/positive coordinates before unchanged
-outside samples. Neither discarded run establishes application RED. Wait for
-both bounded reviews before dispatching this corrected tracer.
-
-
-## Current clipping correction candidate
-
-Actual corrected-tracer run39008369694/0abb1c29 FAILED2/1/32.83s: same-bitmap
-positivecenter passed, outside pixel y207 above visiblebounds(24,215,296,375)
-failed. Earlier recovery passed. Laterfailedmethodtailsunexecuted. Canonical
-[boundary RED](../evidence/ticket16/clipping-red/android17/README.md),7originals.
-Minimum native fix enables ImageView.cropToPadding with zero padding, preserving
-CENTER_CROP and URL/decode policy. Both new source reviews and nativeGREEN
-required. No local build active; regular source/device CI will compile unchanged
-small setter correction. Previous discarded observer runs are verifiedCANCELLED.
