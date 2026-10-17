@@ -21,13 +21,16 @@ import java.util.concurrent.TimeUnit
  * localOrigin is limited to owned loopback HTTP fixtures. Production always uses Google HTTPS.
  */
 class FcmSender(private val project: String, private val credentials: GoogleCredentials, localOrigin: String? = null,
-    private val clock: java.time.Clock = java.time.Clock.systemUTC()) {
+    private val clock: java.time.Clock = java.time.Clock.systemUTC()) : java.io.Closeable {
     sealed interface Result {
         data class Accepted(val name: String) : Result
         data object Unregistered : Result
         data class Retry(val afterMillis: Long) : Result
         data class Rejected(val status: Int) : Result
     }
+    private val closed = java.util.concurrent.atomic.AtomicBoolean()
+    private val active = java.util.concurrent.atomic.AtomicReference<okhttp3.Call?>()
+    @Volatile private var authorizationTask: java.util.concurrent.FutureTask<Map<String, List<String>>>? = null
     private val production = URI("https://fcm.googleapis.com/v1/projects/$project/messages:send")
     private val endpoint: String
     init {
@@ -42,12 +45,10 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
 
     fun send(fid: String, wake: String, expiresAt: Long): Result {
         require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")) && wake.matches(Regex("[0-9a-f]{64}")))
-        if (expiresAt <= clock.millis()) return Result.Rejected(410)
+        if (closed.get() || expiresAt <= clock.millis()) return Result.Rejected(410)
         return try {
             // Refreshable Google credentials obtain fresh metadata for each attempt; never cache a bearer here.
-            val authorization = credentials.getRequestMetadata(production).entries
-                .firstOrNull { it.key.equals("Authorization", ignoreCase = true) }?.value?.singleOrNull()
-                ?: throw IOException("FCM authorization unavailable")
+            val authorization = authorization()
             val now = clock.millis()
             if (expiresAt <= now) return Result.Rejected(410)
             val ttl = minOf((expiresAt - now) / 1000, 2_419_200L)
@@ -59,7 +60,11 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
             val body = JsonObject().apply { add("message", message) }.toString()
             val request = Request.Builder().url(endpoint).header("Authorization", authorization)
                 .post(body.toRequestBody("application/json; charset=utf-8".toMediaType())).build()
-            client.newCall(request).execute().use { response ->
+            val call = client.newCall(request)
+            if (!active.compareAndSet(null, call)) return Result.Retry(10_000)
+            try {
+                if (closed.get()) { call.cancel(); return Result.Rejected(410) }
+                call.execute().use { response ->
                 // Status and retry headers are usable even when an error body is absent or unreadable.
                 if (response.code == 429 || response.code >= 500) return Result.Retry(retryAfter(response.header("Retry-After"),
                     if (response.code == 429) 60_000L else 10_000L))
@@ -89,8 +94,36 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
                     response.code == 404 && unregistered(parsed) -> Result.Unregistered
                     else -> Result.Rejected(response.code)
                 }
-            }
+                }
+            } finally { active.compareAndSet(call, null) }
         } catch (_: IOException) { Result.Retry(10_000) }
+    }
+
+    /** A timed-out provider is drained, never multiplied. It never mutates gateway state or sends. */
+    @Synchronized private fun authorization(): String {
+        if (closed.get()) throw IOException("FCM sender closed")
+        val task = authorizationTask ?: java.util.concurrent.FutureTask<Map<String, List<String>>> {
+            credentials.getRequestMetadata(production)
+        }.also {
+            authorizationTask = it
+            Thread(it, "gateway-fcm-authorization").apply { isDaemon = true }.start()
+        }
+        val metadata = try { task.get(12, TimeUnit.SECONDS) }
+        catch (failure: java.util.concurrent.TimeoutException) { throw IOException("FCM authorization pending", failure) }
+        catch (failure: InterruptedException) { Thread.currentThread().interrupt(); throw IOException("FCM authorization interrupted", failure) }
+        catch (failure: java.util.concurrent.ExecutionException) {
+            authorizationTask = null; throw IOException("FCM authorization unavailable", failure)
+        }
+        authorizationTask = null
+        if (closed.get()) throw IOException("FCM sender closed")
+        return metadata.entries.firstOrNull { it.key.equals("Authorization", ignoreCase = true) }?.value?.singleOrNull()
+            ?: throw IOException("FCM authorization unavailable")
+    }
+
+    override fun close() {
+        closed.set(true)
+        active.get()?.cancel()
+        authorizationTask?.cancel(true)
     }
 
     private fun unregistered(body: JsonObject?): Boolean {
