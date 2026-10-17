@@ -1,0 +1,31 @@
+{
+  "scope": "Actual pinned Browser.sanitize(msg,true), followed by inspected returnChatBody newline conversion. No initialized Saito app claim.",
+  "nativeEnvelopeSha256": "5d02bdc69f5038b13facc9f94a24d276f7d99d3d8d83456a2041a91891e0d274",
+  "mediaKind": "gif",
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "browserSha256": "e85b67cc138dae5047bb855bf0961b2852a808fc7be3ffc5bc0479a1281bab38",
+      "message": "<blockquote href=\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457\">Earlier &amp; quoted text</blockquote><img class=\"img-prev\" src=\"http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "caption": "Keep my Chat draft 😀 <&> \"quoted\"\nA second line",
+      "html": "<blockquote href=\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457\">Earlier &amp; quoted text</blockquote><img class=\"img-prev\" src=\"http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&amp;keep=1\" /><br><div>Keep my Chat draft 😀 &lt;&amp;&gt; \"quoted\"<br>A second line</div>",
+      "source": "http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&keep=1",
+      "quote": {
+        "reference": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457",
+        "text": "Earlier & quoted text"
+      }
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "browserSha256": "8ba723fc2deea89999275878b3590510263d655b176fd46e270ab9f8057993d3",
+      "message": "<blockquote href=\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457\">Earlier &amp; quoted text</blockquote><img class=\"img-prev\" src=\"http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "caption": "Keep my Chat draft 😀 <&> \"quoted\"\nA second line",
+      "html": "<blockquote href=\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457\">Earlier &amp; quoted text</blockquote><img class=\"img-prev\" src=\"http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&amp;keep=1\" /><br><div>Keep my Chat draft 😀 &lt;&amp;&gt; \"quoted\"<br>A second line</div>",
+      "source": "http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&keep=1",
+      "quote": {
+        "reference": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457",
+        "text": "Earlier & quoted text"
+      }
+    }
+  ]
+}

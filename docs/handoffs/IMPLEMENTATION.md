@@ -45,19 +45,28 @@ observer failure is retained; corrected GIF observer uses DOM/decode only.
 Legacy photo output compatibility remains checked. No live delivery, browser
 motion, routing-hop proof or actual process-death claim from these journeys.
 
-OFFICIAL group queue run39026557695 atf55920820 FAILED5cases/4pass/1failure/
-96.773s. New case reached restored draft/credits after cancel, then failed waiting
-for a displayed image after reconnect/recreate while preview remained scrolled.
-Reconnect quiet/send tails unexecuted. Root viewed7PNGs/parsed7XMLs;18hashes in
-`docs/evidence/ticket43/official-group-queue-red/android17`. The ordinary image
-scroll observer in85a69ff00 retains all deadlines/colors/assertions. That commit
-also adds one private reply/GIF journey with independent exact quote/mention
-verification; both bounded reviews0/0. Native execution pending. Shared provider,
-renderer and existing #30 history/recovery evidence need no expanded matrix:
-whole production source reviews atf55920820 Standards0/Spec0. Private/group tracer
-local builds PASS2m40s/2m5s; reply tracer PASS2m3s. No owned local build remains.
-Final full Android10/17, whole-child evidence review and signed preview remain.
-Do not reserve26 prematurely.
+Latest native checkpoint: exact91d8fefec Android17 run39027017976 SUCCESS6/0/
+103.68s, canonical `docs/evidence/ticket43/queue-and-reply-green/android17`.
+Both backend bindings now pass private/group selection/send; OFFICIAL private
+and group queue/reopen/cancel/reconnect-silence/explicit Send pass. One private
+reply/GIF journey preserves exact quote/reference/caption across freshActivity
+and Send. Actual private quote/mentioned key, group constructors and A/B web
+DOM/decode independently pass. All11XMLs parsed; root viewed5 named originals,
+remaining PNGs retained without a new visual claim. No process-death claim.
+
+Earlier group queue run39026557695 atf55920820 remains FAILURE5cases/4pass/1failure/
+96.773s; its18hashes/7pairs stay in official-group-queue-red/android17. It failed
+only the unscrolled displayed-image observer after reconnect; later tails were
+unexecuted then. The85a69ff00 ordinary-scroll correction keeps all deadlines and
+motion/assertions. No production change since15dbae02. Whole production reviews
+atf55920820 and bounded tracer/evidence reviews through91d8fefec report0/0.
+Shared provider/renderer plus #30 history/recovery need no expanded test matrix.
+Local private/group/reply tracer builds PASS2m40s/2m5s/2m3s. No owned local build.
+
+Final full Android10 run39027471407 and Android17 run39027473052 execute exact
+91d8fefecc71d0f71b1aa74f43b866d43b0d1c51, both public_feed_read=true. Outcomes pending.
+Whole-child final evidence reviews and signed preview follow. Do not reserve26
+before acceptance. Whole review base remains06e4ef27.
 Public beta25 unchanged. No real key, provider query, production writes or
 node/account changes. Preserve protected untracked group contract.
 

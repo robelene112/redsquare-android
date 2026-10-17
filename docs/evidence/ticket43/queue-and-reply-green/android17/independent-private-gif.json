@@ -1,0 +1,36 @@
+{
+  "nativeEnvelopeSha256": "5d02bdc69f5038b13facc9f94a24d276f7d99d3d8d83456a2041a91891e0d274",
+  "signature": "ad5afe9fa78059de9bbcd7e4cb8821f2a582a64690e391d57e279f30cf5209df70ea60104ed12bc9e33f3599fba0baa81f7ce0d4bac2d21afa28b2fe6c4ec96c",
+  "groupId": "fbafe62761f194eb174cf4a072d8cd8601b11fe03f5a1ed32bf5be20dade0b19",
+  "timestamp": 1792235147672,
+  "dependencyVersions": {
+    "saito-wasm": "0.3.2",
+    "saito-js": "0.3.2",
+    "node-cryptojs-aes": "0.4.0",
+    "crypto-browserify": "3.12.1",
+    "elliptic": "6.6.1",
+    "base-58": "0.0.1",
+    "typescript": "5.4.5",
+    "json-bigint": "1.0.0"
+  },
+  "wrapperSha256": "61416839726c1877875062273fd704b37002f8f3a5d299e6c0883f5d24685683",
+  "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e",
+  "independentWasmSignatureMatches": true,
+  "existingCryptoRecipientDecrypts": true,
+  "exactNativeFixturePlaintextMatches": true,
+  "chatSourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+  "existingChatReceiverAcceptsNativePlaintext": true,
+  "existingChatReceiverSuppressesDuplicateSignature": true,
+  "browserStorageNotificationBoundariesAdapted": true,
+  "pinnedReceiverMethodsIdentical": true,
+  "nativeGif": {
+    "message": "<blockquote href=\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457\">Earlier &amp; quoted text</blockquote><img class=\"img-prev\" src=\"http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+    "caption": "Keep my Chat draft 😀 <&> \"quoted\"\nA second line",
+    "source": "http://127.0.0.1:36867/media/giphy.gif?token=owned%2Bonly&keep=1",
+    "quote": {
+      "reference": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR1700000123457",
+      "text": "Earlier & quoted text"
+    }
+  },
+  "exactOriginalGifUrl": true
+}
