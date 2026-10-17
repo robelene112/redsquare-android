@@ -103,18 +103,18 @@ class GatewayChainDeliveryTest {
                                                 require(authenticated && frame.size == 111)
                                                 val sequence = calls.incrementAndGet()
                                                 require(sequence >= 1)
-                                                val block = if (sequence == 1) original else alternate
+                                                val block = if (sequence == 1 || sequence >= 4) original else alternate
                                                 if (sequence == 1) require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                                 else {
                                                     require(ByteBuffer.wrap(frame, 1, 8).long == 2_000_002L && frame[73] == 0.toByte())
-                                                    require(frame.copyOfRange(9, 41).contentEquals(hex((if (sequence == 2) original else alternate).get("hash").asString)))
+                                                    require(frame.copyOfRange(9, 41).contentEquals(hex((if (sequence == 2 || sequence >= 5) original else alternate).get("hash").asString)))
                                                 }
-                                                val count = if (sequence >= 3) 0 else 1
+                                                val count = if (sequence in listOf(1, 2, 4)) 1 else 0
                                                 val hash = hex(block.get("hash").asString)
                                                 val body = ByteBuffer.allocate(196 + 53 * count)
                                                 body.putLong(2_000_002).put(hash).put(ByteArray(32) { sequence.toByte() })
-                                                body.putLong(if (sequence == 1) 0 else if (sequence == 2) 2_000_001 else 2_000_002)
-                                                    .put(if (sequence == 1) ByteArray(32) else if (sequence == 2) ByteArray(32) { 0xab.toByte() } else hash)
+                                                body.putLong(if (sequence == 1) 0 else if (sequence == 2 || sequence == 4) 2_000_001 else 2_000_002)
+                                                    .put(if (sequence == 1) ByteArray(32) else if (sequence == 2 || sequence == 4) ByteArray(32) { 0xab.toByte() } else hash)
                                                 body.putLong(2_000_002).put(hash).putLong(2_000_002).put(hash).putInt(count)
                                                 if (count == 1) body.putLong(2_000_002).put(hash).putLong(1_700_000_110_000).putInt(0).put(0)
                                                 webSocket.send((byteArrayOf(22) + body.array()).toByteString())
@@ -191,7 +191,12 @@ class GatewayChainDeliveryTest {
                                 val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
                                 while (calls.get() < 5 && System.nanoTime() < deadline) Thread.sleep(20)
                                 assertTrue("Automatic observer must perform successive selected-backend passes", calls.get() >= 5)
-                                assertEquals(410, resolve(recovered, wake).statusCode()); assertEquals(1, fcm.requestCount)
+                                val restoredSend = requireNotNull(fcm.takeRequest(2, TimeUnit.SECONDS))
+                                val restoredWake = JsonParser.parseString(requireNotNull(restoredSend.body).utf8()).asJsonObject
+                                    .getAsJsonObject("message").getAsJsonObject("data").get("wake").asString
+                                assertEquals("Automatic verified re-inclusion must restore the same logical wake", wake, restoredWake)
+                                assertEquals(200, resolve(recovered, wake).statusCode()); assertEquals(2, fcm.requestCount)
+                                assertEquals(listOf(original, alternate, original).map { it.get("hash").asString }, downloads.toList())
                             }
                         }
                     }

@@ -21,23 +21,30 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
     internal fun verifiedSocial(signatures: List<String>? = null): List<VerifiedSocial> {
         // Complete independent Archive evidence first. Registry shares this socket and may disconnect it.
+        val deadline = System.nanoTime() + java.util.concurrent.TimeUnit.SECONDS.toNanos(45)
+        fun budget() { if (Thread.currentThread().isInterrupted) throw InterruptedException()
+            if (System.nanoTime() >= deadline) throw java.io.IOException("Archive pass budget exhausted") }
         val discovered = signatures ?: recentSocial().posts.map { it.id }
         require(discovered.size <= 65_536 && discovered.all { it.matches(Regex("[0-9a-f]{128}")) })
         val verified = discovered.distinct().mapNotNull { signature ->
+            budget()
             val post = exact(signature) ?: return@mapNotNull null
             if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
-            VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, emptySet(), false)
+            VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { budget(); exact(it)?.author }, emptySet(), false)
         }
+        val namesRead = mutableMapOf<String, String?>()
         return verified.map { candidate ->
             val post = candidate.post
             val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().take(51).toList()
             var unavailableNames = names.size > 50
             val recipients = (if (unavailableNames) emptyList() else names).mapNotNull { identifier ->
+                if (namesRead.containsKey(identifier)) return@mapNotNull namesRead[identifier]
+                if (namesRead.size >= 50 || System.nanoTime() >= deadline) { unavailableNames = true; return@mapNotNull null }
                 val query = JsonObject().apply {
                     addProperty("request", "registry query")
                     add("data", JsonObject().apply { addProperty("request", "registry namecheck"); addProperty("identifier", identifier) })
                 }
-                try {
+                val recipient = try {
                     SaitoRegistry.readNamecheck(peer.request(query.toString(), "registry", true), identifier, registrar)
                         ?.takeIf { it.active }?.publicKey
                 } catch (failure: Exception) {
@@ -45,6 +52,8 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
                     unavailableNames = true
                     null // Missing optional name evidence cannot invalidate the independent reply/public-key evidence.
                 }
+                namesRead[identifier] = recipient
+                recipient
             }.toSet()
             candidate.copy(namedRecipients = recipients, unavailableNames = unavailableNames)
         }

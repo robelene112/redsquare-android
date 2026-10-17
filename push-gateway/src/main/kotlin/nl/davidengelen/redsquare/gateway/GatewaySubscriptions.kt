@@ -396,6 +396,14 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         state.getAsJsonObject("events").entrySet().removeIf { savedNumber(it.value.asJsonObject, "retainUntil") <= now }
     }
 
+    @Synchronized fun cleanup() {
+        val now = clock.millis()
+        challenges.entries.removeIf { it.value.expiresAt <= now }
+        val state = store.load()
+        prune(state, now)
+        store.save(state)
+    }
+
     override fun close() = store.close()
 
     private fun savedText(body: JsonObject, name: String): String = try { text(body, name) }
