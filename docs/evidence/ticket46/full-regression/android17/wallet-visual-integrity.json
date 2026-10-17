@@ -1,0 +1,522 @@
+{
+  "visuals": [
+    {
+      "path": "after.xml",
+      "kind": "xml",
+      "nodes": 14
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "before.xml",
+      "kind": "xml",
+      "nodes": 12
+    },
+    {
+      "path": "diagnostic.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "kind": "xml",
+      "nodes": 85
+    },
+    {
+      "path": "live-official/balance.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "live-official/balance.xml",
+      "kind": "xml",
+      "nodes": 55
+    },
+    {
+      "path": "live-official/feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "live-official/funding.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "live-official/funding.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "live-official/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "live-owner/balance.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "live-owner/balance.xml",
+      "kind": "xml",
+      "nodes": 55
+    },
+    {
+      "path": "live-owner/feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "live-owner/funding.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "live-owner/funding.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "live-owner/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "preview-update/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "signed-update/observation-1.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "signed-update/observation-1.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "signed-update/observation-2.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "signed-update/observation-2.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "signed-update/observation-3.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "signed-update/observation-3.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "signed-update/observation-4.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "signed-update/observation-4.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "signed-update/wallet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/private-backup-guidance.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/recovery-guide.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/dismissed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-cold-launch/observation-1.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-cold-launch/observation-1.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "wallet-cold-launch/observation-2.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-cold-launch/observation-2.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "wallet-cold-launch/wallet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/no-lock.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-deadline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/write-fails.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/read-fails.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/truncated-read.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/real-pin-success.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/authentication-cancelled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-process/process-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-process/process-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-import.json-rejected.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-backup-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/stalled-provider-fresh-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-positive.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-zero.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-malformed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-stale.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-same.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/confirmed-same-wallet-restore.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-different.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/fresh-candidate-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/reselected-backup-required.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-process/cold-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/other-assets-require-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/original-wallet-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-storage-recovery-evidence.tar::wallet-storage-recovery-evidence/failed-save-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [
+    {
+      "path": "live-official/wallet-first-failure.png",
+      "error": "PNG signature mismatch"
+    },
+    {
+      "path": "live-official/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.png",
+      "error": "PNG signature mismatch"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0"
+    }
+  ],
+  "archive_errors": []
+}

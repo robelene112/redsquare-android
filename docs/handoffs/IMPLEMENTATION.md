@@ -72,11 +72,16 @@ packets: `gateway-lifecycle`, `native-muted-green`, `native-process-green`,
   inventory entries and final metadata of the superseded retry39074540031, also
   CANCELLED. Initial timeout evidence reviews0/0.
 - Required Android17 matrix39074852266 at
-  `f97271918162e6848d6032a78d09727c6a83533b` is ACTIVE. Three independent jobs run
-  chat, social and wallet; every job must succeed at that source. Fail-fast is off,
-  artifacts are distinct and each successful partition writes a completion marker.
-  Source check39074850964 is SUCCESS. All235 production/build objects, including
-  complete path sets, equal prepared28/accepted10 source1cfa. No owned local build.
+  `f97271918162e6848d6032a78d09727c6a83533b` is SUCCESS: all three required jobs
+  chat172/social208/wallet39 pass, total419PASS/99completions/31interruptions/
+  31PASScontinuity. Exact419 identity union has no missing/extra cases. Canonical
+  full-regression/android17 has258 hashes,427 originals,893 valid PNG/756 parsed
+  XML entries and the same five qualified optional diagnostics. All public tails,
+  SDK37/final identity and private recovery6793→6840→6905/SAME UUID/zero requests
+  pass. Root viewed seven selected originals, with bounded pixel comparison for
+  incomplete viewer previews. Source check39074850964 is SUCCESS. Full235-object
+  production/build sets and191 fixture objects equal prepared28/accepted10 source.
+  Final combined reviews and publication remain pending. No owned local build.
 
 CI-only464219e31 preserves every original assertion/deadline and full dispatch
 through the three partitions. Android10, combined full/all and focused routes
@@ -96,22 +101,15 @@ public-tail, source and visual inspection.
 
 Next actions:
 
-1. Inspect actual matrix39074852266. Download all three named artifacts under
+1. Review [complete native acceptance](../evidence/ticket46/NATIVE_ACCEPTANCE.md),
+   new full17 packet/source equivalence and updated handoff along both axes.
+   All artifacts are downloaded/inspected. Temporary work remains under
+   `/tmp/redsquare-private46-work-20261017`; original matrix artifacts are under
    `/mnt/storage/redsquare-android-artifacts/private46-full17-partitions-39074852266`.
-   Expected subdirectories are `android-native-proof-{chat,social,wallet}`;
-   each raw SDK directory is `.scratch/device-evidence/api-37.0` beneath it.
-2. Inspect each with `/tmp/redsquare-private46-work-20261017/inspect_evidence.py`,
-   saving `partition17-{chat,social,wallet}-inspection.json` in that same temporary
-   work directory. Save run JSON including jobs as `partitioned17-run.json`.
-3. Temporary `promote_partitions.py` there requires actual SUCCESS/all three jobs,
-   exact419 identities,99 completions,31 interruptions/continuity records, complete
-   public tails and the full235-object equality. It retains canonical raw records,
-   complete original inventories and seven selected image pairs. Inspect originals
-   before writing README/checksums. Never convert a failed run into acceptance.
-4. Complete combined source/evidence reviews against the fixed whole base, then
-   publish prepared28 and independently download/verify it. Close46 only after
-   its actual native acceptance and publication. Keep original32/33 OPEN.
-5. Verify47 is unblocked, read its issue/spec, claim it and implement sequentially.
+2. After zero residual findings, publish prepared28 and independently download/
+   verify it. Retain actual publisher/public records and publication bookend reviews.
+   Close46 only after actual native acceptance/publication. Keep original32/33 OPEN.
+3. Verify47 is unblocked, read its issue/spec, claim it and implement sequentially.
 
 ## Prepared beta28 and current public beta27
 

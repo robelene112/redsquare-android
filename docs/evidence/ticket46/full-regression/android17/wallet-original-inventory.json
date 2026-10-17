@@ -1,0 +1,525 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/private46-full17-partitions-39074852266/android-native-proof-wallet/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "after.xml",
+      "size": 5031,
+      "sha256": "6bec3b2609caee36d6123ce509cd4ac0103de6c2450a8a65b00431701562d2c2"
+    },
+    {
+      "path": "backend-ui-evidence.tar",
+      "size": 188416,
+      "sha256": "dad90fc443882a87cd6b596a0f64a6538e569ee08202002cf4c7536cd3cc402f"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "size": 37426,
+      "sha256": "b36001f5a161690fd80ade49a2ef93efde036bca68b7f684e1912012a91679be"
+    },
+    {
+      "path": "before.xml",
+      "size": 4214,
+      "sha256": "bb2d8ceeab9ea4c297cbba0cdb4ab2cf6e0d092ae850ca299cfdbbc8cd6ad350"
+    },
+    {
+      "path": "diagnostic.png",
+      "size": 31372,
+      "sha256": "c67b76cca558fd7812122b6751693d20bcc08e1cfe56464215c04abe724b5e61"
+    },
+    {
+      "path": "emulator.log",
+      "size": 12320,
+      "sha256": "4507a3e0ea96141d36a7205b68203146e9cdde7b601eba28891bd2611b213f56"
+    },
+    {
+      "path": "feed-cold-launch/continuity.txt",
+      "size": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "size": 45332,
+      "sha256": "7fe1efee8dce032d56c84a8c3126cf497f141e1a203dd68437f56e9e7e8fd9bd"
+    },
+    {
+      "path": "feed-cold-launch/fully-drawn.txt",
+      "size": 121,
+      "sha256": "1e9c677b1913885bd1816ec6dc45b63b7001736f98a00a3d44d96cc3167846fc"
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "size": 30461,
+      "sha256": "17e732899cc123ddca4b21bef339bcf713fcaab3daa4ea330abe5e9452a87909"
+    },
+    {
+      "path": "feed-cold-launch/launch.txt",
+      "size": 255,
+      "sha256": "c77e64f2f40f4b7a9c00d2d8f85b3b351c2d3de22e1d2bb0010032a30046d8d8"
+    },
+    {
+      "path": "feed-ui.txt",
+      "size": 5662,
+      "sha256": "94488a24c4df8adb34ca50276a7de38616b7ba85df0406428d0f835a0a61e487"
+    },
+    {
+      "path": "fresh-backup-reminder.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-commit-sync.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-incompleteFirstWriteCanResumeCreation.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-install.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-live-official.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-live-owner.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-unavailablePendingSaveIsPreservedForRetry.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "size": 823,
+      "sha256": "2bb4408fbbba72a8f41aa555bcc8a6472ecefb9adf0ed940958711fc7ae270ce"
+    },
+    {
+      "path": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "size": 831,
+      "sha256": "5fea16f9c3201191d1bfb0167f304c937e2ea87138f8ecb169c85d9dce8e986b"
+    },
+    {
+      "path": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "size": 847,
+      "sha256": "890a9606025cc24f96dab3f57148b42d3ae87acd93e8918b3cb7539d4b0cb897"
+    },
+    {
+      "path": "instrumentation.txt",
+      "size": 2282,
+      "sha256": "d762c1778dff6c0930720cec0ca7f32e9d513c261959f140d410613ff982c949"
+    },
+    {
+      "path": "live-official/balance.png",
+      "size": 28376,
+      "sha256": "2e3f8628206f405b0f8b38777096ded5e1f475657b59c40a3f2f34571baa9751"
+    },
+    {
+      "path": "live-official/balance.xml",
+      "size": 24301,
+      "sha256": "eedececacf5f33441aa14276526cc0b03adab92169eff783d196222a2ef18a10"
+    },
+    {
+      "path": "live-official/feed.png",
+      "size": 59011,
+      "sha256": "7ea119e560986c25ae132ac22e17a6eef2e45b8a68372dff3bb317d4b85f5d5c"
+    },
+    {
+      "path": "live-official/funding.png",
+      "size": 38324,
+      "sha256": "dd275b6bc9abb09663b4dca0a65a81467c66cb15cd19e0375b2bc338c3a332e8"
+    },
+    {
+      "path": "live-official/funding.xml",
+      "size": 98248,
+      "sha256": "0b82a392124a083c8c5c8bb3c4a967bfcf24ba16b13d8aa28c4eef6c14cf7ff3"
+    },
+    {
+      "path": "live-official/public-search.txt",
+      "size": 382,
+      "sha256": "7ac0d73c19063d65f88ffe22094417af2d43cfe50cab43a043a0e53a95fdcad0"
+    },
+    {
+      "path": "live-official/public-wallet.txt",
+      "size": 285,
+      "sha256": "ab95ee0281fb844acb69cf2d5fa6cd1ebc60c40c0738f5f02bbcbb24d4ac8ea5"
+    },
+    {
+      "path": "live-official/result.txt",
+      "size": 142,
+      "sha256": "2bf382729d64efddbf55b2d01ef6bff80ac8564d9f1ea10c07d914aea38ede5f"
+    },
+    {
+      "path": "live-official/screen.png",
+      "size": 54506,
+      "sha256": "3a436022f2071b930af74a6d8377880f04c11c9ae23f9dd2a7716383575b70af"
+    },
+    {
+      "path": "live-official/transport-status.txt",
+      "size": 364,
+      "sha256": "5ecb3715644efa4a7500b6751154f729f57cd89d7f5340152cd46ff0eb2132df"
+    },
+    {
+      "path": "live-official/wallet-first-failure.png",
+      "size": 82,
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": "live-official/wallet-first-failure.xml",
+      "size": 82,
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": "live-official-feed.txt",
+      "size": 798,
+      "sha256": "f9b2342e67b52643cd611b0b1c5853376bd1fa086af5a2c1ff1e42bba0bff5ef"
+    },
+    {
+      "path": "live-owner/balance.png",
+      "size": 29142,
+      "sha256": "5b23b836d9fa0fcb04cdffcc7d455fe27295cf05c02506a10cff951e8538f9f0"
+    },
+    {
+      "path": "live-owner/balance.xml",
+      "size": 24314,
+      "sha256": "688d67a43838340ee66595e0f6ef921108e9dd1fba74f90ef7ea021a46b8a0b3"
+    },
+    {
+      "path": "live-owner/feed.png",
+      "size": 58419,
+      "sha256": "ae3081652a922b74cdcf966aac43e3a2e23f51c60f895ef1ed027732d45eb3e5"
+    },
+    {
+      "path": "live-owner/funding.png",
+      "size": 38272,
+      "sha256": "86bbd2ae4f252f6a62b32cab49b63d6ae69c29cd94e9ba7936feabef20d2c3a4"
+    },
+    {
+      "path": "live-owner/funding.xml",
+      "size": 98244,
+      "sha256": "3061e282b2d1efc4bb6b36877a79e6be4f331a0d825b3bb057e5ca23513143ca"
+    },
+    {
+      "path": "live-owner/public-search.txt",
+      "size": 376,
+      "sha256": "a8dd6ea16ca3f3fe72089bdf040daee488265167cc4ee5d69222cb5b2aba240a"
+    },
+    {
+      "path": "live-owner/public-wallet.txt",
+      "size": 282,
+      "sha256": "aa7d2a195bb46e371e0f09adb3d242bb7ed390186b05feed94c2f4058f14eb1f"
+    },
+    {
+      "path": "live-owner/result.txt",
+      "size": 139,
+      "sha256": "d98b386e8fb648f21c8e34380fec41848d3eb2c3d6b0a6de95c0b1c47c4249b0"
+    },
+    {
+      "path": "live-owner/screen.png",
+      "size": 54491,
+      "sha256": "286ea5e53cc624d999f057b416d84e1ebb5a30cb77e80be621f1d2bf5d58d46d"
+    },
+    {
+      "path": "live-owner/transport-status.txt",
+      "size": 364,
+      "sha256": "3e2859a8bef7c832e498647f013fa58f786b3d3cd5a2a8c2ce6f6efea49d3421"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.png",
+      "size": 82,
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.xml",
+      "size": 82,
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "size": 798,
+      "sha256": "8195370165b85d3de7acfc43b70c9a39f946521854d621e732cf78672e944fc7"
+    },
+    {
+      "path": "partition-complete.txt",
+      "size": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    {
+      "path": "partition.txt",
+      "size": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    {
+      "path": "preview-update/requests.txt",
+      "size": 26,
+      "sha256": "de30ec9d52a9034687b4b16bc9c68b0938cfc539ee5bd2e0f9afe46e86c0214d"
+    },
+    {
+      "path": "preview-update/screen.png",
+      "size": 21675,
+      "sha256": "a76b454ecafc4dede2c8db9be005c1e8ca5b611321b89d09f3d9ea8f7ab538fd"
+    },
+    {
+      "path": "preview-update-ui.txt",
+      "size": 767,
+      "sha256": "f43ed5d87d9f51373dd3284fcb6d878c63ff9b756ba1fe8230d7356e982d0e88"
+    },
+    {
+      "path": "sdk.txt",
+      "size": 3,
+      "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+    },
+    {
+      "path": "signed-update/continuity.txt",
+      "size": 129,
+      "sha256": "da517f684767701dc1989f9da42224743bc10c9180ed11fbe6c485a63b6b7792"
+    },
+    {
+      "path": "signed-update/observation-1.log",
+      "size": 896,
+      "sha256": "e2d2216b1ed4b1120812175ae009d14d8d29b382d7ec315ab6c81ba0840e9eeb"
+    },
+    {
+      "path": "signed-update/observation-1.png",
+      "size": 18113,
+      "sha256": "688066a732951dd5b715f3b7f232423b5c3a8528edcd9c7ed6dcc03f3f85e87c"
+    },
+    {
+      "path": "signed-update/observation-1.xml",
+      "size": 18566,
+      "sha256": "ff174fe3b043e31bba3fde1dbd648c08db190eec84a4f3e1d92f8578466fb225"
+    },
+    {
+      "path": "signed-update/observation-2.log",
+      "size": 894,
+      "sha256": "093b632a6991502c4f022543cd0a7bf359abd5e66763d7daad19eac68b9050c6"
+    },
+    {
+      "path": "signed-update/observation-2.png",
+      "size": 18113,
+      "sha256": "688066a732951dd5b715f3b7f232423b5c3a8528edcd9c7ed6dcc03f3f85e87c"
+    },
+    {
+      "path": "signed-update/observation-2.xml",
+      "size": 18566,
+      "sha256": "ff174fe3b043e31bba3fde1dbd648c08db190eec84a4f3e1d92f8578466fb225"
+    },
+    {
+      "path": "signed-update/observation-3.log",
+      "size": 896,
+      "sha256": "439c8e3c8e97c157096ef14efe09ed431eeb2df6d7abb4a218ee4337f6a876c8"
+    },
+    {
+      "path": "signed-update/observation-3.png",
+      "size": 21446,
+      "sha256": "85f2b9ed080470a9c461870632ff8e7247399fd761da75009601e6ca2c01bf6c"
+    },
+    {
+      "path": "signed-update/observation-3.xml",
+      "size": 18566,
+      "sha256": "ff174fe3b043e31bba3fde1dbd648c08db190eec84a4f3e1d92f8578466fb225"
+    },
+    {
+      "path": "signed-update/observation-4.log",
+      "size": 896,
+      "sha256": "2f7cf6dba217e9ad222e863693e4c3441c7b113f581d4e5376cc6bec25119e88"
+    },
+    {
+      "path": "signed-update/observation-4.png",
+      "size": 21446,
+      "sha256": "85f2b9ed080470a9c461870632ff8e7247399fd761da75009601e6ca2c01bf6c"
+    },
+    {
+      "path": "signed-update/observation-4.xml",
+      "size": 18566,
+      "sha256": "ff174fe3b043e31bba3fde1dbd648c08db190eec84a4f3e1d92f8578466fb225"
+    },
+    {
+      "path": "signed-update/versions.txt",
+      "size": 93,
+      "sha256": "1feef7d4736fa311c17414bfd514e915b03d748c671bdf191fa88304cc3b1139"
+    },
+    {
+      "path": "signed-update/wallet.png",
+      "size": 23475,
+      "sha256": "86ddb989da8aeaab88b5157a75906c11ee1d094bf558a0a600d2e10ebff33ed0"
+    },
+    {
+      "path": "wallet-backup-evidence.tar",
+      "size": 107520,
+      "sha256": "7b2842b7529bcf13096eb4d1c676f59dfbf489116f21574d889e4ef4bce9f70e"
+    },
+    {
+      "path": "wallet-backup-ui.txt",
+      "size": 837,
+      "sha256": "de7478422f896e8cfc44db77208fb25b908e82e9bb80f8d45a039fabc2d2e701"
+    },
+    {
+      "path": "wallet-cold-launch/continuity.txt",
+      "size": 98,
+      "sha256": "35c37157b06e8a30984fea54fe1dacd2592bce65623933d4f1a8cb19f441f31b"
+    },
+    {
+      "path": "wallet-cold-launch/observation-1.log",
+      "size": 896,
+      "sha256": "722e650232c992b273997077524486ecc078257f86cbd98539d961a05fe200d6"
+    },
+    {
+      "path": "wallet-cold-launch/observation-1.png",
+      "size": 29888,
+      "sha256": "42d66ec86aef3aa2697cab6b7c3ea5f98b8141a006bbefb03adfab6865738c5e"
+    },
+    {
+      "path": "wallet-cold-launch/observation-1.xml",
+      "size": 26028,
+      "sha256": "53f7347cc3155599812918f5ed0416ece6910395f5213309a4ec97d1a9df7df2"
+    },
+    {
+      "path": "wallet-cold-launch/observation-2.log",
+      "size": 895,
+      "sha256": "a67308654f6dd13c22e0e8492655009a14b9609f30a50d4b849866e8c1752cb7"
+    },
+    {
+      "path": "wallet-cold-launch/observation-2.png",
+      "size": 29888,
+      "sha256": "42d66ec86aef3aa2697cab6b7c3ea5f98b8141a006bbefb03adfab6865738c5e"
+    },
+    {
+      "path": "wallet-cold-launch/observation-2.xml",
+      "size": 26028,
+      "sha256": "53f7347cc3155599812918f5ed0416ece6910395f5213309a4ec97d1a9df7df2"
+    },
+    {
+      "path": "wallet-cold-launch/wallet.png",
+      "size": 198011,
+      "sha256": "f575101e6ea0e6cd2b3fad5afcdcf558cbf4cb10777895ee8804de45b2bf8123"
+    },
+    {
+      "path": "wallet-commit-sync-ui.txt",
+      "size": 845,
+      "sha256": "22f414a3e0dc0c59ea5d35a3672c77499b99027ba4c3b6f62bcc794aeb9e6181"
+    },
+    {
+      "path": "wallet-export-evidence.tar",
+      "size": 306176,
+      "sha256": "4e82a4502cf4edb3ea1810a3b81846a11b7bfd8a565b0016509762f6e9bb6f5b"
+    },
+    {
+      "path": "wallet-export-process/continuity.txt",
+      "size": 185,
+      "sha256": "cc4c4c789d5f547c21efe69005c07d44d4dd24164e0fc40c33c673d23f3b7c91"
+    },
+    {
+      "path": "wallet-export-process/interrupted-instrumentation.txt",
+      "size": 469,
+      "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993"
+    },
+    {
+      "path": "wallet-export-process/process-recovery.png",
+      "size": 29662,
+      "sha256": "8a678d717993711b01863a87652c9ca2a9b26e76cc2360267a69a8bb4d49eed7"
+    },
+    {
+      "path": "wallet-export-process/process-retry.png",
+      "size": 32508,
+      "sha256": "5eae59eb1417f12000b0772d0462965584c1c53688a1f3685d99e07ccae43d73"
+    },
+    {
+      "path": "wallet-export-process/recovered-instrumentation.txt",
+      "size": 839,
+      "sha256": "6f0fdd488db7e3460c9f0ffbdbd5da09bb15000ca4cbe7c92042d8e3b9f2b37c"
+    },
+    {
+      "path": "wallet-export-ui.txt",
+      "size": 3700,
+      "sha256": "8add93d3237832fb7f29733ff7ba7d5bf28eb7198eeb855887de2351002b2f0f"
+    },
+    {
+      "path": "wallet-import-evidence.tar",
+      "size": 663552,
+      "sha256": "0e03ad1c2fe40881729eac3829232815ef38d72a5d1999aef8f5718ec36de460"
+    },
+    {
+      "path": "wallet-import-process/cold-recovery.png",
+      "size": 30557,
+      "sha256": "761afbab36f84ffe3df1f10cd85177b78e0d0460954d7298c322e9df316b2894"
+    },
+    {
+      "path": "wallet-import-process/continuity.txt",
+      "size": 172,
+      "sha256": "b50a00dbfa32095949dbee8c495ad8f9ef7dc1bed8d1e3533a557a5c724665eb"
+    },
+    {
+      "path": "wallet-import-process/interrupted-instrumentation.txt",
+      "size": 473,
+      "sha256": "423df0fd849a4f4428a21f5522ee83aa9f0fe0753258ed5f13130af095587921"
+    },
+    {
+      "path": "wallet-import-process/recovered-instrumentation.txt",
+      "size": 822,
+      "sha256": "a54e6688799c344306b46fba2ce54e04c97cd8086372c21a12cf6ebca4ff0d7e"
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "size": 5067,
+      "sha256": "efc7ecb747b0e530b19dfd16dd66a28c475f4e4434dd9ff4d2872cc4c5de53e9"
+    },
+    {
+      "path": "wallet-initialization-ui.txt",
+      "size": 830,
+      "sha256": "5d231c2fbad358bb9f0571fe88621b81fe5c3ea5b8efe9ee18e7266e414b731b"
+    },
+    {
+      "path": "wallet-risk-evidence.tar",
+      "size": 93696,
+      "sha256": "e2a35e5e1d980793e73ec29f7842fbf9a12bc3e947fa16e09fbcbb76426d3d2d"
+    },
+    {
+      "path": "wallet-risk-fresh.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "wallet-risk-ui.txt",
+      "size": 860,
+      "sha256": "a6965462748fd51b32d421f34d892c7b3417e6d3cf2729b1d41c3fc4d39106d6"
+    },
+    {
+      "path": "wallet-storage-recovery-evidence.tar",
+      "size": 32768,
+      "sha256": "b12d7e29caae325ea96504442dd5aaea5276f8b757a6cc5d2a181c12126ba63e"
+    },
+    {
+      "path": "wallet-storage-recovery-ui.txt",
+      "size": 877,
+      "sha256": "6a828f497f66f1e260a58359115b33fc6bb9b9f860f17825d0f500718603d26a"
+    },
+    {
+      "path": "wallet-ui.txt",
+      "size": 2168,
+      "sha256": "72499043bd1badb9a393f578ed6dff8cef5c23d0a76a20b4c7d76194f4f375a5"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ]
+}

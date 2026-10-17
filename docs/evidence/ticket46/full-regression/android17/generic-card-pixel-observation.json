@@ -1,0 +1,39 @@
+{
+  "method": "Read-only original PNG unfiltering with the previously retained #44 decoder; no image edited.",
+  "bounds": [
+    16,
+    195,
+    304,
+    318
+  ],
+  "observation": "All three original generic notification-card pixel regions exactly equal. Worker card positively viewed. Incomplete other viewer previews do not establish an Android rendering cause.",
+  "images": {
+    "private-worker-generic-alert": {
+      "sourceSha256": "56f6f89f042302612a65c14c11962cefff3c81a8de6eb82d95bc6a10412f011a",
+      "dimensions": [
+        320,
+        640,
+        3
+      ],
+      "cardRgbSha256": "03f5e48ba05525d38e7581c1a1b457473582823ef68b57f013b1e8cec625e80b"
+    },
+    "private-ordinary-first-generic-alert": {
+      "sourceSha256": "56f6f89f042302612a65c14c11962cefff3c81a8de6eb82d95bc6a10412f011a",
+      "dimensions": [
+        320,
+        640,
+        3
+      ],
+      "cardRgbSha256": "03f5e48ba05525d38e7581c1a1b457473582823ef68b57f013b1e8cec625e80b"
+    },
+    "private-receipt-storage-generic-alert": {
+      "sourceSha256": "e812a461376defa1ce9408d2506ca2739a0f0ba45f652b3766376d7dbf781c9f",
+      "dimensions": [
+        320,
+        640,
+        3
+      ],
+      "cardRgbSha256": "03f5e48ba05525d38e7581c1a1b457473582823ef68b57f013b1e8cec625e80b"
+    }
+  }
+}

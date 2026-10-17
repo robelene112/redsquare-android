@@ -1,0 +1,92 @@
+{
+  "files": 427,
+  "passed": 419,
+  "skipped": 0,
+  "assumed": 0,
+  "failed": 0,
+  "completionRecords": 99,
+  "crashedRecords": 31,
+  "png": 893,
+  "xml": 756,
+  "visualErrors": 4,
+  "continuityRecords": 31,
+  "source": "f97271918162e6848d6032a78d09727c6a83533b",
+  "prepared28Source": "1cfa16a57ca7da95bca82aad4c320443c479ddf3",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "chat": {
+      "files": 178,
+      "passed": 172,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 42,
+      "crashedRecords": 13,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 450,
+      "xml": 450,
+      "visualErrors": 0,
+      "continuityRecords": 12
+    },
+    "social": {
+      "files": 145,
+      "passed": 208,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 39,
+      "crashedRecords": 16,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 381,
+      "xml": 293,
+      "visualErrors": 0,
+      "continuityRecords": 14
+    },
+    "wallet": {
+      "files": 104,
+      "passed": 39,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 18,
+      "crashedRecords": 2,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 62,
+      "xml": 13,
+      "visualErrors": 4,
+      "continuityRecords": 5
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "expectedCount": 419,
+    "actualCount": 419,
+    "partitions": [
+      "chat",
+      "social",
+      "wallet"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 6793,
+    "recoveredPid": 6840,
+    "finalPid": 6905,
+    "workId": "ed3b3145-1fc3-491a-8379-7051221b8a73",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS, no chain inclusion claim",
+  "publicChat": "Authenticated readiness PASS, not live Chat delivery",
+  "signedLegacyUpdate": "5 -> 8, physical28 update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 235
+}
