@@ -836,3 +836,22 @@ Next one tracer: select an owned GIF, prove animation and draft restoration;
 then exact original URL signed interoperability. Native provider remains unconfigured
 without authorized key. No beta change. Ownedasset independently ImageIO decoded
 as two16x16 frames, all red/blue pixels; Android decoder not yet proven.
+
+## Animated selection minimum candidate
+
+Current implementation214929e8 follows actualRED39007107484 atf341a30a:
+2cases/1failure/47.974s missingpreview145, earlierrecoveryPASS. Canonical
+[animation RED](../evidence/ticket16/animation-red/android17/README.md),6hashes,
+rootviewedoriginalPNG/parsedXML; later selection/animation/restoration/removal
+and no-write assertions in that failedmethod unexecuted. Separate source39007107311 SUCCESS; no native selection acceptance inferred.
+
+Adds bounded8MiB/512edge Android decodeDrawable using immutable API28ByteBuffer,
+visible-view lifetime,2decode/downloadslots, noLRU/disk/customassetstore,
+pause/resume/dispose. Picker displays returned thumbnail/credits and UseGIF.
+Selected originalURL persists through existing encrypted draft before memory
+publication/close; shared PostImages routes recognized Giphy sources away from
+rastercache, including quote views. Fourattachment/messagebytes remain enforced.
+No selectedmetadata sidecar, signedpost/reply/quote fixture or livekey acceptance
+yet; these are later increments, not scope deferrals. Localbuild13621
+PASS3m36s (coreUP-TO-DATE); both source reviews Standards0/Spec0.
+NativeGREEN pending, no result inferred. No newAPK; beta24unchanged.

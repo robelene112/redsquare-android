@@ -209,3 +209,20 @@ concrete implementation; the API does not require displaying every JSON field.
 `id`, thumbnail and title alone do not replace available creator/source credits.
 Use the provider's approved mark rather than an invented logo.
 [Branding and attribution, sections4–5](https://support.giphy.com/hc/en-us/articles/360028134111-GIPHY-API-Terms-of-Service).
+
+## Native decoder contract checked for the selection increment
+
+On2026-10-17, current official Android references confirm
+[ImageDecoder ByteBuffer sources](https://developer.android.com/reference/android/graphics/ImageDecoder#createSource(java.nio.ByteBuffer))
+are available since API28. An animated drawable continues reading that buffer;
+keep it immutable. Target sizing belongs in the header callback.
+[AnimatedImageDrawable](https://developer.android.com/reference/android/graphics/drawable/AnimatedImageDrawable)
+requires explicit start; stop retains the displayed frame and a later start
+resets the animation. Framework frame decoding runs on another thread.
+
+The current source increment chooses8MiB encoded bytes,512pixel longest edge,
+two concurrent download/decode slots and visible-view lifecycle ownership.
+These are app resource policies, not provider limits or proof of Android
+runtime behavior. No custom asset/result store is added. A static owned thumbnail
+and independently ImageIO-decoded two-frame original provide distinct native
+pixel oracles; only the actual device run can establish those frames display.
