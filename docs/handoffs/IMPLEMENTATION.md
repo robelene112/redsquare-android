@@ -97,7 +97,14 @@ Correction now saves only bound public destination URI/generation across window
 restoration, clears it on selected-conversation exit or committed social handoff,
 and carries resolved peer endpoint only in debug emulator notification intents.
 The same cold journey supplies that endpoint; acceptance assertions unchanged.
-No owned local build; hosted correction compile/native verification pending.
+No owned local build. First correction798b88 run39040935051 was CANCELLED
+before native acceptance after both bounded reviewers found1 each: transient null
+wallet reset could discard restoredURI, and cold Activity cleanup needed positive
+absence before installation-state restoration. Source now retains publicURI/gen
+through transient loading and clears mismatch after actual identity resolution.
+Fixture now requires proven Activity shutdown before every protected restore,
+independent alert cleanup and suppressed failure handling unchanged. Corrected
+hosted compile/native verification pending; whole44base remains2fff4587e.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new

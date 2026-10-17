@@ -80,6 +80,8 @@ class ChatAlertPreviewTest {
             incomingText, 1700000140000) else PrivateChat.create(sender, wallet.publicKey, incomingText, 1700000140000)
         val capturePrefix = if (cold) "private-cold-official" else if (groupAlert) "group-warm" else "private-warm"
         var primary: Throwable? = null
+        var activitiesStopped = false
+        fun requireStopped() { check(activitiesStopped && activeMainActivities().isEmpty()) }
         try {
             retained.prepare()
             wallets.replace(original, wallet)
@@ -167,13 +169,13 @@ class ChatAlertPreviewTest {
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
             cleanupAfterTest(primary,
-                { device.pressBack(); finishFixtureActivities() },
+                { device.pressBack(); finishFixtureActivities(); activitiesStopped = true },
                 { notifications.activeNotifications.filter { (it.tag to it.id) !in existingAlerts }
                     .forEach { notifications.cancel(it.tag, it.id) } },
-                { retained.restoreFiles() },
-                { retained.restorePreferences() },
-                { wallets.replace(wallets.loadExisting(), original); check(wallets.loadExisting().exportJson() == originalJson) },
-                { backends.save(originalBackend); check(backends.load() == originalBackend) })
+                { requireStopped(); retained.restoreFiles() },
+                { requireStopped(); retained.restorePreferences() },
+                { requireStopped(); wallets.replace(wallets.loadExisting(), original); check(wallets.loadExisting().exportJson() == originalJson) },
+                { requireStopped(); backends.save(originalBackend); check(backends.load() == originalBackend) })
         }
     }
 
@@ -255,12 +257,10 @@ class ChatAlertPreviewTest {
     }
 
     private fun finishFixtureActivities() {
-        instrumentation.runOnMainSync {
-            Stage.values().filter { it != Stage.DESTROYED }.flatMap {
-                ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(it)
-            }.filterIsInstance<MainActivity>().distinct().forEach { it.finish() }
-        }
+        val activities = activeMainActivities()
+        instrumentation.runOnMainSync { activities.forEach { it.finish() } }
         instrumentation.waitForIdleSync()
+        ui.waitUntil(5_000) { activeMainActivities().isEmpty() }
     }
 
     private fun click(target: SemanticsMatcher) {

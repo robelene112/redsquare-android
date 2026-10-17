@@ -84,10 +84,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
     var reviewingChat by rememberSaveable { mutableStateOf(false) }
-    var chatAlertUri by rememberSaveable(wallet?.publicKey, backend) { mutableStateOf<String?>(null) }
-    val chatAlert = nl.davidengelen.redsquare.chat.ChatAlertReference.parse(chatAlertUri?.let(android.net.Uri::parse))
-        ?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
-    var chatAlertGeneration by rememberSaveable(wallet?.publicKey, backend) { mutableLongStateOf(0L) }
+    // Wallet loading is transient. Keep the bound reference until identity can be checked.
+    var chatAlertUri by rememberSaveable { mutableStateOf<String?>(null) }
+    val restoredChatAlert = nl.davidengelen.redsquare.chat.ChatAlertReference.parse(chatAlertUri?.let(android.net.Uri::parse))
+    val chatAlert = restoredChatAlert?.takeIf { it.owner == wallet?.publicKey && it.backend == backend }
+    var chatAlertGeneration by rememberSaveable { mutableLongStateOf(0L) }
+    LaunchedEffect(wallet?.publicKey, backend, chatAlertUri) {
+        if (wallet != null && chatAlertUri != null && chatAlert == null) chatAlertUri = null
+    }
     val navigationMemory = remember(activity, wallet?.publicKey, backend) {
         ViewModelProvider(activity)["browse:${wallet?.publicKey.orEmpty()}:${backend.id}", FeedNavigationMemory::class.java]
     }
