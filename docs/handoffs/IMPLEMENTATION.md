@@ -24,6 +24,22 @@ close/feed/zeroSaitowrites. No unchangedretry, header/identityspoofing, proxy or
 providerbypass. Otherblockedinputs (Firebase/Giphy/physical/store) remainpending;
 no repeatedownerquestions. Read issue/currentparent beforeclaiming17.
 
+## Current YouTube diagnostic checkpoint
+
+Sole issue #17, fixed review base c0f2da7e. Source747f1408 prearms the existing
+public-video diagnostic before Play with a PID/video/nonce cache handshake.
+Corrected source7d9e1d0c fixes cooked-template whitespace, rejects hidden or
+clipped ancestors before reading the two allowed text fields, and cleans up the
+observer plus the full handshake ownership scope. Standards0/Spec0 after fixes.
+Controlled generated-expression check passes; initial APK build passed3m23s.
+Corrected APK build passed1m46s; raw output is retained with preflight.
+Preflight: `docs/evidence/ticket17/native-visible-error-oct17/preflight/`.
+No new native public run yet. Existing public150/Playing failure remains open.
+Next: retain corrected local build, push and dispatch exactly one changed
+`video-public-android17` with the same second signed reference. Preserve real
+Playing/no-autoplay/close/feed/no-Saito-write acceptance. No unchanged retry,
+provider identity/header/proxy/login change or production node operation.
+
 ## Historical gateway checkpoint records
 
 The remaining gateway sections preserve dated implementation/review stages.

@@ -1,0 +1,7 @@
+Expected values to be strictly equal:
++ actual - expected
+
++ 'Sign  in\nto confirm you are not a bot'
+- 'Sign in to confirm you are not a bot'
+        ^
+
