@@ -59,9 +59,13 @@ internal object PrivateChatPush {
             if (message.id != reference.signature || message.author == wallet.publicKey ||
                 now < message.createdAt || now - message.createdAt > 7 * 24 * 60 * 60 * 1000L)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked)
-                return@synchronized ChatNotificationResult.SUPPRESSED
             val route = PrivateChatWakeRoute(context, wallet.publicKey, reference.backend, wake)
+            if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked) {
+                // A deliberate policy decision also completes an earlier retained pending receipt.
+                ChatHistoryStore(context, wallet, reference.backend, received.counterparty).completeAlert(message.id)
+                route.remove()
+                return@synchronized ChatNotificationResult.SUPPRESSED
+            }
             route.remember(wallet, received, now)
             val outcome = retainPrivateChat(context, wallet, reference.backend, received, endpoint, retryPublication = true)
             if (outcome != ChatNotificationResult.RETRY) route.remove()
