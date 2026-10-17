@@ -113,7 +113,8 @@ worker is deliberately no-op until its intended missing-processing RED is observ
 Initial local tracer build fails2m26s on the fixture request body
 being nullable. The correction requires a body, compares the complete expected
 version/wake request and surfaces callback failures. Source reviews at553df5b0
-report0/0; corrected compilation/review and intended native RED remain next.
+report0/0; correction reviews atdc48e398 report0/0. Corrected local core/debug/test
+build passes1m47s. Intended native RED is next; no runtime pass is claimed.
 Next review base68e420ee. Existing consent,
 wallet/backend choices, strict app fixture endpoints and scoped cancellation/restore
 remain. No Firebase SDK/client config/service or deployed gateway/node/account change. Existing
