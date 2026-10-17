@@ -11,103 +11,75 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Active native private Chat wake integration (#46)
 
-Sole writer root; #46 assigned, native child33, closed45 prerequisite. Whole review
-base4703fabeccb0ba86be0b7711ff546226b0f50a83. Existing whole33/32 Google/config/
-deployment/physical blockers remain. Public beta27 unchanged; no node operations.
-First scope is gateway-owned persistent signed encrypted-candidate observation,
-opaque FCM, recipient-proof original retrieval and real native no-Activity worker/
-local decryption/alert/receipts. Preserve private default/opt-in previews and44tap.
-Wallet-local background Chat consent joins shared registration demand alongside
-independent Social consent; disabling one must not unregister the other. Groups
-remain the next34 slice. No live stream promises complete history or Relay-only
-coverage. Parent's existing controlled peer/gateway/FCM/native seams apply.
+Sole writer root, assigned#46, child33, prerequisite45closed. Whole review base
+4703fabeccb0ba86be0b7711ff546226b0f50a83. Public beta27 unchanged. No production
+node/provider/deployment changes. Original32/33 keep Google/config/hosting/Pixel
+gates. Group background transport remains next34slice. Preserve unrelated untracked
+docs/research/NATIVE_GROUP_CHAT_CONTRACT.md unread and untouched.
 
-First owned gateway tracer compiled/executed, actual RED1m6s at public HTTP bind:
-private-chats category rejected400 instead of201. No observer/FCM/original fetch
-assertions reached; Official loop unexecuted. GatewayChatObserver is explicitly a
-no-op executable seam at this checkpoint, not implemented observation. Three
-hashed raw/source records in docs/evidence/ticket46/gateway-first-red. No Android
-source changes. No owned local build. Temporary work stays outside checkout at
-/tmp/redsquare-private46-work-20261017. First gateway GREEN1m5s passes both logical backend loops through actual owned
-propagation/opaqueFCM/thinrecipient-proofresolve/originalfetch/localfixturedecrypt.
-Three raw/source hashes in gateway-first-green. Main --observe is not wired to
-this new observer yet; Core client categories and Android remain unchanged.
-No retry/second-stream event/process-death/larger-media claim from this first case.
-The implementation keeps a bounded persistent owned peer and private ciphertext
-cache (24h/128MiB/4096files) separate from the4MiB subscription journal; stream
-gaps remain visible. Minimum source review remains pending.
-Corrected27fd2916f clamps each new event to its already-retained original expiry
-and wires independent per-backend Chat identities into explicit --observe mode.
-All observers are signalled before waiting; HTTP-only mode still loads no ADC.
-Complete local core/gateway/installDist PASS2m9s: gateway12/0across10suites,
-coreUPTODATE114/0/0. Thirteen hashed records in gateway-minimum-full.
-First gateway review32696b52e: Spec1retention wording; Standards1samewording
-and1heuristic repeatedcipher-cacheIO. Corrected08c92dd79 identifies all eligible
-new bindings first, saves the common original once, skips duplicate/irrelevant
-state writes and uses an existing-cache fast path. Full cache parsing is reserved
-for scheduled cleanup or capacity reclamation. Docs distinguish retrieval expiry
-from physical removal after successful cleanup (may lag/fail/stopped). Corrected
-local core/gateway/installDist PASS2m8s, gateway12/0in10suites/coreUPTODATE114.
-Thirteen records in gateway-reviewed-full; corrected reviews both zero actionable findings.
-Added28e1f24af same-stream coverage PASS2/0in6.590s: both logical backends,
-first original repeated then a distinct second original over the same authenticated
-connection; exactly two opaque requests and exact second resolve/fetch/decrypt.
-Three hashed records in gateway-stream. No new RED or encryption interop claim.
-No reconnect/media-capacity/process-death claim yet. Native consent tracer added to existing chat-alerts scope. Initial local compile
-fixture type error corrected before runtime, not a behavior RED. Actual Android10
-CI39057745908 at935c7787d fails first missing Settings Chat alerts when closed
-choice after20s; five prior alerts PASS, no union assertions reached. Seven hashed
-records in native-consent-red retain raw outcomes/PNG/XML/exact source metadata.
-Fixture861a5b219 preserves original failures and guards restoration with an Activity
-shutdown barrier; both correction reviews zero remaining findings.
-Productionb2600cda6 adds wallet-local defaultoff background consent, new Settings
-row/existing skippable Chat prompt callback and shared social/private category
-union with a common Core/gateway category validator. Local build PASS5m10s,
-core114/0 and gateway13/0across10suites, native/test Kotlin compilation. Thirteen
-hashed raw/source records in native-consent-local. Both bounded consent source
-reviews zero actionable findings. Actual Android10 runtime GREEN39058689594 atb260:
-six Chat cases PASS60.021s, including defaultoff/recreate and actual signed union
-HTTP changes with stable subscription. Six hashed records in native-consent-green;
-root viewed actual Settings PNG. This is bounded consent acceptance only.
-Next tracer ec0917c5b adds PrivatePushWorkPreviewTest to existing chat-alerts scope:
-Chat-only consent, no-Activity real WorkManager, recipient-proof original fetch,
-local decrypt/history, real generic shade and dismissed-redelivery suppression.
-Actual worker RED39059204747 at ec:7run/1FAIL61.023s after taskSuccess but
-missing private alert; earlier6PASS. No history/shade/dedup reached; source still
-social-only preflight, not an observed unsupported-kind failure. Six hashed records
-in native-worker-red; root viewed launcher PNG. Sharpened d6ce0e06 adds bounded
-actual publication, physical card dismissal/positive removal/continuous2s silence;
-both fixture reviews zero residual findings.
-Firstreceiver8c09aa207 uses union preflight/typedprivatehint/sameorigin bounded
-recipient-proof originals/localverifydecrypt/history/pending/publication receipts
-and existing generic alert with result enum. NotificationReceiptLedger generalizes
-Social storage while preserving exact social filename/keyalias/prefix/schema.
-Localnative/testcompile PASS3m29s, seven source hashes plus build in
-native-worker-first-local. ActualAndroid10GREEN39059977863 at8c passes7cases67.495s,
-including workerproof/decrypt/history/actualgenericshade/physicaldismiss/continuous
-2s duplicate absence; root viewed both newPNGs. Eight hashed records in
-native-worker-first-green. ExistingSocial regression39059979882 at8c passes15cases
-(binding1, presentation/tap11, worker3); eight hashed records in native-social-regression.
-Standardsfirstreceiver0findings. Spec1pure-decodeparseerror retry classification,
-fixed14211039 with zero residual Spec findings. Changedpuredecodebehavior is not
-retroactively covered by immutable8c runs. NoSocialprocess-death/new17/fullclaim.
-Next634d5b9de adds ordinary receiveChat seam first then opaque worker after physical
-dismissal; original workerfirst journey retained. Both newfixture reviews0findings.
-ActualordinaryRED39060436527 at634:8run/1FAIL71.397s after ordinarygenericalert,
-physicaldismiss and completedopaqueWorker; duplicate actualmanageralertviolates
-continuousabsence. SevenothercasesPASS. Eight hashed records native-ordinary-red;
-root viewed failurelauncher/statusicon, no visibleduplicate shade claim.
-Implementation1f6406e7e sharesretainPrivateChat acrossbothpaths: pendingbeforehistory/
-publication, legacycached&&!pendingseen, pendinghistoryremainseligible, selfauthored
-cachewithoutledger. CommonChatFixtureState nowpreservesownerchatpush; manual
-PrivateHistory/Mixed/ChatMuteProcess explicitreceipt-scopesadded. Localproduction+
-testcompilePASS3m35beforefinalfixtureparamclarification declaredPrefixes, production
-unchanged; two hashes in native-ordinary-local intentionally hash only3production
-sources. Exactfinalfixtureassembly/runtime39061294877 and source reviews pending.
-No ownedlocalbuild. Next: ordinaryGREEN/review, controlledpendinghistory/retry/process
-recovery and preview/tap/currentpolicy/identity coverage; final full SDKs,
-both reviews and next signed update are still required before native46 acceptance.
-Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
+Gateway minimum at08c92dd79 has both source/evidence reviews zero actionable
+findings: persistent owned authenticated read-only peer, bounded encrypted-candidate
+queue, separate24h/128MiB/4096file ciphertext cache, opaque FCM, recipient-proof thin
+resolve and separate original retrieval. Logical expiry is distinct from delayed
+physical cleanup. Main uses independent per-backend Chat identities. No stream
+promises complete history or Relay-only availability. First HTTP400 RED and GREEN,
+complete gateway12/core114 and review correction evidence remain in ticket46's
+ gateway-first-red, gateway-first-green, gateway-minimum-full, gateway-reviewed-full.
+Added28e1f24af same-stream duplicate/newmessage coverage passes2cases/both logical
+backend bindings6.590s; packet gateway-stream. No reconnect/media-capacity/restart
+acceptance yet. Common canonical categories now shared between Core and gateway.
+
+Wallet-local defaultoff Chat background consent atb2600cda6 is independent of Social
+and private previews, uses existing skippable Chat permission offer and new Settings
+row. Shared registration unions current consent/Android categories. Actual Android10
+consent GREEN39058689594 passes6cases60.021s, both source reviews0. Packets
+native-consent-red (actual missingrowRED/earlier fixturecompileerror),
+native-consent-local (core114/gateway13/nativecompile) and native-consent-green.
+Root viewed actual newSettingsPNG. No actual Google operation implied.
+
+First private receiver8c09aa207 uses union preflight, typedprivatehint, bounded
+same-origin recipient-proof original fetch, local validation/decryption and history
+before existing generic Android alert. NotificationReceiptLedger preserves exact
+prior Social filename/keyalias/prefix/schema, with independent private receipts.
+Actual worker RED39059204747 missingalert at ec, then GREEN39059977863 at8c:
+7cases67.495s including no-Activity worker/decrypt/history/actualshade/physicaldismiss/
+continuous2s duplicate absence. ExistingSocial regression39059979882 passes15cases
+(binding1/presentation+tap11/worker3); does not include Socialprocessdeath.
+Packets native-worker-red, native-worker-first-local, native-worker-first-green,
+native-social-regression. Root viewed new alert and dedup captures. Spec's pure
+decode parse-error retry finding fixed14211039, residualSpec0; changedbehavior is
+not retroactively established by earlier8c normal-input runs.
+
+Ordinary-before-worker duplicate tracer634d5b9de: actual RED39060436527,
+8run/1FAIL71.397s, duplicate after physicaldismiss; other7PASS. Shared
+retainPrivateChat at1f6406e7e handles both ordinary and worker paths, preserving
+legacyseen and pendinghistory. CommonChatFixtureState captures ownerchatpush;
+manualPrivateHistory/Mixed/ChatMuteProcess receipt scopes added. Scope audit0gaps.
+ActualnormalGREEN39061294877 at1f passes8cases74.437s, including final fixture
+constructor clarification and continuous duplicate silence. Root viewed both
+ordinary-first captures. Packets native-ordinary-red/native-ordinary-local/
+native-ordinary-green retain all exact qualifications and sources.
+
+IMPORTANT OPEN SOURCE FINDING on both axes: ledger reads/preparation before
+history.save can prevent ordinary history retention if bookkeeping is unreadable
+or at1000unexpiredreceipt capacity. NormalGREEN does not resolve this. Preserve
+history independently and keep background retry eligibility. Proposed fix is
+pending-alert metadata committed atomically with cached originals, retaining
+legacy array readability; implementation not written yet.
+
+Next tracer7eb609b59 adds one owned ledger.new-directory case: ordinary Chat must
+retain/read history without alert while bookkeeping unavailable, then removal plus
+real opaque worker recovers the cached pending alert and duplicates stay quiet.
+Actual RED39061775953 immutable7eb pending. Fixture corrections23c25b9f preserve
+primary failures during obstruction cleanup;56499aa0 observes continuous2s absence
+before removing obstruction. Spec correction0, Standards residualcheck pending.
+Existing production finding remains open. No owned local build.
+
+Next: observe storageRED, fix independent history/pending persistence, then actual
+retry/process recovery, preview/exacttap/currentpolicy/identity and gateway stream/
+persistence coverage as needed. Final full Android10/17, core/gateway/release/lint,
+both source/evidence reviews and next signed28 publication remain required before
+native46 completion. Controlled wake injection is never real Google closed-app proof.
 
 ## Accepted gateway session compatibility (#45)
 
