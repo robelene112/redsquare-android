@@ -101,6 +101,13 @@ class PrivatePushWorkPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         val capturePrefix = if (ledgerUnavailable) "receipt-storage" else if (ordinaryFirst) "ordinary-first" else "worker"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-$capturePrefix-$name.png"))
+        fun assertSilent(label: String) {
+            val silentUntil = SystemClock.elapsedRealtime() + 2_000
+            do {
+                assertTrue(label, manager.activeNotifications.none { it.tag == tag })
+                SystemClock.sleep(50)
+            } while (SystemClock.elapsedRealtime() < silentUntil)
+        }
         fun await(id: UUID) {
             val deadline = SystemClock.elapsedRealtime() + 40_000
             while (SystemClock.elapsedRealtime() < deadline) {
@@ -135,8 +142,7 @@ class PrivatePushWorkPreviewTest {
                             val retainedMessage = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey)
                                 .load().entries.single { it.message.id == original.id }
                             assertEquals(text, retainedMessage.message.text)
-                            assertTrue("Unavailable alert bookkeeping must keep ordinary Chat readable without publishing",
-                                manager.activeNotifications.none { it.tag == tag })
+                            assertSilent("Unavailable alert bookkeeping must keep ordinary Chat readable without publishing")
                             capture("retained-before-recovery")
                         }
                     } catch (caught: Throwable) { receiptFailure = caught; throw caught }
@@ -173,11 +179,7 @@ class PrivatePushWorkPreviewTest {
                 assertTrue("Android must observe the physical dismissal before redelivery", manager.activeNotifications.none { it.tag == tag })
                 device.pressBack()
                 await(schedule())
-                val silentUntil = SystemClock.elapsedRealtime() + 2_000
-                do {
-                    assertTrue("Redelivery must not re-alert a dismissed private message", manager.activeNotifications.none { it.tag == tag })
-                    SystemClock.sleep(50)
-                } while (SystemClock.elapsedRealtime() < silentUntil)
+                assertSilent("Redelivery must not re-alert a dismissed private message")
                 assertTrue(resolves.get() > 0 && originals.get() > 0)
                 assertEquals(1, ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries.size)
                 assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
