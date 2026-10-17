@@ -66,23 +66,32 @@ retained. Two PNG pairs byte-identical despite renderer differences; title crop
 and truthful unavailable history/live status qualified. See canonical README.
 Both whole-source reviews FIXED2fff4587e...598dd89ff are Standards0/Spec0.
 
-Production source frozen at44f5a34b3, final native fixture598dd89ff. Next: full pair at exact9a37c19ba5182b8f0f26f7c2947ec6a511a457f9:
-Android10 run39044590725 andAndroid17 run39044590715, public_feed_read=true,
-both PENDING. Inspect/retain actual complete outcomes, final evidence review,
-signed review publication and #44 close only then. Original33/34 and real32 blockers
-remain unchanged. No Google or physical/process-death claim from these focused
-journeys. Signed27/0.1.27 is prepared, NOT published, source exactly9a37c19ba. Wrapper0/
-GradlePASS4m38s and independent certificate/package/min29/hash checks pass.
-APK8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159,
-establishedcert unchanged. Nine hashed prepared records and source/fixture Git
-object equality in signed-preview27-prepared. Artifact moved after build to
-/mnt/storage/redsquare-android-artifacts/chat44-review27-prepared; existing26
-not moved. Do not rebuild/reserve a new version unless source changes require it.
-No owned local build. Same approved seams/180s class/20s observations.
-Temporary work outside checkout /tmp/redsquare-chat44-work-20261017; large original
-artifacts /mnt/storage/redsquare-android-artifacts. Do not bulk-clean older files or
-touch unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
+Production source remains frozen at44f5a34b3. First full pair at9a37c19ba:
+Android10 run39044590725 andAndroid17 run39044590715 both FAILED at existing
+ChatMutePreviewTest331, waiting for the offscreen Official Settings backend row.
+New Chat alert5cases passed on both; early completion16/JUnit56, actual63PASS
+and1failure, four intentional process interruptions. Later full gates unexecuted.
+Canonical full-first/android10 andandroid17 retain26hashed original records each.
+Failure XMLs show Settings/Owner row, Official belowviewport; Android10 PNG viewed.
+Fixture-only8113a0386 scrolls the existing backend options before clicking across
+all same Settings selectors, preserving assertions and deadlines. Both bounded
+source reviews report Standards0/Spec0. Focused chat-mute39046322617 at exact8113
+is PENDING. Fresh full pair required on both SDKs after this correction.
 
+Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
+4m38s and independent certificate/package/min29/hash checks pass. APK SHA256
+8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159; established
+certificate unchanged. Nine hashed prepared records and source/fixture Git object
+equality in signed-preview27-prepared. Production equivalence survives fixture-only
+correction; do not rebuild/reserve a new version for test-only changes. Artifact
+/mnt/storage/redsquare-android-artifacts/chat44-review27-prepared. Public26 unchanged.
+No owned local build. Same approved seams/180s new alert class/20s observations.
+Original33/34 and real32 blockers remain unchanged. No Google or physical/process-
+death claim from focused alert journeys. Next: focused correction, actual full
+Android10/17 acceptance, final evidence reviews, signed27 publication, close44.
+Temporary work stays outside checkout /tmp/redsquare-chat44-work-20261017; large
+original artifacts /mnt/storage/redsquare-android-artifacts. Preserve unrelated
+untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
 ## Accepted native Chat GIF slice (#43)
 
