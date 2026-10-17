@@ -293,8 +293,9 @@ disconnect cannot discard candidate/parent evidence already collected first.
 No claim is made that this specific disconnect interleaving has been fixture-tested.
 
 POST `/v1/observer/status` accepts `{version:1,backend}` for either approved backend
-and returns version/backend/gap. The bounded latest name gap contains only reason
-`name-proof-unavailable`, since, lastAt and expiresAt. One record per backend is
+and returns version/backend/gap. The bounded latest gap contains reason, since, lastAt and expiresAt.
+Name lookup failures use `name-proof-unavailable`; observer coverage adds the
+chain/bootstrap/archive reasons described below. One record per backend is
 kept for seven days since its latest observation; it is a recent coverage warning,
 not a complete audit trail or proof of a current outage. Old snapshots acquire
 an empty optional gaps map. Gap cleanup currently occurs on mutation. Full chain,
@@ -332,8 +333,35 @@ the exact reference. SPV relevance and Full transaction-count fields never justi
 skipping a block. Callers fetch/process blocks individually to bound memory.
 These checks establish supported block identity, not consensus admission/finality.
 
-The current slice remains separate from durable cursor advancement, event
-processing, retained ancestry/reorg handling and continuous standalone polling.
+The callable observer now persists candidate outcomes before a processed cursor.
+Reorg recovery and continuous standalone polling remain unfinished.
 Its[controlled chain evidence](evidence/ticket42/chain-green/README.md) passes
 both selector loops; no exhaustive-history claim. Source review requires matching
 final tip identity, with the conflict guard reviewed rather than separately fixture-tested.
+
+
+## Callable durable observer
+
+`PushGateway.observe(chain, archive, sender)` requires the same approved backend
+on both readers. It verifies full-block originals, locates supported signed social
+candidate IDs and verifies their current selected-Archive availability and parent/
+name evidence before queuing. Candidate outcomes commit before the block cursor;
+an interruption before the second commit repeats discovery with existing dedup.
+All exact Archive candidate/parent reads for a block precede optional name queries.
+Input lists are bounded by the65,536 full-block transaction limit; Archive head
+and exact-row request limits stay100 and1 respectively.
+
+The optional chains snapshot map stores height/hash/fork ID and at most128 recent
+points per backend. HTTP observer status includes this processed cursor, distinct
+from the peer's advertised tip. The first supported recent bootstrap records
+`bootstrap-history-unavailable` when earlier history is not processed. Missing
+ranges or an unproven empty response record `chain-history-unavailable`; unavailable
+chain/full-block reads and unsupported ancestry have separate current reasons.
+Advancement stops at unsupported ancestry or missing consecutive references.
+Rewinding to a retained common ancestor and recovering a new branch remain open.
+
+Gap status is only the latest bounded recent coverage warning per backend, with
+reason-specific since-time. It is not a complete retained list of every gap kind.
+The current non-social fixture establishes durable position and actual Full
+continuation after a server-instance restart. It does not establish chain-triggered
+social delivery, interrupted cursor writes, reorg recovery or continuous operation.

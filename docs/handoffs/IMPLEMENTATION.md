@@ -7,6 +7,28 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active durable observer processing
+
+CurrentHEADb93bda92, remoteacceptedc35d4fe5. Chaincheckpoint319365f8 final0/0,
+pushedc35d4fe5; sourceCI38998360212 SUCCESS, retainedchain-source-ci2hashes.
+Sole implementation42stillopen. Tracera15df1d6 actualFAIL1m31s/new1.364s at145
+missingHTTPcursor, OWNERrawprotocolpassed, restart/OFFICIALunexecuted.
+[Retained](../evidence/ticket42/observer-red/README.md),9hashes/18sources.
+Standardsoraclegapfixed23b37088: exactsequencebootstrap/Full/observerbootstrap/
+restartedFull. Minimumcbc51abd PASS2m28s/gateway9/0/0/new5.766bothselectors,
+corefresh aftergenericapplicationMessagesmethod. [Firstminimum](../evidence/ticket42/observer-first-minimum/README.md).
+Spec2: per100chunkRegistrycoupling andincorrectsincewhennamegapreplacesotherreason.
+Standards0plusduplicatependingdeliveryhelperheuristic.
+Correctionb93bda92 collectsALLexactblockevidence beforeANYoptionalnames (inputbound
+65_536, actualArchivequerylimitsunchanged), sharesreason-matchedrecordGap and
+private deliverPending. Source0/0. Ownedlocal56817 endedPASS1m35s/gateway9/0/0/coreUPTODATE. No ownedbuild.
+[Retained GREEN](../evidence/ticket42/observer-green/README.md),9hashes/18sources.
+Finaldocs/evidencereview pending.
+Pinnedcursorfixtureblocksnon-social: chain-triggeredsocialeventnotprovenyet.
+Next REALsourcework: reorg/ancestryrecovery, unavailablegapcoverage andcontinuous
+standaloneruntime/cleanup; finalchain-socialproofstillneeded. Do not close42/32.
+No other writers/node/cloud/accountoperations; protectedgroupdocuntouched.
+
 ## Active chain range/full-block slice
 
 CurrentHEAD319365f8, remoteaccepted8fc2bd9b. Name checkpoint final0/0 pushed;
