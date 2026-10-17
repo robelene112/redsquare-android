@@ -79,10 +79,29 @@ source reviews report Standards0/Spec0. Focused chat-mute39046322617 at exact811
 SUCCESS: UI8/0/95.265s, actual policy process recovery1/0/12.708s (PID6796to7265),
 restoration1/0/0.081s, core114/0/0. Canonical settings-scroll-green/android10
 retains19hashes/inventory38XML38PNG. New alert-specific process death is not proved.
-Fresh full pair exact4f0d7ce1af31564e7b212752e2ecab3545e5265b is PENDING:
-Android10 run39046444313 FAILED early at existing SocialPushProcessRecoveryTest84: actual reply remained after coordinate swipe and5s wait. Seventeen early passes/one failure; no deliberate death, restoration1PASS. Full-second/android10 retains originals; identical before/after PNGs, rootviewedfailure, XMLsamefullyvisiblecard. Cause beyond ineffective gesture unproved. Fixture-onlyf7395a26a uses one UiObject2-bound swipe, preserving all observable assertions/deadlines and no retries/cancelAPI. Focus social-push-process10 run39047234876 exactf7395a26a SUCCESS: actual dismissal/death/recovery1/0/4.178s, restoration1/0/1.711s, PID3294to3636. Autonomous scheduled receipt-after-death also passes with restoration1/0/0.765s. Dismissal-green/android10 retains33hashrecords, five archiveXML/PNG and three selected pairs without new viewing claims. Both bounded source reviews0/0. Fresh full10 run39047572445 atd68c30d3998546f02ac96d6216494d46a36a56a2 PENDING. Android17 run39046446190 continues at4f0; do not cancel blindly. Both source/release/lint stages passed; public_feed_read=true. Source-equivalence
-in full-regression proves APK9a/focused8113/full4f0 production/build equality and
-corrected Settings fixture equality8113/full4f0. The later full10d68 differs from full17 only by the physical swipe fixture; production/build equality also coversf739/d68. Root viewed both first-failure Settings PNGs.
+The second full Android10 run39046444313 at4f0 FAILED early at existing
+SocialPushProcessRecoveryTest84: actual reply remained after coordinate swipe
+and5s wait. Seventeen early passes/one failure; no deliberate death, restoration
+1PASS. Full-second/android10 retains13hashrecords. Before/after PNGs are identical;
+root viewed failure and parsed the same fully visible card. Cause beyond the
+ineffective gesture is unproved. Fixture-onlyf7395a26a uses one UiObject2-bound
+swipe, preserving observable assertions/deadlines, without retries or cancelAPI.
+
+Focused social-push-process10 run39047234876 exactf7395a26a SUCCESS:
+dismissal/death/recovery1/0/4.178s, restoration1/0/1.711s, PID3294to3636. Existing
+autonomous scheduled post-death receipt and restoration1/0/0.765s also pass.
+Dismissal-green/android10 retains33hashrecords, five archiveXML/PNG and three
+selected pairs without new visual claims. Both bounded source reviews0/0.
+
+Current full acceptance remains PENDING, public_feed_read=true on both:
+- Android17 run39046446190 at4f0d7ce1af31564e7b212752e2ecab3545e5265b continues.
+- Replacement Android10 run39047572445 atd68c30d3998546f02ac96d6216494d46a36a56a2
+  continues. Both source/release/lint stages passed; native suites are running.
+Do not cancel the ongoing17 run merely for this fixture-only10 correction.
+Source-equivalence in full-regression proves APK9a/8113/4f0/f739/d68 production
+and build equality, and corrected Settings fixture equality8113/full174f0.
+The later full10d68 differs from full17 only by the physical swipe fixture.
+Root viewed both first-failure Settings PNGs.
 
 Signed27/0.1.27 is prepared, NOT published, source9a37c19ba. Wrapper0/GradlePASS
 4m38s and independent certificate/package/min29/hash checks pass. APK SHA256
