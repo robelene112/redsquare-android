@@ -128,6 +128,7 @@ class PrivatePushWorkPreviewTest {
                 if (ordinaryFirst) {
                     val obstruction = File(context.noBackupFilesDir, "chatpush.${wallet.publicKey}.owner.ledger.v1.new")
                     if (ledgerUnavailable) check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
                     try {
                         receiveChat(context, wallet, SaitoBackend.OWNER, original.applicationRequest(1).drop(5).toByteArray())
                         if (ledgerUnavailable) {
@@ -138,7 +139,8 @@ class PrivatePushWorkPreviewTest {
                                 manager.activeNotifications.none { it.tag == tag })
                             capture("retained-before-recovery")
                         }
-                    } finally { if (ledgerUnavailable) check(obstruction.delete()) }
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { if (ledgerUnavailable) cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
                 }
                 if (!ordinaryFirst || ledgerUnavailable) await(schedule())
                 assertNoActivity()
