@@ -97,7 +97,7 @@ The renewal journey first fails28s at expected201/got409. The minimum then passe
 39s with both gateway journeys passing and the core task up-to-date. It observes
 new backend/expiry, rejected delayed renewal, idempotent retransmission and a
 fresh renewal after a server-instance restart. It does not observe an outgoing
-FCM target or actual Firebase identifier replacement. Minimum review is pending.
+FCM target or actual Firebase identifier replacement. Minimum source reviews at1d72826a report Standards0/Spec0.
 
 Run the owned protocol/core checks with
 `scripts/android-build :core:test :push-gateway:test`. CI includes the gateway

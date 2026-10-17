@@ -59,7 +59,9 @@ Renewal minimum now passes39s, core task up-to-date and gateway2/0/0; exec18711
 ended. Same subscription accepts fresh proof to renew FID/backend/categories/expiry
 while owner/installation/revocation hash remain fixed. Per-runtime nonce ordering
 rejects a delayed older request; a new runtime requires a fresh challenge. Exact
-retransmission remains idempotent. Source review is pending. No owned local build.
+retransmission remains idempotent. Source reviews at1d72826a report Standards0/Spec0. Retained
+[renewal GREEN](../evidence/ticket42/renewal-green/README.md), fourhashes and
+seven source hashes. Final evidence review is pending. No owned local build.
 
 No standalone command, Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner

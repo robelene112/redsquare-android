@@ -21,7 +21,8 @@ Correction41cf0c76 now reports Standards0/Spec0: request integers400, stored-fie
 failuresIO/503. No extra targeted campaign or live operation was used. Durable
 acknowledgement and limits are in the[current contract](../../../PUSH_GATEWAY.md).
 
-Final committed-evidence review and exact-source CI are pending. CI now invokes
+Final committed-evidence reviews atc35cb6be report Standards0/Spec0.
+[Exact-source CI38991601083](../subscription-source-ci/README.md) succeeds atc35cb6be. CI now invokes
 the gateway test and keys its dependency cache on the new module build file.
 App/core source remains unchanged; no additional unchanged Android rerun is
 claimed. Full-harness wiring, configured SDK and actual Google delivery have their

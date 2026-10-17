@@ -1,0 +1,12 @@
+{
+  "source": "1d72826a726ec353207783a9bdf6a5a1a5050256",
+  "sourceFiles": {
+    "push-gateway/build.gradle.kts": "be2adb822d4f8de8d3a2bc1a77bf9bcb11f10becc679676d95c6d0c9af8b28d1",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayStateFile.kt": "ccfca1ef81432f6bb120ed3761f992defc673fc25cdb14d356cacdd95b3d05da",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "d429c071a09605fb02ca7fe2e4ddbb075e71fb6f3e1519b11799ce47d8696a65",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "99b6a936f2d095757f04c29556c456be219168ac1b57853e4d9a4ec1d69aa470",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/SubscriptionLifecycleTest.kt": "7eb80723924d153cc18fec2cd724dbba5547c7d0d14d20c9a628693954811cc0",
+    "settings.gradle.kts": "b51e2c01f7af1f5130711b70ae4dad8f12c153d0302d63b4fe7a54f2a0ee7794",
+    ".github/workflows/android-proof.yml": "2d38ce49c253f6e00ad76114c5684bc83756df9c8312a680d51ae914a768e976"
+  }
+}
