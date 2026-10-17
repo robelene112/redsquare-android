@@ -4,4 +4,4 @@ dependencyResolutionManagement {
     repositories { google(); mavenCentral() }
 }
 rootProject.name = "RedSquare"
-include(":core", ":app")
+include(":core", ":app", ":push-gateway")
