@@ -1,0 +1,118 @@
+{
+  "source": "08c92dd7912952b79ff08e751eafac3df2675406",
+  "reviewBase": "4703fabeccb0ba86be0b7711ff546226b0f50a83",
+  "command": "scripts/android-build :core:test :push-gateway:test :push-gateway:installDist",
+  "exitCode": 0,
+  "coreTask": "UP-TO-DATE",
+  "gatewaySuites": [
+    {
+      "name": "nl.davidengelen.redsquare.gateway.FcmSenderTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:12:42",
+      "hostname": "674d776e1d9e",
+      "time": "1.869"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayArchiveTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:12:44",
+      "hostname": "674d776e1d9e",
+      "time": "0.54"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:12:44",
+      "hostname": "674d776e1d9e",
+      "time": "7.711"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayChainTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:12:52",
+      "hostname": "674d776e1d9e",
+      "time": "9.703"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayDeliveryTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:01",
+      "hostname": "674d776e1d9e",
+      "time": "30.86"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayPrivateChatDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:32",
+      "hostname": "674d776e1d9e",
+      "time": "2.366"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewayProcessTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:35",
+      "hostname": "674d776e1d9e",
+      "time": "2.604"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.GatewaySessionDeliveryTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:37",
+      "hostname": "674d776e1d9e",
+      "time": "2.814"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionClientTest",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:40",
+      "hostname": "674d776e1d9e",
+      "time": "1.715"
+    },
+    {
+      "name": "nl.davidengelen.redsquare.gateway.SubscriptionLifecycleTest",
+      "tests": "2",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T18:13:42",
+      "hostname": "674d776e1d9e",
+      "time": "4.825"
+    }
+  ],
+  "sourceSha256": {
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatObserver.kt": "fb7b1be52fce0f03a849d8b4bfb285108fa7fb940fb10e82f7099c98699cd5e1",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayChatOriginals.kt": "a7450763618ab38fcd90a697b687e1ac317cdbd56e4bbbf6a0b35c258bfa28f1",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayMain.kt": "f6af21a0b7f9ae83cfda5eb3dc6bd065de92b34a1fdf106f428e9e871f18f95a",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewaySubscriptions.kt": "1bfb8bfa24fa1c314f2c7f9c3f7ef9e5959d5cf6a513efa2252f0cf483be632a",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/PushGateway.kt": "0370f216a490fc1e1575080297ff1f9390fe4d8dde268348194cff6a365afd89",
+    "push-gateway/src/main/kotlin/nl/davidengelen/redsquare/gateway/GatewayPeer.kt": "c11370c77ce3d6231fffddb8bd999b6a4bdf3a581f41fa2c3728a9191a0e5562",
+    "push-gateway/src/test/kotlin/nl/davidengelen/redsquare/gateway/GatewayPrivateChatDeliveryTest.kt": "a4282c2bbfc2ada60c484a01e7ea2382edf738d0a48dc6df05bb0f9328b5812c"
+  }
+}

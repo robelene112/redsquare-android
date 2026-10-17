@@ -41,7 +41,15 @@ and wires independent per-backend Chat identities into explicit --observe mode.
 All observers are signalled before waiting; HTTP-only mode still loads no ADC.
 Complete local core/gateway/installDist PASS2m9s: gateway12/0across10suites,
 coreUPTODATE114/0/0. Thirteen hashed records in gateway-minimum-full.
-This is gateway minimum only; first source reviews remain pending. No second
+First gateway review32696b52e: Spec1retention wording; Standards1samewording
+and1heuristic repeatedcipher-cacheIO. Corrected08c92dd79 identifies all eligible
+new bindings first, saves the common original once, skips duplicate/irrelevant
+state writes and uses an existing-cache fast path. Full cache parsing is reserved
+for scheduled cleanup or capacity reclamation. Docs distinguish retrieval expiry
+from physical removal after successful cleanup (may lag/fail/stopped). Corrected
+local core/gateway/installDist PASS2m8s, gateway12/0in10suites/coreUPTODATE114.
+Thirteen records in gateway-reviewed-full; corrected reviews pending.
+This is gateway minimum only. No second
 stream/reconnect/media-capacity/process-death claim from the one private case.
 Next: gateway source review/corrections and needed persistence coverage, then
 native worker/consent/receipt integration; final full SDKs,
