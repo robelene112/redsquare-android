@@ -76,12 +76,15 @@ account, sender credentials or deployed service is created by this source change
 The signed gateway contract and portable recovery client have local acceptance;
 the native encrypted journal/HTTP binding adapter has controlled Android10/17
 acceptance in#42. Actual SDK registration/cloud acceptance remains separate.
-Durable observer/events,
-reconciliation after dropped messages, both-backend coverage and actual cloud
-sender still need implementation and verification. This client registration is
-not a gateway subscription. Chat must join the shared consent calculation before
-using this installation transport, so one module cannot unregister another.
-Full Android10/17 and physical Pixel/locked/Doze acceptance remain outstanding.
+The[isolated gateway](PUSH_GATEWAY.md) has controlled durable observer/event,
+lost-acknowledgement recovery, both-selector and external sender-adapter acceptance.
+See[autonomous processing evidence](evidence/ticket42/runtime-green/README.md);
+configured SDK callbacks/rotation and actual Google/device delivery remain#32
+acceptance. Android reconciliation binds the registered FID to the gateway through
+its separately verified signed contract. Chat must join the shared consent
+calculation before using this installation transport, so one module cannot
+unregister another. Configured push acceptance on Android10/17 and physical
+Pixel/locked/Doze checks remain outstanding.
 Public beta24 is unchanged.
 
 ## Dependency compatibility

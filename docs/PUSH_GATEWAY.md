@@ -443,4 +443,22 @@ their limits. [Unknown-history recovery](evidence/ticket42/history-recovery-gree
 passes both selectors across restart and subsequent exact Full continuation,
 retaining coverage warnings. Exact0d3b3e94 PASS1m50s/gateway10/0/0; source0/0.
 Reset binding/event combinations and interior suffix trimming are source-reviewed.
-Parent-proof availability remains open. No whole42 acceptance is claimed.
+[Missing signed parent recovery](evidence/ticket42/parent-green/README.md) passes
+both selectors: unavailable exact parent suppresses the reply and records a gap;
+restoration requires fresh proofs before sending. Exactddfd7005 full gateway10/0/0,
+PASS1m53s plus installDist; source0/0. Whole42 integrated acceptance remains pending.
+
+## Stalled observation limit
+
+A full block that remains unavailable or unsupported, or an exact Archive proof
+pass that repeatedly exceeds its budget on the same block, leaves the processed
+cursor unchanged. Automatic retries revisit that position. Recent-history reset
+currently recovers ancestry/reference gaps; it does not skip such a persistently
+unreadable block. Later observation can therefore remain stalled with a retained
+full-block-unavailable or archive-unavailable warning. This is an explicit coverage
+limit, not a claim of exhaustive outage recovery. Restore the backend's required
+block/Archive availability or deploy a reviewed compatible parser before restarting;
+restart keeps the saved position. Do not delete the journal, which also contains
+subscriber retirement authority and event deduplication. Hosting/backend changes
+require separate authorization. No permanent or complete historical delivery is
+promised.

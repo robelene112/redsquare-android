@@ -18,7 +18,12 @@ Owned35676 focusedFAIL37s/1method1failure: noFCMwhileparentwithheldpassed,
 thenmissingparentgapassertionfails. Restoration/latertails/OFFICIALunexecuted.
 [RED](../evidence/ticket42/parent-red/README.md),3hashes/23sources, tracer0/0.
 Currentminimum marks unavailableParent when exactsignedroot isabsent, preserves
-independentmentions andrecordsarchive-parent-unavailable. No build outcome yet.
+independentmentions andrecordsarchive-parent-unavailable.
+Owned28732 endedPASS1m53s/gateway10/0/0/reply28.791s/coreUPTODATE/installDist.
+[GREEN](../evidence/ticket42/parent-green/README.md),10hashes/23sources; no ownedbuild.
+Parent source0/0. Whole42 source audit atddfd7005: Spec1staleclientconfigurationdoc
+(nowfixed), Standards0 plus stalled-observation limit requiring explicit disposition.
+Finalintegratedevidence/docs/sourceCIreviews remain beforeclosing42.
 Focused RED retention must copy only actual GatewayDeliveryTest report (retainer
 has label parent-red exception), avoiding older unrelated JUnit. Source list23.
 After parent acceptance: whole42 integrated source/protocol/native-evidence review
