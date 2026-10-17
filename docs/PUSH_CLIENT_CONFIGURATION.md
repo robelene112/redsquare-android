@@ -5,7 +5,8 @@ The client source integrates Firebase Messaging26.0.0 using the supported
 [manual initialization](research/FCM_MANUAL_INITIALIZATION_2026_10_17.md) path.
 It does not require the Google-services Gradle plugin or checked-in JSON.
 Actual Firebase registration and cloud delivery remain unverified. The Android
-gateway adapter is now implemented under#42 and awaiting runtime verification.
+gateway adapter has controlled Android10/17 acceptance under#42, with synthetic
+FIDs and an owned HTTP gateway boundary.
 
 ## Build options
 
@@ -73,7 +74,8 @@ The owner Firebase setup question remains pending. No project, IAM role, API,
 account, sender credentials or deployed service is created by this source change.
 
 The signed gateway contract and portable recovery client have local acceptance;
-the native encrypted journal/HTTP binding adapter is under verification in#42.
+the native encrypted journal/HTTP binding adapter has controlled Android10/17
+acceptance in#42. Actual SDK registration/cloud acceptance remains separate.
 Durable observer/events,
 reconciliation after dropped messages, both-backend coverage and actual cloud
 sender still need implementation and verification. This client registration is

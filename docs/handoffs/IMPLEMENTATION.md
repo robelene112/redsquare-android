@@ -113,8 +113,18 @@ concrete finding, actualexit143, not a pass or runtime failure. No other contain
 touched. Correction derives canonical enabled social categories from actual OS
 channels, treats uncreated channels as default enabled, and shares the set across
 SDK demand/freshness and gateway binding. Both disabled means no social demand.
-Publication's final channel check is unchanged. Source correction review and
-corrected local build are next. No configured SDK or native GREEN claim.
+Publication's final channel check is unchanged. Corrected source17fb7260 reviews Standards0/Spec0. Exactsource17fb72605cf6e3eb740cbaba73b429a2b5de1bfa sourceCI38994268560 SUCCESS,
+release/lint/core/gateway. Native10 run38994269120 SUCCESS: binding1/1.235s,
+oldUI11/84.307s, worker3/46.275s. Native17 run38994270968 SUCCESS: binding1/11.810s,
+oldUI11/115.412s, worker3/47.324s. [Retained GREEN](../evidence/ticket42/native-binding-green/README.md),
+14+15+2+3 hashes,23 source hashes per device. Root parsed2XML/viewed2actual opaque
+alert originals; new binding HTTP/storage journey has no screenshot. Core114/0/0
+reports; task cache states in actuallogs. Individual channel choices and configured
+SDK worker hook are reviewed source, not executed OS toggle/liveSDK proofs.
+Corrected duplicate localbuild2522 retired only after all three exact-source hosted
+runs completedSUCCESS, actualexit143, never a localpass. No owned local build.
+Final evidence reviews pending. Next slice is remaining gateway observer/events/
+resolver/sender; do not close42/32 or repeat unchanged native runs. No configured SDK or native GREEN claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
 no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.

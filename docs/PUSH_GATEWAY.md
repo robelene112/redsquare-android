@@ -5,7 +5,7 @@ Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), s
 subscription binding/status/retirement. It is not a deployed gateway or a complete
 observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
 `start()`, `port` and `close()` support the owned HTTP fixture. The optional
-constructor port defaults to0; all listeners remain IPv4 loopback. The Android binding adapter is under verification; resolver, observer, FCM sender
+constructor port defaults to0; all listeners remain IPv4 loopback. The Android binding adapter has controlled acceptance; resolver, observer, FCM sender
 and operational acceptance remain later work. No account, credentials or live node state is used.
 
 ## Local command
@@ -129,7 +129,7 @@ dependency cache keys. No new hosted dispatch choice is added.
 ## Portable client reconciliation
 
 `core` now has `PushSubscriptionClient`, with an external HTTP boundary and a
-journal whose adapter must durably replace its contents. The Android adapter is implemented and under verification. The caller serializes access to one installation journal and
+journal whose adapter must durably replace its contents. The Android adapter has controlled Android10/17 acceptance. The caller serializes access to one installation journal and
 supplies fresh demand from durable wallet/backend/consent/permission state.
 
 The client retains a random installation UUID and subscription ID/revocation
@@ -159,7 +159,7 @@ corefresh114/0/0 and gateway4/0/0. Final evidence reviews at724a8455 report Stan
 This is not Android Keystore, actual Firebase registration/rotation, cloud delivery
 or a real client-process crash proof. Native SDK and device acceptance stay open.
 
-## Android binding adapter, under verification
+## Android binding adapter
 
 The adapter stores the portable journal in encrypted device-only `push.binding.v1`,
 separate from wallet-specific feature state and SDK phase/FID storage. It serializes
@@ -180,6 +180,7 @@ and never roll back wallet, backend or consent changes.
 
 The actual Android10 tracer at60d00271 fails0.205s at its missing first binding;
 later lifecycle tails and prior11UI/3worker cases were not run. Its[retained RED](evidence/ticket42/native-binding-red/android10/README.md)
-and source-build success are separate. Minimum build, review and both Android
-runtime checks are pending. A controlled synthetic FID is not SDK registration,
+and source-build success are separate. Corrected source17fb7260 reviews Standards0/Spec0;
+[both native runs and source/release/lint](evidence/ticket42/native-binding-green/README.md)
+succeed. Final independent evidence reviews are pending. A controlled synthetic FID is not SDK registration,
 actual identifier rotation or Google delivery.

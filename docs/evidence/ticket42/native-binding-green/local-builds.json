@@ -1,0 +1,15 @@
+{
+  "initial": {
+    "source": "62e7fe9b",
+    "session": 18265,
+    "exit": 143,
+    "reason": "Stopped exact owned container after concrete category-demand source finding, not a pass"
+  },
+  "corrected": {
+    "source": "17fb72605cf6e3eb740cbaba73b429a2b5de1bfa",
+    "session": 2522,
+    "exit": 143,
+    "reason": "Retired exact owned duplicate only after hosted source/release/lint and both native runs succeeded for the same source; not a local pass"
+  },
+  "ownedLocalBuildsRemaining": 0
+}
