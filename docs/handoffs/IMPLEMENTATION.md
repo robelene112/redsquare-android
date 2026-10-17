@@ -107,9 +107,14 @@ JUnitpass. [Retained](../evidence/ticket42/native-binding-red/android10/README.m
 adapter/debug-emulator-only local fixture transport, shared fresh push identity
 and registration-worker hook. Opt-out attempts keyless gateway retirement before
 SDK initialization/outstanding-task drain, then still attempts SDK unregistration;
-no early unregistered-SDK success can skip remaining gateway cleanup. Owned local
-core/gateway/debug/test/release/lint build18265 active, no result inferred. Source
-review pending. No configured SDK or native GREEN claim.
+no early unregistered-SDK success can skip remaining gateway cleanup. First source62e7fe9b reviews Standards0/Spec1: requested categories ignored Android
+channel choices. Owned build18265 was stopped at exact owned container after this
+concrete finding, actualexit143, not a pass or runtime failure. No other container
+touched. Correction derives canonical enabled social categories from actual OS
+channels, treats uncreated channels as default enabled, and shares the set across
+SDK demand/freshness and gateway binding. Both disabled means no social demand.
+Publication's final channel check is unchanged. Source correction review and
+corrected local build are next. No configured SDK or native GREEN claim.
 New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
 ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
 no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.

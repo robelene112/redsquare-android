@@ -70,6 +70,15 @@ internal object SocialPush {
         }
     }
 
+    /** An uncreated channel keeps its default enabled choice. Android remains the category authority. */
+    fun requestedCategories(context: Context): String? {
+        val manager = context.getSystemService(NotificationManager::class.java)
+        if (!manager.areNotificationsEnabled()) return null
+        return Kind.entries.map { it.channel }.sorted().filter {
+            manager.getNotificationChannel(it)?.importance != NotificationManager.IMPORTANCE_NONE
+        }.joinToString(",").takeIf { it.isNotEmpty() }
+    }
+
     suspend fun receive(context: Context, payload: String, endpoint: String,
         now: Long = System.currentTimeMillis(), fixtureRegistrar: Boolean = false): SocialPushResult = withContext(Dispatchers.IO) {
         val reference = try { SocialPushReference.parse(payload) } catch (_: Exception) {

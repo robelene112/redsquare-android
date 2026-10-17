@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare.notifications
 
-import android.app.NotificationManager
 import android.content.Context
 import android.util.Log
 import androidx.work.BackoffPolicy
@@ -149,18 +148,20 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
     private companion object { const val DAY = 24 * 60 * 60 * 1000L }
 }
 
-private data class RegistrationDemand(val owner: String, val backend: SaitoBackend)
+private data class RegistrationDemand(val owner: String, val backend: SaitoBackend, val categories: String)
 
 private fun registrationDemand(context: Context): RegistrationDemand? =
-    pushIdentity(context)?.let { (wallet, backend) -> RegistrationDemand(wallet.publicKey, backend) }
+    pushIdentity(context)?.let { RegistrationDemand(it.wallet.publicKey, it.backend, it.categories) }
+
+internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String)
 
 /** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
-internal fun pushIdentity(context: Context): Pair<SaitoWallet, SaitoBackend>? {
-    if (!context.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) return null
+internal fun pushIdentity(context: Context): PushIdentity? {
+    val categories = SocialPush.requestedCategories(context) ?: return null
     return synchronized(SaitoLocalState.lock) {
         val wallet = AndroidWalletStore(context).loadExisting()
         val backend = AndroidBackendStore(context).load()
-        if (SocialPushSettings(context, wallet.publicKey).enabled()) wallet to backend else null
+        if (SocialPushSettings(context, wallet.publicKey).enabled()) PushIdentity(wallet, backend, categories) else null
     }
 }
 

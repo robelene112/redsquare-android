@@ -173,8 +173,9 @@ push payloads or a user backend setting.
 The registration worker reconciles after obtaining the registered FID. Opt-out
 attempts gateway retirement independently before SDK initialization or draining
 an outstanding Task, then still attempts SDK unregistration. Already-unregistered
-SDK state no longer skips retained gateway cleanup. Current identity/consent is
-shared between SDK and gateway reads. Failures remain retryable background work
+SDK state no longer skips retained gateway cleanup. Current identity/consent and enabled Android social categories are
+shared between SDK and gateway reads. Missing channels use their enabled default;
+disabling both removes social demand. Final local publication checks remain. Failures remain retryable background work
 and never roll back wallet, backend or consent changes.
 
 The actual Android10 tracer at60d00271 fails0.205s at its missing first binding;
