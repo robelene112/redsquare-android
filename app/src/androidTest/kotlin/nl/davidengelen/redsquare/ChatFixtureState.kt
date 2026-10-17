@@ -3,9 +3,10 @@ package nl.davidengelen.redsquare
 import java.io.File
 import nl.davidengelen.redsquare.saito.SaitoLocalState
 
-/** Preserve only the explicit fixture scopes; cleanup actions remain independent of identity restoration. */
+/** Preserve declared files and this wallet's Chat alert state; restoration remains independent of identity. */
 internal class ChatFixtureState(private val context: android.content.Context,
-    private val prefixes: List<String>, owner: String) {
+    declaredPrefixes: List<String>, owner: String) {
+    private val prefixes = (declaredPrefixes + "chatpush.$owner.").distinct()
     private val files = synchronized(SaitoLocalState.lock) {
         context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }
             .associate { check(it.isFile); it.name to it.readBytes() }

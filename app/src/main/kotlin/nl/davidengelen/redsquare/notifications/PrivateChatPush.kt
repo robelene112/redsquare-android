@@ -5,9 +5,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
 import nl.davidengelen.redsquare.AndroidWalletStore
-import nl.davidengelen.redsquare.chat.ChatHistoryStore
+import nl.davidengelen.redsquare.chat.retainPrivateChat
 import nl.davidengelen.redsquare.chat.ChatNotificationResult
-import nl.davidengelen.redsquare.chat.notifyPrivateChat
 import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.saito.*
 
@@ -40,14 +39,7 @@ internal object PrivateChatPush {
                 return@synchronized ChatNotificationResult.SUPPRESSED
             if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            val ledger = NotificationReceiptLedger(context, reference.owner, reference.backend, reference.signature,
-                NotificationReceiptLedger.Domain.PRIVATE_CHAT)
-            if (!ledger.prepare(now)) return@synchronized ChatNotificationResult.SUPPRESSED
-            // A retry after this durable history write still has a pending alert receipt.
-            ChatHistoryStore(context, wallet, reference.backend, received.counterparty).save(listOf(envelope))
-            val outcome = notifyPrivateChat(context, wallet, reference.backend, message, endpoint)
-            if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
-            outcome
+            retainPrivateChat(context, wallet, reference.backend, received, endpoint)
         }
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }

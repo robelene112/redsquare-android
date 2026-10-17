@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.chat
 
 import android.content.Context
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.notifications.NotificationReceiptLedger
 
 /** Route authenticated originals independently of the visible Chat mode, retaining before acknowledgement.
  * Return the private counterparty, or null for a named-group event.
@@ -38,12 +39,28 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
         return contact
     }
     val received = PrivateChat.recover(wallet, envelope)
-    val newMessage = synchronized(SaitoLocalState.lock) {
-        val history = ChatHistoryStore(context, wallet, backend, received.counterparty)
-        val unseen = !history.containsOriginal(received.message.id)
-        history.save(listOf(envelope))
-        unseen
-    }
-    if (newMessage) notifyPrivateChat(context, wallet, backend, received.message, endpoint)
+    retainPrivateChat(context, wallet, backend, received, endpoint)
     return received.counterparty
+}
+
+/** Ordinary peer and background delivery share pending state before history and publication. */
+internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    received: ReceivedPrivateChat, endpoint: String): ChatNotificationResult = synchronized(SaitoLocalState.lock) {
+    val history = ChatHistoryStore(context, wallet, backend, received.counterparty)
+    val message = received.message
+    if (message.author == wallet.publicKey) {
+        history.save(listOf(received.envelope))
+        return@synchronized ChatNotificationResult.SUPPRESSED
+    }
+    val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
+        NotificationReceiptLedger.Domain.PRIVATE_CHAT)
+    val now = System.currentTimeMillis()
+    // Legacy cached messages stay seen, while interrupted new receipts remain eligible.
+    if (history.containsOriginal(message.id) && !ledger.hasPending(now))
+        return@synchronized ChatNotificationResult.SUPPRESSED
+    if (!ledger.prepare(now)) return@synchronized ChatNotificationResult.SUPPRESSED
+    history.save(listOf(received.envelope))
+    val outcome = notifyPrivateChat(context, wallet, backend, message, endpoint)
+    if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
+    outcome
 }

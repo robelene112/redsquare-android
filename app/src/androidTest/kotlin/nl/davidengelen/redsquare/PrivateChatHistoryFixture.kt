@@ -100,7 +100,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         val prefixes = fixtureWallets.flatMap { identity -> SaitoBackend.entries.flatMap { backend ->
             listOf("chat.${backend.id}.${identity.publicKey}.", "chatwork.${backend.id}.${identity.publicKey}.",
                 "chatreactions.${backend.id}.${identity.publicKey}.")
-        } + "personal.${identity.publicKey}." }
+        } + listOf("personal.${identity.publicKey}.", "chatpush.${identity.publicKey}.") }
         val savedFiles = synchronized(SaitoLocalState.lock) {
             context.noBackupFilesDir.listFiles()!!.filter { file -> prefixes.any(file.name::startsWith) }.associate { file ->
                 check(file.isFile); file.name to file.readBytes()
