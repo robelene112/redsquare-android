@@ -63,7 +63,7 @@ Android10 run39013271535 preview3/0/18.239s and posting6/0/26.229s; Android17
 
 Owned local build59382 completed PASS3m28s: core test task UP-TO-DATE, debug and
 test APK assembly. Log `.scratch/gif16-buffer-published-credits-build.log`.
-Readiness-fixture test build73696 is active; its result is pending.
+Readiness-fixture test build73696 completed PASS1m49s. No owned local build active.
 Signed beta25 at19e is prepared, unpublished.
 Its Gradle build completed PASS3m26s and final signature/manifest steps ran, but
 outer exec3548 reported143. Independent APK hash/signature/certificate/package/
@@ -170,13 +170,17 @@ owned Archive not observed in5s while feed still loads,15/16class cases pass.
 Only initial feed readiness is being corrected; no whole Android10 acceptance
 or beta publication is claimed.
 
-Next: finish review/build of fixture-only username readiness correction0a6b37bd,
-run focused Android10 usernames and then corrected full Android10. Preserve
+Readiness correction0a6b37bd and corrected metadatae3bf6f4d have both reviews0/0.
+Focused Android10 usernames39017639582 SUCCESS exactlye3bf6f4d:
+16/0/118.73s, actual process PID5424to5527 with exact request/identity recovery.
+Corrected full Android10 39018073768 now runs exactlye3bf6f4d, public reads true.
+Source39017616391 at the same candidate SUCCESS release/lint.
+Next: inspect that complete full10 result. Preserve
 production19e. Publish prepared beta25 after complete acceptance. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
-stay open. Latest tracker comment6231310674 predates full17 acceptance and the second
-full10 failure. Whole69ce evidence reviews found only these stale handoff status
+stay open. Latest tracker update records full17 acceptance and the second full10 failure;
+focused readiness runtime now passes; the corrected full10 result remains pending. Whole69ce evidence reviews found only these stale handoff status
 lines; the current correction addresses them. No fixture/evidence findings remain.
 [Current GIF data flow](../research/GIPHY_DATA_FLOW_2026_10_17.md) supplements the
 dated release inventory without claiming provider/Play/account facts.
