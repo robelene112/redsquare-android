@@ -51,8 +51,8 @@ Canonical controlled packet `docs/evidence/ticket17/error-surface-green/` and
 actual public `docs/evidence/ticket17/error-surface-public/android17/`.
 No active owned build/CI. No provider sign-in/header/origin/proxy change, account
 request or node operation. No unchanged public retry. #17 actual playback stays
-open, beta24 unchanged. Final native-public evidence review pending before
-freezing this checkpoint and claiming the next sequential source preparation.
+open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Standards0/Spec0. This
+source checkpoint is frozen; claim the next sequential source preparation.
 Next useful #16 work can build native Giphy UI/state/animated rendering and
 controlled interoperability without a live key. Its actual Android-authorized
 key/provider acceptance remains pending; do not repeat the existing question.
