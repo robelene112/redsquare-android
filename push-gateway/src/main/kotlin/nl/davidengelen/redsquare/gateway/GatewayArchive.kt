@@ -22,7 +22,7 @@ class GatewayArchive(identity: SaitoWallet, val backend: SaitoBackend,
     internal fun verifiedSocial(signatures: List<String>? = null): List<VerifiedSocial> {
         // Complete independent Archive evidence first. Registry shares this socket and may disconnect it.
         val discovered = signatures ?: recentSocial().posts.map { it.id }
-        require(discovered.size <= 100 && discovered.all { it.matches(Regex("[0-9a-f]{128}")) })
+        require(discovered.size <= 65_536 && discovered.all { it.matches(Regex("[0-9a-f]{128}")) })
         val verified = discovered.distinct().mapNotNull { signature ->
             val post = exact(signature) ?: return@mapNotNull null
             if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null

@@ -182,12 +182,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val state = store.load()
         val now = System.currentTimeMillis()
         prune(state, now)
-        val previous = state.getAsJsonObject("gaps").get(backend.id)?.asJsonObject
-        state.getAsJsonObject("gaps").add(backend.id, JsonObject().apply {
-            addProperty("reason", reason)
-            addProperty("since", previous?.takeIf { savedText(it, "reason") == reason }?.let { savedNumber(it, "since") } ?: now)
-            addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
-        })
+        recordGap(state, backend, reason, now)
         store.save(state)
     }
 
@@ -197,15 +192,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val state = store.load()
         prune(state, now)
         val events = state.getAsJsonObject("events")
-        if (candidates.any { it.unavailableNames }) {
-            val gaps = state.getAsJsonObject("gaps")
-            val previous = gaps.get(backend.id)?.asJsonObject
-            gaps.add(backend.id, JsonObject().apply {
-                addProperty("reason", "name-proof-unavailable")
-                addProperty("since", previous?.let { savedNumber(it, "since") } ?: now)
-                addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
-            })
-        }
+        if (candidates.any { it.unavailableNames }) recordGap(state, backend, "name-proof-unavailable", now)
         for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
             val binding = value.asJsonObject
             if (savedText(binding, "backend") != backend.id || savedNumber(binding, "expiresAt") <= now) continue
@@ -313,6 +300,16 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         return GatewayReply(200, JsonObject().apply {
             addProperty("version", 1); addProperty("wallet", recipient)
             addProperty("backend", savedText(event, "backend")); addProperty("signature", savedText(event, "signature"))
+        })
+    }
+
+    private fun recordGap(state: JsonObject, backend: SaitoBackend, reason: String, now: Long) {
+        val gaps = state.getAsJsonObject("gaps")
+        val previous = gaps.get(backend.id)?.asJsonObject
+        gaps.add(backend.id, JsonObject().apply {
+            addProperty("reason", reason)
+            addProperty("since", previous?.takeIf { savedText(it, "reason") == reason }?.let { savedNumber(it, "since") } ?: now)
+            addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
         })
     }
 

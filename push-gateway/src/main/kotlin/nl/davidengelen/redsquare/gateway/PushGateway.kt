@@ -56,10 +56,7 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
     /** One bounded read/queue/delivery pass for this explicitly selected backend. */
     @Synchronized fun poll(archive: GatewayArchive, sender: FcmSender) {
         subscriptions.enqueue(archive.backend, archive.verifiedSocial())
-        for (queued in subscriptions.pending(archive.backend)) {
-            val delivery = subscriptions.current(queued) ?: continue
-            subscriptions.complete(delivery, sender.send(delivery.fid, delivery.wake, delivery.expiresAt))
-        }
+        deliverPending(archive.backend, sender)
     }
 
     /** Process one selected chain range before advancing its durable cursor. */
@@ -91,11 +88,15 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
                 message.body.get("module")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == "RedSquare" } == true &&
                     message.body.get("request")?.let { it.isJsonPrimitive && it.asJsonPrimitive.isString && it.asString == "create tweet" } == true
             }.map { it.id }
-            val candidates = signatures.chunked(100).flatMap { archive.verifiedSocial(it) }
+            val candidates = archive.verifiedSocial(signatures)
             if (candidates.size != signatures.distinct().size) subscriptions.gap(backend, "archive-candidate-unavailable")
             subscriptions.processed(backend, block, page.tip.forkId, candidates)
             cursor = GatewayChain.Cursor(block.height, block.hash, page.tip.forkId)
         }
+        deliverPending(backend, sender)
+    }
+
+    private fun deliverPending(backend: nl.davidengelen.redsquare.saito.SaitoBackend, sender: FcmSender) {
         for (queued in subscriptions.pending(backend)) {
             val delivery = subscriptions.current(queued) ?: continue
             subscriptions.complete(delivery, sender.send(delivery.fid, delivery.wake, delivery.expiresAt))
