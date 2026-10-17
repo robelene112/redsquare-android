@@ -96,7 +96,14 @@ PushBindingPreviewTest and first gate in existing social-push/full harness. Loca
 exec ended. No runtime RED or minimum yet. Tracer reviews Spec0/Standards1 fixed:
 fail-fast PUSH_CONFIGURED=false now precedes fixture mutation, so consent writes
 cannot schedule real SDK work. The one-line correction awaits actual CI compile.
-No owned local build. Client source CI38993005106 at724a8455 still active. Prior native UI11/worker3 assertions unchanged behind new gate.
+No owned local build. Client source CI38993005106 at724a8455 SUCCESS, retained
+at../evidence/ticket42/client-source-ci (2hashes). Corrected tracer60d00271 now
+reports Standards0/Spec0 and is remote main. Source CI38993468005 and intended
+Android10 RED38993468083 (social-push) are active at exact60d00271. No native RED
+result inferred. Do not implement native minimum until actual intended failure.
+New ordinary API research FCM_GATEWAY_SENDER_2026_10_17.md records FID payload,
+ADC scope/permission, error/retry semantics and candidate auth library1.54.0;
+no dependency, credentials or account operations yet. Prior native UI11/worker3 assertions unchanged behind new gate.
 Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
