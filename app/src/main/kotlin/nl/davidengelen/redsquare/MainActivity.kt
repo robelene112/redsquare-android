@@ -258,10 +258,14 @@ class MainActivity : ComponentActivity() {
                     nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
                 }
             }
+            val giphyAttributions = remember(address) {
+                address?.let { nl.davidengelen.redsquare.media.GiphyAttributionStore(applicationContext, it) }
+            }
             RedSquareTheme(this@MainActivity, appearance) {
                 CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),
                     LocalVideoDiagnostics provides videoDiagnostics,
-                    LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent)) {
+                    LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent),
+                    nl.davidengelen.redsquare.media.LocalGiphyAttributions provides giphyAttributions) {
                 VideoPlaybackHost(address, backend) {
                 PersonalControlsScope(address, commitDirectorySync = { descriptor ->
                     if (BuildConfig.DEBUG && intent.getBooleanExtra("personalCommitTerminate", false)) {

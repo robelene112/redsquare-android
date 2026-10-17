@@ -99,6 +99,9 @@ internal class PostDraftStore private constructor(private val context: Context, 
             addProperty("automatic", saved.automatic)
             saved.authorBaseline?.let { addProperty("authorBaseline", it) }
         }
+        if (saved.transaction != null && saved.gifAttributions.isNotEmpty()) {
+            nl.davidengelen.redsquare.media.GiphyAttributionStore(context, owner).retain(saved.gifAttributions)
+        }
         file.save(EncryptedLocalFile.Contents(2, record.toString()))
         val reopened = load()
         check(same(reopened, saved)) {
