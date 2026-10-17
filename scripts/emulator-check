@@ -162,7 +162,10 @@ verify_social_push() {
             python3 "$repo_dir/scripts/social-push-scheduled-process-check" --evidence "$evidence/social-push-scheduled-process" || native_exit=$?
         fi
     else
-        verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
+        verify_group_chat_native PushBindingPreviewTest 90 push-binding push-binding-evidence || native_exit=$?
+        if [[ "$native_exit" == 0 ]]; then
+            verify_group_chat_native "SocialPushPreviewTest,nl.davidengelen.redsquare.SocialPushTapPreviewTest" 180 social-push social-push-evidence || native_exit=$?
+        fi
         if [[ "$native_exit" == 0 ]]; then
             verify_group_chat_native SocialPushWorkPreviewTest 150 social-push-work social-push-work-evidence || native_exit=$?
         fi
