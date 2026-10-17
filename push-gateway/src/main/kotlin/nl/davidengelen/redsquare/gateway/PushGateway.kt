@@ -36,7 +36,8 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
                     .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
                 val body = requireNotNull(GsonBuilder().setStrictness(Strictness.STRICT).create()
                     .fromJson(text, JsonObject::class.java))
-                subscriptions.handle(uri.path, body, exchange.requestHeaders.getFirst("X-Saito-Signature"))
+                subscriptions.handle(uri.path, body, exchange.requestHeaders.getFirst("X-Saito-Signature"),
+                    exchange.requestHeaders.getFirst("X-Saito-Owner"))
             } catch (failure: GatewayProblem) { GatewayReply(failure.status, JsonObject()) }
             catch (_: JsonParseException) { GatewayReply(400, JsonObject()) }
             catch (_: java.nio.charset.CharacterCodingException) { GatewayReply(400, JsonObject()) }
@@ -53,7 +54,12 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
     }
 
     /** One bounded read/queue/delivery pass for this explicitly selected backend. */
-    fun poll(archive: GatewayArchive, sender: FcmSender) = Unit
+    fun poll(archive: GatewayArchive, sender: FcmSender) {
+        subscriptions.enqueue(archive.backend, archive.verifiedSocial())
+        for (delivery in subscriptions.pending(archive.backend)) {
+            subscriptions.complete(delivery, sender.send(delivery.fid, delivery.wake, delivery.expiresAt))
+        }
+    }
 
     fun start() = server.start()
     override fun close() {

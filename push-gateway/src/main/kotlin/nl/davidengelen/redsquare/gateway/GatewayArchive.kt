@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.gateway
 
+import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.ArchiveFeedPage
 import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -101,7 +104,24 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) { fail() }
         })
 
-    fun recentSocial(): ArchiveFeedPage {
+    fun recentSocial(): ArchiveFeedPage = RedSquareFeed.readSearch(archive(null))
+
+    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?)
+
+    /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
+    internal fun verifiedSocial(): List<VerifiedSocial> = recentSocial().posts.mapNotNull { hint ->
+        val post = exact(hint.id) ?: return@mapNotNull null
+        if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
+        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author })
+    }
+
+    private fun exact(signature: String): FeedPost? {
+        val page = RedSquareFeed.readTarget(archive(signature), signature)
+        require(page.ignored == 0 && page.deletions.isEmpty() && page.rowCount == page.posts.size && page.posts.size <= 1)
+        return page.posts.singleOrNull()
+    }
+
+    private fun archive(signature: String?): String {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(12)
         await(ready, deadline)
         if ("archive" !in await(services, deadline)) throw IOException("Selected peer has no Archive service")
@@ -111,10 +131,15 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
         pending[index] = response
         try {
             if (disconnected.get()) throw IOException("Peer disconnected")
-            val message = "{\"request\":\"archive\",\"data\":{\"request\":\"load\",\"field1\":\"RedSquare\",\"flagged_ne\":1,\"limit\":100}}"
+            val criteria = JsonObject().apply {
+                addProperty("request", "load"); addProperty("field1", "RedSquare")
+                addProperty("flagged_ne", 1); addProperty("limit", if (signature == null) 100 else 1)
+                if (signature != null) addProperty("sig", signature)
+            }
+            val message = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }.toString()
             send(socket, SaitoWire.applicationRequest(identity.publicKey, message.toByteArray(Charsets.UTF_8),
                 index, System.currentTimeMillis()))
-            return RedSquareFeed.readSearch(utf8(await(response, deadline)))
+            return utf8(await(response, deadline))
         } catch (failure: IllegalArgumentException) {
             throw IOException("Invalid Archive response", failure)
         } finally { pending.remove(index) }

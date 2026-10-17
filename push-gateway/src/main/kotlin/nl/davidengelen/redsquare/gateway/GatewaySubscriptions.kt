@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.gateway
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonArray
+import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import java.io.Closeable
@@ -29,7 +31,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
     private val challengeEpoch = UUID.randomUUID().toString()
     private var challengeSequence = 0L
 
-    @Synchronized fun handle(path: String, body: JsonObject, signature: String?): GatewayReply {
+    @Synchronized fun handle(path: String, body: JsonObject, signature: String?, recipient: String? = null): GatewayReply {
         val now = System.currentTimeMillis()
         challenges.entries.removeIf { it.value.expiresAt <= now }
         return when (path) {
@@ -45,6 +47,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                     addProperty("version", 1); addProperty("nonce", nonce); addProperty("expiresAt", expiresAt)
                 })
             }
+            "/v1/wakes/resolve" -> resolve(body, signature, recipient, now)
             "/v1/subscriptions/bind" -> bind(body, signature, now)
             "/v1/subscriptions/status", "/v1/subscriptions/revoke" -> authority(path, body, now)
             else -> throw GatewayProblem(404)
@@ -136,11 +139,116 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         })
     }
 
+    /** Verified originals are supplied only by the selected read-only Archive adapter. */
+    @Synchronized fun enqueue(backend: SaitoBackend, candidates: List<GatewayArchive.VerifiedSocial>) {
+        val now = System.currentTimeMillis()
+        val state = store.load()
+        prune(state, now)
+        val events = state.getAsJsonObject("events")
+        for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
+            val binding = value.asJsonObject
+            if (savedText(binding, "backend") != backend.id || savedNumber(binding, "expiresAt") <= now) continue
+            val owner = savedText(binding, "owner")
+            val categories = savedText(binding, "categories").split(',')
+            for (candidate in candidates) {
+                val post = candidate.post
+                if (post.author == owner || post.createdAt > now || now - post.createdAt >= LIFETIME) continue
+                val category = if (candidate.parentAuthor == owner && "replies" in categories) "replies"
+                else if ("mentions" in categories && RedSquareFeed.readMentions(JsonArray().apply {
+                    add(JsonObject().apply { addProperty("tx", post.envelope) })
+                }.toString(), owner).posts.any { it.id == post.id }) "mentions" else continue
+                if (events.entrySet().any { (_, existing) -> existing.asJsonObject.let {
+                    savedText(it, "subscription") == subscription && savedText(it, "backend") == backend.id &&
+                        savedText(it, "signature") == post.id
+                } }) continue
+                if (events.size() >= 4096) throw IOException("Gateway event capacity reached")
+                val wake = ByteArray(32).also(SecureRandom()::nextBytes).hex()
+                events.add(wake, JsonObject().apply {
+                    addProperty("subscription", subscription); addProperty("owner", owner)
+                    addProperty("backend", backend.id); addProperty("signature", post.id); addProperty("category", category)
+                    addProperty("expiresAt", minOf(now + 24 * 60 * 60 * 1000L, post.createdAt + LIFETIME,
+                        savedNumber(binding, "expiresAt")))
+                    addProperty("retainUntil", post.createdAt + LIFETIME)
+                    addProperty("state", "pending"); addProperty("attempts", 0); addProperty("nextAttempt", 0)
+                })
+            }
+        }
+        store.save(state) // Every opaque reference is durable before the sender sees it.
+    }
+
+    internal data class Delivery(val wake: String, val subscription: String, val generation: String,
+        val fid: String, val expiresAt: Long)
+
+    @Synchronized fun pending(backend: SaitoBackend): List<Delivery> {
+        val now = System.currentTimeMillis()
+        val state = store.load()
+        return state.getAsJsonObject("events").entrySet().mapNotNull { (wake, value) ->
+            val event = value.asJsonObject
+            if (savedText(event, "backend") != backend.id || savedText(event, "state") != "pending" ||
+                savedNumber(event, "expiresAt") <= now || savedNumber(event, "nextAttempt") > now) return@mapNotNull null
+            val binding = currentBinding(state, event, now) ?: return@mapNotNull null
+            Delivery(wake, savedText(event, "subscription"), savedText(binding, "intentHash"),
+                savedText(binding, "fid"), savedNumber(event, "expiresAt"))
+        }
+    }
+
+    @Synchronized fun complete(delivery: Delivery, result: FcmSender.Result) {
+        val now = System.currentTimeMillis()
+        val state = store.load()
+        val event = state.getAsJsonObject("events").get(delivery.wake)?.asJsonObject ?: return
+        val binding = currentBinding(state, event, now) ?: return
+        // A delayed response for an old FID must never retire or acknowledge a renewed target.
+        if (savedText(binding, "intentHash") != delivery.generation || savedText(binding, "fid") != delivery.fid) return
+        when (result) {
+            is FcmSender.Result.Accepted -> event.addProperty("state", "accepted")
+            FcmSender.Result.Unregistered -> {
+                state.getAsJsonObject("subscriptions").remove(delivery.subscription)
+                event.addProperty("state", "unregistered")
+            }
+            is FcmSender.Result.Rejected -> event.addProperty("state", "rejected")
+            is FcmSender.Result.Retry -> {
+                val attempts = minOf(savedNumber(event, "attempts") + 1, 30)
+                val backoff = minOf(3_600_000L, 10_000L * (1L shl minOf(attempts - 1, 8).toInt()))
+                val delay = maxOf(result.afterMillis, backoff) + SecureRandom().nextInt(1000)
+                event.addProperty("attempts", attempts)
+                event.addProperty("nextAttempt", if (delay < 0 || delay > Long.MAX_VALUE - now) Long.MAX_VALUE else now + delay)
+            }
+        }
+        store.save(state)
+    }
+
+    private fun currentBinding(state: JsonObject, event: JsonObject, now: Long): JsonObject? {
+        val binding = state.getAsJsonObject("subscriptions").get(savedText(event, "subscription"))?.asJsonObject ?: return null
+        return binding.takeIf {
+            savedNumber(it, "expiresAt") > now && savedText(it, "owner") == savedText(event, "owner") &&
+                savedText(it, "backend") == savedText(event, "backend") &&
+                savedText(event, "category") in savedText(it, "categories").split(',')
+        }
+    }
+
+    private fun resolve(body: JsonObject, signature: String?, recipient: String?, now: Long): GatewayReply {
+        fields(body, setOf("version", "wake"))
+        val wake = hex(body, "wake")
+        if (recipient == null || !SaitoWallet.isPublicKey(recipient) || signature == null || !SaitoWallet.verify(
+            "Saito push resolve v1\n$origin/v1/wakes/resolve\n$wake".toByteArray(Charsets.UTF_8), signature, recipient)) {
+            throw GatewayProblem(401)
+        }
+        val state = store.load()
+        val event = state.getAsJsonObject("events").get(wake)?.asJsonObject ?: throw GatewayProblem(404)
+        if (savedText(event, "owner") != recipient) throw GatewayProblem(401)
+        if (savedNumber(event, "expiresAt") <= now || currentBinding(state, event, now) == null) throw GatewayProblem(410)
+        return GatewayReply(200, JsonObject().apply {
+            addProperty("version", 1); addProperty("wallet", recipient)
+            addProperty("backend", savedText(event, "backend")); addProperty("signature", savedText(event, "signature"))
+        })
+    }
+
     private fun prune(state: JsonObject, now: Long) {
         for (name in listOf("subscriptions", "retired")) {
             val records = state.getAsJsonObject(name)
             records.entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
         }
+        state.getAsJsonObject("events").entrySet().removeIf { savedNumber(it.value.asJsonObject, "retainUntil") <= now }
     }
 
     override fun close() = store.close()

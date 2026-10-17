@@ -34,13 +34,14 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
     private fun readState(): JsonObject {
         if (!Files.exists(file)) return JsonObject().apply {
             addProperty("version", 1); addProperty("origin", origin)
-            add("subscriptions", JsonObject()); add("retired", JsonObject())
+            add("subscriptions", JsonObject()); add("retired", JsonObject()); add("events", JsonObject())
         }
         require(Files.size(file) in 1..MAX_BYTES)
         val state = Files.newBufferedReader(file, Charsets.UTF_8).use {
             requireNotNull(GsonBuilder().setStrictness(Strictness.STRICT).create().fromJson(it, JsonObject::class.java))
         }
-        require(state.keySet() == setOf("version", "origin", "subscriptions", "retired") &&
+        require(state.keySet() in setOf(setOf("version", "origin", "subscriptions", "retired"),
+            setOf("version", "origin", "subscriptions", "retired", "events")) &&
             state.get("version").asBigDecimal.intValueExact() == 1 && state.get("origin").asString == origin)
         for (name in listOf("subscriptions", "retired")) {
             val records = state.getAsJsonObject(name)
@@ -48,6 +49,11 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
                 it.key.matches(Regex("[0-9a-f]{64}")) && it.value.isJsonObject
             })
         }
+        if (!state.has("events")) state.add("events", JsonObject())
+        val events = state.getAsJsonObject("events")
+        require(events.size() <= 4096 && events.entrySet().all {
+            it.key.matches(Regex("[0-9a-f]{64}")) && it.value.isJsonObject
+        })
         // Also resolves the uncertain directory-sync outcome of a previous attempted commit.
         syncDirectory()
         return state
