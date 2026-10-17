@@ -59,7 +59,15 @@ as generic and extends the same actual-alert journey with one unsupported video
 wrapper. The earlier defaultgeneric alert is cleared after observation so later
 preview rows stay individually visible; actual opt-in previews remain for the
 disable-withdrawal assertion. Hosted CI will compile this small correction.
-Fix review/native GREEN pending, no whole44 acceptance.
+Both bounded source-fix reviews through505c7fd27 are Standards0/Spec0.
+Corrected private preview Android17 run39038086362 executes exact
+505c7fd27f9e218fb8aaad15cdf42e02a3a35f33 completed SUCCESS2/0/41.822s.
+Preview-green/android17 retains27hashes/11parsed XMLs. Root viewed six named
+originals (see README); grouped caption/text excerpts are truncated visually,
+full text independently checked in extras/UiAutomator. Default/opt-in/recreate/
+text/caption/unsupported/disable-withdrawal/generic-next and strong warm journey
+pass. Next tracer: group alert actual shade tap with mounted work preserved.
+No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
 grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
