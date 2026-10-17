@@ -24,10 +24,6 @@ internal class NotificationReceiptLedger(context: Context, owner: String, backen
         read(now).any { it.signature == signature && it.published }
     }
 
-    fun hasPending(now: Long): Boolean = synchronized(SaitoLocalState.lock) {
-        read(now).any { it.signature == signature && !it.published }
-    }
-
     /** Record the recoverable attempt before calling Android. Never evict an unexpired receipt. */
     fun prepare(now: Long): Boolean = synchronized(SaitoLocalState.lock) {
         val receipts = read(now)

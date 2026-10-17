@@ -22,13 +22,41 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
         originals().any { authenticated(it).id == id }
     }
 
-    private fun originals(): List<String> {
-        val contents = file.load() ?: return emptyList()
-        require(contents.version == 1.toByte())
-        return gson.fromJson(contents.text, JsonArray::class.java).map { value ->
-            require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
-            value.asString
+    private data class Record(val envelopes: List<String>, val pendingAlerts: Set<String>)
+
+    private fun stored(): Record = file.load()?.let(::parseRecord) ?: Record(emptyList(), emptySet())
+    private fun originals(): List<String> = stored().envelopes
+
+    private fun write(record: Record) {
+        // Keep metadata after originals so publication changes only the tail of a multipart history.
+        val payload = com.google.gson.JsonObject().apply {
+            addProperty("version", 2)
+            add("envelopes", JsonArray().apply { record.envelopes.forEach(::add) })
+            add("pendingAlerts", JsonArray().apply { record.pendingAlerts.sorted().forEach(::add) })
         }
+        file.save(EncryptedLocalFile.Contents(1, payload.toString()))
+    }
+
+    private fun mergeOriginals(existing: List<String>, additions: List<String>): List<String> =
+        (existing + additions).map { it to authenticated(it) }.distinctBy { it.second.id }
+            .sortedWith(compareBy<Pair<String, VerifiedSaitoPayload>> { it.second.createdAt }.thenBy { it.second.id })
+            .map { it.first }
+
+    /** Commit new history and its notification eligibility together, independently of optional alert bookkeeping. */
+    fun retainIncoming(envelope: String): Boolean = synchronized(SaitoLocalState.lock) {
+        val message = PrivateChat.read(wallet, envelope, counterparty)
+        val previous = stored()
+        if (previous.envelopes.any { authenticated(it).id == message.id })
+            return@synchronized message.id in previous.pendingAlerts
+        val incoming = message.author != wallet.publicKey
+        write(Record(mergeOriginals(previous.envelopes, listOf(envelope)),
+            previous.pendingAlerts + if (incoming) setOf(message.id) else emptySet()))
+        incoming
+    }
+
+    fun completeAlert(id: String) = synchronized(SaitoLocalState.lock) {
+        val previous = stored()
+        if (id in previous.pendingAlerts) write(previous.copy(pendingAlerts = previous.pendingAlerts - id))
     }
 
     private fun authenticated(envelope: String): VerifiedSaitoPayload {
@@ -53,16 +81,37 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
     fun save(envelopes: List<String>): Read = synchronized(SaitoLocalState.lock) {
         // New messages must decrypt and match this private group; preserved originals need not share currently imported keys.
         envelopes.forEach { PrivateChat.read(wallet, it, counterparty) }
-        val retained = (originals() + envelopes).map { it to authenticated(it) }
-            .distinctBy { it.second.id }.sortedWith(compareBy<Pair<String, VerifiedSaitoPayload>> { it.second.createdAt }.thenBy { it.second.id })
-            .map { it.first }
-        val payload = JsonArray().apply { retained.forEach(::add) }
-        file.save(EncryptedLocalFile.Contents(1, payload.toString()))
+        val previous = stored()
+        val retained = mergeOriginals(previous.envelopes, envelopes)
+        write(Record(retained, previous.pendingAlerts))
         read(retained)
     }
 
     companion object {
         private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
+        /** Legacy arrays remain readable; the physical encrypted multipart format is unchanged. */
+        private fun parseRecord(contents: EncryptedLocalFile.Contents): Record {
+            require(contents.version == 1.toByte())
+            val body = requireNotNull(gson.fromJson(contents.text, com.google.gson.JsonElement::class.java))
+            fun strings(array: JsonArray): List<String> = array.map { value ->
+                require(value.isJsonPrimitive && value.asJsonPrimitive.isString)
+                value.asString
+            }
+            if (body.isJsonArray) return Record(strings(body.asJsonArray), emptySet())
+            require(body.isJsonObject)
+            val root = body.asJsonObject
+            require(root.keySet() == setOf("version", "envelopes", "pendingAlerts"))
+            val version = root.get("version")
+            require(version.isJsonPrimitive && version.asJsonPrimitive.isNumber && version.asBigDecimal.intValueExact() == 2)
+            require(root.get("envelopes").isJsonArray && root.get("pendingAlerts").isJsonArray)
+            val envelopes = strings(root.getAsJsonArray("envelopes"))
+            val pending = strings(root.getAsJsonArray("pendingAlerts"))
+            require(pending.distinct().size == pending.size && pending.size <= envelopes.size &&
+                pending.all { it.matches(Regex("[0-9a-f]{128}")) })
+            if (pending.isNotEmpty()) require(envelopes.map { SaitoEnvelope.decodePayload(it).id }.toSet().containsAll(pending))
+            return Record(envelopes, pending.toSet())
+        }
+
         data class Contacts(val accounts: List<String>, val unreadable: Boolean, val unavailable: Boolean)
 
         /** Recover counterparties from authenticated encrypted cache, including before portable contact publication. */
@@ -78,12 +127,10 @@ internal class ChatHistoryStore(context: Context, private val wallet: SaitoWalle
                 try {
                     val record = EncryptedChatRecord(context, "$prefix$group.v1", "redsquare.chat.v1", "chat.").load()
                         ?: return@mapNotNull null
-                    require(record.version == 1.toByte())
-                    val rows = gson.fromJson(record.text, JsonArray::class.java)
+                    val rows = parseRecord(record).envelopes
                     val participants = rows.mapNotNull {
                         try {
-                            require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
-                            PrivateChat.recover(wallet, it.asString, group).counterparty
+                            PrivateChat.recover(wallet, it, group).counterparty
                         } catch (_: Exception) { unreadable = true; null }
                     }.distinct()
                     require(participants.size <= 1)

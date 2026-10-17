@@ -43,24 +43,26 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
     return received.counterparty
 }
 
-/** Ordinary peer and background delivery share pending state before history and publication. */
+/** Ordinary and background delivery commit pending state with history before optional publication. */
 internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     received: ReceivedPrivateChat, endpoint: String): ChatNotificationResult = synchronized(SaitoLocalState.lock) {
     val history = ChatHistoryStore(context, wallet, backend, received.counterparty)
     val message = received.message
-    if (message.author == wallet.publicKey) {
-        history.save(listOf(received.envelope))
-        return@synchronized ChatNotificationResult.SUPPRESSED
-    }
-    val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
-        NotificationReceiptLedger.Domain.PRIVATE_CHAT)
-    val now = System.currentTimeMillis()
-    // Legacy cached messages stay seen, while interrupted new receipts remain eligible.
-    if (history.containsOriginal(message.id) && !ledger.hasPending(now))
-        return@synchronized ChatNotificationResult.SUPPRESSED
-    if (!ledger.prepare(now)) return@synchronized ChatNotificationResult.SUPPRESSED
-    history.save(listOf(received.envelope))
-    val outcome = notifyPrivateChat(context, wallet, backend, message, endpoint)
-    if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
-    outcome
+    if (!history.retainIncoming(received.envelope)) return@synchronized ChatNotificationResult.SUPPRESSED
+    // History and pending eligibility are durable before optional receipt bookkeeping can fail.
+    try {
+        val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
+            NotificationReceiptLedger.Domain.PRIVATE_CHAT)
+        val now = System.currentTimeMillis()
+        if (!ledger.prepare(now)) {
+            history.completeAlert(message.id)
+            return@synchronized ChatNotificationResult.SUPPRESSED
+        }
+        val outcome = notifyPrivateChat(context, wallet, backend, message, endpoint)
+        if (outcome == ChatNotificationResult.PUBLISHED) {
+            ledger.recordPublication(now)
+            history.completeAlert(message.id)
+        }
+        outcome
+    } catch (_: Exception) { ChatNotificationResult.RETRY }
 }
