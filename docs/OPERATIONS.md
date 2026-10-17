@@ -94,7 +94,11 @@ Do not claim live search acceptance from the owned provider fixtures.
 
 Use a key whose holder authorizes this Android/Posts integration. Neither the
 Saito server's browser key nor service discovery establishes that permission.
-Chat configuration is separate work in #31. The existing owner setup question
+Chat uses separate `giphyDebugChatApiKey` and `giphyReleaseChatApiKey` properties
+through the native integration child #43 of #31. The Chat screen scopes the
+shared picker/renderer to that configuration; it never falls back to the Posts
+key. Current controlled recovery work is not whole Chat-GIF acceptance.
+The existing owner setup question
 remains pending; these instructions do not request another account or key.
 
 For the maintained Docker wrapper, Gradle's user directory is the host's
