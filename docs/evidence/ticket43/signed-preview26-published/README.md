@@ -23,4 +23,5 @@ Giphy gate remain open: Android Posts/Chat keys are separately configured and
 currently absent, and actual authorized provider search has not run. Real Google
 delivery, YouTube playback, Owner username registration, physical Pixel acceptance
 and Google Play submission remain unaccepted. No production Chat write or node/
-provider-account change is claimed. Publication bookend review/closure follow.
+provider-account change is claimed. Publication bookend2fff4587e reports Standards0/Spec0. #43 is CLOSED;
+[accepted checkpoint and remaining gates](https://github.com/robelene112/redsquare-android/issues/43#issuecomment-6234126785).

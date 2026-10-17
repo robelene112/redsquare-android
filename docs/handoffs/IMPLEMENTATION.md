@@ -1,13 +1,30 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is CLOSED with complete server-code acceptance. #43 native acceptance and signed26 publication are complete; tracker closure/bookend review follow.
+#42 is CLOSED with complete server-code acceptance. #43 is CLOSED after native acceptance and verified signed26 publication. #44 is the sole app work.
 #16 is frozen at its accepted native checkpoint,
 review base`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. #17 remains open at its
 frozen sourcec9b114a8 recovery checkpoint; actual playback is unresolved. #32 staysopen for configured
 Google/device acceptance; its native dependency42 is now closed. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
+
+## Active native Chat alert presentation (#44)
+
+Sole writer root. GitHub44 is assigned/unblocked, native child of33 and related34.
+Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc. Original33/34 remain
+OPEN with32 dependencies unchanged. No Google transport/deployment acceptance.
+The existing native receipt/navigation foundation has no outstanding code blocker.
+
+First tracer: actual controlled signed private receipt while editing another
+conversation, generic Android alert, real shade tap opens exact sender, then
+return to the latest mounted draft without sending. Existing Android UI,
+controlled-peer, actual-notification and persistence seams from spec1 apply.
+Focused chat-alerts/chat-alerts-android17 scopes run the one native class, with
+180s class bound and existing20s observations. Full wiring includes it. No
+production change yet. Local first tracer build29451 PASS2m39s, core UP-TO-DATE;
+no owned local build. First Android17 RED dispatch follows. No extra grill needed for this settled
+behavior. Public beta26 remains current, protected group contract untouched.
 
 ## Accepted native Chat GIF slice (#43)
 
@@ -100,10 +117,9 @@ claim. Retain first full failures as failures. Whole-source review at7723a8972
 Standards0/Spec0, including new development-preferences standard. Final combined
 SDK evidence reviews atbbdb66236 are Standards0/Spec0. Signed26 is published and
 independently downloaded/verified; immutable25 unchanged. Publication bookend
-review and tracker closure follow. No rebuild required. Whole-child review base06e4ef27 remains fixed.
+2fff4587e Standards0/Spec0, GitHub43 verifiedCLOSED at12:54:43UTC, comment6234126785. No rebuild required. Whole-child review base06e4ef27 remains fixed.
 Read-only next-work preparation is in .scratch/chat33-native-preparation.txt;
-no next ticket claimed/implemented. After43 closes, implement one bounded child
-covering private/group notification tap destinations and private preview opt-in,
+The next bounded child44 is now assigned, covering private/group notification tap destinations and private preview opt-in,
 linked to33/34 without changing their32 blockers or claiming Google transport.
 That is original settled scope, not a new product interview.
 Signed26 preparation and publication are accepted after full SDK evidence reviews.

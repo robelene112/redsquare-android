@@ -61,3 +61,6 @@ the observation. No rebuild was needed for the fixture-only correction. This che
 update/data continuity,
 live Giphy authorization, Google delivery, production-node or Play acceptance.
 Parent #31 and its external #16 dependency remain open.
+
+Publication bookend2fff4587e has Standards0/Spec0. GitHub #43 is verified CLOSED;
+[parent #31 and remaining gates](https://github.com/robelene112/redsquare-android/issues/43#issuecomment-6234126785) stay open.

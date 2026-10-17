@@ -207,6 +207,28 @@ verify_chat_image_storage() {
     cp "$avd_home/redsquare-proof.avd/config.ini" "$evidence/chat-image-history-avd-config.ini"
     verify_group_chat_native ChatImageHistoryStorageTest 180 chat-image-history chat-image-history-evidence
 }
+verify_chat_alerts() {
+    local notification_api granted_for_test=0 native_exit=0
+    notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+    if [[ "$notification_api" -ge 33 ]]; then
+        adb shell dumpsys package nl.davidengelen.redsquare.dev > "$evidence/chat-alert-permission-before.txt"
+        if ! grep -Fq 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/chat-alert-permission-before.txt"; then
+            adb shell pm grant nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+            granted_for_test=1
+        fi
+    fi
+    verify_group_chat_native ChatAlertPreviewTest 180 chat-alerts chat-alert-evidence || native_exit=$?
+    if [[ "$granted_for_test" == 1 ]]; then
+        adb shell pm revoke nl.davidengelen.redsquare.dev android.permission.POST_NOTIFICATIONS || return 1
+    fi
+    return "$native_exit"
+}
+if [[ "${TEST_SCOPE:-full}" == chat-alerts* ]]; then
+    verify_chat_alerts
+    printf '%s\n' 'Focused retained Chat alert UI and shade taps only; Google transport and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_chat_alerts; fi
 verify_chat_gifs() {
     verify_group_chat_native ChatGiphyPreviewTest 180 chat-giphy chat-giphy-evidence
 }
