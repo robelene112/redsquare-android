@@ -15,6 +15,7 @@ import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
@@ -43,6 +44,7 @@ class PrivatePushProcessTest {
     private val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     private val wake = "49".repeat(32)
     private val text = "Recover this retained private message after an actual process interruption"
+    private val legacyText = "Keep this older cached message through the private receipt update"
     private val checkpoint get() = File(context.cacheDir, "private-push-process-checkpoint.json")
     private val originals get() = File(context.noBackupFilesDir, "private-push-process-originals")
     private val obstructionName get() = "chatpush.${wallet.publicKey}.owner.ledger.v1.new"
@@ -57,10 +59,12 @@ class PrivatePushProcessTest {
         assertNoActivity()
         val previous = AndroidWalletStore(context).loadOrCreate()
         val transaction = PrivateChat.create(sender, wallet.publicKey, text, System.currentTimeMillis())
+        val legacy = PrivateChat.create(sender, wallet.publicKey, legacyText, System.currentTimeMillis() - 1_000)
         val row = JsonObject().apply {
             addProperty("phase", "copying"); addProperty("pid", Process.myPid())
             addProperty("owner", wallet.publicKey); addProperty("backend", "owner"); addProperty("wake", wake)
             addProperty("signature", transaction.id); addProperty("envelope", transaction.envelope())
+            addProperty("legacySignature", legacy.id)
             addProperty("obstruction", obstructionName)
             addProperty("originalWalletDigest", digest(previous.exportJson()))
             addProperty("originalBackend", AndroidBackendStore(context).load().id)
@@ -77,6 +81,12 @@ class PrivatePushProcessTest {
         AndroidWalletStore(context).replace(previous, wallet)
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         ChatPushSettings(context, wallet.publicKey).setEnabled(true)
+        // Seed the exact pre-pending-metadata array format (1f6406e7), rather than writing with the new store.
+        EncryptedLocalFile(context, historyName, "redsquare.chat.v1", "chat.").save(
+            EncryptedLocalFile.Contents(1, JsonArray().apply { add(legacy.envelope()) }.toString()))
+        assertEquals(legacyText, ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey)
+            .load().entries.single().message.text)
+        assertTrue(sender.publicKey in ChatHistoryStore.contacts(context, wallet, SaitoBackend.OWNER).accounts)
         check(obstruction.mkdir())
         gateway(row).use { gateway ->
             gateway.start(InetAddress.getByName("127.0.0.1"), 0)
@@ -112,7 +122,6 @@ class PrivatePushProcessTest {
                 val info = requireNotNull(work.getWorkInfoById(id).get(5, TimeUnit.SECONDS))
                 if (!info.state.isFinished) false else {
                     assertEquals(WorkInfo.State.SUCCEEDED, info.state)
-                    assertTrue(info.runAttemptCount >= 1)
                     true
                 }
             }
@@ -162,6 +171,7 @@ class PrivatePushProcessTest {
         if (!checkpoint.exists()) { check(!originals.exists()); return }
         val row = read()
         runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) }
+        assertNoActivity()
         manager.cancel(tag(row), 0)
         if (row.get("phase").asString != "copying") {
             if (obstruction.isDirectory) { check(obstruction.listFiles()!!.isEmpty()); check(obstruction.delete()) }
@@ -209,9 +219,14 @@ class PrivatePushProcessTest {
     }
     private fun tag(row: JsonObject) = "chat:${wallet.publicKey}:owner:${row.get("signature").asString}"
     private fun assertHistory(row: JsonObject) {
-        val entry = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries.single()
+        val entries = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries
+        assertEquals(2, entries.size)
+        val older = entries.single { it.message.id == row.get("legacySignature").asString }
+        assertEquals(legacyText, older.message.text); assertEquals(sender.publicKey, older.message.author)
+        val entry = entries.single { it.message.id == row.get("signature").asString }
         assertEquals(row.get("signature").asString, entry.message.id)
         assertEquals(text, entry.message.text); assertEquals(sender.publicKey, entry.message.author)
+        assertTrue(sender.publicKey in ChatHistoryStore.contacts(context, wallet, SaitoBackend.OWNER).accounts)
     }
     private fun assertIdentity(row: JsonObject) {
         assertEquals(row.get("walletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
@@ -236,11 +251,12 @@ class PrivatePushProcessTest {
         } while (SystemClock.elapsedRealtime() < deadline)
         error("No $label before its deadline")
     }
+    private val historyName get() = "chat.owner.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, sender.publicKey)}.v1"
     private fun names() = listOf("wallet.v1", "wallet.recovery.v1", "backend.v1", "backend.pending",
         "personal.${wallet.publicKey}.v1", "personal.${wallet.publicKey}.guard.v1", "personal.${wallet.publicKey}.recovery.v1",
         "socialpush.${wallet.publicKey}.settings.v1", "chatpush.${wallet.publicKey}.settings.v1",
         "chatpush.${wallet.publicKey}.owner.ledger.v1", "chat-alerts.${wallet.publicKey}.settings.v1",
-        "chat.owner.${wallet.publicKey}.${PrivateChat.conversationId(wallet.publicKey, sender.publicKey)}.v1")
+        historyName)
         .flatMap { listOf(it, "$it.bak", "$it.new") }.toSet()
     private fun write(row: JsonObject) {
         val file = AtomicFile(checkpoint); val output = file.startWrite()

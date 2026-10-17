@@ -53,13 +53,14 @@ try:
     if final['phase'] != 'verified' or len({final['pid'], final['recoveredPid'], final['finalPid']}) != 3:
         raise AssertionError('Private receipt recovery did not use three distinct processes')
     (args.evidence / 'verified-checkpoint.json').write_text(json.dumps(final, indent=2) + '\n')
-    (args.evidence / 'continuity.txt').write_text(
-        'PASS: same persisted worker UUID recovered retained private history after actual process death; '
-        'generic Android card physically dismissed; another process and duplicate wake remain silent; '
-        'no Activity, exact history and wallet/backend preserved. Recovery launches are host-initiated, '
-        'not autonomous Google delivery.\n')
 except BaseException as failure:
     primary = failure
     raise
 finally:
     finish_process_fixture(instrument, args.evidence, package, 'private-push-process-evidence', primary)
+
+(args.evidence / 'continuity.txt').write_text(
+    'PASS: same persisted worker UUID recovered retained private history after actual process death; '
+    'generic Android card physically dismissed; another process and duplicate wake remain silent; '
+    'no Activity, exact older/new history and wallet/backend preserved; installation restoration passed. '
+    'Recovery launches are host-initiated, not autonomous Google delivery.\n')
