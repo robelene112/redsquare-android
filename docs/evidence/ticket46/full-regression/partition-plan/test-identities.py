@@ -6,7 +6,10 @@ def identities(root):
     result=Counter()
     for p in sorted(root.rglob('*.txt')):
         name=p.relative_to(root).as_posix()
-        if name=='profile-edit-ui.txt' and (root/'ProfileEditPreviewTest-ui.txt').exists():continue
+        if name=='profile-edit-ui.txt' and (root/'ProfileEditPreviewTest-ui.txt').exists():
+            classes=['ProfileEditPreviewTest','ProfilePublishingPreviewTest','ProfileMediaPreviewTest','ProfileNewEditPreviewTest']
+            assert p.read_bytes()==b''.join((root/f'{c}-ui.txt').read_bytes()for c in classes),'Profile aggregate is not the exact duplicate concatenation'
+            continue
         fields={}
         for line in p.read_text(errors='replace').splitlines():
             f=re.match(r'^INSTRUMENTATION_STATUS: ([^=]+)=(.*)$',line)
