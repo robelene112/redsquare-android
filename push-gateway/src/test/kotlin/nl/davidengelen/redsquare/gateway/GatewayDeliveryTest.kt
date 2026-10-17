@@ -44,7 +44,8 @@ class GatewayDeliveryTest {
                     add("data", JsonObject().apply { addProperty("text", text); addProperty("parent_id", parent) })
                 }, now - if (parent.isEmpty()) 2000 else 1000)
             val root = post(owner, "Owned parent")
-            val reply = post(actor, "A fresh reply", root.id)
+            val reply = post(actor, "A fresh reply mentioning @Unavailable@saito", root.id)
+            val manyNames = post(actor, (1..51).joinToString(" ") { "@Name$it@saito" })
             val state = directory.newFolder("gateway-${backend.id}").toPath()
             val clientJournal = object : PushSubscriptionClient.Journal {
                 private var value: String? = null
@@ -71,7 +72,7 @@ class GatewayDeliveryTest {
                     PushSubscriptionClient.Reply(response.statusCode(), response.body())
                 }).reconcile { if (enabled) PushSubscriptionClient.Demand(owner, backend, "controlled-current-fid", "replies") else null }
 
-            ArchivePeer(identity, listOf(root, reply), now).use { peer ->
+            ArchivePeer(identity, listOf(root, reply, manyNames), now).use { peer ->
                 MockWebServer().use { fcm ->
                     val verifiedBeforeSend = java.util.concurrent.atomic.AtomicBoolean(false)
                     val attempts = java.util.concurrent.atomic.AtomicInteger()
@@ -113,10 +114,18 @@ class GatewayDeliveryTest {
                         val resolved = request(gateway.port, "/v1/wakes/resolve", body, owner, wake)
                         assertEquals(200, resolved.statusCode()); assertEquals(expected, JsonParser.parseString(resolved.body()))
                         assertEquals(401, request(gateway.port, "/v1/wakes/resolve", body, actor, wake).statusCode())
+                        val status = request(gateway.port, "/v1/observer/status", "{\"version\":1,\"backend\":\"${backend.id}\"}")
+                        assertEquals(200, status.statusCode())
+                        assertEquals("name-proof-unavailable", JsonParser.parseString(status.body()).asJsonObject
+                            .getAsJsonObject("gap").get("reason").asString)
                     }
                     PushGateway(state, origin).use { restarted ->
                         restarted.start()
                         val body = "{\"version\":1,\"wake\":\"$wake\"}"
+                        val restoredGap = request(restarted.port, "/v1/observer/status", "{\"version\":1,\"backend\":\"${backend.id}\"}")
+                        assertEquals(200, restoredGap.statusCode())
+                        assertEquals("name-proof-unavailable", JsonParser.parseString(restoredGap.body()).asJsonObject
+                            .getAsJsonObject("gap").get("reason").asString)
                         val restored = request(restarted.port, "/v1/wakes/resolve", body, owner, wake)
                         assertEquals(200, restored.statusCode()); assertEquals(expected, JsonParser.parseString(restored.body()))
                         peer.exposeHead.set(false)
