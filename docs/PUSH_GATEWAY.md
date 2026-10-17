@@ -26,7 +26,9 @@ must be on a filesystem supporting the documented sync/rename semantics. Do not
 share its state directory across processes. Normal termination closes the listener,
 handlers and state lock. Abrupt termination relies on already committed snapshots.
 Reverse proxy/TLS, request-body timeouts and process supervision are still required
-for later authorized hosting. The standalone minimum is under verification.
+for later authorized hosting. The standalone
+[process journey](evidence/ticket42/process-green/README.md) passes on corrected
+sourcea71e70f5. This is controlled JVM termination/restart, not power-loss proof.
 
 ## Subscription interface, version1
 

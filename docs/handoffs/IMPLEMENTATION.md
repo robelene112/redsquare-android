@@ -66,8 +66,12 @@ Standalone tracer83cf14dc, actual gateway-only FAIL51s: old2PASS/new1FAIL at
 GatewayProcessTest:89, missing readiness because no-op main exits. New HTTP/bind/
 process-death/restart tails unexecuted. [Retained](../evidence/ticket42/process-red/README.md),
 fourhashes/ninesourcehashes. Minimum adds application distribution, strict local
-command flags, explicit loopback port and shutdown lifecycle. Core/gateway/installDist
-build in owned exec33237 is active; no result inferred. No deployment.
+command flags, explicit loopback port and shutdown lifecycle. Initial core/gateway/installDist PASS44s, exec33237 ended. Source review found
+Standards2/Spec1 fixture issues. Correcteda71e70f5 preserves primary startup error,
+forces bounded cleanup after failure and observes child alive before forced stop.
+Reviews now Standards0/Spec0. Corrected build PASS33s, gateway3/0/0, coreUPTODATE114,
+installDistUPTODATE; exec29335 ended. No owned local build. [Retained GREEN](../evidence/ticket42/process-green/README.md),
+sixhashes/ninesourcehashes. Final evidence review pending. No deployment.
 
 No Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
