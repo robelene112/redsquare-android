@@ -1,0 +1,102 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Unavailable gateway receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26$lambda$17(SocialPushWorkPreviewTest.kt:146)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$-AxLwbXHx3iq1wQpca2va_eERYE(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$awaitState(SocialPushWorkPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26(SocialPushWorkPreviewTest.kt:144)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$wpNUqALVlTm7lSj-ogd7BK2Owak(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney(SocialPushWorkPreviewTest.kt:135)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$default(SocialPushWorkPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce(SocialPushWorkPreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce(nl.davidengelen.redsquare.SocialPushWorkPreviewTest):
+java.lang.AssertionError: Unavailable gateway receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26$lambda$17(SocialPushWorkPreviewTest.kt:146)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$-AxLwbXHx3iq1wQpca2va_eERYE(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$awaitState(SocialPushWorkPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26(SocialPushWorkPreviewTest.kt:144)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$wpNUqALVlTm7lSj-ogd7BK2Owak(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney(SocialPushWorkPreviewTest.kt:135)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$default(SocialPushWorkPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce(SocialPushWorkPreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: test=anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 37.422
+There was 1 failure:
+1) anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce(nl.davidengelen.redsquare.SocialPushWorkPreviewTest)
+java.lang.AssertionError: Unavailable gateway receipt finished as SUCCEEDED
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26$lambda$17(SocialPushWorkPreviewTest.kt:146)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$-AxLwbXHx3iq1wQpca2va_eERYE(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$awaitState(SocialPushWorkPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$lambda$27$lambda$26(SocialPushWorkPreviewTest.kt:144)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.$r8$lambda$wpNUqALVlTm7lSj-ogd7BK2Owak(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney(SocialPushWorkPreviewTest.kt:135)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.scheduledReplyJourney$default(SocialPushWorkPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.SocialPushWorkPreviewTest.anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce(SocialPushWorkPreviewTest.kt:36)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

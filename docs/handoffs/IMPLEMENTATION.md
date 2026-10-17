@@ -229,3 +229,21 @@ For earlier ticket chronology, source provenance, failed attempts or previous
 session IDs, read [historical checkpoints](IMPLEMENTATION_HISTORY_2026_10_16.md).
 The snapshot before the username minimum preserves the previous handoff verbatim.
 Historical active/pending labels are not current authority.
+
+## Current opaque transport tracer
+
+Intended RED38986422596 at4f56e70e: existing11PASS87.424s; worker3 reports2PASS/
+1FAIL37.422s, new opaque case rejects no-op SUCCEEDED. Existing Archive journeys
+pass. New gateway/auth/recovery/alert/dedup/preservation tails unexecuted. Later
+recipient-proof assertions452f4595 were not in this runtime. [Retained RED](../evidence/ticket32/opaque-wake-red/android10/README.md)
+has21 hashes/7 XMLs; root viewed only the new failure original, with no rendering
+cause inferred. Source38986388089 SUCCESS release/lint, core114/0/0. Tracer local
+compile failure2m26s and corrected1m47s pass remain recorded. Source reviews at
+553df5b0/dc48e398/452f4595 report0/0. No owned local build remains. Minimum is next.
+
+The local resolver request contract is POST /v1/wakes/resolve, body onlyversion/wake,
+recipient public key and local signature in headers over literal domain/full URL/
+wake. The future gateway must match verified signer to wake recipient. A wake
+alone is insufficient to resolve its wallet/backend link. Keys stay on-device;
+Google data is still only opaque wake/version. This is normal app read behavior,
+not an implemented/deployed server or an independent protocol-vector claim.
