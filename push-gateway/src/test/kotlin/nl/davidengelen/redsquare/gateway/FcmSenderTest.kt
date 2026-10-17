@@ -17,13 +17,13 @@ class FcmSenderTest {
         MockWebServer().use { server ->
             server.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/first\"}").build())
             server.enqueue(MockResponse.Builder().code(503).addHeader("Retry-After", "60")
-                .body("{\"error\":{\"status\":\"UNAVAILABLE\"}}").build())
+                .body("x".repeat(70_000)).build())
             server.enqueue(MockResponse.Builder().code(404).body("""
                 {"error":{"status":"NOT_FOUND","details":[
                     {"@type":"type.googleapis.com/google.firebase.fcm.v1.FcmError","errorCode":"UNREGISTERED"}
                 ]}}
             """.trimIndent()).build())
-            server.enqueue(MockResponse.Builder().code(400).body("{\"error\":{\"status\":\"INVALID_ARGUMENT\"}}").build())
+            server.enqueue(MockResponse.Builder().code(400).body("x".repeat(70_000)).build())
             server.start(InetAddress.getByName("127.0.0.1"), 0)
             val sender = FcmSender("owned-fixture", credentials, "http://127.0.0.1:${server.port}")
             val expiry = System.currentTimeMillis() + 3_600_000
@@ -52,6 +52,20 @@ class FcmSenderTest {
                 assertTrue(ttl.dropLast(1).toLong() in 3500..3600)
             }
             assertEquals(4, server.requestCount)
+            // The external credential provider may renew over the network before a send.
+            val refreshed = java.util.concurrent.atomic.AtomicBoolean(false)
+            val slowCredentials = object : GoogleCredentials() {
+                override fun getRequestMetadata(uri: java.net.URI): Map<String, List<String>> {
+                    Thread.sleep(1250)
+                    refreshed.set(true)
+                    return credentials.getRequestMetadata(uri)
+                }
+            }
+            val slowSender = FcmSender("owned-fixture", slowCredentials, "http://127.0.0.1:${server.port}")
+            assertEquals(FcmSender.Result.Rejected(410),
+                slowSender.send("controlled-fid", wake, System.currentTimeMillis() + 1000))
+            assertTrue("Expiry must be rechecked after the actual external credential delay", refreshed.get())
+            assertEquals("An expired wake must not reach HTTP", 4, server.requestCount)
         }
     }
 }

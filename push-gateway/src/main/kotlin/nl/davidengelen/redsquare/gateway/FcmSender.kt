@@ -41,25 +41,37 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
 
     fun send(fid: String, wake: String, expiresAt: Long): Result {
         require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")) && wake.matches(Regex("[0-9a-f]{64}")))
-        val now = System.currentTimeMillis()
-        if (expiresAt <= now) return Result.Rejected(410)
-        val ttl = minOf((expiresAt - now) / 1000, 2_419_200L)
-        val message = JsonObject().apply {
-            addProperty("fid", fid)
-            add("data", JsonObject().apply { addProperty("version", "1"); addProperty("wake", wake) })
-            add("android", JsonObject().apply { addProperty("priority", "HIGH"); addProperty("ttl", "${ttl}s") })
-        }
-        val body = JsonObject().apply { add("message", message) }.toString()
+        if (expiresAt <= System.currentTimeMillis()) return Result.Rejected(410)
         return try {
             // Refreshable Google credentials obtain fresh metadata for each attempt; never cache a bearer here.
             val authorization = credentials.getRequestMetadata(production).entries
                 .firstOrNull { it.key.equals("Authorization", ignoreCase = true) }?.value?.singleOrNull()
                 ?: throw IOException("FCM authorization unavailable")
+            val now = System.currentTimeMillis()
+            if (expiresAt <= now) return Result.Rejected(410)
+            val ttl = minOf((expiresAt - now) / 1000, 2_419_200L)
+            val message = JsonObject().apply {
+                addProperty("fid", fid)
+                add("data", JsonObject().apply { addProperty("version", "1"); addProperty("wake", wake) })
+                add("android", JsonObject().apply { addProperty("priority", "HIGH"); addProperty("ttl", "${ttl}s") })
+            }
+            val body = JsonObject().apply { add("message", message) }.toString()
             val request = Request.Builder().url(endpoint).header("Authorization", authorization)
                 .post(body.toRequestBody("application/json; charset=utf-8".toMediaType())).build()
             client.newCall(request).execute().use { response ->
-                val bytes = response.body.source().readByteArray(65_537)
-                if (bytes.size > 65_536) throw IOException("FCM response too large")
+                // Status and retry headers are usable even when an error body is absent or unreadable.
+                if (response.code == 429 || response.code >= 500) return Result.Retry(retryAfter(response.header("Retry-After"),
+                    if (response.code == 429) 60_000L else 10_000L))
+                if (response.code != 200 && response.code != 404) return Result.Rejected(response.code)
+                val bytes = try { response.body.byteStream().readNBytes(65_537) }
+                    catch (failure: IOException) {
+                        if (response.code == 404) return Result.Rejected(404)
+                        throw failure
+                    }
+                if (bytes.size > 65_536) {
+                    if (response.code == 404) return Result.Rejected(404)
+                    throw IOException("FCM response too large")
+                }
                 val parsed = try {
                     val text = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
                         .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
@@ -74,8 +86,6 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
                         Result.Accepted(name)
                     }
                     response.code == 404 && unregistered(parsed) -> Result.Unregistered
-                    response.code == 429 || response.code >= 500 -> Result.Retry(retryAfter(response.header("Retry-After"),
-                        if (response.code == 429) 60_000L else 10_000L))
                     else -> Result.Rejected(response.code)
                 }
             }

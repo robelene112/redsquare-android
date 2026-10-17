@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.FcmSenderTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T02:42:54" hostname="0f11662a0768" time="0.445">
+  <properties/>
+  <testcase name="sendsOnlyAnOpaqueWakeAndDistinguishesAcceptanceTemporaryAndObsoleteTargets" classname="nl.davidengelen.redsquare.gateway.FcmSenderTest" time="0.445">
+    <failure message="java.lang.AssertionError: Cloud acceptance must return the actual message name expected:&lt;Accepted(name=projects/owned-fixture/messages/first)&gt; but was:&lt;Retry(afterMillis=10000)&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Cloud acceptance must return the actual message name expected:&lt;Accepted(name=projects/owned-fixture/messages/first)&gt; but was:&lt;Retry(afterMillis=10000)&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.gateway.FcmSenderTest.sendsOnlyAnOpaqueWakeAndDistinguishesAcceptanceTemporaryAndObsoleteTargets(FcmSenderTest.kt:31)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
