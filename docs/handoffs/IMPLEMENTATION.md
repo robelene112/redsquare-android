@@ -162,7 +162,8 @@ Correction663e2f18 source reviews0/0, but its test override failed compilation36
 (nullable Google URI), no gateway test ran. [Retained](../evidence/ticket42/sender-compile-failure/README.md).
 Fixture-only2da44ac9 nowPASS41s/gateway6/0/0, new1.897s, coreUPTODATE.
 [Retained GREEN](../evidence/ticket42/sender-green/README.md),7hashes/12sourcehashes.
-Owned55910endedexit0, no owned local build. Final fixture/evidence reviews pending.
+Owned55910endedexit0, no owned local build. Final fixture/evidence reviews at981d1248 report Standards0/Spec0. Pushed;
+source CI38996214676 is pending.
 No actual Google/ADC/cloud/account use. Durable event/resolver and send scheduling
 remain next; do not close42/32 or claim device delivery. Beta24 unchanged.
 

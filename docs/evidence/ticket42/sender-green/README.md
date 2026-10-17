@@ -15,7 +15,7 @@ HTTP count unchanged. This does not prove live OAuth refresh or network delivery
 
 First minimum35e1eb93 FAIL52s and corrected fixture compilation663e2f18 FAIL36s
 remain separate records. Source663e2f18 reviews Standards0/Spec0; its nullable-URI
-fixture correction2da44ac9 and final evidence review are pending. No ADC lookup,
+fixture correction2da44ac9 and final evidence981d1248 also report Standards0/Spec0. No ADC lookup,
 Google account/project/IAM operation or actual Google send occurred. Durable
 retry scheduling, binding-generation checks, event storage and resolution are
 later gateway work. Native application source remains unchanged.

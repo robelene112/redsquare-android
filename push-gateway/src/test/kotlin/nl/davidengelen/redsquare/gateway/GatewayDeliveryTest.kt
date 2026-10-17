@@ -73,7 +73,13 @@ class GatewayDeliveryTest {
 
             ArchivePeer(identity, listOf(root, reply), now).use { peer ->
                 MockWebServer().use { fcm ->
-                    repeat(4) { fcm.enqueue(MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/accepted\"}").build()) }
+                    val verifiedBeforeSend = java.util.concurrent.atomic.AtomicBoolean(false)
+                    fcm.dispatcher = object : mockwebserver3.Dispatcher() {
+                        override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                            verifiedBeforeSend.set(peer.exactReads.containsAll(setOf(root.id, reply.id)))
+                            return MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/accepted\"}").build()
+                        }
+                    }
                     fcm.start(InetAddress.getByName("127.0.0.1"), 0)
                     val sender = FcmSender("owned-fixture", GoogleCredentials.create(
                         AccessToken("synthetic-owned-oauth", Date(now + 3_600_000))), "http://127.0.0.1:${fcm.port}")
@@ -88,6 +94,7 @@ class GatewayDeliveryTest {
                         peer.check()
                         val sent = fcm.takeRequest(2, TimeUnit.SECONDS)
                         assertNotNull("A verified selected-backend reply must reach the outgoing transport", sent)
+                        assertTrue("Exact selected-Archive candidate and parent reads must precede the first send", verifiedBeforeSend.get())
                         val message = JsonParser.parseString(requireNotNull(requireNotNull(sent).body).utf8())
                             .asJsonObject.getAsJsonObject("message")
                         assertEquals("controlled-current-fid", message.get("fid").asString)
@@ -110,6 +117,7 @@ class GatewayDeliveryTest {
                         assertTrue(peer.exactReads.containsAll(setOf(root.id, reply.id)))
                         bind(restarted.port, false)
                         assertEquals(410, request(restarted.port, "/v1/wakes/resolve", body, owner, wake).statusCode())
+                        peer.add(post(actor, "A distinct reply after opt-out", root.id), now)
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
                         assertEquals("Opt-out must stop subsequent sends", 1, fcm.requestCount)
                         peer.check()
@@ -125,10 +133,14 @@ class GatewayDeliveryTest {
         private val server = MockWebServer()
         val exactReads = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
         val origin: String get() = "http://127.0.0.1:${server.port}"
-        init {
-            val rows = posts.associate { post -> post.id to JsonObject().apply {
+        private val rows = java.util.concurrent.ConcurrentHashMap<String, JsonObject>()
+        fun add(post: SaitoTransaction, timestamp: Long) {
+            rows[post.id] = JsonObject().apply {
                 addProperty("sig", post.id); addProperty("created_at", timestamp); addProperty("tx", post.envelope())
-            } }
+            }
+        }
+        init {
+            posts.forEach { add(it, timestamp) }
             repeat(4) {
                 val authenticated = java.util.concurrent.atomic.AtomicBoolean(false)
                 val serverWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture.
