@@ -207,7 +207,11 @@ class PrivatePushWorkPreviewTest {
                     wallets.replace(replacement, wallet)
                     ChatAlertSettings(context, wallet.publicKey).setPreviewsEnabled(true)
                     await(schedule())
+                    val publishedBy = SystemClock.elapsedRealtime() + 5_000
+                    while (manager.activeNotifications.none { it.tag == tag } && SystemClock.elapsedRealtime() < publishedBy)
+                        SystemClock.sleep(25)
                     val preview = manager.activeNotifications.single { it.tag == tag }
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
                     assertEquals("private-chats", preview.notification.channelId)
                     assertEquals(text, preview.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
                     assertNoActivity()
@@ -229,7 +233,6 @@ class PrivatePushWorkPreviewTest {
                     while (manager.activeNotifications.any { it.tag == tag } && SystemClock.elapsedRealtime() < dismissedBy) SystemClock.sleep(25)
                     await(schedule())
                     assertSilent("The opened private receipt must not alert again")
-                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
                     assertEquals(1, ChatHistoryStore(context, wallet, backend, sender.publicKey).load().entries.size)
                     assertNoActivity()
                     return@withFailureCapture
