@@ -47,6 +47,15 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                     addProperty("version", 1); addProperty("nonce", nonce); addProperty("expiresAt", expiresAt)
                 })
             }
+            "/v1/observer/status" -> {
+                fields(body, setOf("version", "backend"))
+                val backend = text(body, "backend").also { value -> require(SaitoBackend.entries.any { it.id == value }) }
+                val gap = store.load().getAsJsonObject("gaps").get(backend)?.asJsonObject
+                    ?.takeIf { savedNumber(it, "expiresAt") > now }
+                GatewayReply(200, JsonObject().apply {
+                    addProperty("version", 1); addProperty("backend", backend); add("gap", gap)
+                })
+            }
             "/v1/wakes/resolve" -> resolve(body, signature, recipient, now)
             "/v1/subscriptions/bind" -> bind(body, signature, now)
             "/v1/subscriptions/status", "/v1/subscriptions/revoke" -> authority(path, body, now)
@@ -145,6 +154,15 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val state = store.load()
         prune(state, now)
         val events = state.getAsJsonObject("events")
+        if (candidates.any { it.unavailableNames }) {
+            val gaps = state.getAsJsonObject("gaps")
+            val previous = gaps.get(backend.id)?.asJsonObject
+            gaps.add(backend.id, JsonObject().apply {
+                addProperty("reason", "name-proof-unavailable")
+                addProperty("since", previous?.let { savedNumber(it, "since") } ?: now)
+                addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
+            })
+        }
         for ((subscription, value) in state.getAsJsonObject("subscriptions").entrySet()) {
             val binding = value.asJsonObject
             if (savedText(binding, "backend") != backend.id || savedNumber(binding, "expiresAt") <= now) continue
@@ -260,6 +278,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
             val records = state.getAsJsonObject(name)
             records.entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
         }
+        state.getAsJsonObject("gaps").entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
         state.getAsJsonObject("events").entrySet().removeIf { savedNumber(it.value.asJsonObject, "retainUntil") <= now }
     }
 

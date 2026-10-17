@@ -114,23 +114,29 @@ class GatewayArchive(private val identity: SaitoWallet, val backend: SaitoBacken
 
     fun recentSocial(): ArchiveFeedPage = RedSquareFeed.readSearch(archive(null))
 
-    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>)
+    internal data class VerifiedSocial(val post: FeedPost, val parentAuthor: String?, val namedRecipients: Set<String>, val unavailableNames: Boolean)
 
     /** Head rows are discovery hints. Exact candidate and parent reads establish current availability. */
     internal fun verifiedSocial(): List<VerifiedSocial> = recentSocial().posts.mapNotNull { hint ->
         val post = exact(hint.id) ?: return@mapNotNull null
         if (SaitoEnvelope.decode(post.envelope).body.get("request").asString != "create tweet") return@mapNotNull null
-        val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().toList()
-        require(names.size <= 50) { "Too many mentioned names in one discovery candidate" }
-        val recipients = names.mapNotNull { identifier ->
+        val names = NAME_MENTION.findAll(post.text).map { it.groupValues[1] }.distinct().take(51).toList()
+        var unavailableNames = names.size > 50
+        val recipients = (if (unavailableNames) emptyList() else names).mapNotNull { identifier ->
             val query = JsonObject().apply {
                 addProperty("request", "registry query")
                 add("data", JsonObject().apply { addProperty("request", "registry namecheck"); addProperty("identifier", identifier) })
             }
-            SaitoRegistry.readNamecheck(request(query.toString(), "registry", true), identifier, registrar)
-                ?.takeIf { it.active }?.publicKey
+            try {
+                SaitoRegistry.readNamecheck(request(query.toString(), "registry", true), identifier, registrar)
+                    ?.takeIf { it.active }?.publicKey
+            } catch (failure: Exception) {
+                if (Thread.currentThread().isInterrupted) throw failure
+                unavailableNames = true
+                null // Missing optional name evidence cannot invalidate the independent reply/public-key evidence.
+            }
         }.toSet()
-        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, recipients)
+        VerifiedSocial(post, post.parentId.takeIf { it.isNotEmpty() }?.let { exact(it)?.author }, recipients, unavailableNames)
     }
 
     private fun exact(signature: String): FeedPost? {
