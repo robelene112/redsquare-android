@@ -82,23 +82,23 @@ class GatewayChainTest {
                                             require(frame.copyOfRange(74, 107).contentEquals(requireNotNull(peerKey.get())))
                                             val sequence = reads.incrementAndGet()
                                             val continuation = ByteBuffer.wrap(frame, 1, 8).long != 0L
-                                            require(sequence in 1..6 && continuation == (sequence !in listOf(1, 3)))
-                                            val changed = sequence >= 5
+                                            require(sequence in 1..9 && continuation == (sequence !in listOf(1, 3, 8)))
+                                            val changed = sequence in 5..6
                                             val responseHashes = if (changed) alternateHashes else hashes
                                             val responseFork = if (changed) alternateFork else fork
                                             if (!continuation) {
                                                 require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                             } else {
                                                 require(ByteBuffer.wrap(frame, 1, 8).long == heights.last() && frame[73] == 0.toByte())
-                                                require(frame.copyOfRange(9, 41).contentEquals(hex(if (sequence == 6) alternateHashes.last() else hashes.last())))
-                                                require(frame.copyOfRange(41, 73).contentEquals(if (sequence == 6) alternateFork else fork))
+                                                require(frame.copyOfRange(9, 41).contentEquals(hex(if (sequence in 6..7) alternateHashes.last() else hashes.last())))
+                                                require(frame.copyOfRange(41, 73).contentEquals(if (sequence in 6..7) alternateFork else fork))
                                             }
                                             // Pinned wire schema:196-byte body header,53 bytes per reference.
                                             val count = if (!continuation || sequence == 5) 2 else 0
                                             val body = ByteBuffer.allocate(196 + 53 * count)
                                             body.putLong(heights.last()).put(hex(responseHashes.last())).put(responseFork)
-                                            val ancestorHeight = if (sequence == 5) 2_000_001L else if (continuation) heights.last() else 0L
-                                            val ancestorHash = if (sequence == 5) hex("ab".repeat(32)) else if (continuation) hex(responseHashes.last()) else ByteArray(32)
+                                            val ancestorHeight = if (sequence == 7) 2_000_000L else if (sequence == 5) 2_000_001L else if (continuation) heights.last() else 0L
+                                            val ancestorHash = if (sequence == 7) hex("cc".repeat(32)) else if (sequence == 5) hex("ab".repeat(32)) else if (continuation) hex(responseHashes.last()) else ByteArray(32)
                                             body.putLong(ancestorHeight).put(ancestorHash)
                                             body.putLong(if (count == 0) heights.last() else heights.first())
                                                 .put(hex(if (count == 0) responseHashes.last() else responseHashes.first()))
@@ -142,20 +142,25 @@ class GatewayChainTest {
                         }
                     }
                 }
-                fun cursor(gateway: PushGateway): com.google.gson.JsonObject {
+                fun status(gateway: PushGateway): com.google.gson.JsonObject {
                     val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}/v1/observer/status"))
                         .timeout(Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(
                             "{\"version\":1,\"backend\":\"${backend.id}\"}"))
                     val response = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build()
                         .send(request.build(), HttpResponse.BodyHandlers.ofString())
                     assertEquals(200, response.statusCode())
-                    val status = JsonParser.parseString(response.body()).asJsonObject
+                    return JsonParser.parseString(response.body()).asJsonObject
+                }
+                fun cursor(gateway: PushGateway): com.google.gson.JsonObject {
+                    val status = status(gateway)
                     assertNotNull("Processed chain cursor must be durably observable", status.get("cursor"))
                     if (reads.get() >= 5) {
-                        assertEquals("chain-reorganization", status.getAsJsonObject("gap").get("reason").asString)
+                        assertEquals(if (reads.get() >= 8) "bootstrap-history-unavailable" else "chain-reorganization",
+                            status.getAsJsonObject("gap").get("reason").asString)
                         assertNotNull("Earlier coverage gaps must remain observable beside the latest warning", status.get("gaps"))
                         val reasons = status.getAsJsonArray("gaps").map { it.asJsonObject.get("reason").asString }.toSet()
-                        assertEquals(setOf("bootstrap-history-unavailable", "chain-reorganization"), reasons)
+                        assertEquals(setOf("bootstrap-history-unavailable", "chain-reorganization") +
+                            if (reads.get() >= 7) setOf("chain-ancestry-unavailable") else emptySet(), reasons)
                     }
                     return status.getAsJsonObject("cursor")
                 }
@@ -188,6 +193,21 @@ class GatewayChainTest {
                     assertEquals(alternateHashes.last(), cursor(recovered).get("hash").asString)
                     assertEquals(6, reads.get())
                     assertEquals(hashes + hashes + alternateHashes, downloads.toList())
+                    observe(recovered)
+                    val unavailable = status(recovered)
+                    assertNull("Unknown ancestry must prepare a durable recent-history bootstrap", unavailable.get("cursor"))
+                    assertEquals("chain-ancestry-unavailable", unavailable.getAsJsonObject("gap").get("reason").asString)
+                    assertEquals(hashes + hashes + alternateHashes, downloads.toList())
+                }
+                PushGateway(state, "https://push.fixture.invalid").use { resuming ->
+                    resuming.start()
+                    assertNull(status(resuming).get("cursor"))
+                    observe(resuming)
+                    assertEquals(hashes.last(), cursor(resuming).get("hash").asString)
+                    observe(resuming)
+                    assertEquals(hashes.last(), cursor(resuming).get("hash").asString)
+                    assertEquals(9, reads.get())
+                    assertEquals(hashes + hashes + alternateHashes + hashes, downloads.toList())
                 }
                 failure.get()?.let { throw AssertionError("Owned chain peer failed", it) }
             }
