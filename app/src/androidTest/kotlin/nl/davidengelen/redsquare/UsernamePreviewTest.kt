@@ -440,6 +440,7 @@ class UsernamePreviewTest {
             ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ capture("username-unavailable-failure.png") }) {
                     waitForEnabled("New post")
+                    waitForEnabled("Refresh") // Wallet readiness alone does not finish the initial feed load.
                     peer.assertRequestObserved()
                     val original = peer.clientKeys.first()
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) {

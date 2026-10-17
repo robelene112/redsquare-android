@@ -1,0 +1,124 @@
+native-proof	Verify Android 10 runtime	﻿2026-10-17T07:47:52.6091760Z ##[group]Run scripts/ci-android-device 29
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6092169Z ^[[36;1mscripts/ci-android-device 29^[[0m
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6154773Z shell: /usr/bin/bash -e {0}
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6155058Z env:
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6155393Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6155927Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6156361Z   MAVEN_ARGS: -ntp
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6156601Z   TEST_PUBLIC_SIGNED_UPDATE: 1
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6156871Z   TEST_PUBLIC_FEED_READ: 1
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6157128Z   TEST_PUBLIC_VIDEO_REFERENCE: 0
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6157387Z   TEST_SCOPE: full
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.6157609Z ##[endgroup]
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.7238297Z WARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.7255174Z The 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.7261577Z To learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:52.7276467Z 
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:53.5402063Z Loading package information...                                                  
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:53.6260741Z Loading local repository...                                                     
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:53.6262447Z [                                       ] 3% Loading local repository...        
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:53.9269438Z [                                       ] 3% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.3751729Z [=                                      ] 3% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.4550016Z [=                                      ] 4% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.4950734Z [=                                      ] 5% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.5531065Z [==                                     ] 5% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.6230264Z [==                                     ] 6% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.8661947Z [==                                     ] 7% Fetch remote repository...         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.8681622Z [==                                     ] 7% Computing updates...               
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.8779531Z [===                                    ] 8% Computing updates...               
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.8894049Z [===                                    ] 10% Computing updates...              
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:54.9244035Z [===                                    ] 10% Installing Intel x86_64 Atom Syste
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:55.2052388Z [===                                    ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:55.5185696Z [====                                   ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:55.6567226Z [====                                   ] 11% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:55.7871547Z [====                                   ] 12% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:55.8964034Z [=====                                  ] 13% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.0056082Z [=====                                  ] 14% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.0893797Z [=====                                  ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.1436983Z [======                                 ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.2527187Z [======                                 ] 16% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.3905621Z [======                                 ] 17% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.5004416Z [=======                                ] 18% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.6400964Z [=======                                ] 19% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.6935240Z [=======                                ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.7476626Z [========                               ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.8851779Z [========                               ] 21% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:56.9967600Z [========                               ] 22% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.1073322Z [=========                              ] 23% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.2440421Z [=========                              ] 24% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.2997283Z [=========                              ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.3520445Z [==========                             ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.4928672Z [==========                             ] 26% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.6033176Z [==========                             ] 27% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.7397011Z [===========                            ] 28% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.8507732Z [===========                            ] 29% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.9038945Z [===========                            ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:57.9903427Z [============                           ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.0999943Z [============                           ] 31% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2096148Z [============                           ] 32% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2104034Z [============                           ] 33% Downloading x86_64-29_r08-linux.zi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2604052Z [============                           ] 33% Unzipping...                      
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2605330Z [============                           ] 33% Unzipping... x86_64/              
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2615031Z [============                           ] 33% Unzipping... x86_64/advancedFeatur
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2627948Z [=============                          ] 33% Unzipping... x86_64/advancedFeatur
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.2641403Z [=============                          ] 33% Unzipping... x86_64/VerifiedBootPa
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3100399Z [=============                          ] 33% Unzipping... x86_64/kernel-ranchu 
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3228624Z [=============                          ] 33% Unzipping... x86_64/NOTICE.txt    
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3260936Z [=============                          ] 33% Unzipping... x86_64/build.prop    
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3311780Z [=============                          ] 33% Unzipping... x86_64/userdata.img  
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3344709Z [=============                          ] 33% Unzipping... x86_64/source.propert
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3366760Z [=============                          ] 33% Unzipping... x86_64/data/         
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3381703Z [=============                          ] 33% Unzipping... x86_64/data/misc/    
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3411732Z [=============                          ] 33% Unzipping... x86_64/data/misc/wifi
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3421887Z [=============                          ] 33% Unzipping... x86_64/data/misc/apns
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.3422902Z [=============                          ] 33% Unzipping... x86_64/ramdisk.img   
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:58.9528963Z [=============                          ] 33% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:47:59.7060901Z [=============                          ] 34% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:00.0234415Z [=============                          ] 35% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:00.4363686Z [==============                         ] 35% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:01.1264973Z [==============                         ] 36% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:01.6786216Z [==============                         ] 37% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:02.3691036Z [===============                        ] 38% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:03.0348920Z [===============                        ] 39% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:03.3136770Z [===============                        ] 40% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:03.7904940Z [================                       ] 40% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:04.5122674Z [================                       ] 41% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:05.0866644Z [================                       ] 42% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:05.5498874Z [=================                      ] 43% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:06.0173231Z [=================                      ] 44% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:06.3145170Z [=================                      ] 45% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:06.5020495Z [==================                     ] 45% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:06.9672460Z [==================                     ] 46% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:07.4332177Z [==================                     ] 47% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:07.8993353Z [===================                    ] 48% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:08.2718817Z [===================                    ] 49% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:08.5558610Z [===================                    ] 50% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:08.7420803Z [====================                   ] 50% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:09.2060252Z [====================                   ] 51% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:09.6710874Z [====================                   ] 52% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:12.7749069Z [=====================                  ] 53% Unzipping... x86_64/system.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:12.8036800Z [=====================                  ] 53% Unzipping... x86_64/vendor.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:13.1826713Z [=====================                  ] 54% Unzipping... x86_64/vendor.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:13.3621309Z [=====================                  ] 55% Unzipping... x86_64/vendor.img    
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:13.5217029Z [=====================                  ] 55% Unzipping... x86_64/encryptionkey.
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:13.5217873Z [=======================================] 100% Unzipping... x86_64/encryptionkey
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:13.6471353Z 
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:14.5662687Z Loading local repository...                                                     
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:14.6255000Z [=========                              ] 25% Loading local repository...       
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:14.6255983Z Auto-selecting single ABI x86_64
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:15.1076767Z * daemon not running; starting now at tcp:5037
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:15.3021679Z * daemon started successfully
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:34.5598310Z Do you wish to create a custom hardware profile? [no] Performing Streamed Install
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:34.5613387Z Success
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:35.2771375Z Performing Streamed Install
+native-proof	Verify Android 10 runtime	2026-10-17T07:48:35.2772125Z Success
+native-proof	Verify Android 10 runtime	2026-10-17T08:11:29.4653529Z PASS: posting process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-17T08:13:09.7760686Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 10 runtime	2026-10-17T08:14:03.0364297Z PASS: social action process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-17T08:14:48.0949694Z PASS: quote process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-17T08:15:45.4708312Z PASS: author edit process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-17T08:15:54.9859094Z PASS: author delete process interruption and cold reconciliation
+native-proof	Verify Android 10 runtime	2026-10-17T08:16:56.7743234Z PASS: image draft and candidate process recovery
+native-proof	Verify Android 10 runtime	2026-10-17T08:17:07.5402465Z PASS: queued posting process interruption and cold delivery
+native-proof	Verify Android 10 runtime	2026-10-17T08:20:41.6857923Z PASS: profile draft and candidate process recovery
+native-proof	Verify Android 10 runtime	2026-10-17T08:22:25.5077073Z ##[error]Process completed with exit code 1.

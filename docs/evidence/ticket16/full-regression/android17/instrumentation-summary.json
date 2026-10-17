@@ -1,0 +1,3931 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/gif16-full17-39013783536/.scratch/device-evidence/api-37.0",
+  "status_codes": {
+    "0": 400
+  },
+  "totals": {
+    "completion_records": 95,
+    "reported_ok_test_counts": 400,
+    "crash_outputs": 29,
+    "explicit_failed_files": 0
+  },
+  "excluded_exact_aggregates": [
+    {
+      "path": "profile-edit-ui.txt",
+      "sha256": "24812dd8eea3d5257c17ac00163bdb5ede4ee2d2e53d2d49f535fe89d91e2a43",
+      "individuals": [
+        "ProfileEditPreviewTest-ui.txt",
+        "ProfilePublishingPreviewTest-ui.txt",
+        "ProfileMediaPreviewTest-ui.txt",
+        "ProfileNewEditPreviewTest-ui.txt"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "ProfileEditPreviewTest-ui.txt",
+      "sha256": "685c3a9ca6a069d1c819c692d14846478cdfedf9880d2140e43d87d84f93ad6e",
+      "statuses": {
+        "0": 7
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "profileHistoryRemainsReachableWithAFullMultilineBio",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "aLateDraftSaveFailureCanBeRetriedInTheSameEditorAfterStorageRecovers",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileEditPreviewTest",
+          "test": "viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        7
+      ],
+      "junit_times": [
+        "30.65"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "ProfileMediaPreviewTest-ui.txt",
+      "sha256": "a8a10d37b86aac84bb4a75af7a0e45c95113e2b3c43abcbd9594786be24af645",
+      "statuses": {
+        "0": 2
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ProfileMediaPreviewTest",
+          "test": "removingSelectedPictureAndBannerSurvivesDraftRecoveryAndPublishesGeneratedDefaults",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileMediaPreviewTest",
+          "test": "selectedPictureAndBannerSurviveDeletedSourcesAndPublishWithTheRetainedBioAndIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        2
+      ],
+      "junit_times": [
+        "17.282"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "ProfileNewEditPreviewTest-ui.txt",
+      "sha256": "e88e5f4ece32d4d0f350a6aa8999e47d8feadebec0a76e0b8858fb690b6cb146",
+      "statuses": {
+        "0": 2
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ProfileNewEditPreviewTest",
+          "test": "aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfileNewEditPreviewTest",
+          "test": "aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        2
+      ],
+      "junit_times": [
+        "24.833"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "sha256": "38ca60a4ffaa19f0624ced3ec16855050c631542740237911bdc664f18efddb4",
+      "statuses": {
+        "0": 5
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "previouslyAvailableProfileSurvivesEmptyReadsAndNavigationWithoutPublishingAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "aNewerVerifiedProfileStillBlocksOlderRetryAfterAFreshActivityWithStaleReads",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "cancelledWalletImportAfterConfirmationKeepsNewProfileEditingAndDraftRecoveryAvailable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+          "test": "savingBioPublishesACompleteSnapshotAndPreservesOtherVerifiedFields",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        5
+      ],
+      "junit_times": [
+        "26.395"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "appearance-ui.txt",
+      "sha256": "588dfe933a53863382cda18e21163c557c4394c737f7919affa27da3792e73bc",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.AppearancePreviewTest",
+          "test": "systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "24.342"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "author-delete-process/interrupted-instrumentation.txt",
+      "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "author-delete-process/recovered-instrumentation.txt",
+      "sha256": "c4f61275eb295984a7c386874ae981a196ad1ab92025768fca598eb6becbc865",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.AuthorProcessRecoveryTest",
+          "test": "coldRecoveryChecksTheOriginalAuthorChangeWithoutRebroadcasting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.835"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "author-edit-process/interrupted-instrumentation.txt",
+      "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "author-edit-process/recovered-instrumentation.txt",
+      "sha256": "874f7bb9cbd2b2aab0882fdf4966fa9aece36daee20a651d3ee8c18c88c21880",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.AuthorProcessRecoveryTest",
+          "test": "coldRecoveryChecksTheOriginalAuthorChangeWithoutRebroadcasting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.816"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "author-post-ui.txt",
+      "sha256": "ee13314b7e9bd0f4bb5835caca55fd6fff87ab14acc4bd2f98e952d4c60a1b36",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "invalidAuthorRecordsPreservePriorEncryptedWorkAndNeverEnterPostQueue",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "authorImageEditsRetainPixelsAndDeletionRemovesTheGallery",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "cachedVerifiedEditSurvivesStaleServerHistoryAndColdLaunch",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "competingEditsRequireAnExplicitTextChoiceAndANewSend",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "authorProofsPropagateAcrossIndependentCachesAndSurviveStaleResaves",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "imageQuoteKeepsOwnGalleryWhileOriginalImagesFollowEditAndRemoval",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "mountedQuoteKeepsCommentaryWhileOriginalFollowsVerifiedEditAndDeletion",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.AuthorPostPreviewTest",
+          "test": "authorChangesRetainOriginalIdentityRecoverDeletionAndRefreshNormalViews",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "42.608"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "browse-ui.txt",
+      "sha256": "2508194a7f0c79f927f06cc1f944c3915f79a24b774edf98527a5f9e3d98f186",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "openingAFeedPostShowsAvailableVerifiedConversationReplies",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "availableConversationRemainsReadableAfterRestartWithoutItsServer",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "olderProfileRepliesAndLikesRemainReachablePastANewerFullPage",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ThreadProfilePreviewTest",
+          "test": "malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "17.265"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-image-history-ui.txt",
+      "sha256": "89204150e5ca7712fc2cb9c49710fa51a33ef50760a8a1d8551dc0996a7c09d8",
+      "statuses": {
+        "0": 2
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatImageHistoryStorageTest",
+          "test": "sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImageHistoryStorageTest",
+          "test": "twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        2
+      ],
+      "junit_times": [
+        "51.567"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-images-ui.txt",
+      "sha256": "95f17ed5d454324a7083b43d4e2c0d8f209b59eb9b3b100a3c73afa851b7981d",
+      "statuses": {
+        "0": 10
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatImagesPreviewTest",
+          "test": "aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        10
+      ],
+      "junit_times": [
+        "76.192"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-keyboard-ui.txt",
+      "sha256": "983c811c8adeeffe3a1b449e1f9051d8cec4fb9eed907fa36ecaf19a5c977edb",
+      "statuses": {
+        "0": 10
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "privateChatKeepsLongReplyPhotoSendReachableWithLargerText",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "groupChatKeepsLongReplyPhotoSendReachableWithLargerText",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "groupChatKeepsFirstUseSendReachableWithLargerText",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "privateChatKeepsFirstUseSendReachableWithLargerText",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatKeyboardPreviewTest",
+          "test": "privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        10
+      ],
+      "junit_times": [
+        "68.991"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mixed-ui.txt",
+      "sha256": "a934af2702ed2d39dc6da36ad915a1f147230957c358ed008068ad860332e0f2",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest",
+          "test": "privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "5.648"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-process/interrupted.txt",
+      "sha256": "a2bfc0aca03cd07fb3b8ec98a9efb81be39a78738578e138387c62f798cfb52a",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-process/recovered.txt",
+      "sha256": "a42f80d22624645e78d77e52bd3cf37f7b45969b07ebd9605ad2d5c1c9c05908",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMuteProcessRecoveryTest",
+          "test": "coldRecoveryRetainsBothChoicesDraftsAndReadableSilentIncoming",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "12.082"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-process/restored.txt",
+      "sha256": "9f6269d824cc22bc32742a2f82288b82c0c47c72f2338b00668715c68e27dead",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMuteProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.078"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-mute-ui.txt",
+      "sha256": "2bf11057cdec1a906fafad14864a13710e9271f66765da4c8490f851a33273b6",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "groupConversationMuteKeepsCompatibleMessagesAndTheDraftAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "anUnmutedGroupMessageShowsAGenericAndroidNotification",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "aFailedGroupUnmuteKeepsReadableMessagesSilentAndAllowsRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "conversationChoicesFollowTheBackendAndRemainIsolatedWhenTheWalletChanges",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "anUnmutedPrivateMessageShowsAGenericAndroidNotification",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "unreadablePersonalChoicesRetainIncomingWithoutAlertsAndRecoverWithoutRetrospectiveAlerts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "privateConversationMuteKeepsIncomingMessagesAndTheDraftAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatMutePreviewTest",
+          "test": "aFailedPrivateUnmuteKeepsReadableMessagesSilentAndAllowsRepair",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "89.905"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-group-process/interrupted.txt",
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-group-process/recovered.txt",
+      "sha256": "a0e61d2119841dfd5213de8de845b44b50cd79cf40f2fd55183be898284bb661",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.247"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-group-process/restored.txt",
+      "sha256": "1ebfb96cbf0e45400e19b93f8dd358d5b64e0f676a212fa7e19d2a6f0927b678",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.076"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-private-process/interrupted.txt",
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-private-process/recovered.txt",
+      "sha256": "a77665f5047c15d9099921f347526a2f71101e3e5af694756acbd08a1220bd26",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.956"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-photo-private-process/restored.txt",
+      "sha256": "037eb5383d30867eccb62dc7b8e5ca47f23b1b64d1c9355a5cbd6d99c911b6e5",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.079"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-group-process/interrupted.txt",
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-group-process/recovered.txt",
+      "sha256": "9944de41de74fb517c518d7a34a6460685daa63750d4a86a9fc59d1ce2962275",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.236"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-group-process/restored.txt",
+      "sha256": "f56af971b80c3f2980ff28eaba26e17f4c49f650d6880f763258ecb5b124bb42",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.08"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-private-process/interrupted.txt",
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-private-process/recovered.txt",
+      "sha256": "156e6bf5ab4457bf04b7caa456ae8576a7969a7c3fbe55463e3204de34fc85a7",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.024"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-private-process/restored.txt",
+      "sha256": "e3460bf228532c91bbaa8b08742cfc470fd259b4e658284841079091ea7bfb2d",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.083"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "chat-queue-ui.txt",
+      "sha256": "5388f5305ff6d10231b548b0e33e29e19b3e3e9b997ccccf5e317d54a8c32a14",
+      "statuses": {
+        "0": 13
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anOfflineGroupMessageResumesItsOriginalWhileBackgrounded",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anOfflinePrivateMessageRemainsCancellableAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatQueuePreviewTest",
+          "test": "replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        13
+      ],
+      "junit_times": [
+        "277.8"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "feed-ui.txt",
+      "sha256": "14915e74d398f579cb15d3db69460ee4a7cb9513b8100b011a270fdd8789aa2e",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "15.822"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "following-ui.txt",
+      "sha256": "14b37d7636a25f13803a3a745d226777ad0fc47d6949d5cafb565c1050e61412",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "validFollowedAuthorResultsRemainAvailableWhenAnotherAuthorFails",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "followingAnAccountRestrictsTheFeedAndUnfollowingRemovesItsPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "followingLoadsAuthorHistoryBeyondTheGeneralPageAndRejectsOtherSigners",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "failedFollowSaveKeepsTheActionUnconfirmedAndAllowsRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "followingChoicesSurviveBackendSwitchAndOfflineRestartWithSeparateHistory",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "changingWalletKeepsFollowChoicesWithTheirOriginalIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "newerUnrelatedGeneralCacheCannotHideAvailableFollowedAuthorPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.FollowingPreviewTest",
+          "test": "restoredFollowChoiceStorageCanBeRetriedWithoutRestarting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "18.899"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "giphy-posting-ui.txt",
+      "sha256": "bfe5420241e1268a5e32fb58211fa9f2e43062d57143e10c33b21297213246e9",
+      "statuses": {
+        "0": 6
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "ownerGifQuote",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "ownerGifReply",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "ownerGifPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "officialGifQuote",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "officialGifReply",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPostingTest",
+          "test": "officialGifPost",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        6
+      ],
+      "junit_times": [
+        "25.087"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "giphy-ui.txt",
+      "sha256": "b848f5d59d680e7f840b96059393677d6af9c4b81d910d9a9ee77e6e88727ea5",
+      "statuses": {
+        "0": 3
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPreviewTest",
+          "test": "providerFailureCanRetryAndCloseWithoutLosingTheDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPreviewTest",
+          "test": "selectedAnimatedGifSurvivesSavedDraftAndFreshActivity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GiphyPreviewTest",
+          "test": "searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        3
+      ],
+      "junit_times": [
+        "17.21"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-promotion-process/interrupted.txt",
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-promotion-process/recovered.txt",
+      "sha256": "9d9a6113e9e1007a629cc1bceed9c85c2fd1889e08bb835944bf7c9167aa16ff",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "coldRestartRetainsGroupStateWithoutSending",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.702"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-promotion-process/restored.txt",
+      "sha256": "4694f39b9646df874c4ec50c231491f9e4df36677f4e89355598b6e4b46fdee8",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.079"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-removal-process/interrupted.txt",
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-removal-process/recovered.txt",
+      "sha256": "6541b4d39ccecf96180f4fdf92bf8883ed0afb31de522eed04047b028e82b598",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "coldRestartRetainsGroupStateWithoutSending",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.735"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-removal-process/restored.txt",
+      "sha256": "15d5d5c06d98f63b76bfaa233f1a9a001e8048b4b394d5e7c795540f931dccf0",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.074"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-admin-ui.txt",
+      "sha256": "ffdcf5249a262163be4594ce1963f88dd3b5fe50b475a614fe3523552584376a",
+      "statuses": {
+        "0": 12
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aPromotionConfirmationUpdatesWhenItsTargetLeaves",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aFailedSubmittedStopIsVisibleAndPreservesUncertaintyThroughNewWork",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aRemovalCannotSubmitAfterItsAdministratorLeaves",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aPromotionCannotSubmitAfterItsAdministratorLosesAuthority",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aRemovalCannotRelayOrRetryAfterItsAdministratorLeaves",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "stoppingAStalePromotionRetainsItsOriginalAndAllowsNewMessages",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+          "test": "aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        12
+      ],
+      "junit_times": [
+        "30.609"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-chat-actions-ui.txt",
+      "sha256": "8f60ebf10e123e8d3e5c701cb1999bd95acfd25416f09edf117d401fd2fc7509",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatActionsPreviewTest",
+          "test": "groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "8.208"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-chat-process/interrupted.txt",
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-chat-process/recovered.txt",
+      "sha256": "96e58499403fa48798b838a811654168c28b4c51fcae2d02cdffa2ed94ebbe33",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "coldRestartRetainsGroupStateWithoutSending",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.129"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-chat-process/restored.txt",
+      "sha256": "975fe9be56917d318272010232feb8abaaa747efefc4efe0e0d580500d4de739",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.075"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "group-chat-ui.txt",
+      "sha256": "9107e985ada7e92eecd42b583fee92d9b91eae828ce0865a77e79a4a3ef168c4",
+      "statuses": {
+        "0": 22
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "removedAuthorsCannotHideAvailableEarlierGroupHistory",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "leavingANamedGroupRetainsTheSignedDepartureAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+          "test": "aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        22
+      ],
+      "junit_times": [
+        "110.258"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "image-process/candidate-interrupted.txt",
+      "sha256": "a56204f3253f132166baf52061c64b180365cd627d8a77c3879115177293a874",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "image-process/draft-interrupted.txt",
+      "sha256": "4e80c73bb0f67a8bf0ba4f009e180765eb1c6524df8caff83aef25e215815bd1",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "image-process/recovered-instrumentation.txt",
+      "sha256": "a63e9db65fe3fb46c617518fb28200a0219e848c5caa7b048485dc5c487b4d86",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ImageProcessRecoveryTest",
+          "test": "coldCandidateReconcilesWithoutRebroadcastingOrLosingItsImage",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.734"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "image-queue-process/interrupted-instrumentation.txt",
+      "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "image-queue-process/recovered-instrumentation.txt",
+      "sha256": "67e353f92e946cee11393b00819d1e075c8329a9a13c01a61c64c494d854ce0f",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostQueueProcessRecoveryTest",
+          "test": "coldStartupDeliversThePreviouslySignedQueuedPost",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.991"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "images-preparation-ui.txt",
+      "sha256": "6b54e0f551e71a2623e15547faad7ba46198c983f3208b2fcfd166bb2a426a7f",
+      "statuses": {
+        "0": 5
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreparationTest",
+          "test": "allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreparationTest",
+          "test": "failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreparationTest",
+          "test": "pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImageLoadingTest",
+          "test": "remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImageLoadingTest",
+          "test": "leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        5
+      ],
+      "junit_times": [
+        "13.073"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "images-ui.txt",
+      "sha256": "31d6789a509ce7bddc8c43247572d17d9bbd8351d1dd50e55f5feee5eb330daa",
+      "statuses": {
+        "0": 6
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreviewTest",
+          "test": "systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreviewTest",
+          "test": "selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePreviewTest",
+          "test": "signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePostingTest",
+          "test": "imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePostingTest",
+          "test": "imageReplyKeepsItsParentThreadRecipientsAndAttachment",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ImagePostingTest",
+          "test": "imageOnlyPostSignsAndServesItsOrderedPreparedImages",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        6
+      ],
+      "junit_times": [
+        "21.043"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "sha256": "90639483a17c631fd1cc0e65aabcfa37ab75efff983d7020237ba2c6af325ef7",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+          "test": "incompleteFirstWriteCanResumeCreation",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.405"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "sha256": "a0ea70261bb865a619f3cb5aa301911ea2cdb42d1042483331320a15c7430eae",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+          "test": "unavailablePendingSaveIsPreservedForRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.408"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "sha256": "1fe69fb3d4c07a028b80ec533c7165eaee1b59f70472de86ddd7493f7f56288f",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+          "test": "validSaveBeforePublicationResumesTheSavedIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.419"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "instrumentation.txt",
+      "sha256": "cba22fe908587f079a4284966bdc5b290442292562cb7e8eaedda079b092eb68",
+      "statuses": {
+        "0": 3
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+          "test": "importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+          "test": "compatibleWalletRoundTripPreservesModuleDataAndRejectsInvalidIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+          "test": "installedAndroidRuntimeMatchesIndependentSaitoIdentityAndSignatures",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        3
+      ],
+      "junit_times": [
+        "0.056"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "live-official-feed.txt",
+      "sha256": "4be3abb178fb828f392ebda9929490e3576d8ef45a81dc19c22cf49848eb8ca7",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "9.568"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "sha256": "169e7e51f4bd0b0672ed4a42d649f47311b58a48247baf416424046898cde963",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "13.403"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "notification-permission-allowingAlertsKeepsInAppReadingOptional.txt",
+      "sha256": "c3b04a4028d78c921e8cae593de70df27cf07d87a5d9201adc8dcfdc4dd96957",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.NotificationPermissionPreviewTest",
+          "test": "allowingAlertsKeepsInAppReadingOptional",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "5.1"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "notification-permission-denyingAlertsKeepsInAppReadingAvailable.txt",
+      "sha256": "db9eef5fd37417bb3390ff1db1bd4e47979cb694b0d28e6bb8d4c30a6faafb76",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.NotificationPermissionPreviewTest",
+          "test": "denyingAlertsKeepsInAppReadingAvailable",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.854"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "notification-process/interrupted.txt",
+      "sha256": "b228402963525d09e22a46c1741c826880fb965fbccb1f4f36285e0a8b23894b",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "notification-process/recovered.txt",
+      "sha256": "579b7bfea4a9a93d87bfc433f066d9ce6822372a578c6575d62f6ebd1268ab7d",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.NotificationProcessRecoveryTest",
+          "test": "coldRestartRetainsActivityAndReadStatusWhenServerReadsFail",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.539"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "notifications-ui.txt",
+      "sha256": "b9c3f8fe7dcfe36dfb4458b54fb9c98fffe74e9bb63a5924f73513c674b4329f",
+      "statuses": {
+        "0": 32
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "moreActivityDiscoversRepliesToTheEleventhKnownOwnPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "healthyRepliesRemainAvailableWhenTheLikesArchiveFails",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.NotificationsPreviewTest",
+          "test": "anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        32
+      ],
+      "junit_times": [
+        "107.39"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "personal-controls-process/interrupted.txt",
+      "sha256": "ab3eabcfd1bd1e525c75c1851ccd78e2f9c0d35ccb1db702420cc3f958ad0cf7",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "personal-controls-process/recovered.txt",
+      "sha256": "96b6c9ff0b3f3c1b5287d6d5b4555ec4db89eb390d976c912cfc5f4db7381e2e",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsProcessRecoveryTest",
+          "test": "coldRecoveryRetainsMuteAndBlockBeforeExplicitRemoval",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "6.093"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "personal-controls-ui.txt",
+      "sha256": "bc1d32a983d4cd764984617a068937a4defd19298b3c9d6399432fad31af46f8",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "realWalletReplacementIsolatesChoicesAndRestoringTheWalletRecoversThem",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "unavailableWalletPreservesAnonymousReadingButDoesNotBypassSavedPersonalChoices",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "failedAnchorRemovalAndRecreationStillRestoresMuteAfterStorageRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "mutingSurvivesBackendChangesAndOfflineReopeningAndUnmutingRestoresCachedPosts",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "aLateFailedUnmuteRetainsSavedFilteringAfterReopeningAndAllowsExplicitRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "unreadableSavedChoicesHidePostsUntilRepairedAndRetried",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "unblockingKeepsAnIntentionalMuteAcrossBackendChangesAndOfflineReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PersonalControlsPreviewTest",
+          "test": "mutedContentStaysHiddenAcrossProfileThreadQuotesSearchAndOfflineReopening",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "73.555"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "post-process/interrupted-instrumentation.txt",
+      "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "post-process/recovered-instrumentation.txt",
+      "sha256": "e1980ded937392333f44378c8ef14e1ea3ffdbde1c2e34f7aeb65417d9e18b65",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostProcessRecoveryTest",
+          "test": "coldStartupReconcilesTheOriginalPostWithoutRebroadcasting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.651"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "post-queue-process/interrupted-instrumentation.txt",
+      "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "post-queue-process/recovered-instrumentation.txt",
+      "sha256": "04de83a324f4795f16540b4137453e774879f1b2d9fee79598ad74b9a7567e06",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostQueueProcessRecoveryTest",
+          "test": "coldStartupDeliversThePreviouslySignedQueuedPost",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.382"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "post-queue-ui.txt",
+      "sha256": "88cddfdbf614b5b45584730c00460b74a5733fd3d280da0660bb91039d82d673",
+      "statuses": {
+        "0": 9
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "explicitOfflineSendIsDurableAndCanBeCancelledBeforeTransmission",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "failedImageQueueSavingRetainsPixelsAndCannotTransmitBeforeRepair",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "queuedPostResumesAfterReconnectionWhileTheAppIsBackgrounded",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "automaticRetryReconcilesAnUncertainQueuedPostWithoutRebroadcast",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "cancelledImageQueueKeepsItsPreparedDraftAfterItsSourceDisappears",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "failedQueueSavingRetainsWorkWithoutClaimingQueuedOrTransmitting",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "queuedPostResumesOnlyWhenItsOriginalBackendIsSelected",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "queuedWorkCanBeReviewedAndCancelledFromTheFeed",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostQueuePreviewTest",
+          "test": "queuedImageUsesOnlyItsOriginalBackendAndRetainsPreparedPixels",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        9
+      ],
+      "junit_times": [
+        "39.767"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "posting-ui.txt",
+      "sha256": "b379d289caeb921355bd6d0f7cfc6ac3ddc4d151ee430886585b234966fa46d4",
+      "statuses": {
+        "0": 18
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "matchingSignedArchiveObservationMakesThePublishedPostAvailableInTheFeed",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "failedImageDraftSavingKeepsItsPixelsAndServerUntilStorageRecovers",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "replyKeepsItsSelectedParentThreadAndTextThroughActivityRecreation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "walletReplacementIsolatesAndRestoresPreparedImageDraftWithoutItsSource",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "savedDraftSurvivesReopeningAndRemainsUnsent",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "failedDraftSavingPreventsBackendNavigationAndRetainsEditableWork",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "damagedEncryptedDraftRemainsUntouchedUntilStorageIsRepairedAndRetried",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "unfinishedCompositionSurvivesActivityRecreationBeforeAnySaveOrNavigation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "startingAnotherDraftRequiresConfirmationAndDoesNotClaimToRemoveTheUncertainPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "aLegacyEncryptedTextDraftCanBeOpenedSavedAndRestoredWithoutPublishing",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "longerMultilingualPostsPreserveTheirOriginalTextOnBothApprovedBackends",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "replyingToAnExistingReplyKeepsTheOriginalThreadAndInheritedRecipientOrder",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "recoveredPendingPostRetriesItsOriginalSignatureAndClearsOnlyAfterVerifiedAvailability",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "walletReplacementPausesQueuedWorkAndRestoringItsOwnerResumesTheOriginalIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "walletReplacementExplainsLocalWorkAndNeverPublishesTheOutgoingWalletDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "invalidUnicodeNeverPublishesOrOverwritesTheLastSavedDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "unfinishedCompositionSurvivesBackendNavigationAndActivityRecreationWithoutPublishing",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PostPreviewTest",
+          "test": "explicitSendBroadcastsAZeroPaymentPostWithoutInventingAcknowledgement",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        18
+      ],
+      "junit_times": [
+        "83.924"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "preview-update-ui.txt",
+      "sha256": "d4b4e5f147d7aa9b500bc3243c4cf1dbdc771e8d090124b1c20cdda990e79da1",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PreviewUpdateTest",
+          "test": "aNewerReviewBuildOffersTheReviewPage",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.057"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-actions-ui.txt",
+      "sha256": "52762691fe74217f23f9cd8a942c78a31d572858ba54fce2445469bb0c0c2314",
+      "statuses": {
+        "0": 10
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+          "test": "explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        10
+      ],
+      "junit_times": [
+        "52.87"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-peer.txt",
+      "sha256": "ea7cf375755607c03dd0533143dd23f886e6bf4efdbe7f1c09541d2b056afe86",
+      "statuses": {
+        "0": 2
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPeerPreviewTest",
+          "test": "authenticatedSelectedPeerAdvertisesBothPrivateChatServices",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPeerPreviewTest",
+          "test": "anAuthenticatedSocketRoutesAndAcknowledgesTheOriginalPrivateRelayMessage",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        2
+      ],
+      "junit_times": [
+        "0.188"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-process/interrupted.txt",
+      "sha256": "a762e67e2eabf6dbb9c565d0f0a77d4f286826e62b1630c1c43314915d94b688",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-process/recovered.txt",
+      "sha256": "fbab088fce5ee08115fd07b8f6271d7afdba2d8fd35aa866f4da5f056127a884",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest",
+          "test": "coldRestartRetainsHistoryDraftAndOriginalWithoutSending",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.128"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-process/restored.txt",
+      "sha256": "a5037538057c3f8583d832ca957976a5ef0ceeba202a2674333306adb7ff84af",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.077"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "private-chat-ui.txt",
+      "sha256": "9a07f962a0923089e793d03f7e79498f7cf6e999d0f7dbf34f98a76b28ac8d6a",
+      "statuses": {
+        "0": 24
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anImportedContactOpensItsAvailableAuthenticatedPrivateHistory",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "aFreshWalletCanOpenAndSendToANewPrivateContact",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "failedLocalSavingDoesNotLoseReadableHistoryOnRefresh",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "accountMutingKeepsAvailablePrivateMessagesReadable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anUncertainPrivateMessageRetriesTheSavedOriginalOnlyAfterAnExplicitTap",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "walletReplacementExplainsUncertainChatWorkBeforeConfirmation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "anExistingWebPrivateReplyCanBeReadAndCopiedWithoutChangingItsTypedBody",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+          "test": "aLivePrivateRelayMessageRemainsReadableAfterReopening",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        24
+      ],
+      "junit_times": [
+        "102.387"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "profile-process/candidate-interrupted.txt",
+      "sha256": "b002e5f72a69110e256f04861f5bc2e6ade4ad70ca33c29162bcc4eb8684a9b9",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "profile-process/draft-interrupted.txt",
+      "sha256": "d843b995d5b61553eab69654d85b865edc1c04f8097c537016d5a7e7a476d83c",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "profile-process/recovered-instrumentation.txt",
+      "sha256": "efe736cdd82645f43d2dc5ad9cccae9151750c5ae5ba9bed462cc1ddf5d7e069",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ProfileProcessRecoveryTest",
+          "test": "coldCandidateReconcilesReadOnlyAndVerifiedClearingKeepsPublicBioAndPixels",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.679"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "public-chat.txt",
+      "sha256": "7841899f4c69aa687ec21c8a210ec30c7ec5c1f6155aaeea65c81f429f47a8e1",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PublicPrivateChatReadTest",
+          "test": "bothApprovedBackendsSupportAuthenticatedPrivateHistoryReads",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.463"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "sha256": "78fb3fd6f07b0189c6e2efb118a57632c5e0b54031b126852efbd4b12adeb20e",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PushBindingPreviewTest",
+          "test": "bindingFollowsDurableWalletBackendAndConsentWithoutRetainingTheOutgoingWallet",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.016"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "quote-process/interrupted-instrumentation.txt",
+      "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "quote-process/recovered-instrumentation.txt",
+      "sha256": "1040f2ed68f182bc337981021e8f8846bd0eed8b12b8cc634848e041518df305",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.PostProcessRecoveryTest",
+          "test": "coldStartupReconcilesTheOriginalPostWithoutRebroadcasting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.289"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "quote-ui.txt",
+      "sha256": "d6ed8a6c64f594a75d9e1eabfdc58675c3517bc02abf0586a274b13f888236b2",
+      "statuses": {
+        "0": 7
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "uncertainQuoteReopeningReconcilesTheOriginalCandidateWithoutSendingTwice",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "successfulNormalProfileRefreshUpdatesCountsEvenWhenQuoteHistoryFails",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "currentCommentaryRetweetLoadsItsVerifiedOriginalFromTheSelectedArchive",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "quoteDraftSurvivesReopeningWithoutMixingWithARootDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "failedAndUnavailableOriginalKeepCommentaryUntilRetryRecoversAVerifiedOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "publishAQuoteWithCommentaryAndAnOriginalVisibleInFeedAndConversation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.QuotePreviewTest",
+          "test": "verifiedOriginalCacheSurvivesReopeningAndStaysWithItsBackend",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        7
+      ],
+      "junit_times": [
+        "13.702"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "report-process/interrupted.txt",
+      "sha256": "a18c6704ae8a8005fc3ebe93b1901577903eae339f83d953bd1fa263e12fb1ec",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "report-process/recovered.txt",
+      "sha256": "f613e9cca5bfdf9615ada440c49e8dc332be8479fd8aea39fd746a6735c82f58",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ReportProcessRecoveryTest",
+          "test": "coldStartupKeepsUnknownDeliveryUntilExplicitIdenticalRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "4.86"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "reports-ui.txt",
+      "sha256": "aa3d3077a79bf5dd0316c9f6776fe36a65286f09919d74a5aa9074ad0ab1782d",
+      "statuses": {
+        "0": 11
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "acknowledgedReportWithFailedReceiptSavingWarnsAndReopensTheSameUnknownIntent",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "failedReportSavingSendsNothingAndRepairAllowsExplicitRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "authenticatedWalletReplacementIsolatesReportsAndRestorationRecoversTheOriginalRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "unreadableReportDetailsFailClosedAndRepairRecoversTheOriginalIntent",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "switchingBackendsKeepsReportsAndAcknowledgementsWithTheirOriginalDestination",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "unansweredReportDeadlineShowsUnknownAndExplicitRetryKeepsTheOriginalSignature",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "restoredObservedReceiptIsAdoptedByAnOlderViewWithoutSendingAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "confirmedReportGoesOnlyToNamedBackendAndAcknowledgementDoesNotRemovePost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "invalidAndFailedRepliesNeverAcknowledgeAndEveryExplicitRetryKeepsTheOriginalReport",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ReportPreviewTest",
+          "test": "unavailableBackendBeforeSendingStaysNotSentAfterReopeningAndNeedsExplicitRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        11
+      ],
+      "junit_times": [
+        "104.096"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "search-ui.txt",
+      "sha256": "8dd9919ecdf930f57c9b33984aa23141b09de080bf6ce05cb137fe0efd52fc0d",
+      "statuses": {
+        "0": 9
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "knownAuthorsAndVerifiedNamesRemainSearchableByPrefixAfterReopeningOffline",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "anExactPublicKeyOpensItsProfileButAnInvalidCurvePointDoesNotBecomeAPerson",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "reopeningOfflineKeepsSearchHistoryIsolatedBetweenSelectedServers",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "partialHistoryCanBeRetriedAndPagedWithoutLosingVerifiedResults",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "anArchivedReplyCanBeFoundAndExploredWithoutLosingTheSearchOrWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "anExactSignedUsernameOpensTheCorrectProfileAndRetainsTheSearch",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "failedSearchSavingKeepsLiveResultsAndRepairRestoresOfflineReading",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "cachedExactNamesAreQualifiedWhenFreshChecksFailAndForgedNamesCannotResolve",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SearchPreviewTest",
+          "test": "verifiedAuthorEditsAndDeletionsSurviveStaleSearchHistory",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        9
+      ],
+      "junit_times": [
+        "48.879"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-process/interrupted-instrumentation.txt",
+      "sha256": "1f20f499007295f3ff1ba50910b627ff4b6009d1d381554306c757046295e11b",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-process/recovered-instrumentation.txt",
+      "sha256": "69e35a3b48277b3d315092ce16efa5d7c045d2a7d5167c48bbf974209c99ea81",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialProcessRecoveryTest",
+          "test": "coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.313"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "sha256": "ee693d52f30cbe59eefededb3b7992b7062bca5ccdad1639e63711cf3a206a78",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "sha256": "f826f1f5acfd0da7bd58b3efd4c7aa3c0bc212d4e48062d900ed1017a5528ba5",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushProcessRecoveryTest",
+          "test": "coldReplayStaysSilentWhileAnotherSignedReplyStillShows",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.827"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "sha256": "68a6bae96cff48052bbdb44ac9efddef23351a028f49cb08bc6ee79ee352f5da",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.706"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "sha256": "af2ebe4b52c323bdf84f2598ca2f094c4b26e139701e801746a9aca9b163cb93",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "sha256": "b3e8131484e5c96ba80cf438de5f5bb38b2286eb60d838562273466a4cb9c5b6",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushScheduledProcessTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.013"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-ui.txt",
+      "sha256": "9eb56d679d8a85ee0fb279af9ff814239fbb4971a32f777fceb14ee5e403fdb5",
+      "statuses": {
+        "0": 11
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushPreviewTest",
+          "test": "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushPreviewTest",
+          "test": "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushTapPreviewTest",
+          "test": "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        11
+      ],
+      "junit_times": [
+        "79.819"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "sha256": "371ec5b5e929fe21f85eed7b66d3f12272694950ee430b6a58943a89d24921a1",
+      "statuses": {
+        "0": 3
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "aScheduledReplyRetriesAnUnavailableArchiveThenAlertsOnceWithoutAnActivity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "anOpaqueWakeRetriesTheGatewayThenVerifiesTheReplyAndAlertsOnce",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPushWorkPreviewTest",
+          "test": "aScheduledReplyRetriesWhenTheArchiveDoesNotAnswerAndAlertsAfterRecovery",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        3
+      ],
+      "junit_times": [
+        "46.281"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "social-ui.txt",
+      "sha256": "7d84b6b5242d7a7f4f6ebc4703007c4714ca2df9055d3ac4512d21f7b7943d30",
+      "statuses": {
+        "0": 8
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "anOrdinaryRepostPreservesItsTargetAndDoesNotInventAServerCountIncrease",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "failedSavingPreventsTransmissionAndRepairedRetryKeepsTheOriginalWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "replacingTheWalletHidesItsPendingLikeAndRestoringItRecoversTheOriginal",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "aVerifiedLikeAndServedCountStayCoherentAcrossFeedThreadAndProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "uncertainLikeRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.SocialPreviewTest",
+          "test": "unavailableFreshCountsDoNotTurnAVerifiedLikeIntoAnImpossibleRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        8
+      ],
+      "junit_times": [
+        "14.955"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "transfer-process/credential-cleanup-verified.txt",
+      "sha256": "26abd436d9d6d203c5002fb6fe48dc3e179dbf6f11b6465ed5607dd48b47325d",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.TransferProcessRecoveryTest",
+          "test": "screenLockIsClearedAfterProcessRecovery",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "0.028"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "transfer-process/interrupted.txt",
+      "sha256": "ec1362822fdbc6f1b603278380795d2af3bcd68154cd72e2540dfd167645cb92",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "transfer-process/recovered.txt",
+      "sha256": "e01419ce42d459ee2f2de61a4567525db57ab0b138a46de4c78358af3a7334d6",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.TransferProcessRecoveryTest",
+          "test": "coldPendingTransferRequiresFreshAuthenticationBeforeExactRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "8.599"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "transfers-ui.txt",
+      "sha256": "7ed08a4cec5eee6b91e0180a46d2a5a46a7b58487ee804afefa7f8de9d497d2f",
+      "statuses": {
+        "0": 9
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "unreadableTransferRecordsBlockAuthenticationAndReviewUntilReadableAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "receivingQrContainsTheFullActiveAddressWithoutBalanceConnectivityAfterReopening",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "cancellingTheRealCredentialPromptDoesNotSendOrReserveAndReopeningDoesNotQueue",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "sendingWithoutAScreenLockExplainsTransferSetupAndDoesNotQueue",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "fundingLostAfterReviewAndRealAuthenticationCannotSendReserveOrQueue",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferPreviewTest",
+          "test": "selectedServerBalanceAndReceivingAddressCanBeViewedAndCopied",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferStatusTest",
+          "test": "exactInclusionUnknownHistoryAndVerifiedReorganizationNeverAutomaticallyResend",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletTransferStatusTest",
+          "test": "pendingPaymentStaysReservedAcrossBackendsAndReturnsOnlyWithItsOriginalWallet",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        9
+      ],
+      "junit_times": [
+        "97.442"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "username-process/interrupted.txt",
+      "sha256": "1261000a71e4af163da8c337ac36d33402bf3901bc56a13a2d3f8e3334894352",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "username-process/recovered.txt",
+      "sha256": "999ae73deac995f9d03075d654952e1ade00fbdb6b6c004792fe586c9b725058",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.UsernameProcessRecoveryTest",
+          "test": "coldRegistrationReconcilesReadOnlyBeforeAnExactExplicitRetry",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "3.639"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "username-ui.txt",
+      "sha256": "9524601bbf047497f8360de97d5669cd6e0e21746d9fa23d10579ef338c739c9",
+      "statuses": {
+        "0": 16
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aVerifiedProfileNameRemainsVisibleWhenItsLocalCacheCannotBeSaved",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aRegistrarSignedNameIsDisplayedAndRetainedWhenLaterChecksAreUnavailable",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "walletReplacementKeepsTheVerifiedNameWithItsOutgoingIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "settingsDiscoversAnExistingUsernameWithoutOpeningTheFeedOrProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "importingAWalletDiscoversItsExistingNameWithoutRegisteringAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "anUnavailableUsernameCheckDoesNotBlockPostingOrChangeTheWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aVerifiedOtherAccountNameIsSharedByFeedProfileConversationAndReply",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "anExistingWalletDiscoversItsVerifiedNameWithoutRegisteringAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aConfirmedRegistrationIsNotResentAndNamesTheOwnProfile",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "losingARegistrationRaceNeverNamesTheWrongWalletOrResendsItsRequest",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "anUnsavedVerifiedOwnNameIsNeverOfferedForRegistrationAgain",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "settingsVerifiesTheLateRegistrarProofAfterAnEarlyFallback",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aQuotedOriginalUsesItsVerifiedNameWithoutNamingTheQuoteAuthor",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aPendingNameStaysWithItsWalletAndBackendThroughActualReplacement",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aPendingRegistrationSurvivesReopeningAndRetriesTheExactSignedRequest",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.UsernamePreviewTest",
+          "test": "aRequestIsSavedBeforeSendingAndUnreadableRecoveryNeverReplaysIt",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        16
+      ],
+      "junit_times": [
+        "108.657"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "video-ui.txt",
+      "sha256": "8d51149416f86c595cccdd87c32eac1de68586ef1c781eef3357ba4a128ca7e5",
+      "statuses": {
+        "0": 4
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.VideoPreviewTest",
+          "test": "videoContactsProviderOnlyAfterTapAndClosingPreservesThePost",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.VideoPreviewTest",
+          "test": "selectedVideoSurvivesRotationWithAnExternalFallbackInSmallWindows",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.VideoPreviewTest",
+          "test": "aThreadVideoCanRetryProviderFailuresAndOpenItsCanonicalExternalLink",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.VideoPreviewTest",
+          "test": "userPlaybackPausesInTheBackgroundAndRecreationDoesNotAutoplay",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        4
+      ],
+      "junit_times": [
+        "24.221"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-backup-ui.txt",
+      "sha256": "f066b4d4260e7957423e52c4ce5cbee43a2d6865ff525273103cd90b420e0fd8",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.BackupRecoveryPreviewTest",
+          "test": "reminderCanBeDismissedWhileRecoveryGuidanceRemainsAvailable",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.084"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-commit-sync-ui.txt",
+      "sha256": "287647432ba86edbf94e212de2e7eac2288dfaa1bd205130fd51bd22174569fe",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletCommitSyncFailureTest",
+          "test": "retryCannotExposeIdentityUntilThePublicationBarrierIsDurable",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "2.098"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-export-process/interrupted-instrumentation.txt",
+      "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-export-process/recovered-instrumentation.txt",
+      "sha256": "e6febdb07f9322e67cdcfb29cffc7f1896328581ec80ec14bbf5c8e2e68108bd",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportInterruptionTest",
+          "test": "coldRecoveryRetainsIdentityAndRequiresNewAuthentication",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "9.878"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-export-ui.txt",
+      "sha256": "a5edc32d44800cf9772c992e137242ff48b766e28876332c35745fa0d3f5c698",
+      "statuses": {
+        "0": 5
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportPreviewTest",
+          "test": "unavailableDeviceAuthenticationExplainsSetupWithoutExportingOrChangingIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportPreviewTest",
+          "test": "stalledProviderReturnsToAReadableFailureAndAllowsAnotherExport",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportPreviewTest",
+          "test": "failedWritesAndInvalidReadbackRequireFreshAuthenticationForSuccessfulRetry",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportPreviewTest",
+          "test": "realPinAuthenticationAndDocumentSaveProduceACompatibleBackup",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletExportPreviewTest",
+          "test": "wrongPinAndCancelledAuthenticationLeaveNoBackupAndRetainIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        5
+      ],
+      "junit_times": [
+        "95.694"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-import-process/interrupted-instrumentation.txt",
+      "sha256": "423df0fd849a4f4428a21f5522ee83aa9f0fe0753258ed5f13130af095587921",
+      "statuses": {},
+      "cases": [],
+      "junit_ok": [],
+      "junit_times": [],
+      "deliberate_or_unexplained_crash": true,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-import-process/recovered-instrumentation.txt",
+      "sha256": "4729f4115d41045a067d6351c9c2418151337bf6090cc8630f1401a8108bade6",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportInterruptionTest",
+          "test": "coldStartupRecoversTheOutgoingPublishedIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.134"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "sha256": "de82d29a1c0d69ee518fb4a6f35123e5d8028738be9f34fb4312a3bcefefde3b",
+      "statuses": {
+        "0": 7
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+          "test": "replacementRequiresANewBackupBoundToTheCurrentSelection",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        7
+      ],
+      "junit_times": [
+        "215.905"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-initialization-ui.txt",
+      "sha256": "902715f65c269ea587daa26d3a0e5ecf06e2fb3c63614298c96da6a6af390021",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletInitializationTest",
+          "test": "failedFirstSaveCanRetryWithoutPublishingAnUnsavedIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.469"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-risk-ui.txt",
+      "sha256": "e6e2609c078868f18938cf14d1874e7fb64908075c26c2cd2c25789c493f3f46",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportRiskPreviewTest",
+          "test": "outgoingOtherAssetsAndSavedNamesCannotBeClearedByASaitoZeroResponse",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "47.214"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-storage-recovery-ui.txt",
+      "sha256": "095b37909b9c238c9ef2c003ab18f6d53276cc369491f3e06a7dada7404227be",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletImportStorageRecoveryTest",
+          "test": "failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "1.605"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    },
+    {
+      "path": "wallet-ui.txt",
+      "sha256": "b74c30b3c6db2c33486a13232fabdeb30b172ac7157a22de310339a2b80d7224",
+      "statuses": {
+        "0": 3
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.WalletPreviewTest",
+          "test": "firstLaunchCreatesAnIdentityAndReopeningWalletKeepsIt",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletPreviewTest",
+          "test": "damagedSavedWalletCanBeRecoveredWithoutChangingIdentity",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.WalletPreviewTest",
+          "test": "missingSavedWalletShowsRecoveryInsteadOfCreatingAnotherIdentity",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        3
+      ],
+      "junit_times": [
+        "3.908"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    }
+  ]
+}

@@ -73,8 +73,8 @@ version25/0.1.25, established certificate unchanged. Beta24 remains published.
 Initial full Android10 39013781414 at19e failed before actual notification
 death. Fixture-only5154e89b now runs full Android10 39014622109 with approved
 public feed reads, plus focused corrected process checks on Android17
-39014623934 SUCCESS (canonical card-process-green/android17). Existing full Android17 39013783536 stays at19e with approved
-public feed reads. Production is identical; source39013271917 at19e SUCCESS.
+39014623934 SUCCESS (canonical card-process-green/android17). Full Android17 39013783536 SUCCESS at19e with approved
+public feed reads:400PASS/95records/29interrupted outputs, no assumptions. Production is identical; source39013271917 at19e SUCCESS.
 The Android-authorized Giphy key remains pending. Do not repeat its question or
 borrow backend web keys. [Primary preparation](../research/GIPHY_SOURCE_PREPARATION_2026_10_17.md).
 No real provider/key/account/node/live-write change. Beta24 remains current.
@@ -159,8 +159,14 @@ Focused Android17 39014623934 SUCCESS: physical dismissal/actual death/replay/
 fresh liveness and autonomous scheduled recovery pass, both restorers pass.
 [35 retained originals/outputs](../evidence/ticket16/card-process-green/android17/README.md).
 Whole integration reviews at5154e89b Standards0/Spec0; source39014520955 SUCCESS.
-Corrected full Android10 39014622109 and existing full Android17 39013783536
-remain running. No full-suite pass is claimed.
+Full Android17 39013783536 SUCCESS at19e:400PASS/95records/29interrupted outputs,
+no assumptions. Exact profile aggregate is excluded, not counted twice.
+[Current full17 evidence](../evidence/ticket16/full-regression/android17/README.md).
+Corrected full Android10 39014622109 failed later at UsernamePreviewTest443:
+owned Archive not observed in5s while feed still loads,15/16class cases pass.
+[Second retained failure](../evidence/ticket16/full-regression-red/android10-username/README.md).
+Only initial feed readiness is being corrected; no whole Android10 acceptance
+or beta publication is claimed.
 
 Next: resolve the observed dismissal and finish full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
