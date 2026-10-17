@@ -813,5 +813,14 @@ are currently text/attribution only: no selection or animated preview is claimed
 in this first error-recovery slice. Those remain the next vertical increment,
 not a release deferral or completed#16. No new APK publication.
 
-Source typecheck/review/runtime still required. Current first RED remains
-f3b272d2 missingAddGIF. Owned GIF467bytes remains untracked, decoder unverified.
+First candidate24cb943f local core/debug/test build6495 PASS4minutes (core
+UP-TO-DATE). Both source reviews found cancelled effects could clear a newer
+loading state; fixd585a6e2 removes cancelled shared-state writes. Corrected
+local build70388 PASS1m49s (coreUP-TO-DATE); corrected source reviews
+Standards0/Spec0. Runtime remains pending. Current
+first RED remains f3b272d2 missingAddGIF. Owned GIF467bytes remains untracked,
+decoder unverified. No live provider acceptance or new APK publication.
+
+Tracker correction: #17 was automatically closed by commitb36ba387 despite the
+subsequent explicit OPEN evidence comments. Reopened2026-10-17 to preserve
+actual-playback acceptance; no criteria or provider behavior changed.
