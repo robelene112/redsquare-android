@@ -7,9 +7,36 @@ open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd453489
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active chain-social event withdrawal
+
+Accepted gap checkpoint5302304d is pushed. Earlier non-social reorg source
+CI38999540554 SUCCESS at e53aef47 is retained reorg-source-ci(2hashes).
+#42 remains sole implementation. New tracer5dbfd34d adds an independent pinned
+WASM/Elliptic signed reply/full block and fee-only replacement, controlled clock,
+owned exact Archive/chain/FCM503 and recipient HTTP resolution across restart.
+First owned61690 FAIL42s at compileTestKotlin128 undefinedMockResponse.header;
+no gateway JUnit ran/stale reports not used. [Retained](../evidence/ticket42/chain-social-compile-failure/README.md),1hash.
+Tracer reviews2/2: hide ordinary Archive head and advance clock beyond retry.
+Correcteda8f7dcfc does both and uses addHeader. Actual behavioral RED73580 ended
+FAIL1m26s/new2.565s/gateway10/1/coreUPTODATE at179 expected410got200.
+Hidden-head chain exact reply/parent→FCM503 and first-instance/restarted200 passed;
+later postdeadline/OFFICIAL tails unexecuted. [RED](../evidence/ticket42/chain-social-red/README.md),10hashes/21sources.
+Minimumad413963 resets clock per backend and adds event sourceHeight/hash,
+withdrawn state and recipient410. Both reviews found split event/cursor commit
+could leave an orphan above saved position after interruption. Owned38394 was
+retired after verifying its unique workspace/args, actual143, noPASS/JUnitclaim;
+[retained](../evidence/ticket42/chain-social-retired-minimum/README.md),1hash.
+Correctionaadad53f mutates events+cursor in the same snapshot/sole atomic save,
+with shared private enqueue helper. Owned80369 endedPASS1m46s/gateway10/0/0/new6.952s/coreUPTODATE.
+Sourceaadad53f Spec0/Standards0. [GREEN](../evidence/ticket42/chain-social-green/README.md),10hashes/21sources.
+No ownedbuild. Final evidence reviews pending. Event re-inclusion source-reviewed, not yet exercised.
+Default clock remains systemUTC; no Android/core API change. Generator uses only
+read-only dependencies/networknone/emptyenv, no Saito app initialization or writes.
+Protected group doc untouched; no deployment/cloud/accounts/node changes.
+
 ## Active retained coverage warnings
 
-Reorganization checkpoint e53aef47 is accepted/pushed. Its source CI is separate
+Reorganization checkpoint e53aef47 is accepted/pushed with sourceCI38999540554 SUCCESS. It is separate
 from successful38999026430 at earlier aad0e8d1; that earlier source run is now
 retained in observer-source-ci (2hashes). #42 remains the sole implementation.
 Gap tracer3b37d485 actualFAIL1m17s/new1.934s/9tests1failure at156, missingHTTPgaps.

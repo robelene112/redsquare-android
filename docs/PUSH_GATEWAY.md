@@ -373,8 +373,12 @@ provenance is retained with each chain-derived event. Rewinding atomically marks
 pending descendants withdrawn; their resolver returns410 and they are not sent.
 An ordinary Archive head read cannot reactivate them. Verified re-inclusion can
 restore the same logical wake without extending its original expiry. Already
-accepted sends cannot be recalled. Verification of this social withdrawal path is
-pending at this source checkpoint.
+accepted sends cannot be recalled. The[controlled social path](evidence/ticket42/chain-social-green/README.md)
+passes both approved selectors with a hidden Archive head, exact reply/parent
+verification before FCM503, durable200 before reorg, then410/no-send across restart
+beyond the retry deadline. Exactaadad53f build PASS1m46s/gateway10/0/0; source
+reviews Standards0/Spec0. Interrupted commit and re-inclusion remain source-reviewed;
+no actual Google/device delivery or consensus/finality acceptance.
 
 Gap status includes the latest warning and retained recent warnings per reason,
 with reason-specific since-times. It is not a complete historical audit.
