@@ -15,4 +15,4 @@ and expiry through the public status route, not the outgoing FCM target. No actu
 Firebase identifier rotation, Android/cloud delivery, JVM process crash, power
 loss, deployment or whole#42 acceptance is claimed. Four manifested files retain
 actual output and seven compiled-source byte hashes. Independent source reviews at1d72826a report Standards0/Spec0. Final evidence
-reviews are pending. Public beta24 unchanged.
+reviews atcc332826 report Standards0/Spec0. Public beta24 unchanged.

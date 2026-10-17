@@ -61,7 +61,9 @@ while owner/installation/revocation hash remain fixed. Per-runtime nonce orderin
 rejects a delayed older request; a new runtime requires a fresh challenge. Exact
 retransmission remains idempotent. Source reviews at1d72826a report Standards0/Spec0. Retained
 [renewal GREEN](../evidence/ticket42/renewal-green/README.md), fourhashes and
-seven source hashes. Final evidence review is pending. No owned local build.
+seven source hashes. Final evidence reviews atcc332826 report Standards0/Spec0. No owned local build.
+Next slice: standalone local process and retained subscription after abrupt JVM
+stop, at the same owned HTTP/protocol boundary. No deployment.
 
 No standalone command, Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner
