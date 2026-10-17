@@ -363,6 +363,11 @@ if [[ "${TEST_SCOPE:-full}" == chat-public* ]]; then
     printf '%s\n' 'Opt-in native public Chat service/archive reads only; no messages submitted or relayed.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == chat-history-process* ]]; then
+    python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"
+    printf '%s\n' 'Focused existing private Chat actual-process recovery only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-ui* ]]; then
     verify_private_chat_ui
     python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"

@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateWithCachedHistoryUnsentDraftAndUncertainOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.capture(PrivateChatProcessRecoveryTest.kt:209)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal$lambda$10$lambda$9(PrivateChatProcessRecoveryTest.kt:106)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$YFmF6E6kqR8k2p5eUV1f3sMp1Qw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:204)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal(PrivateChatProcessRecoveryTest.kt:91)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateWithCachedHistoryUnsentDraftAndUncertainOriginal(nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.capture(PrivateChatProcessRecoveryTest.kt:209)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal$lambda$10$lambda$9(PrivateChatProcessRecoveryTest.kt:106)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$YFmF6E6kqR8k2p5eUV1f3sMp1Qw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:204)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal(PrivateChatProcessRecoveryTest.kt:91)
+
+INSTRUMENTATION_STATUS: test=terminateWithCachedHistoryUnsentDraftAndUncertainOriginal
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 16.024
+There was 1 failure:
+1) terminateWithCachedHistoryUnsentDraftAndUncertainOriginal(nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.capture(PrivateChatProcessRecoveryTest.kt:209)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal$lambda$10$lambda$9(PrivateChatProcessRecoveryTest.kt:106)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.$r8$lambda$YFmF6E6kqR8k2p5eUV1f3sMp1Qw(Unknown Source:0)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.launch(PrivateChatProcessRecoveryTest.kt:204)
+	at nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest.terminateWithCachedHistoryUnsentDraftAndUncertainOriginal(PrivateChatProcessRecoveryTest.kt:91)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -103,6 +103,7 @@ class PrivateChatProcessRecoveryTest {
                 openContact(pendingContact)
                 waitFor(context.getString(R.string.chat_send_unknown)); waitFor(pendingText)
                 waitForEnabled("Retry")
+                showMessage(pendingText)
                 capture("unknown-before-death.png", pendingText)
                 assertState(row, backend, controlled)
                 row.addProperty("phase", "pending"); writeCheckpoint(row)
@@ -122,6 +123,7 @@ class PrivateChatProcessRecoveryTest {
                 openChat(); openContact(pendingContact)
                 waitFor(context.getString(R.string.chat_load_error))
                 waitFor(pendingText); waitFor(context.getString(R.string.chat_send_unknown)); waitForEnabled("Retry")
+                showMessage(pendingText)
                 capture("unknown-cold-recovered.png", pendingText)
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
                 openContact(contact); waitFor(context.getString(R.string.chat_load_error))
@@ -208,6 +210,11 @@ class PrivateChatProcessRecoveryTest {
     private fun openContact(key: String) { waitFor(key); ui.onNodeWithText(key).performClick(); waitFor("Message") }
     private fun capture(name: String, text: String? = null) = captureNativeScreen(File(context.cacheDir,
         "private-chat-process-evidence/$name"), text)
+    private fun showMessage(text: String) {
+        val message = hasText(text) and !hasSetTextAction()
+        ui.onNodeWithContentDescription("Private messages").performScrollToNode(message)
+        ui.onNode(message).assertIsDisplayed()
+    }
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }

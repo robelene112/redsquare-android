@@ -63,8 +63,18 @@ atf55920820 and bounded tracer/evidence reviews through91d8fefec report0/0.
 Shared provider/renderer plus #30 history/recovery need no expanded test matrix.
 Local private/group/reply tracer builds PASS2m40s/2m5s/2m3s. No owned local build.
 
-Final full Android10 run39027471407 and Android17 run39027473052 execute exact
-91d8fefecc71d0f71b1aa74f43b866d43b0d1c51, both public_feed_read=true. Outcomes pending.
+Final full Android10 run39027471407 at91d8fefec FAILED during the old private
+process preparation:157PASS/1failure,37completion records,10 prior interrupted
+outputs. Chat GIF6PASS56.728s. UiAutomator required-text capture at106/12 did not
+find the pending message in the visible history viewport; first cached message
+remained onscreen. No private process kill/cold-recovery or later tails executed.
+RestorerPASS0.177s. Root2PNGs/2XML;58hashes in full-regression-first-failure/android10.
+Fixture-only correction scrolls the exact pending message before both required
+pre-death/cold captures, retaining all deadlines/original/PID/zero-write assertions.
+New focused chat-history-process scope reuses the existing helper, full unchanged.
+Local correction build37521 running. No production change; signed26 remains valid
+and unpublished. Android17 full39027473052 still runs original91d8fefec;
+public_feed_read=true for both. Corrected focused/final10 remain next.
 Whole integrated reviews through e8b337a30 are Standards0/Spec0; final SDK evidence
 review and publication follow. Native acceptance is ready, so26 was prepared
 while full runs execute, updating the earlier defer-reservation plan. Build17593
