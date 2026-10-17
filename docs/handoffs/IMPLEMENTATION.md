@@ -81,7 +81,7 @@ packets: `gateway-lifecycle`, `native-muted-green`, `native-process-green`,
   pass. Root viewed seven selected originals, with bounded pixel comparison for
   incomplete viewer previews. Source check39074850964 is SUCCESS. Full235-object
   production/build sets and191 fixture objects equal prepared28/accepted10 source.
-  Final combined reviews and publication remain pending. No owned local build.
+  Final combined95cb40952 reviews0/0; signed28 published/independently verified. Publication bookend review and final46 closure remain pending. No owned local build.
 
 CI-only464219e31 preserves every original assertion/deadline and full dispatch
 through the three partitions. Android10, combined full/all and focused routes
@@ -101,44 +101,35 @@ public-tail, source and visual inspection.
 
 Next actions:
 
-1. Review [complete native acceptance](../evidence/ticket46/NATIVE_ACCEPTANCE.md),
-   new full17 packet/source equivalence and updated handoff along both axes.
-   All artifacts are downloaded/inspected. Temporary work remains under
+1. Complete publication bookend reviews of signed28 records and current acceptance
+   status. [Complete native acceptance](../evidence/ticket46/NATIVE_ACCEPTANCE.md)
+   at95cb40952 has both axes0. All artifacts are downloaded/inspected. Temporary work remains under
    `/tmp/redsquare-private46-work-20261017`; original matrix artifacts are under
    `/mnt/storage/redsquare-android-artifacts/private46-full17-partitions-39074852266`.
-2. After zero residual findings, publish prepared28 and independently download/
-   verify it. Retain actual publisher/public records and publication bookend reviews.
-   Close46 only after actual native acceptance/publication. Keep original32/33 OPEN.
+2. Publisher exited0; public page/latest/immutable28/actualAPK/hash/certificate/
+   package/min29 pass, immutable27 metadata/APK unchanged. Publication packet has
+   13 hashes. After zero residual bookend findings, close46 with actual native
+   acceptance/publication. Keep original32/33 OPEN.
 3. Verify47 is unblocked, read its issue/spec, claim it and implement sequentially.
 
-## Prepared beta28 and current public beta27
+## Published beta28
 
-Public review link: https://davidengelen.nl/redsquare/. Published27/0.1.27 is
-verified, with APK SHA256
-`8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159`.
-[Publication evidence](../evidence/ticket44/signed-preview27-published/README.md).
+Public review link: https://davidengelen.nl/redsquare/. Signed28/0.1.28 is published
+and independently downloaded/verified. Canonical publisher0, page/latest/immutable28
+metadata and actual APK/hash/certificate/package/min29 PASS. Immutable27 metadata
+and actual APK remain unchanged. [Publication records](../evidence/ticket46/signed-preview28-published/README.md)
+retain13 hashes. Both complete SDK/source evidence and prepared-artifact reviews0/0;
+publication bookend review and final46 closure remain pending.
 
-Signed28 is PREPARED, NOT PUBLISHED. Reuse it while production/build equivalence
-holds. Canonical `scripts/review-build` passed4m13s/exit0. Source is exact1cfa,
-package `nl.davidengelen.redsquare`, version28/0.1.28, minimumSDK29, APK SHA256
-`444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8`.
-Established certificate:
-`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
-Actual artifact is `.scratch/review-builds/28`. Prepared packet has six hashes,
-235 immutable source/build objects and reviews0/0. Signing secrets stay outside Git.
-
-Publish through `scripts/review-publish` after acceptance, with truthful notes
-that configured Google delivery/deployment remain pending. Phone installation,
-wallet/data continuity and timing are still physical acceptance under35.
-
-Independent ordinary-curl verifier is prepared at
-`/tmp/redsquare-private46-work-20261017/verify-public28.py`, adapted from the
-canonical27 verifier. Public baseline27 metadata and actual APK are already
-verified under `/mnt/storage/redsquare-android-artifacts/private46-publication28`.
-Verify latest/release28/actualAPK/hash/certificate/package/min29 and unchanged
-immutable27 metadata/APK. Use the established client; do not change ingress or
-investigate provider safeguards. Retain actual publisher/public verification
-records and complete publication bookend reviews before closing46.
+Source1cfa16a57ca7da95bca82aad4c320443c479ddf3; package nl.davidengelen.redsquare;
+APK SHA256444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8;
+established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+No need to rebuild28. Original artifacts/public downloads are under
+/mnt/storage/redsquare-android-artifacts/private46-publication28; prepared APK is
+.scratch/review-builds/28. Signing secrets remain outside Git. Public notes state
+that live background delivery still needs service configuration. Physical phone
+installation/update/wallet-data continuity/performance and store acceptance remain
+unverified. Follow canonical review-build/publish scripts for the next version.
 
 ## Remaining work and external gates
 

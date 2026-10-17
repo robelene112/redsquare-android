@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "method": "Existing canonical public verification via ordinary curl",
+  "version": 27,
+  "responses": [
+    {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "status": 200,
+      "bytes": 693,
+      "sha256": "11b7645b14bc43a173ad6ce9f7e95ed3bbb9fe67fad4fdbaf3c6078f8e1ce36d"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/releases/27/manifest.json",
+      "status": 200,
+      "bytes": 693,
+      "sha256": "11b7645b14bc43a173ad6ce9f7e95ed3bbb9fe67fad4fdbaf3c6078f8e1ce36d"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/releases/27/redsquare.apk",
+      "status": 200,
+      "bytes": 37438467,
+      "sha256": "8b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159"
+    }
+  ]
+}

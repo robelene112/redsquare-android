@@ -1,6 +1,6 @@
 # Native private Chat background acceptance
 
-Issue46's controlled native transport is ready for final combined review. The
+Issue46's controlled native transport has completed combined acceptance. The
 gateway uses its own authenticated read-only backend identity, bounded original
 retention and opaque wake delivery; recipient proof releases the original to the
 current consenting device. Decryption and original validation stay local. The
@@ -41,7 +41,7 @@ assertions and deadlines remain. Both CI routing reviews and the corrected ident
 verifier reviews report0. Whole-child base remains
 4703fabeccb0ba86be0b7711ff546226b0f50a83; whole production/consolidated source reviews
 through3059423af/1cfa and complete Android10 evidence reviews report Standards0/Spec0.
-Complete Android17 and final combined evidence review remain pending.
+Final combined review95cb409526d6c5c7d23b9e79e09957c46e3c0644 reports Standards0/Spec0.
 
 Earlier REDs and incomplete runs retain their actual conclusions. Android17
 39069244764 hit its75minute job ceiling during wallet export and is CANCELLED;
@@ -50,12 +50,13 @@ The required three-job run completes all gates with the same production and fixt
 Gateway lifecycle separately verifies graceful component reopen, same-wake retry
 and real reconnect through actual wire/HTTP, not abrupt standalone JVM death.
 
-Signed28/0.1.28 is prepared, not published: stable nl.davidengelen.redsquare package,
+Signed28/0.1.28 is published and independently verified: stable nl.davidengelen.redsquare package,
 established certificate, minSDK29, canonical build PASS4m13s/exit0 and APK SHA256
 444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8. Prepared-artifact
-reviews0/0. Final combined review, ordinary publication and independent actual
-public download/immutable27 continuity verification are still required before
-closing46. Public beta27 remains unchanged.
+reviews0/0. Canonical publisher exits0, actual public page/latest/immutable28/APK checks pass,
+and immutable27 metadata/APK remain unchanged. Thirteen hashed publication records
+retain the observations. Publication bookend review and final46 closure remain.
+See [published28](signed-preview28-published/README.md).
 
 Original32/33 retain actual configured Google delivery, authorized hosting and
 deployment, plus physical closed-app checks. Physical Pixel installation/update/
