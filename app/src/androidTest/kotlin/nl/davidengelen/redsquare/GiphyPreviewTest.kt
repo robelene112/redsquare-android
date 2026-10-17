@@ -95,6 +95,105 @@ class GiphyPreviewTest {
         }
     }
 
+    @Test fun searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork() {
+        val reference = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val thumbnail = android.util.Base64.decode(reference.getAsJsonObject("images").get("red").asString.substringAfter(','), android.util.Base64.NO_WRAP)
+        val peer = ControlledFeedPeer("[${reference.getAsJsonObject("ordinary")}]")
+        val requests = ConcurrentLinkedQueue<RecordedRequest>()
+        val attempts = java.util.concurrent.atomic.AtomicInteger()
+        val oldStarted = java.util.concurrent.CountDownLatch(1)
+        val releaseOld = java.util.concurrent.CountDownLatch(1)
+        val oldFinished = java.util.concurrent.CountDownLatch(1)
+        val query = "Cats & dogs + café 🐈"
+        MockWebServer().use { provider ->
+            provider.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
+            fun empty() = MockResponse.Builder().body("{\"meta\":{\"status\":200},\"data\":[]}").build()
+            fun result(title: String) = MockResponse.Builder().body("""
+                {"meta":{"status":200},"data":[{"id":"owned-search-result","title":"$title",
+                 "images":{"original":{"url":"http://127.0.0.1:${provider.port}/media/result.gif"},
+                 "fixed_width_small":{"url":"http://127.0.0.1:${provider.port}/media/thumb.png"}}}]}
+            """.trimIndent()).build()
+            provider.dispatcher = object : Dispatcher() {
+                override fun dispatch(request: RecordedRequest): MockResponse {
+                    if (request.url.encodedPath == "/media/thumb.png") return MockResponse.Builder()
+                        .setHeader("Content-Type", "image/png").body(Buffer().write(thumbnail)).build()
+                    requests.add(request)
+                    return when (request.url.encodedPath) {
+                        "/v1/gifs/trending" -> empty()
+                        "/v1/gifs/search" -> when (request.url.queryParameter("q")) {
+                            query -> if (attempts.incrementAndGet() == 1) MockResponse.Builder().code(429).build() else empty()
+                            "Old cats" -> {
+                                oldStarted.countDown()
+                                try { check(releaseOld.await(15, TimeUnit.SECONDS)); result("Older result") }
+                                finally { oldFinished.countDown() }
+                            }
+                            "New cats 🐈" -> result("Newer result")
+                            else -> MockResponse.Builder().code(404).build()
+                        }
+                        else -> MockResponse.Builder().code(404).build()
+                    }
+                }
+            }
+            try {
+                peer.start().use { server ->
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                        .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                        .putExtra("giphyFixtureUrl", "http://127.0.0.1:${provider.port}")).use {
+                        try {
+                            ui.waitUntil(20_000) { peer.requests.get() >= 2 && ui.onAllNodesWithText("Loading posts…").fetchSemanticsNodes().isEmpty() }
+                            if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                            ui.onNodeWithText("New post").performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasSetTextAction()).performTextReplacement("My text survives changing GIF searches")
+                            ui.onNodeWithText("Add GIF").performScrollTo().performClick()
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("No GIFs found.").fetchSemanticsNodes().isNotEmpty() }
+                            ui.onNode(hasSetTextAction()).performTextReplacement(query)
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("GIF search is busy. Try again later.").fetchSemanticsNodes().isNotEmpty() }
+                            capture("search-rate-limit")
+                            ui.onNodeWithText("Retry").performClick()
+                            ui.waitUntil(10_000) { attempts.get() == 2 && ui.onAllNodesWithText("No GIFs found.").fetchSemanticsNodes().isNotEmpty() }
+                            val first = requests.toList()
+                            assertEquals(listOf("/v1/gifs/trending", "/v1/gifs/search", "/v1/gifs/search"), first.map { it.url.encodedPath })
+                            assertEquals(listOf(null, query, query), first.map { it.url.queryParameter("q") })
+                            first.forEach { request ->
+                                assertEquals("GET", request.method)
+                                assertEquals("owned-test-only", request.url.queryParameter("api_key"))
+                                assertEquals("24", request.url.queryParameter("limit"))
+                                assertEquals("0", request.url.queryParameter("offset"))
+                                assertEquals("pg-13", request.url.queryParameter("rating"))
+                            }
+                            ui.onNode(hasSetTextAction()).performTextReplacement("x".repeat(51))
+                            ui.onNodeWithText("Use no more than 50 characters for GIF search.").assertIsDisplayed()
+                            ui.mainClock.advanceTimeBy(1000)
+                            ui.waitForIdle()
+                            assertEquals(3, requests.size)
+                            ui.onNode(hasSetTextAction()).performTextReplacement("Old cats")
+                            ui.waitUntil(10_000) { oldStarted.count == 0L }
+                            ui.onNode(hasSetTextAction()).performTextReplacement("New cats 🐈")
+                            ui.waitUntil(10_000) { ui.onAllNodesWithText("Newer result").fetchSemanticsNodes().isNotEmpty() }
+                            releaseOld.countDown()
+                            ui.waitUntil(10_000) { oldFinished.count == 0L }
+                            ui.waitForIdle()
+                            ui.onNodeWithText("Newer result").assertIsDisplayed()
+                            ui.onNodeWithText("Older result").assertDoesNotExist()
+                            assertEquals(listOf("Old cats", "New cats 🐈"), requests.toList().drop(3).map { it.url.queryParameter("q") })
+                            capture("search-newer-result")
+                            ui.onNodeWithText("Close GIF search").performClick()
+                            ui.onNode(hasSetTextAction()).assert(hasText("My text survives changing GIF searches"))
+                            assertTrue(peer.transactions.isEmpty())
+                            peer.assertHealthy()
+                            capture("search-retained-text")
+                        } catch (failure: Throwable) {
+                            try { capture("search-failure") } catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+                            throw failure
+                        }
+                    }
+                }
+            } finally { releaseOld.countDown() }
+        }
+    }
+
     @Test fun selectedAnimatedGifSurvivesSavedDraftAndFreshActivity() {
         val reference = instrumentation.context.assets.open("native-images-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject }
