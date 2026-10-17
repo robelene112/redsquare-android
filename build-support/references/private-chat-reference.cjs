@@ -74,9 +74,11 @@ const groupId = crypto.hash(Object.values(publicKeys).sort().join('_'));
 assert.equal(process.version, 'v24.13.0');
 
 // Consume only the public unsafe scalar2 -> scalar1 transaction captured by the native UI fixture.
-if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send', '--check-native-photo-send'].includes(process.argv[2])) {
+if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-reply-send', '--check-native-photo-send', '--check-native-gif-send'].includes(process.argv[2])) {
   const photoSend = process.argv[2] === '--check-native-photo-send';
-  const replySend = !photoSend && process.argv[2] !== '--check-native-send';
+  const gifSend = process.argv[2] === '--check-native-gif-send';
+  const imageSend = photoSend || gifSend;
+  const replySend = !imageSend && process.argv[2] !== '--check-native-send';
   const zeroReply = process.argv[2] === '--check-native-zero-reply-send';
   const expectedReply = replySend ? JSON.parse(fs.readFileSync('/reference/reply-compose-reference.json')).replyFormat[zeroReply ? 'compositionZero' : 'composition'] : null;
   let expectedMessage = replySend ? expectedReply.prefix + expectedReply.body : 'Native private message 😀 <&>\nsecond line';
@@ -107,6 +109,17 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
     assert(photo, 'Known native fixture photo and exact escaped caption');
     expectedMessage = `<img class="img-prev" src="${photo[1]}">\n<div>Photo caption 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>`;
   }
+  let gifSource = null;
+  const gifCaption = 'Keep my Chat draft 😀 <&> "quoted"\nA second line';
+  if (gifSend) {
+    gifSource = fs.readFileSync('/reference/native-gif-source.txt', 'utf8').trim();
+    const url = new URL(gifSource);
+    assert.equal(url.protocol, 'http:'); assert.equal(url.hostname, '127.0.0.1');
+    assert.equal(url.pathname, '/media/giphy.gif');
+    assert.equal(url.search, '?token=owned%2Bonly&keep=1');
+    expectedMessage = `<img class="img-prev" src="${gifSource.replace(/&/g, '&amp;')}">\n` +
+      '<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>';
+  }
   assert.deepEqual(plaintext, {
     module: 'Chat', request: 'chat message', group_id: groupId,
     message: expectedMessage,
@@ -123,7 +136,7 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
   const receiverMethod = chatClass.members.find(node => ts.isMethodDeclaration(node) &&
     node.name.getText(chatAst) === 'addTransactionToGroup');
   assert(receiverMethod);
-  if (photoSend) {
+  if (imageSend) {
     const otherSource = fs.readFileSync('/reference/chat-B.js', 'utf8');
     assert.equal(sha256(otherSource), '28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb');
     const otherAst = ts.createSourceFile('chat-B.js', otherSource, ts.ScriptTarget.ES2022, true);
@@ -174,7 +187,9 @@ if (['--check-native-send', '--check-native-reply-send', '--check-native-zero-re
     chatSourceSha256, existingChatReceiverAcceptsNativePlaintext: true,
     existingChatReceiverSuppressesDuplicateSignature: true,
     browserStorageNotificationBoundariesAdapted: true,
-    ...(photoSend ? {pinnedReceiverMethodsIdentical:true,nativePhoto:{message:plaintext.message,caption:photoCaption}} : {}),
+    ...(imageSend ? {pinnedReceiverMethodsIdentical:true} : {}),
+    ...(photoSend ? {nativePhoto:{message:plaintext.message,caption:photoCaption}} : {}),
+    ...(gifSend ? {nativeGif:{message:plaintext.message,caption:gifCaption,source:gifSource},exactOriginalGifUrl:true} : {}),
   }, null, 2));
   process.exit(0);
 }

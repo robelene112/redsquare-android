@@ -1,0 +1,7 @@
+
+locator.evaluate: SecurityError: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.
+    at eval (eval at evaluate (:311:30), <anonymous>:4:76)
+    at async <anonymous>:337:30
+    at /references/chat-photo-caption-browser.cjs:16:52 {
+  log: []
+}

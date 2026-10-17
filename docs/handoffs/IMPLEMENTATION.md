@@ -46,7 +46,17 @@ Both pinned A/B sanitize/newline outputs independently pass offline Chromium
 exactURL/caption and ownedGIF16x16 decode (scratchchat43-gif-web*); no native
 frame/live-client claim yet. Existing caption observer gains ordinary history
 scrolling like the accepted photo-send fixture, retaining20s/identity/write checks.
-Local credits build43700 is running; no corrected runtime acceptance yet.
+Local credits build43700 PASS4m39s (core UP-TO-DATE). Both source reviews0/0.
+Exactc4433ebe private native39023907089 SUCCESS2/0/44.372s, including actual
+selection/credits/fresh-Activity/exact canonical HTML/signedSend. Root viewed6PNG,
+parsed6XML. Actual emitted fixture envelope passes independent WASM signature,
+pinned recipientCrypto and A/B Chat receiver/duplicate suppression; A/B sanitize
+and offline Chromium exactURL/caption/ownedGIF16x16 decode pass. No live-client
+claim. Initial cross-origin canvas observer failure retained; corrected GIF
+observer uses only DOM/decode, no origin change. Legacy photo compatibility
+matches; historical scope-only JSON comparison difference explicitly recorded.
+Canonical ticket43/private-green/android17. Next group tracer adds same selection
+journey; missing group Add GIF is expected, not observed yet. Build86825 active.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 

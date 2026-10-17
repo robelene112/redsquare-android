@@ -33,20 +33,27 @@ class ChatGiphyPreviewTest {
 
     @Test fun aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(selection = true)
 
-    private fun exercise(selection: Boolean) {
+    @Test fun aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(selection = true, group = true)
+
+    private fun exercise(selection: Boolean, group: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        val reference = instrumentation.context.assets.open("native-private-chat-image-reference.json").bufferedReader()
+        val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
             .use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("vectors")[0].asJsonObject }
-        val contact = reference.get("sender").asString
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "2").withChatContact(contact) // Public unsafe fixture.
+        val contact = reference.get(if (group) "author" else "sender").asString
+        val groupId = reference.get("groupId").asString
+        val groupName = "Compatible GIF group"
+        val identity = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture.
+        val wallet = if (group) identity.withNamedChatGroup(groupId, groupName) else identity.withChatContact(contact)
         val wallets = AndroidWalletStore(context); val original = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context); val originalBackend = backends.load()
         val prefixes = SaitoBackend.entries.flatMap { backend -> listOf("chat.${backend.id}.${wallet.publicKey}.",
-            "chatwork.${backend.id}.${wallet.publicKey}.", "chatreactions.${backend.id}.${wallet.publicKey}.") } +
+            "chatwork.${backend.id}.${wallet.publicKey}.", "chatreactions.${backend.id}.${wallet.publicKey}.",
+            "groupchat.${backend.id}.${wallet.publicKey}.") } +
             "personal.${wallet.publicKey}."
         val retained = ChatFixtureState(context, prefixes + "giphycredits.${wallet.publicKey}.", wallet.publicKey)
-        val prefix = if (selection) "private-selection" else "private"
+        val kind = if (group) "group" else "private"
+        val prefix = if (selection) "$kind-selection" else kind
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (criteria.get("field3")?.asString == reference.get("groupId").asString) reads.incrementAndGet()
@@ -56,6 +63,11 @@ class ChatGiphyPreviewTest {
         var primary: Throwable? = null
         try {
             retained.prepare(); wallets.replace(original, wallet); backends.save(SaitoBackend.OWNER)
+            if (group) {
+                val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture.
+                val creation = GroupChat.create(admin, groupId, groupName, listOf(wallet.publicKey), 1700000123400)
+                nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(creation.envelope())
+            }
             MockWebServer().use { provider ->
                 val paths = java.util.concurrent.ConcurrentLinkedQueue<String>()
                 provider.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
@@ -95,7 +107,12 @@ class ChatGiphyPreviewTest {
                                 val chat = hasText("Chat") and hasClickAction() and isEnabled()
                                 ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                                 if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
-                                val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact))
+                                val row = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(if (group) groupName else contact))
+                                if (group) {
+                                    val groups = hasText("Groups") and hasClickAction() and isEnabled()
+                                    ui.waitUntil(20_000) { displayed(groups) || displayed(row, unmerged = true) }
+                                    if (displayed(groups)) ui.onNode(groups).performClick()
+                                }
                                 ui.waitUntil(20_000) { displayed(row, unmerged = true) }
                                 val before = reads.get()
                                 ui.onNode(row, useUnmergedTree = true).performClick()
@@ -131,7 +148,10 @@ class ChatGiphyPreviewTest {
                                 credits("$prefix-selected-credits")
                                 val expected = "<img class=\"img-prev\" src=\"${source.replace("&", "&amp;")}\">\n" +
                                     "<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>"
-                                check(nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, SaitoBackend.OWNER, contact).load().draft == expected)
+                                val savedDraft = if (group) nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet,
+                                    SaitoBackend.OWNER).load(groupId)?.draft else nl.davidengelen.redsquare.chat.ChatWorkStore(
+                                    context, wallet, SaitoBackend.OWNER, contact).load().draft
+                                check(savedDraft == expected)
                                 check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                 scenario.close()
                                 ActivityScenario.launch<MainActivity>(launchIntent).use {
@@ -144,19 +164,25 @@ class ChatGiphyPreviewTest {
                                         val sent = postingTransaction(peer.transactions.single())
                                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
                                         check(peer.relayRecipients.single() == listOf(wallet.publicKey, contact))
-                                        val delivered = PrivateChat.read(wallet, sent.envelope(), contact)
-                                        check(delivered.author == wallet.publicKey && delivered.text == expected)
+                                        if (group) {
+                                            val current = requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).load(groupId))
+                                            val delivered = GroupChat.readMessage(current.group, sent.envelope())
+                                            check(delivered.author == wallet.publicKey && delivered.text == expected)
+                                        } else {
+                                            val delivered = PrivateChat.read(wallet, sent.envelope(), contact)
+                                            check(delivered.author == wallet.publicKey && delivered.text == expected)
+                                        }
                                         val caption = hasText(draft) and !hasSetTextAction()
                                         ui.waitUntil(20_000) {
                                             if (!displayed(caption)) {
-                                                try { ui.onNode(hasContentDescription("Private messages")).performScrollToNode(caption) }
+                                                try { ui.onNode(hasContentDescription(if (group) "Group messages" else "Private messages")).performScrollToNode(caption) }
                                                 catch (_: AssertionError) { /* Receipt can precede history publication. */ }
                                             }
                                             displayed(caption)
                                         }
                                         credits("$prefix-sent-credits")
-                                        File(context.cacheDir, "chat-giphy-evidence/native-private-gif-envelope.json").writeText(sent.envelope())
-                                        File(context.cacheDir, "chat-giphy-evidence/native-private-gif-source.txt").writeText(source + "\n")
+                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-gif-envelope.json").writeText(sent.envelope())
+                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-gif-source.txt").writeText(source + "\n")
                                         peer.assertHealthy()
                                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                                         check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
