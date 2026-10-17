@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.notifications
 
 import android.content.Context
+import android.app.NotificationManager
+import android.os.Build
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -11,12 +13,28 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import java.io.IOException
+import java.net.URI
+import nl.davidengelen.redsquare.AndroidWalletStore
+import nl.davidengelen.redsquare.BuildConfig
+import nl.davidengelen.redsquare.saito.AndroidBackendStore
+import nl.davidengelen.redsquare.saito.SaitoLocalState
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import com.google.gson.JsonObject
 
 private val wakeExecution = Mutex()
 
@@ -50,9 +68,94 @@ internal object SocialPushWakeScheduling {
     }
 }
 
-/** Tracer: processing the opaque gateway wake is the next missing behavior. */
+/** Resolve only for the current consenting identity, then reuse the signed selected-Archive receiver. */
 class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : CoroutineWorker(context, parameters) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        wakeExecution.withLock { Result.success() }
+        wakeExecution.withLock work@{
+            currentCoroutineContext().ensureActive()
+            if (isStopped) return@work Result.failure()
+            val wake = inputData.getString("wake") ?: return@work Result.failure()
+            if (!wake.matches(Regex("[0-9a-f]{64}"))) return@work Result.failure()
+            val receivedAt = inputData.getLong("receivedAt", -1)
+            if (receivedAt < 0) return@work Result.failure()
+            val now = System.currentTimeMillis()
+            if (now >= receivedAt && now - receivedAt > LIFETIME) return@work Result.success()
+            val endpoint = inputData.getString("resolver") ?: return@work Result.failure()
+            val resolver = try { URI(endpoint) } catch (_: Exception) { return@work Result.failure() }
+            val fixture = BuildConfig.DEBUG && Build.HARDWARE in listOf("ranchu", "goldfish") &&
+                resolver.scheme == "http" && resolver.host == "127.0.0.1" && resolver.port in 1..65535
+            if ((!fixture && (resolver.scheme != "https" || resolver.host.isNullOrBlank())) ||
+                resolver.rawUserInfo != null || resolver.rawQuery != null || resolver.rawFragment != null ||
+                resolver.path != "/v1/wakes/resolve") return@work Result.failure()
+            val selected = try {
+                synchronized(SaitoLocalState.lock) {
+                    val wallet = AndroidWalletStore(applicationContext).loadExisting()
+                    val backend = AndroidBackendStore(applicationContext).load()
+                    if (!SocialPushSettings(applicationContext, wallet.publicKey).enabled() ||
+                        !applicationContext.getSystemService(NotificationManager::class.java).areNotificationsEnabled()) null
+                    else wallet to backend
+                }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { return@work Result.retry() }
+            if (selected == null) return@work Result.success()
+            val (wallet, backend) = selected
+            val url = try { endpoint.toHttpUrl() } catch (_: IllegalArgumentException) { return@work Result.failure() }
+            // Read-only recipient proof. The gateway must match this signer to the wake's owner.
+            // An opaque ID by itself must not disclose its public wallet/backend reference.
+            val intent = "Saito push resolve v1\n$url\n$wake"
+            val body = JsonObject().apply { addProperty("version", 1); addProperty("wake", wake) }
+            val request = Request.Builder().url(url)
+                .header("X-Saito-Owner", wallet.publicKey)
+                .header("X-Saito-Signature", wallet.sign(intent.toByteArray(Charsets.UTF_8)))
+                .post(body.toString().toRequestBody("application/json".toMediaType())).build()
+            val payload = try {
+                client.newCall(request).execute().use { response ->
+                    if (response.code in listOf(404, 410)) return@work Result.success()
+                    if (response.code != 200) return@work Result.retry()
+                    response.body.byteStream().use { input ->
+                        val bytes = ByteArray(1025)
+                        var size = 0
+                        while (size < bytes.size) {
+                            val count = input.read(bytes, size, bytes.size - size)
+                            if (count < 0) break
+                            check(count > 0)
+                            size += count
+                        }
+                        if (size !in 1..1024) return@work Result.failure()
+                        Charsets.UTF_8.newDecoder().onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
+                            .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
+                            .decode(java.nio.ByteBuffer.wrap(bytes, 0, size)).toString()
+                    }
+                }
+            } catch (_: IOException) {
+                currentCoroutineContext().ensureActive()
+                return@work Result.retry()
+            }
+            currentCoroutineContext().ensureActive()
+            val reference = try { SocialPushReference.parse(payload) }
+            catch (_: IllegalArgumentException) { return@work Result.failure() }
+            if (reference.owner != wallet.publicKey || reference.backend != backend) return@work Result.success()
+            val archive = if (fixture) inputData.getString("archive") ?: backend.peerUrl else backend.peerUrl
+            receiptExecution.withLock receipt@{
+                currentCoroutineContext().ensureActive()
+                if (isStopped) return@receipt Result.failure()
+                val result = try { SocialPush.receive(applicationContext, payload, archive) }
+                catch (_: TimeoutCancellationException) {
+                    currentCoroutineContext().ensureActive()
+                    SocialPushResult.RETRY
+                }
+                when (result) {
+                    SocialPushResult.PUBLISHED, SocialPushResult.SUPPRESSED -> Result.success()
+                    SocialPushResult.RETRY -> Result.retry()
+                }
+            }
+        }
+    }
+
+    private companion object {
+        const val LIFETIME = 7 * 24 * 60 * 60 * 1000L
+        val client = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
+            .connectTimeout(12, TimeUnit.SECONDS).readTimeout(12, TimeUnit.SECONDS)
+            .callTimeout(12, TimeUnit.SECONDS).build()
     }
 }

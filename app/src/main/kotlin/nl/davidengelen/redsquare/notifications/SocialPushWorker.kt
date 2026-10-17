@@ -22,7 +22,7 @@ import java.util.UUID
 import java.util.concurrent.TimeUnit
 
 // A cancellation acknowledgement alone does not mean a running receipt has stopped.
-private val receiptExecution = Mutex()
+internal val receiptExecution = Mutex()
 
 /** Durable receipt boundary. Only public routing references enter WorkManager. */
 internal object SocialPushScheduling {
