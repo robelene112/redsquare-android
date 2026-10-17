@@ -16,7 +16,7 @@ campaigns, provider-access services or safeguard bypass work.
 [Issue47](https://github.com/robelene112/redsquare-android/issues/47) is OPEN,
 assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSED;
 zero OPEN blockers verified. Child of34, under specification1. Review base is
-`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. No group code/acceptance yet.
+`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. Initial gateway code exists; whole47/native acceptance remains pending.
 
 Deliver group interests through the authenticated shared subscription, opaque
 wakes and actual native worker/notification/history boundaries. Group messages
@@ -28,6 +28,16 @@ union of consenting Social/private/group demand. Existing controlled peer/gatewa
 FCM and Android seams are approved; do not ask again. Start with one actual group
 wire/HTTP journey RED before the minimum implementation. Reuse independent pinned
 group vectors; fresh transport fixtures are not new cross-client evidence.
+
+First traceraf40014ba is actual RED1failure/2.160s: group binding HTTP400 expected201,
+first Owner binding only, later wire/Official tails unexecuted. Minimumc0e331fba
+accepts explicit bounded sorted group interests in signed bindings, observes group
+originals through existing stream/cache and emits group-chat recipient-proof wakes.
+Actual unchanged first GREEN passes both logical bindings,1case/3.729s,
+build1m28s/exit0. Four-hash RED/GREEN packets under ticket47. Cache comment explicitly
+retains private ciphertext versus unencrypted groups. Initial minimum source review
+and whole core/gateway regression are next; client demand/native group receiver,
+actual alerts, membership/policy/identity/dedup/PID and full SDK acceptance remain.
 
 Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
 Original32/34 retain configured Google/hosting/deployment/physical gates. Published
