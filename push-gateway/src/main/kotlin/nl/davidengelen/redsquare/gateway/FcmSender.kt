@@ -120,7 +120,7 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
             ?: throw IOException("FCM authorization unavailable")
     }
 
-    override fun close() {
+    @Synchronized override fun close() {
         closed.set(true)
         active.get()?.cancel()
         authorizationTask?.cancel(true)
@@ -151,8 +151,12 @@ class FcmSender(private val project: String, private val credentials: GoogleCred
 
     companion object {
         /** Called only when the operator explicitly enables the sender with an authorized target project. */
-        fun applicationDefault(project: String): FcmSender = FcmSender(project,
-            GoogleCredentials.getApplicationDefault().createScoped(listOf("https://www.googleapis.com/auth/firebase.messaging")))
+        fun applicationDefault(project: String): FcmSender = FcmSender(project, object : GoogleCredentials() {
+            private val configured by lazy {
+                GoogleCredentials.getApplicationDefault().createScoped(listOf("https://www.googleapis.com/auth/firebase.messaging"))
+            }
+            override fun getRequestMetadata(uri: URI?): Map<String, List<String>> = configured.getRequestMetadata(uri)
+        })
         private val client = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
             .connectTimeout(5, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).callTimeout(20, TimeUnit.SECONDS).build()
     }

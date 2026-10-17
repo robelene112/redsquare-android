@@ -21,14 +21,9 @@ object GatewayMain {
         val stopped = CountDownLatch(1)
         fun close() {
             if (!closed.compareAndSet(false, true)) return
-            var failure: Throwable? = null
-            fun release(action: () -> Unit) { try { action() } catch (caught: Throwable) {
-                if (failure == null) failure = caught else failure!!.addSuppressed(caught)
-            } }
-            observers.forEach { observer -> release(observer::close) }
-            sender?.let { release(it::close) }
-            release(gateway::close)
-            failure?.let { throw it }
+            val actions = observers.map { observer -> { observer.stop() } } +
+                listOf({ sender?.close(); Unit }) + observers.map { observer -> { observer.close() } } + listOf({ gateway.close() })
+            finishCleanup(*actions.toTypedArray())
         }
         val hook = Thread({ try { close() } finally { stopped.countDown() } }, "gateway-shutdown")
         try {

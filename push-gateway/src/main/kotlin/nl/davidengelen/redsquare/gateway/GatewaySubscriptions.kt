@@ -404,7 +404,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         store.save(state)
     }
 
-    override fun close() = store.close()
+    @Synchronized override fun close() = store.close()
 
     private fun savedText(body: JsonObject, name: String): String = try { text(body, name) }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }

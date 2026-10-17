@@ -59,6 +59,7 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
 
     /** One bounded read/queue/delivery pass for this explicitly selected backend. */
     @Synchronized fun poll(archive: GatewayArchive, sender: FcmSender) {
+        if (Thread.currentThread().isInterrupted) throw InterruptedException()
         val candidates = try { archive.verifiedSocial() } catch (failure: Exception) {
             unavailable(archive.backend, "archive-unavailable", failure)
         }
@@ -67,7 +68,8 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
     }
 
     /** Process one selected chain range before advancing its durable cursor. */
-    @Synchronized fun observe(chain: GatewayChain, archive: GatewayArchive, sender: FcmSender) {
+    @Synchronized fun observe(chain: GatewayChain, archive: GatewayArchive, sender: FcmSender): Boolean {
+        if (Thread.currentThread().isInterrupted) throw InterruptedException()
         require(chain.backend == archive.backend)
         val backend = chain.backend
         var cursor = subscriptions.cursor(backend)
@@ -76,23 +78,23 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
         }
         if (cursor != null && (page.ancestorHeight != cursor.height || page.ancestorHash != cursor.hash)) {
             cursor = subscriptions.rewind(backend, page.ancestorHeight, page.ancestorHash, page.tip.forkId)
-            if (cursor == null) { subscriptions.gap(backend, "chain-ancestry-unavailable"); return }
+            if (cursor == null) { subscriptions.gap(backend, "chain-ancestry-unavailable"); return false }
         }
         if (page.references.isEmpty() && (cursor == null || page.tip.height != cursor.height || page.tip.hash != cursor.hash)) {
-            subscriptions.gap(backend, "chain-history-unavailable")
+            subscriptions.gap(backend, "chain-history-unavailable"); return false
         }
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(90)
         for (reference in page.references.take(8)) {
             if (Thread.currentThread().isInterrupted) throw InterruptedException()
             if (System.nanoTime() >= deadline) break
             if (cursor != null && reference.height != cursor.height + java.math.BigInteger.ONE) {
-                subscriptions.gap(backend, "chain-history-unavailable"); return
+                subscriptions.gap(backend, "chain-history-unavailable"); return false
             }
             val block = try { chain.block(reference) } catch (failure: Exception) {
                 unavailable(backend, "full-block-unavailable", failure)
             }
             if (cursor != null && block.previousHash != cursor.hash) {
-                subscriptions.gap(backend, "chain-ancestry-unavailable"); return
+                subscriptions.gap(backend, "chain-ancestry-unavailable"); return false
             }
             if (cursor == null && block.height > java.math.BigInteger.ONE) subscriptions.gap(backend, "bootstrap-history-unavailable")
             val signatures = block.applicationMessages().filter { message ->
@@ -107,6 +109,7 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
             cursor = GatewayChain.Cursor(block.height, block.hash, page.tip.forkId)
         }
         deliverPending(backend, sender)
+        return true
     }
 
     private fun deliverPending(backend: nl.davidengelen.redsquare.saito.SaitoBackend, sender: FcmSender) {
@@ -131,12 +134,12 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0, clo
             catch (_: Exception) { System.err.println("gateway retention: cleanup unavailable, retry scheduled") }
         }, 0, 60, TimeUnit.SECONDS)
     }
-    override fun close() {
-        maintenance.shutdownNow()
-        check(maintenance.awaitTermination(5, TimeUnit.SECONDS)) { "Gateway cleanup still active" }
-        server.stop(1)
-        executor.shutdown()
-        check(executor.awaitTermination(5, TimeUnit.SECONDS)) { "Gateway handlers still active" }
-        subscriptions.close()
-    }
+    override fun close() = finishCleanup(
+        { maintenance.shutdownNow() },
+        { check(maintenance.awaitTermination(5, TimeUnit.SECONDS)) { "Gateway cleanup still active" } },
+        { server.stop(1) },
+        { executor.shutdownNow() },
+        { check(executor.awaitTermination(5, TimeUnit.SECONDS)) { "Gateway handlers still active" } },
+        { subscriptions.close() }
+    )
 }

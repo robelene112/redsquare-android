@@ -19,6 +19,7 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
     private val channel: FileChannel
     private val lock: java.nio.channels.FileLock
     private val file = directory.resolve("subscriptions.v1.json")
+    private val closed = java.util.concurrent.atomic.AtomicBoolean()
     init {
         Files.createDirectories(directory)
         Files.setPosixFilePermissions(directory, PosixFilePermissions.fromString("rwx------"))
@@ -28,7 +29,7 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
         try { load() } catch (failure: Exception) { close(); throw failure }
     }
 
-    fun load(): JsonObject = try { readState() }
+    fun load(): JsonObject = try { check(!closed.get()); readState() }
         catch (failure: Exception) { throw IOException("Gateway state unavailable", failure) }
 
     private fun readState(): JsonObject {
@@ -68,6 +69,7 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
     }
 
     fun save(state: JsonObject) {
+        check(!closed.get())
         val bytes = state.toString().toByteArray(Charsets.UTF_8)
         check(bytes.size.toLong() <= MAX_BYTES)
         val pending = directory.resolve("subscriptions.v1.pending")
@@ -83,6 +85,6 @@ internal class GatewayStateFile(private val directory: Path, private val origin:
     }
 
     private fun syncDirectory() = FileChannel.open(directory, READ).use { it.force(true) }
-    override fun close() { try { lock.release() } finally { channel.close() } }
+    override fun close() { if (closed.compareAndSet(false, true)) try { lock.release() } finally { channel.close() } }
     private companion object { const val MAX_BYTES = 4 * 1024 * 1024L }
 }

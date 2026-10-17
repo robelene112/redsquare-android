@@ -34,8 +34,8 @@ class GatewayObserver(private val gateway: PushGateway, private val identity: Sa
                 GatewayArchive(identity, backend, localArchiveOrigin).use { selectedArchive ->
                     archive.set(selectedArchive)
                     if (closed.get()) return
-                    gateway.observe(selectedChain, selectedArchive, sender)
-                    if (!closed.get() && !Thread.currentThread().isInterrupted) gateway.poll(selectedArchive, sender)
+                    val reconciled = gateway.observe(selectedChain, selectedArchive, sender)
+                    if (reconciled && !closed.get() && !Thread.currentThread().isInterrupted) gateway.poll(selectedArchive, sender)
                 }
             }
         } catch (_: InterruptedException) { Thread.currentThread().interrupt() }
@@ -44,10 +44,13 @@ class GatewayObserver(private val gateway: PushGateway, private val identity: Sa
         } finally { archive.set(null); chain.set(null) }
     }
 
-    @Synchronized override fun close() {
+    /** Signal every backend before awaiting any, since gateway processing is serialized. */
+    @Synchronized fun stop() {
         if (!closed.compareAndSet(false, true)) return
-        executor.shutdownNow()
-        chain.get()?.close(); archive.get()?.close()
-        check(executor.awaitTermination(25, TimeUnit.SECONDS)) { "Observer still stopping" }
+        finishCleanup({ executor.shutdownNow() }, { chain.get()?.close() }, { archive.get()?.close() })
     }
+
+    override fun close() = finishCleanup({ stop() }, {
+        check(executor.awaitTermination(25, TimeUnit.SECONDS)) { "Observer still stopping" }
+    })
 }
