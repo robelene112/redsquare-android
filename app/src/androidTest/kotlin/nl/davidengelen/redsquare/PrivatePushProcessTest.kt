@@ -224,9 +224,8 @@ class PrivatePushProcessTest {
                     requireNotNull(request.headers["X-Saito-Signature"]), wallet.publicKey))
                 if (expired) {
                     expiredRequests.incrementAndGet()
-                    return mockwebserver3.MockResponse.Builder().code(410).build()
-                }
-                mockwebserver3.MockResponse.Builder().body(JsonObject().apply {
+                    mockwebserver3.MockResponse.Builder().code(410).build()
+                } else mockwebserver3.MockResponse.Builder().body(JsonObject().apply {
                     addProperty("version", 1)
                     if (operation == "resolve") {
                         addProperty("wallet", wallet.publicKey); addProperty("backend", "owner")
