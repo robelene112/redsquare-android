@@ -146,7 +146,12 @@ embedded.app is absent; identity/images remain. Android preserves original text.
 The mistaken HTML oracle failure remains retained, not app RED. Tool source
 reviews0/0 at96ed9094; reference-script duplication is acknowledged/nonblocking.
 
-Next: finish the active full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
+Full Android10 39013781414 failed at the preparatory physical notification
+dismissal, before deliberate death; restoration passed. See
+[retained full-run failure](../evidence/ticket16/full-regression-red/android10/README.md).
+Android17 39013783536 remains running. No full-suite pass is claimed.
+
+Next: resolve the observed dismissal and finish full regressions; publish prepared beta25 after acceptance. Preserve source19e while those checks run. Queue-credit and external
 source-navigation runtime coverage remain source-only. Fresh Activity is not
 process death. Authorized live Giphy acceptance remains external. Whole16 and31
 stay open. Latest tracker comment6231144584 predates the corrected native GREEN.
@@ -832,7 +837,8 @@ current client preparation is described above.
 records full Android10/17 gates and final review results.
 Signed beta24/0.1.24 is published and verified at https://davidengelen.nl/redsquare/.
 APK SHA256 `7d6e8e746f3d1cb68969e302245d6868bb4edcdd6cb1560ed6fe5344d97f8c16`.
-No version25 is reserved. Keep signing material outside Git. Use
+Version25 is reserved and prepared, unpublished; see the current #16 section.
+Keep signing material outside Git. Use
 [review-build operations](../REVIEW_BUILDS.md) for the next authorized publication.
 
 ## Other remaining issues

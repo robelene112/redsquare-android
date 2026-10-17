@@ -71,9 +71,16 @@ class SocialPushProcessRecoveryTest {
                 assertEquals(tag(originalReply), alerts().single().tag)
                 showReply()
                 capture("published-before-death")
-                val visible = requireNotNull(device.wait(Until.findObject(By.text("Replied to your post")), 5_000))
-                val y = visible.visibleBounds.centerY()
-                assertTrue(device.swipe(device.displayWidth / 4, y, device.displayWidth - 2, y, 20))
+                val card = requireNotNull(device.wait(Until.findObject(
+                    By.res("android", "status_bar_latest_event_content")
+                        .hasDescendant(By.text("Replied to your post"))), 5_000))
+                val bounds = card.visibleBounds
+                assertTrue("The actual reply card must be fully visible before swiping",
+                    bounds.left >= 0 && bounds.right <= device.displayWidth &&
+                        bounds.top >= 0 && bounds.bottom <= device.displayHeight &&
+                        bounds.width() > device.displayWidth / 2 && bounds.height() > 16)
+                // One physical gesture across the card, rather than a screen-quarter/text-row path.
+                assertTrue(device.swipe(bounds.left + 8, bounds.centerY(), bounds.right - 8, bounds.centerY(), 20))
                 assertTrue(device.wait(Until.gone(By.text("Replied to your post")), 5_000))
                 val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000
                 while (alerts().isNotEmpty() && android.os.SystemClock.elapsedRealtime() < dismissedBy) {
