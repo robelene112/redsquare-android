@@ -11,114 +11,67 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Active native Chat alert presentation (#44)
 
-Sole writer root. GitHub44 is assigned/unblocked, native child of33 and related34.
-Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc. Original33/34 remain
-OPEN with32 dependencies unchanged. No Google transport/deployment acceptance.
-The existing native receipt/navigation foundation has no outstanding code blocker.
+Sole writer root. GitHub44 assigned/unblocked, native child33, related34.
+Whole review base2fff4587ea9fb1261f1c9cdcb478dc68c81199fc stays fixed. Parents33/34
+remain OPEN with genuine32 dependencies. Public beta26 unchanged. No Google,
+physical Pixel, whole44 or final full acceptance claim. No owned local build.
 
-First actual private warm-tap tracer at3dbeefbd1: Android17 run39034915868
-FAILURE1/1/48.07s at20s target wait88 after signed receipt, generic Android alert
-and real shade tap. Old contact/draft remained visible. Later recovery/no-write
-assertions unexecuted. Root viewed two original PNGs/parsed2XML;9hashes in
-`docs/evidence/ticket44/first-red/android17`. Local first build29451 PASS2m39s.
+Implemented: authenticated cached private/group original references bound to
+wallet/backend; current membership/author/conversation policy; shared social/Chat
+route generation and legacy SavedStateHandle key; existing mounted-draft guard;
+wallet-local encrypted opt-in private previews with generic default, supported
+text/captions, unsupported generic fallback and withdrawal on disabling. Group
+content stays generic. Public destination URI/generation survive transient wallet
+loading and window restoration, with resolved identity filtering/clearing and
+consumption on selected-conversation exit or committed social handoff. Debug
+emulator notification launch preserves the already resolved controlled endpoint.
+Normal manual Chat recreation behavior is unchanged. Fixture protected restores
+require positive Activity shutdown; alert cleanup stays independent.
 
-Production21f2a340c adds wallet/backend/original-bound private Chat URI and local
-cached verification, one shared notification route slot/generation retaining
-legacy SavedStateHandle keys, and existing mounted-draft guard before opening
-the sender. Local96432 PASS4m11s, core UP-TO-DATE. Corrected Android17 native
-run39035902031 at exact21f2a340c2460e2ae632e6fdc7dc746cce44865c SUCCESS1/0/35.712s.
-Root viewed3 original PNGs/parsed3XML;11hashes in private-route-green/android17.
-It proves actual warm tap/target/UI draft return/identity/no outgoing writes,
-not independently durable saving (see the review correction below).
-Bounded Standards0; Spec1 verification finding: return-to-editor alone could use
-ChatComposerMemory. The test now also requires exact durable ChatWorkStore draft,
-no transaction, statusNONE and automaticfalse after positive target observation,
-before Back. Local strengthened build91514 PASS2m2s, core UP-TO-DATE. No owned
-local build. Production unchanged by this test correction; both fix reviews0/0.
-Strengthened Android17 run39036372375 at exact8df60df48a050cf60b149291adf207b356db68a2
-SUCCESS1/0/34.179s, including exact pre-Back durable draft/no candidate/statusNONE/
-automaticfalse, UIreturn and final identity/no-transmission assertions.11hashes/
-3XML in durable-route-green/android17; root viewed opened/restored PNGs, shade
-retained without new visual claim. Existing Loading messages is qualified.
-First preview-choice tracer now adds one same-boundary case: defaultgeneric,
-explicit choice/recreate, text/caption previews and disable clearing old preview
-alerts before generic new messages. Local84621 preview-draft build PASS1m54s;
-small grounded merged-toggle selector/capture-name changes follow and will be
-compiled by hostedCI. No owned local build. Preview source unchanged/missing,
-its first Android17 RED39037078435 at exact4d04f79c5c5388171cefb2032a1f8e0131c32cc4
-failed2cases/1failure/71.8s: strengthened warm case passes, privacycase fails
-at missing enabled previewtoggle142 after generic alert. Later privacytails
-unexecuted.15hashes/5XML, root vieweddefaultshade/Settingsfailure PNGs, other
-3warm PNGs retained. New preview source now adds separate encrypted wallet-local
-choice, truthful retry/error UI, defaultgeneric vs opt-in text/caption excerpt,
-and withdrawal of existing private alerts when disabled. Social consent/group
-content remain separate. Local preview build6695 PASS4m40s, core UP-TO-DATE; no owned build.
-Bounded Standards0/Spec1 sourcefinding: unsupported non-image attachment markup
-could become previewtext. Correction classifies unparsed markup/data URI bodies
-as generic and extends the same actual-alert journey with one unsupported video
-wrapper. The earlier defaultgeneric alert is cleared after observation so later
-preview rows stay individually visible; actual opt-in previews remain for the
-disable-withdrawal assertion. Hosted CI will compile this small correction.
-Both bounded source-fix reviews through505c7fd27 are Standards0/Spec0.
-Corrected private preview Android17 run39038086362 executes exact
-505c7fd27f9e218fb8aaad15cdf42e02a3a35f33 completed SUCCESS2/0/41.822s.
-Preview-green/android17 retains27hashes/11parsed XMLs. Root viewed six named
-originals (see README); grouped caption/text excerpts are truncated visually,
-full text independently checked in extras/UiAutomator. Default/opt-in/recreate/
-text/caption/unsupported/disable-withdrawal/generic-next and strong warm journey
-pass. Group tracer7b41131a5 run39038765595 FAILURE3cases/1failure/93.615s at20s
-exact group target110 after actual group shade/tap; old private editor remains.
-Private warm/preview cases pass.31hashes/13parsed XMLs in group-red/android17;
-root viewed two group originals, other11retained. Later group tails unexecuted.
-Minimal group route now binds group/original and rechecks membership/author policy,
-opens existing group UI through shared draft guard. Fixture preloads legitimate
-known-group metadata so normal watch-metadata learning cannot alter exact wallet
-assertion; candidate/message/no-write assertions unchanged. Shared helper renamed
-chatAlertJourney per nonblocking Standards naming observation. First bounded group reviews both identify1sourcefinding: initialGroup reapplied
-on normal Groups re-entry. Corrected source clears the one-shot seed when leaving
-groups; same journey now requires ordinary Create group list and absent alerted
-message after recovering the prior private draft. Initial64038 run39039390627
-was explicitly CANCELLED before native acceptance to avoid testing known-bad source.
-Local wrapper1823 ended143, but its owned Docker build completed independently
-with exit0/BUILD SUCCESSFUL4m45s, retained container log. No owned local build.
-Corrected exacta62e147ea native39039743573 SUCCESS3/0/77.718s. Group actual
-shade/target/unencryptedlabel, durable previous private draft, UI recovery and
-normal Groups re-entry pass, plus both private journeys/identity/no outgoing.
-35hashes/15parsed XMLs in group-green/android17; root viewed three group originals,
-other12 retained; title truncation and still-loading normal list qualified.
-Both bounded group fix reviews Standards0/Spec0. Next: Official private cold-entry
-and Activity-recreation tracer at the same approved receipt/UI/shade seams.
-Cold RED39040413257 exact442c98500 FAILURE4cases/1failure/91.514s at20s target
-wait129 after successful no-Activity shade launch and cached conversation, then
-Activity recreation loses the target. Earlier3cases pass; cold tails unexecuted.
-41hashes/18parsedXMLs; root viewed two cold originals, other16retained. Initial
-PI lacks debug endpoint, so later archive refresh is not controlled acceptance.
-Correction now saves only bound public destination URI/generation across window
-restoration, clears it on selected-conversation exit or committed social handoff,
-and carries resolved peer endpoint only in debug emulator notification intents.
-The same cold journey supplies that endpoint; acceptance assertions unchanged.
-No owned local build. First correction798b88 run39040935051 was CANCELLED
-before native acceptance after both bounded reviewers found1 each: transient null
-wallet reset could discard restoredURI, and cold Activity cleanup needed positive
-absence before installation-state restoration. Source now retains publicURI/gen
-through transient loading and clears mismatch after actual identity resolution.
-Fixture now requires proven Activity shutdown before every protected restore,
-independent alert cleanup and suppressed failure handling unchanged. Corrected
-hosted compile/native39041093920 exactbc316 FAILED4cases/2failures/95.112s.
-Privatewarm/preview pass. Group target/durablework pass thencontact141 fails after
-twoBacks, finalGroupList. Cold firsttarget126 fails withgenericopenfailedbanner;
-itscause unknown, latercoldtailsunexecuted.37hash16XML incold-minimum/android17,
-rootviewedtwofailures other14retained. ReviewconfirmsenabledBack/handlerguard
-mismatch; sourcebuttonnowdisablesduringsaving andtestpositivelywaitsGroupList
-beforesecondBack, noassertion/deadlineweakening. Samecoldjourney nowasserts
-savedincoming/id/author/text/currentidentity/backend/policy beforetap and retains
-boundeddebug-onlyredactedroutephase/classreason onfailure (status2diagnostic,
-notadditionalpassingcase). Whole44base remains2fff4587e. Nextdiagnostic pending.
-No owned local build. No whole44 acceptance.
-No whole44/full acceptance. Group/cold slices
-remain. Same approved UI/controlled-peer/notification/persistence seams; no new
-grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
-Public beta26 remains current, protected group contract untouched.
+Canonical packets below are under docs/evidence/ticket44. Each README qualifies
+exact source, assertions reached, viewed originals and actual limits. All XMLs
+parse and PNG signatures validate; raw originals remain hashed.
+
+| Run / exact source prefix | Packet | Actual outcome |
+| --- | --- | --- |
+|39034915868 /3dbeefbd1|first-red/android17|FAIL1/1/48.07s, private destination after shade.|
+|39035902031 /21f2a340c|private-route-green/android17|PASS1/0/35.712s, UI draft recovery alone not independent durable proof.|
+|39036372375 /8df60df48|durable-route-green/android17|PASS1/0/34.179s, exact saved draft before Back, no candidate/statusNONE/automaticfalse.|
+|39037078435 /4d04f79c5|preview-red/android17|FAIL2cases/1failure/71.8s, preview toggle absent, later privacy tails unexecuted.|
+|39038086362 /505c7fd27|preview-green/android17|PASS2/0/41.822s, choice/recreate/text/caption/unsupported/disable/generic-next; no process death.|
+|39038765595 /7b41131a5|group-red/android17|FAIL3cases/1failure/93.615s, exact group destination after shade.|
+|39039743573 /a62e147ea|group-green/android17|PASS3/0/77.718s, group target, durable private draft, UI recovery and normal Groups re-entry.|
+|39040413257 /442c98500|cold-red/android17|FAIL4cases/1failure/91.514s, Official cold target opens then recreation loses it; initial PI refresh uncontrolled.|
+|39041093920 /bc3168854|cold-minimum/android17|FAIL4cases/2failures/95.112s, group return141 and cold first target126; cold cause unknown.|
+|39041907742 /6c64ee7b9|cold-diagnosis/android17|FAIL4cases/1failure/87.052s, group fixed; cold pre-tap persistence/binding/policy pass, admission refuses before commit.|
+
+Source reviews found/fixed unsupported preview markup, initial group seed reuse,
+transient-null wallet reset and missing fixture Activity shutdown barrier. Their
+bounded fixes each reached Standards0/Spec0; this is not native acceptance.
+Known-bad intermediate39039390627/64038 and39040935051/798 were explicitly
+CANCELLED before native acceptance after review findings.
+
+Current diagnostic run39041907742 at6c64ee7b9 FAILED4cases/1failure/87.052s.
+Group readiness/positive intermediate-list correction passes. Cold retained
+incoming/id/author/text/currentidentity/backend/policy checks pass, but actual
+shade tap fails first target141. Debug phase is navigation-refused, with no inner
+commit or exception phase, narrowing it to admission but not its specific gate.
+39hash17XML in cold-diagnosis/android17; root viewed ordinary group list and cold
+failed banner, other15 retained. Both preceding bounded reviews Standards0/Spec0.
+Next same-journey diagnostics record admission busy/saver-class/guard-presence
+and optional UI Retry only inside failure capture. Even a successful diagnostic
+Retry retains the original first-open failure and leaves later cold tails
+unexecuted. Debug observations contain no identity/message/URI/error content;
+status2 remains diagnostic. Native diagnosis pending.
+
+Next: inspect that actual outcome, resolve cold refusal with evidence, then group
+cold/current-membership coverage as required, one final full Android10/17 pair,
+whole reviews from fixed2fff base and signed review publication. Same approved
+UI/controlled-receipt/shade/persistence/recovery seams; class180s and observation
+20s bounds unchanged. No new grill or broad matrix. Temporary current work is
+outside checkout at /tmp/redsquare-chat44-work-20261017; large original artifacts
+on /mnt/storage/redsquare-android-artifacts. Do not bulk-clean older task files or
+touch unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
 ## Accepted native Chat GIF slice (#43)
 

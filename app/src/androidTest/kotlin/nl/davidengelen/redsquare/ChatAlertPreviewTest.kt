@@ -92,7 +92,18 @@ class ChatAlertPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { scenario ->
                     withFailureCapture({
-                        try { capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure") }
+                        try {
+                            capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure")
+                            if (cold && displayed(hasText(context.getString(R.string.social_push_open_failed)))) {
+                                // Diagnose Retry without changing the original first-open failure outcome.
+                                click(hasText("Retry"))
+                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
+                                capture("$capturePrefix-diagnostic-retry")
+                                instrumentation.sendStatus(2, android.os.Bundle().apply {
+                                    putString("stream", "Diagnostic Retry reached the target; original first-open failure retained.")
+                                })
+                            }
+                        }
                         finally { if (cold) instrumentation.sendStatus(2, android.os.Bundle().apply {
                             putString("stream", "Chat route diagnosis:\n" +
                                 device.executeShellCommand("logcat -d -v brief -s ChatAlertRoute:D").takeLast(8000))

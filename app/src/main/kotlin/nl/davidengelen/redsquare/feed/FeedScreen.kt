@@ -146,6 +146,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     tapFailed = true
                     return@LaunchedEffect
                 }
+                chatRouteObservation("entry busy=" + formNavigation.transitioning +
+                    " saver=" + (formNavigation.saveCurrent?.javaClass?.name ?: "none") +
+                    " guarded=" + (formNavigation.guardedCurrent != null))
                 val opened = formNavigation.navigate {
                     val permitted = withContext(Dispatchers.IO) { chatReference.canOpen(context) }
                     currentCoroutineContext().ensureActive()
