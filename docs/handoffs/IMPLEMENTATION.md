@@ -65,8 +65,14 @@ Local private/group/reply tracer builds PASS2m40s/2m5s/2m3s. No owned local buil
 
 Final full Android10 run39027471407 and Android17 run39027473052 execute exact
 91d8fefecc71d0f71b1aa74f43b866d43b0d1c51, both public_feed_read=true. Outcomes pending.
-Whole-child final evidence reviews and signed preview follow. Do not reserve26
-before acceptance. Whole review base remains06e4ef27.
+Whole integrated reviews through e8b337a30 are Standards0/Spec0; final SDK evidence
+review and publication follow. Native acceptance is ready, so26 was prepared
+while full runs execute, updating the earlier defer-reservation plan. Build17593
+wrapper0/GradlePASS4m5s; no owned build remains. Independent APK certificate,
+package26/0.1.26/min29/hash pass. Canonical signed-preview26-prepared, sourcee8b337a30,
+SHA256c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
+Artifact remains unpublished at .scratch/review-builds/26; publication awaits full
+SDK acceptance. Whole review base remains06e4ef27.
 Public beta25 unchanged. No real key, provider query, production writes or
 node/account changes. Preserve protected untracked group contract.
 
