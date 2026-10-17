@@ -23,7 +23,7 @@ Correctionb93bda92 collectsALLexactblockevidence beforeANYoptionalnames (inputbo
 65_536, actualArchivequerylimitsunchanged), sharesreason-matchedrecordGap and
 private deliverPending. Source0/0. Ownedlocal56817 endedPASS1m35s/gateway9/0/0/coreUPTODATE. No ownedbuild.
 [Retained GREEN](../evidence/ticket42/observer-green/README.md),9hashes/18sources.
-Finaldocs/evidencereview pending.
+Finaldocs/evidencereview at17ffe38b reportsStandards0/Spec0. Acceptedcursorcheckpoint ready to push.
 Pinnedcursorfixtureblocksnon-social: chain-triggeredsocialeventnotprovenyet.
 Next REALsourcework: reorg/ancestryrecovery, unavailablegapcoverage andcontinuous
 standaloneruntime/cleanup; finalchain-socialproofstillneeded. Do not close42/32.

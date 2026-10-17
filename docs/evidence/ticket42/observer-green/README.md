@@ -18,4 +18,4 @@ Whole-block exact-before-optional proof isolation and gap reason/timestamp guard
 are source-reviewed, not separately exercised at their limits. Unsupported ancestry
 currently records a gap and stops; reorg recovery, full gap retention/cleanup and
 continuous standalone processing remain open. No actual Google/public-chain or
-whole42/32 acceptance. Final evidence review pending.
+whole42/32 acceptance. Final evidence reviews at17ffe38b report Standards0/Spec0.
