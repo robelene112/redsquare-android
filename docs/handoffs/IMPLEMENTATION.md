@@ -29,9 +29,18 @@ Minimum correction shares the chain peer with Archive for the same endpoint.
 Standalone readers and the existing distinct-loopback fixture keep their public
 contracts. Closing either shared reader cancels the pass session. Focused local
 GREEN1m13s passes the same complete journey on both logical backend bindings.
-Three hashed raw/source records in ticket45/routing-green. No actual Google or
-deployed-node acceptance. Next: complete core/gateway/build checks and both
-reviews. No owned local build.
+Three hashed raw/source records in ticket45/routing-green. Source review7f7cefb86
+Spec0/Standards1: valid trailing-slash aliases still opened two same-endpoint peers.
+Strengthened alias RED1FAIL/4.711s reaches delivery but the final external socket
+count expects1/observes2. No actual reply-loss claim from this alias run. Three
+hashed records in alias-red. Minimum compares origins after removing their single
+accepted trailing slash; all endpoint validation/deadlines remain.
+Source CI39054176895 at7f7cefb86 SUCCESS(core/gateway/release/lint). The redundant
+local broad run was explicitly stopped143 during lint after the review finding,
+not accepted as a full run. Corrected final core/gateway/installDist is running.
+Both corrected source reviews/final evidence remain pending. No actual Google or
+deployed-node acceptance. Owned local build42701 is active; no source edits until
+it completes.
 
 ## Accepted native Chat alert presentation (#44)
 

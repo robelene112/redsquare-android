@@ -98,7 +98,8 @@ class GatewaySessionDeliveryTest {
                                 "${sha("owned-session-fid")}\n${owner.publicKey}\n${backend.id}\nreplies\n$expiry\n$revocation"
                             request("/v1/subscriptions/bind", binding, owner.sign(intent.toByteArray()))
                             GatewayObserver(gateway, identity, backend, sender, intervalMillis = 60_000,
-                                localChainOrigin = peer.origin, localArchiveOrigin = peer.origin).use { observer ->
+                                localChainOrigin = peer.origin,
+                                localArchiveOrigin = peer.origin + if (backend == SaitoBackend.OFFICIAL) "/" else "").use { observer ->
                                 observer.start()
                                 val sent = fcm.takeRequest(5, TimeUnit.SECONDS)
                                 peer.check()
@@ -111,6 +112,7 @@ class GatewaySessionDeliveryTest {
                                 assertEquals("1", message.getAsJsonObject("data").get("version").asString)
                                 assertTrue(message.getAsJsonObject("data").get("wake").asString.matches(Regex("[0-9a-f]{64}")))
                                 assertEquals(0, peer.misrouted.get())
+                                assertEquals("One selected endpoint must have one authenticated observer session", 1, peer.connections.get())
                                 assertEquals(1, fcm.requestCount)
                             }
                         }
