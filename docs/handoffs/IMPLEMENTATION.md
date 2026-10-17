@@ -1,8 +1,9 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#42 is CLOSED with complete server-code acceptance. #17 is the sole app work,
-review base`c0f2da7e3de00b15c1953db26416f90ed427899b`. #32 staysopen for configured
+#42 is CLOSED with complete server-code acceptance. #16 is the sole app work,
+review base`0e577ab066e9849647dfd53c3766b96c5cb7af7b`. #17 remains open at its
+frozen sourcec9b114a8 recovery checkpoint; actual playback is unresolved. #32 staysopen for configured
 Google/device acceptance; its native dependency42 is now closed. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
@@ -53,11 +54,27 @@ No active owned build/CI. No provider sign-in/header/origin/proxy change, accoun
 request or node operation. No unchanged public retry. #17 actual playback stays
 open, beta24 unchanged. Final native-public evidence reviews at0a11559b are Standards0/Spec0. This
 source checkpoint is frozen; claim the next sequential source preparation.
-Next useful #16 work can build native Giphy UI/state/animated rendering and
-controlled interoperability without a live key. Its actual Android-authorized
-key/provider acceptance remains pending; do not repeat the existing question.
-Read `docs/research/GIPHY_SOURCE_PREPARATION_2026_10_17.md` (research only, not yet
-committed) and existing contract. No second ticket implementation has begun.
+## Current Giphy source preparation
+
+#16 is assigned @me/nativeblockers0, startcomment6229976608, sole writerroot.
+Review base0e577ab066e9849647dfd53c3766b96c5cb7af7b. Android-authorized Giphy key
+is still pending; no repeat question or backend web-key borrowing. Direct API
+with native Compose fits current app; no Giphy SDK initialized/added.
+Read research `docs/research/GIPHY_SOURCE_PREPARATION_2026_10_17.md` plus existing
+contracts. Research only, not implementation acceptance.
+
+First vertical tracer `GiphyPreviewTest.providerFailureCanRetryAndCloseWithoutLosingTheDraft`
+uses owned loopback HTTP503 twice and controlled Saito feed. It requires deliberate
+Add GIF, visible error/brand, Retry then Close, authored text and explicit saved
+draft restoration through normal UI, no Saito writes. No successful selection,
+animation, real provider or process-death claim yet. Initial production has no
+GIF button; expected RED is missing Add GIF, not yet observed. New focused
+`gifs`/`gifs-android17` scopes retain a180s class bound; full includes the same
+class. Existing gates unchanged. No production source changed in this tracer.
+Next: compile/review/run the tracer, implement the minimum failure-recovery path,
+then extend one journey into actual selection/animated uncached display and
+signed URL interoperability. Keep first-release scope and four-image cap.
+Beta24 unchanged. Protected untracked group doc remains untouched.
 
 ## Historical gateway checkpoint records
 

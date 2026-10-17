@@ -536,6 +536,21 @@ if [[ "${TEST_SCOPE:-full}" == author* ]]; then
     printf '%s\n' 'Focused author action check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_gifs() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.GiphyPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/giphy-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - giphy-evidence \
+        > "$evidence/giphy-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/giphy-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == gifs* ]]; then
+    verify_gifs
+    printf '%s\n' 'Focused controlled GIF UI only; live Giphy and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_images() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     local image_failed=0
@@ -690,7 +705,7 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_videos; verify_profiles; verify_usernames; fi
+if [[ "${TEST_SCOPE:-full}" == full ]]; then verify_browse; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \
