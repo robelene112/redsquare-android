@@ -115,7 +115,7 @@ including earliercompilefailure and actualfailedrecovery checkpoint.
 Whole production review through51f: Standards0, Spec2. Cached-expiry source finding
 now resolved indcb22e274: PrivateChatWakeRoute commits encrypted verified
 wallet/backend/wake→signature/counterparty/expiry BEFORE background history;
-1000pending/7dayeligibility, expiredhistorypending completion before route cleanup,
+1000pending associations/7day worker and association eligibility; ordinary Chat age semantics unchanged. Expired associated historypending completion precedes route cleanup,
 unreadable records preserved. Resume precedes network and checks associated scope
 before signing any replacement-wallet request; current consent/verification/
 decryption/policy/age still apply. Exact cached original query added. Route removed
@@ -129,10 +129,9 @@ Blocked-pending actualRED39067365128 at7c9381c0e:10run1FAIL83.178s, old9PASS,
 postunblock notification returns. Processharness not reached after classfailure.
 Packet native-blocked-red retains8hashedrecords. Minimum3059423af clears existing
 pending eligibility and removes wake association before blockedSUPPRESSED; history
-and newblockednonretention unchanged, storagefailuresRETRY. Spec source0 afterfix;
-fresh exact runtime39067742356 pending. Both bounded fixture reviews0.
-Actual background preview/exacttap/currentpolicy/identity and applicable gateway
-persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
+and newblockednonretention unchanged, storagefailuresRETRY. Both bounded source reviews0 afterfix; wholeproduction review through3059423af also Standards0/Spec0.
+fresh exact runtime39067742356 SUCCESS10cases85.954s plus process7423→7637→7825/SAMEUUID recovery, actualdismissal/quietduplicate/history/identity/protectedrestore. Packet native-blocked-green retains16hashedrecords. Both bounded fixture reviews0.
+Combined actual background currentbackend/currentwallet/preview/exacttap fixture881d618bb now runs39068320120; boundedreviews requested. Applicable gateway persistence/reconnect remain. Final full10/17, core/gateway/release/lint, both final
 source/evidence reviews and signed28 remain before native46 completion. Public
 beta27 unchanged; controlled injection never establishes Google closed-app delivery.
 

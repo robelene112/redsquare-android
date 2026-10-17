@@ -1,0 +1,7 @@
+# Blocked pending private receipt remains silent after unblocking
+
+Actual Android10 run39067742356 at3059423af succeeds10cases85.954s, including the unchanged actual blocked-pending RED tracer. History remains readable while alert bookkeeping is obstructed. The real wake completes silently while blocked, and another real wake after unblocking remains continuously silent. Exact retained text/count, active wallet/backend, recipient-proof requests and Activity absence pass. The original nine journeys also pass.
+
+The process harness additionally passes actual7423→7637→7825 continuity with SAME persisted UUID8784e7e8-d660-4216-9bba-e3bd51f00e7b, cached recovery without gateway requests (expiredRequests0), physical generic-card dismissal, another cold process/quiet duplicate, exact older/new history/contact/identity and protected restoration. Recovery is host-initiated, not autonomous or Google delivery.
+
+Sixteen hashed records retain raw class/exit/run, process interruptions/checkpoints/verification/restoration/continuity, blocked journey PNG/XML captures and exact source hashes. Launcher images alone do not prove silence or history; assertions do. Both bounded source reviews and the whole-child production review through3059423af return Standards0/Spec0. Seven days bounds worker processing and wake associations, not ordinary Chat age semantics. The next fixture881d618bb verifies the combined current-identity/preview/exact-tap journey. Gateway lifecycle proof, final full Android10/17 and signed publication remain required. Public beta27 is unchanged.
