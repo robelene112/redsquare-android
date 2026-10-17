@@ -28,7 +28,7 @@ Spec0/Standards1: closure wronglypermanentlyrejectsvalidpendingwake. Current
 source7394d9f8 makesclosed sender Retry10s; actualexpiry remains410.
 Owned97230 endedPASS1m52s/gateway10/0/0/new7.498s/coreUPTODATE/installDist.
 [GREEN](../evidence/ticket42/runtime-green/README.md),10hashes/23sources; no ownedbuild.
-SourceSpec0/Standards0, one staleatomic-docsentence nowfixed; final reviews pending.
+SourceSpec0/Standards0, one staleatomic-docsentence nowfixed; final reviews atb370a781 Standards0/Spec0.
 Periodiccleanup/limits/CLI/shutdowninterleavings source-reviewed, not separately
 executedfaultcases. No actualADC/Google/production/Androidchange. Protectedgroupdocuntouched.
 NextafterruntimeGREEN: missing parent/history/unknownancestor recovery and whole42
