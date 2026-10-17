@@ -40,6 +40,9 @@ class ChatGiphyPreviewTest {
     @Test fun anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent() =
         exercise(GifFlow.QUEUED_CANCEL, backend = SaitoBackend.OFFICIAL)
 
+    @Test fun anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent() =
+        exercise(GifFlow.QUEUED_CANCEL, group = true, backend = SaitoBackend.OFFICIAL)
+
     private fun exercise(flow: GifFlow, group: Boolean = false, backend: SaitoBackend = SaitoBackend.OWNER) {
         val selection = flow != GifFlow.FAILURE
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -170,26 +173,43 @@ class ChatGiphyPreviewTest {
                                         check(paths.contains(gifPath))
                                         credits("$prefix-fresh-credits")
                                         if (flow == GifFlow.QUEUED_CANCEL) {
-                                            check(!group) // This tracer covers private queue recovery first.
-                                            val work = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, backend, contact)
+                                            fun queuedOriginal(): SaitoTransaction = if (group) {
+                                                val queued = requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).load(groupId))
+                                                check(queued.gifAttribution?.creator == "Owned Chat artist")
+                                                requireNotNull(queued.queuedMessage).candidate.also {
+                                                    check(GroupChat.readMessage(queued.group, it.envelope()).text == expected)
+                                                }
+                                            } else {
+                                                val queued = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, backend, contact).load()
+                                                check(queued.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
+                                                check(queued.gifAttribution?.creator == "Owned Chat artist")
+                                                requireNotNull(queued.transaction).also {
+                                                    check(PrivateChat.read(wallet, it.envelope(), contact).text == expected)
+                                                }
+                                            }
                                             peer.rejectNewConnections = true; peer.disconnectAuthenticatedSockets()
                                             ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
                                             ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                             ui.waitUntil(20_000) { displayed(hasText("Queued")) }
-                                            val queued = work.load()
-                                            val original = requireNotNull(queued.transaction)
-                                            check(queued.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
-                                            check(queued.gifAttribution?.creator == "Owned Chat artist")
-                                            check(PrivateChat.read(wallet, original.envelope(), contact).text == expected)
+                                            val original = queuedOriginal()
                                             assertAnimation(); credits("$prefix-queued-credits")
                                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                             fresh.recreate(); open(queued = true)
-                                            check(work.load().transaction?.envelope() == original.envelope())
+                                            check(queuedOriginal().envelope() == original.envelope())
                                             val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
                                             ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
                                             assertDraft(); assertAnimation(); credits("$prefix-restored-after-cancel")
-                                            check(work.load().let { it.transaction == null && it.draft == expected &&
-                                                it.gifAttribution?.creator == "Owned Chat artist" })
+                                            if (group) {
+                                                check(requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).load(groupId)).let {
+                                                    it.queuedMessage == null && it.draft == expected &&
+                                                        it.gifAttribution?.creator == "Owned Chat artist" &&
+                                                        it.messages.none { message -> message.text == expected }
+                                                })
+                                            } else {
+                                                check(nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, backend, contact).load().let {
+                                                    it.transaction == null && it.draft == expected && it.gifAttribution?.creator == "Owned Chat artist"
+                                                })
+                                            }
                                             peer.rejectNewConnections = false
                                             fresh.recreate(); open(); assertDraft(); assertAnimation()
                                             credits("$prefix-online-unsent")

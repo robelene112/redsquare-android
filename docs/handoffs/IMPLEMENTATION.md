@@ -11,6 +11,15 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Active native Chat GIF slice (#43)
 
+Latest: exact7d8c3ac31 Android17 run39025987948 SUCCESS4/0/81.897s.
+OFFICIAL private GIF selection/offline queue/reopen/cancel/reconnect silence/
+explicit Send passes. Root viewed7PNGs/parsed7XML; independent actual-envelope
+and pinned A/B web rendering checks pass in
+`docs/evidence/ticket43/official-private-queue-green/android17`.
+Next sole tracer extends this journey to OFFICIAL group queue recovery.
+Local private tracer66616 PASS2m40s; group tracer build currently running.
+No APK26, live key or node change. Whole-child review base remains06e4ef27.
+
 Owner renewed continue-all authorization after beta25. Sole implementation is
 now #43, a bounded child of #31, review base06e4ef27f55042f59bb79f3db9a97ebafeff4f78.
 The already reviewed/tested native16 provider and animation paths satisfy its
