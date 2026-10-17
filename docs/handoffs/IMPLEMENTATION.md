@@ -62,10 +62,17 @@ unexecuted. Root viewed failurePNG/parsedXML; five original hashes in
 Current minimum adds group picker with same draft-before-dismissal behavior,
 optional encrypted group credits across prepare/cancel/retry, shared reply/GIF
 composition and sent credit commit before transmission. Group UI keeps explicit
-unencrypted label and membership/selection guards. Local90956 build is running.
+unencrypted label and membership/selection guards. Local90956 build PASS4m36s (core UP-TO-DATE); bounded reviews Standards0/Spec0.
 Group reference helper now supports expected exact GIF messages; its existing
-native-photo constructor output is independently JSON-identical. No group GIF
-native/interoperability success claimed yet.
+native-photo constructor output is independently JSON-identical. Exact15dbae02 group native39025226571 SUCCESS3/0/60.283s, both private cases
+still pass. Root viewed4groupPNGs/parsed4XML;19 hashes in
+ ticket43/group-green/android17. Actual group envelope independently matches
+both pinned Saito constructors/WASM signature; A/B sanitize and offline browser
+exactURL/caption/ownedGIF16x16 decode pass. Source navigation, actual process
+death/live group/provider acceptance unclaimed. Next one-tracer case exercises
+OFFICIAL private selection, offline queue, same original after recreation,
+cancel restoring exact draft/credits, reconnect silence, then explicit single
+send. Existing three cases remain. Local tracer build66616 is running.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 

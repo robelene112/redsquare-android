@@ -29,13 +29,19 @@ class ChatGiphyPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun privateGifFailureCanRetryAndCancelWithoutLosingTheDraft() = exercise(selection = false)
+    private enum class GifFlow { FAILURE, SEND, QUEUED_CANCEL }
 
-    @Test fun aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(selection = true)
+    @Test fun privateGifFailureCanRetryAndCancelWithoutLosingTheDraft() = exercise(GifFlow.FAILURE)
 
-    @Test fun aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(selection = true, group = true)
+    @Test fun aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(GifFlow.SEND)
 
-    private fun exercise(selection: Boolean, group: Boolean = false) {
+    @Test fun aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend() = exercise(GifFlow.SEND, group = true)
+
+    @Test fun anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent() =
+        exercise(GifFlow.QUEUED_CANCEL, backend = SaitoBackend.OFFICIAL)
+
+    private fun exercise(flow: GifFlow, group: Boolean = false, backend: SaitoBackend = SaitoBackend.OWNER) {
+        val selection = flow != GifFlow.FAILURE
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val reference = instrumentation.context.assets.open("native-${if (group) "group" else "private"}-chat-image-reference.json").bufferedReader()
@@ -53,7 +59,7 @@ class ChatGiphyPreviewTest {
             "personal.${wallet.publicKey}."
         val retained = ChatFixtureState(context, prefixes + "giphycredits.${wallet.publicKey}.", wallet.publicKey)
         val kind = if (group) "group" else "private"
-        val prefix = if (selection) "$kind-selection" else kind
+        val prefix = "$kind-${backend.id}-${flow.name.lowercase()}"
         val reads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { criteria ->
             if (criteria.get("field3")?.asString == reference.get("groupId").asString) reads.incrementAndGet()
@@ -62,11 +68,11 @@ class ChatGiphyPreviewTest {
         val draft = "Keep my Chat draft 😀 <&> \"quoted\"\nA second line"
         var primary: Throwable? = null
         try {
-            retained.prepare(); wallets.replace(original, wallet); backends.save(SaitoBackend.OWNER)
+            retained.prepare(); wallets.replace(original, wallet); backends.save(backend)
             if (group) {
                 val admin = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture.
                 val creation = GroupChat.create(admin, groupId, groupName, listOf(wallet.publicKey), 1700000123400)
-                nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(creation.envelope())
+                nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).receive(creation.envelope())
             }
             MockWebServer().use { provider ->
                 val paths = java.util.concurrent.ConcurrentLinkedQueue<String>()
@@ -103,7 +109,7 @@ class ChatGiphyPreviewTest {
                         .putExtra("giphyChatFixtureUrl", "http://127.0.0.1:${provider.port}")
                     ActivityScenario.launch<MainActivity>(launchIntent).use { scenario ->
                         withFailureCapture({ capture("$prefix-failure") }) {
-                            fun open() {
+                            fun open(queued: Boolean = false) {
                                 val chat = hasText("Chat") and hasClickAction() and isEnabled()
                                 ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
                                 if (!displayed(hasText("Groups"))) ui.onNode(chat).performClick()
@@ -116,12 +122,16 @@ class ChatGiphyPreviewTest {
                                 ui.waitUntil(20_000) { displayed(row, unmerged = true) }
                                 val before = reads.get()
                                 ui.onNode(row, useUnmergedTree = true).performClick()
-                                ui.waitUntil(20_000) { displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
+                                ui.waitUntil(20_000) { if (queued) displayed(hasText("Queued"))
+                                    else displayed(hasSetTextAction() and isEnabled()) && reads.get() > before }
                             }
-                            fun assertDraft() = ui.onNode(hasSetTextAction() and isEnabled()).assert(
-                                SemanticsMatcher("Exact authored Chat text") {
+                            fun assertDraft() {
+                                val target = hasSetTextAction() and isEnabled() and SemanticsMatcher("Exact authored Chat text") {
                                     it.config.getOrNull(SemanticsProperties.EditableText)?.text == draft
-                                })
+                                }
+                                ui.waitUntil(20_000) { displayed(target) }
+                                ui.onNode(target).assertIsDisplayed()
+                            }
                             open()
                             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                             androidx.test.espresso.Espresso.closeSoftKeyboard()
@@ -149,23 +159,51 @@ class ChatGiphyPreviewTest {
                                 val expected = "<img class=\"img-prev\" src=\"${source.replace("&", "&amp;")}\">\n" +
                                     "<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>"
                                 val savedDraft = if (group) nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet,
-                                    SaitoBackend.OWNER).load(groupId)?.draft else nl.davidengelen.redsquare.chat.ChatWorkStore(
-                                    context, wallet, SaitoBackend.OWNER, contact).load().draft
+                                    backend).load(groupId)?.draft else nl.davidengelen.redsquare.chat.ChatWorkStore(
+                                    context, wallet, backend, contact).load().draft
                                 check(savedDraft == expected)
                                 check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                 scenario.close()
-                                ActivityScenario.launch<MainActivity>(launchIntent).use {
+                                ActivityScenario.launch<MainActivity>(launchIntent).use { fresh ->
                                     withFailureCapture({ capture("$prefix-fresh-failure") }) {
                                         paths.clear(); open(); assertDraft(); assertAnimation()
                                         check(paths.contains(gifPath))
                                         credits("$prefix-fresh-credits")
+                                        if (flow == GifFlow.QUEUED_CANCEL) {
+                                            check(!group) // This tracer covers private queue recovery first.
+                                            val work = nl.davidengelen.redsquare.chat.ChatWorkStore(context, wallet, backend, contact)
+                                            peer.rejectNewConnections = true; peer.disconnectAuthenticatedSockets()
+                                            ui.waitUntil(20_000) { peer.authenticatedConnectionIds.isEmpty() }
+                                            ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
+                                            ui.waitUntil(20_000) { displayed(hasText("Queued")) }
+                                            val queued = work.load()
+                                            val original = requireNotNull(queued.transaction)
+                                            check(queued.status == nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED)
+                                            check(queued.gifAttribution?.creator == "Owned Chat artist")
+                                            check(PrivateChat.read(wallet, original.envelope(), contact).text == expected)
+                                            assertAnimation(); credits("$prefix-queued-credits")
+                                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                                            fresh.recreate(); open(queued = true)
+                                            check(work.load().transaction?.envelope() == original.envelope())
+                                            val cancel = hasText("Cancel queued message") and hasClickAction() and isEnabled()
+                                            ui.waitUntil(20_000) { displayed(cancel) }; ui.onNode(cancel).performClick()
+                                            assertDraft(); assertAnimation(); credits("$prefix-restored-after-cancel")
+                                            check(work.load().let { it.transaction == null && it.draft == expected &&
+                                                it.gifAttribution?.creator == "Owned Chat artist" })
+                                            peer.rejectNewConnections = false
+                                            fresh.recreate(); open(); assertDraft(); assertAnimation()
+                                            credits("$prefix-online-unsent")
+                                            val quietUntil = android.os.SystemClock.elapsedRealtime() + 2_000
+                                            ui.waitUntil(3_000) { android.os.SystemClock.elapsedRealtime() >= quietUntil }
+                                            check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
+                                        }
                                         ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).performClick()
                                         ui.waitUntil(20_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                                         val sent = postingTransaction(peer.transactions.single())
                                         check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single()) == sent.envelope())
                                         check(peer.relayRecipients.single() == listOf(wallet.publicKey, contact))
                                         if (group) {
-                                            val current = requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, SaitoBackend.OWNER).load(groupId))
+                                            val current = requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context, wallet, backend).load(groupId))
                                             val delivered = GroupChat.readMessage(current.group, sent.envelope())
                                             check(delivered.author == wallet.publicKey && delivered.text == expected)
                                         } else {
@@ -181,10 +219,10 @@ class ChatGiphyPreviewTest {
                                             displayed(caption)
                                         }
                                         credits("$prefix-sent-credits")
-                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-gif-envelope.json").writeText(sent.envelope())
-                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-gif-source.txt").writeText(source + "\n")
+                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-${backend.id}-gif-envelope.json").writeText(sent.envelope())
+                                        File(context.cacheDir, "chat-giphy-evidence/native-$kind-${backend.id}-gif-source.txt").writeText(source + "\n")
                                         peer.assertHealthy()
-                                        check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                                        check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == backend)
                                         check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
                                         check(peer.transactions.size == 1 && peer.relayedMessages.size == 1 && peer.reports.isEmpty())
                                     }
@@ -209,7 +247,7 @@ class ChatGiphyPreviewTest {
                             scenario.recreate(); open(); assertDraft()
                             assertEquals(2, provider.requestCount)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
-                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
+                            check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == backend)
                             check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
                             peer.assertHealthy(); capture("private-draft-restored")
                         }

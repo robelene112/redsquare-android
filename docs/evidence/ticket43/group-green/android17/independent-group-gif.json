@@ -1,0 +1,45 @@
+{
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  },
+  "scope": "Actual named-group plaintext constructor with zero-payment wallet boundary; not live admission or encrypted private Chat.",
+  "nativeEnvelopeSha256": "55fae907964a5fdab112a54c22bad5181f6e6721456f765dfe8d936d969206ef",
+  "independentWasmSignatureMatches": true,
+  "actualPinnedConstructorsMatchNativeEnvelope": true,
+  "nativeGif": {
+    "message": "<img class=\"img-prev\" src=\"http://127.0.0.1:60663/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+    "caption": "Keep my Chat draft 😀 <&> \"quoted\"\nA second line",
+    "source": "http://127.0.0.1:60663/media/giphy.gif?token=owned%2Bonly&keep=1"
+  },
+  "exactOriginalGifUrl": true,
+  "vectors": [
+    {
+      "pin": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "sourceSha256": "35e372b7d9da0ddfd6286a93059c00a3e34eb494b62350db88a9380c4814b1af",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "name": "Compatible GIF group",
+      "text": "<img class=\"img-prev\" src=\"http://127.0.0.1:60663/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "mentioned": [],
+      "timestamp": 1792233502415,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAHcFu2b3eusgIYoguSPBbKgSE3ovHwupTh3yKrOgrTwuUWXzYdouoK1h3pdk5o7H4u8Rw9Y9RzEVuAMJUH1MMZYAAAGhSXD2zwAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgbWVzc2FnZSIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZXNzYWdlIjoiPGltZyBjbGFzcz1cImltZy1wcmV2XCIgc3JjPVwiaHR0cDovLzEyNy4wLjAuMTo2MDY2My9tZWRpYS9naXBoeS5naWY/dG9rZW49b3duZWQlMkJvbmx5JmFtcDtrZWVwPTFcIj5cbjxkaXY+S2VlcCBteSBDaGF0IGRyYWZ0IPCfmIAgJmx0OyZhbXA7Jmd0OyAmcXVvdDtxdW90ZWQmcXVvdDtcbkEgc2Vjb25kIGxpbmU8L2Rpdj4iLCJ0aW1lc3RhbXAiOjE3OTIyMzM1MDI0MTUsIm1lbnRpb25lZCI6W10sImdyb3VwX25hbWUiOiJDb21wYXRpYmxlIEdJRiBncm91cCJ9\",\"opt\":\"e30=\"}",
+      "signature": "7705bb66f77aeb20218a20b923c16ca812137a2f1f0ba94e1df22ab3a0ad3c2e5165f361da2ea0ad61de9764e68ec7e2ef11c3d63d473115b80309507d4c3196"
+    },
+    {
+      "pin": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "sourceSha256": "28a8609343e75dec7982498c0bafd7aa99be0a499156f43c5a543435426209eb",
+      "groupId": "tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx",
+      "author": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+      "name": "Compatible GIF group",
+      "text": "<img class=\"img-prev\" src=\"http://127.0.0.1:60663/media/giphy.gif?token=owned%2Bonly&amp;keep=1\">\n<div>Keep my Chat draft 😀 &lt;&amp;&gt; &quot;quoted&quot;\nA second line</div>",
+      "mentioned": [],
+      "timestamp": 1792233502415,
+      "envelope": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAHcFu2b3eusgIYoguSPBbKgSE3ovHwupTh3yKrOgrTwuUWXzYdouoK1h3pdk5o7H4u8Rw9Y9RzEVuAMJUH1MMZYAAAGhSXD2zwAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL5MIoBkljDEEk0T4X4nVIptTHIRYNvmbCGAfETvOA2+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJDaGF0IiwicmVxdWVzdCI6ImNoYXQgbWVzc2FnZSIsImdyb3VwX2lkIjoidEVOQm9RdHR6eUthQ1c2ZDYxdFFqY2VhVkEzR3NaMldyQkxuZ3JZSGNYRXgiLCJtZXNzYWdlIjoiPGltZyBjbGFzcz1cImltZy1wcmV2XCIgc3JjPVwiaHR0cDovLzEyNy4wLjAuMTo2MDY2My9tZWRpYS9naXBoeS5naWY/dG9rZW49b3duZWQlMkJvbmx5JmFtcDtrZWVwPTFcIj5cbjxkaXY+S2VlcCBteSBDaGF0IGRyYWZ0IPCfmIAgJmx0OyZhbXA7Jmd0OyAmcXVvdDtxdW90ZWQmcXVvdDtcbkEgc2Vjb25kIGxpbmU8L2Rpdj4iLCJ0aW1lc3RhbXAiOjE3OTIyMzM1MDI0MTUsIm1lbnRpb25lZCI6W10sImdyb3VwX25hbWUiOiJDb21wYXRpYmxlIEdJRiBncm91cCJ9\",\"opt\":\"e30=\"}",
+      "signature": "7705bb66f77aeb20218a20b923c16ca812137a2f1f0ba94e1df22ab3a0ad3c2e5165f361da2ea0ad61de9764e68ec7e2ef11c3d63d473115b80309507d4c3196"
+    }
+  ],
+  "delayedVectors": []
+}
