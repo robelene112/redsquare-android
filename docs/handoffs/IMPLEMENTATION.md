@@ -71,7 +71,10 @@ Standards2/Spec1 fixture issues. Correcteda71e70f5 preserves primary startup err
 forces bounded cleanup after failure and observes child alive before forced stop.
 Reviews now Standards0/Spec0. Corrected build PASS33s, gateway3/0/0, coreUPTODATE114,
 installDistUPTODATE; exec29335 ended. No owned local build. [Retained GREEN](../evidence/ticket42/process-green/README.md),
-sixhashes/ninesourcehashes. Final evidence review pending. No deployment.
+sixhashes/ninesourcehashes. Final evidence reviews atc71038b3 report Standards0/Spec0. No deployment.
+Next tracer is a portable client against the real owned HTTP gateway: dropped
+bind acknowledgement, reconstructed journal, replacement wallet and keyless
+retirement/opt-out. It is not Android Keystore or actual Firebase proof.
 
 No Android gateway binding, resolver, observer,
 FCM sender, physical retention cleanup or whole#42 acceptance yet. Existing owner

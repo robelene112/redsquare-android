@@ -8,7 +8,7 @@ primary/suppressed errors, attempts bounded forced cleanup on interruption and
 asserts the child is alive immediately before destroyForcibly. Corrected source
 reviews report Standards0/Spec0. Corrected build PASS33s, gateway3/0/0 including
 all earlier HTTP journeys; core up-to-date114/0/0; installDist up-to-date after
-its actual successful initial build. Final evidence reviews are pending.
+its actual successful initial build. Final evidence reviews atc71038b3 report Standards0/Spec0.
 
 The new journey starts the standalone command in an owned JVM with an ephemeral
 loopback port, obtains a signed subscription acknowledgement, observes the child
