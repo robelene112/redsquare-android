@@ -55,8 +55,17 @@ and offline Chromium exactURL/caption/ownedGIF16x16 decode pass. No live-client
 claim. Initial cross-origin canvas observer failure retained; corrected GIF
 observer uses only DOM/decode, no origin change. Legacy photo compatibility
 matches; historical scope-only JSON comparison difference explicitly recorded.
-Canonical ticket43/private-green/android17. Next group tracer adds same selection
-journey; missing group Add GIF is expected, not observed yet. Build86825 active.
+Canonical ticket43/private-green/android17. Group tracer atfe8893b1 in39024586467 FAILED3cases/2pass/1failure/47.604s:
+missing enabled Add GIF at130 after signed group open/exact caption. Group tails
+unexecuted. Root viewed failurePNG/parsedXML; five original hashes in
+ ticket43/group-red/android17. Build86825 PASS2m20s; both pre-dispatch reviews0/0.
+Current minimum adds group picker with same draft-before-dismissal behavior,
+optional encrypted group credits across prepare/cancel/retry, shared reply/GIF
+composition and sent credit commit before transmission. Group UI keeps explicit
+unencrypted label and membership/selection guards. Local90956 build is running.
+Group reference helper now supports expected exact GIF messages; its existing
+native-photo constructor output is independently JSON-identical. No group GIF
+native/interoperability success claimed yet.
 No real key, live provider query, production write or node/account change.
 Preserve protected untracked group contract. Keep one ticket in implementation.
 

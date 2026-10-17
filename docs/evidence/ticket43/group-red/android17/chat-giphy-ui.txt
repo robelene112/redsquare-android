@@ -1,0 +1,84 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatGiphyPreviewTest:
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$29$lambda$28$lambda$27$lambda$26(ChatGiphyPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$hEQeu_LNFqFr5TkOBNcCKqR5o8c(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend(ChatGiphyPreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend(nl.davidengelen.redsquare.ChatGiphyPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$29$lambda$28$lambda$27$lambda$26(ChatGiphyPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$hEQeu_LNFqFr5TkOBNcCKqR5o8c(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend(ChatGiphyPreviewTest.kt:36)
+
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 47.604
+There was 1 failure:
+1) aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend(nl.davidengelen.redsquare.ChatGiphyPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$29$lambda$28$lambda$27$lambda$26(ChatGiphyPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$hEQeu_LNFqFr5TkOBNcCKqR5o8c(ChatGiphyPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend(ChatGiphyPreviewTest.kt:36)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

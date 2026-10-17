@@ -200,11 +200,9 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 writes.withLock {
                                     if (!ready || sending || saved.frozen || !permitted || navigation.transitioning) false
                                     else {
-                                        val currentReply = privateReply(text)
-                                        val currentBody = currentReply?.body ?: text
-                                        if (chatPhoto(currentBody) != null) false
+                                        val next = composeChatGif(text, item.originalUrl)
+                                        if (next == null) false
                                         else {
-                                            val next = (currentReply?.prefix ?: "") + composeChatPhoto(item.originalUrl, currentBody)
                                             withContext(NonCancellable) {
                                                 saved = withContext(Dispatchers.IO) { work.assertSelected(); work.saveDraft(next, item.attribution) }
                                                 changeText(next)

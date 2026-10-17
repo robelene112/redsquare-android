@@ -39,6 +39,7 @@ import nl.davidengelen.redsquare.registry.registeredIdentity
 @Composable
 internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, modifier: Modifier,
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, onBack: () -> Unit) {
+    val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -493,7 +494,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     val previewScroll=rememberScrollState()
                     val previewLabel=stringResource(R.string.chat_composition_preview)
                     Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                        Column((if(quote!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
+                        Column((if(quote!=null||photo!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
                             .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
                             if(quote!=null){
                                 Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
@@ -501,7 +502,25 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             }
                             ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
                                 beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
-                                onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)})
+                                onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)},
+                                gifAttribution=entry.gifAttribution,
+                                onSelectGif={item->
+                                    draftWrites.withLock {
+                                        if(!attachmentPermitted||selected!=entry.group.id||navigation.transitioning)false
+                                        else {
+                                            val next=composeChatGif(message,item.originalUrl)
+                                            if(next==null)false else {
+                                                withContext(NonCancellable){
+                                                    withContext(Dispatchers.IO){store.assertSelected()}
+                                                    publish{store.saveDraft(entry.group.id,next,item.attribution);store.entries()}
+                                                    changeMessage(next)
+                                                }
+                                                draftFailed=false
+                                                true
+                                            }
+                                        }
+                                    }
+                                })
                         }
                         Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
                             OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
@@ -511,7 +530,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 keyboard?.hide()
                                 act {
                                     val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
-                                    val candidate=withContext(Dispatchers.IO){GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)}
+                                    val candidate=withContext(Dispatchers.IO){
+                                        entry.gifAttribution?.let{credit->
+                                            val source=chatPhoto(privateMessageBody(message))?.source
+                                            if(source!=null&&chatPhoto(privateMessageBody(entry.draft))?.source==source)
+                                                requireNotNull(gifCredits).retain(mapOf(source to credit))
+                                        }
+                                        GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)
+                                    }
                                     draftWrites.withLock {
                                         withContext(NonCancellable){
                                             publish{store.prepareMessage(candidate,queued=true);store.entries()}

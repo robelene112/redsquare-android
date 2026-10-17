@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
+import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.saito.*
 
@@ -15,7 +16,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED, AVAILABLE }
     data class StoppedAction(val candidate:SaitoTransaction,val previousStatus:Status)
     data class QueuedMessage(val candidate:SaitoTransaction,val observedEvents:Int,val message:GroupChatMessage)
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null,val automaticMessage:Boolean=false) {
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null,val automaticMessage:Boolean=false,val gifAttribution:GiphyAttribution?=null) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=queuedMessage!=null||status==Status.UNKNOWN||status==Status.SUBMITTED
         val pendingMessage:SaitoTransaction? get()=queuedMessage?.candidate ?: candidate?.takeIf{automaticMessage&&hasPendingAction}
@@ -101,7 +102,8 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val automatic=record.get("automaticMessage")?.let{require(it.isJsonPrimitive&&it.asJsonPrimitive.isBoolean);it.asBoolean} ?: false
         if(automatic&&queued==null)require(candidate!=null&&SaitoEnvelope.decode(candidate.envelope()).body.get("request").asString=="chat message")
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
-            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped,queued,automatic)
+            creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped,queued,automatic,
+            record.get("gifAttribution")?.let(GiphyAttribution::fromJson))
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -213,10 +215,14 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,automaticMessage=false))
     }
 
-    fun saveDraft(id:String,text:String):Entry = synchronized(SaitoLocalState.lock) {
+    fun saveDraft(id:String,text:String,selectedGif:GiphyAttribution?=null):Entry = synchronized(SaitoLocalState.lock) {
         val previous=requireNotNull(load(id))
         check(!previous.hasPendingAction)
-        save(previous.copy(draft=text))
+        val source=chatPhoto(privateMessageBody(text))?.source
+        val credit=source?.let{selectedGif ?: previous.gifAttribution?.takeIf{
+            chatPhoto(privateMessageBody(previous.draft))?.source==source
+        }}
+        save(previous.copy(draft=text,gifAttribution=credit))
     }
 
     fun prepareMessage(candidate:SaitoTransaction,queued:Boolean=false):Entry = synchronized(SaitoLocalState.lock) {
@@ -227,9 +233,11 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         check(!previous.hasPendingAction && previous.group.memberRoles[wallet.publicKey]?.active==true)
         val message=GroupChat.readMessage(previous.group,candidate.envelope())
         require(message.author==wallet.publicKey)
-        if(queued)return@synchronized save(previous.copy(queuedMessage=QueuedMessage(candidate,previous.originals.size,message),draft="",automaticMessage=false))
+        val source=chatPhoto(privateMessageBody(message.text))?.source
+        val credit=previous.gifAttribution?.takeIf{source!=null && chatPhoto(privateMessageBody(previous.draft))?.source==source}
+        if(queued)return@synchronized save(previous.copy(queuedMessage=QueuedMessage(candidate,previous.originals.size,message),draft="",automaticMessage=false,gifAttribution=credit))
         val replay=GroupChat.replay(previous.group,previous.originals+candidate.envelope())
-        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,draft="",automaticMessage=false))
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,candidate=candidate,status=Status.UNKNOWN,draft="",automaticMessage=false,gifAttribution=credit))
     }
 
     /** Cancellation restores the exact text without admitting an unsent original to history. */
@@ -346,6 +354,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     }
 
     private fun save(entry: Entry): Entry {
+        require(entry.gifAttribution==null || GiphyAttribution.fromJson(entry.gifAttribution.toJson())==entry.gifAttribution)
         val record = JsonObject().apply {
             entry.group.creationEnvelope?.let{addProperty("creation",it)} ?: run {
                 addProperty("invitation",requireNotNull(entry.group.confirmedInvitation).encoded())
@@ -356,6 +365,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             addProperty("candidate",entry.candidate?.encoded())
             addProperty("status",entry.status.name)
             addProperty("draft",entry.draft)
+            entry.gifAttribution?.let{add("gifAttribution",it.toJson())}
             addProperty("automaticMessage",entry.automaticMessage)
             entry.queuedMessage?.let { queued -> add("queuedMessage",JsonObject().apply {
                 addProperty("candidate",queued.candidate.encoded());addProperty("observedEvents",queued.observedEvents)
@@ -371,7 +381,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         try {
             file(entry.group.id).save(EncryptedLocalFile.Contents(1,record.toString()))
             return requireNotNull(load(entry.group.id)).also { check(it.candidate?.id == entry.candidate?.id && it.status == entry.status &&
-                it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft &&
+                it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft && it.gifAttribution==entry.gifAttribution &&
                 it.queuedMessage?.candidate?.encoded()==entry.queuedMessage?.candidate?.encoded() &&
                 it.queuedMessage?.observedEvents==entry.queuedMessage?.observedEvents &&
                 it.automaticMessage==entry.automaticMessage &&

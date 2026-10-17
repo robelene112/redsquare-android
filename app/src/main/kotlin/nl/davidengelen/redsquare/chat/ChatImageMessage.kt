@@ -21,6 +21,14 @@ internal fun composeChatPhoto(source: String, text: String): String {
     return "<img class=\"img-prev\" src=\"${escapePhotoText(source)}\">" + if (text.isEmpty()) "" else "\n<div>${escapePhotoText(text)}</div>"
 }
 
+/** Preserve the existing reply prefix and caption; Chat accepts one attachment. */
+internal fun composeChatGif(message: String, source: String): String? {
+    val reply = privateReply(message)
+    val body = reply?.body ?: message
+    if (chatPhoto(body) != null) return null
+    return (reply?.prefix ?: "") + composeChatPhoto(source, body)
+}
+
 private fun escapePhotoText(text: String) = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     .replace("\"", "&quot;").replace("'", "&#39;")
 
