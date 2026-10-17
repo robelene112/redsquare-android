@@ -1,8 +1,10 @@
 # Current implementation handoff
 
 Updated2026-10-17. Owner authorizes continuing remaining issues sequentially.
-#32 is the sole implementation, review base
-`dd89bc9108eb002bb260eee709c656cd45348940`, dependency#24 closed.
+#42 is the sole implementation, review base
+`5a048524d8681781c1763f850cc3e0773b8e753c`. #32 depends natively on#42 and stays
+open. Its earlier overall review base was dd89bc9108eb002bb260eee709c656cd45348940;
+dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
 ## Latest owner scope
@@ -20,7 +22,18 @@ cannot switch that platform notice off or guarantee absence, and pointed to offi
 feedback guidance. A screenshot does not identify an exact rejected tool action.
 Do not invent one. Repository state was verified before ordinary app work resumed.
 
-## Current bounded work
+## Current gateway implementation
+
+#42 is assigned to the sole writer after accepted SDK preparation. Its native
+blocker count is0. First vertical slice: a public HTTP subscription bound by the
+local wallet signature, retained across a server-instance restart, then retired
+using installation revocation authority without the outgoing wallet secret. This
+uses the parent's controlled protocol/wallet boundary; no cloud/runtime success
+is inferred. Start with one intended failing HTTP journey, then implement only
+that slice and review. Local source/module only, no deployment/node/account/IAM
+operations. Existing owner Firebase setup question remains pending.
+
+## Accepted #32 foundation
 
 The accepted scheduled-receipt foundation uses real WorkManager,
 selected-Archive retry and an actual Android alert without an Activity.
@@ -196,7 +209,8 @@ No node/deployment/account mutation or new beta; signed beta24 unchanged.
 Required separate[gateway ticket#42](https://github.com/robelene112/redsquare-android/issues/42)
 is now published and linked as a #32 sub-issue. It is ready for the next sole implementation after this accepted SDK checkpoint.
 No parallel ticket writer. Source/local verification only;
-production deployment keeps its separately authorized boundary.
+production deployment keeps its separately authorized boundary. #42 is now the
+sole implementation after this checkpoint; the earlier ready status is historical.
 
 The full-harness omission is corrected at1037dc95: full now invokes existing
 social UI/work checks then both process helpers. Focused default behavior/app/core
