@@ -110,9 +110,15 @@ Current acceptance PENDING, all at16a0c1bc6636983b806c93c1ed4443dddae3bfc4:
 - Focused chat-actions17 run39048726834 SUCCESS10/0/78.258s, core114/0/0;
   dynamic-settings-green/android17 retains14hashrecords and four raw pairs.
   Namespace case uses both logical bindings on one owned peer. No new visual claim.
-- Full Android10 run39048729211, public_feed_read=true.
+- Full Android10 run39048729211 SUCCESS409PASS plus1existingProfileassumption,
+  96JUnitcompletions410reported/29intentionalinterruptions; core114/0/0, release/
+  lint, full device/recovery/publicfeed/Chatreadiness/signed5to8/finaldiagnostic PASS.
+  Full-regression/android10 retains245hashrecords,399fileinventory739XML873PNG.
+  Root viewed7Chat alert originals; work-retained preview contradicts identical
+  decoded composer pixels in positive private/refusal captures (helper retained).
 - Full Android17 run39048730979, public_feed_read=true.
-Retain actual results, then final evidence review and publication. The full-regression/source-equivalence matrix proves63 matching production/build
+Whole fixed2fff...04cda483e source/evidence bookend Standards0/Spec0.
+Retain remaining17 result, then final combined evidence review and publication. The full-regression/source-equivalence matrix proves63 matching production/build
 objects across7roles,12identical final fixture objects and18fixture-only changed
 files since the APK source. Prepared27 still has matching production/build objects.
 

@@ -1,0 +1,22 @@
+{
+  "phase": "pending",
+  "pid": 7921,
+  "port": 39637,
+  "owner": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+  "backend": "owner",
+  "payload": "{\"version\":1,\"wallet\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\",\"backend\":\"owner\",\"signature\":\"ec274d8c197f5cbafe5c19ffc8355a5c64be0534bdf08bbed3f2eb0c1dcb6d746265a338ce6c3d9515584e6e26144fcb1628880d4b4bcd228b5309ca3d140873\"}",
+  "tag": "social:jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR:owner:ec274d8c197f5cbafe5c19ffc8355a5c64be0534bdf08bbed3f2eb0c1dcb6d746265a338ce6c3d9515584e6e26144fcb1628880d4b4bcd228b5309ca3d140873",
+  "originalBackend": "owner",
+  "originalWalletDigest": "cf108f0f2d5727b64a0ac90e02c66cd081f44f11ce0667a4e728764ca9865f15",
+  "walletDigest": "caa9906ffc70a84a37ac5eeee11dcb6d54455a6f5ed24a3141c12318bfafe43c",
+  "reply": {
+    "sig": "ec274d8c197f5cbafe5c19ffc8355a5c64be0534bdf08bbed3f2eb0c1dcb6d746265a338ce6c3d9515584e6e26144fcb1628880d4b4bcd228b5309ca3d140873",
+    "created_at": 1792254210356,
+    "tx": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAOwnTYwZf1y6/lwZ/8g1WlxkvgU0vfCLvtPy6wwdy210YmWjOM5sPZUVWE5uJhRPyxYoiA1LS80ii1MJyj0UCHMAAAGhSqzxNAAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiU2NoZWR1bGVkIHByb2Nlc3MgcmVjb3ZlcnkgcmVmZXJlbmNlIiwicGFyZW50X2lkIjoiYzg3ZjNjYTQwMjg0MGNkN2FkZDA5NWRiZjFmZGE4MDlmMzRkOWNkM2Y3ZGFlOWFmMDIyZTJhMGYyYTYzMWYzNzZiZWI1NGRhYmU4ODZhNWE3M2IwMmFiZTc5YWZlNTE2NTJlZmE1NzgyNmNjZDI1OTEwMDFkNzNmOTA1NDRmZDkiLCJ0aHJlYWRfaWQiOiJjODdmM2NhNDAyODQwY2Q3YWRkMDk1ZGJmMWZkYTgwOWYzNGQ5Y2QzZjdkYWU5YWYwMjJlMmEwZjJhNjMxZjM3NmJlYjU0ZGFiZTg4NmE1YTczYjAyYWJlNzlhZmU1MTY1MmVmYTU3ODI2Y2NkMjU5MTAwMWQ3M2Y5MDU0NGZkOSJ9fQ==\",\"opt\":\"e30=\"}"
+  },
+  "savedFiles": [
+    "wallet.v1",
+    "backend.v1"
+  ],
+  "workId": "aa91c894-15ef-428c-97ca-c377bd6e23e2"
+}
