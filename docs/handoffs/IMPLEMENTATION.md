@@ -180,7 +180,7 @@ Correction6bc3d712 fresh durable reread per send, current FID/generation and ser
 passes; Standards0, Spec documentation contradiction corrected in current docs.
 Owned51625 ended PASS1m1s/gateway7/0/0/coreUPTODATE, no owned local build.
 [Retained GREEN](../evidence/ticket42/delivery-green/README.md),8hashes/13sourcehashes.
-Final Spec0; Standards found one stale preceding next-step sentence, now corrected.
+Final Spec0/Standards0 atf9983893 after the stale preceding next-step sentence was corrected.
 The concurrency interleaving, retry branch,
 expiry and pubkey mentions are source-reviewed, not exercised by this reply case.
 Next: interrupted-send recovery, verified-name mentions, chain/gaps/cleanup/runtime.

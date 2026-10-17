@@ -20,5 +20,5 @@ renewal/opt-out interleaving is source-reviewed, not executed in this fixture.
 Pubkey-mention eligibility, retry scheduling and expiry are implementation facts;
 this journey exercises replies and successful sends only. Registry name proof,
 interrupted send recovery, full chain/gaps, physical cleanup and standalone
-continuous observation remain open. Source Standards0; final documentation and
-Spec review remain pending. Whole42/32 and actual Google/device delivery stay open.
+continuous observation remain open. Final independent Standards0/Spec0 atf9983893 after one stale handoff sentence
+was corrected. Whole42/32 and actual Google/device delivery stay open.

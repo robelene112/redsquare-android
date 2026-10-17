@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicReference
 class GatewayDeliveryTest {
     @get:Rule val directory = TemporaryFolder()
 
-    @Test(timeout = 60_000) fun selectedArchiveReplyProducesOneDurableRecipientBoundWakeAcrossRestartAndOptOut() {
+    @Test(timeout = 60_000) fun selectedArchiveReplyRetainsOneWakeAcrossLostSendAcknowledgementRestartAndOptOut() {
         val origin = "https://push.fixture.invalid"
         for (backend in SaitoBackend.entries) {
             val owner = SaitoWallet.create()
@@ -74,9 +74,13 @@ class GatewayDeliveryTest {
             ArchivePeer(identity, listOf(root, reply), now).use { peer ->
                 MockWebServer().use { fcm ->
                     val verifiedBeforeSend = java.util.concurrent.atomic.AtomicBoolean(false)
+                    val attempts = java.util.concurrent.atomic.AtomicInteger()
                     fcm.dispatcher = object : mockwebserver3.Dispatcher() {
                         override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
-                            verifiedBeforeSend.set(peer.exactReads.containsAll(setOf(root.id, reply.id)))
+                            if (attempts.incrementAndGet() == 1) {
+                                verifiedBeforeSend.set(peer.exactReads.containsAll(setOf(root.id, reply.id)))
+                                return MockResponse.Builder().onResponseStart(mockwebserver3.SocketEffect.CloseSocket()).build()
+                            }
                             return MockResponse.Builder().body("{\"name\":\"projects/owned-fixture/messages/accepted\"}").build()
                         }
                     }
@@ -94,6 +98,7 @@ class GatewayDeliveryTest {
                         peer.check()
                         val sent = fcm.takeRequest(2, TimeUnit.SECONDS)
                         assertNotNull("A verified selected-backend reply must reach the outgoing transport", sent)
+                        assertEquals("An uncertain send must wait for durable backoff instead of immediate HTTP replay", 1, fcm.requestCount)
                         assertTrue("Exact selected-Archive candidate and parent reads must precede the first send", verifiedBeforeSend.get())
                         val message = JsonParser.parseString(requireNotNull(requireNotNull(sent).body).utf8())
                             .asJsonObject.getAsJsonObject("message")
@@ -112,14 +117,25 @@ class GatewayDeliveryTest {
                         val body = "{\"version\":1,\"wake\":\"$wake\"}"
                         val restored = request(restarted.port, "/v1/wakes/resolve", body, owner, wake)
                         assertEquals(200, restored.statusCode()); assertEquals(expected, JsonParser.parseString(restored.body()))
+                        peer.exposeHead.set(false)
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
-                        assertEquals("A retained accepted event must not create another wake", 1, fcm.requestCount)
+                        assertEquals("A pending send must respect its retained minimum delay", 1, fcm.requestCount)
+                        Thread.sleep(11_100) // Actual durable10s retry minimum plus bounded jitter, not a fake clock.
+                        GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
+                        val retried = requireNotNull(fcm.takeRequest(2, TimeUnit.SECONDS))
+                        val retriedData = JsonParser.parseString(requireNotNull(retried.body).utf8())
+                            .asJsonObject.getAsJsonObject("message").getAsJsonObject("data")
+                        assertEquals("A lost acknowledgement must reuse the retained logical wake", wake, retriedData.get("wake").asString)
+                        assertEquals(2, fcm.requestCount)
+                        peer.exposeHead.set(true)
+                        GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
+                        assertEquals("A retained accepted event must not create another wake", 2, fcm.requestCount)
                         assertTrue(peer.exactReads.containsAll(setOf(root.id, reply.id)))
                         bind(restarted.port, false)
                         assertEquals(410, request(restarted.port, "/v1/wakes/resolve", body, owner, wake).statusCode())
                         peer.add(post(actor, "A distinct reply after opt-out", root.id), now)
                         GatewayArchive(identity, backend, peer.origin).use { restarted.poll(it, sender) }
-                        assertEquals("Opt-out must stop subsequent sends", 1, fcm.requestCount)
+                        assertEquals("Opt-out must stop subsequent sends", 2, fcm.requestCount)
                         peer.check()
                     }
                 }
@@ -131,6 +147,7 @@ class GatewayDeliveryTest {
     private class ArchivePeer(identity: SaitoWallet, posts: List<SaitoTransaction>, timestamp: Long) : Closeable {
         private val failure = AtomicReference<Throwable?>()
         private val server = MockWebServer()
+        val exposeHead = java.util.concurrent.atomic.AtomicBoolean(true)
         val exactReads = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
         val origin: String get() = "http://127.0.0.1:${server.port}"
         private val rows = java.util.concurrent.ConcurrentHashMap<String, JsonObject>()
@@ -141,7 +158,7 @@ class GatewayDeliveryTest {
         }
         init {
             posts.forEach { add(it, timestamp) }
-            repeat(4) {
+            repeat(8) {
                 val authenticated = java.util.concurrent.atomic.AtomicBoolean(false)
                 val serverWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Published unsafe fixture.
                 val counter = ByteArray(32) { 7 }
@@ -173,7 +190,7 @@ class GatewayDeliveryTest {
                                         exactReads.add(id); rows[id]?.let { response.add(it) }
                                     } else {
                                         require(criteria.keySet() == setOf("request", "field1", "flagged_ne", "limit") && criteria.get("limit").asInt == 100)
-                                        rows.values.forEach { response.add(it) }
+                                        if (exposeHead.get()) rows.values.forEach { response.add(it) }
                                     }
                                     webSocket.send((byteArrayOf(13) + frame.copyOfRange(1, 5) + response.toString().toByteArray()).toByteString())
                                 }
