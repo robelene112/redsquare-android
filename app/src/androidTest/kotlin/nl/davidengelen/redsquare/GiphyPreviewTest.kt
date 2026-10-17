@@ -12,6 +12,7 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
 import com.google.gson.JsonParser
 import mockwebserver3.MockResponse
 import mockwebserver3.MockWebServer
@@ -185,12 +186,16 @@ class GiphyPreviewTest {
 
     private fun assertGifContained(label: String, name: String) {
         ui.waitForIdle()
-        val bounds = ui.onNodeWithContentDescription(label).assertIsDisplayed().fetchSemanticsNode().boundsInWindow
+        ui.onNodeWithContentDescription(label).assertIsDisplayed()
+        // The UiDevice bitmap and accessibility bounds both use screen coordinates.
+        val bounds = requireNotNull(UiDevice.getInstance(instrumentation).findObject(By.desc(label))).visibleBounds
+        assertFalse("The image must have visible screen bounds", bounds.isEmpty)
         capture("$name-bounds")
         val screenshot = android.graphics.BitmapFactory.decodeFile(File(context.cacheDir, "giphy-evidence/$name-bounds.png").path)
         try {
-            val x = bounds.center.x.toInt()
-            for (y in listOf(bounds.top.toInt() - 8, bounds.bottom.toInt() + 8)) {
+            val x = bounds.centerX()
+            assertTrue("The image boundary x sample must be visible", x in 0 until screenshot.width)
+            for (y in listOf(bounds.top - 8, bounds.bottom + 8)) {
                 assertTrue("The image boundary sample must be visible", y in 0 until screenshot.height)
                 val pixel = screenshot.getPixel(x, y)
                 val red = kotlin.math.abs(Color.red(pixel) - 220) <= 5 &&

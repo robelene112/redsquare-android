@@ -869,3 +869,9 @@ bounds, without changing prior animation/exactURL assertions. It is not yet
 native executed; no RED inferred. SourceCI39007775786 pending at collection.
 Next correct ImageView clipping after actual boundary RED, then metadata and
 signed post/reply/quote acceptance. Still sole16; protected groupdoc untouched.
+
+Boundary tracer42234413 discarded before acceptance: both reviews identified
+window-relative Compose bounds versus full-display screenshot coordinates.
+Corrected tracer uses UiAutomator visibleBounds in the same screen coordinates
+and validates x/y. Run39008263619 cancellation requested, no application failure
+or RED inferred from that discarded observer. Corrected native run required.
