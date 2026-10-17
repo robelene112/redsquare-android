@@ -150,8 +150,18 @@ retains qualifiedintermediates/sourcepins andexact1cfa sourcecheck39069243342
 SUCCESS core/gateway/native/test/release/lint. FullSDK appacceptance stillpending.
 Gracefulcomponentreopen isnotabruptJVMdeath. No localgatewaybuild remains.
 
-FreshfullAndroid10 run39069243011 andAndroid17 run39069244764 are activeat
-1cfa16a57ca7da95bca82aad4c320443c479ddf3 withpublicreads/release/lint.
+FullAndroid10 run39069243011 succeeds at1cfa16a57:417PASS plus existingProfile
+assumption,98completions/31intentionalinterruptions/31PASScontinuity, fullpublicreads/
+legacyupdate/finalidentity. Canonical full-regression/android10 has241hashes, original409files,
+889validPNG/755XML andfivequalifiedoptionaldiagnostics. Both evidence reviews0.
+FullAndroid17 run39069244764 ends CANCELLED at75minute ceiling during fifthwallet-export
+case:384individualPASS including4partialclass cases,81completions/29interruptions/
+26PASScontinuity; Chat11PASS108.570s/privateprocessPASS. No failedstatus, butmissing
+latergates andnoSDK/finalrecords. Not acceptance andno proven slowdowncause.
+Packet full-regression/android17-timeout retains10hashes/original317inventory.
+Fresh fullAndroid17 retry39074540031 SAME1cfa source/publicreads/unchanged75minute
+ceiling isactive. Beta28 stillunpublished. Preparedpacket6hashes/235sourceobjects
+reviewStandards0/Spec0. Public27 unchanged.
 Earlier145 fullruns39069177182/39069178823 finalCANCELLED; packet retainsbothinitial
 inprogress andactualfinalmetadata. Noacceptanceclaimfromtheseearlierruns.
 Signed28 canonicalreview-build PASS4m13s/exit0, session10829fullydrained, log
