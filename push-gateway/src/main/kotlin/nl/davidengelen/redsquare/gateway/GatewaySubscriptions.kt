@@ -56,7 +56,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
                 val gap = state.getAsJsonObject("gaps").get(backend)?.asJsonObject
                     ?.takeIf { savedNumber(it, "expiresAt") > now }
                 GatewayReply(200, JsonObject().apply {
-                    addProperty("version", 1); addProperty("backend", backend); add("gap", gap)
+                    addProperty("version", 1); addProperty("backend", backend)
+                    add("gap", gap?.deepCopy()?.apply { remove("records") })
+                    add("gaps", gapRecords(gap, now))
                     add("cursor", state.getAsJsonObject("chains").get(backend))
                 })
             }
@@ -326,14 +328,30 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         })
     }
 
+    /** One recent warning per supported reason; later kinds must not erase earlier coverage gaps. */
     private fun recordGap(state: JsonObject, backend: SaitoBackend, reason: String, now: Long) {
+        require(reason in setOf("bootstrap-history-unavailable", "chain-unavailable", "chain-ancestry-unavailable",
+            "chain-history-unavailable", "full-block-unavailable", "archive-candidate-unavailable",
+            "name-proof-unavailable", "chain-reorganization", "archive-unavailable"))
         val gaps = state.getAsJsonObject("gaps")
-        val previous = gaps.get(backend.id)?.asJsonObject
-        gaps.add(backend.id, JsonObject().apply {
+        val records = gapRecords(gaps.get(backend.id)?.asJsonObject, now)
+        val previous = records.firstOrNull { savedText(it.asJsonObject, "reason") == reason }?.asJsonObject
+        val warning = JsonObject().apply {
             addProperty("reason", reason)
-            addProperty("since", previous?.takeIf { savedText(it, "reason") == reason }?.let { savedNumber(it, "since") } ?: now)
+            addProperty("since", previous?.let { savedNumber(it, "since") } ?: now)
             addProperty("lastAt", now); addProperty("expiresAt", now + LIFETIME)
-        })
+        }
+        records.removeAll { savedText(it.asJsonObject, "reason") == reason }
+        records.add(warning)
+        gaps.add(backend.id, warning.deepCopy().apply { add("records", records) })
+    }
+
+    /** Older snapshots contain only the latest warning; retain that available record on mutation. */
+    private fun gapRecords(gap: JsonObject?, now: Long): JsonArray {
+        val records = gap?.getAsJsonArray("records") ?: JsonArray().apply { gap?.let { add(it.deepCopy()) } }
+        return JsonArray().apply {
+            records.filter { savedNumber(it.asJsonObject, "expiresAt") > now }.forEach { add(it.deepCopy()) }
+        }
     }
 
     private fun prune(state: JsonObject, now: Long) {
@@ -341,7 +359,12 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
             val records = state.getAsJsonObject(name)
             records.entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
         }
-        state.getAsJsonObject("gaps").entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
+        val gaps = state.getAsJsonObject("gaps")
+        gaps.entrySet().removeIf { savedNumber(it.value.asJsonObject, "expiresAt") <= now }
+        gaps.entrySet().forEach { (_, value) ->
+            val gap = value.asJsonObject
+            if (gap.has("records")) gap.add("records", gapRecords(gap, now))
+        }
         state.getAsJsonObject("events").entrySet().removeIf { savedNumber(it.value.asJsonObject, "retainUntil") <= now }
     }
 
