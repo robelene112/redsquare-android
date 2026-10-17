@@ -62,7 +62,7 @@ internal fun GiphyImage(source: String, label: String?, modifier: Modifier, fit:
                 onDispose { lifecycle.removeObserver(observer); animation?.stop() }
             }
             key(ready) {
-                AndroidView(factory = { context -> ImageView(context) }, modifier = Modifier.fillMaxSize(),
+                AndroidView(factory = { context -> ImageView(context).apply { cropToPadding = true } }, modifier = Modifier.fillMaxSize(),
                     update = { view ->
                         view.scaleType = if (fit) ImageView.ScaleType.FIT_CENTER else ImageView.ScaleType.CENTER_CROP
                         if (view.drawable !== ready) view.setImageDrawable(ready)

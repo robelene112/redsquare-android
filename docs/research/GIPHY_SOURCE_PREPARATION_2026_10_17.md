@@ -226,3 +226,12 @@ These are app resource policies, not provider limits or proof of Android
 runtime behavior. No custom asset/result store is added. A static owned thumbnail
 and independently ImageIO-decoded two-frame original provide distinct native
 pixel oracles; only the actual device run can establish those frames display.
+
+
+The actual selection screenshots exposed native CENTER_CROP overdraw. Current
+[AOSP ImageView source](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/widget/ImageView.java)
+initializes crop-to-padding false and clips the canvas only when enabled;
+CENTER_CROP can scale beyond the view. The [documented setter](https://developer.android.com/reference/android/widget/ImageView#setCropToPadding(boolean))
+is available since API16. Setting it true with zero padding is the small native
+correction. Source explains the observed geometry; the corrected native boundary
+run must establish the actual result. No provider URL or scaling policy change.

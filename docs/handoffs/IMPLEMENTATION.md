@@ -882,3 +882,15 @@ Otherwise a bitmap omitting the native view could pass outside-absence checks.
 Final tracer adds center known-color/positive coordinates before unchanged
 outside samples. Neither discarded run establishes application RED. Wait for
 both bounded reviews before dispatching this corrected tracer.
+
+
+## Current clipping correction candidate
+
+Actual corrected-tracer run39008369694/0abb1c29 FAILED2/1/32.83s: same-bitmap
+positivecenter passed, outside pixel y207 above visiblebounds(24,215,296,375)
+failed. Earlier recovery passed. Laterfailedmethodtailsunexecuted. Canonical
+[boundary RED](../evidence/ticket16/clipping-red/android17/README.md),7originals.
+Minimum native fix enables ImageView.cropToPadding with zero padding, preserving
+CENTER_CROP and URL/decode policy. Both new source reviews and nativeGREEN
+required. No local build active; regular source/device CI will compile unchanged
+small setter correction. Previous discarded observer runs are verifiedCANCELLED.
