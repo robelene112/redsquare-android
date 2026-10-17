@@ -474,7 +474,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                                 waitFor("Settings")
                                 ui.onNodeWithText("Settings").performClick()
                                 waitFor(backend.domain)
-                                ui.onNodeWithText(backend.domain).performClick()
+                                ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                                 waitFor("Server: ${backend.domain}")
                                 check(AndroidBackendStore(context).load() == backend)
                                 ui.onNodeWithText("Chat").performClick()
