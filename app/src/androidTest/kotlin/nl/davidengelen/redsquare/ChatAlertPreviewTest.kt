@@ -91,7 +91,13 @@ class ChatAlertPreviewTest {
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { scenario ->
-                    withFailureCapture({ capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure") }) {
+                    withFailureCapture({
+                        try { capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure") }
+                        finally { if (cold) instrumentation.sendStatus(2, android.os.Bundle().apply {
+                            putString("stream", "Chat route diagnosis:\n" +
+                                device.executeShellCommand("logcat -d -v brief -s ChatAlertRoute:D").takeLast(8000))
+                        }) }
+                    }) {
                         click(hasText("Chat"))
                         click(hasText(editingContact))
                         ui.waitUntil(20_000) { historyReads.get() > 0 && displayed(hasSetTextAction() and isEnabled()) }
@@ -104,6 +110,15 @@ class ChatAlertPreviewTest {
                             ui.waitUntil(20_000) { activeMainActivities().isEmpty() }
                             receiveChat(context, wallet, backend, bytes, endpoint)
                             assertTrue(activeMainActivities().isEmpty())
+                            assertEquals(wallet.publicKey, wallets.loadExisting().publicKey)
+                            assertEquals(backend, backends.load())
+                            val savedMessage = nl.davidengelen.redsquare.chat.ChatHistoryStore(context, wallet, backend,
+                                sender.publicKey).load().entries.single { it.message.id == incoming.id }.message
+                            assertEquals(sender.publicKey, savedMessage.author)
+                            assertEquals(incomingText, savedMessage.text)
+                            val policy = nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey).load()
+                            assertFalse(policy.hidesSocial(sender.publicKey))
+                            assertFalse(PrivateChat.conversationId(wallet.publicKey, sender.publicKey) in policy.mutedConversations)
                         } else peer.sendIncoming(bytes, requestId = 801)
                         ui.waitUntil(20_000) {
                             (cold || peer.incomingAcknowledgements.any {
@@ -137,7 +152,10 @@ class ChatAlertPreviewTest {
                             assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
                             assertFalse(savedDraft.automatic)
                             click(hasText("Back"))
-                            if (groupAlert) click(hasText("Back"))
+                            if (groupAlert) {
+                                ui.waitUntil(20_000) { displayed(hasText("Create group") and hasClickAction()) }
+                                click(hasText("Back"))
+                            }
                             click(hasText(editingContact))
                             val restoredDraft = hasSetTextAction() and isEnabled() and
                                 SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(latestDraft))

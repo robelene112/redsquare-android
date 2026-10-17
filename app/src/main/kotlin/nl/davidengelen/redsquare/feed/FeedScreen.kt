@@ -142,14 +142,18 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             tapFailed = false
             try {
                 if (chatReference.owner != currentWallet.publicKey || chatReference.backend != backend) {
+                    chatRouteObservation("binding refused")
                     tapFailed = true
                     return@LaunchedEffect
                 }
                 val opened = formNavigation.navigate {
                     val permitted = withContext(Dispatchers.IO) { chatReference.canOpen(context) }
                     currentCoroutineContext().ensureActive()
-                    if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) false
-                    else {
+                    if (!permitted || !routes.current(delivery) || !allowPushRoute || personal.saving) {
+                        chatRouteObservation(if (!permitted) "retained original or policy refused"
+                            else if (!routes.current(delivery)) "delivery superseded" else "presentation busy")
+                        false
+                    } else {
                         composing = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = chatReference.uri().toString()
                         chatAlertGeneration = delivery.getLong("generation")
@@ -158,9 +162,13 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         true
                     }
                 }
+                chatRouteObservation(if (opened) "destination opened" else "navigation refused")
                 tapFailed = !opened
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { tapFailed = true }
+            catch (failure: Exception) {
+                chatRouteObservation("exception " + failure.javaClass.simpleName)
+                tapFailed = true
+            }
             return@LaunchedEffect
         }
         val reference = NotificationRoutes.socialReference(delivery) ?: return@LaunchedEffect
@@ -466,4 +474,9 @@ private fun ConnectionBanner(message: String, online: Boolean) {
         Spacer(Modifier.width(8.dp))
         Text(message, style = MaterialTheme.typography.labelMedium)
     }
+}
+
+/** Debug lifecycle diagnosis contains no identity, message, URI or exception content. */
+private fun chatRouteObservation(result: String) {
+    if (nl.davidengelen.redsquare.BuildConfig.DEBUG) android.util.Log.d("ChatAlertRoute", result)
 }

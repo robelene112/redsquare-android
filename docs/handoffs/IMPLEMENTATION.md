@@ -104,7 +104,16 @@ absence before installation-state restoration. Source now retains publicURI/gen
 through transient loading and clears mismatch after actual identity resolution.
 Fixture now requires proven Activity shutdown before every protected restore,
 independent alert cleanup and suppressed failure handling unchanged. Corrected
-hosted compile/native verification pending; whole44base remains2fff4587e.
+hosted compile/native39041093920 exactbc316 FAILED4cases/2failures/95.112s.
+Privatewarm/preview pass. Group target/durablework pass thencontact141 fails after
+twoBacks, finalGroupList. Cold firsttarget126 fails withgenericopenfailedbanner;
+itscause unknown, latercoldtailsunexecuted.37hash16XML incold-minimum/android17,
+rootviewedtwofailures other14retained. ReviewconfirmsenabledBack/handlerguard
+mismatch; sourcebuttonnowdisablesduringsaving andtestpositivelywaitsGroupList
+beforesecondBack, noassertion/deadlineweakening. Samecoldjourney nowasserts
+savedincoming/id/author/text/currentidentity/backend/policy beforetap and retains
+boundeddebug-onlyredactedroutephase/classreason onfailure (status2diagnostic,
+notadditionalpassingcase). Whole44base remains2fff4587e. Nextdiagnostic pending.
 No owned local build. No whole44 acceptance.
 No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new

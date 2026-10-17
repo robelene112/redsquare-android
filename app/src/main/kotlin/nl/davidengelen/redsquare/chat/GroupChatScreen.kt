@@ -332,7 +332,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val statusMaxHeight=maxHeight/3
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
-            TextButton(enabled=!busy&&!navigation.transitioning,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
+            TextButton(enabled=!busy&&!savingForNavigation&&!navigation.transitioning,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
             Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge,
                 maxLines=2,overflow=TextOverflow.Ellipsis)
             entry?.let { ConversationMuteButton(it.group.id) }

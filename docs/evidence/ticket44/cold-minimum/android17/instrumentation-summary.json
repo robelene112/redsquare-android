@@ -1,0 +1,52 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/chat44-cold-minimum-39041093920/.scratch/device-evidence/api-37.0",
+  "status_codes": {
+    "0": 2,
+    "-2": 2
+  },
+  "totals": {
+    "completion_records": 0,
+    "reported_ok_test_counts": 0,
+    "crash_outputs": 0,
+    "explicit_failed_files": 1
+  },
+  "excluded_exact_aggregates": [],
+  "files": [
+    {
+      "path": "chat-alerts-ui.txt",
+      "sha256": "8c274a2f892a2595d41ffa97de617866b65ae85f0948a481da3c780d2c72e768",
+      "statuses": {
+        "0": 2,
+        "-2": 2
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft",
+          "code": -2
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled",
+          "code": 0
+        },
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation",
+          "code": -2
+        }
+      ],
+      "junit_ok": [],
+      "junit_times": [
+        "95.112"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": true
+    }
+  ]
+}
