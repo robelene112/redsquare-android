@@ -9,6 +9,30 @@ Google/device acceptance; its native dependency42 is now closed. Its earlier ove
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
+## Active native private Chat wake integration (#46)
+
+Sole writer root; #46 assigned, native child33, closed45 prerequisite. Whole review
+base4703fabeccb0ba86be0b7711ff546226b0f50a83. Existing whole33/32 Google/config/
+deployment/physical blockers remain. Public beta27 unchanged; no node operations.
+First scope is gateway-owned persistent signed encrypted-candidate observation,
+opaque FCM, recipient-proof original retrieval and real native no-Activity worker/
+local decryption/alert/receipts. Preserve private default/opt-in previews and44tap.
+Wallet-local background Chat consent joins shared registration demand alongside
+independent Social consent; disabling one must not unregister the other. Groups
+remain the next34 slice. No live stream promises complete history or Relay-only
+coverage. Parent's existing controlled peer/gateway/FCM/native seams apply.
+
+First owned gateway tracer compiled/executed, actual RED1m6s at public HTTP bind:
+private-chats category rejected400 instead of201. No observer/FCM/original fetch
+assertions reached; Official loop unexecuted. GatewayChatObserver is explicitly a
+no-op executable seam at this checkpoint, not implemented observation. Three
+hashed raw/source records in docs/evidence/ticket46/gateway-first-red. No Android
+source changes, no owned local build. Temporary work stays outside checkout at
+/tmp/redsquare-private46-work-20261017. Next: minimum first gateway journey, then
+native worker/consent/receipt integration as that tracer passes; final full SDKs,
+both reviews and next signed update are still required before native46 acceptance.
+Preserve unrelated untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
+
 ## Accepted gateway session compatibility (#45)
 
 #45 CLOSED, native server child of#32, which retains
