@@ -19,7 +19,7 @@ Current minimum2ebd6d2f keeps one recent record per supported reason, preserves
 legacy latest-warning shape and adds HTTP gaps, filtering expiry and pruning on
 mutation. Owned18561 endedPASS1m41s/gateway9/0/0/new8.157s/coreUPTODATE.
 Source2ebd6d2f Standards0/Spec0. [GREEN](../evidence/ticket42/gap-history-green/README.md),9hashes/18sources.
-No owned build. Final evidence review pending.
+No owned build. Final evidence reviews atce20af14 Standards0/Spec0.
 Periodic physical cleanup remains open. No new app/native/node/cloud/deployment.
 
 ## Active reorganization recovery
