@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.chat.receiveChat
+import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 import nl.davidengelen.redsquare.notifications.ChatPushSettings
 import nl.davidengelen.redsquare.notifications.SocialPushWakeScheduling
 import nl.davidengelen.redsquare.saito.*
@@ -34,12 +35,19 @@ import java.util.concurrent.atomic.AtomicReference
 class PrivatePushWorkPreviewTest {
     @Test fun chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() = privateJourney()
 
-    @Test fun ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater() = privateJourney(ordinaryFirst = true)
+    @Test fun ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater() = privateJourney(Journey.ORDINARY_FIRST)
 
     @Test fun ordinaryChatRetainsItsMessageWhenAlertBookkeepingIsUnavailableAndItsWakeCanRecover() =
-        privateJourney(ordinaryFirst = true, ledgerUnavailable = true)
+        privateJourney(Journey.RECEIPT_RECOVERY)
 
-    private fun privateJourney(ordinaryFirst: Boolean = false, ledgerUnavailable: Boolean = false) {
+    @Test fun aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking() =
+        privateJourney(Journey.BLOCKED_PENDING)
+
+    private enum class Journey { WORKER_FIRST, ORDINARY_FIRST, RECEIPT_RECOVERY, BLOCKED_PENDING }
+
+    private fun privateJourney(journey: Journey = Journey.WORKER_FIRST) {
+        val ordinaryFirst = journey != Journey.WORKER_FIRST
+        val ledgerUnavailable = journey == Journey.RECEIPT_RECOVERY || journey == Journey.BLOCKED_PENDING
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -55,7 +63,7 @@ class PrivatePushWorkPreviewTest {
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val text = "Keep this private text on the receiving device"
         val original = PrivateChat.create(sender, wallet.publicKey, text, System.currentTimeMillis())
-        val opaque = (if (ledgerUnavailable) "48" else if (ordinaryFirst) "47" else "46").repeat(32)
+        val opaque = (if (journey == Journey.BLOCKED_PENDING) "50" else if (ledgerUnavailable) "48" else if (ordinaryFirst) "47" else "46").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -99,7 +107,7 @@ class PrivatePushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:owner:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val capturePrefix = if (ledgerUnavailable) "receipt-storage" else if (ordinaryFirst) "ordinary-first" else "worker"
+        val capturePrefix = if (journey == Journey.BLOCKED_PENDING) "blocked-pending" else if (ledgerUnavailable) "receipt-storage" else if (ordinaryFirst) "ordinary-first" else "worker"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/private-$capturePrefix-$name.png"))
         fun assertSilent(label: String) {
             val silentUntil = SystemClock.elapsedRealtime() + 2_000
@@ -147,6 +155,26 @@ class PrivatePushWorkPreviewTest {
                         }
                     } catch (caught: Throwable) { receiptFailure = caught; throw caught }
                     finally { if (ledgerUnavailable) cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                }
+                if (journey == Journey.BLOCKED_PENDING) {
+                    val controls = AndroidPersonalControls(context, wallet.publicKey)
+                    val before = controls.load()
+                    controls.save(before, before.copy(blocked = before.blocked + sender.publicKey))
+                    await(schedule())
+                    assertSilent("A pending private message must stay silent while its sender is blocked")
+                    val blocked = controls.load()
+                    controls.save(blocked, blocked.copy(blocked = blocked.blocked - sender.publicKey))
+                    await(schedule())
+                    assertSilent("Unblocking must not revive an old suppressed private notification")
+                    val saved = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, sender.publicKey).load().entries
+                    assertEquals(1, saved.size)
+                    assertEquals(text, saved.single().message.text)
+                    assertTrue(resolves.get() > 0 && originals.get() > 0)
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(SaitoBackend.OWNER, backends.load())
+                    assertNoActivity()
+                    capture("unblocked-still-silent")
+                    return@withFailureCapture
                 }
                 if (!ordinaryFirst || ledgerUnavailable) await(schedule())
                 assertNoActivity()
