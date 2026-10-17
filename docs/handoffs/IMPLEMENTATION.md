@@ -72,9 +72,15 @@ RestorerPASS0.177s. Root2PNGs/2XML;58hashes in full-regression-first-failure/and
 Fixture-only correction scrolls the exact pending message before both required
 pre-death/cold captures, retaining all deadlines/original/PID/zero-write assertions.
 New focused chat-history-process scope reuses the existing helper, full unchanged.
-Local correction build37521 running. No production change; signed26 remains valid
-and unpublished. Android17 full39027473052 still runs original91d8fefec;
-public_feed_read=true for both. Corrected focused/final10 remain next.
+Local correction build37521 PASS2m1s; bounded Standards0/Spec0. No owned build.
+Android17 full39027473052 also FAILED at the exact same preparation capture:
+157PASS/1failure/37records/10earlier interruptions; GIF6PASS64.844s, restorer0.168s.
+Both full attempts keep their actual failures,58hashes/2PNG+XML pairs perSDK in
+full-regression-first-failure. Root viewed all4 originals/parsed4XML. No private
+kill/cold recovery or later full tails are claimed. public_feed_read=true.
+Focused correction10run39029516099 and17run39029618443 execute exact0b43de73b;
+outcomes pending before the final full pair repeats. Production unchanged;
+signed26 is valid and unpublished.
 Whole integrated reviews through e8b337a30 are Standards0/Spec0; final SDK evidence
 review and publication follow. Native acceptance is ready, so26 was prepared
 while full runs execute, updating the earlier defer-reservation plan. Build17593
