@@ -15,6 +15,7 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.composeChatPhoto
 import nl.davidengelen.redsquare.saito.*
@@ -34,7 +35,9 @@ class ChatAlertPreviewTest {
 
     @Test fun privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled() = privateJourney(previews = true)
 
-    private fun privateJourney(previews: Boolean = false) {
+    @Test fun aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft() = privateJourney(groupAlert = true)
+
+    private fun privateJourney(previews: Boolean = false, groupAlert: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         // Published unsafe fixture identities only.
@@ -49,7 +52,7 @@ class ChatAlertPreviewTest {
         val originalBackend = backends.load()
         val retained = ChatFixtureState(context, SaitoBackend.entries.flatMap { backend ->
             listOf("chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
-                "chatreactions.${backend.id}.${wallet.publicKey}.")
+                "chatreactions.${backend.id}.${wallet.publicKey}.", "groupchat.${backend.id}.${wallet.publicKey}.")
         } + listOf("personal.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}."), wallet.publicKey)
         val notifications = context.getSystemService(NotificationManager::class.java)
         val existingAlerts = notifications.activeNotifications.map { it.tag to it.id }.toSet()
@@ -62,18 +65,24 @@ class ChatAlertPreviewTest {
             "[]"
         })
         val latestDraft = "Keep my latest unsent draft 🌱\nA different conversation"
-        val incomingText = "Open this exact private conversation"
-        val incoming = PrivateChat.create(sender, wallet.publicKey, incomingText, 1700000140000)
+        val groupName = "Exact notification group"
+        val groupCreation = GroupChat.create(sender, SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey,
+            groupName, listOf(wallet.publicKey), 1700000139900)
+        val incomingText = if (groupAlert) "Open this exact group conversation" else "Open this exact private conversation"
+        val incoming = if (groupAlert) GroupChat.message(sender, GroupChat.readCreation(groupCreation.envelope()),
+            incomingText, 1700000140000) else PrivateChat.create(sender, wallet.publicKey, incomingText, 1700000140000)
+        val capturePrefix = if (groupAlert) "group-warm" else "private-warm"
         var primary: Throwable? = null
         try {
             retained.prepare()
             wallets.replace(original, wallet)
             backends.save(SaitoBackend.OWNER)
+            if (groupAlert) GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(groupCreation.envelope())
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { scenario ->
-                    withFailureCapture({ capture(if (previews) "private-previews-failure" else "private-warm-tap-failure") }) {
+                    withFailureCapture({ capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure") }) {
                         click(hasText("Chat"))
                         click(hasText(editingContact))
                         ui.waitUntil(20_000) { historyReads.get() > 0 && displayed(hasSetTextAction() and isEnabled()) }
@@ -86,11 +95,11 @@ class ChatAlertPreviewTest {
                             } && notifications.activeNotifications.any { (it.tag to it.id) !in existingAlerts }
                         }
                         val alert = notifications.activeNotifications.single { (it.tag to it.id) !in existingAlerts }
-                        assertEquals("private-chats", alert.notification.channelId)
+                        assertEquals(if (groupAlert) "group-chats" else "private-chats", alert.notification.channelId)
                         assertEquals("New message", alert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
                         assertTrue(device.openNotification())
                         val visible = requireNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
-                        capture(if (previews) "private-previews-default-alert" else "private-warm-alert")
+                        capture(if (previews) "private-previews-default-alert" else "$capturePrefix-alert")
                         if (previews) {
                             device.pressBack()
                             // Keep later preview rows individually visible after observing the generic alert.
@@ -98,21 +107,22 @@ class ChatAlertPreviewTest {
                             previewChoice(scenario, peer, sender, wallet, notifications, existingAlerts)
                         } else {
                             visible.click()
-                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
-                            ui.onNodeWithText("Private messages are encrypted.").assertIsDisplayed()
-                            capture("private-warm-opened")
+                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(if (groupAlert) groupName else sender.publicKey)) }
+                            ui.onNodeWithText(if (groupAlert) "Group messages are unencrypted." else "Private messages are encrypted.").assertIsDisplayed()
+                            capture("$capturePrefix-opened")
                             val savedDraft = ChatWorkStore(context, wallet, SaitoBackend.OWNER, editingContact).load()
                             assertEquals(latestDraft, savedDraft.draft)
                             assertNull(savedDraft.transaction)
                             assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
                             assertFalse(savedDraft.automatic)
                             click(hasText("Back"))
+                            if (groupAlert) click(hasText("Back"))
                             click(hasText(editingContact))
                             val restoredDraft = hasSetTextAction() and isEnabled() and
                                 SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(latestDraft))
                             ui.waitUntil(20_000) { displayed(restoredDraft) }
                             ui.onNode(restoredDraft).assertIsDisplayed()
-                            capture("private-warm-draft-restored")
+                            capture("$capturePrefix-draft-restored")
                         }
                         assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())
