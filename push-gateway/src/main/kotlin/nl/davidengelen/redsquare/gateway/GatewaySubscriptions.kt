@@ -158,6 +158,23 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         }
     } catch (failure: Exception) { throw IOException("Gateway chain cursor unavailable", failure) }
 
+    /** Only a full hash already retained from verified blocks authorizes a rewind. */
+    @Synchronized fun rewind(backend: SaitoBackend, height: BigInteger, hash: String, forkId: String): GatewayChain.Cursor? {
+        val state = store.load()
+        val chain = state.getAsJsonObject("chains").get(backend.id)?.asJsonObject ?: return null
+        if (height >= BigInteger(savedText(chain, "height"))) return null
+        val history = chain.getAsJsonArray("history")
+        val index = history.indexOfFirst { point -> point.asJsonObject.let {
+            savedText(it, "height") == height.toString() && savedText(it, "hash") == hash
+        } }
+        if (index < 0) return null
+        while (history.size() > index + 1) history.remove(history.size() - 1)
+        chain.addProperty("height", height.toString()); chain.addProperty("hash", hash); chain.addProperty("forkId", forkId)
+        recordGap(state, backend, "chain-reorganization", System.currentTimeMillis())
+        store.save(state)
+        return GatewayChain.Cursor(height, hash, forkId)
+    }
+
     /** Candidate records commit first. An interrupted cursor commit only causes safe rediscovery. */
     @Synchronized fun processed(backend: SaitoBackend, block: SaitoFullBlock, forkId: String,
         candidates: List<GatewayArchive.VerifiedSocial>) {
@@ -169,7 +186,13 @@ internal class GatewaySubscriptions(directory: Path, origin: String) : Closeable
         val state = store.load()
         val chains = state.getAsJsonObject("chains")
         val history = chains.get(backend.id)?.asJsonObject?.getAsJsonArray("history") ?: JsonArray()
-        history.add(JsonObject().apply { addProperty("height", block.height.toString()); addProperty("hash", block.hash) })
+        if (history.isEmpty && block.height > BigInteger.ZERO) history.add(JsonObject().apply {
+            addProperty("height", (block.height - BigInteger.ONE).toString()); addProperty("hash", block.previousHash)
+            addProperty("processed", false) // Verified header ancestry, not a processed predecessor block.
+        })
+        history.add(JsonObject().apply {
+            addProperty("height", block.height.toString()); addProperty("hash", block.hash); addProperty("processed", true)
+        })
         while (history.size() > 128) history.remove(0)
         chains.add(backend.id, JsonObject().apply {
             addProperty("height", block.height.toString()); addProperty("hash", block.hash)

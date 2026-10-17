@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.davidengelen.redsquare.gateway.GatewayChainTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-10-17T03:34:06" hostname="2ef8b1e4339a" time="2.597">
+  <properties/>
+  <testcase name="bootstrapReadsEveryFullBlockThenContinuesFromTheProcessedCursor" classname="nl.davidengelen.redsquare.gateway.GatewayChainTest" time="2.597">
+    <failure message="org.junit.ComparisonFailure: expected:&lt;chain-[reorganization]&gt; but was:&lt;chain-[ancestry-unavailable]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;chain-[reorganization]&gt; but was:&lt;chain-[ancestry-unavailable]&gt;
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.gateway.GatewayChainTest.bootstrapReadsEveryFullBlockThenContinuesFromTheProcessedCursor$lambda$18$cursor(GatewayChainTest.kt:154)
+	at nl.davidengelen.redsquare.gateway.GatewayChainTest.bootstrapReadsEveryFullBlockThenContinuesFromTheProcessedCursor(GatewayChainTest.kt:171)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:299)
+	at org.junit.internal.runners.statements.FailOnTimeout$CallableStatement.call(FailOnTimeout.java:293)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

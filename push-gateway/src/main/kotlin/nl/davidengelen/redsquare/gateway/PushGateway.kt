@@ -68,7 +68,8 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
             subscriptions.gap(backend, "chain-unavailable"); throw failure
         }
         if (cursor != null && (page.ancestorHeight != cursor.height || page.ancestorHash != cursor.hash)) {
-            subscriptions.gap(backend, "chain-ancestry-unavailable"); return
+            cursor = subscriptions.rewind(backend, page.ancestorHeight, page.ancestorHash, page.tip.forkId)
+            if (cursor == null) { subscriptions.gap(backend, "chain-ancestry-unavailable"); return }
         }
         if (page.references.isEmpty() && (cursor == null || page.tip.height != cursor.height || page.tip.hash != cursor.hash)) {
             subscriptions.gap(backend, "chain-history-unavailable")

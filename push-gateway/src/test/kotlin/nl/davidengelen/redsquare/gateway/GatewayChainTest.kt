@@ -167,6 +167,11 @@ class GatewayChainTest {
                     assertEquals("2000003", cursor(restarted).get("height").asString)
                     assertEquals(4, reads.get())
                     assertEquals(hashes + hashes, downloads.toList())
+                    assertTrue("Verified bootstrap predecessor must already be retained", cursor(restarted)
+                        .getAsJsonArray("history").any { point -> point.asJsonObject.let {
+                            it.get("height").asString == "2000001" && it.get("hash").asString == "ab".repeat(32) &&
+                                it.get("processed").asBoolean == false
+                        } })
                     observe(restarted)
                     assertEquals("Replacement branch must become the processed cursor", alternateHashes.last(), cursor(restarted).get("hash").asString)
                     assertEquals(hashes + hashes + alternateHashes, downloads.toList())
