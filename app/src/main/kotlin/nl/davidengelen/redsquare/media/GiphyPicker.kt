@@ -20,7 +20,8 @@ import nl.davidengelen.redsquare.R
 
 /** Search lives only in the visible picker; the parent keeps authored work. */
 @Composable
-internal fun GiphyPicker(onClose: () -> Unit) {
+internal fun GiphyPicker(onClose: () -> Unit, onSelect: (GiphyItem) -> Unit,
+    selectionEnabled: Boolean, selectionError: Boolean) {
     val configuration = LocalGiphyConfiguration.current
     val provider = remember(configuration) { GiphyProvider(configuration) }
     var query by remember { mutableStateOf("") }
@@ -59,6 +60,7 @@ internal fun GiphyPicker(onClose: () -> Unit) {
                 if (configuration.configured) OutlinedTextField(value = query, onValueChange = { query = it },
                     label = { Text(stringResource(R.string.giphy_query)) }, modifier = Modifier.fillMaxWidth(), singleLine = true)
                 Text(stringResource(R.string.giphy_brand), Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.labelMedium)
+                if (selectionError) Text(stringResource(R.string.image_prepare_failed))
                 when {
                     !configuration.configured -> Text(stringResource(R.string.giphy_not_available))
                     tooLong -> Text(stringResource(R.string.giphy_query_limit))
@@ -73,7 +75,12 @@ internal fun GiphyPicker(onClose: () -> Unit) {
                             OutlinedCard(Modifier.fillMaxWidth()) {
                                 Column(Modifier.padding(12.dp)) {
                                     Text(item.title)
+                                    GiphyImage(item.thumbnailUrl, stringResource(R.string.giphy_preview, item.title),
+                                        Modifier.fillMaxWidth().height(160.dp))
                                     GiphyCredits(item)
+                                    TextButton(enabled = selectionEnabled, onClick = { onSelect(item) }) {
+                                        Text(stringResource(R.string.giphy_choose))
+                                    }
                                 }
                             }
                         }

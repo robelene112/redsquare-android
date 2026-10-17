@@ -276,6 +276,38 @@ internal class PostComposerState(
         }
     }
 
+    /** A provider selection is its unchanged original URL, never normalized raster bytes. */
+    fun addGif(source: String, onAdded: () -> Unit) {
+        if (!ready || saving || sending || transaction != null || images.size >= RedSquareImages.MAX_COUNT) return
+        saving = true
+        imageError = false
+        scope.launch {
+            try {
+                writes.withLock {
+                    require(source.length <= 8192 && RedSquareImages.safeSource(source) == source)
+                    val combined = images + source
+                    val size = withContext(Dispatchers.IO) {
+                        RedSquarePosts.message(text, combined, parent, quote).toString().toByteArray(Charsets.UTF_8).size
+                    }
+                    require(size <= SaitoTransaction.MAX_MESSAGE_BYTES)
+                    withContext(NonCancellable) {
+                        val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = combined)) }
+                        images = persisted.images
+                        memory.images = persisted.images
+                        memory.text = persisted.text
+                    }
+                    imageError = false
+                    error = false
+                    validationError = false
+                }
+                ensureActive()
+                onAdded()
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { imageError = true }
+            finally { saving = false }
+        }
+    }
+
     fun removeImage(index: Int) {
         if (!ready || saving || sending || transaction != null || index !in images.indices) return
         saving = true

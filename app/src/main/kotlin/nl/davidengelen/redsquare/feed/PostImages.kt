@@ -24,6 +24,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.media.GiphyImage
+import nl.davidengelen.redsquare.media.LocalGiphyConfiguration
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
@@ -71,6 +73,10 @@ internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: (
 
 @Composable
 private fun PostImage(source: String, backend: SaitoBackend, label: String?, modifier: Modifier, scale: ContentScale = ContentScale.Crop) {
+    if (LocalGiphyConfiguration.current.mediaUrl(source) != null) {
+        GiphyImage(source, label, modifier, fit = scale == ContentScale.Fit)
+        return
+    }
     var image by remember(source, backend) { mutableStateOf<ImageBitmap?>(null) }
     var failed by remember(source, backend) { mutableStateOf(false) }
     var retry by remember(source, backend) { mutableIntStateOf(0) }

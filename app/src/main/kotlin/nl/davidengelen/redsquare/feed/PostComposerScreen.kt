@@ -167,7 +167,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending)
             }
         }
-        if (choosingGif) GiphyPicker(onClose = { choosingGif = false })
+        if (choosingGif) GiphyPicker(onClose = { choosingGif = false },
+            onSelect = { item -> addGif(item.originalUrl) { choosingGif = false } },
+            selectionEnabled = !saving && !sending, selectionError = imageError)
         if (confirmClear) AlertDialog(
             onDismissRequest = { confirmClear = false },
             title = { Text(stringResource(R.string.post_clear_title)) },
