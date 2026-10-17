@@ -10,7 +10,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.PrivateChat
 import nl.davidengelen.redsquare.saito.GroupChat
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
-import nl.davidengelen.redsquare.saito.SignedSaitoMessage
+import nl.davidengelen.redsquare.saito.VerifiedSaitoPayload
 import java.io.Closeable
 import java.io.IOException
 import java.net.URI
@@ -318,14 +318,14 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     @Synchronized fun enqueueGroup(backend: SaitoBackend, wire: ByteArray) {
         val envelope = try { GroupChat.originalEnvelope(wire) } catch (_: Exception) { return }
         val signed = try { groupMessage(envelope) } catch (_: Exception) { return }
-        val group = text(signed.body, "group_id")
+        val group = text(signed.body.asJsonObject, "group_id")
         enqueueChat(backend, envelope, signed, "group-chats", group) { binding ->
             group in savedGroups(binding)
         }
     }
 
     /** Both Chat forms share one bounded original cache and durable per-subscription event lifecycle. */
-    private fun enqueueChat(backend: SaitoBackend, envelope: String, signed: SignedSaitoMessage,
+    private fun enqueueChat(backend: SaitoBackend, envelope: String, signed: VerifiedSaitoPayload,
         category: String, group: String? = null, interested: (JsonObject) -> Boolean) {
         val now = clock.millis()
         if (signed.createdAt > now || now - signed.createdAt >= LIFETIME) return
@@ -372,9 +372,9 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
         return groups
     }
 
-    private fun groupMessage(envelope: String): SignedSaitoMessage {
-        val signed = SaitoEnvelope.decode(envelope)
-        val body = signed.body
+    private fun groupMessage(envelope: String): VerifiedSaitoPayload {
+        val signed = SaitoEnvelope.decodePayload(envelope)
+        val body = signed.body.asJsonObject
         require(text(body, "module") == "Chat" && text(body, "request") == "chat message")
         val group = text(body, "group_id")
         require(SaitoWallet.isPublicKey(group) && group in signed.recipients && signed.recipients.all(SaitoWallet::isPublicKey))
@@ -471,7 +471,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
                 val signed = SaitoEnvelope.decodePayload(envelope)
                 require(signed.id == savedText(event, "signature") && signed.author != recipient)
                 if (category == "private-chats") require(recipient in signed.recipients)
-                else require(text(groupMessage(envelope).body, "group_id") == savedText(event, "group"))
+                else require(text(groupMessage(envelope).body.asJsonObject, "group_id") == savedText(event, "group"))
             } catch (failure: Exception) { throw IOException("Retained Chat original unavailable", failure) }
             return GatewayReply(200, JsonObject().apply { addProperty("version", 1); addProperty("envelope", envelope) })
         }
