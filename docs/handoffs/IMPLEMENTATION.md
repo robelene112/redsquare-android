@@ -36,8 +36,16 @@ no transaction, statusNONE and automaticfalse after positive target observation,
 before Back. Local strengthened build91514 PASS2m2s, core UP-TO-DATE. No owned
 local build. Production unchanged by this test correction; both fix reviews0/0.
 Strengthened Android17 run39036372375 at exact8df60df48a050cf60b149291adf207b356db68a2
-PENDING. It retains the actual tap and adds pre-Back persisted-work assertions.
-No stronger/full acceptance claim yet. Group/cold/preview slices
+SUCCESS1/0/34.179s, including exact pre-Back durable draft/no candidate/statusNONE/
+automaticfalse, UIreturn and final identity/no-transmission assertions.11hashes/
+3XML in durable-route-green/android17; root viewed opened/restored PNGs, shade
+retained without new visual claim. Existing Loading messages is qualified.
+First preview-choice tracer now adds one same-boundary case: defaultgeneric,
+explicit choice/recreate, text/caption previews and disable clearing old preview
+alerts before generic new messages. Local84621 preview-draft build PASS1m54s;
+small grounded merged-toggle selector/capture-name changes follow and will be
+compiled by hostedCI. No owned local build. Preview source unchanged/missing,
+its first RED dispatch follows. No whole44/full acceptance. Group/cold slices
 remain. Same approved UI/controlled-peer/notification/persistence seams; no new
 grill or matrix. Focused chat-alerts scopes retain180s class/20s observations.
 Public beta26 remains current, protected group contract untouched.

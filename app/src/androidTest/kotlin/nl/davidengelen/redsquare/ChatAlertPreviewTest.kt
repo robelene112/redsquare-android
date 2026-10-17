@@ -14,7 +14,9 @@ import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.chat.ChatWorkStore
+import nl.davidengelen.redsquare.chat.composeChatPhoto
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -28,7 +30,11 @@ class ChatAlertPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    @Test fun aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft() {
+    @Test fun aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft() = privateJourney()
+
+    @Test fun privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled() = privateJourney(previews = true)
+
+    private fun privateJourney(previews: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         // Published unsafe fixture identities only.
@@ -44,7 +50,7 @@ class ChatAlertPreviewTest {
         val retained = ChatFixtureState(context, SaitoBackend.entries.flatMap { backend ->
             listOf("chat.${backend.id}.${wallet.publicKey}.", "chatwork.${backend.id}.${wallet.publicKey}.",
                 "chatreactions.${backend.id}.${wallet.publicKey}.")
-        } + "personal.${wallet.publicKey}.", wallet.publicKey)
+        } + listOf("personal.${wallet.publicKey}.", "chat-alerts.${wallet.publicKey}."), wallet.publicKey)
         val notifications = context.getSystemService(NotificationManager::class.java)
         val existingAlerts = notifications.activeNotifications.map { it.tag to it.id }.toSet()
         val device = UiDevice.getInstance(instrumentation)
@@ -66,8 +72,8 @@ class ChatAlertPreviewTest {
             peer.start().use { server ->
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { _ ->
-                    withFailureCapture({ capture("private-warm-tap-failure") }) {
+                    .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { scenario ->
+                    withFailureCapture({ capture(if (previews) "private-previews-failure" else "private-warm-tap-failure") }) {
                         click(hasText("Chat"))
                         click(hasText(editingContact))
                         ui.waitUntil(20_000) { historyReads.get() > 0 && displayed(hasSetTextAction() and isEnabled()) }
@@ -84,23 +90,28 @@ class ChatAlertPreviewTest {
                         assertEquals("New message", alert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
                         assertTrue(device.openNotification())
                         val visible = requireNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
-                        capture("private-warm-alert")
-                        visible.click()
-                        ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
-                        ui.onNodeWithText("Private messages are encrypted.").assertIsDisplayed()
-                        capture("private-warm-opened")
-                        val savedDraft = ChatWorkStore(context, wallet, SaitoBackend.OWNER, editingContact).load()
-                        assertEquals(latestDraft, savedDraft.draft)
-                        assertNull(savedDraft.transaction)
-                        assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
-                        assertFalse(savedDraft.automatic)
-                        click(hasText("Back"))
-                        click(hasText(editingContact))
-                        val restoredDraft = hasSetTextAction() and isEnabled() and
-                            SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(latestDraft))
-                        ui.waitUntil(20_000) { displayed(restoredDraft) }
-                        ui.onNode(restoredDraft).assertIsDisplayed()
-                        capture("private-warm-draft-restored")
+                        capture(if (previews) "private-previews-default-alert" else "private-warm-alert")
+                        if (previews) {
+                            device.pressBack()
+                            previewChoice(scenario, peer, sender, wallet, notifications, existingAlerts)
+                        } else {
+                            visible.click()
+                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(sender.publicKey)) }
+                            ui.onNodeWithText("Private messages are encrypted.").assertIsDisplayed()
+                            capture("private-warm-opened")
+                            val savedDraft = ChatWorkStore(context, wallet, SaitoBackend.OWNER, editingContact).load()
+                            assertEquals(latestDraft, savedDraft.draft)
+                            assertNull(savedDraft.transaction)
+                            assertEquals(ChatWorkStore.Status.NONE, savedDraft.status)
+                            assertFalse(savedDraft.automatic)
+                            click(hasText("Back"))
+                            click(hasText(editingContact))
+                            val restoredDraft = hasSetTextAction() and isEnabled() and
+                                SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(latestDraft))
+                            ui.waitUntil(20_000) { displayed(restoredDraft) }
+                            ui.onNode(restoredDraft).assertIsDisplayed()
+                            capture("private-warm-draft-restored")
+                        }
                         assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())
                         assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
@@ -119,6 +130,64 @@ class ChatAlertPreviewTest {
                 { wallets.replace(wallets.loadExisting(), original); check(wallets.loadExisting().exportJson() == originalJson) },
                 { backends.save(originalBackend); check(backends.load() == originalBackend) })
         }
+    }
+
+    private fun previewChoice(scenario: ActivityScenario<MainActivity>, peer: ControlledFeedPeer,
+        sender: SaitoWallet, wallet: SaitoWallet, notifications: NotificationManager,
+        existingAlerts: Set<Pair<String?, Int>>) {
+        val device = UiDevice.getInstance(instrumentation)
+        val control = hasText("Private message previews") and isToggleable()
+        fun choice(): SemanticsNodeInteraction {
+            click(hasText("Settings"))
+            ui.waitUntil(20_000) { ui.onAllNodes(control and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+            return ui.onNode(control).performScrollTo().assertIsDisplayed()
+        }
+        fun published(text: String, timestamp: Long, request: Int, expected: String, name: String) {
+            val transaction = PrivateChat.create(sender, wallet.publicKey, text, timestamp)
+            peer.sendIncoming(transaction.applicationRequest(1).drop(5).toByteArray(), requestId = request)
+            ui.waitUntil(20_000) { notifications.activeNotifications.any { it.tag?.endsWith(":" + transaction.id) == true } }
+            val alert = notifications.activeNotifications.single { it.tag?.endsWith(":" + transaction.id) == true }
+            assertEquals("private-chats", alert.notification.channelId)
+            assertEquals(expected, alert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
+            assertTrue(device.openNotification())
+            assertTrue(device.wait(Until.hasObject(By.text(expected)), 10_000))
+            capture(name)
+            device.pressBack()
+        }
+        choice().assertIsOff().performClick()
+        ui.waitUntil(20_000) {
+            try {
+                ui.onNode(control).assertIsOn()
+                true
+            } catch (_: AssertionError) { false }
+        }
+        capture("private-previews-enabled")
+        device.pressBack()
+        scenario.recreate()
+        choice().assertIsOn()
+        capture("private-previews-reopened")
+        device.pressBack()
+        published("A readable private preview", 1700000140100, 802,
+            "A readable private preview", "private-previews-text-alert")
+        val photo = instrumentation.context.assets.open("native-images-reference.json").bufferedReader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("images").get("red").asString
+        }
+        published(composeChatPhoto(photo, "A caption without image markup"), 1700000140200, 803,
+            "A caption without image markup", "private-previews-caption-alert")
+        choice().assertIsOn().performClick()
+        ui.waitUntil(20_000) {
+            try {
+                ui.onNode(control).assertIsOff()
+                true
+            } catch (_: AssertionError) { false }
+        }
+        ui.waitUntil(20_000) { notifications.activeNotifications.none {
+            (it.tag to it.id) !in existingAlerts && it.notification.channelId == "private-chats"
+        } }
+        capture("private-previews-disabled")
+        device.pressBack()
+        published("Private text after disabling previews", 1700000140300, 804,
+            "New message", "private-previews-disabled-generic")
     }
 
     private fun finishFixtureActivities() {

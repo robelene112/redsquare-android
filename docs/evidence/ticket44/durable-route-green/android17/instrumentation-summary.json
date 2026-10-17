@@ -1,0 +1,37 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/chat44-durable-route-green-39036372375/.scratch/device-evidence/api-37.0",
+  "status_codes": {
+    "0": 1
+  },
+  "totals": {
+    "completion_records": 1,
+    "reported_ok_test_counts": 1,
+    "crash_outputs": 0,
+    "explicit_failed_files": 0
+  },
+  "excluded_exact_aggregates": [],
+  "files": [
+    {
+      "path": "chat-alerts-ui.txt",
+      "sha256": "cc190e6ce6f6c2211ab95771d5550436fcf5ea9cbd5de776facad160770d36c1",
+      "statuses": {
+        "0": 1
+      },
+      "cases": [
+        {
+          "class": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+          "test": "aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft",
+          "code": 0
+        }
+      ],
+      "junit_ok": [
+        1
+      ],
+      "junit_times": [
+        "34.179"
+      ],
+      "deliberate_or_unexplained_crash": false,
+      "explicit_failures": false
+    }
+  ]
+}
