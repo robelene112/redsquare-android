@@ -9,9 +9,9 @@ Google/device acceptance; its native dependency42 is now closed. Its earlier ove
 dependency#24 remains closed.
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`.
 
-## Active gateway session compatibility (#45)
+## Accepted gateway session compatibility (#45)
 
-Sole writer root; #45 assigned/unblocked, native server child of#32, which retains
+#45 CLOSED, native server child of#32, which retains
 its configured Google/device gates. Review base6a9b749ad16f91810334c369bbf29cd647a9cf0c.
 No app/build change or production deployment. Public beta27 remains unchanged.
 Existing controlled external gateway/peer/FCM seams apply.
@@ -49,7 +49,8 @@ across9suites, coreUPTODATE114/0/0; newtwo-binding journey1PASS/2.846s.
 Source CI39055116089 exact5c SUCCESScore/gateway/debug/test/release/lint.
 Canonical-full-green retains16hashrecords/allgatewayJUnit/CIcore+lint+buildlogs/
 source+unchanged7clientobjects. Both source reviews5c reportStandards0/Spec0.
-Final evidence reviews/tracker closure remain. No owned local build.
+Final integrated evidence reviews8fe64f3f3 Standards0/Spec0; #45 verified CLOSED.
+[Accepted checkpoint](https://github.com/robelene112/redsquare-android/issues/45#issuecomment-6238022008). No owned local build.
 No actual Google/deployed-node/Android acceptance.
 
 ## Accepted native Chat alert presentation (#44)
