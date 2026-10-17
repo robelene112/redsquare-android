@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushProcessTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivatePushProcessTest:
+INSTRUMENTATION_STATUS: test=recoverTheSameWorkerDismissItsAlertAndTerminateAgain
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivatePushProcessTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:109)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:377)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.PrivatePushProcessTest.recoverTheSameWorkerDismissItsAlertAndTerminateAgain(PrivatePushProcessTest.kt:116)
+	... 31 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.IoBridge.bind(IoBridge.java:105)
+	... 38 more
+
+INSTRUMENTATION_STATUS: stream=
+Error in recoverTheSameWorkerDismissItsAlertAndTerminateAgain(nl.davidengelen.redsquare.PrivatePushProcessTest):
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:109)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:377)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.PrivatePushProcessTest.recoverTheSameWorkerDismissItsAlertAndTerminateAgain(PrivatePushProcessTest.kt:116)
+	... 31 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.IoBridge.bind(IoBridge.java:105)
+	... 38 more
+
+INSTRUMENTATION_STATUS: test=recoverTheSameWorkerDismissItsAlertAndTerminateAgain
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.17
+There was 1 failure:
+1) recoverTheSameWorkerDismissItsAlertAndTerminateAgain(nl.davidengelen.redsquare.PrivatePushProcessTest)
+java.net.BindException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.IoBridge.bind(IoBridge.java:109)
+	at java.net.PlainSocketImpl.socketBind(PlainSocketImpl.java:162)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:427)
+	at java.net.ServerSocket.bind(ServerSocket.java:377)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:340)
+	at mockwebserver3.MockWebServer.start(MockWebServer.kt:303)
+	at nl.davidengelen.redsquare.PrivatePushProcessTest.recoverTheSameWorkerDismissItsAlertAndTerminateAgain(PrivatePushProcessTest.kt:116)
+	... 31 trimmed
+Caused by: android.system.ErrnoException: bind failed: EADDRINUSE (Address already in use)
+	at libcore.io.Linux.bind(Native Method)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.ForwardingOs.bind(ForwardingOs.java:75)
+	at libcore.io.IoBridge.bind(IoBridge.java:105)
+	... 38 more
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

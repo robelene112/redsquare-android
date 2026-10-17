@@ -1,0 +1,13 @@
+Pinned mockwebserver3.MockWebServer start(InetSocketAddress), javap -c -p, actual5.4.0 dependency.
+     193: aload_1
+     194: invokevirtual #168                // Method java/net/InetSocketAddress.getPort:()I
+     197: ifeq          204
+     200: iconst_1
+     201: goto          205
+     204: iconst_0
+     205: invokevirtual #395                // Method java/net/ServerSocket.setReuseAddress:(Z)V
+     208: aload         5
+     210: aload_1
+     211: checkcast     #194                // class java/net/SocketAddress
+     214: bipush        50
+     216: invokevirtual #399                // Method java/net/ServerSocket.bind:(Ljava/net/SocketAddress;I)V

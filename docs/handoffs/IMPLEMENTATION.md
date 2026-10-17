@@ -80,11 +80,47 @@ Exact muteGREEN39063261318 passes8cases98.755s plus actual existing mute-policy
 process recovery/restoration. Chat-alerts regression39063263234 passes9cases81.855s.
 Source39063259852 succeeds release/lint. Packet native-muted-green.
 
-Next: actual private-wake interruption/retry, worker preview/
-exacttap/currentpolicy/identity and applicable gateway persistence/reconnect.
-Final full Android10/17, core/gateway/release/lint, both source/evidence reviews and
-next signed28 remain required before native46 completion. Controlled injection
-never establishes real Google closed-app delivery. Public beta27 unchanged.
+Private process compatibility fixture51f91c9e starts from exact pre-metadata array
+history, records an actual retained/pending worker, deliberately terminates, then
+uses host-initiated cold instrumentation to recover the SAME worker UUID at the
+same owned gateway port. It physically dismisses the generic card, terminates
+again and requires a third PID/quiet duplicate plus older/new history/contact and
+identity continuity. Independent protected restoration drains work and verifies
+no Activity BEFORE mutation; PASS is written only after restoration succeeds.
+Initial82b local native/test compile passes5m11s; final51f fixture corrections and
+legacy precondition are not included in that local compile. Exact Android10
+runtime39064326130 FAILED: old9PASS81.487s; initial real retained/pending/death
+reached, but newprocess gateway bind EADDRINUSE0.17s before UUID recovery; protected
+restorePASS1.645s. Fixture af6 first enables reuse in factory, but39064794372 also
+fails bind0.151s (normal9/restorePASS). Actual pinnedMockWebServer5.4.0 bytecode
+resets reuse for initialport0 AFTERfactory creation. Correction86c1c75a applies
+reuse in ownedSocket.bind afterreset, preserving endpoints/assertions/deadlines.
+Bounded correction0/0; actual runtime39065279774 SUCCESS at86c: normal9PASS80.844s,
+privateprocess7119→7329→7518 verifies SAMEUUID recovery/generic actualshade,
+physicaldismissal/anotherdeath/quietduplicate, exact old+newhistory/contact/full
+identity and protectedrestore (verified1PASS3.208s, restored1PASS1.647s).
+Root viewed recoveredshade. Canonical native-process-first-failure19hashes and
+native-process-green18hashes retain failedattempts, dependency/bytecode and final
+qualifiedproof. Source39064310741/39064767481 succeed release/lint; no exactTCPstate
+cause or autonomousrestart/Google claim. Next e3c92b201 strengthens samephase2
+ownedgateway to410 onlyafter signedrequestvalidation, recordsrequestcount after
+workerterminalstate and capturesfailurecheckpoint before independentrestoration.
+Its boundedsource reviews0/0, actualRED39065733802 pending.
+
+Whole production review through51f: Standards0, Spec2 OPEN. First: worker always
+re-resolves/refetches before pending local history; later gateway404/410 can strand
+an eligible retained message. Persist verified wake-to-local-original association
+before background retention and resume with fresh identity/consent/policy/age.
+Second: blocked-author early return skips clearing already-pending history, so a
+later unblock/replay can retrospectively alert. Fix sequentially with actual
+tracers; normal/available-gateway process proof does not resolve these findings.
+
+Next: observe expired-remote RED39065733802, implement durable verified local routing; then
+blocked-pending suppression. Actual background preview/exacttap/currentpolicy/
+identity and applicable gateway persistence/reconnect remain. Final full10/17,
+core/gateway/release/lint, both source/evidence reviews and signed28 remain before
+native46 completion. No current local build. Public beta27 unchanged; controlled
+injection never establishes real Google closed-app delivery.
 
 
 ## Accepted gateway session compatibility (#45)
@@ -1237,15 +1273,16 @@ current client preparation is described above.
 
 ## Current public build
 
-Signed beta26/0.1.26 is published and independently verified at https://davidengelen.nl/redsquare/.
-Canonical #43 signed-preview26-published evidence retains thirteen hashed records,
-HTTPS manifest/APK identity, package/minimum29 and immutable25 checks. Source
-is e8b337a30edd70246404cf91d5ae1ca55d779aee, established certificate unchanged.
-APK SHA256 c7f4c4f00262f35a4a92ea2253b4e78989c0438751fb655df51a66b8627b17a7.
-Publication bookend2fff4587e has Standards0/Spec0. #43 is closed; #31 remains open
-for actual configured-provider acceptance. #44 changes have not been published.
-Physical owner installation/continuity remains unobserved. Signing material stays
-outside Git. Follow [review-build operations](../REVIEW_BUILDS.md) for the next publication.
+Signed beta27/0.1.27 was published and independently verified on2026-10-17 at
+https://davidengelen.nl/redsquare/. Canonical
+[ticket44 publication](../evidence/ticket44/signed-preview27-published/README.md)
+retains13hashedrecords, exact downloaded APK/package/certificate/min29 and
+immutable26 continuity. Source9a37c19ba5182b8f0f26f7c2947ec6a511a457f9,
+APK SHA2568b18899ad022491e5f808a63b0f4413e79098e781c6c018752748724c3c1d159.
+Publication bookend84ac82746 has Standards0/Spec0;44 is CLOSED. Physical owner
+installation/continuity remains unobserved. Signing material stays outside Git.
+Follow [review-build operations](../REVIEW_BUILDS.md) for the next publication.
+#46 is not yet published; next28 remains pending complete native acceptance.
 
 ## Other remaining issues
 
