@@ -133,8 +133,9 @@ Earlier standalone CI
 38992493829 atc71038b3 SUCCESS, separately retained; no client CI claim.
 
 Android gateway binding is accepted at the controlled HTTP/storage seam above.
-Resolver, continuous observer, durable FCM retry loop, physical retention cleanup
-and whole#42 acceptance remain unfinished. The isolated sender adapter is described below. Existing owner
+Continuous observer, standalone polling, physical retention cleanup and
+whole#42 acceptance remain unfinished. Callable durable reply delivery and
+recipient resolver are described below. The isolated sender adapter is described below. Existing owner
 Firebase setup remains pending without repeating the question. No deployment,
 node/account/IAM or live-write operations. Protected untracked group contract stays
 untouched. Public signed beta24 unchanged.
@@ -163,9 +164,26 @@ Correction663e2f18 source reviews0/0, but its test override failed compilation36
 Fixture-only2da44ac9 nowPASS41s/gateway6/0/0, new1.897s, coreUPTODATE.
 [Retained GREEN](../evidence/ticket42/sender-green/README.md),7hashes/12sourcehashes.
 Owned55910endedexit0, no owned local build. Final fixture/evidence reviews at981d1248 report Standards0/Spec0. Pushed;
-source CI38996214676 is pending.
+source CI38996214676 SUCCESS, [retained](../evidence/ticket42/archive-sender-source-ci/README.md).
 No actual Google/ADC/cloud/account use. Durable event/resolver and send scheduling
 remain next; do not close42/32 or claim device delivery. Beta24 unchanged.
+
+## Current durable reply pass
+
+Tracercc50e3a6 actualFAIL58s/new3.382s first outgoing request missing, old6PASS/
+coreUPTODATE. [Retained RED](../evidence/ticket42/delivery-red/README.md),8hashes.
+Spec2 tracer gaps correctedb93f86ab: actual FCM boundary observes exact candidate/
+parent reads before first send; distinct new reply exposed after opt-out.
+Minimumb3b4b477 PASS1m1s/gateway7/new5.936s bothloops, but Standards1 stale-batch
+send demand finding. [Retained firstminimum](../evidence/ticket42/delivery-first-minimum/README.md).
+Correction6bc3d712 fresh durable reread per send, current FID/generation and serialized
+passes; Standards0, Spec documentation contradiction corrected in current docs.
+Owned51625 ended PASS1m1s/gateway7/0/0/coreUPTODATE, no owned local build.
+[Retained GREEN](../evidence/ticket42/delivery-green/README.md),8hashes/13sourcehashes.
+Final evidence/Spec reviews pending. The concurrency interleaving, retry branch,
+expiry and pubkey mentions are source-reviewed, not exercised by this reply case.
+Next: interrupted-send recovery, verified-name mentions, chain/gaps/cleanup/runtime.
+No full42/32, production deployment or Google/Pixel claim. Beta24 unchanged.
 
 ## Accepted #32 foundation
 

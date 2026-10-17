@@ -5,7 +5,7 @@ Work in open[#42](https://github.com/robelene112/redsquare-android/issues/42), s
 subscription binding/status/retirement. It is not a deployed gateway or a complete
 observer/sender. The public interface is `PushGateway(stateDirectory, publicOrigin)`;
 `start()`, `port` and `close()` support the owned HTTP fixture. The optional
-constructor port defaults to0; all listeners remain IPv4 loopback. The Android binding adapter has controlled acceptance; resolver, observer, FCM sender
+constructor port defaults to0; all listeners remain IPv4 loopback. The Android binding adapter has controlled acceptance; a callable reply-event/resolver/sender pass is implemented. Continuous observer
 and operational acceptance remain later work. No account, credentials or live node state is used.
 
 ## Local command
@@ -94,7 +94,8 @@ state is at most4MiB. Requests are at most8192bytes. HTTP work uses four threads
 a32-entry queue. A nonce is removed after its successful binding commit. Exact
 retransmission is idempotent; a retired ID returns410 while its retirement record is retained.
 Retirement records have7day expiry. Expired records are pruned on mutation;
-automatic physical retention cleanup is not yet implemented or claimed. HTTP
+expired events are also pruned on mutation. Automatic physical retention cleanup
+is not yet implemented or claimed. HTTP
 request-body timeouts and operational process/hosting supervision also remain
 before deployment readiness. No permanently retained history is promised.
 
@@ -198,8 +199,9 @@ The gateway does not receive subscriber signing keys or broadcast transactions.
 roots and replies, without recipient filtering. Original signed content is decoded
 using the shared feed reader. This head read can discover newly inserted backdated
 posts but cannot guarantee exhaustive history or recovery beyond the bounded head.
-Candidate eligibility, exact parent/name proof, durable cursors and explicit
-outage/pruning/reorganization gaps remain continuous-observer work.
+Exact candidate/parent availability is now checked before reply queuing. Registry
+name proof, durable chain cursors and explicit outage/pruning/reorganization gaps
+remain continuous-observer work.
 
 [Controlled evidence](evidence/ticket42/archive-green/README.md) at9967ff40:
 gateway5/0/0, including the new0.888second journey completing both selector loops;
@@ -213,7 +215,8 @@ FID at the Google HTTPS endpoint. It returns acceptance with the actual message
 name, a retry delay, structured UNREGISTERED or terminal HTTP rejection. The
 caller must persist the same logical wake and own bounded retries, backoff/jitter,
 expiry and conditional retirement of the exact target generation. Acceptance is
-not a delivery receipt. No such durable delivery loop is implemented yet.
+not a delivery receipt. The callable gateway pass now persists pending events and retry deadlines;
+standalone continuous polling remains unwired.
 
 OAuth metadata is requested afresh per attempt. Expiry and whole-second Android
 TTL are checked after credential retrieval. Payloads contain no wallet, backend,
@@ -236,3 +239,38 @@ place credentials in the APK/repository. See the sourced[API observation](resear
 owned HTTP with synthetic credentials; it does not establish Google delivery.
 The original no-op failure, first-minimum failure and fixture compile failure
 remain retained separately. No production gateway is deployed.
+
+
+## Durable social pass and resolver
+
+`PushGateway.poll(archive, sender)` serializes passes for the Archive's explicit
+approved backend. A head row is only a discovery hint: candidate and parent are
+read exactly from that selected Archive before eligibility and durable queueing.
+Self-authored posts and signed timestamps outside the seven-day window are
+excluded. Reply-to-owned-parent and explicit public-key mention eligibility use
+the subscription's current categories. Registrar-backed username eligibility
+remains open. Original content is never included in the FCM request or event file.
+
+Events contain public owner/backend/signature/category, subscription ID, opaque
+wake, expiry and send/retry status. References resolve for at most24hours, further
+bounded by subscription expiry and signed post age. Dedup records remain until
+the signed post is seven days old, preventing repeated head reads after resolution
+expiry from recreating a wake. Up to4096 events share the existing4MiB snapshot;
+capacity failure leaves the pass unacknowledged. Older version1 snapshots without
+an events map are loaded with an empty map; older binaries cannot read the new
+map, so do not downgrade against this snapshot.
+
+POST `/v1/wakes/resolve` accepts only `{version:1,wake}`. X-Saito-Owner and
+X-Saito-Signature authenticate the existing Android recipient-proof text against
+the canonical full resolver URL. Correct recipients receive only the exact
+version/wallet/backend/signature reference. Wrong recipients return401;
+missing references404; expired or no-longer-current subscriptions410. Resolution
+does not trust a caller-provided backend or contain post text.
+
+Each send rereads durable current demand, and a delayed result applies only to
+the same FID/binding generation. Retry state is retained with bounded exponential
+backoff, jitter and the sender's minimum delay. A crash after cloud acceptance
+but before durable completion can resend the same wake; device dedup remains
+required. Controlled[reply evidence](evidence/ticket42/delivery-green/README.md)
+passes both selector loops. Interrupted sends, live target renewal during a send,
+registered-name mentions and the continuous runtime still need their own evidence.
