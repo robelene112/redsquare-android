@@ -13,6 +13,16 @@ import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.Rule
+import org.junit.rules.TemporaryFolder
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.time.Duration
+import java.util.Date
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.auth.oauth2.AccessToken
 import java.math.BigInteger
 import java.net.InetAddress
 import java.nio.ByteBuffer
@@ -21,6 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
 class GatewayChainTest {
+    @get:Rule val directory = TemporaryFolder()
     @Test(timeout = 30_000) fun bootstrapReadsEveryFullBlockThenContinuesFromTheProcessedCursor() {
         val fixture = requireNotNull(javaClass.getResourceAsStream("/native-block-reference.json"))
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
@@ -66,7 +77,8 @@ class GatewayChainTest {
                                         21 -> {
                                             require(frame.size == 111 && frame.copyOfRange(107, 111).all { it == 0.toByte() })
                                             require(frame.copyOfRange(74, 107).contentEquals(requireNotNull(peerKey.get())))
-                                            val continuation = reads.getAndIncrement() != 0
+                                            reads.incrementAndGet()
+                                            val continuation = ByteBuffer.wrap(frame, 1, 8).long != 0L
                                             if (!continuation) {
                                                 require(frame.copyOfRange(1, 73).all { it == 0.toByte() } && frame[73] == 1.toByte())
                                             } else {
@@ -111,6 +123,41 @@ class GatewayChainTest {
                     assertTrue(next.references.isEmpty())
                     assertEquals(last.height, next.ancestorHeight); assertEquals(last.hash, next.ancestorHash)
                     assertEquals(2, reads.get()); assertEquals(hashes, downloads.toList())
+                }
+                val state = directory.newFolder("chain-${backend.id}").toPath()
+                val sender = FcmSender("owned-fixture", GoogleCredentials.create(AccessToken("synthetic-owned-oauth",
+                    Date(System.currentTimeMillis() + 3_600_000))), "http://127.0.0.1:${server.port}")
+                fun observe(gateway: PushGateway) {
+                    GatewayChain(identity, backend, "http://127.0.0.1:${server.port}").use { chain ->
+                        GatewayArchive(identity, backend, "http://127.0.0.1:${server.port}").use { archive ->
+                            gateway.observe(chain, archive, sender)
+                        }
+                    }
+                }
+                fun cursor(gateway: PushGateway): com.google.gson.JsonObject {
+                    val request = HttpRequest.newBuilder(URI("http://127.0.0.1:${gateway.port}/v1/observer/status"))
+                        .timeout(Duration.ofSeconds(5)).POST(HttpRequest.BodyPublishers.ofString(
+                            "{\"version\":1,\"backend\":\"${backend.id}\"}"))
+                    val response = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(3)).build()
+                        .send(request.build(), HttpResponse.BodyHandlers.ofString())
+                    assertEquals(200, response.statusCode())
+                    val status = JsonParser.parseString(response.body()).asJsonObject
+                    assertNotNull("Processed chain cursor must be durably observable", status.get("cursor"))
+                    return status.getAsJsonObject("cursor")
+                }
+                PushGateway(state, "https://push.fixture.invalid").use { gateway ->
+                    gateway.start(); observe(gateway)
+                    val processed = cursor(gateway)
+                    assertEquals("2000003", processed.get("height").asString)
+                    assertEquals(hashes.last(), processed.get("hash").asString)
+                }
+                PushGateway(state, "https://push.fixture.invalid").use { restarted ->
+                    restarted.start()
+                    assertEquals(hashes.last(), cursor(restarted).get("hash").asString)
+                    observe(restarted)
+                    assertEquals("2000003", cursor(restarted).get("height").asString)
+                    assertEquals(4, reads.get())
+                    assertEquals(hashes + hashes, downloads.toList())
                 }
                 failure.get()?.let { throw AssertionError("Owned chain peer failed", it) }
             }

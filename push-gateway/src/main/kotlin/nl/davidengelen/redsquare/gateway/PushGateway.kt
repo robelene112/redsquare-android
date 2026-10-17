@@ -62,6 +62,9 @@ class PushGateway(stateDirectory: Path, publicOrigin: String, port: Int = 0) : C
         }
     }
 
+    /** Process one selected chain range before advancing its durable cursor. */
+    fun observe(chain: GatewayChain, archive: GatewayArchive, sender: FcmSender) = Unit
+
     fun start() = server.start()
     override fun close() {
         server.stop(1)
