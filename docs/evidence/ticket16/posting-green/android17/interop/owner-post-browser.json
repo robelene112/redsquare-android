@@ -1,0 +1,35 @@
+{
+  "result": "PASS",
+  "frameSha256": "7ff90e4852d64b081100151b81df58e4754752f5bd177ee9678824d8c1ce8cea",
+  "boundary": "Offline Chromium DOM and decode of owned GIF bytes in pinned template output; no animation, live provider, node or production publication proof",
+  "observations": [
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "requests": [
+        "http://127.0.0.1:54653/media/published.gif?token=owned%2Bonly&keep=1"
+      ],
+      "decoded": [
+        {
+          "src": "http://127.0.0.1:54653/media/published.gif?token=owned%2Bonly&keep=1",
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "requests": [
+        "http://127.0.0.1:54653/media/published.gif?token=owned%2Bonly&keep=1"
+      ],
+      "decoded": [
+        {
+          "src": "http://127.0.0.1:54653/media/published.gif?token=owned%2Bonly&keep=1",
+          "width": 16,
+          "height": 16
+        }
+      ]
+    }
+  ]
+}

@@ -848,24 +848,36 @@ post/reply/quote interoperability at existing UI/HTTP/Saito seams, with final
 Android10/17 verification. Avoid expanding into unrelated node/provider work.
 
 
-## Selected-credit GREEN and next compatibility verification
+## Current GIF verification checkpoint
 
-Exactd423666d Android17 run39010198233 SUCCESS2/0/36.558s. Canonical
-[credits GREEN](../evidence/ticket16/credits-green/android17/README.md) retains
-13 originals, root viewed four PNGs/parsed four XMLs. UI display assertions prove
-selected/recreated credits and removal; captures precede credit scrolling and
-are not a complete visual credit proof. Local42514 PASS3m46s; obsolete88421
-retired143. Source39010198373 was pending at collection and is now verified SUCCESS atd423666d. No local build active.
+Production minimum remains32d0c22c. Native candidate92845df9 run39011213336
+SUCCESS on Android17: preview2/0/37.359s and posting6/0/25.056s. Separate source
+39011213667 SUCCESS. Corrected endpoint build30442 PASS1m47s. Both reviews0/0.
+[Canonical packet](../evidence/ticket16/posting-green/android17/README.md) retains
+original native data and six actual public test frames. Fresh Activity/VM reopening
+and full visible credit captures now pass. This is not process-death proof.
+All post/reply/quote cases use their explicit owned backend endpoint extra.
 
-Next verification keeps production unchanged: saved GIF reopens through an
-actually fresh Activity/VM using normal launch/close, explicit credit PNG/XML
-captures, and six controlled post/reply/quote UI/socket cases across both backend
-bindings. New raw public frames retained for independent pinned-client checks.
-Existing image posting/read paths are reused; no missing-feature RED is claimed
-for this verification extension. Each UI class retains its180second bound.
-First verification local build55226 PASS2m7s. Review caught the official fixture
-endpoint extra missing; corrected before any push/native execution. Both backend
-cases now select their explicit owned peer extra. Corrected source reviews Standards0/Spec0; build30442 PASS1m47s. Native runtime
-remains pending; full16 is not accepted. Offline frame/template compatibility
-checks are prepared, not yet executed. The bounded duplication smell in the
-new frame verifier is deferred to keep earlier accepted proof scripts unchanged.
+Root viewed9 preview PNGs and three posting PNGs; Standards reviewer viewed all12
+posting PNGs, all21 XMLs parse. Owner-post-indexed bitmap shows the older card
+while XML/native display checks contain the new post; exclude that bitmap from
+visible indexed-post acceptance. Quote available captures are partially offscreen.
+No broader visual/physical acceptance inferred.
+
+Six independent WASM signature/hop/body checks and A/B template/Chromium decode
+checks pass offline. Twelve source hashes match accepted ticket14 baseline.
+Known pinned web limitation persists: original quote text is authenticated and
+normalized, but no embedded.app means no original text body in their HTML.
+Identity/images remain; Android shows original text. Earlier mistaken oracle
+failure is retained, not labeled app RED. Corrected tool reviews0/0 at96ed9094.
+The duplicated reference wire checks remain a documented nonblocking smell.
+
+Additional search verification source2be73e80 has reviews0/0 and local build85318
+PASS1m41s; earlier2097 PASS2m5s preceded its observer correction. It checks
+trending/search, exact UTF8 query,429/retry/empty, local51-character rejection,
+and newer-result preservation over1.5seconds after releasing a held older request,
+then cancellation retaining authored text/no Saito writes. Dispatcher completion
+is not direct transport-cancellation proof. Native execution is still pending.
+No owned local build remains. Whole16 remains open for remaining controlled,
+Android10/17 and authorized live-provider acceptance. Latest tracker comment
+6230874630 predates this latest runtime checkpoint. Beta24 unchanged.

@@ -1,0 +1,52 @@
+{
+  "nodeVersion": "v24.20.0",
+  "frameSha256": "d471c2dbc5c947c1ada677bc34e1ef02abcebda72bbb07296a81ac1041ba5401",
+  "boundary": "Verified decoded data adapter plus unmodified pinned constructor/template graph; no DOM/network acceptance proof",
+  "limitations": [],
+  "observations": [
+    {
+      "pin": "A",
+      "commit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+      "hashes": {
+        "A-node_mods_redsquare_lib_tweet.js": "07ea0b50eac7c21ac8452b51fdb7bdda27efb5de7c62e5288a220ffaf23bf908",
+        "A-node_mods_redsquare_lib_tweet.template.js": "f02e7160ff3370247920a6f9a1864759e2a8bd1f19564e15d1a44be8c1e26828",
+        "A-node_mods_redsquare_lib_tweet-header.template.js": "85bfa6788d2907ef611fdacbb76611a6d0eefe399f1332e7b46fbd9a5d7dad80",
+        "A-node_mods_redsquare_lib_tweet-body.template.js": "96e25974bab559c782065f6aa9f6c750235721ddfd16ee1775980b2661dd47ec",
+        "A-node_mods_redsquare_lib_tweet-gallery.template.js": "dabe8fb8a2b55ee913e04e0e797b43862c65ed0dcc295cbdc49ad7a5e0924f6e",
+        "A-node_mods_redsquare_lib_tweet-footer.template.js": "bc564d9a5f322b491540541abfcc6dda0f2a4983c893b3efe1b80a7673dbfc3a"
+      },
+      "kind": "post",
+      "outerCommentaryRendered": true,
+      "originalIdentityRendered": null,
+      "originalTextRendered": null,
+      "normalizedOriginalHasApp": null,
+      "exactGifUrlRendered": true,
+      "expectedImages": [
+        "http://127.0.0.1:47347/media/published.gif?token=owned%2Bonly&keep=1"
+      ],
+      "html": "\n    <article class=\"tweet\" data-id=\"fa102f9100485b8219caaa3127fd120345b4fd4b0e3b66cb83b1cd87c3f328cf272cbbdf6092c79fc111ec6bbc3c79d29df434303dd0319ca84972057a1767d4\">\n      <div class=\"chain\" aria-hidden=\"true\"></div>\n      <img class=\"avatar saito-identicon\" src=\"/controlled-avatar.png\" alt=\"Anon-ewBPJ3\" data-id=\"ewBPJ37BHQnnmX9oafSC4YTM6RveWya3BMSeZnkmPe7f\" />\n      <div class=\"content\">\n        \n    <header class=\"header compact\">\n      <span class=\"primary saito-address\" data-id=\"ewBPJ37BHQnnmX9oafSC4YTM6RveWya3BMSeZnkmPe7f\">Anon-ewBPJ3</span>\n      <span class=\"sep\" aria-hidden=\"true\">·</span>\n      <time class=\"time saito-userline\">controlled time</time>\n    </header>\n  \n        <div class=\"body\">Native GIF post official</div>\n        \n    <div class=\"gallery count-1\">\n      <div class=\"grid\">\n        \n        <figure class=\"item\">\n          <img\n            src=\"http://127.0.0.1:47347/media/published.gif?token=owned%2Bonly&amp;keep=1\"\n            alt=\"Tweet image 1 of 1\"\n            loading=\"lazy\"\n            data-index=\"0\"\n            role=\"button\"\n            tabindex=\"0\"\n          />\n        </figure>\n      </div>\n    </div>\n  \n        \n        \n        \n        \n    <footer class=\"footer\">\n      <div class=\"controls saito-menu-select-subtle\">\n        <div class=\"tool comment\" title=\"Reply/Comment\">\n          <span class=\"count\">0</span>\n          <i class=\"far fa-comment\"></i>\n        </div>\n        <div class=\"tool retweet\" title=\"Retweet/Quote-tweet\">\n          <span class=\"count\">0</span>\n          <i class=\"fa fa-repeat\"></i>\n        </div>\n        <div class=\"tool like\" title=\"Like tweet\">\n          <span class=\"count\">0</span>\n          <i class=\"far fa-heart\"></i>\n        </div>\n        <div class=\"tool share\" title=\"Copy link to tweet\">\n          <i class=\"fa-solid fa-share-nodes\"></i>\n        </div>\n        <div class=\"tool more\" title=\"More options\">\n          <i class=\"fa-solid fa-ellipsis\"></i>\n        </div>\n      </div>\n      <div class=\"show-more\" role=\"button\" tabindex=\"0\">Show more posts</div>\n    </footer>\n  \n      </div>\n      \n    </article>\n  "
+    },
+    {
+      "pin": "B",
+      "commit": "214504ecece76d1cd20a245fe4468eccbfca2951",
+      "hashes": {
+        "B-node_mods_redsquare_lib_tweet.js": "5cd07031e4af6bf57415543ec77ea67b6ad4e9ba3aed48e97b5969c97380be4a",
+        "B-node_mods_redsquare_lib_tweet.template.js": "f02e7160ff3370247920a6f9a1864759e2a8bd1f19564e15d1a44be8c1e26828",
+        "B-node_mods_redsquare_lib_tweet-header.template.js": "85bfa6788d2907ef611fdacbb76611a6d0eefe399f1332e7b46fbd9a5d7dad80",
+        "B-node_mods_redsquare_lib_tweet-body.template.js": "96e25974bab559c782065f6aa9f6c750235721ddfd16ee1775980b2661dd47ec",
+        "B-node_mods_redsquare_lib_tweet-gallery.template.js": "dabe8fb8a2b55ee913e04e0e797b43862c65ed0dcc295cbdc49ad7a5e0924f6e",
+        "B-node_mods_redsquare_lib_tweet-footer.template.js": "57c0a8fc79f2c64cf8f61704f6149dd99450376b98a785aaa3c3e29ca1aa6789"
+      },
+      "kind": "post",
+      "outerCommentaryRendered": true,
+      "originalIdentityRendered": null,
+      "originalTextRendered": null,
+      "normalizedOriginalHasApp": null,
+      "exactGifUrlRendered": true,
+      "expectedImages": [
+        "http://127.0.0.1:47347/media/published.gif?token=owned%2Bonly&keep=1"
+      ],
+      "html": "\n    <article class=\"tweet\" data-id=\"fa102f9100485b8219caaa3127fd120345b4fd4b0e3b66cb83b1cd87c3f328cf272cbbdf6092c79fc111ec6bbc3c79d29df434303dd0319ca84972057a1767d4\">\n      <div class=\"chain\" aria-hidden=\"true\"></div>\n      <img class=\"avatar saito-identicon\" src=\"/controlled-avatar.png\" alt=\"Anon-ewBPJ3\" data-id=\"ewBPJ37BHQnnmX9oafSC4YTM6RveWya3BMSeZnkmPe7f\" />\n      <div class=\"content\">\n        \n    <header class=\"header compact\">\n      <span class=\"primary saito-address\" data-id=\"ewBPJ37BHQnnmX9oafSC4YTM6RveWya3BMSeZnkmPe7f\">Anon-ewBPJ3</span>\n      <span class=\"sep\" aria-hidden=\"true\">·</span>\n      <time class=\"time saito-userline\">controlled time</time>\n    </header>\n  \n        <div class=\"body\">Native GIF post official</div>\n        \n    <div class=\"gallery count-1\">\n      <div class=\"grid\">\n        \n        <figure class=\"item\">\n          <img\n            src=\"http://127.0.0.1:47347/media/published.gif?token=owned%2Bonly&amp;keep=1\"\n            alt=\"Tweet image 1 of 1\"\n            loading=\"lazy\"\n            data-index=\"0\"\n            role=\"button\"\n            tabindex=\"0\"\n          />\n        </figure>\n      </div>\n    </div>\n  \n        \n        \n        \n        \n    <footer class=\"footer\">\n      <div class=\"controls saito-menu-select-subtle\">\n        <div class=\"tool comment\" title=\"Reply/Comment\">\n          <span class=\"count\">0</span>\n          <i class=\"far fa-comment\"></i>\n        </div>\n        <div class=\"tool retweet\" title=\"Retweet/Quote-tweet\">\n          <span class=\"count\">0</span>\n          <i class=\"fa fa-repeat\"></i>\n        </div>\n        <div class=\"tool like\" title=\"Like tweet\">\n          <span class=\"count\">0</span>\n          <i class=\"far fa-heart\"></i>\n        </div>\n        <div class=\"tool share\" title=\"Copy link to tweet\">\n          <i class=\"fa-solid fa-share-nodes\"></i>\n        </div>\n        <div class=\"tool more\" title=\"More options\">\n          <i class=\"fa-solid fa-ellipsis\"></i>\n        </div>\n      </div>\n      <div class=\"show-more\" role=\"button\" tabindex=\"0\">Show more tweets</div>\n    </footer>\n  \n      </div>\n      \n    </article>\n  "
+    }
+  ]
+}
