@@ -159,8 +159,13 @@ The selected failure capture is the launcher, not visible card evidence. Source
 39084661017 SUCCESS includes release/lint. Minimuma9f5a0cc6 catches only the eager
 policy-read error and falls through shared ledger/strict notifier handling,
 preserving ledger-failure precedence and ordinary no-retrospective completion.
-Both scoped source reviews0. Actual unchanged5case run39085132961 is running;
-corrected runtime and whole47 acceptance remain pending. Journey wake/capture metadata is now centralized on the enum after actual mute
+Both scoped source reviews0. Actual unchanged5case run39085132961 at a9f is
+SUCCESS5PASS54.338s. `native-policy-green` retains the exact ordinary recovery
+and unchanged four journeys; source-only39085133300 is still running, so no new
+release/lint claim. RED evidence reviews0/0. Whole-source interim reviews retain
+current membership, Android category suppression before optional ledger and
+more-than100group-interest union handling as OPEN findings. Whole47 acceptance
+remains pending. Journey wake/capture metadata is now centralized on the enum after actual mute
 GREEN, addressing the separate nonblocking review finding. No owned local build/watcher/download now.
 Membership/current-policy completion and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.

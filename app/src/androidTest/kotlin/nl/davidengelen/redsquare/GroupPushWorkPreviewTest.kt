@@ -47,12 +47,16 @@ class GroupPushWorkPreviewTest {
     @Test fun ordinaryGroupPolicyReadFailureDoesNotBecomeARetrospectiveAlertAfterRepair() =
         groupJourney(Journey.POLICY_RECOVERY)
 
+    @Test fun leavingAPendingGroupCompletesItsOldAlertBeforeExplicitRejoining() =
+        groupJourney(Journey.MEMBERSHIP_RECOVERY)
+
     private enum class Journey(val wakeByte: String, val capturePrefix: String) {
         WORKER_FIRST("71", "group-worker"),
         RECEIPT_RECOVERY("72", "group-receipt-recovery"),
         SCOPED("73", "group-scoped"),
         MUTED_PENDING("75", "group-muted-pending"),
-        POLICY_RECOVERY("76", "group-policy-recovery")
+        POLICY_RECOVERY("76", "group-policy-recovery"),
+        MEMBERSHIP_RECOVERY("77", "group-membership-recovery")
     }
 
     private fun groupJourney(journey: Journey = Journey.WORKER_FIRST) {
@@ -180,6 +184,37 @@ class GroupPushWorkPreviewTest {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, wake,
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve",
                     peerServer?.let { "ws://127.0.0.1:${it.port}/wsopen" }) }
+                if (journey == Journey.MEMBERSHIP_RECOVERY) {
+                    val history = GroupChatStore(context, wallet, backend)
+                    val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    try {
+                        receiveChat(context, wallet, backend, original.applicationRequest(1).drop(5).toByteArray())
+                        assertEquals(text, history.load(group.id)!!.messages.single().text)
+                        assertSilent("Unavailable bookkeeping must retain the group message quietly")
+                        history.receive(GroupChat.leave(wallet, group.id, now + 1).envelope())
+                        assertEquals(ChatGroupRole.LEFT, history.load(group.id)!!.group.memberRoles[wallet.publicKey])
+                        await(schedule())
+                        assertSilent("A departed group's pending receipt must finish without publication")
+                        assertNoActivity()
+                        capture("departed-completed")
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                    val invitation = GroupInvitation.fromGroup(history.load(group.id)!!.group, author.publicKey)
+                    history.receive(GroupChat.join(wallet, invitation, now + 2).envelope())
+                    assertEquals(ChatGroupRole.MEMBER, history.load(group.id)!!.group.memberRoles[wallet.publicKey])
+                    await(schedule())
+                    assertSilent("Explicit rejoining must not revive the departed group's old pending alert")
+                    val saved = history.load(group.id)!!.messages
+                    assertEquals(1, saved.size); assertEquals(original.id, saved.single().id)
+                    assertEquals(text, saved.single().text)
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertNoActivity()
+                    capture("rejoined-still-silent")
+                    return@withFailureCapture
+                }
                 if (journey == Journey.POLICY_RECOVERY) {
                     val obstruction = File(context.noBackupFilesDir, "personal.${wallet.publicKey}.v1.new")
                     check(obstruction.mkdir())
