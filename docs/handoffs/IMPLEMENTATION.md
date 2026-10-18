@@ -16,7 +16,23 @@ campaigns, provider-access services or safeguard bypass work.
 [Issue47](https://github.com/robelene112/redsquare-android/issues/47) is OPEN,
 assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSED;
 zero OPEN blockers verified. Child of34, under specification1. Review base is
-`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`. Gateway and native subscription code exist; whole47/native receiver acceptance remains pending.
+`d6a64a256ffb77b51d3c565e19f46e49f31eb40c`.
+
+Current production726768c59 has final whole-source Standards0/Spec0. Bounded
+native group worker/history/control/route/recovery, actual group three-PID legacy
+recovery,100-interest capacity fallback/recovery and the private-muted counterpart
+are accepted at their individual Android17 seams. Latest private39090067191 is
+SUCCESS1PASS17.770s; source39090067493 still pending. The extracted private PID
+adapter still needs current runtime proof. Complete Android10 and all three
+Android17 full jobs have NOT started; signed29 is neither prepared nor published.
+Expected full identity sets are fixed429/430 in the reviewed partition plan.
+Next: review the latest GREEN packet, push this evidence bookend, dispatch both
+full scopes at the same source with approved public reads, and prepare signed29
+through the canonical build. No owned local build is running. Whole47 acceptance
+and original32/34 Google/deployment/physical gates remain pending.
+
+The following paragraphs retain chronological checkpoints; old present-tense
+status statements describe their dated step, not the current state above.
 
 Deliver group interests through the authenticated shared subscription, opaque
 wakes and actual native worker/notification/history boundaries. Group messages
@@ -377,7 +393,13 @@ inside shared publication, after durable history and before optional ledger.
 Private uses the existing strict account/conversation/system predicate. Group
 behavior is moved unchanged; unreadable-policy fallthrough, ordinary completion,
 background retry and ledger-error precedence remain. Source/evidence review and
-actual private GREEN are pending. No owned local build is running.
+private GREEN is SUCCESS39090067191 at726768c59:1PASS17.770s, exact history,
+known mute/worker completion while obstruction remains, guarded repair, continuously
+quiet unmute/replay and exact one-message/identity/noActivity pass. Eight-hash/
+33original native-private-muted-green packet is retained. Root inspected both
+selected image previews (status region only); complete PNG CRC/zlib and original
+XML confirm launcher captures, not visible-card evidence. Final whole-source
+reviews at726 are0/0; GREEN evidence review is pending. No owned local build.
 
 Pre-execution full identity plan11d937a6b fixes430Android17 and429Android10
 identities (accepted46baseline+11literal additions), with exact paths/multiplicity
