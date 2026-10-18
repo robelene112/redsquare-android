@@ -1,0 +1,321 @@
+{
+  "originalArtifactRoot": "/mnt/storage/redsquare-android-artifacts/group47-full17-second-39092400352/android-native-proof-wallet",
+  "originalFiles": [
+    {
+      "path": ".scratch/device-evidence/api-37.0/emulator.log",
+      "size": 8361,
+      "sha256": "88ffd4bc5c7b9ea8cc7f16eabcd36de4befad7978a3a1f636e95c9cb7411aacc"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/partition.txt",
+      "size": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-crash-classes.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-evidence.tar",
+      "size": 270848,
+      "sha256": "25c90dd3acd8825fe8ff2f3e2e22a46f82f063f5f85979c2661e7027aaabdb0e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-system-screen.png",
+      "size": 197797,
+      "sha256": "a390e370234748fbba4801407cf68f529ef768f2150546422584ca683a42ecee"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-ui.txt",
+      "size": 5472,
+      "sha256": "1dfb372bc9912a558b6730ec47f7f9e823ddd41bb0fff621c9f9a7cb5d6826e4"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.html",
+      "size": 186198,
+      "sha256": "2ff8b9acba1fbed1c927822cdd1d1eb2b2be2ad611f7918ab1e0f034bed84dbd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+      "size": 2534,
+      "sha256": "f803fb8e549d853035fb35d7b9ba987db49dcf2dbea66ede848e82b61943333f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+      "size": 5325,
+      "sha256": "870860e6c1788814f928031437c8eef5d3898516589c1a377b4894b09a26c741"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+      "size": 2444,
+      "sha256": "99603fa3965048c3cb21831457e62150ccf6ae1207983e0199d02c6c9e2d746d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+      "size": 3620,
+      "sha256": "7610453cf70b0536655866566e1066e66e4f30186e2ee47e132fa9ade4a1b56a"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+      "size": 2279,
+      "sha256": "8b94e0140a84114c81a94c06468e51df07f3f349e7453c94ba7636ed135ee690"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+      "size": 3702,
+      "sha256": "959dbfa9cf81c14dbb135d44e7b189c4680d465a4f05032901ea2572773c05bd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+      "size": 2599,
+      "sha256": "3a3dde27cfcf747ae3770da358fe5a0ece5ad33ba278409d4dd14f3298a58a3c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+      "size": 2611,
+      "sha256": "c049a364535dc19d3410e08e8e56ee8e8af69fdec2ed36a262fd9501d823dd5e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+      "size": 3357,
+      "sha256": "71196e6b66b213a0583e5ec9046ef81bad7672f7d5db7466260a9b319767c712"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+      "size": 2613,
+      "sha256": "92e7baf464f1f0006dde881cc95573243d62cd88a56aff92526fd05305fdc4ca"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+      "size": 2776,
+      "sha256": "01495dfdcf2dd3fc7ea4733a16e1dfb4eb49677be14c484b6b3b474e27af730d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+      "size": 2589,
+      "sha256": "6e1b3c743e21fbfb07419ca76b8d11dbbfbd2854bd7aa0d1130ae0861e6ecbac"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+      "size": 2106,
+      "sha256": "78d70261def9124d8d6cdf86acf2b56413704a9d59bd39a02326dba8c6b831b9"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+      "size": 2785,
+      "sha256": "bd29e26aeb2665aa64944550527fe658262b4e1ac9536cd35ff458047ae605b7"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+      "size": 2243,
+      "sha256": "8241c598c3bdcd9e55049583d1c88bbb4ec4d7f20e51b4e8ebeb28a77ca85512"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+      "size": 2644,
+      "sha256": "e1725f84ae8cec6da74d58a18ec64c673a506d2fe96b1358e657a0c5a03e45b3"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+      "size": 2860,
+      "sha256": "53e0b3d119a9e462fe7f6f81d6f51587c2502fa56b7085335bd7677314489e2c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+      "size": 2581,
+      "sha256": "2b5b30647deaf45e44580c7c99e14e0ffd8963a0961b0616ee50e79e94fdd987"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+      "size": 4422,
+      "sha256": "d33fdc74ab8aeb1366097f13533a0413f2045fed1c3162e0b7ef1c683141059f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+      "size": 2093,
+      "sha256": "9464dbdc898c8ca23fd0215aa8029bc86258f6faa520e75175e6c3d3dc8ed4c5"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/base-style.css",
+      "size": 2645,
+      "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/style.css",
+      "size": 1135,
+      "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+    },
+    {
+      "path": "core/build/reports/tests/test/index.html",
+      "size": 7122,
+      "sha256": "b6a8a3ca0f41490e4d857040d99ef180c946620314bba3440cd15024cb333253"
+    },
+    {
+      "path": "core/build/reports/tests/test/js/report.js",
+      "size": 5252,
+      "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+    },
+    {
+      "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+      "size": 6216,
+      "sha256": "9032ac111aebf289ac2067c7ffffa2743367290a16fc92f3a10639269a8934bb"
+    }
+  ],
+  "sdkInspection": {
+    "root": "/mnt/storage/redsquare-android-artifacts/group47-full17-second-39092400352/android-native-proof-wallet/.scratch/device-evidence/api-37.0",
+    "files": [
+      {
+        "path": "emulator.log",
+        "size": 8361,
+        "sha256": "88ffd4bc5c7b9ea8cc7f16eabcd36de4befad7978a3a1f636e95c9cb7411aacc"
+      },
+      {
+        "path": "partition.txt",
+        "size": 7,
+        "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+      },
+      {
+        "path": "wallet-export-crash-classes.txt",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "wallet-export-evidence.tar",
+        "size": 270848,
+        "sha256": "25c90dd3acd8825fe8ff2f3e2e22a46f82f063f5f85979c2661e7027aaabdb0e"
+      },
+      {
+        "path": "wallet-export-system-screen.png",
+        "size": 197797,
+        "sha256": "a390e370234748fbba4801407cf68f529ef768f2150546422584ca683a42ecee"
+      },
+      {
+        "path": "wallet-export-ui.txt",
+        "size": 5472,
+        "sha256": "1dfb372bc9912a558b6730ec47f7f9e823ddd41bb0fff621c9f9a7cb5d6826e4"
+      },
+      {
+        "path": "wellbeing-disable.txt",
+        "size": 67,
+        "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+      },
+      {
+        "path": "wellbeing-disabled-package.txt",
+        "size": 42,
+        "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+      }
+    ],
+    "instrumentation": [
+      {
+        "path": "wallet-export-ui.txt",
+        "passed": 4,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 1,
+        "completed": false,
+        "crashed": false,
+        "failureFooter": true,
+        "times": [
+          "108.904"
+        ]
+      }
+    ],
+    "continuity": [],
+    "exits": [],
+    "visuals": [
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/no-lock.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/write-fails.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/read-fails.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/truncated-read.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/real-pin-success.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/authentication-cancelled.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-system-screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      }
+    ],
+    "visual_errors": [],
+    "archive_errors": [],
+    "summary": {
+      "files": 8,
+      "passed": 4,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 1,
+      "completionRecords": 0,
+      "crashedRecords": 0,
+      "failureFooters": [
+        "wallet-export-ui.txt"
+      ],
+      "nonzeroExits": [],
+      "png": 9,
+      "xml": 0,
+      "visualErrors": 0,
+      "continuityRecords": 0
+    }
+  }
+}

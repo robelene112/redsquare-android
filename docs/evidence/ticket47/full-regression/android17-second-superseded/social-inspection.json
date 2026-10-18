@@ -1,0 +1,3758 @@
+{
+  "originalArtifactRoot": "/mnt/storage/redsquare-android-artifacts/group47-full17-second-39092400352/android-native-proof-social",
+  "originalFiles": [
+    {
+      "path": ".scratch/device-evidence/api-37.0/ProfileEditPreviewTest-ui.txt",
+      "size": 5056,
+      "sha256": "b388fc2837ec28c9d5c5fec7eee6596e4450a16e2b7227b4f115cca89b1477c9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/ProfileMediaPreviewTest-ui.txt",
+      "size": 1624,
+      "sha256": "1ebe42a0202803480946469413ee28f5d3361496054e545047ca0cc014bfe534"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/ProfileNewEditPreviewTest-ui.txt",
+      "size": 1582,
+      "sha256": "03bc1b044b2488505a6aa44cd2b516fd94bfc419ad264101e265c6127b82c61c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/ProfilePublishingPreviewTest-ui.txt",
+      "size": 3846,
+      "sha256": "128c29e72117a02d5cd972161ceb16157b98047fc41aa9a440ff47ab70c9183e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-delete-process/continuity.txt",
+      "size": 305,
+      "sha256": "471250d1cfc2b01beedf87e55548c0e0c6a9454db2e9a39c7b9bb08ea2b31b44"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-delete-process/interrupted-instrumentation.txt",
+      "size": 454,
+      "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-delete-process/reconciled-without-rebroadcast.png",
+      "size": 31400,
+      "sha256": "311a256db0aed62a78b0306eec5d9449cd04470233f34fe146a1ad3a123922bc"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-delete-process/recovered-instrumentation.txt",
+      "size": 843,
+      "sha256": "c73956835e42abe27882a4350dc17d6c58c6620a58a72f013168aec5c83aae5a"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-edit-process/continuity.txt",
+      "size": 303,
+      "sha256": "6378facf0f392c3e7eae0978514d0e4418421cb57c9811a97343a0303fadab6a"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-edit-process/interrupted-instrumentation.txt",
+      "size": 454,
+      "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-edit-process/reconciled-without-rebroadcast.png",
+      "size": 26136,
+      "sha256": "7c843b7c4d951162bcfc3296b78f93d19d93555dc311c44b63289db9837112f0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-edit-process/recovered-instrumentation.txt",
+      "size": 842,
+      "sha256": "d5d1967e2d9d0bb72df30209c39447b79342cd46858aaaa3e0fb4f4ebe05cb65"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-post-evidence.tar",
+      "size": 337920,
+      "sha256": "306325df22d886989208f1c11428dcf32aeb50cefab81d87b55cfdbaf6536bbe"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/author-post-ui.txt",
+      "size": 5728,
+      "sha256": "4584808f12e000ee84da4907978632c7e3e9200271581f2b9f6f2eb1d2af0008"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/browse-evidence.tar",
+      "size": 648704,
+      "sha256": "2d644ce0c12ef48c3f4de3fd827dfd3e36a2e99619f73d8374750c4b6e6a367c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/browse-ui.txt",
+      "size": 5803,
+      "sha256": "6b71c3d10623d4375b2cdc51c6439273b19c6ff76cc1528e91753328c7e4cbeb"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/emulator.log",
+      "size": 24806,
+      "sha256": "76777bbb298ac109deba4a06fa5b0bed9cf127f040d7d56d3f14b342be558bf4"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/following-evidence.tar",
+      "size": 513024,
+      "sha256": "22dce951396374878840d26f513ae118b6767c993eeebdb2535f15efcd641828"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/following-progress.txt",
+      "size": 39,
+      "sha256": "53a062a2a20f8fcbd2457a40dc8a2e6d91369aff5cdbac7ef23a466f58559a21"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/following-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/following-ui.txt",
+      "size": 5701,
+      "sha256": "c733b268addf4dc34265c7eadc9750be65a428ff51287149b7d24cc894c2fe6e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/giphy-evidence.tar",
+      "size": 993792,
+      "sha256": "500b0074ec4df1489b3abb7678e96d8bd09cdc482255bf5a5ca29d500c4ac554"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/giphy-posting-evidence.tar",
+      "size": 982528,
+      "sha256": "12a246823eb6ec98a146c4d194dde802806bbf49a701bbf9d97c541795335e4f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/giphy-posting-ui.txt",
+      "size": 3679,
+      "sha256": "4ba0055848606891775a23e1b1af1e41bc1360c4b85bd81235612115a3b83765"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/giphy-ui.txt",
+      "size": 2156,
+      "sha256": "86e7ca570156c9221a4109687267c1bbcd9192298b604361b926f43665a45396"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/candidate-interrupted.txt",
+      "size": 479,
+      "sha256": "a56204f3253f132166baf52061c64b180365cd627d8a77c3879115177293a874"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/continuity.txt",
+      "size": 216,
+      "sha256": "b88aa82b9b5693b718d49dbc7ff5bd21f53634c4b0090c5fa6dc825d06ffaac5"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/draft-interrupted.txt",
+      "size": 467,
+      "sha256": "4e80c73bb0f67a8bf0ba4f009e180765eb1c6524df8caff83aef25e215815bd1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/images.tar",
+      "size": 235520,
+      "sha256": "9a27a6f9cdcc6076d681ed26b5c764013c6698f707360e81517c63997b035f8e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-process/recovered-instrumentation.txt",
+      "size": 836,
+      "sha256": "5de6f04ddab4f4bd976b6c9e1222f2de62e8c2823030d502ea3ebce76ca45c78"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/cold-delivery.png",
+      "size": 35215,
+      "sha256": "256c7301ff589ef3ead0c05fea9dd06a46ecfa9d9a331c469063145f78d1f225"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/continuity.txt",
+      "size": 504,
+      "sha256": "ef6ba55e20965cd4bf1554038ccc9e13f637bb3cffc67bd2aae6777d34a0d02f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/interrupted-instrumentation.txt",
+      "size": 459,
+      "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/process-evidence.tar",
+      "size": 37376,
+      "sha256": "9b95af915b856ab9694eea1ac1755c8707a10e43a9cc6b372fb28aa0657bd830"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/image-queue-process/recovered-instrumentation.txt",
+      "size": 824,
+      "sha256": "f6d38e20abef64ded01f1fcdc5a46c6180261357ddc154f3a47f151b92c08d5e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/images-evidence.tar",
+      "size": 246784,
+      "sha256": "11262141781ed30ccf1e5e6879bfd538f9ee9a80a896a570dae2a745b70de3ca"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/images-preparation-evidence.tar",
+      "size": 323072,
+      "sha256": "6589eb0b000e8ac38e5c1311c2d63f156bf380f12bf6b7ce751dddbec556cc44"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/images-preparation-ui.txt",
+      "size": 3684,
+      "sha256": "18706c565b4312604f13e236a99bfcad7e71258dde8f1c75736650cd5921bfd2"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/images-ui.txt",
+      "size": 4226,
+      "sha256": "0016cd95f5714d9577d377e439d2f04f6a6d346ca46f78bb1caa6d52e3339c6b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/partition.txt",
+      "size": 7,
+      "sha256": "5021d7f6fe23ffa5e2d230ffc2edf4e3dd9c49839f7877009d6d629bcfc92864"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/picker-reference.png",
+      "size": 74,
+      "sha256": "084b3eae6054deef0778dc5fb4f54df208d7ca05695d8d5c96ece0b04d6cc14d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-process/continuity.txt",
+      "size": 334,
+      "sha256": "601e25190c7e76205e68f17cd8281f38a3affa5f2ce465c13176d0a011503c59"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-process/interrupted-instrumentation.txt",
+      "size": 466,
+      "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-process/reconciled-without-rebroadcast.png",
+      "size": 30016,
+      "sha256": "b68da4461ad37bced73fb6ac3b651f457380d880640b173acabba2a2cbfd0c50"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-process/recovered-instrumentation.txt",
+      "size": 827,
+      "sha256": "9f40e2921517dedf940007aa93759e5b63e51c8ee3715df2049a41365de9be2d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-evidence.tar",
+      "size": 334336,
+      "sha256": "8ff9e064bd09360729a3fbe0ae7b0ba5376fba6f1ee8a78e4158d64d100ea12b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/cold-delivery.png",
+      "size": 53580,
+      "sha256": "fb0e220b0e9292cfedfac2a383c3697ed753b18507dafa674d4b2a87965d4e60"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/continuity.txt",
+      "size": 423,
+      "sha256": "66779f658d389bd93517c594120c95ae98c9b39a4f6508660c4da94808ce8704"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/interrupted-instrumentation.txt",
+      "size": 459,
+      "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/process-evidence.tar",
+      "size": 55808,
+      "sha256": "2ecbc70a2a6ea0c37b44c2ae5991377db21b921abb9b47c7dd433b95d388ffeb"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-process/recovered-instrumentation.txt",
+      "size": 824,
+      "sha256": "31a123d70f2bf4585fdd49cd514e5b4548cb55787c25fc0ca7378a55ab6d6947"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/post-queue-ui.txt",
+      "size": 6346,
+      "sha256": "9f6368e0880e40aea4b94c03660a144516346364caa8043f52e8f0cea67602e8"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/posting-evidence.tar",
+      "size": 675328,
+      "sha256": "d1be601a3b56b8dc8a079824491fc8759c30a27d84345c07e1323fd8b2a00657"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/posting-ui.txt",
+      "size": 12797,
+      "sha256": "23057d34d42801aedee202dd89cabfb4c0834f75ff5b4b1436575afb9c471d34"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-edit-evidence.tar",
+      "size": 2638336,
+      "sha256": "f28424faeca5467c465d73b3e5f9bba238b9e57f6cd63d1cbe50b22109b55303"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-edit-ui.txt",
+      "size": 12108,
+      "sha256": "2b1b20eb14dc88117b5cb4015520be7c896999976038782f1ac979b4bff8ba48"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/candidate-checkpoint.json",
+      "size": 7064,
+      "sha256": "92077f7a8044b10df2b63265585688a176b0dce5de3bc6338b216cb9ab7de3da"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/candidate-interrupted.txt",
+      "size": 506,
+      "sha256": "b002e5f72a69110e256f04861f5bc2e6ade4ad70ca33c29162bcc4eb8684a9b9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/continuity.txt",
+      "size": 328,
+      "sha256": "583f39b4554ef593678521925140b135ee88cfe4940fe2091f5b15ec8e71b930"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/draft-checkpoint.json",
+      "size": 120,
+      "sha256": "fbf519c68e9bdf37b08282d2a9d213f476f3ccc3e88766cbaae69213b1e1cc70"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/draft-interrupted.txt",
+      "size": 493,
+      "sha256": "d843b995d5b61553eab69654d85b865edc1c04f8097c537016d5a7e7a476d83c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/images.tar",
+      "size": 355840,
+      "sha256": "090a62e2722f6070e5c66b1294144778ccfd93a4c0e4e39846940d50ae28fc7c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/profile-process/recovered-instrumentation.txt",
+      "size": 868,
+      "sha256": "9eb1efa4a215bea61261b4d9b2d375289000a5b745c378e50e5299a0b3d1e369"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-evidence.tar",
+      "size": 322560,
+      "sha256": "3234d2b51c3b338120f0f7583d409e2a4d69df002bdf96ff83852b856a1e1d56"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-process/continuity.txt",
+      "size": 334,
+      "sha256": "d2afe9a81a7227ac15e6bc8ef2419a8a6656481a47c8af641063bbe09d4a0ade"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-process/interrupted-instrumentation.txt",
+      "size": 466,
+      "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-process/reconciled-without-rebroadcast.png",
+      "size": 34962,
+      "sha256": "6c22b6113174389636785c7b1421db32db686dfb51c007c456b3fcbdd18ad2a5"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-process/recovered-instrumentation.txt",
+      "size": 827,
+      "sha256": "accc43751b79465c8594551399330187215dc62d41b91d116a3b5e4ba3eccb39"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/quote-ui.txt",
+      "size": 5010,
+      "sha256": "a80d91b3aaaba4bce7207bf783531e3358cc5141d1b4d2ae8f4f0dc71cceb407"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/search-ui.txt",
+      "size": 1813,
+      "sha256": "b4b528dfbf7c249e0de365a67f79c155fd1d97c6d68e097bdd6642939addf172"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-evidence.tar",
+      "size": 421376,
+      "sha256": "68c3b57965604654df4ec1536bdf9f37a742e250c078d150d0bead2d3b82263c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/continuity.txt",
+      "size": 334,
+      "sha256": "d459fe3799f3c2e994c9ff0e62a201249ab2f56939ca666dcf9375884e27c960"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/images.tar",
+      "size": 48128,
+      "sha256": "50019510f01b9579811e84dc77da3b5075e15d9574df5ed3c712ce1015299247"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/interrupted-instrumentation.txt",
+      "size": 446,
+      "sha256": "1f20f499007295f3ff1ba50910b627ff4b6009d1d381554306c757046295e11b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/reconciled-without-rebroadcast.png",
+      "size": 45970,
+      "sha256": "788716c02a62608080636fb920555ed6ea7c562e93970607f24aa61a4e24dc1d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-process/recovered-instrumentation.txt",
+      "size": 833,
+      "sha256": "35263668dbb3054d7d24dd62d50de4d5bce592303d113f5b07dd0cde338f48d0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/social-ui.txt",
+      "size": 5758,
+      "sha256": "963c3d187349cb55d8dedd65b22faa6b74f412b6fdacdf5c9739351e5e744f0e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-evidence.tar",
+      "size": 1868288,
+      "sha256": "32dc302bad067febf05d70a3171fb1fa0f5a2f613542c8ff6fed6cc96d0e0afc"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/continuity.txt",
+      "size": 205,
+      "sha256": "737addf0e086b47a64f6392aad59310e896d92e06da31ad8133378c8e725f896"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/images.tar",
+      "size": 114176,
+      "sha256": "c117fcaff0d68efe1196e687fe69fb06e2757a3224929326768062fe1cd027d0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/interrupted.txt",
+      "size": 476,
+      "sha256": "1261000a71e4af163da8c337ac36d33402bf3901bc56a13a2d3f8e3334894352"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/pending-checkpoint.json",
+      "size": 1450,
+      "sha256": "082df4a363a536cf632a645ed6578363b41b41ec9e480f7009deac02e21cd6d3"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/recovered-checkpoint.json",
+      "size": 1477,
+      "sha256": "b3c3c5cd7748927bee5226e03aa508e1f049ae62634508abe7a4a1d6aeddb2ba"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-process/recovered.txt",
+      "size": 845,
+      "sha256": "bf5b4cdbb3315ecc586fdaddad932eb03c5a184dc1c7f179e3cb1c2e40d1ff04"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/username-ui.txt",
+      "size": 11296,
+      "sha256": "44f24e640827895c428666a05c685a0c57c3b7d72923edc3ad7f3003683f6c71"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/video-evidence.tar",
+      "size": 253440,
+      "sha256": "f11aa0acaa47f05d41ac806fa9a36c1ab8b89d482e85264a7e3d130717fb7480"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/video-last-window.png",
+      "size": 197930,
+      "sha256": "d533c94c27bdf967a6c46874d94b12bee4ed6376cb7c0bd739571b67479f498b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/video-status.txt",
+      "size": 736,
+      "sha256": "38b3002d1561f5ca749c6d0ac3b1c463e8b4054d1f5778cb293e9a4a28ca6366"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/video-ui.txt",
+      "size": 2887,
+      "sha256": "51695e76687ec1378e1e46f7b51bc166d1406cb57db64d9bcced442fe56498d4"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/video-webview.txt",
+      "size": 855,
+      "sha256": "a78c98b74e45c0d266ddacca8a3b7070f1c8890727c636fdab2f25bd0133b278"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.html",
+      "size": 186198,
+      "sha256": "9650fd915f6912ba46096b824c2cc542f34950b23430c40734484fc4b9b1b013"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+      "size": 2534,
+      "sha256": "f803fb8e549d853035fb35d7b9ba987db49dcf2dbea66ede848e82b61943333f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+      "size": 5325,
+      "sha256": "870860e6c1788814f928031437c8eef5d3898516589c1a377b4894b09a26c741"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+      "size": 2444,
+      "sha256": "99603fa3965048c3cb21831457e62150ccf6ae1207983e0199d02c6c9e2d746d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+      "size": 3620,
+      "sha256": "7610453cf70b0536655866566e1066e66e4f30186e2ee47e132fa9ade4a1b56a"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+      "size": 2279,
+      "sha256": "8b94e0140a84114c81a94c06468e51df07f3f349e7453c94ba7636ed135ee690"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+      "size": 3702,
+      "sha256": "959dbfa9cf81c14dbb135d44e7b189c4680d465a4f05032901ea2572773c05bd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+      "size": 2599,
+      "sha256": "3a3dde27cfcf747ae3770da358fe5a0ece5ad33ba278409d4dd14f3298a58a3c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+      "size": 2611,
+      "sha256": "c049a364535dc19d3410e08e8e56ee8e8af69fdec2ed36a262fd9501d823dd5e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+      "size": 3357,
+      "sha256": "71196e6b66b213a0583e5ec9046ef81bad7672f7d5db7466260a9b319767c712"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+      "size": 2613,
+      "sha256": "92e7baf464f1f0006dde881cc95573243d62cd88a56aff92526fd05305fdc4ca"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+      "size": 2776,
+      "sha256": "01495dfdcf2dd3fc7ea4733a16e1dfb4eb49677be14c484b6b3b474e27af730d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+      "size": 2589,
+      "sha256": "6e1b3c743e21fbfb07419ca76b8d11dbbfbd2854bd7aa0d1130ae0861e6ecbac"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+      "size": 2106,
+      "sha256": "78d70261def9124d8d6cdf86acf2b56413704a9d59bd39a02326dba8c6b831b9"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+      "size": 2785,
+      "sha256": "bd29e26aeb2665aa64944550527fe658262b4e1ac9536cd35ff458047ae605b7"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+      "size": 2243,
+      "sha256": "8241c598c3bdcd9e55049583d1c88bbb4ec4d7f20e51b4e8ebeb28a77ca85512"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+      "size": 2644,
+      "sha256": "e1725f84ae8cec6da74d58a18ec64c673a506d2fe96b1358e657a0c5a03e45b3"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+      "size": 2860,
+      "sha256": "53e0b3d119a9e462fe7f6f81d6f51587c2502fa56b7085335bd7677314489e2c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+      "size": 2581,
+      "sha256": "2b5b30647deaf45e44580c7c99e14e0ffd8963a0961b0616ee50e79e94fdd987"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+      "size": 4422,
+      "sha256": "d33fdc74ab8aeb1366097f13533a0413f2045fed1c3162e0b7ef1c683141059f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+      "size": 2093,
+      "sha256": "9464dbdc898c8ca23fd0215aa8029bc86258f6faa520e75175e6c3d3dc8ed4c5"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/base-style.css",
+      "size": 2645,
+      "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/style.css",
+      "size": 1135,
+      "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+    },
+    {
+      "path": "core/build/reports/tests/test/index.html",
+      "size": 7122,
+      "sha256": "b6a8a3ca0f41490e4d857040d99ef180c946620314bba3440cd15024cb333253"
+    },
+    {
+      "path": "core/build/reports/tests/test/js/report.js",
+      "size": 5252,
+      "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+    },
+    {
+      "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+      "size": 6216,
+      "sha256": "9032ac111aebf289ac2067c7ffffa2743367290a16fc92f3a10639269a8934bb"
+    }
+  ],
+  "sdkInspection": {
+    "root": "/mnt/storage/redsquare-android-artifacts/group47-full17-second-39092400352/android-native-proof-social/.scratch/device-evidence/api-37.0",
+    "files": [
+      {
+        "path": "ProfileEditPreviewTest-ui.txt",
+        "size": 5056,
+        "sha256": "b388fc2837ec28c9d5c5fec7eee6596e4450a16e2b7227b4f115cca89b1477c9"
+      },
+      {
+        "path": "ProfileMediaPreviewTest-ui.txt",
+        "size": 1624,
+        "sha256": "1ebe42a0202803480946469413ee28f5d3361496054e545047ca0cc014bfe534"
+      },
+      {
+        "path": "ProfileNewEditPreviewTest-ui.txt",
+        "size": 1582,
+        "sha256": "03bc1b044b2488505a6aa44cd2b516fd94bfc419ad264101e265c6127b82c61c"
+      },
+      {
+        "path": "ProfilePublishingPreviewTest-ui.txt",
+        "size": 3846,
+        "sha256": "128c29e72117a02d5cd972161ceb16157b98047fc41aa9a440ff47ab70c9183e"
+      },
+      {
+        "path": "author-delete-process/continuity.txt",
+        "size": 305,
+        "sha256": "471250d1cfc2b01beedf87e55548c0e0c6a9454db2e9a39c7b9bb08ea2b31b44"
+      },
+      {
+        "path": "author-delete-process/interrupted-instrumentation.txt",
+        "size": 454,
+        "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7"
+      },
+      {
+        "path": "author-delete-process/reconciled-without-rebroadcast.png",
+        "size": 31400,
+        "sha256": "311a256db0aed62a78b0306eec5d9449cd04470233f34fe146a1ad3a123922bc"
+      },
+      {
+        "path": "author-delete-process/recovered-instrumentation.txt",
+        "size": 843,
+        "sha256": "c73956835e42abe27882a4350dc17d6c58c6620a58a72f013168aec5c83aae5a"
+      },
+      {
+        "path": "author-edit-process/continuity.txt",
+        "size": 303,
+        "sha256": "6378facf0f392c3e7eae0978514d0e4418421cb57c9811a97343a0303fadab6a"
+      },
+      {
+        "path": "author-edit-process/interrupted-instrumentation.txt",
+        "size": 454,
+        "sha256": "696295c971eeed09211ed2a0625b5da2c5c97220dc90e79f285361e4767168a7"
+      },
+      {
+        "path": "author-edit-process/reconciled-without-rebroadcast.png",
+        "size": 26136,
+        "sha256": "7c843b7c4d951162bcfc3296b78f93d19d93555dc311c44b63289db9837112f0"
+      },
+      {
+        "path": "author-edit-process/recovered-instrumentation.txt",
+        "size": 842,
+        "sha256": "d5d1967e2d9d0bb72df30209c39447b79342cd46858aaaa3e0fb4f4ebe05cb65"
+      },
+      {
+        "path": "author-post-evidence.tar",
+        "size": 337920,
+        "sha256": "306325df22d886989208f1c11428dcf32aeb50cefab81d87b55cfdbaf6536bbe"
+      },
+      {
+        "path": "author-post-ui.txt",
+        "size": 5728,
+        "sha256": "4584808f12e000ee84da4907978632c7e3e9200271581f2b9f6f2eb1d2af0008"
+      },
+      {
+        "path": "browse-evidence.tar",
+        "size": 648704,
+        "sha256": "2d644ce0c12ef48c3f4de3fd827dfd3e36a2e99619f73d8374750c4b6e6a367c"
+      },
+      {
+        "path": "browse-ui.txt",
+        "size": 5803,
+        "sha256": "6b71c3d10623d4375b2cdc51c6439273b19c6ff76cc1528e91753328c7e4cbeb"
+      },
+      {
+        "path": "emulator.log",
+        "size": 24806,
+        "sha256": "76777bbb298ac109deba4a06fa5b0bed9cf127f040d7d56d3f14b342be558bf4"
+      },
+      {
+        "path": "following-evidence.tar",
+        "size": 513024,
+        "sha256": "22dce951396374878840d26f513ae118b6767c993eeebdb2535f15efcd641828"
+      },
+      {
+        "path": "following-progress.txt",
+        "size": 39,
+        "sha256": "53a062a2a20f8fcbd2457a40dc8a2e6d91369aff5cdbac7ef23a466f58559a21"
+      },
+      {
+        "path": "following-ui-exit.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "following-ui.txt",
+        "size": 5701,
+        "sha256": "c733b268addf4dc34265c7eadc9750be65a428ff51287149b7d24cc894c2fe6e"
+      },
+      {
+        "path": "giphy-evidence.tar",
+        "size": 993792,
+        "sha256": "500b0074ec4df1489b3abb7678e96d8bd09cdc482255bf5a5ca29d500c4ac554"
+      },
+      {
+        "path": "giphy-posting-evidence.tar",
+        "size": 982528,
+        "sha256": "12a246823eb6ec98a146c4d194dde802806bbf49a701bbf9d97c541795335e4f"
+      },
+      {
+        "path": "giphy-posting-ui.txt",
+        "size": 3679,
+        "sha256": "4ba0055848606891775a23e1b1af1e41bc1360c4b85bd81235612115a3b83765"
+      },
+      {
+        "path": "giphy-ui.txt",
+        "size": 2156,
+        "sha256": "86e7ca570156c9221a4109687267c1bbcd9192298b604361b926f43665a45396"
+      },
+      {
+        "path": "image-process/candidate-interrupted.txt",
+        "size": 479,
+        "sha256": "a56204f3253f132166baf52061c64b180365cd627d8a77c3879115177293a874"
+      },
+      {
+        "path": "image-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "image-process/continuity.txt",
+        "size": 216,
+        "sha256": "b88aa82b9b5693b718d49dbc7ff5bd21f53634c4b0090c5fa6dc825d06ffaac5"
+      },
+      {
+        "path": "image-process/draft-interrupted.txt",
+        "size": 467,
+        "sha256": "4e80c73bb0f67a8bf0ba4f009e180765eb1c6524df8caff83aef25e215815bd1"
+      },
+      {
+        "path": "image-process/images.tar",
+        "size": 235520,
+        "sha256": "9a27a6f9cdcc6076d681ed26b5c764013c6698f707360e81517c63997b035f8e"
+      },
+      {
+        "path": "image-process/recovered-instrumentation.txt",
+        "size": 836,
+        "sha256": "5de6f04ddab4f4bd976b6c9e1222f2de62e8c2823030d502ea3ebce76ca45c78"
+      },
+      {
+        "path": "image-queue-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "image-queue-process/cold-delivery.png",
+        "size": 35215,
+        "sha256": "256c7301ff589ef3ead0c05fea9dd06a46ecfa9d9a331c469063145f78d1f225"
+      },
+      {
+        "path": "image-queue-process/continuity.txt",
+        "size": 504,
+        "sha256": "ef6ba55e20965cd4bf1554038ccc9e13f637bb3cffc67bd2aae6777d34a0d02f"
+      },
+      {
+        "path": "image-queue-process/interrupted-instrumentation.txt",
+        "size": 459,
+        "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c"
+      },
+      {
+        "path": "image-queue-process/process-evidence.tar",
+        "size": 37376,
+        "sha256": "9b95af915b856ab9694eea1ac1755c8707a10e43a9cc6b372fb28aa0657bd830"
+      },
+      {
+        "path": "image-queue-process/recovered-instrumentation.txt",
+        "size": 824,
+        "sha256": "f6d38e20abef64ded01f1fcdc5a46c6180261357ddc154f3a47f151b92c08d5e"
+      },
+      {
+        "path": "images-evidence.tar",
+        "size": 246784,
+        "sha256": "11262141781ed30ccf1e5e6879bfd538f9ee9a80a896a570dae2a745b70de3ca"
+      },
+      {
+        "path": "images-preparation-evidence.tar",
+        "size": 323072,
+        "sha256": "6589eb0b000e8ac38e5c1311c2d63f156bf380f12bf6b7ce751dddbec556cc44"
+      },
+      {
+        "path": "images-preparation-ui.txt",
+        "size": 3684,
+        "sha256": "18706c565b4312604f13e236a99bfcad7e71258dde8f1c75736650cd5921bfd2"
+      },
+      {
+        "path": "images-ui.txt",
+        "size": 4226,
+        "sha256": "0016cd95f5714d9577d377e439d2f04f6a6d346ca46f78bb1caa6d52e3339c6b"
+      },
+      {
+        "path": "partition.txt",
+        "size": 7,
+        "sha256": "5021d7f6fe23ffa5e2d230ffc2edf4e3dd9c49839f7877009d6d629bcfc92864"
+      },
+      {
+        "path": "picker-reference.png",
+        "size": 74,
+        "sha256": "084b3eae6054deef0778dc5fb4f54df208d7ca05695d8d5c96ece0b04d6cc14d"
+      },
+      {
+        "path": "post-process/continuity.txt",
+        "size": 334,
+        "sha256": "601e25190c7e76205e68f17cd8281f38a3affa5f2ce465c13176d0a011503c59"
+      },
+      {
+        "path": "post-process/interrupted-instrumentation.txt",
+        "size": 466,
+        "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37"
+      },
+      {
+        "path": "post-process/reconciled-without-rebroadcast.png",
+        "size": 30016,
+        "sha256": "b68da4461ad37bced73fb6ac3b651f457380d880640b173acabba2a2cbfd0c50"
+      },
+      {
+        "path": "post-process/recovered-instrumentation.txt",
+        "size": 827,
+        "sha256": "9f40e2921517dedf940007aa93759e5b63e51c8ee3715df2049a41365de9be2d"
+      },
+      {
+        "path": "post-queue-evidence.tar",
+        "size": 334336,
+        "sha256": "8ff9e064bd09360729a3fbe0ae7b0ba5376fba6f1ee8a78e4158d64d100ea12b"
+      },
+      {
+        "path": "post-queue-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "post-queue-process/cold-delivery.png",
+        "size": 53580,
+        "sha256": "fb0e220b0e9292cfedfac2a383c3697ed753b18507dafa674d4b2a87965d4e60"
+      },
+      {
+        "path": "post-queue-process/continuity.txt",
+        "size": 423,
+        "sha256": "66779f658d389bd93517c594120c95ae98c9b39a4f6508660c4da94808ce8704"
+      },
+      {
+        "path": "post-queue-process/interrupted-instrumentation.txt",
+        "size": 459,
+        "sha256": "9147daba986919f5f7a0ec007899d27fc6475c695e35aa61ac4e9652de87c04c"
+      },
+      {
+        "path": "post-queue-process/process-evidence.tar",
+        "size": 55808,
+        "sha256": "2ecbc70a2a6ea0c37b44c2ae5991377db21b921abb9b47c7dd433b95d388ffeb"
+      },
+      {
+        "path": "post-queue-process/recovered-instrumentation.txt",
+        "size": 824,
+        "sha256": "31a123d70f2bf4585fdd49cd514e5b4548cb55787c25fc0ca7378a55ab6d6947"
+      },
+      {
+        "path": "post-queue-ui.txt",
+        "size": 6346,
+        "sha256": "9f6368e0880e40aea4b94c03660a144516346364caa8043f52e8f0cea67602e8"
+      },
+      {
+        "path": "posting-evidence.tar",
+        "size": 675328,
+        "sha256": "d1be601a3b56b8dc8a079824491fc8759c30a27d84345c07e1323fd8b2a00657"
+      },
+      {
+        "path": "posting-ui.txt",
+        "size": 12797,
+        "sha256": "23057d34d42801aedee202dd89cabfb4c0834f75ff5b4b1436575afb9c471d34"
+      },
+      {
+        "path": "profile-edit-evidence.tar",
+        "size": 2638336,
+        "sha256": "f28424faeca5467c465d73b3e5f9bba238b9e57f6cd63d1cbe50b22109b55303"
+      },
+      {
+        "path": "profile-edit-ui.txt",
+        "size": 12108,
+        "sha256": "2b1b20eb14dc88117b5cb4015520be7c896999976038782f1ac979b4bff8ba48"
+      },
+      {
+        "path": "profile-process/candidate-checkpoint.json",
+        "size": 7064,
+        "sha256": "92077f7a8044b10df2b63265585688a176b0dce5de3bc6338b216cb9ab7de3da"
+      },
+      {
+        "path": "profile-process/candidate-interrupted.txt",
+        "size": 506,
+        "sha256": "b002e5f72a69110e256f04861f5bc2e6ade4ad70ca33c29162bcc4eb8684a9b9"
+      },
+      {
+        "path": "profile-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "profile-process/continuity.txt",
+        "size": 328,
+        "sha256": "583f39b4554ef593678521925140b135ee88cfe4940fe2091f5b15ec8e71b930"
+      },
+      {
+        "path": "profile-process/draft-checkpoint.json",
+        "size": 120,
+        "sha256": "fbf519c68e9bdf37b08282d2a9d213f476f3ccc3e88766cbaae69213b1e1cc70"
+      },
+      {
+        "path": "profile-process/draft-interrupted.txt",
+        "size": 493,
+        "sha256": "d843b995d5b61553eab69654d85b865edc1c04f8097c537016d5a7e7a476d83c"
+      },
+      {
+        "path": "profile-process/images.tar",
+        "size": 355840,
+        "sha256": "090a62e2722f6070e5c66b1294144778ccfd93a4c0e4e39846940d50ae28fc7c"
+      },
+      {
+        "path": "profile-process/recovered-instrumentation.txt",
+        "size": 868,
+        "sha256": "9eb1efa4a215bea61261b4d9b2d375289000a5b745c378e50e5299a0b3d1e369"
+      },
+      {
+        "path": "quote-evidence.tar",
+        "size": 322560,
+        "sha256": "3234d2b51c3b338120f0f7583d409e2a4d69df002bdf96ff83852b856a1e1d56"
+      },
+      {
+        "path": "quote-process/continuity.txt",
+        "size": 334,
+        "sha256": "d2afe9a81a7227ac15e6bc8ef2419a8a6656481a47c8af641063bbe09d4a0ade"
+      },
+      {
+        "path": "quote-process/interrupted-instrumentation.txt",
+        "size": 466,
+        "sha256": "e01a3b21fe1ac5394c784c92f1671cbc06edf1d17926f95e99c2702e7471da37"
+      },
+      {
+        "path": "quote-process/reconciled-without-rebroadcast.png",
+        "size": 34962,
+        "sha256": "6c22b6113174389636785c7b1421db32db686dfb51c007c456b3fcbdd18ad2a5"
+      },
+      {
+        "path": "quote-process/recovered-instrumentation.txt",
+        "size": 827,
+        "sha256": "accc43751b79465c8594551399330187215dc62d41b91d116a3b5e4ba3eccb39"
+      },
+      {
+        "path": "quote-ui.txt",
+        "size": 5010,
+        "sha256": "a80d91b3aaaba4bce7207bf783531e3358cc5141d1b4d2ae8f4f0dc71cceb407"
+      },
+      {
+        "path": "search-ui.txt",
+        "size": 1813,
+        "sha256": "b4b528dfbf7c249e0de365a67f79c155fd1d97c6d68e097bdd6642939addf172"
+      },
+      {
+        "path": "social-evidence.tar",
+        "size": 421376,
+        "sha256": "68c3b57965604654df4ec1536bdf9f37a742e250c078d150d0bead2d3b82263c"
+      },
+      {
+        "path": "social-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "social-process/continuity.txt",
+        "size": 334,
+        "sha256": "d459fe3799f3c2e994c9ff0e62a201249ab2f56939ca666dcf9375884e27c960"
+      },
+      {
+        "path": "social-process/images.tar",
+        "size": 48128,
+        "sha256": "50019510f01b9579811e84dc77da3b5075e15d9574df5ed3c712ce1015299247"
+      },
+      {
+        "path": "social-process/interrupted-instrumentation.txt",
+        "size": 446,
+        "sha256": "1f20f499007295f3ff1ba50910b627ff4b6009d1d381554306c757046295e11b"
+      },
+      {
+        "path": "social-process/reconciled-without-rebroadcast.png",
+        "size": 45970,
+        "sha256": "788716c02a62608080636fb920555ed6ea7c562e93970607f24aa61a4e24dc1d"
+      },
+      {
+        "path": "social-process/recovered-instrumentation.txt",
+        "size": 833,
+        "sha256": "35263668dbb3054d7d24dd62d50de4d5bce592303d113f5b07dd0cde338f48d0"
+      },
+      {
+        "path": "social-ui.txt",
+        "size": 5758,
+        "sha256": "963c3d187349cb55d8dedd65b22faa6b74f412b6fdacdf5c9739351e5e744f0e"
+      },
+      {
+        "path": "username-evidence.tar",
+        "size": 1868288,
+        "sha256": "32dc302bad067febf05d70a3171fb1fa0f5a2f613542c8ff6fed6cc96d0e0afc"
+      },
+      {
+        "path": "username-process/capture-status.txt",
+        "size": 2,
+        "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      {
+        "path": "username-process/continuity.txt",
+        "size": 205,
+        "sha256": "737addf0e086b47a64f6392aad59310e896d92e06da31ad8133378c8e725f896"
+      },
+      {
+        "path": "username-process/images.tar",
+        "size": 114176,
+        "sha256": "c117fcaff0d68efe1196e687fe69fb06e2757a3224929326768062fe1cd027d0"
+      },
+      {
+        "path": "username-process/interrupted.txt",
+        "size": 476,
+        "sha256": "1261000a71e4af163da8c337ac36d33402bf3901bc56a13a2d3f8e3334894352"
+      },
+      {
+        "path": "username-process/pending-checkpoint.json",
+        "size": 1450,
+        "sha256": "082df4a363a536cf632a645ed6578363b41b41ec9e480f7009deac02e21cd6d3"
+      },
+      {
+        "path": "username-process/recovered-checkpoint.json",
+        "size": 1477,
+        "sha256": "b3c3c5cd7748927bee5226e03aa508e1f049ae62634508abe7a4a1d6aeddb2ba"
+      },
+      {
+        "path": "username-process/recovered.txt",
+        "size": 845,
+        "sha256": "bf5b4cdbb3315ecc586fdaddad932eb03c5a184dc1c7f179e3cb1c2e40d1ff04"
+      },
+      {
+        "path": "username-ui.txt",
+        "size": 11296,
+        "sha256": "44f24e640827895c428666a05c685a0c57c3b7d72923edc3ad7f3003683f6c71"
+      },
+      {
+        "path": "video-evidence.tar",
+        "size": 253440,
+        "sha256": "f11aa0acaa47f05d41ac806fa9a36c1ab8b89d482e85264a7e3d130717fb7480"
+      },
+      {
+        "path": "video-last-window.png",
+        "size": 197930,
+        "sha256": "d533c94c27bdf967a6c46874d94b12bee4ed6376cb7c0bd739571b67479f498b"
+      },
+      {
+        "path": "video-status.txt",
+        "size": 736,
+        "sha256": "38b3002d1561f5ca749c6d0ac3b1c463e8b4054d1f5778cb293e9a4a28ca6366"
+      },
+      {
+        "path": "video-ui.txt",
+        "size": 2887,
+        "sha256": "51695e76687ec1378e1e46f7b51bc166d1406cb57db64d9bcced442fe56498d4"
+      },
+      {
+        "path": "video-webview.txt",
+        "size": 855,
+        "sha256": "a78c98b74e45c0d266ddacca8a3b7070f1c8890727c636fdab2f25bd0133b278"
+      },
+      {
+        "path": "wellbeing-disable.txt",
+        "size": 67,
+        "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+      },
+      {
+        "path": "wellbeing-disabled-package.txt",
+        "size": 42,
+        "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+      }
+    ],
+    "instrumentation": [
+      {
+        "path": "ProfileEditPreviewTest-ui.txt",
+        "passed": 7,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "32.367"
+        ]
+      },
+      {
+        "path": "ProfileMediaPreviewTest-ui.txt",
+        "passed": 2,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "18.704"
+        ]
+      },
+      {
+        "path": "ProfileNewEditPreviewTest-ui.txt",
+        "passed": 2,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "26.543"
+        ]
+      },
+      {
+        "path": "ProfilePublishingPreviewTest-ui.txt",
+        "passed": 5,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "29.219"
+        ]
+      },
+      {
+        "path": "author-delete-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "author-delete-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.062"
+        ]
+      },
+      {
+        "path": "author-edit-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "author-edit-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.14"
+        ]
+      },
+      {
+        "path": "author-post-ui.txt",
+        "passed": 8,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "44.407"
+        ]
+      },
+      {
+        "path": "browse-ui.txt",
+        "passed": 8,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "49.018"
+        ]
+      },
+      {
+        "path": "following-ui.txt",
+        "passed": 8,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "22.044"
+        ]
+      },
+      {
+        "path": "giphy-posting-ui.txt",
+        "passed": 6,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "26.377"
+        ]
+      },
+      {
+        "path": "giphy-ui.txt",
+        "passed": 3,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "18.101"
+        ]
+      },
+      {
+        "path": "image-process/candidate-interrupted.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "image-process/draft-interrupted.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "image-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.966"
+        ]
+      },
+      {
+        "path": "image-queue-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "image-queue-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.133"
+        ]
+      },
+      {
+        "path": "images-preparation-ui.txt",
+        "passed": 5,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "14.396"
+        ]
+      },
+      {
+        "path": "images-ui.txt",
+        "passed": 6,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "23.02"
+        ]
+      },
+      {
+        "path": "post-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "post-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.805"
+        ]
+      },
+      {
+        "path": "post-queue-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "post-queue-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.291"
+        ]
+      },
+      {
+        "path": "post-queue-ui.txt",
+        "passed": 9,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "43.445"
+        ]
+      },
+      {
+        "path": "posting-ui.txt",
+        "passed": 18,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "94.317"
+        ]
+      },
+      {
+        "path": "profile-process/candidate-interrupted.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "profile-process/draft-interrupted.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "profile-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "5.474"
+        ]
+      },
+      {
+        "path": "quote-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "quote-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.844"
+        ]
+      },
+      {
+        "path": "quote-ui.txt",
+        "passed": 7,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "15.648"
+        ]
+      },
+      {
+        "path": "search-ui.txt",
+        "passed": 2,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": false,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "social-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "social-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.833"
+        ]
+      },
+      {
+        "path": "social-ui.txt",
+        "passed": 8,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "17.137"
+        ]
+      },
+      {
+        "path": "username-process/interrupted.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "username-process/recovered.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "4.156"
+        ]
+      },
+      {
+        "path": "username-ui.txt",
+        "passed": 16,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "111.893"
+        ]
+      },
+      {
+        "path": "video-ui.txt",
+        "passed": 4,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "23.497"
+        ]
+      }
+    ],
+    "continuity": [
+      {
+        "path": "author-delete-process/continuity.txt",
+        "text": "PASS: process death after uncertain delete; cold startup preserves the original candidate and wallet, requires explicit recovery and verifies availability without rebroadcast.\nb9d3177ee0067259e381ff6373b52aabf2f32852c6e6bdd509f37731ac56c40e1cc5dbc19b9b93987daa537552a8a087747f662990698df43e1a4bf2499c0351"
+      },
+      {
+        "path": "author-edit-process/continuity.txt",
+        "text": "PASS: process death after uncertain edit; cold startup preserves the original candidate and wallet, requires explicit recovery and verifies availability without rebroadcast.\n3ea8a2cbb2a392c371aa2bb85ae632723236b76b2c0ba62d465e718d478764bc32b6e4b23f92decf1fbb3dd3b94160da9e99a95eaac11828b439cf38d09f1821"
+      },
+      {
+        "path": "image-process/continuity.txt",
+        "text": "PASS: two actual process deaths; newest text recovers after death in a real external picker; prepared image recovers after source deletion; cold signed candidate reconciles without another broadcast and then clears."
+      },
+      {
+        "path": "image-queue-process/continuity.txt",
+        "text": "PASS: real process death after durable offline Queue; cold startup automatically delivers one pre-interruption signed transaction with the same wallet and text.\nThe deliberate force-stop holds the cold launch; this is not force-stop delivery proof.\nPrepared image recovers after source deletion and retains its normalized pixels.\nuU2ExgZ6MPvkk9aD9NQRanELRKdGRvrjcooL8qE6p9Ww\n2cc15dbe6dd6ef36c168a2b67f150f6028494e9d29480806b93d239c0a543f9762d0c5aa1372f729999c6516b604594f771b599a25896e91a67390269ca1515d"
+      },
+      {
+        "path": "post-process/continuity.txt",
+        "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nuU2ExgZ6MPvkk9aD9NQRanELRKdGRvrjcooL8qE6p9Ww\nae9bc9e95ecc327c78f05bbcae0ebd278e6cfc740f8d7daa8e1cbea3be811c9e3a6d1c084ec4be3eb0183e4d983dd40311af6366b0cd2a390f864ac99c4c9ec5"
+      },
+      {
+        "path": "post-queue-process/continuity.txt",
+        "text": "PASS: real process death after durable offline Queue; cold startup automatically delivers one pre-interruption signed transaction with the same wallet and text.\nThe deliberate force-stop holds the cold launch; this is not force-stop delivery proof.\nuU2ExgZ6MPvkk9aD9NQRanELRKdGRvrjcooL8qE6p9Ww\nda81f7d526cc3c6472925b634521c486bab7a06f095ec852ee1b4f50ed708dc36fe32c5746f927e178297be3d6c45d73110c8cd630826283db9e0e77bbd32ef1"
+      },
+      {
+        "path": "profile-process/continuity.txt",
+        "text": "PASS: two actual process deaths; same wallet/backend without resetting either on recovery; latest bio recovers after death in a real external picker; prepared avatar/banner recover after source deletion; cold exact signed candidate reconciles read-only without rebroadcast, then verified clearing retains public bio and pixels."
+      },
+      {
+        "path": "quote-process/continuity.txt",
+        "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nuU2ExgZ6MPvkk9aD9NQRanELRKdGRvrjcooL8qE6p9Ww\n53213acdbf89cb344e41f70c2055eba8f3eac8aa0bbbce7d8bbc5a5e0f3156534eb05c032f3ebc65213ebb3b52efc0520bc5f045a1ec7d9a4e9a41a1a95da5c2"
+      },
+      {
+        "path": "social-process/continuity.txt",
+        "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nuU2ExgZ6MPvkk9aD9NQRanELRKdGRvrjcooL8qE6p9Ww\n16e80ef17668989b0d2851ef4fdef23996c756ec1ed86fc31be2a9869a424b1121703a063b9ef55894daab74d0d43890013fa34302e79d949930df0f4eaba9f2"
+      },
+      {
+        "path": "username-process/continuity.txt",
+        "text": "PASS: actual process death, same wallet/backend without reset on recovery, cold read-only Registry reconciliation with no automatic publication, exact original signed frame sent only after explicit Retry."
+      }
+    ],
+    "exits": [
+      {
+        "path": "following-ui-exit.txt",
+        "value": "0"
+      }
+    ],
+    "visuals": [
+      {
+        "path": "author-delete-process/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-edit-process/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/edited-post-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/image-delete-confirmation-ready.xml",
+        "kind": "xml",
+        "nodes": 65
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/image-delete-confirmation-ready.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/deleted-post-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/explicit-conflict-resolution.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/image-quote-deleted-original.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/quote-deleted-original.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/native-delete-confirmation-ready.xml",
+        "kind": "xml",
+        "nodes": 65
+      },
+      {
+        "path": "author-post-evidence.tar::author-post-evidence/native-delete-confirmation-ready.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/verified-conversation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/profile-memory-after-write-failure.xml",
+        "kind": "xml",
+        "nodes": 98
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/profile-memory-after-write-failure.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-conversation-after-restart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/older-profile-like.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/profile-origin-restored.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/profile-available-likes.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-posts-after-restart.xml",
+        "kind": "xml",
+        "nodes": 105
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-posts-after-restart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-likes-after-restart.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-likes-after-restart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-history-warning-after-restart.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/cached-profile-history-warning-after-restart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "browse-evidence.tar::browse-evidence/malformed-thread-rejected.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/partial-author-results.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/partial-author-results-cached.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/unfollowed-empty-feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/available-author-history.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/unconfirmed-follow-write-failure.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/follow-write-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/official-following-after-offline-restart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/replacement-wallet-separate-following.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/original-wallet-following-restored.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/followed-post-with-full-general-cache.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "following-evidence.tar::following-evidence/follow-choice-read-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/provider-failure.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/provider-failure.xml",
+        "kind": "xml",
+        "nodes": 49
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/restored-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/restored-draft.xml",
+        "kind": "xml",
+        "nodes": 65
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-preview-bounds.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-preview-bounds.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-preview.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-preview.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/selected-image-bounds.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/selected-image-bounds.xml",
+        "kind": "xml",
+        "nodes": 190
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/selected-credits.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/selected-credits.xml",
+        "kind": "xml",
+        "nodes": 196
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/restored-image-bounds.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/restored-image-bounds.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/animated-restored-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/animated-restored-draft.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/fresh-activity-credits.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/fresh-activity-credits.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-rate-limit.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-rate-limit.xml",
+        "kind": "xml",
+        "nodes": 191
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-newer-result.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-newer-result.xml",
+        "kind": "xml",
+        "nodes": 196
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-retained-text.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-evidence.tar::giphy-evidence/search-retained-text.xml",
+        "kind": "xml",
+        "nodes": 188
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-available.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-indexed.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-available.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-indexed.xml",
+        "kind": "xml",
+        "nodes": 81
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-available.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-indexed.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-published-credits.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-published-credits.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-fresh-published-credits.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-fresh-published-credits.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-available.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-indexed.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-available.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-indexed.xml",
+        "kind": "xml",
+        "nodes": 81
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-available.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-indexed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-indexed.xml",
+        "kind": "xml",
+        "nodes": 107
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/durable-draft.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/durable-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/picker-before-process-death.xml",
+        "kind": "xml",
+        "nodes": 50
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/picker-before-process-death.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/cold-draft.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/cold-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/reconciled-image.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "image-process/images.tar::image-process-evidence/reconciled-image.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "image-queue-process/cold-delivery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "image-queue-process/process-evidence.tar::post-queue-process-evidence/cold-delivery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/system-picker.png",
+        "kind": "png",
+        "width": 640,
+        "height": 320,
+        "decodedBytes": 614720
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/system-picker.xml",
+        "kind": "xml",
+        "nodes": 53
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/system-picker-selected.png",
+        "kind": "png",
+        "width": 640,
+        "height": 320,
+        "decodedBytes": 614720
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/system-picker-selected.xml",
+        "kind": "xml",
+        "nodes": 53
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/system-picker-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/saved-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/image-viewer.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/quote-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/reply-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-evidence.tar::images-evidence/post-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/system-picker.png",
+        "kind": "png",
+        "width": 640,
+        "height": 320,
+        "decodedBytes": 614720
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/system-picker.xml",
+        "kind": "xml",
+        "nodes": 53
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/system-picker-selected.png",
+        "kind": "png",
+        "width": 640,
+        "height": 320,
+        "decodedBytes": 614720
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/system-picker-selected.xml",
+        "kind": "xml",
+        "nodes": 53
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/system-picker-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/saved-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/image-viewer.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/quote-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/reply-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/post-published.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/remote-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "images-preparation-evidence.tar::images-evidence/switched-after-stalled-images.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "picker-reference.png",
+        "kind": "png",
+        "width": 12,
+        "height": 8,
+        "decodedBytes": 296
+      },
+      {
+        "path": "post-process/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/replacement-wallet-has-no-outgoing-queue.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/restored-wallet-resumes-original-queue.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/cancelled-queued-post-remains-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/failed-save-repaired-without-losing-work.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/background-resumption-confirmed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/uncertain-queue-reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/original-backend-resumed-post.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-evidence.tar::post-queue-evidence/feed-managed-cancellation-retains-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-process/cold-delivery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "post-queue-process/process-evidence.tar::post-queue-process-evidence/cold-delivery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/observed-publication.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/published-post-in-feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/failed-save-keeps-server-and-text.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/published-reply-in-thread.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/replacement-wallet-has-separate-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/outgoing-draft-retained-after-wallet-restore.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/recovered-unsent-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/damaged-draft-recovery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/unsaved-composition-recreation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/confirmed-clear-starts-unsent-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/restored-legacy-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/long-multilingual-owner.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/long-multilingual-official.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/nested-reply-correct-parent.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/retried-original-pending-post.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/invalid-text-retained.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/invalid-save-keeps-last-good-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/unfinished-draft-backend-recreation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "posting-evidence.tar::posting-evidence/submitted-awaiting-server.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/unsaved-bio-import-preview.xml",
+        "kind": "xml",
+        "nodes": 54
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/unsaved-bio-import-preview.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-before-scroll.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-before-scroll.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-reachable-history.xml",
+        "kind": "xml",
+        "nodes": 92
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-reachable-history.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/cached-profile-offline.xml",
+        "kind": "xml",
+        "nodes": 97
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/cached-profile-offline.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-blocked.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-blocked.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-recovered.xml",
+        "kind": "xml",
+        "nodes": 67
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-recovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-failed.xml",
+        "kind": "xml",
+        "nodes": 197
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-failed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-recovered.xml",
+        "kind": "xml",
+        "nodes": 67
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-recovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/restored-bio-draft.xml",
+        "kind": "xml",
+        "nodes": 67
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/restored-bio-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/verified-profile.xml",
+        "kind": "xml",
+        "nodes": 95
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/verified-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-before-reopen.xml",
+        "kind": "xml",
+        "nodes": 73
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-before-reopen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-write-failed.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-write-failed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-failure-after-navigation.xml",
+        "kind": "xml",
+        "nodes": 70
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-failure-after-navigation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/bio-snapshot-available.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/bio-snapshot-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-empty-reads.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-empty-reads.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-after-navigation.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-after-navigation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-reopened-stale.xml",
+        "kind": "xml",
+        "nodes": 73
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-reopened-stale.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-new-edit.xml",
+        "kind": "xml",
+        "nodes": 199
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-new-edit.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-recovered-draft.xml",
+        "kind": "xml",
+        "nodes": 75
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-recovered-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-available.xml",
+        "kind": "xml",
+        "nodes": 76
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-public.xml",
+        "kind": "xml",
+        "nodes": 96
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-public.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-draft.xml",
+        "kind": "xml",
+        "nodes": 67
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-available.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-public.xml",
+        "kind": "xml",
+        "nodes": 95
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-public.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-available.xml",
+        "kind": "xml",
+        "nodes": 76
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-public.xml",
+        "kind": "xml",
+        "nodes": 96
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-public.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-superseded.xml",
+        "kind": "xml",
+        "nodes": 73
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-superseded.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-confirmation.xml",
+        "kind": "xml",
+        "nodes": 45
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-confirmation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-ready.xml",
+        "kind": "xml",
+        "nodes": 75
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-ready.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-cold-draft.xml",
+        "kind": "xml",
+        "nodes": 75
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-cold-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-available.xml",
+        "kind": "xml",
+        "nodes": 74
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-public.xml",
+        "kind": "xml",
+        "nodes": 102
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-public.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-mounted.xml",
+        "kind": "xml",
+        "nodes": 70
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-mounted.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-cold.xml",
+        "kind": "xml",
+        "nodes": 70
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-cold.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-available.xml",
+        "kind": "xml",
+        "nodes": 70
+      },
+      {
+        "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/prepared-before-death.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/prepared-before-death.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/external-picker-before-death.xml",
+        "kind": "xml",
+        "nodes": 50
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/external-picker-before-death.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cold-draft.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cold-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/uncertain-before-death.xml",
+        "kind": "xml",
+        "nodes": 76
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/uncertain-before-death.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cold-candidate-available.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cold-candidate-available.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cleared-public-baseline.xml",
+        "kind": "xml",
+        "nodes": 72
+      },
+      {
+        "path": "profile-process/images.tar::profile-process-evidence/cleared-public-baseline.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/recovered-original-quote-candidate.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/current-commentary-retweet.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/current-retweet-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/recovered-quote-draft.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/unavailable-original-recovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/published-quote-conversation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-evidence.tar::quote-evidence/backend-isolated-original-cache.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "quote-process/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/pending-like-retains-original-backend.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/recovered-RedSquareRetweet-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/verified-ordinary-repost-with-served-count.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/repaired-saving-retains-wallet-and-target.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/restored-wallet-original-like.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/verified-like-across-views.xml",
+        "kind": "xml",
+        "nodes": 106
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/verified-like-across-views.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/recovered-RedSquareLike-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-evidence.tar::social-evidence/verified-like-count-refresh-warning.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-process/images.tar::social-process-evidence/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "social-process/reconciled-without-rebroadcast.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-error.xml",
+        "kind": "xml",
+        "nodes": 95
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-error.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-recovered.xml",
+        "kind": "xml",
+        "nodes": 94
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-recovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-cached.xml",
+        "kind": "xml",
+        "nodes": 94
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-name-save-cached.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-confirmed.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-confirmed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-confirmed-cached.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-confirmed-cached.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-preview.xml",
+        "kind": "xml",
+        "nodes": 58
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-preview.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-replaced-profile.xml",
+        "kind": "xml",
+        "nodes": 93
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-replaced-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-replaced-recreated.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-import-replaced-recreated.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-settings-discovered.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-settings-discovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-named-import.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-named-import.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-unavailable.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-unavailable.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-shared-feed.xml",
+        "kind": "xml",
+        "nodes": 131
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-shared-feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-shared-conversation.xml",
+        "kind": "xml",
+        "nodes": 71
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-shared-conversation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-discovered-profile.xml",
+        "kind": "xml",
+        "nodes": 94
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-discovered-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-registered.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-registered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-profile.xml",
+        "kind": "xml",
+        "nodes": 94
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-profile.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-race.xml",
+        "kind": "xml",
+        "nodes": 62
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-race.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-retired-reopened.xml",
+        "kind": "xml",
+        "nodes": 58
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-retired-reopened.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-retired-unreadable.xml",
+        "kind": "xml",
+        "nodes": 62
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-retired-unreadable.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-new-candidate.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-new-candidate.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-settings-late-discovered.xml",
+        "kind": "xml",
+        "nodes": 60
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-settings-late-discovered.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-quoted-name.xml",
+        "kind": "xml",
+        "nodes": 134
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-quoted-name.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-import-preview.xml",
+        "kind": "xml",
+        "nodes": 58
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-import-preview.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-replaced.xml",
+        "kind": "xml",
+        "nodes": 58
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-replaced.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-reopened.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-pending-reopened.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-request-save-error.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-request-save-error.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-request-unreadable.xml",
+        "kind": "xml",
+        "nodes": 62
+      },
+      {
+        "path": "username-evidence.tar::username-evidence/username-request-unreadable.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-process/images.tar::username-process-evidence/pending-before-death.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-process/images.tar::username-process-evidence/pending-before-death.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "username-process/images.tar::username-process-evidence/pending-cold-recovery.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "username-process/images.tar::username-process-evidence/pending-cold-recovery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/tapped-player.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/tapped-player.xml",
+        "kind": "xml",
+        "nodes": 46
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/small-window.png",
+        "kind": "png",
+        "width": 640,
+        "height": 320,
+        "decodedBytes": 614720
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/small-window.xml",
+        "kind": "xml",
+        "nodes": 45
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/portrait-bounds.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/portrait-bounds.xml",
+        "kind": "xml",
+        "nodes": 48
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/provider-error.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/provider-error.xml",
+        "kind": "xml",
+        "nodes": 47
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/embed-refused-explanation.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/embed-refused-explanation.xml",
+        "kind": "xml",
+        "nodes": 51
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/paused-player.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/paused-player.xml",
+        "kind": "xml",
+        "nodes": 49
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/recreated-player.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "video-evidence.tar::video-evidence/recreated-player.xml",
+        "kind": "xml",
+        "nodes": 49
+      },
+      {
+        "path": "video-last-window.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      }
+    ],
+    "visual_errors": [],
+    "archive_errors": [],
+    "summary": {
+      "files": 98,
+      "passed": 134,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 27,
+      "crashedRecords": 12,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 210,
+      "xml": 121,
+      "visualErrors": 0,
+      "continuityRecords": 10
+    }
+  }
+}

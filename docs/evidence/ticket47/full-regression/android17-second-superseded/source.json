@@ -1,0 +1,85 @@
+{
+  "source": "518b596325cec57b6fe2c2ca5f87bbcd504bb286",
+  "run": 39092400352,
+  "supersededBy": 39093407762,
+  "result": "CANCELLED after an already failed Wallet job, incomplete SDK proof",
+  "partitions": {
+    "chat": {
+      "files": 118,
+      "passed": 83,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 24,
+      "crashedRecords": 8,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 281,
+      "xml": 281,
+      "visualErrors": 0,
+      "continuityRecords": 6
+    },
+    "social": {
+      "files": 98,
+      "passed": 134,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 27,
+      "crashedRecords": 12,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 210,
+      "xml": 121,
+      "visualErrors": 0,
+      "continuityRecords": 10
+    },
+    "wallet": {
+      "files": 8,
+      "passed": 4,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 1,
+      "completionRecords": 0,
+      "crashedRecords": 0,
+      "failureFooters": [
+        "wallet-export-ui.txt"
+      ],
+      "nonzeroExits": [],
+      "png": 9,
+      "xml": 0,
+      "visualErrors": 0,
+      "continuityRecords": 0
+    }
+  },
+  "partialObservedTotals": {
+    "passed": 221,
+    "assumed": 0,
+    "skipped": 0,
+    "failed": 1,
+    "completionRecords": 51,
+    "crashedRecords": 20,
+    "continuityRecords": 16,
+    "png": 500,
+    "xml": 402,
+    "visualErrors": 0
+  },
+  "qualification": "Wallet job failed before later Wallet gates. New diagnostic-only fixture7f1 retained actual failed window before teardown; focused export39092907984 then passed without application change or old-cause proof. New complete17run39093407762at278 was deliberately dispatched, causing the existing full-android17 concurrency policy to cancel still-running Chat/Social jobs. No accepted earlier run was cancelled. Chat83PASS/24normal/8deliberate/6continuity and Social134PASS/27normal/12deliberate/10continuity remain partial. Search class was unfinished at cancellation. Completed private/group same-worker three-PID and Social autonomous gates within the Chat artifact do not constitute completed Chat/all430identities. Full outcome remains CANCELLED; failed Wallet stays failed, missing tails are not successful. All500PNG/402XMLvalidate, but no root fullwindow visual claim is made for this secondary cancelled packet. Source and partial counts do not infer a cause for the Wallet credential locator failure.",
+  "profileAggregateExactConcatenation": true,
+  "partialChatRecovery": {
+    "private": {
+      "pid": 6743,
+      "recoveredPid": 6790,
+      "finalPid": 6853,
+      "workId": "2ebdbcd0-38a6-40b1-ac66-9cfbbea8c77b",
+      "expiredRequests": 0
+    },
+    "group": {
+      "pid": 7230,
+      "recoveredPid": 7277,
+      "finalPid": 7342,
+      "workId": "462d1ed2-7f8e-4af5-9ce5-613aac08e2ed",
+      "expiredRequests": 0
+    }
+  }
+}
