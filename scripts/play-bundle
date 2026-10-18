@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Internal bundle signing adapter, called with the canonical build lock held.
+set -euo pipefail
+umask 077
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+[[ $# == 2 ]] || { echo 'Called by scripts/review-build --bundle' >&2; exit 2; }
+artifact_dir=$1
+signing_dir=$2
+# Keep tooling outside the checkout. An override can use the VPS additional disk.
+tool_dir="${REDSQUARE_BUNDLETOOL_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/redsquare-android/bundletool-1.18.3}"
+mkdir -p "$tool_dir"
+python3 - "$tool_dir/bundletool.jar" <<'PY'
+import hashlib
+import os
+from pathlib import Path
+import sys
+import tempfile
+from urllib.request import Request, urlopen
+path = Path(sys.argv[1])
+expected = 'a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29'
+if not path.exists():
+    descriptor, temporary = tempfile.mkstemp(prefix='download-', dir=path.parent)
+    try:
+        with os.fdopen(descriptor, 'wb') as output, urlopen(Request(
+                'https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar',
+                headers={'User-Agent': 'redsquare-build/1'}), timeout=60) as response:
+            size = 0
+            while chunk := response.read(1024 * 1024):
+                size += len(chunk)
+                if size > 100 * 1024 * 1024:
+                    raise SystemExit('Bundletool exceeds download size bound')
+                output.write(chunk)
+        if hashlib.sha256(Path(temporary).read_bytes()).hexdigest() != expected:
+            raise SystemExit('Bundletool download checksum mismatch')
+        os.replace(temporary, path)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+    raise SystemExit('Cached bundletool checksum mismatch')
+PY
+docker run --rm -i --cpus=2 --memory=2500m --user "$(id -u):$(id -g)" \
+    --env-file "$signing_dir/signing.env" \
+    --mount "type=bind,src=$signing_dir,dst=/signing,readonly" \
+    --mount "type=bind,src=$tool_dir,dst=/tool,readonly" \
+    --mount "type=bind,src=$repo_dir,dst=/workspace,readonly" \
+    --mount "type=bind,src=$artifact_dir,dst=/artifacts" \
+    redsquare-android-build:agp8.10.1 bash -s <<'CONTAINER'
+set -euo pipefail
+umask 077
+cp /workspace/app/build/outputs/bundle/release/app-release.aab /artifacts/redsquare.aab
+jarsigner -keystore /signing/app-signing.p12 -storetype PKCS12 \
+    -storepass:env REDSQUARE_STORE_PASSWORD -keypass:env REDSQUARE_KEY_PASSWORD \
+    -digestalg SHA-256 -sigalg SHA256withRSA /artifacts/redsquare.aab app-signing \
+    > /artifacts/bundle-signing.txt
+jarsigner -verify -strict -keystore /signing/app-signing.p12 \
+    -storepass:env REDSQUARE_STORE_PASSWORD /artifacts/redsquare.aab \
+    > /artifacts/bundle-verification.txt
+keytool -J-Duser.language=en -J-Duser.country=US -printcert -jarfile /artifacts/redsquare.aab \
+    > /artifacts/bundle-certificate.txt
+java -jar /tool/bundletool.jar validate --bundle=/artifacts/redsquare.aab \
+    > /artifacts/bundle-validation.txt
+java -jar /tool/bundletool.jar dump manifest --bundle=/artifacts/redsquare.aab --module=base \
+    > /artifacts/bundle-manifest.xml
+# bundletool accepts password files, not environment references. These files
+# exist only in this disposable container, never in the output or host mounts.
+password_dir=$(mktemp -d)
+trap 'rm -rf -- "$password_dir"' EXIT
+printf '%s\n' "$REDSQUARE_STORE_PASSWORD" > "$password_dir/store"
+printf '%s\n' "$REDSQUARE_KEY_PASSWORD" > "$password_dir/key"
+java -jar /tool/bundletool.jar build-apks --bundle=/artifacts/redsquare.aab \
+    --output=/artifacts/derived.apks --mode=universal --max-threads=2 \
+    --ks=/signing/app-signing.p12 --ks-key-alias=app-signing \
+    "--ks-pass=file:$password_dir/store" "--key-pass=file:$password_dir/key" \
+    > /artifacts/apk-generation.txt
+unzip -p /artifacts/derived.apks universal.apk > /artifacts/universal.apk
+CONTAINER

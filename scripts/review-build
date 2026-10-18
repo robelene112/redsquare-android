@@ -2,17 +2,24 @@
 set -euo pipefail
 umask 077
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
-variant=Release
 variant_dir=release
 application_id=nl.davidengelen.redsquare
 artifact_family=review-builds
+format=apk
+review_build=true
+build_task=assembleRelease
 if [[ $# == 1 && "$1" == --performance ]]; then
-    variant=Performance
     variant_dir=performance
     application_id=nl.davidengelen.redsquare.performance
     artifact_family=performance-builds
+    build_task=assemblePerformance
+elif [[ $# == 1 && "$1" == --bundle ]]; then
+    format=aab
+    artifact_family=play-builds
+    review_build=false
+    build_task=bundleRelease
 elif [[ $# != 0 ]]; then
-    echo 'Usage: scripts/review-build [--performance]' >&2
+    echo 'Usage: scripts/review-build [--performance | --bundle]' >&2
     exit 2
 fi
 signing_dir="${REDSQUARE_SIGNING_DIR:-$HOME/.local/share/redsquare-android/signing}"
@@ -30,8 +37,14 @@ next=$((10#$previous + 1))
 printf '%s\n' "$next" > "$review_state/version-code.new"
 mv "$review_state/version-code.new" "$review_state/version-code"
 version_name="0.1.$next"
-"$repo_dir/scripts/android-build" ":app:assemble$variant" \
-    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=true"
+"$repo_dir/scripts/android-build" ":app:$build_task" \
+    "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=$review_build"
+artifact_dir="$repo_dir/.scratch/$artifact_family/$next"
+mkdir -p "$artifact_dir"
+if [[ "$format" == aab ]]; then
+    "$repo_dir/scripts/play-bundle" "$artifact_dir" "$signing_dir"
+    checked_apk=universal.apk
+else
 input_apk=$(python3 - "$repo_dir" "$variant_dir" "$application_id" "$next" "$version_name" <<'PY'
 import json
 from pathlib import Path
@@ -54,8 +67,6 @@ if (element.get('versionCode') != int(code) or element.get('versionName') != nam
 print(filename)
 PY
 )
-artifact_dir="$repo_dir/.scratch/$artifact_family/$next"
-mkdir -p "$artifact_dir"
 docker run --rm --user "$(id -u):$(id -g)" \
     --env-file "$signing_dir/signing.env" \
     --mount "type=bind,src=$signing_dir,dst=/signing,readonly" \
@@ -66,21 +77,23 @@ docker run --rm --user "$(id -u):$(id -g)" \
     --ks-pass env:REDSQUARE_STORE_PASSWORD --key-pass env:REDSQUARE_KEY_PASSWORD \
     --out "/workspace/.scratch/$artifact_family/$next/redsquare.apk" \
     "/workspace/app/build/outputs/apk/$variant_dir/$input_apk"
+    checked_apk=redsquare.apk
+fi
 docker run --rm --user "$(id -u):$(id -g)" \
     --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
     redsquare-android-build:agp8.10.1 \
-    /opt/android-sdk/build-tools/35.0.0/apksigner verify --print-certs /artifacts/redsquare.apk \
+    /opt/android-sdk/build-tools/35.0.0/apksigner verify --print-certs "/artifacts/$checked_apk" \
     > "$artifact_dir/signature.txt"
 docker run --rm --user "$(id -u):$(id -g)" \
     --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
     redsquare-android-build:agp8.10.1 \
-    /opt/android-sdk/build-tools/35.0.0/aapt dump badging /artifacts/redsquare.apk \
+    /opt/android-sdk/build-tools/35.0.0/aapt dump badging "/artifacts/$checked_apk" \
     > "$artifact_dir/package.txt"
 docker run --rm --user "$(id -u):$(id -g)" \
     --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
     redsquare-android-build:agp8.10.1 \
-    apkanalyzer manifest print /artifacts/redsquare.apk > "$artifact_dir/android-manifest.xml"
-python3 - "$artifact_dir" "$next" "$version_name" "$repo_dir" "$application_id" "$variant_dir" <<'PY'
+    apkanalyzer manifest print "/artifacts/$checked_apk" > "$artifact_dir/android-manifest.xml"
+python3 - "$artifact_dir" "$next" "$version_name" "$repo_dir" "$application_id" "$variant_dir" "$format" "$checked_apk" <<'PY'
 import hashlib
 import json
 from pathlib import Path
@@ -88,7 +101,7 @@ import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
-directory, code, name, repo, application_id, variant = sys.argv[1:]
+directory, code, name, repo, application_id, variant, artifact_format, checked_apk = sys.argv[1:]
 artifact = Path(directory)
 fingerprint = re.search(r'certificate SHA-256 digest: ([0-9a-f]+)', (artifact / 'signature.txt').read_text())
 if not fingerprint:
@@ -108,9 +121,50 @@ if variant == 'performance':
     profileable = application.find('profileable')
     if profileable is None or profileable.get(android + 'shell') != 'true':
         raise SystemExit('Performance application must be profileable by the Android shell')
+else:
+    profileable = application.find('profileable')
+    if profileable is not None and profileable.get(android + 'shell', 'false') != 'false':
+        raise SystemExit('Ordinary Release application must not be shell-profileable')
+filename = 'redsquare.aab' if artifact_format == 'aab' else checked_apk
 metadata = dict(versionCode=int(package[2]), versionName=package[3], applicationId=package[1],
-                certificateSha256=fingerprint[1], sha256=hashlib.sha256((artifact / 'redsquare.apk').read_bytes()).hexdigest(),
+                certificateSha256=fingerprint[1], sha256=hashlib.sha256((artifact / filename).read_bytes()).hexdigest(),
                 commit=subprocess.check_output(['git', '-C', repo, 'rev-parse', 'HEAD'], text=True).strip(), variant=variant)
+if artifact_format == 'aab':
+    bundle_manifest = ET.parse(artifact / 'bundle-manifest.xml').getroot()
+    bundle_application = bundle_manifest.find('application')
+    bundle_sdk = bundle_manifest.find('uses-sdk')
+    if (bundle_manifest.get('package') != application_id
+            or bundle_manifest.get(android + 'versionCode') != code
+            or bundle_manifest.get(android + 'versionName') != name
+            or bundle_sdk is None or bundle_application is None
+            or bundle_sdk.get(android + 'minSdkVersion') != '29'
+            or bundle_sdk.get(android + 'targetSdkVersion') != '36'
+            or bundle_application.get(android + 'debuggable', 'false') != 'false'
+            or bundle_application.find('profileable') is not None):
+        raise SystemExit('Bundle manifest does not match the reserved nonprofileable release')
+    bundle_certificate = re.search(r'SHA256: ([0-9A-F:]+)', (artifact / 'bundle-certificate.txt').read_text())
+    if not bundle_certificate or bundle_certificate[1].replace(':', '').lower() != fingerprint[1]:
+        raise SystemExit('Bundle and generated APK signing identities differ')
+    config_file = Path(repo) / 'app/build/generated/source/buildConfig/release/nl/davidengelen/redsquare/BuildConfig.java'
+    config = config_file.read_text()
+    def configured_boolean(field):
+        match = re.search(r'public static final boolean ' + field + r' = (true|false);', config)
+        if not match:
+            raise SystemExit('Missing generated configuration flag: ' + field)
+        return match[1] == 'true'
+    def configured_key(field):
+        match = re.search(r'public static final String ' + field + r' = "(.*)";', config)
+        if not match:
+            raise SystemExit('Missing generated provider option')
+        return bool(match[1])
+    if configured_boolean('REVIEW_BUILD'):
+        raise SystemExit('Play release must not enable review updates')
+    metadata.update(artifactType='aab', filename=filename,
+                    derivedApk=dict(filename=checked_apk, sha256=hashlib.sha256((artifact / checked_apk).read_bytes()).hexdigest()),
+                    bundletoolVersion='1.18.3', bundletoolSha256='a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29',
+                    generatedConfiguration=dict(reviewBuild=False, pushConfigured=configured_boolean('PUSH_CONFIGURED'),
+                        giphyPostsConfigured=configured_key('GIPHY_POSTS_API_KEY'),
+                        giphyChatConfigured=configured_key('GIPHY_CHAT_API_KEY')))
 (artifact / 'manifest.json').write_text(json.dumps(metadata, indent=2) + '\n')
 PY
 certificate=$(python3 - "$artifact_dir/manifest.json" <<'PY'
@@ -127,4 +181,9 @@ if [[ -f "$review_state/certificate.sha256" ]]; then
 else
     printf '%s\n' "$certificate" > "$review_state/certificate.sha256"
 fi
-echo "Signed preview: $artifact_dir/redsquare.apk"
+if [[ "$format" == aab ]]; then
+    echo "Signed Play bundle: $artifact_dir/redsquare.aab"
+    echo "Locally generated APK (not Play-distributed): $artifact_dir/universal.apk"
+else
+    echo "Signed preview: $artifact_dir/redsquare.apk"
+fi
