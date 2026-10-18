@@ -33,10 +33,17 @@ The remaining original criteria need concrete inputs/real environments:
 - Real publisher/legal identity/contact, retention/deletion/Terms/privacy and
   moderation/child-safety decisions, their substantive native/operational behavior,
   actual Console/account/track/signing and final authorized submission36. Existing
-  report/block controls are not a substitute. Resolve facts before inventing policy
-  text or implementing decisions that change release behavior. A useful next owner
-  fact is the exact legal publisher identity; Google/Giphy setup questions must not
-  be repeated. Offline package49 is prepared, not final policy/store acceptance.
+  report/block controls are not a substitute. On2026-10-18 the owner chose
+  Angels’ Foundry as publisher and directed us to the local Business dossier.
+  Exact spelling includes the apostrophe after the s. The dossier confirms a free
+  first Saito release and owner responsibility for Owner-backend moderation and
+  Google publisher messages. Registration, actual public contacts, domains/mail
+  and complete moderation operations are still unconfirmed. Release preparation
+  now records those decisions; do not ask for the publisher name again or invent
+  a registration, mailbox or policy URL. Next confirm whether KVK registration has
+  actually completed, then resolve remaining policy/operational facts before
+  changing release behavior. Existing Google/Giphy setup questions must not be
+  repeated. Offline package49 is prepared, not final policy/store acceptance.
 
 Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
 open and the untracked research unread. No local build/download/watcher remains active.

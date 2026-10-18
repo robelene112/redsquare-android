@@ -98,10 +98,11 @@ Do not remove the preview limitations until configured public-provider and
 physical acceptance actually pass. Do not advertise two-second startup from
 emulator evidence. Title/short/full limits are30/80/4000 characters, respectively:
 [listing fields](https://support.google.com/googleplay/android-developer/answer/9859152).
-Suggested category: Social, subject to publisher confirmation. Price, countries,
-target age, ads answer, content-rating questionnaire and developer identity must
-be confirmed, not inferred from source code. No paid app products/ad SDK were
-introduced by this work; that is not a verified publisher business model.
+Suggested category: Social, subject to publisher confirmation. The owner's
+business decisions confirm a free first release. Countries, target age, ads
+answer, content-rating questionnaire and verified developer identity still need
+confirmation, not inference from source code. No paid app products/ad SDK were
+introduced by this work; exploratory donations are not an approved product feature.
 
 ## Asset drafts and provenance
 
@@ -201,15 +202,37 @@ configured binary. No prefilled form or "all data encrypted" certification is
 provided. The existing inventory is evidence to answer the actual form, not the
 form itself. See [Data safety definitions](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en).
 
+## Confirmed publisher decisions
+
+On2026-10-18 the owner selected **Angels’ Foundry** as this app's publisher and
+directed release preparation to the local business dossier. The spelling has
+the apostrophe after the s. The owner's private `Business/README.md` and
+`Business/BESLUITEN.md`, read on that date, also establish these product decisions:
+
+- The first Saito-app release is free for the community. Donations are exploratory,
+  with no donation feature, recipient or revenue model selected.
+- The owner takes responsibility for moderation reports on the Owner backend
+  and messages addressed to the app publisher by Google. The external backend's
+  actual response process and complete moderation operations remain unverified.
+- Avoid extensive usage tracking. Additional automatic crash reporting is still
+  undecided; this is no instruction to add a reporting SDK or claim zero data flow.
+
+The dossier records intended business registration, domains and business email,
+with no completed registration or usable public contact values confirmed. Treat
+Angels’ Foundry as the selected publisher name, not a verified registration or
+verified organization account. Do not invent a legal suffix, registration number,
+D-U-N-S number, support mailbox or policy URL. Only release-relevant decisions
+are summarized here; private business records stay outside this repository.
+
 ## Publisher decision and remaining release gates
 
 | Gate | Evidence/remaining action; none is completed by an AAB |
 | --- | --- |
-| Legal publisher and account | Confirm personal vs real organization, verified identity, D-U-N-S where required, actual contact/support details and eligible territories. Google account-type guidance includes cryptocurrency wallets under financial services for organization accounts; noncustodial does not automatically override account guidance. [Account types](https://support.google.com/googleplay/android-developer/answer/13634885?hl=en), [organization verification](https://support.google.com/googleplay/android-developer/answer/13628312?hl=en). |
+| Legal publisher and account | Chosen name: Angels’ Foundry, confirmed2026-10-18. Actual registration/legal identity, appropriate verified account, D-U-N-S where required, public contact/support details and eligible territories remain unverified. Google account-type guidance includes cryptocurrency wallets under financial services for organization accounts; noncustodial does not automatically override account guidance. [Account types](https://support.google.com/googleplay/android-developer/answer/13634885?hl=en), [organization verification](https://support.google.com/googleplay/android-developer/answer/13628312?hl=en). |
 | Testing access | The12tester/14continuous-day production-access rule is for qualifying new PERSONAL accounts, not a general organization-account rule. Genuine organization verification and any actual Console requirements still apply. Internal testing is separate from production access. [Testing rule](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en), [review distribution](../research/PLAY_REVIEW_DISTRIBUTION.md). |
 | Financial declarations | Declare actual wallet/transfer functionality; do not select "no financial features" merely because this is chiefly Social. Noncustodial wallets are outside the specific cryptocurrency exchange/software-wallet country licensing policy, not automatically outside other financial/account/declaration rules. Resolve actual Console categories and countries; no exchange, custody, earnings or licensing claim is invented. [Financial policy](https://support.google.com/googleplay/android-developer/answer/9876821?hl=en), [specific crypto policy](https://support.google.com/googleplay/android-developer/answer/16329703?hl=en-en). |
 | Privacy policy and app access | Need identified publisher/contact, all actual providers/operators, purposes, retention/deletion and an accessible hosted policy plus in-app link. Current Settings/source has no demonstrated privacy-policy link. No final text/URL is published here. [User Data policy](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en). |
-| UGC Terms and moderation | Google UGC policy covers clients to UGC platforms. Current native source has no demonstrated Terms/user-policy acceptance before posting/uploading. Need approved prohibited-content/behavior policy, versioned deliberate acceptance before relevant creation/upload actions, and verified reporting/blocking/ongoing moderation coverage including public-content/user reports and1:1 Chat blocking. Existing post report/mute/block is useful, not demonstrated complete coverage. Responsible moderation operators, process, contact and enforcement remain unconfirmed. [UGC policy](https://support.google.com/googleplay/android-developer/answer/9876937?hl=en-TT). |
+| UGC Terms and moderation | Google UGC policy covers clients to UGC platforms. Current native source has no demonstrated Terms/user-policy acceptance before posting/uploading. Need approved prohibited-content/behavior policy, versioned deliberate acceptance before relevant creation/upload actions, and verified reporting/blocking/ongoing moderation coverage including public-content/user reports and1:1 Chat blocking. Existing post report/mute/block is useful, not demonstrated complete coverage. The owner accepts publisher and Owner-backend moderation responsibility; external-backend response, actual process, contact and enforcement remain unverified. [UGC policy](https://support.google.com/googleplay/android-developer/answer/9876937?hl=en-TT). |
 | Social child-safety declaration | As a Social app, need published child-safety standards, effective feedback/report handling and a designated responsible contact, plus actual Console certification. None is invented here. Resolve age/target-audience classification against the actual app; pseudonymous wallet identity alone does not establish an anonymous-chat exemption or mandate. [Child-safety standards](https://support.google.com/googleplay/android-developer/answer/14747720?hl=en-en), [age-restricted functionality](https://support.google.com/googleplay/android-developer/answer/16302250?hl=en). |
 | Account and data deletion | Do not assume exemption from a locally created noncustodial keypair. Confirm actual account classification and a supported in-app/web request path, ownership verification, completion process and justified retained data. Current local wallet replacement, backend switch, opt-out or post hiding is not complete associated-data deletion. Destruction can lose funds/authority; preserve authentication/backup safeguards. Independent copies cannot be promised erased; a disclosure alone is no retention exception. [Deletion scope](../research/PLAY_ACCOUNT_DELETION_SCOPE_2026_10_15.md), [Google FAQ](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en). |
 | Configured dependencies | Issues16/31: authorized independent Giphy keys and live proof.32/33/34: real Firebase/GCP Android associations, gateway hosting/deployment and physical closed-app delivery.17: public YouTube playback unresolved.19: owner Registry unavailable. No provider workaround, node deployment or cloud action occurred here. |
