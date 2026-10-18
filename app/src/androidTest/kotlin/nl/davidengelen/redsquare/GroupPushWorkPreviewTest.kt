@@ -179,6 +179,7 @@ class GroupPushWorkPreviewTest {
         var peerServer: mockwebserver3.MockWebServer? = null
         var primary: Throwable? = null
         var stopped = false
+        var categoryCleanup: (() -> Unit)? = null
         fun requireStopped() { check(stopped); assertNoActivity() }
         try {
             retained.prepare()
@@ -214,6 +215,11 @@ class GroupPushWorkPreviewTest {
                     }
                     val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
                     check(obstruction.mkdir())
+                    categoryCleanup = {
+                        if (obstruction.exists()) { check(obstruction.isDirectory && obstruction.listFiles()!!.isEmpty()); check(obstruction.delete()) }
+                        if (!categoryEnabled()) setCategory(true)
+                        assertEquals(before.importance, manager.getNotificationChannel("group-chats").importance)
+                    }
                     var receiptFailure: Throwable? = null
                     try {
                         val first = schedule()
@@ -233,19 +239,21 @@ class GroupPushWorkPreviewTest {
                         capture("android-category-disabled")
                         await(first)
                         assertSilent("Disabling the Android group category must finish its pending receipt quietly")
+                        assertEquals(1, resolves.get()); assertEquals(1, originals.get())
                         assertNoActivity()
                         capture("disabled-completed")
                     } catch (caught: Throwable) { receiptFailure = caught; throw caught }
-                    finally { cleanupAfterTest(receiptFailure,
-                        { if (receiptFailure != null) runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) } },
-                        { check(obstruction.delete()) }, { if (!categoryEnabled()) setCategory(true) },
-                        { assertEquals(before.importance, manager.getNotificationChannel("group-chats").importance) }) }
+                    finally {
+                        var drained = receiptFailure == null
+                        cleanupAfterTest(receiptFailure,
+                            { if (!drained) { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) }; drained = true } },
+                            { check(drained); categoryCleanup?.invoke(); categoryCleanup = null })
+                    }
                     await(schedule())
                     assertSilent("Reenabling the Android group category must not revive the old pending alert")
                     val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages
                     assertEquals(1, saved.size); assertEquals(original.id, saved.single().id)
                     assertEquals(text, saved.single().text)
-                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
                     assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                     assertEquals(backend, backends.load())
                     assertNoActivity()
@@ -462,6 +470,7 @@ class GroupPushWorkPreviewTest {
             cleanupAfterTest(primary,
                 { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) }; finishActivities(); stopped = true },
                 { gateway.close() }, { peerServer?.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
+                { requireStopped(); categoryCleanup?.invoke(); categoryCleanup = null },
                 { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
                 { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
                 { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
