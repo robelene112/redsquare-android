@@ -1,0 +1,1000 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-full17-39098927313/android-native-proof-chat/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "appearance-evidence.tar",
+      "size": 807424,
+      "sha256": "ef06850c7e9866dc862bf4da82048715106c6a53b3a233148535e29faec9be32"
+    },
+    {
+      "path": "appearance-fresh-install.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "appearance-original-setup.txt",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "appearance-system-before.txt",
+      "size": 542,
+      "sha256": "19f9dde266f99de2ef7c84114d0ddc7d585f66c736b8c38c01d99ec89fd9a71b"
+    },
+    {
+      "path": "appearance-system-log.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "appearance-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "appearance-ui.txt",
+      "size": 858,
+      "sha256": "c3a9b04fe53e7c45c28d5071e2ea7bb64f1eb3b8b355b192e68448bb3c2f6c3c"
+    },
+    {
+      "path": "chat-alert-evidence.tar",
+      "size": 5345280,
+      "sha256": "3bf464749349d71d679f7f504673b0a773fd8b4273c70590582142bb0b042094"
+    },
+    {
+      "path": "chat-alert-permission-before.txt",
+      "size": 9770,
+      "sha256": "6a891c940a94c1ce06fd8061c042d5137229bac08184ef6d6b3523b0f1f549b2"
+    },
+    {
+      "path": "chat-alerts-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-alerts-ui.txt",
+      "size": 8254,
+      "sha256": "1c6142b679c88b411918da1751c286380d46fa42613188ca2189276cede834c5"
+    },
+    {
+      "path": "chat-giphy-evidence.tar",
+      "size": 2035712,
+      "sha256": "1c526935fd86862d9e7ae345fa814c18fb6364311b5dd096decd2f43f7c85c2e"
+    },
+    {
+      "path": "chat-giphy-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-giphy-ui.txt",
+      "size": 4329,
+      "sha256": "806cc12e9fd0df9a75c15941cb7849769656144f4c5e5f59dc71c05b02addc20"
+    },
+    {
+      "path": "chat-image-history-avd-config.ini",
+      "size": 3790,
+      "sha256": "bed8ce0ef145c27fd414385b47403be9c8306856330844f10e244f98868f41c4"
+    },
+    {
+      "path": "chat-image-history-evidence.tar",
+      "size": 1100,
+      "sha256": "e5322bbd4952cbbe650b833959734ac261bebaa456b26fbff10d0ad4f19cf4e7"
+    },
+    {
+      "path": "chat-image-history-runtime-properties.txt",
+      "size": 214,
+      "sha256": "0d82e5ebeb2bd37126cb3964b1530cbcaa414cf2849ea708f260ee5fde1e7c4f"
+    },
+    {
+      "path": "chat-image-history-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-image-history-ui.txt",
+      "size": 8495,
+      "sha256": "6df0d5b83a3b769a65b23fc2a6c9a2b7d80193c56729c16ff0a11ee60b164f9a"
+    },
+    {
+      "path": "chat-images-evidence.tar",
+      "size": 1933824,
+      "sha256": "80d22bcb9ea2c5336635457d37cdf65372d96ac613737ce6725fda4c8aadc8ae"
+    },
+    {
+      "path": "chat-images-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-images-ui.txt",
+      "size": 10257,
+      "sha256": "abba70c836b611d19cff17a04d55c9840119bd9d35b0018940e3af89a078cb8c"
+    },
+    {
+      "path": "chat-keyboard-evidence.tar",
+      "size": 4971520,
+      "sha256": "12ddf2a7ed5432063276fe3da4d9dfcad64c427a09602e2d9b2d5e5ade1efff2"
+    },
+    {
+      "path": "chat-keyboard-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-keyboard-ui.txt",
+      "size": 7043,
+      "sha256": "a74800cd979b13578363b17bdf5700b0828d5163893c1b9fe26b9c9539fa2010"
+    },
+    {
+      "path": "chat-mixed-evidence.tar",
+      "size": 291840,
+      "sha256": "e8c844a06455269f4ab132107ec473f8f85b082a58a05598126d169e720bebee"
+    },
+    {
+      "path": "chat-mixed-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-mixed-ui.txt",
+      "size": 885,
+      "sha256": "f0f447a4b721da6599da55bcad8271d72ad37e7a87d02979606ce0c9d4958d6c"
+    },
+    {
+      "path": "chat-mute-evidence.tar",
+      "size": 2876928,
+      "sha256": "738bd325c885b979bec2789fe0c5873ab5f6ff8ce45d6e933cc3da7062e0af20"
+    },
+    {
+      "path": "chat-mute-permission-before.txt",
+      "size": 9937,
+      "sha256": "5b7a8613bc03d82d65bf2ef0561ed20aa7bfb1f16e91e8b4306dc064f507a726"
+    },
+    {
+      "path": "chat-mute-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-mute-process/continuity.txt",
+      "size": 213,
+      "sha256": "e27922bc074343ada7638a5b52bb16f20904a55e4c9dab83897eed4e8d4e850f"
+    },
+    {
+      "path": "chat-mute-process/guard-metadata.txt",
+      "size": 17,
+      "sha256": "e7d43e637d6a2871b415094b18184bfb65f9c7a9cfef919eb69e0d663c4f5d8b"
+    },
+    {
+      "path": "chat-mute-process/images.tar",
+      "size": 236544,
+      "sha256": "cab053f2bb12acd287b12b6f31f0e2fb76f1beac2fdbcb30def393d259f0c616"
+    },
+    {
+      "path": "chat-mute-process/interrupted.txt",
+      "size": 474,
+      "sha256": "a2bfc0aca03cd07fb3b8ec98a9efb81be39a78738578e138387c62f798cfb52a"
+    },
+    {
+      "path": "chat-mute-process/pending-checkpoint.json",
+      "size": 561,
+      "sha256": "43d57f11f090eb3439555ba9f10fdd2a49ac22d784d5cad365ed75a65549013f"
+    },
+    {
+      "path": "chat-mute-process/recovered-checkpoint.json",
+      "size": 587,
+      "sha256": "bf05f6f9c4a16b760ac16c420a2064e285f8e1159c4f128e7a19479813a5b803"
+    },
+    {
+      "path": "chat-mute-process/recovered.txt",
+      "size": 848,
+      "sha256": "3af060c436abb7f5ac2ca4fb2366b629a6d8fab86663733af0b392a777e32c14"
+    },
+    {
+      "path": "chat-mute-process/restored.txt",
+      "size": 807,
+      "sha256": "5081868bd6dac3417b3197747eb41eab54da8dfa0caab6f851f13f48af3384a0"
+    },
+    {
+      "path": "chat-mute-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-mute-ui.txt",
+      "size": 5742,
+      "sha256": "a7fbbd793c902a18ad310c89fd17ad9d7ad8a4591d086df49090cd20b5d0380b"
+    },
+    {
+      "path": "chat-photo-group-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-photo-group-process/continuity.txt",
+      "size": 248,
+      "sha256": "12d2c20a87dafae083edc566acd8d28ec26f2d8e6c0e653c57e16588b1c52129"
+    },
+    {
+      "path": "chat-photo-group-process/images.tar",
+      "size": 135168,
+      "sha256": "951364d1a2513937494cf505a7d2b1cbd4b9fbbc468ab008f726380dc64a092c"
+    },
+    {
+      "path": "chat-photo-group-process/interrupted.txt",
+      "size": 482,
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+    },
+    {
+      "path": "chat-photo-group-process/pending-checkpoint.json",
+      "size": 1089,
+      "sha256": "36df46a1de795b03cb92775c68a2df3f310ed646d22082540df8feed098232d6"
+    },
+    {
+      "path": "chat-photo-group-process/recovered-checkpoint.json",
+      "size": 1115,
+      "sha256": "c0e882dfa21b8435cab087e6c68e421799dcd0cfbd17c16d564c719d7cc2fe66"
+    },
+    {
+      "path": "chat-photo-group-process/recovered.txt",
+      "size": 852,
+      "sha256": "7b02f62ddd7f1279f68ccadac9b824f094dd3bd0ac3918c4c6be2b987f688171"
+    },
+    {
+      "path": "chat-photo-group-process/restored.txt",
+      "size": 810,
+      "sha256": "488d0d886d9790cfa47cf4912a7ab334d3fbfdd579305a7e91761b215baf3b49"
+    },
+    {
+      "path": "chat-photo-private-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-photo-private-process/continuity.txt",
+      "size": 220,
+      "sha256": "47ead9fd3cb5126bdc4fd53f1ea2b871c0f145d559d6bbcd1be40bbc66a521b9"
+    },
+    {
+      "path": "chat-photo-private-process/images.tar",
+      "size": 153600,
+      "sha256": "8050fcdb88599a3b893795020ecd63e3babf74750994cf403f68079f06cadd81"
+    },
+    {
+      "path": "chat-photo-private-process/interrupted.txt",
+      "size": 482,
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+    },
+    {
+      "path": "chat-photo-private-process/pending-checkpoint.json",
+      "size": 922,
+      "sha256": "3399f84c7abf33ae52e0d6d6f3cfe967f69c4c1cc2c6fd33bf1de7276d7926da"
+    },
+    {
+      "path": "chat-photo-private-process/recovered-checkpoint.json",
+      "size": 948,
+      "sha256": "048ebe83a61f12e8ca1ff88822c7d3f0a0d93210a4a89e38cf92c1bfee23f4ad"
+    },
+    {
+      "path": "chat-photo-private-process/recovered.txt",
+      "size": 852,
+      "sha256": "da0d992af4fb3d3a43bc4b1568e41ccd21680ad8fba8321e34eeaa6f21447423"
+    },
+    {
+      "path": "chat-photo-private-process/restored.txt",
+      "size": 810,
+      "sha256": "acd8911b30c7d388df3d2fa69afce24e24914364117abe333f4d49fe1fcf77d2"
+    },
+    {
+      "path": "chat-push-capacity-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-push-capacity-ui.txt",
+      "size": 894,
+      "sha256": "f0485cf1d159c3a238279e140f1ddd658500f25987760a76e148689a1b07ce71"
+    },
+    {
+      "path": "chat-queue-evidence.tar",
+      "size": 3537920,
+      "sha256": "a2f63b79ee098b79ef12674f5d4584176c1a49e5da4bb596f038365d65afc9f2"
+    },
+    {
+      "path": "chat-queue-group-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-queue-group-process/continuity.txt",
+      "size": 227,
+      "sha256": "62bed1d19f6744b9c19fe99d3cef84bfc207feb794938ce90541832e9bfc78a8"
+    },
+    {
+      "path": "chat-queue-group-process/images.tar",
+      "size": 160768,
+      "sha256": "abbd26ff5a4a381ece8df27ae055c3cd6fcc83cc26d390cf2c9fc6ce778cb5e1"
+    },
+    {
+      "path": "chat-queue-group-process/interrupted.txt",
+      "size": 482,
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+    },
+    {
+      "path": "chat-queue-group-process/pending-checkpoint.json",
+      "size": 1090,
+      "sha256": "ac4dbee5c98d4f18fd4511ddf585e6e9afd8b41776167b220d6e3bb2200a8915"
+    },
+    {
+      "path": "chat-queue-group-process/recovered-checkpoint.json",
+      "size": 1116,
+      "sha256": "366b14bbc297fdb8e0d1e8ce10a30e50bba9c1483de49459f2d66a72c6dd9851"
+    },
+    {
+      "path": "chat-queue-group-process/recovered.txt",
+      "size": 852,
+      "sha256": "6db61dbe51b0b631564c3e84ce3bca0681227f178888bd77fefe46180a7afaed"
+    },
+    {
+      "path": "chat-queue-group-process/restored.txt",
+      "size": 810,
+      "sha256": "db15c9f2672d21809cc7cb7abf66801151f41998fa9172f6ba5b68fce07f2c64"
+    },
+    {
+      "path": "chat-queue-private-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-queue-private-process/continuity.txt",
+      "size": 199,
+      "sha256": "b77c08282cbb59b6e246624669e13e30b79659962148d3d90cfd2198a064d1ae"
+    },
+    {
+      "path": "chat-queue-private-process/images.tar",
+      "size": 158720,
+      "sha256": "5d02a78cbd064f8e9c7f3cbd148179d8bd16c9a82b04e8d7f95a8c81bbc6d368"
+    },
+    {
+      "path": "chat-queue-private-process/interrupted.txt",
+      "size": 482,
+      "sha256": "6e759b4c0029393ffef39c05defe1f717a3104bf87fdc8198e2c1a4de07c9aa8"
+    },
+    {
+      "path": "chat-queue-private-process/pending-checkpoint.json",
+      "size": 923,
+      "sha256": "32232ebbc3a5a95bcbe2f6e842e15bd4762d76425316b0a4061eb15ac38399ca"
+    },
+    {
+      "path": "chat-queue-private-process/recovered-checkpoint.json",
+      "size": 949,
+      "sha256": "42bd007ccb87478db79a9327646e14196b99d30b11b1b1985a57e9e3edce2ae8"
+    },
+    {
+      "path": "chat-queue-private-process/recovered.txt",
+      "size": 851,
+      "sha256": "0f46824f6601d77c2915ccccb2de250dfa962fc9e7a9ef259402f4793ca8c66c"
+    },
+    {
+      "path": "chat-queue-private-process/restored.txt",
+      "size": 810,
+      "sha256": "749df767efb387c371efae4a347cbb9acfcf8dbb27b257f81d61fabaa484e85b"
+    },
+    {
+      "path": "chat-queue-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "chat-queue-ui.txt",
+      "size": 9317,
+      "sha256": "5142bde2a68e96cf59905425d0b824077a50a5a37883ac578ea72525edd612c2"
+    },
+    {
+      "path": "emulator.log",
+      "size": 22734,
+      "sha256": "1539cedab0c99ca8b81081a9f98e8aae3fa2a560a74ccf614f4807b01ead2d5d"
+    },
+    {
+      "path": "group-admin-evidence.tar",
+      "size": 719360,
+      "sha256": "5926fb5cc85ab451e424a3c9542a514ae4290fa520be22f010ce43dc6f956ab0"
+    },
+    {
+      "path": "group-admin-promotion-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-admin-promotion-process/continuity.txt",
+      "size": 290,
+      "sha256": "a516cc547fc516c4e6080c61c8ee89a12e06dd83818d5ad7c1c490a899d594c8"
+    },
+    {
+      "path": "group-admin-promotion-process/images.tar",
+      "size": 248832,
+      "sha256": "be2a63d145b5316d2ef2d6f5cfb1d76af3d5b2e03a1f880d3dd56ae71572c49d"
+    },
+    {
+      "path": "group-admin-promotion-process/interrupted.txt",
+      "size": 476,
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3"
+    },
+    {
+      "path": "group-admin-promotion-process/pending-checkpoint.json",
+      "size": 1191,
+      "sha256": "b2b2d69d467d3a929900419b3239e880a23ebfa7741c922e49e30abc8477e099"
+    },
+    {
+      "path": "group-admin-promotion-process/recovered-checkpoint.json",
+      "size": 1216,
+      "sha256": "e7856bf20d0c684d91e3660670dce0b9920828593d172302de51d7c47e2afb44"
+    },
+    {
+      "path": "group-admin-promotion-process/recovered.txt",
+      "size": 812,
+      "sha256": "2975a95f02781871d918aa7c581c4424018ae4505cafa22af4cd30d9dcfd0745"
+    },
+    {
+      "path": "group-admin-promotion-process/restored.txt",
+      "size": 809,
+      "sha256": "40ec86b686ca963329b629ed4ea70b5df53ad95f8c0f59d0de2957da479e3fcd"
+    },
+    {
+      "path": "group-admin-removal-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-admin-removal-process/continuity.txt",
+      "size": 288,
+      "sha256": "d037524efc98eed3f7f3c78aea06b5f3f9360d0652f35421021f0d33380bb5a8"
+    },
+    {
+      "path": "group-admin-removal-process/images.tar",
+      "size": 249344,
+      "sha256": "b1190b627b26650761b12871050f1c0f61917e7f198306a884e833bea35509bd"
+    },
+    {
+      "path": "group-admin-removal-process/interrupted.txt",
+      "size": 476,
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3"
+    },
+    {
+      "path": "group-admin-removal-process/pending-checkpoint.json",
+      "size": 1189,
+      "sha256": "3c9651cdb533abba2df116f5536a2e49786c8cde3857b60e931970c88883b25a"
+    },
+    {
+      "path": "group-admin-removal-process/recovered-checkpoint.json",
+      "size": 1214,
+      "sha256": "c6b0531cec4537a8c3fcc3497351f961f4d23564905278cf4af7c8dcbebca210"
+    },
+    {
+      "path": "group-admin-removal-process/recovered.txt",
+      "size": 812,
+      "sha256": "c94d6366df3d142513a3dcdaad515c17c4bf8cb15884ef1becd44a66df85d5a3"
+    },
+    {
+      "path": "group-admin-removal-process/restored.txt",
+      "size": 810,
+      "sha256": "23b0dca8d0191599e1f7a67eacb17edb76e7c106d9fe6e5ea6c21a0d10608822"
+    },
+    {
+      "path": "group-admin-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-admin-ui.txt",
+      "size": 8451,
+      "sha256": "4544bfd386dbab50b97766ff5b750199b808024ae3781da6cba6b07cda615d8b"
+    },
+    {
+      "path": "group-chat-actions-evidence.tar",
+      "size": 186368,
+      "sha256": "6e73377ac69e34ad212e83a41a59342e86c6827b548d55b1659e113404bc29f0"
+    },
+    {
+      "path": "group-chat-actions-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-chat-actions-ui.txt",
+      "size": 871,
+      "sha256": "e928ef7c795f542ed8352e9e5e4e2ca02092cd58e9cc34822d8ac8289770163d"
+    },
+    {
+      "path": "group-chat-evidence.tar",
+      "size": 2512896,
+      "sha256": "db00d26ce9f849bb0383248f51d0551acf113fa7bc66df6bb4ad051f3e70e9e6"
+    },
+    {
+      "path": "group-chat-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-chat-process/continuity.txt",
+      "size": 236,
+      "sha256": "173ac99a81e2dd5672b56b3567b7ae44fa2e6e0077bc52cd331888fb67f7c28d"
+    },
+    {
+      "path": "group-chat-process/images.tar",
+      "size": 162304,
+      "sha256": "43b362add3c0e7f646b640b9971dfe0e7cf7a20ba0a6e3568b1d199f0c333908"
+    },
+    {
+      "path": "group-chat-process/interrupted.txt",
+      "size": 476,
+      "sha256": "8061727eddaea9aaa31179ba5adb6640f0556202e52ed5573638bc30a4b696f3"
+    },
+    {
+      "path": "group-chat-process/pending-checkpoint.json",
+      "size": 1191,
+      "sha256": "0e970dd6a90c74d0dd818ea9fcecfe2164c595dd1afe2100c0f041c050112a68"
+    },
+    {
+      "path": "group-chat-process/recovered-checkpoint.json",
+      "size": 1218,
+      "sha256": "8a3d03fec33eea2265d9950901170acc27da34922a353ed80eb9e0694ddd7f52"
+    },
+    {
+      "path": "group-chat-process/recovered.txt",
+      "size": 812,
+      "sha256": "3f2ebf285e4cfa424902b7d17de2b2c7e4f11e5ad381e3368a6dfa64a61a4426"
+    },
+    {
+      "path": "group-chat-process/restored.txt",
+      "size": 810,
+      "sha256": "1bc837dee8a5af68d74211f47f214fdf016b0f56fb5b34d561dcdd555d2f1989"
+    },
+    {
+      "path": "group-chat-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-chat-ui.txt",
+      "size": 15874,
+      "sha256": "e3628d7eb9f51cd1a55256f132ca53e2907b2a1b2d78ff3ecad585df0e813afa"
+    },
+    {
+      "path": "group-push-evidence.tar",
+      "size": 3636736,
+      "sha256": "b2bebec2c40e56cb637d589ad9575eb3822a80a691b0db6c52681f03cd251b8b"
+    },
+    {
+      "path": "group-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-push-process/continuity.txt",
+      "size": 357,
+      "sha256": "43fe76a36642a888c86de98fc33d1deba2b283db6d4b82497ca1e4ccc86116d1"
+    },
+    {
+      "path": "group-push-process/dismissed-checkpoint.json",
+      "size": 1770,
+      "sha256": "36dff98f191d568a4b559461456100fca2d7a8f9c40c6b1ad483be94da3e0ef1"
+    },
+    {
+      "path": "group-push-process/dismissed-interrupted.txt",
+      "size": 459,
+      "sha256": "617a4b3a48d36a26a9d65c0cf4994c2f69500508cd233eb6f1bab82ac533b28c"
+    },
+    {
+      "path": "group-push-process/images.tar",
+      "size": 590336,
+      "sha256": "3ab01d7ffa75af924d4b65a57c26b92eedaf89ad8b66dc496c016ffe78b14bf9"
+    },
+    {
+      "path": "group-push-process/pending-checkpoint.json",
+      "size": 1720,
+      "sha256": "59616e367217f258a657877dac5b86c4e92ed8d15b040efd0a48fbe2dc688404"
+    },
+    {
+      "path": "group-push-process/pending-interrupted.txt",
+      "size": 458,
+      "sha256": "b027df21121a287abf5e3ff81cf091c478059274534d2f6d05731d280c2543a9"
+    },
+    {
+      "path": "group-push-process/restored.txt",
+      "size": 785,
+      "sha256": "94970f28b2011d53ccbe7bf5e8fadb35eaf9cec5e3e6ed7a765534ca904ec86f"
+    },
+    {
+      "path": "group-push-process/verified-checkpoint.json",
+      "size": 1789,
+      "sha256": "ca07c33c20b99e6beb99549b468bfe1c5aa7303c9b63d0e059956cca6459e17f"
+    },
+    {
+      "path": "group-push-process/verified.txt",
+      "size": 812,
+      "sha256": "b8e9d383f8735021c8d620d617d9aeb636d2ff7df15a068ce2058694089f600e"
+    },
+    {
+      "path": "group-push-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-push-ui.txt",
+      "size": 5260,
+      "sha256": "2e86ef5b775bad6a0ada300c99438edc19c2aa5735a90bab005641f662d55a06"
+    },
+    {
+      "path": "partition-complete.txt",
+      "size": 5,
+      "sha256": "d03a7ba834457c81580617b90aac6f6505232f556952fcb7fabb3a740b1c2170"
+    },
+    {
+      "path": "partition.txt",
+      "size": 5,
+      "sha256": "d03a7ba834457c81580617b90aac6f6505232f556952fcb7fabb3a740b1c2170"
+    },
+    {
+      "path": "private-chat-actions-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "private-chat-actions-ui.txt",
+      "size": 7467,
+      "sha256": "78260d8d8604cfd9a5d8009647463bd252ae25b7480952f86798c0d127f29a6b"
+    },
+    {
+      "path": "private-chat-evidence.tar",
+      "size": 6147584,
+      "sha256": "a15b631cd1162ddc2a67dcbe31386600b9067c36578aabb1130618b151de7540"
+    },
+    {
+      "path": "private-chat-peer.txt",
+      "size": 1566,
+      "sha256": "c4f0b213834bef34e022d7530231ff19c2fd098d985e89c103e808cc541c4ca7"
+    },
+    {
+      "path": "private-chat-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "private-chat-process/continuity.txt",
+      "size": 198,
+      "sha256": "2539d7c98aa7f3cd99abe055edae08a76b94cfd0743a68e7958a5542f43c4c05"
+    },
+    {
+      "path": "private-chat-process/images.tar",
+      "size": 468992,
+      "sha256": "e44dabca980a28ae2d1aed7d248410a378307cffbda3feadf4b74d2f8095c452"
+    },
+    {
+      "path": "private-chat-process/interrupted.txt",
+      "size": 484,
+      "sha256": "a762e67e2eabf6dbb9c565d0f0a77d4f286826e62b1630c1c43314915d94b688"
+    },
+    {
+      "path": "private-chat-process/pending-checkpoint.json",
+      "size": 1187,
+      "sha256": "45cf2d7c4e41eba66ffc328e2f40ce0f1c780108ed6403d43a2ad5bb77978ba1"
+    },
+    {
+      "path": "private-chat-process/recovered-checkpoint.json",
+      "size": 1214,
+      "sha256": "05117e728e7014e341baa47a0d75fc24876b7f78d80b112c5c35a593a38a791d"
+    },
+    {
+      "path": "private-chat-process/recovered.txt",
+      "size": 844,
+      "sha256": "e3970018d93136864702e91ccdc02e0000fb4c068a9a0ec370704acbe19cd78b"
+    },
+    {
+      "path": "private-chat-process/restored.txt",
+      "size": 816,
+      "sha256": "485381deebfe25a458f5003559c5055fd30e549e3ba62d9517e4aeef82691559"
+    },
+    {
+      "path": "private-chat-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "private-chat-ui.txt",
+      "size": 17073,
+      "sha256": "d1a5485df5e98c11176a338f2f052ffd3067cade25bab52d76cd78a1d1082390"
+    },
+    {
+      "path": "private-push-mute-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "private-push-mute-ui.txt",
+      "size": 894,
+      "sha256": "5bd83c0d085d7c43adaf01ca66c2f42d03d7713b749ada602aa1f4d15b38770d"
+    },
+    {
+      "path": "private-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "private-push-process/continuity.txt",
+      "size": 359,
+      "sha256": "433d08e077113d78576d840c86c357603fadf092689f73da3cddcff8c9f21499"
+    },
+    {
+      "path": "private-push-process/dismissed-checkpoint.json",
+      "size": 1973,
+      "sha256": "98d61dabc6a17f07a217497178c81cd4696986fcbfdb14dfeac8cf66a6e54636"
+    },
+    {
+      "path": "private-push-process/dismissed-interrupted.txt",
+      "size": 463,
+      "sha256": "80529bf266332a5ad5e8b2ffbcd5c0a03c5f0b091c427a259f49317d9d06219c"
+    },
+    {
+      "path": "private-push-process/images.tar",
+      "size": 591360,
+      "sha256": "64d3c3f598d205fa060061febe59a45a954cfbfe650b59c65e4dedf3705b5708"
+    },
+    {
+      "path": "private-push-process/pending-checkpoint.json",
+      "size": 1923,
+      "sha256": "0c09b0dfab3ef479c019a5dbb47b848c58298f876e50aed81466f7058f615db2"
+    },
+    {
+      "path": "private-push-process/pending-interrupted.txt",
+      "size": 462,
+      "sha256": "79ad3d141cf7ab5749f70b00b20e3ee4bd874cd3cb217b556fdf6cbba8024ef0"
+    },
+    {
+      "path": "private-push-process/restored.txt",
+      "size": 792,
+      "sha256": "c9b00c66968db40b9083b69c96e3fed139428c7c624748b2f96c6698ad81365a"
+    },
+    {
+      "path": "private-push-process/verified-checkpoint.json",
+      "size": 1992,
+      "sha256": "4d03fc747f5839d8f07f3b45ba989d11cc4f45a3cb739529822d6830bca93f6d"
+    },
+    {
+      "path": "private-push-process/verified.txt",
+      "size": 818,
+      "sha256": "89fa5cf0818509c2f91df17b0298edcecbf60fef6d00f8898f4bea7d897485b6"
+    },
+    {
+      "path": "public-chat/readiness.json",
+      "size": 635,
+      "sha256": "aa203cbd767ba7e4fe08bbea285285763b31fe2d0e97be0dbd6c797784377274"
+    },
+    {
+      "path": "public-chat.txt",
+      "size": 837,
+      "sha256": "cd4843eb3ab038814ac9b50d14131a35716b9604fbcfb7c0b214ffd64f0e8226"
+    },
+    {
+      "path": "push-binding-evidence.tar",
+      "size": 2560,
+      "sha256": "fe3c242353999b3e269f958d05b2e8de179b667d045cc9f89ad5351d06628ab7"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "size": 864,
+      "sha256": "feb2b66c4e222ce96b925a735f7a88515206aec22eaaaf93c962334d2742dbfd"
+    },
+    {
+      "path": "social-push-evidence.tar",
+      "size": 3908096,
+      "sha256": "cdede5fe67461076f9e6a67bf15003d5e89b32fe35fca3f9f1724cbfe67f1219"
+    },
+    {
+      "path": "social-push-permission-before.txt",
+      "size": 9769,
+      "sha256": "11873aba31fd88ffd0f3a0f3be2f66e84ee80e171c62c12f8d242da6f7cefe94"
+    },
+    {
+      "path": "social-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-process/continuity.txt",
+      "size": 273,
+      "sha256": "cd5c51f73dc6f9f8651d3615b980c40f131fc6f32ba60af0e460f2e70a6ea04e"
+    },
+    {
+      "path": "social-push-process/dismissed-checkpoint.json",
+      "size": 404,
+      "sha256": "cc301bc988ef881e63e4333220ba0b50e6064a58f3a70f2ccc603cc8e94769c1"
+    },
+    {
+      "path": "social-push-process/images.tar",
+      "size": 536576,
+      "sha256": "d42883fa2179970d81aaf42402969d026407df1901811634c1879daeffe02e15"
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "size": 478,
+      "sha256": "ee693d52f30cbe59eefededb3b7992b7062bca5ccdad1639e63711cf3a206a78"
+    },
+    {
+      "path": "social-push-process/ledger-metadata.txt",
+      "size": 17,
+      "sha256": "d5664ce3ff4611164a30a853a04abb3d7b0493fb80da6800ac1324796657ff21"
+    },
+    {
+      "path": "social-push-process/recovered-checkpoint.json",
+      "size": 414,
+      "sha256": "a79e9348accd63367c2a8b3f63d69dda495f58c373a8882a6631b1ad4fcaad87"
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "size": 839,
+      "sha256": "13097a3b896ed8827a998042ff8f16eb9328098aa580fab18825230299b64114"
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "size": 813,
+      "sha256": "a06b7a06e417bd1861c0bef13395f13d88c12a5d258e710765b2c29872c0e90d"
+    },
+    {
+      "path": "social-push-scheduled-process/activities-after.txt",
+      "size": 23897,
+      "sha256": "a6995b1c74b416e43d6c773183a93d3bd0f69a1d71e4fbd376ec6a7cb3ef7510"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.png",
+      "size": 85694,
+      "sha256": "9e50255faf9c1470ef54aa22c909b36132dfc0efb6b7d1154f798a14efb3cc4d"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.xml",
+      "size": 53266,
+      "sha256": "6de8748dec6e2dcae29bd5b79347a8d2464c3379d818d41c873ab460d6338d4a"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-observations.jsonl",
+      "size": 19919,
+      "sha256": "5d72e790ad816efa9870523834b2ea38ab01319e9ece6c51d2472cdc70b20f64"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-jobs.json",
+      "size": 627714,
+      "sha256": "dc2ab010ce2d66a84087588b34a70c19488419381e941bdd6e37cdf9393d49be"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-package.json",
+      "size": 10124,
+      "sha256": "d7cdf36b8eb1480efde8aef2e3e106a676013d371f81244f6948505e6e49e536"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-processes.json",
+      "size": 404148,
+      "sha256": "85204277ae964b580523503e293825a36e015bd6ac8a3cd954e5d3e06529350a"
+    },
+    {
+      "path": "social-push-scheduled-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-scheduled-process/continuity.txt",
+      "size": 290,
+      "sha256": "e5192d27fbda87db5b5dd5a2b58b75cb7f556cc7888990c49746dd45ef834c0a"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/host.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/mode",
+      "size": 4,
+      "sha256": "6c45cb72a36e63d522aa54ed8adbd7a29a989474f2f77e0458af8800564ef3cb"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/observed.json",
+      "size": 81,
+      "sha256": "617ba206226c0996564f20f69d6dea73c42aac38cc85f295605e644e7d228267"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/ready.json",
+      "size": 14,
+      "sha256": "d17bbf67da7c48f9748fa2c2423e280ae87152b9e7f52eeb7c3508acabcf3181"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/reply.json",
+      "size": 1098,
+      "sha256": "abc2382266c340e756c3a8b7b94445761e51d04e890607e58673231fae025ce8"
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar",
+      "size": 225280,
+      "sha256": "a8387bd453d3be962a485900657f4af8fcdb021ad0ab857d7a310c59ce8ebdba"
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "size": 483,
+      "sha256": "af2ebe4b52c323bdf84f2598ca2f094c4b26e139701e801746a9aca9b163cb93"
+    },
+    {
+      "path": "social-push-scheduled-process/notification-after.txt",
+      "size": 148171,
+      "sha256": "6dd72dc544e0ac3ec400ada0f946140744f4dbde3201e6ab7973484811dba916"
+    },
+    {
+      "path": "social-push-scheduled-process/pending-checkpoint.json",
+      "size": 2289,
+      "sha256": "6355e4f40a8cde75e018173da2ed432c733de4842067287357f21a4316126d87"
+    },
+    {
+      "path": "social-push-scheduled-process/recovered-observation.json",
+      "size": 307,
+      "sha256": "89d2fcf43035ef271c7a54f93287b0372973dda7fbef05a95ebed917634058f9"
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "size": 816,
+      "sha256": "fb7ee2a81eb1afa3705e045ac4dbd0a7f31c3fb75fe13fa3ab27f7c63a0c119f"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-after.txt",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-before.txt",
+      "size": 29,
+      "sha256": "b58435c0ca8e937f5f64de71fc2fb3e3eff543c2f10f053663a62617ec894a8d"
+    },
+    {
+      "path": "social-push-scheduled-process/termination-request.json",
+      "size": 69,
+      "sha256": "8d1b7db4f862e9b95bd3c379b86736a71f031d34d6bbc01466970ce738e67ea5"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-ui.txt",
+      "size": 7936,
+      "sha256": "143cfa11c7b7af621e310a2dbc4e382ce7f24b7d29ae51d179561bcd097e5f46"
+    },
+    {
+      "path": "social-push-work-evidence.tar",
+      "size": 1525760,
+      "sha256": "9e63f0cce925926d7397d724eb7169069a66f7785e4f1f000b7edc06dd7081a2"
+    },
+    {
+      "path": "social-push-work-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "size": 2295,
+      "sha256": "6ed3c50505fc3a0c5b15255e693d88674bd14b6c82d1769a56f3cc1e5aae3252"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ]
+}
