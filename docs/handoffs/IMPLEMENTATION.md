@@ -11,6 +11,27 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
+## Active issue49: signed Play bundle and reviewable release package
+
+[Issue49](https://github.com/robelene112/redsquare-android/issues/49), child36/spec1,
+is assigned with zero open blockers after accepted48. Review base is
+`2eabfa0b26af4b3814b9c1821d2975546e8b0a5b`. Extend the existing canonical build
+path with explicit release-bundle mode, shared signing/version/lock and no
+review prompt. Verify a real signed AAB and independently generated APK. Preserve
+ordinary/performance APK behavior and the current public31/performance30 assets.
+Application inputs are expected unchanged; repeat native regression if behavior
+changes. No owned build is running at this checkpoint.
+
+Prepare current-name listing/assets, reviewer instructions and accurate data/
+declaration drafts. Publisher/account/contact/retention/deletion and policy facts
+stay explicitly unresolved. Official Google UGC policy also applies to clients;
+current source has no demonstrated Terms acceptance or privacy-policy link.
+Existing reports/blocks do not prove whole moderation/deletion compliance. Record
+these substantive gaps, without inventing or publishing policy/operations.
+No Console/cloud/node/account/key-enrollment/submission action is authorized here.
+Parent36 and physical35 remain open. Do not repeat pending Giphy/Google setup
+questions. Main31 is live;48 is CLOSED as below. External originals stay open.
+
 ## Accepted issue48: honest feed readiness and isolated performance preparation
 
 [Issue48](https://github.com/robelene112/redsquare-android/issues/48), child35/spec1, is CLOSED, accepted at https://github.com/robelene112/redsquare-android/issues/48#issuecomment-6246411411. Review base `f8a5a0519400cb0343fae3e84f8bd2149cd68806`. Issue47 is CLOSED and beta29 published/verified. This child prepares actual readiness measurement and a signed isolated performance package; it cannot satisfy the physical Pixel criteria or close35.
