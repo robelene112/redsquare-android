@@ -7,8 +7,8 @@ Google documentation was rechecked on2026-10-18. The accepted native regression
 is [issue48](../evidence/ticket48/NATIVE_ACCEPTANCE.md); actual packaging evidence
 is [issue49](../evidence/ticket49/README.md). Candidate 33 application inputs
 match accepted48. Subsequent native50 changes the unconfigured Settings
-descriptions, verified in its focused Android17 journey; final full10/17 remains
-pending. Historical AAB33 retains its original source. Build a fresh bundle after
+descriptions, verified in its focused journey and complete Android17 run
+39106585481. Android10 run39106583903 and combined whole50 review remain pending. Historical AAB33 retains its original source. Build a fresh bundle after
 the remaining native/configuration changes before final store preparation.
 
 ## Artifact and signing decision

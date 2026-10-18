@@ -1,0 +1,122 @@
+{
+  "files": 468,
+  "passed": 431,
+  "skipped": 0,
+  "assumed": 0,
+  "failed": 0,
+  "completionRecords": 104,
+  "crashedRecords": 33,
+  "png": 930,
+  "xml": 795,
+  "visualErrors": 4,
+  "continuityRecords": 32,
+  "source": "10b007c48e9b6e48037741544a4f181e7337ab9a",
+  "prepared35And36Source": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "chat": {
+      "files": 199,
+      "passed": 183,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 47,
+      "crashedRecords": 15,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 481,
+      "xml": 481,
+      "visualErrors": 0,
+      "continuityRecords": 13
+    },
+    "social": {
+      "files": 145,
+      "passed": 208,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 39,
+      "crashedRecords": 16,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 381,
+      "xml": 293,
+      "visualErrors": 0,
+      "continuityRecords": 14
+    },
+    "wallet": {
+      "files": 124,
+      "passed": 40,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 18,
+      "crashedRecords": 2,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 68,
+      "xml": 21,
+      "visualErrors": 4,
+      "continuityRecords": 5
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "api": "17",
+    "expectedCount": 431,
+    "actualCount": 431,
+    "partitions": [
+      "chat",
+      "social",
+      "wallet"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 6826,
+    "recoveredPid": 6874,
+    "finalPid": 6937,
+    "workId": "cf226f40-6518-49a1-b6a1-4363ce24374b",
+    "expiredRequests": 0
+  },
+  "groupWakeProcess": {
+    "pid": 7318,
+    "recoveredPid": 7365,
+    "finalPid": 7430,
+    "workId": "f19071a0-f0ad-4656-8ef3-ebf1dd188876",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS; no chain-inclusion claim",
+  "publicChat": "Authenticated readiness PASS; not live message delivery",
+  "signedLegacyUpdate": "5 -> 8; physical main-app update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 239,
+  "signedPerformanceIsolation": {
+    "status": "PASS",
+    "performanceVersion": 36,
+    "mainReferenceVersion": 29,
+    "packageUids": {
+      "nl.davidengelen.redsquare": 10236,
+      "nl.davidengelen.redsquare.performance": 10237
+    },
+    "mainPublicAddressBefore": "dmj7MTFkjMKDPqRqPThwDntuU2EeVXv6WNtQGyMZAfcq",
+    "mainPublicAddressAfter": "dmj7MTFkjMKDPqRqPThwDntuU2EeVXv6WNtQGyMZAfcq",
+    "performancePublicAddress": "oSpi9FLUkrZoZQ54fYtHmeMnzX4rVnekBofcNmuhroRz",
+    "physicalDeviceAcceptance": false,
+    "physicalTimingMeasured": false
+  },
+  "signedPackageRestoration": {
+    "restoredOriginallyAbsentPackages": true,
+    "attemptedOwnedPackages": [
+      "nl.davidengelen.redsquare",
+      "nl.davidengelen.redsquare.performance"
+    ],
+    "cleanupFailures": []
+  }
+}

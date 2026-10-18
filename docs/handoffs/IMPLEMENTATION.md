@@ -50,16 +50,32 @@ have Standards0/Spec0, including all13 GREEN hashes/33 bindings and both9-hash
 prepared packets. Performance36 canonical publication exits0 and independent
 actual HTTPS/APK/certificate/manifest/browser checks pass; root fully viewed
 mobile/desktop originals. Main31 metadata/actual APK and immutable performance30
-metadata/actual APK are unchanged. Publication packet needs its bookend review,
-then dispatch full10/17 with public feed reads/performance_version36. The fixed
-plan retains430/431 identities,103/104 normal completions,33 deliberate/32
-continuity and all private/group recovery/protected/public/update/final gates.
-Application/build paths239 have exactly three changes versus accepted48; only
-one existing native fixture changes. No expected identity was generated from
-new outcomes. Main35 stays UNPUBLISHED until complete acceptance/review; main31
-and separate performance36 are now public. No cloud/provider/node/owner-phone action.
-Actual16KiB runtime and the genuine original external/physical/policy gates stay
-open. Do not repeat pending Giphy/Google questions or publish invented policy.
+metadata/actual APK are unchanged. Publication bookend at10b007c48e9b6e48037741544a4f181e7337ab9a has Standards0/Spec0.
+Final full10 run39106583903 is IN PROGRESS at that source. Full17 run39106585481
+is SUCCESS at the same source, with all three jobs complete,431PASS/exact431
+identities,104 normal/33 deliberate/32 continuity. Both public feeds, authenticated
+Chat readiness, private/group sameUUID/threePID/zeroExpired recovery and protected
+restoration, actual main29/performance36 isolation/restoration, legacy5to8 and
+final identity pass. SourceCI39106349137 is SUCCESS. The318-hash/468-original17
+packet validates930PNG/795XML, explicitly excludes the same five optional missing
+diagnostics, and retains root's25 selected plus3 additional public/update visual
+observations. Both new notices are fully readable in all six availability
+captures. The reopened-Social/final-consent PNGs have gray Chat switches while
+separate XML reports checked=true; later reopened-Chat pixels show ON. Do not
+infer a settled ON pixel state or a rendering cause from non-atomic captures.
+Actual semantic persistence and signed binding pass. Bounded17 review is next.
+
+The fixed plan retains430/431 identities,103/104 normal completions,33 deliberate/
+32 continuity and all recovery/public/update/final gates. The committed source
+map verifies239 production/build,202 fixture,4 operation and4 host objects equal
+between prepared979 and dispatched10b. Complete10/whole review remain pending;
+main35 stays UNPUBLISHED and main31/separate performance36 remain public. All
+owned local build/download/retention work is DRAINED; only the full10 watcher
+continues. No cloud/provider/node/owner-phone action occurred. Follow-up51 is
+created under35 with50 as its sole native blocker, unassigned and not started:
+actual hosted16KiB environment/full17/current signed35/performance36 observations.
+Original physical/provider/policy gates stay open. Do not repeat pending
+Giphy/Google questions or publish invented policy.
 
 ## Accepted issue49: signed Play bundle and reviewable release package
 
