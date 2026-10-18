@@ -1,0 +1,68 @@
+{
+  "files": 432,
+  "passed": 428,
+  "skipped": 0,
+  "assumed": 1,
+  "failed": 0,
+  "completionRecords": 103,
+  "crashedRecords": 33,
+  "png": 914,
+  "xml": 780,
+  "visualErrors": 4,
+  "continuityRecords": 32,
+  "source": "518b596325cec57b6fe2c2ca5f87bbcd504bb286",
+  "prepared29Source": "72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "all": {
+      "files": 432,
+      "passed": 428,
+      "skipped": 0,
+      "assumed": 1,
+      "failed": 0,
+      "completionRecords": 103,
+      "crashedRecords": 33,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 914,
+      "xml": 780,
+      "visualErrors": 4,
+      "continuityRecords": 32
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "api": "10",
+    "expectedCount": 429,
+    "actualCount": 429,
+    "partitions": [
+      "all"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 16090,
+    "recoveredPid": 16270,
+    "finalPid": 16448,
+    "workId": "7b0b17a7-a66a-49de-b9ca-807d42cadc77",
+    "expiredRequests": 0
+  },
+  "groupWakeProcess": {
+    "pid": 31833,
+    "recoveredPid": 32061,
+    "finalPid": 32242,
+    "workId": "310e6a1c-c71a-4fe0-bb8e-7923903ff780",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS; no chain-inclusion claim",
+  "publicChat": "Authenticated readiness PASS; not live message delivery",
+  "signedLegacyUpdate": "5 -> 8; physical29 update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 237
+}
