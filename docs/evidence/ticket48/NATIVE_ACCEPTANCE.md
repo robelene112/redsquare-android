@@ -1,6 +1,6 @@
 # Trustworthy feed readiness and isolated performance preparation
 
-Issue48, code-preparation child of35 under specification1. Fixed review base isf8a5a0519400cb0343fae3e84f8bd2149cd68806. The physical Pixel targets remain35; this child cannot satisfy them. Both full SDK runs now pass. Combined whole48 review at08978145a reports Standards0/Spec0. Ordinary31 is now published and independently verified; publication evidence review remains pending.
+Issue48, code-preparation child of35 under specification1. Fixed review base isf8a5a0519400cb0343fae3e84f8bd2149cd68806. The physical Pixel targets remain35; this child cannot satisfy them. Both full SDK runs now pass. Combined whole48 review at08978145a reports Standards0/Spec0. Ordinary31 is now published and independently verified; publication bookend0e79eb53b reports Standards0/Spec0. Issue48 is CLOSED: https://github.com/robelene112/redsquare-android/issues/48#issuecomment-6246411411.
 
 ## Observed native readiness
 
@@ -49,4 +49,4 @@ Configured Google closed-app delivery/deployed observers, authorized live Giphy 
 
 ## Ordinary successor publication
 
-Canonical publication succeeds at0a9cc8420 after whole48 Standards0/Spec0 at08978145a. The [publication packet](signed-preview31-published/README.md) verifies actual public page/latest/immutable31/APK, established certificate/main package/min29/target36/nondebuggable/nonprofileable and exact prepared SHA3cc48595869335da555bb164afbb72537a65cecc03333cba099dd26dce6d4866. Immutable29 metadata and actual APK remain unchanged, as do separate performance30 metadata/APK. Actual mobile/desktop browser checks and root-opened screenshots show the correct main heading/version/download with no overflow/errors. Beta31 is live at https://davidengelen.nl/redsquare/. Publication evidence review remains pending at this checkpoint.
+Canonical publication succeeds at0a9cc8420 after whole48 Standards0/Spec0 at08978145a. The [publication packet](signed-preview31-published/README.md) verifies actual public page/latest/immutable31/APK, established certificate/main package/min29/target36/nondebuggable/nonprofileable and exact prepared SHA3cc48595869335da555bb164afbb72537a65cecc03333cba099dd26dce6d4866. Immutable29 metadata and actual APK remain unchanged, as do separate performance30 metadata/APK. Actual mobile/desktop browser checks and root-opened screenshots show the correct main heading/version/download with no overflow/errors. Beta31 is live at https://davidengelen.nl/redsquare/. Publication bookend0e79eb53b reports Standards0/Spec0. Issue48 is CLOSED.
