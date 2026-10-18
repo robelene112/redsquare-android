@@ -1,0 +1,9 @@
+# Complete ticket47 identity coverage before full execution
+
+The accepted complete ticket46 baseline has419 Android17 executed identities and418 Android10 identities. Eleven literal additions are fixed before the new full executions: seven group worker journeys, two normally completed group process methods, the capacity journey and the independent private mute journey. Required totals are430 and429. Interrupted process methods remain separate continuity gates, not normal completed identities. Original private class/method names and relative log paths remain unchanged.
+
+The JSON records baseline provenance, explicit additions and every required occurrence. Android17 uses the already accepted ticket46 multiset; Android10 is reproduced from its accepted raw run39069243011. The parser retains exact profile-log concatenation proof before excluding that duplicate aggregate. Assumptions count as executed identities, but expected Android10 profile qualification and no unexpected assumptions/failures must still be assessed separately.
+
+After execution, run `python3 test-identities.py --verify10 SDK29_ROOT` and `python3 test-identities.py --verify17 CHAT_ROOT SOCIAL_ROOT WALLET_ROOT`. Each requires matching input/completion markers and the complete distinct partition set before comparing exact multisets. All jobs must actually succeed at the final production source, with full outcome/completion/continuity, both actual three-process protocols, public tails, source/release/lint and selected original UI inspection. An identity match alone is not application acceptance or configured Google delivery.
+
+This plan was prepared at33ca91fd0 before either final full run. Capacity has bounded native acceptance; the private counterpart still awaits its actual RED/minimum/GREEN. Full runtime acceptance and signed successor publication remain pending. Do not regenerate expected identities from new runtime results to make omissions pass.
