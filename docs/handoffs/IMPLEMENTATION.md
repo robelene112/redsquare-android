@@ -177,21 +177,23 @@ inactive-membership suppression, preserving history and storage-error retry.
 Both scoped source/evidence reviews0. Unchanged6case39085990843 at2c7cd31a8 is SUCCESS; exact duration is retained
 in `native-membership-green/source.json`. Source39085991128 SUCCESS includes
 release/lint. Both selected originals are retained as diagnostic launcher captures.
-Next actual Android group-category disable/reenable tracer39086431943 at7d9286ec9
-is running before any category source correction. Existing6cases unchanged.
-Local fixture correctionc73c30bb9 is not yet pushed: exact-one fetch checks now
-precede terminal replay, and fault/category restoration requires successful work
-drain, with a guarded outer cleanup retry. Both residual reviews0. Original39086431943 is a SETUP failure,7cases/6PASS/1FAIL89.356s atline206:
-the Settings channel toolbar title is exposed as a content-description, not text.
-The positive disabled-category state/application completion assertions are
-unexecuted. `native-category-setup-failure`8hashes/32originalbindings retains
-the actual XML, full root-viewed Settings screenshot and source39086432368
-SUCCESSrelease/lint. Fixture now observes the real Show notifications master control; a followup
-retains an explicit channel-title check accepting its actual content-description
-or text form, with the same10second bound. The exact channel importance transition
-remains required. The earlier wording that the title was absent from XML was
-incorrect and is corrected here.
-No category production correction exists before actual application RED. Nonblocking duplicate retry-wait refactor waits for GREEN.
+Category first39086431943 at7d9286ec9 is a SETUP failure:7cases/6PASS/
+1FAIL89.356s atline206. The toolbar exposes its title as a content-description,
+not text. Disabled-category/application completion assertions are unexecuted.
+`native-category-setup-failure`8hashes/32originalbindings retains actual XML and
+root-viewed full Settings PNG. Source39086432368 SUCCESS includes release/lint.
+
+Current category rerun39086916930 at1c989cca6 is running with unchanged production
+2c7cd31a8. It includes fixture correctionc73: exact-one fetch checks precede
+terminal replay, and fault/category restoration requires successful worker drain
+with guarded outer retry. Both residual reviews0. The rerun observes the actual
+Show notifications master and requires the exact channel importance transition.
+Local55ba02112, not yet pushed, additionally restores a positive exact channel-title
+check using content-description or text within the same10second bound. It also
+corrects the earlier false statement that the title was absent from XML. Both
+fixture/source evidence reviews0; stale status wording is consolidated here.
+No category production minimum exists before observed application RED. The
+nonblocking duplicate retry-wait refactor waits for GREEN.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
 Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
