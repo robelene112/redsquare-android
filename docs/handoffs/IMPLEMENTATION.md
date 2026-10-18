@@ -103,7 +103,25 @@ RED/GREEN fixture e685e4d929abae364bf0c5e4b0c29b9d1a8e8491. Readable retained hi
 continuous silence during obstruction, recovered generic card, physical dismissal,
 continuous quiet redelivery and exact history/identity all pass without Activity.
 Ten-hash native-ordinary-green packet retains original bindings; root viewed all
-three selected originals. Whole47/full10/17 remain pending. No owned local build.
+three selected originals. Both evidence reviews0. SourceCI39081867405 was CANCELLED
+by the next push while still running; no release/lint acceptance at50aa is claimed.
+Shared private/group publication helper extracted afterward atc77e58144, bothreviews0.
+
+Next scoped Official-group tracer has actual RED39082237706 at3ee8bf5a2:
+3cases/2PASS/1FAIL38.241s, resolver count2 expected1 after backend/wallet silence
+and identity checks. Original-count and restore/tap tails unexecuted. Seven-hash
+native-scoped-red packet,32 original bindings and root-viewed launcher capture.
+Later fixture corrections9bf61931b/94113418d preload expected group metadata and
+explicitly consent/preserve the replacement wallet; acceptance assertions unchanged.
+Both residual fixture reviews0. No missing route implementation preceded RED.
+
+Minimumb1696d6dd reuses the existing durable private route as typed ChatWakeRoute,
+preserving private filename/alias/JSON. Separate group associations precede history,
+resume verified cached originals and check inactive identity before any new gateway
+proof. Both source reviews0. Actual group native run39082688809 and source
+run39082689171 are dispatched atb169; results pending. No owned local compile.
+Next after actual scoped GREEN: membership/current-policy suppression and real
+process/legacy recovery. Whole47/full10/17, signed29 and closure remain pending.
 
 ## Accepted issue46: private Chat background transport
 
