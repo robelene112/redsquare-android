@@ -235,10 +235,13 @@ verify_chat_alerts() {
             python3 "$repo_dir/scripts/private-push-process-check" --evidence "$evidence/private-push-process" || native_exit=$?
         fi
     fi
-    if [[ "$native_exit" == 0 && "${1:-all}" != group ]]; then
+    if [[ "$native_exit" == 0 && ( "${1:-all}" == all || "${1:-all}" == private-mute ) ]]; then
+        verify_group_chat_native PrivateMutedReceiptPreviewTest 180 private-push-mute chat-alert-evidence || native_exit=$?
+    fi
+    if [[ "$native_exit" == 0 && ( "${1:-all}" == all || "${1:-all}" == capacity ) ]]; then
         verify_group_chat_native ChatPushCapacityPreviewTest 180 chat-push-capacity chat-alert-evidence || native_exit=$?
     fi
-    if [[ "$native_exit" == 0 && "${1:-all}" != capacity ]]; then
+    if [[ "$native_exit" == 0 && ( "${1:-all}" == all || "${1:-all}" == group ) ]]; then
         verify_group_chat_native GroupPushWorkPreviewTest 180 group-push group-push-evidence || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
             python3 "$repo_dir/scripts/group-push-process-check" --evidence "$evidence/group-push-process" || native_exit=$?
@@ -249,6 +252,11 @@ verify_chat_alerts() {
     fi
     return "$native_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == private-push-mute* ]]; then
+    verify_chat_alerts private-mute
+    printf '%s\n' 'Focused owned private mute/retained receipt only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-push-capacity* ]]; then
     verify_chat_alerts capacity
     printf '%s\n' 'Focused owned Chat capacity/settings/binding only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"

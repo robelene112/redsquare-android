@@ -344,8 +344,22 @@ and saved consent/history, then automatically resumes below the shared100 limit.
 Unreadable interests still throw for retry. Incoming identity preflight remains
 independent. Settings observes backend/group changes offMain and explains paused
 new group alerts or unavailable status. Strengthenedd559 preservation assertions
-will execute in the next native run. Source/evidence review and actual GREEN are
-pending; whole47 acceptance and beta29 publication are not claimed.
+execute successfully in39089021008 at15951ea9c:1PASS63.760s. Actual signed
+fallback/recovery, visible notice, retained message/draft/roles, unchanged consent/
+subscription/identity and independent opt-outs all pass. Source39089021653 SUCCESS
+includes release/lint. Root viewed both exact Settings originals in the9hash/
+33original native-capacity-green packet. Scoped source reviews0/0; refreshed
+whole-source reviews add no findings beyond the known private suppression gap.
+GREEN evidence review remains pending; no whole47 or beta29 claim.
+
+The next private muted-pending tracer is now committed before its minimum.
+`PrivateMutedReceiptPreviewTest` reuses the concrete shared private worker fixture;
+all five original private class/method identities and old eleven-case180second
+command remain. A separate focused class keeps its own180second bound, also in
+full/Chat. The actual background worker must finish quietly while the owned
+optional ledger remains obstructed and the conversation is muted, then stay
+quiet after repair/unmute with exact history/identity and no Activity. No private
+production minimum is present yet; actual RED and both source reviews pending.
 
 ## Published beta28
 

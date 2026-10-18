@@ -118,6 +118,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    binding capacity journey, with a separate180second class bound. Full and
    `chat-alerts` retain the original eleven-case command/private recovery and add
    this independent class, rather than widening that command's deadline.
+   `private-push-mute` and its Android17 scope isolate the actual private muted
+   pending receipt under unavailable optional bookkeeping. Its separate180second
+   class is added to full/Chat scopes; the original eleven-case command and both
+   process gates keep their existing identities, assertions and deadlines.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. The full harness includes the local social receipt/tap/
