@@ -1,0 +1,74 @@
+{
+  "summary": {
+    "files": 11,
+    "passed": 9,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 1,
+    "crashedRecords": 0,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 10,
+    "xml": 4,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  },
+  "exactPlannedFeedIdentities": true,
+  "expected": [
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+      "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+      "occurrences": 1
+    }
+  ]
+}

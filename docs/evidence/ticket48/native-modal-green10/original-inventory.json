@@ -1,0 +1,60 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-modal-green10-39097439651/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "backend-ui-evidence.tar",
+      "size": 228864,
+      "sha256": "cdfdcbecdd85bb90e8f6cabbcd2d5ce8b539f2d8f309007ed0d0fbf8a973e08d"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "size": 45440,
+      "sha256": "049037322fb0430d2f44fca82db5a6288ac949362dd691167b629fb9a3200777"
+    },
+    {
+      "path": "emulator.log",
+      "size": 5583,
+      "sha256": "f5c833f72c2c194c412fc36ecfcbf6911b606ba02901b0133d1441043070a14e"
+    },
+    {
+      "path": "feed-cold-launch/continuity.txt",
+      "size": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "size": 54320,
+      "sha256": "80d371206829ccfe6c32feb16467201622e19a131209e4086181a4a1e7ed4729"
+    },
+    {
+      "path": "feed-cold-launch/fully-drawn.txt",
+      "size": 242,
+      "sha256": "8ba3b9b4ee6e8746896d31aa6b87df733eb94d428f1b6f3ee2f74646f672930c"
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "size": 32386,
+      "sha256": "2d2f2e6c5e23f535e4edf4afeb096ba958d96e5a13d7686feec4c4008b60dc1f"
+    },
+    {
+      "path": "feed-cold-launch/launch.txt",
+      "size": 255,
+      "sha256": "456322f690be91692d6dfe0e383da4fb5f5dc9833dff0c9a77559818c8cafe1f"
+    },
+    {
+      "path": "feed-readiness-evidence.tar",
+      "size": 199680,
+      "sha256": "48423f88829c29c1f41a1ea33ed4d1332d8362c7967c9628a59ad745fd27a4fb"
+    },
+    {
+      "path": "feed-ui.txt",
+      "size": 6421,
+      "sha256": "f876a69da34a4b2b7d8e03048bb052e160e3017290161e3f35617d36e52fe9fa"
+    },
+    {
+      "path": "scope.txt",
+      "size": 72,
+      "sha256": "6c601ba8ba549aeb7c66b6f6c5562eef5f4d58a2eb36e4734d239a1b582f14a7"
+    }
+  ]
+}
