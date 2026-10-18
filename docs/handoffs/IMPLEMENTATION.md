@@ -93,10 +93,17 @@ shade rendering claim. SourceCI39080948077 SUCCESS.
 Minimum3d00eac9f commits pending group eligibility with encrypted history, shares
 ordinary/background receipt decisions and adds a separate groupchatpush ledger
 family. Legacy group records without pending metadata remain readable. Necessary
-fixture scopes are extended. Spec review found one additional manual mixed-Chat
-fixture missing the group ledger; correction is next, after draining the owned
-local compile. Standards has no hard finding, with shared publication-policy
-extraction recommended after actual GREEN. Runtime recovery/full47 remain pending.
+fixture scopes are extended. Spec review found a manual mixed-Chat fixture missing its ledger; corrected50aa08e88
+also restores the fixture prefix still used by a protected record lookup. Actual
+compile failure at3d00 is retained without runtime acceptance. Both residual source
+reviews0; Standards recommends a shared publication policy after GREEN.
+
+Actual focused GREEN39081867204 at50aa08e88 passes both cases/27.978s with byte-identical
+RED/GREEN fixture e685e4d929abae364bf0c5e4b0c29b9d1a8e8491. Readable retained history,
+continuous silence during obstruction, recovered generic card, physical dismissal,
+continuous quiet redelivery and exact history/identity all pass without Activity.
+Ten-hash native-ordinary-green packet retains original bindings; root viewed all
+three selected originals. Whole47/full10/17 remain pending. No owned local build.
 
 ## Accepted issue46: private Chat background transport
 

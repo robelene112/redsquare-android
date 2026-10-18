@@ -46,22 +46,11 @@ internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: S
     if (!history.retainIncoming(received.envelope)) return@synchronized ChatNotificationResult.SUPPRESSED
     // History and pending eligibility are durable before optional receipt bookkeeping can fail.
     try {
-        val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
-            NotificationReceiptLedger.Domain.PRIVATE_CHAT)
-        val now = System.currentTimeMillis()
-        if (!ledger.prepare(now)) {
-            history.completeAlert(message.id)
-            return@synchronized ChatNotificationResult.SUPPRESSED
+        publishPendingChatAlert(NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
+            NotificationReceiptLedger.Domain.PRIVATE_CHAT), retryPublication,
+            completeAlert = { history.completeAlert(message.id) }) {
+            notifyPrivateChat(context, wallet, backend, message, endpoint)
         }
-        val outcome = notifyPrivateChat(context, wallet, backend, message, endpoint)
-        if (outcome == ChatNotificationResult.PUBLISHED) {
-            ledger.recordPublication(now)
-        }
-        // Deliberately silenced originals stay seen after unmute. Ordinary Chat also
-        // preserves its existing no-retrospective-alert behavior after notifier errors.
-        // Bookkeeping exceptions still leave the independently retained attempt pending.
-        if (outcome != ChatNotificationResult.RETRY || !retryPublication) history.completeAlert(message.id)
-        outcome
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }
 
@@ -72,16 +61,27 @@ internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
     val history = GroupChatStore(context, wallet, backend)
     val message = history.retainIncoming(envelope) ?: return@synchronized ChatNotificationResult.SUPPRESSED
     try {
-        val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
-            NotificationReceiptLedger.Domain.GROUP_CHAT)
-        val now = System.currentTimeMillis()
-        if (!ledger.prepare(now)) {
-            history.completeAlert(message.groupId, message.id)
-            return@synchronized ChatNotificationResult.SUPPRESSED
+        publishPendingChatAlert(NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
+            NotificationReceiptLedger.Domain.GROUP_CHAT), retryPublication,
+            completeAlert = { history.completeAlert(message.groupId, message.id) }) {
+            notifyGroupChat(context, wallet, backend, message, endpoint)
         }
-        val outcome = notifyGroupChat(context, wallet, backend, message, endpoint)
-        if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
-        if (outcome != ChatNotificationResult.RETRY || !retryPublication) history.completeAlert(message.groupId, message.id)
-        outcome
     } catch (_: Exception) { ChatNotificationResult.RETRY }
+}
+
+/** Both Chat histories own eligibility; their publication and completion policy is identical. */
+private fun publishPendingChatAlert(ledger: NotificationReceiptLedger, retryPublication: Boolean,
+    completeAlert: () -> Unit, publish: () -> ChatNotificationResult): ChatNotificationResult {
+    val now = System.currentTimeMillis()
+    if (!ledger.prepare(now)) {
+        completeAlert()
+        return ChatNotificationResult.SUPPRESSED
+    }
+    val outcome = publish()
+    if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
+    // Deliberate suppression stays seen after unmute. Ordinary Chat also keeps its
+    // no-retrospective-alert policy after notifier errors. Bookkeeping exceptions
+    // escape to the caller, preserving independently retained pending eligibility.
+    if (outcome != ChatNotificationResult.RETRY || !retryPublication) completeAlert()
+    return outcome
 }
