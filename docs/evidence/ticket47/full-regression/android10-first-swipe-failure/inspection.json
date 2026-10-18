@@ -1,0 +1,817 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/group47-full10-first-39090558349/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "appearance-evidence.tar",
+      "size": 781312,
+      "sha256": "b3c16a5be51cd63b19ebe74dc0142b0c96484d32c48b5b3d900f9c8e7587a1a3"
+    },
+    {
+      "path": "appearance-fresh-install.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "appearance-original-setup.txt",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "appearance-system-before.txt",
+      "size": 355,
+      "sha256": "ffecf33cd4a66b45d73958f8ea202bd9b724801fa323cd7c5bc23070f77ed634"
+    },
+    {
+      "path": "appearance-system-log.txt",
+      "size": 58,
+      "sha256": "8cd686f4d0bde6480c53709f3ba3bec5fb2677347c50f9558faa6fce034f82d2"
+    },
+    {
+      "path": "appearance-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "appearance-ui.txt",
+      "size": 858,
+      "sha256": "7778cdcf4d9136d4a380c35a78155f47ef264a4916064f8ce0a32121225a8738"
+    },
+    {
+      "path": "emulator.log",
+      "size": 5583,
+      "sha256": "d91fe3a5b131aef95860d377f5a6b5f9e4d35ee98d361445c0338569497119cf"
+    },
+    {
+      "path": "partition.txt",
+      "size": 4,
+      "sha256": "722cdd399249d70c5dac1ff2b103a0b271d8fb9816fa52af6ce6b88eda1d389a"
+    },
+    {
+      "path": "push-binding-evidence.tar",
+      "size": 2560,
+      "sha256": "fc3dab4b24d5c378e5a94070e447f6d9cd2f02fbe416e4ded6d7a1d7f47cb313"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "size": 864,
+      "sha256": "083feb88aa2e7df851ac256496a3cff3605abfa9204a56558be7fcf24d973147"
+    },
+    {
+      "path": "social-push-evidence.tar",
+      "size": 3424768,
+      "sha256": "ba4507e928acc9ddcebda306b57c3d7f4ae34dfe98d953217188f254c55373be"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-ui.txt",
+      "size": 10758,
+      "sha256": "c25e5bad8c99d77400cfaa60ebf5d9bc8c2ad22a9efdbe9ee5dd120af1851408"
+    }
+  ],
+  "instrumentation": [
+    {
+      "path": "appearance-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "15.257"
+      ]
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.908"
+      ]
+    },
+    {
+      "path": "social-push-ui.txt",
+      "passed": 10,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 1,
+      "completed": false,
+      "crashed": false,
+      "failureFooter": true,
+      "times": [
+        "102.735"
+      ]
+    }
+  ],
+  "continuity": [],
+  "exits": [
+    {
+      "path": "appearance-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "value": "0"
+    }
+  ],
+  "visuals": [
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/default-system-dark.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/default-system-dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light-reopened.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-system-light.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-system-light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-reopened.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-dark.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-light.xml",
+      "kind": "xml",
+      "nodes": 120
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply-failure.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply-failure.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/reply-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/reply-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-alert.xml",
+      "kind": "xml",
+      "nodes": 126
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-conversation.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-initial.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-initial.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-enabled.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-enabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-alert.xml",
+      "kind": "xml",
+      "nodes": 126
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-conversation.xml",
+      "kind": "xml",
+      "nodes": 82
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-disabled.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-disabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-conversation.xml",
+      "kind": "xml",
+      "nodes": 82
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-recreated.xml",
+      "kind": "xml",
+      "nodes": 82
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-consumed.xml",
+      "kind": "xml",
+      "nodes": 105
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-edited.xml",
+      "kind": "xml",
+      "nodes": 108
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-edited.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-alert.xml",
+      "kind": "xml",
+      "nodes": 126
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-conversation.xml",
+      "kind": "xml",
+      "nodes": 82
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-conversation.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-recreated.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-consumed.xml",
+      "kind": "xml",
+      "nodes": 105
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-edited.xml",
+      "kind": "xml",
+      "nodes": 108
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-edited.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-alert.xml",
+      "kind": "xml",
+      "nodes": 126
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-conversation.xml",
+      "kind": "xml",
+      "nodes": 82
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-replies.xml",
+      "kind": "xml",
+      "nodes": 84
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-replies.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-mentions.xml",
+      "kind": "xml",
+      "nodes": 84
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-mentions.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-returned.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-returned.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-conversation.xml",
+      "kind": "xml",
+      "nodes": 81
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-offer.xml",
+      "kind": "xml",
+      "nodes": 43
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-offer.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-system.xml",
+      "kind": "xml",
+      "nodes": 84
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-system.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-enabled.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-enabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-alert.xml",
+      "kind": "xml",
+      "nodes": 126
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-conversation.xml",
+      "kind": "xml",
+      "nodes": 81
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-conversation.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-recreated.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-consumed.xml",
+      "kind": "xml",
+      "nodes": 105
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": [],
+  "summary": {
+    "files": 15,
+    "passed": 12,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 1,
+    "completionRecords": 2,
+    "crashedRecords": 0,
+    "failureFooters": [
+      "social-push-ui.txt"
+    ],
+    "nonzeroExits": [],
+    "png": 55,
+    "xml": 55,
+    "visualErrors": 0,
+    "continuityRecords": 0
+  }
+}
