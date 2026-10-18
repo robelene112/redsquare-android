@@ -34,9 +34,16 @@
     "android17": 39106585481
   },
   "main35AndPerformance36PublicationPreserved": true,
-  "wholeReviewPending": true,
+  "wholeReviewPending": false,
   "limits": [
     "Instrumentation .dev suite and separately signed35/36 wallet/startup/isolation observations have distinct scope",
     "No all-JNI-path, ARM64, owner-phone timing/update, configured-provider or Play-generated/store acceptance"
-  ]
+  ],
+  "wholeReview": {
+    "commit": "bb819a01a29142706cb9a126aec442b6bfd82987",
+    "standardsFindings": 0,
+    "specFindings": 0
+  },
+  "issueState": "closed",
+  "closure": "https://github.com/robelene112/redsquare-android/issues/51#issuecomment-6248630514"
 }

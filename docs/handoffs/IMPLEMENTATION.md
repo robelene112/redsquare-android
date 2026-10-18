@@ -11,10 +11,41 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
-## Active issue51: complete 16 KB runtime proof, final review pending
+## Current release state and next prerequisites
+
+No implementation child is currently claimed. Issues50/51 are accepted/CLOSED;
+ordinary35 is live at https://davidengelen.nl/redsquare/ and separate performance36
+at https://davidengelen.nl/redsquare/performance/. Original35-ticket count remains
+26CLOSED/nineOPEN:16,17,19,31,32,33,34,35,36. Specification1 remainsOPEN.
+Extra37/39 through51 are CLOSED;38 branding awaits its later product discussion
+and is not a release blocker. Do not claim the app or all native policy work complete.
+
+The remaining original criteria need concrete inputs/real environments:
+
+- Authorized separate Android Posts/Chat Giphy configuration/live proof16/31.
+- Actual Google application/project/sender and authorized hosting/deployment,
+  then physical closed-app delivery32/33/34. Existing setup questions remain pending.
+- Public YouTube playback17 and Owner Registry readiness19. Preserve documented
+  provider/server limits; no unchanged probe loops, provider workarounds or blind
+  node upgrades. Server instrumentation/deployment needs its own scoped procedure.
+- Actual Pixel7 installation/update/wallet/local-data continuity and five cached/
+  five fresh isolated physical launch measurements35. Never clear the owner's wallet.
+- Real publisher/legal identity/contact, retention/deletion/Terms/privacy and
+  moderation/child-safety decisions, their substantive native/operational behavior,
+  actual Console/account/track/signing and final authorized submission36. Existing
+  report/block controls are not a substitute. Resolve facts before inventing policy
+  text or implementing decisions that change release behavior. A useful next owner
+  fact is the exact legal publisher identity; Google/Giphy setup questions must not
+  be repeated. Offline package49 is prepared, not final policy/store acceptance.
+
+Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
+open and the untracked research unread. No local build/download/watcher remains active.
+
+## Accepted issue51: complete 16 KB runtime proof
 
 [Issue51](https://github.com/robelene112/redsquare-android/issues/51), child35/spec1,
-is assigned after verified closed50. Fixed base58f268e73cc245b7a50d6867459bc802ddbff41d.
+is CLOSED after verified closed50, accepted at
+https://github.com/robelene112/redsquare-android/issues/51#issuecomment-6248630514. Fixed base58f268e73cc245b7a50d6867459bc802ddbff41d.
 Source77b3940c4 and pre-execution plan32c439e43 have Standards0/Spec0. Only four
 host/workflow files change;239 production/build,202 fixture and four operation
 objects remain equal to accepted50. No app/dependency change or APK rebuild.
@@ -39,14 +70,17 @@ atf6f4d4048; root opened3 wallets/cold feed,13PNG/9XML valid. Ordinary35 and sep
 public pages/latest/immutable metadata remain byte-identical to accepted50; actual
 required native APK downloads match planned hashes. No publication changed in51.
 
-Next: commit and independently review complete16KB/current combined evidence against
-base58f, fix findings, record whole0/0, close51 and update parent35. The pre-execution
-plan/source snapshots remain immutable; current outcomes are in runtime-results.json.
-No local Gradle/build/download/collector remains active. Owned gh watcher76664 exited143;
-that local exit is not the actual GitHub SUCCESS, retained in completed run metadata.
-Root status cell4949 is completed. Large originals are under
+Combined whole51 review atbb819a01a29142706cb9a126aec442b6bfd82987 reports
+Standards0/Spec0. One stale release-reviewer paragraph was corrected before those
+residual0/0 conclusions. Issue51 is verified CLOSED. Parent35 checkpoint:
+https://github.com/robelene112/redsquare-android/issues/35#issuecomment-6248639202 .
+Parent36 current limits:
+https://github.com/robelene112/redsquare-android/issues/36#issuecomment-6248639340 .
+Pre-execution plan/source snapshots stay immutable; runtime-results.json retains
+actual outcomes/review/closure. All owned local work is drained. The local gh
+watcher exited143, separate from the actual retained GitHub SUCCESS. Originals:
 /mnt/storage/redsquare-android-artifacts/page-size51-{full16k17,default10}-RUN.
-Temporary collectors are in /tmp/redsquare-group47-work-20261017/promote51-*.py.
+Temporary collectors: /tmp/redsquare-group47-work-20261017/promote51-*.py.
 
 This is current-config/executed-journey x86_64 proof. All JNI paths, ARM64, actual
 Pixel7 timing/update, configured Google/Giphy, Play-generated install and store
@@ -175,7 +209,7 @@ All239 production/build objects equal accepted48 full10/17 inputs, sourceCI
 39103857593 SUCCESS. Four64-bit libraries pass LOAD alignment and derived APK
 passes SDK16KiB ZIP alignment, but raw RELRO-end remainders remain separately
 qualified. At49 acceptance, actual16KiB runtime was unproved. Subsequent51 now
-passes the scoped x86_64/current-configuration journeys, with final review pending.
+passes the scoped x86_64/current-configuration journeys with whole0/0 and closure.
 
 [Release package](../release/PLAY_RELEASE_PACKAGE.md) supplies listing drafts,
 six verified actual-design/native assets, reviewer instructions, current merged
@@ -716,7 +750,7 @@ unverified. Follow canonical review-build/publish scripts for the next version.
 ## Remaining work and external gates
 
 Original35 tickets:26CLOSED, nineOPEN (16,17,19,31 through36); parent1 remainsOPEN.
-Extra37/39 through49 are CLOSED.38 is a later branding decision, not a release
+Extra37/39 through51 are CLOSED.38 is a later branding decision, not a release
 blocker. Fetch current state before reporting counts or changing dependencies.
 
 | Issue | Current state and next useful work |
@@ -727,7 +761,7 @@ blocker. Fetch current state before reporting counts or changing dependencies.
 |32| Native gateway/client children42/45 accepted. Actual Firebase/GCP Android app/project/sender, authorized hosting/deployment and physical closed-app delivery remain. Configuration question is already pending. |
 |33| Native46 accepted/closed above; configured Google delivery and original32 dependency remain. |
 |34| Native child47 is CLOSED and accepted; configured Google delivery and original32/33 gates remain. |
-|35| Native48 is CLOSED; isolated signed performance30 is published separately. Physical Pixel7 timing/update/wallet-data continuity remain: five cached launches≤2000ms/five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger, positive isolated PID absence before each sample. Never clear the owner's wallet. Actual x86_64 16KiB native51 proof passes; physical/ARM64/store scope remains unverified. |
+|35| Native48/51 are CLOSED; current isolated signed performance36 is published separately. Physical Pixel7 timing/update/wallet-data continuity remain: five cached launches≤2000ms/five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger, positive isolated PID absence before each sample. Never clear the owner's wallet. Actual x86_64 16KiB native51 proof passes; physical/ARM64/store scope remains unverified. |
 |36| Native/offline49 is CLOSED with signed AAB33 and concrete listing/assets/data/reviewer drafts. Actual publisher/account/test track/signing enrollment/legal contacts/retention/deletion/Terms/moderation/child-safety and substantive native policy flows remain, plus final device/configured dependencies and submission. Do not invent facts or publish policy/submit without the applicable final authorization. |
 
 Do not remove genuine dependencies or close parents to manufacture progress.
