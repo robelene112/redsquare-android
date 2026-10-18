@@ -229,13 +229,16 @@ verify_chat_alerts() {
             granted_for_test=1
         fi
     fi
-    if [[ "${1:-all}" != group ]]; then
+    if [[ "${1:-all}" == all ]]; then
         verify_group_chat_native "ChatAlertPreviewTest,nl.davidengelen.redsquare.ChatPushConsentPreviewTest,nl.davidengelen.redsquare.PrivatePushWorkPreviewTest" 180 chat-alerts chat-alert-evidence || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
             python3 "$repo_dir/scripts/private-push-process-check" --evidence "$evidence/private-push-process" || native_exit=$?
         fi
     fi
-    if [[ "$native_exit" == 0 ]]; then
+    if [[ "$native_exit" == 0 && "${1:-all}" != group ]]; then
+        verify_group_chat_native ChatPushCapacityPreviewTest 180 chat-push-capacity chat-alert-evidence || native_exit=$?
+    fi
+    if [[ "$native_exit" == 0 && "${1:-all}" != capacity ]]; then
         verify_group_chat_native GroupPushWorkPreviewTest 180 group-push group-push-evidence || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
             python3 "$repo_dir/scripts/group-push-process-check" --evidence "$evidence/group-push-process" || native_exit=$?
@@ -246,6 +249,11 @@ verify_chat_alerts() {
     fi
     return "$native_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == chat-push-capacity* ]]; then
+    verify_chat_alerts capacity
+    printf '%s\n' 'Focused owned Chat capacity/settings/binding only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == group-push* ]]; then
     verify_chat_alerts group
     printf '%s\n' 'Focused owned group wake receiver only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"

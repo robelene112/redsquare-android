@@ -114,6 +114,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    three distinct PIDs and zero expired-gateway requests, with each existing
    method/request deadline unchanged. This avoids repeating unrelated Chat alert
    cases for each group correction; focused proof is not full acceptance.
+   `chat-push-capacity` and its Android17 scope isolate the actual Settings/signed
+   binding capacity journey, with a separate180second class bound. Full and
+   `chat-alerts` retain the original eleven-case command/private recovery and add
+   this independent class, rather than widening that command's deadline.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. The full harness includes the local social receipt/tap/

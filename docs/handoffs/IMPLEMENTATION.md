@@ -212,10 +212,25 @@ history/member roles/draft/identity and protected independent restoration.
 Recovery launches remain host-initiated. New process assertions are not runtime
 acceptance until their actual run succeeds. No production changed after a5b55c8d9.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
-Interest overflow and real process/legacy recovery remain. Category suppression is
-accepted in the bounded seven-case journey above. Actual group process run
-39087918951 atc474a75e9 is running; source39087919632 is independent. Both
-process-fixture/category-evidence reviews0 after the current remainder correction.
+Actual group process39087918951 atc474a75e9 is SUCCESS: seven cases PASS93.927s,
+plus real4662→4711→4761 recovery, SAME UUID03dd6289-5811-407a-be2c-a9da1a1d6a8a,
+zero expired-gateway requests, actual generic card/dismissal/quiet cold replay,
+legacy/new history, roles, unsent draft, identity and protected restoration.
+`native-process-green` retains20hashes/43original bindings and all three selected
+captures. Source39087919632 SUCCESS includes release/lint. Recovery launches are
+host-initiated. The shared private adapter is source-reviewed but this group-only
+scope does not execute its gate; final full must retain it. Fixture reviews0/0.
+
+Next is an actual101active-group Settings/signed-binding tracer, before any
+capacity production correction. It preserves the original Consent class/test
+identity through a shared inherited-rule fixture. The new capacity class has its
+own180second bound in focused/full/Chat scopes; the existing eleven-case command
+and both process gates remain. Required behavior: preserve private/social demand,
+show explicit background-group capacity notice with consent/history/membership
+intact, then automatically restore full group demand after a deliberate leave.
+Overflow and the bounded preexisting private optional-ledger/control counterpart
+remain open. Spec review confirms that the related shared-receipt private fix is
+coherent within47; accepted46 evidence did not cover that combination.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
 
