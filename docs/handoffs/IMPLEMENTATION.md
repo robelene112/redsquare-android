@@ -28,9 +28,11 @@ binds452 originals and validates926PNG/794XML with the same five qualified
 optional diagnostics. Root opened25 selected plus three public/update originals;
 non-atomic reopened-Social gray-switch/separate checked=true XML and later ON
 captures remain qualified. Actual worker UUID/PID/isolation details are in the
-packet. Local watcher/download/collector work is drained. Whole source review
-atfe8648d0a reports Standards0/Spec0; complete10 incremental/combined review is
-now required before ordinary35 publication. Main31 and isolated36 remain live.
+packet. Local watcher/download/collector work is drained. Combined whole50 source/evidence review
+at5003b47648fa6295e9fdb8a5b8c659aeb5f9bc5f reports Standards0/Spec0, including
+complete10 and the corrected historical-status wording. Ordinary35 is now
+published and independently verified. Publication bookend review remains before
+closure; main35 and isolated36 are live.
 No local Gradle/build is active.
 
 **Why the10 recheck:** earlier full10 run39106583903 at10b is FAILURE:
@@ -77,7 +79,8 @@ All239 production/build,4 operation and4 host objects match. This uses the
 workflow's documented fixture-only SDK follow-up, not a production exception.
 The immutable pre-execution maps still require430/431 identities,103/104 normal,
 33 deliberate/32 continuity and every original gate. Actual complete10 outcomes now pass.
-Combined whole review and ordinary35 publication remain pending.
+Combined whole review is0/0 and ordinary35 is published/verified; publication
+bookend remains pending before closure.
 
 **Earlier feature proof:** focused17 RED39104783970 atbc57 has1FAIL38.736s after
 both choices false/no-binding pass, then Social notice has zero matches. Later
@@ -99,11 +102,14 @@ Prepared packets and fixed plan have both reviews0 at22b. Performance36 canonica
 publication and independent HTTPS/APK/certificate/manifest/mobile/desktop checks
 pass; root viewed both browser originals. Main31 and immutable performance30
 metadata/APKs remain unchanged. Publication bookend10b has both reviews0.
-No35 rebuild is needed while production stays equal. After complete10 and whole
-review, publish35 canonically and independently verify actual public APK/browser/
-metadata and old31/performance36 preservation before closure. Temporary helpers
-are in /tmp/redsquare-group47-work-20261017; raw publication35 before-metadata is
-under /mnt/storage/redsquare-android-artifacts/availability50-publication35.
+No35 rebuild was needed because production remained equal. Canonical ordinary35
+publication exits0 after whole0/0 at5003b4764. Independent actual HTTPS page/
+latest/immutable35/APK/hash/cert/package/manifest and mobile/desktop browser checks
+pass; root opened both originals. Immutable31 metadata/APK and separate36
+metadata/APK remain unchanged. Its publication packet is retained; final bookend
+review remains before closure. Temporary helpers are in
+/tmp/redsquare-group47-work-20261017 and raw publication35 is under
+/mnt/storage/redsquare-android-artifacts/availability50-publication35.
 
 Follow-up51 is planned under35, blocked solely by50, unassigned and unstarted:
 actual hosted16KiB/full17/current signed35/performance36 observations. No owner

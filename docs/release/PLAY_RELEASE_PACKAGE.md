@@ -10,8 +10,8 @@ match accepted48. Subsequent native50 changes the unconfigured Settings
 descriptions, verified in its focused journey and complete Android17 run
 39106585481. Android10 run39106583903 fails at a fixture's initial Wallet lookup before
 its failed-save import scenario. After a bounded fixture correction, complete10
-recheck39111106756 passes. Combined whole50 review and ordinary35 publication
-remain pending. Historical AAB33 retains its original source. Build a fresh bundle after
+recheck39111106756 passes. Combined whole50 review reports0/0, and ordinary35 is
+published and independently verified; publication bookend remains pending. Historical AAB33 retains its original source. Build a fresh bundle after
 the remaining native/configuration changes before final store preparation.
 
 ## Artifact and signing decision

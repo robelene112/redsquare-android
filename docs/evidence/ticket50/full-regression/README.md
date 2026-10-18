@@ -60,6 +60,7 @@ All239 production/build, four operation and four host objects match prepared35/
 36 and both complete sources. Corrected10 differs solely by the reviewed Wallet
 fixture guard/capture. This is the documented fixture-only SDK follow-up.
 Performance36 publication is independently verified in its separate packet.
-Combined whole50 review and ordinary35 publication are the current remaining
-completion steps. Physical Pixel timing/update, configured Google/Giphy delivery,
+Combined whole50 review at5003b4764 reports Standards0/Spec0. Ordinary35 is
+published and independently verified; its publication bookend is the remaining
+completion step. Physical Pixel timing/update, configured Google/Giphy delivery,
 16KB runtime and Play acceptance remain unverified.
