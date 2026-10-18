@@ -9,14 +9,14 @@ import androidx.test.uiautomator.Until
 import org.junit.Test
 import java.io.File
 
-/** Observe the public wallet UI of either immutable previews or the isolated debug app. */
+/** Observe only the public wallet UI of known app packages on a disposable emulator. */
 class WalletDeviceUiObserver {
     @Test fun openTheCurrentPublicWalletAddress() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         check(instrumentation.targetContext.packageName == "nl.davidengelen.redsquare.dev" &&
             Build.HARDWARE in listOf("ranchu", "goldfish"))
         val application = requireNotNull(InstrumentationRegistry.getArguments().getString("walletApplication"))
-        check(application in listOf("nl.davidengelen.redsquare", "nl.davidengelen.redsquare.dev"))
+        check(application in listOf("nl.davidengelen.redsquare", "nl.davidengelen.redsquare.dev", "nl.davidengelen.redsquare.performance"))
         val device = UiDevice.getInstance(instrumentation)
         val capture = File(instrumentation.targetContext.cacheDir, "wallet-device-observation/screen.png")
         withFailureCapture({ captureNativeScreen(capture) }) {

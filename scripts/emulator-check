@@ -1124,6 +1124,9 @@ if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
         adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/live-feed-evidence/public-wallet.txt > "$evidence/live-$backend/public-wallet.txt"
     done
 fi
+if [[ -n "${TEST_PERFORMANCE_VERSION:-}" ]]; then
+    python3 "$repo_dir/scripts/performance-device-check" --version "$TEST_PERFORMANCE_VERSION" --evidence "$evidence/performance-package"
+fi
 if [[ "${TEST_SCOPE:-full}" == feed* ]]; then
     printf '%s\n' 'Focused feed check only; full Android/wallet/update acceptance not run.' > "$evidence/scope.txt"
     exit 0

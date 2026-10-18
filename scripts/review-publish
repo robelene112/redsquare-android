@@ -10,11 +10,15 @@ import re
 import shutil
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("artifact", type=Path)
 parser.add_argument("--notes", required=True)
+parser.add_argument("--performance", action="store_true", help="Publish only to the separate performance review page")
 args = parser.parse_args()
+application_id = "nl.davidengelen.redsquare" + (".performance" if args.performance else "")
+publication_path = "redsquare/performance" if args.performance else "redsquare"
 artifact = args.artifact.resolve()
 metadata = json.loads((artifact / "manifest.json").read_text())
 apk = artifact / "redsquare.apk"
@@ -30,19 +34,28 @@ package = subprocess.check_output(command + ["/opt/android-sdk/build-tools/35.0.
     "dump", "badging", "/artifacts/redsquare.apk"], text=True)
 identity = re.search(r"^package: name='([^']+)' versionCode='(\d+)' versionName='([^']+)'", package, re.M)
 if (not fingerprint or fingerprint[1] != metadata["certificateSha256"] or not identity
-        or identity[1] != "nl.davidengelen.redsquare" or identity[1] != metadata["applicationId"]
+        or identity[1] != application_id or identity[1] != metadata["applicationId"]
         or int(identity[2]) != metadata["versionCode"] or identity[3] != metadata["versionName"]):
     raise SystemExit("APK identity, signing certificate or version differs from its manifest")
+if args.performance:
+    manifest = ET.fromstring(subprocess.check_output(command + ["apkanalyzer", "manifest", "print", "/artifacts/redsquare.apk"], text=True))
+    android = "{http://schemas.android.com/apk/res/android}"
+    app = manifest.find("application")
+    profileable = app.find("profileable") if app is not None else None
+    if (metadata.get("variant") != "performance" or app is None
+            or app.get(android + "debuggable", "false") != "false"
+            or profileable is None or profileable.get(android + "shell") != "true"):
+        raise SystemExit("Require the isolated nondebuggable profileable performance app")
 ledger = Path.home() / ".local/share/redsquare-android/review/certificate.sha256"
 if not ledger.exists() or ledger.read_text().strip() != fingerprint[1]:
     raise SystemExit("Recover the established preview signing identity before publishing")
 website = Path("/home/david/projects/docker/website/html")
-destination = website / "redsquare"
+destination = website / publication_path
 # The existing website root belongs to root. Create/chown only our dedicated
 # directory, without changing the website configuration or other content.
 subprocess.run(["docker", "run", "--rm", "--user", "0:0", "--mount",
     f"type=bind,src={website},dst=/site", "redsquare-android-build:agp8.10.1", "sh", "-c",
-    'mkdir -p /site/redsquare && chown "$1:$2" /site/redsquare', "sh",
+    'mkdir -p "$1" && chown "$2:$3" "$1"', "sh", f"/site/{publication_path}",
     str(os.getuid()), str(os.getgid())], check=True)
 with (destination / ".publish.lock").open("w") as lock:
     fcntl.flock(lock, fcntl.LOCK_EX)
@@ -65,7 +78,7 @@ with (destination / ".publish.lock").open("w") as lock:
         if hashlib.sha256((stage / "redsquare.apk").read_bytes()).hexdigest() != metadata["sha256"]:
             raise SystemExit("Artifact changed during publication")
         (stage / "redsquare.apk").chmod(0o644)
-        metadata["apkUrl"] = f"https://davidengelen.nl/redsquare/releases/{metadata['versionCode']}/redsquare.apk"
+        metadata["apkUrl"] = f"https://davidengelen.nl/{publication_path}/releases/{metadata['versionCode']}/redsquare.apk"
         metadata["notes"] = args.notes
         (stage / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
         stage.rename(release)
@@ -81,4 +94,4 @@ with (destination / ".publish.lock").open("w") as lock:
         temporary.write_text(contents)
         temporary.chmod(0o644)
         temporary.replace(destination / filename)
-print("Published review: https://davidengelen.nl/redsquare/")
+print(f"Published review: https://davidengelen.nl/{publication_path}/")

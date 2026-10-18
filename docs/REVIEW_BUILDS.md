@@ -12,6 +12,30 @@ directory under the existing website's static root; it changes no ingress,
 container configuration or Saito service. Existing release directories are
 immutable and the latest manifest changes atomically after its APK exists.
 
+The isolated timing app is built with `scripts/review-build --performance`.
+Artifacts go to `.scratch/performance-builds/<version>`, using the same signing
+identity and shared version counter. It has package
+`nl.davidengelen.redsquare.performance`, a separate launcher label and storage,
+and is nondebuggable/profileable. It uses independent `pushPerformance*`,
+`giphyPerformancePostsApiKey` and `giphyPerformanceChatApiKey` options. No Release
+key fallback or ordinary-app update prompt is enabled in this package.
+
+Publish that artifact only with
+`scripts/review-publish .scratch/performance-builds/<version> --performance --notes '<notes>'`.
+The dedicated page is `https://davidengelen.nl/redsquare/performance/`; its latest
+manifest and immutable releases are separate from the ordinary preview. The
+default publisher continues to accept only the ordinary package. A published
+timing candidate is not physical performance or completed release acceptance.
+Do not import the owner's private wallet for timing checks.
+
+The optional workflow `performance_version` input installs the exact immutable
+signed performance APK alongside accepted immutable beta29 on a disposable
+emulator, observes separate public wallet identities/UIDs and verifies the
+ordinary preview's address remains unchanged. It requires both packages absent
+before setup and restores that absence afterward; it never performs this
+installation or cleanup on a physical device. Its actual artifacts and public
+UI observations are installation diagnostics, not Pixel latency measurements.
+
 The application ID is `nl.davidengelen.redsquare`. The `.dev` debug application
 and its synthetic tests are separate from the owner preview. Preview versions
 increase monotonically; interrupted builds may leave gaps. The signing identity

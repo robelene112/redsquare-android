@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""Verify the actual signed performance app beside an unchanged preview on a disposable emulator."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import urllib.request
+import xml.etree.ElementTree as ET
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--version", type=int, required=True)
+parser.add_argument("--evidence", type=Path, required=True)
+args = parser.parse_args()
+if not 1 <= args.version <= 2_100_000_000:
+    parser.error("Require a published performance version")
+
+def adb(*arguments):
+    return subprocess.check_output(["adb", *arguments], text=True, timeout=90)
+
+if not adb("get-serialno").strip().startswith("emulator-"):
+    raise SystemExit("This installation observer requires a disposable emulator")
+main = "nl.davidengelen.redsquare"
+performance = main + ".performance"
+installed = {line.removeprefix("package:").strip() for line in adb("shell", "pm", "list", "packages").splitlines()}
+if {main, performance} & installed:
+    raise SystemExit("Preserve existing installations; this check requires both review packages to be absent")
+args.evidence.mkdir(parents=True, exist_ok=False)
+certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+android = "{http://schemas.android.com/apk/res/android}"
+tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/35.0.0"
+
+def download(url, name):
+    destination = args.evidence / name
+    with urllib.request.urlopen(url, timeout=60) as response, destination.open("wb") as output:
+        shutil.copyfileobj(response, output)
+    return destination
+
+def artifact(package, version, section, label):
+    base = f"https://davidengelen.nl/redsquare/{section}releases/{version}/"
+    metadata = json.loads(download(base + "manifest.json", label + "-manifest.json").read_text())
+    assert metadata["applicationId"] == package and metadata["versionCode"] == version
+    assert metadata["versionName"] == f"0.1.{version}" and metadata["certificateSha256"] == certificate
+    assert metadata["apkUrl"] == base + "redsquare.apk"
+    if package == main:
+        assert metadata["sha256"] == "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef"
+    else:
+        assert metadata["variant"] == "performance"
+    apk = download(metadata["apkUrl"], label + ".apk")
+    assert hashlib.sha256(apk.read_bytes()).hexdigest() == metadata["sha256"]
+    signature = subprocess.check_output([str(tools / "apksigner"), "verify", "--print-certs", str(apk)], text=True)
+    (args.evidence / (label + "-signature.txt")).write_text(signature)
+    assert re.search(r"certificate SHA-256 digest: ([0-9a-f]+)", signature)[1] == certificate
+    manifest = subprocess.check_output(["apkanalyzer", "manifest", "print", str(apk)], text=True)
+    (args.evidence / (label + "-android-manifest.xml")).write_text(manifest)
+    root = ET.fromstring(manifest)
+    app = root.find("application")
+    assert (root.get("package") == package and root.get(android + "versionCode") == str(version)
+        and root.get(android + "versionName") == f"0.1.{version}")
+    assert app.get(android + "debuggable", "false") == "false"
+    assert root.find("uses-sdk").get(android + "minSdkVersion") == "29"
+    assert root.find("uses-sdk").get(android + "targetSdkVersion") == "36"
+    if package == performance:
+        assert app.find("profileable").get(android + "shell") == "true"
+    return apk
+
+def observe(package, label):
+    adb("shell", "am", "force-stop", package)
+    result = subprocess.run(["adb", "shell", "am", "instrument", "-w", "-r", "-e", "class",
+        "nl.davidengelen.redsquare.WalletDeviceUiObserver", "-e", "walletApplication", package,
+        "nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner"],
+        capture_output=True, text=True, timeout=75)
+    (args.evidence / (label + ".log")).write_text(result.stdout + result.stderr)
+    for extension in ["png", "xml"]:
+        capture = subprocess.run(["adb", "exec-out", "run-as", main + ".dev", "cat",
+            "cache/wallet-device-observation/screen." + extension], capture_output=True, timeout=20, check=True)
+        (args.evidence / (label + "." + extension)).write_bytes(capture.stdout)
+    addresses = re.findall(r"^INSTRUMENTATION_STATUS: walletPublicAddress=([1-9A-HJ-NP-Za-km-z]{44})\r?$", result.stdout, re.M)
+    assert result.returncode == 0 and re.search(r"^OK \(1 test\)", result.stdout, re.M) and len(addresses) == 1
+    return addresses[0]
+
+owned = []
+primary = None
+try:
+    main_apk = artifact(main, 29, "", "main29")
+    performance_apk = artifact(performance, args.version, "performance/", "performance")
+    assert "Success" in adb("install", "-r", str(main_apk))
+    owned.append(main)
+    before = observe(main, "main-before")
+    assert "Success" in adb("install", "-r", str(performance_apk))
+    owned.append(performance)
+    separate = observe(performance, "performance-wallet")
+    after = observe(main, "main-after")
+    assert before == after and separate != before
+    packages = adb("shell", "pm", "list", "packages", "-U")
+    uids = {package: int(re.search(r"^package:" + re.escape(package) + r" uid:(\d+)\r?$", packages, re.M)[1])
+        for package in [main, performance]}
+    assert uids[main] != uids[performance]
+    result = dict(status="PASS", performanceVersion=args.version, mainReferenceVersion=29, packageUids=uids,
+        mainPublicAddressBefore=before, mainPublicAddressAfter=after, performancePublicAddress=separate,
+        physicalDeviceAcceptance=False, physicalTimingMeasured=False)
+    (args.evidence / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    failures = []
+    for package in reversed(owned):
+        try:
+            assert "Success" in adb("uninstall", package)
+        except BaseException as failure:
+            failures.append(failure)
+    (args.evidence / "restoration.json").write_text(json.dumps({"restoredOriginallyAbsentPackages": not failures,
+        "ownedPackages": owned, "cleanupFailures": [type(failure).__name__ for failure in failures]}, indent=2) + "\n")
+    if failures:
+        if primary is not None:
+            primary.add_note("Disposable package cleanup failed; see restoration.json")
+        else:
+            raise RuntimeError("Disposable package cleanup failed") from failures[0]
+print("PASS: actual isolated signed performance installation preserves the separate main preview wallet")

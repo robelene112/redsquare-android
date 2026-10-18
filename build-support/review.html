@@ -13,7 +13,7 @@ small { overflow-wrap: anywhere; }
 [hidden] { display: none !important; }
 </style>
 <h1>Red Square</h1>
-<p>Android development preview</p>
+<p id="purpose">Android development preview</p>
 <p id="status" role="status">Checking the latest build…</p>
 <p><a id="install" hidden>Download preview</a></p>
 <pre id="notes"></pre>
@@ -23,11 +23,19 @@ installation, Android may ask you to allow this browser to install apps.</p>
 data stay in place. Keep the app installed and keep your wallet backup safe.</p>
 <small id="build"></small>
 <script>
+const performanceApp = location.pathname === '/redsquare/performance/';
+const releasePrefix = performanceApp ? '/redsquare/performance/releases/' : '/redsquare/releases/';
+const applicationId = 'nl.davidengelen.redsquare' + (performanceApp ? '.performance' : '');
+if (performanceApp) {
+  document.title = 'Red Square Performance';
+  document.querySelector('h1').textContent = 'Red Square Performance';
+  document.querySelector('#purpose').textContent = 'Separate app for timing checks. Your ordinary Red Square app stays installed.';
+}
 fetch('latest.json?check=' + Date.now(), {cache: 'no-store'})
   .then(response => { if (!response.ok) throw Error(); return response.json(); })
   .then(build => {
     const target = new URL(build.apkUrl);
-    if (target.origin !== location.origin || !target.pathname.startsWith('/redsquare/releases/')) throw Error();
+    if (build.applicationId !== applicationId || target.origin !== location.origin || !target.pathname.startsWith(releasePrefix)) throw Error();
     document.querySelector('#status').textContent = 'Version ' + build.versionName;
     document.querySelector('#notes').textContent = build.notes;
     const link = document.querySelector('#install');
