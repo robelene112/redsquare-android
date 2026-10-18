@@ -1,0 +1,28 @@
+{
+  "phase": "pending",
+  "pid": 7960,
+  "port": 36901,
+  "owner": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+  "backend": "owner",
+  "payload": "{\"version\":1,\"wallet\":\"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR\",\"backend\":\"owner\",\"signature\":\"f6db2e638125edf1f6bddff2c0948fd0e154ad9d2c37138ea0f6d924173999626ddfe0f994f4847939c8c3249f82428b23285f8a04fa7928439f917830e09cbb\"}",
+  "tag": "social:jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR:owner:f6db2e638125edf1f6bddff2c0948fd0e154ad9d2c37138ea0f6d924173999626ddfe0f994f4847939c8c3249f82428b23285f8a04fa7928439f917830e09cbb",
+  "originalBackend": "owner",
+  "originalWalletDigest": "ad12aea3f98cbba06d0704d3c9c8b68fc315ca80a710558ccdafbd571353411e",
+  "walletDigest": "caa9906ffc70a84a37ac5eeee11dcb6d54455a6f5ed24a3141c12318bfafe43c",
+  "reply": {
+    "sig": "f6db2e638125edf1f6bddff2c0948fd0e154ad9d2c37138ea0f6d924173999626ddfe0f994f4847939c8c3249f82428b23285f8a04fa7928439f917830e09cbb",
+    "created_at": 1792299820622,
+    "tx": "{\"t\":\"AAAAAQAAAAIAAAAAAAAAAPbbLmOBJe3x9r3f8sCUj9DhVK2dLDcTjqD22SQXOZlibd/g+ZT0hHk5yMMkn4JCiyMoX4oE+nkoQ5+ReDDgnLsAAAGhTWTmTgAAAAEAAsYEf5RB7X1tMEVAbpXAfNhcd45LjO88p6usCblccJ7lAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxgR/lEHtfW0wRUBulcB82Fx3jkuM7zynq6wJuVxwnuUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJ5vmZ++dy7rFWgYpXOhwsHApv82y3OKNlZ8oFbFvgXmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA\",\"m\":\"eyJtb2R1bGUiOiJSZWRTcXVhcmUiLCJyZXF1ZXN0IjoiY3JlYXRlIHR3ZWV0IiwiZGF0YSI6eyJ0ZXh0IjoiU2NoZWR1bGVkIHByb2Nlc3MgcmVjb3ZlcnkgcmVmZXJlbmNlIiwicGFyZW50X2lkIjoiYzg3ZjNjYTQwMjg0MGNkN2FkZDA5NWRiZjFmZGE4MDlmMzRkOWNkM2Y3ZGFlOWFmMDIyZTJhMGYyYTYzMWYzNzZiZWI1NGRhYmU4ODZhNWE3M2IwMmFiZTc5YWZlNTE2NTJlZmE1NzgyNmNjZDI1OTEwMDFkNzNmOTA1NDRmZDkiLCJ0aHJlYWRfaWQiOiJjODdmM2NhNDAyODQwY2Q3YWRkMDk1ZGJmMWZkYTgwOWYzNGQ5Y2QzZjdkYWU5YWYwMjJlMmEwZjJhNjMxZjM3NmJlYjU0ZGFiZTg4NmE1YTczYjAyYWJlNzlhZmU1MTY1MmVmYTU3ODI2Y2NkMjU5MTAwMWQ3M2Y5MDU0NGZkOSJ9fQ==\",\"opt\":\"e30=\"}"
+  },
+  "savedFiles": [
+    "wallet.v1",
+    "backend.v1"
+  ],
+  "pendingWorkState": "ENQUEUED",
+  "pendingWorkAttempt": 1,
+  "pendingNextScheduleTimeMillis": 1792299830969,
+  "pendingObservedAtMillis": 1792299820995,
+  "pendingObservedAtElapsedMillis": 190384,
+  "pendingCheckpointAtMillis": 1792299821741,
+  "workId": "0601953a-1897-4216-977f-cd6f894667f4"
+}

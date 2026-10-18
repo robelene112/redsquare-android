@@ -1,0 +1,90 @@
+{
+  "files": 452,
+  "passed": 429,
+  "skipped": 0,
+  "assumed": 1,
+  "failed": 0,
+  "completionRecords": 103,
+  "crashedRecords": 33,
+  "png": 920,
+  "xml": 788,
+  "visualErrors": 4,
+  "continuityRecords": 32,
+  "source": "4e7992d8d253caff15ac0dcbc48001835de09b4f",
+  "prepared31Source": "688f05b28074a79459b9da4f92f21552e017d64c",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "all": {
+      "files": 452,
+      "passed": 429,
+      "skipped": 0,
+      "assumed": 1,
+      "failed": 0,
+      "completionRecords": 103,
+      "crashedRecords": 33,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 920,
+      "xml": 788,
+      "visualErrors": 4,
+      "continuityRecords": 32
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "api": "10",
+    "expectedCount": 430,
+    "actualCount": 430,
+    "partitions": [
+      "all"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 16088,
+    "recoveredPid": 16303,
+    "finalPid": 16492,
+    "workId": "891639aa-9a48-4b5f-8deb-4bf91c85b829",
+    "expiredRequests": 0
+  },
+  "groupWakeProcess": {
+    "pid": 1406,
+    "recoveredPid": 1644,
+    "finalPid": 2127,
+    "workId": "a04e37cf-8aca-43f0-a619-6f41fd8612f7",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS; no chain-inclusion claim",
+  "publicChat": "Authenticated readiness PASS; not live message delivery",
+  "signedLegacyUpdate": "5 -> 8; physical main-app update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 239,
+  "signedPerformanceIsolation": {
+    "status": "PASS",
+    "performanceVersion": 30,
+    "mainReferenceVersion": 29,
+    "packageUids": {
+      "nl.davidengelen.redsquare": 10118,
+      "nl.davidengelen.redsquare.performance": 10119
+    },
+    "mainPublicAddressBefore": "kXmmSa4XkLvKXrCk6F64TvJzWctABX2ESiWhR6tcFFnJ",
+    "mainPublicAddressAfter": "kXmmSa4XkLvKXrCk6F64TvJzWctABX2ESiWhR6tcFFnJ",
+    "performancePublicAddress": "goXiHMtQ8YH2QTAwJ2fAArUVer2aJvR7iiQXo5q9fs8v",
+    "physicalDeviceAcceptance": false,
+    "physicalTimingMeasured": false
+  },
+  "signedPackageRestoration": {
+    "restoredOriginallyAbsentPackages": true,
+    "attemptedOwnedPackages": [
+      "nl.davidengelen.redsquare",
+      "nl.davidengelen.redsquare.performance"
+    ],
+    "cleanupFailures": []
+  }
+}
