@@ -16,11 +16,10 @@ import java.io.File
 internal class ChatWakeRoute(private val context: Context, private val owner: String,
     private val backend: SaitoBackend, private val wake: String,
     private val kind: ChatPushReference.Kind = ChatPushReference.Kind.PRIVATE) {
-    private val family = family(kind)
     private val targetKey = if (kind == ChatPushReference.Kind.PRIVATE) "counterparty" else "group"
-    private val prefix = "$family.$owner.${backend.id}.wake."
+    private val prefix = "chatpush.$owner.${backend.id}.${segment(kind)}."
     private val name = "$prefix$wake.v1"
-    private val file = EncryptedLocalFile(context, name, "redsquare.$family.$owner", "$family.$owner.")
+    private val file = EncryptedLocalFile(context, name, "redsquare.chatpush.$owner", "chatpush.$owner.")
     private val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     data class Entry(val signature: String, val conversation: String, val expiresAt: Long) {
         init { require(signature.matches(Regex("[0-9a-f]{128}")) && SaitoWallet.isPublicKey(conversation) && expiresAt > 0) }
@@ -88,13 +87,15 @@ internal class ChatWakeRoute(private val context: Context, private val owner: St
         const val LIFETIME = 7 * 24 * 60 * 60 * 1000L
         private const val MAX_PENDING = 1000
         data class Scope(val owner: String, val backend: SaitoBackend)
-        private fun family(kind: ChatPushReference.Kind) =
-            if (kind == ChatPushReference.Kind.PRIVATE) "chatpush" else "groupchatpush"
+        // Shared Chat consent has already loaded this key before a route can be retained.
+        // Optional group publication bookkeeping has an independent key lifecycle.
+        private fun segment(kind: ChatPushReference.Kind) =
+            if (kind == ChatPushReference.Kind.PRIVATE) "wake" else "group-wake"
 
         /** Detect an already-associated inactive identity before signing any replacement-wallet request. */
         fun scope(context: Context, wake: String, kind: ChatPushReference.Kind = ChatPushReference.Kind.PRIVATE): Scope? = synchronized(SaitoLocalState.lock) {
             require(wake.matches(Regex("[0-9a-f]{64}")))
-            val pattern = Regex("""${Regex.escape(family(kind))}\.([1-9A-HJ-NP-Za-km-z]{43,45})\.(owner|official)\.wake\.$wake\.v1(?:\.bak|\.new)?""")
+            val pattern = Regex("""chatpush\.([1-9A-HJ-NP-Za-km-z]{43,45})\.(owner|official)\.${segment(kind)}\.$wake\.v1(?:\.bak|\.new)?""")
             val scopes = requireNotNull(context.noBackupFilesDir.list()).mapNotNull { name ->
                 val match = pattern.matchEntire(name) ?: return@mapNotNull null
                 val owner = match.groupValues[1]
