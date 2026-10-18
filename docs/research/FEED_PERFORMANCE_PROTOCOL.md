@@ -12,6 +12,17 @@ and cache decoding off the main thread. Android's initial display time alone is
 not an interactive-feed measurement. An empty-feed/error screen is not a passed
 post-loading target.
 
+For physical collection, force-stop only the isolated performance package and
+positively observe that its process is absent before clearing the framework log.
+Launch its exact MainActivity, then wait for a new matching Fully drawn event
+and retain the launch output, log and visible post/header/scroll observations.
+Initial `am start -W` TotalTime alone is not the interactive-feed result. Missing
+or multiple candidate timing events require reconciliation; do not select the
+best value. The older emulator observer cleared its log before force-stop and
+sometimes retained multiple entries, which cannot establish a unique latency.
+The app now keeps reporting pending while posts are hidden or another window
+or app dialog prevents feed interaction.
+
 Record the commit, APK version and package, OS/build, device model, system theme,
 network validation state, selected server, cache state and visible post count.
 Do not record private wallet material or network payloads in timing reports.

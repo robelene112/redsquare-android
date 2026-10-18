@@ -1,0 +1,65 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-isolation10-failed-39098218300/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "backend-ui-evidence.tar",
+      "size": 228864,
+      "sha256": "3c3f7dde5b6f90c3c28176e12d7612a73891a45f2e02e93b3866bf64a125655d"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "size": 45316,
+      "sha256": "746425117ffe8d73270ca2c9ed0827b766131ee0bf1ab9e38ccf8cf9a0e7cdd5"
+    },
+    {
+      "path": "emulator.log",
+      "size": 5645,
+      "sha256": "4f84d823a1c8e9421e5cc9e631b169a5039c153244750063f5ca3a2f80af332d"
+    },
+    {
+      "path": "feed-cold-launch/continuity.txt",
+      "size": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "size": 54180,
+      "sha256": "9f954b0c5c3ffcfe8fe4782267cb32081977a5000416a8728f9e68024ba7cb12"
+    },
+    {
+      "path": "feed-cold-launch/fully-drawn.txt",
+      "size": 242,
+      "sha256": "b61aef5a0818a045e9cf968bed7ca918ece645fec22b5d1469bccbd458437c1f"
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "size": 32386,
+      "sha256": "2d2f2e6c5e23f535e4edf4afeb096ba958d96e5a13d7686feec4c4008b60dc1f"
+    },
+    {
+      "path": "feed-cold-launch/launch.txt",
+      "size": 255,
+      "sha256": "246e779ba17d4b86c65b7b3e1fc56166dff8eba97816a7d0b9266012339b7f13"
+    },
+    {
+      "path": "feed-readiness-evidence.tar",
+      "size": 199168,
+      "sha256": "07450b93aafb909a8665e9bcbf884efc2d21b50f0c0a8315d208e50d42f0b264"
+    },
+    {
+      "path": "feed-ui.txt",
+      "size": 6421,
+      "sha256": "e932deebc19dbf90ec122715dcbc8cc7c4c5840b83520f32c09d2adac3a3670d"
+    },
+    {
+      "path": "performance-package/restoration.json",
+      "size": 104,
+      "sha256": "32a8416802cbf7b284c3ac222c738cebd282b4974712c38d4338704abc38c658"
+    }
+  ],
+  "hostJobLog": {
+    "path": "/mnt/storage/redsquare-android-artifacts/performance48-isolation10-failed-39098218300/host-failed-job.log",
+    "bytes": 20824,
+    "sha256": "10c31a1046a5d03d07177069ccc64c58fd8541fe6e85b153f2fcde70e1af034a"
+  }
+}

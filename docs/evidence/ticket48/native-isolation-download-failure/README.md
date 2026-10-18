@@ -1,0 +1,7 @@
+# Isolated installation attempt stops before provisioning
+
+Run39098218300 at3e4b78093b3054670604b3e0846ca4e7a95e4238 is FAILURE. The unchanged native feed/backend/readiness command passes9cases25.878s; one normal completion and one cold unavailable-peer continuity record pass. The subsequent host observer fails at the first public immutable main29 manifest with HTTP403, before either APK is installed or any wallet/UID isolation observation. No response body or server-side reason was retained, so the cause remains unknown.
+
+The original-state guard has already passed. Restoration records zero attempted packages, no cleanup failure and no installation to remove. This does not prove removal of an installed package. All11 SDK original files and the separate raw failed-job log are bound. Structural inspection validates10 PNG/4 XML entries without errors; these are the preceding native observations, not an HTTP error-page capture or installed-isolation evidence. No pixel claim is made for this attempt.
+
+Host-only correction9f36c27d7 uses the same genuine project client identifier and100MiB streaming limit already present in the established immutable-update downloader. The same owned URLs, certificate/hash/manifest checks, timeouts and absence/restoration safeguards remain. No browser impersonation, alternate host or ingress/provider change is made. A future pass cannot establish the old403 cause. Corrected focused run, actual installed isolation, complete10/17 and whole48 remain pending; APK30 and31 production/build/sign/publish inputs are unchanged.

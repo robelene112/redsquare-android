@@ -1,0 +1,10 @@
+{
+  "versionCode": 29,
+  "versionName": "0.1.29",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef",
+  "commit": "72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/29/redsquare.apk",
+  "notes": "Beta 29 adds native group chat background wake handling, durable notification recovery and current membership, mute and Android category controls. Group messages remain unencrypted; private previews are opt-in. Controlled Android 10 and 17 regression suites pass. Real Google closed-app push delivery still requires Firebase and gateway deployment configuration. Live Giphy search needs authorized Android keys; YouTube and username provider acceptance and physical Pixel performance remain pending."
+}

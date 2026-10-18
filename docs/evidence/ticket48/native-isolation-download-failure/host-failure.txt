@@ -1,0 +1,29 @@
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0452299Z Traceback (most recent call last):
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0453435Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/performance-device-check", line 90, in <module>
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0454523Z     main_apk = artifact(main, 29, "", "main29")
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0455073Z                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0456333Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/performance-device-check", line 46, in artifact
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0457701Z     metadata = json.loads(download(base + "manifest.json", label + "-manifest.json").read_text())
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0458962Z                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0459702Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/performance-device-check", line 40, in download
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0460604Z     with urllib.request.urlopen(url, timeout=60) as response, destination.open("wb") as output:
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0461161Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0461616Z   File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0677372Z     return opener.open(url, data, timeout)
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0678235Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0679112Z   File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0680051Z     response = meth(req, response)
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0680736Z                ^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0681336Z   File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0682893Z     response = self.parent.error(
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0683327Z                ^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0683797Z   File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0684811Z     return self._call_chain(*args)
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0685427Z            ^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0686156Z   File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0687133Z     result = func(*args)
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0687620Z              ^^^^^^^^^^^
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0688104Z   File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0689390Z     raise HTTPError(req.full_url, code, msg, hdrs, fp)
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0690051Z urllib.error.HTTPError: HTTP Error 403: Forbidden
+native-proof (all)	Verify Android 10 runtime	2026-10-18T04:49:56.0866626Z ##[error]Process completed with exit code 1.
