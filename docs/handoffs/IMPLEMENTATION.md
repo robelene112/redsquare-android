@@ -452,6 +452,32 @@ identities (accepted46baseline+11literal additions), with exact paths/multiplici
 and matching distinct completion markers. Both independent reviews0; fourhashes
 and both baselines independently reproduced. Final full runs39090558349/39090559898 were dispatched after the reviewed plan and are now running at72ad, with source/fixture equivalence preserved.
 
+## Current full-regression follow-up
+
+The card-target correction passed the actual Android10 Social physical dismissal
+in39091333019 atcc7b3aa69. That full run remains FAILURE:50PASS/1FAIL,
+13normal completions/4deliberate interruptions/3PASS continuity. Social autonomous
+recovery, private three-PID recovery, private muted-pending and capacity pass;
+the group category fixture selects the unrelated Android10 Pop on screen toggle.
+Root fully viewed failure PNG and XML. The labelled Show notifications main row
+has a different resource from the globally selected switch. Packet
+`ticket47/full-regression/android10-second-category-failure` retains40hashes/
+95original bindings; all180PNG/180XML validate. Group category completion/replay,
+group PID and later application/public tails remain unexecuted.5f35d3d26 scopes
+the click to the exact labelled clickable main row on both recorded layouts.
+Actual category/worker/history/cleanup assertions and deadlines are unchanged.
+Fixture source Spec review0; Standards review pending at this checkpoint.
+
+Both reviews of read-only scheduler diagnostics at879d15800 report0findings.
+Focused Android17 diagnostic39091985886 is running at879, with actual WorkInfo
+retry timing, pre-death job state, per-observation PIDs/peer counts and failure
+snapshots before cleanup. It starts no target code or forced jobs during the
+unchanged120second observation. Additional observation can affect timing; a pass
+would not establish the earlier timeout cause or prove an application repair.
+Original17 run39090559898 still has failed Chat, successful Wallet and running
+Social; source39091333025 is SUCCESS. No complete SDK,47 or beta29 acceptance.
+Prepared29 remains unpublished and beta28 remains live. No owned local Gradle.
+
 ## Published beta28
 
 Public review link: https://davidengelen.nl/redsquare/. Signed28/0.1.28 is published
