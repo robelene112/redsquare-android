@@ -22,9 +22,9 @@ Current production is `726768c59393a0a48eca75f18923aeea784b4a91`, with final
 whole-source Standards0/Spec0. The bounded group transport, history, scope,
 conversation/category/membership controls, capacity and shared private muted
 counterpart pass their native seams. Current private and group three-PID adapters
-pass within both complete SDK runs. Combined review and publication remain pending.
+pass within both complete SDK runs. Combined review atfdbfca9d6 reports Standards0/Spec0; publication is verified below.
 
-**Complete final verification, publication pending:**
+**Complete final verification and publication:**
 
 - Android10 `39092507398` at518 SUCCESS:428PASS plus the existing Profile assumption, exact429 identities,103 normal/33 deliberate/32 continuity.
 - Android17 `39093407762` at278 SUCCESS:430PASS, exact430 identities,104 normal/33 deliberate/32 continuity. All three required jobs succeed.
@@ -32,8 +32,8 @@ pass within both complete SDK runs. Combined review and publication remain pendi
 - Complete237 production/build and3 operations objects equal reviewed726 and prepared29. Both have201 fixture objects, differing solely by four conditional Wallet failure-capture lines. Prepared29 had200 fixtures; eight fixture paths and read-only scheduler observer differ. Assertions/deadlines unchanged.
 - Source39092400121/39092908198 SUCCESS, release/lint/core/gateway tasks. Retained core114; no unobserved gateway count claimed.
 
-Signed29/0.1.29 remains prepared and UNPUBLISHED, SHA256
-`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0, established package/certificate/min29. Prepared reviews0/0. Beta28 remains live. Combined whole47 review and static publication/independent verification remain before closing47.
+Signed29/0.1.29 is PUBLISHED, SHA256
+`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0. Prepared reviews0/0 and combined whole47 reviews atfdbfca9d60/0. Canonical publisher exits0; independent actual public page/latest/immutable29/APK hash/certificate/package/min29 PASS. Immutable28 metadata and actual APK remain unchanged. Thirteen-hash publication packet is committed; publication evidence review/closure pending. Beta29 is live at https://davidengelen.nl/redsquare/.
 
 Retained full-run failures and bounded follow-ups:
 
@@ -82,7 +82,7 @@ Retained full-run failures and bounded follow-ups:
   unfinished Search and missing later gates explicit. Wording finding corrected
   at1732214d9; both residual reviews0.
 
-No owned local Gradle/build is running. All hosted watchers/downloads are drained; final10 watcher exited143, independently verified CI SUCCESS and actual raw outcomes are authoritative. Large originals are under `/mnt/storage/redsquare-android-artifacts`. Root preserves temporary helpers under `/tmp/redsquare-group47-work-20261017`; canonical complete evidence is now in Git. Finish both-axis combined whole47 review, publish prepared29, independently verify public latest/immutable29/APK and unchanged immutable28, then close only47.
+No owned local Gradle/build is running. All hosted watchers/downloads are drained; final10 watcher exited143, independently verified CI SUCCESS and actual raw outcomes are authoritative. Large originals are under `/mnt/storage/redsquare-android-artifacts`. Root preserves temporary helpers under `/tmp/redsquare-group47-work-20261017`; canonical complete evidence is now in Git. Combined review and publication verification are complete. Finish both-axis publication evidence review, then close only47.
 
 Next sequential feasible work is a bounded child of35: correct actual feed fully-drawn measurement and prepare isolated release-equivalent performance build. Read-only source finding is posted on35. No35 implementation has begun. Physical Pixel measurements remain unproved. Then prepare the concrete AAB/store-review package under36, preserving unknown publisher/account/contact/retention facts and real external blockers. Do not close parents or repeat pending Giphy/FCM questions. Temporary research/design state is in the session store, not accepted artifacts.
 

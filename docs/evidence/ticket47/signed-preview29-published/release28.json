@@ -1,0 +1,10 @@
+{
+  "versionCode": 28,
+  "versionName": "0.1.28",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "444f718e56fcb16a2166e6afe0fd08d6380b77df6204c48671bd20372634fed8",
+  "commit": "1cfa16a57ca7da95bca82aad4c320443c479ddf3",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/28/redsquare.apk",
+  "notes": "Private Chat now supports optional background-message handling, durable recovery and consistent notification controls. Improved duplicate suppression, opt-in previews and exact conversation opening. Live background delivery still needs service configuration."
+}

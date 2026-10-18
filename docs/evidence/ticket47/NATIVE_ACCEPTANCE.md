@@ -1,6 +1,6 @@
 # Group Chat background integration acceptance
 
-Issue47, native child of34 under specification1. Fixed review base isd6a64a256ffb77b51d3c565e19f46e49f31eb40c. Current production726768c59 and evidence bookend72ad4c0ed have identical complete237 production/build and200 fixture object sets. Final whole-source reviews at726 report Standards0/Spec0. Both complete SDK runs now pass. Combined final review and signed successor publication remain pending below.
+Issue47, native child of34 under specification1. Fixed review base isd6a64a256ffb77b51d3c565e19f46e49f31eb40c. Current production726768c59 and evidence bookend72ad4c0ed have identical complete237 production/build and200 fixture object sets. Final whole-source reviews at726 report Standards0/Spec0. Both complete SDK runs pass; combined final review atfdbfca9d6 reports Standards0/Spec0. Signed29 is published and independently verified below. Publication evidence review and issue closure remain pending.
 
 ## Controlled vertical journeys
 
@@ -39,6 +39,6 @@ Earlier full failures stay failed: Android10 first39090558349 physical swipe (ge
 
 ## Signed review successor and remaining gates
 
-Canonical signed29 preparation succeeds at72ad, version29/0.1.29, SHAaef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef; both preparation reviews0. Complete runtime/source-equivalence records are retained. PENDING: combined Standards/Spec review and authorized static publication/independent download verification. Beta28 remains live until that succeeds. Preserve the established package/certificate, minimum29 and immutable prior28 metadata/APK.
+Canonical signed29 preparation succeeds at72ad, version29/0.1.29, SHAaef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef; both preparation reviews0. Combined whole47 review atfdbfca9d6 reports Standards0/Spec0 after the current-handoff correction. Canonical publisher exits0; [publication packet](signed-preview29-published/README.md) retains independent actual public page/latest/immutable29/APK download, hash, established certificate/package/min29 and unchanged immutable28 metadata/actual APK checks. Beta29 is live at https://davidengelen.nl/redsquare/. No physical update/performance claim is made. Publication evidence review and issue closure remain pending.
 
 Controlled native injection and owned gateway/sender acceptance do not establish actual configured Google closed-app delivery, deployed observer coverage, public chain inclusion or complete history. Original32/33/34 keep their real cloud/hosting/physical requirements. Pixel7 installation/update/wallet-data continuity and measured launch targets remain35; publisher/account/privacy/declaration/Play acceptance remains36.
