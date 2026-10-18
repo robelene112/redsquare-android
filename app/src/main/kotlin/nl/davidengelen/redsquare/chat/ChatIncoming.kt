@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.chat
 import android.content.Context
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.notifications.NotificationReceiptLedger
+import nl.davidengelen.redsquare.moderation.AndroidPersonalControls
 
 /** Route authenticated originals independently of the visible Chat mode, retaining before acknowledgement.
  * Return the private counterparty, or null for a named-group event.
@@ -61,6 +62,11 @@ internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
     val history = GroupChatStore(context, wallet, backend)
     val message = history.retainIncoming(envelope) ?: return@synchronized ChatNotificationResult.SUPPRESSED
     try {
+        val policy = AndroidPersonalControls(context, wallet.publicKey).load()
+        if (policy.hidesSocial(message.author) || message.groupId in policy.mutedConversations) {
+            history.completeAlert(message.groupId, message.id)
+            return@synchronized ChatNotificationResult.SUPPRESSED
+        }
         publishPendingChatAlert(NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
             NotificationReceiptLedger.Domain.GROUP_CHAT), retryPublication,
             completeAlert = { history.completeAlert(message.groupId, message.id) }) {
