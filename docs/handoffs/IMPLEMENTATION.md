@@ -141,7 +141,21 @@ original bindings; root viewed all3selected originals. No owned local build.
 Next single tracer is a pending group muted while publication bookkeeping remains
 obstructed. It must finish quietly without that optional ledger, then remain silent
 after repair/unmute, preserving exact history/identity. Existing3journeys and bounds
-are unchanged. No early-suppression implementation yet. Actual RED is next.
+are unchanged. Actual mute RED39083751191 atebfe94e11 is retained:4cases/3PASS/
+1FAIL93.315s. History/silence pass; after mute the worker does not finish within
+40seconds atline260. Repair/unmute tails unexecuted, raw attempt timeline not
+captured. Eight-hash native-muted-red packet and root-viewed launcher capture.
+Source39083751594 SUCCESS includes release/lint.
+
+Minimumb5b2f50cd checks personal account/conversation silence after history and
+before optional ledger. Native39084223146 and source39084223097 run atb5; pending.
+Both source reviewers found an ordinary-receipt regression: eager policy-read
+failure bypasses the shared ordinary no-retrospective completion behavior. Do not
+claim source0 or whole acceptance. After current actual mute result, add an ordinary
+policy-storage-fault/repair/repeated-original tracer before correction. Preserve
+optional ledger failure retry precedence; the normal notifier still performs strict
+policy checks. Journey wake/capture metadata centralization is a separate nonblocking
+review finding, deferred until GREEN. No owned local build/watcher/download now.
 Membership/current-policy completion and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
