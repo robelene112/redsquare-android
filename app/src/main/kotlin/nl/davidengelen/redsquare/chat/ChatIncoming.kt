@@ -48,6 +48,7 @@ internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: S
     try {
         publishPendingChatAlert(NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
             NotificationReceiptLedger.Domain.PRIVATE_CHAT), retryPublication,
+            isSuppressed = { privateChatAlertSuppressed(context, wallet, backend, message) },
             completeAlert = { history.completeAlert(message.id) }) {
             notifyPrivateChat(context, wallet, backend, message, endpoint)
         }
@@ -61,19 +62,9 @@ internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
     val history = GroupChatStore(context, wallet, backend)
     val message = history.retainIncoming(envelope) ?: return@synchronized ChatNotificationResult.SUPPRESSED
     try {
-        val silenced = try {
-            groupChatAlertSuppressed(context, wallet, backend, message)
-        } catch (_: Exception) {
-            // The guarded notifier still requires readable policy. Let the shared
-            // publication path preserve ordinary completion and bookkeeping retry precedence.
-            false
-        }
-        if (silenced) {
-            history.completeAlert(message.groupId, message.id)
-            return@synchronized ChatNotificationResult.SUPPRESSED
-        }
         publishPendingChatAlert(NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
             NotificationReceiptLedger.Domain.GROUP_CHAT), retryPublication,
+            isSuppressed = { groupChatAlertSuppressed(context, wallet, backend, message) },
             completeAlert = { history.completeAlert(message.groupId, message.id) }) {
             notifyGroupChat(context, wallet, backend, message, endpoint)
         }
@@ -82,7 +73,18 @@ internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
 
 /** Both Chat histories own eligibility; their publication and completion policy is identical. */
 private fun publishPendingChatAlert(ledger: NotificationReceiptLedger, retryPublication: Boolean,
-    completeAlert: () -> Unit, publish: () -> ChatNotificationResult): ChatNotificationResult {
+    isSuppressed: () -> Boolean, completeAlert: () -> Unit, publish: () -> ChatNotificationResult): ChatNotificationResult {
+    val silenced = try {
+        isSuppressed()
+    } catch (_: Exception) {
+        // The guarded notifier still requires readable policy. Let the shared
+        // publication path preserve ordinary completion and bookkeeping retry precedence.
+        false
+    }
+    if (silenced) {
+        completeAlert()
+        return ChatNotificationResult.SUPPRESSED
+    }
     val now = System.currentTimeMillis()
     if (!ledger.prepare(now)) {
         completeAlert()

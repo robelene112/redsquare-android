@@ -38,6 +38,10 @@ internal fun groupChatAlertSuppressed(context: Context, wallet: SaitoWallet, bac
     message: GroupChatMessage) = chatAlertSuppressed(context, wallet, backend,
         IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP))
 
+internal fun privateChatAlertSuppressed(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    message: PrivateChatMessage) = chatAlertSuppressed(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.conversationId, ChatAlertKind.PRIVATE))
+
 /** Known silence is terminal even when optional publication bookkeeping is unavailable. */
 private fun chatAlertSuppressed(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     message: IncomingChatAlert): Boolean {

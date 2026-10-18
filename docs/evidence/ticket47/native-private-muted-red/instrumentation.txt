@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest:
+INSTRUMENTATION_STATUS: test=aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Private receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$await(PrivatePushWorkFixture.kt:139)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$lambda$26(PrivatePushWorkFixture.kt:248)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.$r8$lambda$oyLIRJBF10qqpB6LisKfOBsQ43g(PrivatePushWorkFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney(PrivatePushWorkFixture.kt:157)
+	at nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest.aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting(PrivateMutedReceiptPreviewTest.kt:7)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting(nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest):
+java.lang.AssertionError: Private receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$await(PrivatePushWorkFixture.kt:139)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$lambda$26(PrivatePushWorkFixture.kt:248)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.$r8$lambda$oyLIRJBF10qqpB6LisKfOBsQ43g(PrivatePushWorkFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney(PrivatePushWorkFixture.kt:157)
+	at nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest.aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting(PrivateMutedReceiptPreviewTest.kt:7)
+
+INSTRUMENTATION_STATUS: test=aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 45.952
+There was 1 failure:
+1) aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting(nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest)
+java.lang.AssertionError: Private receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$await(PrivatePushWorkFixture.kt:139)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney$lambda$26(PrivatePushWorkFixture.kt:248)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.$r8$lambda$oyLIRJBF10qqpB6LisKfOBsQ43g(PrivatePushWorkFixture.kt:0)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PrivatePushWorkFixture.privateJourney(PrivatePushWorkFixture.kt:157)
+	at nl.davidengelen.redsquare.PrivateMutedReceiptPreviewTest.aPendingPrivateMessageMutedDuringUnavailableBookkeepingDoesNotAlertAfterUnmuting(PrivateMutedReceiptPreviewTest.kt:7)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

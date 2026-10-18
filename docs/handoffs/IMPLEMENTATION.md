@@ -350,7 +350,7 @@ subscription/identity and independent opt-outs all pass. Source39089021653 SUCCE
 includes release/lint. Root viewed both exact Settings originals in the9hash/
 33original native-capacity-green packet. Scoped source reviews0/0; refreshed
 whole-source reviews add no findings beyond the known private suppression gap.
-GREEN evidence review remains pending; no whole47 or beta29 claim.
+GREEN evidence reviews0/0; no whole47 or beta29 claim.
 
 The next private muted-pending tracer is now committed before its minimum.
 `PrivateMutedReceiptPreviewTest` reuses the concrete shared private worker fixture;
@@ -359,7 +359,30 @@ command remain. A separate focused class keeps its own180second bound, also in
 full/Chat. The actual background worker must finish quietly while the owned
 optional ledger remains obstructed and the conversation is muted, then stay
 quiet after repair/unmute with exact history/identity and no Activity. No private
-production minimum is present yet; actual RED and both source reviews pending.
+production minimum was present in actual RED39089645280 at565208168:
+1FAIL45.952s, exact retained history and persisted mute pass, but the actual
+worker does not finish within40seconds atline248 while ledger fault remains.
+Later repair/unmute/replay/history/identity tails are unexecuted; raw attempt
+timeline was not captured. Root viewed diagnostic launcher original in7hash/
+32original native-private-muted-red. Separate source39089645330 is still running.
+
+Both fixture reviews found a cleanup retry omission. Corrected33ca91fd0 retains
+an owned obstruction callback for a second attempt after successful outer drain,
+before protected restoration; failed drain still blocks unsafe restoration.
+Both residual reviews0. This fixture-only correction does not alter application
+assertions/deadlines and was not in the RED source.
+
+The minimum now gives both histories the same early known-silence predicate
+inside shared publication, after durable history and before optional ledger.
+Private uses the existing strict account/conversation/system predicate. Group
+behavior is moved unchanged; unreadable-policy fallthrough, ordinary completion,
+background retry and ledger-error precedence remain. Source/evidence review and
+actual private GREEN are pending. No owned local build is running.
+
+Pre-execution full identity plan11d937a6b fixes430Android17 and429Android10
+identities (accepted46baseline+11literal additions), with exact paths/multiplicity
+and matching distinct completion markers. Both independent reviews0; fourhashes
+and both baselines independently reproduced. Final full runs have not started.
 
 ## Published beta28
 
