@@ -46,8 +46,15 @@ subsequent category completion/replay, group PID and later gates are unexecuted.
 The40hash/95original packet preserves this outcome;180PNG/180XML validate.
 Fixture correction5f35d3d26 scopes the exact labelled main row without changing
 assertions/deadlines/production. Both source reviews0; focused10 group run
-39092127900 at61616d658 is running. Android17
-run39090559898 at72ad has Chat FAILURE, Wallet SUCCESS, Social still RUNNING.
+39092127900 at61616d658 SUCCESS:7groupPASS79.671s plus groupPID
+6088→6314→6521/SAMEUUIDf687c2a8-b9f2-40ae-8077-ad2dfc001845/0expired/restore.
+The22hash/40original GREEN packet has both reviews0. Root viewed the disabled
+launcher and real recovered generic card; reenabled viewer is status-only and
+qualified by complete integrity/XML. Android17
+run39090559898 at72ad is final FAILURE: ChatFAIL, Wallet/SocialSUCCESS.
+Final5hash/370original packet independently records19+208+39=266PASS,64normal/
+20deliberate/20continuity; duplicate profile aggregate proven exact before exclusion.
+Both final partial-outcome reviews0. It is not430identity full acceptance.
 The Chat job times out during existing autonomous Social scheduling before any
 Chat/group gates. Its41hash/69original packet records19PASS/7completions/
 2interruptions/1continuity, pendingPID5420/work1e3d3bfd-0b16-4706-98df-541b712c42c3,
@@ -55,8 +62,8 @@ stop marker0, deliberate death and restoration1.191s. Host120second observation
 expires with1request/1authentication/0available reads. No per-poll PID/job/timeout
 state was captured, so absent OS start versus pre-authentication failure remains
 unclassified. The Social worker/receiver/host/scheduled fixture were unchanged by47.
-Root viewed the diagnostic pre-death launcher capture. Wallet/Social results need
-separate inspection and do not establish the failed SDK's completion.
+Root viewed the diagnostic pre-death launcher capture. Wallet/Social results are separately inspected in the final-outcome packet;
+their success does not establish the failed SDK's completion.
 Expected full identity sets stay fixed429/430 in the reviewed partition plan.
 237 production/build and original200 fixture objects equal reviewed726. Signed29/0.1.29 is
 prepared at that same72ad source after canonical BUILD SUCCESSFUL3m55s/exit0;
@@ -81,13 +88,24 @@ no target launches/forced jobs and all acceptance/cleanup remain. Extra observat
 can perturb timing; a later pass cannot prove this timeout's cause or a code fix.
 No production minimum is inferred. WorkInfo getter verified in installed2.12 AAR.
 Diagnostic source/evidence reviews0/0. Focused17 diagnostic39091985886 at879
-is running; no runtime or cause is inferred yet.
+is SUCCESS:3normal/2deliberate/2continuity; pending4478 followed by OS-started4807,
+2post-death available reads and exact Android reply card, ending11.7115s of the
+unchanged120second bound. Root fully viewed the card.38hash/62original GREEN
+packet and both reviews0. The earlier timeout cause remains unknown; no
+production repair or Google delivery is inferred.
 
-Next: inspect focused scheduler17 and corrected group10 outcomes; retain
-remaining original17Social separately. Then complete required full17all3 and10
-outcomes/identities/continuity/public/
-private+group3PID and final combined review before29 publication. No owned local build is running. Whole47 and original32/34
-Google/deployment/physical gates remain pending.
+Next: complete Android10 run39092507398 and Android17 run39092400352(all3parts)
+are RUNNING at common518b596325cec57b6fe2c2ca5f87bbcd504bb286. Both use identical201
+fixture objects,237production/build objects and3build/sign/publish operations;
+prepared29 production/build and operations also remain identical. Prepared29 had
+200fixture objects; seven fixture paths and the diagnostic host observer differ
+from that earlier source. Do not claim prepared fixtures are all equal.
+Validate429/430identities,103/104normal completions,33deliberate interruptions,
+32PASS continuity, both same-worker three-PID protocols, public/read/update/final
+identity tails and release/lint/core/gateway before final combined review and29
+publication. Source check39091333025SUCCESS atcc7 includes release/lint. No owned
+local build is running. Both full watchers/artifacts require later inspection.
+Whole47 and original32/34Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense
 status statements describe their dated step, not the current state above.
