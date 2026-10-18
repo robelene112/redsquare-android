@@ -151,10 +151,16 @@ Minimumb5b2f50cd checks personal account/conversation silence after history and
 before optional ledger. Native39084223146 and source39084223097 atb5 both SUCCESS:4cases PASS69.396s. Nine-hash native-muted-green packet; root viewed both selected originals. This accepts the bounded mute behavior only.
 Both source reviewers found an ordinary-receipt regression: eager policy-read
 failure bypasses the shared ordinary no-retrospective completion behavior. Do not
-claim source0 or whole acceptance. The ordinary policy-storage-fault/repair/repeated-original tracer is now prepared
-as the fifth journey, before any correction. Actual RED is next. Preserve
-optional ledger failure retry precedence; the normal notifier still performs strict
-policy checks. Journey wake/capture metadata is now centralized on the enum after actual mute
+claim source0 or whole acceptance. Actual fifth-journey RED39084660929 at3fd8a6699 is retained under
+`native-policy-red`:5cases/4PASS/1FAIL80.468s. First unreadable-policy history and
+silence pass; the repeated ordinary original after repair finds a matching Android
+notification atline197. Later history/identity/count assertions are unexecuted.
+The selected failure capture is the launcher, not visible card evidence. Source
+39084661017 SUCCESS includes release/lint. Minimuma9f5a0cc6 catches only the eager
+policy-read error and falls through shared ledger/strict notifier handling,
+preserving ledger-failure precedence and ordinary no-retrospective completion.
+Both scoped source reviews0. Actual unchanged5case run39085132961 is running;
+corrected runtime and whole47 acceptance remain pending. Journey wake/capture metadata is now centralized on the enum after actual mute
 GREEN, addressing the separate nonblocking review finding. No owned local build/watcher/download now.
 Membership/current-policy completion and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
