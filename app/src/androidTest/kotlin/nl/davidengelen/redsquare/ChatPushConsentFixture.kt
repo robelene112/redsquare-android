@@ -105,6 +105,22 @@ abstract class ChatPushConsentFixture {
             wallets.replace(previous, wallet); backends.save(SaitoBackend.OWNER)
             val groups = GroupChatStore(context, wallet, SaitoBackend.OWNER)
             creations.forEach { groups.receive(it.envelope()) }
+            val retainedMessage = if (capacity) GroupChat.message(author,
+                GroupChat.readCreation(creations.first().envelope()),
+                "Keep this group history through subscription capacity changes", System.currentTimeMillis()) else null
+            if (retainedMessage != null) {
+                groups.receive(retainedMessage.envelope())
+                groups.saveDraft(group, "Keep this unsent draft through subscription capacity changes")
+            }
+            fun assertRetainedGroup() {
+                val saved = requireNotNull(groups.load(group))
+                assertEquals(ChatGroupRole.MEMBER, saved.group.memberRoles[wallet.publicKey])
+                assertEquals(ChatGroupRole.ADMIN, saved.group.memberRoles[author.publicKey])
+                assertEquals(1, saved.messages.size)
+                assertEquals(requireNotNull(retainedMessage).id, saved.messages.single().id)
+                assertEquals("Keep this group history through subscription capacity changes", saved.messages.single().text)
+                assertEquals("Keep this unsent draft through subscription capacity changes", saved.draft)
+            }
             gateway.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             fun reconcile(categories: String?) {
                 expected.set(categories.orEmpty())
@@ -135,6 +151,7 @@ abstract class ChatPushConsentFixture {
                                 listOf(wallet.publicKey), System.currentTimeMillis()).envelope())
                             expectedGroups.set(emptyList())
                             reconcile("mentions,private-chats,replies")
+                            assertRetainedGroup()
                             val notice = "New group alerts when closed are paused above 100 active groups on this server. Your other alerts keep their settings."
                             ui.waitUntil(10_000) {
                                 try { ui.onNodeWithText(notice).assertExists(); true } catch (_: AssertionError) { false }
@@ -152,6 +169,7 @@ abstract class ChatPushConsentFixture {
                             ui.waitUntil(10_000) {
                                 try { ui.onNodeWithText(notice).assertDoesNotExist(); true } catch (_: AssertionError) { false }
                             }
+                            assertRetainedGroup()
                             assertEquals(ChatGroupRole.LEFT, groups.load(extraGroup)!!.group.memberRoles[wallet.publicKey])
                             assertEquals(subscription, active.get()!!.get("subscription").asString)
                             captureNativeScreen(File(context.cacheDir, "chat-alert-evidence/group-capacity-resumed.png"))
