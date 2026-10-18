@@ -22,18 +22,18 @@ Current production is `726768c59393a0a48eca75f18923aeea784b4a91`, with final
 whole-source Standards0/Spec0. The bounded group transport, history, scope,
 conversation/category/membership controls, capacity and shared private muted
 counterpart pass their native seams. Current private and group three-PID adapters
-also pass within partial full runs, but complete SDK acceptance remains required.
+pass within both complete SDK runs. Combined review and publication remain pending.
 
 **Complete final verification, publication pending:**
 
 - Android10 `39092507398` at518 SUCCESS:428PASS plus the existing Profile assumption, exact429 identities,103 normal/33 deliberate/32 continuity.
 - Android17 `39093407762` at278 SUCCESS:430PASS, exact430 identities,104 normal/33 deliberate/32 continuity. All three required jobs succeed.
-- Both full packets and `docs/evidence/ticket47/NATIVE_ACCEPTANCE.md` retain exact recovery, source roles and visual limits. Complete17 bounded evidence reviews0/0; complete10 reviews pending.
+- Both full packets and `docs/evidence/ticket47/NATIVE_ACCEPTANCE.md` retain exact recovery, source roles and visual limits. Both complete SDK bounded evidence reviews0/0.
 - Complete237 production/build and3 operations objects equal reviewed726 and prepared29. Both have201 fixture objects, differing solely by four conditional Wallet failure-capture lines. Prepared29 had200 fixtures; eight fixture paths and read-only scheduler observer differ. Assertions/deadlines unchanged.
 - Source39092400121/39092908198 SUCCESS, release/lint/core/gateway tasks. Retained core114; no unobserved gateway count claimed.
 
 Signed29/0.1.29 remains prepared and UNPUBLISHED, SHA256
-`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0, established package/certificate/min29. Prepared reviews0/0. Beta28 remains live. Complete10 review, combined whole47 review and static publication/independent verification remain before closing47.
+`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0, established package/certificate/min29. Prepared reviews0/0. Beta28 remains live. Combined whole47 review and static publication/independent verification remain before closing47.
 
 Retained full-run failures and bounded follow-ups:
 
