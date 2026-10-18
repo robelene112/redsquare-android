@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Group receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$await(GroupPushWorkPreviewTest.kt:156)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$SSOJtqwzFWEgxWL57EjDkLe-BCs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:170)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting(GroupPushWorkPreviewTest.kt:45)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting(nl.davidengelen.redsquare.GroupPushWorkPreviewTest):
+java.lang.AssertionError: Group receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$await(GroupPushWorkPreviewTest.kt:156)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$SSOJtqwzFWEgxWL57EjDkLe-BCs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:170)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting(GroupPushWorkPreviewTest.kt:45)
+
+INSTRUMENTATION_STATUS: test=aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 93.315
+There was 1 failure:
+1) aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting(nl.davidengelen.redsquare.GroupPushWorkPreviewTest)
+java.lang.AssertionError: Group receipt did not complete within40seconds
+	at org.junit.Assert.fail(Assert.java:89)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$await(GroupPushWorkPreviewTest.kt:156)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:260)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$SSOJtqwzFWEgxWL57EjDkLe-BCs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:170)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting(GroupPushWorkPreviewTest.kt:45)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
