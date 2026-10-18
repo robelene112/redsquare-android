@@ -140,6 +140,7 @@ abstract class PrivatePushWorkFixture {
         }
         var primary: Throwable? = null
         var stopped = false
+        var obstructionCleanup: (() -> Unit)? = null
         val peer = if (scoped) ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" }) else null
         var peerServer: mockwebserver3.MockWebServer? = null
         fun requireStopped() { check(stopped); assertNoActivity() }
@@ -235,6 +236,12 @@ abstract class PrivatePushWorkFixture {
                     val controls = AndroidPersonalControls(context, wallet.publicKey)
                     val obstruction = File(context.noBackupFilesDir, "chatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
                     check(obstruction.mkdir())
+                    obstructionCleanup = {
+                        if (obstruction.exists()) {
+                            check(obstruction.isDirectory && obstruction.listFiles()!!.isEmpty())
+                            check(obstruction.delete())
+                        }
+                    }
                     var receiptFailure: Throwable? = null
                     var drained = false
                     try {
@@ -255,7 +262,7 @@ abstract class PrivatePushWorkFixture {
                     finally {
                         cleanupAfterTest(receiptFailure,
                             { if (!drained) { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, opaque) }; drained = true } },
-                            { check(drained); check(obstruction.isDirectory && obstruction.listFiles()!!.isEmpty()); check(obstruction.delete()) })
+                            { check(drained); obstructionCleanup?.invoke(); obstructionCleanup = null })
                     }
                     val muted = controls.load()
                     controls.save(muted, muted.copy(mutedConversations = muted.mutedConversations - conversation))
@@ -351,6 +358,7 @@ abstract class PrivatePushWorkFixture {
             cleanupAfterTest(primary,
                 { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, opaque) }; finishActivities(); stopped = true },
                 { gateway.close() }, { peerServer?.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
+                { requireStopped(); obstructionCleanup?.invoke(); obstructionCleanup = null },
                 { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
                 { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
                 { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
