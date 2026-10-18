@@ -36,12 +36,20 @@ class GroupPushWorkPreviewTest {
     @Test fun aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal() = groupJourney()
 
     @Test fun ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication() =
-        groupJourney(ordinaryRecovery = true)
+        groupJourney(Journey.RECEIPT_RECOVERY)
 
     @Test fun aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation() =
-        groupJourney(scoped = true)
+        groupJourney(Journey.SCOPED)
 
-    private fun groupJourney(ordinaryRecovery: Boolean = false, scoped: Boolean = false) {
+    @Test fun aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting() =
+        groupJourney(Journey.MUTED_PENDING)
+
+    private enum class Journey { WORKER_FIRST, RECEIPT_RECOVERY, SCOPED, MUTED_PENDING }
+
+    private fun groupJourney(journey: Journey = Journey.WORKER_FIRST) {
+        val ordinaryRecovery = journey == Journey.RECEIPT_RECOVERY
+        val scoped = journey == Journey.SCOPED
+        val mutedPending = journey == Journey.MUTED_PENDING
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -79,7 +87,7 @@ class GroupPushWorkPreviewTest {
         val text = "A group message retained in the local conversation"
         val original = GroupChat.message(author, group, text, now)
         assertFalse(wallet.publicKey in SaitoEnvelope.decode(original.envelope()).recipients)
-        val wake = (if (scoped) "73" else if (ordinaryRecovery) "72" else "71").repeat(32)
+        val wake = (if (mutedPending) "75" else if (scoped) "73" else if (ordinaryRecovery) "72" else "71").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -125,7 +133,7 @@ class GroupPushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:${backend.id}:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val capturePrefix = if (scoped) "group-scoped" else if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
+        val capturePrefix = if (mutedPending) "group-muted-pending" else if (scoped) "group-scoped" else if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "group-push-evidence/$capturePrefix-$name.png"))
         fun assertSilent(label: String) {
             val silentUntil = SystemClock.elapsedRealtime() + 2_000
@@ -234,7 +242,7 @@ class GroupPushWorkPreviewTest {
                     assertNoActivity()
                     return@withFailureCapture
                 }
-                if (ordinaryRecovery) {
+                if (ordinaryRecovery || mutedPending) {
                     val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
                     check(obstruction.mkdir())
                     var receiptFailure: Throwable? = null
@@ -245,8 +253,32 @@ class GroupPushWorkPreviewTest {
                         assertEquals(text, saved.text)
                         assertSilent("Unavailable publication bookkeeping must preserve readable group history without publishing")
                         capture("retained-before-recovery")
+                        if (mutedPending) {
+                            val controls = nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
+                            val before = controls.load()
+                            controls.save(before, before.copy(mutedConversations = before.mutedConversations + group.id))
+                            await(schedule())
+                            assertSilent("Muting a pending group must finish quietly even while bookkeeping is unavailable")
+                            assertNoActivity()
+                            capture("muted-completed")
+                        }
                     } catch (caught: Throwable) { receiptFailure = caught; throw caught }
                     finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                }
+                if (mutedPending) {
+                    val controls = nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
+                    val before = controls.load()
+                    controls.save(before, before.copy(mutedConversations = before.mutedConversations - group.id))
+                    await(schedule())
+                    assertSilent("Unmuting must not revive the deliberately silenced group alert")
+                    val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages
+                    assertEquals(1, saved.size); assertEquals(original.id, saved.single().id)
+                    assertEquals(text, saved.single().text)
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertNoActivity()
+                    capture("unmuted-still-silent")
+                    return@withFailureCapture
                 }
                 await(schedule())
                 assertNoActivity()

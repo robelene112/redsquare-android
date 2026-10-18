@@ -131,10 +131,19 @@ using the already-readable consent key. Optional group publication receipts reta
 their independent groupchatpush key/family. Private filename/alias/schema remain
 unchanged. Existing chatpush fixture preservation covers both route kinds. Both
 fix/evidence reviews0. Actual native39083215842 and source39083216070 run at4bdc9;
-results pending. No owned local compile, download or watcher remains.
+both SUCCESS. All3 native cases PASS59.022s. The stronger fixture is unchanged
+sinceb169: one resolve/original before local recovery, silence under Owner and a
+separately consenting replacement wallet, generic card despite previews enabled,
+actual exact-group/unencrypted tap, no outgoing writes, quiet opened replay and
+existing two journeys all pass. Eleven-hash native-scoped-green packet retains
+original bindings; root viewed all3selected originals. No owned local build.
 
-Next after actual scoped GREEN: membership/current-policy suppression and real
-process/legacy recovery. Whole47/full10/17, signed29 and closure remain pending.
+Next single tracer is a pending group muted while publication bookkeeping remains
+obstructed. It must finish quietly without that optional ledger, then remain silent
+after repair/unmute, preserving exact history/identity. Existing3journeys and bounds
+are unchanged. No early-suppression implementation yet. Actual RED is next.
+Membership/current-policy completion and real process/legacy recovery remain.
+Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
 
 ## Accepted issue46: private Chat background transport
