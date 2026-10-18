@@ -28,3 +28,14 @@ change, require fresh complete ordinary10/17 in addition to16KB acceptance.
 Current runtime acceptance is pending. This covers x86_64/current configuration
 and executed journeys, not every JNI entry point, ARM64, physical Pixel timing/
 update, configured Google/Giphy, Play-generated installs or store acceptance.
+
+## Actual dispatch after reviewed plan
+
+Source77 and fixed plan32c both have Standards0/Spec0. Complete16KB Android17
+run39115917603 is IN PROGRESS at32c439e437799184f29d70d67b764d148c9b7fe0,
+all three required jobs, public reads and main35/performance36. Default ordinary10
+feed run39115925476 is IN PROGRESS at that same source with default29. Both
+production/fixture/operation/host sets equal reviewed77. No actual page size or
+native acceptance is claimed while execution is incomplete. SourceCI39115744894
+at77 is SUCCESS. Large originals remain under the VPS additional-disk artifact
+root; the fixed expectations are unchanged.

@@ -28,14 +28,25 @@ nonprofileability. Production/build dependencies and all native fixtures are
 unchanged. CLI RED before minimum and safe CLI/syntax/actionlint checks are in
 `ticket51/cli-red`; no native GREEN or16KB acceptance exists yet.
 
-Next: commit/review the source and fixed pre-execution source/artifact/identity
-plan, then dispatch actual complete17 with android17_16kb=true, public reads,
-main35/performance36 and all original gates. Also verify the default29 observer
-on a focused ordinary10 feed run. All three16KB partitions must succeed with
-431 identities/104 normal/33 deliberate/32continuity. Current signed hashes are
-fixed independently in issue51; do not derive expectations from new outcomes.
-Qualify x86_64/configuration/runtime scope. Physical/ARM64/timing/configured-provider/
-Play acceptance remain open. Keep main35/performance36 publication unchanged.
+Source77b3940c42b466f2bddd8d236345563e93f27be1 and fixed plan32c439e437799184f29d70d67b764d148c9b7fe0 have both reviews0/0.
+Actual complete16KB Android17 run39115917603 is IN PROGRESS at32c, all three
+jobs, with public reads and current main35/performance36. Default ordinary10
+feed/isolation run39115925476 is IN PROGRESS at the same source with default29.
+No runtime acceptance is claimed. SourceCI39115744894 at77 is SUCCESS.
+Retain actual completed artifacts under
+/mnt/storage/redsquare-android-artifacts/page-size51-{full16k17,default10}-RUN.
+Both dispatched source groups equal reviewed77 exactly; plan/source/artifact
+expectations precede dispatch. No local build is active.
+
+Next: inspect actual image/page/ABI metadata from every required partition,
+full outcomes/exact431 map/104 normal/33 deliberate/32continuity and all original
+protected/public/update/final gates, plus planned actual35/36 hashes and signed
+UID/wallet isolation/restoration. Inspect default10 main29 equivalence and
+selected original PNG/XML. Qualify x86_64/configuration/runtime scope; do not
+claim all bundled JNI entry points execute. Physical/ARM64/timing/configured-
+provider/Play acceptance remain open. Keep main35/performance36 publication
+unchanged. If an actual application defect requires production changes, repeat
+complete ordinary10/17 as well as16KB; host-only work retains accepted50 baseline.
 
 ## Accepted issue50: honest unconfigured background-alert Settings
 
