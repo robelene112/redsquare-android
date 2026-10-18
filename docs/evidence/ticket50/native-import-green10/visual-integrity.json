@@ -1,0 +1,160 @@
+{
+  "visuals": [
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-import.json-rejected.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-backup-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/stalled-provider-fresh-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-positive.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-zero.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-malformed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-stale.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-same.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/confirmed-same-wallet-restore.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-different.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/fresh-candidate-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-evidence.tar::wallet-import-evidence/reselected-backup-required.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-import-process/cold-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/other-assets-require-backup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-risk-evidence.tar::wallet-risk-evidence/original-wallet-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-storage-recovery-evidence.tar::wallet-storage-recovery-evidence/failed-save-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": []
+}

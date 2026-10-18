@@ -36,3 +36,11 @@ failure capture precede focused import10 and a fresh complete10. Android17 remai
 accepted for unchanged production; preserve the exact fixture-only delta. Combined whole
 review and ordinary35 publication remain pending. The pre-execution expectations
 in plan.json are unchanged.
+
+The fixture correction atf3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac has both reviews0.
+Focused import10 run39110410184 passes all ten existing cases/recovery, with
+four normal/one deliberate/one continuity. The16-hash GREEN packet and
+`android10-recheck-plan.json` retain the actual proof and fixed fresh complete10
+expectations. Production matches prepared35/36 and accepted17 exactly; retain
+the single Wallet fixture delta and unchanged original assertions/deadlines.
+Complete10 re-execution and combined acceptance remain pending.

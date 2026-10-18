@@ -532,5 +532,11 @@
       "identities": 431
     }
   },
-  "fixtureOnlyCorrectionPendingRecheck": "WalletImportPreviewTest failed-save initial/recreated entry action readiness and in-scope failure capture; production unchanged."
+  "fixtureOnlyCorrectionPendingRecheck": {
+    "source": "f3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac",
+    "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt",
+    "focusedGreen10": 39110410184,
+    "productionChanged": false,
+    "freshComplete10Pending": true
+  }
 }

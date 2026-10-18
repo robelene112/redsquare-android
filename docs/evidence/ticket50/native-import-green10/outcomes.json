@@ -1,0 +1,89 @@
+{
+  "summary": {
+    "files": 13,
+    "passed": 10,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 4,
+    "crashedRecords": 1,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 22,
+    "xml": 0,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  },
+  "instrumentation": [
+    {
+      "path": "wallet-import-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "wallet-import-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.496"
+      ]
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "passed": 7,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "137.62"
+      ]
+    },
+    {
+      "path": "wallet-risk-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "28.587"
+      ]
+    },
+    {
+      "path": "wallet-storage-recovery-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.899"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "wallet-import-process/continuity.txt",
+      "text": "PASS: actual process death after replacement write before recovery commit; cold app startup restores outgoing public identity.\niFhfRQnyWJAZWt8w6oGZS5us22HhCHv7C8XP8kX2NSzU"
+    }
+  ],
+  "exits": []
+}

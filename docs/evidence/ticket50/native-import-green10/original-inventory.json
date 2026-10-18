@@ -1,0 +1,70 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/availability50-import10-39110410184/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "emulator.log",
+      "size": 5583,
+      "sha256": "c83d36713170cce6aaa7753e51060e642c1ba1c1a14c59db986c78ac4a65f975"
+    },
+    {
+      "path": "scope.txt",
+      "size": 59,
+      "sha256": "aa31419f4421b766c449e78826827ceb1e88d3f6e6cfcb60bd80ff368b25a107"
+    },
+    {
+      "path": "wallet-import-evidence.tar",
+      "size": 667136,
+      "sha256": "ff016a4e48e693da4e6bdef8f344d24d2cfff0d8b574266faf94e3087ee1d9c3"
+    },
+    {
+      "path": "wallet-import-process/cold-recovery.png",
+      "size": 31368,
+      "sha256": "97b8093058062ff8b43c4b71de882521409f310b3afd739da245b3d2d04c0316"
+    },
+    {
+      "path": "wallet-import-process/continuity.txt",
+      "size": 172,
+      "sha256": "709073a503416e5649675afd9e7de40ae547124fcaf3f92171830e414164d661"
+    },
+    {
+      "path": "wallet-import-process/interrupted-instrumentation.txt",
+      "size": 473,
+      "sha256": "423df0fd849a4f4428a21f5522ee83aa9f0fe0753258ed5f13130af095587921"
+    },
+    {
+      "path": "wallet-import-process/recovered-instrumentation.txt",
+      "size": 822,
+      "sha256": "8890909a5e432eb614cfc3dfee271d3001894222e164cd1199e248875ae1ca78"
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "size": 5067,
+      "sha256": "c7bc0c39ca1a9c78cc0254975f9ef6058fe4c68174a4aa934b9e3ed8cfc8627e"
+    },
+    {
+      "path": "wallet-risk-evidence.tar",
+      "size": 94720,
+      "sha256": "d3dd0702b194e80ea918eb51887c4a82e1d3dbe8ef2eedb72b8badbf26c43d48"
+    },
+    {
+      "path": "wallet-risk-fresh.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "wallet-risk-ui.txt",
+      "size": 860,
+      "sha256": "879f81b4f92d7fa093120b7618b16a4f2d4313213b727e78b0fcd1dd4b36057f"
+    },
+    {
+      "path": "wallet-storage-recovery-evidence.tar",
+      "size": 33792,
+      "sha256": "6ca1721d27afeafe8ad538eb35debcaa0709851d70c72cfd2f264528a1f20e05"
+    },
+    {
+      "path": "wallet-storage-recovery-ui.txt",
+      "size": 877,
+      "sha256": "fb596062fbc47381ae534e8e2531c82135298520d19a2bc92bf7e1c28c402748"
+    }
+  ]
+}

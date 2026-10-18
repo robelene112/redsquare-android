@@ -1,0 +1,70 @@
+{
+  "preparedBeforeFullRecheck": true,
+  "earlierFailedFull10": 39106583903,
+  "acceptedFull17": 39106585481,
+  "accepted17Source": "10b007c48e9b6e48037741544a4f181e7337ab9a",
+  "focusedImportGreen10": 39110410184,
+  "correctedFixtureSource": "f3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac",
+  "productionSource": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+  "productionObjectCount": 239,
+  "fixtureOnlyDelta": {
+    "path": "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt",
+    "objects": {
+      "10b007c48e9b6e48037741544a4f181e7337ab9a": "a50c9fc63874a95da163af6deab27453e160488b",
+      "f3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac": "f5b8a7d4f287b4327aa2b48fa5bfe6b02605cec7"
+    },
+    "originalCaseIdentitiesPreserved": true,
+    "originalImportChecksMillis": 15000,
+    "originalClassBoundSeconds": 300,
+    "addedEntryReadinessBoundMillis": 20000,
+    "conditionalFailureCaptureBeforeTeardown": true
+  },
+  "identityReferences": [
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected10-identities.json",
+      "sha256": "e8593038387d5d52b32cf9bc282b409face223a026250067e3eb950abd05fb63"
+    },
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected17-identities.json",
+      "sha256": "41b3e35618b6b00a701ae128eafc165ac85a44c56f4af1baebf8acd313dd28fc"
+    },
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/test-identities.py",
+      "sha256": "2e0e29c404511a1eaf31cccf2ee32d3a963d89467f85eb6054eb71fa5338668f"
+    }
+  ],
+  "expectedIdentities": 430,
+  "expectedCompletions": 103,
+  "expectedDeliberateInterruptions": 33,
+  "expectedContinuityRecords": 32,
+  "scope": "full-android10",
+  "publicFeedRead": true,
+  "performanceVersion": 36,
+  "gates": [
+    "All ordinary class/case outcomes, exact profile concatenation and existing sole Android10 Profile assumption",
+    "Both private and group same-UUID/three-distinct-PID/zero-expired recovery and protected restoration",
+    "Both fresh approved public feed reads, authenticated public Chat readiness, legacy5-to8 signed continuity and final identity",
+    "Actual immutable independently signed main29/performance36 isolation, main identity unchanged, distinct UIDs/wallets and restoration"
+  ],
+  "preparedArtifacts": {
+    "main": {
+      "versionCode": 35,
+      "versionName": "0.1.35",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd",
+      "commit": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+      "variant": "release"
+    },
+    "performance": {
+      "versionCode": 36,
+      "versionName": "0.1.36",
+      "applicationId": "nl.davidengelen.redsquare.performance",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680",
+      "commit": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+      "variant": "performance"
+    }
+  },
+  "limits": "No missing application case is replaced by a tail-only or focused result. A fresh entire SDK10 run is required. Preserve the failed original and exact fixture-only source delta; SDK17 production is unchanged. Physical/configured-provider/16KB/Play results remain outside these observations."
+}

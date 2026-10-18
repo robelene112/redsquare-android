@@ -62,7 +62,16 @@ is established. A bounded fixture-only correction now waits up to20seconds for
 the actionable visible merged Wallet entry on that case's initial/recreated
 openings, with in-scope PNG/XML on entry failure. All original assertions,
 identities,15second import guards and300second class bound remain. Source is
-unchanged. Review/focused import10/fresh complete10 are next. Full17 run39106585481
+unchanged. Correction/failure packet atf3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac
+has Standards0/Spec0. Focused import10 run39110410184 atf3 is SUCCESS:
+7original import cases137.620s,10totalPASS/4normal/1deliberate/1continuity,
+including risk/storage and actual replacement-write process recovery. SourceCI
+39110399000 SUCCESS. Root opened both complete restored/recreated wallet PNGs,
+with matching public identity/error message; all22PNG validate, no XML was emitted
+by the legacy successful capture helper. New entry failure capture did not run.
+The16-hash/13-original GREEN packet and fixed full10 recheck plan are ready for
+review, then dispatch full10/public reads/performance36. Preserve the failed
+original and accepted17; only this existing Wallet fixture differs at recheck. Full17 run39106585481
 is SUCCESS at the same source, with all three jobs complete,431PASS/exact431
 identities,104 normal/33 deliberate/32 continuity. Both public feeds, authenticated
 Chat readiness, private/group sameUUID/threePID/zeroExpired recovery and protected
