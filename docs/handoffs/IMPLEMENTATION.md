@@ -15,27 +15,47 @@ campaigns, provider-access services or safeguard bypass work.
 
 [Issue50](https://github.com/robelene112/redsquare-android/issues/50), child32/spec1,
 is assigned after closed49, with zero open blockers. Fixed review base
-`fc3e4a8caa56488e69e1e9e22f4e6999dca08134`. Scope is visible Social/Chat Settings
-copy for unconfigured builds, preserving saved consent, configured copy and all
-existing native transport/control behavior. No cloud/provider/node action.
+`fc3e4a8caa56488e69e1e9e22f4e6999dca08134`. Source minimum is
+`979fd7b21765acd9a5886dcde0b8ae988eb27451`: only two Settings resource selections
+and two English strings change. Configured copy, saved consent, controls, workers
+and all transport behavior remain unchanged. Minimum and RED reviews are0/0.
 
-The existing real Settings/signed-binding fixture now requires visible literal
-feature-specific disclosures before enabling either choice, and again after
-recreation in the original consent journey. Each is scrolled into view and
-captured independently. All original identities/assertions/deadlines remain,
-including the180second capacity class bound. Actual focused17 RED39104783970 atbc57
-records1FAIL38.736s: both original choices false/no active binding pass, then
-Social disclosure lookup finds zero semantic nodes. Chat disclosure/enable/
-capacity/reopen tails are unexecuted. Source39104758822 SUCCESS. The8-hash/
-32-original native-red17 packet retains actual failure plus complete Settings
-PNG/XML; root fully viewed both old generic descriptions/all three choices off,
-with1PNG/1XML structural checks passing. No production minimum existed in RED.
-The minimum now selects two feature-specific unconfigured resources using the
-existing build flag; configured strings and every consent/worker/control path
-remain unchanged. Source/evidence review and focused10/17 GREEN are next. Final full10/17,
-two-axis reviews and an accepted signed phone update remain required. No owned
-local build is running. Main31/performance30 remain public;49 offline artifacts
-32/33/34 are unpublished. Actual16KiB runtime also remains under35.
+The existing Settings/signed-binding fixture adds actual visible literal notices
+and captures, initially before enabling either choice and after recreation in
+its original consent method. Original identities/assertions/cleanup/deadlines,
+including the180second capacity bound, remain. Actual focused17 RED39104783970
+atbc57 is1FAIL38.736s: both choices false/no-binding pass, then Social notice has
+zero semantic matches. Chat/enable/capacity/reopen tails are unexecuted. Source
+39104758822 succeeds. Root fully viewed the old generic Settings PNG/XML; its
+8-hash/32-original packet has1PNG/1XML valid. Instrumentation shell0 is distinct
+from JUnit1FAIL/CI failure.
+
+Actual focused17 GREEN39105276609 at979 succeeds:1PASS78.485s, both new notices
+visible, signed consent union/capacity fallback/recovery, message/draft/roles/
+identity and independent opt-outs pass. The separate consent recreation method
+is not in this focused run. Source39105236042 SUCCESS. Root fully opened all four
+selected originals, including both complete notices and paused/resumed capacity;
+13 hashes/33 original bindings and4PNG/4XML integrity pass. Final full10/17 remains
+pending, not inferred from focused proof.
+
+At frozen979, canonical ordinary35 succeeds3m21s, SHA256
+`4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd`; performance36
+succeeds2m20s, SHA256
+`e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680`.
+Actual signatures, package/version, min29/target36, nondebuggable/profileability
+and all five DEX configuration observations verify. Ordinary review updates true,
+performance false; Push/both Giphy options unconfigured. All local builds are
+DRAINED. Prepared packets/native GREEN/pre-execution plan need committed review.
+Then publish/independently verify only the isolated performance36 before full
+10/17 dispatch with both public feed reads/performance_version36. The fixed
+plan retains430/431 identities,103/104 normal completions,33 deliberate/32
+continuity and all private/group recovery/protected/public/update/final gates.
+Application/build paths239 have exactly three changes versus accepted48; only
+one existing native fixture changes. No expected identity was generated from
+new outcomes. Main35 stays UNPUBLISHED until complete acceptance/review; main31
+and performance30 are still public now. No cloud/provider/node/owner-phone action.
+Actual16KiB runtime and the genuine original external/physical/policy gates stay
+open. Do not repeat pending Giphy/Google questions or publish invented policy.
 
 ## Accepted issue49: signed Play bundle and reviewable release package
 

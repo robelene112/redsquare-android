@@ -5,7 +5,11 @@ child of [#36](https://github.com/robelene112/redsquare-android/issues/36).
 This is a reviewable offline package, not a submitted or approved release.
 Google documentation was rechecked on2026-10-18. The accepted native regression
 is [issue48](../evidence/ticket48/NATIVE_ACCEPTANCE.md); actual packaging evidence
-is [issue49](../evidence/ticket49/README.md). Application inputs remain unchanged.
+is [issue49](../evidence/ticket49/README.md). Candidate 33 application inputs
+match accepted48. Subsequent native50 changes the unconfigured Settings
+descriptions, verified in its focused Android17 journey; final full10/17 remains
+pending. Historical AAB33 retains its original source. Build a fresh bundle after
+the remaining native/configuration changes before final store preparation.
 
 ## Artifact and signing decision
 
@@ -135,10 +139,11 @@ A reviewer uses their own new empty wallet. Do not give them an owner's wallet.
    it to a review report. Import replaces identity through the existing guarded
    confirmation. Neither wallet import nor switching servers is account deletion.
 5. Open Chat or Notifications to see the optional Android permission offer.
-   Skip is allowed. Background transport is unconfigured in this candidate;
-   current Settings consent copy does not itself explain that configuration
-   limitation. Do not read its closed-app wording as demonstrated delivery.
-   Local in-app/foreground activity is not Google push.
+   Skip is allowed. Background transport is unconfigured in this candidate.
+   Native50 now explains this in the two Settings descriptions while retaining
+   saved choices; its focused Android17 observation passes, with full acceptance
+   still pending. Historical AAB33 and public beta31 retain their older generic
+   copy. Local in-app/foreground activity does not demonstrate Google push.
    GIF search is also unavailable; existing attachments can still render.
 6. Use a second reviewer-controlled identity to exercise private/group Chat.
    Available history is retained locally; private transport is encrypted, group transport is not. Full historical resync is

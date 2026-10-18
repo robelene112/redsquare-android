@@ -1,0 +1,79 @@
+{
+  "preparedBeforeFullExecution": true,
+  "applicationSource": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+  "accepted48FullSource": "4e7992d8d253caff15ac0dcbc48001835de09b4f",
+  "productionObjectCount": 239,
+  "changedProductionPaths": [
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/ChatPushChoice.kt",
+    "app/src/main/kotlin/nl/davidengelen/redsquare/notifications/SocialAlertChoice.kt",
+    "app/src/main/res/values/strings.xml"
+  ],
+  "changedNativeHarnessOrFixturePaths": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatPushConsentFixture.kt"
+  ],
+  "identityReferences": [
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected10-identities.json",
+      "sha256": "e8593038387d5d52b32cf9bc282b409face223a026250067e3eb950abd05fb63"
+    },
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected17-identities.json",
+      "sha256": "41b3e35618b6b00a701ae128eafc165ac85a44c56f4af1baebf8acd313dd28fc"
+    },
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/test-identities.py",
+      "sha256": "2e0e29c404511a1eaf31cccf2ee32d3a963d89467f85eb6054eb71fa5338668f"
+    }
+  ],
+  "expectedIdentities": {
+    "android10": 430,
+    "android17": 431
+  },
+  "expectedCompletions": {
+    "android10": 103,
+    "android17": 104
+  },
+  "expectedDeliberateInterruptions": 33,
+  "expectedContinuityRecords": 32,
+  "expectedPartitions": {
+    "android10": [
+      "all"
+    ],
+    "android17": [
+      "chat",
+      "social",
+      "wallet"
+    ]
+  },
+  "gates": [
+    "All ordinary class/case outcomes, exact profile concatenation and existing sole Android10 Profile assumption",
+    "Both private and group same-UUID/three-distinct-PID/zero-expired recovery and protected restoration",
+    "Both fresh approved public feed reads, authenticated public Chat readiness, legacy5-to8 signed continuity and final identity",
+    "Actual immutable independently signed main29/performance36 isolation, main identity unchanged, distinct UIDs/wallets and restoration"
+  ],
+  "limits": "Exact identity equality alone is not acceptance. No physical Pixel timing, configured Google/Giphy delivery, public chain inclusion or Play installation is established. Performance36 must exist and be verified before full dispatch.",
+  "preparedArtifacts": {
+    "main": {
+      "versionCode": 35,
+      "versionName": "0.1.35",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd",
+      "commit": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+      "variant": "release"
+    },
+    "performance": {
+      "versionCode": 36,
+      "versionName": "0.1.36",
+      "applicationId": "nl.davidengelen.redsquare.performance",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+      "sha256": "e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680",
+      "commit": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+      "variant": "performance"
+    }
+  },
+  "preparedSourceMap": {
+    "path": "docs/evidence/ticket50/prepared-source.json",
+    "sha256": "6f4bffd4c684971920b9aa31f5e18ed23b43044a6012b0bb2f0a183c5c7a0367"
+  }
+}
