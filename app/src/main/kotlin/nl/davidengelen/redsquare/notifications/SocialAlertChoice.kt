@@ -14,6 +14,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 
 /** Wallet-scoped app consent, separate from Android permission and categories. */
@@ -54,7 +55,8 @@ internal fun SocialAlertChoice(owner: String, openAndroidSettings: suspend () ->
         Text(stringResource(R.string.notifications_social_choice), Modifier.weight(1f))
         Switch(checked = choice == true, onCheckedChange = null, enabled = choice != null && !saving && !opening)
     }
-    Text(stringResource(R.string.notifications_social_choice_detail), style = MaterialTheme.typography.bodySmall)
+    Text(stringResource(if (BuildConfig.PUSH_CONFIGURED) R.string.notifications_social_choice_detail
+        else R.string.notifications_social_unconfigured_detail), style = MaterialTheme.typography.bodySmall)
     if (failed) {
         Text(stringResource(R.string.notifications_social_choice_error))
         TextButton(enabled = !saving && !opening, onClick = { retry++ }) { Text(stringResource(R.string.retry)) }

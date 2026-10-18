@@ -1,0 +1,59 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushCapacityPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatPushCapacityPreviewTest:
+INSTRUMENTATION_STATUS: test=oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushCapacityPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Background replies and mentions are unavailable in this build. Your choice is saved for this wallet on this phone. Android notification controls still apply.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney$lambda$8$lambda$7$assertUnconfiguredServiceNotices(ChatPushConsentFixture.kt:145)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney(ChatPushConsentFixture.kt:154)
+	at nl.davidengelen.redsquare.ChatPushCapacityPreviewTest.oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(ChatPushCapacityPreviewTest.kt:6)
+
+INSTRUMENTATION_STATUS: stream=
+Error in oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(nl.davidengelen.redsquare.ChatPushCapacityPreviewTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Background replies and mentions are unavailable in this build. Your choice is saved for this wallet on this phone. Android notification controls still apply.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney$lambda$8$lambda$7$assertUnconfiguredServiceNotices(ChatPushConsentFixture.kt:145)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney(ChatPushConsentFixture.kt:154)
+	at nl.davidengelen.redsquare.ChatPushCapacityPreviewTest.oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(ChatPushCapacityPreviewTest.kt:6)
+
+INSTRUMENTATION_STATUS: test=oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.736
+There was 1 failure:
+1) oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(nl.davidengelen.redsquare.ChatPushCapacityPreviewTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Background replies and mentions are unavailable in this build. Your choice is saved for this wallet on this phone. Android notification controls still apply.' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney$lambda$8$lambda$7$assertUnconfiguredServiceNotices(ChatPushConsentFixture.kt:145)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture.consentJourney(ChatPushConsentFixture.kt:154)
+	at nl.davidengelen.redsquare.ChatPushCapacityPreviewTest.oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(ChatPushCapacityPreviewTest.kt:6)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

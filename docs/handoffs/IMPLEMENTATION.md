@@ -23,9 +23,16 @@ The existing real Settings/signed-binding fixture now requires visible literal
 feature-specific disclosures before enabling either choice, and again after
 recreation in the original consent journey. Each is scrolled into view and
 captured independently. All original identities/assertions/deadlines remain,
-including the180second capacity class bound. Production is UNCHANGED at this
-tracer checkpoint. Next: actual focused capacity Android17 RED, retain its true
-outcome/captures, then the minimum conditional resource choice. Final full10/17,
+including the180second capacity class bound. Actual focused17 RED39104783970 atbc57
+records1FAIL38.736s: both original choices false/no active binding pass, then
+Social disclosure lookup finds zero semantic nodes. Chat disclosure/enable/
+capacity/reopen tails are unexecuted. Source39104758822 SUCCESS. The8-hash/
+32-original native-red17 packet retains actual failure plus complete Settings
+PNG/XML; root fully viewed both old generic descriptions/all three choices off,
+with1PNG/1XML structural checks passing. No production minimum existed in RED.
+The minimum now selects two feature-specific unconfigured resources using the
+existing build flag; configured strings and every consent/worker/control path
+remain unchanged. Source/evidence review and focused10/17 GREEN are next. Final full10/17,
 two-axis reviews and an accepted signed phone update remain required. No owned
 local build is running. Main31/performance30 remain public;49 offline artifacts
 32/33/34 are unpublished. Actual16KiB runtime also remains under35.

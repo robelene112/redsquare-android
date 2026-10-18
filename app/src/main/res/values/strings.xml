@@ -509,6 +509,7 @@
     <string name="notifications_mentions_channel">Mentions</string>
     <string name="notifications_social_choice">Replies and mentions</string>
     <string name="notifications_social_choice_detail">Allow these alerts for this wallet on this phone. Android permissions and category settings also apply.</string>
+    <string name="notifications_social_unconfigured_detail">Background replies and mentions are unavailable in this build. Your choice is saved for this wallet on this phone. Android notification controls still apply.</string>
     <string name="notifications_social_choice_error">Could not read or save your alert choice. Try again.</string>
     <string name="notifications_social_offer_detail">Receive replies and mentions for this wallet as Android notifications on this phone. You can skip and keep reading here.</string>
     <string name="notifications_android_settings">Android notification settings</string>
@@ -517,6 +518,7 @@
     <string name="social_push_dismiss">Dismiss notification link</string>
     <string name="chat_background_alerts">Chat alerts when closed</string>
     <string name="chat_background_alerts_detail">Allow private and group chat alerts for this wallet on this phone, including when the app is closed. Android permissions and category settings also apply. Message previews are a separate choice.</string>
+    <string name="chat_background_unconfigured_detail">Background chat alerts are unavailable in this build. Your choice is saved for this wallet on this phone. Message previews are a separate choice.</string>
     <string name="chat_background_alerts_error">Could not load or save your chat alert choice. Try again.</string>
     <string name="chat_group_alert_capacity">New group alerts when closed are paused above %1$d active groups on this server. Your other alerts keep their settings.</string>
     <string name="chat_group_alert_availability_error">Could not check group alert availability. Your saved alert choice has not changed.</string>

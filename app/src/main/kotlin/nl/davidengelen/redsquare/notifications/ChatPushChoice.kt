@@ -14,6 +14,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.MAX_PUSH_GROUP_INTERESTS
@@ -70,7 +71,8 @@ internal fun ChatPushChoice(owner: String, backend: SaitoBackend?) {
         Text(stringResource(R.string.chat_background_alerts), Modifier.weight(1f))
         Switch(checked = choice == true, onCheckedChange = null, enabled = choice != null && !saving)
     }
-    Text(stringResource(R.string.chat_background_alerts_detail), style = MaterialTheme.typography.bodySmall,
+    Text(stringResource(if (BuildConfig.PUSH_CONFIGURED) R.string.chat_background_alerts_detail
+        else R.string.chat_background_unconfigured_detail), style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant)
     if (groupCapacityExceeded) {
         Text(stringResource(R.string.chat_group_alert_capacity, MAX_PUSH_GROUP_INTERESTS),
