@@ -18,106 +18,95 @@ assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSE
 zero OPEN blockers verified. Child of34, under specification1. Review base is
 `d6a64a256ffb77b51d3c565e19f46e49f31eb40c`.
 
-Current production726768c59 has final whole-source Standards0/Spec0. Bounded
-native group worker/history/control/route/recovery, actual group three-PID legacy
-recovery,100-interest capacity fallback/recovery and the private-muted counterpart
-are accepted at their individual Android17 seams. Latest private39090067191 is
-SUCCESS1PASS17.770s; source39090067493 is SUCCESS including release/lint. Both
-latest GREEN evidence reviews0/0. Earlier private RED source39089645330 also
-subsequently SUCCESS; its original packet's pending-source statement is historical.
-The extracted private PID adapter passes current Android10 runtime in39091333019;
-current complete Android17 runtime remains required.
+Current production is `726768c59393a0a48eca75f18923aeea784b4a91`, with final
+whole-source Standards0/Spec0. The bounded group transport, history, scope,
+conversation/category/membership controls, capacity and shared private muted
+counterpart pass their native seams. Current private and group three-PID adapters
+also pass within partial full runs, but complete SDK acceptance remains required.
 
-First complete Android10 run39090558349 at72ad is FAILURE before Chat/group:
-appearance1PASS15.257s, binding1PASS1.908s and Social11cases10PASS1FAIL102.735s.
-The existing physical reply swipe does not remove the visible alert atSocial104;
-all later Chat/group/privatePID/public/full tails are unexecuted. Fifteen-hash/
-41original full-regression/android10-first-swipe-failure packet is retained.
-Root viewed the earlier full card; failure viewer preview shows only status,
-while XML shows the reply after the failure helper reopens the shade. Actual
-touch target/animation at injection is not captured; cause stays a gesture/
-readiness hypothesis. Corrected complete10 run39091333019 atcc7b3aa69
-is FAILURE later at the Android10 group category fixture;50PASS/1FAIL,13normal/
-4deliberate/3continuity. Social card dismissal and autonomous recovery, private
-three-PID/muted-pending and capacity pass. Root fully viewed original category
-failure PNG/XML: the old global switch targets Pop on screen rather than the
-Show notifications main row. Category-disable assertion executes and FAILS;
-subsequent category completion/replay, group PID and later gates are unexecuted.
-The40hash/95original packet preserves this outcome;180PNG/180XML validate.
-Fixture correction5f35d3d26 scopes the exact labelled main row without changing
-assertions/deadlines/production. Both source reviews0; focused10 group run
-39092127900 at61616d658 SUCCESS:7groupPASS79.671s plus groupPID
-6088→6314→6521/SAMEUUIDf687c2a8-b9f2-40ae-8077-ad2dfc001845/0expired/restore.
-The22hash/40original GREEN packet has both reviews0. Root viewed the disabled
-launcher and real recovered generic card; reenabled viewer is status-only and
-qualified by complete integrity/XML. Android17
-run39090559898 at72ad is final FAILURE: ChatFAIL, Wallet/SocialSUCCESS.
-Final5hash/370original packet independently records19+208+39=266PASS,64normal/
-20deliberate/20continuity; duplicate profile aggregate proven exact before exclusion.
-Both final partial-outcome reviews0. It is not430identity full acceptance.
-The Chat job times out during existing autonomous Social scheduling before any
-Chat/group gates. Its41hash/69original packet records19PASS/7completions/
-2interruptions/1continuity, pendingPID5420/work1e3d3bfd-0b16-4706-98df-541b712c42c3,
-stop marker0, deliberate death and restoration1.191s. Host120second observation
-expires with1request/1authentication/0available reads. No per-poll PID/job/timeout
-state was captured, so absent OS start versus pre-authentication failure remains
-unclassified. The Social worker/receiver/host/scheduled fixture were unchanged by47.
-Root viewed the diagnostic pre-death launcher capture. Wallet/Social results are separately inspected in the final-outcome packet;
-their success does not establish the failed SDK's completion.
-Expected full identity sets stay fixed429/430 in the reviewed partition plan.
-237 production/build and original200 fixture objects equal reviewed726. Signed29/0.1.29 is
-prepared at that same72ad source after canonical BUILD SUCCESSFUL3m55s/exit0;
-APKsha aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef,
-established package/certificate/min29 verified. See the six-hash prepared packet.
-Preparation reviews0/0; it is NOT published. Beta28 remains live.
+**Running final verification:**
 
-Fixture-only correction now resolves the actual fully visible SystemUI card at
-gesture time for Social, reusing the existing private/group/process bounds and
-UiObject2 swipe pattern through NotificationCard.kt. All old lookup deadlines
-(5seconds,10seconds for Chat process recovery), physical-disappearance and
-NotificationManager/dedup assertions remain. No production change or longer wait;
-no programmatic dismissal. Existing four card fixtures move unchanged. Identities
-remain429/430; fixture object count becomes201. Both source/evidence reviews0;
-corrected full10 reached and failed the separate category control precondition above.
+- Android10: `39092507398` at `518b596325cec57b6fe2c2ca5f87bbcd504bb286`.
+- Android17: `39093407762`, all three required partitions, at
+  `278c9240164cb1df0c82a63d6342a7c33ee4d4cb`.
+- Both sources and prepared29 have identical complete237 production/build and
+  three build/sign/publish operation objects. Both SDK sources have201 fixture
+  objects, with one difference:17 adds four lines of conditional failure capture
+  inside the existing Wallet export case before ActivityScenario teardown.
+  Assertions, cleanup, deadlines and test identities are unchanged. Prepared29
+  had200 fixture objects; eight paths differ from final17, plus the read-only
+  scheduling observer. Do not claim all prepared/current fixtures equal.
+- Source CI `39092400121` at518 and `39092908198` at278 both SUCCESS, including
+  release assembly/lint/core/gateway. Source CI alone is not runtime acceptance.
 
-Read-only scheduled-recovery diagnostics are now added before retrying the failed
-17 gate: pending WorkInfo state/attempt/next-schedule metadata, pre-death Android
-job/package/process snapshots, per-poll PID/host timeline, and failure snapshots/
-bounded WorkManager logs before cleanup force-stop. Original120second observation,
-no target launches/forced jobs and all acceptance/cleanup remain. Extra observation
-can perturb timing; a later pass cannot prove this timeout's cause or a code fix.
-No production minimum is inferred. WorkInfo getter verified in installed2.12 AAR.
-Diagnostic source/evidence reviews0/0. Focused17 diagnostic39091985886 at879
-is SUCCESS:3normal/2deliberate/2continuity; pending4478 followed by OS-started4807,
-2post-death available reads and exact Android reply card, ending11.7115s of the
-unchanged120second bound. Root fully viewed the card.38hash/62original GREEN
-packet and both reviews0. The earlier timeout cause remains unknown; no
-production repair or Google delivery is inferred.
+The pre-execution partition plan still requires429 Android10 and430 Android17
+identities,103/104 normal completions,33 deliberate interruptions and32 PASS
+continuity records. Require actual outcomes and exact class/path/multiplicity,
+all three distinct17 completion markers, both same-worker three-PID protocols,
+zero expired-gateway requests, restoration, public-read/legacy-update/final-identity
+tails, source checks and original UI inspection before combined final review.
 
-Next: Android10 run39092507398 remains RUNNING at518b596325cec57b6fe2c2ca5f87bbcd504bb286.
-Android17 run39092400352 at that same source has WalletFAIL at its first export
-class:4PASS/1FAIL108.904s, no normal class completion. Stalled-provider case fails
-at15second credential lookup before actual PIN entry; later case recovery and all
-Wallet tails unexecuted. Empty app-crash-class log and final launcher PNG do not
-establish a cause. Root viewed postclass launcher, not the failing window.
-Eleven-hash/34original packet is retained and both evidence reviews0. Chat/Social
-jobs remain running.7f1d86140 adds only failure-time PNG/XML capture inside the
-case before ActivityScenario teardown; all acceptance/cleanup/deadlines and
-production unchanged, both source reviews0. Focused export17 diagnostic39092907984
-is RUNNING at278c92401. Inspect it before a new complete17all3 common-source run.
-An unchanged successful10 may be retained under the workflow's qualified
-fixture-only outstanding-SDK rule. Do not infer an old cause from a later pass.
-The two currently dispatched full sources use identical201
-fixture objects,237production/build objects and3build/sign/publish operations;
-prepared29 production/build and operations also remain identical. Prepared29 had
-200fixture objects; seven fixture paths and the diagnostic host observer differ
-from that earlier source. Do not claim prepared fixtures are all equal.
-Validate429/430identities,103/104normal completions,33deliberate interruptions,
-32PASS continuity, both same-worker three-PID protocols, public/read/update/final
-identity tails and release/lint/core/gateway before final combined review and29
-publication. Source check39091333025SUCCESS atcc7 includes release/lint. No owned
-local build is running. Full watcher24961(10)/6764(17) and focused38924 require later drain/inspection.
-Whole47 and original32/34Google/deployment/physical gates remain pending.
+Signed29/0.1.29 is prepared at72ad after canonical BUILD SUCCESSFUL3m55s/exit0.
+APK SHA256 `aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`;
+established package/certificate/min29 verified. Six-hash prepared packet and
+both preparation reviews0. It remains UNPUBLISHED. Beta28 remains live.
+
+Retained full-run failures and bounded follow-ups:
+
+- First10 `39090558349` at72ad:12PASS/1FAIL at an existing Social physical swipe,
+  before later Chat/group gates. Card gesture/readiness remains a hypothesis,
+  because failure helper reopened the shade before its capture. Reviewedcc7
+  targets the actual fully visible card and shares the unchanged prior predicate.
+- Second10 `39091333019` atcc7:50PASS/1FAIL,13 normal completions,4 deliberate
+  interruptions,3 continuity. Social dismissal/autonomous recovery, private PID/
+  muted counterpart and capacity pass. Group category-disable assertion executes
+  and FAILS: root fully viewed PNG/XML proving the old selector clicks Pop on
+  screen instead of Show notifications. Later category/groupPID/full tails are
+  unexecuted. Labelled-row correction5f35 source/evidence reviews0/0. Focused10
+  `39092127900` at616 passes seven group cases79.671s plus groupPID
+  6088→6314→6521/SAME UUID/0 expired/restoration.22-hash/40-original GREEN, both
+  reviews0. Root viewed disabled launcher and actual recovered card; limited
+  reenabled preview is separately qualified through complete integrity/XML.
+- First17 `39090559898` at72ad: final FAILURE, ChatFAIL/WalletSUCCESS/SocialSUCCESS.
+  Actual266PASS/64 normal/20 deliberate/20 continuity remains incomplete430 proof.
+  Chat stops at the existing autonomous Social120second host observer before
+  Chat/group gates. No per-poll process/job state existed, so absent OS start
+  versus pre-authentication failure remains unknown. Failed-Chat41-hash/69-original
+  and final5-hash/370-original packets are reviewed0/0. Read-only diagnostic879
+  keeps the original deadline, captures pending WorkInfo timing/pre-death job/
+  process data and a per-poll PID/peer timeline, without target launches or forced
+  jobs during observation. Focused17 `39091985886` passes4478→4807, two post-death
+  available reads and actual exact reply card at11.7115s.3 normal/2 deliberate/
+  2 continuity;38-hash/62-original GREEN, root fully viewed card, both reviews0.
+  Extra observation can perturb timing; this does not establish the old cause
+  or an application repair.
+- Second17 `39092400352` at518: WalletFAIL at its first class,4PASS/1FAIL108.904s,
+  zero normal completions. Stalled-provider case fails its15second credential
+  lookup before PIN entry; provider recovery and later Wallet gates unexecuted.
+  No failure-time window was retained; postclass launcher PNG and empty crash
+  classes do not establish a cause.11-hash/34-original packet reviewed0/0.
+  Fixture7f1 adds conditional failure capture before teardown, source reviews0/0.
+  Focused export17 `39092907984` at278 passes all five export cases114.940s,
+  actual process recovery and reminder:7PASS/3 normal/1 deliberate/1 continuity.
+  No failure occurred, so no new failure-time capture was produced. Root fully
+  viewed provider-deadline and backup-saved originals.17-hash/39-original packet
+  reviewed0/0; old cause remains unknown. New complete17 dispatch deliberately
+  supersedes the already failed matrix through existing concurrency policy.
+  Its final state is CANCELLED, WalletFAIL/ChatCANCELLED/SocialCANCELLED.
+  Partial221PASS/1FAIL/51 normal/20 deliberate/16 continuity is retained in the
+  five-hash/302-original superseded packet, with actual private/group PID proof,
+  unfinished Search and missing later gates explicit. Wording finding corrected
+  at1732214d9; Spec residual0, Standards residual pending at this checkpoint.
+
+No owned local Gradle/build is running. Current hosted watchers24961(10) and
+65205(new17) need later drain; old6764 and focused38924 are drained. Large original
+artifacts are under `/mnt/storage/redsquare-android-artifacts`. Temporary promoter,
+precise source-equivalence and acceptance drafts are under
+`/tmp/redsquare-group47-work-20261017`; they are not acceptance records. Promoter
+expects10 source518 and17 source278. Complete both SDK outcomes, inspect originals,
+finish combined whole evidence reviews, then publish prepared29 and independently
+verify public page/latest/immutable29/APK plus unchanged immutable28.
+Whole47 and original32/34 Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense
 status statements describe their dated step, not the current state above.
