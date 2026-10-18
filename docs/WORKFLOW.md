@@ -108,8 +108,12 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    `group-push` and `group-push-android17` isolate the actual group wake receiver
    during development. Full and `chat-alerts` scopes retain all existing private/
    ordinary alert assertions and process recovery, plus a separate group class
-   with its own unchanged180second class bound. This avoids repeating unrelated
-   Chat alert cases for each group correction; focused proof is not full acceptance.
+   with its own unchanged180second class bound and the real group three-process
+   recovery protocol. Private process class/method identities and its own host
+   gate remain. Both recovery gates require the same persisted worker UUID,
+   three distinct PIDs and zero expired-gateway requests, with each existing
+   method/request deadline unchanged. This avoids repeating unrelated Chat alert
+   cases for each group correction; focused proof is not full acceptance.
    Push automation runs core tests, APK assembly (including release) and lint.
    Dispatch focused device runs during development and one full Android 10/17
    run for final acceptance. The full harness includes the local social receipt/tap/
