@@ -1,0 +1,84 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:183)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$7-JOtP64NVBYtobbZ1r6IdYGRjg(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(nl.davidengelen.redsquare.GroupPushWorkPreviewTest):
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:183)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$7-JOtP64NVBYtobbZ1r6IdYGRjg(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 44.756
+There was 1 failure:
+1) aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(nl.davidengelen.redsquare.GroupPushWorkPreviewTest)
+java.util.NoSuchElementException: List is empty.
+	at kotlin.collections.CollectionsKt___CollectionsKt.single(_Collections.kt:616)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$21(GroupPushWorkPreviewTest.kt:183)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$7-JOtP64NVBYtobbZ1r6IdYGRjg(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:162)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
