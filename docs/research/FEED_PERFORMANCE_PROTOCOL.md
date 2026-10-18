@@ -25,6 +25,13 @@ or app dialog prevents feed interaction.
 
 Record the commit, APK version and package, OS/build, device model, system theme,
 network validation state, selected server, cache state and visible post count.
+Record whether Push and each Giphy section are configured, without retaining
+keys or tokens. The isolated package must represent the final release's intended
+feature availability. Configure its own package-specific Performance options;
+never copy Release credentials as an automatic fallback. If those options or
+startup behavior change before release, prepare the corresponding isolated build
+and repeat the physical series. Results from the current unconfigured candidate
+do not establish timing for a later configured release.
 Do not record private wallet material or network payloads in timing reports.
 
 For cached cold launches, populate the feed normally, force-stop the app and
