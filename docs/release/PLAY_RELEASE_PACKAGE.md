@@ -149,9 +149,11 @@ A reviewer uses their own new empty wallet. Do not give them an owner's wallet.
 5. Open Chat or Notifications to see the optional Android permission offer.
    Skip is allowed. Background transport is unconfigured in this candidate.
    Native50 now explains this in the two Settings descriptions while retaining
-   saved choices; its focused Android17 observation passes, with full acceptance
-   still pending. Historical AAB33 and public beta31 retain their older generic
-   copy. Local in-app/foreground activity does not demonstrate Google push.
+   saved choices. Its complete ordinary Android10/17 acceptance passes, whole
+   and publication reviews report0/0, and ordinary35 is published/verified.
+   Historical AAB33 and beta31 retain their older generic copy. Actual51 also
+   passes the scoped16KB journeys; configured Google delivery remains unproved.
+   Local in-app/foreground activity does not demonstrate Google push.
    GIF search is also unavailable; existing attachments can still render.
 6. Use a second reviewer-controlled identity to exercise private/group Chat.
    Available history is retained locally; private transport is encrypted, group transport is not. Full historical resync is
