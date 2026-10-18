@@ -22,13 +22,23 @@ Current production726768c59 has final whole-source Standards0/Spec0. Bounded
 native group worker/history/control/route/recovery, actual group three-PID legacy
 recovery,100-interest capacity fallback/recovery and the private-muted counterpart
 are accepted at their individual Android17 seams. Latest private39090067191 is
-SUCCESS1PASS17.770s; source39090067493 still pending. The extracted private PID
-adapter still needs current runtime proof. Complete Android10 and all three
-Android17 full jobs have NOT started; signed29 is neither prepared nor published.
+SUCCESS1PASS17.770s; source39090067493 is SUCCESS including release/lint. Both
+latest GREEN evidence reviews0/0. Earlier private RED source39089645330 also
+subsequently SUCCESS; its original packet's pending-source statement is historical.
+The extracted private PID adapter still needs current runtime proof.
+
+Complete Android10 run39090558349 and all three Android17 jobs39090559898 are
+RUNNING at72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b, with approved public reads.
 Expected full identity sets are fixed429/430 in the reviewed partition plan.
-Next: review the latest GREEN packet, push this evidence bookend, dispatch both
-full scopes at the same source with approved public reads, and prepare signed29
-through the canonical build. No owned local build is running. Whole47 acceptance
+237 production/build and200 fixture objects equal reviewed726. Signed29/0.1.29 is
+prepared at that same72ad source after canonical BUILD SUCCESSFUL3m55s/exit0;
+APKsha aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef,
+established package/certificate/min29 verified. See the six-hash prepared packet.
+Preparation reviews are pending; it is NOT published. Beta28 remains live.
+
+Next: inspect both complete SDK outcomes, exact identities, all continuity/public
+and current private/group3PID gates; finish whole source/evidence review, then
+publish/independently verify29. No owned local build is running. Whole47 acceptance
 and original32/34 Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense
@@ -399,12 +409,12 @@ quiet unmute/replay and exact one-message/identity/noActivity pass. Eight-hash/
 33original native-private-muted-green packet is retained. Root inspected both
 selected image previews (status region only); complete PNG CRC/zlib and original
 XML confirm launcher captures, not visible-card evidence. Final whole-source
-reviews at726 are0/0; GREEN evidence review is pending. No owned local build.
+reviews at726 are0/0; GREEN evidence reviews0/0. No owned local build.
 
 Pre-execution full identity plan11d937a6b fixes430Android17 and429Android10
 identities (accepted46baseline+11literal additions), with exact paths/multiplicity
 and matching distinct completion markers. Both independent reviews0; fourhashes
-and both baselines independently reproduced. Final full runs have not started.
+and both baselines independently reproduced. Final full runs39090558349/39090559898 were dispatched after the reviewed plan and are now running at72ad, with source/fixture equivalence preserved.
 
 ## Published beta28
 
