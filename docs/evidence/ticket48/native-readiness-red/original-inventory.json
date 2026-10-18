@@ -1,0 +1,50 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-readiness-red-39096300087/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "backend-ui-evidence.tar",
+      "bytes": 230400,
+      "sha256": "f94c09dc22dda55ce6ce8617f07aa0260e79d13b45686b65a8bd43bcfc67b8ca"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "bytes": 45670,
+      "sha256": "dc3d7314430ef579ebf6f4f7042c733c5f42f60569c7cfbb18501384e52cdcb2"
+    },
+    {
+      "path": "emulator.log",
+      "bytes": 9292,
+      "sha256": "7f23a51ecbb5b5f7b3c75989c311ecab6a6389c60ac8bcb9da588769d3458973"
+    },
+    {
+      "path": "feed-readiness-evidence.tar",
+      "bytes": 124416,
+      "sha256": "9c956f4b1f131225bf5f8766f137fefc1a683c830c7da9b32b1e4034bf3ca4b6"
+    },
+    {
+      "path": "feed-ui-failure.png",
+      "bytes": 58,
+      "sha256": "c92186708cecf76267a73be4f3834dcd78b701e04188efb2df385d9753d5dd95"
+    },
+    {
+      "path": "feed-ui-failures.tar",
+      "bytes": 1089,
+      "sha256": "d201f6c371102b3f7675c3c5aee377e2beed49603d9f6fde0d493f8275f4bec1"
+    },
+    {
+      "path": "feed-ui.txt",
+      "bytes": 11616,
+      "sha256": "1d640c84c921cf7ae8761b35d597f010510204b075daaa055201009b90ba40ac"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "bytes": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "bytes": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ]
+}

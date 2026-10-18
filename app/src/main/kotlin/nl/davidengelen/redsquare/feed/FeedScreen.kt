@@ -300,9 +300,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
     }
     LaunchedEffect(recovered) { if (recovered) { delay(3_000); recovered = false } }
-    LaunchedEffect(posts.isNotEmpty(), personal?.ready) {
-        if (posts.isNotEmpty() && personal?.ready == true) { withFrameNanos { }; withFrameNanos { }; onDrawn() }
-    }
     if (reviewingChat && wallet != null) {
         CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
             nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
@@ -399,6 +396,17 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
             (!followingView || post.author in following?.accounts.orEmpty()) }
+        val visiblePostIds = visiblePosts.map { it.id }.toSet()
+        LaunchedEffect(cacheReady, personal?.ready, visiblePostIds, position) {
+            if (cacheReady && personal?.ready == true && visiblePostIds.isNotEmpty()) {
+                snapshotFlow {
+                    val layout = position.layoutInfo
+                    layout.visibleItemsInfo.any { item -> item.key in visiblePostIds &&
+                        minOf(item.offset + item.size, layout.viewportEndOffset) > maxOf(item.offset, layout.viewportStartOffset) }
+                }.first { it }
+                withFrameNanos { }; withFrameNanos { }; onDrawn()
+            }
+        }
         PersonalControlsStatus(personal)
         FollowingStatus(following)
         if (followingView) {
