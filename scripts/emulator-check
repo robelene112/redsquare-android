@@ -1088,9 +1088,10 @@ if [[ "${TEST_SCOPE:-full}" == update-android17 ]]; then
     exit 0
 fi
 adb shell am instrument -w -r \
-    -e class nl.davidengelen.redsquare.FeedPreviewTest,nl.davidengelen.redsquare.BackendPreviewTest \
+    -e class nl.davidengelen.redsquare.FeedPreviewTest,nl.davidengelen.redsquare.BackendPreviewTest,nl.davidengelen.redsquare.FeedReadinessPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
     > "$evidence/feed-ui.txt"
+adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-readiness-evidence > "$evidence/feed-readiness-evidence.tar" || true
 adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/backend-ui-evidence/screen.png > "$evidence/backend-ui-screen.png" || true
 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - backend-ui-evidence > "$evidence/backend-ui-evidence.tar" || true
 if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/feed-ui.txt"; then

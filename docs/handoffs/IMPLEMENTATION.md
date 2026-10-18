@@ -11,6 +11,12 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
+## Active issue48: honest feed readiness and isolated performance preparation
+
+[Issue48](https://github.com/robelene112/redsquare-android/issues/48), child35/spec1, is assigned and ready with zero open blockers. Review base `f8a5a0519400cb0343fae3e84f8bd2149cd68806`. Issue47 is CLOSED and beta29 published/verified. This child prepares actual readiness measurement and a signed isolated performance package; it cannot satisfy the physical Pixel criteria or close35.
+
+First tracer uses the existing signed-feed fixture and owned peer, actual encrypted personal controls, actual UI unmute/visible scroll/header, and the public AndroidX fully-drawn reporter. App production is unchanged before the observed RED. It preserves declared cache/policy files, preferences, backend and wallet. Existing feed scopes run this separate class, with original application assertions/deadlines retained. A local compile is running; actual native RED/GREEN, performance build implementation and final complete10/17 remain pending. Main package/data must never be uninstalled or cleared for performance measurements.
+
 ## Accepted issue47: group Chat background transport
 
 [Issue47](https://github.com/robelene112/redsquare-android/issues/47) is CLOSED,
