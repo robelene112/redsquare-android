@@ -212,7 +212,10 @@ history/member roles/draft/identity and protected independent restoration.
 Recovery launches remain host-initiated. New process assertions are not runtime
 acceptance until their actual run succeeds. No production changed after a5b55c8d9.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
-Android category suppression, interest overflow and real process/legacy recovery remain.
+Interest overflow and real process/legacy recovery remain. Category suppression is
+accepted in the bounded seven-case journey above. Actual group process run
+39087918951 atc474a75e9 is running; source39087919632 is independent. Both
+process-fixture/category-evidence reviews0 after the current remainder correction.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
 
