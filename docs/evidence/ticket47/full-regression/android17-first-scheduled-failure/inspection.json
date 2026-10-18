@@ -1,0 +1,1194 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/group47-full17-first-39090559898/android-native-proof-chat/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "appearance-evidence.tar",
+      "size": 806912,
+      "sha256": "dbb1bf3c949b7227785c0225f49260a08c6fccc59e554fec96e0fcf89528af38"
+    },
+    {
+      "path": "appearance-fresh-install.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "appearance-original-setup.txt",
+      "size": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "appearance-system-before.txt",
+      "size": 530,
+      "sha256": "4de5828391b064d0dd27b624885b0e2e923736d14600848743e4ba84079f0b4d"
+    },
+    {
+      "path": "appearance-system-log.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "appearance-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "appearance-ui.txt",
+      "size": 858,
+      "sha256": "0958c2e6bd616d73b9f715abd50fb6455e04c79d866456819aa6725e1c6536a2"
+    },
+    {
+      "path": "emulator.log",
+      "size": 9070,
+      "sha256": "93a3334f4899ecdff8bc16cdc3a41901dfc0d2674a6ca6c63dfbbab3867b0101"
+    },
+    {
+      "path": "partition.txt",
+      "size": 5,
+      "sha256": "d03a7ba834457c81580617b90aac6f6505232f556952fcb7fabb3a740b1c2170"
+    },
+    {
+      "path": "push-binding-evidence.tar",
+      "size": 2560,
+      "sha256": "e00f91056cbd1f4191e473466e2de7b7454a4f86ce2b2eabf75036e9bfb96b5d"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "size": 864,
+      "sha256": "80e000c740572d9684ea0fe45790454d0ad616507a84b60a63b2bbcb65055c7e"
+    },
+    {
+      "path": "social-push-evidence.tar",
+      "size": 3885568,
+      "sha256": "590cc0452b97fd7407f3907af01bd8bf206c9be0b4f4846cfe00a3ec3cb34156"
+    },
+    {
+      "path": "social-push-permission-before.txt",
+      "size": 9770,
+      "sha256": "ee2cc872a1528692bc58f9e68bb7617dc72d559778affa0739886ce430095e00"
+    },
+    {
+      "path": "social-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-process/continuity.txt",
+      "size": 273,
+      "sha256": "cd5c51f73dc6f9f8651d3615b980c40f131fc6f32ba60af0e460f2e70a6ea04e"
+    },
+    {
+      "path": "social-push-process/dismissed-checkpoint.json",
+      "size": 404,
+      "sha256": "9c25bc0661bb535b0eae4d5494a0bd945f2b1ed95cbde62d7a44ead1ceec1124"
+    },
+    {
+      "path": "social-push-process/images.tar",
+      "size": 537600,
+      "sha256": "ef2fbf6f2c998701e4692a1a348e5fe9969537a3130d3ed65b35539a34f865a8"
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "size": 478,
+      "sha256": "ee693d52f30cbe59eefededb3b7992b7062bca5ccdad1639e63711cf3a206a78"
+    },
+    {
+      "path": "social-push-process/ledger-metadata.txt",
+      "size": 17,
+      "sha256": "d5664ce3ff4611164a30a853a04abb3d7b0493fb80da6800ac1324796657ff21"
+    },
+    {
+      "path": "social-push-process/recovered-checkpoint.json",
+      "size": 414,
+      "sha256": "dabb95eaabfa1f610530d5dc028a50300f1530a89d2ddb4ddfcf3ce9f64a0bdf"
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "size": 839,
+      "sha256": "6c145271f31c3fd291d018c95949931cf7f682f32a3705e0c1eabd710e8c4fc5"
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "size": 813,
+      "sha256": "15b4dee0dfa8b421b8ff7b665c749cf367055a675a00ac562ce825f75e824af7"
+    },
+    {
+      "path": "social-push-scheduled-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/host.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/mode",
+      "size": 4,
+      "sha256": "6c45cb72a36e63d522aa54ed8adbd7a29a989474f2f77e0458af8800564ef3cb"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/observed.json",
+      "size": 81,
+      "sha256": "497b47396ab94e72e6cd3c47e03ff41215fdfff4e844158a31b79dd175799d9e"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/ready.json",
+      "size": 14,
+      "sha256": "3dafe946ca465d1ce06a521470b7be04a398fe6a8f581edc26c517e6e684d837"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/reply.json",
+      "size": 1098,
+      "sha256": "1599a7408c65dd54e9453b118245142246e6bde914fd344ea4a4f4b0c0df2747"
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar",
+      "size": 225280,
+      "sha256": "7d86597b77708d0c61745a3ecf795308441473f9a5bb55ed55bb3a6ef83d81a8"
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "size": 483,
+      "sha256": "af2ebe4b52c323bdf84f2598ca2f094c4b26e139701e801746a9aca9b163cb93"
+    },
+    {
+      "path": "social-push-scheduled-process/pending-checkpoint.json",
+      "size": 2044,
+      "sha256": "54f97be19692d22397ab7cfe0f3e57fa83edef2920b01781702c53131390ba69"
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "size": 816,
+      "sha256": "a3e85a82b356077016800ce37d9c0d4f61fbbdff7b2223aeaffdde72aa635003"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-after.txt",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-before.txt",
+      "size": 29,
+      "sha256": "6ad8b8f6408b0282c96b63f0c3966b33031608a0dd243536e9af0b7d1c379a19"
+    },
+    {
+      "path": "social-push-scheduled-process/termination-request.json",
+      "size": 69,
+      "sha256": "55336e9f7f4da6ae2bce4621e02d38e11db4dee211cb8fd00623e05852df6013"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-ui.txt",
+      "size": 7936,
+      "sha256": "b76e04455b42242050f6c63d3a73b90e3889cc0e6898a39dfce88b54a966eea8"
+    },
+    {
+      "path": "social-push-work-evidence.tar",
+      "size": 1525248,
+      "sha256": "69422708261822459781604540647b1a70e8b5c314a50b413be99e440b934036"
+    },
+    {
+      "path": "social-push-work-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "size": 2295,
+      "sha256": "3711481a3f0ac461c02b356cf8206e8ec9977c35c6c79ced6ff35454d2ec79f7"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ],
+  "instrumentation": [
+    {
+      "path": "appearance-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "48.683"
+      ]
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.867"
+      ]
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.138"
+      ]
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.743"
+      ]
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.191"
+      ]
+    },
+    {
+      "path": "social-push-ui.txt",
+      "passed": 11,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "96.908"
+      ]
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "passed": 3,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "47.499"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "social-push-process/continuity.txt",
+      "text": "PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply visibly alerts; full wallet/backend retained and original encrypted installation restored independently. Local transport only, no FCM or public closed-app claim."
+    }
+  ],
+  "exits": [
+    {
+      "path": "appearance-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "social-push-work-ui-exit.txt",
+      "value": "0"
+    }
+  ],
+  "visuals": [
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/default-system-dark.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/default-system-dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light-reopened.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/light-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-system-light.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-system-light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-reopened.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/dark-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-dark.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-dark.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-light.xml",
+      "kind": "xml",
+      "nodes": 122
+    },
+    {
+      "path": "appearance-evidence.tar::appearance-evidence/system-light.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply-stays-dismissed.xml",
+      "kind": "xml",
+      "nodes": 118
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/dismissed-reply-stays-dismissed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/reply-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/reply-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-conversation.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-post-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-initial.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-initial.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-enabled.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-enabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-conversation.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-disabled.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-settings-disabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-alert.xml",
+      "kind": "xml",
+      "nodes": 134
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-conversation.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-recreated.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-consumed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-cold-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-edited.xml",
+      "kind": "xml",
+      "nodes": 196
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-edited.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-conversation.xml",
+      "kind": "xml",
+      "nodes": 84
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 78
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-group-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-conversation.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-recreated.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-consumed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-mention-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-edited.xml",
+      "kind": "xml",
+      "nodes": 196
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-edited.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-conversation.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-private-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-replies.xml",
+      "kind": "xml",
+      "nodes": 89
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-replies.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-mentions.xml",
+      "kind": "xml",
+      "nodes": 89
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-mentions.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-returned.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-returned.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-conversation.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-android-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-offer.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-offer.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-enabled.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-enabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-conversation.xml",
+      "kind": "xml",
+      "nodes": 83
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-onboarding-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-conversation.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-recreated.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-consumed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-consumed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-draft-restored.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "social-push-evidence.tar::social-push-evidence/tap-username-draft-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/published-before-death.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/published-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/dismissed-before-death.xml",
+      "kind": "xml",
+      "nodes": 118
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/dismissed-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/cold-replay-stays-dismissed.xml",
+      "kind": "xml",
+      "nodes": 118
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/cold-replay-stays-dismissed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/fresh-reply-after-cold-replay.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/fresh-reply-after-cold-replay.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar::social-push-scheduled-evidence/pending-before-death.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar::social-push-scheduled-evidence/pending-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/archive-retry-pending.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/archive-retry-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/scheduled-reply-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/scheduled-reply-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/scheduled-reply-deduplicated.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/malformed/scheduled-reply-deduplicated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/gateway-retry-pending.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/gateway-retry-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/scheduled-reply-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/scheduled-reply-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/scheduled-reply-deduplicated.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/opaque/scheduled-reply-deduplicated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/archive-retry-pending.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/archive-retry-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/scheduled-reply-alert.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/scheduled-reply-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/scheduled-reply-deduplicated.xml",
+      "kind": "xml",
+      "nodes": 141
+    },
+    {
+      "path": "social-push-work-evidence.tar::social-push-work-evidence/timeout/scheduled-reply-deduplicated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": [],
+  "summary": {
+    "files": 43,
+    "passed": 19,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 7,
+    "crashedRecords": 2,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 68,
+    "xml": 68,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  }
+}
