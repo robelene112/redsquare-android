@@ -1,0 +1,11 @@
+{
+  "versionCode": 31,
+  "versionName": "0.1.31",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "3cc48595869335da555bb164afbb72537a65cecc03333cba099dd26dce6d4866",
+  "commit": "688f05b28074a79459b9da4f92f21552e017d64c",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/31/redsquare.apk",
+  "notes": "Beta 31: startup readiness now waits for visible posts and usable controls. Automated Android 10 and 17 checks pass. Install over the existing app. Final phone review and service configuration are still pending."
+}

@@ -14,3 +14,5 @@ differ. This is a timing candidate, not physical acceptance. Publish only throug
 the separate performance path after artifact review, preserving main 31 and the
 immutable performance 30. Then full 10/17 can verify actual36/main 29 installation
 isolation/restoration. Final ordinary35 publication remains gated by full review.
+
+Publication after artifact review is verified in the [publication packet](../performance36-published/README.md). Full installed isolation and physical timing were not run by preparation.

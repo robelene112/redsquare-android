@@ -26,4 +26,4 @@ Exact identities alone never establish acceptance. Actual outcomes, completion/
 continuity records, public/update/final gates, original images/XML and qualified
 missing optional diagnostics must all be assessed. No new outcome is used to
 invent expectations. Pixel timing, configured Google/Giphy delivery,16KiB runtime
-and Play installation remain unverified. Full execution is still pending here.
+and Play installation remain unverified. Performance36 is now published and independently verified; the [publication packet](../performance36-published/README.md) retains the actual observations. Full execution is still pending here.

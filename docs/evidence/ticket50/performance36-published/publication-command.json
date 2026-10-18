@@ -1,0 +1,17 @@
+{
+  "observedAtUtc": "2026-10-18T07:04:11.931651+00:00",
+  "invocationSource": "22b26bb294d151fc226006434a51e59b713535b1",
+  "artifactSource": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+  "command": [
+    "scripts/review-publish",
+    ".scratch/performance-builds/36",
+    "--performance",
+    "--notes",
+    "Isolated timing candidate for the updated Settings explanations. Separate app and wallet storage. Background push and GIF search are unconfigured. Physical timing and complete release acceptance remain pending."
+  ],
+  "canonicalExitCode": 0,
+  "independentHttpsChecks": "PASS",
+  "browserMobileAndDesktop": "PASS",
+  "rootViewedCompleteBrowserImages": true,
+  "physicalOrStoreAcceptance": false
+}

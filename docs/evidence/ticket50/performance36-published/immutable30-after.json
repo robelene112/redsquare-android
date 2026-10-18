@@ -1,0 +1,11 @@
+{
+  "versionCode": 30,
+  "versionName": "0.1.30",
+  "applicationId": "nl.davidengelen.redsquare.performance",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "e8ac3c05de58860962c630fbc35962d08a879fa10f2d856e53a59880b3167f17",
+  "commit": "3e4b78093b3054670604b3e0846ca4e7a95e4238",
+  "variant": "performance",
+  "apkUrl": "https://davidengelen.nl/redsquare/performance/releases/30/redsquare.apk",
+  "notes": "Separate timing candidate with its own wallet and storage. Keep your ordinary Red Square app installed. Nondebuggable, profileable Android 10+ build; corrected focused feed-readiness checks pass on Android 10 and 17. Complete regression and physical Pixel measurements remain pending. Push and Giphy are not configured. This is not a Google Play release."
+}

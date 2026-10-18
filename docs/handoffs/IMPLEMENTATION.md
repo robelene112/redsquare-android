@@ -45,15 +45,19 @@ succeeds2m20s, SHA256
 Actual signatures, package/version, min29/target36, nondebuggable/profileability
 and all five DEX configuration observations verify. Ordinary review updates true,
 performance false; Push/both Giphy options unconfigured. All local builds are
-DRAINED. Prepared packets/native GREEN/pre-execution plan need committed review.
-Then publish/independently verify only the isolated performance36 before full
-10/17 dispatch with both public feed reads/performance_version36. The fixed
+DRAINED. Prepared artifacts/GREEN/pre-execution plan at22b26bb294d151fc226006434a51e59b713535b1
+have Standards0/Spec0, including all13 GREEN hashes/33 bindings and both9-hash
+prepared packets. Performance36 canonical publication exits0 and independent
+actual HTTPS/APK/certificate/manifest/browser checks pass; root fully viewed
+mobile/desktop originals. Main31 metadata/actual APK and immutable performance30
+metadata/actual APK are unchanged. Publication packet needs its bookend review,
+then dispatch full10/17 with public feed reads/performance_version36. The fixed
 plan retains430/431 identities,103/104 normal completions,33 deliberate/32
 continuity and all private/group recovery/protected/public/update/final gates.
 Application/build paths239 have exactly three changes versus accepted48; only
 one existing native fixture changes. No expected identity was generated from
 new outcomes. Main35 stays UNPUBLISHED until complete acceptance/review; main31
-and performance30 are still public now. No cloud/provider/node/owner-phone action.
+and separate performance36 are now public. No cloud/provider/node/owner-phone action.
 Actual16KiB runtime and the genuine original external/physical/policy gates stay
 open. Do not repeat pending Giphy/Google questions or publish invented policy.
 
