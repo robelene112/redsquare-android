@@ -9,6 +9,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.PrivateChat
 import nl.davidengelen.redsquare.saito.GroupChat
+import nl.davidengelen.redsquare.saito.MAX_PUSH_GROUP_INTERESTS
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.VerifiedSaitoPayload
 import java.io.Closeable
@@ -363,7 +364,7 @@ internal class GatewaySubscriptions(directory: Path, origin: String, private val
     private fun boundGroups(binding: JsonObject): List<String> {
         if (!binding.has("groups")) return emptyList()
         val array = binding.get("groups")
-        require(array.isJsonArray && array.asJsonArray.size() <= 100)
+        require(array.isJsonArray && array.asJsonArray.size() <= MAX_PUSH_GROUP_INTERESTS)
         val groups = array.asJsonArray.map {
             require(it.isJsonPrimitive && it.asJsonPrimitive.isString)
             it.asString.also { key -> require(SaitoWallet.isPublicKey(key) && key != text(binding, "owner")) }

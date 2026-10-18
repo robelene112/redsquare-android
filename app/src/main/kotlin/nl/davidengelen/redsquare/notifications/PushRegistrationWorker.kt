@@ -29,6 +29,7 @@ import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.EncryptedLocalFile
+import nl.davidengelen.redsquare.saito.MAX_PUSH_GROUP_INTERESTS
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoLocalState
 import nl.davidengelen.redsquare.saito.SaitoWallet
@@ -152,12 +153,25 @@ class PushRegistrationWorker(context: Context, parameters: WorkerParameters) : C
 private data class RegistrationDemand(val owner: String, val backend: SaitoBackend, val categories: String, val groups: List<String>)
 
 private fun registrationDemand(context: Context): RegistrationDemand? = synchronized(SaitoLocalState.lock) {
-    pushIdentity(context)?.let {
-        RegistrationDemand(it.wallet.publicKey, it.backend, it.categories, pushGroupInterests(context, it))
+    pushRegistrationSelection(context)?.takeIf { it.categories.isNotEmpty() }?.let {
+        RegistrationDemand(it.identity.wallet.publicKey, it.identity.backend, it.categories, it.groups)
     }
 }
 
 internal class PushIdentity(val wallet: SaitoWallet, val backend: SaitoBackend, val categories: String)
+
+/** Capacity changes delivery demand, never the saved consent, membership or available history. */
+internal class PushRegistrationSelection(val identity: PushIdentity, interests: List<String>) {
+    val groupCapacityExceeded = interests.size > MAX_PUSH_GROUP_INTERESTS
+    val categories = identity.categories.split(',')
+        .filterNot { it == "group-chats" && groupCapacityExceeded }.joinToString(",")
+    val groups = if (groupCapacityExceeded) emptyList() else interests
+}
+
+/** Unreadable interests still throw for retry; only a known overflow has a bounded fallback. */
+internal fun pushRegistrationSelection(context: Context): PushRegistrationSelection? = synchronized(SaitoLocalState.lock) {
+    pushIdentity(context)?.let { PushRegistrationSelection(it, pushGroupInterests(context, it)) }
+}
 
 /** One fresh consent/permission/identity calculation is shared by SDK and gateway reconciliation. */
 internal fun pushIdentity(context: Context): PushIdentity? {

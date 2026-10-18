@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushCapacityPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatPushCapacityPreviewTest:
+INSTRUMENTATION_STATUS: test=oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatPushCapacityPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient$Demand.<init>(PushSubscriptionClient.kt:33)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend$lambda$6$lambda$5(PushGatewayBinding.kt:75)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.$r8$lambda$lakEskvJfkCPvNDOn_BgsA376t0(PushGatewayBinding.kt:0)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient.reconcile(PushSubscriptionClient.kt:43)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend(PushGatewayBinding.kt:71)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:8)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:4)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(dex-id-1fdcb798618e2e8848bd9358cc2ae54a6f634d60:1)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding.reconcile(PushGatewayBinding.kt:38)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture$consentJourney$reconcile$1.invokeSuspend(ChatPushConsentFixture.kt:112)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+INSTRUMENTATION_STATUS: stream=
+Error in oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(nl.davidengelen.redsquare.ChatPushCapacityPreviewTest):
+java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient$Demand.<init>(PushSubscriptionClient.kt:33)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend$lambda$6$lambda$5(PushGatewayBinding.kt:75)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.$r8$lambda$lakEskvJfkCPvNDOn_BgsA376t0(PushGatewayBinding.kt:0)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient.reconcile(PushSubscriptionClient.kt:43)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend(PushGatewayBinding.kt:71)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:8)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:4)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(dex-id-1fdcb798618e2e8848bd9358cc2ae54a6f634d60:1)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding.reconcile(PushGatewayBinding.kt:38)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture$consentJourney$reconcile$1.invokeSuspend(ChatPushConsentFixture.kt:112)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+INSTRUMENTATION_STATUS: test=oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 60.499
+There was 1 failure:
+1) oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery(nl.davidengelen.redsquare.ChatPushCapacityPreviewTest)
+java.lang.IllegalArgumentException: Failed requirement.
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient$Demand.<init>(PushSubscriptionClient.kt:33)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend$lambda$6$lambda$5(PushGatewayBinding.kt:75)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.$r8$lambda$lakEskvJfkCPvNDOn_BgsA376t0(PushGatewayBinding.kt:0)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.saito.PushSubscriptionClient.reconcile(PushSubscriptionClient.kt:43)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invokeSuspend(PushGatewayBinding.kt:71)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:8)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding$reconcile$2.invoke(PushGatewayBinding.kt:4)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:66)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(dex-id-1fdcb798618e2e8848bd9358cc2ae54a6f634d60:1)
+	at nl.davidengelen.redsquare.notifications.PushGatewayBinding.reconcile(PushGatewayBinding.kt:38)
+	at nl.davidengelen.redsquare.ChatPushConsentFixture$consentJourney$reconcile$1.invokeSuspend(ChatPushConsentFixture.kt:112)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:586)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:820)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:717)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:704)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

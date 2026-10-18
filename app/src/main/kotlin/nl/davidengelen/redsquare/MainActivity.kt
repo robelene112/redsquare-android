@@ -420,7 +420,7 @@ class MainActivity : ComponentActivity() {
                                             true
                                         }
                                     }
-                                    nl.davidengelen.redsquare.notifications.ChatPushChoice(owner)
+                                    nl.davidengelen.redsquare.notifications.ChatPushChoice(owner, backend)
                                     nl.davidengelen.redsquare.chat.ChatAlertPreviewChoice(owner)
                                 }
                                 Text(stringResource(R.string.server_choice))

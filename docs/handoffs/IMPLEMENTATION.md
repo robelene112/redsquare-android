@@ -329,6 +329,24 @@ Next actions:
 2. Issue47 is now claimed after verifying zero OPEN blockers. Resume its active
    section above;46 is complete and no longer the implementation owner.
 
+## Active group capacity checkpoint
+
+Capacity RED39088561982 at0a0bceca1 is retained under
+`ticket47/native-capacity-red`:1case/1FAIL60.499s. Actual100-group Chat and
+Social union bindings pass; adding101 throws atDemand line33 before fallback
+HTTP. Later notice/recovery/opt-out tails are unexecuted. Newd559 signed-message/
+draft preservation assertions are not part of that source. Root viewed the
+Settings diagnostic. Source39088562705 SUCCESS includes release/lint.
+
+The minimum now computes one registration-only effective selection for SDK and
+gateway: known overflow omits group delivery, preserves private/Social categories
+and saved consent/history, then automatically resumes below the shared100 limit.
+Unreadable interests still throw for retry. Incoming identity preflight remains
+independent. Settings observes backend/group changes offMain and explains paused
+new group alerts or unavailable status. Strengthenedd559 preservation assertions
+will execute in the next native run. Source/evidence review and actual GREEN are
+pending; whole47 acceptance and beta29 publication are not claimed.
+
 ## Published beta28
 
 Public review link: https://davidengelen.nl/redsquare/. Signed28/0.1.28 is published

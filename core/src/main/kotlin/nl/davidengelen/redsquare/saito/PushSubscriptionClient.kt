@@ -12,6 +12,8 @@ import java.security.SecureRandom
 import java.util.Locale
 import java.util.UUID
 
+const val MAX_PUSH_GROUP_INTERESTS = 100
+
 /** Portable subscription lifecycle; Android supplies encrypted device storage and HTTPS. */
 class PushSubscriptionClient(origin: String, private val journal: Journal, private val http: Http) {
     private val origin = canonicalOrigin(origin)
@@ -30,7 +32,7 @@ class PushSubscriptionClient(origin: String, private val journal: Journal, priva
         init {
             require(fid.matches(Regex("[A-Za-z0-9_-]{1,256}")))
             PushCategories.requireCanonical(categories)
-            require(this.groups.size <= 100 && this.groups.distinct().sorted() == this.groups &&
+            require(this.groups.size <= MAX_PUSH_GROUP_INTERESTS && this.groups.distinct().sorted() == this.groups &&
                 this.groups.all { SaitoWallet.isPublicKey(it) && it != wallet.publicKey })
             require("group-chats" in categories.split(',') || this.groups.isEmpty())
         }
