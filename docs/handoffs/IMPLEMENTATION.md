@@ -183,17 +183,19 @@ not text. Disabled-category/application completion assertions are unexecuted.
 `native-category-setup-failure`8hashes/32originalbindings retains actual XML and
 root-viewed full Settings PNG. Source39086432368 SUCCESS includes release/lint.
 
-Current category rerun39086916930 at1c989cca6 is running with unchanged production
-2c7cd31a8. It includes fixture correctionc73: exact-one fetch checks precede
-terminal replay, and fault/category restoration requires successful worker drain
-with guarded outer retry. Both residual reviews0. The rerun observes the actual
-Show notifications master and requires the exact channel importance transition.
-Local55ba02112, not yet pushed, additionally restores a positive exact channel-title
-check using content-description or text within the same10second bound. It also
-corrects the earlier false statement that the title was absent from XML. Both
-fixture/source evidence reviews0; stale status wording is consolidated here.
-No category production minimum exists before observed application RED. The
-nonblocking duplicate retry-wait refactor waits for GREEN.
+Category application RED39086916930 at1c989cca6 is retained:7cases/6PASS/
+1FAIL120.820s. Real worker history/retry and actual Android importanceNONE pass,
+but the same UUID does not finish within40seconds atline242. Later restoration/
+quiet replay acceptance tails are unexecuted; no later stale alert is claimed.
+`native-category-red`10hashes/32original bindings; root-viewed launcher captures
+are diagnostic. Source39086917352 SUCCESS includes release/lint. Fixturec73
+places one-fetch proof before terminal replay and gates restoration on drain;
+55ba adds exact title content-description-or-text observation, same10second bound.
+Both fixture corrections reviewed0/0; no application assertion/deadline weakened.
+Minimuma5b55c8d9 shares strict known-silence checks between early group completion
+and final notifier, preserving unreadable-policy fallback and ledger-fault retry
+precedence. Exact seven-case39087355363 is running; corrected runtime pending.
+The nonblocking duplicate retry-wait refactor waits for GREEN.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
 Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
