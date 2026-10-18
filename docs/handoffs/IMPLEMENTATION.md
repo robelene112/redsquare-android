@@ -11,10 +11,10 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
-## Active issue47: group Chat background transport
+## Accepted issue47: group Chat background transport
 
-[Issue47](https://github.com/robelene112/redsquare-android/issues/47) is OPEN,
-assigned to root's owner and labelled ready-for-agent. Native blocker46 is CLOSED;
+[Issue47](https://github.com/robelene112/redsquare-android/issues/47) is CLOSED,
+accepted at https://github.com/robelene112/redsquare-android/issues/47#issuecomment-6245494664. Native blocker46 is CLOSED;
 zero OPEN blockers verified. Child of34, under specification1. Review base is
 `d6a64a256ffb77b51d3c565e19f46e49f31eb40c`.
 
@@ -33,7 +33,7 @@ pass within both complete SDK runs. Combined review atfdbfca9d6 reports Standard
 - Source39092400121/39092908198 SUCCESS, release/lint/core/gateway tasks. Retained core114; no unobserved gateway count claimed.
 
 Signed29/0.1.29 is PUBLISHED, SHA256
-`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0. Prepared reviews0/0 and combined whole47 reviews atfdbfca9d60/0. Canonical publisher exits0; independent actual public page/latest/immutable29/APK hash/certificate/package/min29 PASS. Immutable28 metadata and actual APK remain unchanged. Thirteen-hash publication packet is committed; publication evidence review/closure pending. Beta29 is live at https://davidengelen.nl/redsquare/.
+`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0. Prepared reviews0/0 and combined whole47 reviews atfdbfca9d60/0. Canonical publisher exits0; independent actual public page/latest/immutable29/APK hash/certificate/package/min29 PASS. Immutable28 metadata and actual APK remain unchanged. Thirteen-hash publication packet is committed; publication bookend4662915ee reviews0/0; issue47 is CLOSED. Beta29 is live at https://davidengelen.nl/redsquare/.
 
 Retained full-run failures and bounded follow-ups:
 
@@ -82,7 +82,7 @@ Retained full-run failures and bounded follow-ups:
   unfinished Search and missing later gates explicit. Wording finding corrected
   at1732214d9; both residual reviews0.
 
-No owned local Gradle/build is running. All hosted watchers/downloads are drained; final10 watcher exited143, independently verified CI SUCCESS and actual raw outcomes are authoritative. Large originals are under `/mnt/storage/redsquare-android-artifacts`. Root preserves temporary helpers under `/tmp/redsquare-group47-work-20261017`; canonical complete evidence is now in Git. Combined review and publication verification are complete. Finish both-axis publication evidence review, then close only47.
+No owned local Gradle/build is running. All hosted watchers/downloads are drained; final10 watcher exited143, independently verified CI SUCCESS and actual raw outcomes are authoritative. Large originals are under `/mnt/storage/redsquare-android-artifacts`. Root preserves temporary helpers under `/tmp/redsquare-group47-work-20261017`; canonical complete evidence is now in Git. Combined review and publication verification are complete. Publication evidence reviews0/0 and issue47 closure are complete.
 
 Next sequential feasible work is a bounded child of35: correct actual feed fully-drawn measurement and prepare isolated release-equivalent performance build. Read-only source finding is posted on35. No35 implementation has begun. Physical Pixel measurements remain unproved. Then prepare the concrete AAB/store-review package under36, preserving unknown publisher/account/contact/retention facts and real external blockers. Do not close parents or repeat pending Giphy/FCM questions. Temporary research/design state is in the session store, not accepted artifacts.
 
