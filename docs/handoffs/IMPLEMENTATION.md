@@ -118,10 +118,24 @@ Both residual fixture reviews0. No missing route implementation preceded RED.
 Minimumb1696d6dd reuses the existing durable private route as typed ChatWakeRoute,
 preserving private filename/alias/JSON. Separate group associations precede history,
 resume verified cached originals and check inactive identity before any new gateway
-proof. Both source reviews0. Actual group native run39082688809 and source
-run39082689171 are dispatched atb169; results pending. No owned local compile.
+proof. Both source reviews0. Native39082688809 atb169 FAILS3cases/2PASS/1FAIL44.756s:
+retryable work is observed, then the scoped history is empty atline183. Later
+identity/counter/tap assertions unexecuted; original two cases PASS. Source
+39082689171 SUCCESS includes release/lint. Eight-hash native-scoped-route-failure
+packet retains32 original bindings; root viewed the launcher failure. The ledger/
+route key-lifecycle explanation is explicitly a source inference, not a captured
+exception. No protected assertion or deadline is weakened.
+
+Fix4bdc9cfa3 keeps group routes in a distinct shared-Chat `group-wake` segment,
+using the already-readable consent key. Optional group publication receipts retain
+their independent groupchatpush key/family. Private filename/alias/schema remain
+unchanged. Existing chatpush fixture preservation covers both route kinds. Both
+fix/evidence reviews0. Actual native39083215842 and source39083216070 run at4bdc9;
+results pending. No owned local compile, download or watcher remains.
+
 Next after actual scoped GREEN: membership/current-policy suppression and real
 process/legacy recovery. Whole47/full10/17, signed29 and closure remain pending.
+Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
 
 ## Accepted issue46: private Chat background transport
 
