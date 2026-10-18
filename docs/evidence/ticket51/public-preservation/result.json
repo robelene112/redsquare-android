@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "main35AndPerformance36PagesAndLatestImmutableMetadataByteIdentical": true,
+  "actualApkBytesVerifiedSeparatelyInRequiredNativeRun": true,
+  "responses": [
+    {
+      "url": "https://davidengelen.nl/redsquare/",
+      "status": 200,
+      "bytes": 2629,
+      "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+      "independentAccepted50Reference": "docs/evidence/ticket50/signed-preview35-published/page.html"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "status": 200,
+      "bytes": 598,
+      "sha256": "be6964d97479ca3c92cbe0b920b407810d2690b0860b07debea749769a29de0e",
+      "independentAccepted50Reference": "docs/evidence/ticket50/signed-preview35-published/latest.json"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/releases/35/manifest.json",
+      "status": 200,
+      "bytes": 598,
+      "sha256": "be6964d97479ca3c92cbe0b920b407810d2690b0860b07debea749769a29de0e",
+      "independentAccepted50Reference": "docs/evidence/ticket50/signed-preview35-published/release35.json"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/performance/",
+      "status": 200,
+      "bytes": 2629,
+      "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b",
+      "independentAccepted50Reference": "docs/evidence/ticket50/performance36-published/page.html"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/performance/latest.json",
+      "status": 200,
+      "bytes": 678,
+      "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71",
+      "independentAccepted50Reference": "docs/evidence/ticket50/signed-preview35-published/performance36.json"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/performance/releases/36/manifest.json",
+      "status": 200,
+      "bytes": 678,
+      "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71",
+      "independentAccepted50Reference": "docs/evidence/ticket50/signed-preview35-published/performance36.json"
+    }
+  ]
+}

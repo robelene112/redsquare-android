@@ -1,0 +1,158 @@
+{
+  "files": 486,
+  "passed": 431,
+  "skipped": 0,
+  "assumed": 0,
+  "failed": 0,
+  "completionRecords": 104,
+  "crashedRecords": 33,
+  "png": 930,
+  "xml": 795,
+  "visualErrors": 4,
+  "continuityRecords": 32,
+  "source": "32c439e437799184f29d70d67b764d148c9b7fe0",
+  "prepared35And36Source": "979fd7b21765acd9a5886dcde0b8ae988eb27451",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "chat": {
+      "files": 205,
+      "passed": 183,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 47,
+      "crashedRecords": 15,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 481,
+      "xml": 481,
+      "visualErrors": 0,
+      "continuityRecords": 13
+    },
+    "social": {
+      "files": 151,
+      "passed": 208,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 39,
+      "crashedRecords": 16,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 381,
+      "xml": 293,
+      "visualErrors": 0,
+      "continuityRecords": 14
+    },
+    "wallet": {
+      "files": 130,
+      "passed": 40,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 18,
+      "crashedRecords": 2,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 68,
+      "xml": 21,
+      "visualErrors": 4,
+      "continuityRecords": 5
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "api": "17",
+    "expectedCount": 431,
+    "actualCount": 431,
+    "partitions": [
+      "chat",
+      "social",
+      "wallet"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 6635,
+    "recoveredPid": 6683,
+    "finalPid": 6747,
+    "workId": "81479f83-73c3-4b7a-9158-ac968a4339c2",
+    "expiredRequests": 0
+  },
+  "groupWakeProcess": {
+    "pid": 7128,
+    "recoveredPid": 7174,
+    "finalPid": 7255,
+    "workId": "94606649-a1e9-4996-98df-388aafbab775",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS; no chain-inclusion claim",
+  "publicChat": "Authenticated readiness PASS; not live message delivery",
+  "signedLegacyUpdate": "5 -> 8; physical main-app update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 239,
+  "signedPerformanceIsolation": {
+    "status": "PASS",
+    "performanceVersion": 36,
+    "mainReferenceVersion": 35,
+    "packageUids": {
+      "nl.davidengelen.redsquare": 10233,
+      "nl.davidengelen.redsquare.performance": 10234
+    },
+    "mainPublicAddressBefore": "sNWyzMmc1yw5tHnuZhUZLohbCe4euuQRFcGHw9pUuqqB",
+    "mainPublicAddressAfter": "sNWyzMmc1yw5tHnuZhUZLohbCe4euuQRFcGHw9pUuqqB",
+    "performancePublicAddress": "vM7REQjhi9s5u4RQc1kJaCnKgVUGFa16nNyZAmZYKTUr",
+    "physicalDeviceAcceptance": false,
+    "physicalTimingMeasured": false
+  },
+  "signedPackageRestoration": {
+    "restoredOriginallyAbsentPackages": true,
+    "attemptedOwnedPackages": [
+      "nl.davidengelen.redsquare",
+      "nl.davidengelen.redsquare.performance"
+    ],
+    "cleanupFailures": []
+  },
+  "emulatorVersionLines": {
+    "chat": "INFO         | Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)",
+    "social": "INFO         | Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)",
+    "wallet": "INFO         | Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)"
+  },
+  "environmentPerPartition": {
+    "chat": {
+      "system-image.txt": "system-images;android-37.0;google_apis_ps16k;x86_64\n",
+      "system-image.properties": "Pkg.Desc=System Image Page Size 16k x86_64 with Google APIs.\nPkg.Revision=7\nPkg.Dependencies=emulator#36.6.11\nAndroidVersion.ApiLevel=37.0\nAndroidVersion.ExtensionLevel=22\nAndroidVersion.IsBaseSdk=true\nSystemImage.Abi=x86_64\nSystemImage.TagId=google_apis,page_size_16kb\nSystemImage.TagDisplay=Google APIs,16 KB Page Size\nSystemImage.GpuSupport=true\nAddon.VendorId=google\nAddon.VendorDisplay=Google Inc.\n",
+      "requested-page-size.txt": "16384\n",
+      "page-size.txt": "16384\n",
+      "device-abi.txt": "x86_64\n",
+      "system-build.txt": "google/sdk_gphone16k_x86_64/emu64xa16k:17/CE2A.260420.050/16231978:userdebug/dev-keys\n"
+    },
+    "social": {
+      "system-image.txt": "system-images;android-37.0;google_apis_ps16k;x86_64\n",
+      "system-image.properties": "Pkg.Desc=System Image Page Size 16k x86_64 with Google APIs.\nPkg.Revision=7\nPkg.Dependencies=emulator#36.6.11\nAndroidVersion.ApiLevel=37.0\nAndroidVersion.ExtensionLevel=22\nAndroidVersion.IsBaseSdk=true\nSystemImage.Abi=x86_64\nSystemImage.TagId=google_apis,page_size_16kb\nSystemImage.TagDisplay=Google APIs,16 KB Page Size\nSystemImage.GpuSupport=true\nAddon.VendorId=google\nAddon.VendorDisplay=Google Inc.\n",
+      "requested-page-size.txt": "16384\n",
+      "page-size.txt": "16384\n",
+      "device-abi.txt": "x86_64\n",
+      "system-build.txt": "google/sdk_gphone16k_x86_64/emu64xa16k:17/CE2A.260420.050/16231978:userdebug/dev-keys\n"
+    },
+    "wallet": {
+      "system-image.txt": "system-images;android-37.0;google_apis_ps16k;x86_64\n",
+      "system-image.properties": "Pkg.Desc=System Image Page Size 16k x86_64 with Google APIs.\nPkg.Revision=7\nPkg.Dependencies=emulator#36.6.11\nAndroidVersion.ApiLevel=37.0\nAndroidVersion.ExtensionLevel=22\nAndroidVersion.IsBaseSdk=true\nSystemImage.Abi=x86_64\nSystemImage.TagId=google_apis,page_size_16kb\nSystemImage.TagDisplay=Google APIs,16 KB Page Size\nSystemImage.GpuSupport=true\nAddon.VendorId=google\nAddon.VendorDisplay=Google Inc.\n",
+      "requested-page-size.txt": "16384\n",
+      "page-size.txt": "16384\n",
+      "device-abi.txt": "x86_64\n",
+      "system-build.txt": "google/sdk_gphone16k_x86_64/emu64xa16k:17/CE2A.260420.050/16231978:userdebug/dev-keys\n"
+    }
+  },
+  "architecture": "x86_64",
+  "actualPageBytes": 16384,
+  "allBundledJniEntryPointsClaimed": false,
+  "acceptedOrdinary10Run": 39111106756,
+  "acceptedOrdinary17Run": 39106585481
+}

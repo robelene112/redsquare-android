@@ -33,9 +33,13 @@ proves local packaging/signature validity, not device installation, Play App
 Signing enrollment, an accepted Console upload or Google-generated split APKs. The actual64-bit
 libraries pass16KiB load-alignment checks and the derived APK passes SDK16KiB
 ZIP alignment. Raw RELRO-end layout observations are retained separately; their
-nonzero remainders leave16KiB-runtime behavior unverified, not a proven crash.
-Include an actual16KiB-device/emulator check under35 before claiming broad
-compatibility. See [Android page-size guidance](https://developer.android.com/guide/practices/page-sizes).
+nonzero remainders alone left16KiB-runtime behavior unverified, not a proven crash.
+Subsequent native51 now passes the existing431-identity .dev suite on actual
+16384-byte/x86_64 Android17 revision7, with separate signed ordinary35/performance36
+wallet/startup/isolation proof. See [the scoped runtime results](../evidence/ticket51/README.md).
+This does not establish all JNI entry points, ARM64, physical or Play-generated
+installation, and does not change historical AAB33's source. Broader compatibility
+remains a separate gate. See [Android page-size guidance](https://developer.android.com/guide/practices/page-sizes).
 See [Android command-line builds](https://developer.android.com/build/building-cmdline)
 and [bundletool](https://developer.android.com/tools/bundletool).
 

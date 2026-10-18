@@ -44,8 +44,10 @@ an Android17 scope (or combined `full`). The hosted runner selects
 Before installing the app, it retains the installed image properties, build/ABI
 and actual `getconf PAGE_SIZE`, requiring16384 and x86_64. Ordinary targets and
 scopes keep their default images. Full17 still requires all three partitions
-and every existing identity/assertion/deadline. Current-source runtime acceptance
-is pending under51; image selection and ELF alignment alone cannot prove it.
+and every existing identity/assertion/deadline. Actual complete51 execution on
+revision7/x86_64/16384-byte pages passes431 identities, with actual signed35/36
+wallet isolation. See [the exact scope](evidence/ticket51/README.md). This does
+not establish ARM64, physical timing or Play-generated installation.
 
 The application ID is `nl.davidengelen.redsquare`. The `.dev` debug application
 and its synthetic tests are separate from the owner preview. Preview versions

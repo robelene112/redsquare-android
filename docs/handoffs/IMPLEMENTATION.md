@@ -11,46 +11,47 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
-## Active issue51: actual 16 KB Android runtime compatibility
+## Active issue51: complete 16 KB runtime proof, final review pending
 
 [Issue51](https://github.com/robelene112/redsquare-android/issues/51), child35/spec1,
-is claimed sequentially after verified closed50 and published35. Zero OPEN
-blockers; fixed review base58f268e73cc245b7a50d6867459bc802ddbff41d. Root remains
-the sole implementation writer. No owner-phone/node/cloud/provider/store changes.
+is assigned after verified closed50. Fixed base58f268e73cc245b7a50d6867459bc802ddbff41d.
+Source77b3940c4 and pre-execution plan32c439e43 have Standards0/Spec0. Only four
+host/workflow files change;239 production/build,202 fixture and four operation
+objects remain equal to accepted50. No app/dependency change or APK rebuild.
 
-The host-only minimum adds explicit optional Android17 x86_64 ps16k image
-selection, an isolated AVD directory and retained image/build/ABI/page evidence,
-requiring actual16384 before app installation. Existing targets, scopes, three
-full17 partitions, native cases/assertions and class/request/host deadlines stay.
-The existing signed observer optionally selects current main35 with a literal
-independent hash; default main29 and its hash remain. It also verifies ordinary
-nonprofileability. Production/build dependencies and all native fixtures are
-unchanged. CLI RED before minimum and safe CLI/syntax/actionlint checks are in
-`ticket51/cli-red`; no native GREEN or16KB acceptance exists yet.
+Actual complete16KB17 run39115917603 is SUCCESS at32c439e437799184f29d70d67b764d148c9b7fe0:
+all3jobs,431PASS/exact431,104normal/33deliberate/32continuity and every original
+protected recovery/public/readiness/legacy-update/final/isolation/restoration gate.
+Each partition records actual16384/x86_64, ps16k revision7/API37.0 extension22,
+Emulator37.2.12.0 and the same exact image build. The full packet binds486 originals,
+validates930PNG/795XML with five known optional unavailable diagnostics. Root opened
+25 selected plus3 public/update originals. Reopened-Social gray-switch PNG vs separate
+checked=true XML/later Chat/final red ON remain non-atomic; no rendering cause inferred.
+Actual signed35/performance36 hashes/cert/manifests, distinct UIDs/wallets, ordinary
+address unchanged and protected original-absence restoration pass. The431 cases
+exercise .dev; signed variants have separate wallet/startup/isolation observations.
 
-Source77b3940c42b466f2bddd8d236345563e93f27be1 and fixed plan32c439e437799184f29d70d67b764d148c9b7fe0 have both reviews0/0.
-Actual complete16KB Android17 run39115917603 is IN PROGRESS at32c, all three
-jobs, with public reads and current main35/performance36. Default ordinary10
-feed/isolation run39115925476 is SUCCESS at the same source:9PASS/1normal/1cold,
-plus3 separate wallet observers. Actual default image revision8/API29/x86_64
-reports4096-byte pages. Independent main29/performance36 hashes, distinct UIDs/
-wallets, unchanged main address and protected absence restoration pass. Its packet
-binds36 originals and validates13PNG/9XML; root opened three wallets/cold feed.
-No runtime acceptance is claimed. SourceCI39115744894 at77 is SUCCESS.
-Retain actual completed artifacts under
+Default10 run39115925476 is SUCCESS at the same source:9identical accepted feed
+cases/1normal/1cold, plus3 separate actual signed observers. Actual default29 rev8/
+x86_64/4096-byte pages, independent main29/performance36 hashes, distinct identities/
+UIDs and absence restoration pass. Its35-hash/36-original packet has both reviews0
+atf6f4d4048; root opened3 wallets/cold feed,13PNG/9XML valid. Ordinary35 and separate36
+public pages/latest/immutable metadata remain byte-identical to accepted50; actual
+required native APK downloads match planned hashes. No publication changed in51.
+
+Next: commit and independently review complete16KB/current combined evidence against
+base58f, fix findings, record whole0/0, close51 and update parent35. The pre-execution
+plan/source snapshots remain immutable; current outcomes are in runtime-results.json.
+No local Gradle/build/download/collector remains active. Owned gh watcher76664 exited143;
+that local exit is not the actual GitHub SUCCESS, retained in completed run metadata.
+Root status cell4949 is completed. Large originals are under
 /mnt/storage/redsquare-android-artifacts/page-size51-{full16k17,default10}-RUN.
-Both dispatched source groups equal reviewed77 exactly; plan/source/artifact
-expectations precede dispatch. No local build is active.
+Temporary collectors are in /tmp/redsquare-group47-work-20261017/promote51-*.py.
 
-Next: inspect actual image/page/ABI metadata from every required partition,
-full outcomes/exact431 map/104 normal/33 deliberate/32continuity and all original
-protected/public/update/final gates, plus planned actual35/36 hashes and signed
-UID/wallet isolation/restoration. Inspect default10 main29 equivalence and
-selected original PNG/XML. Qualify x86_64/configuration/runtime scope; do not
-claim all bundled JNI entry points execute. Physical/ARM64/timing/configured-
-provider/Play acceptance remain open. Keep main35/performance36 publication
-unchanged. If an actual application defect requires production changes, repeat
-complete ordinary10/17 as well as16KB; host-only work retains accepted50 baseline.
+This is current-config/executed-journey x86_64 proof. All JNI paths, ARM64, actual
+Pixel7 timing/update, configured Google/Giphy, Play-generated install and store
+acceptance remain unproved. Do not invent those results or repeat pending setup
+questions. Main35/performance36 stay live. Preserve unrelated research unread.
 
 ## Accepted issue50: honest unconfigured background-alert Settings
 
@@ -173,7 +174,8 @@ Push and both Giphy options are unconfigured. No owned build remains running.
 All239 production/build objects equal accepted48 full10/17 inputs, sourceCI
 39103857593 SUCCESS. Four64-bit libraries pass LOAD alignment and derived APK
 passes SDK16KiB ZIP alignment, but raw RELRO-end remainders remain separately
-qualified and actual16KiB-runtime acceptance is unproved under35.
+qualified. At49 acceptance, actual16KiB runtime was unproved. Subsequent51 now
+passes the scoped x86_64/current-configuration journeys, with final review pending.
 
 [Release package](../release/PLAY_RELEASE_PACKAGE.md) supplies listing drafts,
 six verified actual-design/native assets, reviewer instructions, current merged
@@ -185,7 +187,8 @@ package at278c756d8484dcce9d0cf73ccd5d7e7a294863cf has Standards0/Spec0,
 including all54 evidence hashes, source/artifact/configuration and asset bindings.
 No local build is active. Next useful native polish is explaining unavailable
 background transport in Settings without changing saved consent or Google setup.
-A separate actual16KiB runtime check also remains under35.
+The subsequent actual16KiB check is native51 above; physical/ARM64/Play scope
+remains separate.
 
 No Console/cloud/node/account/key-enrollment/submission action was performed.
 Publisher/account/contact/retention/deletion and policy facts remain unresolved.
@@ -724,7 +727,7 @@ blocker. Fetch current state before reporting counts or changing dependencies.
 |32| Native gateway/client children42/45 accepted. Actual Firebase/GCP Android app/project/sender, authorized hosting/deployment and physical closed-app delivery remain. Configuration question is already pending. |
 |33| Native46 accepted/closed above; configured Google delivery and original32 dependency remain. |
 |34| Native child47 is CLOSED and accepted; configured Google delivery and original32/33 gates remain. |
-|35| Native48 is CLOSED; isolated signed performance30 is published separately. Physical Pixel7 timing/update/wallet-data continuity remain: five cached launches≤2000ms/five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger, positive isolated PID absence before each sample. Never clear the owner's wallet. Actual16KiB runtime remains unverified after49 packaging observations. |
+|35| Native48 is CLOSED; isolated signed performance30 is published separately. Physical Pixel7 timing/update/wallet-data continuity remain: five cached launches≤2000ms/five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger, positive isolated PID absence before each sample. Never clear the owner's wallet. Actual x86_64 16KiB native51 proof passes; physical/ARM64/store scope remains unverified. |
 |36| Native/offline49 is CLOSED with signed AAB33 and concrete listing/assets/data/reviewer drafts. Actual publisher/account/test track/signing enrollment/legal contacts/retention/deletion/Terms/moderation/child-safety and substantive native policy flows remain, plus final device/configured dependencies and submission. Do not invent facts or publish policy/submit without the applicable final authorization. |
 
 Do not remove genuine dependencies or close parents to manufacture progress.

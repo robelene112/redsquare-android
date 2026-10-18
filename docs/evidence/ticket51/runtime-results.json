@@ -1,0 +1,42 @@
+{
+  "issue": 51,
+  "reviewBase": "58f268e73cc245b7a50d6867459bc802ddbff41d",
+  "hostImplementationSource": "77b3940c42b466f2bddd8d236345563e93f27be1",
+  "runtimeSource": "32c439e437799184f29d70d67b764d148c9b7fe0",
+  "full16KB17": {
+    "run": 39115917603,
+    "conclusion": "success",
+    "identities": 431,
+    "passed": 431,
+    "normalCompletions": 104,
+    "deliberateInterruptions": 33,
+    "continuityRecords": 32,
+    "pageBytes": 16384,
+    "abi": "x86_64",
+    "systemImageRevision": 7,
+    "emulatorVersion": "37.2.12.0"
+  },
+  "default10": {
+    "run": 39115925476,
+    "conclusion": "success",
+    "cases": 9,
+    "pageBytes": 4096,
+    "mainReference": 29
+  },
+  "unchangedSource": {
+    "productionBuildObjects": 239,
+    "fixtures": 202,
+    "operations": 4,
+    "hostOnlyDeltas": 4
+  },
+  "acceptedOrdinary50Runs": {
+    "android10": 39111106756,
+    "android17": 39106585481
+  },
+  "main35AndPerformance36PublicationPreserved": true,
+  "wholeReviewPending": true,
+  "limits": [
+    "Instrumentation .dev suite and separately signed35/36 wallet/startup/isolation observations have distinct scope",
+    "No all-JNI-path, ARM64, owner-phone timing/update, configured-provider or Play-generated/store acceptance"
+  ]
+}
