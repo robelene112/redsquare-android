@@ -175,6 +175,18 @@ class GroupPushWorkPreviewTest {
             }
             fail("Group receipt did not complete within40seconds")
         }
+        fun awaitRetainedRetry(id: UUID, label: String) {
+            val deadline = SystemClock.elapsedRealtime() + 40_000
+            var pending = false
+            while (!pending && SystemClock.elapsedRealtime() < deadline) {
+                failure.get()?.let { throw AssertionError("Owned group gateway rejected receipt", it) }
+                val info = work.getWorkInfoById(id).get(5, TimeUnit.SECONDS)
+                assertFalse("The obstructed group receipt must remain retryable", info?.state?.isFinished == true)
+                pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
+                if (!pending) SystemClock.sleep(50)
+            }
+            assertTrue(label, pending)
+        }
         val peer = if (scoped) ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" }) else null
         var peerServer: mockwebserver3.MockWebServer? = null
         var primary: Throwable? = null
@@ -229,16 +241,7 @@ class GroupPushWorkPreviewTest {
                     var receiptFailure: Throwable? = null
                     try {
                         val first = schedule()
-                        val deadline = SystemClock.elapsedRealtime() + 40_000
-                        var pending = false
-                        while (!pending && SystemClock.elapsedRealtime() < deadline) {
-                            failure.get()?.let { throw AssertionError("Owned group gateway rejected receipt", it) }
-                            val info = work.getWorkInfoById(first).get(5, TimeUnit.SECONDS)
-                            assertFalse("The obstructed group receipt must remain retryable", info?.state?.isFinished == true)
-                            pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
-                            if (!pending) SystemClock.sleep(50)
-                        }
-                        assertTrue("The group message must have a retained worker retry", pending)
+                        awaitRetainedRetry(first, "The group message must have a retained worker retry")
                         assertEquals(text, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single().text)
                         assertSilent("Bookkeeping failure must retain the group message without an alert")
                         setCategory(false)
@@ -329,16 +332,7 @@ class GroupPushWorkPreviewTest {
                     val first: UUID
                     try {
                         first = schedule()
-                        val deadline = SystemClock.elapsedRealtime() + 40_000
-                        var pending = false
-                        while (!pending && SystemClock.elapsedRealtime() < deadline) {
-                            failure.get()?.let { throw AssertionError("Owned group gateway rejected receipt", it) }
-                            val info = work.getWorkInfoById(first).get(5, TimeUnit.SECONDS)
-                            assertFalse("The obstructed group receipt must remain retryable", info?.state?.isFinished == true)
-                            pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
-                            if (!pending) SystemClock.sleep(50)
-                        }
-                        assertTrue("The actual group worker must retain its pending receipt", pending)
+                        awaitRetainedRetry(first, "The actual group worker must retain its pending receipt")
                         assertEquals(text, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single().text)
                         assertSilent("A pending group receipt must not publish before bookkeeping recovers")
                         assertNoActivity()

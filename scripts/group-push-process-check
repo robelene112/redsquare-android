@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+"""Verify retained group wake and dismissal across host-initiated cold process recovery."""
+from chat_push_process_check import main
+
+main('group')

@@ -194,8 +194,23 @@ places one-fetch proof before terminal replay and gates restoration on drain;
 Both fixture corrections reviewed0/0; no application assertion/deadline weakened.
 Minimuma5b55c8d9 shares strict known-silence checks between early group completion
 and final notifier, preserving unreadable-policy fallback and ledger-fault retry
-precedence. Exact seven-case39087355363 is running; corrected runtime pending.
-The nonblocking duplicate retry-wait refactor waits for GREEN.
+precedence. Actual39087355363 at a5b55c8d9 is SUCCESS7PASS, with exact duration in
+`native-category-green/source.json`; source39087355277 SUCCESS includes
+release/lint. Both scoped source/evidence RED reviews0. The accepted category
+journey includes actual disable/restore, same-UUID completion before fault repair,
+exact one preterminal fetch and quiet postterminal replay. After this GREEN, the
+nonblocking duplicate retry wait is extracted without changing either40second
+bound or assertion.
+
+Next group process proof reuses the accepted private protocol through concrete
+private/group conversation adapters: private test class/method identities, wake49,
+legacy encrypted array and assertion/deadline semantics remain. Group wake74 seeds
+pre47 JSON without pending metadata, plus an unsent draft. Host recovery must
+observe the same persisted UUID over three distinct PIDs, zero expired-gateway
+requests, generic actual card/physical dismissal, quiet duplicate, exact old/new
+history/member roles/draft/identity and protected independent restoration.
+Recovery launches remain host-initiated. New process assertions are not runtime
+acceptance until their actual run succeeds. No production changed after a5b55c8d9.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
 Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
