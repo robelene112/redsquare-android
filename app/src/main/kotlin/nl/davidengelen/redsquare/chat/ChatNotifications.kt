@@ -34,6 +34,24 @@ internal fun notifyGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
     message: GroupChatMessage, endpoint: String = backend.peerUrl) = notifyChat(context, wallet, backend,
         IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP), endpoint)
 
+internal fun groupChatAlertSuppressed(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    message: GroupChatMessage) = chatAlertSuppressed(context, wallet, backend,
+        IncomingChatAlert(message.id, message.author, message.groupId, ChatAlertKind.GROUP))
+
+/** Known silence is terminal even when optional publication bookkeeping is unavailable. */
+private fun chatAlertSuppressed(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    message: IncomingChatAlert): Boolean {
+    if (Build.VERSION.SDK_INT >= 33 && context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
+        PackageManager.PERMISSION_GRANTED) return true
+    val notifications = context.getSystemService(NotificationManager::class.java)
+    if (!notifications.areNotificationsEnabled() ||
+        notifications.getNotificationChannel(message.kind.channel)?.importance == NotificationManager.IMPORTANCE_NONE) return true
+    if (message.kind == ChatAlertKind.GROUP && GroupChatStore(context, wallet, backend)
+        .load(message.conversationId)?.group?.memberRoles?.get(wallet.publicKey)?.active != true) return true
+    val policy = AndroidPersonalControls(context, wallet.publicKey).load()
+    return policy.hidesSocial(message.author) || message.conversationId in policy.mutedConversations
+}
+
 /** Optional system alerts follow retention. Failures never undo an authenticated saved message. */
 private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
     message: IncomingChatAlert, endpoint: String): ChatNotificationResult {
@@ -42,14 +60,8 @@ private fun notifyChat(context: Context, wallet: SaitoWallet, backend: SaitoBack
         synchronized(SaitoLocalState.lock) {
             if (AndroidWalletStore(context).loadExisting().publicKey != wallet.publicKey ||
                 AndroidBackendStore(context).load() != backend) return@synchronized ChatNotificationResult.SUPPRESSED
-            val policy = AndroidPersonalControls(context, wallet.publicKey).load()
-            if (policy.hidesSocial(message.author) || message.conversationId in policy.mutedConversations) return@synchronized ChatNotificationResult.SUPPRESSED
-            if (message.kind == ChatAlertKind.GROUP && GroupChatStore(context, wallet, backend)
-                .load(message.conversationId)?.group?.memberRoles?.get(wallet.publicKey)?.active != true) return@synchronized ChatNotificationResult.SUPPRESSED
-            if (Build.VERSION.SDK_INT >= 33 && context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED) return@synchronized ChatNotificationResult.SUPPRESSED
+            if (chatAlertSuppressed(context, wallet, backend, message)) return@synchronized ChatNotificationResult.SUPPRESSED
             val notifications = context.getSystemService(NotificationManager::class.java)
-            if (!notifications.areNotificationsEnabled()) return@synchronized ChatNotificationResult.SUPPRESSED
             val channel = message.kind.channel
             notifications.createNotificationChannel(NotificationChannel(channel,
                 context.getString(message.kind.label), NotificationManager.IMPORTANCE_DEFAULT))
