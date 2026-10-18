@@ -62,8 +62,15 @@ internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: Sai
     val history = GroupChatStore(context, wallet, backend)
     val message = history.retainIncoming(envelope) ?: return@synchronized ChatNotificationResult.SUPPRESSED
     try {
-        val policy = AndroidPersonalControls(context, wallet.publicKey).load()
-        if (policy.hidesSocial(message.author) || message.groupId in policy.mutedConversations) {
+        val silenced = try {
+            val policy = AndroidPersonalControls(context, wallet.publicKey).load()
+            policy.hidesSocial(message.author) || message.groupId in policy.mutedConversations
+        } catch (_: Exception) {
+            // The guarded notifier still requires readable policy. Let the shared
+            // publication path preserve ordinary completion and bookkeeping retry precedence.
+            false
+        }
+        if (silenced) {
             history.completeAlert(message.groupId, message.id)
             return@synchronized ChatNotificationResult.SUPPRESSED
         }
