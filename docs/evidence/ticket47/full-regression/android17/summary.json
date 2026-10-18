@@ -1,0 +1,100 @@
+{
+  "files": 448,
+  "passed": 430,
+  "skipped": 0,
+  "assumed": 0,
+  "failed": 0,
+  "completionRecords": 104,
+  "crashedRecords": 33,
+  "png": 918,
+  "xml": 781,
+  "visualErrors": 4,
+  "continuityRecords": 32,
+  "source": "278c9240164cb1df0c82a63d6342a7c33ee4d4cb",
+  "prepared29Source": "72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b",
+  "core": {
+    "tests": 114,
+    "failures": 0,
+    "ignored": 0
+  },
+  "partitions": {
+    "chat": {
+      "files": 199,
+      "passed": 183,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 47,
+      "crashedRecords": 15,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 475,
+      "xml": 475,
+      "visualErrors": 0,
+      "continuityRecords": 13
+    },
+    "social": {
+      "files": 145,
+      "passed": 208,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 39,
+      "crashedRecords": 16,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 381,
+      "xml": 293,
+      "visualErrors": 0,
+      "continuityRecords": 14
+    },
+    "wallet": {
+      "files": 104,
+      "passed": 39,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 18,
+      "crashedRecords": 2,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 62,
+      "xml": 13,
+      "visualErrors": 4,
+      "continuityRecords": 5
+    }
+  },
+  "identityCoverage": {
+    "result": "PASS",
+    "api": "17",
+    "expectedCount": 430,
+    "actualCount": 430,
+    "partitions": [
+      "chat",
+      "social",
+      "wallet"
+    ],
+    "missing": [],
+    "extra": []
+  },
+  "profileAggregateExactConcatenation": true,
+  "privateWakeProcess": {
+    "pid": 6954,
+    "recoveredPid": 7001,
+    "finalPid": 7064,
+    "workId": "e64be64d-d0a2-4400-8070-82f629bac695",
+    "expiredRequests": 0
+  },
+  "groupWakeProcess": {
+    "pid": 7454,
+    "recoveredPid": 7505,
+    "finalPid": 7569,
+    "workId": "012589ea-61c6-477a-9d59-d7b9105d72d7",
+    "expiredRequests": 0
+  },
+  "publicFeeds": "Both approved fresh native reads PASS; no chain-inclusion claim",
+  "publicChat": "Authenticated readiness PASS; not live message delivery",
+  "signedLegacyUpdate": "5 -> 8; physical29 update remains pending",
+  "finalIdentityDiagnostic": true,
+  "preparedProductionBuildObjectsEqual": 237
+}

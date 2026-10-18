@@ -1,0 +1,4138 @@
+{
+  "visuals": [
+    {
+      "path": "author-delete-process/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-edit-process/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/edited-post-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/image-delete-confirmation-ready.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/image-delete-confirmation-ready.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/deleted-post-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/explicit-conflict-resolution.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/image-quote-deleted-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/quote-deleted-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/native-delete-confirmation-ready.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "author-post-evidence.tar::author-post-evidence/native-delete-confirmation-ready.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/verified-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/profile-memory-after-write-failure.xml",
+      "kind": "xml",
+      "nodes": 98
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/profile-memory-after-write-failure.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-conversation-after-restart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/older-profile-like.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/profile-origin-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/profile-available-likes.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-posts-after-restart.xml",
+      "kind": "xml",
+      "nodes": 105
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-posts-after-restart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-likes-after-restart.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-likes-after-restart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-history-warning-after-restart.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/cached-profile-history-warning-after-restart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "browse-evidence.tar::browse-evidence/malformed-thread-rejected.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/partial-author-results.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/partial-author-results-cached.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/unfollowed-empty-feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/available-author-history.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/unconfirmed-follow-write-failure.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/follow-write-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/official-following-after-offline-restart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/replacement-wallet-separate-following.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/original-wallet-following-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/followed-post-with-full-general-cache.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "following-evidence.tar::following-evidence/follow-choice-read-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/provider-failure.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/provider-failure.xml",
+      "kind": "xml",
+      "nodes": 49
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/restored-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/restored-draft.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-preview-bounds.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-preview-bounds.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-preview.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/selected-image-bounds.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/selected-image-bounds.xml",
+      "kind": "xml",
+      "nodes": 190
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/selected-credits.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/selected-credits.xml",
+      "kind": "xml",
+      "nodes": 196
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/restored-image-bounds.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/restored-image-bounds.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/animated-restored-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/animated-restored-draft.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/fresh-activity-credits.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/fresh-activity-credits.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-rate-limit.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-rate-limit.xml",
+      "kind": "xml",
+      "nodes": 191
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-newer-result.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-newer-result.xml",
+      "kind": "xml",
+      "nodes": 196
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-retained-text.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-evidence.tar::giphy-evidence/search-retained-text.xml",
+      "kind": "xml",
+      "nodes": 188
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-available.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-quote-indexed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-available.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-reply-indexed.xml",
+      "kind": "xml",
+      "nodes": 81
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-available.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-indexed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-published-credits.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-published-credits.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-fresh-published-credits.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/owner-post-fresh-published-credits.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-available.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-quote-indexed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-available.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-reply-indexed.xml",
+      "kind": "xml",
+      "nodes": 81
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-available.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-indexed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "giphy-posting-evidence.tar::giphy-posting-evidence/official-post-indexed.xml",
+      "kind": "xml",
+      "nodes": 107
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/durable-draft.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/durable-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/picker-before-process-death.xml",
+      "kind": "xml",
+      "nodes": 48
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/picker-before-process-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/cold-draft.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/cold-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/reconciled-image.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "image-process/images.tar::image-process-evidence/reconciled-image.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "image-queue-process/cold-delivery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "image-queue-process/process-evidence.tar::post-queue-process-evidence/cold-delivery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/system-picker.png",
+      "kind": "png",
+      "width": 640,
+      "height": 320,
+      "decodedBytes": 614720
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/system-picker.xml",
+      "kind": "xml",
+      "nodes": 53
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/system-picker-selected.png",
+      "kind": "png",
+      "width": 640,
+      "height": 320,
+      "decodedBytes": 614720
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/system-picker-selected.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/system-picker-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/saved-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/image-viewer.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/quote-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/reply-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-evidence.tar::images-evidence/post-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/system-picker.png",
+      "kind": "png",
+      "width": 640,
+      "height": 320,
+      "decodedBytes": 614720
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/system-picker.xml",
+      "kind": "xml",
+      "nodes": 53
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/system-picker-selected.png",
+      "kind": "png",
+      "width": 640,
+      "height": 320,
+      "decodedBytes": 614720
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/system-picker-selected.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/system-picker-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/saved-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/image-viewer.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/quote-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/reply-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/post-published.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/remote-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "images-preparation-evidence.tar::images-evidence/switched-after-stalled-images.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/allow-system.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/allow-system.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/allow-reading.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/allow-reading.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/deny-system.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/deny-system.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/deny-reading.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "notification-permission-evidence.tar::notification-permission-evidence/deny-reading.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/activity-before-death.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/activity-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/read-before-death.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/read-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/read-cold-recovered.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notification-process/images.tar::notification-process-evidence/read-cold-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/null-repost-history.xml",
+      "kind": "xml",
+      "nodes": 66
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/null-repost-history.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-mention.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-mention.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/rejected-history.xml",
+      "kind": "xml",
+      "nodes": 66
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/rejected-history.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/remaining-contacts.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/remaining-contacts.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-like.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-like.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-quote-like-original.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-quote-like-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/followed-quote.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/followed-quote.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-reply.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-reply.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/pruned-history-recreated.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/pruned-history-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-quote.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-quote.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-repost.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-repost.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-username-mention.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/incoming-username-mention.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/history-load-fault.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/history-load-fault.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/history-load-recovered.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/history-load-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/stream-retry-late.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/stream-retry-late.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/backend-official.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/backend-official.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/backend-owner-failed.xml",
+      "kind": "xml",
+      "nodes": 66
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/backend-owner-failed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-repost-original.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-repost-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-reply-parent.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-reply-parent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-load-fault.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-load-fault.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-load-recovered.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-load-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/remaining-parents.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/remaining-parents.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/wallet-other.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/wallet-other.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/wallet-owner-restored.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/wallet-owner-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/parent-indexed-reply.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/parent-indexed-reply.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/older-activity.xml",
+      "kind": "xml",
+      "nodes": 68
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/older-activity.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/older-activity-recreated.xml",
+      "kind": "xml",
+      "nodes": 69
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/older-activity-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-history-recreated.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-history-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cached-history-recreated.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cached-history-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/followed-post.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/followed-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-mute-recreated.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-mute-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-block-recreated.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-block-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-controls-restored.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/personal-controls-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-save-failure.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-save-failure.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-save-recovered.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/read-save-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/partial-history.xml",
+      "kind": "xml",
+      "nodes": 63
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/partial-history.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget-unread-recreated.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget-unread-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget-recreated.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/cache-budget-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/feed-mention.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/feed-mention.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-original.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-quote-original.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "notifications-evidence.tar::notification-evidence/missing-quote-original.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-backed-up-preview.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-backed-up-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-incoming-empty-choices.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-incoming-empty-choices.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-incoming-reopened.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-incoming-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-original-restored-mute.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/identity-original-restored-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/anonymous-cached-reading.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/anonymous-cached-reading.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unknown-owner-policy-gate.xml",
+      "kind": "xml",
+      "nodes": 95
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unknown-owner-policy-gate.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/removal-uncertain-policy.xml",
+      "kind": "xml",
+      "nodes": 49
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/removal-uncertain-policy.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/removal-reopened-policy.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/removal-reopened-policy.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-official.xml",
+      "kind": "xml",
+      "nodes": 108
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-official.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-account-offline.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-account-offline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unmuted-cached-post.xml",
+      "kind": "xml",
+      "nodes": 128
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unmuted-cached-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-retained-mute.xml",
+      "kind": "xml",
+      "nodes": 53
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-retained-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-reopened-mute.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-reopened-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-repaired-post.xml",
+      "kind": "xml",
+      "nodes": 127
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/late-save-repaired-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/corrupt-policy-withheld.xml",
+      "kind": "xml",
+      "nodes": 94
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/corrupt-policy-withheld.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/corrupt-policy-repaired-mute.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/corrupt-policy-repaired-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/blocked-without-mute.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/blocked-without-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-and-blocked-offline.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/muted-and-blocked-offline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unblocked-still-muted.xml",
+      "kind": "xml",
+      "nodes": 52
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/unblocked-still-muted.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-original-before-mute.xml",
+      "kind": "xml",
+      "nodes": 133
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-original-before-mute.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/profile-personal-filter.xml",
+      "kind": "xml",
+      "nodes": 78
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/profile-personal-filter.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/thread-personal-filter.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/thread-personal-filter.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-personal-filter.xml",
+      "kind": "xml",
+      "nodes": 127
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-personal-filter.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/search-personal-filter.xml",
+      "kind": "xml",
+      "nodes": 75
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/search-personal-filter.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-personal-offline.xml",
+      "kind": "xml",
+      "nodes": 130
+    },
+    {
+      "path": "personal-controls-evidence.tar::personal-controls-evidence/quote-personal-offline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/choices-before-death.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/choices-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/choices-cold-recovered.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/choices-cold-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/mute-retained-after-unblock.xml",
+      "kind": "xml",
+      "nodes": 108
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/mute-retained-after-unblock.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/explicit-unmute-restored-post.xml",
+      "kind": "xml",
+      "nodes": 127
+    },
+    {
+      "path": "personal-controls-process/images.tar::personal-controls-process-evidence/explicit-unmute-restored-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "picker-reference.png",
+      "kind": "png",
+      "width": 12,
+      "height": 8,
+      "decodedBytes": 296
+    },
+    {
+      "path": "post-process/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/replacement-wallet-has-no-outgoing-queue.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/restored-wallet-resumes-original-queue.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/cancelled-queued-post-remains-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/failed-save-repaired-without-losing-work.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/background-resumption-confirmed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/uncertain-queue-reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/original-backend-resumed-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-evidence.tar::post-queue-evidence/feed-managed-cancellation-retains-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-process/cold-delivery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "post-queue-process/process-evidence.tar::post-queue-process-evidence/cold-delivery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/observed-publication.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/published-post-in-feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/failed-save-keeps-server-and-text.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/published-reply-in-thread.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/replacement-wallet-has-separate-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/outgoing-draft-retained-after-wallet-restore.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/recovered-unsent-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/damaged-draft-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/unsaved-composition-recreation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/confirmed-clear-starts-unsent-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/restored-legacy-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/long-multilingual-owner.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/long-multilingual-official.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/nested-reply-correct-parent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/retried-original-pending-post.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/invalid-text-retained.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/invalid-save-keeps-last-good-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/unfinished-draft-backend-recreation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "posting-evidence.tar::posting-evidence/submitted-awaiting-server.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/unsaved-bio-import-preview.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/unsaved-bio-import-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-before-scroll.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-before-scroll.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-reachable-history.xml",
+      "kind": "xml",
+      "nodes": 92
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/long-bio-reachable-history.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/cached-profile-offline.xml",
+      "kind": "xml",
+      "nodes": 97
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/cached-profile-offline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-blocked.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-blocked.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-recovered.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/failed-bio-save-import-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-failed.xml",
+      "kind": "xml",
+      "nodes": 197
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-failed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-recovered.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-late-save-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/restored-bio-draft.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/restored-bio-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/verified-profile.xml",
+      "kind": "xml",
+      "nodes": 95
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/verified-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-before-reopen.xml",
+      "kind": "xml",
+      "nodes": 73
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-before-reopen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-write-failed.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-write-failed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-failure-after-navigation.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-cache-failure-after-navigation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/bio-snapshot-available.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/bio-snapshot-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-empty-reads.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-empty-reads.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-after-navigation.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/previously-available-after-navigation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-reopened-stale.xml",
+      "kind": "xml",
+      "nodes": 73
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/superseded-profile-reopened-stale.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-new-edit.xml",
+      "kind": "xml",
+      "nodes": 199
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-new-edit.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-recovered-draft.xml",
+      "kind": "xml",
+      "nodes": 75
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-import-cancel-recovered-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-available.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-public.xml",
+      "kind": "xml",
+      "nodes": 96
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/removal-selected-profile-media-public.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-draft.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-available.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-public.xml",
+      "kind": "xml",
+      "nodes": 95
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-removed-media-public.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-available.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-public.xml",
+      "kind": "xml",
+      "nodes": 96
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/selected-profile-media-public.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-superseded.xml",
+      "kind": "xml",
+      "nodes": 73
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-superseded.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-confirmation.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-confirmation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-ready.xml",
+      "kind": "xml",
+      "nodes": 75
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-ready.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-cold-draft.xml",
+      "kind": "xml",
+      "nodes": 75
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-cold-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-available.xml",
+      "kind": "xml",
+      "nodes": 74
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-public.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-new-edit-public.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-mounted.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-mounted.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-cold.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-cold.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-available.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "profile-edit-evidence.tar::profile-edit-evidence/profile-pending-preview-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/prepared-before-death.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/prepared-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/external-picker-before-death.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/external-picker-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cold-draft.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cold-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/uncertain-before-death.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/uncertain-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cold-candidate-available.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cold-candidate-available.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cleared-public-baseline.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "profile-process/images.tar::profile-process-evidence/cleared-public-baseline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/recovered-original-quote-candidate.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/current-commentary-retweet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/current-retweet-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/recovered-quote-draft.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/unavailable-original-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/published-quote-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-evidence.tar::quote-evidence/backend-isolated-original-cache.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "quote-process/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/pending-before-process-death.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/pending-before-process-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/cold-recovered-unknown.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/cold-recovered-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/cold-explicit-retry-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "report-process/images.tar::report-process-evidence/cold-explicit-retry-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-warning.xml",
+      "kind": "xml",
+      "nodes": 43
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-warning.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-reopened-unknown.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-reopened-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-repaired-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/receipt-save-repaired-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/lost-acknowledgement.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/lost-acknowledgement.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/reopened-uncertain.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/reopened-uncertain.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/retry-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/retry-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/saving-prevents-transmission.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/saving-prevents-transmission.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/saving-repaired-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/saving-repaired-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-backed-up-consent.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-backed-up-consent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-incoming-independent-report.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-incoming-independent-report.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-original-restored-unknown.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-original-restored-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-original-explicit-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/identity-original-explicit-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-closed.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-closed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-repaired-unknown.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-repaired-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-explicit-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unreadable-details-explicit-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-unknown.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-official-confirmation.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-official-confirmation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-official-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-official-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-restored-unknown.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-restored-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-retry-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/backend-owner-retry-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/deadline-unknown.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/deadline-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/deadline-retry-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/deadline-retry-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-original-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-original-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-stale-unknown.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-stale-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-adopted.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-adopted.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-reopened.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/restored-receipt-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/confirmation.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/confirmation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/acknowledged-feed.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/acknowledged-feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/acknowledged-conversation.xml",
+      "kind": "xml",
+      "nodes": 73
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/acknowledged-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-peer-error.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-peer-error.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-peer-error-reopened.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-peer-error-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-application-error.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-application-error.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-application-error-reopened.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-application-error-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-empty.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-empty.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-empty-reopened.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-empty-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-malformed.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-malformed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-malformed-reopened.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-malformed-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-explicit-acknowledged.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/invalid-ack-explicit-acknowledged.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send-reopened.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send-repaired.xml",
+      "kind": "xml",
+      "nodes": 42
+    },
+    {
+      "path": "reports-evidence.tar::report-evidence/unavailable-before-send-repaired.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-author-prefix.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-author-prefix.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-offline-name-prefix.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-offline-name-prefix.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-key-recreated.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-key-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-invalid-key.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-invalid-key.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-offline-retained.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-offline-retained.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-official-isolated.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-official-isolated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/partial-history-retained.xml",
+      "kind": "xml",
+      "nodes": 91
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/partial-history-retained.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/older-history-result.xml",
+      "kind": "xml",
+      "nodes": 103
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/older-history-result.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/reply-search-recreated.xml",
+      "kind": "xml",
+      "nodes": 75
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/reply-search-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-name-recreated.xml",
+      "kind": "xml",
+      "nodes": 65
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-name-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-save-warning.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-save-warning.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-save-repaired-offline.xml",
+      "kind": "xml",
+      "nodes": 76
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/cache-save-repaired-offline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-cached-check.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/people-cached-check.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/author-edit-stale-reopen.xml",
+      "kind": "xml",
+      "nodes": 77
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/author-edit-stale-reopen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/author-delete-stale-reopen.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "search-evidence.tar::search-evidence/author-delete-stale-reopen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/pending-like-retains-original-backend.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/recovered-RedSquareRetweet-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/verified-ordinary-repost-with-served-count.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/repaired-saving-retains-wallet-and-target.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/restored-wallet-original-like.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/verified-like-across-views.xml",
+      "kind": "xml",
+      "nodes": 106
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/verified-like-across-views.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/recovered-RedSquareLike-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-evidence.tar::social-evidence/verified-like-count-refresh-warning.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-process/images.tar::social-process-evidence/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-process/reconciled-without-rebroadcast.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/pending-before-death.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/pending-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/pending-cold-recovery.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/pending-cold-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/cold-reviewed-retry.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/cold-reviewed-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/cold-exact-retry-pending.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfer-process/images.tar::transfer-process-evidence/cold-exact-retry-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-blocked-review.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-blocked-review.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-blocked-reopened.xml",
+      "kind": "xml",
+      "nodes": 43
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-blocked-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-readable-again.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/storage-readable-again.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reviewed-payment.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reviewed-payment.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/real-device-auth.xml",
+      "kind": "xml",
+      "nodes": 53
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/real-device-auth.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/pending-payment.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/pending-payment.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/pending-reopened.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/pending-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reviewed-retry.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reviewed-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/exact-retry-pending.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/exact-retry-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/receiving-qr-0.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/receiving-qr-0.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/receiving-qr-1.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/receiving-qr-1.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-cancel-before-system-back.xml",
+      "kind": "xml",
+      "nodes": 53
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-cancelled.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-cancelled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-cancel-reopened.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-cancel-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-setup.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-setup.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-setup-reopened.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/auth-setup-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/funding-lost.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/funding-lost.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/funding-lost-reopened.xml",
+      "kind": "xml",
+      "nodes": 203
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/funding-lost-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/balance-and-receive.xml",
+      "kind": "xml",
+      "nodes": 70
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/balance-and-receive.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/included-payment.xml",
+      "kind": "xml",
+      "nodes": 57
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/included-payment.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/included-reopened.xml",
+      "kind": "xml",
+      "nodes": 48
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/included-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/history-unknown.xml",
+      "kind": "xml",
+      "nodes": 201
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/history-unknown.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reorganized-payment.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reorganized-payment.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reorganized-reopened.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/reorganized-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/change-reviewed.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/change-reviewed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-0.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-0.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-1.xml",
+      "kind": "xml",
+      "nodes": 201
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-1.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-2.xml",
+      "kind": "xml",
+      "nodes": 201
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-2.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-3.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-backend-3.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-incoming.xml",
+      "kind": "xml",
+      "nodes": 67
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-incoming.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-restored.xml",
+      "kind": "xml",
+      "nodes": 50
+    },
+    {
+      "path": "transfers-evidence.tar::transfer-evidence/isolation-restored.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-error.xml",
+      "kind": "xml",
+      "nodes": 95
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-error.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-recovered.xml",
+      "kind": "xml",
+      "nodes": 94
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-recovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-cached.xml",
+      "kind": "xml",
+      "nodes": 95
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-name-save-cached.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-confirmed.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-confirmed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-confirmed-cached.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-confirmed-cached.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-preview.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-replaced-profile.xml",
+      "kind": "xml",
+      "nodes": 93
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-replaced-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-replaced-recreated.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-import-replaced-recreated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-settings-discovered.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-settings-discovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-named-import.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-named-import.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-unavailable.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-unavailable.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-shared-feed.xml",
+      "kind": "xml",
+      "nodes": 131
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-shared-feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-shared-conversation.xml",
+      "kind": "xml",
+      "nodes": 71
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-shared-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-discovered-profile.xml",
+      "kind": "xml",
+      "nodes": 94
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-discovered-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-registered.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-registered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-profile.xml",
+      "kind": "xml",
+      "nodes": 94
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-profile.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-race.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-race.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-retired-reopened.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-retired-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-retired-unreadable.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-retired-unreadable.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-new-candidate.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-new-candidate.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-settings-late-discovered.xml",
+      "kind": "xml",
+      "nodes": 60
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-settings-late-discovered.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-quoted-name.xml",
+      "kind": "xml",
+      "nodes": 134
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-quoted-name.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-import-preview.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-import-preview.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-replaced.xml",
+      "kind": "xml",
+      "nodes": 58
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-replaced.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-reopened.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-pending-reopened.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-request-save-error.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-request-save-error.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-request-unreadable.xml",
+      "kind": "xml",
+      "nodes": 62
+    },
+    {
+      "path": "username-evidence.tar::username-evidence/username-request-unreadable.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-process/images.tar::username-process-evidence/pending-before-death.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-process/images.tar::username-process-evidence/pending-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "username-process/images.tar::username-process-evidence/pending-cold-recovery.xml",
+      "kind": "xml",
+      "nodes": 59
+    },
+    {
+      "path": "username-process/images.tar::username-process-evidence/pending-cold-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/tapped-player.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/tapped-player.xml",
+      "kind": "xml",
+      "nodes": 46
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/small-window.png",
+      "kind": "png",
+      "width": 640,
+      "height": 320,
+      "decodedBytes": 614720
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/small-window.xml",
+      "kind": "xml",
+      "nodes": 45
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/portrait-bounds.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/portrait-bounds.xml",
+      "kind": "xml",
+      "nodes": 48
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/provider-error.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/provider-error.xml",
+      "kind": "xml",
+      "nodes": 47
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/embed-refused-explanation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/embed-refused-explanation.xml",
+      "kind": "xml",
+      "nodes": 51
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/paused-player.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/paused-player.xml",
+      "kind": "xml",
+      "nodes": 49
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/recreated-player.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "video-evidence.tar::video-evidence/recreated-player.xml",
+      "kind": "xml",
+      "nodes": 49
+    },
+    {
+      "path": "video-last-window.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": []
+}
