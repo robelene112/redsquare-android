@@ -18,6 +18,7 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import nl.davidengelen.redsquare.chat.GroupChatStore
+import nl.davidengelen.redsquare.chat.ChatAlertSettings
 import nl.davidengelen.redsquare.chat.receiveChat
 import nl.davidengelen.redsquare.notifications.ChatPushSettings
 import nl.davidengelen.redsquare.notifications.SocialPushWakeScheduling
@@ -37,7 +38,10 @@ class GroupPushWorkPreviewTest {
     @Test fun ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication() =
         groupJourney(ordinaryRecovery = true)
 
-    private fun groupJourney(ordinaryRecovery: Boolean = false) {
+    @Test fun aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation() =
+        groupJourney(scoped = true)
+
+    private fun groupJourney(ordinaryRecovery: Boolean = false, scoped: Boolean = false) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -65,14 +69,14 @@ class GroupPushWorkPreviewTest {
         val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey
-        val backend = SaitoBackend.OWNER
+        val backend = if (scoped) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
         val now = System.currentTimeMillis()
         val creation = GroupChat.create(author, groupKey, "A known background group", listOf(wallet.publicKey), now - 1)
         val group = GroupChat.readCreation(creation.envelope())
         val text = "A group message retained in the local conversation"
         val original = GroupChat.message(author, group, text, now)
         assertFalse(wallet.publicKey in SaitoEnvelope.decode(original.envelope()).recipients)
-        val wake = (if (ordinaryRecovery) "72" else "71").repeat(32)
+        val wake = (if (scoped) "73" else if (ordinaryRecovery) "72" else "71").repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -117,7 +121,7 @@ class GroupPushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:${backend.id}:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val capturePrefix = if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
+        val capturePrefix = if (scoped) "group-scoped" else if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "group-push-evidence/$capturePrefix-$name.png"))
         fun assertSilent(label: String) {
             val silentUntil = SystemClock.elapsedRealtime() + 2_000
@@ -139,6 +143,8 @@ class GroupPushWorkPreviewTest {
             }
             fail("Group receipt did not complete within40seconds")
         }
+        val peer = if (scoped) ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" }) else null
+        var peerServer: mockwebserver3.MockWebServer? = null
         var primary: Throwable? = null
         var stopped = false
         fun requireStopped() { check(stopped); assertNoActivity() }
@@ -147,10 +153,83 @@ class GroupPushWorkPreviewTest {
             wallets.replace(previous, wallet); backends.save(backend)
             GroupChatStore(context, wallet, backend).receive(creation.envelope())
             ChatPushSettings(context, wallet.publicKey).setEnabled(true)
+            peerServer = peer?.start()
             gateway.start(java.net.InetAddress.getByName("127.0.0.1"), 0)
             withFailureCapture({ capture("failure") }) {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, wake,
-                    "http://127.0.0.1:${gateway.port}/v1/wakes/resolve") }
+                    "http://127.0.0.1:${gateway.port}/v1/wakes/resolve",
+                    peerServer?.let { "ws://127.0.0.1:${it.port}/wsopen" }) }
+                if (scoped) {
+                    val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    val first: UUID
+                    try {
+                        first = schedule()
+                        val deadline = SystemClock.elapsedRealtime() + 40_000
+                        var pending = false
+                        while (!pending && SystemClock.elapsedRealtime() < deadline) {
+                            failure.get()?.let { throw AssertionError("Owned group gateway rejected receipt", it) }
+                            val info = work.getWorkInfoById(first).get(5, TimeUnit.SECONDS)
+                            assertFalse("The obstructed group receipt must remain retryable", info?.state?.isFinished == true)
+                            pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
+                            if (!pending) SystemClock.sleep(50)
+                        }
+                        assertTrue("The actual group worker must retain its pending receipt", pending)
+                        assertEquals(text, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single().text)
+                        assertSilent("A pending group receipt must not publish before bookkeeping recovers")
+                        assertNoActivity()
+                        backends.save(SaitoBackend.OWNER)
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                    await(first)
+                    assertSilent("An Official group receipt must not alert on Owner")
+                    assertEquals(SaitoBackend.OWNER, backends.load())
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    backends.save(backend)
+                    val replacement = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+                    wallets.replace(wallet, replacement)
+                    await(schedule())
+                    assertSilent("An inactive wallet's group receipt must not alert under its replacement")
+                    assertEquals(replacement.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
+                    assertEquals(text, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single().text)
+                    assertNoActivity()
+                    capture("inactive-scopes-silent")
+                    wallets.replace(replacement, wallet)
+                    ChatAlertSettings(context, wallet.publicKey).setPreviewsEnabled(true)
+                    await(schedule())
+                    val publishedBy = SystemClock.elapsedRealtime() + 5_000
+                    while (manager.activeNotifications.none { it.tag == tag } && SystemClock.elapsedRealtime() < publishedBy)
+                        SystemClock.sleep(25)
+                    val alert = manager.activeNotifications.single { it.tag == tag }
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
+                    assertEquals("group-chats", alert.notification.channelId)
+                    assertEquals("New message", alert.notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
+                    assertNoActivity()
+                    assertTrue(device.openNotification())
+                    val row = requireNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
+                    capture("generic-alert")
+                    row.click()
+                    assertTrue("The actual group card must open its retained message",
+                        device.wait(Until.hasObject(By.pkg(context.packageName).text(text)), 20_000))
+                    assertTrue("The destination must be the exact group",
+                        device.wait(Until.hasObject(By.pkg(context.packageName).text(group.name)), 20_000))
+                    assertTrue("The group destination must retain its unencrypted label",
+                        device.wait(Until.hasObject(By.pkg(context.packageName).text("Group messages are unencrypted.")), 20_000))
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    requireNotNull(peer).assertHealthy()
+                    assertTrue(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
+                    capture("exact-conversation")
+                    finishActivities()
+                    await(schedule())
+                    assertSilent("An opened group receipt must not alert again")
+                    assertEquals(1, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.size)
+                    assertNoActivity()
+                    return@withFailureCapture
+                }
                 if (ordinaryRecovery) {
                     val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
                     check(obstruction.mkdir())
@@ -209,7 +288,7 @@ class GroupPushWorkPreviewTest {
         finally {
             cleanupAfterTest(primary,
                 { runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) }; finishActivities(); stopped = true },
-                { gateway.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
+                { gateway.close() }, { peerServer?.close() }, { manager.cancel(tag, 0) }, { device.pressBack() },
                 { requireStopped(); retained.restoreFiles() }, { requireStopped(); retained.restorePreferences() },
                 { requireStopped(); wallets.replace(wallets.loadExisting(), previous); check(wallets.loadExisting().exportJson() == previousJson) },
                 { requireStopped(); backends.save(previousBackend); check(backends.load() == previousBackend) })
