@@ -66,9 +66,11 @@ class GroupPushWorkPreviewTest {
         }
         assertNoActivity()
         // Published unsafe fixture identities; this transport story adds no independent interoperability claim.
-        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
-        val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "9").publicKey
+        val wallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").let {
+            if (scoped) it.withNamedChatGroup(groupKey, "A known background group") else it
+        }
+        val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
         val backend = if (scoped) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
         val now = System.currentTimeMillis()
         val creation = GroupChat.create(author, groupKey, "A known background group", listOf(wallet.publicKey), now - 1)
