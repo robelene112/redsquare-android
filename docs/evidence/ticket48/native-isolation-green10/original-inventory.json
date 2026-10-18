@@ -1,0 +1,155 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-isolation10-39098673353/android-native-proof/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "backend-ui-evidence.tar",
+      "size": 228864,
+      "sha256": "d666bb7c07cca7ee17f38e5cd745d2ade574ccd788573842feae812d4094349d"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "size": 45474,
+      "sha256": "fe45bae5686a619d6e89a464ba2f23d36bae4426b45f19720ad0edd6cb2d4702"
+    },
+    {
+      "path": "emulator.log",
+      "size": 5645,
+      "sha256": "78fba45cfa360f48f865829d3b8faba1269ff62d8051524bc92a13fceecad58c"
+    },
+    {
+      "path": "feed-cold-launch/continuity.txt",
+      "size": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "size": 54351,
+      "sha256": "0bcdd2c1b90c935f7aedf3957599fbd95ccd88ed99dba6b4272371cff6810b95"
+    },
+    {
+      "path": "feed-cold-launch/fully-drawn.txt",
+      "size": 242,
+      "sha256": "c13715e202ee6a8d7b270c04d6d25bb62d0a8ba043b83f6ac7fd9b5aa55855c0"
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "size": 32386,
+      "sha256": "2d2f2e6c5e23f535e4edf4afeb096ba958d96e5a13d7686feec4c4008b60dc1f"
+    },
+    {
+      "path": "feed-cold-launch/launch.txt",
+      "size": 255,
+      "sha256": "8b46490bcdfd9bf9fa0ebba7a9be40ddf6ad559e342ee475748db9c16cfbd256"
+    },
+    {
+      "path": "feed-readiness-evidence.tar",
+      "size": 200192,
+      "sha256": "3d03f59ea4ddf3e4ff2da54907e58fb3e5f0c9231da1fdef0faee3c97df36fff"
+    },
+    {
+      "path": "feed-ui.txt",
+      "size": 6421,
+      "sha256": "793e926faab39e9b8aa42d8e78b6b10c0db5a3508e6159f7a6db17350f2789ea"
+    },
+    {
+      "path": "performance-package/main-after.log",
+      "size": 896,
+      "sha256": "3dfcb4889c3e107feb277c75c3bef40efd5f4ec8b30427f8762c104271797a50"
+    },
+    {
+      "path": "performance-package/main-after.png",
+      "size": 32350,
+      "sha256": "74bad8b44316593c60ce309ba4e1de1cf8e9f096688a0c085af36f15ca195537"
+    },
+    {
+      "path": "performance-package/main-after.xml",
+      "size": 23884,
+      "sha256": "970d5440ddd6c763dc0d7926ee3a6e310fb42b72d6e1281898cb3af3d865a80b"
+    },
+    {
+      "path": "performance-package/main-before.log",
+      "size": 896,
+      "sha256": "6c8dc2a68af177654752ccf87f5349fa6d2ca4a9fb14d20c21eb4dbe14535b09"
+    },
+    {
+      "path": "performance-package/main-before.png",
+      "size": 32350,
+      "sha256": "74bad8b44316593c60ce309ba4e1de1cf8e9f096688a0c085af36f15ca195537"
+    },
+    {
+      "path": "performance-package/main-before.xml",
+      "size": 23884,
+      "sha256": "970d5440ddd6c763dc0d7926ee3a6e310fb42b72d6e1281898cb3af3d865a80b"
+    },
+    {
+      "path": "performance-package/main29-android-manifest.xml",
+      "size": 10812,
+      "sha256": "0c898f273d0320a5481414d1844578103407409ac5b7dcfcdbe2ec4c03b2b893"
+    },
+    {
+      "path": "performance-package/main29-manifest.json",
+      "size": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    },
+    {
+      "path": "performance-package/main29-signature.txt",
+      "size": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "performance-package/main29.apk",
+      "size": 37508099,
+      "sha256": "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef"
+    },
+    {
+      "path": "performance-package/performance-android-manifest.xml",
+      "size": 10953,
+      "sha256": "031759442a0af954c6183ef6918881d6a2229eb17be897226dd8d6dbde35a244"
+    },
+    {
+      "path": "performance-package/performance-manifest.json",
+      "size": 822,
+      "sha256": "66920fbcaabf707ca9c8c1076ebedaeeeb1a71ec0fc60e6e2f82aec2a9b13a2a"
+    },
+    {
+      "path": "performance-package/performance-signature.txt",
+      "size": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "performance-package/performance-wallet.log",
+      "size": 896,
+      "sha256": "c10dfdd6e7f65fc0a12e9dbc1aebacd481eb16a04baaeeb1480f9c457f609947"
+    },
+    {
+      "path": "performance-package/performance-wallet.png",
+      "size": 33128,
+      "sha256": "376622eadceaca5e57a93e99dc6ca1a0747113a04741ca3c10163f795cd65ae7"
+    },
+    {
+      "path": "performance-package/performance-wallet.xml",
+      "size": 24244,
+      "sha256": "1bc575653a6d4c0ac85c1e822a270a99a39cbed6756cae05366f38103281552f"
+    },
+    {
+      "path": "performance-package/performance.apk",
+      "size": 37508099,
+      "sha256": "e8ac3c05de58860962c630fbc35962d08a879fa10f2d856e53a59880b3167f17"
+    },
+    {
+      "path": "performance-package/restoration.json",
+      "size": 184,
+      "sha256": "99bd2318107d6dae203fff67d716397759b75fba5fcc3c7851a47cc9e8335c4a"
+    },
+    {
+      "path": "performance-package/result.json",
+      "size": 499,
+      "sha256": "ab4dee6e87cdf49b3afc1d269e498bffbe92cb1f865040858b78ab3d5bae3d5f"
+    },
+    {
+      "path": "scope.txt",
+      "size": 72,
+      "sha256": "6c601ba8ba549aeb7c66b6f6c5562eef5f4d58a2eb36e4734d239a1b582f14a7"
+    }
+  ]
+}

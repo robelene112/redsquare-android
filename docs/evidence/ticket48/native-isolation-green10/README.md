@@ -1,0 +1,7 @@
+# Actual signed performance installation beside main29
+
+Run39098673353 at9f36c27d7662f5c9023267745163c421104e4bfe is SUCCESS. The nine-case feed command and cold unavailable-peer cache continuity pass. Three actual public wallet UI observations verify unchanged main29 address before/after performance30 use, a different performance address, distinct installed UIDs10118/10119 and successful removal of both originally absent attempted packages without cleanup errors. This is installed isolation proof on a disposable Android10 emulator.
+
+Actual downloaded APK hashes, manifest package/version/nondebuggable attributes and established signing certificate match the immutable published main29/performance30 artifacts. Performance is profileable. The complete SDK inventory binds30 original files including both APKs retained outside Git. Three observer logs with one PASS each are intentionally separate from the nine planned native application cases.
+
+Root opened all three complete wallet screenshots and parsed their separate hierarchies. They display the main, separate performance and unchanged main identities with actual wallet controls. All13 PNG/9 XML entries pass structural integrity. No physical-device timing/update acceptance or Play acceptance is inferred. The old403 cause remains unknown, and its failed run is not reclassified. Current-source complete10/17 and whole48 acceptance remain separate gates.

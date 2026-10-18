@@ -1,0 +1,79 @@
+{
+  "instrumentation": {
+    "files": 30,
+    "passed": 9,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 1,
+    "crashedRecords": 0,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 13,
+    "xml": 9,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  },
+  "feedCommands": [
+    {
+      "path": "feed-ui.txt",
+      "passed": 9,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "26.166"
+      ]
+    }
+  ],
+  "observerResults": {
+    "status": "PASS",
+    "performanceVersion": 30,
+    "mainReferenceVersion": 29,
+    "packageUids": {
+      "nl.davidengelen.redsquare": 10118,
+      "nl.davidengelen.redsquare.performance": 10119
+    },
+    "mainPublicAddressBefore": "hdDcXcxuuu3hnfsd6Rzytf1jLSTt8hTmcy5Nkqf1e8RJ",
+    "mainPublicAddressAfter": "hdDcXcxuuu3hnfsd6Rzytf1jLSTt8hTmcy5Nkqf1e8RJ",
+    "performancePublicAddress": "tao55FDZMmEymyQVQrb7DQN8iGgZnsMXXSGk69VMYxGu",
+    "physicalDeviceAcceptance": false,
+    "physicalTimingMeasured": false
+  },
+  "restoration": {
+    "restoredOriginallyAbsentPackages": true,
+    "attemptedOwnedPackages": [
+      "nl.davidengelen.redsquare",
+      "nl.davidengelen.redsquare.performance"
+    ],
+    "cleanupFailures": []
+  },
+  "actualApks": [
+    {
+      "label": "main29",
+      "path": "/mnt/storage/redsquare-android-artifacts/performance48-isolation10-39098673353/android-native-proof/.scratch/device-evidence/api-29/performance-package/main29.apk",
+      "bytes": 37508099,
+      "sha256": "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef"
+    },
+    {
+      "label": "performance",
+      "path": "/mnt/storage/redsquare-android-artifacts/performance48-isolation10-39098673353/android-native-proof/.scratch/device-evidence/api-29/performance-package/performance.apk",
+      "bytes": 37508099,
+      "sha256": "e8ac3c05de58860962c630fbc35962d08a879fa10f2d856e53a59880b3167f17"
+    }
+  ],
+  "visualIntegrity": {
+    "png": 13,
+    "xml": 9,
+    "errors": []
+  },
+  "visualReview": "Root opened all three complete original wallet screenshots. Public wallet identities and dialog controls are visible. PNG/XML are separate observations, not atomic pairs.",
+  "limits": [
+    "Disposable Android10 emulator, no physical-device or latency acceptance.",
+    "The earlier HTTP403 remains a failure; its cause is unknown.",
+    "Three public wallet observer logs are separate from the nine planned native feed cases."
+  ]
+}
