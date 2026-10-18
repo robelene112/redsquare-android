@@ -2,14 +2,24 @@
 # Hosted Linux runner only. Local VPS checks use the isolated Docker script.
 set -euo pipefail
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+page_size=${TEST_PAGE_SIZE:-default}
+case "$page_size" in default|16384) ;; *) echo 'Supported page choices: default or 16384' >&2; exit 2 ;; esac
+if [[ "$page_size" == 16384 && "$1" != 37.0 ]]; then
+    echo 'The 16 KB image requires Android17' >&2; exit 2
+fi
 case "$1" in
     29) system_image='system-images;android-29;default;x86_64' ;;
-    37.0) system_image='system-images;android-37.0;google_apis;x86_64' ;;
+    37.0)
+        system_image='system-images;android-37.0;google_apis;x86_64'
+        if [[ "$page_size" == 16384 ]]; then system_image='system-images;android-37.0;google_apis_ps16k;x86_64'; fi
+        ;;
     *) echo 'Supported diagnostic targets: 29 or 37.0' >&2; exit 2 ;;
 esac
 sdkmanager --sdk_root="$ANDROID_HOME" "$system_image"
-export TEST_DEVICE_API="$1" TEST_SYSTEM_IMAGE="$system_image"
-export ANDROID_USER_HOME="$repo_dir/.scratch/android-devices/api-$1"
+export TEST_DEVICE_API="$1" TEST_SYSTEM_IMAGE="$system_image" TEST_PAGE_SIZE="$page_size"
+device_directory="api-$1"
+if [[ "$page_size" == 16384 ]]; then device_directory+="-16kb"; fi
+export ANDROID_USER_HOME="$repo_dir/.scratch/android-devices/$device_directory"
 export ANDROID_AVD_HOME="$ANDROID_USER_HOME/avd"
 mkdir -p "$ANDROID_AVD_HOME"
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"

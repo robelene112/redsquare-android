@@ -47,6 +47,16 @@ for ((attempt=0; attempt<120; attempt++)); do
     sleep 5
 done
 [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]] || { echo 'Emulator boot timed out' >&2; exit 1; }
+printf '%s\n' "$TEST_SYSTEM_IMAGE" > "$evidence/system-image.txt"
+cp "$ANDROID_HOME/${TEST_SYSTEM_IMAGE//;/\/}/source.properties" "$evidence/system-image.properties"
+printf '%s\n' "${TEST_PAGE_SIZE:-default}" > "$evidence/requested-page-size.txt"
+timeout 15 adb shell getconf PAGE_SIZE > "$evidence/page-size.txt"
+timeout 15 adb shell getprop ro.product.cpu.abi > "$evidence/device-abi.txt"
+timeout 15 adb shell getprop ro.build.fingerprint > "$evidence/system-build.txt"
+if [[ "${TEST_PAGE_SIZE:-default}" == 16384 ]]; then
+    [[ "$(tr -d '\r\n' < "$evidence/page-size.txt")" == 16384 ]] || { echo 'Expected actual 16384-byte pages' >&2; exit 1; }
+    [[ "$(tr -d '\r\n' < "$evidence/device-abi.txt")" == x86_64 ]] || { echo 'Expected the x86_64 16 KB image' >&2; exit 1; }
+fi
 # This unrelated bundled app displayed a crash dialog over a focused API37 test.
 # Isolate only that exact system package on disposable emulators. App failures
 # remain visible, and phone/production package state is never changed here.
@@ -1125,7 +1135,8 @@ if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
     done
 fi
 if [[ -n "${TEST_PERFORMANCE_VERSION:-}" ]]; then
-    python3 "$repo_dir/scripts/performance-device-check" --version "$TEST_PERFORMANCE_VERSION" --evidence "$evidence/performance-package"
+    python3 "$repo_dir/scripts/performance-device-check" --version "$TEST_PERFORMANCE_VERSION" \
+        --main-version "${TEST_MAIN_REFERENCE_VERSION:-29}" --evidence "$evidence/performance-package"
 fi
 if [[ "${TEST_SCOPE:-full}" == feed* ]]; then
     printf '%s\n' 'Focused feed check only; full Android/wallet/update acceptance not run.' > "$evidence/scope.txt"

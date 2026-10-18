@@ -29,12 +29,23 @@ timing candidate is not physical performance or completed release acceptance.
 Do not import the owner's private wallet for timing checks.
 
 The optional workflow `performance_version` input installs the exact immutable
-signed performance APK alongside accepted immutable beta29 on a disposable
-emulator, observes separate public wallet identities/UIDs and verifies the
+signed performance APK alongside accepted immutable beta29 by default on a
+disposable emulator. Optional `main_reference_version=35` selects the current
+ordinary preview with its independently pinned hash;29 remains the default.
+The observer records separate public wallet identities/UIDs and verifies the
 ordinary preview's address remains unchanged. It requires both packages absent
 before setup and restores that absence afterward; it never performs this
 installation or cleanup on a physical device. Its actual artifacts and public
 UI observations are installation diagnostics, not Pixel latency measurements.
+
+For an explicit Android17 16 KB environment, select `android17_16kb=true` with
+an Android17 scope (or combined `full`). The hosted runner selects
+`system-images;android-37.0;google_apis_ps16k;x86_64` in its own AVD directory.
+Before installing the app, it retains the installed image properties, build/ABI
+and actual `getconf PAGE_SIZE`, requiring16384 and x86_64. Ordinary targets and
+scopes keep their default images. Full17 still requires all three partitions
+and every existing identity/assertion/deadline. Current-source runtime acceptance
+is pending under51; image selection and ELF alignment alone cannot prove it.
 
 The application ID is `nl.davidengelen.redsquare`. The `.dev` debug application
 and its synthetic tests are separate from the owner preview. Preview versions

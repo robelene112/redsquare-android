@@ -21,10 +21,19 @@ on:
         description: Optional immutable signed performance version for isolated installation proof
         type: string
         default: ''
+      main_reference_version:
+        description: Signed main preview reference beside performance (29 or 35)
+        type: choice
+        options: ['29', '35']
+        default: '29'
+      android17_16kb:
+        description: Use the experimental Android 17 x86_64 16 KB image
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
-  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}
+  group: android-proof-${{ github.ref }}-${{ inputs.scope || 'source' }}${{ inputs.android17_16kb && '-16kb' || '' }}
   cancel-in-progress: true
 jobs:
   native-proof:
@@ -36,6 +45,15 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.scope == 'full' && 120 || startsWith(inputs.scope, 'full-') && 75 || 60 }}
     steps:
+      - name: Validate optional 16 KB environment
+        if: inputs.android17_16kb
+        env:
+          VERIFICATION_SCOPE: ${{ inputs.scope }}
+        run: |
+          case "$VERIFICATION_SCOPE" in
+            full|*-android17) ;;
+            *) echo 'The 16 KB choice requires an Android17 scope or full' >&2; exit 2 ;;
+          esac
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -114,6 +132,7 @@ jobs:
       - name: Verify Android 10 runtime
         if: github.event_name == 'workflow_dispatch' && inputs.scope != 'private-push-mute-android17' && inputs.scope != 'chat-push-capacity-android17' && inputs.scope != 'group-push-android17' && inputs.scope != 'chat-alerts-android17' && inputs.scope != 'chat-history-process-android17' && inputs.scope != 'chat-gifs-android17' && inputs.scope != 'gifs-android17' && inputs.scope != 'social-push-process-android17' && inputs.scope != 'social-push-android17' && inputs.scope != 'chat-viewport-android17' && inputs.scope != 'chat-keyboard-android17' && inputs.scope != 'chat-image-storage-android17' && inputs.scope != 'chat-images-android17' && inputs.scope != 'chat-mute-android17' && inputs.scope != 'release-tail-android17' && inputs.scope != 'chat-queue-process-android17' && inputs.scope != 'chat-queue-group-android17' && inputs.scope != 'chat-queue-android17' && inputs.scope != 'group-admin-android17' && inputs.scope != 'group-ui-android17' && inputs.scope != 'beta-ui-android17' && inputs.scope != 'full-android17' && inputs.scope != 'feed-android17' && inputs.scope != 'update-android17' && inputs.scope != 'export-android17' && inputs.scope != 'import-android17' && inputs.scope != 'import-risk-android17' && inputs.scope != 'import-storage-android17' && inputs.scope != 'browse-android17' && inputs.scope != 'following-android17' && inputs.scope != 'posting-android17' && inputs.scope != 'queue-android17' && inputs.scope != 'social-android17' && inputs.scope != 'quotes-android17' && inputs.scope != 'author-android17' && inputs.scope != 'images-android17' && inputs.scope != 'videos-android17' && inputs.scope != 'profiles-android17' && inputs.scope != 'usernames-android17' && inputs.scope != 'video-public-android17' && inputs.scope != 'registry-public-android17' && inputs.scope != 'search-android17' && inputs.scope != 'controls-android17' && inputs.scope != 'reports-android17' && inputs.scope != 'transfers-android17' && inputs.scope != 'notifications-android17' && inputs.scope != 'chat-android17' && inputs.scope != 'chat-ui-android17' && inputs.scope != 'chat-actions-android17' && inputs.scope != 'chat-public-android17'
         env:
+          TEST_MAIN_REFERENCE_VERSION: ${{ inputs.main_reference_version || '29' }}
           TEST_PERFORMANCE_VERSION: ${{ inputs.performance_version || '' }}
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
@@ -123,6 +142,8 @@ jobs:
       - name: Verify Android 17 runtime
         if: github.event_name == 'workflow_dispatch' && inputs.scope != 'private-push-mute' && inputs.scope != 'chat-push-capacity' && inputs.scope != 'group-push' && inputs.scope != 'chat-alerts' && inputs.scope != 'chat-history-process' && inputs.scope != 'chat-gifs' && inputs.scope != 'gifs' && inputs.scope != 'social-push-process' && inputs.scope != 'social-push' && inputs.scope != 'chat-viewport' && inputs.scope != 'chat-keyboard' && inputs.scope != 'chat-image-storage' && inputs.scope != 'chat-images' && inputs.scope != 'chat-mute' && inputs.scope != 'release-tail' && inputs.scope != 'chat-queue-process' && inputs.scope != 'chat-queue-group' && inputs.scope != 'chat-queue' && inputs.scope != 'group-admin' && inputs.scope != 'group-ui' && inputs.scope != 'beta-ui' && inputs.scope != 'full-android10' && inputs.scope != 'feed' && inputs.scope != 'export' && inputs.scope != 'import' && inputs.scope != 'import-risk' && inputs.scope != 'import-storage' && inputs.scope != 'browse' && inputs.scope != 'following' && inputs.scope != 'posting' && inputs.scope != 'queue' && inputs.scope != 'social' && inputs.scope != 'quotes' && inputs.scope != 'author' && inputs.scope != 'images' && inputs.scope != 'videos' && inputs.scope != 'profiles' && inputs.scope != 'usernames' && inputs.scope != 'video-public' && inputs.scope != 'registry-public' && inputs.scope != 'search' && inputs.scope != 'controls' && inputs.scope != 'reports' && inputs.scope != 'transfers' && inputs.scope != 'notifications' && inputs.scope != 'chat' && inputs.scope != 'chat-ui' && inputs.scope != 'chat-actions' && inputs.scope != 'chat-public'
         env:
+          TEST_PAGE_SIZE: ${{ inputs.android17_16kb && '16384' || 'default' }}
+          TEST_MAIN_REFERENCE_VERSION: ${{ inputs.main_reference_version || '29' }}
           TEST_PERFORMANCE_VERSION: ${{ inputs.performance_version || '' }}
           TEST_PARTITION: ${{ matrix.partition }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android17' && 'full' || inputs.scope || 'full' }}

@@ -154,7 +154,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    Social push and all Chat/push/recovery checks), social (browse/post/media/profile/
    controls/payment/notifications and their recovery) and wallet (export/import/
    storage/feed/public reads/compatibility/update/final diagnostic). All three jobs
-   must succeed at the same source; each retains a distinct named artifact and a
+   must succeed at the same source. Optional `android17_16kb=true` selects the
+   explicit x86_64 16 KB image and requires actual16384-byte pages before tests;
+   default targets/scopes remain unchanged. `main_reference_version=35` can pair
+   current ordinary35 with performance36; default29 keeps its independent hash.
+   Each partition retains a distinct named artifact and a
    partition-complete marker. Their combined original class/test identities must
    cover the accepted complete suite, including API-specific cases. A passing
    partition alone is never full acceptance. Android10 and focused scopes retain

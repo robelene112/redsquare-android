@@ -11,6 +11,32 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
+## Active issue51: actual 16 KB Android runtime compatibility
+
+[Issue51](https://github.com/robelene112/redsquare-android/issues/51), child35/spec1,
+is claimed sequentially after verified closed50 and published35. Zero OPEN
+blockers; fixed review base58f268e73cc245b7a50d6867459bc802ddbff41d. Root remains
+the sole implementation writer. No owner-phone/node/cloud/provider/store changes.
+
+The host-only minimum adds explicit optional Android17 x86_64 ps16k image
+selection, an isolated AVD directory and retained image/build/ABI/page evidence,
+requiring actual16384 before app installation. Existing targets, scopes, three
+full17 partitions, native cases/assertions and class/request/host deadlines stay.
+The existing signed observer optionally selects current main35 with a literal
+independent hash; default main29 and its hash remain. It also verifies ordinary
+nonprofileability. Production/build dependencies and all native fixtures are
+unchanged. CLI RED before minimum and safe CLI/syntax/actionlint checks are in
+`ticket51/cli-red`; no native GREEN or16KB acceptance exists yet.
+
+Next: commit/review the source and fixed pre-execution source/artifact/identity
+plan, then dispatch actual complete17 with android17_16kb=true, public reads,
+main35/performance36 and all original gates. Also verify the default29 observer
+on a focused ordinary10 feed run. All three16KB partitions must succeed with
+431 identities/104 normal/33 deliberate/32continuity. Current signed hashes are
+fixed independently in issue51; do not derive expectations from new outcomes.
+Qualify x86_64/configuration/runtime scope. Physical/ARM64/timing/configured-provider/
+Play acceptance remain open. Keep main35/performance36 publication unchanged.
+
 ## Accepted issue50: honest unconfigured background-alert Settings
 
 [Issue50](https://github.com/robelene112/redsquare-android/issues/50), child32/spec1,
@@ -112,7 +138,7 @@ metadata/APK remain unchanged. Its publication packet is retained; bookend
 /tmp/redsquare-group47-work-20261017 and raw publication35 is under
 /mnt/storage/redsquare-android-artifacts/availability50-publication35.
 
-Follow-up51 is planned under35, now unblocked after closed50, unassigned and unstarted:
+Follow-up51 is now claimed sequentially under35 after closed50:
 actual hosted16KiB/full17/current signed35/performance36 observations. No owner
 phone, node, cloud, provider or store action occurred. Genuine physical/provider/
 policy gates remain open. Do not repeat pending Giphy/Google questions or invent

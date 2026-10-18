@@ -1,0 +1,11 @@
+usage: performance-device-check [-h] --version VERSION
+                                [--main-version {29,35}] --evidence EVIDENCE
+
+Verify the actual signed performance app beside an unchanged preview on a
+disposable emulator.
+
+options:
+  -h, --help            show this help message and exit
+  --version VERSION
+  --main-version {29,35}
+  --evidence EVIDENCE
