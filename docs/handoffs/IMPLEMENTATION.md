@@ -35,8 +35,18 @@ all later Chat/group/privatePID/public/full tails are unexecuted. Fifteen-hash/
 Root viewed the earlier full card; failure viewer preview shows only status,
 while XML shows the reply after the failure helper reopens the shade. Actual
 touch target/animation at injection is not captured; cause stays a gesture/
-readiness hypothesis. All three Android17 jobs39090559898 remain RUNNING at
-72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b, with approved public reads.
+readiness hypothesis. Corrected complete10 run39091333019 is now RUNNING at
+cc7b3aa69, with unchanged production and the reviewed card fixture. Android17
+run39090559898 at72ad has Chat FAILURE, Wallet SUCCESS, Social still RUNNING.
+The Chat job times out during existing autonomous Social scheduling before any
+Chat/group gates. Its41hash/69original packet records19PASS/7completions/
+2interruptions/1continuity, pendingPID5420/work1e3d3bfd-0b16-4706-98df-541b712c42c3,
+stop marker0, deliberate death and restoration1.191s. Host120second observation
+expires with1request/1authentication/0available reads. No per-poll PID/job/timeout
+state was captured, so absent OS start versus pre-authentication failure remains
+unclassified. The Social worker/receiver/host/scheduled fixture were unchanged by47.
+Root viewed the diagnostic pre-death launcher capture. Wallet/Social results need
+separate inspection and do not establish the failed SDK's completion.
 Expected full identity sets stay fixed429/430 in the reviewed partition plan.
 237 production/build and original200 fixture objects equal reviewed726. Signed29/0.1.29 is
 prepared at that same72ad source after canonical BUILD SUCCESSFUL3m55s/exit0;
@@ -50,14 +60,21 @@ UiObject2 swipe pattern through NotificationCard.kt. All old lookup deadlines
 (5seconds,10seconds for Chat process recovery), physical-disappearance and
 NotificationManager/dedup assertions remain. No production change or longer wait;
 no programmatic dismissal. Existing four card fixtures move unchanged. Identities
-remain429/430; fixture object count becomes201. Source/evidence review pending.
+remain429/430; fixture object count becomes201. Both source/evidence reviews0; corrected full10 is running.
 
-Next: review/push this fixture correction and rerun complete Android10, preserving
-running Android17. If17 succeeds, the documented fixture-only outstanding-SDK
-exception can combine its original fixture with corrected10, with unchanged
-production and explicit assertion/source qualification. Then inspect all actual
-outcomes/identities/continuity/public/private+group3PID and final combined review
-before29 publication. No owned local build is running. Whole47 and original32/34
+Read-only scheduled-recovery diagnostics are now added before retrying the failed
+17 gate: pending WorkInfo state/attempt/next-schedule metadata, pre-death Android
+job/package/process snapshots, per-poll PID/host timeline, and failure snapshots/
+bounded WorkManager logs before cleanup force-stop. Original120second observation,
+no target launches/forced jobs and all acceptance/cleanup remain. Extra observation
+can perturb timing; a later pass cannot prove this timeout's cause or a code fix.
+No production minimum is inferred. WorkInfo getter verified in installed2.12 AAR.
+Diagnostic source/evidence review pending.
+
+Next: review/push diagnostics and run existing focused social-push-process-android17
+scope for actual evidence; preserve corrected full10 and remaining original17jobs.
+Then complete required full17all3 and10 outcomes/identities/continuity/public/
+private+group3PID and final combined review before29 publication. No owned local build is running. Whole47 and original32/34
 Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense

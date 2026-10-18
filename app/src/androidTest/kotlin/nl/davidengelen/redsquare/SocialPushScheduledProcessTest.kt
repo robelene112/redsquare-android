@@ -89,10 +89,14 @@ class SocialPushScheduledProcessTest {
         }
         val work = WorkManager.getInstance(context)
         val deadline = SystemClock.elapsedRealtime() + 60_000
+        var pendingInfo: WorkInfo? = null
         while (true) {
             val info = requireNotNull(work.getWorkInfoById(id).get(5, TimeUnit.SECONDS))
             assertFalse("Unavailable Archive must leave a retry: ${info.state}", info.state.isFinished)
-            if (info.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1) break
+            if (info.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1) {
+                pendingInfo = info
+                break
+            }
             check(SystemClock.elapsedRealtime() < deadline) { "No persisted retry before process stop" }
             SystemClock.sleep(50)
         }
@@ -101,6 +105,11 @@ class SocialPushScheduledProcessTest {
         assertEquals(row.get("walletDigest").asString, digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
         captureNativeScreen(File(context.cacheDir, "social-push-scheduled-evidence/pending-before-death.png"))
+        val pending = requireNotNull(pendingInfo)
+        row.addProperty("pendingWorkState", pending.state.name)
+        row.addProperty("pendingWorkAttempt", pending.runAttemptCount)
+        row.addProperty("pendingNextScheduleTimeMillis", pending.nextScheduleTimeMillis)
+        row.addProperty("pendingObservedAtMillis", System.currentTimeMillis())
         row.addProperty("workId", id.toString()); row.addProperty("phase", "pending"); write(row)
         // Like the established process fixtures, terminate from the test itself after the host's request.
         // The supervisor verifies death, then starts no target code during autonomous observation.
