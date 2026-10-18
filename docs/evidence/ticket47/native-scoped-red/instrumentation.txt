@@ -1,0 +1,93 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$20(GroupPushWorkPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$ccP6DCRtNoKcvNZVFPTKEG6gloU(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(nl.davidengelen.redsquare.GroupPushWorkPreviewTest):
+java.lang.AssertionError: expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$20(GroupPushWorkPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$ccP6DCRtNoKcvNZVFPTKEG6gloU(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.241
+There was 1 failure:
+1) aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(nl.davidengelen.redsquare.GroupPushWorkPreviewTest)
+java.lang.AssertionError: expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$20(GroupPushWorkPreviewTest.kt:196)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$ccP6DCRtNoKcvNZVFPTKEG6gloU(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:158)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$default(GroupPushWorkPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation(GroupPushWorkPreviewTest.kt:42)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
