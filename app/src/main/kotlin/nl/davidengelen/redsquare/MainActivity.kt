@@ -362,11 +362,13 @@ class MainActivity : ComponentActivity() {
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
+                                        val feedUnobstructed = !settingsOpen && !personalControlsOpen && !usernameOpen &&
+                                            !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
+                                            !savingBackend && !walletImport.busy && !walletExport.busy
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                             lifecycle, Modifier.weight(1f), notificationRoutes = notificationRoutes,
-                                            allowPushRoute = !settingsOpen && !personalControlsOpen && !usernameOpen &&
-                                                !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
-                                                !savingBackend && !walletImport.busy && !walletExport.busy,
+                                            allowPushRoute = feedUnobstructed,
+                                            canReportDrawn = feedUnobstructed && !postNavigation.transitioning,
                                             onWalletMetadata = { previous, updated ->
                                                 check(wallet === previous && updated.publicKey == previous.publicKey)
                                                 withContext(NonCancellable) {

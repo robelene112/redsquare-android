@@ -26,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -52,7 +53,8 @@ import java.util.Locale
 
 @Composable
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
-    lifecycle: Lifecycle, modifier: Modifier, notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
+    lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
+    notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -397,8 +399,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
             (!followingView || post.author in following?.accounts.orEmpty()) }
         val visiblePostIds = visiblePosts.map { it.id }.toSet()
-        LaunchedEffect(cacheReady, personal?.ready, visiblePostIds, position) {
-            if (cacheReady && personal?.ready == true && visiblePostIds.isNotEmpty()) {
+        val feedInteractive = canReportDrawn && LocalWindowInfo.current.isWindowFocused
+        LaunchedEffect(feedInteractive, cacheReady, personal?.ready, visiblePostIds, position) {
+            if (feedInteractive && cacheReady && personal?.ready == true && visiblePostIds.isNotEmpty()) {
                 snapshotFlow {
                     val layout = position.layoutInfo
                     layout.visibleItemsInfo.any { item -> item.key in visiblePostIds &&
