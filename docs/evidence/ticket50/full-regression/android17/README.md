@@ -57,5 +57,6 @@ acceptance follows. Earlier RED remains an actual failure.
 
 Fresh complete10 recheck39111106756 subsequently succeeds at143d with identical
 production and the sole reviewed Wallet fixture delta. Its separate packet
-retains all430 identities and actual outcomes. Combined whole review/publication
-remain pending; this does not alter this run's original source or observations.
+retains all430 identities and actual outcomes. Subsequent whole review at5003
+and publication bookend1ead report0/0; ordinary35 is published/verified and50
+is CLOSED. This does not alter this run's original source or observations.

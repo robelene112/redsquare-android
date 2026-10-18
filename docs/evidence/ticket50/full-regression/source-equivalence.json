@@ -726,7 +726,7 @@
   "limits": [
     "Source equality is not runtime acceptance or APK byte equality.",
     "The Wallet fixture delta is only positive action readiness and conditional failure capture; accepted17 and prepared fixtures remain explicit.",
-    "Fresh complete10 recheck39111106756 succeeds; earlier full10 remains FAILURE. Combined whole50 reviews0/0 at5003b4764; ordinary35 published and independently verified. Publication bookend remains pending.",
+    "Fresh complete10 recheck succeeds; earlier full10 remains FAILURE. Whole50 reviews0/0 at5003b4764; ordinary35 published/verified with publication bookend0/0 at1ead0dbaa. Issue50 is closed.",
     "No physical Pixel/configured Google or Giphy/16KB runtime/Play acceptance is inferred."
   ],
   "fullRuns": {
@@ -756,6 +756,12 @@
   "ordinary35Publication": {
     "status": "published",
     "independentPublicVerification": "PASS",
-    "bookendReviewPending": true
-  }
+    "bookendReviewPending": false,
+    "bookendReview": {
+      "commit": "1ead0dbaaae7622cf4dfd26260d08353c1b0257a",
+      "standardsFindings": 0,
+      "specFindings": 0
+    }
+  },
+  "issue50Closure": "https://github.com/robelene112/redsquare-android/issues/50#issuecomment-6248241225"
 }
