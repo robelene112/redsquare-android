@@ -174,7 +174,11 @@ identity tails are unexecuted. Source39085520900 SUCCESS includes release/lint.
 `native-membership-red`8hashes/32originalbindings; diagnostic launcher capture.
 Minimum2c7cd31a8 completes matching eligibility and removes its route before
 inactive-membership suppression, preserving history and storage-error retry.
-Both scoped source/evidence reviews0. Unchanged6case39085990843 is running.
+Both scoped source/evidence reviews0. Unchanged6case39085990843 at2c7cd31a8 is SUCCESS; exact duration is retained
+in `native-membership-green/source.json`. Source39085991128 SUCCESS includes
+release/lint. Both selected originals are retained as diagnostic launcher captures.
+Next is actual Android group-category disable/reenable while a retained worker
+remains obstructed, before a category source correction. Existing6cases unchanged.
 Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.

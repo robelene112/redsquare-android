@@ -1,9 +1,12 @@
 package nl.davidengelen.redsquare
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
+import android.provider.Settings
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -50,13 +53,17 @@ class GroupPushWorkPreviewTest {
     @Test fun leavingAPendingGroupCompletesItsOldAlertBeforeExplicitRejoining() =
         groupJourney(Journey.MEMBERSHIP_RECOVERY)
 
+    @Test fun disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling() =
+        groupJourney(Journey.CATEGORY_RECOVERY)
+
     private enum class Journey(val wakeByte: String, val capturePrefix: String) {
         WORKER_FIRST("71", "group-worker"),
         RECEIPT_RECOVERY("72", "group-receipt-recovery"),
         SCOPED("73", "group-scoped"),
         MUTED_PENDING("75", "group-muted-pending"),
         POLICY_RECOVERY("76", "group-policy-recovery"),
-        MEMBERSHIP_RECOVERY("77", "group-membership-recovery")
+        MEMBERSHIP_RECOVERY("77", "group-membership-recovery"),
+        CATEGORY_RECOVERY("78", "group-category-recovery")
     }
 
     private fun groupJourney(journey: Journey = Journey.WORKER_FIRST) {
@@ -184,6 +191,67 @@ class GroupPushWorkPreviewTest {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, wake,
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve",
                     peerServer?.let { "ws://127.0.0.1:${it.port}/wsopen" }) }
+                if (journey == Journey.CATEGORY_RECOVERY) {
+                    manager.createNotificationChannel(NotificationChannel("group-chats",
+                        context.getString(R.string.chat_group_notification_channel), NotificationManager.IMPORTANCE_DEFAULT))
+                    val before = requireNotNull(manager.getNotificationChannel("group-chats"))
+                    check(before.importance == NotificationManager.IMPORTANCE_DEFAULT)
+                    fun categoryEnabled() = manager.getNotificationChannel("group-chats").importance != NotificationManager.IMPORTANCE_NONE
+                    fun setCategory(enabled: Boolean) {
+                        context.startActivity(Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                            .putExtra(Settings.EXTRA_CHANNEL_ID, "group-chats")
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 10_000))
+                        assertTrue(device.wait(Until.hasObject(By.text(context.getString(R.string.chat_group_notification_channel))), 10_000))
+                        val toggle = device.wait(Until.findObject(By.res("android", "switch_widget")), 10_000)
+                            ?: requireNotNull(device.wait(Until.findObject(By.res("com.android.settings", "switch_widget")), 10_000))
+                        if (categoryEnabled() != enabled) toggle.click()
+                        val deadline = SystemClock.elapsedRealtime() + 5_000
+                        while (categoryEnabled() != enabled && SystemClock.elapsedRealtime() < deadline) SystemClock.sleep(25)
+                        assertEquals("The actual Android group category must reflect the selected choice", enabled, categoryEnabled())
+                        device.pressHome()
+                    }
+                    val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    try {
+                        val first = schedule()
+                        val deadline = SystemClock.elapsedRealtime() + 40_000
+                        var pending = false
+                        while (!pending && SystemClock.elapsedRealtime() < deadline) {
+                            failure.get()?.let { throw AssertionError("Owned group gateway rejected receipt", it) }
+                            val info = work.getWorkInfoById(first).get(5, TimeUnit.SECONDS)
+                            assertFalse("The obstructed group receipt must remain retryable", info?.state?.isFinished == true)
+                            pending = info?.state == WorkInfo.State.ENQUEUED && info.runAttemptCount >= 1
+                            if (!pending) SystemClock.sleep(50)
+                        }
+                        assertTrue("The group message must have a retained worker retry", pending)
+                        assertEquals(text, GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single().text)
+                        assertSilent("Bookkeeping failure must retain the group message without an alert")
+                        setCategory(false)
+                        capture("android-category-disabled")
+                        await(first)
+                        assertSilent("Disabling the Android group category must finish its pending receipt quietly")
+                        assertNoActivity()
+                        capture("disabled-completed")
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure,
+                        { if (receiptFailure != null) runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.cancelAndAwait(context, wake) } },
+                        { check(obstruction.delete()) }, { if (!categoryEnabled()) setCategory(true) },
+                        { assertEquals(before.importance, manager.getNotificationChannel("group-chats").importance) }) }
+                    await(schedule())
+                    assertSilent("Reenabling the Android group category must not revive the old pending alert")
+                    val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages
+                    assertEquals(1, saved.size); assertEquals(original.id, saved.single().id)
+                    assertEquals(text, saved.single().text)
+                    assertEquals(1, resolves.get()); assertEquals(1, originals.get())
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertNoActivity()
+                    capture("reenabled-still-silent")
+                    return@withFailureCapture
+                }
                 if (journey == Journey.MEMBERSHIP_RECOVERY) {
                     val history = GroupChatStore(context, wallet, backend)
                     val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
