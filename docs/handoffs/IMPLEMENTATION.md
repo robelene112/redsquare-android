@@ -177,8 +177,14 @@ inactive-membership suppression, preserving history and storage-error retry.
 Both scoped source/evidence reviews0. Unchanged6case39085990843 at2c7cd31a8 is SUCCESS; exact duration is retained
 in `native-membership-green/source.json`. Source39085991128 SUCCESS includes
 release/lint. Both selected originals are retained as diagnostic launcher captures.
-Next is actual Android group-category disable/reenable while a retained worker
-remains obstructed, before a category source correction. Existing6cases unchanged.
+Next actual Android group-category disable/reenable tracer39086431943 at7d9286ec9
+is running before any category source correction. Existing6cases unchanged.
+Local fixture correctionc73c30bb9 is not yet pushed: exact-one fetch checks now
+precede terminal replay, and fault/category restoration requires successful work
+drain, with a guarded outer cleanup retry. Both residual reviews0. The original
+run may still demonstrate its earlier category-completion assertion; record actual
+result before minimum. Nonblocking duplicate retry-wait refactor waits for GREEN.
+Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
 Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
