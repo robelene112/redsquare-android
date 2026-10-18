@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationManager
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
@@ -98,9 +99,8 @@ class SocialPushPreviewTest {
                         manager.activeNotifications.count { (it.tag to it.id) !in priorAlerts })
                     if (dismiss) {
                         assertTrue(device.openNotification())
-                        val visible = requireNotNull(device.wait(Until.findObject(By.text("Replied to your post")), 5_000))
-                        val y = visible.visibleBounds.centerY()
-                        assertTrue(device.swipe(device.displayWidth / 4, y, device.displayWidth - 2, y, 20))
+                        val card = visibleNotificationCard(device, "Replied to your post", 5_000)
+                        card.swipe(Direction.RIGHT, 1.0f)
                         assertTrue("Physical swipe must remove the visible alert",
                             device.wait(Until.gone(By.text("Replied to your post")), 5_000))
                         val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000

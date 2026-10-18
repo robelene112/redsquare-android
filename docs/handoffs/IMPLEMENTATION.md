@@ -27,19 +27,38 @@ latest GREEN evidence reviews0/0. Earlier private RED source39089645330 also
 subsequently SUCCESS; its original packet's pending-source statement is historical.
 The extracted private PID adapter still needs current runtime proof.
 
-Complete Android10 run39090558349 and all three Android17 jobs39090559898 are
-RUNNING at72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b, with approved public reads.
-Expected full identity sets are fixed429/430 in the reviewed partition plan.
-237 production/build and200 fixture objects equal reviewed726. Signed29/0.1.29 is
+First complete Android10 run39090558349 at72ad is FAILURE before Chat/group:
+appearance1PASS15.257s, binding1PASS1.908s and Social11cases10PASS1FAIL102.735s.
+The existing physical reply swipe does not remove the visible alert atSocial104;
+all later Chat/group/privatePID/public/full tails are unexecuted. Fifteen-hash/
+41original full-regression/android10-first-swipe-failure packet is retained.
+Root viewed the earlier full card; failure viewer preview shows only status,
+while XML shows the reply after the failure helper reopens the shade. Actual
+touch target/animation at injection is not captured; cause stays a gesture/
+readiness hypothesis. All three Android17 jobs39090559898 remain RUNNING at
+72ad4c0ed67edfdf0bf9df77bd84bc3b5df4282b, with approved public reads.
+Expected full identity sets stay fixed429/430 in the reviewed partition plan.
+237 production/build and original200 fixture objects equal reviewed726. Signed29/0.1.29 is
 prepared at that same72ad source after canonical BUILD SUCCESSFUL3m55s/exit0;
 APKsha aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef,
 established package/certificate/min29 verified. See the six-hash prepared packet.
-Preparation reviews are pending; it is NOT published. Beta28 remains live.
+Preparation reviews0/0; it is NOT published. Beta28 remains live.
 
-Next: inspect both complete SDK outcomes, exact identities, all continuity/public
-and current private/group3PID gates; finish whole source/evidence review, then
-publish/independently verify29. No owned local build is running. Whole47 acceptance
-and original32/34 Google/deployment/physical gates remain pending.
+Fixture-only correction now resolves the actual fully visible SystemUI card at
+gesture time for Social, reusing the existing private/group/process bounds and
+UiObject2 swipe pattern through NotificationCard.kt. All old lookup deadlines
+(5seconds,10seconds for Chat process recovery), physical-disappearance and
+NotificationManager/dedup assertions remain. No production change or longer wait;
+no programmatic dismissal. Existing four card fixtures move unchanged. Identities
+remain429/430; fixture object count becomes201. Source/evidence review pending.
+
+Next: review/push this fixture correction and rerun complete Android10, preserving
+running Android17. If17 succeeds, the documented fixture-only outstanding-SDK
+exception can combine its original fixture with corrected10, with unchanged
+production and explicit assertion/source qualification. Then inspect all actual
+outcomes/identities/continuity/public/private+group3PID and final combined review
+before29 publication. No owned local build is running. Whole47 and original32/34
+Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense
 status statements describe their dated step, not the current state above.

@@ -444,13 +444,8 @@ class GroupPushWorkPreviewTest {
                 assertTrue(device.openNotification())
                 assertNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
                 capture("generic-alert")
-                val card = requireNotNull(device.wait(Until.findObject(
-                    By.res("android", "status_bar_latest_event_content").hasDescendant(By.text("New message"))), 5_000))
-                val bounds = card.visibleBounds
-                assertTrue("The group card must be fully visible before dismissal", bounds.left >= 0 &&
-                    bounds.right <= device.displayWidth && bounds.top >= 0 && bounds.bottom <= device.displayHeight &&
-                    bounds.width() > device.displayWidth / 2 && bounds.height() > 16)
-                card.setGestureMargin(8); card.swipe(Direction.RIGHT, 1.0f)
+                val card = visibleNotificationCard(device, "New message", 5_000)
+                card.swipe(Direction.RIGHT, 1.0f)
                 assertTrue(device.wait(Until.gone(By.text("New message")), 5_000))
                 val dismissedBy = SystemClock.elapsedRealtime() + 5_000
                 while (manager.activeNotifications.any { it.tag == tag } && SystemClock.elapsedRealtime() < dismissedBy)

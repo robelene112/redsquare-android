@@ -129,13 +129,9 @@ abstract class ChatPushProcessFixture(private val conversation: ProcessChatConve
             assertEquals("${conversation.kind}-chats", alert.channelId)
             assertEquals("New message", alert.extras.getCharSequence(Notification.EXTRA_TEXT).toString())
             assertTrue(device.openNotification())
-            val card = requireNotNull(device.wait(Until.findObject(By.res("android", "status_bar_latest_event_content")
-                .hasDescendant(By.text("New message"))), 10_000))
-            val bounds = card.visibleBounds
-            assertTrue(bounds.left >= 0 && bounds.right <= device.displayWidth && bounds.top >= 0 &&
-                bounds.bottom <= device.displayHeight && bounds.width() > device.displayWidth / 2 && bounds.height() > 16)
+            val card = visibleNotificationCard(device, "New message", 10_000)
             capture("recovered-alert")
-            card.setGestureMargin(8); card.swipe(Direction.RIGHT, 1.0f)
+            card.swipe(Direction.RIGHT, 1.0f)
             assertTrue(device.wait(Until.gone(By.text("New message")), 5_000))
             await("physical dismissal", 5_000) { manager.activeNotifications.none { it.tag == tag(row) } }
             device.pressBack()
