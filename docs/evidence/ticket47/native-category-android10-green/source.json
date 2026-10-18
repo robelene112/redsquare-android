@@ -1,0 +1,191 @@
+{
+  "source": "61616d658836e34b232690d69fcc034028f61ca2",
+  "run": 39092127900,
+  "api": "29",
+  "originalArtifactRoot": "/mnt/storage/redsquare-android-artifacts/group47-category10-green-39092127900",
+  "originalFiles": [
+    {
+      "path": ".scratch/device-evidence/api-29/emulator.log",
+      "sha256": "a13a38f43f05be3f649fb06b52615a77cbefece0f702f5088de1857dcf769363"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-evidence.tar",
+      "sha256": "fbf138e55f4eeac5a04f753dfd9d9c3d22d4c437d0bd31f997838803f61298b9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/capture-status.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/continuity.txt",
+      "sha256": "43fe76a36642a888c86de98fc33d1deba2b283db6d4b82497ca1e4ccc86116d1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/dismissed-checkpoint.json",
+      "sha256": "35dceef973892efca8cabafe8e1a2153212023854ed3850a79dfc44601f4781f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/dismissed-interrupted.txt",
+      "sha256": "617a4b3a48d36a26a9d65c0cf4994c2f69500508cd233eb6f1bab82ac533b28c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/images.tar",
+      "sha256": "a48ea560fd1930bd6903e77e6f648356f4458f86e85d9ac68443a052bf1cb04c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/pending-checkpoint.json",
+      "sha256": "5c6159e676133ac2b5b4ad3157998f575e3bf7f05316b94e85861e4d262806a1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/pending-interrupted.txt",
+      "sha256": "b027df21121a287abf5e3ff81cf091c478059274534d2f6d05731d280c2543a9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/restored.txt",
+      "sha256": "22eab72fbfc450b9a96432477c8ee3c3a3c62529ee08bb97ae144cc899eea4a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/verified-checkpoint.json",
+      "sha256": "7e4b7da3afdf62bf54d98924c8e758bc398c8115b6bf751df87d91c2d8dcd3a1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-process/verified.txt",
+      "sha256": "29ae24ab9b69781fb25a157ccafc83acde498952707a33c5e1f10ed1c5db4a6a"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-ui-exit.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/group-push-ui.txt",
+      "sha256": "e402470f5463604b856d17668349f58e4ff38b90a1124cdd2e9592d5968088aa"
+    },
+    {
+      "path": ".scratch/device-evidence/api-29/scope.txt",
+      "sha256": "efaf7e404da9087143dc7d65d11a715c9ee2398829a7c465a46e2838a6466753"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+      "sha256": "f803fb8e549d853035fb35d7b9ba987db49dcf2dbea66ede848e82b61943333f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+      "sha256": "870860e6c1788814f928031437c8eef5d3898516589c1a377b4894b09a26c741"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+      "sha256": "99603fa3965048c3cb21831457e62150ccf6ae1207983e0199d02c6c9e2d746d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+      "sha256": "7610453cf70b0536655866566e1066e66e4f30186e2ee47e132fa9ade4a1b56a"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+      "sha256": "8b94e0140a84114c81a94c06468e51df07f3f349e7453c94ba7636ed135ee690"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+      "sha256": "959dbfa9cf81c14dbb135d44e7b189c4680d465a4f05032901ea2572773c05bd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+      "sha256": "3a3dde27cfcf747ae3770da358fe5a0ece5ad33ba278409d4dd14f3298a58a3c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+      "sha256": "c049a364535dc19d3410e08e8e56ee8e8af69fdec2ed36a262fd9501d823dd5e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+      "sha256": "71196e6b66b213a0583e5ec9046ef81bad7672f7d5db7466260a9b319767c712"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+      "sha256": "92e7baf464f1f0006dde881cc95573243d62cd88a56aff92526fd05305fdc4ca"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+      "sha256": "01495dfdcf2dd3fc7ea4733a16e1dfb4eb49677be14c484b6b3b474e27af730d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+      "sha256": "6e1b3c743e21fbfb07419ca76b8d11dbbfbd2854bd7aa0d1130ae0861e6ecbac"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+      "sha256": "78d70261def9124d8d6cdf86acf2b56413704a9d59bd39a02326dba8c6b831b9"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+      "sha256": "bd29e26aeb2665aa64944550527fe658262b4e1ac9536cd35ff458047ae605b7"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+      "sha256": "8241c598c3bdcd9e55049583d1c88bbb4ec4d7f20e51b4e8ebeb28a77ca85512"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+      "sha256": "e1725f84ae8cec6da74d58a18ec64c673a506d2fe96b1358e657a0c5a03e45b3"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+      "sha256": "53e0b3d119a9e462fe7f6f81d6f51587c2502fa56b7085335bd7677314489e2c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+      "sha256": "2b5b30647deaf45e44580c7c99e14e0ffd8963a0961b0616ee50e79e94fdd987"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+      "sha256": "d33fdc74ab8aeb1366097f13533a0413f2045fed1c3162e0b7ef1c683141059f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+      "sha256": "9464dbdc898c8ca23fd0215aa8029bc86258f6faa520e75175e6c3d3dc8ed4c5"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/base-style.css",
+      "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/style.css",
+      "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+    },
+    {
+      "path": "core/build/reports/tests/test/index.html",
+      "sha256": "b6a8a3ca0f41490e4d857040d99ef180c946620314bba3440cd15024cb333253"
+    },
+    {
+      "path": "core/build/reports/tests/test/js/report.js",
+      "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+    },
+    {
+      "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+      "sha256": "9032ac111aebf289ac2067c7ffffa2743367290a16fc92f3a10639269a8934bb"
+    }
+  ],
+  "summary": {
+    "files": 15,
+    "passed": 9,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 3,
+    "crashedRecords": 2,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 21,
+    "xml": 21,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  },
+  "groupRecovery": {
+    "pid": 6088,
+    "recoveredPid": 6314,
+    "finalPid": 6521,
+    "workId": "f687c2a8-b9f2-40ae-8077-ad2dfc001845",
+    "expiredRequests": 0
+  },
+  "observation": "Seven unchanged group worker/category/identity/policy/history journeys PASS79.671s after labelled main-category fixture correction. Actual category disable importanceNONE, worker completion while optional bookkeeping remains unavailable, guarded restoration and quiet reenabled replay pass. Group three-process gate also passes6088\u21926314\u21926521 with same f687c2a8-b9f2-40ae-8077-ad2dfc001845, zero expired-gateway requests, exact legacy/new history/roles/draft/identity and protected restoration.9JUnitPASS/3normal/2deliberate/1continuity;21PNG21XMLvalidate. Root fully viewed disabled-completed launcher and actual generic recovered group card. Reenabled capture viewer showed status region only; complete PNG integrity/XML qualify launcher observation and no visible-card claim. This focused10pass is not complete SDK/47acceptance and does not establish Google delivery."
+}

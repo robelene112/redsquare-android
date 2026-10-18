@@ -1,0 +1,426 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/group47-category10-green-39092127900/.scratch/device-evidence/api-29",
+  "files": [
+    {
+      "path": "emulator.log",
+      "size": 5583,
+      "sha256": "a13a38f43f05be3f649fb06b52615a77cbefece0f702f5088de1857dcf769363"
+    },
+    {
+      "path": "group-push-evidence.tar",
+      "size": 2197504,
+      "sha256": "fbf138e55f4eeac5a04f753dfd9d9c3d22d4c437d0bd31f997838803f61298b9"
+    },
+    {
+      "path": "group-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-push-process/continuity.txt",
+      "size": 357,
+      "sha256": "43fe76a36642a888c86de98fc33d1deba2b283db6d4b82497ca1e4ccc86116d1"
+    },
+    {
+      "path": "group-push-process/dismissed-checkpoint.json",
+      "size": 1770,
+      "sha256": "35dceef973892efca8cabafe8e1a2153212023854ed3850a79dfc44601f4781f"
+    },
+    {
+      "path": "group-push-process/dismissed-interrupted.txt",
+      "size": 459,
+      "sha256": "617a4b3a48d36a26a9d65c0cf4994c2f69500508cd233eb6f1bab82ac533b28c"
+    },
+    {
+      "path": "group-push-process/images.tar",
+      "size": 366592,
+      "sha256": "a48ea560fd1930bd6903e77e6f648356f4458f86e85d9ac68443a052bf1cb04c"
+    },
+    {
+      "path": "group-push-process/pending-checkpoint.json",
+      "size": 1720,
+      "sha256": "5c6159e676133ac2b5b4ad3157998f575e3bf7f05316b94e85861e4d262806a1"
+    },
+    {
+      "path": "group-push-process/pending-interrupted.txt",
+      "size": 458,
+      "sha256": "b027df21121a287abf5e3ff81cf091c478059274534d2f6d05731d280c2543a9"
+    },
+    {
+      "path": "group-push-process/restored.txt",
+      "size": 786,
+      "sha256": "22eab72fbfc450b9a96432477c8ee3c3a3c62529ee08bb97ae144cc899eea4a0"
+    },
+    {
+      "path": "group-push-process/verified-checkpoint.json",
+      "size": 1789,
+      "sha256": "7e4b7da3afdf62bf54d98924c8e758bc398c8115b6bf751df87d91c2d8dcd3a1"
+    },
+    {
+      "path": "group-push-process/verified.txt",
+      "size": 812,
+      "sha256": "29ae24ab9b69781fb25a157ccafc83acde498952707a33c5e1f10ed1c5db4a6a"
+    },
+    {
+      "path": "group-push-ui-exit.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "group-push-ui.txt",
+      "size": 5260,
+      "sha256": "e402470f5463604b856d17668349f58e4ff38b90a1124cdd2e9592d5968088aa"
+    },
+    {
+      "path": "scope.txt",
+      "size": 96,
+      "sha256": "efaf7e404da9087143dc7d65d11a715c9ee2398829a7c465a46e2838a6466753"
+    }
+  ],
+  "instrumentation": [
+    {
+      "path": "group-push-process/dismissed-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-push-process/pending-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.659"
+      ]
+    },
+    {
+      "path": "group-push-process/verified.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.175"
+      ]
+    },
+    {
+      "path": "group-push-ui.txt",
+      "passed": 7,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "79.671"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "group-push-process/continuity.txt",
+      "text": "PASS: same persisted worker UUID recovered retained group history after actual process death; generic Android card physically dismissed; another process and duplicate wake remain silent; no Activity, exact older/new history and wallet/backend preserved; installation restoration passed. Recovery launches are host-initiated, not autonomous Google delivery."
+    }
+  ],
+  "exits": [
+    {
+      "path": "group-push-ui-exit.txt",
+      "value": "0"
+    }
+  ],
+  "visuals": [
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-android-category-disabled.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-android-category-disabled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-disabled-completed.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-disabled-completed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-reenabled-still-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-category-recovery-reenabled-still-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-inactive-scopes-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-inactive-scopes-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-generic-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-generic-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-exact-conversation.xml",
+      "kind": "xml",
+      "nodes": 94
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-scoped-exact-conversation.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-membership-recovery-departed-completed.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-membership-recovery-departed-completed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-membership-recovery-rejoined-still-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-membership-recovery-rejoined-still-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-retained-before-recovery.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-retained-before-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-muted-completed.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-muted-completed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-unmuted-still-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-muted-pending-unmuted-still-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-policy-recovery-retained-before-repair.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-policy-recovery-retained-before-repair.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-policy-recovery-repaired-still-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-policy-recovery-repaired-still-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-retained-before-recovery.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-retained-before-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-generic-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-generic-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-deduplicated.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-receipt-recovery-deduplicated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-worker-generic-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-worker-generic-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-worker-deduplicated.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-evidence.tar::group-push-evidence/group-worker-deduplicated.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/retained-before-death.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/retained-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/recovered-alert.xml",
+      "kind": "xml",
+      "nodes": 117
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/recovered-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/cold-duplicate-silent.xml",
+      "kind": "xml",
+      "nodes": 54
+    },
+    {
+      "path": "group-push-process/images.tar::group-push-process-evidence/cold-duplicate-silent.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": [],
+  "summary": {
+    "files": 15,
+    "passed": 9,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 3,
+    "crashedRecords": 2,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 21,
+    "xml": 21,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  }
+}
