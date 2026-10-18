@@ -14,93 +14,97 @@ campaigns, provider-access services or safeguard bypass work.
 ## Active issue50: honest unconfigured background-alert Settings
 
 [Issue50](https://github.com/robelene112/redsquare-android/issues/50), child32/spec1,
-is assigned after closed49, with zero open blockers. Fixed review base
-`fc3e4a8caa56488e69e1e9e22f4e6999dca08134`. Source minimum is
-`979fd7b21765acd9a5886dcde0b8ae988eb27451`: only two Settings resource selections
-and two English strings change. Configured copy, saved consent, controls, workers
-and all transport behavior remain unchanged. Minimum and RED reviews are0/0.
+is assigned after closed49. Review base is
+`fc3e4a8caa56488e69e1e9e22f4e6999dca08134`. Minimum application source is
+`979fd7b21765acd9a5886dcde0b8ae988eb27451`: two Settings resource selections and
+two English strings explain unavailable background services. Configured copy,
+saved choices, controls, workers and transport behavior remain unchanged.
 
-The existing Settings/signed-binding fixture adds actual visible literal notices
-and captures, initially before enabling either choice and after recreation in
-its original consent method. Original identities/assertions/cleanup/deadlines,
-including the180second capacity bound, remain. Actual focused17 RED39104783970
-atbc57 is1FAIL38.736s: both choices false/no-binding pass, then Social notice has
-zero semantic matches. Chat/enable/capacity/reopen tails are unexecuted. Source
-39104758822 succeeds. Root fully viewed the old generic Settings PNG/XML; its
-8-hash/32-original packet has1PNG/1XML valid. Instrumentation shell0 is distinct
-from JUnit1FAIL/CI failure.
-
-Actual focused17 GREEN39105276609 at979 succeeds:1PASS78.485s, both new notices
-visible, signed consent union/capacity fallback/recovery, message/draft/roles/
-identity and independent opt-outs pass. The separate consent recreation method
-is not in this focused run. Source39105236042 SUCCESS. Root fully opened all four
-selected originals, including both complete notices and paused/resumed capacity;
-13 hashes/33 original bindings and4PNG/4XML integrity pass. Final full10/17 remains
-pending, not inferred from focused proof.
-
-At frozen979, canonical ordinary35 succeeds3m21s, SHA256
-`4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd`; performance36
-succeeds2m20s, SHA256
-`e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680`.
-Actual signatures, package/version, min29/target36, nondebuggable/profileability
-and all five DEX configuration observations verify. Ordinary review updates true,
-performance false; Push/both Giphy options unconfigured. All local builds are
-DRAINED. Prepared artifacts/GREEN/pre-execution plan at22b26bb294d151fc226006434a51e59b713535b1
-have Standards0/Spec0, including all13 GREEN hashes/33 bindings and both9-hash
-prepared packets. Performance36 canonical publication exits0 and independent
-actual HTTPS/APK/certificate/manifest/browser checks pass; root fully viewed
-mobile/desktop originals. Main31 metadata/actual APK and immutable performance30
-metadata/actual APK are unchanged. Publication bookend at10b007c48e9b6e48037741544a4f181e7337ab9a has Standards0/Spec0.
-Final full10 run39106583903 is FAILURE at that source:402PASS, the accepted
-Profile assumption and one failed Wallet import case;88 normal/32 deliberate/
-28 continuity. Initial merged Wallet click fails with zero matches/one unmerged
-match, before the real failed-save import scenario starts. Its six other class
-cases pass. No failure-time window was captured; the post-class PNG is empty.
-The10-hash/346-original failed packet retains actual outcomes, incomplete fixed-
-map coverage and qualified unavailable captures. No rendering/lifecycle/app cause
-is established. A bounded fixture-only correction now waits up to20seconds for
-the actionable visible merged Wallet entry on that case's initial/recreated
-openings, with in-scope PNG/XML on entry failure. All original assertions,
-identities,15second import guards and300second class bound remain. Source is
-unchanged. Correction/failure packet atf3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac
-has Standards0/Spec0. Focused import10 run39110410184 atf3 is SUCCESS:
-7original import cases137.620s,10totalPASS/4normal/1deliberate/1continuity,
-including risk/storage and actual replacement-write process recovery. SourceCI
-39110399000 SUCCESS. Root opened both complete restored/recreated wallet PNGs,
-with matching public identity/error message; all22PNG validate, no XML was emitted
-by the legacy successful capture helper. New entry failure capture did not run.
-The16-hash/13-original GREEN packet and fixed full10 recheck plan at
-143d934f36598694e16acd5b68faf58ffbb03daa have Standards0/Spec0. Fresh complete10
-run39111106756 is now IN PROGRESS at that exact143d source, with public feed reads
-and performance36. Owned watcher62523 logs under
+**Current gate:** fresh complete Android10 run39111106756 is IN PROGRESS at
+`143d934f36598694e16acd5b68faf58ffbb03daa`, with public feed reads and
+performance36. The owned watcher62523 logs under
 /mnt/storage/redsquare-android-artifacts/availability50-full10-recheck-39111106756.
-Source map separately retains both202-fixture sets: only the reviewed Wallet
-entry guard/capture differs;239production/4operation/4host objects are identical. Preserve the failed
-original and accepted17; only this existing Wallet fixture differs at recheck. Full17 run39106585481
-is SUCCESS at the same source, with all three jobs complete,431PASS/exact431
-identities,104 normal/33 deliberate/32 continuity. Both public feeds, authenticated
-Chat readiness, private/group sameUUID/threePID/zeroExpired recovery and protected
-restoration, actual main29/performance36 isolation/restoration, legacy5to8 and
-final identity pass. SourceCI39106349137 is SUCCESS. The318-hash/468-original17
-packet validates930PNG/795XML, explicitly excludes the same five optional missing
-diagnostics, and retains root's25 selected plus3 additional public/update visual
-observations. Both new notices are fully readable in all six availability
-captures. The reopened-Social/final-consent PNGs have gray Chat switches while
-separate XML reports checked=true; later reopened-Chat pixels show ON. Do not
-infer a settled ON pixel state or a rendering cause from non-atomic captures.
-Actual semantic persistence and signed binding pass. Bounded17 at3c133ca2447544236f70acf6730622f03742451d has Standards0/Spec0.
+A local watcher exit is not a GitHub outcome. Read completed metadata and retain
+all original outcomes before acceptance. No local Gradle/build/download is active.
+Ordinary35 is UNPUBLISHED; main31 and separate performance36 remain live.
 
-The fixed plan retains430/431 identities,103/104 normal completions,33 deliberate/
-32 continuity and all recovery/public/update/final gates. The committed source
-map verifies239 production/build,202 fixture,4 operation and4 host objects equal
-between prepared979 and dispatched10b. Corrected complete10/whole review remain pending;
-main35 stays UNPUBLISHED and main31/separate performance36 remain public. All
-owned local build/download/retention work is DRAINED; only the39111106756 watcher
-continues. Its local exit is not a GitHub outcome; read completed run metadata. No cloud/provider/node/owner-phone action occurred. Follow-up51 is
-created under35 with50 as its sole native blocker, unassigned and not started:
-actual hosted16KiB environment/full17/current signed35/performance36 observations.
-Original physical/provider/policy gates stay open. Do not repeat pending
-Giphy/Google questions or publish invented policy.
+**Why the10 recheck:** earlier full10 run39106583903 at10b is FAILURE:
+402PASS, the accepted Profile assumption and one failed Wallet import case;
+88 normal/32 deliberate/28 continuity. Its initial merged Wallet click finds zero
+matches/one unmerged match before failed-save import work starts. Six sibling
+cases pass. No failure-time window exists; the post-class PNG is empty. The
+10-hash/346-original failed packet preserves27 missing successful outcomes
+(one executed failure plus26 unexecuted identities). No cause is established.
+
+Fixture-only correction `f3f7223b93e2b99a9f7d2ffe8d8847b2d5fea3ac` waits up to
+20 seconds for the visible/enabled merged Wallet action at this case's initial
+and recreated openings. Conditional failure PNG/XML is captured before teardown.
+Original assertions/identities,15-second import checks and300-second class bound
+remain. Code/failure reviews atf3 report Standards0/Spec0. Focused import10
+run39110410184 atf3 succeeds: seven import cases137.620s, ten totalPASS,
+four normal/one deliberate/one continuity, including risk/storage and actual
+post-replacement-write recovery. SourceCI39110399000 succeeds. Root opened both
+complete restored/recreated wallet PNGs: same public address and restoration
+notice. All22PNG validate; the legacy successful helper emits no XML. Conditional
+entry-failure capture did not execute. The16-hash/13-original GREEN packet and
+fixed `android10-recheck-plan.json` have both reviews0 at143d. This success does
+not establish the earlier failure's cause. No tail-only replacement is allowed
+for the missing full10 application gates.
+
+**Accepted17:** run39106585481 is SUCCESS at
+`10b007c48e9b6e48037741544a4f181e7337ab9a`, with all three jobs complete,
+431PASS/exact431 identities,104 normal/33 deliberate/32 continuity. Both public
+feeds, authenticated read-only Chat readiness, private/group same-UUID/three-PID/
+zero-expired recovery and protected restoration, actual main29/performance36
+isolation/restoration, legacy5to8 and final identity pass. SourceCI39106349137
+succeeds. The318-hash/468-original packet validates930PNG/795XML and qualifies the
+same five optional unavailable diagnostics. Root opened25 selected plus3 public/
+update originals. Both notices are readable in all six availability captures.
+Reopened-Social/final-consent PNGs show gray Chat switches while separate XML
+reports checked=true; later reopened-Chat pixels show ON. Captures are non-atomic;
+no settled ON pixel state or rendering cause is inferred. Actual semantic
+persistence/signed binding pass. Bounded17 reviews at3c133ca2447544236f70acf6730622f03742451d
+report Standards0/Spec0.
+
+The source map retains both complete202-fixture sets. Prepared979 and accepted17
+share the same fixtures; corrected10 differs solely by the reviewed Wallet guard.
+All239 production/build,4 operation and4 host objects match. This uses the
+workflow's documented fixture-only SDK follow-up, not a production exception.
+The immutable pre-execution maps still require430/431 identities,103/104 normal,
+33 deliberate/32 continuity and every original gate. Actual complete10 outcomes,
+combined whole review and ordinary35 publication remain pending.
+
+**Earlier feature proof:** focused17 RED39104783970 atbc57 has1FAIL38.736s after
+both choices false/no-binding pass, then Social notice has zero matches. Later
+Chat/capacity/reopen tails are unexecuted. Root viewed the old generic Settings;
+8 hashes/32 originals,1PNG/1XML valid. Instrumentation shell0 differs from actual
+JUnit/CI failure. Minimum979 focused17 GREEN39105276609 has1PASS78.485s, both new
+initial notices, signed union/capacity/history/draft/identity and opt-outs passing.
+Its separate recreation method is unexecuted there, now covered by complete17.
+Root opened all four GREEN originals;13 hashes/33 originals,4PNG/4XML validate.
+Minimum/RED/GREEN/prepared-artifact/plan reviews report0/0.
+
+**Prepared phone artifacts:** at frozen979, ordinary35 succeeds3m21s, SHA256
+`4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd`; isolated
+performance36 succeeds2m20s, SHA256
+`e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680`.
+Actual signatures/package/version/min29/target36/manifest and five DEX flags
+verify. Ordinary REVIEW is true, Performance false; Push/both Giphy are false.
+Prepared packets and fixed plan have both reviews0 at22b. Performance36 canonical
+publication and independent HTTPS/APK/certificate/manifest/mobile/desktop checks
+pass; root viewed both browser originals. Main31 and immutable performance30
+metadata/APKs remain unchanged. Publication bookend10b has both reviews0.
+No35 rebuild is needed while production stays equal. After complete10 and whole
+review, publish35 canonically and independently verify actual public APK/browser/
+metadata and old31/performance36 preservation before closure. Temporary helpers
+are in /tmp/redsquare-group47-work-20261017; raw publication35 before-metadata is
+under /mnt/storage/redsquare-android-artifacts/availability50-publication35.
+
+Follow-up51 is planned under35, blocked solely by50, unassigned and unstarted:
+actual hosted16KiB/full17/current signed35/performance36 observations. No owner
+phone, node, cloud, provider or store action occurred. Genuine physical/provider/
+policy gates remain open. Do not repeat pending Giphy/Google questions or invent
+policy facts. Preserve unrelated research unread.
 
 ## Accepted issue49: signed Play bundle and reviewable release package
 
