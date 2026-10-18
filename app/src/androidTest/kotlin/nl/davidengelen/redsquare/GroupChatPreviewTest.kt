@@ -114,9 +114,10 @@ class GroupChatPreviewTest {
         val checkpointKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixture only. Never fund.
         val checkpoint=GroupChat.create(fixture,checkpointKey.publicKey,"Recovered group",listOf(member),1700000123456)
         val backend = AndroidBackendStore(context).load()
-        val prefix = "groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}."
+        val prefixes = listOf("groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.", "groupchatpush.${fixture.publicKey}.")
+        fun fileMatchesGroupFixture(name:String) = prefixes.any(name::startsWith)
         val retained = synchronized(SaitoLocalState.lock) {
-            context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.associate { it.name to it.readBytes() }
+            context.noBackupFilesDir.listFiles()!!.filter { fileMatchesGroupFixture(it.name) }.associate { it.name to it.readBytes() }
         }
         val preferences = listOf("wallet-backup-reminders" to "hidden:${fixture.publicKey}", "notification-permission" to "offered").map { (name,key) ->
             val prefs = context.getSharedPreferences(name,0)
@@ -168,7 +169,7 @@ class GroupChatPreviewTest {
             store.replace(original,fixture)
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
             preferences.forEach { (prefs,key,_) -> check(prefs.edit().putBoolean(key,true).commit()) }
-            synchronized(SaitoLocalState.lock) { context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.forEach { check(it.delete()) } }
+            synchronized(SaitoLocalState.lock) { context.noBackupFilesDir.listFiles()!!.filter { fileMatchesGroupFixture(it.name) }.forEach { check(it.delete()) } }
             if(rejectedPage){
                 val references=InstrumentationRegistry.getInstrumentation().context.assets.open("native-group-chat-creation-reference.json")
                     .bufferedReader().use{com.google.gson.JsonParser.parseReader(it).asJsonObject}
@@ -563,7 +564,7 @@ class GroupChatPreviewTest {
         finally {
             cleanupAfterTest(primary,
                 { synchronized(SaitoLocalState.lock) {
-                    context.noBackupFilesDir.listFiles()!!.filter { it.name.startsWith(prefix) }.forEach { check(it.delete()) }
+                    context.noBackupFilesDir.listFiles()!!.filter { fileMatchesGroupFixture(it.name) }.forEach { check(it.delete()) }
                     retained.forEach { (name,bytes) -> File(context.noBackupFilesDir,name).writeBytes(bytes) }
                 } },
                 { store.replace(store.loadExisting(),original) },
@@ -614,6 +615,7 @@ class GroupChatPreviewTest {
             if(importing)listOf(admin.publicKey)else listOf(fixture.publicKey),1700000123456)
         val group=GroupChat.readCreation(creation.envelope())
         val message=GroupChat.message(admin,group,"Live incoming group history",1700000123457)
+        val alerts=ChatFixtureState(context,emptyList(),fixture.publicKey)
         val filename="groupchat.${activeBackend.id}.${fixture.publicKey}.${key.publicKey}.v1"
         val ownedNames=listOf(filename)+if(importing)listOf("groupchat.${activeBackend.id}.${fixture.publicKey}.${unavailable.publicKey}.v1")else emptyList()
         synchronized(SaitoLocalState.lock){
@@ -656,6 +658,7 @@ class GroupChatPreviewTest {
         val reactionOriginals=mutableListOf<String>()
         var primary:Throwable?=null
         try {
+            alerts.prepare()
             if(personalPolicy)controls.save(controls.load(),PersonalPolicy(blocked=setOf(admin.publicKey)))
             walletStore.replace(original,fixture)
             AndroidBackendStore(context).save(activeBackend)
@@ -853,6 +856,7 @@ class GroupChatPreviewTest {
             }
         }catch(failure:Throwable){primary=failure;throw failure}
         finally{cleanupAfterTest(primary,
+            {alerts.restoreFiles()}, {alerts.restorePreferences()},
             {if(personalPolicy)synchronized(SaitoLocalState.lock){
                 context.noBackupFilesDir.listFiles()!!.filter{it.name.startsWith(personalPrefix)}.forEach{check(it.delete())}
                 personalFiles.forEach{(name,bytes)->File(context.noBackupFilesDir,name).writeBytes(bytes)}

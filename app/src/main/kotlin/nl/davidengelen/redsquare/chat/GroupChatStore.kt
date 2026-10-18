@@ -16,7 +16,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED, AVAILABLE }
     data class StoppedAction(val candidate:SaitoTransaction,val previousStatus:Status)
     data class QueuedMessage(val candidate:SaitoTransaction,val observedEvents:Int,val message:GroupChatMessage)
-    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null,val automaticMessage:Boolean=false,val gifAttribution:GiphyAttribution?=null) {
+    data class Entry(val group: NamedChatGroup, val candidate: SaitoTransaction?, val status: Status, val creationKey: SaitoWallet? = null, val originals:List<String> = emptyList(), val messages:List<GroupChatMessage> = emptyList(), val draft:String = "", val reactions:List<GroupChatLikeEvent> = emptyList(), val ownCreation:Boolean=false,val stoppedActions:List<StoppedAction> = emptyList(),val queuedMessage:QueuedMessage?=null,val automaticMessage:Boolean=false,val gifAttribution:GiphyAttribution?=null,val pendingAlerts:Set<String> = emptySet()) {
         fun likedBy(message:GroupChatMessage)=GroupChatReplay(group,messages,originals,reactions=reactions).likedBy(message)
         val hasPendingAction:Boolean get()=queuedMessage!=null||status==Status.UNKNOWN||status==Status.SUBMITTED
         val pendingMessage:SaitoTransaction? get()=queuedMessage?.candidate ?: candidate?.takeIf{automaticMessage&&hasPendingAction}
@@ -101,9 +101,20 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         }
         val automatic=record.get("automaticMessage")?.let{require(it.isJsonPrimitive&&it.asJsonPrimitive.isBoolean);it.asBoolean} ?: false
         if(automatic&&queued==null)require(candidate!=null&&SaitoEnvelope.decode(candidate.envelope()).body.get("request").asString=="chat message")
+        val pendingAlerts=record.get("pendingAlerts")?.let { value ->
+            require(value.isJsonArray)
+            val ids=value.asJsonArray.map { item ->
+                require(item.isJsonPrimitive && item.asJsonPrimitive.isString && item.asString.matches(Regex("[0-9a-f]{128}")))
+                item.asString
+            }
+            require(ids.distinct().size==ids.size && ids.all { id ->
+                history.messages.any { it.id==id && it.author!=wallet.publicKey }
+            })
+            ids.toSet()
+        }.orEmpty()
         Entry(group,candidate,status,creationKey,history.originals,history.messages,draft,history.reactions,
             creation!=null && SaitoEnvelope.decode(creation).author==wallet.publicKey,stopped,queued,automatic,
-            record.get("gifAttribution")?.let(GiphyAttribution::fromJson))
+            record.get("gifAttribution")?.let(GiphyAttribution::fromJson),pendingAlerts)
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}
     }
@@ -188,6 +199,26 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val previous=requireNotNull(load(id))
         val replay=GroupChat.replay(previous.group,previous.originals+envelope)
         retainReplay(previous,replay)
+    }
+
+    /** Commit incoming history and alert eligibility together, independently of notification bookkeeping. */
+    fun retainIncoming(envelope:String):GroupChatMessage? = synchronized(SaitoLocalState.lock) {
+        val signed=SaitoEnvelope.decode(envelope)
+        val previous=requireNotNull(load(signed.body.get("group_id").asString))
+        val message=GroupChat.readMessage(previous.group,envelope)
+        if(previous.messages.any { it.id==message.id })
+            return@synchronized message.takeIf { it.id in previous.pendingAlerts }
+        val replay=GroupChat.replay(previous.group,previous.originals+envelope)
+        val eligible=message.author!=wallet.publicKey && previous.group.memberRoles[wallet.publicKey]?.active==true
+        save(previous.copy(group=replay.group,originals=replay.originals,messages=replay.messages,reactions=replay.reactions,
+            pendingAlerts=if(eligible)previous.pendingAlerts+message.id else previous.pendingAlerts))
+        message.takeIf { eligible }
+    }
+
+    fun completeAlert(id:String,signature:String) = synchronized(SaitoLocalState.lock) {
+        val previous=requireNotNull(load(id))
+        if(signature in previous.pendingAlerts)save(previous.copy(pendingAlerts=previous.pendingAlerts-signature))
+        Unit
     }
 
     /** One bounded Archive page is validated and committed together, without repeated full-cache replays. */
@@ -372,6 +403,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
             addProperty("candidate",entry.candidate?.encoded())
             addProperty("status",entry.status.name)
             addProperty("draft",entry.draft)
+            add("pendingAlerts",com.google.gson.JsonArray().apply { entry.pendingAlerts.sorted().forEach(::add) })
             entry.gifAttribution?.let{add("gifAttribution",it.toJson())}
             addProperty("automaticMessage",entry.automaticMessage)
             entry.queuedMessage?.let { queued -> add("queuedMessage",JsonObject().apply {
@@ -391,7 +423,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
                 it.creationKey?.exportJson()==entry.creationKey?.exportJson() && it.draft==entry.draft && it.gifAttribution==entry.gifAttribution &&
                 it.queuedMessage?.candidate?.encoded()==entry.queuedMessage?.candidate?.encoded() &&
                 it.queuedMessage?.observedEvents==entry.queuedMessage?.observedEvents &&
-                it.automaticMessage==entry.automaticMessage &&
+                it.automaticMessage==entry.automaticMessage && it.pendingAlerts==entry.pendingAlerts &&
                 it.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus}==entry.stoppedActions.map{row->row.candidate.envelope() to row.previousStatus});changes.value+=1 }
         }catch(failure:GroupChatStorageException){throw failure}
         catch(failure:Exception){throw GroupChatStorageException(failure)}

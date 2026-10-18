@@ -187,7 +187,7 @@ class ChatQueueProcessRecoveryTest {
     private fun fileNames(backend:SaitoBackend):Set<String> {
         val conversation=PrivateChat.conversationId(fixture.publicKey,other.publicKey)
         return listOf("wallet.v1","wallet.recovery.v1","chat.${backend.id}.${fixture.publicKey}.$conversation.v1",
-            "chatwork.${backend.id}.${fixture.publicKey}.$conversation.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")
+            "chatwork.${backend.id}.${fixture.publicKey}.$conversation.v1","groupchatpush.${fixture.publicKey}.${backend.id}.ledger.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")
             .flatMap{listOf(it,"$it.bak","$it.new")}.toSet()
     }
     private fun preferenceKeys()=listOf("notification-permission" to "offered","wallet-backup-reminders" to "hidden:${fixture.publicKey}")

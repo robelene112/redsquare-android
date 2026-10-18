@@ -16,16 +16,10 @@ internal fun receiveChat(context: Context, wallet: SaitoWallet, backend: SaitoBa
         val body = signed.body.asJsonObject
         val id = body.get(if (body.get("request") == com.google.gson.JsonPrimitive("chat group")) "id" else "group_id")
         if (id != null && id.isJsonPrimitive && id.asJsonPrimitive.isString && SaitoWallet.isPublicKey(id.asString)) {
-            val message = synchronized(SaitoLocalState.lock) {
-                val store = GroupChatStore(context, wallet, backend)
-                val ordinaryMessage = body.get("module") == com.google.gson.JsonPrimitive("Chat") &&
-                    body.get("request") == com.google.gson.JsonPrimitive("chat message")
-                val seen = !ordinaryMessage || store.load(id.asString)?.messages?.any { it.id == signed.id } == true
-                val retained = store.receive(envelope)
-                if (!seen && retained.group.memberRoles[wallet.publicKey]?.active == true)
-                    retained.messages.singleOrNull { it.id == signed.id } else null
-            }
-            message?.let { notifyGroupChat(context, wallet, backend, it, endpoint) }
+            val ordinaryMessage = body.get("module") == com.google.gson.JsonPrimitive("Chat") &&
+                body.get("request") == com.google.gson.JsonPrimitive("chat message")
+            if (ordinaryMessage) retainGroupChat(context, wallet, backend, envelope, endpoint)
+            else GroupChatStore(context, wallet, backend).receive(envelope)
             return null
         }
     }
@@ -67,6 +61,27 @@ internal fun retainPrivateChat(context: Context, wallet: SaitoWallet, backend: S
         // preserves its existing no-retrospective-alert behavior after notifier errors.
         // Bookkeeping exceptions still leave the independently retained attempt pending.
         if (outcome != ChatNotificationResult.RETRY || !retryPublication) history.completeAlert(message.id)
+        outcome
+    } catch (_: Exception) { ChatNotificationResult.RETRY }
+}
+
+/** Ordinary and background group delivery share the history-owned pending decision. */
+internal fun retainGroupChat(context: Context, wallet: SaitoWallet, backend: SaitoBackend,
+    envelope: String, endpoint: String,
+    retryPublication: Boolean = false): ChatNotificationResult = synchronized(SaitoLocalState.lock) {
+    val history = GroupChatStore(context, wallet, backend)
+    val message = history.retainIncoming(envelope) ?: return@synchronized ChatNotificationResult.SUPPRESSED
+    try {
+        val ledger = NotificationReceiptLedger(context, wallet.publicKey, backend, message.id,
+            NotificationReceiptLedger.Domain.GROUP_CHAT)
+        val now = System.currentTimeMillis()
+        if (!ledger.prepare(now)) {
+            history.completeAlert(message.groupId, message.id)
+            return@synchronized ChatNotificationResult.SUPPRESSED
+        }
+        val outcome = notifyGroupChat(context, wallet, backend, message, endpoint)
+        if (outcome == ChatNotificationResult.PUBLISHED) ledger.recordPublication(now)
+        if (outcome != ChatNotificationResult.RETRY || !retryPublication) history.completeAlert(message.groupId, message.id)
         outcome
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }

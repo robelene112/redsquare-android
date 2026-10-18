@@ -12,7 +12,7 @@ import java.io.File
 /** Android publication receipts are independent of in-app unread activity and scoped to wallet/server. */
 internal class NotificationReceiptLedger(context: Context, owner: String, backend: nl.davidengelen.redsquare.saito.SaitoBackend,
     private val signature: String, domain: Domain) {
-    enum class Domain(val prefix: String) { SOCIAL("socialpush"), PRIVATE_CHAT("chatpush") }
+    enum class Domain(val prefix: String) { SOCIAL("socialpush"), PRIVATE_CHAT("chatpush"), GROUP_CHAT("groupchatpush") }
     private val prefix = domain.prefix
     private val name = "$prefix.$owner.${backend.id}.ledger.v1"
     private val pendingFile = File(context.noBackupFilesDir, "$name.new")

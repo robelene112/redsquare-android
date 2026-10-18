@@ -4,7 +4,7 @@ import android.content.Context
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.chat.ChatNotificationResult
 import nl.davidengelen.redsquare.chat.GroupChatStore
-import nl.davidengelen.redsquare.chat.notifyGroupChat
+import nl.davidengelen.redsquare.chat.retainGroupChat
 import nl.davidengelen.redsquare.saito.*
 
 /** A signed group original can extend known history; it cannot establish the receiving wallet's membership. */
@@ -32,12 +32,9 @@ internal object GroupChatPush {
             val previous = store.load(signed.body.get("group_id").asString) ?: return@synchronized ChatNotificationResult.SUPPRESSED
             if (previous.group.memberRoles[wallet.publicKey]?.active != true)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            val message = try { GroupChat.readMessage(previous.group, envelope) }
+            try { GroupChat.readMessage(previous.group, envelope) }
                 catch (_: Exception) { return@synchronized ChatNotificationResult.SUPPRESSED }
-            val seen = previous.messages.any { it.id == message.id }
-            store.receive(envelope)
-            if (seen) return@synchronized ChatNotificationResult.SUPPRESSED
-            notifyGroupChat(context, wallet, reference.backend, message, endpoint)
+            retainGroupChat(context, wallet, reference.backend, envelope, endpoint, retryPublication = true)
         }
     } catch (_: Exception) { ChatNotificationResult.RETRY }
 }

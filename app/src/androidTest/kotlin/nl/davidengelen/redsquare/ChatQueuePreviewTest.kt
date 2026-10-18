@@ -63,7 +63,7 @@ class ChatQueuePreviewTest {
         val replacement=SaitoWallet.fromPrivateKey("0".repeat(63)+"3").withNamedChatGroup(key.publicKey,name) // Public unsafe fixture only.
         val prefix="groupchat.owner.${wallet.publicKey}."
         val prefixes=listOf(wallet,replacement).flatMap{identity->
-            SaitoBackend.entries.map{"groupchat.${it.id}.${identity.publicKey}."}+"personal.${identity.publicKey}."
+            SaitoBackend.entries.map{"groupchat.${it.id}.${identity.publicKey}."}+listOf("personal.${identity.publicKey}.","groupchatpush.${identity.publicKey}.")
         }
         val retained=synchronized(SaitoLocalState.lock) {
             context.noBackupFilesDir.listFiles()!!.filter{file->prefixes.any(file.name::startsWith)}.associate{check(it.isFile);it.name to it.readBytes()}

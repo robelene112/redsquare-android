@@ -192,7 +192,7 @@ class GroupChatProcessRecoveryTest {
         }
     }
     private fun peer()=ControlledFeedPeer("[]",advertisedServices="archive||;relay||",archiveResponse={"{invalid"})
-    private fun fileNames(backend:SaitoBackend)=listOf("wallet.v1","wallet.recovery.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")
+    private fun fileNames(backend:SaitoBackend)=listOf("wallet.v1","wallet.recovery.v1","groupchatpush.${fixture.publicKey}.${backend.id}.ledger.v1","groupchat.${backend.id}.${fixture.publicKey}.${key.publicKey}.v1")
         .flatMap{listOf(it,"$it.bak","$it.new")}.toSet()
     private fun preferenceKeys()=listOf("notification-permission" to "offered","wallet-backup-reminders" to "hidden:${fixture.publicKey}")
     private fun digest(text:String)=MessageDigest.getInstance("SHA-256").digest(text.toByteArray()).joinToString(""){"%02x".format(it)}

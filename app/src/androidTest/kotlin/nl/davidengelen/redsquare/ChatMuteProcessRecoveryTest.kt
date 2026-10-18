@@ -171,7 +171,7 @@ class ChatMuteProcessRecoveryTest {
         return listOf("wallet.v1", "wallet.recovery.v1", "personal.${fixture.publicKey}.v1",
             "personal.${fixture.publicKey}.guard.v1", "personal.${fixture.publicKey}.recovery.v1",
             "chat.${backend.id}.${fixture.publicKey}.$conversation.v1", "chatwork.${backend.id}.${fixture.publicKey}.$conversation.v1",
-            "groupchat.${backend.id}.${fixture.publicKey}.$groupId.v1",
+            "groupchatpush.${fixture.publicKey}.${backend.id}.ledger.v1","groupchat.${backend.id}.${fixture.publicKey}.$groupId.v1",
             "chatpush.${fixture.publicKey}.${backend.id}.ledger.v1")
             .flatMap { listOf(it, "$it.bak", "$it.new") }.toSet()
     }
