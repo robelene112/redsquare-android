@@ -53,3 +53,8 @@ source equivalence is separately checked. Android 10 and combined whole review
 remain pending. Ordinary35 is unpublished and main31 remains live. No physical
 Pixel timing/update, configured Google/Giphy delivery,16 KB runtime or Play
 acceptance follows. Earlier RED remains an actual failure.
+
+Fresh complete10 recheck39111106756 subsequently succeeds at143d with identical
+production and the sole reviewed Wallet fixture delta. Its separate packet
+retains all430 identities and actual outcomes. Combined whole review/publication
+remain pending; this does not alter this run's original source or observations.

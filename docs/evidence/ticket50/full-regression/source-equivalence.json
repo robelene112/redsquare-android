@@ -719,22 +719,25 @@
     "originalClassBoundSeconds": 300,
     "addedEntryReadinessGuardMillis": 20000
   },
-  "fullRuntimeAcceptancePending": true,
+  "fullRuntimeAcceptancePending": false,
   "earlierFailedAndroid10": 39106583903,
   "focusedImportGreen10": 39110410184,
   "acceptedFullAndroid17": 39106585481,
   "limits": [
     "Source equality is not runtime acceptance or APK byte equality.",
     "The Wallet fixture delta is only positive action readiness and conditional failure capture; accepted17 and prepared fixtures remain explicit.",
-    "A complete fresh Android10 run is still required; the earlier failed full run never becomes SUCCESS.",
+    "Fresh complete Android10 recheck39111106756 succeeds; the earlier failed full run remains FAILURE. Combined whole review and main35 publication remain pending.",
     "No physical Pixel/configured Google or Giphy/16KB runtime/Play acceptance is inferred."
   ],
   "fullRuns": {
     "10": {
       "run": 39111106756,
       "source": "143d934f36598694e16acd5b68faf58ffbb03daa",
-      "status": "in_progress",
-      "acceptance": false
+      "status": "completed",
+      "conclusion": "success",
+      "identities": 430,
+      "passed": 429,
+      "assumed": 1
     },
     "17": {
       "run": 39106585481,
@@ -743,5 +746,6 @@
       "conclusion": "success",
       "identities": 431
     }
-  }
+  },
+  "wholeReviewPending": true
 }

@@ -20,13 +20,18 @@ is assigned after closed49. Review base is
 two English strings explain unavailable background services. Configured copy,
 saved choices, controls, workers and transport behavior remain unchanged.
 
-**Current gate:** fresh complete Android10 run39111106756 is IN PROGRESS at
-`143d934f36598694e16acd5b68faf58ffbb03daa`, with public feed reads and
-performance36. The owned watcher62523 logs under
-/mnt/storage/redsquare-android-artifacts/availability50-full10-recheck-39111106756.
-A local watcher exit is not a GitHub outcome. Read completed metadata and retain
-all original outcomes before acceptance. No local Gradle/build/download is active.
-Ordinary35 is UNPUBLISHED; main31 and separate performance36 remain live.
+**Current gate:** fresh complete Android10 run39111106756 is SUCCESS at
+`143d934f36598694e16acd5b68faf58ffbb03daa`:429PASS plus the sole accepted Profile
+assumption, exact430 identities,103 normal/33 deliberate/32 continuity and all
+required recovery/public/update/final/isolation/restoration gates. Its packet
+binds452 originals and validates926PNG/794XML with the same five qualified
+optional diagnostics. Root opened25 selected plus three public/update originals;
+non-atomic reopened-Social gray-switch/separate checked=true XML and later ON
+captures remain qualified. Actual worker UUID/PID/isolation details are in the
+packet. Local watcher/download/collector work is drained. Whole source review
+atfe8648d0a reports Standards0/Spec0; complete10 incremental/combined review is
+now required before ordinary35 publication. Main31 and isolated36 remain live.
+No local Gradle/build is active.
 
 **Why the10 recheck:** earlier full10 run39106583903 at10b is FAILURE:
 402PASS, the accepted Profile assumption and one failed Wallet import case;
@@ -71,8 +76,8 @@ share the same fixtures; corrected10 differs solely by the reviewed Wallet guard
 All239 production/build,4 operation and4 host objects match. This uses the
 workflow's documented fixture-only SDK follow-up, not a production exception.
 The immutable pre-execution maps still require430/431 identities,103/104 normal,
-33 deliberate/32 continuity and every original gate. Actual complete10 outcomes,
-combined whole review and ordinary35 publication remain pending.
+33 deliberate/32 continuity and every original gate. Actual complete10 outcomes now pass.
+Combined whole review and ordinary35 publication remain pending.
 
 **Earlier feature proof:** focused17 RED39104783970 atbc57 has1FAIL38.736s after
 both choices false/no-binding pass, then Social notice has zero matches. Later

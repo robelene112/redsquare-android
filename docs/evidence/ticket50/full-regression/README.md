@@ -50,3 +50,16 @@ Fresh complete10 run39111106756 is now IN PROGRESS at that exact source, with
 public reads/performance36. The complete source map retains both202-fixture sets
 and their sole reviewed Wallet delta;239production/4operation/4host objects match.
 Actual complete10 outcomes and whole acceptance remain pending.
+
+## Completed fresh Android10 recheck
+
+Run39111106756 is SUCCESS at143d934f36598694e16acd5b68faf58ffbb03daa:
+429PASS plus the sole accepted Profile assumption, exact430 identities,
+103 normal/33 deliberate/32 continuity and every original recovery/public/update/
+final/isolation/restoration gate. The complete10 packet binds452 originals and
+validates926PNG/794XML, with the same five qualified optional diagnostics.
+Root opened25 selected plus three public/update originals and retained the
+non-atomic switch qualification. Both complete SDKs now have actual passing
+outcomes on identical production. The sole reviewed Wallet fixture delta remains
+explicit. Earlier failed10 is unchanged. Combined whole review and ordinary35
+publication remain pending.
