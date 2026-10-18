@@ -1,0 +1,1996 @@
+{
+  "originalArtifactRoot": "/mnt/storage/redsquare-android-artifacts/group47-full17-first-39090559898/android-native-proof-wallet",
+  "originalFiles": [
+    {
+      "path": ".scratch/device-evidence/api-37.0/after.xml",
+      "size": 5031,
+      "sha256": "0012f59940eda70eb81437baef2a9f589b1176683eeef7a4c4b939cb03e7d217"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/backend-ui-evidence.tar",
+      "size": 188416,
+      "sha256": "e5a4a4c2c35ada633b67b32a0d096ad64edbff41b67fc6599a7f74d72fa68295"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/backend-ui-screen.png",
+      "size": 37311,
+      "sha256": "27c929346cf1d1fb28c2a2d7471040ee858947331547005e19be19b965e3f74f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/before.xml",
+      "size": 4214,
+      "sha256": "bb2d8ceeab9ea4c297cbba0cdb4ab2cf6e0d092ae850ca299cfdbbc8cd6ad350"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/diagnostic.png",
+      "size": 30430,
+      "sha256": "9442f58c2beece3ec0444f66ac04193dd8d1ee85c45ad95b261930ecd89c9139"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/emulator.log",
+      "size": 12204,
+      "sha256": "931a8269cdc791b6ecfc7a69b3c50a77995f6cda3fbef29ba2e325a21c8794ce"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-cold-launch/continuity.txt",
+      "size": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-cold-launch/feed.png",
+      "size": 45289,
+      "sha256": "e93b0a71ff303ccd6a867a81551c8c5f086fc208f03755c5585ac789b7a4b0c2"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-cold-launch/fully-drawn.txt",
+      "size": 121,
+      "sha256": "ed46540faf90637a5ed8c050498096d7495b056cbbede880e1a381253bdea189"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-cold-launch/last-ui.xml",
+      "size": 30461,
+      "sha256": "17e732899cc123ddca4b21bef339bcf713fcaab3daa4ea330abe5e9452a87909"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-cold-launch/launch.txt",
+      "size": 253,
+      "sha256": "97c4bdec8297b2831606bb6c68c4bc78f3ac5432b1a38efbdfb9f6db4a37ed3b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/feed-ui.txt",
+      "size": 5662,
+      "sha256": "773583175ce510073b57f80f3962aa74202b0ae7e5c6307a8f5e5e0f44cbdce1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-backup-reminder.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-commit-sync.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-incompleteFirstWriteCanResumeCreation.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-install.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-live-official.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-live-owner.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-unavailablePendingSaveIsPreservedForRetry.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "size": 822,
+      "sha256": "62b0b50ca9b2f5da4d7647ec20bfe4de2424e6b29694c2b0e8fa0b08049b96f4"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "size": 831,
+      "sha256": "f9b80a92e1b325609817a2b8712ae4ba938b6996e85c69689ba1eba3fea82e0d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "size": 847,
+      "sha256": "d379815320c7dbd83e1d10599cfb94460bd894b27c0774a4a0034e96ca3ce409"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/instrumentation.txt",
+      "size": 2282,
+      "sha256": "51ab3baf3d20d34a41cb87cbb78b1e9963d945ac67d76d5e939fa853f1cddb85"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/balance.png",
+      "size": 27953,
+      "sha256": "613403e904325dfec4080e7b8e03d2f25c7292fbbb582c28d2f0f196174425dd"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/balance.xml",
+      "size": 24299,
+      "sha256": "76c870439209d0fa87cdb102fe1ccc3d8d85adec873dc74e9db5d04b3c161289"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/feed.png",
+      "size": 56947,
+      "sha256": "1f90b61233713e80093d5aec4ab92c85fefa4fdd06ebc775239eb41c8be76759"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/funding.png",
+      "size": 38257,
+      "sha256": "1879ed17183a64139d58095c3d5b2e74ce44969d1025fff881f5d891de0badcb"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/funding.xml",
+      "size": 98242,
+      "sha256": "377446d8e9fddb4245401bdc5b6a432d308dd17666ec984fbe7356cc9e7233ea"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/public-search.txt",
+      "size": 382,
+      "sha256": "3d8e39d242cd164bd26c04baee48ed6d24077187828a1573e51af25f1858e4ef"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/public-wallet.txt",
+      "size": 285,
+      "sha256": "127822130250aa8c4798a81ed411bd8844c18d62d76e2b152979df749b166d4f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/result.txt",
+      "size": 142,
+      "sha256": "4f1773dcb44e5e93a2763149054cb1d2461450b6b2d429372a0b50fe379e217c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/screen.png",
+      "size": 52281,
+      "sha256": "6f8e205ebab92dced3fae51596987270304bedfe6667f49595d9e86f77479379"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/transport-status.txt",
+      "size": 296,
+      "sha256": "def2d6d8e879fc524ae73a5118e0401337536a8142623536e7e8cd871a5cf0b6"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/wallet-first-failure.png",
+      "size": 82,
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official/wallet-first-failure.xml",
+      "size": 82,
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-official-feed.txt",
+      "size": 798,
+      "sha256": "517d56f1457276be03b5e0fc725a1ca752263d4fb5c15ee30051d9ae7d56d86c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/balance.png",
+      "size": 29317,
+      "sha256": "087aed2f37d5879e11a2119e14b4e93bef52b3abd20f69707c02a5232aa0372f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/balance.xml",
+      "size": 24312,
+      "sha256": "08d9c9b4d2c34132024718a9f78d084b9380a83220911d00f7ef001687506573"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/feed.png",
+      "size": 55296,
+      "sha256": "48c0fe9b9f3b210792ed4a284d57ab6db830b5079a8c066ad98eb27658b56a23"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/funding.png",
+      "size": 38245,
+      "sha256": "96c7ec1e5be3915de025f3493463481e518afdb0a2aa57824815ba633f660590"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/funding.xml",
+      "size": 98242,
+      "sha256": "e5f22f6dc9dabcc558c8145d17c085b37baf0dac29400a25c32d3dc68ac5dfee"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/public-search.txt",
+      "size": 376,
+      "sha256": "e97b6af9a740c91a02a5c6d4317e2852ffea2b1a1a9b243d3cd94dfde01fd21e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/public-wallet.txt",
+      "size": 282,
+      "sha256": "26dc147c7ea45f8f2d484914751d7a3103ffc8580ed56fa00f3fcad102bbfbfc"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/result.txt",
+      "size": 139,
+      "sha256": "666941711c1791efd8257c7826a2a1482131dccc824289df827b8599cde47948"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/screen.png",
+      "size": 51361,
+      "sha256": "39c71994fde878dc924d0fac085b9d230ce259688647509f3442ac6451d399ab"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/transport-status.txt",
+      "size": 364,
+      "sha256": "bcabda90814ea472547a47769362ba3dd6bcb86f6d4867c2b8b79c265d58ae81"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.png",
+      "size": 82,
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.xml",
+      "size": 82,
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/live-owner-feed.txt",
+      "size": 798,
+      "sha256": "3ac61fd89b64eca0ce3eda212bb63a5d0330c78bc0ed5aa1ec4852f3f81eda60"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/partition-complete.txt",
+      "size": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/partition.txt",
+      "size": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/preview-update/requests.txt",
+      "size": 26,
+      "sha256": "de30ec9d52a9034687b4b16bc9c68b0938cfc539ee5bd2e0f9afe46e86c0214d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/preview-update/screen.png",
+      "size": 13173,
+      "sha256": "2a37d6bb2f239746b5ecff25867fa7dcabba113728c4687f7123ed5cacc0f753"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/preview-update-ui.txt",
+      "size": 767,
+      "sha256": "712548fa3969f4ec278eb6e589cedc40c7b3e53914c2a9e387e28b4e55b7fa77"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/sdk.txt",
+      "size": 3,
+      "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/continuity.txt",
+      "size": 129,
+      "sha256": "52ca8473850c8152d3b37c73902e29357af3b57e0021c080c463edde3abd2486"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-1.log",
+      "size": 896,
+      "sha256": "a0e7c079be6df2bf9cb68f76533d671c3e9bff1ea21e917100d4e5dc46cbb1d7"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-1.png",
+      "size": 16766,
+      "sha256": "e715bea8bc0db3c37b132296b630da2ff1112f4aad2d725de116d12a2315f722"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-1.xml",
+      "size": 18565,
+      "sha256": "783150002962e251e80fc061f10e103c3a42af554697b5f47f4954452ef27133"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-2.log",
+      "size": 896,
+      "sha256": "1a845509d87b7ac8f0431834902946046a48b5b0e612bae721c718c4df1cfac8"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-2.png",
+      "size": 16766,
+      "sha256": "e715bea8bc0db3c37b132296b630da2ff1112f4aad2d725de116d12a2315f722"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-2.xml",
+      "size": 18565,
+      "sha256": "783150002962e251e80fc061f10e103c3a42af554697b5f47f4954452ef27133"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-3.log",
+      "size": 896,
+      "sha256": "4179c901846faa6fdae7455e78720e334c9caeaa243289e1eab5abf2130ea438"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-3.png",
+      "size": 20090,
+      "sha256": "2205bf8126cd314ca532a6f8820390777666b4b72db63613b728647c1c6d1be1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-3.xml",
+      "size": 18564,
+      "sha256": "3c892f5422f237b2111d5035e20d47cb90ce773d1bb4a28511d1f058da318af6"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-4.log",
+      "size": 896,
+      "sha256": "34c2007dcc3b087850934038b7db3f88778406f8a13b04b488ef7e71903a1021"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-4.png",
+      "size": 20090,
+      "sha256": "2205bf8126cd314ca532a6f8820390777666b4b72db63613b728647c1c6d1be1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/observation-4.xml",
+      "size": 18564,
+      "sha256": "3c892f5422f237b2111d5035e20d47cb90ce773d1bb4a28511d1f058da318af6"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/versions.txt",
+      "size": 93,
+      "sha256": "1feef7d4736fa311c17414bfd514e915b03d748c671bdf191fa88304cc3b1139"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/signed-update/wallet.png",
+      "size": 21981,
+      "sha256": "76896beec932615a104e2e41b1002b4a5d95d5ada56c47f6ab5164864ff8ee10"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-backup-evidence.tar",
+      "size": 106496,
+      "sha256": "d2db0deb615a47459f2881288858c53b5f23f8e913ce2178510820a2de9e8070"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-backup-ui.txt",
+      "size": 837,
+      "sha256": "b78feea204a1db4016c80b77da557db20c7d605388310fa973cc78e37484529f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/continuity.txt",
+      "size": 98,
+      "sha256": "461a5c5ce4a96a256bc9b4e3b6fe06c0602587243211ba23886441e56cb34566"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-1.log",
+      "size": 896,
+      "sha256": "caea71ed145d17073248bdf2e30f965ec13a017ba3e9444dbff6a76829ca0c1e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-1.png",
+      "size": 29645,
+      "sha256": "dafd581adf0d5f765283f280668e3f9b158d954de889ec46847de3f113189ede"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-1.xml",
+      "size": 26026,
+      "sha256": "a49844274d5e125c86856dc0115347091abcb336bde143e7d8457dd477328e7e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-2.log",
+      "size": 896,
+      "sha256": "0887280e5e60802c07bdd6d386c405c2c381c733261b7b296d8f550c72cd769d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-2.png",
+      "size": 29645,
+      "sha256": "dafd581adf0d5f765283f280668e3f9b158d954de889ec46847de3f113189ede"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/observation-2.xml",
+      "size": 26026,
+      "sha256": "a49844274d5e125c86856dc0115347091abcb336bde143e7d8457dd477328e7e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-cold-launch/wallet.png",
+      "size": 197960,
+      "sha256": "114fa4eaee2dbe9a47fc31815ded215825b538ba439df2048be9d49e154499b6"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-commit-sync-ui.txt",
+      "size": 845,
+      "sha256": "37e346df3f4779b83468f8aa221875129daf10c41c96ed1ac8d897bc9c44f382"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-evidence.tar",
+      "size": 304128,
+      "sha256": "9a943e119eff33c890ad611f52f8162e170dd5a776959609760749caf20ab8d5"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/continuity.txt",
+      "size": 185,
+      "sha256": "422a6096ceb344df5efed09c0e934da7aebb92fc44a1e78ca02f9fb0ea2ccb06"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/interrupted-instrumentation.txt",
+      "size": 469,
+      "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/process-recovery.png",
+      "size": 29533,
+      "sha256": "926663b9901e7c6c8f5fa23b60af28ffbdc21aff7e9e94d707c4e71b44eef3da"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/process-retry.png",
+      "size": 32346,
+      "sha256": "a968a8865bc24b480cb8050ddabe69dbe89c055b6dd6bcb3e94d26c7e8be41b9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/recovered-instrumentation.txt",
+      "size": 838,
+      "sha256": "1dce075d778eac883c7b304090f2cec0657de371334c307758fd11ee81135d10"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-ui.txt",
+      "size": 3699,
+      "sha256": "ace2bd53fd9b07135f6fb173bfec86bb3b89e56cd2b5f456416f8e44f03eab1c"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-evidence.tar",
+      "size": 671232,
+      "sha256": "8d99fa422120490d729070f33c3e5ff7dcf9cfa15bab356de255c64c37843e05"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-process/cold-recovery.png",
+      "size": 31076,
+      "sha256": "ec9c435387dd64a7fc32662e4c1244f6d10a6aa92b0acd1d6ff58ea6752979d8"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-process/continuity.txt",
+      "size": 172,
+      "sha256": "bbf399022576a134c413256a5e6498524c54a18acdacbd9529b0ed5b5f073ae2"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-process/interrupted-instrumentation.txt",
+      "size": 473,
+      "sha256": "423df0fd849a4f4428a21f5522ee83aa9f0fe0753258ed5f13130af095587921"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-process/recovered-instrumentation.txt",
+      "size": 822,
+      "sha256": "11d249797efa095bbbaab824e35cc5c9dc9b85a60bc53566571d3cce4f9f6a21"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-import-ui.txt",
+      "size": 5068,
+      "sha256": "30b170414cbf854e09ec7678212b043fa88b06655c48be728c492a2bcd5dc9c6"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-initialization-ui.txt",
+      "size": 830,
+      "sha256": "0e3933085523e2d6bf77016d89a8f4b003f246af08325247c4afffa9c0658931"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-risk-evidence.tar",
+      "size": 94208,
+      "sha256": "723251932005b78b0fb91aad664ea532b4fa3a6aa67258a2870ef46d12721e64"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-risk-fresh.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-risk-ui.txt",
+      "size": 860,
+      "sha256": "793f67734226234a28177e2a8869386d65b8aa5cbd0990b00b932d8033f4b642"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-storage-recovery-evidence.tar",
+      "size": 33280,
+      "sha256": "995319b456efdfc559f91d8036573b128944b785b3185c7dd25b3adfe0253c18"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-storage-recovery-ui.txt",
+      "size": 877,
+      "sha256": "d36ed1e5c9672ea8b0c48e375d7e2d16bb50bb2d2acbeefc001684707086ad70"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-ui.txt",
+      "size": 2168,
+      "sha256": "7a17a72ecd1d7823c0efefc2ae93a7f203c6cb1809672b20dc7aee66b6db6ae9"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.html",
+      "size": 186198,
+      "sha256": "2d5c6a9f6f55715cd71fa65a4d71bab501c44ad43bcaa08c9b30cfb99dfaf27d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+      "size": 2534,
+      "sha256": "f803fb8e549d853035fb35d7b9ba987db49dcf2dbea66ede848e82b61943333f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+      "size": 5325,
+      "sha256": "870860e6c1788814f928031437c8eef5d3898516589c1a377b4894b09a26c741"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+      "size": 2444,
+      "sha256": "99603fa3965048c3cb21831457e62150ccf6ae1207983e0199d02c6c9e2d746d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+      "size": 3620,
+      "sha256": "7610453cf70b0536655866566e1066e66e4f30186e2ee47e132fa9ade4a1b56a"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+      "size": 2279,
+      "sha256": "8b94e0140a84114c81a94c06468e51df07f3f349e7453c94ba7636ed135ee690"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+      "size": 3702,
+      "sha256": "959dbfa9cf81c14dbb135d44e7b189c4680d465a4f05032901ea2572773c05bd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+      "size": 2599,
+      "sha256": "3a3dde27cfcf747ae3770da358fe5a0ece5ad33ba278409d4dd14f3298a58a3c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+      "size": 2611,
+      "sha256": "c049a364535dc19d3410e08e8e56ee8e8af69fdec2ed36a262fd9501d823dd5e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+      "size": 3357,
+      "sha256": "71196e6b66b213a0583e5ec9046ef81bad7672f7d5db7466260a9b319767c712"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+      "size": 2613,
+      "sha256": "92e7baf464f1f0006dde881cc95573243d62cd88a56aff92526fd05305fdc4ca"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+      "size": 2776,
+      "sha256": "01495dfdcf2dd3fc7ea4733a16e1dfb4eb49677be14c484b6b3b474e27af730d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+      "size": 2589,
+      "sha256": "6e1b3c743e21fbfb07419ca76b8d11dbbfbd2854bd7aa0d1130ae0861e6ecbac"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+      "size": 2106,
+      "sha256": "78d70261def9124d8d6cdf86acf2b56413704a9d59bd39a02326dba8c6b831b9"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+      "size": 2785,
+      "sha256": "bd29e26aeb2665aa64944550527fe658262b4e1ac9536cd35ff458047ae605b7"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+      "size": 2243,
+      "sha256": "8241c598c3bdcd9e55049583d1c88bbb4ec4d7f20e51b4e8ebeb28a77ca85512"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+      "size": 2644,
+      "sha256": "e1725f84ae8cec6da74d58a18ec64c673a506d2fe96b1358e657a0c5a03e45b3"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+      "size": 2860,
+      "sha256": "53e0b3d119a9e462fe7f6f81d6f51587c2502fa56b7085335bd7677314489e2c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+      "size": 2581,
+      "sha256": "2b5b30647deaf45e44580c7c99e14e0ffd8963a0961b0616ee50e79e94fdd987"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+      "size": 4422,
+      "sha256": "d33fdc74ab8aeb1366097f13533a0413f2045fed1c3162e0b7ef1c683141059f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+      "size": 2093,
+      "sha256": "9464dbdc898c8ca23fd0215aa8029bc86258f6faa520e75175e6c3d3dc8ed4c5"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/base-style.css",
+      "size": 2645,
+      "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/style.css",
+      "size": 1135,
+      "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+    },
+    {
+      "path": "core/build/reports/tests/test/index.html",
+      "size": 7122,
+      "sha256": "b6a8a3ca0f41490e4d857040d99ef180c946620314bba3440cd15024cb333253"
+    },
+    {
+      "path": "core/build/reports/tests/test/js/report.js",
+      "size": 5252,
+      "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+    },
+    {
+      "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+      "size": 6216,
+      "sha256": "9032ac111aebf289ac2067c7ffffa2743367290a16fc92f3a10639269a8934bb"
+    }
+  ],
+  "sdkInspection": {
+    "root": "/mnt/storage/redsquare-android-artifacts/group47-full17-first-39090559898/android-native-proof-wallet/.scratch/device-evidence/api-37.0",
+    "files": [
+      {
+        "path": "after.xml",
+        "size": 5031,
+        "sha256": "0012f59940eda70eb81437baef2a9f589b1176683eeef7a4c4b939cb03e7d217"
+      },
+      {
+        "path": "backend-ui-evidence.tar",
+        "size": 188416,
+        "sha256": "e5a4a4c2c35ada633b67b32a0d096ad64edbff41b67fc6599a7f74d72fa68295"
+      },
+      {
+        "path": "backend-ui-screen.png",
+        "size": 37311,
+        "sha256": "27c929346cf1d1fb28c2a2d7471040ee858947331547005e19be19b965e3f74f"
+      },
+      {
+        "path": "before.xml",
+        "size": 4214,
+        "sha256": "bb2d8ceeab9ea4c297cbba0cdb4ab2cf6e0d092ae850ca299cfdbbc8cd6ad350"
+      },
+      {
+        "path": "diagnostic.png",
+        "size": 30430,
+        "sha256": "9442f58c2beece3ec0444f66ac04193dd8d1ee85c45ad95b261930ecd89c9139"
+      },
+      {
+        "path": "emulator.log",
+        "size": 12204,
+        "sha256": "931a8269cdc791b6ecfc7a69b3c50a77995f6cda3fbef29ba2e325a21c8794ce"
+      },
+      {
+        "path": "feed-cold-launch/continuity.txt",
+        "size": 165,
+        "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+      },
+      {
+        "path": "feed-cold-launch/feed.png",
+        "size": 45289,
+        "sha256": "e93b0a71ff303ccd6a867a81551c8c5f086fc208f03755c5585ac789b7a4b0c2"
+      },
+      {
+        "path": "feed-cold-launch/fully-drawn.txt",
+        "size": 121,
+        "sha256": "ed46540faf90637a5ed8c050498096d7495b056cbbede880e1a381253bdea189"
+      },
+      {
+        "path": "feed-cold-launch/last-ui.xml",
+        "size": 30461,
+        "sha256": "17e732899cc123ddca4b21bef339bcf713fcaab3daa4ea330abe5e9452a87909"
+      },
+      {
+        "path": "feed-cold-launch/launch.txt",
+        "size": 253,
+        "sha256": "97c4bdec8297b2831606bb6c68c4bc78f3ac5432b1a38efbdfb9f6db4a37ed3b"
+      },
+      {
+        "path": "feed-ui.txt",
+        "size": 5662,
+        "sha256": "773583175ce510073b57f80f3962aa74202b0ae7e5c6307a8f5e5e0f44cbdce1"
+      },
+      {
+        "path": "fresh-backup-reminder.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-commit-sync.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-incompleteFirstWriteCanResumeCreation.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-install.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-live-official.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-live-owner.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-unavailablePendingSaveIsPreservedForRetry.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "fresh-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+        "size": 822,
+        "sha256": "62b0b50ca9b2f5da4d7647ec20bfe4de2424e6b29694c2b0e8fa0b08049b96f4"
+      },
+      {
+        "path": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+        "size": 831,
+        "sha256": "f9b80a92e1b325609817a2b8712ae4ba938b6996e85c69689ba1eba3fea82e0d"
+      },
+      {
+        "path": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+        "size": 847,
+        "sha256": "d379815320c7dbd83e1d10599cfb94460bd894b27c0774a4a0034e96ca3ce409"
+      },
+      {
+        "path": "instrumentation.txt",
+        "size": 2282,
+        "sha256": "51ab3baf3d20d34a41cb87cbb78b1e9963d945ac67d76d5e939fa853f1cddb85"
+      },
+      {
+        "path": "live-official/balance.png",
+        "size": 27953,
+        "sha256": "613403e904325dfec4080e7b8e03d2f25c7292fbbb582c28d2f0f196174425dd"
+      },
+      {
+        "path": "live-official/balance.xml",
+        "size": 24299,
+        "sha256": "76c870439209d0fa87cdb102fe1ccc3d8d85adec873dc74e9db5d04b3c161289"
+      },
+      {
+        "path": "live-official/feed.png",
+        "size": 56947,
+        "sha256": "1f90b61233713e80093d5aec4ab92c85fefa4fdd06ebc775239eb41c8be76759"
+      },
+      {
+        "path": "live-official/funding.png",
+        "size": 38257,
+        "sha256": "1879ed17183a64139d58095c3d5b2e74ce44969d1025fff881f5d891de0badcb"
+      },
+      {
+        "path": "live-official/funding.xml",
+        "size": 98242,
+        "sha256": "377446d8e9fddb4245401bdc5b6a432d308dd17666ec984fbe7356cc9e7233ea"
+      },
+      {
+        "path": "live-official/public-search.txt",
+        "size": 382,
+        "sha256": "3d8e39d242cd164bd26c04baee48ed6d24077187828a1573e51af25f1858e4ef"
+      },
+      {
+        "path": "live-official/public-wallet.txt",
+        "size": 285,
+        "sha256": "127822130250aa8c4798a81ed411bd8844c18d62d76e2b152979df749b166d4f"
+      },
+      {
+        "path": "live-official/result.txt",
+        "size": 142,
+        "sha256": "4f1773dcb44e5e93a2763149054cb1d2461450b6b2d429372a0b50fe379e217c"
+      },
+      {
+        "path": "live-official/screen.png",
+        "size": 52281,
+        "sha256": "6f8e205ebab92dced3fae51596987270304bedfe6667f49595d9e86f77479379"
+      },
+      {
+        "path": "live-official/transport-status.txt",
+        "size": 296,
+        "sha256": "def2d6d8e879fc524ae73a5118e0401337536a8142623536e7e8cd871a5cf0b6"
+      },
+      {
+        "path": "live-official/wallet-first-failure.png",
+        "size": 82,
+        "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+      },
+      {
+        "path": "live-official/wallet-first-failure.xml",
+        "size": 82,
+        "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+      },
+      {
+        "path": "live-official-feed.txt",
+        "size": 798,
+        "sha256": "517d56f1457276be03b5e0fc725a1ca752263d4fb5c15ee30051d9ae7d56d86c"
+      },
+      {
+        "path": "live-owner/balance.png",
+        "size": 29317,
+        "sha256": "087aed2f37d5879e11a2119e14b4e93bef52b3abd20f69707c02a5232aa0372f"
+      },
+      {
+        "path": "live-owner/balance.xml",
+        "size": 24312,
+        "sha256": "08d9c9b4d2c34132024718a9f78d084b9380a83220911d00f7ef001687506573"
+      },
+      {
+        "path": "live-owner/feed.png",
+        "size": 55296,
+        "sha256": "48c0fe9b9f3b210792ed4a284d57ab6db830b5079a8c066ad98eb27658b56a23"
+      },
+      {
+        "path": "live-owner/funding.png",
+        "size": 38245,
+        "sha256": "96c7ec1e5be3915de025f3493463481e518afdb0a2aa57824815ba633f660590"
+      },
+      {
+        "path": "live-owner/funding.xml",
+        "size": 98242,
+        "sha256": "e5f22f6dc9dabcc558c8145d17c085b37baf0dac29400a25c32d3dc68ac5dfee"
+      },
+      {
+        "path": "live-owner/public-search.txt",
+        "size": 376,
+        "sha256": "e97b6af9a740c91a02a5c6d4317e2852ffea2b1a1a9b243d3cd94dfde01fd21e"
+      },
+      {
+        "path": "live-owner/public-wallet.txt",
+        "size": 282,
+        "sha256": "26dc147c7ea45f8f2d484914751d7a3103ffc8580ed56fa00f3fcad102bbfbfc"
+      },
+      {
+        "path": "live-owner/result.txt",
+        "size": 139,
+        "sha256": "666941711c1791efd8257c7826a2a1482131dccc824289df827b8599cde47948"
+      },
+      {
+        "path": "live-owner/screen.png",
+        "size": 51361,
+        "sha256": "39c71994fde878dc924d0fac085b9d230ce259688647509f3442ac6451d399ab"
+      },
+      {
+        "path": "live-owner/transport-status.txt",
+        "size": 364,
+        "sha256": "bcabda90814ea472547a47769362ba3dd6bcb86f6d4867c2b8b79c265d58ae81"
+      },
+      {
+        "path": "live-owner/wallet-first-failure.png",
+        "size": 82,
+        "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+      },
+      {
+        "path": "live-owner/wallet-first-failure.xml",
+        "size": 82,
+        "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+      },
+      {
+        "path": "live-owner-feed.txt",
+        "size": 798,
+        "sha256": "3ac61fd89b64eca0ce3eda212bb63a5d0330c78bc0ed5aa1ec4852f3f81eda60"
+      },
+      {
+        "path": "partition-complete.txt",
+        "size": 7,
+        "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+      },
+      {
+        "path": "partition.txt",
+        "size": 7,
+        "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+      },
+      {
+        "path": "preview-update/requests.txt",
+        "size": 26,
+        "sha256": "de30ec9d52a9034687b4b16bc9c68b0938cfc539ee5bd2e0f9afe46e86c0214d"
+      },
+      {
+        "path": "preview-update/screen.png",
+        "size": 13173,
+        "sha256": "2a37d6bb2f239746b5ecff25867fa7dcabba113728c4687f7123ed5cacc0f753"
+      },
+      {
+        "path": "preview-update-ui.txt",
+        "size": 767,
+        "sha256": "712548fa3969f4ec278eb6e589cedc40c7b3e53914c2a9e387e28b4e55b7fa77"
+      },
+      {
+        "path": "sdk.txt",
+        "size": 3,
+        "sha256": "b58a3da5fde2680191877ec88a1aa7d06927cc3b30cdf0d0db8c39b488891576"
+      },
+      {
+        "path": "signed-update/continuity.txt",
+        "size": 129,
+        "sha256": "52ca8473850c8152d3b37c73902e29357af3b57e0021c080c463edde3abd2486"
+      },
+      {
+        "path": "signed-update/observation-1.log",
+        "size": 896,
+        "sha256": "a0e7c079be6df2bf9cb68f76533d671c3e9bff1ea21e917100d4e5dc46cbb1d7"
+      },
+      {
+        "path": "signed-update/observation-1.png",
+        "size": 16766,
+        "sha256": "e715bea8bc0db3c37b132296b630da2ff1112f4aad2d725de116d12a2315f722"
+      },
+      {
+        "path": "signed-update/observation-1.xml",
+        "size": 18565,
+        "sha256": "783150002962e251e80fc061f10e103c3a42af554697b5f47f4954452ef27133"
+      },
+      {
+        "path": "signed-update/observation-2.log",
+        "size": 896,
+        "sha256": "1a845509d87b7ac8f0431834902946046a48b5b0e612bae721c718c4df1cfac8"
+      },
+      {
+        "path": "signed-update/observation-2.png",
+        "size": 16766,
+        "sha256": "e715bea8bc0db3c37b132296b630da2ff1112f4aad2d725de116d12a2315f722"
+      },
+      {
+        "path": "signed-update/observation-2.xml",
+        "size": 18565,
+        "sha256": "783150002962e251e80fc061f10e103c3a42af554697b5f47f4954452ef27133"
+      },
+      {
+        "path": "signed-update/observation-3.log",
+        "size": 896,
+        "sha256": "4179c901846faa6fdae7455e78720e334c9caeaa243289e1eab5abf2130ea438"
+      },
+      {
+        "path": "signed-update/observation-3.png",
+        "size": 20090,
+        "sha256": "2205bf8126cd314ca532a6f8820390777666b4b72db63613b728647c1c6d1be1"
+      },
+      {
+        "path": "signed-update/observation-3.xml",
+        "size": 18564,
+        "sha256": "3c892f5422f237b2111d5035e20d47cb90ce773d1bb4a28511d1f058da318af6"
+      },
+      {
+        "path": "signed-update/observation-4.log",
+        "size": 896,
+        "sha256": "34c2007dcc3b087850934038b7db3f88778406f8a13b04b488ef7e71903a1021"
+      },
+      {
+        "path": "signed-update/observation-4.png",
+        "size": 20090,
+        "sha256": "2205bf8126cd314ca532a6f8820390777666b4b72db63613b728647c1c6d1be1"
+      },
+      {
+        "path": "signed-update/observation-4.xml",
+        "size": 18564,
+        "sha256": "3c892f5422f237b2111d5035e20d47cb90ce773d1bb4a28511d1f058da318af6"
+      },
+      {
+        "path": "signed-update/versions.txt",
+        "size": 93,
+        "sha256": "1feef7d4736fa311c17414bfd514e915b03d748c671bdf191fa88304cc3b1139"
+      },
+      {
+        "path": "signed-update/wallet.png",
+        "size": 21981,
+        "sha256": "76896beec932615a104e2e41b1002b4a5d95d5ada56c47f6ab5164864ff8ee10"
+      },
+      {
+        "path": "wallet-backup-evidence.tar",
+        "size": 106496,
+        "sha256": "d2db0deb615a47459f2881288858c53b5f23f8e913ce2178510820a2de9e8070"
+      },
+      {
+        "path": "wallet-backup-ui.txt",
+        "size": 837,
+        "sha256": "b78feea204a1db4016c80b77da557db20c7d605388310fa973cc78e37484529f"
+      },
+      {
+        "path": "wallet-cold-launch/continuity.txt",
+        "size": 98,
+        "sha256": "461a5c5ce4a96a256bc9b4e3b6fe06c0602587243211ba23886441e56cb34566"
+      },
+      {
+        "path": "wallet-cold-launch/observation-1.log",
+        "size": 896,
+        "sha256": "caea71ed145d17073248bdf2e30f965ec13a017ba3e9444dbff6a76829ca0c1e"
+      },
+      {
+        "path": "wallet-cold-launch/observation-1.png",
+        "size": 29645,
+        "sha256": "dafd581adf0d5f765283f280668e3f9b158d954de889ec46847de3f113189ede"
+      },
+      {
+        "path": "wallet-cold-launch/observation-1.xml",
+        "size": 26026,
+        "sha256": "a49844274d5e125c86856dc0115347091abcb336bde143e7d8457dd477328e7e"
+      },
+      {
+        "path": "wallet-cold-launch/observation-2.log",
+        "size": 896,
+        "sha256": "0887280e5e60802c07bdd6d386c405c2c381c733261b7b296d8f550c72cd769d"
+      },
+      {
+        "path": "wallet-cold-launch/observation-2.png",
+        "size": 29645,
+        "sha256": "dafd581adf0d5f765283f280668e3f9b158d954de889ec46847de3f113189ede"
+      },
+      {
+        "path": "wallet-cold-launch/observation-2.xml",
+        "size": 26026,
+        "sha256": "a49844274d5e125c86856dc0115347091abcb336bde143e7d8457dd477328e7e"
+      },
+      {
+        "path": "wallet-cold-launch/wallet.png",
+        "size": 197960,
+        "sha256": "114fa4eaee2dbe9a47fc31815ded215825b538ba439df2048be9d49e154499b6"
+      },
+      {
+        "path": "wallet-commit-sync-ui.txt",
+        "size": 845,
+        "sha256": "37e346df3f4779b83468f8aa221875129daf10c41c96ed1ac8d897bc9c44f382"
+      },
+      {
+        "path": "wallet-export-evidence.tar",
+        "size": 304128,
+        "sha256": "9a943e119eff33c890ad611f52f8162e170dd5a776959609760749caf20ab8d5"
+      },
+      {
+        "path": "wallet-export-process/continuity.txt",
+        "size": 185,
+        "sha256": "422a6096ceb344df5efed09c0e934da7aebb92fc44a1e78ca02f9fb0ea2ccb06"
+      },
+      {
+        "path": "wallet-export-process/interrupted-instrumentation.txt",
+        "size": 469,
+        "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993"
+      },
+      {
+        "path": "wallet-export-process/process-recovery.png",
+        "size": 29533,
+        "sha256": "926663b9901e7c6c8f5fa23b60af28ffbdc21aff7e9e94d707c4e71b44eef3da"
+      },
+      {
+        "path": "wallet-export-process/process-retry.png",
+        "size": 32346,
+        "sha256": "a968a8865bc24b480cb8050ddabe69dbe89c055b6dd6bcb3e94d26c7e8be41b9"
+      },
+      {
+        "path": "wallet-export-process/recovered-instrumentation.txt",
+        "size": 838,
+        "sha256": "1dce075d778eac883c7b304090f2cec0657de371334c307758fd11ee81135d10"
+      },
+      {
+        "path": "wallet-export-ui.txt",
+        "size": 3699,
+        "sha256": "ace2bd53fd9b07135f6fb173bfec86bb3b89e56cd2b5f456416f8e44f03eab1c"
+      },
+      {
+        "path": "wallet-import-evidence.tar",
+        "size": 671232,
+        "sha256": "8d99fa422120490d729070f33c3e5ff7dcf9cfa15bab356de255c64c37843e05"
+      },
+      {
+        "path": "wallet-import-process/cold-recovery.png",
+        "size": 31076,
+        "sha256": "ec9c435387dd64a7fc32662e4c1244f6d10a6aa92b0acd1d6ff58ea6752979d8"
+      },
+      {
+        "path": "wallet-import-process/continuity.txt",
+        "size": 172,
+        "sha256": "bbf399022576a134c413256a5e6498524c54a18acdacbd9529b0ed5b5f073ae2"
+      },
+      {
+        "path": "wallet-import-process/interrupted-instrumentation.txt",
+        "size": 473,
+        "sha256": "423df0fd849a4f4428a21f5522ee83aa9f0fe0753258ed5f13130af095587921"
+      },
+      {
+        "path": "wallet-import-process/recovered-instrumentation.txt",
+        "size": 822,
+        "sha256": "11d249797efa095bbbaab824e35cc5c9dc9b85a60bc53566571d3cce4f9f6a21"
+      },
+      {
+        "path": "wallet-import-ui.txt",
+        "size": 5068,
+        "sha256": "30b170414cbf854e09ec7678212b043fa88b06655c48be728c492a2bcd5dc9c6"
+      },
+      {
+        "path": "wallet-initialization-ui.txt",
+        "size": 830,
+        "sha256": "0e3933085523e2d6bf77016d89a8f4b003f246af08325247c4afffa9c0658931"
+      },
+      {
+        "path": "wallet-risk-evidence.tar",
+        "size": 94208,
+        "sha256": "723251932005b78b0fb91aad664ea532b4fa3a6aa67258a2870ef46d12721e64"
+      },
+      {
+        "path": "wallet-risk-fresh.txt",
+        "size": 8,
+        "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+      },
+      {
+        "path": "wallet-risk-ui.txt",
+        "size": 860,
+        "sha256": "793f67734226234a28177e2a8869386d65b8aa5cbd0990b00b932d8033f4b642"
+      },
+      {
+        "path": "wallet-storage-recovery-evidence.tar",
+        "size": 33280,
+        "sha256": "995319b456efdfc559f91d8036573b128944b785b3185c7dd25b3adfe0253c18"
+      },
+      {
+        "path": "wallet-storage-recovery-ui.txt",
+        "size": 877,
+        "sha256": "d36ed1e5c9672ea8b0c48e375d7e2d16bb50bb2d2acbeefc001684707086ad70"
+      },
+      {
+        "path": "wallet-ui.txt",
+        "size": 2168,
+        "sha256": "7a17a72ecd1d7823c0efefc2ae93a7f203c6cb1809672b20dc7aee66b6db6ae9"
+      },
+      {
+        "path": "wellbeing-disable.txt",
+        "size": 67,
+        "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+      },
+      {
+        "path": "wellbeing-disabled-package.txt",
+        "size": 42,
+        "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+      }
+    ],
+    "instrumentation": [
+      {
+        "path": "feed-ui.txt",
+        "passed": 8,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "22.978"
+        ]
+      },
+      {
+        "path": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.42"
+        ]
+      },
+      {
+        "path": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.466"
+        ]
+      },
+      {
+        "path": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.534"
+        ]
+      },
+      {
+        "path": "instrumentation.txt",
+        "passed": 3,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "0.126"
+        ]
+      },
+      {
+        "path": "live-official-feed.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "13.454"
+        ]
+      },
+      {
+        "path": "live-owner-feed.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "18.161"
+        ]
+      },
+      {
+        "path": "preview-update-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "1.942"
+        ]
+      },
+      {
+        "path": "wallet-backup-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.578"
+        ]
+      },
+      {
+        "path": "wallet-commit-sync-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "3.428"
+        ]
+      },
+      {
+        "path": "wallet-export-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "wallet-export-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "11.58"
+        ]
+      },
+      {
+        "path": "wallet-export-ui.txt",
+        "passed": 5,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "122.85"
+        ]
+      },
+      {
+        "path": "wallet-import-process/interrupted-instrumentation.txt",
+        "passed": 0,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": false,
+        "crashed": true,
+        "failureFooter": false,
+        "times": []
+      },
+      {
+        "path": "wallet-import-process/recovered-instrumentation.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.036"
+        ]
+      },
+      {
+        "path": "wallet-import-ui.txt",
+        "passed": 7,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "181.846"
+        ]
+      },
+      {
+        "path": "wallet-initialization-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.503"
+        ]
+      },
+      {
+        "path": "wallet-risk-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "51.415"
+        ]
+      },
+      {
+        "path": "wallet-storage-recovery-ui.txt",
+        "passed": 1,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "2.655"
+        ]
+      },
+      {
+        "path": "wallet-ui.txt",
+        "passed": 3,
+        "skipped": 0,
+        "assumed": 0,
+        "failed": 0,
+        "completed": true,
+        "crashed": false,
+        "failureFooter": false,
+        "times": [
+          "5.888"
+        ]
+      }
+    ],
+    "continuity": [
+      {
+        "path": "feed-cold-launch/continuity.txt",
+        "text": "PASS: signed reference post remains visible after cold process launch with unavailable peer.\nThis is emulator recovery evidence, not Pixel 7 performance acceptance."
+      },
+      {
+        "path": "signed-update/continuity.txt",
+        "text": "PASS: same public identity after cold process launch and ordinary signed APK update\nkZj8kKZrd6VrB6iNfjV4ZFFYrZiJcdZqfCstcuXaKHco"
+      },
+      {
+        "path": "wallet-cold-launch/continuity.txt",
+        "text": "PASS: same public identity after cold process launch\nkbjDxAz1tGaezx4ssp5FSCYiZHp91MbbaeRSKxyhbo3D"
+      },
+      {
+        "path": "wallet-export-process/continuity.txt",
+        "text": "PASS: actual process death before credentials; document has zero bytes; cold launch retains identity and retry requires new authentication.\nwoGzYY1uiDxHVTU4xxiyjMkNiZp4ZrJ9Traqns8dXRPo"
+      },
+      {
+        "path": "wallet-import-process/continuity.txt",
+        "text": "PASS: actual process death after replacement write before recovery commit; cold app startup restores outgoing public identity.\nuqCGWtLjX4HNp7h8t9S8tCQ8ZoFYjMZjZAgeF4ausXPJ"
+      }
+    ],
+    "exits": [],
+    "visuals": [
+      {
+        "path": "after.xml",
+        "kind": "xml",
+        "nodes": 14
+      },
+      {
+        "path": "backend-ui-evidence.tar::backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "backend-ui-evidence.tar::backend-ui-evidence/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "backend-ui-evidence.tar::backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "backend-ui-evidence.tar::backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "backend-ui-evidence.tar::backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "backend-ui-screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "before.xml",
+        "kind": "xml",
+        "nodes": 12
+      },
+      {
+        "path": "diagnostic.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "feed-cold-launch/feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "feed-cold-launch/last-ui.xml",
+        "kind": "xml",
+        "nodes": 85
+      },
+      {
+        "path": "live-official/balance.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "live-official/balance.xml",
+        "kind": "xml",
+        "nodes": 55
+      },
+      {
+        "path": "live-official/feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "live-official/funding.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "live-official/funding.xml",
+        "kind": "xml",
+        "nodes": 203
+      },
+      {
+        "path": "live-official/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "live-owner/balance.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "live-owner/balance.xml",
+        "kind": "xml",
+        "nodes": 55
+      },
+      {
+        "path": "live-owner/feed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "live-owner/funding.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "live-owner/funding.xml",
+        "kind": "xml",
+        "nodes": 203
+      },
+      {
+        "path": "live-owner/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "preview-update/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "signed-update/observation-1.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "signed-update/observation-1.xml",
+        "kind": "xml",
+        "nodes": 42
+      },
+      {
+        "path": "signed-update/observation-2.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "signed-update/observation-2.xml",
+        "kind": "xml",
+        "nodes": 42
+      },
+      {
+        "path": "signed-update/observation-3.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "signed-update/observation-3.xml",
+        "kind": "xml",
+        "nodes": 42
+      },
+      {
+        "path": "signed-update/observation-4.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "signed-update/observation-4.xml",
+        "kind": "xml",
+        "nodes": 42
+      },
+      {
+        "path": "signed-update/wallet.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "wallet-backup-evidence.tar::wallet-backup-evidence/private-backup-guidance.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-backup-evidence.tar::wallet-backup-evidence/recovery-guide.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-backup-evidence.tar::wallet-backup-evidence/dismissed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-backup-evidence.tar::wallet-backup-evidence/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-cold-launch/observation-1.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-cold-launch/observation-1.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "wallet-cold-launch/observation-2.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-cold-launch/observation-2.xml",
+        "kind": "xml",
+        "nodes": 59
+      },
+      {
+        "path": "wallet-cold-launch/wallet.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 819840
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/no-lock.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/screen.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-deadline.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/write-fails.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/read-fails.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/truncated-read.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/real-pin-success.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-evidence.tar::wallet-export-evidence/authentication-cancelled.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-process/process-recovery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-export-process/process-retry.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/activated-wallet-recreated.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-import.json-rejected.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/invalid-backup-recovery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/stalled-provider-fresh-preview.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-positive.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-zero.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-malformed.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/balance-stale.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/failed-save-restored-recreated.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-same.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/confirmed-same-wallet-restore.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/valid-preview-different.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/fresh-candidate-backup.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-evidence.tar::wallet-import-evidence/reselected-backup-required.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-import-process/cold-recovery.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-risk-evidence.tar::wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-risk-evidence.tar::wallet-risk-evidence/other-assets-require-backup.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-risk-evidence.tar::wallet-risk-evidence/original-wallet-restored.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      },
+      {
+        "path": "wallet-storage-recovery-evidence.tar::wallet-storage-recovery-evidence/failed-save-recreated.png",
+        "kind": "png",
+        "width": 320,
+        "height": 640,
+        "decodedBytes": 615040
+      }
+    ],
+    "visual_errors": [
+      {
+        "path": "live-official/wallet-first-failure.png",
+        "error": "PNG signature mismatch"
+      },
+      {
+        "path": "live-official/wallet-first-failure.xml",
+        "error": "syntax error: line 1, column 0"
+      },
+      {
+        "path": "live-owner/wallet-first-failure.png",
+        "error": "PNG signature mismatch"
+      },
+      {
+        "path": "live-owner/wallet-first-failure.xml",
+        "error": "syntax error: line 1, column 0"
+      }
+    ],
+    "archive_errors": [],
+    "summary": {
+      "files": 104,
+      "passed": 39,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completionRecords": 18,
+      "crashedRecords": 2,
+      "failureFooters": [],
+      "nonzeroExits": [],
+      "png": 62,
+      "xml": 13,
+      "visualErrors": 4,
+      "continuityRecords": 5
+    }
+  }
+}
