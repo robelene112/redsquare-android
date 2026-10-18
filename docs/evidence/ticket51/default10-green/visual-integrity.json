@@ -1,0 +1,142 @@
+{
+  "visuals": [
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-evidence.tar::backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "kind": "xml",
+      "nodes": 97
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/muted.xml",
+      "kind": "xml",
+      "nodes": 89
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/muted.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/ready-behind-dialog.xml",
+      "kind": "xml",
+      "nodes": 44
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/ready-behind-dialog.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/interactive.xml",
+      "kind": "xml",
+      "nodes": 108
+    },
+    {
+      "path": "feed-readiness-evidence.tar::feed-readiness-evidence/interactive.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "performance-package/main-after.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "performance-package/main-after.xml",
+      "kind": "xml",
+      "nodes": 57
+    },
+    {
+      "path": "performance-package/main-before.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "performance-package/main-before.xml",
+      "kind": "xml",
+      "nodes": 57
+    },
+    {
+      "path": "performance-package/main29-android-manifest.xml",
+      "kind": "xml",
+      "nodes": 72
+    },
+    {
+      "path": "performance-package/performance-android-manifest.xml",
+      "kind": "xml",
+      "nodes": 73
+    },
+    {
+      "path": "performance-package/performance-wallet.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "performance-package/performance-wallet.xml",
+      "kind": "xml",
+      "nodes": 57
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": []
+}

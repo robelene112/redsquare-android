@@ -31,7 +31,11 @@ unchanged. CLI RED before minimum and safe CLI/syntax/actionlint checks are in
 Source77b3940c42b466f2bddd8d236345563e93f27be1 and fixed plan32c439e437799184f29d70d67b764d148c9b7fe0 have both reviews0/0.
 Actual complete16KB Android17 run39115917603 is IN PROGRESS at32c, all three
 jobs, with public reads and current main35/performance36. Default ordinary10
-feed/isolation run39115925476 is IN PROGRESS at the same source with default29.
+feed/isolation run39115925476 is SUCCESS at the same source:9PASS/1normal/1cold,
+plus3 separate wallet observers. Actual default image revision8/API29/x86_64
+reports4096-byte pages. Independent main29/performance36 hashes, distinct UIDs/
+wallets, unchanged main address and protected absence restoration pass. Its packet
+binds36 originals and validates13PNG/9XML; root opened three wallets/cold feed.
 No runtime acceptance is claimed. SourceCI39115744894 at77 is SUCCESS.
 Retain actual completed artifacts under
 /mnt/storage/redsquare-android-artifacts/page-size51-{full16k17,default10}-RUN.

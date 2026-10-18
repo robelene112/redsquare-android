@@ -39,3 +39,13 @@ production/fixture/operation/host sets equal reviewed77. No actual page size or
 native acceptance is claimed while execution is incomplete. SourceCI39115744894
 at77 is SUCCESS. Large originals remain under the VPS additional-disk artifact
 root; the fixed expectations are unchanged.
+
+## Default10 verified
+
+Default run39115925476 is SUCCESS: nine identical accepted feed cases, one cold
+continuity and three separate actual wallet observers. Actual default image
+revision8/API29/x86_64 reports4096-byte pages. Default immutable main29 and
+performance36 match planned hashes, use separate UIDs/wallets and restore both
+packages' original absence, with ordinary identity unchanged. The packet binds36
+originals, validates13PNG/9XML; root opened the three wallets and cold feed.
+Complete16KB17 remains running and is not accepted yet.
