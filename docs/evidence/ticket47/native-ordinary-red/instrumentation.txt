@@ -1,0 +1,73 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Unavailable publication bookkeeping must preserve readable group history without publishing
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$assertSilent(GroupPushWorkPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$15(GroupPushWorkPreviewTest.kt:163)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$nRodXbQjL53Jlm3mfC2bso_4EOs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:151)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication(GroupPushWorkPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: stream=
+Error in ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication(nl.davidengelen.redsquare.GroupPushWorkPreviewTest):
+java.lang.AssertionError: Unavailable publication bookkeeping must preserve readable group history without publishing
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$assertSilent(GroupPushWorkPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$15(GroupPushWorkPreviewTest.kt:163)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$nRodXbQjL53Jlm3mfC2bso_4EOs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:151)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication(GroupPushWorkPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 26.609
+There was 1 failure:
+1) ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication(nl.davidengelen.redsquare.GroupPushWorkPreviewTest)
+java.lang.AssertionError: Unavailable publication bookkeeping must preserve readable group history without publishing
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$assertSilent(GroupPushWorkPreviewTest.kt:125)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$15(GroupPushWorkPreviewTest.kt:163)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$nRodXbQjL53Jlm3mfC2bso_4EOs(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:151)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication(GroupPushWorkPreviewTest.kt:38)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
