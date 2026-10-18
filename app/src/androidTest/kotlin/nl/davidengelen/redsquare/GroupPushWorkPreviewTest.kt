@@ -44,7 +44,16 @@ class GroupPushWorkPreviewTest {
     @Test fun aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting() =
         groupJourney(Journey.MUTED_PENDING)
 
-    private enum class Journey { WORKER_FIRST, RECEIPT_RECOVERY, SCOPED, MUTED_PENDING }
+    @Test fun ordinaryGroupPolicyReadFailureDoesNotBecomeARetrospectiveAlertAfterRepair() =
+        groupJourney(Journey.POLICY_RECOVERY)
+
+    private enum class Journey(val wakeByte: String, val capturePrefix: String) {
+        WORKER_FIRST("71", "group-worker"),
+        RECEIPT_RECOVERY("72", "group-receipt-recovery"),
+        SCOPED("73", "group-scoped"),
+        MUTED_PENDING("75", "group-muted-pending"),
+        POLICY_RECOVERY("76", "group-policy-recovery")
+    }
 
     private fun groupJourney(journey: Journey = Journey.WORKER_FIRST) {
         val ordinaryRecovery = journey == Journey.RECEIPT_RECOVERY
@@ -87,7 +96,7 @@ class GroupPushWorkPreviewTest {
         val text = "A group message retained in the local conversation"
         val original = GroupChat.message(author, group, text, now)
         assertFalse(wallet.publicKey in SaitoEnvelope.decode(original.envelope()).recipients)
-        val wake = (if (mutedPending) "75" else if (scoped) "73" else if (ordinaryRecovery) "72" else "71").repeat(32)
+        val wake = journey.wakeByte.repeat(32)
         val wallets = AndroidWalletStore(context)
         val previous = wallets.loadOrCreate()
         val previousJson = previous.exportJson()
@@ -133,7 +142,7 @@ class GroupPushWorkPreviewTest {
         val tag = "chat:${wallet.publicKey}:${backend.id}:${original.id}"
         check(manager.activeNotifications.none { it.tag == tag })
         val device = UiDevice.getInstance(instrumentation)
-        val capturePrefix = if (mutedPending) "group-muted-pending" else if (scoped) "group-scoped" else if (ordinaryRecovery) "group-receipt-recovery" else "group-worker"
+        val capturePrefix = journey.capturePrefix
         fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "group-push-evidence/$capturePrefix-$name.png"))
         fun assertSilent(label: String) {
             val silentUntil = SystemClock.elapsedRealtime() + 2_000
@@ -171,6 +180,31 @@ class GroupPushWorkPreviewTest {
                 fun schedule() = runBlocking(Dispatchers.IO) { SocialPushWakeScheduling.enqueue(context, wake,
                     "http://127.0.0.1:${gateway.port}/v1/wakes/resolve",
                     peerServer?.let { "ws://127.0.0.1:${it.port}/wsopen" }) }
+                if (journey == Journey.POLICY_RECOVERY) {
+                    val obstruction = File(context.noBackupFilesDir, "personal.${wallet.publicKey}.v1.new")
+                    check(obstruction.mkdir())
+                    var receiptFailure: Throwable? = null
+                    try {
+                        receiveChat(context, wallet, backend, original.applicationRequest(1).drop(5).toByteArray())
+                        val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages.single()
+                        assertEquals(original.id, saved.id); assertEquals(text, saved.text)
+                        assertSilent("Unreadable personal choices must preserve ordinary group history without publication")
+                        assertNoActivity()
+                        capture("retained-before-repair")
+                    } catch (caught: Throwable) { receiptFailure = caught; throw caught }
+                    finally { cleanupAfterTest(receiptFailure, { check(obstruction.delete()) }) }
+                    receiveChat(context, wallet, backend, original.applicationRequest(1).drop(5).toByteArray())
+                    assertSilent("Repairing personal choices must not turn the old ordinary message into a retrospective alert")
+                    val saved = GroupChatStore(context, wallet, backend).load(group.id)!!.messages
+                    assertEquals(1, saved.size); assertEquals(original.id, saved.single().id)
+                    assertEquals(text, saved.single().text)
+                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertEquals(backend, backends.load())
+                    assertEquals(0, resolves.get()); assertEquals(0, originals.get())
+                    assertNoActivity()
+                    capture("repaired-still-silent")
+                    return@withFailureCapture
+                }
                 if (scoped) {
                     val obstruction = File(context.noBackupFilesDir, "groupchatpush.${wallet.publicKey}.${backend.id}.ledger.v1.new")
                     check(obstruction.mkdir())

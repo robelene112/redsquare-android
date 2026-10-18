@@ -148,14 +148,14 @@ captured. Eight-hash native-muted-red packet and root-viewed launcher capture.
 Source39083751594 SUCCESS includes release/lint.
 
 Minimumb5b2f50cd checks personal account/conversation silence after history and
-before optional ledger. Native39084223146 and source39084223097 run atb5; pending.
+before optional ledger. Native39084223146 and source39084223097 atb5 both SUCCESS:4cases PASS69.396s. Nine-hash native-muted-green packet; root viewed both selected originals. This accepts the bounded mute behavior only.
 Both source reviewers found an ordinary-receipt regression: eager policy-read
 failure bypasses the shared ordinary no-retrospective completion behavior. Do not
-claim source0 or whole acceptance. After current actual mute result, add an ordinary
-policy-storage-fault/repair/repeated-original tracer before correction. Preserve
+claim source0 or whole acceptance. The ordinary policy-storage-fault/repair/repeated-original tracer is now prepared
+as the fifth journey, before any correction. Actual RED is next. Preserve
 optional ledger failure retry precedence; the normal notifier still performs strict
-policy checks. Journey wake/capture metadata centralization is a separate nonblocking
-review finding, deferred until GREEN. No owned local build/watcher/download now.
+policy checks. Journey wake/capture metadata is now centralized on the enum after actual mute
+GREEN, addressing the separate nonblocking review finding. No owned local build/watcher/download now.
 Membership/current-policy completion and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
