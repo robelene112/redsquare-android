@@ -1,6 +1,6 @@
 # Trustworthy feed readiness and isolated performance preparation
 
-Issue48, code-preparation child of35 under specification1. Fixed review base isf8a5a0519400cb0343fae3e84f8bd2149cd68806. The physical Pixel targets remain35; this child cannot satisfy them. Both full SDK runs now pass. Combined whole48 review and ordinary31 publication remain pending at this checkpoint.
+Issue48, code-preparation child of35 under specification1. Fixed review base isf8a5a0519400cb0343fae3e84f8bd2149cd68806. The physical Pixel targets remain35; this child cannot satisfy them. Both full SDK runs now pass. Combined whole48 review at08978145a reports Standards0/Spec0. Ordinary31 publication remains pending at this checkpoint.
 
 ## Observed native readiness
 
@@ -39,7 +39,7 @@ The reviewed pre-execution plans match every original path/class/test occurrence
 
 The complete239 production/build,3 canonical operation and202 classic fixture objects match prepared31/performance30 and both full sources. The [source-equivalence record](full-regression/source-equivalence.json) retains complete object maps and the exact reviewed host downloader-only delta. Debug test binaries and the two signed variants intentionally differ by package/configuration; source equality is not APK byte identity or physical performance. Source39098906697 and39100870431 succeed including core/gateway/release/performance/lint. Retained core114; no unavailable per-job gateway count is inferred.
 
-Complete [Android10](full-regression/android10/README.md) and [Android17](full-regression/android17/README.md) packets retain293/305 hashes and452/468 original bindings. Structural inspection covers920/924PNG and788/789XML; each SDK's four unchanged optional missing wallet diagnostics and one optional Chat archive are excluded explicitly. Root opened all19 selected previews per SDK, plus public feed/update-wallet originals, and qualified limited/status-only previews separately from complete integrity/XML/runtime observations. No atomic capture pair or complete public-post-body proof is claimed. Both complete17 evidence reviews at32e report0. New complete10/combined whole48 review is pending.
+Complete [Android10](full-regression/android10/README.md) and [Android17](full-regression/android17/README.md) packets retain293/305 hashes and452/468 original bindings. Structural inspection covers920/924PNG and788/789XML; each SDK's four unchanged optional missing wallet diagnostics and one optional Chat archive are excluded explicitly. Root opened all19 selected previews per SDK, plus public feed/update-wallet originals, and qualified limited/status-only previews separately from complete integrity/XML/runtime observations. No atomic capture pair or complete public-post-body proof is claimed. Both complete17 evidence reviews at32e report0. Final combined whole48 review at08978145a reports Standards0/Spec0, including complete10 and the final configuration protocol clarification.
 
 ## Physical and external boundaries
 

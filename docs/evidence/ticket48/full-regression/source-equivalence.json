@@ -519,7 +519,7 @@
     "diff": "diff --git a/scripts/performance-device-check b/scripts/performance-device-check\nindex 27b36a670..ae3980c53 100644\n--- a/scripts/performance-device-check\n+++ b/scripts/performance-device-check\n@@ -6,7 +6,6 @@ import json\n import os\n from pathlib import Path\n import re\n-import shutil\n import subprocess\n import urllib.request\n import xml.etree.ElementTree as ET\n@@ -37,8 +36,13 @@ tools = Path(os.environ[\"ANDROID_HOME\"]) / \"build-tools/35.0.0\"\n \n def download(url, name):\n     destination = args.evidence / name\n-    with urllib.request.urlopen(url, timeout=60) as response, destination.open(\"wb\") as output:\n-        shutil.copyfileobj(response, output)\n+    # Use the same explicit project client identity as ci-review-update.\n+    request = urllib.request.Request(url, headers={\"User-Agent\": \"redsquare-review-check/1\"})\n+    with urllib.request.urlopen(request, timeout=60) as response, destination.open(\"wb\") as output:\n+        while chunk := response.read(1024 * 1024):\n+            output.write(chunk)\n+            if output.tell() > 100 * 1024 * 1024:\n+                raise RuntimeError(\"Review artifact exceeded the established download limit\")\n     return destination\n \n def artifact(package, version, section, label):\n",
     "review": "Both scoped source axes0; actual corrected focused installation39098673353 SUCCESS. No old403 cause inferred."
   },
-  "combinedWholeReviewPending": true,
+  "combinedWholeReviewPending": false,
   "fullRuns": {
     "10": {
       "run": 39098925673,
@@ -543,5 +543,12 @@
       "deliberateInterruptions": 33,
       "continuityPasses": 32
     }
+  },
+  "wholeReview": {
+    "commit": "08978145a",
+    "standardsDocumentedBreaches": 0,
+    "standardsHeuristics": 0,
+    "specFindings": 0,
+    "ordinary31PublicationPending": true
   }
 }
