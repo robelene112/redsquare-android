@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.compose")
 }
 
-// Public Android-app options, supplied independently for .dev and release.
+// Public Android-app options, supplied independently for each application.
 fun com.android.build.api.dsl.ApplicationBuildType.configurePush(variant: String, packageName: String) {
     val fields = linkedMapOf(
         "PACKAGE" to "Package", "APP_ID" to "FirebaseAppId", "API_KEY" to "FirebaseApiKey",
@@ -62,6 +62,16 @@ android {
         release {
             configurePush("Release", "nl.davidengelen.redsquare")
             configureGiphy("Release")
+        }
+        create("performance") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".performance"
+            isDebuggable = false
+            isProfileable = true
+            signingConfig = null
+            configurePush("Performance", "nl.davidengelen.redsquare.performance")
+            configureGiphy("Performance")
+            buildConfigField("boolean", "REVIEW_BUILD", "false")
         }
     }
     sourceSets.getByName("androidTest").java.srcDir(rootProject.file("test-fixtures/kotlin"))

@@ -2,6 +2,19 @@
 set -euo pipefail
 umask 077
 repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+variant=Release
+variant_dir=release
+application_id=nl.davidengelen.redsquare
+artifact_family=review-builds
+if [[ $# == 1 && "$1" == --performance ]]; then
+    variant=Performance
+    variant_dir=performance
+    application_id=nl.davidengelen.redsquare.performance
+    artifact_family=performance-builds
+elif [[ $# != 0 ]]; then
+    echo 'Usage: scripts/review-build [--performance]' >&2
+    exit 2
+fi
 signing_dir="${REDSQUARE_SIGNING_DIR:-$HOME/.local/share/redsquare-android/signing}"
 "$repo_dir/scripts/signing-init"
 review_state="$HOME/.local/share/redsquare-android/review"
@@ -17,9 +30,31 @@ next=$((10#$previous + 1))
 printf '%s\n' "$next" > "$review_state/version-code.new"
 mv "$review_state/version-code.new" "$review_state/version-code"
 version_name="0.1.$next"
-"$repo_dir/scripts/android-build" :app:assembleRelease \
+"$repo_dir/scripts/android-build" ":app:assemble$variant" \
     "-PreviewVersionCode=$next" "-PreviewVersionName=$version_name" "-PreviewBuild=true"
-artifact_dir="$repo_dir/.scratch/review-builds/$next"
+input_apk=$(python3 - "$repo_dir" "$variant_dir" "$application_id" "$next" "$version_name" <<'PY'
+import json
+from pathlib import Path
+import re
+import sys
+repo, variant, package, code, name = sys.argv[1:]
+directory = Path(repo) / 'app/build/outputs/apk' / variant
+metadata = json.loads((directory / 'output-metadata.json').read_text())
+if (metadata.get('applicationId') != package or metadata.get('variantName') != variant
+        or len(metadata.get('elements', [])) != 1):
+    raise SystemExit('Require the single APK for the requested application variant')
+element = metadata['elements'][0]
+filename = element.get('outputFile', '')
+if (element.get('versionCode') != int(code) or element.get('versionName') != name
+        or element.get('type') != 'SINGLE' or element.get('filters')
+        or not re.fullmatch(r'[A-Za-z0-9._-]+\.apk', filename)
+        or not (directory / filename).is_file()
+        or (directory / filename).resolve().parent != directory.resolve()):
+    raise SystemExit('APK output does not match the reserved build')
+print(filename)
+PY
+)
+artifact_dir="$repo_dir/.scratch/$artifact_family/$next"
 mkdir -p "$artifact_dir"
 docker run --rm --user "$(id -u):$(id -g)" \
     --env-file "$signing_dir/signing.env" \
@@ -29,8 +64,8 @@ docker run --rm --user "$(id -u):$(id -g)" \
     /opt/android-sdk/build-tools/35.0.0/apksigner sign \
     --ks /signing/app-signing.p12 --ks-key-alias app-signing \
     --ks-pass env:REDSQUARE_STORE_PASSWORD --key-pass env:REDSQUARE_KEY_PASSWORD \
-    --out "/workspace/.scratch/review-builds/$next/redsquare.apk" \
-    /workspace/app/build/outputs/apk/release/app-release-unsigned.apk
+    --out "/workspace/.scratch/$artifact_family/$next/redsquare.apk" \
+    "/workspace/app/build/outputs/apk/$variant_dir/$input_apk"
 docker run --rm --user "$(id -u):$(id -g)" \
     --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
     redsquare-android-build:agp8.10.1 \
@@ -41,24 +76,41 @@ docker run --rm --user "$(id -u):$(id -g)" \
     redsquare-android-build:agp8.10.1 \
     /opt/android-sdk/build-tools/35.0.0/aapt dump badging /artifacts/redsquare.apk \
     > "$artifact_dir/package.txt"
-python3 - "$artifact_dir" "$next" "$version_name" "$repo_dir" <<'PY'
+docker run --rm --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=$artifact_dir,dst=/artifacts,readonly" \
+    redsquare-android-build:agp8.10.1 \
+    apkanalyzer manifest print /artifacts/redsquare.apk > "$artifact_dir/android-manifest.xml"
+python3 - "$artifact_dir" "$next" "$version_name" "$repo_dir" "$application_id" "$variant_dir" <<'PY'
 import hashlib
 import json
 from pathlib import Path
 import re
 import subprocess
 import sys
-directory, code, name, repo = sys.argv[1:]
+import xml.etree.ElementTree as ET
+directory, code, name, repo, application_id, variant = sys.argv[1:]
 artifact = Path(directory)
 fingerprint = re.search(r'certificate SHA-256 digest: ([0-9a-f]+)', (artifact / 'signature.txt').read_text())
 if not fingerprint:
     raise SystemExit('APK signing certificate could not be verified')
 package = re.search(r"^package: name='([^']+)' versionCode='(\d+)' versionName='([^']+)'", (artifact / 'package.txt').read_text(), re.M)
-if not package or package[1] != 'nl.davidengelen.redsquare' or int(package[2]) != int(code) or package[3] != name:
+if not package or package[1] != application_id or int(package[2]) != int(code) or package[3] != name:
     raise SystemExit('APK package/version does not match the reserved preview')
+manifest = ET.parse(artifact / 'android-manifest.xml').getroot()
+android = '{http://schemas.android.com/apk/res/android}'
+application = manifest.find('application')
+sdk = manifest.find('uses-sdk')
+if (manifest.get('package') != application_id or application is None or sdk is None
+        or application.get(android + 'debuggable', 'false') != 'false'
+        or sdk.get(android + 'minSdkVersion') != '29' or sdk.get(android + 'targetSdkVersion') != '36'):
+    raise SystemExit('Require the nondebuggable Android10+ application manifest')
+if variant == 'performance':
+    profileable = application.find('profileable')
+    if profileable is None or profileable.get(android + 'shell') != 'true':
+        raise SystemExit('Performance application must be profileable by the Android shell')
 metadata = dict(versionCode=int(package[2]), versionName=package[3], applicationId=package[1],
                 certificateSha256=fingerprint[1], sha256=hashlib.sha256((artifact / 'redsquare.apk').read_bytes()).hexdigest(),
-                commit=subprocess.check_output(['git', '-C', repo, 'rev-parse', 'HEAD'], text=True).strip())
+                commit=subprocess.check_output(['git', '-C', repo, 'rev-parse', 'HEAD'], text=True).strip(), variant=variant)
 (artifact / 'manifest.json').write_text(json.dumps(metadata, indent=2) + '\n')
 PY
 certificate=$(python3 - "$artifact_dir/manifest.json" <<'PY'
