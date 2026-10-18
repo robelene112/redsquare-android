@@ -204,8 +204,12 @@ class GroupPushWorkPreviewTest {
                             .putExtra(Settings.EXTRA_CHANNEL_ID, "group-chats")
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         assertTrue(device.wait(Until.hasObject(By.pkg("com.android.settings")), 10_000))
-                        // Android17 draws the channel toolbar title but omits it from accessibility XML.
-                        // Observe its actual master control, then verify the chosen channel's OS state below.
+                        // Android17 exposes the toolbar title as a content description instead of text.
+                        val title = context.getString(R.string.chat_group_notification_channel)
+                        val titleDeadline = SystemClock.elapsedRealtime() + 10_000
+                        while (!device.hasObject(By.desc(title)) && !device.hasObject(By.text(title)) &&
+                            SystemClock.elapsedRealtime() < titleDeadline) SystemClock.sleep(25)
+                        assertTrue("Open the exact Android group channel", device.hasObject(By.desc(title)) || device.hasObject(By.text(title)))
                         assertTrue(device.wait(Until.hasObject(By.res("com.android.settings", "switch_text").text("Show notifications")), 10_000))
                         val toggle = device.wait(Until.findObject(By.res("android", "switch_widget")), 10_000)
                             ?: requireNotNull(device.wait(Until.findObject(By.res("com.android.settings", "switch_widget")), 10_000))

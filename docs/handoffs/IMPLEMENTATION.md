@@ -182,12 +182,15 @@ is running before any category source correction. Existing6cases unchanged.
 Local fixture correctionc73c30bb9 is not yet pushed: exact-one fetch checks now
 precede terminal replay, and fault/category restoration requires successful work
 drain, with a guarded outer cleanup retry. Both residual reviews0. Original39086431943 is a SETUP failure,7cases/6PASS/1FAIL89.356s atline206:
-the Settings channel toolbar title is drawn in the PNG but absent from XML.
+the Settings channel toolbar title is exposed as a content-description, not text.
 The positive disabled-category state/application completion assertions are
 unexecuted. `native-category-setup-failure`8hashes/32originalbindings retains
 the actual XML, full root-viewed Settings screenshot and source39086432368
-SUCCESSrelease/lint. Fixture now observes the real Show notifications master
-control and still requires the exact chosen channel importance transition.
+SUCCESSrelease/lint. Fixture now observes the real Show notifications master control; a followup
+retains an explicit channel-title check accepting its actual content-description
+or text form, with the same10second bound. The exact channel importance transition
+remains required. The earlier wording that the title was absent from XML was
+incorrect and is corrected here.
 No category production correction exists before actual application RED. Nonblocking duplicate retry-wait refactor waits for GREEN.
 Membership GREEN duration86.452s,9hashes/33original bindings, reviews0/0.
 Android category suppression, interest overflow and real process/legacy recovery remain.
