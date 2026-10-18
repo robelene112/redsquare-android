@@ -136,10 +136,22 @@ abstract class ChatPushConsentFixture {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use scenarioUse@{ scenario ->
                     try {
+                        fun assertUnconfiguredServiceNotices(stage: String) {
+                            val notices = listOf(
+                                "social" to "Background replies and mentions are unavailable in this build. Your choice is saved for this wallet on this phone. Android notification controls still apply.",
+                                "chat" to "Background chat alerts are unavailable in this build. Your choice is saved for this wallet on this phone. Message previews are a separate choice."
+                            )
+                            for ((feature, message) in notices) {
+                                ui.onNodeWithText(message).performScrollTo().assertIsDisplayed()
+                                captureNativeScreen(File(context.cacheDir,
+                                    "chat-alert-evidence/$capturePrefix-$stage-$feature-availability.png"))
+                            }
+                        }
                         click("Settings")
                         choice("Chat alerts when closed", false)
                         choice("Replies and mentions", false)
                         reconcile(null)
+                        assertUnconfiguredServiceNotices("initial")
                         toggle("Chat alerts when closed", true)
                         reconcile("group-chats,private-chats")
                         val subscription = active.get()!!.get("subscription").asString
@@ -183,6 +195,7 @@ abstract class ChatPushConsentFixture {
                         scenario.recreate()
                         click("Settings")
                         choice("Chat alerts when closed", true)
+                        assertUnconfiguredServiceNotices("reopened")
                         reconcile("group-chats,private-chats")
                         toggle("Replies and mentions", true)
                         reconcile("group-chats,mentions,private-chats,replies")

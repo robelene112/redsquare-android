@@ -11,6 +11,25 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
+## Active issue50: honest unconfigured background-alert Settings
+
+[Issue50](https://github.com/robelene112/redsquare-android/issues/50), child32/spec1,
+is assigned after closed49, with zero open blockers. Fixed review base
+`fc3e4a8caa56488e69e1e9e22f4e6999dca08134`. Scope is visible Social/Chat Settings
+copy for unconfigured builds, preserving saved consent, configured copy and all
+existing native transport/control behavior. No cloud/provider/node action.
+
+The existing real Settings/signed-binding fixture now requires visible literal
+feature-specific disclosures before enabling either choice, and again after
+recreation in the original consent journey. Each is scrolled into view and
+captured independently. All original identities/assertions/deadlines remain,
+including the180second capacity class bound. Production is UNCHANGED at this
+tracer checkpoint. Next: actual focused capacity Android17 RED, retain its true
+outcome/captures, then the minimum conditional resource choice. Final full10/17,
+two-axis reviews and an accepted signed phone update remain required. No owned
+local build is running. Main31/performance30 remain public;49 offline artifacts
+32/33/34 are unpublished. Actual16KiB runtime also remains under35.
+
 ## Accepted issue49: signed Play bundle and reviewable release package
 
 [Issue49](https://github.com/robelene112/redsquare-android/issues/49), child36/spec1,
