@@ -11,10 +11,10 @@ unread and untouched. Root is the sole implementation writer. Review subagents
 are permitted; parallel ticket implementation is not. No separate cybersecurity
 campaigns, provider-access services or safeguard bypass work.
 
-## Active issue49: signed Play bundle and reviewable release package
+## Accepted issue49: signed Play bundle and reviewable release package
 
 [Issue49](https://github.com/robelene112/redsquare-android/issues/49), child36/spec1,
-is assigned with zero open blockers after accepted48. Review base is
+is CLOSED, accepted at https://github.com/robelene112/redsquare-android/issues/49#issuecomment-6246622115. Review base is
 `2eabfa0b26af4b3814b9c1821d2975546e8b0a5b`. Minimum implementationef3321247 has
 Standards0/Spec0. All three canonical builds at that frozen source succeed:
 ordinary32 (3m24s), signed bundle33/derived APK (3m39s), performance34 (2m47s).
@@ -33,7 +33,11 @@ permission/data inventory and declaration inputs. [Evidence](../evidence/ticket4
 retains actual CLI RED/GREEN, source equivalence, all-mode artifacts, asset hashes,
 public-file/HTTPS-metadata preservation and real bundle-publication rejection.
 Main31 and performance30 stay live;32/33/34 are unpublished. The full committed
-package still needs final whole two-axis review before49 closure.
+package at278c756d8484dcce9d0cf73ccd5d7e7a294863cf has Standards0/Spec0,
+including all54 evidence hashes, source/artifact/configuration and asset bindings.
+No local build is active. Next useful native polish is explaining unavailable
+background transport in Settings without changing saved consent or Google setup.
+A separate actual16KiB runtime check also remains under35.
 
 No Console/cloud/node/account/key-enrollment/submission action was performed.
 Publisher/account/contact/retention/deletion and policy facts remain unresolved.
@@ -561,7 +565,7 @@ unverified. Follow canonical review-build/publish scripts for the next version.
 ## Remaining work and external gates
 
 Original35 tickets:26CLOSED, nineOPEN (16,17,19,31 through36); parent1 remainsOPEN.
-Extra37/39/40/41/42/43/44/45 are CLOSED.38 is a later branding decision, not a release
+Extra37/39 through49 are CLOSED.38 is a later branding decision, not a release
 blocker. Fetch current state before reporting counts or changing dependencies.
 
 | Issue | Current state and next useful work |
@@ -571,9 +575,9 @@ blocker. Fetch current state before reporting counts or changing dependencies.
 |19| Owner Registry checks time out; Official works. Native callback checkpoint accepted. No blind node update or unchanged public probe. See `ticket19/FINAL_REGRESSION_CHECKPOINT.md`. |
 |32| Native gateway/client children42/45 accepted. Actual Firebase/GCP Android app/project/sender, authorized hosting/deployment and physical closed-app delivery remain. Configuration question is already pending. |
 |33| Native46 accepted/closed above; configured Google delivery and original32 dependency remain. |
-|34| Native child47 is assigned/active above after accepted46. Parent34 retains its genuine33 and native dependencies. No group acceptance yet. |
-|35| Integrated release/device acceptance. An isolated release-equivalent performance variant is still actual code preparation: current Gradle only has debug/release. Follow `FEED_PERFORMANCE_PROTOCOL.md`: five cached Pixel7 launches≤2000ms, five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger; never clear the owner's wallet. Physical installation/update/data continuity also remain. |
-|36| Real publisher/account/test-track/legal/contact/retention/declaration facts and reviewable Play submission preparation remain. Do not invent facts or submit without the applicable final authorization. |
+|34| Native child47 is CLOSED and accepted; configured Google delivery and original32/33 gates remain. |
+|35| Native48 is CLOSED; isolated signed performance30 is published separately. Physical Pixel7 timing/update/wallet-data continuity remain: five cached launches≤2000ms/five fresh isolated installs≤5000ms, normal animations/stableWi-Fi/no debugger, positive isolated PID absence before each sample. Never clear the owner's wallet. Actual16KiB runtime remains unverified after49 packaging observations. |
+|36| Native/offline49 is CLOSED with signed AAB33 and concrete listing/assets/data/reviewer drafts. Actual publisher/account/test track/signing enrollment/legal contacts/retention/deletion/Terms/moderation/child-safety and substantive native policy flows remain, plus final device/configured dependencies and submission. Do not invent facts or publish policy/submit without the applicable final authorization. |
 
 Do not remove genuine dependencies or close parents to manufacture progress.
 Controlled peers/senders and native injection never prove actual Google delivery,
