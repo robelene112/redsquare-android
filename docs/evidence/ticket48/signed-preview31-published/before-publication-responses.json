@@ -1,0 +1,19 @@
+{
+  "checkedAtUtc": "2026-10-18T05:44:10.342101+00:00",
+  "responses": [
+    {
+      "url": "https://davidengelen.nl/redsquare/latest.json",
+      "status": 200,
+      "bytes": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/releases/29/manifest.json",
+      "status": 200,
+      "bytes": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    }
+  ],
+  "status": "PASS",
+  "publicationPerformed": false
+}

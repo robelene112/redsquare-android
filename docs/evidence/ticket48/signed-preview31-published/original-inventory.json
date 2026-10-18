@@ -1,0 +1,130 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-publication31",
+  "files": [
+    {
+      "path": "android-manifest.xml",
+      "bytes": 10812,
+      "sha256": "7f20dac3c0b50ae7fb0a39291bf82a321987a4e0a942f7c58c1d7b2d0d2ccb69"
+    },
+    {
+      "path": "before-publication-responses.json",
+      "bytes": 543,
+      "sha256": "5df210a11e26fa021ba8b13d67f22b8dd561e8ba258053269e2fefbab5afc0fd"
+    },
+    {
+      "path": "browser-main31-desktop.png",
+      "bytes": 69029,
+      "sha256": "d30873dc460b11dbb428b75c0e7ef8d9044e266da9634fd73868eec2bf673028"
+    },
+    {
+      "path": "browser-main31-mobile.png",
+      "bytes": 58392,
+      "sha256": "3b107827d1970cccaa3dd9ed4794d41f4a7f5505f68554c276406a92dd2a444a"
+    },
+    {
+      "path": "browser-main31-result.json",
+      "bytes": 794,
+      "sha256": "67b9ad5ab07d8db681a525893877ca633e734019999d9c5751475c7cae7c81ba"
+    },
+    {
+      "path": "browser-review.cjs",
+      "bytes": 2417,
+      "sha256": "1573fe0fe5c328cb35dfed0b6996ae26e17c5237e0a2dce421df0b3841a901ed"
+    },
+    {
+      "path": "immutable29-before.json",
+      "bytes": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    },
+    {
+      "path": "latest.json",
+      "bytes": 651,
+      "sha256": "5539c937706c7a93a08ae1884bb211e92484469d76a1325f29815698eb85b519"
+    },
+    {
+      "path": "main-latest-before.json",
+      "bytes": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    },
+    {
+      "path": "package.txt",
+      "bytes": 5066,
+      "sha256": "7f1120631ea05c196f744f15b26ece2d29375b6b6940f3a0e7d3b2be1b1c090f"
+    },
+    {
+      "path": "page.html",
+      "bytes": 2629,
+      "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+    },
+    {
+      "path": "performance-latest-after.json",
+      "bytes": 822,
+      "sha256": "66920fbcaabf707ca9c8c1076ebedaeeeb1a71ec0fc60e6e2f82aec2a9b13a2a"
+    },
+    {
+      "path": "performance-preserved-result.json",
+      "bytes": 574,
+      "sha256": "481011d48a90056565b8798f80b481e0e73b5415a212ec24836bd3a957ca708e"
+    },
+    {
+      "path": "performance30-after.apk",
+      "bytes": 37508099,
+      "sha256": "e8ac3c05de58860962c630fbc35962d08a879fa10f2d856e53a59880b3167f17"
+    },
+    {
+      "path": "public-responses.json",
+      "bytes": 1181,
+      "sha256": "13e5a7bbbb824eda0f97cf5e35b3422e20fc47f4f78bf6ffdaf9b1139c0e2c6e"
+    },
+    {
+      "path": "publisher-result.json",
+      "bytes": 551,
+      "sha256": "7988816e5e5b061d1b44f46b450200ad34ff40e81f719aa549aa783e51476a1e"
+    },
+    {
+      "path": "publisher.log",
+      "bytes": 53,
+      "sha256": "a3a19406f393bf7320524f77f70e87556b31d4b7afea4bb52159eb6a6b4fd038"
+    },
+    {
+      "path": "redsquare29.apk",
+      "bytes": 37508099,
+      "sha256": "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef"
+    },
+    {
+      "path": "redsquare31.apk",
+      "bytes": 37508099,
+      "sha256": "3cc48595869335da555bb164afbb72537a65cecc03333cba099dd26dce6d4866"
+    },
+    {
+      "path": "release-notes.txt",
+      "bytes": 212,
+      "sha256": "c84d6bfaca8dcaf7c39ad42f89ac2698b2a1713cef0f61f6659dac5cff5e39cf"
+    },
+    {
+      "path": "release29.json",
+      "bytes": 915,
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5"
+    },
+    {
+      "path": "release31.json",
+      "bytes": 651,
+      "sha256": "5539c937706c7a93a08ae1884bb211e92484469d76a1325f29815698eb85b519"
+    },
+    {
+      "path": "result.json",
+      "bytes": 521,
+      "sha256": "7d3e5e40af49e010bf2eddcb23bb2e45e90b68f3f84e4c889cacaf19bc980de4"
+    },
+    {
+      "path": "signature.txt",
+      "bytes": 295,
+      "sha256": "a3a64d8e079f1e2d43be446fe2807e43d64b0316dfcd2d1732c50adfecfd3b65"
+    },
+    {
+      "path": "verify-public31.py",
+      "bytes": 4358,
+      "sha256": "cf6e011a8d685e4d7a830d85dc88ebc7d3d7b162e96e8ae838ba478b02721b9b"
+    }
+  ]
+}

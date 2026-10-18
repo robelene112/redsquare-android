@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "url": "https://davidengelen.nl/redsquare/",
+      "label": "mobile",
+      "width": 390,
+      "height": 844,
+      "heading": "Red Square",
+      "applicationId": "nl.davidengelen.redsquare",
+      "versionCode": 31,
+      "apkUrl": "https://davidengelen.nl/redsquare/releases/31/redsquare.apk",
+      "horizontalOverflow": false,
+      "pageErrors": []
+    },
+    {
+      "url": "https://davidengelen.nl/redsquare/",
+      "label": "desktop",
+      "width": 1280,
+      "height": 900,
+      "heading": "Red Square",
+      "applicationId": "nl.davidengelen.redsquare",
+      "versionCode": 31,
+      "apkUrl": "https://davidengelen.nl/redsquare/releases/31/redsquare.apk",
+      "horizontalOverflow": false,
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "scripts/review-publish",
+    ".scratch/review-builds/31",
+    "--notes",
+    "Beta 31: startup readiness now waits for visible posts and usable controls. Automated Android 10 and 17 checks pass. Install over the existing app. Final phone review and service configuration are still pending."
+  ],
+  "returncode": 0,
+  "executedAtUtc": "2026-10-18T06:04:44.305975+00:00",
+  "publisherCommit": "0a9cc84204f94741b98b680036e38e9ce26e1812",
+  "wholeReviewCommit": "08978145a",
+  "wholeStandardsFindings": 0,
+  "wholeSpecFindings": 0
+}
