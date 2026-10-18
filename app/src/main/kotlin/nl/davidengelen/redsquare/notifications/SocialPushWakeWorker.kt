@@ -91,7 +91,8 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
             val resumed = receiptExecution.withLock {
                 currentCoroutineContext().ensureActive()
                 if (isStopped) return@work Result.failure()
-                PrivateChatPush.resume(applicationContext, wake, if (fixture) inputData.getString("archive") else null)
+                val archive = if (fixture) inputData.getString("archive") else null
+                PrivateChatPush.resume(applicationContext, wake, archive) ?: GroupChatPush.resume(applicationContext, wake, archive)
             }
             if (resumed != null) return@work chatResult(resumed)
             val selected = try {
@@ -155,7 +156,7 @@ class SocialPushWakeWorker(context: Context, parameters: WorkerParameters) : Cor
                     if (isStopped) return@withLock Result.failure()
                     chatResult(when (chatReference.kind) {
                         ChatPushReference.Kind.PRIVATE -> PrivateChatPush.receive(applicationContext, reference, envelope, archive, wake)
-                        ChatPushReference.Kind.GROUP -> GroupChatPush.receive(applicationContext, reference, envelope, archive)
+                        ChatPushReference.Kind.GROUP -> GroupChatPush.receive(applicationContext, reference, envelope, archive, wake)
                     })
                 }
             }

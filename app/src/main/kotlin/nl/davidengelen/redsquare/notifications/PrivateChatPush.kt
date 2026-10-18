@@ -13,14 +13,14 @@ internal object PrivateChatPush {
     /** Known retained work can recover without a still-live gateway copy. */
     fun resume(context: Context, wake: String, endpoint: String?): ChatNotificationResult? = try {
         synchronized(SaitoLocalState.lock) {
-            val scope = PrivateChatWakeRoute.scope(context, wake) ?: return@synchronized null
+            val scope = ChatWakeRoute.scope(context, wake) ?: return@synchronized null
             val wallet = AndroidWalletStore(context).loadExisting()
             val backend = AndroidBackendStore(context).load()
             if (scope.owner != wallet.publicKey || scope.backend != backend)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            val route = PrivateChatWakeRoute(context, scope.owner, backend, wake)
+            val route = ChatWakeRoute(context, scope.owner, backend, wake)
             val entry = route.load() ?: return@synchronized null
-            val history = ChatHistoryStore(context, wallet, backend, entry.counterparty)
+            val history = ChatHistoryStore(context, wallet, backend, entry.conversation)
             val envelope = history.retainedOriginal(entry.signature) ?: return@synchronized null
             if (!ChatPushSettings(context, wallet.publicKey).enabled()) {
                 history.completeAlert(entry.signature); route.remove()
@@ -46,14 +46,15 @@ internal object PrivateChatPush {
             if (message.id != reference.signature || message.author == wallet.publicKey ||
                 now < message.createdAt || now - message.createdAt > 7 * 24 * 60 * 60 * 1000L)
                 return@synchronized ChatNotificationResult.SUPPRESSED
-            val route = PrivateChatWakeRoute(context, wallet.publicKey, reference.backend, wake)
+            val route = ChatWakeRoute(context, wallet.publicKey, reference.backend, wake)
             if (message.author in AndroidPersonalControls(context, reference.owner).load().blocked) {
                 // A deliberate policy decision also completes an earlier retained pending receipt.
                 ChatHistoryStore(context, wallet, reference.backend, received.counterparty).completeAlert(message.id)
                 route.remove()
                 return@synchronized ChatNotificationResult.SUPPRESSED
             }
-            route.remember(wallet, received, now)
+            route.remember(wallet, ChatWakeRoute.Entry(message.id, received.counterparty,
+                message.createdAt + ChatWakeRoute.LIFETIME), now)
             val outcome = retainPrivateChat(context, wallet, reference.backend, received, endpoint, retryPublication = true)
             if (outcome != ChatNotificationResult.RETRY) route.remove()
             outcome

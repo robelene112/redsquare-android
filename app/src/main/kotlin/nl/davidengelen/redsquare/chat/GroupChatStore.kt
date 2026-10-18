@@ -215,6 +215,10 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         message.takeIf { eligible }
     }
 
+    fun retainedOriginal(id:String,signature:String):String? = synchronized(SaitoLocalState.lock) {
+        load(id)?.originals?.singleOrNull { SaitoEnvelope.decode(it).id==signature }
+    }
+
     fun completeAlert(id:String,signature:String) = synchronized(SaitoLocalState.lock) {
         val previous=requireNotNull(load(id))
         if(signature in previous.pendingAlerts)save(previous.copy(pendingAlerts=previous.pendingAlerts-signature))
