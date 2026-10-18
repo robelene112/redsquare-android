@@ -167,7 +167,15 @@ current membership, Android category suppression before optional ledger and
 more-than100group-interest union handling as OPEN findings. Whole47 acceptance
 remains pending. Journey wake/capture metadata is now centralized on the enum after actual mute
 GREEN, addressing the separate nonblocking review finding. No owned local build/watcher/download now.
-Membership/current-policy completion and real process/legacy recovery remain.
+Membership RED39085520332 at3c4370ba4 is retained:6cases/5PASS/1FAIL82.197s.
+The actual LEFT worker completes quietly under the owned fault, but repair and
+explicit MEMBER rejoin revive the matching alert atline208. Later exact history/
+identity tails are unexecuted. Source39085520900 SUCCESS includes release/lint.
+`native-membership-red`8hashes/32originalbindings; diagnostic launcher capture.
+Minimum2c7cd31a8 completes matching eligibility and removes its route before
+inactive-membership suppression, preserving history and storage-error retry.
+Both scoped source/evidence reviews0. Unchanged6case39085990843 is running.
+Android category suppression, interest overflow and real process/legacy recovery remain.
 Whole47/full10/17, signed29 and closure remain pending.
 Source-only3ee run39082238291 was CANCELLED by the next push; it is not acceptance.
 
