@@ -1,0 +1,180 @@
+{
+  "source": "278c9240164cb1df0c82a63d6342a7c33ee4d4cb",
+  "run": 39092907984,
+  "api": "37.0",
+  "originalArtifactRoot": "/mnt/storage/redsquare-android-artifacts/group47-export17-diagnostic-39092907984",
+  "originalFiles": [
+    {
+      "path": ".scratch/device-evidence/api-37.0/emulator.log",
+      "sha256": "be7fc1a85d4379a5135529aa213e0c8d312fc0576f3579a6c4c8b2d518211b3f"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/fresh-backup-reminder.txt",
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/scope.txt",
+      "sha256": "828bce23664e4b84e6db32c9f5c345e687c334be77841d5c41e52f2be43249ed"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-backup-evidence.tar",
+      "sha256": "fca071148019d75d76caa3ebb41023186bd2bb92ec4d5fa4b7ca236d3d542e2d"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-backup-ui.txt",
+      "sha256": "669b692ee86132abffd589b29d784fb649d6c3c145d9e0f1c7ff4b3483abe7d2"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-evidence.tar",
+      "sha256": "f6e0437cd36f84deae852bb8965f86a635e2ac2e481c0dbc433d371b56654b4e"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/continuity.txt",
+      "sha256": "752e9cb8cf794ef2a5208ffa16f4c3cfe2842559dffde46325caa77333d702ad"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/interrupted-instrumentation.txt",
+      "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/process-recovery.png",
+      "sha256": "5df5e71fc187f61c77ef8d06dad88001b4b7e38fc85a92f9f15d37341d86bb36"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/process-retry.png",
+      "sha256": "b0b7f40aa34ca2a52b96b835c769a7ad833c233e72f499342ef8dfb3831ab9ca"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-process/recovered-instrumentation.txt",
+      "sha256": "8317810922ca0494efa1428a4903e0a5e26325ec9d714eaea51e5d94aacaaba3"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wallet-export-ui.txt",
+      "sha256": "d91e7d1451f2bf66da3c84d11d37cc6c0f402e3bbb807a347059b875392a03f1"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disable.txt",
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": ".scratch/device-evidence/api-37.0/wellbeing-disabled-package.txt",
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupAdminTest.html",
+      "sha256": "f803fb8e549d853035fb35d7b9ba987db49dcf2dbea66ede848e82b61943333f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupChatTest.html",
+      "sha256": "870860e6c1788814f928031437c8eef5d3898516589c1a377b4894b09a26c741"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.GroupInvitationTest.html",
+      "sha256": "99603fa3965048c3cb21831457e62150ccf6ae1207983e0199d02c6c9e2d746d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.PrivateChatTest.html",
+      "sha256": "7610453cf70b0536655866566e1066e66e4f30186e2ee47e132fa9ade4a1b56a"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareActionsTest.html",
+      "sha256": "8b94e0140a84114c81a94c06468e51df07f3f349e7453c94ba7636ed135ee690"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareAuthorActionsTest.html",
+      "sha256": "959dbfa9cf81c14dbb135d44e7b189c4680d465a4f05032901ea2572773c05bd"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareFeedTest.html",
+      "sha256": "3a3dde27cfcf747ae3770da358fe5a0ece5ad33ba278409d4dd14f3298a58a3c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareImagesTest.html",
+      "sha256": "c049a364535dc19d3410e08e8e56ee8e8af69fdec2ed36a262fd9501d823dd5e"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareNotificationsTest.html",
+      "sha256": "71196e6b66b213a0583e5ec9046ef81bad7672f7d5db7466260a9b319767c712"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareQuotesTest.html",
+      "sha256": "92e7baf464f1f0006dde881cc95573243d62cd88a56aff92526fd05305fdc4ca"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.RedSquareVideoTest.html",
+      "sha256": "01495dfdcf2dd3fc7ea4733a16e1dfb4eb49677be14c484b6b3b474e27af730d"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoFullBlockTest.html",
+      "sha256": "6e1b3c743e21fbfb07419ca76b8d11dbbfbd2854bd7aa0d1130ae0861e6ecbac"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoIdenticonTest.html",
+      "sha256": "78d70261def9124d8d6cdf86acf2b56413704a9d59bd39a02326dba8c6b831b9"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentChainTest.html",
+      "sha256": "bd29e26aeb2665aa64944550527fe658262b4e1ac9536cd35ff458047ae605b7"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoPaymentTest.html",
+      "sha256": "8241c598c3bdcd9e55049583d1c88bbb4ec4d7f20e51b4e8ebeb28a77ca85512"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoProfilesTest.html",
+      "sha256": "e1725f84ae8cec6da74d58a18ec64c673a506d2fe96b1358e657a0c5a03e45b3"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoRegistryTest.html",
+      "sha256": "53e0b3d119a9e462fe7f6f81d6f51587c2502fa56b7085335bd7677314489e2c"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoTransactionTest.html",
+      "sha256": "2b5b30647deaf45e44580c7c99e14e0ffd8963a0961b0616ee50e79e94fdd987"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWalletTest.html",
+      "sha256": "d33fdc74ab8aeb1366097f13533a0413f2045fed1c3162e0b7ef1c683141059f"
+    },
+    {
+      "path": "core/build/reports/tests/test/classes/nl.davidengelen.redsquare.saito.SaitoWireTest.html",
+      "sha256": "9464dbdc898c8ca23fd0215aa8029bc86258f6faa520e75175e6c3d3dc8ed4c5"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/base-style.css",
+      "sha256": "a10a4ef75ca2601b44bfdaf3112a5854f6376f68d7cbaf6958286f04488d293b"
+    },
+    {
+      "path": "core/build/reports/tests/test/css/style.css",
+      "sha256": "61866908fd7eb09c79e96239f69db2e8cc5c6526cdb308eba0535ed2a0f6a263"
+    },
+    {
+      "path": "core/build/reports/tests/test/index.html",
+      "sha256": "b6a8a3ca0f41490e4d857040d99ef180c946620314bba3440cd15024cb333253"
+    },
+    {
+      "path": "core/build/reports/tests/test/js/report.js",
+      "sha256": "fc89c6d002d18f4662065c9887b2cda8f8486f2737d4ad0f2fdeac0ad58a44dc"
+    },
+    {
+      "path": "core/build/reports/tests/test/packages/nl.davidengelen.redsquare.saito.html",
+      "sha256": "9032ac111aebf289ac2067c7ffffa2743367290a16fc92f3a10639269a8934bb"
+    }
+  ],
+  "counts": {
+    "files": 14,
+    "passed": 7,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 3,
+    "crashedRecords": 1,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 15,
+    "xml": 0,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  },
+  "observation": "Focused export scope SUCCESS:5unchanged export cases PASS114.940s plus actual export process-death recovery and backup-reminder case,7PASS/3normal/1deliberate/1continuity. Real PIN authentication, wrong-PIN/cancel, unavailable-auth guidance, bounded stalled-provider failure, fresh-authenticated retry and compatible backup/identity assertions pass. Added7f1fixture capture runs only on failure; this pass produced no new failure-time PNG/XML. Root fully viewed actual provider-deadline readable failure and real-PIN backup-saved images.15PNGintegrityvalid/noXMLretained. No application source change or old credential-window failure cause/repair is established. Full17all3 rerun39093407762 at same278source is dispatched with diagnostics; it supersedes earlier39092400352 which already has failed Wallet. Android10 run39092507398 continues at518, application237/build-sign-publish3 unchanged; only Wallet failure-capture fixture differs. Neither focused pass nor superseded partial run is complete SDK/47acceptance."
+}

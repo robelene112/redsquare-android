@@ -1,0 +1,258 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/group47-export17-diagnostic-39092907984/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "emulator.log",
+      "size": 8737,
+      "sha256": "be7fc1a85d4379a5135529aa213e0c8d312fc0576f3579a6c4c8b2d518211b3f"
+    },
+    {
+      "path": "fresh-backup-reminder.txt",
+      "size": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "scope.txt",
+      "size": 78,
+      "sha256": "828bce23664e4b84e6db32c9f5c345e687c334be77841d5c41e52f2be43249ed"
+    },
+    {
+      "path": "wallet-backup-evidence.tar",
+      "size": 106496,
+      "sha256": "fca071148019d75d76caa3ebb41023186bd2bb92ec4d5fa4b7ca236d3d542e2d"
+    },
+    {
+      "path": "wallet-backup-ui.txt",
+      "size": 837,
+      "sha256": "669b692ee86132abffd589b29d784fb649d6c3c145d9e0f1c7ff4b3483abe7d2"
+    },
+    {
+      "path": "wallet-export-evidence.tar",
+      "size": 308736,
+      "sha256": "f6e0437cd36f84deae852bb8965f86a635e2ac2e481c0dbc433d371b56654b4e"
+    },
+    {
+      "path": "wallet-export-process/continuity.txt",
+      "size": 185,
+      "sha256": "752e9cb8cf794ef2a5208ffa16f4c3cfe2842559dffde46325caa77333d702ad"
+    },
+    {
+      "path": "wallet-export-process/interrupted-instrumentation.txt",
+      "size": 469,
+      "sha256": "60a994566f1ba0b39c7195806998e0dba2724d58fc3d249a6d96e2e7e8ced993"
+    },
+    {
+      "path": "wallet-export-process/process-recovery.png",
+      "size": 29662,
+      "sha256": "5df5e71fc187f61c77ef8d06dad88001b4b7e38fc85a92f9f15d37341d86bb36"
+    },
+    {
+      "path": "wallet-export-process/process-retry.png",
+      "size": 32522,
+      "sha256": "b0b7f40aa34ca2a52b96b835c769a7ad833c233e72f499342ef8dfb3831ab9ca"
+    },
+    {
+      "path": "wallet-export-process/recovered-instrumentation.txt",
+      "size": 839,
+      "sha256": "8317810922ca0494efa1428a4903e0a5e26325ec9d714eaea51e5d94aacaaba3"
+    },
+    {
+      "path": "wallet-export-ui.txt",
+      "size": 3699,
+      "sha256": "d91e7d1451f2bf66da3c84d11d37cc6c0f402e3bbb807a347059b875392a03f1"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ],
+  "instrumentation": [
+    {
+      "path": "wallet-backup-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.708"
+      ]
+    },
+    {
+      "path": "wallet-export-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "wallet-export-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "10.613"
+      ]
+    },
+    {
+      "path": "wallet-export-ui.txt",
+      "passed": 5,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "114.94"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "wallet-export-process/continuity.txt",
+      "text": "PASS: actual process death before credentials; document has zero bytes; cold launch retains identity and retry requires new authentication.\nbZhhNSEEMGfJVxZWEpXyqmUvuXM2sj9Jq3kL4Zg3Xuy5"
+    }
+  ],
+  "exits": [],
+  "visuals": [
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/private-backup-guidance.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/recovery-guide.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/dismissed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-backup-evidence.tar::wallet-backup-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/no-lock.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/screen.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-deadline.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/write-fails.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/read-fails.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/truncated-read.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/provider-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/real-pin-success.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-evidence.tar::wallet-export-evidence/authentication-cancelled.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-process/process-recovery.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "wallet-export-process/process-retry.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": [],
+  "summary": {
+    "files": 14,
+    "passed": 7,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 3,
+    "crashedRecords": 1,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 15,
+    "xml": 0,
+    "visualErrors": 0,
+    "continuityRecords": 1
+  }
+}
