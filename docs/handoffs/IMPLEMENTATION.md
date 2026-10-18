@@ -25,7 +25,8 @@ are accepted at their individual Android17 seams. Latest private39090067191 is
 SUCCESS1PASS17.770s; source39090067493 is SUCCESS including release/lint. Both
 latest GREEN evidence reviews0/0. Earlier private RED source39089645330 also
 subsequently SUCCESS; its original packet's pending-source statement is historical.
-The extracted private PID adapter still needs current runtime proof.
+The extracted private PID adapter passes current Android10 runtime in39091333019;
+current complete Android17 runtime remains required.
 
 First complete Android10 run39090558349 at72ad is FAILURE before Chat/group:
 appearance1PASS15.257s, binding1PASS1.908s and Social11cases10PASS1FAIL102.735s.
@@ -35,8 +36,17 @@ all later Chat/group/privatePID/public/full tails are unexecuted. Fifteen-hash/
 Root viewed the earlier full card; failure viewer preview shows only status,
 while XML shows the reply after the failure helper reopens the shade. Actual
 touch target/animation at injection is not captured; cause stays a gesture/
-readiness hypothesis. Corrected complete10 run39091333019 is now RUNNING at
-cc7b3aa69, with unchanged production and the reviewed card fixture. Android17
+readiness hypothesis. Corrected complete10 run39091333019 atcc7b3aa69
+is FAILURE later at the Android10 group category fixture;50PASS/1FAIL,13normal/
+4deliberate/3continuity. Social card dismissal and autonomous recovery, private
+three-PID/muted-pending and capacity pass. Root fully viewed original category
+failure PNG/XML: the old global switch targets Pop on screen rather than the
+Show notifications main row. Category-disable assertion executes and FAILS;
+subsequent category completion/replay, group PID and later gates are unexecuted.
+The40hash/95original packet preserves this outcome;180PNG/180XML validate.
+Fixture correction5f35d3d26 scopes the exact labelled main row without changing
+assertions/deadlines/production. Both source reviews0; focused10 group run
+39092127900 at61616d658 is running. Android17
 run39090559898 at72ad has Chat FAILURE, Wallet SUCCESS, Social still RUNNING.
 The Chat job times out during existing autonomous Social scheduling before any
 Chat/group gates. Its41hash/69original packet records19PASS/7completions/
@@ -60,7 +70,8 @@ UiObject2 swipe pattern through NotificationCard.kt. All old lookup deadlines
 (5seconds,10seconds for Chat process recovery), physical-disappearance and
 NotificationManager/dedup assertions remain. No production change or longer wait;
 no programmatic dismissal. Existing four card fixtures move unchanged. Identities
-remain429/430; fixture object count becomes201. Both source/evidence reviews0; corrected full10 is running.
+remain429/430; fixture object count becomes201. Both source/evidence reviews0;
+corrected full10 reached and failed the separate category control precondition above.
 
 Read-only scheduled-recovery diagnostics are now added before retrying the failed
 17 gate: pending WorkInfo state/attempt/next-schedule metadata, pre-death Android
@@ -69,11 +80,12 @@ bounded WorkManager logs before cleanup force-stop. Original120second observatio
 no target launches/forced jobs and all acceptance/cleanup remain. Extra observation
 can perturb timing; a later pass cannot prove this timeout's cause or a code fix.
 No production minimum is inferred. WorkInfo getter verified in installed2.12 AAR.
-Diagnostic source/evidence review pending.
+Diagnostic source/evidence reviews0/0. Focused17 diagnostic39091985886 at879
+is running; no runtime or cause is inferred yet.
 
-Next: review/push diagnostics and run existing focused social-push-process-android17
-scope for actual evidence; preserve corrected full10 and remaining original17jobs.
-Then complete required full17all3 and10 outcomes/identities/continuity/public/
+Next: inspect focused scheduler17 and corrected group10 outcomes; retain
+remaining original17Social separately. Then complete required full17all3 and10
+outcomes/identities/continuity/public/
 private+group3PID and final combined review before29 publication. No owned local build is running. Whole47 and original32/34
 Google/deployment/physical gates remain pending.
 
@@ -466,7 +478,9 @@ has a different resource from the globally selected switch. Packet
 group PID and later application/public tails remain unexecuted.5f35d3d26 scopes
 the click to the exact labelled clickable main row on both recorded layouts.
 Actual category/worker/history/cleanup assertions and deadlines are unchanged.
-Fixture source Spec review0; Standards review pending at this checkpoint.
+Fixture source reviews0/0. Both packet reviews verify40hashes/95original bindings;
+one Spec wording finding corrected: category-disable assertion executes and FAILS.
+Current focused10 run39092127900 at61616d658 remains pending.
 
 Both reviews of read-only scheduler diagnostics at879d15800 report0findings.
 Focused Android17 diagnostic39091985886 is running at879, with actual WorkInfo
