@@ -49,8 +49,9 @@ ignored cases. No unavailable per-job gateway count is inferred.
 
 All 239 production/build objects match prepared35/36 source
 `979fd7b21765acd9a5886dcde0b8ae988eb27451`; complete fixture/operation/host
-source equivalence is separately checked. Android 10 and combined whole review
-remain pending. Ordinary35 is unpublished and main31 remains live. No physical
+source equivalence is separately checked. At this packet's initial retention,
+Android10 and combined whole review were pending; ordinary35 was unpublished
+and main31 remained live. No physical
 Pixel timing/update, configured Google/Giphy delivery,16 KB runtime or Play
 acceptance follows. Earlier RED remains an actual failure.
 
