@@ -1,0 +1,146 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupPushWorkPreviewTest:
+INSTRUMENTATION_STATUS: test=disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28$setCategory(GroupPushWorkPreviewTest.kt:206)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28(GroupPushWorkPreviewTest.kt:232)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$lzdlp9m7W5nZYjZNObt5CZNqQoM(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:190)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling(GroupPushWorkPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: stream=
+Error in disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling(nl.davidengelen.redsquare.GroupPushWorkPreviewTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28$setCategory(GroupPushWorkPreviewTest.kt:206)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28(GroupPushWorkPreviewTest.kt:232)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$lzdlp9m7W5nZYjZNObt5CZNqQoM(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:190)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling(GroupPushWorkPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: test=disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRetainedOfficialGroupWakeChecksCurrentIdentityAndOpensItsExactUnencryptedConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingAPendingGroupCompletesItsOldAlertBeforeExplicitRejoining
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingAPendingGroupCompletesItsOldAlertBeforeExplicitRejoining
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPendingGroupMessageSilencedWhileBookkeepingIsUnavailableDoesNotAlertAfterUnmuting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryGroupPolicyReadFailureDoesNotBecomeARetrospectiveAlertAfterRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryGroupPolicyReadFailureDoesNotBecomeARetrospectiveAlertAfterRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ordinaryGroupHistorySurvivesUnavailableAlertBookkeepingAndItsWakeRecoversPublication
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupPushWorkPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aKnownGroupReceivesAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 89.356
+There was 1 failure:
+1) disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling(nl.davidengelen.redsquare.GroupPushWorkPreviewTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28$setCategory(GroupPushWorkPreviewTest.kt:206)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney$lambda$28(GroupPushWorkPreviewTest.kt:232)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.$r8$lambda$lzdlp9m7W5nZYjZNObt5CZNqQoM(GroupPushWorkPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.groupJourney(GroupPushWorkPreviewTest.kt:190)
+	at nl.davidengelen.redsquare.GroupPushWorkPreviewTest.disablingAndroidGroupAlertsCompletesAPendingReceiptBeforeReenabling(GroupPushWorkPreviewTest.kt:57)
+
+FAILURES!!!
+Tests run: 7,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
