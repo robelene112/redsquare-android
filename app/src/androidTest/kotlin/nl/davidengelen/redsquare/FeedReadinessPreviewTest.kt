@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import android.os.Build
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -57,6 +58,13 @@ class FeedReadinessPreviewTest {
                         waitFor("Unmute account")
                         ui.onNodeWithText("Unmute account").performClick()
                         waitFor("No muted or blocked accounts.")
+                        captureNativeScreen(File(context.cacheDir, "feed-readiness-evidence/ready-behind-dialog.png"), "No muted or blocked accounts.")
+                        val quietUntil = SystemClock.elapsedRealtime() + 1_000
+                        while (SystemClock.elapsedRealtime() < quietUntil) {
+                            activity.onActivity { assertFalse("A dialog still prevents interaction with the loaded feed",
+                                it.fullyDrawnReporter.isFullyDrawnReported) }
+                            SystemClock.sleep(25)
+                        }
                         ui.onNodeWithText("Done").performClick()
                         waitFor("Native Red Square reference post")
                         ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled()
