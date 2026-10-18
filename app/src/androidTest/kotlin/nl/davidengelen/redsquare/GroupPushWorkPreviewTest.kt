@@ -71,6 +71,7 @@ class GroupPushWorkPreviewTest {
             if (scoped) it.withNamedChatGroup(groupKey, "A known background group") else it
         }
         val author = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val replacement = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
         val backend = if (scoped) SaitoBackend.OFFICIAL else SaitoBackend.OWNER
         val now = System.currentTimeMillis()
         val creation = GroupChat.create(author, groupKey, "A known background group", listOf(wallet.publicKey), now - 1)
@@ -86,7 +87,8 @@ class GroupPushWorkPreviewTest {
         val previousBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("groupchat.${backend.id}.${wallet.publicKey}.",
             "groupchatpush.${wallet.publicKey}.", "socialpush.${wallet.publicKey}.",
-            "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
+            "chat-alerts.${wallet.publicKey}.", "personal.${wallet.publicKey}.") +
+            if (scoped) listOf("chatpush.${replacement.publicKey}.") else emptyList(), wallet.publicKey)
         val failure = AtomicReference<Throwable?>()
         val resolves = AtomicInteger()
         val originals = AtomicInteger()
@@ -189,8 +191,8 @@ class GroupPushWorkPreviewTest {
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                     backends.save(backend)
-                    val replacement = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
                     wallets.replace(wallet, replacement)
+                    ChatPushSettings(context, replacement.publicKey).setEnabled(true)
                     await(schedule())
                     assertSilent("An inactive wallet's group receipt must not alert under its replacement")
                     assertEquals(replacement.exportJson(), wallets.loadExisting().exportJson())
