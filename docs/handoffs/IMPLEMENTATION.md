@@ -94,8 +94,20 @@ unchanged120second bound. Root fully viewed the card.38hash/62original GREEN
 packet and both reviews0. The earlier timeout cause remains unknown; no
 production repair or Google delivery is inferred.
 
-Next: complete Android10 run39092507398 and Android17 run39092400352(all3parts)
-are RUNNING at common518b596325cec57b6fe2c2ca5f87bbcd504bb286. Both use identical201
+Next: Android10 run39092507398 remains RUNNING at518b596325cec57b6fe2c2ca5f87bbcd504bb286.
+Android17 run39092400352 at that same source has WalletFAIL at its first export
+class:4PASS/1FAIL108.904s, no normal class completion. Stalled-provider case fails
+at15second credential lookup before actual PIN entry; later case recovery and all
+Wallet tails unexecuted. Empty app-crash-class log and final launcher PNG do not
+establish a cause. Root viewed postclass launcher, not the failing window.
+Eleven-hash/34original packet is retained and both evidence reviews0. Chat/Social
+jobs remain running.7f1d86140 adds only failure-time PNG/XML capture inside the
+case before ActivityScenario teardown; all acceptance/cleanup/deadlines and
+production unchanged, both source reviews0. Focused export17 diagnostic39092907984
+is RUNNING at278c92401. Inspect it before a new complete17all3 common-source run.
+An unchanged successful10 may be retained under the workflow's qualified
+fixture-only outstanding-SDK rule. Do not infer an old cause from a later pass.
+The two currently dispatched full sources use identical201
 fixture objects,237production/build objects and3build/sign/publish operations;
 prepared29 production/build and operations also remain identical. Prepared29 had
 200fixture objects; seven fixture paths and the diagnostic host observer differ
@@ -104,7 +116,7 @@ Validate429/430identities,103/104normal completions,33deliberate interruptions,
 32PASS continuity, both same-worker three-PID protocols, public/read/update/final
 identity tails and release/lint/core/gateway before final combined review and29
 publication. Source check39091333025SUCCESS atcc7 includes release/lint. No owned
-local build is running. Both full watchers/artifacts require later inspection.
+local build is running. Full watcher24961(10)/6764(17) and focused38924 require later drain/inspection.
 Whole47 and original32/34Google/deployment/physical gates remain pending.
 
 The following paragraphs retain chronological checkpoints; old present-tense
