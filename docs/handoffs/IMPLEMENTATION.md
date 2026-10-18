@@ -24,32 +24,16 @@ conversation/category/membership controls, capacity and shared private muted
 counterpart pass their native seams. Current private and group three-PID adapters
 also pass within partial full runs, but complete SDK acceptance remains required.
 
-**Running final verification:**
+**Complete final verification, publication pending:**
 
-- Android10: `39092507398` at `518b596325cec57b6fe2c2ca5f87bbcd504bb286`.
-- Android17: `39093407762`, all three required partitions, at
-  `278c9240164cb1df0c82a63d6342a7c33ee4d4cb`.
-- Both sources and prepared29 have identical complete237 production/build and
-  three build/sign/publish operation objects. Both SDK sources have201 fixture
-  objects, with one difference:17 adds four lines of conditional failure capture
-  inside the existing Wallet export case before ActivityScenario teardown.
-  Assertions, cleanup, deadlines and test identities are unchanged. Prepared29
-  had200 fixture objects; eight paths differ from final17, plus the read-only
-  scheduling observer. Do not claim all prepared/current fixtures equal.
-- Source CI `39092400121` at518 and `39092908198` at278 both SUCCESS, including
-  release assembly/lint/core/gateway. Source CI alone is not runtime acceptance.
+- Android10 `39092507398` at518 SUCCESS:428PASS plus the existing Profile assumption, exact429 identities,103 normal/33 deliberate/32 continuity.
+- Android17 `39093407762` at278 SUCCESS:430PASS, exact430 identities,104 normal/33 deliberate/32 continuity. All three required jobs succeed.
+- Both full packets and `docs/evidence/ticket47/NATIVE_ACCEPTANCE.md` retain exact recovery, source roles and visual limits. Complete17 bounded evidence reviews0/0; complete10 reviews pending.
+- Complete237 production/build and3 operations objects equal reviewed726 and prepared29. Both have201 fixture objects, differing solely by four conditional Wallet failure-capture lines. Prepared29 had200 fixtures; eight fixture paths and read-only scheduler observer differ. Assertions/deadlines unchanged.
+- Source39092400121/39092908198 SUCCESS, release/lint/core/gateway tasks. Retained core114; no unobserved gateway count claimed.
 
-The pre-execution partition plan still requires429 Android10 and430 Android17
-identities,103/104 normal completions,33 deliberate interruptions and32 PASS
-continuity records. Require actual outcomes and exact class/path/multiplicity,
-all three distinct17 completion markers, both same-worker three-PID protocols,
-zero expired-gateway requests, restoration, public-read/legacy-update/final-identity
-tails, source checks and original UI inspection before combined final review.
-
-Signed29/0.1.29 is prepared at72ad after canonical BUILD SUCCESSFUL3m55s/exit0.
-APK SHA256 `aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`;
-established package/certificate/min29 verified. Six-hash prepared packet and
-both preparation reviews0. It remains UNPUBLISHED. Beta28 remains live.
+Signed29/0.1.29 remains prepared and UNPUBLISHED, SHA256
+`aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef`, source72ad, canonical build PASS3m55s/exit0, established package/certificate/min29. Prepared reviews0/0. Beta28 remains live. Complete10 review, combined whole47 review and static publication/independent verification remain before closing47.
 
 Retained full-run failures and bounded follow-ups:
 
@@ -96,17 +80,11 @@ Retained full-run failures and bounded follow-ups:
   Partial221PASS/1FAIL/51 normal/20 deliberate/16 continuity is retained in the
   five-hash/302-original superseded packet, with actual private/group PID proof,
   unfinished Search and missing later gates explicit. Wording finding corrected
-  at1732214d9; Spec residual0, Standards residual pending at this checkpoint.
+  at1732214d9; both residual reviews0.
 
-No owned local Gradle/build is running. Current hosted watchers24961(10) and
-65205(new17) need later drain; old6764 and focused38924 are drained. Large original
-artifacts are under `/mnt/storage/redsquare-android-artifacts`. Temporary promoter,
-precise source-equivalence and acceptance drafts are under
-`/tmp/redsquare-group47-work-20261017`; they are not acceptance records. Promoter
-expects10 source518 and17 source278. Complete both SDK outcomes, inspect originals,
-finish combined whole evidence reviews, then publish prepared29 and independently
-verify public page/latest/immutable29/APK plus unchanged immutable28.
-Whole47 and original32/34 Google/deployment/physical gates remain pending.
+No owned local Gradle/build is running. All hosted watchers/downloads are drained; final10 watcher exited143, independently verified CI SUCCESS and actual raw outcomes are authoritative. Large originals are under `/mnt/storage/redsquare-android-artifacts`. Root preserves temporary helpers under `/tmp/redsquare-group47-work-20261017`; canonical complete evidence is now in Git. Finish both-axis combined whole47 review, publish prepared29, independently verify public latest/immutable29/APK and unchanged immutable28, then close only47.
+
+Next sequential feasible work is a bounded child of35: correct actual feed fully-drawn measurement and prepare isolated release-equivalent performance build. Read-only source finding is posted on35. No35 implementation has begun. Physical Pixel measurements remain unproved. Then prepare the concrete AAB/store-review package under36, preserving unknown publisher/account/contact/retention facts and real external blockers. Do not close parents or repeat pending Giphy/FCM questions. Temporary research/design state is in the session store, not accepted artifacts.
 
 The following paragraphs retain chronological checkpoints; old present-tense
 status statements describe their dated step, not the current state above.
