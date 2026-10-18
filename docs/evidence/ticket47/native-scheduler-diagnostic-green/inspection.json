@@ -1,0 +1,355 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/group47-scheduler17-diagnostic-39091985886/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "emulator.log",
+      "size": 8089,
+      "sha256": "2e1b306a75845b5b8d7482bf4cb5d501ed5d3b7f83fb100b0710e0d4b6765303"
+    },
+    {
+      "path": "scope.txt",
+      "size": 95,
+      "sha256": "41b5cfb5ce4c312acdece2d143c9af4bc0c6e078751a4599f82da382c644f0e5"
+    },
+    {
+      "path": "social-push-permission-before.txt",
+      "size": 8492,
+      "sha256": "79b1cd1c573e07f11c665f3c9c279e81aa54ebd571937680e0786798bbff2a96"
+    },
+    {
+      "path": "social-push-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-process/continuity.txt",
+      "size": 273,
+      "sha256": "cd5c51f73dc6f9f8651d3615b980c40f131fc6f32ba60af0e460f2e70a6ea04e"
+    },
+    {
+      "path": "social-push-process/dismissed-checkpoint.json",
+      "size": 386,
+      "sha256": "2ad81a8132b4f02fc2e99eed5b637b6d1322b0dca7aa00e6a9a1c642cf826ba9"
+    },
+    {
+      "path": "social-push-process/images.tar",
+      "size": 538624,
+      "sha256": "84fc9b6891da573a9b1f3486be44fa57403a17ea529ee0fbcf68ad28f1320e60"
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "size": 478,
+      "sha256": "ee693d52f30cbe59eefededb3b7992b7062bca5ccdad1639e63711cf3a206a78"
+    },
+    {
+      "path": "social-push-process/ledger-metadata.txt",
+      "size": 17,
+      "sha256": "d5664ce3ff4611164a30a853a04abb3d7b0493fb80da6800ac1324796657ff21"
+    },
+    {
+      "path": "social-push-process/recovered-checkpoint.json",
+      "size": 396,
+      "sha256": "9773f9b9bd93ca150c8c29cd55a42a1948bcd6ee1a2f37a8ffea9afce94c937f"
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "size": 839,
+      "sha256": "168794c42452339bed89d2d7aec6bc968d66866bd0d3febacf1a9f3c0749d452"
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "size": 812,
+      "sha256": "9e2f8d847d87d4898d259fd2943ac85996b1e8b0a9c395ee9ffaddfaebde5312"
+    },
+    {
+      "path": "social-push-scheduled-process/activities-after.txt",
+      "size": 23438,
+      "sha256": "760943e5691d78babaf4bc05fabdcbd08fb543f7a749df8ba16f13c525b4a489"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.png",
+      "size": 83170,
+      "sha256": "09e6ebee459e367e93facc6862da84e9099f6a99ffb3e707c0ea5fe8341a5eb1"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.xml",
+      "size": 52878,
+      "sha256": "0b8f7db1e2a206720b7b871fcf400f1b64098e393f3d2888ca0835d55cf7d99b"
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-observations.jsonl",
+      "size": 6981,
+      "sha256": "24568a12bbe7b4e1bb5c391bb1fe5436997a151909ca33aa16c1de2a6b7abc10"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-jobs.json",
+      "size": 653209,
+      "sha256": "0e424828aaaa98d73c970f2c8284702489abb10017875c2faee7a1514269859c"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-package.json",
+      "size": 9971,
+      "sha256": "06ed5635a2e4b66908c26b9ea0d9efc3964ce81c8e02033678309b2be9b16fc7"
+    },
+    {
+      "path": "social-push-scheduled-process/before-death-processes.json",
+      "size": 423654,
+      "sha256": "5ff092ac01b304ea88a999c579b4abb209d54ca17868258c4b2eb54a03e9e3c0"
+    },
+    {
+      "path": "social-push-scheduled-process/capture-status.txt",
+      "size": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "social-push-scheduled-process/continuity.txt",
+      "size": 290,
+      "sha256": "e5192d27fbda87db5b5dd5a2b58b75cb7f556cc7888990c49746dd45ef834c0a"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/host.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/mode",
+      "size": 4,
+      "sha256": "6c45cb72a36e63d522aa54ed8adbd7a29a989474f2f77e0458af8800564ef3cb"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/observed.json",
+      "size": 81,
+      "sha256": "617ba206226c0996564f20f69d6dea73c42aac38cc85f295605e644e7d228267"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/ready.json",
+      "size": 14,
+      "sha256": "5d5c5c93b38cc7d41933f254eb8f1e4905bca5db6809a7dc6aef55e2668bcb3f"
+    },
+    {
+      "path": "social-push-scheduled-process/host-peer/reply.json",
+      "size": 1098,
+      "sha256": "45ba650c3b3db22cbc8d200c2ed5995fa90f7d64790df6bcdb75458407db5856"
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar",
+      "size": 225280,
+      "sha256": "2ec544ea457979cd09dbad98b288d47a04263d34b626cf233bbbc9c5b260dd46"
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "size": 483,
+      "sha256": "af2ebe4b52c323bdf84f2598ca2f094c4b26e139701e801746a9aca9b163cb93"
+    },
+    {
+      "path": "social-push-scheduled-process/notification-after.txt",
+      "size": 139663,
+      "sha256": "18bc6bf21483481331dc5263124b60e3e3a82a9cfc9183495429829fc65bda1b"
+    },
+    {
+      "path": "social-push-scheduled-process/pending-checkpoint.json",
+      "size": 2271,
+      "sha256": "7e1cb24637bf32df2a3c464d90518acb0da939697dcebc46e5056561535e9237"
+    },
+    {
+      "path": "social-push-scheduled-process/recovered-observation.json",
+      "size": 307,
+      "sha256": "5a068345271cde1aa4e49f1fa14e73fc849227e1ed19f56e25126a5757a1f23d"
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "size": 816,
+      "sha256": "ed6e712f4e8c7a48f05568c08f23a2335cb1d7574def68d23ec1b2ccbe1a271e"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-after.txt",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "social-push-scheduled-process/reverse-before.txt",
+      "size": 29,
+      "sha256": "b3ad33abc08d60b710ea0afb129c16598d924821443775f5744611d7079e5113"
+    },
+    {
+      "path": "social-push-scheduled-process/termination-request.json",
+      "size": 69,
+      "sha256": "f464069fb53caf341a200d049e4c5441f4de99d556d98bec68f421b7ab18ddd0"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "size": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "size": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ],
+  "instrumentation": [
+    {
+      "path": "social-push-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "8.649"
+      ]
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.36"
+      ]
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.676"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "social-push-process/continuity.txt",
+      "text": "PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply visibly alerts; full wallet/backend retained and original encrypted installation restored independently. Local transport only, no FCM or public closed-app claim."
+    },
+    {
+      "path": "social-push-scheduled-process/continuity.txt",
+      "text": "PASS: pending receipt, verified live PID killed, different process and post-death Archive reads, exact system reply alert without target instrumentation/Activity/forced jobs during observation; owned work cancelled and original device-only installation restored. Local scheduling, not FCM."
+    }
+  ],
+  "exits": [],
+  "visuals": [
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/published-before-death.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/published-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/dismissed-before-death.xml",
+      "kind": "xml",
+      "nodes": 118
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/dismissed-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/cold-replay-stays-dismissed.xml",
+      "kind": "xml",
+      "nodes": 118
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/cold-replay-stays-dismissed.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/fresh-reply-after-cold-replay.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-process/images.tar::social-push-process-evidence/fresh-reply-after-cold-replay.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 819840
+    },
+    {
+      "path": "social-push-scheduled-process/autonomous-alert.xml",
+      "kind": "xml",
+      "nodes": 140
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar::social-push-scheduled-evidence/pending-before-death.xml",
+      "kind": "xml",
+      "nodes": 102
+    },
+    {
+      "path": "social-push-scheduled-process/images.tar::social-push-scheduled-evidence/pending-before-death.png",
+      "kind": "png",
+      "width": 320,
+      "height": 640,
+      "decodedBytes": 615040
+    }
+  ],
+  "visual_errors": [],
+  "archive_errors": [],
+  "summary": {
+    "files": 37,
+    "passed": 3,
+    "skipped": 0,
+    "assumed": 0,
+    "failed": 0,
+    "completionRecords": 3,
+    "crashedRecords": 2,
+    "failureFooters": [],
+    "nonzeroExits": [],
+    "png": 6,
+    "xml": 6,
+    "visualErrors": 0,
+    "continuityRecords": 2
+  }
+}
