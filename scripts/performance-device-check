@@ -25,8 +25,10 @@ if not adb("get-serialno").strip().startswith("emulator-"):
     raise SystemExit("This installation observer requires a disposable emulator")
 main = "nl.davidengelen.redsquare"
 performance = main + ".performance"
-installed = {line.removeprefix("package:").strip() for line in adb("shell", "pm", "list", "packages").splitlines()}
-if {main, performance} & installed:
+def installed_packages():
+    return {line.removeprefix("package:").strip() for line in adb("shell", "pm", "list", "packages").splitlines()}
+
+if {main, performance} & installed_packages():
     raise SystemExit("Preserve existing installations; this check requires both review packages to be absent")
 args.evidence.mkdir(parents=True, exist_ok=False)
 certificate = "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
@@ -87,11 +89,11 @@ primary = None
 try:
     main_apk = artifact(main, 29, "", "main29")
     performance_apk = artifact(performance, args.version, "performance/", "performance")
-    assert "Success" in adb("install", "-r", str(main_apk))
     owned.append(main)
+    assert "Success" in adb("install", "-r", str(main_apk))
     before = observe(main, "main-before")
-    assert "Success" in adb("install", "-r", str(performance_apk))
     owned.append(performance)
+    assert "Success" in adb("install", "-r", str(performance_apk))
     separate = observe(performance, "performance-wallet")
     after = observe(main, "main-after")
     assert before == after and separate != before
@@ -110,14 +112,19 @@ finally:
     failures = []
     for package in reversed(owned):
         try:
-            assert "Success" in adb("uninstall", package)
+            if package in installed_packages():
+                assert "Success" in adb("uninstall", package)
+            assert package not in installed_packages()
         except BaseException as failure:
             failures.append(failure)
-    (args.evidence / "restoration.json").write_text(json.dumps({"restoredOriginallyAbsentPackages": not failures,
-        "ownedPackages": owned, "cleanupFailures": [type(failure).__name__ for failure in failures]}, indent=2) + "\n")
+    try:
+        (args.evidence / "restoration.json").write_text(json.dumps({"restoredOriginallyAbsentPackages": not failures,
+            "attemptedOwnedPackages": owned, "cleanupFailures": [type(failure).__name__ for failure in failures]}, indent=2) + "\n")
+    except BaseException as failure:
+        failures.append(failure)
     if failures:
         if primary is not None:
-            primary.add_note("Disposable package cleanup failed; see restoration.json")
+            primary.add_note("Disposable cleanup/report failures: " + ", ".join(type(failure).__name__ for failure in failures))
         else:
             raise RuntimeError("Disposable package cleanup failed") from failures[0]
 print("PASS: actual isolated signed performance installation preserves the separate main preview wallet")

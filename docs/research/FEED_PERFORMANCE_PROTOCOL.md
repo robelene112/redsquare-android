@@ -28,7 +28,8 @@ A release-equivalent performance variant is prepared by child48 of #35. Use
 `nl.davidengelen.redsquare.performance` for both cached and fresh series, with
 the same signed APK/version and backend throughout. It has a separate launcher,
 UID and data from the ordinary app; keep the ordinary app installed. There must
-be no performance-package feed cache or wallet before each fresh run. Keep stable Wi-Fi and record backend
+be no performance-package feed cache or wallet before each fresh run. Keep stable
+Wi-Fi and record backend
 availability. All five interactive-feed times must be at most 5,000 ms. Failed
 loads remain failures with evidence; do not discard them as timing outliers.
 Record cache-read and first live-read modes separately.
