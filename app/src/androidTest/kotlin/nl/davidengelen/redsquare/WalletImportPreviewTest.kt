@@ -22,6 +22,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import java.io.File
 import java.util.UUID
 import java.net.InetAddress
 import java.util.concurrent.atomic.AtomicReference
@@ -44,11 +45,22 @@ class WalletImportPreviewTest {
                 .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
         }
         server.start(InetAddress.getByName("127.0.0.1"), 0)
+        fun openWallet(stage: String) {
+            withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                "wallet-import-evidence/failed-save-$stage-wallet-entry-failure.png")) }) {
+                val action = hasText("Wallet") and hasClickAction() and isEnabled()
+                ui.waitUntil(20_000) {
+                    try { ui.onNode(action).assertIsDisplayed(); true }
+                    catch (_: AssertionError) { false }
+                }
+                ui.onNode(action).performClick()
+            }
+        }
         try {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use { scenario ->
-                ui.onNodeWithText("Wallet").performClick()
+                openWallet("initial")
                 val address = displayedWalletAddress(ui)
                 val previous = AndroidWalletStore(context).loadExisting()
                 ui.onNodeWithText("Import wallet").performClick()
@@ -79,7 +91,7 @@ class WalletImportPreviewTest {
                 Os.chmod(directory.path, originalMode)
                 ui.onNodeWithText("Done").performClick()
                 scenario.recreate()
-                ui.onNodeWithText("Wallet").performClick()
+                openWallet("reopened")
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-import-evidence/failed-save-restored-recreated.png")
             }

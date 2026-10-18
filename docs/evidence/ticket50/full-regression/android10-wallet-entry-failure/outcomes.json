@@ -1,0 +1,1730 @@
+{
+  "summary": {
+    "files": 346,
+    "passed": 402,
+    "skipped": 0,
+    "assumed": 1,
+    "failed": 1,
+    "completionRecords": 88,
+    "crashedRecords": 32,
+    "failureFooters": [
+      "wallet-import-ui.txt"
+    ],
+    "nonzeroExits": [],
+    "png": 888,
+    "xml": 773,
+    "visualErrors": 1,
+    "continuityRecords": 28
+  },
+  "instrumentation": [
+    {
+      "path": "ProfileEditPreviewTest-ui.txt",
+      "passed": 7,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "29.481"
+      ]
+    },
+    {
+      "path": "ProfileMediaPreviewTest-ui.txt",
+      "passed": 2,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "15.986"
+      ]
+    },
+    {
+      "path": "ProfileNewEditPreviewTest-ui.txt",
+      "passed": 2,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "24.008"
+      ]
+    },
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "passed": 4,
+      "skipped": 0,
+      "assumed": 1,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "21.484"
+      ]
+    },
+    {
+      "path": "appearance-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "8.616"
+      ]
+    },
+    {
+      "path": "author-delete-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "author-delete-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.456"
+      ]
+    },
+    {
+      "path": "author-edit-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "author-edit-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.548"
+      ]
+    },
+    {
+      "path": "author-post-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "41.513"
+      ]
+    },
+    {
+      "path": "browse-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "16.167"
+      ]
+    },
+    {
+      "path": "chat-alerts-ui.txt",
+      "passed": 11,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "103.253"
+      ]
+    },
+    {
+      "path": "chat-giphy-ui.txt",
+      "passed": 6,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "50.809"
+      ]
+    },
+    {
+      "path": "chat-image-history-ui.txt",
+      "passed": 2,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "56.982"
+      ]
+    },
+    {
+      "path": "chat-images-ui.txt",
+      "passed": 10,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "75.532"
+      ]
+    },
+    {
+      "path": "chat-keyboard-ui.txt",
+      "passed": 10,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "63.754"
+      ]
+    },
+    {
+      "path": "chat-mixed-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "5.863"
+      ]
+    },
+    {
+      "path": "chat-mute-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "chat-mute-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "12.462"
+      ]
+    },
+    {
+      "path": "chat-mute-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.073"
+      ]
+    },
+    {
+      "path": "chat-mute-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "89.953"
+      ]
+    },
+    {
+      "path": "chat-photo-group-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "chat-photo-group-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.591"
+      ]
+    },
+    {
+      "path": "chat-photo-group-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.075"
+      ]
+    },
+    {
+      "path": "chat-photo-private-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "chat-photo-private-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.054"
+      ]
+    },
+    {
+      "path": "chat-photo-private-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.074"
+      ]
+    },
+    {
+      "path": "chat-push-capacity-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "35.636"
+      ]
+    },
+    {
+      "path": "chat-queue-group-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "chat-queue-group-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.686"
+      ]
+    },
+    {
+      "path": "chat-queue-group-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.085"
+      ]
+    },
+    {
+      "path": "chat-queue-private-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "chat-queue-private-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.606"
+      ]
+    },
+    {
+      "path": "chat-queue-private-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.084"
+      ]
+    },
+    {
+      "path": "chat-queue-ui.txt",
+      "passed": 13,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "279.167"
+      ]
+    },
+    {
+      "path": "following-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "17.766"
+      ]
+    },
+    {
+      "path": "giphy-posting-ui.txt",
+      "passed": 6,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "22.515"
+      ]
+    },
+    {
+      "path": "giphy-ui.txt",
+      "passed": 3,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "15.461"
+      ]
+    },
+    {
+      "path": "group-admin-promotion-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-admin-promotion-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.927"
+      ]
+    },
+    {
+      "path": "group-admin-promotion-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.068"
+      ]
+    },
+    {
+      "path": "group-admin-removal-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-admin-removal-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.887"
+      ]
+    },
+    {
+      "path": "group-admin-removal-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.066"
+      ]
+    },
+    {
+      "path": "group-admin-ui.txt",
+      "passed": 12,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "33.79"
+      ]
+    },
+    {
+      "path": "group-chat-actions-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "8.276"
+      ]
+    },
+    {
+      "path": "group-chat-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-chat-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.105"
+      ]
+    },
+    {
+      "path": "group-chat-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.065"
+      ]
+    },
+    {
+      "path": "group-chat-ui.txt",
+      "passed": 22,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "125.337"
+      ]
+    },
+    {
+      "path": "group-push-process/dismissed-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-push-process/pending-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "group-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.595"
+      ]
+    },
+    {
+      "path": "group-push-process/verified.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.054"
+      ]
+    },
+    {
+      "path": "group-push-ui.txt",
+      "passed": 7,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "72.187"
+      ]
+    },
+    {
+      "path": "image-process/candidate-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "image-process/draft-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "image-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.369"
+      ]
+    },
+    {
+      "path": "image-queue-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "image-queue-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.661"
+      ]
+    },
+    {
+      "path": "images-preparation-ui.txt",
+      "passed": 5,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "12.895"
+      ]
+    },
+    {
+      "path": "images-ui.txt",
+      "passed": 6,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "20.036"
+      ]
+    },
+    {
+      "path": "notification-permission-allowingAlertsKeepsInAppReadingOptional.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "5.253"
+      ]
+    },
+    {
+      "path": "notification-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "notification-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.449"
+      ]
+    },
+    {
+      "path": "notifications-ui.txt",
+      "passed": 32,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "108.467"
+      ]
+    },
+    {
+      "path": "personal-controls-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "personal-controls-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "6.108"
+      ]
+    },
+    {
+      "path": "personal-controls-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "68.23"
+      ]
+    },
+    {
+      "path": "post-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "post-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.7"
+      ]
+    },
+    {
+      "path": "post-queue-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "post-queue-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.366"
+      ]
+    },
+    {
+      "path": "post-queue-ui.txt",
+      "passed": 9,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "39.861"
+      ]
+    },
+    {
+      "path": "posting-ui.txt",
+      "passed": 18,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "81.973"
+      ]
+    },
+    {
+      "path": "private-chat-actions-ui.txt",
+      "passed": 10,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "54.61"
+      ]
+    },
+    {
+      "path": "private-chat-peer.txt",
+      "passed": 2,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.157"
+      ]
+    },
+    {
+      "path": "private-chat-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "private-chat-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.283"
+      ]
+    },
+    {
+      "path": "private-chat-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.079"
+      ]
+    },
+    {
+      "path": "private-chat-ui.txt",
+      "passed": 24,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "102.603"
+      ]
+    },
+    {
+      "path": "private-push-mute-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "8.084"
+      ]
+    },
+    {
+      "path": "private-push-process/dismissed-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "private-push-process/pending-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "private-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.599"
+      ]
+    },
+    {
+      "path": "private-push-process/verified.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.047"
+      ]
+    },
+    {
+      "path": "profile-process/candidate-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "profile-process/draft-interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "profile-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.718"
+      ]
+    },
+    {
+      "path": "public-chat.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.408"
+      ]
+    },
+    {
+      "path": "push-binding-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.712"
+      ]
+    },
+    {
+      "path": "quote-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "quote-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.03"
+      ]
+    },
+    {
+      "path": "quote-ui.txt",
+      "passed": 7,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "12.93"
+      ]
+    },
+    {
+      "path": "report-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "report-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "5.29"
+      ]
+    },
+    {
+      "path": "reports-ui.txt",
+      "passed": 11,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "100.384"
+      ]
+    },
+    {
+      "path": "search-ui.txt",
+      "passed": 9,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "46.864"
+      ]
+    },
+    {
+      "path": "social-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.039"
+      ]
+    },
+    {
+      "path": "social-push-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "4.193"
+      ]
+    },
+    {
+      "path": "social-push-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "1.582"
+      ]
+    },
+    {
+      "path": "social-push-scheduled-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "social-push-scheduled-process/restored.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.601"
+      ]
+    },
+    {
+      "path": "social-push-ui.txt",
+      "passed": 11,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "79.707"
+      ]
+    },
+    {
+      "path": "social-push-work-ui.txt",
+      "passed": 3,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "47.595"
+      ]
+    },
+    {
+      "path": "social-ui.txt",
+      "passed": 8,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "13.816"
+      ]
+    },
+    {
+      "path": "transfer-process/credential-cleanup-verified.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "0.032"
+      ]
+    },
+    {
+      "path": "transfer-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "transfer-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "5.732"
+      ]
+    },
+    {
+      "path": "transfers-ui.txt",
+      "passed": 9,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "87.616"
+      ]
+    },
+    {
+      "path": "username-process/interrupted.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "username-process/recovered.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "3.808"
+      ]
+    },
+    {
+      "path": "username-ui.txt",
+      "passed": 16,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "102.476"
+      ]
+    },
+    {
+      "path": "video-ui.txt",
+      "passed": 4,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "19.55"
+      ]
+    },
+    {
+      "path": "wallet-backup-ui.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "2.285"
+      ]
+    },
+    {
+      "path": "wallet-export-process/interrupted-instrumentation.txt",
+      "passed": 0,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": false,
+      "crashed": true,
+      "failureFooter": false,
+      "times": []
+    },
+    {
+      "path": "wallet-export-process/recovered-instrumentation.txt",
+      "passed": 1,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "5.993"
+      ]
+    },
+    {
+      "path": "wallet-export-ui.txt",
+      "passed": 5,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 0,
+      "completed": true,
+      "crashed": false,
+      "failureFooter": false,
+      "times": [
+        "71.278"
+      ]
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "passed": 6,
+      "skipped": 0,
+      "assumed": 0,
+      "failed": 1,
+      "completed": false,
+      "crashed": false,
+      "failureFooter": true,
+      "times": [
+        "183.416"
+      ]
+    }
+  ],
+  "continuity": [
+    {
+      "path": "author-delete-process/continuity.txt",
+      "text": "PASS: process death after uncertain delete; cold startup preserves the original candidate and wallet, requires explicit recovery and verifies availability without rebroadcast.\n9cd52f93ac7e0d50e1e306765e2d8ae55876ba73d0db8d19f457426a5da4732d1337c700f6670797638d7875dabc604907747fcd96089a23b19b8b17add64609"
+    },
+    {
+      "path": "author-edit-process/continuity.txt",
+      "text": "PASS: process death after uncertain edit; cold startup preserves the original candidate and wallet, requires explicit recovery and verifies availability without rebroadcast.\n213331c87515e26a3f197da828833d03aa2d64257d32b4cc5da2cfc518437e4f4be3d2b2e4da901fcf6b3270c5fc2afe0bcd38045971c3391a170e429d895b2f"
+    },
+    {
+      "path": "chat-mute-process/continuity.txt",
+      "text": "PASS: actual interrupted policy commit; private and group choices, exact unsent drafts, cached history and fresh authenticated incoming readable without alerts; full wallet/backend retained, no outgoing messages."
+    },
+    {
+      "path": "chat-photo-group-process/continuity.txt",
+      "text": "PASS: actual process death, exact queued original, full fixture wallet/backend and cached history continuity, protected group key/origin; automatic identical raw/Relay once, independently decoded text, native photo pixels and delivery unconfirmed."
+    },
+    {
+      "path": "chat-photo-private-process/continuity.txt",
+      "text": "PASS: actual process death, exact queued original, full fixture wallet/backend and cached history continuity; automatic identical raw/Relay once, independently decoded text, native photo pixels and delivery unconfirmed."
+    },
+    {
+      "path": "chat-queue-group-process/continuity.txt",
+      "text": "PASS: actual process death, exact queued original, full fixture wallet/backend and cached history continuity, protected group key/origin; automatic identical raw/Relay once, independently decoded text and delivery unconfirmed."
+    },
+    {
+      "path": "chat-queue-private-process/continuity.txt",
+      "text": "PASS: actual process death, exact queued original, full fixture wallet/backend and cached history continuity; automatic identical raw/Relay once, independently decoded text and delivery unconfirmed."
+    },
+    {
+      "path": "group-admin-promotion-process/continuity.txt",
+      "text": "PASS: actual process death, full fixture wallet/backend continuity, exact protected group key, authenticated origin/control/message originals, unsent draft and uncertain promotion under unavailable Archive, zero automatic transmissions; explicit Retry forwards the identical original once."
+    },
+    {
+      "path": "group-admin-removal-process/continuity.txt",
+      "text": "PASS: actual process death, full fixture wallet/backend continuity, exact protected group key, authenticated origin/control/message originals, unsent draft and uncertain removal under unavailable Archive, zero automatic transmissions; explicit Retry forwards the identical original once."
+    },
+    {
+      "path": "group-chat-process/continuity.txt",
+      "text": "PASS: actual process death, full fixture wallet/backend continuity, exact protected group key, authenticated origin/control/message originals, unsent draft and uncertain reaction under unavailable Archive, zero automatic transmissions."
+    },
+    {
+      "path": "group-push-process/continuity.txt",
+      "text": "PASS: same persisted worker UUID recovered retained group history after actual process death; generic Android card physically dismissed; another process and duplicate wake remain silent; no Activity, exact older/new history and wallet/backend preserved; installation restoration passed. Recovery launches are host-initiated, not autonomous Google delivery."
+    },
+    {
+      "path": "image-process/continuity.txt",
+      "text": "PASS: two actual process deaths; newest text recovers after death in a real external picker; prepared image recovers after source deletion; cold signed candidate reconciles without another broadcast and then clears."
+    },
+    {
+      "path": "image-queue-process/continuity.txt",
+      "text": "PASS: real process death after durable offline Queue; cold startup automatically delivers one pre-interruption signed transaction with the same wallet and text.\nThe deliberate force-stop holds the cold launch; this is not force-stop delivery proof.\nPrepared image recovers after source deletion and retains its normalized pixels.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9\na8b93a40dbe4f1cc94600f2b8339ffbd1e71acc8d5ab0ceb61fb6390578869b72ca93f7e1a2291973253e6db4196579b84b2fdc0952b4df1d1f099dec6864d71"
+    },
+    {
+      "path": "notification-process/continuity.txt",
+      "text": "PASS: actual process death after visible activity and confirmed read status, same wallet/backend without recovery reset, cold retained activity and NoUnread under failed controlled-server reads, actor navigation, zero transactions."
+    },
+    {
+      "path": "personal-controls-process/continuity.txt",
+      "text": "PASS: actual pending-save process death, verified surviving encrypted guard metadata, same wallet/backend without recovery reset, cold Mute and independent Block recovery, explicit Unblock retains Mute, explicit Unmute restores cached post, zero transactions."
+    },
+    {
+      "path": "post-process/continuity.txt",
+      "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9\n368c73c90eb59d58eb4f756b867b510480db3efccc11f8367067305ef56b57d20ce960d88598b7483b3e95906409b34332c1018531c358209f3fdf5e76c21fcf"
+    },
+    {
+      "path": "post-queue-process/continuity.txt",
+      "text": "PASS: real process death after durable offline Queue; cold startup automatically delivers one pre-interruption signed transaction with the same wallet and text.\nThe deliberate force-stop holds the cold launch; this is not force-stop delivery proof.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9\nd8ee02cc67138b2a376cd25ca666e723d452272b14c71489414fc9a6c03c604446a7fcb76531f2e8e66c2f12d116dc922ea8ba6a09a437db148496f82c59e565"
+    },
+    {
+      "path": "private-chat-process/continuity.txt",
+      "text": "PASS: actual process death, full fixture wallet/backend continuity, exact cached original, unsent typed draft and uncertain message/reaction originals under unavailable Archive, zero transmissions."
+    },
+    {
+      "path": "private-push-process/continuity.txt",
+      "text": "PASS: same persisted worker UUID recovered retained private history after actual process death; generic Android card physically dismissed; another process and duplicate wake remain silent; no Activity, exact older/new history and wallet/backend preserved; installation restoration passed. Recovery launches are host-initiated, not autonomous Google delivery."
+    },
+    {
+      "path": "profile-process/continuity.txt",
+      "text": "PASS: two actual process deaths; same wallet/backend without resetting either on recovery; latest bio recovers after death in a real external picker; prepared avatar/banner recover after source deletion; cold exact signed candidate reconciles read-only without rebroadcast, then verified clearing retains public bio and pixels."
+    },
+    {
+      "path": "quote-process/continuity.txt",
+      "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9\ncb42ff8b71a42a51e582e1c891e850b8a7a2854493679639689bcd888c489baa3deb75f51750a9c199648abeb3c91eb0268ba3e355f1d304a29ac4584f51f9d2"
+    },
+    {
+      "path": "report-process/continuity.txt",
+      "text": "PASS: actual process death after receipt before acknowledgement, retained original report, new process, same wallet/backend, unknown delivery without automatic send, explicit identical retry and acknowledgement, zero type4 transactions."
+    },
+    {
+      "path": "social-process/continuity.txt",
+      "text": "PASS: process death after uncertain send; cold app startup retains the original signed candidate, checks exact verified availability, and does not rebroadcast.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9\n78745b0019fe4d53109209948d20529046173aca91e582828e4c1ec2a6e20380578fc5804e4ddbfa592867a286fec1ece6eb962f0fea3b8eaa09cf44fb2fbc5e"
+    },
+    {
+      "path": "social-push-process/continuity.txt",
+      "text": "PASS: actual process death after physical dismissal; cold duplicate suppressed, independent fresh signed reply visibly alerts; full wallet/backend retained and original encrypted installation restored independently. Local transport only, no FCM or public closed-app claim."
+    },
+    {
+      "path": "social-push-scheduled-process/continuity.txt",
+      "text": "PASS: pending receipt, verified live PID killed, different process and post-death Archive reads, exact system reply alert without target instrumentation/Activity/forced jobs during observation; owned work cancelled and original device-only installation restored. Local scheduling, not FCM."
+    },
+    {
+      "path": "transfer-process/continuity.txt",
+      "text": "PASS: actual process death, same wallet/backend without reset on recovery, no automatic payment submission, exact original frame sent only after explicit review and fresh real system PIN authentication. Inclusion remains unverified."
+    },
+    {
+      "path": "username-process/continuity.txt",
+      "text": "PASS: actual process death, same wallet/backend without reset on recovery, cold read-only Registry reconciliation with no automatic publication, exact original signed frame sent only after explicit Retry."
+    },
+    {
+      "path": "wallet-export-process/continuity.txt",
+      "text": "PASS: actual process death before credentials; document has zero bytes; cold launch retains identity and retry requires new authentication.\nc3kqhEfUTRoPd8vQ5WuFetr8oro7nEwxuqWe2ZmjuGQ9"
+    }
+  ],
+  "exits": [
+    {
+      "path": "appearance-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-alerts-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-giphy-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-image-history-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-images-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-keyboard-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-mixed-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-mute-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-push-capacity-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "chat-queue-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "following-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "group-admin-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "group-chat-actions-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "group-chat-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "group-push-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "private-chat-actions-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "private-chat-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "private-push-mute-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "push-binding-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "social-push-ui-exit.txt",
+      "value": "0"
+    },
+    {
+      "path": "social-push-work-ui-exit.txt",
+      "value": "0"
+    }
+  ]
+}

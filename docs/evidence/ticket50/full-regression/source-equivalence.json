@@ -518,8 +518,12 @@
   "fullRuns": {
     "10": {
       "run": 39106583903,
-      "status": "in_progress",
-      "acceptance": false
+      "status": "completed",
+      "acceptance": false,
+      "conclusion": "failure",
+      "passed": 402,
+      "assumed": 1,
+      "failed": 1
     },
     "17": {
       "run": 39106585481,
@@ -527,5 +531,6 @@
       "conclusion": "success",
       "identities": 431
     }
-  }
+  },
+  "fixtureOnlyCorrectionPendingRecheck": "WalletImportPreviewTest failed-save initial/recreated entry action readiness and in-scope failure capture; production unchanged."
 }

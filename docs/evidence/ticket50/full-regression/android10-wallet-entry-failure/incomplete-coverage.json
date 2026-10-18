@@ -1,0 +1,174 @@
+{
+  "result": "INCOMPLETE",
+  "expectedCount": 430,
+  "passingOrAssumedCount": 403,
+  "failedCount": 1,
+  "unexecutedCount": 26,
+  "missingIncludesFailedCase": true,
+  "missing": [
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+      "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+      "occurrences": 1
+    },
+    {
+      "path": "initialization-incompleteFirstWriteCanResumeCreation.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+      "test": "incompleteFirstWriteCanResumeCreation",
+      "occurrences": 1
+    },
+    {
+      "path": "initialization-unavailablePendingSaveIsPreservedForRetry.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+      "test": "unavailablePendingSaveIsPreservedForRetry",
+      "occurrences": 1
+    },
+    {
+      "path": "initialization-validSaveBeforePublicationResumesTheSavedIdentity.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletInterruptedInitializationTest",
+      "test": "validSaveBeforePublicationResumesTheSavedIdentity",
+      "occurrences": 1
+    },
+    {
+      "path": "instrumentation.txt",
+      "testClass": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+      "test": "compatibleWalletRoundTripPreservesModuleDataAndRejectsInvalidIdentity",
+      "occurrences": 1
+    },
+    {
+      "path": "instrumentation.txt",
+      "testClass": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+      "test": "importedPeerOptionsRemainPortableDataWithoutChangingApprovedConnections",
+      "occurrences": 1
+    },
+    {
+      "path": "instrumentation.txt",
+      "testClass": "nl.davidengelen.redsquare.NativeCompatibilityTest",
+      "test": "installedAndroidRuntimeMatchesIndependentSaitoIdentityAndSignatures",
+      "occurrences": 1
+    },
+    {
+      "path": "live-official-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    },
+    {
+      "path": "preview-update-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.PreviewUpdateTest",
+      "test": "aNewerReviewBuildOffersTheReviewPage",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-commit-sync-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletCommitSyncFailureTest",
+      "test": "retryCannotExposeIdentityUntilThePublicationBarrierIsDurable",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-import-process/recovered-instrumentation.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletImportInterruptionTest",
+      "test": "coldStartupRecoversTheOutgoingPublishedIdentity",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-import-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+      "test": "failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-initialization-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletInitializationTest",
+      "test": "failedFirstSaveCanRetryWithoutPublishingAnUnsavedIdentity",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-risk-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletImportRiskPreviewTest",
+      "test": "outgoingOtherAssetsAndSavedNamesCannotBeClearedByASaitoZeroResponse",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-storage-recovery-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletImportStorageRecoveryTest",
+      "test": "failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletPreviewTest",
+      "test": "damagedSavedWalletCanBeRecoveredWithoutChangingIdentity",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletPreviewTest",
+      "test": "firstLaunchCreatesAnIdentityAndReopeningWalletKeepsIt",
+      "occurrences": 1
+    },
+    {
+      "path": "wallet-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.WalletPreviewTest",
+      "test": "missingSavedWalletShowsRecoveryInsteadOfCreatingAnotherIdentity",
+      "occurrences": 1
+    }
+  ],
+  "extra": [],
+  "partitionComplete": false
+}

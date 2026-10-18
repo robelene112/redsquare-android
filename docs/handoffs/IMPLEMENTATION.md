@@ -51,7 +51,18 @@ prepared packets. Performance36 canonical publication exits0 and independent
 actual HTTPS/APK/certificate/manifest/browser checks pass; root fully viewed
 mobile/desktop originals. Main31 metadata/actual APK and immutable performance30
 metadata/actual APK are unchanged. Publication bookend at10b007c48e9b6e48037741544a4f181e7337ab9a has Standards0/Spec0.
-Final full10 run39106583903 is IN PROGRESS at that source. Full17 run39106585481
+Final full10 run39106583903 is FAILURE at that source:402PASS, the accepted
+Profile assumption and one failed Wallet import case;88 normal/32 deliberate/
+28 continuity. Initial merged Wallet click fails with zero matches/one unmerged
+match, before the real failed-save import scenario starts. Its six other class
+cases pass. No failure-time window was captured; the post-class PNG is empty.
+The10-hash/346-original failed packet retains actual outcomes, incomplete fixed-
+map coverage and qualified unavailable captures. No rendering/lifecycle/app cause
+is established. A bounded fixture-only correction now waits up to20seconds for
+the actionable visible merged Wallet entry on that case's initial/recreated
+openings, with in-scope PNG/XML on entry failure. All original assertions,
+identities,15second import guards and300second class bound remain. Source is
+unchanged. Review/focused import10/fresh complete10 are next. Full17 run39106585481
 is SUCCESS at the same source, with all three jobs complete,431PASS/exact431
 identities,104 normal/33 deliberate/32 continuity. Both public feeds, authenticated
 Chat readiness, private/group sameUUID/threePID/zeroExpired recovery and protected
@@ -63,15 +74,14 @@ observations. Both new notices are fully readable in all six availability
 captures. The reopened-Social/final-consent PNGs have gray Chat switches while
 separate XML reports checked=true; later reopened-Chat pixels show ON. Do not
 infer a settled ON pixel state or a rendering cause from non-atomic captures.
-Actual semantic persistence and signed binding pass. Bounded17 review is next.
+Actual semantic persistence and signed binding pass. Bounded17 at3c133ca2447544236f70acf6730622f03742451d has Standards0/Spec0.
 
 The fixed plan retains430/431 identities,103/104 normal completions,33 deliberate/
 32 continuity and all recovery/public/update/final gates. The committed source
 map verifies239 production/build,202 fixture,4 operation and4 host objects equal
-between prepared979 and dispatched10b. Complete10/whole review remain pending;
+between prepared979 and dispatched10b. Corrected complete10/whole review remain pending;
 main35 stays UNPUBLISHED and main31/separate performance36 remain public. All
-owned local build/download/retention work is DRAINED; only the full10 watcher
-continues. No cloud/provider/node/owner-phone action occurred. Follow-up51 is
+owned local build/download/retention/watch work is DRAINED. No cloud/provider/node/owner-phone action occurred. Follow-up51 is
 created under35 with50 as its sole native blocker, unassigned and not started:
 actual hosted16KiB environment/full17/current signed35/performance36 observations.
 Original physical/provider/policy gates stay open. Do not repeat pending

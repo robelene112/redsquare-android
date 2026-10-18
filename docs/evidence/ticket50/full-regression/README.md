@@ -28,6 +28,11 @@ missing optional diagnostics must all be assessed. No new outcome is used to
 invent expectations. Pixel timing, configured Google/Giphy delivery,16KiB runtime
 and Play installation remain unverified. Performance36 is now published and independently verified; the [publication packet](../performance36-published/README.md) retains the actual observations. Full Android17 run39106585481 is now SUCCESS at10b007c48e9b6e48037741544a4f181e7337ab9a;
 its complete packet retains exact431 identities and all required gates. Full
-Android10 run39106583903 remains IN PROGRESS at that same source. Combined whole
+Android10 run39106583903 is FAILURE at that same source. Its initial Wallet
+entry fails before the failed-save import scenario;26 later identities are
+unexecuted. The failed packet preserves actual402PASS/one assumption/one FAIL,
+with no proven window cause. A fixture-only positive-action wait and in-scope
+failure capture precede focused import10 and a fresh complete10. Android17 remains
+accepted for unchanged production; preserve the exact fixture-only delta. Combined whole
 review and ordinary35 publication remain pending. The pre-execution expectations
 in plan.json are unchanged.
