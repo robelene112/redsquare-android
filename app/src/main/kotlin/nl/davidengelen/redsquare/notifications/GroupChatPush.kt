@@ -51,11 +51,14 @@ internal object GroupChatPush {
                 return@synchronized ChatNotificationResult.SUPPRESSED
             val store = GroupChatStore(context, wallet, reference.backend)
             val previous = store.load(signed.body.get("group_id").asString) ?: return@synchronized ChatNotificationResult.SUPPRESSED
-            if (previous.group.memberRoles[wallet.publicKey]?.active != true)
+            val route = ChatWakeRoute(context, wallet.publicKey, reference.backend, wake, ChatPushReference.Kind.GROUP)
+            if (previous.group.memberRoles[wallet.publicKey]?.active != true) {
+                store.completeAlert(previous.group.id, signed.id)
+                route.remove()
                 return@synchronized ChatNotificationResult.SUPPRESSED
+            }
             val message = try { GroupChat.readMessage(previous.group, envelope) }
                 catch (_: Exception) { return@synchronized ChatNotificationResult.SUPPRESSED }
-            val route = ChatWakeRoute(context, wallet.publicKey, reference.backend, wake, ChatPushReference.Kind.GROUP)
             route.remember(wallet, ChatWakeRoute.Entry(message.id, message.groupId,
                 message.createdAt + ChatWakeRoute.LIFETIME), now)
             val outcome = retainGroupChat(context, wallet, reference.backend, envelope, endpoint, retryPublication = true)
