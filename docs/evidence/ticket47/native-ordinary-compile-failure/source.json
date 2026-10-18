@@ -1,0 +1,7 @@
+{
+  "source": "3d00eac9f",
+  "command": "scripts/android-build :app:compileDebugKotlin :app:compileDebugAndroidTestKotlin",
+  "exitCode": 1,
+  "elapsed": "2m48s",
+  "observation": "App compilation passes; Android test compilation fails because the fixture-prefix expansion removed a prefix still used to select its owned group record. No runtime acceptance."
+}

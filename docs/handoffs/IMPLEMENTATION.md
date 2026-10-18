@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-17. The owner authorizes completing the remaining issues
+Updated 2026-10-18. The owner authorizes completing the remaining issues
 sequentially, committing after each accepted ticket and publishing ordinary
 signed phone-review updates. Do not stop at an intermediate slice. Follow
 [workflow](../WORKFLOW.md), [context](../PROJECT_CONTEXT.md) and
@@ -82,19 +82,21 @@ SourceCI39080455619 also SUCCESS (release/lint included). Both evidence reviews
 report0findings and verify all9hashes/33original bindings, unchanged fixture and
 parsed selected XMLs. No owned local Gradle job.
 
-The next tracer is one ordinary-group/publication-fault story. Its temporary
-ledger .new directory must leave received history readable without publishing,
-then the opaque wake must recover after repair. First worker story assertions
-are retained in a shared fixture helper. Both tracer reviews0. No ledger/pending
-implementation yet; actual ordinary-recovery RED39080952856 and sourceCI39080948077
-are running at4e2f514b2. Native watcher session49254. Inspect and retain the actual
-RED before implementing pending/ledger mechanics. Whole47
-still requires that durable pending/shared ordinary recovery, broader current
-control/tap/legacy/PID checks, final full10/17 and signed successor.
+The ordinary-group/publication-fault tracer has actual RED39080952856 at4e2f514b2:
+2cases/1PASS/1FAIL26.609s. History remains readable, then continuous silence fails
+because Android has an active card while the owned group ledger .new directory
+obstructs bookkeeping. Later recovery/shade/dismiss/dedup tails in that case are
+unexecuted; the original worker-first story passes. Seven-hash native-ordinary-red
+packet is retained and root viewed its actual launcher capture. No unexpected
+shade rendering claim. SourceCI39080948077 SUCCESS.
 
-Temporary work: /tmp/redsquare-group47-work-20261017. No owned local Gradle job.
-Original32/34 retain configured Google/hosting/deployment/physical gates. Published
-beta28 remains the review baseline until47's accepted signed update.
+Minimum3d00eac9f commits pending group eligibility with encrypted history, shares
+ordinary/background receipt decisions and adds a separate groupchatpush ledger
+family. Legacy group records without pending metadata remain readable. Necessary
+fixture scopes are extended. Spec review found one additional manual mixed-Chat
+fixture missing the group ledger; correction is next, after draining the owned
+local compile. Standards has no hard finding, with shared publication-policy
+extraction recommended after actual GREEN. Runtime recovery/full47 remain pending.
 
 ## Accepted issue46: private Chat background transport
 

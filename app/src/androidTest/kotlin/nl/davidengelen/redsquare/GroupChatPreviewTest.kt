@@ -114,7 +114,8 @@ class GroupChatPreviewTest {
         val checkpointKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixture only. Never fund.
         val checkpoint=GroupChat.create(fixture,checkpointKey.publicKey,"Recovered group",listOf(member),1700000123456)
         val backend = AndroidBackendStore(context).load()
-        val prefixes = listOf("groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}.", "groupchatpush.${fixture.publicKey}.")
+        val prefix = "groupchat.${SaitoBackend.OWNER.id}.${fixture.publicKey}."
+        val prefixes = listOf(prefix, "groupchatpush.${fixture.publicKey}.")
         fun fileMatchesGroupFixture(name:String) = prefixes.any(name::startsWith)
         val retained = synchronized(SaitoLocalState.lock) {
             context.noBackupFilesDir.listFiles()!!.filter { fileMatchesGroupFixture(it.name) }.associate { it.name to it.readBytes() }
