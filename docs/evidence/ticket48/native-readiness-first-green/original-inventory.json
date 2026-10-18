@@ -1,0 +1,70 @@
+{
+  "root": "/mnt/storage/redsquare-android-artifacts/performance48-readiness-first-green17-39096703039/.scratch/device-evidence/api-37.0",
+  "files": [
+    {
+      "path": "backend-ui-evidence.tar",
+      "bytes": 230400,
+      "sha256": "11cffbeed3c07f6f279c06d42af20b75124ca7ac06e0876e56ed02824901e309"
+    },
+    {
+      "path": "backend-ui-screen.png",
+      "bytes": 45776,
+      "sha256": "955919633107e8bb96ae73308b71ce342a4bda74423b5f2ace7ecf2405d91185"
+    },
+    {
+      "path": "emulator.log",
+      "bytes": 9514,
+      "sha256": "3ddf1ddb39ade9a3f5f45f5052f76715ad2a89a61df4bac407b6ac0d3fa1607f"
+    },
+    {
+      "path": "feed-cold-launch/continuity.txt",
+      "bytes": 165,
+      "sha256": "6517244eb6455f1e9679f3d97be1373c3f5f3dfef9e1d462697fa011d3272d5c"
+    },
+    {
+      "path": "feed-cold-launch/feed.png",
+      "bytes": 54748,
+      "sha256": "43cf6255199f336780925f010c66c0710f15cc0984accf95c4d4d10f53cb2e66"
+    },
+    {
+      "path": "feed-cold-launch/fully-drawn.txt",
+      "bytes": 121,
+      "sha256": "6fab53202e85aa744e53dd2e6aa8084fffa2557cd2ed5c55b47f12ae140d3a51"
+    },
+    {
+      "path": "feed-cold-launch/last-ui.xml",
+      "bytes": 34891,
+      "sha256": "f0698492473d3ecf2873cd02f08d7e8f2e5da316bdfe0efaed81b0bb6fac2c4d"
+    },
+    {
+      "path": "feed-cold-launch/launch.txt",
+      "bytes": 253,
+      "sha256": "efec3d69854a370ab02e24d8c938516728c0e1551e31e12f22eb6358ce8ec268"
+    },
+    {
+      "path": "feed-readiness-evidence.tar",
+      "bytes": 149504,
+      "sha256": "88d7b1fbc2b9f75569eab009b2a55f082041e424c25f7364e9d9aa84099cf59f"
+    },
+    {
+      "path": "feed-ui.txt",
+      "bytes": 6421,
+      "sha256": "c64c7ffd7329330812ba7148136801eae7e9cb701f5ef59f3705bbd5dfb3dc58"
+    },
+    {
+      "path": "scope.txt",
+      "bytes": 72,
+      "sha256": "6c601ba8ba549aeb7c66b6f6c5562eef5f4d58a2eb36e4734d239a1b582f14a7"
+    },
+    {
+      "path": "wellbeing-disable.txt",
+      "bytes": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    {
+      "path": "wellbeing-disabled-package.txt",
+      "bytes": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  ]
+}
