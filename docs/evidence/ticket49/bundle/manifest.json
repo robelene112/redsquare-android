@@ -1,0 +1,23 @@
+{
+  "versionCode": 33,
+  "versionName": "0.1.33",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "2f586cac3959d6f91614c9deab4e5b4bd1ab6fb579b46e555f3993717aa8c629",
+  "commit": "ef3321247e28747b3d0322546635a1b3fb0b2367",
+  "variant": "release",
+  "artifactType": "aab",
+  "filename": "redsquare.aab",
+  "derivedApk": {
+    "filename": "universal.apk",
+    "sha256": "6939a75937683a23b39837ea8a57bf4e613cf5c993f08c8e177f9d5bc7a977de"
+  },
+  "bundletoolVersion": "1.18.3",
+  "bundletoolSha256": "a099cfa1543f55593bc2ed16a70a7c67fe54b1747bb7301f37fdfd6d91028e29",
+  "generatedConfiguration": {
+    "reviewBuild": false,
+    "pushConfigured": false,
+    "giphyPostsConfigured": false,
+    "giphyChatConfigured": false
+  }
+}

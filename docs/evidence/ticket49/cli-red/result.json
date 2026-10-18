@@ -1,0 +1,14 @@
+{
+  "checkedAtUtc": "2026-10-18T06:14:59.552004+00:00",
+  "source": "4f48b836c254ff79175c4ecc435ae6b8f8ed8d47",
+  "command": [
+    "scripts/review-build",
+    "--bundle"
+  ],
+  "exitCode": 2,
+  "outcome": "RED: canonical CLI has no bundle mode",
+  "versionBefore": 31,
+  "versionAfter": 31,
+  "versionCounterUnchanged": true,
+  "scriptObject": "f33775859394d9dc8cd33bff572a423b660f6c2b"
+}

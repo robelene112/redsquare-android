@@ -15,22 +15,35 @@ campaigns, provider-access services or safeguard bypass work.
 
 [Issue49](https://github.com/robelene112/redsquare-android/issues/49), child36/spec1,
 is assigned with zero open blockers after accepted48. Review base is
-`2eabfa0b26af4b3814b9c1821d2975546e8b0a5b`. Extend the existing canonical build
-path with explicit release-bundle mode, shared signing/version/lock and no
-review prompt. Verify a real signed AAB and independently generated APK. Preserve
-ordinary/performance APK behavior and the current public31/performance30 assets.
-Application inputs are expected unchanged; repeat native regression if behavior
-changes. No owned build is running at this checkpoint.
+`2eabfa0b26af4b3814b9c1821d2975546e8b0a5b`. Minimum implementationef3321247 has
+Standards0/Spec0. All three canonical builds at that frozen source succeed:
+ordinary32 (3m24s), signed bundle33/derived APK (3m39s), performance34 (2m47s).
+Actual JAR/bundletool/APK/package/manifest/cert/hash and all three actual DEX
+configuration observations pass, with no secret values retained. Bundle33 has
+stable main package, min29/target36, nondebuggable/nonprofileable and REVIEWfalse;
+Push and both Giphy options are unconfigured. No owned build remains running.
+All239 production/build objects equal accepted48 full10/17 inputs, sourceCI
+39103857593 SUCCESS. Four64-bit libraries pass LOAD alignment and derived APK
+passes SDK16KiB ZIP alignment, but raw RELRO-end remainders remain separately
+qualified and actual16KiB-runtime acceptance is unproved under35.
 
-Prepare current-name listing/assets, reviewer instructions and accurate data/
-declaration drafts. Publisher/account/contact/retention/deletion and policy facts
-stay explicitly unresolved. Official Google UGC policy also applies to clients;
-current source has no demonstrated Terms acceptance or privacy-policy link.
-Existing reports/blocks do not prove whole moderation/deletion compliance. Record
-these substantive gaps, without inventing or publishing policy/operations.
-No Console/cloud/node/account/key-enrollment/submission action is authorized here.
-Parent36 and physical35 remain open. Do not repeat pending Giphy/Google setup
-questions. Main31 is live;48 is CLOSED as below. External originals stay open.
+[Release package](../release/PLAY_RELEASE_PACKAGE.md) supplies listing drafts,
+six verified actual-design/native assets, reviewer instructions, current merged
+permission/data inventory and declaration inputs. [Evidence](../evidence/ticket49/README.md)
+retains actual CLI RED/GREEN, source equivalence, all-mode artifacts, asset hashes,
+public-file/HTTPS-metadata preservation and real bundle-publication rejection.
+Main31 and performance30 stay live;32/33/34 are unpublished. The full committed
+package still needs final whole two-axis review before49 closure.
+
+No Console/cloud/node/account/key-enrollment/submission action was performed.
+Publisher/account/contact/retention/deletion and policy facts remain unresolved.
+Current source lacks demonstrated Terms acceptance and privacy-policy link;
+report/block controls do not establish complete UGC/deletion/child-safety
+operations. Existing Settings closed-app consent wording also does not explain
+unconfigured transport. Private Chat transport is encrypted, group originals are
+unencrypted; local group at-rest encryption is distinct. Do not conflate them.
+Parent36, physical35 and genuine provider/cloud originals remain open. Do not
+repeat pending Giphy/Google setup questions or invent final policy text.
 
 ## Accepted issue48: honest feed readiness and isolated performance preparation
 

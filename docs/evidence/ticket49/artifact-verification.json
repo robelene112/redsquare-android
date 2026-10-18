@@ -1,0 +1,78 @@
+{
+  "checkedAtUtc": "2026-10-18T06:30:22.174169+00:00",
+  "artifacts": [
+    {
+      "versionCode": 32,
+      "mode": "release",
+      "artifactType": "apk",
+      "artifactSha256": "5f754ed4953bec3192950d4f3bccb31f3414fe9307b947f51bc3041e1c03d4f7",
+      "apkSha256": "5f754ed4953bec3192950d4f3bccb31f3414fe9307b947f51bc3041e1c03d4f7",
+      "package": "nl.davidengelen.redsquare",
+      "sdk": [
+        29,
+        36
+      ],
+      "debuggable": false,
+      "profileable": false,
+      "actualDexFlags": {
+        "DEBUG": false,
+        "REVIEW_BUILD": true,
+        "PUSH_CONFIGURED": false,
+        "GIPHY_POSTS_API_KEY_CONFIGURED": false,
+        "GIPHY_CHAT_API_KEY_CONFIGURED": false
+      },
+      "canonicalExitCode": 0,
+      "source": "ef3321247e28747b3d0322546635a1b3fb0b2367",
+      "published": false
+    },
+    {
+      "versionCode": 33,
+      "mode": "bundle",
+      "artifactType": "aab",
+      "artifactSha256": "2f586cac3959d6f91614c9deab4e5b4bd1ab6fb579b46e555f3993717aa8c629",
+      "apkSha256": "6939a75937683a23b39837ea8a57bf4e613cf5c993f08c8e177f9d5bc7a977de",
+      "package": "nl.davidengelen.redsquare",
+      "sdk": [
+        29,
+        36
+      ],
+      "debuggable": false,
+      "profileable": false,
+      "actualDexFlags": {
+        "DEBUG": false,
+        "REVIEW_BUILD": false,
+        "PUSH_CONFIGURED": false,
+        "GIPHY_POSTS_API_KEY_CONFIGURED": false,
+        "GIPHY_CHAT_API_KEY_CONFIGURED": false
+      },
+      "canonicalExitCode": 0,
+      "source": "ef3321247e28747b3d0322546635a1b3fb0b2367",
+      "published": false
+    },
+    {
+      "versionCode": 34,
+      "mode": "performance",
+      "artifactType": "apk",
+      "artifactSha256": "4b7edbd68ba73a6bfc1f16c12ab3fc5c85122cb5609caaa26c31be93aad9c649",
+      "apkSha256": "4b7edbd68ba73a6bfc1f16c12ab3fc5c85122cb5609caaa26c31be93aad9c649",
+      "package": "nl.davidengelen.redsquare.performance",
+      "sdk": [
+        29,
+        36
+      ],
+      "debuggable": false,
+      "profileable": true,
+      "actualDexFlags": {
+        "DEBUG": false,
+        "REVIEW_BUILD": false,
+        "PUSH_CONFIGURED": false,
+        "GIPHY_POSTS_API_KEY_CONFIGURED": false,
+        "GIPHY_CHAT_API_KEY_CONFIGURED": false
+      },
+      "canonicalExitCode": 0,
+      "source": "ef3321247e28747b3d0322546635a1b3fb0b2367",
+      "published": false
+    }
+  ],
+  "scope": "Actual local package/signature/manifest/hash/DEX checks. No runtime installation, physical measurement, Play enrollment or Google-generated APK acceptance."
+}

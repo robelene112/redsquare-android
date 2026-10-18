@@ -63,6 +63,38 @@ identity. This encryption does not replace an authenticated wallet export:
 uninstalling, clearing storage, losing the phone or losing its Keystore key can
 require restoring an external wallet backup. Automatic device backup is disabled.
 
+## Offline Play bundle preparation
+
+Run `scripts/review-build --bundle` to reserve the next shared version and build
+an ordinary Release App Bundle, with `REVIEW_BUILD=false`. It uses the same
+protected signing identity/lock as preview and performance builds. Outputs are
+`.scratch/play-builds/<version>/redsquare.aab`, a locally generated `universal.apk`
+and actual verification outputs/`manifest.json`. This mode does not publish
+anything. Do not pass a Play directory to the APK preview publisher; it has no
+publishable `redsquare.apk`.
+
+Official bundletool1.18.3 is downloaded atomically to
+`${XDG_CACHE_HOME:-$HOME/.cache}/redsquare-android/bundletool-1.18.3` and checked
+against its pinned SHA256 on every use. Set `REDSQUARE_BUNDLETOOL_DIR` to a
+writable cache on the VPS additional disk when appropriate. No tool JAR or
+signing credential belongs in Git. `scripts/play-bundle` is the internal adapter,
+called only from the canonical builder while it owns the shared build lock.
+The existing Docker build image supplies JDK/Android signing tools; no global
+SDK or tool upgrade is required for this mode.
+
+The metadata records enabled-state booleans from generated Release configuration;
+artifact acceptance also inspects the actual derived APK DEX without retaining
+option values. Push, Posts GIF and Chat GIF configuration remain independent.
+Changing those options requires a fresh reserved build and corresponding native/
+physical/provider proof. The bundle and local APK's matching certificate do not
+prove Play App Signing enrollment or a genuine Play-track update. Resolve signing
+continuity before enrollment, retain an operator-managed encrypted recovery copy,
+and never export/enroll keys as a side effect of a build.
+
+See the concrete [Play release package](release/PLAY_RELEASE_PACKAGE.md) and
+[packaging evidence](evidence/ticket49/README.md). Publisher, policy, operational,
+physical and final submission gates remain open under36/35.
+
 ## Final owner check on Pixel 7
 
 Tracked in #35, after the owner requested app review at completion:

@@ -1,0 +1,42 @@
+[
+  {
+    "bundleEntry": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+    "segments": [
+      {
+        "virtualAddress": 23616,
+        "memorySize": 960,
+        "endModulo16KiB": 8192
+      }
+    ]
+  },
+  {
+    "bundleEntry": "base/lib/arm64-v8a/libdatastore_shared_counter.so",
+    "segments": [
+      {
+        "virtualAddress": 20928,
+        "memorySize": 3648,
+        "endModulo16KiB": 8192
+      }
+    ]
+  },
+  {
+    "bundleEntry": "base/lib/x86_64/libandroidx.graphics.path.so",
+    "segments": [
+      {
+        "virtualAddress": 24256,
+        "memorySize": 4416,
+        "endModulo16KiB": 12288
+      }
+    ]
+  },
+  {
+    "bundleEntry": "base/lib/x86_64/libdatastore_shared_counter.so",
+    "segments": [
+      {
+        "virtualAddress": 20256,
+        "memorySize": 4320,
+        "endModulo16KiB": 8192
+      }
+    ]
+  }
+]

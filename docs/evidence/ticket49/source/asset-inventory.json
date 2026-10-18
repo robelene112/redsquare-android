@@ -1,0 +1,56 @@
+[
+  {
+    "filename": "feature.png",
+    "sha256": "b0e3d947ef3515ad11d7bbcaaefc63f57dc6bc3e1d6b1a073b5fccd7ab1fce0d",
+    "size": 26244,
+    "width": 1024,
+    "height": 500,
+    "bitDepth": 8,
+    "colorType": 2,
+    "crcAndInflateValid": true
+  },
+  {
+    "filename": "feature.svg",
+    "sha256": "92f8e0eb87e75fddfef37e23eecce7ed834a8cff7a1edcd0d2f96d7714ec7e24",
+    "size": 849
+  },
+  {
+    "filename": "feed-readiness-interactive.png",
+    "sha256": "c22927b7bae43a7176c9a9fbe7312e816f2a5fe7de01ab9d003e3e4d88061591",
+    "size": 37384,
+    "width": 320,
+    "height": 640,
+    "bitDepth": 8,
+    "colorType": 2,
+    "crcAndInflateValid": true,
+    "accepted48Source": "/home/david/projects/redsquare-android/docs/evidence/ticket48/full-regression/android17/captures/feed-readiness-interactive.png",
+    "byteIdentical": true
+  },
+  {
+    "filename": "icon.png",
+    "sha256": "5782eeadecb4fbe33df24aa0ebe739361fdb71b7ab408c8efdf0436a37f378cd",
+    "size": 7328,
+    "width": 512,
+    "height": 512,
+    "bitDepth": 8,
+    "colorType": 6,
+    "crcAndInflateValid": true
+  },
+  {
+    "filename": "icon.svg",
+    "sha256": "88217010ed4c48528c3b6a658a2ee5bacc37783796b60a71165b5160140f7608",
+    "size": 237
+  },
+  {
+    "filename": "private-scoped-preview-exact-conversation.png",
+    "sha256": "a053ac516e1d511c98a58c488b663f8333276c51fd70562d7e544b17d03602a7",
+    "size": 31571,
+    "width": 320,
+    "height": 640,
+    "bitDepth": 8,
+    "colorType": 2,
+    "crcAndInflateValid": true,
+    "accepted48Source": "/home/david/projects/redsquare-android/docs/evidence/ticket48/full-regression/android17/captures/private-scoped-preview-exact-conversation.png",
+    "byteIdentical": true
+  }
+]

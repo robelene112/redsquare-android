@@ -1,0 +1,1010 @@
+native-proof (all)	Set up job	﻿2026-10-18T06:23:23.2749272Z Current runner version: '2.337.0'
+native-proof (all)	Set up job	2026-10-18T06:23:23.2767897Z ##[group]Runner Image Provisioner
+native-proof (all)	Set up job	2026-10-18T06:23:23.2768468Z Hosted Compute Agent
+native-proof (all)	Set up job	2026-10-18T06:23:23.2768828Z Version: 20261012.601
+native-proof (all)	Set up job	2026-10-18T06:23:23.2769313Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+native-proof (all)	Set up job	2026-10-18T06:23:23.2769748Z Build Date: 2026-10-12T17:48:21Z
+native-proof (all)	Set up job	2026-10-18T06:23:23.2770183Z Worker ID: {08f8e616-9770-4654-8c24-75a191135178}
+native-proof (all)	Set up job	2026-10-18T06:23:23.2770621Z Region: centralus
+native-proof (all)	Set up job	2026-10-18T06:23:23.2770959Z Cloud: Azure
+native-proof (all)	Set up job	2026-10-18T06:23:23.2771357Z ##[endgroup]
+native-proof (all)	Set up job	2026-10-18T06:23:23.2772563Z ##[group]Operating System
+native-proof (all)	Set up job	2026-10-18T06:23:23.2772917Z Ubuntu
+native-proof (all)	Set up job	2026-10-18T06:23:23.2773294Z 24.04.5
+native-proof (all)	Set up job	2026-10-18T06:23:23.2773611Z LTS
+native-proof (all)	Set up job	2026-10-18T06:23:23.2774025Z ##[endgroup]
+native-proof (all)	Set up job	2026-10-18T06:23:23.2774358Z ##[group]Runner Image
+native-proof (all)	Set up job	2026-10-18T06:23:23.2774728Z Image: ubuntu-24.04
+native-proof (all)	Set up job	2026-10-18T06:23:23.2775122Z Version: 20261012.334.1
+native-proof (all)	Set up job	2026-10-18T06:23:23.2775745Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+native-proof (all)	Set up job	2026-10-18T06:23:23.2776832Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+native-proof (all)	Set up job	2026-10-18T06:23:23.2777392Z ##[endgroup]
+native-proof (all)	Set up job	2026-10-18T06:23:23.2778109Z ##[group]GITHUB_TOKEN Permissions
+native-proof (all)	Set up job	2026-10-18T06:23:23.2779274Z Contents: read
+native-proof (all)	Set up job	2026-10-18T06:23:23.2779683Z Metadata: read
+native-proof (all)	Set up job	2026-10-18T06:23:23.2780020Z ##[endgroup]
+native-proof (all)	Set up job	2026-10-18T06:23:23.2781548Z Secret source: Actions
+native-proof (all)	Set up job	2026-10-18T06:23:23.2782159Z Cache mode: write
+native-proof (all)	Set up job	2026-10-18T06:23:23.2782607Z Prepare workflow directory
+native-proof (all)	Set up job	2026-10-18T06:23:23.2998573Z Prepare all required actions
+native-proof (all)	Set up job	2026-10-18T06:23:23.3029814Z Getting action download info
+native-proof (all)	Set up job	2026-10-18T06:23:23.5899015Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+native-proof (all)	Set up job	2026-10-18T06:23:23.7109552Z Download action repository 'actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6' (SHA:de7274f081f381c8f8158605e0321c36c376e2e6)
+native-proof (all)	Set up job	2026-10-18T06:23:24.3642196Z Download action repository 'actions/cache@caa296126883cff596d87d8935842f9db880ef25' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+native-proof (all)	Set up job	2026-10-18T06:23:24.5047913Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+native-proof (all)	Set up job	2026-10-18T06:23:25.1410128Z Complete job name: native-proof (all)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-18T06:23:25.2046481Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2047405Z with:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2047862Z   persist-credentials: false
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2048448Z   repository: robelene112/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2053503Z   token: ***
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2053947Z   ssh-strict: true
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2054414Z   ssh-user: git
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2054858Z   clean: true
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2055335Z   sparse-checkout-cone-mode: true
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2055897Z   fetch-depth: 1
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2056348Z   fetch-tags: false
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2056826Z   show-progress: true
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2057329Z   lfs: false
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2057767Z   submodules: false
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2058244Z   set-safe-directory: true
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2058799Z   allow-unsafe-pr-checkout: false
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2059442Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2800823Z Syncing repository: robelene112/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2803111Z ##[group]Getting Git version info
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2804081Z Working directory is '/home/runner/work/redsquare-android/redsquare-android'
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2805534Z [command]/usr/bin/git version
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2859550Z git version 2.55.0
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2876644Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2887334Z Temporarily overriding HOME='/home/runner/work/_temp/b75ec31d-e84b-43df-981b-44d300a26288' before making global git config changes
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2889760Z Adding repository directory to the temporary git global config as a safe directory
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2893889Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2939270Z Deleting the contents of '/home/runner/work/redsquare-android/redsquare-android'
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2942567Z ##[group]Determining repository object format
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2944315Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2945886Z ##[group]Initializing the repository
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.2947764Z [command]/usr/bin/git init /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3041990Z hint: Using 'master' as the name for the initial branch. This default branch name
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3044469Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3046455Z hint: to use in all of your new repositories, which will suppress this warning,
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3047821Z hint: call:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3048657Z hint:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3049619Z hint: 	git config --global init.defaultBranch <name>
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3050799Z hint:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3051950Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3053176Z hint: 'development'. The just-created branch can be renamed via this command:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3054055Z hint:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3054665Z hint: 	git branch -m <name>
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3055249Z hint:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3056057Z hint: Disable this message with "git config set advice.defaultBranchName false"
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3057636Z Initialized empty Git repository in /home/runner/work/redsquare-android/redsquare-android/.git/
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3064458Z [command]/usr/bin/git remote add origin https://github.com/robelene112/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3134881Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3136246Z ##[group]Disabling automatic garbage collection
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3143414Z [command]/usr/bin/git config --local gc.auto 0
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3179699Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3181244Z ##[group]Setting up auth
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3182870Z Removing SSH command configuration
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3186722Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3223518Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3574232Z Removing HTTP extra header
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3579004Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3609891Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3788670Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3792754Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.3826636Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4011724Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4044718Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path /home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4074016Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4106667Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4136290Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4164342Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4169250Z ##[group]Fetching the repository
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:25.4171742Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ef3321247e28747b3d0322546635a1b3fb0b2367:refs/remotes/origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3552456Z From https://github.com/robelene112/redsquare-android
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3553117Z  * [new ref]           ef3321247e28747b3d0322546635a1b3fb0b2367 -> origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3560356Z [command]/usr/bin/git branch --list --remote origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3589578Z   origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3597781Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3623225Z ef3321247e28747b3d0322546635a1b3fb0b2367
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3638962Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3639342Z ##[group]Determining the checkout info
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3639765Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3640136Z [command]/usr/bin/git sparse-checkout disable
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.3844396Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.4033323Z ##[group]Checking out the ref
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:37.4035089Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.4616172Z Updating files:  29% (15601/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.5014346Z Updating files:  30% (15873/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.5411690Z Updating files:  31% (16403/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.5807287Z Updating files:  32% (16932/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.6236417Z Updating files:  33% (17461/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.6676536Z Updating files:  34% (17990/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.7130387Z Updating files:  35% (18519/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.7560925Z Updating files:  36% (19048/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.7982899Z Updating files:  37% (19577/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.8376479Z Updating files:  38% (20106/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.8765219Z Updating files:  39% (20635/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.9208992Z Updating files:  40% (21164/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.9515452Z Updating files:  41% (21694/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:38.9958368Z Updating files:  42% (22223/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.0388371Z Updating files:  43% (22752/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.0790298Z Updating files:  44% (23281/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.1196846Z Updating files:  45% (23810/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.1644873Z Updating files:  46% (24339/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.2006650Z Updating files:  47% (24868/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.2344761Z Updating files:  48% (25397/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.2764416Z Updating files:  49% (25926/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.3122481Z Updating files:  50% (26455/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.3552598Z Updating files:  51% (26985/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.3919870Z Updating files:  52% (27514/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.4313872Z Updating files:  53% (28043/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.4414925Z Updating files:  54% (28572/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.4788389Z Updating files:  54% (28703/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.5132732Z Updating files:  55% (29101/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.5622789Z Updating files:  56% (29630/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.5927849Z Updating files:  57% (30159/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.6393559Z Updating files:  58% (30688/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.6742158Z Updating files:  59% (31217/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.7204114Z Updating files:  60% (31746/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.7542742Z Updating files:  61% (32276/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.7887859Z Updating files:  62% (32805/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.8277091Z Updating files:  63% (33334/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:39.8703810Z Updating files:  64% (33863/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.0854027Z Updating files:  65% (34392/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.1244850Z Updating files:  66% (34921/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.1672383Z Updating files:  67% (35450/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.2081039Z Updating files:  68% (35979/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.2491306Z Updating files:  69% (36508/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.2878275Z Updating files:  70% (37037/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.3285306Z Updating files:  71% (37567/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.3680502Z Updating files:  72% (38096/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.4028428Z Updating files:  73% (38625/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.4415620Z Updating files:  74% (39154/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.4813624Z Updating files:  75% (39683/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.5197746Z Updating files:  76% (40212/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.5604568Z Updating files:  77% (40741/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.6045254Z Updating files:  78% (41270/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.6436197Z Updating files:  79% (41799/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.6861652Z Updating files:  80% (42328/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.7233568Z Updating files:  81% (42858/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.7563244Z Updating files:  82% (43387/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.8041949Z Updating files:  83% (43916/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.8503978Z Updating files:  84% (44445/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.8863694Z Updating files:  85% (44974/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.9351954Z Updating files:  86% (45503/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:40.9680565Z Updating files:  87% (46032/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.0010155Z Updating files:  88% (46561/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.0281130Z Updating files:  89% (47090/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.1013882Z Updating files:  90% (47619/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.1360903Z Updating files:  91% (48149/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.1679434Z Updating files:  92% (48678/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.1919486Z Updating files:  93% (49207/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.2162811Z Updating files:  94% (49736/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.2358731Z Updating files:  95% (50265/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.2581297Z Updating files:  96% (50794/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.2810763Z Updating files:  97% (51323/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3027944Z Updating files:  98% (51852/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3299984Z Updating files:  99% (52381/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3300342Z Updating files: 100% (52910/52910)
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3300564Z Updating files: 100% (52910/52910), done.
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3703878Z Switched to a new branch 'main'
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3708325Z branch 'main' set up to track 'origin/main'.
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3846716Z ##[endgroup]
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3891134Z [command]/usr/bin/git log -1 --format=%H
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3923122Z ef3321247e28747b3d0322546635a1b3fb0b2367
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3930230Z ##[group]Removing auth
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3930425Z Removing SSH command configuration
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3933295Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.3962286Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4173637Z Removing HTTP extra header
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4176305Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4213635Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4428087Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4430819Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4462428Z includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4463252Z includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4463841Z includeif.gitdir:/github/workspace/.git.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4464291Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4483206Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4504683Z /home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4514151Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-2cd9ce86\-f02a\-483c\-b7e1\-f162d7e5b44a\.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4612167Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4633785Z /home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.4640447Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/redsquare-android/redsquare-android/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-2cd9ce86\-f02a\-483c\-b7e1\-f162d7e5b44a\.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5005175Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5037344Z /github/runner_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5043112Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-2cd9ce86\-f02a\-483c\-b7e1\-f162d7e5b44a\.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5203866Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5226304Z /github/runner_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5232563Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-2cd9ce86\-f02a\-483c\-b7e1\-f162d7e5b44a\.config
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5399080Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5611052Z Removing credentials config '/home/runner/work/_temp/git-credentials-2cd9ce86-f02a-483c-b7e1-f162d7e5b44a.config'
+native-proof (all)	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:23:41.5621396Z ##[endgroup]
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	﻿2026-10-18T06:23:41.6025487Z ##[group]Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6025718Z with:
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6025833Z   distribution: temurin
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6025957Z   java-version: 17
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6026067Z   cache: gradle
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6026433Z   cache-dependency-path: settings.gradle.kts
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	build.gradle.kts
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	core/build.gradle.kts
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	app/build.gradle.kts
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	push-gateway/build.gradle.kts
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	gradle/wrapper/gradle-wrapper.properties
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6026827Z   java-package: jdk
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6026948Z   check-latest: false
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027072Z   force-download: false
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027192Z   set-default: true
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027304Z   server-id: github
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027434Z   mvn-repositories-include-central: true
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027611Z   mvn-repositories-prioritize-central: true
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027778Z   overwrite-settings: true
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6027910Z   cache-read-only: false
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6028037Z   job-status: success
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6029539Z   token: ***
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6029661Z   show-download-progress: false
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6029802Z   problem-matcher: true
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6029926Z ##[endgroup]
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6534783Z ##[group]Installed distributions
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6885152Z Resolved Java 17.0.20+1 from tool-cache
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6885564Z Setting Java 17.0.20+1 as the default
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6890130Z 
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6890262Z Java configuration:
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6890499Z   Distribution: temurin
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6890703Z   Version: 17.0.20+1
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6890983Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6891229Z 
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6927751Z ##[endgroup]
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6964436Z Creating settings.xml with server-id: github
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6966548Z Creating toolchains.xml for JDK version 17 from temurin
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6974934Z Writing to /home/runner/.m2/settings.xml
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6979061Z Writing to /home/runner/.m2/toolchains.xml
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:41.6985565Z Configured MAVEN_ARGS to include -ntp to suppress Maven transfer progress logs. Set 'show-download-progress: true' to keep the download progress output.
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:43.9978065Z Cache hit for: setup-java-Linux-x64-gradle-wrapper-7c2008d3b8cef40fcf013910e3362402855b96662f9cb4222b27d2eeb7d6cb90
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:44.0118750Z Cache hit for: setup-java-Linux-x64-gradle-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.1633069Z Received 96468992 of 815878848 (11.8%), 91.9 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.1814584Z Received 109051904 of 136233399 (80.0%), 104.0 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.3871957Z Received 136233399 of 136233399 (100.0%), 107.8 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.3872531Z Cache Size: ~130 MB (136233399 B)
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.3980754Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9b578610-6e38-4af4-9e8c-d22cf42c4560/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.5794162Z Cache restored successfully
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:45.5851672Z gradle-wrapper cache restored from key: setup-java-Linux-x64-gradle-wrapper-7c2008d3b8cef40fcf013910e3362402855b96662f9cb4222b27d2eeb7d6cb90
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:46.1652747Z Received 222298112 of 815878848 (27.2%), 105.9 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:47.1917304Z Received 402653184 of 815878848 (49.4%), 126.9 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:48.1886605Z Received 587202560 of 815878848 (72.0%), 139.1 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:49.1887222Z Received 754974720 of 815878848 (92.5%), 143.3 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:49.6427001Z Received 815878848 of 815878848 (100.0%), 142.0 MBs/sec
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:49.6441049Z Cache Size: ~778 MB (815878848 B)
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:49.6479003Z [command]/usr/bin/tar -xf /home/runner/work/_temp/f55f010a-90e9-4824-8bc2-2572a8707fd0/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:54.2120398Z Cache restored successfully
+native-proof (all)	Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:23:54.6670413Z Cache restored from key: setup-java-Linux-x64-gradle-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Locate dependency cache	﻿2026-10-18T06:23:54.7180148Z ##[group]Run echo "home=$HOME" >> "$GITHUB_OUTPUT"
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7180558Z ^[[36;1mecho "home=$HOME" >> "$GITHUB_OUTPUT"^[[0m
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7691620Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7691860Z env:
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7692093Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7692441Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7692726Z   MAVEN_ARGS: -ntp
+native-proof (all)	Locate dependency cache	2026-10-18T06:23:54.7692871Z ##[endgroup]
+native-proof (all)	Restore dependencies from the earlier proof cache	﻿2026-10-18T06:23:54.9952139Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9952410Z with:
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9952554Z   path: ~/.gradle/caches
+native-proof (all)	Restore dependencies from the earlier proof cache	~/.gradle/wrapper
+native-proof (all)	Restore dependencies from the earlier proof cache	
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9952846Z   key: redsquare-gradle-v1-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9953141Z   enableCrossOsArchive: false
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9953302Z   fail-on-cache-miss: false
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9953447Z   lookup-only: false
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9953578Z env:
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9953758Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9954042Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9954270Z   MAVEN_ARGS: -ntp
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:54.9954400Z ##[endgroup]
+native-proof (all)	Restore dependencies from the earlier proof cache	2026-10-18T06:23:55.2301949Z Cache not found for input keys: redsquare-gradle-v1-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Restore verified build dependencies	﻿2026-10-18T06:23:55.3457290Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3457542Z with:
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3457675Z   path: /home/runner/.gradle/caches
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3457944Z   key: redsquare-gradle-v2-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3458267Z   restore-keys: redsquare-gradle-v2-
+native-proof (all)	Restore verified build dependencies	setup-java-Linux-x64-gradle-
+native-proof (all)	Restore verified build dependencies	
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3458679Z   enableCrossOsArchive: false
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3458832Z   fail-on-cache-miss: false
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3458978Z   lookup-only: false
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3459101Z env:
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3459274Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3459545Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3459760Z   MAVEN_ARGS: -ntp
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.3459886Z ##[endgroup]
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:55.5678651Z Cache hit for: redsquare-gradle-v2-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:56.7147809Z Received 130023424 of 815869018 (15.9%), 124.0 MBs/sec
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:57.7192658Z Received 339738624 of 815869018 (41.6%), 161.9 MBs/sec
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:58.7222661Z Received 545259520 of 815869018 (66.8%), 173.2 MBs/sec
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:23:59.7203117Z Received 742391808 of 815869018 (91.0%), 176.8 MBs/sec
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:24:00.2724552Z Received 815869018 of 815869018 (100.0%), 170.7 MBs/sec
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:24:00.2726397Z Cache Size: ~778 MB (815869018 B)
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:24:00.2811236Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e692dab5-c457-442a-8ec6-4f7de58b04d3/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:24:04.8599074Z Cache restored successfully
+native-proof (all)	Restore verified build dependencies	2026-10-18T06:24:04.8962412Z Cache restored from key: redsquare-gradle-v2-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3
+native-proof (all)	Restore Gradle task outputs	﻿2026-10-18T06:24:05.0010470Z ##[group]Run actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0010727Z with:
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0010873Z   path: /home/runner/.gradle/caches/build-cache-1
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0011669Z   key: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-ef3321247e28747b3d0322546635a1b3fb0b2367
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0012267Z   restore-keys: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-
+native-proof (all)	Restore Gradle task outputs	
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0012878Z   enableCrossOsArchive: false
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0013118Z   fail-on-cache-miss: false
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0013343Z   lookup-only: false
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0013535Z env:
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0013798Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0014232Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0014571Z   MAVEN_ARGS: -ntp
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.0014762Z ##[endgroup]
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:05.2265031Z Cache hit for restore-key: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-2eabfa0b26af4b3814b9c1821d2975546e8b0a5b
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:06.3980156Z Received 104857600 of 265667651 (39.5%), 100.0 MBs/sec
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:07.1063379Z Received 265667651 of 265667651 (100.0%), 148.3 MBs/sec
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:07.1065001Z Cache Size: ~253 MB (265667651 B)
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:07.1116396Z [command]/usr/bin/tar -xf /home/runner/work/_temp/44bf10c5-8a7d-4d4c-a936-2ad624fa9f43/cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --use-compress-program unzstd
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:07.4618470Z Cache restored successfully
+native-proof (all)	Restore Gradle task outputs	2026-10-18T06:24:07.4780729Z Cache restored from key: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-2eabfa0b26af4b3814b9c1821d2975546e8b0a5b
+native-proof (all)	Check runner SDK and acceleration	﻿2026-10-18T06:24:07.5327051Z ##[group]Run test -c /dev/kvm
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5327418Z ^[[36;1mtest -c /dev/kvm^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5327631Z ^[[36;1msudo chmod a+rw /dev/kvm^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5327926Z ^[[36;1m# This Kotlin/JVM proof does not use the runner's large native SDKs.^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5328236Z ^[[36;1msudo rm -rf /usr/local/lib/android/sdk/ndk^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5328466Z ^[[36;1msudo apt-get update -qq^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5329041Z ^[[36;1msudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 libasound2t64 libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 libglib2.0-0t64^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5329794Z ^[[36;1mscripts/ci-android-setup^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5342145Z ^[[36;1mjava -version^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5342482Z ^[[36;1m"$ANDROID_HOME/emulator/emulator" -version^[[0m
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5396185Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5396358Z env:
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5396557Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5396889Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5397126Z   MAVEN_ARGS: -ntp
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:07.5397302Z ##[endgroup]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:18.8085317Z Reading package lists...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:18.9871888Z Building dependency tree...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:18.9876982Z Reading state information...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1075449Z libgl1 is already the newest version (1.7.0-1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1075904Z libgl1 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1076176Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1076423Z libnss3 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1076642Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1076869Z libasound2t64 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1077081Z libx11-6 is already the newest version (2:1.8.7-1ubuntu0.1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1077293Z libx11-6 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1077572Z libxcb1 is already the newest version (1.15-1ubuntu2).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1077871Z libxcb1 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1078179Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1078463Z libxkbcommon0 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1078681Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1078898Z libxcomposite1 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1079105Z libxcursor1 is already the newest version (1:1.2.1-1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1079304Z libxcursor1 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1079497Z libxi6 is already the newest version (2:1.8.1-1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1079690Z libxi6 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1079885Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1080086Z libxrandr2 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1080282Z libxtst6 is already the newest version (2:1.2.3-1.1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1080517Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1080795Z libxdamage1 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1081143Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1081667Z libglib2.0-0t64 set to manually installed.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1081908Z The following additional packages will be installed:
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1082169Z   libasyncns0 libflac12t64 libmp3lame0 libmpg123-0t64 libopus0 libsndfile1
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1082398Z   libvorbisenc2
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1087247Z Suggested packages:
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1087463Z   opus-tools pulseaudio
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1240279Z The following NEW packages will be installed:
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1241312Z   libasyncns0 libflac12t64 libmp3lame0 libmpg123-0t64 libopus0 libpulse0
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1243295Z   libsndfile1 libvorbisenc2
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1380153Z 0 upgraded, 8 newly installed, 0 to remove and 44 not upgraded.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1380582Z Need to get 1310 kB of archives.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1381241Z After this operation, 3874 kB of additional disk space will be used.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1381809Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.1855441Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libasyncns0 amd64 0.8-6build4 [11.3 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.2176091Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libflac12t64 amd64 1.4.3+ds-2.1ubuntu2 [197 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.2507547Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libmp3lame0 amd64 3.100-6build1 [142 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.2834440Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libmpg123-0t64 amd64 1.32.5-1ubuntu1.1 [169 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.3163273Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopus0 amd64 1.4-1build1 [208 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.3498014Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvorbisenc2 amd64 1.3.7-1build3 [80.8 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.3821137Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libsndfile1 amd64 1.2.2-1ubuntu5.24.04.1 [209 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.4156608Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libpulse0 amd64 1:16.1+dfsg1-2ubuntu10.1 [292 kB]
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6029298Z Fetched 1310 kB in 0s (4545 kB/s)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6236951Z Selecting previously unselected package libasyncns0:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6490722Z (Reading database ... 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6490964Z (Reading database ... 5%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6491130Z (Reading database ... 10%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6491313Z (Reading database ... 15%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6491766Z (Reading database ... 20%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6491923Z (Reading database ... 25%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6492066Z (Reading database ... 30%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6492336Z (Reading database ... 35%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6492549Z (Reading database ... 40%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6492764Z (Reading database ... 45%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6492975Z (Reading database ... 50%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.6532104Z (Reading database ... 55%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.7465705Z (Reading database ... 60%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:19.9532085Z (Reading database ... 65%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.1574596Z (Reading database ... 70%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.3422339Z (Reading database ... 75%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.5023044Z (Reading database ... 80%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.6442069Z (Reading database ... 85%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.7771813Z (Reading database ... 90%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9121208Z (Reading database ... 95%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9121775Z (Reading database ... 100%
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9122117Z (Reading database ... 203540 files and directories currently installed.)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9159378Z Preparing to unpack .../0-libasyncns0_0.8-6build4_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9185071Z Unpacking libasyncns0:amd64 (0.8-6build4) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9364628Z Selecting previously unselected package libflac12t64:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9462211Z Preparing to unpack .../1-libflac12t64_1.4.3+ds-2.1ubuntu2_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9467826Z Unpacking libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9787647Z Selecting previously unselected package libmp3lame0:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9884079Z Preparing to unpack .../2-libmp3lame0_3.100-6build1_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:20.9890544Z Unpacking libmp3lame0:amd64 (3.100-6build1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0074405Z Selecting previously unselected package libmpg123-0t64:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0171045Z Preparing to unpack .../3-libmpg123-0t64_1.32.5-1ubuntu1.1_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0176861Z Unpacking libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0357060Z Selecting previously unselected package libopus0:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0452516Z Preparing to unpack .../4-libopus0_1.4-1build1_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0458103Z Unpacking libopus0:amd64 (1.4-1build1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0638544Z Selecting previously unselected package libvorbisenc2:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0734419Z Preparing to unpack .../5-libvorbisenc2_1.3.7-1build3_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0740364Z Unpacking libvorbisenc2:amd64 (1.3.7-1build3) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.0952815Z Selecting previously unselected package libsndfile1:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1049156Z Preparing to unpack .../6-libsndfile1_1.2.2-1ubuntu5.24.04.1_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1055287Z Unpacking libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1248465Z Selecting previously unselected package libpulse0:amd64.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1343737Z Preparing to unpack .../7-libpulse0_1%3a16.1+dfsg1-2ubuntu10.1_amd64.deb ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1399190Z Unpacking libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1853167Z Setting up libmpg123-0t64:amd64 (1.32.5-1ubuntu1.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1870886Z Setting up libopus0:amd64 (1.4-1build1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1884348Z Setting up libasyncns0:amd64 (0.8-6build4) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1897220Z Setting up libflac12t64:amd64 (1.4.3+ds-2.1ubuntu2) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1910158Z Setting up libmp3lame0:amd64 (3.100-6build1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1923259Z Setting up libvorbisenc2:amd64 (1.3.7-1build3) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1935983Z Setting up libsndfile1:amd64 (1.2.2-1ubuntu5.24.04.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.1948960Z Setting up libpulse0:amd64 (1:16.1+dfsg1-2ubuntu10.1) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.2006314Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8412860Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8413473Z Running kernel seems to be up-to-date.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8413746Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8413864Z No services need to be restarted.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414036Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414177Z No containers need to be restarted.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414344Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414467Z No user sessions are running outdated binaries.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414664Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:21.8414845Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:22.5812655Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:22.5813623Z                                  Dload  Upload   Total   Spent    Left  Speed
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:22.5814155Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:22.6842910Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:23.5204862Z   0  173M    0  5503    0     0  53346      0  0:56:48 --:--:--  0:56:48 52913
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:23.5205353Z 100  173M  100  173M    0     0   184M      0 --:--:-- --:--:-- --:--:--  184M
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:23.6191713Z /home/runner/work/redsquare-android/redsquare-android/.scratch/ci-sdk-tools/tools.zip: OK
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:25.4864998Z WARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:25.4865805Z The 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:25.4866645Z To learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:25.4867080Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:27.8806674Z Loading package information...                                                  
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:27.9238722Z Loading local repository...                                                     
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:27.9239370Z [                                       ] 3% Loading local repository...        
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.2340357Z [                                       ] 3% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.5528632Z [=                                      ] 3% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.6118070Z [=                                      ] 4% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.6329292Z [=                                      ] 5% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.6712703Z [==                                     ] 5% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.7256028Z [==                                     ] 6% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.8523259Z [==                                     ] 7% Fetch remote repository...         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.8552211Z [==                                     ] 7% Computing updates...               
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.8599378Z [===                                    ] 8% Computing updates...               
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:29.9063356Z [===                                    ] 10% Computing updates...              
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.0222868Z [===                                    ] 10% Installing Android Emulator       
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.1651120Z [===                                    ] 10% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.2335650Z [====                                   ] 10% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.3033178Z [====                                   ] 11% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.3515533Z [====                                   ] 12% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.3814277Z [=====                                  ] 13% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.4127140Z [=====                                  ] 14% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.4339294Z [=====                                  ] 15% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.4486136Z [======                                 ] 15% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.4721656Z [======                                 ] 16% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.5067978Z [======                                 ] 17% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.5373276Z [=======                                ] 18% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.5731243Z [=======                                ] 19% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.5893670Z [=======                                ] 20% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.6059716Z [========                               ] 20% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.6425283Z [========                               ] 21% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.6726644Z [========                               ] 22% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.7014229Z [=========                              ] 23% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.7381780Z [=========                              ] 24% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.7517068Z [=========                              ] 25% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.7655135Z [==========                             ] 25% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.8013628Z [==========                             ] 26% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.8207730Z [==========                             ] 27% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.8438377Z [===========                            ] 28% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.8706039Z [===========                            ] 29% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.8836036Z [===========                            ] 30% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.9029929Z [============                           ] 30% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.9285257Z [============                           ] 31% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.9551876Z [============                           ] 32% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:30.9559189Z [============                           ] 33% Downloading emulator-linux_x64-164
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.0211788Z [============                           ] 33% Unzipping...                      
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.0212648Z [============                           ] 33% Unzipping... emulator/            
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.0213377Z [============                           ] 33% Unzipping... emulator/resources/  
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.0227284Z [============                           ] 33% Unzipping... emulator/qsn         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.0980810Z [=============                          ] 33% Unzipping... emulator/qsn         
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.1656272Z [=============                          ] 33% Unzipping... emulator/emulator    
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.4441121Z [=============                          ] 33% Unzipping... emulator/netsimd     
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.4441965Z [=============                          ] 33% Unzipping... emulator/bin64/      
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.4442617Z [=============                          ] 33% Unzipping... emulator/qemu/       
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.4453647Z [=============                          ] 33% Unzipping... emulator/NOTICE.txt  
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.4554882Z [=============                          ] 33% Unzipping... emulator/crashpad_han
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.5541844Z [=============                          ] 34% Unzipping... emulator/crashpad_han
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.5552153Z [=============                          ] 34% Unzipping... emulator/source.prope
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6232545Z [=============                          ] 34% Unzipping... emulator/nimble_bridg
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6236588Z [=============                          ] 34% Unzipping... emulator/LICENSE     
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6237018Z [=============                          ] 34% Unzipping... emulator/lib/        
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6529599Z [=============                          ] 34% Unzipping... emulator/qemu-img    
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6530079Z [=============                          ] 34% Unzipping... emulator/include/    
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6827137Z [=============                          ] 34% Unzipping... emulator/NOTICE.csv  
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.6827904Z [=============                          ] 34% Unzipping... emulator/lib64/      
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.7043346Z [=============                          ] 34% Unzipping... emulator/emulator-che
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.7734323Z [=============                          ] 34% Unzipping... emulator/crashreport 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.7737502Z [=============                          ] 34% Unzipping... emulator/mksdcard    
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.8072762Z [=============                          ] 34% Unzipping... emulator/resources/To
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.8128353Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.8226225Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.8316782Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.8327066Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9032543Z [=============                          ] 35% Unzipping... emulator/resources/To
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9033328Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9217201Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9217616Z [=============                          ] 35% Unzipping... emulator/resources/sk
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9314478Z [=============                          ] 35% Unzipping... emulator/resources/de
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9315023Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:31.9413332Z [=============                          ] 35% Unzipping... emulator/resources/po
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.0236794Z [=============                          ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.0239777Z [==============                         ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1341638Z [==============                         ] 35% Unzipping... emulator/resources/sk
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1342364Z [==============                         ] 35% Unzipping... emulator/resources/ma
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1411347Z [==============                         ] 35% Unzipping... emulator/bin64/e2fsck
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1439031Z [==============                         ] 35% Unzipping... emulator/bin64/fsck.e
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1515568Z [==============                         ] 35% Unzipping... emulator/bin64/tune2f
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1522275Z [==============                         ] 35% Unzipping... emulator/bin64/resize
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.1608690Z [==============                         ] 35% Unzipping... emulator/bin64/mkfs.e
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.2287421Z [==============                         ] 35% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:32.5170948Z [==============                         ] 36% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:33.0236775Z [==============                         ] 37% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:33.3251182Z [===============                        ] 38% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:33.7992553Z [===============                        ] 39% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:33.8579071Z [===============                        ] 40% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.1561566Z [================                       ] 40% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.3552018Z [================                       ] 41% Unzipping... emulator/qemu/linux-x
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.3555535Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.3557187Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4749803Z [================                       ] 41% Unzipping... emulator/lib/advanced
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4750467Z [================                       ] 41% Unzipping... emulator/lib/cmake/  
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4750957Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4751548Z [================                       ] 41% Unzipping... emulator/lib/control_
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4751985Z [================                       ] 41% Unzipping... emulator/lib/emulated
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4752392Z [================                       ] 41% Unzipping... emulator/lib/rtc_serv
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4752821Z [================                       ] 41% Unzipping... emulator/lib/emu-orig
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4753236Z [================                       ] 41% Unzipping... emulator/lib/hardware
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4753661Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4754146Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4754568Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4755009Z [================                       ] 41% Unzipping... emulator/lib/adb_serv
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4759605Z [================                       ] 41% Unzipping... emulator/lib/hostapd.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4769343Z [================                       ] 41% Unzipping... emulator/lib/grpc_end
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.4773511Z [================                       ] 41% Unzipping... emulator/lib/ca-bundl
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.5742863Z [================                       ] 41% Unzipping... emulator/lib/ui_contr
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.5743631Z [================                       ] 41% Unzipping... emulator/lib/snapshot
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.5744234Z [================                       ] 41% Unzipping... emulator/lib/ice_conf
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.6730073Z [================                       ] 41% Unzipping... emulator/lib/libflatb
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.6736946Z [================                       ] 41% Unzipping... emulator/lib/emulator
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.6738171Z [================                       ] 41% Unzipping... emulator/lib/waterfal
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.6740048Z [================                       ] 41% Unzipping... emulator/lib/emulated
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.7735428Z [================                       ] 41% Unzipping... emulator/lib/cmake/fl
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:34.7736405Z [================                       ] 41% Unzipping... emulator/lib/pkgconfi
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:35.4225797Z [================                       ] 41% Unzipping... emulator/lib/pc-bios/
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:35.9994045Z [================                       ] 41% Unzipping... emulator/include/flat
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.1190011Z [================                       ] 41% Unzipping... emulator/lib64/libgli
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.2386978Z [================                       ] 41% Unzipping... emulator/lib64/libpro
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.2387750Z [================                       ] 41% Unzipping... emulator/lib64/qt/   
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.4773351Z [================                       ] 41% Unzipping... emulator/lib64/liband
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.4793372Z [================                       ] 41% Unzipping... emulator/lib64/libgfx
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.5983671Z [================                       ] 42% Unzipping... emulator/lib64/libgfx
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.5984127Z [================                       ] 42% Unzipping... emulator/lib64/gles_l
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.7176602Z [================                       ] 42% Unzipping... emulator/lib64/liband
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.7177205Z [================                       ] 42% Unzipping... emulator/lib64/vulkan
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.7177625Z [================                       ] 42% Unzipping... emulator/lib64/gles_s
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.7178983Z [================                       ] 42% Unzipping... emulator/lib64/libemu
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.8272611Z [================                       ] 42% Unzipping... emulator/lib64/libpro
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:36.9164860Z [================                       ] 42% Unzipping... emulator/lib64/liband
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.2059617Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.2855682Z [=================                      ] 43% Unzipping... emulator/lib64/libtcm
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.2859362Z [=================                      ] 43% Unzipping... emulator/lib64/libima
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.2908962Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3131127Z [=================                      ] 43% Unzipping... emulator/lib64/liband
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3158842Z [=================                      ] 43% Unzipping... emulator/lib64/libabs
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3159382Z [=================                      ] 43% Unzipping... emulator/lib64/gles_a
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3213533Z [=================                      ] 43% Unzipping... emulator/lib64/libsha
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3263873Z [=================                      ] 43% Unzipping... emulator/lib64/libc++
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3264436Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3264873Z [=================                      ] 43% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3265280Z [=================                      ] 43% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3265692Z [=================                      ] 43% Unzipping... emulator/lib64/qt/plu
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.3439283Z [=================                      ] 43% Unzipping... emulator/lib64/qt/res
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.4504991Z [=================                      ] 44% Unzipping... emulator/lib64/qt/res
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.4712158Z [=================                      ] 44% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.5950548Z [=================                      ] 45% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.7300472Z [==================                     ] 45% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:37.8777884Z [==================                     ] 46% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:38.0389448Z [==================                     ] 47% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:38.2008510Z [===================                    ] 48% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.0543349Z [===================                    ] 49% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.2198185Z [===================                    ] 50% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.3380741Z [====================                   ] 50% Unzipping... emulator/lib64/qt/lib
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.3610434Z [====================                   ] 50% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.4699592Z [====================                   ] 51% Unzipping... emulator/lib64/qt/tra
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.4783808Z [====================                   ] 51% Unzipping... emulator/lib64/qt/plu
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.5457699Z [====================                   ] 51% Unzipping... emulator/lib64/gles_l
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.6784163Z [====================                   ] 51% Unzipping... emulator/lib64/vulkan
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:39.8154586Z [====================                   ] 52% Unzipping... emulator/lib64/vulkan
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.0285437Z [=====================                  ] 53% Unzipping... emulator/lib64/vulkan
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.6343204Z [=====================                  ] 54% Unzipping... emulator/lib64/vulkan
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.6550903Z [=====================                  ] 54% Unzipping... emulator/lib64/gles_s
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.7714611Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_s
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.8743883Z [=====================                  ] 55% Unzipping... emulator/lib64/gles_a
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:40.8744334Z [=======================================] 100% Unzipping... emulator/lib64/gles_
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.1964834Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.2442367Z openjdk version "17.0.20.1" 2026-08-18
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.2442897Z OpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.2443417Z OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3014736Z Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3015645Z Copyright (C) 2006-2024 The Android Open Source Project and many others.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3016258Z This program is a derivative of the QEMU CPU emulator (www.qemu.org).
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3016579Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3016765Z   This software is licensed under the terms of the GNU General Public
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3017190Z   License version 2, as published by the Free Software Foundation, and
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3017620Z   may be copied, distributed, and modified under those terms.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3017845Z 
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3018006Z   This program is distributed in the hope that it will be useful,
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3018472Z   but WITHOUT ANY WARRANTY; without even the implied warranty of
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3018882Z   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3019229Z   GNU General Public License for more details.
+native-proof (all)	Check runner SDK and acceleration	2026-10-18T06:24:41.3019416Z 
+native-proof (all)	Build and verify native sources	﻿2026-10-18T06:24:41.3079156Z ##[group]Run if [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3079633Z ^[[36;1mif [[ "$VERIFICATION_SCOPE" == full* || "$VERIFICATION_SCOPE" == source || "$VERIFICATION_SCOPE" == release-tail* ]]; then^[[0m
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3080281Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:lintDebug :app:assemblePerformance :app:lintPerformance^[[0m
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3080783Z ^[[36;1melse^[[0m
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3081102Z ^[[36;1m  ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest^[[0m
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3081667Z ^[[36;1mfi^[[0m
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3133561Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3133724Z env:
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3133908Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3134212Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3134431Z   MAVEN_ARGS: -ntp
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3134570Z   VERIFICATION_SCOPE: source
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.3134720Z ##[endgroup]
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9263899Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9276420Z Welcome to Gradle 8.11.1!
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9276874Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9277214Z Here are the highlights of this release:
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9277625Z  - Parallel load and store for Configuration Cache
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9278012Z  - Java compilation errors at the end of the build output
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9278380Z  - Consolidated report for warnings and deprecations
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9278603Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9278806Z For more details see https://docs.gradle.org/8.11.1/release-notes.html
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9279475Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:41.9280146Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:42.9232692Z Daemon will be stopped at the end of the build 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.0252794Z > Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.1232495Z > Task :core:compileKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.1272127Z > Task :core:compileJava NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.1322050Z > Task :core:processResources NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.1351967Z > Task :core:classes UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.2233730Z > Task :core:jar
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3233427Z > Task :core:compileTestKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3242285Z > Task :core:compileTestJava NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3262345Z > Task :core:processTestResources
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3262772Z > Task :core:testClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3263037Z > Task :core:test FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.3263471Z > Task :push-gateway:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4233461Z > Task :push-gateway:compileKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4272131Z > Task :push-gateway:compileJava NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4276239Z > Task :push-gateway:processResources NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4297731Z > Task :push-gateway:classes UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4298152Z > Task :push-gateway:jar
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4342001Z > Task :push-gateway:compileTestKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.4351959Z > Task :push-gateway:compileTestJava NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5226161Z > Task :push-gateway:processTestResources
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5242136Z > Task :push-gateway:testClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5272199Z > Task :push-gateway:test FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5282278Z > Task :core:writeHostPeerClasspath
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5282808Z > Task :app:preBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5283322Z > Task :app:preDebugBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5285184Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5285791Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.5286775Z > Task :app:generateDebugBuildConfig FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.8223639Z > Task :app:generateDebugResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.8226417Z > Task :app:checkDebugAarMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.8226963Z > Task :app:mapDebugSourceSetPaths
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.8227534Z > Task :app:generateDebugResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.9223580Z > Task :app:mergeDebugResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:54.9223962Z > Task :app:packageDebugResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7229805Z > Task :app:parseDebugLocalResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7239225Z > Task :app:createDebugCompatibleScreenManifests
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7240197Z > Task :app:extractDeepLinksDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7240712Z > Task :app:processDebugMainManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7241233Z > Task :app:processDebugManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.7241864Z > Task :app:processDebugManifestForPackage FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:55.8224460Z > Task :app:processDebugResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.1243109Z > Task :app:compileDebugKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.1243808Z > Task :app:javaPreCompileDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.8228036Z > Task :app:compileDebugJavaWithJavac FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9226287Z > Task :app:mergeDebugShaders
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9232905Z > Task :app:compileDebugShaders NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9233571Z > Task :app:generateDebugAssets UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9234026Z > Task :app:mergeDebugAssets
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9234445Z > Task :app:compressDebugAssets FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:56.9235114Z > Task :app:desugarDebugFileDependencies FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.0224655Z > Task :app:dexBuilderDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.1226381Z > Task :app:mergeDebugGlobalSynthetics FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.1228076Z > Task :app:processDebugJavaRes
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.3242718Z > Task :app:checkDebugDuplicateClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.6243172Z > Task :app:mergeExtDexDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.7242612Z > Task :app:mergeLibDexDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.7303234Z > Task :app:mergeProjectDexDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.7332546Z > Task :app:mergeDebugJniLibFolders
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.8252510Z > Task :app:mergeDebugNativeLibs
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.8253176Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.8281951Z > Task :app:stripDebugDebugSymbols
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.8292480Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.9222711Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:57.9223713Z > Task :app:mergeDebugJavaResource
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.3223599Z > Task :app:validateSigningDebug
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.3250780Z > Task :app:writeDebugAppMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.3282252Z > Task :app:writeDebugSigningConfigVersions
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.6223955Z > Task :app:bundleDebugClassesToCompileJar
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.7224351Z > Task :app:packageDebug
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.7234598Z > Task :app:createDebugApkListingFileRedirect
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.7235271Z > Task :app:assembleDebug
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.7235772Z > Task :app:preDebugAndroidTestBuild SKIPPED
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.8224017Z > Task :app:processDebugAndroidTestManifest
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.8229777Z > Task :app:generateDebugAndroidTestBuildConfig FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.8230470Z > Task :app:checkDebugAndroidTestAarMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.8231006Z > Task :app:generateDebugAndroidTestResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.9234780Z > Task :app:mapDebugAndroidTestSourceSetPaths
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.9237704Z > Task :app:generateDebugAndroidTestResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.9241878Z > Task :app:mergeDebugAndroidTestResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:58.9243035Z > Task :app:processDebugAndroidTestResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.1224706Z > Task :app:compileDebugAndroidTestKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.1232572Z > Task :app:javaPreCompileDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2225472Z > Task :app:compileDebugAndroidTestJavaWithJavac FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2232309Z > Task :app:mergeDebugAndroidTestShaders
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2232839Z > Task :app:compileDebugAndroidTestShaders NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2233413Z > Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2234038Z > Task :app:mergeDebugAndroidTestAssets
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2234568Z > Task :app:compressDebugAndroidTestAssets FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.2235144Z > Task :app:desugarDebugAndroidTestFileDependencies FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.3256906Z > Task :app:dexBuilderDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.3282305Z > Task :app:mergeDebugAndroidTestGlobalSynthetics FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.3286031Z > Task :app:processDebugAndroidTestJavaRes
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.4235080Z > Task :app:checkDebugAndroidTestDuplicateClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.4252976Z > Task :app:mergeDebugAndroidTestJavaResource
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.4301914Z > Task :app:mergeExtDexDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.4312359Z > Task :app:mergeLibDexDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5232677Z > Task :app:mergeProjectDexDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5254542Z > Task :app:mergeDebugAndroidTestJniLibFolders
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5279443Z > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5316081Z > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5322662Z > Task :app:validateSigningDebugAndroidTest
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5323280Z > Task :app:writeDebugAndroidTestSigningConfigVersions
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5323822Z > Task :app:preReleaseBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5324241Z > Task :app:mergeReleaseJniLibFolders
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.5324639Z > Task :app:mergeReleaseNativeLibs
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6242862Z > Task :app:packageDebugAndroidTest
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6263991Z > Task :app:createDebugAndroidTestApkListingFileRedirect
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6265646Z > Task :app:assembleDebugAndroidTest
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6266373Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6266623Z > Task :app:stripReleaseDebugSymbols
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6267437Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6268134Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6268408Z > Task :app:extractReleaseNativeSymbolTables FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6268896Z > Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6269379Z > Task :app:checkReleaseDuplicateClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6269794Z > Task :app:buildKotlinToolingMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6270224Z > Task :app:generateReleaseBuildConfig FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6270669Z > Task :app:generateReleaseResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6271145Z > Task :app:checkReleaseAarMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6271653Z > Task :app:mapReleaseSourceSetPaths
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.6272079Z > Task :app:generateReleaseResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7235030Z > Task :app:mergeReleaseResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7235725Z > Task :app:packageReleaseResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7236456Z > Task :app:parseReleaseLocalResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7237011Z > Task :app:createReleaseCompatibleScreenManifests
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7237478Z > Task :app:extractDeepLinksRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7237947Z > Task :app:processReleaseMainManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7238405Z > Task :app:processReleaseManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7238879Z > Task :app:processReleaseManifestForPackage FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.7239378Z > Task :app:processReleaseResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.9225950Z > Task :app:compileReleaseKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:24:59.9236029Z > Task :app:javaPreCompileRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.0223653Z > Task :app:compileReleaseJavaWithJavac FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.1225918Z > Task :app:dexBuilderRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.1226722Z > Task :app:desugarReleaseFileDependencies FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.1227276Z > Task :app:mergeReleaseStartupProfile
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.3232526Z > Task :app:mergeExtDexRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6225694Z > Task :app:mergeDexRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6262498Z > Task :app:mergeReleaseArtProfile
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6263299Z > Task :app:mergeReleaseGlobalSynthetics FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6263795Z > Task :app:compileReleaseArtProfile FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6264191Z > Task :app:mergeReleaseShaders
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6264611Z > Task :app:compileReleaseShaders NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6265010Z > Task :app:generateReleaseAssets UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6265416Z > Task :app:mergeReleaseAssets
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.6265781Z > Task :app:compressReleaseAssets FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.7224556Z > Task :app:extractReleaseVersionControlInfo
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:00.7231778Z > Task :app:extractProguardFiles
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:01.1232682Z > Task :app:generateReleaseLintVitalReportModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:01.1245599Z > Task :app:lintVitalAnalyzeRelease FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:01.2223347Z > Task :app:processReleaseJavaRes
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.4243922Z > Task :app:lintVitalReportRelease
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.5223456Z > Task :app:lintVitalRelease
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.5231920Z > Task :app:optimizeReleaseResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.6223213Z > Task :app:collectReleaseDependencies
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.7222929Z > Task :app:sdkReleaseDependencyData
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.7223485Z > Task :app:writeReleaseAppMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.7223897Z > Task :app:writeReleaseSigningConfigVersions
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.7224312Z > Task :app:generateDebugAndroidTestLintModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.8246320Z > Task :app:generateDebugLintReportModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.8292131Z > Task :app:preDebugUnitTestBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.9242660Z > Task :app:generateDebugUnitTestLintModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:02.9302509Z > Task :app:lintAnalyzeDebug FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.0232332Z > Task :app:lintAnalyzeDebugAndroidTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.0253195Z > Task :app:lintAnalyzeDebugUnitTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.0285963Z > Task :app:mergeReleaseJavaResource
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3222234Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3244825Z > Task :app:lintReportDebug
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3272352Z Wrote HTML report to file:///home/runner/work/redsquare-android/redsquare-android/app/build/reports/lint-results-debug.html
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3301894Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3332097Z > Task :app:lintDebug
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3345906Z > Task :app:prePerformanceBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3362043Z > Task :app:mergePerformanceJniLibFolders
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.3377837Z > Task :app:mergePerformanceNativeLibs
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4225975Z > Task :app:packageRelease
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4232253Z > Task :app:createReleaseApkListingFileRedirect
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4232721Z > Task :app:assembleRelease
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4233086Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4233447Z > Task :app:stripPerformanceDebugSymbols
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4234316Z Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4235084Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4235407Z > Task :app:extractPerformanceNativeSymbolTables FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4235984Z > Task :app:mergePerformanceNativeDebugMetadata NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4236533Z > Task :app:generatePerformanceBuildConfig FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4237043Z > Task :app:checkPerformanceDuplicateClasses
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4237543Z > Task :app:generatePerformanceResValues FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4238027Z > Task :app:checkPerformanceAarMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4238487Z > Task :app:mapPerformanceSourceSetPaths
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.4238956Z > Task :app:generatePerformanceResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5232642Z > Task :app:mergePerformanceResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5242545Z > Task :app:packagePerformanceResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5243204Z > Task :app:parsePerformanceLocalResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5243720Z > Task :app:createPerformanceCompatibleScreenManifests
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5244554Z > Task :app:extractDeepLinksPerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5245040Z > Task :app:processPerformanceMainManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5245514Z > Task :app:processPerformanceManifest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5246020Z > Task :app:processPerformanceManifestForPackage FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.5247142Z > Task :app:processPerformanceResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.7224093Z > Task :app:compilePerformanceKotlin FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.7224813Z > Task :app:javaPreCompilePerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.8235383Z > Task :app:compilePerformanceJavaWithJavac FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.9223036Z > Task :app:dexBuilderPerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.9223942Z > Task :app:desugarPerformanceFileDependencies FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:03.9225254Z > Task :app:mergePerformanceStartupProfile
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.1223089Z > Task :app:mergeExtDexPerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4272891Z > Task :app:mergeDexPerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4312299Z > Task :app:mergePerformanceArtProfile
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4336494Z > Task :app:mergePerformanceGlobalSynthetics FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4392651Z > Task :app:compilePerformanceArtProfile FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4482103Z > Task :app:mergePerformanceShaders
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4513615Z > Task :app:compilePerformanceShaders NO-SOURCE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4517376Z > Task :app:generatePerformanceAssets UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4562178Z > Task :app:mergePerformanceAssets
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4562543Z > Task :app:compressPerformanceAssets FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4562916Z > Task :app:extractPerformanceVersionControlInfo
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4563269Z > Task :app:processPerformanceJavaRes
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.4563915Z > Task :app:optimizePerformanceResources FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.5236369Z > Task :app:collectPerformanceDependencies
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.5237181Z > Task :app:sdkPerformanceDependencyData
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.5237950Z > Task :app:writePerformanceAppMetadata
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.5238473Z > Task :app:writePerformanceSigningConfigVersions
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.5238970Z > Task :app:generatePerformanceLintReportModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.7242705Z > Task :app:bundlePerformanceClassesToCompileJar
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.7274372Z > Task :app:prePerformanceUnitTestBuild UP-TO-DATE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.8223681Z > Task :app:generatePerformanceUnitTestLintModel
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.8226539Z > Task :app:lintAnalyzePerformance FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.9224626Z > Task :app:lintAnalyzePerformanceUnitTest FROM-CACHE
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:04.9262174Z > Task :app:mergePerformanceJavaResource
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1222062Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1222704Z > Task :app:lintReportPerformance
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1223346Z Wrote HTML report to file:///home/runner/work/redsquare-android/redsquare-android/app/build/reports/lint-results-performance.html
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1223836Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1223941Z > Task :app:lintPerformance
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1927647Z > Task :app:packagePerformance
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1934963Z > Task :app:createPerformanceApkListingFileRedirect
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1935494Z > Task :app:assemblePerformance
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1935833Z 
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1936088Z BUILD SUCCESSFUL in 23s
+native-proof (all)	Build and verify native sources	2026-10-18T06:25:05.1936634Z 184 actionable tasks: 90 executed, 94 from cache
+native-proof (all)	Retain Gradle task outputs before device tests	﻿2026-10-18T06:25:05.3046910Z ##[group]Run actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3047150Z with:
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3047317Z   path: /home/runner/.gradle/caches/build-cache-1
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3047758Z   key: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-ef3321247e28747b3d0322546635a1b3fb0b2367
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3048168Z   enableCrossOsArchive: false
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3048328Z env:
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3048508Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3048788Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3049007Z   MAVEN_ARGS: -ntp
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.3049138Z ##[endgroup]
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:05.4011662Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/redsquare-android/redsquare-android --files-from manifest.txt --use-compress-program zstdmt
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:06.8177918Z Sent 64338118 of 265664710 (24.2%), 61.3 MBs/sec
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:06.9029448Z Sent 265664710 of 265664710 (100.0%), 233.3 MBs/sec
+native-proof (all)	Retain Gradle task outputs before device tests	2026-10-18T06:25:07.1142094Z Cache saved with key: redsquare-gradle-tasks-v1-Linux-fd90992b098bdf89b5cd1e32ca3d2624353beea38da5b354f4c4c1d16df7fd67-ef3321247e28747b3d0322546635a1b3fb0b2367
+native-proof (all)	Retain verification evidence	﻿2026-10-18T06:25:07.1279405Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1279666Z with:
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1279794Z   name: android-native-proof
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280059Z   path: .scratch/device-evidence/
+native-proof (all)	Retain verification evidence	core/build/reports/tests/
+native-proof (all)	Retain verification evidence	app/build/reports/lint-results-debug.html
+native-proof (all)	Retain verification evidence	
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280334Z   include-hidden-files: true
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280483Z   retention-days: 14
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280622Z   if-no-files-found: warn
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280766Z   compression-level: 6
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1280899Z   overwrite: false
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1281024Z   archive: true
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1281148Z env:
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1281324Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1281767Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1281982Z   MAVEN_ARGS: -ntp
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.1282112Z ##[endgroup]
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.2234121Z Multiple search paths detected. Calculating the least common ancestor of all paths
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.2235976Z The least common ancestor is /home/runner/work/redsquare-android/redsquare-android. This will be the root directory of the artifact
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.2237057Z With the provided path, there will be 26 files uploaded
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.2239985Z Artifact name is valid!
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.2240491Z Root directory input is valid!
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.5287727Z Uploading artifact: android-native-proof.zip
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.5313181Z Beginning upload of artifact content to blob storage
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.7537419Z Uploaded bytes 63961
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.7911688Z Finished uploading artifact content to blob storage!
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.7912287Z SHA256 digest of uploaded artifact is 245675106828c283ffc7bd646beb1387e0d20c1dde9b0557f5dab5f22d622cc3
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:07.7912762Z Finalizing artifact upload
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:08.1187411Z Artifact android-native-proof successfully finalized. Artifact ID 12127895135
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:08.1188113Z Artifact android-native-proof has been successfully uploaded! Final size is 63961 bytes. Artifact ID is 12127895135
+native-proof (all)	Retain verification evidence	2026-10-18T06:25:08.1190941Z Artifact download URL: https://github.com/robelene112/redsquare-android/actions/runs/39103857593/artifacts/12127895135
+native-proof (all)	Post Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	﻿2026-10-18T06:25:08.1333725Z Post job cleanup.
+native-proof (all)	Post Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:25:08.2066108Z Cache hit occurred on the gradle-wrapper primary key setup-java-Linux-x64-gradle-wrapper-7c2008d3b8cef40fcf013910e3362402855b96662f9cb4222b27d2eeb7d6cb90, not saving cache.
+native-proof (all)	Post Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6	2026-10-18T06:25:08.2070800Z Cache hit occurred on the primary key setup-java-Linux-x64-gradle-88240b77ba415524dd6331bd7724e1dea0623edadb60b175d898849493bab6b3, not saving cache.
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-18T06:25:08.2222487Z Post job cleanup.
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2811264Z [command]/usr/bin/git version
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2848111Z git version 2.55.0
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2879052Z Temporarily overriding HOME='/home/runner/work/_temp/4b5a9efa-9bf7-42a5-9282-02804a660b21' before making global git config changes
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2879929Z Adding repository directory to the temporary git global config as a safe directory
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2883340Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/redsquare-android/redsquare-android
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2912784Z Removing SSH command configuration
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2917583Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.2948875Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3217058Z Removing HTTP extra header
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3221398Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3292862Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3485708Z Removing includeIf entries pointing to credentials config files
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3493192Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+native-proof (all)	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-18T06:25:08.3530795Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+native-proof (all)	Complete job	﻿2026-10-18T06:25:08.3877273Z Cleaning up orphan processes

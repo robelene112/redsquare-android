@@ -1,0 +1,10 @@
+{
+  "command": [
+    "scripts/review-build",
+    "--performance",
+    "--bundle"
+  ],
+  "exitCode": 2,
+  "counterUnchanged": true,
+  "versionCode": 33
+}

@@ -1,0 +1,40 @@
+{
+  "libraries": [
+    {
+      "bundleEntry": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+      "loadSegmentAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "allAtLeast16KiB": true
+    },
+    {
+      "bundleEntry": "base/lib/arm64-v8a/libdatastore_shared_counter.so",
+      "loadSegmentAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "allAtLeast16KiB": true
+    },
+    {
+      "bundleEntry": "base/lib/x86_64/libandroidx.graphics.path.so",
+      "loadSegmentAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "allAtLeast16KiB": true
+    },
+    {
+      "bundleEntry": "base/lib/x86_64/libdatastore_shared_counter.so",
+      "loadSegmentAlignments": [
+        16384,
+        16384
+      ],
+      "allAtLeast16KiB": true
+    }
+  ],
+  "scope": "Actual 64-bit ELF load segment alignment only. Not runtime on a 16KiB physical device or Google delivery."
+}

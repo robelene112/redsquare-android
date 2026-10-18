@@ -1,0 +1,38 @@
+{
+  "checkedAtUtc": "2026-10-18T06:28:31.739432+00:00",
+  "command": [
+    "scripts/review-publish",
+    ".scratch/play-builds/33",
+    "--notes",
+    "Offline bundle is not a preview APK"
+  ],
+  "exitCode": 1,
+  "reason": "No publishable redsquare.apk: Play bundle directory uses redsquare.aab and universal.apk",
+  "releaseDirectoriesUnchanged": [
+    "performance/releases/30",
+    "releases/10",
+    "releases/11",
+    "releases/13",
+    "releases/14",
+    "releases/15",
+    "releases/16",
+    "releases/17",
+    "releases/18",
+    "releases/19",
+    "releases/21",
+    "releases/22",
+    "releases/23",
+    "releases/24",
+    "releases/25",
+    "releases/26",
+    "releases/27",
+    "releases/28",
+    "releases/29",
+    "releases/31",
+    "releases/5",
+    "releases/6",
+    "releases/8"
+  ],
+  "actualStaticFilesAllUnchanged": true,
+  "unpublished32And33And34": true
+}

@@ -1,0 +1,35 @@
+{
+  "checkedAtUtc": "2026-10-18T06:31:15.607193+00:00",
+  "allTenStaticFilesUnchanged": true,
+  "allFiveHttpsMetadataUnchanged": true,
+  "mainLatest": 31,
+  "performanceLatest": 30,
+  "httpsMetadata": [
+    {
+      "path": "latest.json",
+      "sha256": "5539c937706c7a93a08ae1884bb211e92484469d76a1325f29815698eb85b519",
+      "versionCode": 31
+    },
+    {
+      "path": "releases/31/manifest.json",
+      "sha256": "5539c937706c7a93a08ae1884bb211e92484469d76a1325f29815698eb85b519",
+      "versionCode": 31
+    },
+    {
+      "path": "releases/29/manifest.json",
+      "sha256": "dac08c660fdb0402eec8d0cfdfc0e242feaa7d8055b9181f77765c30588547d5",
+      "versionCode": 29
+    },
+    {
+      "path": "performance/latest.json",
+      "sha256": "66920fbcaabf707ca9c8c1076ebedaeeeb1a71ec0fc60e6e2f82aec2a9b13a2a",
+      "versionCode": 30
+    },
+    {
+      "path": "performance/releases/30/manifest.json",
+      "sha256": "66920fbcaabf707ca9c8c1076ebedaeeeb1a71ec0fc60e6e2f82aec2a9b13a2a",
+      "versionCode": 30
+    }
+  ],
+  "scope": "Actual source static files and actual HTTPS metadata; accepted48 retains prior full HTTPS APK/certificate proof. No new APK downloaded by this comparison."
+}
