@@ -18,6 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.util.UUID
 import java.io.InputStream
+import java.io.File
 
 class WalletExportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -133,6 +134,8 @@ class WalletExportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)).use {
+                withFailureCapture({ captureNativeScreen(File(context.cacheDir,
+                    "wallet-export-evidence/stalled-provider-failure.png")) }) {
                 ui.onNodeWithText("Wallet").performClick()
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
@@ -145,6 +148,7 @@ class WalletExportPreviewTest {
                 ui.onNodeWithText("Export wallet").assertIsEnabled()
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-export-evidence/provider-deadline.png")
+                }
             }
         } finally { device.executeShellCommand("locksettings clear --old $EXPORT_TEST_PIN --user 0") }
     }
