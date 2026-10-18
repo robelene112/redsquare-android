@@ -1,0 +1,78 @@
+{
+  "preparedBeforeExecution": true,
+  "issue": 51,
+  "hostImplementationSource": "77b3940c42b466f2bddd8d236345563e93f27be1",
+  "ordinary10And17ProductionAcceptance": "Retain completed50 baseline only while all239 production/build and202 fixture objects remain identical",
+  "sourceEquivalenceSha256": "0cad49f438fa086b3a82085f6508901a99f44ebcecf70965f3263466e3396b5b",
+  "identityReferences": [
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected17-identities.json",
+      "sha256": "41b3e35618b6b00a701ae128eafc165ac85a44c56f4af1baebf8acd313dd28fc"
+    },
+    {
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/test-identities.py",
+      "sha256": "2e0e29c404511a1eaf31cccf2ee32d3a963d89467f85eb6054eb71fa5338668f"
+    }
+  ],
+  "expected": {
+    "identities": 431,
+    "normalCompletions": 104,
+    "deliberateInterruptions": 33,
+    "continuityRecords": 32,
+    "profileAggregateExactConcatenation": true
+  },
+  "fullDispatch": {
+    "scope": "full-android17",
+    "android17_16kb": true,
+    "public_feed_read": true,
+    "performance_version": "36",
+    "main_reference_version": "35"
+  },
+  "environment": {
+    "systemImage": "system-images;android-37.0;google_apis_ps16k;x86_64",
+    "actualPageBytesRequired": 16384,
+    "actualAbiRequired": "x86_64",
+    "retainInstalledImagePropertiesAndBuild": true
+  },
+  "artifacts": {
+    "main": {
+      "versionCode": 35,
+      "sha256": "4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd",
+      "metadataReference": "docs/evidence/ticket50/signed-preview35-published/release35.json",
+      "metadataSha256": "be6964d97479ca3c92cbe0b920b407810d2690b0860b07debea749769a29de0e",
+      "applicationId": "nl.davidengelen.redsquare",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+    },
+    "performance": {
+      "versionCode": 36,
+      "sha256": "e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680",
+      "metadataReference": "docs/evidence/ticket50/signed-preview35-published/performance36.json",
+      "metadataSha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71",
+      "applicationId": "nl.davidengelen.redsquare.performance",
+      "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2"
+    }
+  },
+  "default10Smoke": {
+    "scope": "feed",
+    "android17_16kb": false,
+    "performance_version": "36",
+    "main_reference_version": "29",
+    "main29Sha256": "aef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef",
+    "expectedFeedCases": 9,
+    "expectedNormalCompletions": 1,
+    "expectedContinuityRecords": 1
+  },
+  "gates": [
+    "All three required full17 partitions with actual successful outcomes and exact fixed identity union, no assumptions/skips/failures",
+    "All original private/group same-worker UUID, three distinct PIDs, zero expired-gateway requests and independent protected restoration",
+    "Both approved fresh public feeds, authenticated read-only Chat readiness, legacy5-to8 update, final identity",
+    "Actual main35/performance36 planned hashes/certificates/packages/manifests, distinct UIDs/public wallets, unchanged ordinary address and restoration of original absence",
+    "Original selected PNG/XML inspection and qualified optional diagnostics",
+    "Default10 target/observer main29 behavior verified separately; unchanged production does not require redundant full ordinary SDK runs"
+  ],
+  "limits": [
+    "x86_64 and current unconfigured APK/runtime journeys only; no claim every bundled JNI entry point executes",
+    "No ARM64/owner-phone/physical latency/configured Google or Giphy/Play-generated installation/store acceptance",
+    "No production dependency changes or artifact republishing; application changes would require fresh complete ordinary10/17 and16KB acceptance"
+  ]
+}
