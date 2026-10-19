@@ -11,6 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -18,6 +20,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.DialogWindowProvider
+import androidx.core.view.WindowCompat
 import nl.davidengelen.redsquare.R
 
 private data class PolicySection(@StringRes val title: Int, @StringRes val text: Int)
@@ -62,6 +66,16 @@ internal fun PolicyCenter(onClose: () -> Unit) {
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
+        val view = LocalView.current
+        val window = (view.parent as DialogWindowProvider).window
+        val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
+        SideEffect {
+            // Dialogs own a separate Window; Activity system-bar appearance does not carry over.
+            WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = lightBars
+                isAppearanceLightNavigationBars = lightBars
+            }
+        }
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                 Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 8.dp),
@@ -69,9 +83,12 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                     if (selected != null) IconButton(onClick = { selectedName = null }) {
                         Icon(painterResource(R.drawable.ic_back), stringResource(R.string.policy_back))
                     }
-                    Text(stringResource(selected?.title ?: R.string.policy_center),
-                        Modifier.weight(1f).padding(horizontal = 8.dp).semantics { heading() },
-                        style = MaterialTheme.typography.titleLarge)
+                    Column(Modifier.weight(1f).padding(horizontal = 8.dp, vertical = 8.dp)) {
+                        Text(stringResource(selected?.title ?: R.string.policy_center),
+                            Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
+                        Text(stringResource(R.string.policy_draft_label),
+                            style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                     IconButton(onClick = onClose) {
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.policy_close))
                     }

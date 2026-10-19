@@ -64,24 +64,26 @@ class PolicyCenterPreviewTest {
                         center()
                         capture("${theme.lowercase()}-overview.png")
                         val documents = linkedMapOf(
-                            "Terms of use" to "Release details pending",
-                            "Privacy notice" to "Retention details pending",
-                            "Community guidelines" to "Moderation process pending",
-                            "Child safety" to "Safety contact pending",
-                            "Data and deletion" to "Deletion process pending",
-                            "Contact and support" to "Contact details pending",
+                            "Terms of use" to "Registered publisher details,",
+                            "Privacy notice" to "The final privacy contact,",
+                            "Community guidelines" to "Angels’ Foundry has accepted responsibility",
+                            "Child safety" to "The responsible public contact,",
+                            "Data and deletion" to "The request contact and web address,",
+                            "Contact and support" to "Public support, privacy/deletion",
                         )
-                        for ((title, lastSection) in documents) {
+                        for ((title, lastParagraph) in documents) {
                             ui.onNodeWithText(title).performScrollTo().performClick()
                             waitFor("Draft policies")
-                            ui.onNodeWithText(lastSection).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText(lastParagraph, substring = true).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Draft").assertIsDisplayed()
                             ui.onAllNodesWithText("Accept").assertCountEquals(0)
                             ui.onAllNodesWithText("Send request").assertCountEquals(0)
                             capture("${theme.lowercase()}-${title.lowercase().replace(' ', '-')}.png")
                             if (title == "Data and deletion") {
                                 activity.recreate()
                                 waitFor("Data and deletion")
-                                ui.onNodeWithText(lastSection).performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText(lastParagraph, substring = true).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Draft").assertIsDisplayed()
                                 capture("${theme.lowercase()}-deletion-restored.png")
                             }
                             ui.onNodeWithContentDescription("Back to privacy and safety").performClick()
