@@ -96,6 +96,11 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   `agreement-recovery` and `agreement-recovery-android17` isolate native policy
+   recovery during development after the preceding21 agreement cases passed.
+   The separate180second recovery class bound and its assertions remain;
+   complete `agreement` and full scopes retain every preceding agreement class
+   and this recovery gate. A focused success is not complete acceptance.
    For the isolated queued-action viewport tracer, `chat-viewport` and
    `chat-viewport-android17` run only the existing private and group cancellation cases.
    This avoids repeating unrelated queue cases on each viewport correction;
