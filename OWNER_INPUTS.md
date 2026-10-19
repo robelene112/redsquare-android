@@ -58,6 +58,11 @@ houdt deze controles open tot de resultaten er zijn (#35).
   timing-installatie, doel maximaal vijf seconden. Nooit de gewone wallet wissen.
 - [ ] Na echte configuratie meldingen met gesloten app testen: replies, mentions,
   privéchat en groepschat, inclusief systeemtoestemming en mute/privacykeuzes.
+- [ ] Een bestaand bericht met een YouTube-video openen en op afspelen tikken.
+  Noteer of de video daadwerkelijk binnen de app speelt (#17). Een afbeelding,
+  laadscherm of geopende externe YouTube-app is nog geen bewijs van ingebed
+  afspelen. De agent onderzoekt de technische kant; deze telefoontest kan helpen
+  het verschil met de huidige providerbeperkingen op de emulators vast te stellen.
 
 ## Werk voor de agent, geen extra formulier voor David
 

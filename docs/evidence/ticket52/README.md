@@ -52,7 +52,7 @@ Screenshots and XML are separate observations, not atomic pairs. Paragraphs
 longer than the viewport remain scrollable; these images do not imply every
 line fits on screen simultaneously.
 
-`sha256.json` binds91 original files. All33 new/red PNGs passed signature,
+`sha256.json` binds the retained native originals and prepared APK verification files. All33 new/red PNGs passed signature,
 chunk-CRC, IHDR, decompression/scanline-length and filter-byte validation; all33
 matching XMLs parsed. Two historical contrast originals are also retained.
 
@@ -68,3 +68,40 @@ Full Android10/17 regression and signed ordinary preview publication are pending
 gates remain in the harness, with this one additional class in the wallet/all
 partition. The parent physical, configured-provider, approved-policy/operations
 and actual Play requirements stay open in `OWNER_INPUTS.md` and issue36.
+
+## Prepared ordinary37, not yet published
+
+Canonical `scripts/review-build` succeeds in3m27s at25159f3a6, reserving ordinary
+37/0.1.37. APK SHA256:
+`08f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4`.
+Established certificate:
+`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
+Package is `nl.davidengelen.redsquare`, min29/target36, nondebuggable,
+nonprofileable and with automatic backup disabled. Root independently checks
+actual APK bytes/manifest and targeted BuildConfig DEX output: REVIEW_BUILD=true,
+Push/Posts-Giphy/Chat-Giphy all unconfigured. Only booleans, never option values,
+are retained in `prepared37/apk-check.json`. Final native full acceptance and
+public delivery verification are still pending; no APK37 publication occurred.
+
+## First full Android10 failure and fixture correction
+
+Run39213969388 at25159f3a6 is FAILURE, not full acceptance:53 terminal
+instrumentation statuses report52PASS/1FAIL before later suites and final gates
+are unexecuted. Existing ChatGiphy case
+`anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent` fails at
+line259, via the credits helper at175: artist text exists in Compose but is not
+displayed. All six cases in that class run; this is not a policy-reader failure.
+
+`full10-first-failure/` retains original output, environment and two failure
+observations. Root opened both PNGs. The in-scope `fresh-failure` shows the actual
+group and a small message viewport with clipped content. Its separate XML has
+Powered by GIPHY visible, with artist/source absent from the visible hierarchy.
+The outer `failure` captures Launcher after the Activity closes and is not
+causal evidence. Neither snapshot proves why the earlier assertion failed.
+
+Fixture-only d74e25ea0 keeps all six identities, the three credit labels and final
+visibility assertions, the180-second class and existing10-second label deadline.
+Inside that deadline it now waits for positive visibility and repeats scrolling
+if necessary while history/credits relayout. No production/build input changed.
+Focused39216609812 and a fresh complete Android10 run must verify the correction;
+Android17 full39213972826 remains independent and was already running at25159.

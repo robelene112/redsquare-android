@@ -1,0 +1,138 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatGiphyPreviewTest:
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateGifFailureCanRetryAndCancelWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'By Owned Chat artist' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$credits(ChatGiphyPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$lambda$32$lambda$31(ChatGiphyPreviewTest.kt:259)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$0V8kMaBamxTYzp8kT-Rs4op-I6A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37(ChatGiphyPreviewTest.kt:189)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$a0P78NmCv54q6Iq7QJ2yFWTH8dM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(nl.davidengelen.redsquare.ChatGiphyPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'By Owned Chat artist' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$credits(ChatGiphyPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$lambda$32$lambda$31(ChatGiphyPreviewTest.kt:259)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$0V8kMaBamxTYzp8kT-Rs4op-I6A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37(ChatGiphyPreviewTest.kt:189)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$a0P78NmCv54q6Iq7QJ2yFWTH8dM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: test=anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatGiphyPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 58.58
+There was 1 failure:
+1) anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(nl.davidengelen.redsquare.ChatGiphyPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'By Owned Chat artist' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$credits(ChatGiphyPreviewTest.kt:175)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37$lambda$32$lambda$31(ChatGiphyPreviewTest.kt:259)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$0V8kMaBamxTYzp8kT-Rs4op-I6A(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise$lambda$40$lambda$39$lambda$38$lambda$37(ChatGiphyPreviewTest.kt:189)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.$r8$lambda$a0P78NmCv54q6Iq7QJ2yFWTH8dM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.exercise(ChatGiphyPreviewTest.kt:123)
+	at nl.davidengelen.redsquare.ChatGiphyPreviewTest.anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent(ChatGiphyPreviewTest.kt:44)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
