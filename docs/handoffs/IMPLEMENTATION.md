@@ -38,17 +38,21 @@ corners/padded text. Default/130% retain the compact row. Rendered fix pending.
 Selected native Home uses isSelected instead of ACTION_CLICK by Compose design;
 observer corrections preserve the same48dp threshold. Earlier failures remain
 retained in docs/evidence/ticket58, never reclassified.
-Plain AppFrameMotionPreviewTest at74b115b28 has no Compose rule, records native
-screenrecord clips/decoded frames with sample timestamps and real system scales,
-and checks Later persistence plus ordinary Back. Source39337266799 completed
-SUCCESS; both source review axes0. Initial motion39337267196 failed before build
-at Google SDK transport/curl92, no app outcome. Next observer awaits flushed
-encoder readiness and sets/restores all3 system animation scales independently.
-A functional PASS is not visual motion acceptance. Production reminder removal
-is still instantaneous; normal/reduced-motion visual inspection and fix remain.
-The original Home-return case additionally walks thread -> author profile -> Chat
--> Home, retaining its original assertions. Complete frame10/17 checks, revised
-rendered acceptance, final full regression/review and signed delivery remain.
+Complete focused frame50babd77b:39338297823(Android17) and39338299700(Android10)
+completedSUCCESS, exactly4 frame+2 plain-native motion methods perSDK. Root checked
+all8actual configs perSDK and opened revised larger-text originals; clipped import
+text is fixed. Both source review axes0. Later persistence, real IME and extended
+thread/profile/Chat/Home assertions pass. This is not full app or signed delivery.
+Motion's functional PASS is not visual acceptance. Root opened all17's normal/
+zero originals: normal frame4(312788us) ->frame5(327933us) jumps80px with no tween.
+The next production slice adds a180ms Home-only expand/shrink wrapper, disabling
+exit actions immediately and respecting real system scale. Native motion remains
+pending. Reading tracer13de2ab37/run39338696534 (separate1method) is running;
+its two source review axes0. All existing deadlines/identities remain unchanged.
+The independent complete catalog is frozen before full execution at
+../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
+34deliberate interruptions,33continuity. Final full regression/review and signed
+UI delivery remain pending. See ticket58 evidence for exact sources and limits.
 No57 code exists yet; its local policy is recorded and ready.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),

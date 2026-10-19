@@ -165,3 +165,29 @@ wallet/backend/zero-send checks. This explicitly checks position across primary
 navigation, in addition to the earlier refresh/recreation proof. Its separate
 180second class keeps existing class budgets unchanged; complete frame/full
 scopes retain it. Native and rendered acceptance remain pending.
+
+Complete focused frame50babd77b:39338297823(Android17) and39338299700(Android10)
+completedSUCCESS, exactly4 frame+2 plain-native motion methods perSDK. Independent
+configuration checks confirm all8 viewport/font/theme cases on eachSDK. Root
+opened the revised200% import originals on17 and6 representative10 originals,
+including130%,200%,full wallet guidance,Chat and restored unsent profile edits.
+The import label now renders fully. This is focused frame proof, not full app or
+physical acceptance. The later reading-position case is separately pending.
+
+Motion visual RED remains independent of functional PASS. Root inspected every
+original normal/zero frame in17's before packet: with all3 settings1, frame4 at
+312788us still shows the old position; frame5 at327933us jumps directly to the
+final position80px higher. No intermediate reading position exists in the7-frame
+recording. The zero-scale5-frame sequence also jumps, as expected. Source still
+removed the entire conditional Surface immediately.
+
+The next production slice keeps a180ms expand/shrink wrapper mounted only on
+Home. Later disables the departing actions immediately and the height collapses
+without blocking input. Leaving Home or opening the IME still removes reminder
+chrome immediately; it does not overlap form-navigation guards. Compose's real
+window motion scale controls the tween. Native normal/zero inspection is pending.
+
+The independent full catalog is frozen before complete execution in
+full-identity-reference.json:473/474 identities,122/123 normal completions,
+34 deliberate interruptions and33 continuity records. It adds only the3 new
+classes/7 methods to accepted38. No new omission or assumption is accepted.

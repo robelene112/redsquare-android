@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -63,24 +66,28 @@ internal fun FrameIconButton(icon: Int, label: String, enabled: Boolean = true, 
 }
 
 @Composable
-internal fun CompactBackupNotice(enabled: Boolean, onBackup: () -> Unit, onLater: () -> Unit,
+internal fun CompactBackupNotice(visible: Boolean, enabled: Boolean, onBackup: () -> Unit, onLater: () -> Unit,
     onImport: () -> Unit) {
-    Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(bottom = AppSpacing.small)
-        .animateContentSize(tween(AppSpacing.transitionMillis)), shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow) {
-        Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
-            Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
-            if (LocalDensity.current.fontScale > 1.3f) {
-                BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.fillMaxWidth())
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
-                    BackupNoticeAction(R.string.later, enabled, onLater)
-                }
-            } else {
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.weight(1f))
-                    BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
-                    BackupNoticeAction(R.string.later, enabled, onLater)
+    AnimatedVisibility(visible = visible,
+        enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
+        exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
+        Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(bottom = AppSpacing.small)
+            .animateContentSize(tween(AppSpacing.transitionMillis)), shape = RoundedCornerShape(16.dp),
+            color = MaterialTheme.colorScheme.surfaceContainerLow) {
+            Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
+                Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
+                if (LocalDensity.current.fontScale > 1.3f) {
+                    BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.fillMaxWidth())
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                        BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
+                        BackupNoticeAction(R.string.later, enabled, onLater)
+                    }
+                } else {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.weight(1f))
+                        BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
+                        BackupNoticeAction(R.string.later, enabled, onLater)
+                    }
                 }
             }
         }

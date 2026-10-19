@@ -1,0 +1,115 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete38 path/class/test catalogs plus exactly4 frame,1 reading-position and2 real-system-motion methods. Existing identities, assertions and class/request deadlines remain; each new class has its own180second bound. Expected catalog is independent of future full results.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket38/full10/identities.json",
+      "sha256": "f512653bf139e77239455af6b238b1692f0a3c1cf3304404e779a4a6581dee53",
+      "previousIdentities": 466,
+      "additional": [
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameReadingPreviewTest",
+          "test": "returningFromChatRetainsTheScrolledFeedThroughRecreation",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameMotionPreviewTest",
+          "test": "normalSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameMotionPreviewTest",
+          "test": "disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 473,
+      "expectedNormalCompletions": 122,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket38/full17/identities.json",
+      "sha256": "8b7a17a5ddc555683cd94b3cfe71b54454752afbf576a98932a633db2fd6c475",
+      "previousIdentities": 467,
+      "additional": [
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFramePreviewTest",
+          "test": "largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameReadingPreviewTest",
+          "test": "returningFromChatRetainsTheScrolledFeedThroughRecreation",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameMotionPreviewTest",
+          "test": "normalSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "app-frame-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppFrameMotionPreviewTest",
+          "test": "disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 474,
+      "expectedNormalCompletions": 123,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    }
+  ],
+  "limits": "Complete58 execution, visual motion acceptance, signed delivery and physical/provider/store gates are not yet claimed."
+}

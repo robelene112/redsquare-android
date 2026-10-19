@@ -323,8 +323,8 @@ class MainActivity : ComponentActivity() {
                         }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
-                        if (backupReminder && homeVisible && !usernameOpen && !keyboardVisible) {
-                            CompactBackupNotice(enabled = wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
+                        if (homeVisible && !usernameOpen && !keyboardVisible) {
+                            CompactBackupNotice(visible = backupReminder, enabled = backupReminder && wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
                                 onBackup = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
                                 onLater = { dismissBackupReminder() },
                                 onImport = { walletExport.clearMessage(); walletOpen = true; walletImport.start() })
