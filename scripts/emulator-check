@@ -168,12 +168,15 @@ verify_group_chat_native() {
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
-    if [[ "${TEST_SCOPE:-full}" == app-frame-motion* ]]; then
+    if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
+        verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
+    elif [[ "${TEST_SCOPE:-full}" == app-frame-motion* ]]; then
         verify_group_chat_native AppFrameMotionPreviewTest 180 app-frame-motion app-frame-motion-evidence
     elif [[ "${TEST_SCOPE:-full}" == app-frame-viewport* ]]; then
         verify_group_chat_native 'AppFramePreviewTest#largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes' 180 app-frame app-frame-evidence
     else
         verify_group_chat_native AppFramePreviewTest 180 app-frame app-frame-evidence
+        verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
         verify_group_chat_native AppFrameMotionPreviewTest 180 app-frame-motion app-frame-motion-evidence
     fi
     if [[ "${TEST_SCOPE:-full}" == app-frame* ]]; then

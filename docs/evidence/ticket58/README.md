@@ -157,3 +157,11 @@ motion observer now sets, reads and independently restores all3 system animation
 scales, awaits real encoder readiness, and rejects reordered frame/sample pairing.
 No existing class/assertion deadline changes. Complete frame runs on both SDKs
 will exercise the revised large-text action layout and these native journeys.
+
+The next bounded reading case uses the existing signed20-row fixture, scrolls to
+reference05, opens Chat, returns Home, then recreates the Activity. It requires the
+same visible post and vertical position, with reminder/selection and unchanged
+wallet/backend/zero-send checks. This explicitly checks position across primary
+navigation, in addition to the earlier refresh/recreation proof. Its separate
+180second class keeps existing class budgets unchanged; complete frame/full
+scopes retain it. Native and rendered acceptance remain pending.

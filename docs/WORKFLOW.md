@@ -137,6 +137,9 @@ complete first-release scope and the established production boundaries.
    recordings, decoded full frames and timestamps for explicit visual inspection.
    A functional PASS does not establish motion acceptance. Complete frame/full
    scopes retain both classes. Settings/state restoration follows Activity closure.
+   `app-frame-reading` and its Android17 variant isolate a separate180second
+   scrolled-feed -> Chat -> feed -> recreation case. Complete frame/full scopes
+   retain this case as well; the prior class deadlines and assertions stay intact.
    For the isolated queued-action viewport tracer, `chat-viewport` and
    `chat-viewport-android17` run only the existing private and group cancellation cases.
    This avoids repeating unrelated queue cases on each viewport correction;

@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -21,11 +21,11 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
     val originalBackend = backends.load()
     val retained = ChatFixtureState(context, listOf("feed.", "profile.", "profilemeta.", "profiledraft."), wallet.publicKey)
     val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
-    val root = JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
-        .asJsonObject.get("archiveRow")
-    val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+    val rows = feedRows ?: JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
+        .asJsonObject.get("archiveRow").let { "[$it]" }
+    val peer = ControlledFeedPeer(rows, archiveResponse = { criteria ->
         when (criteria.get("field1").asString) {
-            "RedSquare" -> "[$root]"
+            "RedSquare" -> rows
             "RedSquareLike" -> "[]"
             else -> error("Unexpected frame browsing request")
         }
