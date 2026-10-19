@@ -63,20 +63,25 @@ The new `agreement-recovery`/Android17 scopes can isolate that recovery class
 with its unchanged180second bound; complete agreement/full retain every case.
 Infrastructure review0. Original RED stays failed with its actual evidence.
 
-Additional native recovery-state coverage58f0bf82a has both reviews0 and runs in
-39248457801: Accepted A cannot approve an unready bundle or required revision B;
+Recovery-state coverage58f0bf82a has both reviews0 and SUCCESS39248457801
+(2PASS/8.954s): Accepted A cannot approve an unready bundle or required revision B;
 damaged local acceptance requires explicit repair, Cancel keeps the draft, and
 only a separate Send publishes. No production code accompanied this coverage.
-A separate process fixture is now prepared: host-observed actual death after
-agreement and saved unsent draft, distinct cold PID, unchanged wallet/backend,
-no auto-publication and deliberate Send without another agreement prompt.
-Device-only scoped originals and independent restoration preserve installation
-state. Existing process identities/deadlines remain. New process proof pending.
+State packet18hash; root inspected the original windows.
+Separate process focus39249169914 at1a88f59cc is SUCCESS: recovery2PASS/9.218s,
+one actual interruption, cold1PASS/4.11s, restore1PASS/0.352s. PID3740 is positively
+gone before3847. The same accepted revision, full-wallet digest, selected backend
+and unsent draft survive; only deliberate Send publishes once. Device-only scoped
+originals, cancellation of only the owned Post job and independent restoration
+preserve installation state. Existing process identities/deadlines remain.
+Process packet21hash; both source/correction reviews0; root opened cold originals.
+Non-preview missing-policy selection is source-reviewed and shares native-tested
+Required(null); no actual non-preview binary UI proof or final owner approval is
+claimed. The specification does not require a separate binary experiment.
 
-See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: manual
-revision/missing/corrupt-record and real process runtime coverage,
+See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete:
 full Android10/17 acceptance, final combined review and signed update remain.
-Finish these independent native controls before final acceptance and publication.
+Freeze production, review the whole diff, then complete full acceptance/delivery.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.

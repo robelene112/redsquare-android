@@ -379,3 +379,21 @@ restoration is independent, including cancellation of only its owned Post job.
 Its host phases keep the shared120second bounds;
 no existing process gate or180second recovery-class assertion changes.
 This new process coverage is not yet runtime acceptance.
+
+Recovery-state focus39248457801 at58f0bf82a is SUCCESS:2PASS/8.954s.
+`state-green10/SHA256SUMS` binds18 originals. Root opened the unready prompt,
+current terms after damaged input, and explicit final publication windows.
+Both source reviews report0findings; no additional production change was needed.
+
+Process focus39249169914 at1a88f59cc is SUCCESS: recovery2PASS/9.218s,
+one deliberate process interruption, cold recovery1PASS/4.11s and independent
+restoration1PASS/0.352s. Original PID3740 is positively gone before cold PID3847.
+The same full-wallet digest, backend, revision and exact unsent draft survive;
+agreement is not asked again, and only deliberate Send publishes once.
+`process-green10/SHA256SUMS` binds21 originals. Root opened cold unsent and
+deliberately published windows. Both process source/correction reviews0.
+These are controlled proofs, not actual final policy approval or a non-preview
+binary UI run. Non-preview missing-policy selection is source-reviewed and
+uses the same Required(null) mechanism exercised by native unready-policy tests.
+The specification does not require a separate binary experiment.
+Full Android10/17, final combined review and signed-preview delivery remain.
