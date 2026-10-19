@@ -108,8 +108,9 @@ absent failure-only wallet captures recur. Current packets are retained under35.
 No app/harness/provider configuration changed from accepted df941.
 
 Combined source/evidence/publication reviews at1d9bb4378 report Spec0,
-documented Standards0 and heuristic0. The bounded delivery is accepted. Update35
-with this progress while keeping its genuine physical/integration gates open.
+documented Standards0 and heuristic0. The bounded delivery is accepted and
+[recorded in35](https://github.com/robelene112/redsquare-android/issues/35#issuecomment-6274902346),
+with its genuine physical/integration gates still open.
 OWNER_INPUTS links ordinary40 and matching timing41, with those limitations
 explicit. No native run or local builder/download remains pending. No further
 unblocked native feature implementation is identified; genuine prerequisites are

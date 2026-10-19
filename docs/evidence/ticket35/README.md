@@ -71,3 +71,6 @@ source/evidence/publication review at1d9bb4378 reports Spec0, documented
 Standards0 and heuristic0. Fresh reviewer public reads also match the actual
 41/40/36 APKs. This bounded candidate delivery is accepted. Parent35 and the
 genuine provider/physical/operations/Play gates remain OPEN.
+
+[Final tracker progress](https://github.com/robelene112/redsquare-android/issues/35#issuecomment-6274902346)
+records the accepted bounded delivery without closing the parent.
