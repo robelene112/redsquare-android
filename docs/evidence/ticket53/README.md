@@ -397,3 +397,22 @@ binary UI run. Non-preview missing-policy selection is source-reviewed and
 uses the same Required(null) mechanism exercised by native unready-policy tests.
 The specification does not require a separate binary experiment.
 Full Android10/17, final combined review and signed-preview delivery remain.
+
+Full Android10 run39250479060 and all three Android17 partitions in39250483054
+are executing ated1ae3b959d3113f677cfd466ebc01cb929927d6. The independently
+signed ordinary38 artifact is prepared from that exact source; its public-safe
+metadata is in `prepared38`. Its actual APK retains the ordinary package/cert,
+review mode, absent Push/Giphy configuration and the same manifest as37 apart
+from version. It is not published and no candidate38 physical update is claimed.
+
+A subsequent source audit found a possible conditional viewport regression:
+the Required-policy row sits outside the group's bounded status area above Cancel.
+Existing default-font Required-policy captures and1.3-font Preview-policy tests
+do not establish their combination. The next single tracer uses actual1.3 font,
+first-use backup guidance and the existing offline history/live-warning conditions,
+requires the complete physical48dp Cancel target, then reviews/cancels terms and
+physically cancels the original queue back to the exact editable draft. Its
+worker remains independently authenticated against the owned peer and unaccepted;
+no production fix or demonstrated enlarged-font failure is claimed yet. Existing
+six queue cases and180second class bounds remain unchanged. Font, scoped files,
+preferences and identity are restored independently.

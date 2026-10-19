@@ -29,7 +29,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
 
-    fun exercise(cancelQueued: Boolean) {
+    fun exercise(cancelQueued: Boolean, largeFont: Boolean = false) {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         val wallets = AndroidWalletStore(context)
@@ -53,7 +53,8 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
         val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
         val previousPolicy = fixture.takeIf { it.exists() }?.readBytes()
         val revision = "owned-queue-${UUID.randomUUID()}"
-        val label = "${kind.capture}-${if (cancelQueued) "cancel" else "resume"}"
+        val label = "${kind.capture}-${if (cancelQueued) "cancel" else "resume"}${if (largeFont) "-font130" else ""}"
+        val font = if (largeFont) EmulatorFontScale(context, File(context.cacheDir, "agreement-${kind.capture}-queue-evidence"), label) else null
         val text = "Keep this ${kind.capture} queued message 😀 ${UUID.randomUUID()}"
         val creation = GroupChat.create(wallet, key.publicKey, groupName, listOf(member.publicKey), 1700000123400)
         val group = GroupChat.readCreation(creation.envelope())
@@ -99,7 +100,10 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
         }
         var primary: Throwable? = null
         try {
+            font?.apply(1.3f)
             retained.prepare()
+            if (largeFont) check(context.getSharedPreferences("wallet-backup-reminders", 0)
+                .edit().putBoolean("hidden:${wallet.publicKey}", false).commit())
             wallets.replace(original, wallet)
             backends.save(SaitoBackend.OWNER)
             // A useful preview can already contain explicit queued intent before final terms exist.
@@ -147,7 +151,10 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                             addProperty("authenticatedOwner", wallet.publicKey in peer.clientKeys)
                         }.toString())
                     }
-                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint)).use {
+                    // Existing offline-warning conditions, independent of the authenticated worker peer.
+                    val activityEndpoint = if (largeFont) java.net.ServerSocket(0, 1, java.net.InetAddress.getByName("127.0.0.1"))
+                        .use { "ws://127.0.0.1:${it.localPort}/wsopen" } else endpoint
+                    ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", activityEndpoint)).use { scenario ->
                       withFailureCapture({ capture("$label-ui-first-failure.png") }) {
                         when (kind) {
                             Kind.POST -> click("New post")
@@ -161,6 +168,14 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         }
                         waitFor("Queued")
                         waitFor("Sending is paused until you review the current publishing terms.")
+                        if (largeFont) {
+                            waitFor(context.getString(R.string.wallet_backup_reminder))
+                            val warnings = if (kind == Kind.GROUP) listOf(R.string.group_history_error, R.string.group_live_error)
+                                else listOf(R.string.chat_load_error)
+                            ui.waitUntil(30_000) { warnings.all { resource -> ui.onAllNodesWithText(context.getString(resource))
+                                .fetchSemanticsNodes().isNotEmpty() } }
+                            physicalTarget(scenario, if (kind == Kind.POST) "Cancel queued post" else "Cancel queued message", "$label-before-review.png")
+                        }
                         touch("Review terms")
                         waitFor("Review publishing terms")
                         ui.onNodeWithText("Accepting does not publish a new draft. Messages you already queued may resume.").performScrollTo().assertIsDisplayed()
@@ -171,7 +186,10 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         assertEquals(workerId, info()?.id)
                         capture("$label-review-cancel-keeps-queued-original.png")
                         if (cancelQueued) {
-                            touch(cancelLabel)
+                            if (largeFont) {
+                                val target = physicalTarget(scenario, cancelLabel, "$label-before-cancel.png")
+                                check(androidx.test.uiautomator.UiDevice.getInstance(instrumentation).click(target.centerX(), target.centerY()))
+                            } else touch(cancelLabel)
                             ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size == 1 }
                             ui.onNode(hasSetTextAction()).assert(
                                 SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text)))
@@ -207,8 +225,29 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                 { manager.cancelUniqueWork(workName).result.get(5, TimeUnit.SECONDS) },
                 { retained.restoreFiles() }, { wallets.replace(wallets.loadExisting(), original) },
                 { backends.save(previousBackend) }, { retained.restorePreferences() },
-                { if (previousPolicy == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previousPolicy) })
+                { if (previousPolicy == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previousPolicy) },
+                { font?.restore() })
         }
+    }
+
+    private fun physicalTarget(scenario: ActivityScenario<MainActivity>, text: String, captureName: String): android.graphics.Rect {
+        val device = androidx.test.uiautomator.UiDevice.getInstance(instrumentation)
+        var top = 0; var bottom = 0
+        scenario.onActivity { activity ->
+            val bars = androidx.core.view.ViewCompat.getRootWindowInsets(activity.window.decorView)
+                ?.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+            top = bars?.top ?: 0; bottom = bars?.bottom ?: 0
+        }
+        val observed = device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text(text)), 5_000L)
+        capture(captureName)
+        var target = requireNotNull(observed) { "Queued action must remain physically reachable: $text" }
+        while (!target.isClickable) target = requireNotNull(target.parent)
+        val bounds = target.visibleBounds
+        val minimum = kotlin.math.round(48 * context.resources.displayMetrics.density).toInt()
+        check(bounds.width() > 0 && bounds.height() >= minimum && bounds.top >= top && bounds.bottom <= device.displayHeight - bottom) {
+            "Full queued action must fit the usable viewport: $bounds, minimum=$minimum, bars=$top/$bottom"
+        }
+        return bounds
     }
 
     private fun click(text: String) {

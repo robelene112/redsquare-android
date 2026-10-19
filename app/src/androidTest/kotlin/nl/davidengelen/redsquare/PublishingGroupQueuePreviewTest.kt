@@ -8,6 +8,8 @@ class PublishingGroupQueuePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     @Test fun unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled() =
         PublishingQueueFixture(ui, PublishingQueueFixture.Kind.GROUP).exercise(cancelQueued = true)
+    @Test fun requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings() =
+        PublishingQueueFixture(ui, PublishingQueueFixture.Kind.GROUP).exercise(cancelQueued = true, largeFont = true)
     @Test fun explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt() =
         PublishingQueueFixture(ui, PublishingQueueFixture.Kind.GROUP).exercise(cancelQueued = false)
 }
