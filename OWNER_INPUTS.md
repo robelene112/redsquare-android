@@ -21,6 +21,12 @@ Noteer alleen de status of een verwijzing naar een afgesproken private locatie.
 | Herstelkopie van de bestaande Android-ondertekeningssleutel | Door eigenaar te bevestigen, buiten Git. | Continuïteit van updates en latere Play App Signing-inrichting. De agent bewaart de bestaande ondertekeningsidentiteit. |
 | Releasegebieden en doelgroep/leeftijd | Nog te bevestigen. | Definitieve winkelinstellingen en passend beleid. De app wordt niet stilzwijgend als 18+ aangemerkt. |
 
+## Latere branding
+
+| Nodig | Status | Waarvoor |
+| --- | --- | --- |
+| Eigen productnaam | Nog te kiezen in de latere brandingbespreking #38. De huidige appnaam Red Square blijft voorlopig staan. | De afgesproken richting is een eigen naam met een herkenbare verwijzing naar RedSquare op Saito. Dit is geen nieuwe releaseblokkade. |
+
 ## Beleidskeuzes en echte uitvoering
 
 De agent bereidt leesbare voorstellen en bijbehorende appschermen voor. Deze

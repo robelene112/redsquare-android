@@ -201,9 +201,74 @@ class PublisherViewportPreviewTest {
         val bounds = target.visibleBounds
         val minimum = kotlin.math.round(48 * instrumentation.targetContext.resources.displayMetrics.density).toInt()
         val (top, bottom) = requireNotNull(windowInsets())
-        check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.top >= top &&
-            bounds.bottom <= device.displayHeight - bottom) { "Full $text action must remain reachable: $bounds, insets=$top/$bottom" }
+        if (!(bounds.width() >= minimum && bounds.height() >= minimum && bounds.top >= top &&
+            bounds.bottom <= device.displayHeight - bottom)) {
+            val failure = IllegalStateException("Full $text action must remain reachable: $bounds, insets=$top/$bottom")
+            try { recordWindowMetrics(text, bounds) }
+            catch (diagnostic: Throwable) { failure.addSuppressed(diagnostic) }
+            throw failure
+        }
         return bounds
+    }
+
+    /** Separate raw accessibility and actual app-window snapshots, without collecting user content. */
+    private fun recordWindowMetrics(label: String, visibleBounds: android.graphics.Rect) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
+        val record = com.google.gson.JsonObject().apply {
+            addProperty("action", label)
+            addProperty("uiautomatorVisibleBounds", visibleBounds.toShortString())
+            addProperty("displayWidth", device.displayWidth)
+            addProperty("displayHeight", device.displayHeight)
+            addProperty("density", context.resources.displayMetrics.density)
+            addProperty("fontScale", context.resources.configuration.fontScale)
+            addProperty("accessibilityObservedAt", android.os.SystemClock.uptimeMillis())
+        }
+        val active = instrumentation.uiAutomation.rootInActiveWindow
+        record.addProperty("activeRootIsApp", active?.packageName?.toString() == context.packageName)
+        if (active?.packageName?.toString() == context.packageName) {
+            val rectangle = android.graphics.Rect()
+            active.getBoundsInScreen(rectangle)
+            record.addProperty("accessibilityRootBounds", rectangle.toShortString())
+            active.window?.let { window ->
+                window.getBoundsInScreen(rectangle)
+                record.addProperty("accessibilityWindowBounds", rectangle.toShortString())
+            }
+            var node = active.findAccessibilityNodeInfosByText(label).singleOrNull { it.text?.toString() == label }
+            while (node != null && !node.isClickable) node = node.parent
+            node?.let {
+                it.getBoundsInScreen(rectangle)
+                record.addProperty("rawClickableBounds", rectangle.toShortString())
+            }
+        }
+        val windows = com.google.gson.JsonArray()
+        instrumentation.runOnMainSync {
+            record.addProperty("appWindowsObservedAt", android.os.SystemClock.uptimeMillis())
+            fun describe(view: android.view.View, depth: Int): com.google.gson.JsonObject {
+                val location = IntArray(2).also(view::getLocationOnScreen)
+                val rectangle = android.graphics.Rect()
+                return com.google.gson.JsonObject().apply {
+                    addProperty("viewClass", view.javaClass.name)
+                    addProperty("width", view.width); addProperty("height", view.height)
+                    addProperty("elevation", view.elevation)
+                    addProperty("x", location[0]); addProperty("y", location[1])
+                    addProperty("hasWindowFocus", view.hasWindowFocus())
+                    addProperty("isShown", view.isShown)
+                    addProperty("globallyVisible", view.getGlobalVisibleRect(rectangle))
+                    addProperty("globalVisibleBounds", rectangle.toShortString())
+                    if (view is android.view.ViewGroup && depth < 4) {
+                        add("children", com.google.gson.JsonArray().apply {
+                            for (index in 0 until view.childCount) add(describe(view.getChildAt(index), depth + 1))
+                        })
+                    }
+                }
+            }
+            WindowInspector.getGlobalWindowViews().forEach { windows.add(describe(it, 0)) }
+        }
+        record.add("appWindows", windows)
+        val folder = File(context.cacheDir, "publisher-viewport-evidence").apply { mkdirs() }
+        File(folder, "physical-$label-window-metrics.json").writeText(record.toString())
     }
 
     private fun tap(bounds: android.graphics.Rect) {

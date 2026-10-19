@@ -225,3 +225,35 @@ receive fresh hosted compilation/runtime verification. The independent expected
 full catalog is committed before full execution: accepted53 plus8 new terminal
 methods,466/467 identities,119/120 normal class completions, unchanged34 deliberate
 interruptions and33 continuity records. No completed54 full result is claimed.
+
+## Expanded regressions at00f812d6c
+
+17 run39288568048 is SUCCESS: publisher3/3 (52.306s), profile2/2 (15.937s),
+request1/1 (7.803s), availability1/1 (18.141s), viewport1/1 (16.111s), reader1/1
+(19.518s). All exits/marker pass. Actual1.3 font/restoration, real dialog IME,
+physical Cancel/Compose, long URL normalized only at handoff, and exact unsent
+Chat preservation execute. Root opened the long-request and unconfigured Owner
+profile originals. No real destination or operational readiness is established.
+
+10 run39288563205 is FAILURE: publisher3/3 (16.979s), profile2/2 (15.605s),
+request1/1 (8.665s), availability1/1 (17.375s) pass. Viewport fails13.51s on the
+unchanged48dp physical Done target after controlled email handoff. Earlier physical
+IME Cancel/Compose pass. Root opened the failure original: the button appears
+fully drawn, while UiAutomator reports only27px height. All three10 XML captures
+already give app-root bounds288x608 versus320x640 PNGs;17 reports320x640. A
+read-only review finds the same discrepancy in accepted53's API29 reader, so it
+predates the new form and is not evidence of a new keyboard-induced shrink.
+
+Pinned Compose1.11.4 documents a pre-S elevation/accessibility bug and caps dialog
+elevation at8dp. UiAutomator2.4.0 visibleBounds and hierarchy both clip raw nodes
+to AccessibilityWindowInfo bounds, so those two observations are not independent.
+No exact cause is claimed. The next10 check retains the same48dp threshold,
+physical actions and deadlines while adding failure-only raw node/window and
+actual same-process View geometry/elevation snapshots. It records no user text.
+A diagnostic exception is suppressed under the original assertion failure.
+
+Signed39 is prepared, not published, from00f812d6c. Canonical build succeeds4m36s;
+actual APK/package/signature/manifest/DEX configuration checks pass. It has the
+established certificate, no push/GIF configuration and unchanged manifest versus38
+except version. It is not accepted54 or physical-device proof. The remaining
+geometry observation, complete fresh10/17 and final publication are outstanding.
