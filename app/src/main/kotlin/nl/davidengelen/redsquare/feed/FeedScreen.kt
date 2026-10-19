@@ -512,7 +512,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
 @Composable
 private fun RowScope.FeedTab(label: Int, selected: Boolean, onClick: () -> Unit) {
     Column(Modifier.weight(1f)) {
-        Tab(selected = selected, onClick = onClick, text = { Text(stringResource(label), maxLines = 1) })
+        Tab(selected = selected, onClick = onClick) {
+            Text(stringResource(label), Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
+                style = MaterialTheme.typography.labelLarge, maxLines = 2)
+        }
         Box(Modifier.fillMaxWidth().height(2.dp).background(
             if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))
     }

@@ -18,7 +18,29 @@ import org.junit.Test
 class AppFramePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination() {
+    @Test fun firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination() = withFirstUseFeed("first-use") {
+        ui.onNode(hasText("Home") and isSelected()).assertIsDisplayed()
+        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+        ui.onNodeWithText("Import an existing wallet").assertIsDisplayed()
+        val post = ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+            .fetchSemanticsNode().boundsInRoot
+        val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
+        assertTrue("First-use reading must begin in the upper half of the viewport", post.top < viewport.height / 2)
+        capture("first-use-content-first.png")
+    }
+
+    @Test fun homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder() = withFirstUseFeed("home-return") {
+        ui.onNodeWithText("Native Red Square reference post").performClick()
+        ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+        ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
+        ui.onNode(hasText("Home") and isSelected()).performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+        ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+        capture("home-return-preserved-reminder.png")
+    }
+
+    private fun withFirstUseFeed(name: String, block: () -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -30,7 +52,10 @@ class AppFramePreviewTest {
         val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
         val root = JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
             .asJsonObject.get("archiveRow")
-        val peer = ControlledFeedPeer("[$root]")
+        val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
+            check(criteria.get("field1").asString == "RedSquare")
+            "[$root]"
+        })
         var primary: Throwable? = null
         try {
             retained.prepare()
@@ -39,18 +64,11 @@ class AppFramePreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                    withFailureCapture({ capture("first-use-failure.png") }) {
+                    withFailureCapture({ capture("$name-failure.png") }) {
                         ui.waitUntil(15_000) {
                             ui.onAllNodesWithText("Native Red Square reference post").fetchSemanticsNodes().isNotEmpty()
                         }
-                        ui.onNode(hasText("Home") and isSelected()).assertIsDisplayed()
-                        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
-                        ui.onNodeWithText("Import an existing wallet").assertIsDisplayed()
-                        val post = ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
-                            .fetchSemanticsNode().boundsInRoot
-                        val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
-                        assertTrue("First-use reading must begin in the upper half of the viewport", post.top < viewport.height / 2)
-                        capture("first-use-content-first.png")
+                        block()
                         assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())
                         assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty()); peer.assertHealthy()
