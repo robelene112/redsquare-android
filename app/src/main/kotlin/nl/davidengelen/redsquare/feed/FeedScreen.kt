@@ -38,6 +38,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
@@ -45,6 +46,10 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
+import nl.davidengelen.redsquare.ui.AppNavigation
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.PrimaryDestination
+import nl.davidengelen.redsquare.ui.FeedMoreActions
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import java.text.DateFormat
@@ -52,9 +57,11 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
+@OptIn(ExperimentalLayoutApi::class)
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
     lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
+    onHomeVisibility: (Boolean) -> Unit = {},
     onWalletMetadata: suspend (SaitoWallet, SaitoWallet) -> Unit,
     onDrawn: () -> Unit) {
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -302,177 +309,194 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
     }
     LaunchedEffect(recovered) { if (recovered) { delay(3_000); recovered = false } }
-    if (reviewingChat && wallet != null) {
-        CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
-            nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
-            key(chatAlertGeneration) {
-                nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, modifier, onWalletMetadata,
-                    initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
-                    onInitialDestinationClosed = { chatAlertUri = null }) { reviewingChat = false; chatAlertUri = null }
+    val home = !reviewingChat && !reviewingQueue && !reviewingChanges && !composing && navigation.isEmpty()
+    val primary = when {
+        reviewingChat -> PrimaryDestination.CHAT
+        navigation.firstOrNull() is BrowseDestination.Search -> PrimaryDestination.SEARCH
+        navigation.firstOrNull() is BrowseDestination.Notifications -> PrimaryDestination.NOTIFICATIONS
+        (navigation.firstOrNull() as? BrowseDestination.Profile)?.author == wallet?.publicKey && wallet != null -> PrimaryDestination.PROFILE
+        else -> PrimaryDestination.HOME
+    }
+    val currentWalletKey by rememberUpdatedState(wallet?.publicKey)
+    SideEffect { onHomeVisibility(home) }
+    val content: @Composable () -> Unit = content@{
+        val childModifier = Modifier.fillMaxSize()
+        if (reviewingChat && wallet != null) {
+            CompositionLocalProvider(nl.davidengelen.redsquare.media.LocalGiphyConfiguration provides
+                nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration.current) {
+                key(chatAlertGeneration) {
+                    nl.davidengelen.redsquare.chat.ChatScreen(wallet, endpoint, backend, childModifier, onWalletMetadata,
+                        initialContact = chatAlert?.privateContact, initialGroup = chatAlert?.groupId,
+                        onInitialDestinationClosed = { chatAlertUri = null }) { reviewingChat = false; chatAlertUri = null }
+                }
             }
+            return@content
         }
-        return
-    }
-    if (reviewingQueue && wallet != null) {
-        QueuedPostsScreen(wallet.publicKey, backend, modifier) { reviewingQueue = false }
-        return
-    }
-    if (reviewingChanges && wallet != null) {
-        SavedAuthorActionsScreen(wallet, endpoint, backend, modifier) { reviewingChanges = false; refresh++ }
-        return
-    }
-    if (composing && wallet != null) {
-        PostComposerScreen(wallet, endpoint, backend, modifier) { composing = false; refresh++ }
-        return
-    }
-    when (val destination = navigation.lastOrNull()) {
-        is BrowseDestination.Notifications -> {
-            NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), modifier, onBack = { back() },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) },
-                onReference = { navigation.add(BrowseDestination.Reference(it)) })
-            return
+        if (reviewingQueue && wallet != null) {
+            QueuedPostsScreen(wallet.publicKey, backend, childModifier) { reviewingQueue = false }
+            return@content
         }
-        is BrowseDestination.Search -> {
-            SearchScreen(wallet, endpoint, backend, destination.view, modifier,
-                knownAccounts = following?.accounts.orEmpty() + navigationMemory.visitedProfiles,
-                onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) }, social = social, quotes = quotes,
-                onQuote = { navigation.add(BrowseDestination.Quote(it)) })
-            return
+        if (reviewingChanges && wallet != null) {
+            SavedAuthorActionsScreen(wallet, endpoint, backend, childModifier) { reviewingChanges = false; refresh++ }
+            return@content
         }
-        is BrowseDestination.Profile -> {
-            ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, modifier,
-                onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
-            return
+        if (composing && wallet != null) {
+            PostComposerScreen(wallet, endpoint, backend, childModifier) { composing = false; refresh++ }
+            return@content
         }
-        is BrowseDestination.Reference -> {
-            NotificationReferenceScreen(wallet, endpoint, backend, destination.target, quotes, modifier,
-                onBack = { back() }, onIdentity = { openProfile(it) },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social,
-                onQuote = { navigation.add(BrowseDestination.Quote(it)) })
-            return
-        }
-        is BrowseDestination.Conversation -> {
-            ConversationScreen(wallet, endpoint, backend, destination.post, modifier,
-                onBack = { back(); refresh++ }, onIdentity = { openProfile(it) },
-                onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
-            return
-        }
-        is BrowseDestination.Quote -> {
-            if (wallet != null) {
-                PostComposerScreen(wallet, endpoint, backend, modifier, quote = destination.post) { back(); refresh++ }
-                return
+        when (val destination = navigation.lastOrNull()) {
+            is BrowseDestination.Notifications -> {
+                NotificationsScreen(wallet, endpoint, backend, posts, following?.accounts.orEmpty(), childModifier, onBack = { back() },
+                    onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                    onIdentity = { openProfile(it) },
+                    onReference = { navigation.add(BrowseDestination.Reference(it)) })
+                return@content
             }
+            is BrowseDestination.Search -> {
+                SearchScreen(wallet, endpoint, backend, destination.view, childModifier,
+                    knownAccounts = following?.accounts.orEmpty() + navigationMemory.visitedProfiles,
+                    onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                    onIdentity = { openProfile(it) }, social = social, quotes = quotes,
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                return@content
+            }
+            is BrowseDestination.Profile -> {
+                ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, childModifier,
+                    onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
+                    onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                return@content
+            }
+            is BrowseDestination.Reference -> {
+                NotificationReferenceScreen(wallet, endpoint, backend, destination.target, quotes, childModifier,
+                    onBack = { back() }, onIdentity = { openProfile(it) },
+                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social,
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                return@content
+            }
+            is BrowseDestination.Conversation -> {
+                ConversationScreen(wallet, endpoint, backend, destination.post, childModifier,
+                    onBack = { back(); refresh++ }, onIdentity = { openProfile(it) },
+                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                return@content
+            }
+            is BrowseDestination.Quote -> {
+                if (wallet != null) {
+                    PostComposerScreen(wallet, endpoint, backend, childModifier, quote = destination.post) { back(); refresh++ }
+                    return@content
+                }
+            }
+            null -> Unit
         }
-        null -> Unit
+        Column(childModifier) {
+            if (queueWarning) Text(stringResource(R.string.post_queue_storage_error))
+            val noInternet = !internet.available || (failed && !internet.validated)
+            when {
+                noInternet -> ConnectionBanner(stringResource(R.string.no_internet), false)
+                failed -> ConnectionBanner(stringResource(R.string.server_unavailable), false)
+                recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
+            }
+            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                FeedTab(R.string.feed_title, !followingView) { followingView = false }
+                FeedTab(R.string.following_title, followingView) { followingView = true }
+                TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
+                    Text(stringResource(R.string.feed_refresh))
+                }
+            }
+            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween) {
+                Button(enabled = wallet != null, onClick = { composing = true },
+                    contentPadding = PaddingValues(horizontal = 16.dp)) {
+                    Text(stringResource(R.string.post_new), style = MaterialTheme.typography.labelMedium)
+                }
+                FeedMoreActions(wallet != null, onQueue = { reviewingQueue = true }, onChanges = { reviewingChanges = true })
+            }
+            val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
+                (!followingView || post.author in following?.accounts.orEmpty()) }
+            val visiblePostIds = visiblePosts.map { it.id }.toSet()
+            val feedInteractive = canReportDrawn && LocalWindowInfo.current.isWindowFocused
+            LaunchedEffect(feedInteractive, cacheReady, personal?.ready, visiblePostIds, position) {
+                if (feedInteractive && cacheReady && personal?.ready == true && visiblePostIds.isNotEmpty()) {
+                    snapshotFlow {
+                        val layout = position.layoutInfo
+                        layout.visibleItemsInfo.any { item -> item.key in visiblePostIds &&
+                            minOf(item.offset + item.size, layout.viewportEndOffset) > maxOf(item.offset, layout.viewportStartOffset) }
+                    }.first { it }
+                    withFrameNanos { }; withFrameNanos { }; onDrawn()
+                }
+            }
+            PersonalControlsStatus(personal)
+            FollowingStatus(following)
+            if (followingView) {
+                Text(stringResource(R.string.following_local), style = MaterialTheme.typography.bodySmall)
+                if (following == null || following.loading) Text(stringResource(R.string.following_loading))
+                else if (following.ready && following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
+                else if (following.ready && visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
+            }
+            if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+            when {
+                failed -> Text(stringResource(R.string.feed_error), style = MaterialTheme.typography.bodySmall)
+                posts.isEmpty() && loading && !walletUnavailable -> Text(stringResource(R.string.feed_loading))
+                posts.isEmpty() && !internet.available -> Text(stringResource(R.string.feed_offline_empty))
+                unreadablePage -> Text(stringResource(R.string.feed_unreadable))
+                posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
+            }
+            // Keep a restored list position until the asynchronous cache read has finished.
+            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position) {
+                items(visiblePosts, key = { it.id }) { post ->
+                    Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            GeneratedProfilePicture(post.author, Modifier.size(48.dp).clip(CircleShape).clickable { openProfile(post.author) })
+                            Column(Modifier.weight(1f)) {
+                                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                    Text(registeredIdentity(post.author).name, Modifier.weight(1f).clickable { openProfile(post.author) },
+                                        maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
+                                    Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH)
+                                        .format(Date(post.createdAt)), Modifier.padding(start = 8.dp),
+                                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                                Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
+                            style = MaterialTheme.typography.bodyLarge)
+                        PostImages(post.images, backend)
+                        PostVideo(post, backend)
+                        QuoteContent(post, quotes, backend)
+                            }
+                        }
+                        SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
+                    }
+                    HorizontalDivider()
+                }
+            }
+            else Spacer(Modifier.weight(1f))
+        }
     }
     Column(modifier) {
-        if (queueWarning) Text(stringResource(R.string.post_queue_storage_error))
-        val noInternet = !internet.available || (failed && !internet.validated)
-        when {
-            noInternet -> ConnectionBanner(stringResource(R.string.no_internet), false)
-            failed -> ConnectionBanner(stringResource(R.string.server_unavailable), false)
-            recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
-        }
-        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            FeedTab(R.string.feed_title, !followingView) { followingView = false }
-            FeedTab(R.string.following_title, followingView) { followingView = true }
-            TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
-                Text(stringResource(R.string.feed_refresh))
-            }
-        }
-        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-            Button(enabled = wallet != null, onClick = { composing = true }, contentPadding = PaddingValues(horizontal = 8.dp)) {
-                Text(stringResource(R.string.post_new), style = MaterialTheme.typography.labelMedium)
-            }
-            TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
-                enabled = wallet != null, onClick = { reviewingQueue = true }) {
-                Text(stringResource(R.string.post_queue_title), style = MaterialTheme.typography.labelMedium)
-            }
-            TextButton(modifier = Modifier.weight(1.5f), contentPadding = PaddingValues(horizontal = 2.dp),
-                enabled = wallet != null, onClick = { reviewingChanges = true }) {
-                Text(stringResource(R.string.author_saved_changes), style = MaterialTheme.typography.labelMedium)
-            }
-        }
-        val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
-            (!followingView || post.author in following?.accounts.orEmpty()) }
-        val visiblePostIds = visiblePosts.map { it.id }.toSet()
-        val feedInteractive = canReportDrawn && LocalWindowInfo.current.isWindowFocused
-        LaunchedEffect(feedInteractive, cacheReady, personal?.ready, visiblePostIds, position) {
-            if (feedInteractive && cacheReady && personal?.ready == true && visiblePostIds.isNotEmpty()) {
-                snapshotFlow {
-                    val layout = position.layoutInfo
-                    layout.visibleItemsInfo.any { item -> item.key in visiblePostIds &&
-                        minOf(item.offset + item.size, layout.viewportEndOffset) > maxOf(item.offset, layout.viewportStartOffset) }
-                }.first { it }
-                withFrameNanos { }; withFrameNanos { }; onDrawn()
-            }
-        }
-        PersonalControlsStatus(personal)
-        FollowingStatus(following)
-        if (followingView) {
-            Text(stringResource(R.string.following_local), style = MaterialTheme.typography.bodySmall)
-            if (following == null || following.loading) Text(stringResource(R.string.following_loading))
-            else if (following.ready && following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
-            else if (following.ready && visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
-        }
-        if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
-        when {
-            failed -> Text(stringResource(R.string.feed_error), style = MaterialTheme.typography.bodySmall)
-            posts.isEmpty() && loading && !walletUnavailable -> Text(stringResource(R.string.feed_loading))
-            posts.isEmpty() && !internet.available -> Text(stringResource(R.string.feed_offline_empty))
-            unreadablePage -> Text(stringResource(R.string.feed_unreadable))
-            posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
-        }
-        // Keep a restored list position until the asynchronous cache read has finished.
-        if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position) {
-            items(visiblePosts, key = { it.id }) { post ->
-                Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        GeneratedProfilePicture(post.author, Modifier.size(48.dp).clip(CircleShape).clickable { openProfile(post.author) })
-                        Column(Modifier.weight(1f)) {
-                            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                                Text(registeredIdentity(post.author).name, Modifier.weight(1f).clickable { openProfile(post.author) },
-                                    maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
-                                Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH)
-                                    .format(Date(post.createdAt)), Modifier.padding(start = 8.dp),
-                                    style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            }
-                            Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1,
-                                overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
-                        style = MaterialTheme.typography.bodyLarge)
-                    PostImages(post.images, backend)
-                    PostVideo(post, backend)
-                    QuoteContent(post, quotes, backend)
+        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) { content() }
+        if (!WindowInsets.isImeVisible && !composing && !reviewingQueue && !reviewingChanges &&
+            navigation.lastOrNull() !is BrowseDestination.Quote) {
+            HorizontalDivider()
+            AppNavigation(primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
+                if (destination == primary && (reviewingChat || home || navigation.size == 1)) return@select
+                val owner = wallet?.publicKey ?: return@select
+                scope.launch {
+                    formNavigation.navigate {
+                        if (owner != currentWalletKey) return@navigate false
+                        reviewingChat = false; reviewingQueue = false; reviewingChanges = false
+                        chatAlertUri = null
+                        navigation.clear()
+                        when (destination) {
+                            PrimaryDestination.HOME -> Unit
+                            PrimaryDestination.SEARCH -> navigation.add(BrowseDestination.Search(navigationMemory.searchView))
+                            PrimaryDestination.NOTIFICATIONS -> navigation.add(BrowseDestination.Notifications)
+                            PrimaryDestination.CHAT -> reviewingChat = true
+                            PrimaryDestination.PROFILE -> navigation.add(BrowseDestination.Profile(owner, navigationMemory.ownProfileView))
                         }
+                        true
                     }
-                    SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
                 }
-                HorizontalDivider()
-            }
-        }
-        else Spacer(Modifier.weight(1f))
-        HorizontalDivider()
-        NavigationBar(containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
-            NavigationBarItem(selected = false, enabled = wallet != null,
-                onClick = { navigation.add(BrowseDestination.Search()) },
-                icon = { Icon(painterResource(R.drawable.ic_search), null) },
-                label = { Text(stringResource(R.string.search_title), style = MaterialTheme.typography.labelSmall) })
-            NavigationBarItem(selected = false, enabled = wallet != null,
-                onClick = { navigation.add(BrowseDestination.Notifications) },
-                icon = { Icon(painterResource(R.drawable.ic_notifications), null) },
-                label = { Text(stringResource(R.string.notifications_title), style = MaterialTheme.typography.labelSmall) })
-            NavigationBarItem(selected = false, enabled = wallet != null, onClick = { reviewingChat = true },
-                icon = { Icon(painterResource(R.drawable.ic_chat), null) },
-                label = { Text(stringResource(R.string.chat_title), style = MaterialTheme.typography.labelSmall) })
-            NavigationBarItem(selected = false, enabled = wallet != null,
-                onClick = { wallet?.let { openProfile(it.publicKey) } },
-                icon = { Icon(painterResource(R.drawable.ic_profile), null) },
-                label = { Text(stringResource(R.string.profile_own), style = MaterialTheme.typography.labelSmall) })
+            })
         }
     }
 }

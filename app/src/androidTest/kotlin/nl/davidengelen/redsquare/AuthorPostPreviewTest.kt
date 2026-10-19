@@ -166,6 +166,7 @@ class AuthorPostPreviewTest {
                     waitFor("Profile")
                     ui.onNodeWithText("Back").performClick()
                     waitFor("New post")
+                    ui.onNodeWithText("More feed actions").performClick()
                     ui.onNodeWithText("Saved post changes").performClick()
                     waitFor("Delete post")
                     assertEquals(3, peer.transactions.size)

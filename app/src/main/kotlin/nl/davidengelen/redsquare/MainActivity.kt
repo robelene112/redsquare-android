@@ -77,6 +77,9 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
+import nl.davidengelen.redsquare.ui.AppHeader
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.CompactBackupNotice
 import nl.davidengelen.redsquare.policy.PublishingAgreementController
 import nl.davidengelen.redsquare.policy.PublishingAgreementDialog
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
@@ -148,6 +151,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var homeVisible by remember { mutableStateOf(true) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
             var personalControlsOpen by remember { mutableStateOf(false) }
             var usernameOpen by remember { mutableStateOf(false) }
@@ -305,55 +309,25 @@ class MainActivity : ComponentActivity() {
                 // chrome returns when typing ends without dismissing any reminders.
                 val keyboardVisible = WindowInsets.isImeVisible
                 Surface(Modifier.fillMaxSize()) {
-                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(horizontal = 12.dp, vertical = 4.dp)) {
-                        if (!keyboardVisible) Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                            Box(Modifier.size(18.dp).background(androidx.compose.ui.graphics.Color(0xffda243d)))
-                            Text(stringResource(R.string.app_name), Modifier.weight(1f).padding(start = 8.dp),
-                                style = MaterialTheme.typography.titleLarge, maxLines = 1)
-                            TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
-                                onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true } }) {
-                                Text(stringResource(R.string.wallet), style = MaterialTheme.typography.labelMedium)
-                            }
-                            TextButton(contentPadding = PaddingValues(horizontal = 6.dp),
-                                onClick = { if (!postNavigation.transitioning) settingsOpen = true },
-                                enabled = backendReady && !savingBackend && !postNavigation.transitioning) {
-                                Text(stringResource(R.string.settings), style = MaterialTheme.typography.labelMedium)
-                            }
-                        }
+                    Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).padding(vertical = 4.dp)) {
+                        if (!keyboardVisible) AppHeader(backend?.domain, homeVisible && !usernameOpen,
+                            walletEnabled = !postNavigation.transitioning,
+                            settingsEnabled = backendReady && !savingBackend && !postNavigation.transitioning,
+                            onWallet = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
+                            onSettings = { settingsOpen = true })
                         if (updateAvailable && !keyboardVisible) {
                             Text(stringResource(R.string.preview_update_available))
                             TextButton(onClick = {
                                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PreviewUpdates.REVIEW_PAGE)))
                             }) { Text(stringResource(R.string.view_update)) }
                         }
-                        if (!keyboardVisible) backend?.let { Text(stringResource(R.string.selected_server, it.domain),
-                            Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
-                        if (backupReminder && !keyboardVisible) {
-                            OutlinedCard(Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
-                            Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
-                            Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.titleSmall)
-                            Text(stringResource(R.string.wallet_backup_reminder_detail), style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            Row(Modifier.fillMaxWidth()) {
-                                TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true } }) {
-                                    Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
-                                }
-                                TextButton(modifier = Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    onClick = { if (!postNavigation.transitioning) dismissBackupReminder() }) {
-                                    Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
-                                }
-                                TextButton(modifier = Modifier.weight(2f), contentPadding = PaddingValues(horizontal = 2.dp),
-                                    enabled = wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
-                                    onClick = { if (!postNavigation.transitioning) { walletExport.clearMessage(); walletOpen = true; walletImport.start() } }) {
-                                    Text(stringResource(R.string.wallet_import_existing), style = MaterialTheme.typography.labelMedium)
-                                }
-                            }
-                            }
-                            }
+                        if (backupReminder && homeVisible && !usernameOpen && !keyboardVisible) {
+                            CompactBackupNotice(enabled = wallet != null && !walletExport.busy && !walletImport.busy && !postNavigation.transitioning,
+                                onBackup = { walletExport.clearMessage(); walletImport.clearMessage(); walletOpen = true },
+                                onLater = { dismissBackupReminder() },
+                                onImport = { walletExport.clearMessage(); walletOpen = true; walletImport.start() })
                         }
                         if (backendReady && backend == null) Text(stringResource(R.string.backend_load_error))
                         if (failed) {
@@ -365,7 +339,7 @@ class MainActivity : ComponentActivity() {
                                 CompositionLocalProvider(LocalPostNavigation provides postNavigation) {
                                 val usernameEndpoint = FeedEndpoints.fromIntent(intent, backend!!)
                                 UsernameScreen(wallet!!, backend!!, usernameEndpoint,
-                                    RegistryAuthority.fromIntent(intent, usernameEndpoint), Modifier.weight(1f)) {
+                                    RegistryAuthority.fromIntent(intent, usernameEndpoint), Modifier.weight(1f).padding(horizontal = AppSpacing.screen)) {
                                     usernameOpen = false
                                 }
                                 }
@@ -384,6 +358,7 @@ class MainActivity : ComponentActivity() {
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
                                             lifecycle, Modifier.weight(1f), notificationRoutes = notificationRoutes,
                                             allowPushRoute = feedUnobstructed,
+                                            onHomeVisibility = { homeVisible = it },
                                             canReportDrawn = feedUnobstructed && !postNavigation.transitioning,
                                             onWalletMetadata = { previous, updated ->
                                                 check(wallet === previous && updated.publicKey == previous.publicKey)

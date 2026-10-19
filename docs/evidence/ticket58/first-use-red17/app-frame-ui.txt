@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFramePreviewTest:
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'Home' (ignoreCase: false)) && (Selected = 'true') is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination$lambda$4$lambda$3$lambda$2(AppFramePreviewTest.kt:46)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jTm7mstiNLLxC0Gdzf4mXaaIpQs(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination(AppFramePreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: stream=
+Error in firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination(nl.davidengelen.redsquare.AppFramePreviewTest):
+java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'Home' (ignoreCase: false)) && (Selected = 'true') is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination$lambda$4$lambda$3$lambda$2(AppFramePreviewTest.kt:46)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jTm7mstiNLLxC0Gdzf4mXaaIpQs(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination(AppFramePreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.938
+There was 1 failure:
+1) firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination(nl.davidengelen.redsquare.AppFramePreviewTest)
+java.lang.AssertionError: Assert failed: The component with (Text + InputText + EditableText contains 'Home' (ignoreCase: false)) && (Selected = 'true') is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination$lambda$4$lambda$3$lambda$2(AppFramePreviewTest.kt:46)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jTm7mstiNLLxC0Gdzf4mXaaIpQs(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination(AppFramePreviewTest.kt:42)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

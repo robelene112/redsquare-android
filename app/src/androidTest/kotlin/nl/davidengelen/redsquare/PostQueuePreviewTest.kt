@@ -276,8 +276,9 @@ class PostQueuePreviewTest {
             ui.onNodeWithText("Send").performClick()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Cancel queued post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Back").performClick()
-            ui.waitUntil(10_000) { ui.onAllNodes(hasText("Queued posts")).fetchSemanticsNodes().isNotEmpty() }
-            ui.onNodeWithText("Queued posts").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasText("More feed actions")).fetchSemanticsNodes().isNotEmpty() }
+            ui.onNodeWithText("More feed actions").performClick()
+                ui.onNodeWithText("Queued posts").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasText("Manage this queued work from the feed")).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Queued").assertExists()
             ui.onNodeWithText("saito.davidengelen.nl").assertExists()

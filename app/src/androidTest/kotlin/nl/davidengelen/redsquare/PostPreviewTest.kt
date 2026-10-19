@@ -709,6 +709,7 @@ class PostPreviewTest {
                 waitFor("Wallet imported")
                 org.junit.Assert.assertEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
+                ui.onNodeWithText("More feed actions").performClick()
                 ui.onNodeWithText("Queued posts").performClick()
                 waitFor("No queued posts")
                 ui.onNodeWithText("Back").performClick()

@@ -17,4 +17,6 @@ internal sealed interface BrowseDestination {
 internal class FeedNavigationMemory : ViewModel() {
     val destinations = mutableStateListOf<BrowseDestination>()
     val visitedProfiles = mutableStateListOf<String>()
+    val searchView = SearchViewState()
+    val ownProfileView = ProfileViewState()
 }
