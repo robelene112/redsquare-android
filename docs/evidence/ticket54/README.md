@@ -129,3 +129,26 @@ draft. It uses a separate180second class bound, added to focused/full scopes
 without widening or removing existing gates. The exact Android email assertion
 contract is shared unchanged between the actual native journeys; handoff counts
 remain local. Profile production entry is still absent and actual RED is pending.
+
+## Contextual profile user-report RED and first minimum
+
+At `d03c12410`,17 run39283002253 has preceding publisher3/3 PASS (33.574s).
+Its separate profile class reaches another account's profile, then fails the
+20second observation for missing Report user to publisher (22.612s total). Root
+opened the original Owner failure PNG. Official and reader checks did not run.
+
+Standards found the fixture used an incorrect profile-metadata family. It now
+captures/restores actual `profilemeta.` and AtomicFile siblings. Expected server
+URLs are independent specification literals, and context/editor observations
+scroll before display assertions rather than assuming the longer report form
+fits one viewport. The same20second observations and exact assertions remain.
+
+The first production minimum offers publisher reporting for another profile,
+freezes its public key/server in the existing retained ProfileViewState, and
+uses the configured safety channel with a distinct title/subject and displayed
+public context. It explains the separation from signed backend post reports.
+Ready forms retain the shared explicit email action; unconfigured forms show
+availability and target context before collecting text. Nothing sends a Saito
+user-report transaction or changes existing backend post-report handling.
+Fresh checks/reviews remain pending; request routes, remaining preservation/
+accessibility checks, full10/17 and signed delivery remain outstanding.

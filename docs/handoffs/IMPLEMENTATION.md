@@ -90,11 +90,17 @@ cases plus the original reader; complete markers/exits pass. Publisher runtimes
 tracer covers exact target/server on both backends, Cancel0 and recreation before
 controlled email. It has a separate180second class, retained in focused/full
 scopes. Exact email assertions are shared unchanged, counts stay per journey.
-Profile production is absent; its first actual RED is pending. API status can lag uploaded
+First profile RED17 run39283002253 atd03c12410 reaches another account's
+profile then times out20s on missing Report user to publisher; prior3 publisher
+cases pass. The first minimum now freezes the profile's public key/server in
+retained ProfileViewState and prepares a distinct publisher safety-channel email.
+Fixture ownership now captures actual profilemeta.; URL expectations are
+independent literals and context/editor display checks scroll first. Fresh
+GREEN/reviews for this minimum are pending. API status can lag uploaded
 actual artifacts and has intermittently returned502; do not infer app outcomes
 from stale queue/empty-step data. Download completion must precede inspection.
 
-No54 full acceptance/publication: contextual profile user-report, HTTPS request
+No54 full acceptance/publication: accepted contextual profile user-report, HTTPS request
 route, missing/invalid configuration, actual1.3font/keyboard and Chat-draft
 preservation coverage, full Android10/17 and signed delivery remain. See
 [the54 evidence index](../evidence/ticket54/README.md) for all RED/GREEN limits.

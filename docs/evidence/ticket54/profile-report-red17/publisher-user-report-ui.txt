@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherUserReportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublisherUserReportPreviewTest:
+INSTRUMENTATION_STATUS: test=userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherUserReportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7$openReport(PublisherUserReportPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7(PublisherUserReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.$r8$lambda$awnrYlRKOez2eJvI9KpjuzkX-5E(PublisherUserReportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation(PublisherUserReportPreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: stream=
+Error in userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation(nl.davidengelen.redsquare.PublisherUserReportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7$openReport(PublisherUserReportPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7(PublisherUserReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.$r8$lambda$awnrYlRKOez2eJvI9KpjuzkX-5E(PublisherUserReportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation(PublisherUserReportPreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: test=userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.612
+There was 1 failure:
+1) userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation(nl.davidengelen.redsquare.PublisherUserReportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7$openReport(PublisherUserReportPreviewTest.kt:80)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation$lambda$9$lambda$8$lambda$7(PublisherUserReportPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.$r8$lambda$awnrYlRKOez2eJvI9KpjuzkX-5E(PublisherUserReportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherUserReportPreviewTest.userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation(PublisherUserReportPreviewTest.kt:72)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

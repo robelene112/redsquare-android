@@ -2,6 +2,9 @@ package nl.davidengelen.redsquare.feed
 
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.AccountControls
+import nl.davidengelen.redsquare.policy.PublisherContactPurpose
+import nl.davidengelen.redsquare.policy.PublisherEmailDialog
+import nl.davidengelen.redsquare.policy.PublisherUserReport
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
@@ -33,6 +36,7 @@ internal class ProfileViewState {
     var tab by mutableStateOf(ProfileTab.POSTS)
     var editing by mutableStateOf(false)
     var history = AndroidProfileCache.SavedProfile(emptyList(), emptyList(), false)
+    var publisherReport by mutableStateOf<PublisherUserReport?>(null)
 }
 
 private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
@@ -234,6 +238,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     if (profileCacheWarning) Text(stringResource(R.string.profile_details_cache_warning), style = MaterialTheme.typography.bodySmall)
                     FollowingStatus(following)
                     AccountControls(author)
+                    if (wallet != null && wallet.publicKey != author) TextButton(onClick = {
+                        view.publisherReport = PublisherUserReport(author, backend)
+                    }) { Text(stringResource(R.string.publisher_report_user_action)) }
                     Row {
                         ProfileTab.entries.forEach { item ->
                             TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
@@ -274,5 +281,8 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 HorizontalDivider()
             }
         }
+    }
+    view.publisherReport?.let { report ->
+        PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
     }
 }

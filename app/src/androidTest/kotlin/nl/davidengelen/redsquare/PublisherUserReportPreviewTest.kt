@@ -34,7 +34,7 @@ class PublisherUserReportPreviewTest {
         val originalBackend = backends.load()
         val retained = ChatFixtureState(context, listOf("publisher-routes-fixture.json",
             "publishing-policy-fixture.json", "feed.", "conversation.", "profile.",
-            "profiledetails.", "personal.${wallet.publicKey}."), wallet.publicKey)
+            "profilemeta.", "personal.${wallet.publicKey}."), wallet.publicKey)
         val root = instrumentation.context.assets.open("native-thread-reference.json").bufferedReader().use {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root")
         }
@@ -64,7 +64,9 @@ class PublisherUserReportPreviewTest {
                 .writeText("""{"enforce":true,"ready":false}""")
             wallets.replace(originalWallet, wallet)
             peer.start().use { server ->
-                for (backend in SaitoBackend.entries) {
+                val servers = listOf(SaitoBackend.OWNER to "https://saito.davidengelen.nl",
+                    SaitoBackend.OFFICIAL to "https://saito.io")
+                for ((backend, serverUrl) in servers) {
                     backends.save(backend)
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
@@ -76,6 +78,16 @@ class PublisherUserReportPreviewTest {
                             ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
                             ui.onNodeWithText(author).performClick()
                             waitFor("Posts", action = true)
+                            fun shownContext() {
+                                ui.waitUntil(20_000) {
+                                    ui.onAllNodesWithText("Email: safety@publisher.example")
+                                        .fetchSemanticsNodes().isNotEmpty()
+                                }
+                                for (text in listOf("Email: safety@publisher.example", "Publisher: Angels’ Foundry",
+                                    "Public account: $author", "Selected server: $serverUrl")) {
+                                    ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+                                }
+                            }
                             fun openReport() {
                                 ui.waitUntil(20_000) {
                                     ui.onAllNodes(hasText("Report user to publisher") and hasClickAction() and isEnabled())
@@ -83,10 +95,8 @@ class PublisherUserReportPreviewTest {
                                 }
                                 ui.onNode(hasScrollAction()).performScrollToNode(hasText("Report user to publisher"))
                                 ui.onNodeWithText("Report user to publisher").assertIsDisplayed().performClick()
-                                waitFor("Email: safety@publisher.example")
-                                ui.onNodeWithText("Publisher: Angels’ Foundry").assertIsDisplayed()
-                                ui.onNodeWithText("Public account: $author").assertIsDisplayed()
-                                ui.onNodeWithText("Selected server: ${backend.webUrl}").assertIsDisplayed()
+                                shownContext()
+                                ui.onNode(hasSetTextAction()).performScrollTo()
                                 ui.waitUntil(20_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
                             }
                             fun external() = Intents.getIntents().filter {
@@ -98,18 +108,17 @@ class PublisherUserReportPreviewTest {
                             ui.onNodeWithText("Cancel").performClick()
                             assertEquals(before, external().size)
                             openReport()
-                            val description = "Please review this public account on ${backend.webUrl}"
+                            val description = "Please review this public account on $serverUrl"
                             ui.onNode(hasSetTextAction()).performTextReplacement(description)
                             activity.recreate()
-                            waitFor("Email: safety@publisher.example")
-                            ui.onNodeWithText("Public account: $author").assertIsDisplayed()
-                            ui.onNodeWithText("Selected server: ${backend.webUrl}").assertIsDisplayed()
+                            shownContext()
+                            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
                             ui.onNode(hasSetTextAction()).assertTextContains(description)
                             ui.onNodeWithText("Compose email").performClick()
                             waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
                             assertEquals(before + 1, external().size)
                             assertPublisherEmailDraft(external().last(), "safety@publisher.example", "Red Square user report",
-                                "App: Red Square 0.1.0\nPublic account: $author\nSelected server: ${backend.webUrl}\n\nDescription:\n$description")
+                                "App: Red Square 0.1.0\nPublic account: $author\nSelected server: $serverUrl\n\nDescription:\n$description")
                             capture("${backend.id}-exact-report-context.png")
                             ui.onNodeWithText("Done").performClick()
                             assertTrue("Report preparation must preserve complete wallet options",

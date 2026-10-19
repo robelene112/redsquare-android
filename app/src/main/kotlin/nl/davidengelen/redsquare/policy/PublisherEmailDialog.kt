@@ -29,14 +29,29 @@ import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 
 @Composable
-internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, onClose: () -> Unit) {
+internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: PublisherUserReport? = null,
+    onClose: () -> Unit) {
+    require(report == null || purpose == PublisherContactPurpose.SAFETY)
     val context = LocalContext.current
     val routes = remember(context) { PublisherRoutes.load(context) }
     val email = routes.email(purpose)
+    val title = stringResource(if (report != null) R.string.publisher_user_report else purpose.title)
+    val accountText = report?.let { stringResource(R.string.publisher_report_account, it.publicKey) }
+    val serverText = report?.let { stringResource(R.string.publisher_report_server, it.backend.webUrl) }
     if (email == null) {
         AlertDialog(onDismissRequest = onClose,
-            title = { Text(stringResource(purpose.title)) },
-            text = { Text(stringResource(purpose.unavailable)) },
+            title = { Text(title) },
+            text = { Column(Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(if (report != null) R.string.publisher_user_report_unavailable else purpose.unavailable))
+                if (report != null) SelectionContainer {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(stringResource(R.string.publisher_name))
+                        Text(requireNotNull(accountText))
+                        Text(requireNotNull(serverText))
+                    }
+                }
+            } },
             confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.publisher_done)) } })
         return
     }
@@ -44,8 +59,9 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, onClose: () 
     var draftRequested by rememberSaveable { mutableStateOf(false) }
     var handoffFailed by rememberSaveable { mutableStateOf(false) }
     val appContext = stringResource(R.string.publisher_app_context, BuildConfig.VERSION_NAME)
-    val subject = stringResource(purpose.subject)
-    val body = stringResource(R.string.publisher_email_body, appContext, description)
+    val subject = stringResource(if (report != null) R.string.publisher_user_report_subject else purpose.subject)
+    val publicContext = listOfNotNull(appContext, accountText, serverText).joinToString("\n")
+    val body = stringResource(R.string.publisher_email_body, publicContext, description)
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         val keyboard = LocalSoftwareKeyboardController.current
@@ -60,7 +76,7 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, onClose: () 
         }
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
-                Text(stringResource(purpose.title),
+                Text(title,
                     Modifier.fillMaxWidth().padding(20.dp).semantics { heading() },
                     style = MaterialTheme.typography.titleLarge)
                 HorizontalDivider()
@@ -71,8 +87,12 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, onClose: () 
                             Text(stringResource(R.string.publisher_name))
                             Text(stringResource(R.string.publisher_email_destination, email))
                             Text(appContext)
+                            accountText?.let { Text(it) }
+                            serverText?.let { Text(it) }
                         }
                     }
+                    if (report != null) Text(stringResource(R.string.publisher_user_report_explanation),
+                        style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.publisher_email_explanation), style = MaterialTheme.typography.bodyMedium)
                     OutlinedTextField(description, onValueChange = { description = it },
                         label = { Text(stringResource(R.string.publisher_description)) },

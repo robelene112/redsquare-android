@@ -25,4 +25,11 @@
     <string name="publisher_privacy">Publisher privacy</string>
     <string name="publisher_privacy_subject">Red Square privacy inquiry</string>
     <string name="publisher_privacy_unavailable">Publisher privacy contact is not available in this preview. Contact details are still being prepared.</string>
+    <string name="publisher_report_user_action">Report user to publisher</string>
+    <string name="publisher_user_report">Publisher user report</string>
+    <string name="publisher_user_report_subject">Red Square user report</string>
+    <string name="publisher_report_account">Public account: %1$s</string>
+    <string name="publisher_report_server">Selected server: %1$s</string>
+    <string name="publisher_user_report_explanation">This prepares a user report for the app publisher. It does not submit a post report to the selected server. No content is removed by opening an email draft.</string>
+    <string name="publisher_user_report_unavailable">User reporting to the publisher is not available in this preview. Contact details are still being prepared.</string>
 </resources>

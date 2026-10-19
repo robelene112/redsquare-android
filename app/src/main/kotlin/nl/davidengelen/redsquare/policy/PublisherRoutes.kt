@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.saito.SaitoBackend
 import java.io.File
 
 /** Public owner-approved configuration only. No actual contact is configured yet. */
@@ -52,3 +53,6 @@ internal enum class PublisherContactPurpose(@StringRes val entry: Int, @StringRe
     PRIVACY(R.string.publisher_privacy_entry, R.string.publisher_privacy_summary, R.string.publisher_privacy,
         R.string.publisher_privacy_subject, R.string.publisher_privacy_unavailable),
 }
+
+/** Immutable public context captured by the originating profile, independently of later UI loads. */
+internal data class PublisherUserReport(val publicKey: String, val backend: SaitoBackend)
