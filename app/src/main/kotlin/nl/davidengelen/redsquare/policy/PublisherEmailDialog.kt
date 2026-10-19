@@ -69,6 +69,9 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
         val window = (view.parent as DialogWindowProvider).window
         val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
         SideEffect {
+            // Full-screen surfaces need no shadow or additional shadow surface insets.
+            (view.parent as android.view.View).elevation = 0f
+            if (window.decorView.elevation != 0f) window.setElevation(0f)
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = lightBars
                 isAppearanceLightNavigationBars = lightBars

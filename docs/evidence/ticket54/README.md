@@ -257,3 +257,27 @@ actual APK/package/signature/manifest/DEX configuration checks pass. It has the
 established certificate, no push/GIF configuration and unchanged manifest versus38
 except version. It is not accepted54 or physical-device proof. The remaining
 geometry observation, complete fresh10/17 and final publication are outstanding.
+
+## Actual Android10 geometry and shadowless full-screen correction
+
+At235666326,10 run39290493647 reproduces the same physical Done failure
+(13.095s); the preceding7 new methods pass. The retained diagnostic observes
+320x640 display, actual accessibility root and actual focused View bounds, but
+AccessibilityWindowInfo is[-32,-32][288,608]. The focused DecorView elevation
+is16px and its DialogLayout8px. The raw clickable node lookup returns no unique
+result, so no raw-button geometry is claimed. Font1.3 is applied and restored.
+
+The minimal production correction removes unnecessary shadow elevation from
+PolicyCenter and PublisherEmailDialog, both already full-screen surfaces. It
+zeroes the child before the Window setter. The Window setter is guarded so text
+recomposition does not repeatedly recreate the surface. API22 Window.setElevation
+is supported by min29; API29 PhoneWindow recalculates surface insets without
+preserving old values. Sources: [Window API](https://developer.android.com/reference/android/view/Window#setElevation(float)),
+[API29 PhoneWindow](https://android.googlesource.com/platform/frameworks/base/+/android-10.0.0_r47/core/java/com/android/internal/policy/PhoneWindow.java).
+This changes no padding, size,48dp assertion, physical action or deadline. Fresh
+runtime checks must establish whether it corrects the observed accessibility
+alignment. Actual business/provider/physical/store acceptance remains pending.
+
+Prepared39 retains the earlier production code and must not be published as the
+corrected candidate. A fresh reserved ordinary build follows final verification;
+38 remains the public version. No immutable artifact is overwritten.

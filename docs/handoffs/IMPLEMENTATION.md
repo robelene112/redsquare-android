@@ -88,21 +88,38 @@ cases pass. Profile/request/reader do not execute on10. No app defect or precise
 timing cause is established. The fixture now waits for the actual enabled,
 displayed Settings action within the same20seconds.
 
-Current regression additions cover all four Settings routes with absent/unready/
-missing/invalid/nonboolean configuration; profile safety unavailability without
-falling back to support on both backends; actual1.3 font/own-dialog IME/physical
-Cancel and Compose, long request URL and exact unsent Chat preservation. Each
-new class retains its own180second bound in focused/full scopes. Browser handoff
-normalizes the HTTPS scheme only, preserving the configured display and remaining
-URI. Android documents case-sensitive intent matching; this is source-supported
-correctness, not an observed browser failure. New checks/reviews are pending.
+Expanded focused17 run39288568048 at00f812d6c is SUCCESS: all8 new methods
+and the reader pass, including actual1.3 font, real focused-dialog IME, physical
+Cancel/Compose/request actions and exact unsent Chat preservation. Expanded10
+run39288563205 passes the preceding7 methods, then fails the48dp Done target
+observation after controlled email handoff (27px reported height). Root opened
+the originals. API29 XML app roots are288x608 versus320x640 PNGs, already in
+earlier IME captures and accepted53's reader;17 reports full320x640. UiAutomator's
+visibleBounds and hierarchy both clip to AccessibilityWindowInfo and are not
+independent observations. No exact cause is established.
 
-Finish focused regressions, then freeze production and run fresh full10+17 with
-all original identities, independent new-method catalog, two-axis reviews and
-ordinary signed39 delivery. Do not rebuild immutable38. Update OWNER_INPUTS.md
-only with actual new release status. Actual contacts/policy/operations/provider/
-physical/store gates remain open. Do not stop at this intermediate slice while
-independent authorized work remains.
+Current235666326 adds only a failure-time geometry snapshot: raw accessibility
+node/window bounds and actual same-process View tree dimensions/location/global
+visible rectangles/elevation, without user content. Original48dp assertions,
+physical taps and bounds remain. Diagnostic exceptions remain suppressed beneath
+the original failure. Focused10 run39290493647 is pending. Both review axes
+through235666326 report0. Pinned Compose documents a pre-S elevation/accessibility
+bug and caps dialog elevation8dp; do not infer that this proves a specific cause
+or weaken assertions without actual geometry evidence.
+
+Signed39/0.1.39 is prepared, NOT published, from00f812d6c. Canonical build
+passes4m36s. Actual APK hash7c93932e7618b738b7cfcf013cf5e6a8275875cfe04e4cdde61bfef364df5efa,
+established certificate, nondebug/nonprofileable/no automatic backup, min29/target36,
+actual DEX review=true and Push/GIF options absent. Manifest matches38 except
+version. Public38 remains live. Prepared39 is not accepted54 or a Pixel result.
+
+Finish the bounded geometry observation/correction, then freeze production and
+run fresh full10+17 with the independent accepted53+8 catalog (466/467 identities,
+119/120 class completions, unchanged34 interruptions/33 continuity records),
+two-axis combined reviews and ordinary signed delivery. Do not rebuild immutable38
+or publish39 before acceptance. Update OWNER_INPUTS.md only with actual release
+status. Actual contacts/policy/operations/provider/physical/store gates remain
+open. Do not stop at this intermediate slice while independent work remains.
 
 ## Accepted issue52: offline draft privacy/safety reader
 
