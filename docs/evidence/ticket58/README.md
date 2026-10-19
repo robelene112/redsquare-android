@@ -86,3 +86,9 @@ shows a48x48 clickable Wallet target. No app cause is inferred. The fixture now
 captures inside the actual matrix case before cleanup, retains visual and native
 clickable bounds, and positively waits for the main window after theme selection.
 The original minimum/viewport assertion is retained while diagnosing its signal.
+
+For further viewport diagnosis, app-frame-viewport and app-frame-viewport-android17
+select only the new larger-text method at the same native seam, with the existing
+180second bound. App-frame and final full scopes retain the complete class,
+including all preceding methods. This avoids rerunning the three unchanged green
+journeys for every viewport probe; a focused pass is not complete acceptance.
