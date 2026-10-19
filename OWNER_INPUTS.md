@@ -62,7 +62,9 @@ De gewone [beta40](https://davidengelen.nl/redsquare/) en aparte
 [timingbuild41](https://davidengelen.nl/redsquare/performance/) staan klaar met
 dezelfde appcode. Testinstallaties op Android10 en17 bevestigen gescheiden
 wallets/opslag en behoud van de gewone testidentiteit. Dit bewijst de fysieke
-Pixel-controle nog niet. De telefoontests blijven open onder #35; de precieze
+Pixel-controle nog niet. De telefoontests blijven open onder #36
+(PIXEL_CONTINUITY, PIXEL_CACHED en PIXEL_FRESH). #35 bewaart het afgeronde
+ontwikkelcheckpoint. De precieze
 meetwijze staat in `docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
 
 De timing-app gebruikt een eigen wallet. Gebruik hiervoor geen herstelbestand van

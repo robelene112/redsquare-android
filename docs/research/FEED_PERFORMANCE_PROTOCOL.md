@@ -2,7 +2,8 @@
 
 Ticket #4 prepares repeatable launch measurements. The accepted targets belong
 on the owner's Pixel 7 running Android 17, not an emulator. Physical runs remain
-in final device acceptance (#35), consistent with reviewing the completed app.
+in release36 PIXEL_CACHED/PIXEL_FRESH, transferred from native35 by the owner
+instruction of2026-10-19 to park phone checks until final review.
 
 Timing starts when Android starts the cold activity after process termination.
 Timing ends when a rendered feed with visible posts can accept scrolling and
@@ -58,7 +59,9 @@ wallets and cached data regardless of whether a timing target has been met.
 
 ## Scheduling for final owner review
 
-Physical runs are consolidated in issue #35, as explicitly recorded in #4
-and #35, to match the owner's request to review the completed app. Ticket #4
+Physical runs were consolidated from4 into35, then parked under open36
+PIXEL_CACHED/PIXEL_FRESH on2026-10-19. Issue35 retains the completed native
+development checkpoint;36 also tracks physical update continuity as
+PIXEL_CONTINUITY. This matches final owner review of the completed app. Ticket #4
 prepares instrumentation and retains limited emulator diagnostics. This does
 not satisfy or reduce either Pixel target. No physical result has been recorded.

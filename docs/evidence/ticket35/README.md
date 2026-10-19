@@ -1,6 +1,7 @@
 # Integrated physical acceptance preparation35
 
-Issue35 remains OPEN. Ordinary40 and matching timing41 use the same frozen app
+Native35 development is accepted; actual release checks are parked under36 by
+the owner instruction of2026-10-19. Ordinary40 and matching timing41 use the same frozen app
 source df941ab6c70118275f4b257220905f5bed93d33d. Complete current-code Android10/17
 acceptance, source equivalence and ordinary40 delivery are retained in
 [accepted54](../ticket54/README.md). This increment changes no app, harness or
@@ -74,3 +75,23 @@ genuine provider/physical/operations/Play gates remain OPEN.
 
 [Final tracker progress](https://github.com/robelene112/redsquare-android/issues/35#issuecomment-6274902346)
 records the accepted bounded delivery without closing the parent.
+
+## Owner-directed development completion, 2026-10-19
+
+All native35 prerequisites are closed. The owner explicitly parks phone checks
+while development finishes. Integrated native acceptance on ordinary40/timing41
+above is complete: full54 minimum-OS/themes/polish/recovery/update gates, two-axis
+review, signed/public delivery and separate signed35/41 installation/isolation.
+Earlier parent-open statements describe the former acceptance staging. The
+separate About38 follow-up and its prepared42/43 candidates remain pending their
+current verification and publication; those artifacts are not accepted by this
+checkpoint.
+
+Actual Pixel in-place wallet/cache/draft/backend/relaunch continuity, five cached
+cold launches each≤2000ms and five fresh isolated launches each≤5000ms remain
+unchecked as `PIXEL_CONTINUITY`, `PIXEL_CACHED` and `PIXEL_FRESH` in
+[release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+The same protocol, stable Wi-Fi/normal animations/no debugger/positive isolated
+PID absence and candidate/configuration matching remain mandatory. Never erase
+or import the ordinary wallet for timing. No physical/ARM64/Play proof is inferred.
+Native35 can close for this reviewed development stage; parent1/36 remain open.

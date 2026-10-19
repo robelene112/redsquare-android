@@ -106,11 +106,13 @@ and never export/enroll keys as a side effect of a build.
 
 See the concrete [Play release package](release/PLAY_RELEASE_PACKAGE.md) and
 [packaging evidence](evidence/ticket49/README.md). Publisher, policy, operational,
-physical and final submission gates remain open under36/35.
+physical and final submission gates remain open under36. Native35 retains the
+accepted development preparation.
 
 ## Final owner check on Pixel 7
 
-Tracked in #35, after the owner requested app review at completion:
+Tracked in open36 PIXEL_CONTINUITY, transferred from native35 by the owner
+instruction of2026-10-19 to park phone checks until app review:
 
 1. Install the completed signed preview from the stable page.
 2. Record its public receiving address and create a wallet backup through the
