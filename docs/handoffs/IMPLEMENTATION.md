@@ -107,9 +107,13 @@ the same production. No new full-suite exception is introduced.
 The independent identity reference is recorded during execution, not as a
 pre-execution plan. It separates deliberately killed setup from terminal-success
 identities: current source expects458/API10 and459/API17, unchanged114/115 normal
-completions,34 deliberate interruptions and33continuity records. Outcomes remain
-to be observed. #53 remains incomplete: complete current-source Android10/17
-acceptance, final combined review and signed publication remain. Production
+completions,34 deliberate interruptions and33continuity records. Android17 outcome is now observed: all three jobs SUCCESS, exact459PASS,
+115 normal completions,34 deliberate interruptions and33 PASS continuity records.
+Both packet reviews report0 findings before the subsequent22 selected-original/
+observation additions; final combined review will cover those too. Full17 packet
+is retained at8e68601ff; root opened16 originals. Android10 is still running.
+#53 remains incomplete: complete current-source Android10 acceptance, final
+combined review and signed publication remain. Production
 changes require fresh full acceptance on both versions.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
