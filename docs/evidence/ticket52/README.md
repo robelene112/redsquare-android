@@ -219,3 +219,13 @@ published and independently verified. Publication/source residual review is
 pending; child52 remains open until that review completes. Physical/configured/
 approved-policy/operations/store criteria remain open, and no final policy was
 published or agreed through this reader.
+
+## Final state
+
+Publication residual reviews at097d3a5a4 report Standards0/Spec0. Independent
+ordinary curl page/metadata/actual-APK checks reproduce the public packet. A
+default urllib403 also existed before37 and is not the recovered manifest-mode
+error; no provider workaround was attempted. Child52 is verified CLOSED at
+https://github.com/robelene112/redsquare-android/issues/52#issuecomment-6263214380 .
+Ordinary37 is live; parent36/spec1 and all actual external/physical/final policy
+criteria remain open. Continue with53 sequentially, using OWNER_INPUTS.md.

@@ -28,5 +28,9 @@ installation/update, latency or final store acceptance follows.
 Public ordinary page: https://davidengelen.nl/redsquare/ .
 APK SHA25608f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4.
 Certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
-Parent36 and remaining owner inputs stay open. Final publisher-source/publication
-residual review is pending at initial retention.
+Parent36 and remaining owner inputs stay open. Final publisher-source/publication residual review at097d3a5a4 reports
+Standards0/Spec0. Both reviewers independently reproduce all997 packet hashes;
+Standards independently downloads the actual public APK and repeats every
+retained curl resource hash. Both observe the separate default urllib403, which
+was already present before publication; no provider workaround is attempted.
+Child52 is verified CLOSED after acceptance comment6263214380.
