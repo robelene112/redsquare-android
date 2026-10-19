@@ -49,7 +49,7 @@ internal class ChatReactionStore(private val context: Context, private val walle
     }
 
     fun prepare(transaction: SaitoTransaction): Saved = synchronized(SaitoLocalState.lock) {
-        assertSelected()
+        assertPublishingAllowed()
         val previous = load()
         check(previous.status !in listOf(Status.UNKNOWN, Status.SUBMITTED))
         val event = PrivateChatLike.read(wallet, contact, transaction.envelope())
@@ -65,7 +65,7 @@ internal class ChatReactionStore(private val context: Context, private val walle
     }
 
     fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
-        assertSelected()
+        assertPublishingAllowed()
         val previous = load()
         check(previous.transaction?.id == id && previous.status in listOf(Status.UNKNOWN, Status.SUBMITTED))
         // Retrying an existing operation must not append another toggle to the reaction history.
@@ -77,8 +77,13 @@ internal class ChatReactionStore(private val context: Context, private val walle
         check(AndroidBackendStore(context).load() == backend)
     }
 
-    fun claim(id: String) = synchronized(SaitoLocalState.lock) {
+    fun assertPublishingAllowed() = synchronized(SaitoLocalState.lock) {
+        nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
         assertSelected()
+    }
+
+    fun claim(id: String) = synchronized(SaitoLocalState.lock) {
+        assertPublishingAllowed()
         check(load().let { it.transaction?.id == id && it.status == Status.UNKNOWN })
     }
 

@@ -58,7 +58,10 @@ minimum now gates Send, preparation/retry, atomic claim and Relay enqueue, while
 leaving automatic read-only reconciliation before enforcement. Private GREEN39236393624 at957f1e448 is SUCCESS:7PASS across both
 classes, both source reviews0. Root inspected the deliberate forwarding original.
 The next tracer changes the ready revision before a private Like and preserves
-the previous private message assertions. Reaction RED pending.
+the previous private message assertions. Reaction RED39237283864 at e13d6f212 is6PASS/1FAIL, waiting
+for terms after Like under the new revision; original shows Reaction forwarded.
+The minimum gates explicit toggle/retry before preparation and rechecks current
+permission at protected preparation, raw claim and Relay enqueue. GREEN pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other

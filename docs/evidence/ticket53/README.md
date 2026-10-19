@@ -204,3 +204,16 @@ message. Cancel keeps it unliked, Accept emits neither leg, and a deliberate
 Like must forward exactly one matching reaction original per leg. The previous
 private-message assertions remain. Reaction RED is pending; no reaction policy
 implementation precedes it.
+
+Reaction tracere13d6f212 has actual RED39237283864: agreement3PASS/13.709s,
+surfaces3PASS/1FAIL in35.166s. The private-message journey completes, then
+line132 waits for absent terms after Like under the changed ready revision.
+Root opened the original with1like, Unlike and Reaction forwarded.
+`reaction-red10/SHA256SUMS` binds10 originals. No reaction policy gate
+preceded this result. Tracer standards review reports0findings.
+
+The reaction minimum makes both toggle and retry require an explicit callback
+after synchronous busy state and before preparation. Protected preparation,
+retry, raw claim and Relay enqueue independently check current durable
+permission with the existing wallet/backend guard. Incoming reactions and
+read-only history remain independent. Runtime GREEN remains pending.

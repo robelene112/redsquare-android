@@ -57,6 +57,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val scope = rememberCoroutineScope()
     val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
     var newContact by remember(wallet.publicKey) { mutableStateOf("") }
@@ -397,7 +398,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             TextButton(enabled = personal?.ready == true && reactions.editable,
-                                onClick = { reactions.toggle(message) }) {
+                                onClick = { reactions.toggle(message, publishing::beforePublishing) }) {
                                 Text(stringResource(if (wallet.publicKey in likedBy) R.string.chat_unlike else R.string.chat_like))
                             }
                             TextButton(enabled = replies.replyTo != null && replyPrefix != null, onClick = { replies.replyTo?.invoke(message) }) {
@@ -419,7 +420,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             }
             if (reactions.failed && !reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_error))
             if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
-                TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry() }) {
+                TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry(publishing::beforePublishing) }) {
                     Text(stringResource(R.string.chat_reaction_retry))
                 }
             }

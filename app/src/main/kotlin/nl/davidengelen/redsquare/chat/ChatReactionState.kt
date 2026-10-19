@@ -34,9 +34,9 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
         publication.withLock { saved = withContext(Dispatchers.IO) { operation() } }
     }
 
-    fun toggle(target: PrivateChatMessage) {
+    fun toggle(target: PrivateChatMessage, beforePublishing: suspend () -> Boolean) {
         if (!editable) return
-        send {
+        send(beforePublishing) {
             val candidate = withContext(Dispatchers.IO) {
                 PrivateChatLike.create(wallet, contact, target, System.currentTimeMillis())
             }
@@ -45,24 +45,25 @@ internal class ChatReactionState(context: Context, private val wallet: SaitoWall
         }
     }
 
-    fun retry() {
+    fun retry(beforePublishing: suspend () -> Boolean) {
         if (!retryable) return
         val original = requireNotNull(saved.transaction)
-        send {
+        send(beforePublishing) {
             withContext(NonCancellable) { publishSaved { store.prepareRetry(original.id) } }
             original
         }
     }
 
-    private fun send(prepare: suspend () -> SaitoTransaction) {
+    private fun send(beforePublishing: suspend () -> Boolean, prepare: suspend () -> SaitoTransaction) {
         busy = true
         scope.launch {
             try {
+                if (!beforePublishing()) return@launch
                 val candidate = prepare()
                 withContext(Dispatchers.IO) {
                     submitChatTransaction(wallet, endpoint, contact, candidate, ChatSubmissionCallbacks(
                         claim = { store.claim(candidate.id) },
-                        assertSelected = { store.assertSelected() },
+                        assertSelected = { store.assertPublishingAllowed() },
                         submitted = {
                             publishSaved { store.record(candidate.id, ChatReactionStore.Status.SUBMITTED) }
                         },
