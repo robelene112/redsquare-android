@@ -1,0 +1,91 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameMotionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFrameMotionPreviewTest:
+INSTRUMENTATION_STATUS: test=normalSystemMotionKeepsDismissalAndRestoredNavigationUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameMotionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Window animation scale must match the current system preference expected:<1.0> but was:<0.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$lambda$11(AppFrameMotionPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.$r8$lambda$lmJz2TyRkX2MZqpNQi9Q43U-kcI(AppFrameMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$5$lambda$4$lambda$3(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$ZUGMjM_GRI-pZqhFBt-hhAfd4fI(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:41)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal(AppFrameMotionPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$default(AppFrameMotionPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.normalSystemMotionKeepsDismissalAndRestoredNavigationUsable(AppFrameMotionPreviewTest.kt:31)
+
+INSTRUMENTATION_STATUS: stream=
+Error in normalSystemMotionKeepsDismissalAndRestoredNavigationUsable(nl.davidengelen.redsquare.AppFrameMotionPreviewTest):
+java.lang.AssertionError: Window animation scale must match the current system preference expected:<1.0> but was:<0.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$lambda$11(AppFrameMotionPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.$r8$lambda$lmJz2TyRkX2MZqpNQi9Q43U-kcI(AppFrameMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$5$lambda$4$lambda$3(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$ZUGMjM_GRI-pZqhFBt-hhAfd4fI(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:41)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal(AppFrameMotionPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$default(AppFrameMotionPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.normalSystemMotionKeepsDismissalAndRestoredNavigationUsable(AppFrameMotionPreviewTest.kt:31)
+
+INSTRUMENTATION_STATUS: test=normalSystemMotionKeepsDismissalAndRestoredNavigationUsable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameMotionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameMotionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 56.863
+There was 1 failure:
+1) normalSystemMotionKeepsDismissalAndRestoredNavigationUsable(nl.davidengelen.redsquare.AppFrameMotionPreviewTest)
+java.lang.AssertionError: Window animation scale must match the current system preference expected:<1.0> but was:<0.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$lambda$11(AppFrameMotionPreviewTest.kt:91)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.$r8$lambda$lmJz2TyRkX2MZqpNQi9Q43U-kcI(AppFrameMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$5$lambda$4$lambda$3(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$ZUGMjM_GRI-pZqhFBt-hhAfd4fI(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:41)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal(AppFrameMotionPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.verifyDismissal$default(AppFrameMotionPreviewTest.kt:35)
+	at nl.davidengelen.redsquare.AppFrameMotionPreviewTest.normalSystemMotionKeepsDismissalAndRestoredNavigationUsable(AppFrameMotionPreviewTest.kt:31)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

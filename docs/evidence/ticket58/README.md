@@ -230,3 +230,22 @@ The regression now asserts the actual window scale after retaining the original
 observation and checks0->1 as well as paired1->0. This extends existing methods
 without changing their identities/deadlines. Production6f94 still fails the
 measured1->0 case; no fixed runtime acceptance is claimed.
+
+The production correction keeps standard AnimatedVisibility/layout and the real
+Android dispatcher/lifecycle/frame clock. A once-installed Application factory
+supplies a fresh per-window MotionDurationScale: register before read, observe
+changes, refresh on resume and dispose on root detach or lifecycle destruction.
+Normal setContent retains its default parent, allowing Compose-rule tests to
+substitute their own factory/clock. This isolated seam explicitly opts in to
+WindowRecomposerPolicy's InternalComposeUiApi in pinned1.11.4; revisit it when
+upgrading that dependency. No global policy changes occur during Activity/tests.
+Both source review axes found0 residual issues in this slice. Native fixed
+execution, complete regression and signed delivery remain pending.
+
+Observed RED39341602310 at e098e9b22:2 methods, one failure at the new unchanged
+window preference assertion. After initial0, Settings1/window0 suppresses normal
+motion; the subsequent0 method passes. The retained original observation proves
+the inverse stale direction too. This is an actual app/test execution failure,
+not a source-only prediction. The production correction and regression sources
+compile locally (:app:compileDebugKotlin/:app:compileDebugAndroidTestKotlin, exit0);
+fixed native acceptance is next.

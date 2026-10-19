@@ -53,10 +53,17 @@ pending at that checkpoint. Reading tracer13de2ab37/run39338696534
 and root opened all3 originals confirming reference05 at the same position.
 Motion6f94 runs39339460676(10)/39339457242(17) both functional2PASS, but actual
 zero-scale recordings still tween. Source39339456579 full source checksPASS.
-Reduced-motion acceptance is NOT green. Next test-only probe records the actual
-installed window MotionDurationScale after the movie and compares fresh zero
-against the original paired normal/zero process. Pinned Compose cached-flow
-behavior is a hypothesis, not yet a proven cause. All deadlines/identities remain.
+Reduced-motion acceptance is NOT green. Probe293 confirms the cache defect:
+fresh-zero39340836020 has Settings/window0 with no intermediate movement; paired
+39340839780 has Settings0/window1 with intermediate original frames.
+Regressione098e9b22/run39341602310 completedFAILURE as intended: initial0
+then Settings1/window0 fails the actual preference assertion (1failure/2methods).
+It checks both preference directions against the unfixed production. It decodes every bounded movie frame,
+avoiding the observed opening-second gap. The next production slice installs
+one per-window system-scale factory at Application startup, preserving ordinary
+Compose test factory ownership and standard lifecycle/frame clocks. Both source
+review axes report0 for the slice; fixed runtime is still pending. All original
+deadlines/identities remain.
 The independent complete catalog is frozen before full execution at
 ../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
 34deliberate interruptions,33continuity. Final full regression/review and signed
