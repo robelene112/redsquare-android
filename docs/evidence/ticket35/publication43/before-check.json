@@ -1,0 +1,45 @@
+{
+  "before-ordinary42-page.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "before-ordinary42-latest.json": {
+    "http": 200,
+    "bytes": 814,
+    "sha256": "8a44cbd4179d78d00c21709aff640ba5b02b38eb6e47be9e66f007b1d4175a03"
+  },
+  "before-ordinary42-immutable.json": {
+    "http": 200,
+    "bytes": 814,
+    "sha256": "8a44cbd4179d78d00c21709aff640ba5b02b38eb6e47be9e66f007b1d4175a03"
+  },
+  "before-ordinary42.apk": {
+    "http": 200,
+    "bytes": 37745779,
+    "sha256": "553ebbd62e6592a34dabc0bac7d7425cce774422b3060c6de2e36ad7fc1a7eb7"
+  },
+  "before-performance41-immutable.json": {
+    "http": 200,
+    "bytes": 674,
+    "sha256": "6b1c0934b321b3ab5a6dfdd8637f088d140f301e235617d23794ccb88ffba1ba"
+  },
+  "before-performance41.apk": {
+    "http": 200,
+    "bytes": 37745779,
+    "sha256": "cb124805454e59d9bf9474d8352a74594020bce445e2f1434144e448982af299"
+  },
+  "before-candidate-page.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "before-candidate-latest.json": {
+    "http": 200,
+    "bytes": 674,
+    "sha256": "6b1c0934b321b3ab5a6dfdd8637f088d140f301e235617d23794ccb88ffba1ba"
+  },
+  "result": "PASS",
+  "version": 43,
+  "stage": "before"
+}

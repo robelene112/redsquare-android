@@ -110,5 +110,17 @@
   "requireOriginallyAbsentPackagesRestored": true,
   "physicalDeviceAcceptance": false,
   "physicalTimingAcceptance": false,
-  "limits": "Prepared43 is not published yet. Execution and actual publication provenance will be recorded after acceptance; no physical Pixel/ordinary42-phone update result is inferred."
+  "limits": "43 is now published with canonical/independent bookends exit0. Both focused runs are pending; no new installation/isolation/physical/ordinary42-phone acceptance is claimed.",
+  "executingSource": "b1b25ba90998858ffc0bc5fa584e40b224cdfe0a",
+  "executingRuns": {
+    "android10": 39321146982,
+    "android17": 39321151044
+  },
+  "sourceEquivalence": {
+    "reference": "116e92935b7287e9157b30c78b8e8f1d4ad7b800",
+    "executing": "b1b25ba90998858ffc0bc5fa584e40b224cdfe0a",
+    "productionObjects": 258,
+    "objectListSha256": "1842cb1d3610641cd8a60cd85092296e415d61aa6f3520a9bf2f724b00724421",
+    "appAndHarnessUnchangedExcludingDocumentation": true
+  }
 }

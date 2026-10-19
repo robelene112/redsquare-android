@@ -1,0 +1,11 @@
+{
+  "versionCode": 41,
+  "versionName": "0.1.41",
+  "applicationId": "nl.davidengelen.redsquare.performance",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "cb124805454e59d9bf9474d8352a74594020bce445e2f1434144e448982af299",
+  "commit": "df941ab6c70118275f4b257220905f5bed93d33d",
+  "variant": "performance",
+  "apkUrl": "https://davidengelen.nl/redsquare/performance/releases/41/redsquare.apk",
+  "notes": "Separate timing app matching the app code in beta 40. Uses its own wallet and storage; keep your normal app installed. Physical Pixel timings are not yet verified. Push and GIF services remain unconfigured."
+}

@@ -104,3 +104,8 @@ Publication42 bookend reviews now report Spec0, documented Standards0 and
 heuristic0 after correcting OWNER_INPUTS to distinguish live42, pending43 and
 historical40/41. Fresh reviewer downloads match actual42/40/41 artifacts.
 Native38 is accepted for closure. Real release36/parent1 remain open.
+
+Native38 is verified CLOSED after publication bookend commitb1b25ba90. Only
+release36 and parent1 remain open. Matching43 is now published with independent
+bookends; its separate installation/isolation runs remain pending under35.
+No additional app source changed, and actual release acceptance remains separate.

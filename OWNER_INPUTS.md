@@ -31,7 +31,7 @@ nu geen KVK-inschrijving, account of telefoontest tussendoor te regelen.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Eigen productnaam | Nog te kiezen in de latere brandingbespreking #38. De huidige appnaam Red Square blijft voorlopig staan. | De afgesproken richting is een eigen naam met een herkenbare verwijzing naar RedSquare op Saito. Dit is geen nieuwe releaseblokkade. |
+| Eigen productnaam | Nog te kiezen in een latere brandingbespreking. De platformverwijzing is onder #38 afgemaakt; de huidige appnaam Red Square blijft voorlopig staan. | De afgesproken richting is een eigen naam met een herkenbare verwijzing naar RedSquare op Saito. Dit is geen nieuwe releaseblokkade. |
 
 ## Beleidskeuzes en echte uitvoering
 
@@ -41,7 +41,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in appversie40, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
+| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta42, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
 | Moderatieproces voor jouw backend en meldingen aan de appuitgever | David heeft verantwoordelijkheid geaccepteerd; bereikbare kanalen, behandeling, escalatie en daadwerkelijk toezicht nog te bepalen. | Werkende rapportage en moderatie. Een verzonden melding betekent niet automatisch beoordeeld of verwijderd. |
 | Privacy- en verwijderproces | Nog te bepalen: bereikbaar verzoekkanaal, eigendomscontrole zonder privésleutel, afhandeling en terugkoppeling. | Werkelijk uitvoerbare verzoeken en een webroute naast de app. Wallet vervangen of een bericht verbergen is geen volledige gegevensverwijdering. |
 | Bewaartermijnen en uitzonderingen | Nog te bepalen voor eigen serverlogs, archieven/back-ups, meldingen, verzoeken en eventuele pushgateway. | Waarheidsgetrouwe privacytekst en daadwerkelijke opruimprocedures. Geen vaste termijn of juridische uitzondering als feit invullen. |
@@ -58,10 +58,11 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta42](https://davidengelen.nl/redsquare/) staat online. De bijpassende
-timingbuild43 is voorbereid, maar nog niet gepubliceerd of gecontroleerd op
-installatie/isolerende opslag. De timingpagina biedt voorlopig de oudere41.
-Gebruik die niet als bewijs voor de uiteindelijke42-configuratie.
+De gewone [beta42](https://davidengelen.nl/redsquare/) en bijpassende
+[timingbuild43](https://davidengelen.nl/redsquare/performance/) staan online met
+dezelfde appcode. Downloads, versies en ondertekening zijn gecontroleerd. De
+nieuwe installatie- en isolatiecontroles op Android10 en17 lopen nog. Dit is
+nog geen bewijs van de fysieke telefoontest.
 
 Het eerdere geaccepteerde paar40/41 had dezelfde appcode. Testinstallaties op
 Android10 en17 bevestigden daarvoor gescheiden wallets/opslag en behoud van de

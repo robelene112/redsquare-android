@@ -95,3 +95,23 @@ The same protocol, stable Wi-Fi/normal animations/no debugger/positive isolated
 PID absence and candidate/configuration matching remain mandatory. Never erase
 or import the ordinary wallet for timing. No physical/ARM64/Play proof is inferred.
 Native35 can close for this reviewed development stage; parent1/36 remain open.
+
+## Matching43 follow-up after About38
+
+Native38 and ordinary42 are accepted after complete10/17 and final publication
+reviews0/0. New43 has the same258 production/build objects as42 and executing
+full116e, with correct independent package/options. Canonical preparation and
+[publication43](publication43/README.md) exit0; actual public hashes/signature/
+manifest match and ordinary42/immutable41 remain unchanged across publication.
+
+The independent43 plan predates execution. New feed10/17 runs39321146982/
+39321151044 execute exactb1b25ba90998858ffc0bc5fa584e40b224cdfe0a, with unchanged
+app/harness from116e, and are pending. Expected11 native identities plus3signed
+wallet observers perSDK, separate UIDs/wallets, preserved ordinary35 address and
+restored original absence remain mandatory. Neither this new publication nor
+older41 evidence establishes new43 installation or physical42 phone continuity.
+All real36 gates remain unchecked and native35 remains closed for development.
+
+Both43 publication/provenance review axes report0 findings. Fresh reviewer public
+reads match actual43/42/41 artifacts; retained19 hashes,258-object equivalence and
+empty app/harness diff match. Actual focused native43 results remain pending.

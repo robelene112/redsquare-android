@@ -48,18 +48,22 @@ prepared timing43 and offline bundle44. Actual DEX options remain review=true,
 Push=false and separate GIF keys absent. Immutable40 and the whole performance41
 channel remain unchanged across this42 publication. publication42 has19 hashes.
 Publication bookend review reports Spec0/Standards0/heuristic0. OWNER_INPUTS
-correctly distinguishes current42/pending43/historical40-41. Native38 closure is
-next; do not republish42.
+correctly distinguishes current42/pending43/historical40-41. Native38 is verified CLOSED after b1b25ba90; do not republish42.
 
-Prepared43 remains unpublished;44 is offline/unsubmitted. Canonical builders
-exit0 and actual artifact checks pass for all three. Current41 is still the live
-timing checkpoint. Execute the independent43 plan only after canonical43 delivery:
-11 native feed/public-read identities plus3signed observers perSDK, main35/perf43,
-exact distinct UID/wallet/main-address/restoration safeguards. Both plan reviews0.
-Record actual executing source/run IDs after dispatch. Existing harness supports43
-without source changes. Current-source full verification is complete; no need to
-repeat it for these documentation/artifact selection changes. Actual physical,
-provider/Google/Registry/policy/account/Play gates stay unchecked in36.
+Timing43 is now PUBLISHED through canonical script and independent actual public
+before/after checks, all exit0. publication43 under35 has19hashes. Actual43
+metadata/APK match prepared43; ordinary42 whole channel and immutable41 remain
+unchanged at that bookend. Offline44 remains unsubmitted. All three builders and
+actual artifact checks exit0; production inputs remain identical258 objects.
+
+New independent43 native checks execute exactb1b25ba90998858ffc0bc5fa584e40b224cdfe0a:
+Android10 39321146982 and17 39321151044, both pending. Plan43 was committed before
+execution; source and app/harness equivalence to full116e is now recorded. Expect
+11native feed/public-read identities plus3signed observers perSDK, main35/perf43,
+distinct UID/wallet/main-address/restoration safeguards. No source change needed.
+Finish actual native evidence and final combined review; no repeat full suite for
+these documentation/artifact selections. Only parent1/36 remain open. Actual
+physical/provider/Google/Registry/policy/account/Play gates remain unchecked36.
 
 ## Previous accepted delivery: issue54 and ordinary40
 
@@ -178,9 +182,9 @@ Pixel7 under that protocol. Never import/clear the owner's ordinary wallet for t
 
 ## Current tracker and parked release gates
 
-Verified after native35 completion: only38,36 and parent1 remain OPEN. Original
+Verified after native38 completion: only36 and parent1 remain OPEN. Original
 34 native tickets2through35 and all prior supplementary native children are CLOSED.
-38 is active as above. Parent1/36 stay open for actual release, not native code.
+38 is also CLOSED as above. Parent1/36 stay open for actual release, not native code.
 
 The exact owner-directed parking matrix is [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
 It retains13 unchecked provider/Registry/Google/Pixel/publisher/policy/submission
