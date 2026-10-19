@@ -29,14 +29,17 @@ class AppFrameMotionPreviewTest {
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         val device = UiDevice.getInstance(instrumentation)
-        val original = device.executeShellCommand("settings get global animator_duration_scale").trim()
-        check(original == "null" || original.toFloatOrNull()?.let { it.isFinite() && it >= 0 } == true)
+        val originals = listOf("window_animation_scale", "transition_animation_scale", "animator_duration_scale")
+            .associateWith { device.executeShellCommand("settings get global $it").trim() }
+        check(originals.values.all { value -> value == "null" || value.toFloatOrNull()?.let { it.isFinite() && it >= 0 } == true })
         val folder = File(context.cacheDir, "app-frame-motion-evidence").apply { mkdirs() }
         val name = "motion-$scale"
         var primary: Throwable? = null
         try {
-            device.executeShellCommand("settings put global animator_duration_scale $scale")
-            check(device.executeShellCommand("settings get global animator_duration_scale").trim().toFloat() == scale.toFloat())
+            originals.keys.forEach { setting ->
+                device.executeShellCommand("settings put global $setting $scale")
+                check(device.executeShellCommand("settings get global $setting").trim().toFloat() == scale.toFloat())
+            }
             withAppFrameFixture(name, "app-frame-motion-evidence") { activity ->
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
                 check(device.wait(Until.hasObject(By.text("Later")), 10_000))
@@ -51,11 +54,14 @@ class AppFrameMotionPreviewTest {
                 assertTrue("Dismissing backup guidance must recover reading space", before.top > after.top + 24)
                 val observation = retainFrames(movie)
                 observation.add("recording", recording)
-                val observedScale = device.executeShellCommand("settings get global animator_duration_scale").trim()
-                check(observedScale.toFloat() == scale.toFloat())
-                observation.addProperty("observedAnimatorScale", observedScale)
-                observation.addProperty("animatorScale", scale)
-                observation.addProperty("originalSetting", original)
+                val observedScales = JsonObject()
+                originals.keys.forEach { setting ->
+                    val observed = device.executeShellCommand("settings get global $setting").trim()
+                    check(observed.toFloat() == scale.toFloat()); observedScales.addProperty(setting, observed)
+                }
+                observation.add("observedSystemScales", observedScales)
+                observation.add("originalSystemScales", JsonObject().apply { originals.forEach { (setting, value) -> addProperty(setting, value) } })
+                observation.addProperty("requestedSystemScale", scale)
                 observation.addProperty("beforePostBounds", before.toShortString())
                 observation.addProperty("afterPostBounds", after.toShortString())
                 observation.addProperty("acceptance", "Native endpoints/persistence only. Motion requires inspection of the original movie and actual decoded frames.")
@@ -72,11 +78,10 @@ class AppFrameMotionPreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            cleanupAfterTest(primary, {
-                device.executeShellCommand(if (original == "null") "settings delete global animator_duration_scale"
-                    else "settings put global animator_duration_scale $original")
-                check(device.executeShellCommand("settings get global animator_duration_scale").trim() == original)
-            })
+            cleanupAfterTest(primary, *originals.map { (setting, value) -> {
+                device.executeShellCommand(if (value == "null") "settings delete global $setting" else "settings put global $setting $value")
+                check(device.executeShellCommand("settings get global $setting").trim() == value)
+            } }.toTypedArray())
         }
     }
 
@@ -92,15 +97,24 @@ class AppFrameMotionPreviewTest {
         var tapReturned = 0L
         try {
             // UiAutomation starts a process directly. Execute an owned script so shell status is evaluated as shell code.
-            script.writeText("timeout 6 screenrecord --time-limit 3 $remote 2>&1\nframe_record_exit=\$?\necho REDSQUARE_RECORDER_EXIT=\$frame_record_exit\n")
+            script.writeText("timeout 6 screenrecord --verbose --time-limit 3 $remote 2>&1\nframe_record_exit=\$?\necho REDSQUARE_RECORDER_EXIT=\$frame_record_exit\n")
             automation.executeShellCommand("sh ${script.absolutePath}").use { recording ->
+                val ready = java.util.concurrent.CountDownLatch(1)
                 val completed = executor.submit<String> {
-                    FileInputStream(recording.fileDescriptor).bufferedReader().use { it.readText() }
+                    FileInputStream(recording.fileDescriptor).bufferedReader().useLines { lines ->
+                        buildString { lines.forEach { line ->
+                            appendLine(line)
+                            if (line.startsWith("Content area is")) ready.countDown()
+                        } }
+                    }
                 }
-                // Establish an initial segment; decoded initial/final geometry must independently confirm capture coverage.
-                SystemClock.sleep(400)
                 var recordingFailure: Throwable? = null
-                try { tapped = SystemClock.elapsedRealtimeNanos(); dismiss(); tapReturned = SystemClock.elapsedRealtimeNanos() }
+                try {
+                    // Native screenrecord flushes this message after encoder setup, before projection starts.
+                    check(ready.await(5, TimeUnit.SECONDS)) { "Native recorder did not become ready" }
+                    SystemClock.sleep(200)
+                    tapped = SystemClock.elapsedRealtimeNanos(); dismiss(); tapReturned = SystemClock.elapsedRealtimeNanos()
+                }
                 catch (failure: Throwable) { recordingFailure = failure; throw failure }
                 finally {
                     cleanupAfterTest(recordingFailure, {
@@ -143,6 +157,7 @@ class AppFrameMotionPreviewTest {
             extractor.selectTrack(videoTrack)
             val timestamps = mutableListOf<Long>()
             while (extractor.sampleTime >= 0) { timestamps.add(extractor.sampleTime); extractor.advance() }
+            check(timestamps.zipWithNext().all { (left, right) -> right > left }) { "Reordered recording samples need separate timestamp reconciliation" }
             val count = requireNotNull(decoder.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_FRAME_COUNT)).toInt()
             check(count == timestamps.size && count >= 2) { "Insufficient or inconsistent native recording frames" }
             val frames = JsonArray()

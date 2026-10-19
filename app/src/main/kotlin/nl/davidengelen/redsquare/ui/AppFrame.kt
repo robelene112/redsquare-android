@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -69,19 +70,29 @@ internal fun CompactBackupNotice(enabled: Boolean, onBackup: () -> Unit, onLater
         color = MaterialTheme.colorScheme.surfaceContainerLow) {
         Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
             Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = onImport, enabled = enabled, modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(horizontal = 4.dp)) {
-                    Text(stringResource(R.string.wallet_import_existing), style = MaterialTheme.typography.labelMedium)
+            if (LocalDensity.current.fontScale > 1.3f) {
+                BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.fillMaxWidth())
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
+                    BackupNoticeAction(R.string.later, enabled, onLater)
                 }
-                TextButton(onClick = onBackup, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
-                    Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
-                }
-                TextButton(onClick = onLater, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
-                    Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
+            } else {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    BackupNoticeAction(R.string.wallet_import_existing, enabled, onImport, Modifier.weight(1f))
+                    BackupNoticeAction(R.string.wallet_back_up, enabled, onBackup)
+                    BackupNoticeAction(R.string.later, enabled, onLater)
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun BackupNoticeAction(label: Int, enabled: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    TextButton(onClick = onClick, enabled = enabled, modifier = modifier,
+        shape = RoundedCornerShape(AppSpacing.small),
+        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 4.dp)) {
+        Text(stringResource(label), style = MaterialTheme.typography.labelMedium)
     }
 }
 

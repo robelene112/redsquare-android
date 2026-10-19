@@ -29,18 +29,26 @@ geometry. Implementation d958685f0 strengthens the fixture with positive real-IM
 open/close and displayed Home, corrects public profilemeta cleanup, and adds
 busy/save-spanning guarded commits to profile/author forms plus brief failed-route
 feedback. Run39333368227 passes all3 methods; both source re-review axes have0
-residuals and root opened the returned-editor original. The current viewport probe is3067735ead1bf5b13b74249e73c89a0f0ed9fde3 /
-run39335922124, scope app-frame-viewport-android17, exactly the larger-text method.
-Earlier diagnostic806541b8f/run39335047387 is retained as FAILURE: Compose visual
-Wallet bounds40x40 differed from actual48x48 native touch bounds. The probe now
-uses touchBoundsInRoot plus native bounds, keeps the minimum48dp requirement,
-and closes Activity before independent display/font/appearance restoration.
-Actual130% capture also showed excessive wrapping;306 tightens backup/tab layout.
-Standards re-review has0 documented/heuristic findings. Actual viewport outcome,
-complete class on both SDKs, reminder/recreation/motion/full/signed acceptance
-remain pending. A Compose rule replaces the production window recomposer, so
-real platform animator-scale acceptance needs a plain native observer without
-that rule. Do not label a test-clock change as system reduced-motion proof.
+residuals and root opened the returned-editor original. Viewport8104b860b/run39336828749 completedSUCCESS: exactly the larger-text
+method, all8 independently checked320dp/412dp,130%/200%,Light/Dark configurations,
+full48dp native/touch targets, original feed/guidance captures. Root opened6
+representative originals. Functional green still exposed clipped import glyphs at
+320dp/200%; the next slice reflows Import above Backup/Later and uses smaller
+corners/padded text. Default/130% retain the compact row. Rendered fix pending.
+Selected native Home uses isSelected instead of ACTION_CLICK by Compose design;
+observer corrections preserve the same48dp threshold. Earlier failures remain
+retained in docs/evidence/ticket58, never reclassified.
+Plain AppFrameMotionPreviewTest at74b115b28 has no Compose rule, records native
+screenrecord clips/decoded frames with sample timestamps and real system scales,
+and checks Later persistence plus ordinary Back. Source39337266799 completed
+SUCCESS; both source review axes0. Initial motion39337267196 failed before build
+at Google SDK transport/curl92, no app outcome. Next observer awaits flushed
+encoder readiness and sets/restores all3 system animation scales independently.
+A functional PASS is not visual motion acceptance. Production reminder removal
+is still instantaneous; normal/reduced-motion visual inspection and fix remain.
+The original Home-return case additionally walks thread -> author profile -> Chat
+-> Home, retaining its original assertions. Complete frame10/17 checks, revised
+rendered acceptance, final full regression/review and signed delivery remain.
 No57 code exists yet; its local policy is recorded and ready.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),

@@ -131,3 +131,29 @@ original movies and decoded frames with actual sample timestamps. Functional
 PASS alone does not prove motion; original before/intermediate/final positions
 must be visually inspected. No custom image-matching oracle is used. The current
 conditional reminder removal is still instantaneous; motion remains unfinished.
+
+Viewport8104b860b/run39336828749 completedSUCCESS: the focused matrix method
+PASS in73.61seconds, all8 independently checked actual display/font/theme cases,
+full48dp native/touch targets and original guidance captures. Root opened6
+representative originals. This is not complete58 or physical Pixel proof.
+Visual review nevertheless rejects the320dp/200% import label: the tall pill
+shape clips its first/last lines. The next slice uses a full-width import action
+above Backup/Later at larger text sizes, with smaller rounded corners and vertical
+text padding. Default/130% retain the compact row. Green functional bounds alone
+were insufficient; revised rendered acceptance is pending.
+
+The initial motion39337267196 at74b115b28 failed before compilation/runtime:
+Google SDK download ended with curl92/HTTP2 stream error. It establishes no app
+outcome. Setup now retries that transport failure with bounded request times,
+keeping the exact SDK archive/hash pin. The recorder additionally awaits its
+positively flushed native Content area message after encoder setup; actual movie
+coverage still requires inspection. Both source review axes had0 findings for74b.
+
+Source39337266799 at74b115b28 completedSUCCESS with the complete source/core/
+gateway/Debug/test/Release/Performance/lint workflow. The next increment also
+extends the original Home-return case through thread -> author profile -> Chat ->
+Home, retaining its original direct-return assertions and reminder checks. The
+motion observer now sets, reads and independently restores all3 system animation
+scales, awaits real encoder readiness, and rejects reordered frame/sample pairing.
+No existing class/assertion deadline changes. Complete frame runs on both SDKs
+will exercise the revised large-text action layout and these native journeys.

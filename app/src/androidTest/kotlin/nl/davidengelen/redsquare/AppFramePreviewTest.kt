@@ -41,6 +41,23 @@ class AppFramePreviewTest {
         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
         capture("home-return-preserved-reminder.png")
+        ui.onNodeWithText("Native Red Square reference post").performClick()
+        ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+        ui.onNode(hasText("Anon-jesTu2") and hasClickAction()).performScrollTo().performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() }
+        ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
+        ui.onNodeWithText("Back").performClick()
+        ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
+        ui.onNode(hasText("Chat") and hasClickAction()).performClick()
+        ui.waitUntil(10_000) { ui.onNodeWithText("Public key").isDisplayed() }
+        ui.onNode(hasText("Chat") and isSelected()).assertIsDisplayed()
+        ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
+        capture("chat-keeps-frame-without-backup-chrome.png")
+        ui.onNode(hasText("Home") and hasClickAction()).performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+        ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+        capture("home-return-after-thread-profile-chat.png")
     }
 
     @Test fun primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor() = withFirstUseFeed("profile-navigation") {
