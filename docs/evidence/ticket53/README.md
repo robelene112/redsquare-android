@@ -455,3 +455,36 @@ with unchanged114/115 normal completions,34 deliberate interruptions and33
 continuity records. These remain expectations, not observed final results.
 All251 production/build objects match ed1,046 and28b exactly; prepared38 retains
 that production source. Final complete outcomes/reviews/publication remain pending.
+
+## Complete current-source Android17 result
+
+Final full39254789942 at28b2f210a is SUCCESS in all three jobs. Exact459 native
+path/class/test identities match the independently retained52 reference plus27
+terminal additions:25 new normal cases and two successful process phases.
+There are no missing/extra cases, failures or assumptions: Chat183, Social208,
+Wallet68. The deliberately killed setup is separately counted as an interruption,
+not a terminal-success identity.115 normal completions,34 deliberate interruptions
+and33 PASS continuity records remain independently observed.
+
+`full17` retains original native/environment/checkpoint text, core/lint summaries,
+direct captures and source-bound selected archived originals. Its external raw
+archives and member hashes remain inventoried. Structural validation checks
+1007PNG/872XML candidates; the same five optional unavailable diagnostics as52
+are explicitly recorded. Root opened16 original frames, including both real
+larger-font Chat cancellation states and restored editors, pinned save failure,
+read-only reconciliation, cold recovery, public feeds and signed wallet checks.
+See `full17/observed/NOTES.md` for bounded observations and viewer limitations.
+
+Publishing process PID5655 is positively gone before cold PID5736. The same
+full-wallet digest/backend/revision/unsent draft survives, with zero automatic
+publication and exactly one deliberate Send; independent restoration passes.
+Both approved public backends pass fresh read-only feed/search/wallet checks,
+and public Chat authenticates/responds on both. Actual immutable35/performance36
+isolation retains distinct UIDs10236/10237 and wallets, unchanged main address,
+and restores original absence without cleanup failures. Legacy5-to8 continuity,
+preview update and final diagnostic pass. These do not install candidate38.
+
+Whole source through3c28124b8 has Spec0/Standards0. Android17 evidence review is
+in progress; Android10 run39254786488 is still running. #53 remains incomplete
+pending both-SDK combined acceptance, final reviews and ordinary38 publication.
+No final policy approval, configured-provider, physical Pixel or Play claim.

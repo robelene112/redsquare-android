@@ -1,0 +1,27 @@
+{
+  "kind": "private",
+  "photo": false,
+  "phase": "recovered",
+  "owner": "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR",
+  "backend": "owner",
+  "pid": 9275,
+  "walletDigest": "0a1e9c30dadb69718e8da66ee77bb79c06bbe508265fab1296dcde5bfd428427",
+  "originalWalletDigest": "a464ba5a352dadce130141e8185e118938979e4991cd768bf9dd7af5b8a93438",
+  "savedFiles": [
+    "wallet.v1"
+  ],
+  "preferences": [
+    {
+      "name": "notification-permission",
+      "key": "offered"
+    },
+    {
+      "name": "wallet-backup-reminders",
+      "key": "hidden:jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+    }
+  ],
+  "historyDigest": "ba3bb26289399b0553befc739d128b07e4f0849a38be807237addc3f0aed7d20",
+  "candidate": "53c8778c46f1976bae283c25460e7efd661386ba4ead4db45142b3fda8e722316ad71edb996b9ae3e236b646a416242d57de27e5bb1cc5df3ac0ec60edd8719c",
+  "candidateDigest": "e3b14e6b907d69642b94daeb78c8969678f7b6d90d907c9a9ae00173a713d327",
+  "recoveredPid": 9342
+}
