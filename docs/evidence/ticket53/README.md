@@ -262,3 +262,18 @@ unapproved ready=false bundle and must forward their exact authenticated
 controls without an agreement window. Existing four group journeys/assertions
 remain. This is coverage of the existing minimum, with no new production change;
 runtime results remain pending.
+
+Additional group focus39240972380 at4876719e6 is SUCCESS: agreement3PASS/
+15.541s, surfaces4PASS/18.797s and group7PASS/30.796s,14PASS total.
+`group-controls-green10/SHA256SUMS` binds19 originals. Root opened promotion
+Cancel/forwarding, removal and left-group originals. Both test reviews report0.
+No production change was needed for these added checks.
+
+The next author tracer receives an owned signed original through the controlled
+Archive, then requires Cancel to keep the exact editable revision, Accept to
+produce no edit and a separate Save changes to publish. It subsequently makes
+the policy explicitly unready and checks that deliberate normal-view deletion
+still works with its historical-copy explanation. File families/preferences and
+backend are restored independently. Its separate180second class is appended to
+agreement/full paths without changing older assertions/deadlines. Author RED
+remains pending; no author policy code precedes it.

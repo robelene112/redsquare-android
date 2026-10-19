@@ -171,6 +171,7 @@ verify_agreement() {
     verify_group_chat_native PublishingAgreementPreviewTest 180 agreement agreement-evidence
     verify_group_chat_native PublishingSurfacesPreviewTest 180 agreement-surfaces agreement-surfaces-evidence
     verify_group_chat_native PublishingGroupPreviewTest 180 agreement-group agreement-group-evidence
+    verify_group_chat_native PublishingAuthorPreviewTest 180 agreement-author agreement-author-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     verify_agreement

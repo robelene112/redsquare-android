@@ -72,13 +72,16 @@ queue cancellation, stale stopping and local invitation preview/copy stay
 independent with their original identity/membership rules. Group GREEN39239942197 atf2864f7f3 is SUCCESS:11PASS across
 three classes. Both reviews0; root inspected cancellation/outcome originals.
 Three additional native cases now cover promotion and ready=false leave/removal
-exemptions. This coverage adds no production code; results pending.
+exemptions. This coverage adds no production code; focus39240972380 at4876719e6
+is SUCCESS14PASS, both reviews0. Root inspected all new control outcomes.
+The next separate author tracer requires agreement before editing and preserves
+normal-view deletion under ready=false. Author RED pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Await the additional group confirmation/exemption focus before the next slice.
+Author editing is next; obtain its real RED before the minimum.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
