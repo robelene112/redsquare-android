@@ -249,3 +249,44 @@ the inverse stale direction too. This is an actual app/test execution failure,
 not a source-only prediction. The production correction and regression sources
 compile locally (:app:compileDebugKotlin/:app:compileDebugAndroidTestKotlin, exit0);
 fixed native acceptance is next.
+
+Prepared46 (unpublished): canonical builder in the frozen worktree at9b33d3fef
+completedSUCCESS. Actual APK SHA256311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
+package nl.davidengelen.redsquare, version46/0.1.46, established6ca1209b certificate.
+Independent APK inspection confirms nondebuggable/nonprofileable, backupfalse,
+min29/target36, reviewtrue and push/PostsGIF/ChatGIF unconfigured. Both preparation
+review axes0; all5 retained hashes verify. The before-publication snapshot retains
+ordinary45 and performance43 unchanged. This is preparation only, not a live
+version, current physical timing or provider/store acceptance.
+
+Fixed focused acceptance at9b33d3fef:39342318884(Android10) and39342315882(Android17)
+bothSUCCESS, exactly4 frame/1 reading/2 motion methods. PerSDK all8 real viewport/
+font/theme cases retain48dp native/touch targets. Root opened current font, backup
+guidance, IME, Chat and reading-position originals. At320dp/200% navigation/feed
+captions wrap but controls remain reachable; no whole-app visual completion claim.
+
+All3 recordings perSDK retain matching Settings/window scales0->1->0. Root opened
+normal old/intermediate/final frames and zero pre/post frames on bothSDKs. The
+normal indicator moves224->144 through198/180/166/156/150/148; both zero movies
+have no intermediate positions. The independent original-frame replay passes all6
+recordings. Full39343151613(10)/39343154589(17) now execute the same source with
+the independently frozen473/474 catalog, public reads and immutable signed35/43
+observations. Full outcomes and live46 remain pending.
+
+Source39342315719 at9b33d3fef completedSUCCESS: core/gateway tests, native Debug/
+instrumentation sources, Release/Performance assembly and lint.
+
+Full10 run39343151613 at9b33 FAILED early in PublishingSurfacesPreviewTest:3PASS,
+one private Chat failure at the unchanged20second visible-Unlike goal. Frame7
+and the earlier agreement class passed, but remaining complete gates did not run.
+The original failure PNG/XML shows forwarding status and a106px-high scrollable
+history containing only the bubble; it does not establish the reaction label or
+its offscreen bounds. No complete10 acceptance is claimed.
+
+The next fixture probe records the unmerged Compose tree before scrolling, then
+uses the existing20second waitForScrollable helper to assert the same Unlike
+visibility, keeping every transaction/relay/identity/agreement assertion. This
+distinguishes offscreen layout from incorrect reaction state. A bounded focused
+surfaces scope runs the same4 methods with their original180second class bound;
+complete agreement/full scopes retain all prior methods and recovery gates.
+No production change or fixed result is claimed by this probe.

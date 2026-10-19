@@ -208,6 +208,11 @@ if [[ "${TEST_SCOPE:-full}" == agreement-recovery* ]]; then
     printf '%s\n' 'Focused controlled publishing-agreement recovery only; no actual owner policy approval or full acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == agreement-surfaces* ]]; then
+    verify_group_chat_native PublishingSurfacesPreviewTest 180 agreement-surfaces agreement-surfaces-evidence
+    printf '%s\n' 'Focused controlled publishing surfaces only; no complete agreement/recovery or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     verify_agreement
     printf '%s\n' 'Focused controlled publishing-agreement fixture only; no actual owner policy approval or full acceptance.' > "$evidence/scope.txt"

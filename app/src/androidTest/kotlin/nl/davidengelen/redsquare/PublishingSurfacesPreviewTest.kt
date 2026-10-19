@@ -144,7 +144,8 @@ class PublishingSurfacesPreviewTest {
                         assertEquals(1, peer.relayedMessages.size)
                         ui.onNodeWithText("Like").performClick()
                         waitFor("Reaction forwarded. Delivery is not confirmed.")
-                        waitFor("Unlike")
+                        capture("private-reaction-forwarded-before-scroll.png")
+                        waitForScrollable("Unlike")
                         assertEquals(2, peer.transactions.size)
                         assertEquals(2, peer.relayedMessages.size)
                         assertTrue(originalWallet == wallets.loadExisting().exportJson())
@@ -383,5 +384,10 @@ class PublishingSurfacesPreviewTest {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
     }
-    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "agreement-surfaces-evidence/$name"))
+    private fun capture(name: String) {
+        val file = File(context.cacheDir, "agreement-surfaces-evidence/$name")
+        captureNativeScreen(file)
+        File(file.parentFile, file.nameWithoutExtension + ".semantics.txt")
+            .writeText(ui.onRoot(useUnmergedTree = true).printToString())
+    }
 }

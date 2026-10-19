@@ -15,60 +15,45 @@ The owner now authorizes implementing this whole backlog without routine stops.
 Use a local cap of two new intentional likes per rolling second per active wallet
 across post surfaces; this is app policy, not a network rule. It is recorded in57 comment6278005545; ready-for-agent is set. No57 code yet. Ambiguous retry must reconcile/reuse the existing candidate.
 
-Node56 source aa40be525 and its focused Android10/17 feed/theme/public-read checks
-pass, with both source/publication review axes clear. Ordinary45 is published;
-56 remains open for larger-font inspection alongside58. Shared frame58 is active:
-RED b84f472c2 and remaining-reading-space RED e50538e60 are retained. First-use
-GREEN65e1d6002/run39329524115 passes; root opened the original320x640 capture.
-The first post is higher and Home selection is real. Captured feed-tab clipping
-was corrected in066e39e12. Run39330476503 reproduces direct thread -> Home failure; fix729073be9 and
-run39331425836 pass both methods, with source re-review Spec0 and opened originals.
-Current profile tracer c937802cf/run39332362216 fails at its10second Home return.
-The original capture shows IME open, so it does not independently isolate tap
-geometry. Implementation d958685f0 strengthens the fixture with positive real-IME
-open/close and displayed Home, corrects public profilemeta cleanup, and adds
-busy/save-spanning guarded commits to profile/author forms plus brief failed-route
-feedback. Run39333368227 passes all3 methods; both source re-review axes have0
-residuals and root opened the returned-editor original. Viewport8104b860b/run39336828749 completedSUCCESS: exactly the larger-text
-method, all8 independently checked320dp/412dp,130%/200%,Light/Dark configurations,
-full48dp native/touch targets, original feed/guidance captures. Root opened6
-representative originals. That historical checkpoint exposed clipped import glyphs
-at320dp/200%. Source50babd77b reflows Import above Backup/Later and uses smaller
-corners/padded text. The later focused10/17 originals confirm the rendered fix;
-default/130% retain the compact row.
-Selected native Home uses isSelected instead of ACTION_CLICK by Compose design;
-observer corrections preserve the same48dp threshold. Earlier failures remain
-retained in docs/evidence/ticket58, never reclassified.
-Complete focused frame50babd77b:39338297823(Android17) and39338299700(Android10)
-completedSUCCESS, exactly4 frame+2 plain-native motion methods perSDK. Root checked
-all8actual configs perSDK and opened revised larger-text originals; clipped import
-text is fixed. Both source review axes0. Later persistence, real IME and extended
-thread/profile/Chat/Home assertions pass. This is not full app or signed delivery.
-Motion's functional PASS is not visual acceptance. Root opened all17's normal/
-zero originals: normal frame4(312788us) ->frame5(327933us) jumps80px with no tween.
-The next production slice adds a180ms Home-only expand/shrink wrapper, disabling
-exit actions immediately and respecting real system scale. Native motion remains
-pending at that checkpoint. Reading tracer13de2ab37/run39338696534
-(separate1method) has both source review axes0 and completedSUCCESS, one31.265s method,
-and root opened all3 originals confirming reference05 at the same position.
-Motion6f94 runs39339460676(10)/39339457242(17) both functional2PASS, but actual
-zero-scale recordings still tween. Source39339456579 full source checksPASS.
-Reduced-motion acceptance is NOT green. Probe293 confirms the cache defect:
-fresh-zero39340836020 has Settings/window0 with no intermediate movement; paired
-39340839780 has Settings0/window1 with intermediate original frames.
-Regressione098e9b22/run39341602310 completedFAILURE as intended: initial0
-then Settings1/window0 fails the actual preference assertion (1failure/2methods).
-It checks both preference directions against the unfixed production. It decodes every bounded movie frame,
-avoiding the observed opening-second gap. The next production slice installs
-one per-window system-scale factory at Application startup, preserving ordinary
-Compose test factory ownership and standard lifecycle/frame clocks. Both source
-review axes report0 for the slice; fixed runtime is still pending. All original
-deadlines/identities remain.
-The independent complete catalog is frozen before full execution at
+Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
+source/publication review. Ordinary45 remains LIVE;56 stays open through the
+larger-font acceptance and signed UI delivery in58.
+
+Shared frame58 is active at production9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4.
+The compact header/Home-only reminder, selected primary navigation, persistent
+compose action, guarded draft navigation and reading-position restoration are
+implemented. Import reflows at200% rather than clipping its glyphs. Historical
+REDs, diagnostic observer corrections and original bytes remain in
+../evidence/ticket58/README.md and its packets; no old failure is reclassified.
+
+Focused39342318884(Android10)/39342315882(Android17) both completedSUCCESS:
+exactly4 frame +1 reading-position +2 real-system-motion methods perSDK. All8
+320dp/412dp,130%/200%,Light/Dark configurations pass full48dp touch/native targets.
+Root opened current font/guidance/IME/Chat and before/after reading originals.
+The narrow200% captions wrap; this is reachability proof, not app-wide polish.
+
+Motion is now verified in the original frames: normal has intermediate positions,
+zero has none, including0->1->0 across windows, and actual window scales match
+settings. Root opened representative originals on bothSDKs. The factory reads
+fresh settings per window, observes changes and releases with the window lifecycle.
+Both source review axes0; ordinary Compose test factory/frame clocks remain intact.
+Earlier293 probes and e098 regression retain the proven pinned Compose cache
+defect in both directions (Settings0/window1 and Settings1/window0).
+
+Full39343151613(Android10) FAILED at the private publishing-surface visible-Unlike
+goal (3other surfaces PASS);39343154589(Android17, all3partitions) is running at
+the same9b33 source, with public reads and immutable signed35/43 observer inputs.
+The independent pre-execution catalog binds exact source/runIDs locally at
 ../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
-34deliberate interruptions,33continuity. Final full regression/review and signed
-UI delivery remain pending. See ticket58 evidence for exact sources and limits.
-No57 code exists yet; its local policy is recorded and ready.
+34deliberate interruptions,33continuity. No complete58 acceptance yet. The next test-only surfaces probe records the
+Compose tree before targeted scrolling; transaction/identity assertions and
+existing20second helper/180second class bounds remain.
+
+Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
+311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
+same6ca certificate, manifest/DEX checks and both preparation reviews0. Full
+regression/review and signed UI delivery remain pending. Source39342315719
+completedSUCCESS (core/gateway, Debug/tests, Release/Performance and lint). No57 code exists yet; its local policy is recorded and ready.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).

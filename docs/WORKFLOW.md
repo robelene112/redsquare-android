@@ -121,6 +121,10 @@ complete first-release scope and the established production boundaries.
    route classes and existing offline policy reader, each with its own180second
    class bound. Full scopes retain both. Controlled Android intent interception
    prevents real email or external request delivery; it is not operational proof.
+   `agreement-surfaces` and `agreement-surfaces-android17` isolate the existing
+   four publishing-surface methods with the same180second bound. Their Compose
+   trees and native captures distinguish offscreen Chat actions from wrong state;
+   complete agreement/full scopes keep all surface/recovery gates.
    `agreement-recovery` and `agreement-recovery-android17` isolate native policy
    recovery during development after the preceding21 agreement cases passed.
    The separate180second recovery class bound and its assertions remain;
