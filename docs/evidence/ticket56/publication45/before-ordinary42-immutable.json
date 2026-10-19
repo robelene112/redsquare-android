@@ -1,0 +1,11 @@
+{
+  "versionCode": 42,
+  "versionName": "0.1.42",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "553ebbd62e6592a34dabc0bac7d7425cce774422b3060c6de2e36ad7fc1a7eb7",
+  "commit": "6ccc4831794079472a93d4907c1fe5d85a015737",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/42/redsquare.apk",
+  "notes": "Settings now includes an About section with the RedSquare on Saito reference, independent publisher and installed version. Includes the completed native social, Chat, wallet and offline features. Install over your existing app to retain wallet and local data. GIF search and background push still require service configuration; policies and publisher contacts remain drafts."
+}

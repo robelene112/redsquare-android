@@ -1,0 +1,123 @@
+{
+  "appearance-evidence.tar": {
+    "sha256": "9939dd6b05535f2c197c55f670b486e00c409defe49133a2857d16e8a5ca8b74",
+    "bytes": 940544,
+    "members": [
+      {
+        "name": "appearance-evidence/system-controls.txt",
+        "bytes": 1066,
+        "sha256": "cc0c74f711d559af03b30b2047a03d480e86503a064bf394cce38757e3ec1853"
+      },
+      {
+        "name": "appearance-evidence/default-system-dark.xml",
+        "bytes": 48215,
+        "sha256": "ffbc3cfec638647a3c9fa9f99b37dbaa93019049c4bfb6078c606923f4ea70a1"
+      },
+      {
+        "name": "appearance-evidence/default-system-dark.png",
+        "bytes": 46313,
+        "sha256": "74deea261160e12633181155f4adbb6a0d6e1308ec355eeb4739a50a0c156c86"
+      },
+      {
+        "name": "appearance-evidence/about-light.xml",
+        "bytes": 26009,
+        "sha256": "c88dffa0adf0f2af99758f0012b7316a9798b1b7e0438feb918014a8dc0fa601"
+      },
+      {
+        "name": "appearance-evidence/about-light.png",
+        "bytes": 29138,
+        "sha256": "4006366d89511c314f1923d2519b19424763156b978cec6f1de45a3cfbbaa6f4"
+      },
+      {
+        "name": "appearance-evidence/light.xml",
+        "bytes": 48215,
+        "sha256": "ffbc3cfec638647a3c9fa9f99b37dbaa93019049c4bfb6078c606923f4ea70a1"
+      },
+      {
+        "name": "appearance-evidence/light.png",
+        "bytes": 45041,
+        "sha256": "155bc95a7c69c53cf1e814e85e9dfb464c2e0d3d6aedc216787ce893362e5f63"
+      },
+      {
+        "name": "appearance-evidence/light-reopened.xml",
+        "bytes": 48217,
+        "sha256": "a5d5e6fabb0cb03dcdbefa1585c789d58623dcb3aa971afbc4f851cdbe360770"
+      },
+      {
+        "name": "appearance-evidence/light-reopened.png",
+        "bytes": 44964,
+        "sha256": "7189482e38f31ca808fab6f83dd126529bb73d2feb5371d485b2620dcdb46b08"
+      },
+      {
+        "name": "appearance-evidence/about-dark.xml",
+        "bytes": 26009,
+        "sha256": "39db62c4696740c187b27c525fa4abe475da32faac227a647740e96a78e3e65b"
+      },
+      {
+        "name": "appearance-evidence/about-dark.png",
+        "bytes": 29515,
+        "sha256": "459caee3796d3b83fdaa66785bb4d2188ba4b4c4ba92e6eb172ade81553fbec0"
+      },
+      {
+        "name": "appearance-evidence/dark.xml",
+        "bytes": 48215,
+        "sha256": "ffbc3cfec638647a3c9fa9f99b37dbaa93019049c4bfb6078c606923f4ea70a1"
+      },
+      {
+        "name": "appearance-evidence/dark.png",
+        "bytes": 46313,
+        "sha256": "74deea261160e12633181155f4adbb6a0d6e1308ec355eeb4739a50a0c156c86"
+      },
+      {
+        "name": "appearance-evidence/dark-system-light.xml",
+        "bytes": 48215,
+        "sha256": "ffbc3cfec638647a3c9fa9f99b37dbaa93019049c4bfb6078c606923f4ea70a1"
+      },
+      {
+        "name": "appearance-evidence/dark-system-light.png",
+        "bytes": 46313,
+        "sha256": "74deea261160e12633181155f4adbb6a0d6e1308ec355eeb4739a50a0c156c86"
+      },
+      {
+        "name": "appearance-evidence/dark-reopened.xml",
+        "bytes": 48217,
+        "sha256": "a5d5e6fabb0cb03dcdbefa1585c789d58623dcb3aa971afbc4f851cdbe360770"
+      },
+      {
+        "name": "appearance-evidence/dark-reopened.png",
+        "bytes": 46205,
+        "sha256": "26202c2b331728ffb54e60076fdf6194bd972bee8bb6a0a734182dcb94e00225"
+      },
+      {
+        "name": "appearance-evidence/about-system-default.xml",
+        "bytes": 26009,
+        "sha256": "b81c4a5c9d0308644a56ddb3dacb234bb088c77617609100a9ad904dafdabd4e"
+      },
+      {
+        "name": "appearance-evidence/about-system-default.png",
+        "bytes": 29955,
+        "sha256": "456cdab6ad1c88ed63b09edf97e96e0f9b68a40891aec49b4cdea26db17866e0"
+      },
+      {
+        "name": "appearance-evidence/system-dark.xml",
+        "bytes": 48215,
+        "sha256": "f1e940456a469c13fb303d84e65851806efd12ff1c2f089cfd4a3dbef8ccc122"
+      },
+      {
+        "name": "appearance-evidence/system-dark.png",
+        "bytes": 46636,
+        "sha256": "668ab50b6a0c38ab8bac289ee9ffa511cbb501ab461fbaef051a63b6022278d9"
+      },
+      {
+        "name": "appearance-evidence/system-light.xml",
+        "bytes": 48215,
+        "sha256": "f1e940456a469c13fb303d84e65851806efd12ff1c2f089cfd4a3dbef8ccc122"
+      },
+      {
+        "name": "appearance-evidence/system-light.png",
+        "bytes": 45335,
+        "sha256": "6ae18c2b9be6d565094fa9ae6f449a885f821d293f3e51cfff237670d9216c7d"
+      }
+    ]
+  }
+}

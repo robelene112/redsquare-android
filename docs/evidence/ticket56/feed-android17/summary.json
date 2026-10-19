@@ -1,0 +1,36 @@
+{
+  "source": "aa40be52500889d9e602b99198ba655864799f92",
+  "sdk": "17",
+  "scope": "feed",
+  "exactPassingIdentities": 11,
+  "normalCompletions": 3,
+  "visual": {
+    "png": 18,
+    "xml": 8
+  },
+  "qualifiedFailureOnlyGaps": [
+    {
+      "path": "live-official/wallet-first-failure.png",
+      "error": "",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+    },
+    {
+      "path": "live-official/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.png",
+      "error": "",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+    }
+  ],
+  "physicalDeviceAcceptance": false,
+  "physicalTimingMeasured": false,
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/ui56-feed17-39326111333/android-native-proof"
+}

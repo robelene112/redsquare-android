@@ -1,0 +1,8 @@
+[
+  {
+    "path": "appearance-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.AppearancePreviewTest",
+    "test": "systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity",
+    "occurrences": 1
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "after-ordinary42-immutable.json": {
+    "http": 200,
+    "bytes": 814,
+    "sha256": "8a44cbd4179d78d00c21709aff640ba5b02b38eb6e47be9e66f007b1d4175a03"
+  },
+  "after-ordinary42.apk": {
+    "http": 200,
+    "bytes": 37745779,
+    "sha256": "553ebbd62e6592a34dabc0bac7d7425cce774422b3060c6de2e36ad7fc1a7eb7"
+  },
+  "after-performance43-page.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "after-performance43-latest.json": {
+    "http": 200,
+    "bytes": 741,
+    "sha256": "0a579402755f7ef196b5a45e9b47a8a09ef40c8398d0346d764e84c342397ae7"
+  },
+  "after-performance43-immutable.json": {
+    "http": 200,
+    "bytes": 741,
+    "sha256": "0a579402755f7ef196b5a45e9b47a8a09ef40c8398d0346d764e84c342397ae7"
+  },
+  "after-performance43.apk": {
+    "http": 200,
+    "bytes": 37749875,
+    "sha256": "dc409cfed811829738d7dbafc041a074c77574a576936187cf75d3042f260e91"
+  },
+  "candidate-page.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "candidate-latest.json": {
+    "http": 200,
+    "bytes": 629,
+    "sha256": "298e1fcfb0c028e4c53856427eb5e0db8cb43cad5ccd01a837f4bcc7825c5ab3"
+  },
+  "candidate-immutable.json": {
+    "http": 200,
+    "bytes": 629,
+    "sha256": "298e1fcfb0c028e4c53856427eb5e0db8cb43cad5ccd01a837f4bcc7825c5ab3"
+  },
+  "candidate.apk": {
+    "http": 200,
+    "bytes": 37745779,
+    "sha256": "129217527cb76265669a99ecdea79e009024787beacbbba1bc0f7357336eb740"
+  },
+  "exactPreparedApk": true,
+  "establishedCertificate": true,
+  "oldImmutableReleaseUnchanged": true,
+  "otherChannelPageMetadataApkUnchanged": true,
+  "source": "aa40be52500889d9e602b99198ba655864799f92",
+  "physicalDeviceAcceptance": false,
+  "physicalTimingAcceptance": false,
+  "result": "PASS",
+  "version": 45,
+  "stage": "after"
+}

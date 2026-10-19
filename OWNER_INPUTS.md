@@ -41,7 +41,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta42, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
+| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta45, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
 | Moderatieproces voor jouw backend en meldingen aan de appuitgever | David heeft verantwoordelijkheid geaccepteerd; bereikbare kanalen, behandeling, escalatie en daadwerkelijk toezicht nog te bepalen. | Werkende rapportage en moderatie. Een verzonden melding betekent niet automatisch beoordeeld of verwijderd. |
 | Privacy- en verwijderproces | Nog te bepalen: bereikbaar verzoekkanaal, eigendomscontrole zonder privésleutel, afhandeling en terugkoppeling. | Werkelijk uitvoerbare verzoeken en een webroute naast de app. Wallet vervangen of een bericht verbergen is geen volledige gegevensverwijdering. |
 | Bewaartermijnen en uitzonderingen | Nog te bepalen voor eigen serverlogs, archieven/back-ups, meldingen, verzoeken en eventuele pushgateway. | Waarheidsgetrouwe privacytekst en daadwerkelijke opruimprocedures. Geen vaste termijn of juridische uitzondering als feit invullen. |
@@ -58,13 +58,16 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta42](https://davidengelen.nl/redsquare/) en bijpassende
-[timingbuild43](https://davidengelen.nl/redsquare/performance/) staan online met
-dezelfde appcode. Downloads, versies en ondertekening zijn gecontroleerd. De
-nieuwe installatie- en isolatiecontroles op Android10 en17 zijn geslaagd. De
-gewone testidentiteit bleef behouden en de timing-app had een aparte wallet en
-opslag. De ondertekende installatietest gebruikt gewone referentie35 en timing43;
-dat bewijst de fysieke update naar beta42 nog niet.
+De gewone [beta45](https://davidengelen.nl/redsquare/) staat online. Deze update
+wijzigt Server naar Node; de bredere UI-verbeteringen zijn nog in uitvoering onder
+#55. Download, versie en ondertekening zijn gecontroleerd.
+
+[Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
+checkpoint en bevat nog niet de nieuwe Node-tekst of komende UI-code. Gebruik hem
+niet als definitieve meting van de actuele app. De eerdere geslaagde Android10/17
+installatieproef gebruikte gewone referentie35 en timing43: gescheiden wallets en
+opslag, met behoud van de gewone testidentiteit. Dat bewijst geen fysieke update
+naar beta45. Voor de definitieve metingen levert de agent een passende timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
 PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze

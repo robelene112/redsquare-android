@@ -11,8 +11,18 @@ tickets58through69 plus Node56 are linked under55. All three independent auditor
 checked the published consolidation and found no missing material coverage.
 Release36 has native blockers55 and57 in addition to its unchanged external gates.
 Start structural polish with content-first shell58; implement sequentially.
-Two likes per second remains a suggested policy, not a settled network rule.
-The current task publishes the audits/backlog; no app source changed in this round.
+The owner now authorizes implementing this whole backlog without routine stops.
+Use a local cap of two new intentional likes per rolling second per active wallet
+across post surfaces; this is app policy, not a network rule. Record it in57 before
+implementation. Ambiguous retry must reconcile/reuse the existing candidate.
+
+Node56 source aa40be525 and its focused Android10/17 feed/theme/public-read checks
+pass, with both source/publication review axes clear. Ordinary45 is published;
+56 remains open for larger-font inspection alongside58. Shared frame58 is active:
+RED b84f472c2 is retained, initial production slice e50538e60 is under focused
+Android17 verification (39328611127). No58 green or visual acceptance is claimed
+yet. AuthorProcessRecoveryTest has a pending fixture correction preserving its
+explicit enabled wait before opening the new maintenance overflow.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
@@ -32,31 +42,34 @@ or use of historical credentials.
 
 ## Current signed delivery
 
-Ordinary42/0.1.42 is LIVE at <https://davidengelen.nl/redsquare/>. Install over the
+Ordinary45/0.1.45 is LIVE at <https://davidengelen.nl/redsquare/>. Install over the
 existing ordinary app; never uninstall or erase the owner's wallet. Package is
 `nl.davidengelen.redsquare`, actual APK SHA256
-`553ebbd62e6592a34dabc0bac7d7425cce774422b3060c6de2e36ad7fc1a7eb7`, source metadata
-`6ccc4831794079472a93d4907c1fe5d85a015737`. Actual DEX review=true, Push=false,
+`129217527cb76265669a99ecdea79e009024787beacbbba1bc0f7357336eb740`, source metadata
+`aa40be52500889d9e602b99198ba655864799f92`. Actual DEX review=true, Push=false,
 separate Posts/Chat GIF keys absent. No configured services or final policies.
 
-Matching43/0.1.43 is LIVE at <https://davidengelen.nl/redsquare/performance/>.
+Historical timing43/0.1.43 is LIVE at <https://davidengelen.nl/redsquare/performance/>.
 Independent package/storage `nl.davidengelen.redsquare.performance`, actual APK
 SHA256 `dc409cfed811829738d7dbafc041a074c77574a576936187cf75d3042f260e91`, source
 metadata `b5a1569de7a906786fb7518c09595a14eaa0816d`. Actual DEX review=false,
 Push=false and GIF keys absent. This is the separate profiling app, never a reason
-to import or clear the ordinary wallet. Actual Pixel timing remains pending36.
+to import or clear the ordinary wallet. It does not match current45 or coming UI code. Actual Pixel timing remains pending36.
 
-Both publications used canonical scripts and independent actual public before/
+Historical42/43 publications used canonical scripts and independent actual public before/
 after checks, all exit0. Actual downloaded APK/metadata/signature/manifest match
 prepared artifacts. At42 publication immutable40 and the whole performance41
 channel were unchanged; at43 publication ordinary42's whole channel and immutable41
 were unchanged. Each publication packet has19 hashes and0/0 bookend reviews.
-Prepared42/43 each retain6 hashes. Do not rebuild or republish accepted artifacts.
+Prepared42/43 each retain6 hashes. Current45 uses the same canonical scripts:
+5 prepared hashes,19 publication hashes, exact public APK/metadata and unchanged
+immutable42/performance43 checks, all exit0 and0/0 review. See ticket56 evidence.
+Do not rebuild or republish accepted artifacts.
 
 All signed artifacts use established certificate
 `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`, min29/target36,
 nondebuggable, automatic backupfalse. Ordinary is nonprofileable, timing profileable.
-Source equivalence verifies the same258 production/build objects across accepted
+Historical source equivalence verifies the same258 production/build objects across accepted
 About38 production/full116e/42/43/offline44; object-list SHA256
 `1842cb1d3610641cd8a60cd85092296e415d61aa6f3520a9bf2f724b00724421`.
 
@@ -67,7 +80,7 @@ Canonical bundle command exits0; strict JAR/bundletool/local APK/signature/manif
 DEX/16KiB ZIP and64-bit LOAD checks pass,14 public-safe packet hashes,0/0 review.
 Review=false, providers absent and policy/contact readiness draft. It is not ready
 for production submission. Renew candidate and relevant checks after real config
-changes. Shared counter44, next45 only for an actual new build; verify before use.
+changes. Shared counter45, next46 only for an actual new build; verify before use.
 
 ## Complete current-code verification and About38
 
@@ -112,9 +125,8 @@ Canonical evidence: [About38](../evidence/ticket38/README.md),
 [offline44](../evidence/ticket49/prepared44/README.md) and
 [Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
 No complete native suite needs repeating without a new change, failure or concern.
-Production changes require fresh complete verification on both SDKs. No active
-builder/download remains. The audit itself requires no new build; future UI changes
-need verification appropriate to their actual impact.
+Production changes require fresh complete verification on both SDKs. The active58 source changes need fresh verification appropriate to their actual impact.
+Hosted focused39328611127 and source39328563625 were running at this update.
 
 ## Tracker and actual release boundaries
 
