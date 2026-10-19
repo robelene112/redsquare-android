@@ -68,3 +68,16 @@ https://davidengelen.nl/redsquare/. Publisher exited0; downloaded hash, signatur
 package25/0.1.25, minimum SDK29 and latest/immutable manifest equality pass.
 Immutable24 is unchanged. [Hashed publication records](signed-preview25-published/README.md)
 retain the exact observation. No physical installation is claimed.
+
+## Owner-directed development completion, 2026-10-19
+
+The owner parked external prerequisites and requested completing native tickets.
+The accepted native implementation, complete regressions, two-axis review and
+signed beta25 delivery above satisfy that development stage. Later complete54
+runs39294146155/39294150546 retain these native gates in published beta40.
+The earlier whole-ticket-open statements describe the former acceptance staging.
+
+Actual authorized Android Posts Giphy configuration and live search/select/credits/
+render/recovery remain unchecked as `GIPHY_POSTS` in [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+This transfer permits native16 completion without claiming provider acceptance.
+The separate Chat key/live requirements stay `GIPHY_CHAT`; no browser key is used.
