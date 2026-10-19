@@ -139,12 +139,7 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                 }
             }
         }
-        if (supportOpen) AlertDialog(onDismissRequest = { supportOpen = false },
-            title = { Text(stringResource(R.string.publisher_support)) },
-            text = { Text(stringResource(R.string.publisher_support_unavailable)) },
-            confirmButton = { TextButton(onClick = { supportOpen = false }) {
-                Text(stringResource(R.string.publisher_done))
-            } })
+        if (supportOpen) PublisherSupportDialog { supportOpen = false }
     }
 }
 

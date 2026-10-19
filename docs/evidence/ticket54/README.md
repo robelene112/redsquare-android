@@ -32,3 +32,22 @@ cause is not proven. The reader now positively waits for the same displayed,
 enabled Settings control within its existing20second bound before both entry
 paths. All reader assertions and the180second class bound remain. Both reviews
 througha4bebf567 reported0 findings for that first minimum, not full54 acceptance.
+
+## Ready support draft tracer
+
+The actual device artifacts for [run39277633853](https://github.com/robelene112/redsquare-android/actions/runs/39277633853)
+at `8013e73c3` contain1/1 support PASS (7.459s) and1/1 existing reader PASS
+(19.101s), both exit0 and the focused completion marker. The API still reports
+the run in progress; this records observed class results, not a final SUCCESS.
+
+[Run39277828228](https://github.com/robelene112/redsquare-android/actions/runs/39277828228)
+at `bcfd47010` executes both publisher cases on17: unconfigured support PASS,
+ready support fails its20second exact email-destination observation. Root opened
+the retained failure PNG: the old unavailable notice remains, as expected before
+ready configuration exists. The native command exits1; API run finalization
+remains pending. The separate reader did not execute. Local compilation of this
+test source passes in4m10s. Both review axes throughbcfd47010 report0 findings.
+
+The next minimum introduces central absent/unready defaults and a guarded owned
+ready fixture, a deliberate Android email draft, cancellation and retained text
+on missing handler. It configures no actual publisher contact or external service.
