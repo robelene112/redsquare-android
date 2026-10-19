@@ -79,9 +79,29 @@ Non-preview missing-policy selection is source-reviewed and shares native-tested
 Required(null); no actual non-preview binary UI proof or final owner approval is
 claimed. The specification does not require a separate binary experiment.
 
-See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete:
-full Android10/17 acceptance, final combined review and signed update remain.
-Freeze production, review the whole diff, then complete full acceptance/delivery.
+See [evidence53](../evidence/ticket53/README.md). Whole pre-full review ated1ae3b95
+reports0/0. Full Android10 run39250479060 and all three Android17 partitions in
+39250483054 are executing from that exact source. Ordinary38 is prepared and
+independently verified, not published; ordinary37 remains live. Its public-safe
+metadata packet is retained. No actual candidate38 installation is claimed.
+
+A subsequent bounded layout audit identified a source-supported risk, not a
+rendered failure: the new Required-policy queue row can consume height above
+Cancel. New single group tracer046d3c9c3 uses actual1.3-font rendering, visible
+first-use backup guidance, offline history/live warnings, a complete physical48dp
+Cancel target before and after terms review, and actual cancellation restoring
+the original draft with no transmissions. The authenticated real worker remains
+observable separately. Existing six queue cases and class bounds are intact;
+font and installation state restore independently. Both tracer reviews report0.
+Focused agreement run39252573443 is executing; no production layout fix yet.
+
+The independent expected-identity reference is recorded during execution, not
+as a pre-execution plan. It correctly separates the deliberately killed setup
+from terminal-success identities: ed1 expects456/API10 and457/API17; the later
+font tracer adds one each. Outcomes remain to be observed. Documentation and
+reference reviews report0/0. #53 remains incomplete: viewport proof, complete
+Android10/17 acceptance, final combined review and signed publication remain.
+Production changes require fresh full acceptance on both versions.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.

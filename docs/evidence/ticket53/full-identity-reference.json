@@ -1,0 +1,389 @@
+{
+  "expectedDeliberateInterruptionIdentity": {
+    "path": "publishing-process/interrupted.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+    "test": "terminateAfterExplicitAgreementAndSavingTheUnsentDraft",
+    "terminalSuccessNotExpected": true
+  },
+  "recordedDuringExecution": true,
+  "notPreExecutionPlan": true,
+  "basis": "Previously committed accepted52 exact path/class/test catalogs plus literal new native and process test identities from the source, independent of observed new outcomes.",
+  "executingSource": "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
+  "executingRuns": {
+    "android10": 39250479060,
+    "android17": 39250483054
+  },
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket52/full10/identities.json",
+      "sha256": "b68021fecba50ee395e800875dc695e1eb51220a98c0fc8a3d4dc7ec5200bae8",
+      "previousIdentities": 431,
+      "additional": [
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "requiredTermsCanBeReadAndCancelledWithoutPublishingOrLosingThePost",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "creatingAGroupRequiresAgreementAndKeepsItsUnpublishedDetailsOnCancel",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "previewingAnInvitationIsIndependentButJoiningRequiresAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "cancellingGroupPublicationKeepsTheEditableMessage",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "cancellingAGroupReactionKeepsTheMessageUnliked",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "removingAMemberRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "leavingAGroupRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-author-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAuthorPreviewTest",
+          "test": "editingRequiresAgreementButRemovingThePostRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-post-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+          "test": "unacceptedBackgroundPostsKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-post-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedPostWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+          "test": "unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+          "test": "unreadyNewAndUnreadableAgreementStatesPreserveTheDraftUntilExplicitCurrentAcceptance",
+          "occurrences": 1
+        },
+        {
+          "path": "publishing-process/recovered.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+          "test": "coldProcessKeepsAgreementButRequiresDeliberateSend",
+          "occurrences": 1
+        },
+        {
+          "path": "publishing-process/restored.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 456,
+      "expectedNormalCompletions": 114,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33,
+      "knownAssumptions": 1
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket52/full17/identities.json",
+      "sha256": "af8521481f51708b1a73c383e5a9a8610521eb623599793a1b110df56a87d3e1",
+      "previousIdentities": 432,
+      "additional": [
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+          "test": "requiredTermsCanBeReadAndCancelledWithoutPublishingOrLosingThePost",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-surfaces-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+          "test": "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "creatingAGroupRequiresAgreementAndKeepsItsUnpublishedDetailsOnCancel",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "previewingAnInvitationIsIndependentButJoiningRequiresAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "cancellingGroupPublicationKeepsTheEditableMessage",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "cancellingAGroupReactionKeepsTheMessageUnliked",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "removingAMemberRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+          "test": "leavingAGroupRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-author-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingAuthorPreviewTest",
+          "test": "editingRequiresAgreementButRemovingThePostRemainsAvailableWithUnapprovedPolicies",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-post-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+          "test": "unacceptedBackgroundPostsKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-post-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedPostWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+          "test": "unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+          "test": "unreadyNewAndUnreadableAgreementStatesPreserveTheDraftUntilExplicitCurrentAcceptance",
+          "occurrences": 1
+        },
+        {
+          "path": "publishing-process/recovered.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+          "test": "coldProcessKeepsAgreementButRequiresDeliberateSend",
+          "occurrences": 1
+        },
+        {
+          "path": "publishing-process/restored.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+          "test": "restoreOriginalEncryptedInstallationFiles",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 457,
+      "expectedNormalCompletions": 115,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33,
+      "knownAssumptions": 0
+    }
+  ],
+  "subsequentTracer": {
+    "source": "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3",
+    "additional": [
+      {
+        "path": "agreement-group-queue-ui.txt",
+        "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+        "test": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+        "occurrences": 1
+      }
+    ],
+    "expectedIdentities": {
+      "android10": 457,
+      "android17": 458
+    },
+    "normalCompletionsUnchanged": true,
+    "productionUnchanged": true
+  },
+  "limits": "These are expected comparisons, never observed pass counts. Every application, recovery, public-read, signed update/isolation and final gate must complete. All Android17 partitions are required. Production changes require fresh full acceptance on both SDKs.",
+  "productionComparison": {
+    "sources": [
+      "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
+      "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3"
+    ],
+    "paths": [
+      "app/src/main",
+      "app/src/performance",
+      "app/build.gradle.kts",
+      "core/src/main",
+      "core/build.gradle.kts",
+      "push-gateway/src/main",
+      "push-gateway/build.gradle.kts",
+      "settings.gradle.kts",
+      "build.gradle.kts",
+      "gradle.properties",
+      "gradle/wrapper",
+      "build-support",
+      "app/src/debug",
+      "app/src/release",
+      "gradlew",
+      "gradlew.bat"
+    ],
+    "identical": true,
+    "objectCount": 251,
+    "objectListSha256": "978145ce38b749de0bbf836e66d8bd3bb13c16e741ed423be2099252b7c7e27c"
+  }
+}
