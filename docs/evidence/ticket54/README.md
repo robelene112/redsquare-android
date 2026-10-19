@@ -51,3 +51,24 @@ test source passes in4m10s. Both review axes throughbcfd47010 report0 findings.
 The next minimum introduces central absent/unready defaults and a guarded owned
 ready fixture, a deliberate Android email draft, cancellation and retained text
 on missing handler. It configures no actual publisher contact or external service.
+
+## Exact recipient observation and dialog keyboard owner
+
+At `0bf3e9b15`, actual device artifacts from10 run39279130375 and17
+run39279134723 show unconfigured support PASS and ready support reaching
+the intercepted email action, then failing an overly literal URI serialization
+comparison: Android emits `mailto:support%40publisher.example`. The receiver is
+unchanged. The corrected observer asserts scheme `mailto` and the exact decoded
+scheme-specific address independently, retaining the exact EXTRA_EMAIL, subject,
+body and allowed-extras/attachment/grant assertions. Missing-handler checks had
+not yet executed. Root opened both original failure PNGs; they show the prepared
+form and truthful requested-draft notice. No actual email was delivered.
+
+The follow-up Standards review also confirmed from pinned Compose1.11.4 that
+LocalSoftwareKeyboardController is supplied per view owner. Its read moves inside
+the support Dialog so its action uses the editor window, not PolicyCenter's owner.
+This is a source-supported correction; no runtime keyboard defect was observed.
+Both earlier reviews through0bf3e9b15 reported0; this follow-up is additional.
+Local production compilation at0bf passes in2m32s. Fresh focused checks follow
+the URI-observer and actual production window-scoping correction. Final full
+Android10/17 acceptance remains required for54.

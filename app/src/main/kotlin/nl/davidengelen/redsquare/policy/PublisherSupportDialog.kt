@@ -46,9 +46,9 @@ internal fun PublisherSupportDialog(onClose: () -> Unit) {
     val appContext = stringResource(R.string.publisher_app_context, BuildConfig.VERSION_NAME)
     val subject = stringResource(R.string.publisher_support_subject)
     val body = stringResource(R.string.publisher_email_body, appContext, description)
-    val keyboard = LocalSoftwareKeyboardController.current
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
+        val keyboard = LocalSoftwareKeyboardController.current
         val view = LocalView.current
         val window = (view.parent as DialogWindowProvider).window
         val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f

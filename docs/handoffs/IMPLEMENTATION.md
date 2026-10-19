@@ -74,8 +74,15 @@ preserved unsent draft/full wallet/backend. New focused scopes retain the
 existing offline reader and180second class bounds; full scopes include the new
 class. Actual RED39275678910 atcebe4dde4 reaches the reader then times out on the missing
 Contact publisher action. The first minimum adds the unconfigured support notice;
-focused GREEN is pending. The composer fixture now positively observes enabled
-editors and uses unready policy configuration. See ticket54 evidence index. No new Saito
+first tracer GREEN and existing reader PASS are observed at8013e73c3 in
+39277633853 (API later reportsSUCCESS). Ready-support RED17 atbcfd47010 reaches
+the expected unavailable notice. Productionminimum0bf3e9b15 compiles and both
+reviews report0, but actual10/17 focused commands fail only the raw URI observer
+after controlled email handoff: encoded%40 versus literal@. The observer now
+asserts exact decoded recipient plus scheme. A source-supported correction moves
+the keyboard controller read into its actual Dialog window. Fresh GREEN is pending.
+The composer fixture positively observes enabled editors and uses unready policy
+configuration. See ticket54 evidence index. No new Saito
 report API, automatic email, local wipe or operational/store compliance is implied.
 Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
