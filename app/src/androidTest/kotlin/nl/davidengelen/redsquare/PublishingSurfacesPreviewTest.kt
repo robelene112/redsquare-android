@@ -12,6 +12,7 @@ import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.After
@@ -19,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.atomic.AtomicBoolean
 
 /** User-facing publication gates use the real app and an owned signed-transaction peer. */
 class PublishingSurfacesPreviewTest {
@@ -36,8 +38,93 @@ class PublishingSurfacesPreviewTest {
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("social.") || it.name.startsWith("feed.") ||
                 it.name.startsWith("conversation.") || it.name.startsWith("profile.") ||
-                it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.")
+                it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.") ||
+                it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
         }?.forEach { check(it.delete()) }
+    }
+
+    @Test fun checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement() {
+        val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+        val previous = fixture.takeIf { it.exists() }?.readBytes()
+        val revision = "owned-registry-${java.util.UUID.randomUUID()}"
+        fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
+            "terms":"Controlled registration terms. No real publisher approval.",
+            "community":"Controlled registration rules. Checking a name does not publish it."}""")
+        try {
+            val wallet = AndroidWalletStore(context).loadOrCreate()
+            val originalWallet = wallet.exportJson()
+            // Public unsafe scalar2 registrar, confined to the existing emulator/loopback authority seam.
+            val registrar = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+            val reference = InstrumentationRegistry.getInstrumentation().context.assets
+                .open("native-registry-reference.json").bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
+            assertEquals(reference.get("registrar").asString, registrar.publicKey)
+            val identifier = "ConsentCase1@saito"
+            val blockHash = "a".repeat(64)
+            val proof = JsonObject().apply {
+                addProperty("identifier", identifier); addProperty("publickey", wallet.publicKey)
+                addProperty("bid", 123); addProperty("bsh", blockHash); addProperty("signer", registrar.publicKey)
+                addProperty("sig", registrar.sign((identifier + wallet.publicKey + "123" + blockHash).toByteArray(Charsets.UTF_8)))
+                addProperty("lc", 1)
+            }
+            val registered = AtomicBoolean(false)
+            val peer = ControlledFeedPeer("[]", registryResponse = { criteria ->
+                if (criteria.get("request").asString == "registry query") "{}" else {
+                    assertEquals("registry namecheck", criteria.get("request").asString)
+                    assertEquals(identifier, criteria.get("identifier").asString)
+                    if (registered.get()) "[$proof]" else "[]"
+                }
+            }, onTransaction = { frame ->
+                val signed = SaitoEnvelope.decode(postingTransaction(frame).envelope())
+                assertEquals(wallet.publicKey, signed.author)
+                assertEquals(listOf(registrar.publicKey, wallet.publicKey), signed.recipients)
+                assertEquals("Registry", signed.body.get("module").asString)
+                assertEquals("register", signed.body.get("request").asString)
+                assertEquals(identifier, signed.body.get("identifier").asString)
+                registered.set(true)
+            }, archiveResponse = { "[]" })
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("feedDisabled", true).putExtra("usernameFixtureRegistrar", true)).use {
+                    withFailureCapture({ capture("registry-first-failure.png") }) {
+                        waitForEnabled("Settings")
+                        if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Saito username").performScrollTo().performClick()
+                        waitForEnabled("Check name")
+                        ui.onNode(hasSetTextAction()).performTextReplacement("ConsentCase1")
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        ui.onNodeWithText("Check name").performScrollTo().performClick()
+                        waitForScrollable("This username is currently available. Checking does not reserve it.")
+                        assertTrue("Checking availability does not require agreement or publish", peer.transactions.isEmpty())
+                        repeat(2) { attempt ->
+                            ui.onNodeWithText("Register name").performScrollTo().performClick()
+                            waitFor("Review publishing terms")
+                            assertTrue(peer.transactions.isEmpty())
+                            if (attempt == 0) {
+                                ui.onNodeWithText("Cancel").performClick()
+                                ui.onNode(hasSetTextAction()).assertIsEnabled().assert(
+                                    SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("ConsentCase1")))
+                                capture("registry-cancel-keeps-name-and-availability.png")
+                            }
+                        }
+                        ui.onNodeWithText("Accept").performClick()
+                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        assertTrue("Agreement is separate from registration", peer.transactions.isEmpty())
+                        ui.onNodeWithText("Register name").performScrollTo().performClick()
+                        waitForScrollable("This username is registered to your wallet.")
+                        ui.onNodeWithText(identifier).assertIsDisplayed()
+                        assertEquals(1, peer.transactions.size)
+                        assertTrue(originalWallet == AndroidWalletStore(context).loadExisting().exportJson())
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        capture("registry-deliberately-registered-after-agreement.png")
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } finally {
+            if (previous == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previous)
+        }
     }
 
     @Test fun profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio() {
@@ -169,5 +256,12 @@ class PublishingSurfacesPreviewTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onNodeWithText(text).isDisplayed() }
+    private fun waitForEnabled(text: String) = ui.waitUntil(20_000) {
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+    }
+    private fun waitForScrollable(text: String) {
+        ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+        ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+    }
     private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "agreement-surfaces-evidence/$name"))
 }
