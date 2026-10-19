@@ -115,7 +115,8 @@ Next53 prepares installation-local versioned agreement before content publicatio
 with draft-aware useful previews and a non-preview release gate while approved
 policy is absent. Preserve first reading, wallet/payments/reporting, backend/
 identity, queued originals and pre-claim cancellation. Read its current issue
-and planning comment; first RED tracer is prepared, production53 not implemented. Continue justified substantive
+and planning comment. The first foreground cancellation slice is implemented;
+persistence and the other publication gates remain pending. Continue justified substantive
 native work under36 while owner facts remain in OWNER_INPUTS.md.
 
 ## Accepted issue51: complete 16 KB runtime proof

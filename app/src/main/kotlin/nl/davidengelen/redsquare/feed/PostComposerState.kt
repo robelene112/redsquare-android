@@ -99,7 +99,7 @@ internal class PostComposerState(
             finally { saving = false }
         }
     }
-    fun send() {
+    fun send(beforePublishing: suspend () -> Boolean) {
         if (!ready || saving || sending || (text.isBlank() && images.isEmpty())) return
         val retrying = transaction != null
         networkError = false
@@ -107,6 +107,7 @@ internal class PostComposerState(
         sending = true
         scope.launch {
             try {
+                if (!beforePublishing()) return@launch
                 val candidate = writes.withLock {
                     val prepared = transaction ?: withContext(Dispatchers.IO) {
                         val body = RedSquarePosts.message(text, images, parent, quote)
