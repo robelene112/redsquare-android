@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.app.Activity
 import android.app.Instrumentation
 import android.content.Intent
+import android.content.ActivityNotFoundException
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -15,10 +16,111 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 
 /** Real native navigation and Android intent interception; no email or public write. */
 class PublisherRoutesPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun readyPublisherSupportOnlyOpensTheShownEmailDraftAndKeepsTextWhenNoEmailAppOpens() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val originalWallet = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        val retained = ChatFixtureState(context, listOf("publisher-routes-fixture.json",
+            "publishing-policy-fixture.json"), originalWallet.publicKey)
+        val unavailable = AtomicBoolean(false)
+        val description = "The draft stays on my phone until I choose my email app 😀"
+        var primary: Throwable? = null
+        Intents.init()
+        try {
+            Intents.intending(hasAction(Intent.ACTION_SENDTO)).respondWithFunction {
+                if (unavailable.get()) throw ActivityNotFoundException("Owned unavailable email handler")
+                Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null)
+            }
+            Intents.intending(hasAction(Intent.ACTION_VIEW)).respondWith(
+                Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
+            retained.prepare()
+            File(context.noBackupFilesDir, "publisher-routes-fixture.json").writeText(
+                """{"ready":true,"supportEmail":"support@publisher.example"}""")
+            File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+                .writeText("""{"enforce":true,"ready":false}""")
+            backends.save(SaitoBackend.OWNER)
+            val peer = ControlledFeedPeer("[]")
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
+                    withFailureCapture({ capture("ready-support-first-failure.png") }) {
+                        waitFor("Settings", action = true)
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        waitFor("Contact publisher", action = true)
+                        fun openSupport() {
+                            ui.onNodeWithText("Contact publisher").performScrollTo().performClick()
+                            waitFor("Email: support@publisher.example")
+                            ui.onNodeWithText("Publisher: Angels’ Foundry").assertIsDisplayed()
+                            ui.onNodeWithText("App: Red Square 0.1.0").assertIsDisplayed()
+                            waitForEditor()
+                        }
+                        fun external() = Intents.getIntents().filter {
+                            it.action in listOf(Intent.ACTION_SENDTO, Intent.ACTION_VIEW)
+                        }
+                        openSupport()
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Cancel this unpublished description")
+                        ui.onNodeWithText("Cancel").performClick()
+                        waitFor("Contact publisher", action = true)
+                        assertTrue(external().isEmpty())
+                        openSupport()
+                        ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
+                            androidx.compose.ui.semantics.SemanticsProperties.EditableText,
+                            androidx.compose.ui.text.AnnotatedString("")))
+                        ui.onNode(hasSetTextAction()).performTextReplacement(description)
+                        activity.recreate()
+                        waitForEditor()
+                        ui.onNode(hasSetTextAction()).assertTextContains(description)
+                        ui.onNodeWithText("Compose email").performClick()
+                        waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
+                        val draft = external().single()
+                        assertEquals(Intent.ACTION_SENDTO, draft.action)
+                        assertEquals("mailto:support@publisher.example", draft.dataString)
+                        assertArrayEquals(arrayOf("support@publisher.example"), draft.getStringArrayExtra(Intent.EXTRA_EMAIL))
+                        assertEquals("Red Square support", draft.getStringExtra(Intent.EXTRA_SUBJECT))
+                        assertEquals("App: Red Square 0.1.0\n\nDescription:\n$description", draft.getStringExtra(Intent.EXTRA_TEXT))
+                        assertEquals(setOf(Intent.EXTRA_EMAIL, Intent.EXTRA_SUBJECT, Intent.EXTRA_TEXT), draft.extras!!.keySet())
+                        assertNull(draft.clipData)
+                        assertEquals(0, draft.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
+                        capture("ready-support-draft-requested.png")
+                        ui.onNodeWithText("Done").performClick()
+                        waitFor("Contact publisher", action = true)
+                        openSupport()
+                        unavailable.set(true)
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Keep this editable description")
+                        ui.onNodeWithText("Compose email").performClick()
+                        waitFor("No email app could be opened. Your description is still here. Install or enable an email app, then try again.")
+                        ui.onNode(hasSetTextAction()).assertTextContains("Keep this editable description")
+                        assertEquals(2, external().size)
+                        capture("ready-support-no-email-app.png")
+                        ui.onNodeWithText("Cancel").performClick()
+                        assertTrue("Support must preserve complete wallet options",
+                            originalWallet.exportJson() == wallets.loadExisting().exportJson())
+                        assertEquals(SaitoBackend.OWNER, backends.load())
+                        assertTrue(peer.transactions.isEmpty())
+                        assertTrue(peer.reports.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { Intents.release() }, { retained.restoreFiles() },
+                { wallets.replace(wallets.loadExisting(), originalWallet) },
+                { backends.save(originalBackend); check(backends.load() == originalBackend) },
+                { retained.restorePreferences() })
+        }
+    }
 
     @Test fun unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
