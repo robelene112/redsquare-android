@@ -21,7 +21,10 @@ supersedes the earlier need to settle every policy fact before implementation;
 actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
-No implementation child is currently claimed. Issues50/51 are accepted/CLOSED;
+Child52 is assigned for the offline draft privacy/safety reader and owner-input
+checklist. Its native acceptance, review and signed publication are in progress.
+The existing9original release criteria remain open; placeholders do not close them.
+No other implementation child is claimed. Issues50/51 are accepted/CLOSED;
 ordinary35 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Original35-ticket count remains
 26CLOSED/nineOPEN:16,17,19,31,32,33,34,35,36. Specification1 remainsOPEN.

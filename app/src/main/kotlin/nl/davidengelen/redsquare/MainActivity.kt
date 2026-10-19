@@ -41,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.Role
@@ -144,6 +145,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var policiesOpen by rememberSaveable { mutableStateOf(false) }
             var personalControlsOpen by remember { mutableStateOf(false) }
             var usernameOpen by remember { mutableStateOf(false) }
             var savingBackend by remember { mutableStateOf(false) }
@@ -362,7 +364,7 @@ class MainActivity : ComponentActivity() {
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
-                                        val feedUnobstructed = !settingsOpen && !personalControlsOpen && !usernameOpen &&
+                                        val feedUnobstructed = !settingsOpen && !policiesOpen && !personalControlsOpen && !usernameOpen &&
                                             !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
                                             !savingBackend && !walletImport.busy && !walletExport.busy
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
@@ -398,6 +400,10 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
+                                TextButton(enabled = !savingBackend, onClick = {
+                                    settingsOpen = false
+                                    policiesOpen = true
+                                }) { Text(stringResource(R.string.policy_center)) }
                                 TextButton(enabled = wallet != null, onClick = {
                                     settingsOpen = false
                                     personalControlsOpen = true
@@ -486,6 +492,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     )
+                    if (policiesOpen) nl.davidengelen.redsquare.policy.PolicyCenter { policiesOpen = false }
                     if (personalControlsOpen) PersonalControlsDialog { personalControlsOpen = false }
                     if (walletOpen) AlertDialog(
                         onDismissRequest = { if (!walletImport.activating) {

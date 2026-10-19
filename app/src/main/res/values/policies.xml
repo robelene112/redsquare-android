@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Owner-authorized review drafts, 2026-10-19. Pending facts: OWNER_INPUTS.md. -->
+    <string name="policy_center">Privacy and safety</string>
+    <string name="policy_back">Back to privacy and safety</string>
+    <string name="policy_close">Close privacy and safety</string>
+    <string name="policy_draft">Draft policies</string>
+    <string name="policy_draft_notice">For review, 19 October 2026. These texts are not final. Contact details and some procedures are still being prepared. Reading them does not record agreement or submit a request.</string>
+
+    <string name="policy_terms">Terms of use</string>
+    <string name="policy_terms_summary">Using Red Square, your wallet and shared content.</string>
+    <string name="policy_terms_service">About Red Square</string>
+    <string name="policy_terms_service_text">Red Square is an Android app for Saito social posts and Chat. Angels’ Foundry is the selected app publisher. The first release is planned as a free community app. You choose between saito.davidengelen.nl and saito.io. Available history and moderation can differ between servers.</string>
+    <string name="policy_terms_identity">Your wallet and access</string>
+    <string name="policy_terms_identity_text">The app creates or imports a wallet on your device. Keep an authenticated backup somewhere you control. Losing the wallet or its backup can mean losing access to your identity and funds. Transfers require confirmation and device authentication. This app does not promise returns, recover lost keys or undo confirmed network transfers.</string>
+    <string name="policy_terms_content">Proposed content responsibilities</string>
+    <string name="policy_terms_content_text">Only share content you are entitled to share. The proposed Community guidelines prohibit abusive and illegal content. Public posts and group messages can be copied by others. Private Chat encrypts message content, but routing information is not made anonymous and complete history recovery is not guaranteed.</string>
+    <string name="policy_terms_pending">Release details pending</string>
+    <string name="policy_terms_pending_text">Registered publisher details, support contacts, eligibility, final terms and their acceptance process are still being prepared. This draft does not activate new restrictions or record consent.</string>
+
+    <string name="policy_privacy">Privacy notice</string>
+    <string name="policy_privacy_summary">What stays on your phone and what reaches other services.</string>
+    <string name="policy_privacy_device">On your device</string>
+    <string name="policy_privacy_device_text">Private wallet material, drafts and Chat history are stored using Android Keystore encryption. Public feed caches, public content references and some preferences are stored locally without that encryption. Android automatic app backup is disabled. Exporting a wallet writes sensitive private material to the document location you choose, which may be a cloud provider. Never send a wallet backup to support.</string>
+    <string name="policy_privacy_network">On the Saito network</string>
+    <string name="policy_privacy_network_text">The selected server receives connections, requests, your public wallet identity and signatures. Posts, profile updates and related signed actions can become public. Group Chat messages are unencrypted. Private Chat encrypts message content, while public sender and recipient routing details remain visible. Independent servers and recipients may retain copies.</string>
+    <string name="policy_privacy_providers">Media and optional notifications</string>
+    <string name="policy_privacy_providers_text">Remote images contact their hosts. Opening YouTube playback contacts YouTube. Configured GIF search contacts Giphy and loading GIF media contacts its delivery services. Configured background notifications use Firebase and a gateway after a separate notification choice; Android permission alone is not that choice. These services are not all configured in the current preview. Extensive usage tracking is not planned, and no extra crash-reporting service has been selected.</string>
+    <string name="policy_privacy_pending">Retention details pending</string>
+    <string name="policy_privacy_pending_text">The final privacy contact, purposes and provider roles, retention schedule, request rights and operational procedures are still being prepared. No automatic server-deletion deadline or complete erasure of network copies is promised by this draft.</string>
+
+    <string name="policy_community">Community guidelines</string>
+    <string name="policy_community_summary">Proposed conduct rules, reports and personal controls.</string>
+    <string name="policy_community_conduct">Proposed conduct rules</string>
+    <string name="policy_community_conduct_text">Do not publish or send threats, targeted harassment, hateful abuse, fraud, unlawful private information or content that violates another person’s rights. Do not share child sexual abuse material, exploit children, groom them or solicit sexual content from them. Do not use the app for illegal activity or distribute sexually explicit content. These proposed rules cover posts, profiles, shared media and Chat.</string>
+    <string name="policy_community_controls">Mute and block</string>
+    <string name="policy_community_controls_text">Account mute hides posts and notifications while keeping Chat accessible. Account block also hides incoming Chat messages from that account. Conversation mute silences alerts while keeping the conversation visible. Personal controls apply to the active wallet on this device across both supported servers; they do not delete other people’s copies.</string>
+    <string name="policy_community_reports">Report a post</string>
+    <string name="policy_community_reports_text">Use Report on a post and check the destination shown before sending. Reports go to the currently selected server. An acknowledgement confirms receipt, not review or removal. The two servers can apply different moderation decisions. App-publisher complaints need their own working contact route.</string>
+    <string name="policy_community_pending">Moderation process pending</string>
+    <string name="policy_community_pending_text">Angels’ Foundry has accepted responsibility for its own backend moderation and app-publisher messages. Actual contact channels, review, escalation and enforcement procedures, plus complete user-report coverage, remain unfinished. This draft does not claim continuous moderation is already operational.</string>
+
+    <string name="policy_safety">Child safety</string>
+    <string name="policy_safety_summary">Proposed standards against child abuse and exploitation.</string>
+    <string name="policy_safety_standard">Proposed child-safety standard</string>
+    <string name="policy_safety_standard_text">Red Square must not be used for child sexual abuse or exploitation. The proposed standards prohibit abuse material, grooming, sexual solicitation, sextortion and trafficking involving children. Do not repost harmful material when reporting it.</string>
+    <string name="policy_safety_reporting">Raising a concern</string>
+    <string name="policy_safety_reporting_text">Existing post reports name the selected server before submission. A receipt does not prove safety review or action. The app-publisher feedback route and dedicated safety contact are still being prepared. If someone is in immediate danger, contact local emergency services.</string>
+    <string name="policy_safety_pending">Safety contact pending</string>
+    <string name="policy_safety_pending_text">The responsible public contact, effective handling and appropriate escalation process, published standards and store declaration must be completed before release. No safety report is sent from this reader.</string>
+
+    <string name="policy_deletion">Data and deletion</string>
+    <string name="policy_deletion_summary">Wallet safety, retained copies and the planned request process.</string>
+    <string name="policy_deletion_wallet">Protect access before removal</string>
+    <string name="policy_deletion_wallet_text">A wallet controls your Saito identity and funds. Uninstalling, clearing storage or losing device keys can make local data inaccessible. Export and verify a backup before destructive actions. Replacing a wallet is not account deletion. This screen does not clear data or destroy keys.</string>
+    <string name="policy_deletion_network">Published and shared copies</string>
+    <string name="policy_deletion_network_text">Deleting a post removes it from normal app views when the action is verified; historical records, independent archives and recipient copies can remain. Leaving a group, blocking someone or disabling notifications does not erase shared messages. Available Chat history is not promised forever, and wallet import alone does not guarantee complete recovery.</string>
+    <string name="policy_deletion_requests">Planned deletion requests</string>
+    <string name="policy_deletion_requests_text">The intended request process must identify publisher-held data, verify authority without collecting private wallet material, explain retained records and report completed and failed actions. Independent operators cannot be promised to erase copies. You will need a working request route outside the app as well as an in-app entry point.</string>
+    <string name="policy_deletion_pending">Deletion process pending</string>
+    <string name="policy_deletion_pending_text">The request contact and web address, verification method, completion process and justified retention schedule are not finalized. No request can be submitted here yet. A future deletion flow must preserve backup, authentication and transfer safeguards before any local removal.</string>
+
+    <string name="policy_contact">Contact and support</string>
+    <string name="policy_contact_summary">The selected publisher and contact channels still to be completed.</string>
+    <string name="policy_contact_publisher">Selected app publisher</string>
+    <string name="policy_contact_publisher_text">Angels’ Foundry is the selected publisher of Red Square. Business registration was confirmed as not yet complete on 19 October 2026. This name does not indicate a verified Google Play organization account.</string>
+    <string name="policy_contact_details">Keep private material private</string>
+    <string name="policy_contact_details_text">Support never needs your private wallet, seed, signing key or backup file. When asking about an issue, use the public app version and describe what happened. Check screenshots for private information before sharing them.</string>
+    <string name="policy_contact_pending">Contact details pending</string>
+    <string name="policy_contact_pending_text">Public support, privacy/deletion and child-safety contact details are being prepared. There is no active email address or request link in this preview. Existing post reports still go to the selected server; they are separate from contacting the app publisher.</string>
+</resources>

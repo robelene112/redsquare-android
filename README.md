@@ -45,6 +45,7 @@ Hardware acceleration is used when `/dev/kvm` is available; software emulation
 on this VPS is slow and does not establish Pixel 7 performance. Device evidence
 is written to `.scratch/device-evidence/`.
 
+- [Owner inputs still needed](OWNER_INPUTS.md)
 - [Start a session](docs/STARTING_PROMPTS.md)
 - [Development workflow and Wayfinder](docs/WORKFLOW.md)
 - [Agreed scope and open decisions](docs/PROJECT_CONTEXT.md)

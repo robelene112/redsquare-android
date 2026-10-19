@@ -32,12 +32,12 @@ class PolicyCenterPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("first-failure.png") }) {
-                    waitFor("New post")
+                    waitFor("New post", action = true)
                     val originalWallet = AndroidWalletStore(context).loadExisting().exportJson()
                     ui.onNodeWithText("New post").performClick()
                     ui.onNode(hasSetTextAction()).performTextReplacement("Unsent policy navigation draft")
                     ui.onNodeWithText("Save draft").performClick()
-                    waitFor("New post")
+                    waitFor("New post", action = true)
 
                     fun center() {
                         ui.onNodeWithText("Settings").performClick()
@@ -57,6 +57,10 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.onNodeWithText("Done").performClick()
+                        if (theme == "Dark") {
+                            peer.rejectNewConnections = true
+                            peer.disconnectAuthenticatedSockets()
+                        }
                         center()
                         capture("${theme.lowercase()}-overview.png")
                         val documents = linkedMapOf(
@@ -86,7 +90,7 @@ class PolicyCenterPreviewTest {
                         }
                         // Android Back closes the center without losing the underlying feed.
                         UiDevice.getInstance(instrumentation).pressBack()
-                        waitFor("New post")
+                        waitFor("New post", action = true)
                         unchanged()
                     }
                     ui.onNodeWithText("New post").performClick()
@@ -99,8 +103,9 @@ class PolicyCenterPreviewTest {
         }
     }
 
-    private fun waitFor(text: String) = ui.waitUntil(20_000) {
-        ui.onNodeWithText(text).isDisplayed()
+    private fun waitFor(text: String, action: Boolean = false) = ui.waitUntil(20_000) {
+        val matcher = if (action) hasText(text) and hasClickAction() and isEnabled() else hasText(text)
+        ui.onNode(matcher).isDisplayed()
     }
 
     private fun capture(name: String) = captureNativeScreen(File(
