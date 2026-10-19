@@ -69,8 +69,12 @@ Use the project-local implement skill for [ticket issue URL or number].
 Read its originating spec and confirm the blockers are complete. Implement
 this ticket, run the appropriate checks, review the actual diff against the
 starting commit, fix findings and commit the completed change. Update the
-ticket with evidence and close it when its criteria pass. Report what I can
-review on my phone and any remaining limitations. Stop before the next ticket.
+ticket with evidence and close it when its criteria pass. Keep missing owner
+prerequisites in OWNER_INPUTS.md and continue independent work with clearly
+identified placeholders under the existing authorization. Do not repeat recorded
+setup questions or count placeholders as completed integrations or acceptance.
+Report what I can review on my phone and any remaining limitations. Stop before
+the next ticket.
 ```
 
 ## Review or retrospective
