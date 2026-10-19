@@ -130,7 +130,9 @@ files and four root-opened originals. First-case UI restoration remains asserted
 Fresh full10 recheck39265216621 is running atdcc with public reads and immutable
 35/performance36. Full reference records separate SDK sources and the old failure.
 All251 production/build objects remain identical; successful17 may use the
-existing outstanding-SDK fixture rule. Complete10 and combined reviews remain.
+existing outstanding-SDK fixture rule. Both focused evidence reviews report0,
+reproducing all43 hashes and ten accepted-subset identities. Complete10 and
+combined reviews remain.
 Prepared38 remains unpublished.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),

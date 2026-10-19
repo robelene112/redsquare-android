@@ -9,6 +9,10 @@ the Android toolkit and build configuration are chosen.
   the smallest design that satisfies its accepted behavior.
 - Test observable behavior at agreed boundaries. Keep live network side effects
   separate from ordinary automated checks.
+- Restore fixture-owned identity, backend and other declared state independently
+  of successful UI assertions. A normal UI restoration journey remains acceptance;
+  failure cleanup must also run after the Activity closes, attempt each owned
+  restoration and preserve the original failure without exposing private values.
 - Keep wallet keys and signing material local to their owner. Logs, analytics,
   screenshots, commits and public payloads must not expose secrets.
 - Treat compatibility with existing Saito signatures, wallet exports and
