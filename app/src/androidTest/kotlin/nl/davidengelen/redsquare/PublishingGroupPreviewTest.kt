@@ -174,7 +174,7 @@ class PublishingGroupPreviewTest {
                                 }
                             }
                             click("Accept")
-                            waitFor("Agreement saved. Choose your action again when you are ready.")
+                            waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                             assertTrue("Acceptance does not execute the group action", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                         }

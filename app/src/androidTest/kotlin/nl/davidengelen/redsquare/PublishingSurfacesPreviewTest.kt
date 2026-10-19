@@ -114,7 +114,7 @@ class PublishingSurfacesPreviewTest {
                             }
                         }
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement must not transmit either Chat leg", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                         ui.onNodeWithText("Send").performClick()
                         waitFor("Forwarded. Delivery is not confirmed.")
@@ -139,7 +139,7 @@ class PublishingSurfacesPreviewTest {
                             }
                         }
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertEquals(1, peer.transactions.size)
                         assertEquals(1, peer.relayedMessages.size)
                         ui.onNodeWithText("Like").performClick()
@@ -229,7 +229,7 @@ class PublishingSurfacesPreviewTest {
                             }
                         }
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement is separate from registration", peer.transactions.isEmpty())
                         ui.onNodeWithText("Register name").performScrollTo().performClick()
                         waitForScrollable("This username is registered to your wallet.")
@@ -300,7 +300,7 @@ class PublishingSurfacesPreviewTest {
                             }
                         }
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement does not publish the profile", peer.transactions.isEmpty())
                         ui.onNodeWithText("Save profile").performClick()
                         waitFor("Profile available on this server.")
@@ -358,7 +358,7 @@ class PublishingSurfacesPreviewTest {
                         assertTrue("Cancellation must not publish or turn Like into an uncertain retry", peer.transactions.isEmpty())
                         capture("like-cancelled-and-reviewed-again.png")
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement is separate from Like", peer.transactions.isEmpty())
                         ui.clickVisiblePostContent("Like")
                         waitFor("Liked")

@@ -106,7 +106,7 @@ class PublishingAuthorPreviewTest {
                             }
                         }
                         click("Accept")
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement does not publish the edit", peer.transactions.isEmpty())
                         click("Save changes")
                         waitFor("Edit available on this server.")
