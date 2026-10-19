@@ -110,7 +110,7 @@ class PublishingProcessRecoveryTest {
             ui.onNode(hasSetTextAction()).assertTextEquals(row.get("text").asString).assertIsEnabled()
             assertTrue("A cold unsent draft must not automatically publish", peer.transactions.isEmpty())
             capture("cold-agreement-keeps-unsent-draft.png")
-            click("Send"); waitFor("Available on this server.")
+            click("Send"); waitFor("Available on this node.")
             ui.onAllNodesWithText("Review publishing terms").assertCountEquals(0)
             ui.onAllNodesWithText("Accept").assertCountEquals(0)
             assertEquals(1, peer.transactions.size)

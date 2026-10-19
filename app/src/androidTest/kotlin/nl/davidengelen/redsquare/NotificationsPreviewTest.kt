@@ -171,7 +171,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/cached-history-recreated.png"), "Notifications")
             waitFor("Liked your post")
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
-            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.onNodeWithText(actor).assertIsDisplayed()
@@ -559,7 +559,7 @@ class NotificationsPreviewTest {
             waitFor("Could not load notifications. Check your connection and try Refresh.")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
             ui.onNodeWithText(ownerActor).assertIsDisplayed()
             ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
@@ -573,7 +573,7 @@ class NotificationsPreviewTest {
         ui.onNodeWithText("Settings").performClick()
         waitFor(domain)
         ui.onNodeWithText(domain).performScrollTo().performClick()
-        waitFor("Server: $domain")
+        waitFor("Node: $domain")
         if (returningToNotifications) {
             waitFor("No unread activity")
             ui.onNodeWithText("Back").assertIsDisplayed()
@@ -797,7 +797,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
             ui.onAllNodesWithText("Mentioned you").assertCountEquals(1)
-            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-other.png"), "1 unread")
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
@@ -807,7 +807,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithText("Mentioned you").assertIsDisplayed()
-            ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+            ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             captureNativeScreen(File(context.cacheDir, "notification-evidence/wallet-owner-restored.png"), "No unread activity")
         }
     }
@@ -816,7 +816,7 @@ class NotificationsPreviewTest {
         ui.onNodeWithText("Wallet").performClick()
         ui.onNodeWithText("Import wallet").performClick()
         chooseWalletImport(ui, filename, incoming)
-        waitFor("Server reports zero SAITO")
+        waitFor("Node reports zero SAITO")
         ui.onNodeWithText("Skip backup").performScrollTo().performClick()
         ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
@@ -835,7 +835,7 @@ class NotificationsPreviewTest {
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/$evidenceName.png"), caption)
             ui.onNodeWithText(caption).assertIsDisplayed().performClick()
-            waitFor("This post is unavailable on this server. You can retry or return to notifications.")
+            waitFor("This post is unavailable on this node. You can retry or return to notifications.")
             ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
             waitFor(recoveryText)
             ui.onNode(hasScrollAction()).performScrollToNode(hasText(recoveryText))

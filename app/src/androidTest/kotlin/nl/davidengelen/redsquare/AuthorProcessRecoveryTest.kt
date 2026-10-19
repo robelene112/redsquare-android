@@ -83,7 +83,7 @@ class AuthorProcessRecoveryTest {
                 ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(originalText)
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Available on this server.")
+                waitFor("Available on this node.")
                 enabled("Back")
                 ui.onNodeWithText("Back").performClick()
                 enabled("Refresh")
@@ -154,13 +154,13 @@ class AuthorProcessRecoveryTest {
                 if (!delete) ui.onNodeWithText(editedText).assertTextEquals(editedText).assertIsNotEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 ui.onNodeWithText("Retry").performClick()
-                waitFor(if (delete) "Post removed on this server." else "Edit available on this server.")
+                waitFor(if (delete) "Post removed on this node." else "Edit available on this node.")
                 enabled("Back")
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()
                 captureFeedEvidence("author-process-evidence/reconciled-without-rebroadcast.png")
                 ui.onNodeWithText("Back").performClick()
-                waitFor("No saved changes on this server.")
+                waitFor("No saved changes on this node.")
             }
         }
     }

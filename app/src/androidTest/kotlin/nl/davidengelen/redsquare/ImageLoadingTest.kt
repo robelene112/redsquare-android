@@ -111,7 +111,7 @@ class ImageLoadingTest {
                         ui.waitUntil(8_000) { ui.onAllNodesWithContentDescription("Image 1 of 1").fetchSemanticsNodes().isNotEmpty() }
                         assertTrue("New image must not wait for obsolete 12-second HTTP timeouts", SystemClock.uptimeMillis() - began < 10_000)
                         assertColor("Image 1 of 1", intArrayOf(20,60,220))
-                        ui.onNodeWithText("Server: saito.io").assertExists()
+                        ui.onNodeWithText("Node: saito.io").assertExists()
                         assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                         owner.assertHealthy(); official.assertHealthy()
                         capture("switched-after-stalled-images.png")

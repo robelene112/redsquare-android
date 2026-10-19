@@ -46,7 +46,7 @@ class PublishingRecoveryPreviewTest {
                 withFailureCapture({ capture("manual-reconciliation-failure.png") }) {
                     click("New post")
                     click("Retry")
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     assertTrue("The exact original must actually be queried", originalLookups.get() > 0)
                     ui.onAllNodesWithText("Publishing terms are being prepared").assertCountEquals(0)
                     ui.onAllNodesWithText("Review publishing terms").assertCountEquals(0)
@@ -129,7 +129,7 @@ class PublishingRecoveryPreviewTest {
                     click("Send"); waitFor("Review publishing terms"); click("Accept")
                     waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                     assertTrue(peer.transactions.isEmpty())
-                    click("Send"); waitFor("Available on this server.")
+                    click("Send"); waitFor("Available on this node.")
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
                     capture("current-agreement-recovered-and-draft-deliberately-published.png")

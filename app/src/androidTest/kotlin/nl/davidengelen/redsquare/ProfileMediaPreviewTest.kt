@@ -126,7 +126,7 @@ class ProfileMediaPreviewTest {
                         assertVisiblePixels("Profile banner", intArrayOf(20, 60, 220))
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
-                        val status = "Profile available on this server."
+                        val status = "Profile available on this node."
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
@@ -168,7 +168,7 @@ class ProfileMediaPreviewTest {
                         assertGeneratedDefaults()
                         assertEquals(1, peer.transactions.size)
                         ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
-                        val status = "Profile available on this server."
+                        val status = "Profile available on this node."
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(2, peer.transactions.size)

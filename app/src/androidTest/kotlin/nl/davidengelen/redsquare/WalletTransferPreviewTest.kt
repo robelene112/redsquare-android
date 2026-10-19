@@ -110,7 +110,7 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                         ui.waitUntil(20_000) { ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
                         ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
-                        ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                        ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").assertIsDisplayed()
                         peer.assertHealthy()
                         assertEquals("Reopening must not send the saved payment", 1, peer.transactions.size)
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/pending-reopened.png"), pending)

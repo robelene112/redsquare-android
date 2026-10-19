@@ -143,7 +143,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Nested native reply")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     peer.assertHealthy()
                     captureFeedEvidence("posting-evidence/nested-reply-correct-parent.png")
                 } catch (failure: Throwable) {
@@ -183,7 +183,7 @@ class PostPreviewTest {
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
-                    waitFor("Server: saito.io")
+                    waitFor("Node: saito.io")
                     waitFor("New post")
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -194,7 +194,7 @@ class PostPreviewTest {
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.davidengelen.nl")
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
-                    waitFor("Server: saito.davidengelen.nl")
+                    waitFor("Node: saito.davidengelen.nl")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(10_000) {
                         ui.onAllNodes(hasSetTextAction() and hasText("Unfinished owner draft")).fetchSemanticsNodes().isNotEmpty()
@@ -309,8 +309,8 @@ class PostPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
-                        ui.waitUntil(10_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
-                        ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                        ui.waitUntil(10_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
+                        ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                         ui.onNode(hasSetTextAction()).assertTextEquals("Retain work when saving fails").assertIsEnabled()
                         if (withImage) ui.assertSyntheticRedImage()
                         assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
@@ -322,7 +322,7 @@ class PostPreviewTest {
                 }
                 ui.onNodeWithText("Settings").performClick()
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
-                waitFor("Server: saito.io")
+                waitFor("Node: saito.io")
                 waitFor("New post")
                 ui.onNodeWithText("Settings").performClick()
                 ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
@@ -409,18 +409,18 @@ class PostPreviewTest {
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("Retry the original signed post")
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this server.")
+                waitFor("Submitted. Waiting for this node.")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 backFromComposer()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()
                 waitForReferencePost()
                 ui.onNodeWithText("New post").performClick()
-                waitFor("Send requested. Availability on this server is not confirmed.")
+                waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.onNodeWithText("Retry the original signed post").assertTextEquals("Retry the original signed post").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, received.size)
                 ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this server.")
+                waitFor("Available on this node.")
                 org.junit.Assert.assertEquals(2, received.size)
                 peer.assertHealthy()
                 captureFeedEvidence("posting-evidence/retried-original-pending-post.png")
@@ -478,7 +478,7 @@ class PostPreviewTest {
                     }
                     ui.onNodeWithText("Replying to Anon-${root.get("field2").asString.take(6)}").assertIsDisplayed()
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     backFromComposer()
                     waitFor("Conversation")
                     waitForVisiblePost("Reply from the native composer")
@@ -566,11 +566,11 @@ class PostPreviewTest {
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement("A post whose availability remains uncertain")
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this server.")
+                waitFor("Submitted. Waiting for this node.")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Start another draft").performClick()
                 waitFor("Clear this local posting record?")
-                ui.onNodeWithText("This post may already have reached the server. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.").assertIsDisplayed()
+                ui.onNodeWithText("This post may already have reached the node. Clearing removes its saved text and retry record from this composer. It does not remove any published post or copies elsewhere.").assertIsDisplayed()
                 ui.onNodeWithText("Keep this post").performClick()
                 ui.onNodeWithText("A post whose availability remains uncertain").assertIsNotEnabled()
                 org.junit.Assert.assertEquals(1, peer.transactions.size)
@@ -627,8 +627,8 @@ class PostPreviewTest {
                 org.junit.Assert.assertNotEquals("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR", displayedWalletAddress(ui))
                 ui.onNodeWithText("Import wallet").performClick()
                 chooseReferenceImport()
-                waitFor("Server reports zero SAITO")
-                ui.onNodeWithText("Local drafts and posting records stay on this device with your current wallet. They are unavailable while another wallet is active and are not included in wallet exports. A post may already have reached its server even if availability is unconfirmed.")
+                waitFor("Node reports zero SAITO")
+                ui.onNodeWithText("Local drafts and posting records stay on this device with your current wallet. They are unavailable while another wallet is active and are not included in wallet exports. A post may already have reached its node even if availability is unconfirmed.")
                     .performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
@@ -702,7 +702,7 @@ class PostPreviewTest {
                 ui.onNodeWithText("Wallet").performClick()
                 ui.onNodeWithText("Import wallet").performClick()
                 chooseReferenceImport()
-                waitFor("Server reports zero SAITO")
+                waitFor("Node reports zero SAITO")
                 ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
@@ -787,14 +787,14 @@ class PostPreviewTest {
                     if (backend == SaitoBackend.OFFICIAL) {
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText(backend.domain).performScrollTo().performClick()
-                        waitFor("Server: ${backend.domain}")
+                        waitFor("Node: ${backend.domain}")
                     }
                     waitForReferencePost()
                     ui.onNodeWithText("New post").performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement(text + backend.id)
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     captureFeedEvidence("posting-evidence/long-multilingual-${backend.id}.png")
                     backFromComposer()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().isNotEmpty() }
@@ -833,7 +833,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Observed native publication")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     captureFeedEvidence("posting-evidence/observed-publication.png")
                     backFromComposer()
                     waitFor("New post")
@@ -937,7 +937,7 @@ class PostPreviewTest {
                     ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Explicit unfunded native post")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Submitted. Waiting for this server.")
+                    waitFor("Submitted. Waiting for this node.")
                     ui.waitUntil(10_000) { peer.transactions.isNotEmpty() }
                     val frame = peer.transactions.single()
                     check(frame[0] == 4.toByte())

@@ -52,7 +52,7 @@ class WalletImportRiskPreviewTest {
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Wallet backup saved")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 select(device, "risk-import.json")
                 try {
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 } catch (failure: Throwable) {
                     captureFeedEvidence("wallet-risk-evidence/first-preview-failure.png")
                     File(context.cacheDir, "wallet-risk-evidence/first-preview-state.txt")

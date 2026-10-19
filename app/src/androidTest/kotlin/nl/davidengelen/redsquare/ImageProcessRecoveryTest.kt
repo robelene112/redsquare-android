@@ -115,7 +115,7 @@ class ImageProcessRecoveryTest {
             assertTrue(serving.transactions.isEmpty())
             capture("cold-draft.png")
             ui.onNode(hasText("Send") and isEnabled()).performClick()
-            waitFor("Submitted. Waiting for this server.")
+            waitFor("Submitted. Waiting for this node.")
             ui.waitUntil(10_000) { observed.get() != null }
             assertEquals(1, serving.transactions.size); serving.assertHealthy()
             terminate(requireNotNull(observed.get()).deepCopy().apply { addProperty("phase", "candidate") })
@@ -133,12 +133,12 @@ class ImageProcessRecoveryTest {
         })
         launch(peer) {
             openComposer(waitForEditable = false)
-            waitFor("Send requested. Availability on this server is not confirmed.")
+            waitFor("Send requested. Availability on this node is not confirmed.")
             waitForPreparedImage(editable = false)
             ui.onNodeWithText(text).assertTextEquals(text).assertIsNotEnabled()
             assertTrue(peer.transactions.isEmpty())
             ui.onNodeWithText("Retry").performClick()
-            waitFor("Available on this server.")
+            waitFor("Available on this node.")
             assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
             capture("reconciled-image.png")
             ui.onNodeWithText("Back").performClick()

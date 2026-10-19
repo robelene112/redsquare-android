@@ -209,7 +209,7 @@ class ImagePreparationTest {
     }
 
     private fun waitForCount(count: Int) = ui.waitUntil(20_000) { ui.onAllNodes(hasText("Remove image $count") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-    private fun waitForAvailable(peer: ControlledFeedPeer) = ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this server.").fetchSemanticsNodes().isNotEmpty() }
+    private fun waitForAvailable(peer: ControlledFeedPeer) = ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this node.").fetchSemanticsNodes().isNotEmpty() }
 
     private fun write(bytes: ByteArray, mime: String): Uri = write(mime) { it.write(bytes) }
 

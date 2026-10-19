@@ -66,7 +66,7 @@ class WalletImportPreviewTest {
                 ui.onNodeWithText("Import wallet").performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
                 // Fault at the real filesystem boundary, solely in the isolated
@@ -263,7 +263,7 @@ class WalletImportPreviewTest {
                 val address = displayedWalletAddress(ui)
                 val cases = listOf(
                     Triple("positive", "Your current wallet has SAITO", false),
-                    Triple("zero", "Server reports zero SAITO", true),
+                    Triple("zero", "Node reports zero SAITO", true),
                     Triple("malformed", "Balance could not be checked", false),
                     Triple("stale", "Balance could not be checked", false),
                 )
@@ -368,7 +368,7 @@ class WalletImportPreviewTest {
                     ui.onNodeWithText("Import wallet").performClick()
                     selectImportRoot(device)
                     selectVisibleFile(device, "reference-import.json")
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                     ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                     assertEquals(originalAddress, displayedWalletAddress(ui))
@@ -378,8 +378,8 @@ class WalletImportPreviewTest {
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/activated-wallet.png")
                     ui.onNodeWithText("Done").performClick()
-                    ui.waitUntil(15_000) { ui.onNodeWithText("Server: saito.davidengelen.nl").isDisplayed() }
-                    ui.onNodeWithText("Server: saito.davidengelen.nl").assertIsDisplayed()
+                    ui.waitUntil(15_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
+                    ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir, "wallet-import-evidence/activation-owner-feed-visible.png"))
                     scenario.recreate()
                     ui.onNodeWithText("Wallet").performClick()
@@ -388,7 +388,7 @@ class WalletImportPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Server: saito.io")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.io")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(incomingAddress, displayedWalletAddress(ui))
                     // Restore the outgoing identity through the same real UI so this
@@ -396,7 +396,7 @@ class WalletImportPreviewTest {
                     ui.onNodeWithText("Import wallet").performClick()
                     selectImportRoot(device)
                     selectVisibleFile(device, originalFile)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Server reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Node reports zero SAITO")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Skip backup").performScrollTo().performClick()
                     ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
                     ui.onNodeWithText("Confirm replacement").performScrollTo().performClick()
@@ -409,7 +409,7 @@ class WalletImportPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
-                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Server: saito.davidengelen.nl")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.davidengelen.nl")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 }
             }
         } catch (failure: Throwable) { primary = failure; throw failure }

@@ -74,7 +74,7 @@ class PostProcessRecoveryTest {
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasSetTextAction()).performTextReplacement(body)
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Submitted. Waiting for this server.")
+                waitFor("Submitted. Waiting for this node.")
                 ui.waitUntil(10_000) { observed.get() != null }
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
@@ -104,11 +104,11 @@ class PostProcessRecoveryTest {
                 ui.onNodeWithText("Done").performClick()
                 waitFor("New post")
                 openComposer()
-                waitFor("Send requested. Availability on this server is not confirmed.")
+                waitFor("Send requested. Availability on this node is not confirmed.")
                 ui.onNodeWithText(body).assertTextEquals(body).assertIsNotEnabled()
                 assertTrue(peer.transactions.isEmpty())
                 ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this server.")
+                waitFor("Available on this node.")
                 ui.waitUntil(10_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertTrue(peer.transactions.isEmpty())
                 peer.assertHealthy()

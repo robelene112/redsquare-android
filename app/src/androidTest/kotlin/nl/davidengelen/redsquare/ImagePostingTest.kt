@@ -149,7 +149,7 @@ class ImagePostingTest {
                             ui.onNode(hasText("Send") and isEnabled()).performClick()
                             ui.waitUntil(20_000) {
                                 peer.assertHealthy()
-                                ui.onAllNodesWithText("Available on this server.").fetchSemanticsNodes().isNotEmpty()
+                                ui.onAllNodesWithText("Available on this node.").fetchSemanticsNodes().isNotEmpty()
                             }
                             assertEquals(1, peer.transactions.size)
                             peer.assertHealthy()

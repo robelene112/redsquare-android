@@ -37,7 +37,7 @@ class ProfileProcessRecoveryTest {
     private val context get() = instrumentation.targetContext
     private val checkpoint get() = File(context.cacheDir, "profile-process-checkpoint.json")
     private val bio = "Recover my newest bio and both prepared profile images 🌱"
-    private val pending = "Save requested. Profile availability on this server is not confirmed."
+    private val pending = "Save requested. Profile availability on this node is not confirmed."
 
     private fun guard() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
@@ -139,13 +139,13 @@ class ProfileProcessRecoveryTest {
         }, archiveResponse = { "[]" })
         launch(peer) {
             openEditor(editable = false)
-            waitFor("Profile available on this server.")
+            waitFor("Profile available on this node.")
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio))).assertIsNotEnabled()
             assertVisiblePixels("Profile picture", intArrayOf(220, 30, 40))
             assertVisiblePixels("Profile banner", intArrayOf(20, 60, 220))
             assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
-            capture("cold-candidate-available.png", "Profile available on this server.")
+            capture("cold-candidate-available.png", "Profile available on this node.")
             ui.onNodeWithText("Back").performClick()
             waitForPublicEditor()
             ui.onNodeWithText(bio).assertIsDisplayed()

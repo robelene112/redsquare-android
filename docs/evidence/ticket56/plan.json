@@ -1,0 +1,173 @@
+{
+  "recordedBeforeExecution": true,
+  "reviewBase": "80da622fba6ac30a2bf03b9e76f942e08182c38c",
+  "purpose": "Terminology-only56: existing feed/backend/readiness plus both read-only public feeds, and existing theme/identity method on Android10/17. Original method identities, assertions and deadlines remain unchanged apart from matching product text.",
+  "references": [
+    {
+      "sdk": "10",
+      "reference": "docs/evidence/ticket54/full10/identities.json",
+      "sha256": "f512653bf139e77239455af6b238b1692f0a3c1cf3304404e779a4a6581dee53",
+      "feedIdentities": [
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+          "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+          "occurrences": 1
+        },
+        {
+          "path": "live-official-feed.txt",
+          "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "occurrences": 1
+        },
+        {
+          "path": "live-owner-feed.txt",
+          "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "occurrences": 1
+        }
+      ],
+      "appearanceIdentities": [
+        {
+          "path": "appearance-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppearancePreviewTest",
+          "test": "systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "reference": "docs/evidence/ticket54/full17/identities.json",
+      "sha256": "8b7a17a5ddc555683cd94b3cfe71b54454752afbf576a98932a633db2fd6c475",
+      "feedIdentities": [
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+          "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+          "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+          "occurrences": 1
+        },
+        {
+          "path": "feed-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+          "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+          "occurrences": 1
+        },
+        {
+          "path": "live-official-feed.txt",
+          "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "occurrences": 1
+        },
+        {
+          "path": "live-owner-feed.txt",
+          "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+          "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+          "occurrences": 1
+        }
+      ],
+      "appearanceIdentities": [
+        {
+          "path": "appearance-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.AppearancePreviewTest",
+          "test": "systemAndExplicitThemesRemainReadableAfterReopeningWithoutReplacingIdentity",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "expectedFeedNativeCompletions": 3,
+  "expectedAppearanceNativeCompletions": 1,
+  "expectedPublicWrites": 0,
+  "limits": "Focused copy acceptance is not new full-suite, physical timing, provider or Play acceptance. No new source behavior is introduced."
+}

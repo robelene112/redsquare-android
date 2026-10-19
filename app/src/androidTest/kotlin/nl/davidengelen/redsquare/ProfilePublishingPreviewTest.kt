@@ -146,7 +146,7 @@ class ProfilePublishingPreviewTest {
                             blockMarker.writeText("Controlled public cache write failure")
                         }
                         ui.onNodeWithText("Save profile").assertIsEnabled().performClick()
-                        val status = if (supersession) supersededStatus else "Profile available on this server."
+                        val status = if (supersession) supersededStatus else "Profile available on this node."
                         ui.waitUntil(25_000) { ui.onAllNodesWithText(status).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText(status).assertIsDisplayed()
                         assertEquals(1, peer.transactions.size)
@@ -202,7 +202,7 @@ class ProfilePublishingPreviewTest {
                             ui.onNodeWithText("Done").performClick()
                             ui.onNode(hasSetTextAction()).assertIsEnabled().performTextReplacement(nextBio)
                             ui.onNodeWithText("Save profile").assertIsEnabled()
-                            ui.onNodeWithText("Profile available on this server.").assertDoesNotExist()
+                            ui.onNodeWithText("Profile available on this node.").assertDoesNotExist()
                             assertEquals(1, peer.transactions.size)
                             capture("profile-import-cancel-new-edit.png", nextBio)
                             ui.onNodeWithText("Save draft").performClick()
@@ -264,7 +264,7 @@ class ProfilePublishingPreviewTest {
                                 ui.onAllNodes(hasText("Back") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             val status = "This profile was previously available. Current availability is not confirmed."
                             ui.onNodeWithText(status).assertIsDisplayed()
-                            ui.onNodeWithText("Profile available on this server.").assertDoesNotExist()
+                            ui.onNodeWithText("Profile available on this node.").assertDoesNotExist()
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
                                 .assertIsDisplayed().assertIsNotEnabled()
                             assertEquals(1, peer.transactions.size)

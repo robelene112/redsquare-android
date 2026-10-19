@@ -156,7 +156,7 @@ class TransferProcessRecoveryTest {
         waitFor(pending)
         ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
         ui.onNodeWithText(pending).performScrollTo().assertIsDisplayed()
-        ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+        ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").assertIsDisplayed()
     }
 
     private fun launch(peer: ControlledFeedPeer, action: () -> Unit) {

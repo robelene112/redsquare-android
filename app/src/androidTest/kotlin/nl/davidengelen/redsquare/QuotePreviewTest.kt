@@ -127,7 +127,7 @@ class QuotePreviewTest {
                     ui.onNode(hasSetTextAction()).performTextInput(commentary)
                     ui.onNodeWithText("Send").performClick()
                     quotePhase("quote available: start")
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     quotePhase("quote available: done")
                     assertEquals(1, peer.transactions.size)
                     quotePhase("return to feed: start")
@@ -233,7 +233,7 @@ class QuotePreviewTest {
                 readyComposer()
                 ui.onNode(hasSetTextAction()).performTextReplacement("Uncertain quote commentary")
                 ui.onNodeWithText("Send").performClick()
-                waitFor("Could not check or send this post with the selected server. Retry checks for it first, then sends the original post if needed.")
+                waitFor("Could not check or send this post with the selected node. Retry checks for it first, then sends the original post if needed.")
                 assertEquals(1, peer.transactions.size)
             }
             peer.disconnectAfterTransaction = false
@@ -244,7 +244,7 @@ class QuotePreviewTest {
                 ui.onNodeWithText("Uncertain quote commentary").assertIsNotEnabled()
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Retry").performClick()
-                waitFor("Available on this server.")
+                waitFor("Available on this node.")
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 captureQuoteEvidence("quote-evidence/recovered-original-quote-candidate.png")
@@ -335,7 +335,7 @@ class QuotePreviewTest {
                 ui.onNodeWithText("Settings").performClick()
                 waitFor("saito.io")
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
-                waitFor("Server: saito.io")
+                waitFor("Node: saito.io")
                 waitFor("Original unavailable. Commentary is still available.")
                 ui.onAllNodes(embeddedOriginal, useUnmergedTree = true).assertCountEquals(0)
                 ui.onNodeWithText("Settings").performClick()

@@ -331,7 +331,7 @@ class ChatMutePreviewTest {
                         click(hasText("Settings"))
                         ui.onNodeWithText("saito.io").performScrollTo()
                         click(hasText("saito.io"))
-                        ui.waitUntil(20_000) { displayed(hasText("Server: saito.io")) }
+                        ui.waitUntil(20_000) { displayed(hasText("Node: saito.io")) }
                         open(first)
                         ui.onNodeWithContentDescription("Unmute conversation").assertIsDisplayed()
                         capture("scope-private-muted-on-official")

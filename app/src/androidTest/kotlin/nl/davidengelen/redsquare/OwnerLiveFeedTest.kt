@@ -61,7 +61,7 @@ class OwnerLiveFeedTest {
         ActivityScenario.launch<MainActivity>(Intent(instrumentation.targetContext, MainActivity::class.java)).use {
             try {
                 ui.waitUntil(30_000) { ui.onAllNodes(visibleAuthor).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Server: ${backend.domain}").assertIsDisplayed()
+                ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                 ui.onAllNodes(visibleAuthor)[0].assertIsDisplayed()
                 ui.waitUntil(10_000) {
                     ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
@@ -116,7 +116,7 @@ class OwnerLiveFeedTest {
                     ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
                         hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
                     ui.onNodeWithText("Done").performClick()
-                    ui.onNodeWithText("Server: ${backend.domain}").assertIsDisplayed()
+                    ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                     File(directory, "public-wallet.txt").writeText(
                         "PASS backend=${backend.id} observedAt=${System.currentTimeMillis()} publicKey=${wallet.publicKey}\n" +
                             "Fresh unfunded native wallet: selected-server balance0SAITO and available funding0SAITO.\n" +

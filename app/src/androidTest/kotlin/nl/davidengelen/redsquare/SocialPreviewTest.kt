@@ -283,7 +283,7 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(initial) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.clickVisiblePostContent(initial)
-                    waitFor("Pending. Availability on this server has not been verified.")
+                    waitFor("Pending. Availability on this node has not been verified.")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     assertEquals(1, peer.transactions.size)
                 } catch (failure: Throwable) {
@@ -391,7 +391,7 @@ class SocialPreviewTest {
                     ui.onNodeWithText("Settings").performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
-                    waitFor("Server: saito.io")
+                    waitFor("Node: saito.io")
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
@@ -401,7 +401,7 @@ class SocialPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
-                        waitFor("Server: saito.davidengelen.nl")
+                        waitFor("Node: saito.davidengelen.nl")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.clickVisiblePostContent("Retry like")
                         waitFor("Liked")

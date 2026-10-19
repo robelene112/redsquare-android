@@ -44,7 +44,7 @@ class FeedPreviewTest {
                     server.close()
                     activity.recreate()
                     waitForText("Native Red Square reference post")
-                    waitForText("Server unavailable")
+                    waitForText("Node unavailable")
                     replacement = peer.start(port)
                     ui.onNodeWithText("Refresh").performClick()
                     waitForText("Back online")
@@ -148,7 +148,7 @@ class FeedPreviewTest {
                     val before = peer.requests.get()
                     ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
                     ui.waitUntil(15_000) { peer.requests.get() > before }
-                    waitForText("The server returned posts this app could not read.")
+                    waitForText("The node returned posts this app could not read.")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     peer.assertHealthy()
                 }

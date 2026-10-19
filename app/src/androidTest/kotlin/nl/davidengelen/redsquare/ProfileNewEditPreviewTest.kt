@@ -114,7 +114,7 @@ class ProfileNewEditPreviewTest {
                         capture("profile-new-edit-superseded.png", status)
                         ui.onNodeWithText("Start new edit").assertIsEnabled().performClick()
                         waitFor("Start a new profile edit?")
-                        ui.onNodeWithText("An update already received by a server may still appear. This stops retrying the saved update on this device.").assertIsDisplayed()
+                        ui.onNodeWithText("An update already received by a node may still appear. This stops retrying the saved update on this device.").assertIsDisplayed()
                         capture("profile-new-edit-confirmation.png", "Start a new profile edit?")
                         ui.onNodeWithText("Keep saved update").performClick()
                         ui.onNodeWithText(status).assertIsDisplayed()
@@ -147,14 +147,14 @@ class ProfileNewEditPreviewTest {
                         assertEquals(1, peer.transactions.size)
                         capture("profile-new-edit-cold-draft.png", "Save profile")
                         ui.onNodeWithText("Save profile").performClick()
-                        waitFor("Profile available on this server.")
+                        waitFor("Profile available on this node.")
                         assertEquals(2, peer.transactions.size)
                         File(context.cacheDir, "profile-edit-evidence/profile-new-edit-frames.json").writeText(JsonObject().apply {
                             addProperty("synthetic", true)
                             addProperty("frame", Base64.getEncoder().encodeToString(peer.transactions.last()))
                             addProperty("envelope", requireNotNull(published.get()).get("tx").asString)
                         }.toString())
-                        capture("profile-new-edit-available.png", "Profile available on this server.")
+                        capture("profile-new-edit-available.png", "Profile available on this node.")
                         ui.onNodeWithText("Back").performClick()
                         waitForPublicEditor()
                         ui.onNodeWithText(nextBio).assertIsDisplayed()
@@ -210,7 +210,7 @@ class ProfileNewEditPreviewTest {
         val confirm = AtomicBoolean(false)
         val indexed = AtomicReference<JsonObject?>()
         val bio = "Pending bio keeps signed generated defaults 🌱"
-        val status = "Save requested. Profile availability on this server is not confirmed."
+        val status = "Save requested. Profile availability on this node is not confirmed."
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val transaction = postingTransaction(frame)
             val signed = SaitoEnvelope.decode(transaction.envelope())
@@ -267,10 +267,10 @@ class ProfileNewEditPreviewTest {
                         capture("profile-pending-preview-cold.png", status)
                         confirm.set(true)
                         ui.onNodeWithText("Retry profile").performClick()
-                        waitFor("Profile available on this server.")
+                        waitFor("Profile available on this node.")
                         assertGeneratedDefaults()
                         assertEquals(1, peer.transactions.size); peer.assertHealthy()
-                        capture("profile-pending-preview-available.png", "Profile available on this server.")
+                        capture("profile-pending-preview-available.png", "Profile available on this node.")
                         assertEquals(owner, walletStore.loadExisting().publicKey)
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                     }

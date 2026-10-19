@@ -391,7 +391,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                     ui.onNodeWithText("Forged reply").assertDoesNotExist()
-                    ui.onNodeWithText("Some liked posts are unavailable from this server.").assertIsDisplayed()
+                    ui.onNodeWithText("Some liked posts are unavailable from this node.").assertIsDisplayed()
                     peer.assertHealthy()
                     captureFeedEvidence("browse-evidence/profile-available-likes.png")
                 } catch (failure: Throwable) {

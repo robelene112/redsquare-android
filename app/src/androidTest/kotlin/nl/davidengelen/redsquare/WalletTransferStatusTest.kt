@@ -83,7 +83,7 @@ class WalletTransferStatusTest {
                                     ui.onNodeWithText("Settings").performClick()
                                     ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                                 }
-                                ui.waitUntil(15_000) { ui.onNodeWithText("Server: ${backend.domain}").isDisplayed() }
+                                ui.waitUntil(15_000) { ui.onNodeWithText("Node: ${backend.domain}").isDisplayed() }
                                 ui.onNodeWithText("Wallet").performClick()
                                 ui.onNodeWithContentDescription("Wallet address").assertTextEquals(fixture.wallet.publicKey)
                                 val previousReads = positiveReads.get()
@@ -91,7 +91,7 @@ class WalletTransferStatusTest {
                                 ui.waitUntil(15_000) { positiveReads.get() > previousReads &&
                                     ui.onNodeWithText("Available to send: 0 SAITO").isDisplayed() }
                                 ui.onNodeWithText(pending).assertIsDisplayed()
-                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                                ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").assertIsDisplayed()
                                 if (backend == SaitoBackend.OWNER) ui.onNodeWithText("Retry transfer").assertIsEnabled()
                                 else ui.onNodeWithText("Retry transfer").assertIsNotEnabled()
                                 owner.assertHealthy(); official.assertHealthy()
@@ -115,7 +115,7 @@ class WalletTransferStatusTest {
                             reopenTransfers(scenario, fixture.wallet.publicKey)
                             ui.waitUntil(15_000) { ui.onNodeWithText(pending).isDisplayed() }
                             ui.onNodeWithText("Available to send: 0 SAITO").assertIsDisplayed()
-                            ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").assertIsDisplayed()
+                            ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").assertIsDisplayed()
                             ui.onNodeWithText("Retry transfer").assertIsEnabled()
                             assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                             owner.assertHealthy(); official.assertHealthy()
@@ -157,9 +157,9 @@ class WalletTransferStatusTest {
         ui.onNodeWithText("Wallet").performClick()
         ui.onNodeWithText("Import wallet").performScrollTo().performClick()
         chooseWalletImport(ui, filename, incoming.publicKey)
-        ui.waitUntil(15_000) { ui.onAllNodesWithText("Server reports zero SAITO")
+        ui.waitUntil(15_000) { ui.onAllNodesWithText("Node reports zero SAITO")
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        ui.onNodeWithText("Server reports zero SAITO").performScrollTo().assertIsDisplayed()
+        ui.onNodeWithText("Node reports zero SAITO").performScrollTo().assertIsDisplayed()
         if (expectPendingWork) ui.onNodeWithText("Pending work belongs to your current wallet")
             .performScrollTo().assertIsDisplayed()
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
@@ -256,11 +256,11 @@ class WalletTransferStatusTest {
                             val included = "Included in block 2000002."
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
                             ui.onNodeWithText(included).assertIsDisplayed()
-                            ui.onNodeWithText("Observed on the selected server. This status can change.")
+                            ui.onNodeWithText("Observed on the selected node. This status can change.")
                                 .performScrollTo().assertIsDisplayed()
                             ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
                             ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
-                            ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                             peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/included-payment.png"), included)
@@ -270,11 +270,11 @@ class WalletTransferStatusTest {
                             }
                             reopenTransfers(scenario, fixture.payment.author)
                             ui.waitUntil(20_000) { ui.onNodeWithText(included).isDisplayed() }
-                            ui.onNodeWithText("Observed on the selected server. This status can change.")
+                            ui.onNodeWithText("Observed on the selected node. This status can change.")
                                 .performScrollTo().assertIsDisplayed()
                             ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
                             ui.onAllNodesWithText("Retry transfer").assertCountEquals(0)
-                            ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                             peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "transfer-evidence/included-reopened.png"), included)
@@ -291,7 +291,7 @@ class WalletTransferStatusTest {
                                 ui.waitUntil(20_000) { ui.onNodeWithText(unknown).isDisplayed() }
                                 ui.onAllNodesWithText(included).assertCountEquals(0)
                                 ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
-                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/history-unknown.png"), unknown)
@@ -310,23 +310,23 @@ class WalletTransferStatusTest {
                                 }
                                 val reorganized = "Chain changed. Previous inclusion in block 2000002 was reorganized."
                                 ui.waitUntil(20_000) { ui.onNodeWithText(reorganized).isDisplayed() }
-                                ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                ui.onNodeWithText("Observed on the selected node. This status can change.")
                                     .performScrollTo().assertIsDisplayed()
                                 ui.onAllNodesWithText(included).assertCountEquals(0)
                                 ui.onAllNodesWithText("Current inclusion unknown. Last seen in block 2000002.").assertCountEquals(0)
                                 ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
-                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-payment.png"), reorganized)
                                 reopenTransfers(scenario, fixture.payment.author)
                                 ui.waitUntil(20_000) { ui.onNodeWithText(reorganized).isDisplayed() }
-                                ui.onNodeWithText("Observed on the selected server. This status can change.")
+                                ui.onNodeWithText("Observed on the selected node. This status can change.")
                                     .performScrollTo().assertIsDisplayed()
                                 ui.onAllNodesWithText(included).assertCountEquals(0)
                                 ui.onAllNodesWithText("Current inclusion unknown. Last seen in block 2000002.").assertCountEquals(0)
                                 ui.onAllNodesWithText("Pending. Inclusion has not been verified.").assertCountEquals(0)
-                                ui.onNodeWithText("Transfer server: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Transfer node: saito.davidengelen.nl.").performScrollTo().assertIsDisplayed()
                                 ui.onNodeWithText("Available to send: 0 SAITO").performScrollTo().assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/reorganized-reopened.png"), reorganized)

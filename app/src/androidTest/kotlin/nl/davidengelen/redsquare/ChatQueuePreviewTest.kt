@@ -283,11 +283,11 @@ class ChatQueuePreviewTest {
                                 check(peer.transactions.size==1){"Group archived original was broadcast again"}
                                 store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.AVAILABLE
                             }
-                            waitFor("Available on this server. Delivery is not confirmed.")
+                            waitFor("Available on this node. Delivery is not confirmed.")
                             val saved=requireNotNull(store.load(key.publicKey))
                             check(saved.candidate?.envelope()==queued.envelope()&&saved.messages.single().id==queued.id)
                             check(saved.creationKey?.exportJson()==key.exportJson()&&archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
-                            scenario.recreate();open();waitFor("Available on this server. Delivery is not confirmed.")
+                            scenario.recreate();open();waitFor("Available on this node. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
@@ -533,7 +533,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                             ui.waitUntil(60_000){peer.transactions.isNotEmpty()&&indexed.get()!=null}
                             check(indexed.get()==originalCandidate.envelope())
                             scenario.moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
-                            val automaticError="Could not complete this attempt. Your message is saved for automatic retry on its original server."
+                            val automaticError="Could not complete this attempt. Your message is saved for automatic retry on its original node."
                             if(wrongArchive) {
                                 ui.waitUntil(20_000){archiveChecks.get()>0}
                                 waitFor("Submitted. Delivery is not confirmed.")
@@ -548,13 +548,13 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                             }
                             ui.waitUntil(20_000) {
                                 check(peer.transactions.size==1){"Archived original was broadcast again: ${peer.transactions.size} raw operations"}
-                                ui.onAllNodesWithText("Available on this server. Delivery is not confirmed.").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
+                                ui.onAllNodesWithText("Available on this node. Delivery is not confirmed.").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()
                             }
                             if(wrongArchive)ui.onAllNodesWithText(automaticError).assertCountEquals(0)
                             check(archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).envelope()==originalCandidate.envelope())
                             scenario.recreate();open()
-                            waitFor("Available on this server. Delivery is not confirmed.")
+                            waitFor("Available on this node. Delivery is not confirmed.")
                             check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             if(switchIdentity) {

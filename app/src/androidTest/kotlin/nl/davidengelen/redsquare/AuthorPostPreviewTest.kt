@@ -105,7 +105,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("Native author's original post")
                     if (withImage) ui.attachSyntheticImage()
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     ui.onNodeWithText("Back").performClick()
                     waitForList()
                     waitForRefresh()
@@ -118,7 +118,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasSetTextAction()).assertTextEquals("Native author's original post")
                     ui.onNode(hasSetTextAction()).performTextReplacement("Native author's edited post")
                     ui.onNodeWithText("Save changes").performClick()
-                    waitFor("Edit available on this server.")
+                    waitFor("Edit available on this node.")
                     ui.onNodeWithText("Back").performClick()
                     waitForList()
                     waitFor("Native author's edited post")
@@ -146,7 +146,7 @@ class AuthorPostPreviewTest {
                     waitFor("Conversation")
                     ui.onNodeWithText("Delete").performClick()
                     waitFor("Delete post")
-                    ui.onNodeWithText("Remove this post from normal views on the selected server and this device? Historical and independent copies may remain.").assertIsDisplayed()
+                    ui.onNodeWithText("Remove this post from normal views on the selected node and this device? Historical and independent copies may remain.").assertIsDisplayed()
                     // The confirmation is rendered before its durable draft finishes loading.
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Confirm delete") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Confirm delete").assertIsDisplayed().assertIsEnabled()
@@ -157,7 +157,7 @@ class AuthorPostPreviewTest {
                     ui.waitUntil(25_000) {
                         ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNodeWithText("Post removed on this server.").assertDoesNotExist()
+                    ui.onNodeWithText("Post removed on this node.").assertDoesNotExist()
                     val deletionId = deletion.get()!!.get("sig").asString
                     ui.onNodeWithText("Back").performClick()
                     waitFor("Conversation")
@@ -175,10 +175,10 @@ class AuthorPostPreviewTest {
                     }
                     removeOnDelivery.set(true)
                     ui.onNodeWithText("Retry").performClick()
-                    waitFor("Post removed on this server.")
+                    waitFor("Post removed on this node.")
                     assertEquals(deletionId, deletion.get()!!.get("sig").asString)
                     ui.onNodeWithText("Back").performClick()
-                    waitFor("No saved changes on this server.")
+                    waitFor("No saved changes on this node.")
                     ui.onNodeWithText("Back").performClick()
                     waitFor("New post")
                     waitForRefresh()
@@ -261,7 +261,7 @@ class AuthorPostPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("Original before competing edits")
                     ui.onNodeWithText("Send").performClick()
-                    waitFor("Available on this server.")
+                    waitFor("Available on this node.")
                     ui.onNodeWithText("Back").performClick()
                     waitForList(); waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original before competing edits"))
@@ -272,7 +272,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("My retained text")
                     ui.onNodeWithText("Save changes").performClick()
                     waitFor("Another edit is available. Your text is saved on this device.")
-                    ui.onNodeWithText("Edit available on this server.").assertDoesNotExist()
+                    ui.onNodeWithText("Edit available on this node.").assertDoesNotExist()
                     ui.onNodeWithText("My retained text").assertTextEquals("My retained text").assertIsNotEnabled()
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Keep my text") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Keep my text").performClick()
@@ -287,7 +287,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasSetTextAction()).assertTextEquals("Competing text 2")
                     assertEquals(3, peer.transactions.size)
                     ui.onNodeWithText("Save changes").performClick()
-                    waitFor("Edit available on this server.")
+                    waitFor("Edit available on this node.")
                     assertEquals(4, peer.transactions.size)
                     val sent = peer.transactions.drop(1).map { postingTransaction(it).id }
                     assertEquals(3, sent.toSet().size)

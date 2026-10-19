@@ -18,7 +18,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 
-/** Profile navigation, exact public identity and controlled Android email draft on both servers. */
+/** Profile navigation, exact public identity and controlled Android email draft on both nodes. */
 class PublisherUserReportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
@@ -89,7 +89,7 @@ class PublisherUserReportPreviewTest {
                                         .fetchSemanticsNodes().isNotEmpty()
                                 }
                                 for (text in listOfNotNull(if (ready) "Email: safety@publisher.example" else null,
-                                    "Publisher: Angels’ Foundry", "Public account: $author", "Selected server: $serverUrl")) {
+                                    "Publisher: Angels’ Foundry", "Public account: $author", "Selected node: $serverUrl")) {
                                     ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                                 }
                             }
@@ -132,7 +132,7 @@ class PublisherUserReportPreviewTest {
                                 waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
                                 assertEquals(before + 1, external().size)
                                 assertPublisherEmailDraft(external().last(), "safety@publisher.example", "Red Square user report",
-                                    "App: Red Square 0.1.0\nPublic account: $author\nSelected server: $serverUrl\n\nDescription:\n$description")
+                                    "App: Red Square 0.1.0\nPublic account: $author\nSelected node: $serverUrl\n\nDescription:\n$description")
                                 capture("${backend.id}-exact-report-context.png")
                                 ui.onNodeWithText("Done").performClick()
                             }

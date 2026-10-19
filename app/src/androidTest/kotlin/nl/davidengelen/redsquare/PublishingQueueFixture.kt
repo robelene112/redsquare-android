@@ -206,7 +206,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                             touch("Review terms")
                             waitFor("Review publishing terms")
                             touch("Accept")
-                            waitFor(if (kind == Kind.POST) "Available on this server." else "Forwarded. Delivery is not confirmed.")
+                            waitFor(if (kind == Kind.POST) "Available on this node." else "Forwarded. Delivery is not confirmed.")
                             assertEquals(1, peer.transactions.size)
                             assertEquals(if (kind == Kind.POST) 0 else 1, peer.relayedMessages.size)
                             capture("$label-original-resumes-after-deliberate-agreement.png")

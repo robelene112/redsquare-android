@@ -303,7 +303,7 @@ class PublishingSurfacesPreviewTest {
                         waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement does not publish the profile", peer.transactions.isEmpty())
                         ui.onNodeWithText("Save profile").performClick()
-                        waitFor("Profile available on this server.")
+                        waitFor("Profile available on this node.")
                         assertEquals(1, peer.transactions.size)
                         assertTrue(originalWallet == AndroidWalletStore(context).loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())

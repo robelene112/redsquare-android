@@ -77,7 +77,7 @@ class PublishingAgreementPreviewTest {
                         waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Retrying agreement does not publish", peer.transactions.isEmpty())
                         ui.onNodeWithText("Send").performClick()
-                        waitFor("Available on this server.")
+                        waitFor("Available on this node.")
                         assertEquals(1, peer.transactions.size)
                         assertEquals("Keep the draft after failed agreement storage",
                             nl.davidengelen.redsquare.saito.RedSquareFeed.decode(
@@ -126,7 +126,7 @@ class PublishingAgreementPreviewTest {
                         ui.onNode(hasSetTextAction()).assertTextEquals("Send only after my deliberate agreement")
                         assertTrue("Reopening must not publish", peer.transactions.isEmpty())
                         ui.onNodeWithText("Send").performClick()
-                        waitFor("Available on this server.")
+                        waitFor("Available on this node.")
                         assertEquals(1, peer.transactions.size)
                         val post = nl.davidengelen.redsquare.saito.RedSquareFeed.decode(
                             postingTransaction(peer.transactions.single()).envelope())

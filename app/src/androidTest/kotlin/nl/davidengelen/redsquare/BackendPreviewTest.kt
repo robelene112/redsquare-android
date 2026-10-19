@@ -57,9 +57,9 @@ class BackendPreviewTest {
                         ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                         officialServer.close()
                         activity.recreate()
-                        waitForText("Server: saito.io")
+                        waitForText("Node: saito.io")
                         waitForText("New reference post")
-                        waitForText("Server unavailable")
+                        waitForText("Node unavailable")
                         ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                         ui.onNodeWithText("Wallet").performClick()
                         assertEquals(address, displayedWalletAddress(ui))
@@ -95,7 +95,7 @@ class BackendPreviewTest {
                         ui.waitUntil(15_000) {
                             ui.onAllNodes(hasText("Settings")).fetchSemanticsNodes().size == 1
                         }
-                        waitForText("Server: saito.davidengelen.nl")
+                        waitForText("Node: saito.davidengelen.nl")
                         val file = File(instrumentation.targetContext.noBackupFilesDir, "backend.v1")
                         val preserved = File(instrumentation.targetContext.noBackupFilesDir, "backend.test.saved")
                         check(file.renameTo(preserved))
@@ -103,9 +103,9 @@ class BackendPreviewTest {
                         val obstruction = File(file, "obstruction").apply { writeText("selection fixture") }
                         try {
                             chooseServer("saito.io")
-                            waitForText("Your server selection could not be saved. Try again.")
+                            waitForText("Your node selection could not be saved. Try again.")
                             ui.onNodeWithText("Done").performClick()
-                            waitForText("Server: saito.davidengelen.nl")
+                            waitForText("Node: saito.davidengelen.nl")
                             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                             assertTrue(official.clientKeys.isEmpty())
                         } finally {
@@ -142,19 +142,19 @@ class BackendPreviewTest {
                         waitForText("Native Red Square reference post")
                         activity.onActivity { it.intent.putExtra("backendCommitSyncUnavailable", true) }
                         chooseServer("saito.io")
-                        waitForText("Your server selection could not be saved. Try again.")
+                        waitForText("Your node selection could not be saved. Try again.")
                         ui.onNodeWithText("Done").performClick()
-                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        waitForText("Your node selection could not be opened. Choose a node in Settings.")
                         ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                         assertTrue(official.clientKeys.isEmpty())
                         activity.recreate()
-                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        waitForText("Your node selection could not be opened. Choose a node in Settings.")
                         assertTrue(official.clientKeys.isEmpty())
                         activity.onActivity { it.intent.putExtra("backendCommitSyncUnavailable", false) }
                         chooseServer("saito.davidengelen.nl")
                         waitForText("Native Red Square reference post")
                         activity.recreate()
-                        waitForText("Server: saito.davidengelen.nl")
+                        waitForText("Node: saito.davidengelen.nl")
                         waitForText("Native Red Square reference post")
                         assertTrue(official.clientKeys.isEmpty())
                         owner.assertHealthy()
@@ -176,12 +176,12 @@ class BackendPreviewTest {
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                 ActivityScenario.launch<MainActivity>(intent).use { activity ->
                     try {
-                        waitForText("Your server selection could not be opened. Choose a server in Settings.")
+                        waitForText("Your node selection could not be opened. Choose a node in Settings.")
                         assertTrue(owner.clientKeys.isEmpty() && official.clientKeys.isEmpty())
                         chooseServer("saito.io")
                         waitForText("New reference post")
                         activity.recreate()
-                        waitForText("Server: saito.io")
+                        waitForText("Node: saito.io")
                         waitForText("New reference post")
                         ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                         assertTrue(owner.clientKeys.isEmpty())

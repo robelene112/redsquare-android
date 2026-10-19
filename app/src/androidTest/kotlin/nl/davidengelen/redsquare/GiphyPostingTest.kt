@@ -117,7 +117,7 @@ class GiphyPostingTest {
                         ui.waitUntil(20_000) { peer.requests.get() > 0 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         waitFor("Signed image reference")
-                        ui.onNodeWithText("Server: ${backend.domain}").assertIsDisplayed()
+                        ui.onNodeWithText("Node: ${backend.domain}").assertIsDisplayed()
                         when (kind) {
                             "post" -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
                             "reply" -> {
@@ -135,7 +135,7 @@ class GiphyPostingTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNode(hasText("Send") and isEnabled()).performClick()
-                        ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this server.").fetchSemanticsNodes().isNotEmpty() }
+                        ui.waitUntil(20_000) { peer.assertHealthy(); ui.onAllNodesWithText("Available on this node.").fetchSemanticsNodes().isNotEmpty() }
                         assertEquals(1, peer.transactions.size)
                         capture("$label-available")
                         ui.onNodeWithText("Back").performClick()
