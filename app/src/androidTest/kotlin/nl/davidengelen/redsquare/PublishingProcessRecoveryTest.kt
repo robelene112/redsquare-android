@@ -7,6 +7,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.work.WorkManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -20,6 +21,7 @@ import java.io.File
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.TimeUnit
 
 /** The host proves actual process death; installation snapshots remain on this disposable device. */
 class PublishingProcessRecoveryTest {
@@ -125,6 +127,12 @@ class PublishingProcessRecoveryTest {
         val row = readCheckpoint()
         val owner = row.get("owner").asString
         cleanupAfterTest(null,
+            { val saved = PostDraftStore(context, owner, SaitoBackend.OWNER).load()
+                saved.transaction?.takeIf { saved.text == row.get("text").asString }?.let { candidate ->
+                    assertEquals(owner, RedSquareFeed.decode(candidate.envelope()).author)
+                    WorkManager.getInstance(context).cancelUniqueWork("post:${candidate.id}").result.get(5, TimeUnit.SECONDS)
+                }
+            },
             { restoreProcessFixtureFiles(context, originals, fileNames(owner), row.getAsJsonArray("savedFiles")) },
             { row.getAsJsonArray("preferences").forEach { value ->
                 val pref = value.asJsonObject

@@ -374,7 +374,8 @@ explicit repair/deliberate Send. Its two-case focused run39248457801 is pending.
 A new separate host-driven process fixture now saves explicit agreement and an
 unsent draft, kills the actual process, then requires a different PID, retained
 wallet/backend/draft, no automatic publication and one deliberate Send without
-another terms prompt. Encrypted installation snapshots remain device-only and
-restoration is independent. Its host phases keep the shared120second bounds;
+another terms prompt. Scoped installation snapshots remain device-only and
+restoration is independent, including cancellation of only its owned Post job.
+Its host phases keep the shared120second bounds;
 no existing process gate or180second recovery-class assertion changes.
 This new process coverage is not yet runtime acceptance.
