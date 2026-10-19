@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFramePreviewTest:
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$19(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jpYJSFcn1wGj6HOMgT0HkY-xuuc(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$25$lambda$24$lambda$23(AppFramePreviewTest.kt:172)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FuaKtSnUKPAY3rk0r2fsRahOGt0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest):
+java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$19(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jpYJSFcn1wGj6HOMgT0HkY-xuuc(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$25$lambda$24$lambda$23(AppFramePreviewTest.kt:172)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FuaKtSnUKPAY3rk0r2fsRahOGt0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.402
+There was 1 failure:
+1) largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest)
+java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$19(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$jpYJSFcn1wGj6HOMgT0HkY-xuuc(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$25$lambda$24$lambda$23(AppFramePreviewTest.kt:172)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FuaKtSnUKPAY3rk0r2fsRahOGt0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda21.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:168)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:70)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

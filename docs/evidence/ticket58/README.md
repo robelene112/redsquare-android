@@ -77,3 +77,12 @@ The next native tracer exercises actual130%/200% rendering at320dp and a412dp
 Pixel7-sized layout, both themes, full targets and scrollable backup guidance.
 Disposable display/font/appearance settings have independent restoration. This
 is layout verification, not a physical Pixel or performance result.
+
+Viewport execution09c07837e/run39334261008 is FAILURE: the preceding3 methods
+PASS; the new method fails at its first Wallet target bound assertion for320dp/
+130% light. Its outer failure capture occurs after display/font restoration and
+therefore does not establish the failed layout. Native XML in that restored state
+shows a48x48 clickable Wallet target. No app cause is inferred. The fixture now
+captures inside the actual matrix case before cleanup, retains visual and native
+clickable bounds, and positively waits for the main window after theme selection.
+The original minimum/viewport assertion is retained while diagnosing its signal.

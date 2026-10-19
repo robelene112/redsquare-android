@@ -6,6 +6,7 @@ import android.view.inspector.WindowInspector
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -93,15 +94,32 @@ class AppFramePreviewTest {
                     for (theme in listOf("Light", "Dark")) {
                         ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasText(theme) and isSelected()).isDisplayed() }
                         ui.onNodeWithText("Done").performClick()
-                        ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                        ui.waitUntil(10_000) {
+                            var focused = false
+                            activity.onActivity { focused = it.window.decorView.hasWindowFocus() }
+                            focused && ui.onNode(hasText("Home") and isSelected()).isDisplayed()
+                        }
                         val name = "frame-$width-font${(scale * 100).toInt()}-${theme.lowercase()}"
+                        withFailureCapture({ capture("$name-first-failure.png") }) {
                         val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
                         val minimum = 48 * context.resources.displayMetrics.density - 1
                         for (label in listOf("Wallet", "Settings", "Home", "Search", "Notifications", "Chat", "Your profile",
                             "Back up", "Later", "Import an existing wallet", "New post", "More feed actions")) {
                             val bounds = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed()
                                 .fetchSemanticsNode().boundsInRoot
+                            var native = device.findObject(By.text(label))
+                            while (native != null && !native.isClickable) native = native.parent
+                            File(folder, "$name-${label.lowercase().replace(' ', '-')}-target.json").writeText(
+                                com.google.gson.JsonObject().apply {
+                                    addProperty("label", label); addProperty("minimumPixels", minimum)
+                                    addProperty("composeBounds", bounds.toString()); addProperty("viewportBounds", viewport.toString())
+                                    addProperty("nativeClickableBounds", native?.visibleBounds?.toShortString())
+                                    addProperty("fontScale", context.resources.configuration.fontScale)
+                                    addProperty("density", context.resources.displayMetrics.density)
+                                    addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
+                                }.toString())
                             assertTrue("$label must retain a full reachable target at $name", bounds.width >= minimum &&
                                 bounds.height >= minimum && bounds.left >= viewport.left && bounds.right <= viewport.right &&
                                 bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
@@ -123,6 +141,7 @@ class AppFramePreviewTest {
                         capture("$name-backup-guidance.png")
                         ui.onNodeWithText("Done").performClick()
                         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+                        }
                     }
                 }
             }
