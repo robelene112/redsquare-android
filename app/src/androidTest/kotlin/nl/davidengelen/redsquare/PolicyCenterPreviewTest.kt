@@ -83,7 +83,7 @@ class PolicyCenterPreviewTest {
                                 activity.recreate()
                                 waitFor("Data and deletion")
                                 ui.onNodeWithText(lastParagraph, substring = true).performScrollTo().assertIsDisplayed()
-                            ui.onNodeWithText("Draft").assertIsDisplayed()
+                                ui.onNodeWithText("Draft").assertIsDisplayed()
                                 capture("${theme.lowercase()}-deletion-restored.png")
                             }
                             ui.onNodeWithContentDescription("Back to privacy and safety").performClick()
