@@ -69,13 +69,16 @@ waiting for missing terms after their action. Root inspected all four originals.
 The group minimum now gates UI/new preparation/retry and durable raw/Relay
 publication before queued cancellation is consumed. Leave/removal, their retries,
 queue cancellation, stale stopping and local invitation preview/copy stay
-independent with their original identity/membership rules. Group GREEN pending.
+independent with their original identity/membership rules. Group GREEN39239942197 atf2864f7f3 is SUCCESS:11PASS across
+three classes. Both reviews0; root inspected cancellation/outcome originals.
+Three additional native cases now cover promotion and ready=false leave/removal
+exemptions. This coverage adds no production code; results pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Groups are the next vertical slice; obtain real RED before their minimum.
+Await the additional group confirmation/exemption focus before the next slice.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.

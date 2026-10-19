@@ -249,3 +249,16 @@ their retry. Their original membership/identity checks remain. Queue cancellatio
 local stale-action stopping, incoming history and invitation-link preview/copy
 remain independent. Runtime GREEN and dedicated queue/process/exemption proof
 remain pending.
+
+Group GREEN39239942197 atf2864f7f3 is SUCCESS: agreement3PASS/16.036s,
+surfaces4PASS/18.769s, group4PASS/20.21s. `group-green10/SHA256SUMS`
+binds27 originals. Root opened the creation and invitation cancellation windows
+and message/reaction outcomes. Both source reviews report0findings.
+
+Additional coverage now exercises the already implemented promotion agreement
+and leave/removal exemptions through native confirmation dialogs. Promotion
+still needs Accept then a separate Confirm. Leave/removal use an explicitly
+unapproved ready=false bundle and must forward their exact authenticated
+controls without an agreement window. Existing four group journeys/assertions
+remain. This is coverage of the existing minimum, with no new production change;
+runtime results remain pending.

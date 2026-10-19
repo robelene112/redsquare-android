@@ -24,10 +24,15 @@ class PublishingGroupPreviewTest {
     @Test fun previewingAnInvitationIsIndependentButJoiningRequiresAgreement() = exercise(Action.JOIN)
     @Test fun cancellingGroupPublicationKeepsTheEditableMessage() = exercise(Action.MESSAGE)
     @Test fun cancellingAGroupReactionKeepsTheMessageUnliked() = exercise(Action.REACTION)
+    @Test fun promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel() = exercise(Action.PROMOTION)
+    @Test fun removingAMemberRemainsAvailableWithUnapprovedPolicies() = exercise(Action.REMOVAL)
+    @Test fun leavingAGroupRemainsAvailableWithUnapprovedPolicies() = exercise(Action.LEAVE)
 
-    private enum class Action(val request: String, val button: String) {
+    private enum class Action(val request: String, val button: String, val requiresAgreement: Boolean = true) {
         CREATE("chat group", "Create"), JOIN("chat join", "Join"),
-        MESSAGE("chat message", "Send"), REACTION("chat like", "Like")
+        MESSAGE("chat message", "Send"), REACTION("chat like", "Like"),
+        PROMOTION("chat update", "Confirm promotion"), REMOVAL("chat remove", "Confirm removal", false),
+        LEAVE("chat remove", "Leave", false)
     }
 
     private fun exercise(action: Action) {
@@ -40,7 +45,7 @@ class PublishingGroupPreviewTest {
         val key = SaitoWallet.fromPrivateKey("0".repeat(63) + "9") // Public unsafe group fixture only.
         val member = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe member fixture only.
         val name = "Policy group ${action.name.lowercase()}"
-        val existing = action == Action.MESSAGE || action == Action.REACTION
+        val existing = action != Action.CREATE && action != Action.JOIN
         val wallet = if (existing) original.withNamedChatGroup(key.publicKey, name, key) else original
         val retained = ChatFixtureState(context,
             listOf("groupchat.owner.${wallet.publicKey}.", "personal.${wallet.publicKey}."), wallet.publicKey)
@@ -75,6 +80,13 @@ class PublishingGroupPreviewTest {
                             assertEquals(requireNotNull(source).id, signed.body.get("signature").asString)
                             assertEquals(member.publicKey, signed.body.get("mentioned").asString)
                         }
+                        Action.PROMOTION -> assertEquals("admin", signed.body.getAsJsonObject("member_ids").get(member.publicKey).asString)
+                        Action.REMOVAL, Action.LEAVE -> {
+                            val target = if (action == Action.LEAVE) wallet.publicKey else member.publicKey
+                            assertEquals(target, signed.body.get("member_id").asString)
+                            assertEquals(if (action == Action.LEAVE) ChatGroupRole.LEFT else ChatGroupRole.REMOVED,
+                                GroupChat.applyControl(group, envelope).memberRoles[target])
+                        }
                         Action.CREATE -> error("Creation validated separately")
                     }
                 }
@@ -88,7 +100,7 @@ class PublishingGroupPreviewTest {
             retained.prepare()
             wallets.replace(original, wallet)
             backends.save(SaitoBackend.OWNER)
-            fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
+            fixture.writeText("""{"revision":"$revision","ready":${action.requiresAgreement},"enforce":true,
                 "terms":"Controlled group terms. No real publisher approval.",
                 "community":"Controlled group rules. Agreement is separate from your action."}""")
             if (existing) GroupChatStore(context, wallet, SaitoBackend.OWNER).apply {
@@ -118,7 +130,7 @@ class PublishingGroupPreviewTest {
                                 ui.onNodeWithText(name).assertIsDisplayed()
                                 assertTrue("Preview does not require agreement or join", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             }
-                            Action.MESSAGE, Action.REACTION -> {
+                            Action.MESSAGE, Action.REACTION, Action.PROMOTION, Action.REMOVAL, Action.LEAVE -> {
                                 click(name)
                                 waitFor(sourceText)
                                 if (action == Action.MESSAGE) {
@@ -126,36 +138,46 @@ class PublishingGroupPreviewTest {
                                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                                     ui.onNodeWithText("Message").performTextReplacement(message)
                                     androidx.test.espresso.Espresso.closeSoftKeyboard()
+                                } else if (action == Action.PROMOTION || action == Action.REMOVAL) {
+                                    click("Members")
+                                    val description = "${if (action == Action.PROMOTION) "Promote" else "Remove"} member ${member.publicKey}"
+                                    ui.waitUntil(20_000) { ui.onAllNodes(hasContentDescription(description) and isEnabled()).fetchSemanticsNodes().size == 1 }
+                                    ui.onNodeWithContentDescription(description).assertIsDisplayed().performClick()
+                                } else if (action == Action.LEAVE) {
+                                    click("Leave group")
                                 }
                             }
                         }
-                        repeat(2) { attempt ->
-                            click(action.button)
-                            waitFor("Review publishing terms")
-                            assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                        if (action.requiresAgreement) {
+                            repeat(2) { attempt ->
+                                click(action.button)
+                                waitFor("Review publishing terms")
+                                assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                                assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
+                                if (attempt == 0) {
+                                    ui.onNode(hasText("Cancel") and hasClickAction() and
+                                        hasAnyAncestor(hasAnyDescendant(hasText("Review publishing terms")))).performClick()
+                                    when (action) {
+                                        Action.CREATE -> {
+                                            assertEditable("Group name", name)
+                                            assertEditable("Invitees (optional)", member.publicKey)
+                                        }
+                                        Action.JOIN -> ui.onNodeWithText("Join").assertIsEnabled()
+                                        Action.MESSAGE -> assertEditable("Message", message)
+                                        Action.REACTION -> {
+                                            ui.onNodeWithText("Like").assertIsEnabled()
+                                            ui.onNodeWithText("Unlike").assertDoesNotExist()
+                                        }
+                                        Action.PROMOTION, Action.REMOVAL, Action.LEAVE -> ui.onNodeWithText(action.button).assertIsEnabled()
+                                    }
+                                    capture("${action.name.lowercase()}-cancel-keeps-work.png")
+                                }
+                            }
+                            click("Accept")
+                            waitFor("Agreement saved. Choose your action again when you are ready.")
+                            assertTrue("Acceptance does not execute the group action", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
-                            if (attempt == 0) {
-                                ui.onNode(hasText("Cancel") and hasClickAction() and
-                                    hasAnyAncestor(hasAnyDescendant(hasText("Review publishing terms")))).performClick()
-                                when (action) {
-                                    Action.CREATE -> {
-                                        assertEditable("Group name", name)
-                                        assertEditable("Invitees (optional)", member.publicKey)
-                                    }
-                                    Action.JOIN -> ui.onNodeWithText("Join").assertIsEnabled()
-                                    Action.MESSAGE -> assertEditable("Message", message)
-                                    Action.REACTION -> {
-                                        ui.onNodeWithText("Like").assertIsEnabled()
-                                        ui.onNodeWithText("Unlike").assertDoesNotExist()
-                                    }
-                                }
-                                capture("${action.name.lowercase()}-cancel-keeps-work.png")
-                            }
                         }
-                        click("Accept")
-                        waitFor("Agreement saved. Choose your action again when you are ready.")
-                        assertTrue("Acceptance does not execute the group action", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
-                        assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                         click(action.button)
                         waitFor("Forwarded. Delivery is not confirmed.")
                         assertEquals(1, peer.transactions.size)
@@ -169,7 +191,11 @@ class PublishingGroupPreviewTest {
                             assertTrue(id in wallets.loadExisting().namedChatGroupIds())
                         }
                         if (action == Action.REACTION) ui.onNodeWithText("Unlike").assertIsDisplayed()
-                        capture("${action.name.lowercase()}-deliberately-forwarded-after-agreement.png")
+                        if (!action.requiresAgreement) {
+                            ui.onNodeWithText("Review publishing terms").assertDoesNotExist()
+                            ui.onNodeWithText("Publishing terms are being prepared").assertDoesNotExist()
+                        }
+                        capture("${action.name.lowercase()}-deliberately-forwarded-${if (action.requiresAgreement) "after-agreement" else "without-content-agreement"}.png")
                         peer.assertHealthy()
                     }
                 }
