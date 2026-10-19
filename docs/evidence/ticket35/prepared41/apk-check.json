@@ -1,0 +1,22 @@
+{
+  "version": 41,
+  "sha256": "cb124805454e59d9bf9474d8352a74594020bce445e2f1434144e448982af299",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "source": "df941ab6c70118275f4b257220905f5bed93d33d",
+  "actualDex": {
+    "DEBUG": false,
+    "PUSH_CONFIGURED": false,
+    "REVIEW_BUILD": false,
+    "GIPHY_POSTS_API_KEY": false,
+    "GIPHY_CHAT_API_KEY": false
+  },
+  "debuggable": false,
+  "profileable": true,
+  "allowBackup": false,
+  "minSdk": 29,
+  "targetSdk": 36,
+  "published": false,
+  "physicalDeviceAcceptance": false,
+  "buildOutput": "Gradle BUILD SUCCESSFUL in 3m; canonical script printed final signed path and complete metadata. Outer exec session reported143 after final output; not recorded as a command exit0.",
+  "independentFreshSignatureAndManifestVerification": true
+}

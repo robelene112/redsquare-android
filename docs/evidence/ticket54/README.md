@@ -403,3 +403,11 @@ no APK or private signing material is committed. Prepared39 stays obsolete and
 unpublished; matching timing41 is not yet published. Publication bookend review
 and issue closure follow this checkpoint. Physical/device/provider/operations/
 Play acceptance remains unclaimed, and OWNER_INPUTS.md now points to ordinary40.
+
+## Accepted native preparation
+
+Both publication bookend axes report0 atcc2a1f4bb, including fresh public
+download checks. All seven bounded acceptance items are complete and issue54
+is CLOSED: [final tracker record](https://github.com/robelene112/redsquare-android/issues/54#issuecomment-6274584284).
+Actual contacts and operations remain under36. Matching timing41 delivery is
+the next independent preparation for35; it does not reopen completed54 checks.
