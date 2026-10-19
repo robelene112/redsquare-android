@@ -40,6 +40,7 @@ class PolicyCenterPreviewTest {
                     waitFor("New post", action = true)
 
                     fun center() {
+                        waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         waitFor("Draft policies")
@@ -54,6 +55,7 @@ class PolicyCenterPreviewTest {
                     }
                     // Theme controls remain the app's real controls; never change system settings.
                     for (theme in listOf("Light", "Dark")) {
+                        waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.onNodeWithText("Done").performClick()
