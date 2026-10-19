@@ -484,7 +484,9 @@ isolation retains distinct UIDs10236/10237 and wallets, unchanged main address,
 and restores original absence without cleanup failures. Legacy5-to8 continuity,
 preview update and final diagnostic pass. These do not install candidate38.
 
-Whole source through3c28124b8 has Spec0/Standards0. Android17 evidence review is
-in progress; Android10 run39254786488 is still running. #53 remains incomplete
+Whole source through3c28124b8 has Spec0/Standards0. Both complete Android17
+evidence reviews and the subsequent selected-original residual reviews report0
+findings, independently reproducing all468 packet hashes. Android10
+run39254786488 is still running. #53 remains incomplete
 pending both-SDK combined acceptance, final reviews and ordinary38 publication.
 No final policy approval, configured-provider, physical Pixel or Play claim.
