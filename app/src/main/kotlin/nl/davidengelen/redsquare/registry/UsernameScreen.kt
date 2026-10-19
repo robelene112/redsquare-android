@@ -15,6 +15,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.feed.LocalPostNavigation
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 
 /** Optional Registry UI. Opening it only loads and reconciles existing work. */
 @Composable
@@ -22,6 +23,7 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
     modifier: Modifier, onClose: () -> Unit) {
     val context = LocalContext.current.applicationContext
     val scope = rememberCoroutineScope()
+    val publishing = LocalPublishingAgreement.current
     val state = remember(wallet, backend, endpoint, registrar) {
         UsernameState(wallet, endpoint, backend, registrar, UsernameRequestStore(context, wallet.publicKey, backend, registrar),
             RegisteredNameStore(context, wallet.publicKey, registrar), scope)
@@ -64,11 +66,13 @@ internal fun UsernameScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint
                 Button(enabled = ready && !busy, onClick = ::check) {
                     Text(stringResource(if (busy) R.string.username_checking else R.string.username_check))
                 }
-                if (available && verifiedOwnName == null) Button(enabled = ready && !busy, onClick = ::register) {
+                if (available && verifiedOwnName == null) Button(enabled = ready && !busy,
+                    onClick = { register(publishing::beforePublishing) }) {
                     Text(stringResource(R.string.username_register))
                 }
             } else if (verifiedOwnName == null) {
-                Button(enabled = ready && !busy && currentName == null, onClick = ::register) { Text(stringResource(R.string.username_retry)) }
+                Button(enabled = ready && !busy && currentName == null,
+                    onClick = { register(publishing::beforePublishing) }) { Text(stringResource(R.string.username_retry)) }
             } else {
                 Button(enabled = ready && !busy, onClick = ::check) { Text(stringResource(R.string.username_check)) }
             }

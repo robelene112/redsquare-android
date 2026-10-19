@@ -92,10 +92,10 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         scope.launch { run(send = false) }
     }
 
-    fun register() {
+    fun register(beforePublishing: suspend () -> Boolean) {
         if (!ready || busy || verifiedOwnName != null || currentName != null || (candidate == null && !available)) return
         busy = true
-        scope.launch { run(send = true) }
+        scope.launch { run(send = true, beforePublishing = beforePublishing) }
     }
 
     fun chooseAnother() {
@@ -126,11 +126,13 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
         catch (_: Exception) { status = R.string.username_save_error; false }
     }
 
-    private suspend fun run(send: Boolean) {
+    private suspend fun run(send: Boolean, beforePublishing: suspend () -> Boolean = { false }) {
         busy = true
-        available = false
-        currentName = null
         try {
+            // Cancel before changing availability or freezing a newly prepared request.
+            if (send && candidate == null && !beforePublishing()) return
+            available = false
+            currentName = null
             SaitoPeer(wallet, endpoint).use { peer ->
                 val lookup = RegistryLookup(peer, registrar)
                 val record = withContext(Dispatchers.IO) { lookup.namecheck("$name@saito") }
@@ -145,6 +147,11 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
                     }
                     return
                 }
+                if (!beforePublishing()) {
+                    available = candidate == null && verifiedOwnName == null
+                    status = if (candidate == null) R.string.username_available else R.string.username_pending
+                    return
+                }
                 val transaction = candidate ?: withContext(Dispatchers.IO) {
                     SaitoRegistry.registration(wallet, name, System.currentTimeMillis(), registrar)
                 }
@@ -157,7 +164,7 @@ internal class UsernameState(private val wallet: SaitoWallet, private val endpoi
                     peer.authenticate()
                     check(store.claim(transaction.id))
                     currentCoroutineContext().ensureActive()
-                    peer.submit(transaction)
+                    peer.submit(transaction) { check(store.claim(transaction.id)) }
                 }
                 val confirmed = withContext(Dispatchers.IO) { lookup.namecheck("$name@saito") }
                 if (confirmed != null) observed(confirmed)

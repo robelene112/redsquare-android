@@ -39,7 +39,17 @@ before Save profile. First minimum39231971429 at9a42016f1 is FAILURE:3PASS
 agreement (including long terms/pinned error),1PASS/1FAIL surfaces. The Profile
 failure is an assertion that also counts the Bio label; native semantics show
 exact retained EditableText. Fixture correction now compares that exact property,
-retaining enabled/zero-transaction/deadline assertions. New GREEN pending.
+retaining enabled/zero-transaction/deadline assertions. Corrected focus39232915751
+atc6c8371fd is SUCCESS,5PASS across both classes. Root inspected the publication
+original; corrected fixture has Standards0/Spec0.
+
+Next Registry tracerc6ea3bbba has actual RED39233679887:5PASS/1FAIL, missing
+terms before Register name (original shows the controlled signed name registered).
+The Registry minimum now checks an explicit callback before clearing availability
+or preparing, and durable permission at claim/enqueue. Read-only checks and old
+request reconciliation remain independent. The controlled scalar2 authority uses
+the existing emulator/loopback seam, not a public registration/readiness claim.
+New Registry GREEN is pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other

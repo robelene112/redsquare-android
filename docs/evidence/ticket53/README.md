@@ -139,3 +139,23 @@ The fixture correction compares the exact EditableText property, following the
 existing Profile publishing tests, and retains the enabled-field assertion,
 all characters, zero transactions, deadlines and separate deliberate publication.
 No production change accompanies this correction. New GREEN remains pending.
+
+Corrected Profile focus39232915751 atc6c8371fd is SUCCESS:3PASS/15.418s in
+the agreement class and2PASS/9.135s in surfaces. `profile-green10/SHA256SUMS`
+binds14 originals. Root opened the deliberately published Profile original;
+the exact editable-value correction has Standards0/Spec0.
+
+Registry tracerc6ea3bbba has actual RED39233679887: agreement3PASS/14.347s,
+surfaces2PASS/1FAIL in30.282s, missing review after Register name atline102.
+The original already shows the controlled registrar-signed name registered to
+the wallet. `registry-red10/SHA256SUMS` binds10 originals. The owned scalar2
+authority/proof uses the existing guarded emulator/loopback Registry seam; this
+is not actual public-node registration or readiness. No Registry policy change
+preceded RED.
+
+Next minimum requires an explicit callback for Register/Retry, freezing busy
+before lookup and preserving checked availability on initial cancellation. Read
+checks remain independent. Fresh preparation and durable claim/enqueue require
+current agreement; uncertain requests can reconcile by reading first. The
+private read helper defaults to denied publication when no callback is supplied.
+Runtime GREEN and all remaining complete issue requirements stay pending.

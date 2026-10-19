@@ -6,6 +6,7 @@ import com.google.gson.JsonObject
 import com.google.gson.Strictness
 import nl.davidengelen.redsquare.AndroidWalletStore
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.policy.PublishingPolicies
 
 /** One immutable signed request per wallet/server. Reopening cannot sign a replacement. */
 internal class UsernameRequestStore(private val context: Context, private val owner: String,
@@ -100,6 +101,7 @@ internal class UsernameRequestStore(private val context: Context, private val ow
         a?.transaction?.encoded() == b?.transaction?.encoded()
 
     fun claim(id: String): Boolean = synchronized(SaitoLocalState.lock) {
+        PublishingPolicies.requireAllowed(context)
         AndroidBackendStore(context).load() == backend &&
             AndroidWalletStore(context).loadExisting().publicKey == owner &&
             read()?.let { !it.retired && it.transaction.id == id } == true
