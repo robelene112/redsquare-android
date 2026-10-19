@@ -64,8 +64,8 @@ APK/source/package/signature/manifest match preparation and full acceptance:
 - min29/target36, nondebuggable/nonprofileable, automatic backup false; actual DEX
   review=true, Push=false and both GIF options absent.
 
-Immutable38/37/35 metadata and APK hashes remain unchanged. Separate performance36
-page/latest/immutable/APK also remain unchanged. Ordinary39 is obsolete and
+Immutable38/37/35 metadata and APK hashes remain unchanged. At ordinary40 publication, the separate performance36
+page/latest/immutable/APK also remained unchanged. Timing latest is now41;36 stays immutable. Ordinary39 is obsolete and
 unpublished; never publish it as the corrected candidate. Never overwrite releases,
 change signing/package identity or erase the owner's wallet. OWNER_INPUTS names40.
 
@@ -90,26 +90,31 @@ verification exits0 and matches complete retained canonical outputs. The origina
 log is `/mnt/storage/redsquare-android-artifacts/publisher54-performance41-build.log`.
 No local builder/download session is active.
 
-Next steps:
+Both preparation review axes report0 at735610d66. Performance41 is now PUBLISHED
+through the canonical script (observed exit0). The before/after helper also exits0:
+actual41 page/latest/immutable/APK match, ordinary40 page/latest/immutable/APK remain
+unchanged, and old performance36 immutable metadata/APK remain unchanged. The
+public-safe publication41 packet contains14 records. See [35 evidence](../evidence/ticket35/README.md).
 
-1. Review the prepared41 increment against35/48 and the existing timing protocol.
-2. Run `/tmp/redsquare-performance41-publication-check.py before` while ordinary40
-   is live and performance36 remains current. Inspect this helper before use.
-3. Publish only via `scripts/review-publish .scratch/performance-builds/41
-   --performance --notes '<truthful timing notes>'`, then run the helper `after`.
-   It checks actual41 and unchanged ordinary40 page/latest/immutable/APK plus
-   immutable performance36 metadata/APK. Preserve public-safe records only.
-4. Run focused `feed` and `feed-android17` at one source, with public reads,
+The independent isolation41 plan is committed before execution:11 existing native
+feed/public-read identities plus three exact signed observer methods per SDK.
+Remaining steps:
+
+1. Dispatch focused `feed` and `feed-android17` at one source, with public reads,
    `performance_version=41`, `main_reference_version=35`. The unchanged observer
-   accepts any valid published performance version; no harness change is needed.
-   Both actual signed35/41 installation/wallet/UID isolation and cleanup must pass.
-   This proves baseline35/41 isolation, not ordinary40 physical update continuity.
-5. Retain/review the actual artifacts, update35 and OWNER_INPUTS with the matching
-   timing download and truthful remaining physical/configuration gates.
+   accepts published41; no harness change is needed. Both actual35/41 installation,
+   wallet/UID isolation and cleanup must pass. This proves baseline35/41 isolation,
+   not ordinary40 physical update continuity.
+2. Retain/review actual artifacts and the publication bookend, then update35 and
+   OWNER_INPUTS with the matching timing download and remaining physical gates.
+
+Temporary `/tmp/redsquare-performance41-publication-check.py` has completed both
+bookends. Raw public files are on storage in `performance41-publication`. Do not
+repeat or republish completed41 delivery. No APK/private material belongs in Git.
 
 The old separately published timing36 is an older checkpoint, not final-current-code
-Pixel proof. The new41 is currently PREPARED, UNPUBLISHED and has no native
-installation or physical timing result. Read [review operations](../REVIEW_BUILDS.md)
+Pixel proof. The new41 is now PUBLISHED and has no native
+installation or physical timing result yet. Read [review operations](../REVIEW_BUILDS.md)
 and [physical protocol](../research/FEED_PERFORMANCE_PROTOCOL.md). Five cached
 launches must each be≤2000ms and five fresh isolated launches each≤5000ms on the
 Pixel7 under that protocol. Never import/clear the owner's ordinary wallet for timing.

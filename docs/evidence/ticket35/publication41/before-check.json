@@ -1,0 +1,27 @@
+{
+  "before-ordinary-page40.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "before-ordinary-latest40.json": {
+    "http": 200,
+    "bytes": 803,
+    "sha256": "786bfee6831fc415999a27039909d783b19097db2335b08fe868d1ec5225c5d8"
+  },
+  "before-ordinary-immutable40.json": {
+    "http": 200,
+    "bytes": 803,
+    "sha256": "786bfee6831fc415999a27039909d783b19097db2335b08fe868d1ec5225c5d8"
+  },
+  "before-performance-immutable36.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  },
+  "before-performance-latest.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  }
+}
