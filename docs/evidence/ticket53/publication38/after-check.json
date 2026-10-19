@@ -1,0 +1,70 @@
+{
+  "page38.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "latest38.json": {
+    "http": 200,
+    "bytes": 703,
+    "sha256": "997b887e43ab8797b31dfba3d4a495e00e6a3918789cbc0e11e7024aa1de9c8b"
+  },
+  "immutable38.json": {
+    "http": 200,
+    "bytes": 703,
+    "sha256": "997b887e43ab8797b31dfba3d4a495e00e6a3918789cbc0e11e7024aa1de9c8b"
+  },
+  "redsquare38.apk": {
+    "http": 200,
+    "bytes": 37643379,
+    "sha256": "daf258eb0c04037f11920978c126c12e0fa86e6c5b65e7fa26bbb42ef4b7b72d"
+  },
+  "immutable37-after.json": {
+    "http": 200,
+    "bytes": 651,
+    "sha256": "d380ba9e15d1a4cf32eecc4b0354ee75e6a644d193d17a88453a67135c33e192"
+  },
+  "immutable35-after.json": {
+    "http": 200,
+    "bytes": 598,
+    "sha256": "be6964d97479ca3c92cbe0b920b407810d2690b0860b07debea749769a29de0e"
+  },
+  "performance-page36-after.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "performance-latest36-after.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  },
+  "performance-immutable36-after.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  },
+  "ordinary37-after.apk": {
+    "http": 200,
+    "bytes": 37590131,
+    "sha256": "08f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4"
+  },
+  "ordinary35-after.apk": {
+    "http": 200,
+    "bytes": 37508099,
+    "sha256": "4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd"
+  },
+  "performance36-after.apk": {
+    "http": 200,
+    "bytes": 37508099,
+    "sha256": "e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680"
+  },
+  "result": "PASS",
+  "source": "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
+  "actualApkMatchesPrepared": true,
+  "establishedCertificate": true,
+  "ordinary37MetadataUnchanged": true,
+  "ordinary35MetadataUnchanged": true,
+  "separatePerformance36Unchanged": true,
+  "physicalDeviceAcceptance": false
+}

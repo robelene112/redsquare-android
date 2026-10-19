@@ -29,7 +29,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in appversie37, via Settings en Privacy and safety. Definitieve goedkeuring volgt. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
+| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in appversie38, via Settings en Privacy and safety. Het instemmingsmechanisme is voorbereid; definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
 | Moderatieproces voor jouw backend en meldingen aan de appuitgever | David heeft verantwoordelijkheid geaccepteerd; bereikbare kanalen, behandeling, escalatie en daadwerkelijk toezicht nog te bepalen. | Werkende rapportage en moderatie. Een verzonden melding betekent niet automatisch beoordeeld of verwijderd. |
 | Privacy- en verwijderproces | Nog te bepalen: bereikbaar verzoekkanaal, eigendomscontrole zonder privésleutel, afhandeling en terugkoppeling. | Werkelijk uitvoerbare verzoeken en een webroute naast de app. Wallet vervangen of een bericht verbergen is geen volledige gegevensverwijdering. |
 | Bewaartermijnen en uitzonderingen | Nog te bepalen voor eigen serverlogs, archieven/back-ups, meldingen, verzoeken en eventuele pushgateway. | Waarheidsgetrouwe privacytekst en daadwerkelijke opruimprocedures. Geen vaste termijn of juridische uitzondering als feit invullen. |

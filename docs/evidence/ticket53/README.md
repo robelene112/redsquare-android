@@ -560,3 +560,20 @@ are unchanged. This follows the existing outstanding-SDK fixture rule. Original
 full10 FAILURE and old ed1 CANCELLED runs retain their actual conclusions.
 Final combined reviews and ordinary38 publication remain before53 closure.
 No final approved policy, configured-provider, physical Pixel or Play acceptance.
+
+## Verified ordinary38 publication
+
+Final combined reviews through81ae0eef6 report Spec0/Standards0 and approve
+ordinary38 publication. All1505 then-retained SHA-manifest entries reproduce.
+Canonical publication succeeds. Independent public page/latest/immutable/APK
+checks pass, including exact actual APK bytes, established certificate, package,
+version38/0.1.38, min29/target36, nondebug/nonprofileable and disabled automatic
+backup. `publication38` retains public-safe metadata/verification records only.
+
+Actual immutable37/35 and separate performance36 APK hashes remain pinned; their
+metadata and the performance page/latest are unchanged from before snapshots.
+The public APK source is ed1, with all251 production/build objects equal to the
+accepted28b/dcc SDK sources. No actual38 installation is claimed. Current preview
+keeps draft policies useful with no final approved bundle; Push and GIF search
+remain unconfigured. Parent36 and genuine external/physical/store gates stayopen.
+Final publication bookend reviews and issue-state recording remain next.
