@@ -12,6 +12,26 @@ untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` unread and untouched.
 Continue ordinary app correctness work. No separate cybersecurity campaigns,
 restricted-access requests, provider safeguard bypasses or historical credentials.
 
+## Active38 and renewed owner instruction
+
+The owner renewed continue-all instructions after this handoff's earlier checkpoint.
+Finish independent development with placeholders; park actual owner/service/phone
+requirements in OWNER_INPUTS and the open release issue36. Read the new development-
+completion section of WORKFLOW.md. Requirements are transferred visibly, never
+claimed passed by placeholders. Parent1/release36 stay open for real release.
+
+About/reference38 is assigned and unblocked, review base3c15204aa. Use the existing
+Red Square app name until a later naming decision. Add an unobtrusive inline About
+section at the bottom of existing scrollable Settings, with the platform reference,
+independent publisher and actual version. No new external link/SDK/permission.
+The existing appearance journey now reveals/captures the reference while retaining
+all original assertions/deadlines. Tracer commit2c8bf6374 executes beta-ui10
+run39308692404, currently pending. Production About code is not written yet.
+No other app source is being implemented in parallel. Complete38 code/native/full
+reviews and signed delivery, then finish the already implemented native parents
+sequentially with their exact remaining external checks linked to36. Verify each
+parent's actual native evidence before closure. Existing40/41 stay public meanwhile.
+
 ## Latest accepted delivery: issue54 and ordinary40
 
 [Publisher routes54](https://github.com/robelene112/redsquare-android/issues/54)

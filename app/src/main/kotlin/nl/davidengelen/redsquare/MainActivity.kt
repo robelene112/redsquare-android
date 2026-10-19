@@ -498,6 +498,7 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 }
+                                nl.davidengelen.redsquare.ui.AboutApp()
                             }
                         },
                         confirmButton = {

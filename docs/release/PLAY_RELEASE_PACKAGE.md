@@ -246,8 +246,17 @@ Child54 prepares a separate publisher contact/request flow alongside this reader
 It offers support, safety and privacy email composition, another-profile user
 report context and an explicit HTTPS request-page action. No real destination is
 configured, and no draft email or opened page proves delivery, review or deletion.
-Full54 verification and signed delivery remain pending. The substantive owner,
-operational and store gates below remain open.
+Full54 verification, both review axes and ordinary40 signed delivery are accepted.
+Its actual destinations remain absent/unready. The substantive owner, operational
+and store gates below remain open.
+
+On2026-10-19 the owner renewed the instruction to finish independent development
+with placeholders and park actual setup. The canonical pending checks now live
+in [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19),
+with their original16/17/19/31/32/33/34/35 provenance. Native development tickets
+may close after their implementation/tests/review/beta delivery; the transferred
+real-provider, production and phone checks remain explicitly unchecked under36.
+Parent1 and36 remain open for the genuine release result.
 
 ## Publisher decision and remaining release gates
 

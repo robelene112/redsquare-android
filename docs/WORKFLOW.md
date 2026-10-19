@@ -90,6 +90,27 @@ the owner chooses whether to start it. It is not required for every app-wide gri
 
 ## Sequential implementation and review
 
+### Development completion and parked release work
+
+On2026-10-19 the owner explicitly requested finishing the remaining development
+tickets with placeholders and parking owner setup, including unfinished KVK,
+credentials, actual service activation and phone checks. Use the existing app
+name until the later branding choice. Keep these actions in OWNER_INPUTS.md.
+
+Native feature tickets track implemented behavior, verification at the agreed
+owned seams, review and signed beta delivery. When those are complete, transfer
+their exact outstanding real-provider, deployment or physical acceptance items
+to the open release checklist in36, link both tickets and record the owner's
+parking decision before closing the development ticket. Preserve the actual
+requirements and evidence limits. A transferred check stays visibly pending;
+placeholder values and controlled fixtures never satisfy it.
+
+Issue36 and parent specification1 stay open until their real release criteria
+are met. This staging keeps independent app work moving while preserving the
+complete first-release scope and the established production boundaries.
+
+### Implementation steps
+
 1. Read the named ticket, its originating spec, current code and applicable
    standards. Confirm every blocker is complete. State the behavior to deliver.
 2. Record the starting commit as the review base. Use the current working branch

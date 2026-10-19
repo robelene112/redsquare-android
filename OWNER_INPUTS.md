@@ -10,6 +10,12 @@ Deze repository is openbaar. Zet hier geen wachtwoorden, privésleutels,
 walletbestanden, service-accountbestanden, API-sleutels of privébedrijfsgegevens.
 Noteer alleen de status of een verwijzing naar een afgesproken private locatie.
 
+Op 19 oktober heb je bevestigd dat deze zaken voorlopig geparkeerd mogen worden.
+De agent rondt de zelfstandige appontwikkeling af met herkenbare placeholders.
+Daadwerkelijke activering en controles blijven releasevoorwaarden in GitHub #36;
+afgeronde ontwikkelingstickets hoeven daarop niet te blijven wachten. Je hoeft
+nu geen KVK-inschrijving, account of telefoontest tussendoor te regelen.
+
 ## Bedrijf en Google Play
 
 | Nodig | Status | Waarvoor |
