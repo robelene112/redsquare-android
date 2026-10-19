@@ -101,13 +101,14 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
         }
     }
 
-    fun send() {
+    fun send(beforePublishing: suspend () -> Boolean) {
         if (!ready || busy || saving || available || conflict || (kind == AuthorActionKind.EDIT && text.isBlank())) return
         busy = true
         error = false
         networkError = false
         scope.launch {
             try {
+                if (kind == AuthorActionKind.EDIT && candidate == null && !beforePublishing()) return@launch
                 val transaction = writes.withLock {
                     val prepared = candidate ?: withContext(Dispatchers.IO) {
                         check(original.author == wallet.publicKey)
@@ -163,13 +164,18 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
                                 }
                                 if (observed()) return@use
                                 peer.authenticate()
+                                if (kind == AuthorActionKind.EDIT &&
+                                    !withContext(Dispatchers.Main.immediate) { beforePublishing() }) return@use
                                 val permitted = withContext(NonCancellable) {
                                     val saved = store.load()
                                     check(saved.transaction?.id == transaction.id)
                                     store.claim(saved)
                                 }
                                 if (!permitted) return@use
-                                peer.submit(transaction)
+                                peer.submit(transaction) {
+                                    val saved = store.load()
+                                    check(saved.transaction?.id == transaction.id && !saved.available && store.canPublish(saved))
+                                }
                                 for (attempt in 0 until 6) {
                                     if (observed()) break
                                     if (attempt < 5) delay(2_000)

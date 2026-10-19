@@ -25,6 +25,7 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
         PostDraftStore.author(activity.applicationContext, wallet.publicKey, backend, post.id, kind)
     }
     val scope = rememberCoroutineScope()
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val state = remember(store, memory, endpoint) {
         AuthorEditState(store, memory, wallet, endpoint, post, scope, AndroidPostRevisions(activity.applicationContext, backend), kind)
     }
@@ -43,7 +44,7 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
                 Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_title else R.string.author_delete_title), Modifier.weight(1f).padding(vertical = 12.dp),
                     style = MaterialTheme.typography.titleLarge)
                 TextButton(enabled = ready && !busy && !saving && !available && !conflict &&
-                    (kind == AuthorActionKind.DELETE || text.isNotBlank()), onClick = ::send) {
+                    (kind == AuthorActionKind.DELETE || text.isNotBlank()), onClick = { send(publishing::beforePublishing) }) {
                     Text(stringResource(if (candidate != null) R.string.retry else
                         if (kind == AuthorActionKind.EDIT) R.string.author_edit_save else R.string.author_delete_confirm))
                 }

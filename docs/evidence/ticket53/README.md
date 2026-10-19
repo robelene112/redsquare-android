@@ -277,3 +277,20 @@ still works with its historical-copy explanation. File families/preferences and
 backend are restored independently. Its separate180second class is appended to
 agreement/full paths without changing older assertions/deadlines. Author RED
 remains pending; no author policy code precedes it.
+
+Author tracer5601d4009 has actual RED39242042901: agreement3PASS/14.633s,
+surfaces4PASS/17.77s, group7PASS/32.362s and author0PASS/1FAIL in23.65s.
+It reaches Save changes then waits atline99 for missing terms. Root opened the
+original already showing Edit available on this server.
+`author-red10/SHA256SUMS` binds12 originals; both tracer reviews report0.
+No author policy code preceded this result.
+
+The author minimum requires an explicit controller callback for new edits before
+preparation. Existing originals can reconcile by reading first; an unobserved
+edit checks again before claim. PostDraftStore now checks current permission,
+selected identity/backend and the durable snapshot at claim, with the existing
+typed DELETE exemption. Author socket enqueue rechecks that same current
+snapshot without another state mutation. This also gates existing post-worker
+claim calls; complete post foreground/queue enqueue and explanatory UI proof
+remain unfinished. Existing claim persistence behavior is retained. Author GREEN
+and all remaining complete acceptance remain pending.

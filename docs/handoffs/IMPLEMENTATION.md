@@ -75,7 +75,13 @@ Three additional native cases now cover promotion and ready=false leave/removal
 exemptions. This coverage adds no production code; focus39240972380 at4876719e6
 is SUCCESS14PASS, both reviews0. Root inspected all new control outcomes.
 The next separate author tracer requires agreement before editing and preserves
-normal-view deletion under ready=false. Author RED pending.
+normal-view deletion under ready=false. Author RED39242042901 at5601d4009 is14PASS/1FAIL, line99 missing
+terms after Save changes. Original shows the edit already available. Minimum
+now gates new edits before preparation, permits existing read-only observation,
+and checks current permission/selection/snapshot at claim and author enqueue.
+Typed DELETE remains independent. Shared PostDraftStore claim calls inherit
+the check, but complete post/worker enqueue and queue explanation proof remain.
+Author GREEN pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other

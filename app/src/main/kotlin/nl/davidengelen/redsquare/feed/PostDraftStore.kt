@@ -157,9 +157,17 @@ internal class PostDraftStore private constructor(private val context: Context, 
         true
     }
 
-    fun claim(expected: Saved): Boolean = synchronized(lock) {
+    /** Reading/reconciliation and removal stay independent; new publication reads current permission. */
+    fun canPublish(expected: Saved): Boolean = synchronized(lock) {
+        if (authorKind != AuthorActionKind.DELETE)
+            nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
         if (nl.davidengelen.redsquare.saito.AndroidBackendStore(context).load() != backend ||
             nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey != owner) return@synchronized false
+        same(load(), expected)
+    }
+
+    fun claim(expected: Saved): Boolean = synchronized(lock) {
+        if (!canPublish(expected)) return@synchronized false
         update(expected, expected.copy(queued = false))
     }
 
