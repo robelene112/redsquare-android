@@ -362,3 +362,25 @@ cold-process draft/send states. Owner/Official report XML shows the exact distin
 backend URLs; the corresponding original PNGs have different hashes. No image
 transformation was made. Full10 remains pending. Neither ordinary40 nor timing41
 has been published, and no physical/provider/operations/store acceptance is claimed.
+
+## Complete current-source Android10 GREEN
+
+Full10 run39294146155 is completed SUCCESS at the same frozen df941 source.
+The independently planned466 identities match exactly:465PASS plus the sole
+established API29 ProfilePublishingPreviewTest assumption. There are119 normal
+class completions,34 deliberate interruptions and33 PASS continuity records,
+with no missing/extra identities, unexpected assumptions or nonzero class exits.
+Every previous gate remains. Publisher classes pass3/2/1/1/1 and the reader1,
+in14.979/13.361/7.155/15.290/14.042/15.957 seconds respectively.
+
+The `full10` packet retains the same metadata/outcome/catalog/archive-hash and
+structural-validation evidence as17. Only the same five explicitly qualified
+optional53 observer gaps recur. Root opened all18 selected unchanged original
+PNGs and retained their XML/hash records, including exact backend context,
+missing handlers, real IME/physical actions/long request page at1.3font and exact
+unsent Chat return. No screenshot was transformed.
+
+Both full suites now execute the same source as prepared ordinary40 and matching
+timing41. Combined final reviews and ordinary40 publication remain pending at
+this checkpoint. Actual publisher operations, configured services, physical
+Pixel/ARM64 timing/continuity and Play acceptance remain separate open gates.

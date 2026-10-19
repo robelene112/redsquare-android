@@ -41,12 +41,12 @@ Focused10 run39292896279 at404 is SUCCESS: publisher3/3 (13.916s), profile2/2
 reader1/1 (14.724s), all exits/marker. Actual larger text/IME/physical actions and
 exact unsent Chat return now finish. Email and request XML roots match actual
 windows; root opened original long-request/Chat captures. Final production is now frozen. Full10 run39294146155 and full17 run39294150546
-are dispatched atdf941ab6c, with completion pending. All256 production/build
+are completed SUCCESS atdf941ab6c. All256 production/build
 objects match404 exactly; object-list hash783b738e94df11cbb1938bc67cf9b3fd756fc7bb5983425fb2423a10891a63dd.
 Ordinary40 is prepared from the same df941 source. Canonical build succeeds3m34s;
 actual APK/signature/package/manifest/DEX checks pass. APK SHA256:
 0a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600.
-It remains unpublished pending both full suites and combined review.
+It remains unpublished pending combined final review and delivery verification.
 
 Full17 run39294150546 has completed SUCCESS in all three jobs. Retained full17
 evidence matches the independent catalog exactly:467PASS,120 normal completions,
@@ -54,7 +54,12 @@ evidence matches the independent catalog exactly:467PASS,120 normal completions,
 Chat183/Social208/Wallet76. Root opened all18 selected original PNGs and retained
 their unchanged XML/hash records, including eight publisher screens. Only the
 exact five accepted53 optional visual-observer gaps recur; no new gap is accepted.
-Full10 remains pending. No combined final acceptance/publication is claimed yet.
+Full10 run39294146155 is also completed SUCCESS: exact466 identities,465PASS
+plus the sole established API29 Profile assumption,119 normal completions,
+34 deliberate interruptions and33 PASS continuity records. Root opened all18
+selected original PNGs and retained their XML/hash records. All eight new
+methods and the reader pass; only the same five optional53 visual gaps recur.
+Final combined review/publication remain pending at this checkpoint.
 
 ### Runtime findings that govern the correction
 
@@ -79,8 +84,7 @@ Full10 remains pending. No combined final acceptance/publication is claimed yet.
 
 ### Required final acceptance
 
-After the complete focused journey passes, freeze production and dispatch fresh
-`full-android10` and `full-android17` from one final source, with
+The completed `full-android10` and `full-android17` execute one final source, with
 `public_feed_read=true`, `performance_version=36`, `main_reference_version=35`.
 Default4K pages are appropriate; accepted51's optional16K run is not mandatory
 for every subsequent UI change. All17 Chat/Social/Wallet partitions must complete.
