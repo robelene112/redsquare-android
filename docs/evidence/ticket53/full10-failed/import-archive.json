@@ -1,0 +1,36 @@
+{
+  "path": "/mnt/storage/redsquare-android-artifacts/agreement53-full10-final-39254786488/android-native-proof/.scratch/device-evidence/api-29/wallet-import-evidence.tar",
+  "sha256": "15c1651574d5e25a33cbbb574dd5a9b56b949d141f4630213ad1c6b8111d3ed8",
+  "members": [
+    {
+      "member": "wallet-import-evidence/activated-wallet.png",
+      "bytes": 25674,
+      "sha256": "1e82618e11f7e9b113fcb2f31ba5233b46c3d8fb23d1ce99c26052c32de3d8ea"
+    },
+    {
+      "member": "wallet-import-evidence/invalid-import.json-rejected.png",
+      "bytes": 31172,
+      "sha256": "29e5412952bf6f47eeb607421413b4be14b7193860df1339514a17f270335261"
+    },
+    {
+      "member": "wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+      "bytes": 31172,
+      "sha256": "29e5412952bf6f47eeb607421413b4be14b7193860df1339514a17f270335261"
+    },
+    {
+      "member": "wallet-import-evidence/invalid-backup-recovery.png",
+      "bytes": 29012,
+      "sha256": "e9f2c292817ac5a3f3174bb557415dbdc27a0d9e9a0929c09a0bb6e95590fb3e"
+    },
+    {
+      "member": "wallet-import-evidence/valid-preview-same.png",
+      "bytes": 39603,
+      "sha256": "7a88b03935c6e1e0d08e8823179406aadde36b8c063fe064f07e8a9da6fde0bf"
+    },
+    {
+      "member": "wallet-import-evidence/confirmed-same-wallet-restore.png",
+      "bytes": 30207,
+      "sha256": "b7a38d3acb038de87f76f3ed67c0cf8ed48c30da8132d9670df8e428046b834a"
+    }
+  ]
+}

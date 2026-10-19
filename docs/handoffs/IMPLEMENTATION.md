@@ -111,11 +111,22 @@ completions,34 deliberate interruptions and33continuity records. Android17 outco
 115 normal completions,34 deliberate interruptions and33 PASS continuity records.
 Both packet reviews and selected-original residual reviews report0 findings,
 independently reproducing all468 full17 hashes and the20 exact selected originals.
-Full17 packet is retained at8e68601ff; root opened16 originals. Android10 is
-still running.
+Full17 packet is retained at8e68601ff; root opened16 originals. Android10 has now failed in the later import class; see the next paragraph.
 #53 remains incomplete: complete current-source Android10 acceptance, final
 combined review and signed publication remain. Production
 changes require fresh full acceptance on both versions.
+
+Actual full10 run39254786488 is FAILURE at28b, not acceptance. First import case
+fails immediate Owner-header visibility after Done; its skipped outgoing-wallet
+restoration contaminates five later replacement cases.1PASS/6FAIL in that class;
+426 completed identities and34 selected evidence files are retained in
+`ticket53/full10-failed`. Preceding new53 cases/process pass. Original activation
+PNG supplies only pre-dismissal evidence; host capture is0bytes. Both reviews
+support bounded same-header visibility observation and independent fixture
+cleanup, without proving a product defect. A fixture-only correction is being
+compiled; focused import and fresh complete10 are required before acceptance.
+Successful17/source equivalence may use the existing outstanding-SDK rule.
+Prepared38 remains unpublished.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
 under36 and natively blocked by53. It prepares truthful publisher feedback,

@@ -490,3 +490,24 @@ findings, independently reproducing all468 packet hashes. Android10
 run39254786488 is still running. #53 remains incomplete
 pending both-SDK combined acceptance, final reviews and ordinary38 publication.
 No final policy approval, configured-provider, physical Pixel or Play claim.
+
+## Actual Android10 failure and bounded fixture correction
+
+Final full39254786488 is FAILURE at28b. `full10-failed` retains34 hashed files,
+426 completed identities, all new agreement outputs and publishing recovery,
+actual run metadata and original import captures. It is not full acceptance.
+WalletImportPreviewTest's first case fails its immediate Owner-server visibility
+assertion after Done.1PASS/6FAIL overall; the later five replacement waits follow
+the first case bypassing its outgoing-wallet restoration. The retained image
+only shows the successful preceding activation; the host screenshot is empty.
+Both independent reviews confirm the definite cleanup flaw and a supported,
+unproven timing hypothesis. No production wallet defect is established.
+
+The fixture-only correction keeps the same header assertion and all identities,
+adds a fixed15second positive-visibility wait and in-Activity PNG/XML/public
+backend failure evidence, and independently restores the complete original
+wallet/backend after the Activity closes. Original real UI backup/replacement/
+backend-switch/restore acceptance and300second class bound remain. Focused import
+verification and a fresh complete outstanding Android10 run are required; the
+successful17 run remains eligible only with unchanged production. Ordinary38
+is still prepared, not published. No fresh GREEN is claimed yet.

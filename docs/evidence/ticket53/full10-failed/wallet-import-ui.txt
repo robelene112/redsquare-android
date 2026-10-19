@@ -1,0 +1,202 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.WalletImportPreviewTest:
+INSTRUMENTATION_STATUS: test=explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Server: saito.davidengelen.nl' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:366)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(nl.davidengelen.redsquare.WalletImportPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Server: saito.davidengelen.nl' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:366)
+
+INSTRUMENTATION_STATUS: test=explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview(WalletImportPreviewTest.kt:314)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview(nl.davidengelen.redsquare.WalletImportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview(WalletImportPreviewTest.kt:314)
+
+INSTRUMENTATION_STATUS: test=aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup(WalletImportPreviewTest.kt:276)
+
+INSTRUMENTATION_STATUS: stream=
+Error in onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup(nl.davidengelen.redsquare.WalletImportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup(WalletImportPreviewTest.kt:276)
+
+INSTRUMENTATION_STATUS: test=onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet(WalletImportPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet(nl.davidengelen.redsquare.WalletImportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet(WalletImportPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: test=failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet(WalletImportPreviewTest.kt:161)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet(nl.davidengelen.redsquare.WalletImportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet(WalletImportPreviewTest.kt:161)
+
+INSTRUMENTATION_STATUS: test=selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacementRequiresANewBackupBoundToTheCurrentSelection
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.WalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.replacementRequiresANewBackupBoundToTheCurrentSelection(WalletImportPreviewTest.kt:203)
+
+INSTRUMENTATION_STATUS: stream=
+Error in replacementRequiresANewBackupBoundToTheCurrentSelection(nl.davidengelen.redsquare.WalletImportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.replacementRequiresANewBackupBoundToTheCurrentSelection(WalletImportPreviewTest.kt:203)
+
+INSTRUMENTATION_STATUS: test=replacementRequiresANewBackupBoundToTheCurrentSelection
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 204.845
+There were 6 failures:
+1) explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(nl.davidengelen.redsquare.WalletImportPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Server: saito.davidengelen.nl' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers(WalletImportPreviewTest.kt:366)
+2) aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview(nl.davidengelen.redsquare.WalletImportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview(WalletImportPreviewTest.kt:314)
+3) onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup(nl.davidengelen.redsquare.WalletImportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup(WalletImportPreviewTest.kt:276)
+4) failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet(nl.davidengelen.redsquare.WalletImportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet(WalletImportPreviewTest.kt:69)
+5) selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet(nl.davidengelen.redsquare.WalletImportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet(WalletImportPreviewTest.kt:161)
+6) replacementRequiresANewBackupBoundToTheCurrentSelection(nl.davidengelen.redsquare.WalletImportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.WalletImportPreviewTest.replacementRequiresANewBackupBoundToTheCurrentSelection(WalletImportPreviewTest.kt:203)
+
+FAILURES!!!
+Tests run: 7,  Failures: 6
+
+
+INSTRUMENTATION_CODE: -1
