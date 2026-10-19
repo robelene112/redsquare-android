@@ -35,7 +35,11 @@ are viewed but publisher/version are below that capture position. Fixture-only
 116e92935 additionally scrolls publisher and Version before capture. Both reviews0.
 Complete current-source runs now execute exact116e92935b7287e9157b30c78b8e8f1d4ad7b800:
 Android10 39310202005 and Android17 39310205648. The independent466/467 catalog
-was committed before dispatch. Full acceptance/publication remains pending.
+was committed before dispatch. Full17 is now completed SUCCESS in all3jobs:
+467PASS/exact467,120 normal/34 deliberate/33 continuity;500 packet hashes. Root
+opened3 complete About originals plus2publicfeeds/legacyupdate. Only5knownoptional
+53 gaps recur; full17 README qualifies repeated initial viewer previews resolved
+at original detail. Full10 still runs; combined acceptance/publication is pending.
 No other app source is being implemented in parallel. While complete38 runs, root
 verified accepted native evidence and sequentially completed development parents
 16/17/19/31/32/33/34/35, each with separate0/0 reviews, commit and explicit original

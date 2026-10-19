@@ -1,0 +1,194 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        97a1f4d nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.MainActivity filter 116fa02
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        f98eb05 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter c2afe68
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        f98eb05 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter 695c75a
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      com.google.android.c2dm.intent.RECEIVE:
+        6813f13 nl.davidengelen.redsquare.dev/com.google.firebase.iid.FirebaseInstanceIdReceiver filter 1f1d550
+          Action: "com.google.android.c2dm.intent.RECEIVE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        f98eb05 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter a1f7d8b
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        f98eb05 nl.davidengelen.redsquare.dev/androidx.profileinstaller.ProfileInstallReceiver filter 4423281
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.BOOT_COMPLETED:
+        ed66349 nl.davidengelen.redsquare.dev/androidx.work.impl.background.systemalarm.RescheduleReceiver filter 6feb44e
+          Action: "android.intent.action.BOOT_COMPLETED"
+      androidx.work.diagnostics.REQUEST_DIAGNOSTICS:
+        7b6b96f nl.davidengelen.redsquare.dev/androidx.work.impl.diagnostics.DiagnosticsReceiver filter 26f67c
+          Action: "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+
+Service Resolver Table:
+  Non-Data Actions:
+      com.google.firebase.MESSAGING_EVENT:
+        c58ff26 nl.davidengelen.redsquare.dev/nl.davidengelen.redsquare.notifications.RedSquareMessagingService filter d066767
+          Action: "com.google.firebase.MESSAGING_EVENT"
+        fe59914 nl.davidengelen.redsquare.dev/com.google.firebase.messaging.FirebaseMessagingService filter 2de75bd
+          Action: "com.google.firebase.MESSAGING_EVENT"
+          mPriority=-500, mOrder=0, mHasStaticPartialTypes=false, mHasDynamicPartialTypes=false
+
+Domain verification status:
+
+Permissions:
+  Permission [nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (a72a54f):
+    sourcePackage=nl.davidengelen.redsquare.dev
+    uid=10234 gids=[] type=0 prot=signature
+    perm=PermissionInfo{8cb94c1 nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    flags=0x0
+
+Registered ContentProviders:
+  nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider:
+    Provider{4475466 nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [nl.davidengelen.redsquare.dev.androidx-startup]:
+    Provider{4475466 nl.davidengelen.redsquare.dev/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{b48a4dc nl.davidengelen.redsquare.dev}
+
+Key Set Manager:
+  [nl.davidengelen.redsquare.dev]
+      Signing KeySets: 67
+
+Packages:
+  Package [nl.davidengelen.redsquare.dev] (9f7ba7d):
+    appId=10234
+    pccId=-1
+    pkg=Package{26f1054 nl.davidengelen.redsquare.dev}
+    codePath=/data/app/~~vf3e3ZENWtyw1-1dtm3P8g==/nl.davidengelen.redsquare.dev-YxGSG9ivJx6oZK_DaefL2g==
+    resourcePath=/data/app/~~vf3e3ZENWtyw1-1dtm3P8g==/nl.davidengelen.redsquare.dev-YxGSG9ivJx6oZK_DaefL2g==
+    legacyNativeLibraryDir=/data/app/~~vf3e3ZENWtyw1-1dtm3P8g==/nl.davidengelen.redsquare.dev-YxGSG9ivJx6oZK_DaefL2g==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=1 minSdk=29 targetSdk=36
+    minExtensionVersions=[]
+    versionName=0.1.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    pageSizeCompat=0
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    usesLibraryFiles:
+      /system_ext/framework/androidx.window.extensions.jar
+      /system_ext/framework/androidx.window.sidecar.jar
+    timeStamp=2026-10-19 19:30:29
+    lastUpdateTime=2026-10-19 19:30:29
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{53bbbfd version:2, signatures:[3a4bff91], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    declared permissions:
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature
+    requested permissions:
+      android.permission.POST_NOTIFICATIONS
+      com.google.android.c2dm.permission.RECEIVE
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.ACCESS_LOCAL_NETWORK
+      android.permission.FOREGROUND_SERVICE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.USE_BIOMETRIC
+      android.permission.WAKE_LOCK
+    install permissions:
+      com.google.android.c2dm.permission.RECEIVE: granted=true
+      nl.davidengelen.redsquare.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.USE_BIOMETRIC: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=352858 deDataInode=65859 pccCeDataInode=0 pccDeDataInode=0 installed=true hidden=false suspended=false appLockEnabled=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/nl.davidengelen.redsquare.dev
+      firstInstallTime=2026-10-19 19:30:29
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-NQ7U.frro
+        /data/resource-cache/com.android.systemui-accent-EjKy.frro
+        /data/resource-cache/com.android.systemui-dynamic-jLr8.frro
+      legacy overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      gids=[3003]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.ACCESS_LOCAL_NETWORK: granted=true, flags=[ REVOKE_WHEN_REQUESTED|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      disabledComponents:
+        androidx.work.impl.background.systemalarm.RescheduleReceiver
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+    nl.davidengelen.redsquare.dev:
+      nl.davidengelen.redsquare.dev.test
+    nl.davidengelen.redsquare.dev.test:
+      nl.davidengelen.redsquare.dev
+  queries via component:
+    com.google.android.as:
+      nl.davidengelen.redsquare.dev
+    com.google.android.settings.intelligence:
+      nl.davidengelen.redsquare.dev
+    com.google.android.as.oss:
+      nl.davidengelen.redsquare.dev
+    com.google.android.apps.accessibility.voiceaccess:
+      nl.davidengelen.redsquare.dev
+    com.google.android.glasses.companion:
+      nl.davidengelen.redsquare.dev
+  queryable via interaction:
+    User 0:
+      [com.android.inputdevices,com.android.keychain,com.android.DeviceAsWebcam,com.android.settings,android,com.android.location.fused,com.android.localtransport,com.android.server.telecom,com.android.emulator.multidisplay,com.android.dynsystem,com.android.providers.settings]:
+        nl.davidengelen.redsquare.dev
+      com.google.android.as:
+        nl.davidengelen.redsquare.dev
+      com.google.android.inputmethod.latin:
+        nl.davidengelen.redsquare.dev
+      com.google.android.apps.nexuslauncher:
+        nl.davidengelen.redsquare.dev
+      com.android.systemui:
+        nl.davidengelen.redsquare.dev
+      com.google.android.gms:
+        nl.davidengelen.redsquare.dev
+      com.google.android.providers.media.module:
+        nl.davidengelen.redsquare.dev
+      nl.davidengelen.redsquare.dev:
+        [com.android.inputdevices,com.android.keychain,com.android.DeviceAsWebcam,com.android.settings,android,com.android.location.fused,com.android.localtransport,com.android.server.telecom,com.android.emulator.multidisplay,com.android.dynsystem,com.android.providers.settings]
+      nl.davidengelen.redsquare.dev.test:
+        nl.davidengelen.redsquare.dev
+  queryable via uses-library:
+
+Dexopt state:
+  [nl.davidengelen.redsquare.dev]
+    path: /data/app/~~vf3e3ZENWtyw1-1dtm3P8g==/nl.davidengelen.redsquare.dev-YxGSG9ivJx6oZK_DaefL2g==/base.apk
+      x86_64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]

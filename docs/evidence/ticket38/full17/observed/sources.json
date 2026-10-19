@@ -1,0 +1,254 @@
+[
+  {
+    "path": "observed/wallet-late-commit-not-authorized.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-evidence.tar",
+    "member": "agreement-evidence/late-commit-not-authorized.png",
+    "sha256": "ebc9e9f90c2e7911655ef38d9683cca815a059ee4e8bdbad62c2dab1005e8c2b"
+  },
+  {
+    "path": "observed/wallet-late-commit-not-authorized.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-evidence.tar",
+    "member": "agreement-evidence/late-commit-not-authorized.xml",
+    "sha256": "e554ffceee32e7aa8cade9553b30e1d2b2dabacdc055ae425a7c21db4518fabc"
+  },
+  {
+    "path": "observed/wallet-manual-original-reconciled-without-policy-acceptance.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-recovery-evidence.tar",
+    "member": "agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.png",
+    "sha256": "ab57c86a64ee570de8308d27dcaf5d66c38620c84af30716c5d15389b2fb47d1"
+  },
+  {
+    "path": "observed/wallet-manual-original-reconciled-without-policy-acceptance.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-recovery-evidence.tar",
+    "member": "agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.xml",
+    "sha256": "b91e593627532a7fde37708c8cf013d710f13147c4926c28eb7ec100de7db854"
+  },
+  {
+    "path": "observed/wallet-private-cancel-font130-before-cancel.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-private-queue-evidence.tar",
+    "member": "agreement-private-queue-evidence/private-cancel-font130-before-cancel.png",
+    "sha256": "cd201be2f4d30620afadf39d473bced96775d7243e06f99d0712efe469597622"
+  },
+  {
+    "path": "observed/wallet-private-cancel-font130-before-cancel.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-private-queue-evidence.tar",
+    "member": "agreement-private-queue-evidence/private-cancel-font130-before-cancel.xml",
+    "sha256": "9783c0c950a28ab0d532f7413983602a59f159b94d1f30fdca30f1c3ce600fe8"
+  },
+  {
+    "path": "observed/wallet-private-cancel-font130-queue-cancel-restores-editable-draft.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-private-queue-evidence.tar",
+    "member": "agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.png",
+    "sha256": "3aa4135f5d29cc0f58e588b840181fcaa1809fd601e394104c28e6b2f1633925"
+  },
+  {
+    "path": "observed/wallet-private-cancel-font130-queue-cancel-restores-editable-draft.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-private-queue-evidence.tar",
+    "member": "agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.xml",
+    "sha256": "1082c2a66daa8d85fed2cfef71be623db1177b69515e0d82ab458083e4740ced"
+  },
+  {
+    "path": "observed/wallet-group-cancel-font130-before-cancel.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-group-queue-evidence.tar",
+    "member": "agreement-group-queue-evidence/group-cancel-font130-before-cancel.png",
+    "sha256": "f60348ebc8848e595f2bd1bcf3928ce5fc5f3c4d459d9b456c5cce2886f5131a"
+  },
+  {
+    "path": "observed/wallet-group-cancel-font130-before-cancel.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-group-queue-evidence.tar",
+    "member": "agreement-group-queue-evidence/group-cancel-font130-before-cancel.xml",
+    "sha256": "62300af869359553f320dacdaa93743a5dc5ddfd2ba8a7b9b05823233c39a0db"
+  },
+  {
+    "path": "observed/wallet-group-cancel-font130-queue-cancel-restores-editable-draft.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-group-queue-evidence.tar",
+    "member": "agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.png",
+    "sha256": "ddac8d24a6fd325118661cacee1ec764dd79b7da81513ee2672556f8b70b80a9"
+  },
+  {
+    "path": "observed/wallet-group-cancel-font130-queue-cancel-restores-editable-draft.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/agreement-group-queue-evidence.tar",
+    "member": "agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.xml",
+    "sha256": "4652f622c5d16c0368aaba88319f62c31c8b63f89c8d44a3602e93535ba1a737"
+  },
+  {
+    "path": "observed/chat-light.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/light.png",
+    "sha256": "1a6cd71bf3c89bdf7bc3acbb5ee32e41928d895d409b8e56e495920b696e5a94"
+  },
+  {
+    "path": "observed/chat-light.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/light.xml",
+    "sha256": "212145eafe2ab9895a7d384fe35e00edd28d06e810f4a48736518e098c5c99e2"
+  },
+  {
+    "path": "observed/chat-group-scoped-generic-alert.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-push-evidence.tar",
+    "member": "group-push-evidence/group-scoped-generic-alert.png",
+    "sha256": "c92bbba10b2387279d0803676b703142cf222c31883c13995e99431ef8f24482"
+  },
+  {
+    "path": "observed/chat-group-scoped-generic-alert.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/group-push-evidence.tar",
+    "member": "group-push-evidence/group-scoped-generic-alert.xml",
+    "sha256": "44e9f300591365c66e845e32c0427c87f0451e1622dc4f8f0eeb61d35904a945"
+  },
+  {
+    "path": "observed/wallet-cold-agreement-keeps-unsent-draft.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publishing-process/images.tar",
+    "member": "publishing-process-evidence/cold-agreement-keeps-unsent-draft.png",
+    "sha256": "83180a750ebfcb4e0e3ca3b49b42a519897cf5144395cc4833c59437d500664b"
+  },
+  {
+    "path": "observed/wallet-cold-agreement-keeps-unsent-draft.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publishing-process/images.tar",
+    "member": "publishing-process-evidence/cold-agreement-keeps-unsent-draft.xml",
+    "sha256": "22a2d4d14ea6b063ea1919be0f2e49469b379738b5609187b9d874eb7ff2ecf3"
+  },
+  {
+    "path": "observed/wallet-cold-agreement-deliberate-send.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publishing-process/images.tar",
+    "member": "publishing-process-evidence/cold-agreement-deliberate-send.png",
+    "sha256": "55bb46bd5f8d84b48f587f0a068175af3c321262a22fcf8c6090628191b12f61"
+  },
+  {
+    "path": "observed/wallet-cold-agreement-deliberate-send.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publishing-process/images.tar",
+    "member": "publishing-process-evidence/cold-agreement-deliberate-send.xml",
+    "sha256": "8f1320b618509d3da2bf211c923cb8dd9a47c315588f102bcce554a794569349"
+  },
+  {
+    "path": "observed/unconfigured-support-unavailable.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-routes-evidence.tar",
+    "member": "publisher-routes-evidence/unconfigured-support-unavailable.png",
+    "sha256": "b2308e6fa21255b71f61b0411a5d68c782a9887a03ecab5e5c6fda926a8dbebd"
+  },
+  {
+    "path": "observed/unconfigured-support-unavailable.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-routes-evidence.tar",
+    "member": "publisher-routes-evidence/unconfigured-support-unavailable.xml",
+    "sha256": "c75ec9ed3491bafb1f4a45edea832516ce3e91e3035da91c4b8ab03b7f1fce9c"
+  },
+  {
+    "path": "observed/ready-support-no-email-app.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-routes-evidence.tar",
+    "member": "publisher-routes-evidence/ready-support-no-email-app.png",
+    "sha256": "bbcf8a9db82f44940ee0ec40ed6b10610df9dd4120392b80a0a0c0740b3ba189"
+  },
+  {
+    "path": "observed/ready-support-no-email-app.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-routes-evidence.tar",
+    "member": "publisher-routes-evidence/ready-support-no-email-app.xml",
+    "sha256": "2aa248e4b5ed27dc62b647a542aeb51cde6c6c63bca3a0ee38b1ecd088d35134"
+  },
+  {
+    "path": "observed/owner-exact-report-context.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-user-report-evidence.tar",
+    "member": "publisher-user-report-evidence/owner-exact-report-context.png",
+    "sha256": "3108a51bab93338e57f6dfb195bdb4b957391bae8d2d488bacbea84853e9a2d4"
+  },
+  {
+    "path": "observed/owner-exact-report-context.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-user-report-evidence.tar",
+    "member": "publisher-user-report-evidence/owner-exact-report-context.xml",
+    "sha256": "9628f0de75ed4bc728582107aa81767862a396ffc7b0ac46d3d8f1cd8ac6e5dd"
+  },
+  {
+    "path": "observed/official-exact-report-context.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-user-report-evidence.tar",
+    "member": "publisher-user-report-evidence/official-exact-report-context.png",
+    "sha256": "1674a0756dc1bfb55a20da2054d6e5926fc9eb7b37bd23af9095d5bedd0cb5da"
+  },
+  {
+    "path": "observed/official-exact-report-context.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-user-report-evidence.tar",
+    "member": "publisher-user-report-evidence/official-exact-report-context.xml",
+    "sha256": "39a308962bd85511f195ba7f514d6261b73ba1969705167c244a181e2b1eb75e"
+  },
+  {
+    "path": "observed/request-page-no-browser.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-requests-evidence.tar",
+    "member": "publisher-requests-evidence/request-page-no-browser.png",
+    "sha256": "44626c4c534519e7140de391255865c66974fcbf32cd9b16b27203c0a69a036c"
+  },
+  {
+    "path": "observed/request-page-no-browser.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-requests-evidence.tar",
+    "member": "publisher-requests-evidence/request-page-no-browser.xml",
+    "sha256": "a0db22e457b6975ee20999cc19bb3784b83f39ecc462ae0727d011da0001fde0"
+  },
+  {
+    "path": "observed/publisher-font130-real-ime-compose.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-real-ime-compose.png",
+    "sha256": "74f55b6c4462f1a91054d7abf99f757bda1f7e6988f98e5d3b12d0ade80eb80e"
+  },
+  {
+    "path": "observed/publisher-font130-real-ime-compose.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-real-ime-compose.xml",
+    "sha256": "f1c20e3bf45076cb13b934c8e4e0a971f98ac32240313f16e516e565b33289d7"
+  },
+  {
+    "path": "observed/publisher-font130-long-request-page.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-long-request-page.png",
+    "sha256": "a454c8637b9113ab4322786a0dbbdd063231a54d4383589ba592241b9d20086d"
+  },
+  {
+    "path": "observed/publisher-font130-long-request-page.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-long-request-page.xml",
+    "sha256": "9c4852e0767d3fcc93ec3447cf559229496eeb692c91f61461064f13097b426d"
+  },
+  {
+    "path": "observed/publisher-font130-keeps-unsent-chat.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png",
+    "sha256": "be220c7b24bc428b00c557271917d8931b9f4d47e129227d7418b24a39397e52"
+  },
+  {
+    "path": "observed/publisher-font130-keeps-unsent-chat.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-wallet/.scratch/device-evidence/api-37.0/publisher-viewport-evidence.tar",
+    "member": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml",
+    "sha256": "b947962ff34f05385da7079693ff1f59c4f81702d006fa644fc9ff5f0131cffe"
+  },
+  {
+    "path": "observed/about-light.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-light.png",
+    "sha256": "764de167423d54b760b7bba47b6138f9191b0ce890d852cd7a28416aa564b47a"
+  },
+  {
+    "path": "observed/about-light.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-light.xml",
+    "sha256": "90ac924ba468add0fbafbe7f16a6fdaaf4b4250cfa143e4fc4cb74074fbdeb23"
+  },
+  {
+    "path": "observed/about-dark.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-dark.png",
+    "sha256": "e98d35e37fdf3d58ba843c1f6e89f17146ec4f3a878d00d74d889ac2c65fcb56"
+  },
+  {
+    "path": "observed/about-dark.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-dark.xml",
+    "sha256": "445f49cddb2ead37a1396b04a5efb5c28b0078168e8e98ff5921761665df7928"
+  },
+  {
+    "path": "observed/about-system-default.png",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-system-default.png",
+    "sha256": "81f38ff270a23305270ed69f207eb7109315e9fc1836d1a71de93d8cabd29adc"
+  },
+  {
+    "path": "observed/about-system-default.xml",
+    "rawArchive": "/mnt/storage/redsquare-android-artifacts/about38-full17-39310205648/android-native-proof-chat/.scratch/device-evidence/api-37.0/appearance-evidence.tar",
+    "member": "appearance-evidence/about-system-default.xml",
+    "sha256": "fd4b17bebcc95ce7c540ddeadc0a6acf0cd817d43b2047bde2cb13e5e46b0fcf"
+  }
+]

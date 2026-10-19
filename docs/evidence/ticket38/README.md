@@ -51,3 +51,22 @@ Both independent preparation review axes report0 findings. Reviewers verified
 focused17/prepared42/43/44 hashes, actual artifact hashes/DEX booleans and all
 five identical258-object source maps. This accepts preparation only, pending
 complete38 runtime results and signed-delivery bookends.
+
+## Complete Android17 GREEN
+
+Run39310205648 at116e completes all three jobs SUCCESS:467PASS/exact467,
+120 normal completions,34 deliberate interruptions and33PASS continuity. The
+[full17 packet](full17/README.md) retains500 hashes, validates1033PNG/898XML entries
+and qualifies only the five known optional53 gaps. Root opened the three full
+About originals plus both public feeds and final legacy-update wallet. The entire
+About card is visible under Light/Dark/System, including independent publisher
+and actual .dev version. Initial repeated viewer previews resolve at original
+detail with distinct source hashes; no app-rendering cause is inferred.
+
+Complete10 remains running, so current combined acceptance/publication is pending.
+
+Both independent complete17 reviews report0 findings. They reproduce all counts,
+500 retained hashes,82 external archive hashes,1980 available member hashes and
+42 selected bindings. Read-only independent PNG decoding corroborates each theme
+selection despite the repeated viewer preview. Current10 and final combined
+review/publication remain pending.
