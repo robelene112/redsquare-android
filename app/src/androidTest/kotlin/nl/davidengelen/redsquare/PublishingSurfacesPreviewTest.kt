@@ -388,6 +388,6 @@ class PublishingSurfacesPreviewTest {
         val file = File(context.cacheDir, "agreement-surfaces-evidence/$name")
         captureNativeScreen(file)
         File(file.parentFile, file.nameWithoutExtension + ".semantics.txt")
-            .writeText(ui.onRoot(useUnmergedTree = true).printToString())
+            .writeText(ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
     }
 }

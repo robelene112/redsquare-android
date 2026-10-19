@@ -290,3 +290,9 @@ distinguishes offscreen layout from incorrect reaction state. A bounded focused
 surfaces scope runs the same4 methods with their original180second class bound;
 complete agreement/full scopes retain all prior methods and recovery gates.
 No production change or fixed result is claimed by this probe.
+
+Pre-execution Standards review caught a diagnostic-only defect in e6db: modal
+agreement captures can have multiple Compose roots, so a single-root print may
+throw before the real assertion. The recorder now prints all roots with explicit
+full subtree depth. This changes diagnostics only; no UI or acceptance condition.
+The e6 focused attempts will be superseded, never treated as acceptance.
