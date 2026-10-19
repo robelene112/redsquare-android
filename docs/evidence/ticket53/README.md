@@ -351,3 +351,12 @@ original. The new aa42f648f tracer seeds only that legacy manual intent
 without terms or rebroadcast under ready=false, and preserves selection/signed
 bytes. Both tracer reviews0. Actual RED39246950323 is pending, with no functional
 recovery correction yet. All earlier classes and class bounds remain.
+
+Manual recovery RED39246950323 ataa42f648f is FAILURE: preceding21PASS,
+then recovery0PASS/1FAIL in22.226s, line59 waiting for Available. Root opened
+the in-scope original showing Publishing terms are being prepared over the
+uncertain attempt. `manual-red10/SHA256SUMS` binds16 originals. The minimum
+now preflights fresh preparation only; retained attempts first query their
+original and can confirm availability read-only. An unobserved retry checks
+agreement before claim/retransmission and still uses the fresh enqueue guard.
+Recovery GREEN and complete issue53 acceptance remain pending.

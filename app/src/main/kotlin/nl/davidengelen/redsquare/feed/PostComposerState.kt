@@ -107,7 +107,7 @@ internal class PostComposerState(
         sending = true
         scope.launch {
             try {
-                if (!beforePublishing()) return@launch
+                if (!retrying && !beforePublishing()) return@launch
                 val candidate = writes.withLock {
                     val prepared = transaction ?: withContext(Dispatchers.IO) {
                         val body = RedSquarePosts.message(text, images, parent, quote)
@@ -133,6 +133,7 @@ internal class PostComposerState(
                             return@use
                         }
                         peer.authenticate()
+                        if (retrying && !withContext(Dispatchers.Main.immediate) { beforePublishing() }) return@use
                         // A crash after this write may have transmitted. It is no longer cancellable queued work.
                         val permitted = withContext(Dispatchers.Main.immediate) {
                             writes.withLock {

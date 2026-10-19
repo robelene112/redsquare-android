@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.waitFor(PublishingRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost$lambda$6$lambda$5$lambda$4(PublishingRecoveryPreviewTest.kt:59)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.$r8$lambda$zWJCC-j2ii9YCEIa5vStnWp2S8g(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost(PublishingRecoveryPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost(nl.davidengelen.redsquare.PublishingRecoveryPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.waitFor(PublishingRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost$lambda$6$lambda$5$lambda$4(PublishingRecoveryPreviewTest.kt:59)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.$r8$lambda$zWJCC-j2ii9YCEIa5vStnWp2S8g(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost(PublishingRecoveryPreviewTest.kt:56)
+
+INSTRUMENTATION_STATUS: test=unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.226
+There was 1 failure:
+1) unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost(nl.davidengelen.redsquare.PublishingRecoveryPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.waitFor(PublishingRecoveryPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost$lambda$6$lambda$5$lambda$4(PublishingRecoveryPreviewTest.kt:59)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.$r8$lambda$zWJCC-j2ii9YCEIa5vStnWp2S8g(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingRecoveryPreviewTest.unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost(PublishingRecoveryPreviewTest.kt:56)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -25,75 +25,46 @@ Child52 is accepted/CLOSED after full verification, separate reviews and ordinar
 publication. Child53 is assigned after its sole blocker52 was verified CLOSED.
 Its fixed review base is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 
-Implemented #53 slices: foreground Posts cancellation, explicit installation-local
-revision storage with a pending commit barrier, Activity reopening and late-commit
-recovery, Social and Profile preparation/claim/enqueue guards. Existing uncertain
-originals can reconcile by reading. Save errors remain visible outside long terms,
-use truthful wording for uncertain earlier attempts and announce politely. Agreement
-scope is explained separately from wallet backups. Guarded synthetic cleanup keeps
-the following unchanged policy-reader class free of completed frozen drafts.
+Implemented #53 slices now cover Posts, Social, Profile, Registry, private Chat,
+private reactions, group creation/join/message/reaction/promotion and author
+editing. Payments, reports, typed post deletion, validated group leave/removal,
+local stopping/cancellation and incoming reading keep their existing safeguards.
+No final owner-approved bundle is configured. Ordinary previews stay useful;
+non-preview configuration with missing/unready policies denies new publishing.
 
-Latest focused success before Profile is39230206422 atc44e55030:4PASS across
-both classes. Profile RED39231125356 at19f653c77 is4PASS/1FAIL, missing terms
-before Save profile. First minimum39231971429 at9a42016f1 is FAILURE:3PASS
-agreement (including long terms/pinned error),1PASS/1FAIL surfaces. The Profile
-failure is an assertion that also counts the Bio label; native semantics show
-exact retained EditableText. Fixture correction now compares that exact property,
-retaining enabled/zero-transaction/deadline assertions. Corrected focus39232915751
-atc6c8371fd is SUCCESS,5PASS across both classes. Root inspected the publication
-original; corrected fixture has Standards0/Spec0.
+Acceptance is installation-local and outside wallet backups. Its exact revision
+is saved with a pending commit barrier. Activity reopening, cancellation and late
+filesystem-commit failure/retry have native proof. Long terms scroll while
+errors and Accept/Cancel remain accessible. Actual preparation, claim and socket
+enqueue read current durable permission independently of the UI hint.
 
-Next Registry tracerc6ea3bbba has actual RED39233679887:5PASS/1FAIL, missing
-terms before Register name (original shows the controlled signed name registered).
-The Registry minimum now checks an explicit callback before clearing availability
-or preparing, and durable permission at claim/enqueue. Read-only checks and old
-request reconciliation remain independent. The controlled scalar2 authority uses
-the existing emulator/loopback seam, not a public registration/readiness claim.
-Registry GREEN39234748767 at6bda86ed7 is SUCCESS:3PASS/16.469s in agreement
-and3PASS/12.599s in surfaces. Root inspected the cancellation original;
-Standards0/Spec0. Private Chat RED39235677235 at4337cbe05 is6PASS/1FAIL, missing
-terms after Send (Forwarded behind the separate notification permission offer).
-The fixture-only restoration correctiond82ac1cc7 has both reviews0. The private
-minimum now gates Send, preparation/retry, atomic claim and Relay enqueue, while
-leaving automatic read-only reconciliation before enforcement. Private GREEN39236393624 at957f1e448 is SUCCESS:7PASS across both
-classes, both source reviews0. Root inspected the deliberate forwarding original.
-The next tracer changes the ready revision before a private Like and preserves
-the previous private message assertions. Reaction RED39237283864 at e13d6f212 is6PASS/1FAIL, waiting
-for terms after Like under the new revision; original shows Reaction forwarded.
-The minimum gates explicit toggle/retry before preparation and rechecks current
-permission at protected preparation, raw claim and Relay enqueue. Reaction GREEN39237993656 atb68ba5d47 is SUCCESS:7PASS across
-both classes. Both source reviews0; root inspected the original. A new separate
-group class adds four creation/join/message/reaction tracers with its own
-180second bound. Group RED39238890350 at706f14067 is7PASS/4FAIL, all four atline134
-waiting for missing terms after their action. Root inspected all four originals.
-The group minimum now gates UI/new preparation/retry and durable raw/Relay
-publication before queued cancellation is consumed. Leave/removal, their retries,
-queue cancellation, stale stopping and local invitation preview/copy stay
-independent with their original identity/membership rules. Group GREEN39239942197 atf2864f7f3 is SUCCESS:11PASS across
-three classes. Both reviews0; root inspected cancellation/outcome originals.
-Three additional native cases now cover promotion and ready=false leave/removal
-exemptions. This coverage adds no production code; focus39240972380 at4876719e6
-is SUCCESS14PASS, both reviews0. Root inspected all new control outcomes.
-The next separate author tracer requires agreement before editing and preserves
-normal-view deletion under ready=false. Author RED39242042901 at5601d4009 is14PASS/1FAIL, line99 missing
-terms after Save changes. Original shows the edit already available. Minimum
-now gates new edits before preparation, permits existing read-only observation,
-and checks current permission/selection/snapshot at claim and author enqueue.
-Typed DELETE remains independent. Shared PostDraftStore claim calls inherit
-the check, but complete post/worker enqueue and queue explanation proof remain.
-Author GREEN39243087022 at0bdd876d4 is SUCCESS15PASS; both
-source reviews0. Root inspected cancellation/edit/removal originals. New
-Post/private/group queue classes use actual headless WorkManager attempts,
-then native review/cancel/resume, unchanged UUID/signature/selection and exact
-draft assertions. Each has its own180second bound; all three results are retained
-and any failure fails the gate. Queue RED pending; no explanatory UI/final Post
-enqueue code added before it.
-Source-axis reviews for implemented slices report Standards0/Spec0.
+Latest queue focus39245960220 at028cb8800 is SUCCESS:21PASS across agreement,
+surfaces, group, author and three independent Post/private/group outbox classes.
+All six real headless WorkManager checkpoints retain a verified expected client,
+retryable work and the original signature. Native terms cancellation leaves the
+queued original cancellable; cancelling the queue restores the draft; deliberate
+agreement can resume only its previously explicit intent. Root inspected original
+screens. Both review axes report0hard findings; a duplication heuristic was
+resolved in0a8a5cfc7 by sharing the same fresh Post/author enqueue guard under
+PostDraftStore's existing lock (correction review0).
 
-See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
-module/worker gates, revision/missing/corrupt-record and real process coverage,
+Review subsequently found an old manual uncertain-Post recovery obstruction:
+PostComposerState's early preflight runs before read-only original lookup. A
+legacy queued=false/automatic=false attempt has no automatic worker fallback.
+New traceraa42f648f has both reviews0; actual RED39246950323 is FAILURE:
+preceding21PASS, recovery0PASS/1FAIL atline59 waiting for Available. Root opened
+the in-scope Prepared terms dialog over the uncertain original. The minimum
+now preflights only fresh preparation, reads retained original availability first,
+then checks agreement before any unobserved claim/retransmission. Fresh socket
+checks remain. Focused recovery GREEN is pending.
+The new `agreement-recovery`/Android17 scopes can isolate that recovery class
+with its unchanged180second bound; complete agreement/full retain every case.
+Infrastructure review0. Original RED stays failed with its actual evidence.
+
+See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: manual
+recovery GREEN, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Queues are next; obtain actual RED before queue UI/remaining transport changes.
+Finish these independent native controls before final acceptance and publication.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
