@@ -69,7 +69,8 @@ class AppFramePreviewTest {
                             ui.onAllNodesWithText("Native Red Square reference post").fetchSemanticsNodes().isNotEmpty()
                         }
                         block()
-                        assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                        assertTrue("Navigation must retain the complete wallet and portable options",
+                            wallet.exportJson() == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())
                         assertTrue(peer.transactions.isEmpty()); assertTrue(peer.reports.isEmpty()); peer.assertHealthy()
                     }

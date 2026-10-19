@@ -486,7 +486,15 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             navigation.lastOrNull() !is BrowseDestination.Quote) {
             HorizontalDivider()
             AppNavigation(primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
-                if (destination == primary && (reviewingChat || home || navigation.size == 1)) return@select
+                val rootDestination = navigation.singleOrNull()
+                val atPrimaryRoot = when (destination) {
+                    PrimaryDestination.HOME -> home
+                    PrimaryDestination.CHAT -> reviewingChat
+                    PrimaryDestination.SEARCH -> rootDestination is BrowseDestination.Search
+                    PrimaryDestination.NOTIFICATIONS -> rootDestination is BrowseDestination.Notifications
+                    PrimaryDestination.PROFILE -> (rootDestination as? BrowseDestination.Profile)?.author == wallet?.publicKey
+                }
+                if (destination == primary && atPrimaryRoot) return@select
                 val owner = wallet?.publicKey ?: return@select
                 scope.launch {
                     formNavigation.navigate {

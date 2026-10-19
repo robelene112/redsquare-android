@@ -19,10 +19,14 @@ implementation. Ambiguous retry must reconcile/reuse the existing candidate.
 Node56 source aa40be525 and its focused Android10/17 feed/theme/public-read checks
 pass, with both source/publication review axes clear. Ordinary45 is published;
 56 remains open for larger-font inspection alongside58. Shared frame58 is active:
-RED b84f472c2 is retained, initial production slice e50538e60 is under focused
-Android17 verification (39328611127). No58 green or visual acceptance is claimed
-yet. AuthorProcessRecoveryTest has a pending fixture correction preserving its
-explicit enabled wait before opening the new maintenance overflow.
+RED b84f472c2 and remaining-reading-space RED e50538e60 are retained. First-use
+GREEN65e1d6002/run39329524115 passes; root opened the original320x640 capture.
+The first post is higher and Home selection is real. Captured feed-tab clipping
+was corrected in066e39e12. Current focused run39330476503 traces direct thread ->
+Home before fixing the reviewed one-item-stack shortcut. A second reviewed issue
+is legacy profile/author forms without guarded save+commit for the new tabs; trace
+and fix it next. Full58/font/IME/motion/signed acceptance remains pending. Profile
+and author drafts must never be discarded just to make navigation pass.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
@@ -126,7 +130,8 @@ Canonical evidence: [About38](../evidence/ticket38/README.md),
 [Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
 No complete native suite needs repeating without a new change, failure or concern.
 Production changes require fresh complete verification on both SDKs. The active58 source changes need fresh verification appropriate to their actual impact.
-Hosted focused39328611127 and source39328563625 were running at this update.
+Current focused39330476503 runs066e39e12. Prior source runs may be cancelled by
+newer commits; a cancelled source run is not acceptance.
 
 ## Tracker and actual release boundaries
 

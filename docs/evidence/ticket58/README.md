@@ -23,3 +23,24 @@ viewport. Original capture/root inspection confirms the remaining action row
 uses reading space. This is retained as reading-space-red17, not green proof.
 The next minimal slice65e1d6002 moves compose to a persistent native vector action,
 keeps maintenance in the feed toolbar and reserves list space beneath the action.
+
+First minimal GREEN:65e1d6002/run39329524115 completedSUCCESS, exactly the
+first-use method PASS with one normal completion and actual exit0. Root opened
+the original320x640 capture: post content is now in the upper half, Home selected,
+Node/domain and import/backup visible. The same observation exposed truncated
+feed tab captions, corrected in066e39e12 by using wrapping labels and tighter
+internal padding. This is bounded first-use proof, not58 completion.
+
+Early independent source review found two concrete follow-ups: the Home shortcut
+mistook a one-item thread stack for a primary root, and profile/author forms lacked
+a guarded save-and-transition callback for the newly visible tabs. Neither is
+accepted as finished behavior. The next single tracer in066e39e12 covers direct
+thread -> Home without silently dismissing the reminder. It runs before the Home
+shortcut changes. Remaining font/IME/motion/profile-draft/full/signed work stays open.
+
+Direct Home-return RED:066e39e12/run39330476503 completedFAILURE. First-use
+still PASS; the second method times out at its unchanged10second return-to-feed
+assertion after tapping selected Home. Root opened the original failure capture:
+Conversation remains displayed. The fix now recognizes actual primary roots,
+not any one-item stack. Wallet comparison in the fixture uses boolean equality
+with a constant failure message, keeping full exports out of assertion output.

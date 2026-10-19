@@ -1,0 +1,79 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFramePreviewTest:
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder$lambda$3(AppFramePreviewTest.kt:37)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$aG2YBjBhR86JqBN-S4ze09whU2I(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$9$lambda$8$lambda$7(AppFramePreviewTest.kt:71)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$ChLPWKo2aWNcyYjX5xOYPd5Td04(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:67)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder(AppFramePreviewTest.kt:32)
+
+INSTRUMENTATION_STATUS: stream=
+Error in homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder(nl.davidengelen.redsquare.AppFramePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder$lambda$3(AppFramePreviewTest.kt:37)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$aG2YBjBhR86JqBN-S4ze09whU2I(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$9$lambda$8$lambda$7(AppFramePreviewTest.kt:71)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$ChLPWKo2aWNcyYjX5xOYPd5Td04(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:67)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder(AppFramePreviewTest.kt:32)
+
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 36.765
+There was 1 failure:
+1) homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder(nl.davidengelen.redsquare.AppFramePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder$lambda$3(AppFramePreviewTest.kt:37)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$aG2YBjBhR86JqBN-S4ze09whU2I(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$9$lambda$8$lambda$7(AppFramePreviewTest.kt:71)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$ChLPWKo2aWNcyYjX5xOYPd5Td04(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:67)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder(AppFramePreviewTest.kt:32)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
