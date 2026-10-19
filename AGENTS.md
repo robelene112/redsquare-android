@@ -2,6 +2,10 @@
 
 Before planning or implementing, read [project context](docs/PROJECT_CONTEXT.md),
 [workflow](docs/WORKFLOW.md), and the [current handoff](docs/handoffs/IMPLEMENTATION.md).
+Keep owner prerequisites in [OWNER_INPUTS.md](OWNER_INPUTS.md). The owner
+authorized clearly marked placeholders and draft policy implementation on
+2026-10-19 so unfinished owner setup need not stop independent app work.
+Never count a placeholder as operational, policy, provider or store acceptance.
 
 ## Agent skills
 

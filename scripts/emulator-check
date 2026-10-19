@@ -167,6 +167,17 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+verify_policies() {
+    verify_group_chat_native PolicyCenterPreviewTest 180 policies policy-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == policies* ]]; then
+    verify_policies
+    printf '%s\n' 'Focused draft policy reader only; final policies, operations and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_policies
+fi
 verify_social_push() {
     local push_api granted_for_test=0 native_exit=0
     local push_scope=${1:-${TEST_SCOPE:-full}}

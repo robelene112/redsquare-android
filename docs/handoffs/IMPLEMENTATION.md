@@ -13,6 +13,14 @@ campaigns, provider-access services or safeguard bypass work.
 
 ## Current release state and next prerequisites
 
+On2026-10-19 the owner requested a single maintained owner-input checklist and
+authorized continuing implementation with clearly identified placeholders.
+[OWNER_INPUTS.md](../../OWNER_INPUTS.md) is that checklist. Prepare draft policy
+text and native flows without repeatedly asking for missing owner setup. This
+supersedes the earlier need to settle every policy fact before implementation;
+actual policy approval, operations, configured services and release acceptance
+remain open until demonstrated. Never present draft terms as agreed/legal consent.
+
 No implementation child is currently claimed. Issues50/51 are accepted/CLOSED;
 ordinary35 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Original35-ticket count remains
