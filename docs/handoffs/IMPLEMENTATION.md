@@ -96,11 +96,16 @@ cases pass. The first minimum now freezes the profile's public key/server in
 retained ProfileViewState and prepares a distinct publisher safety-channel email.
 Fixture ownership now captures actual profilemeta.; URL expectations are
 independent literals and context/editor display checks scroll first. Fresh
-GREEN/reviews for this minimum are pending. API status can lag uploaded
+GREEN artifacts at41bd188d5 now pass on both SDKs:10 39284032799 publisher3,
+profile1 (both backends) and reader1 PASS;17 39284036520 same5 identities PASS.
+All exits/complete markers pass, both reviews0. Next single test-only HTTPS
+request-page tracer adds a separate180second class to focused/full scopes,
+covering explicit handoff/cancellation, missing browser, saved Post draft and
+wallet/backend preservation. Production request entry/first actual RED pending. API status can lag uploaded
 actual artifacts and has intermittently returned502; do not infer app outcomes
 from stale queue/empty-step data. Download completion must precede inspection.
 
-No54 full acceptance/publication: accepted contextual profile user-report, HTTPS request
+No54 full acceptance/publication: contextual profile-report acceptance, HTTPS request
 route, missing/invalid configuration, actual1.3font/keyboard and Chat-draft
 preservation coverage, full Android10/17 and signed delivery remain. See
 [the54 evidence index](../evidence/ticket54/README.md) for all RED/GREEN limits.

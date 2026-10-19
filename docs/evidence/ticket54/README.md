@@ -152,3 +152,20 @@ availability and target context before collecting text. Nothing sends a Saito
 user-report transaction or changes existing backend post-report handling.
 Fresh checks/reviews remain pending; request routes, remaining preservation/
 accessibility checks, full10/17 and signed delivery remain outstanding.
+
+## Contextual profile report GREEN at41bd188d5
+
+Actual10 run39284032799 has publisher3/3 PASS (18.389s), profile1/1 PASS
+(12.038s) and reader1/1 PASS (18.433s).17 run39284036520 has3/3 PASS
+(55.852s), profile1/1 PASS (12.826s) and reader1/1 PASS (19.537s). Command
+exits and focused markers pass. The single profile method exercises both
+Owner and Official context, cancellation, recreation, exact email payload and
+zero Saito reports/publications. Root opened both profile originals on10 and
+Official17. Both reviews through41bd188d5 report0. These are focused controlled
+checks; no effective publisher reporting operation or final54 acceptance.
+
+The next single native tracer covers an exact owned HTTPS request destination,
+explicit Cancel/Open, absent browser feedback, no implicit wipe and saved Post
+draft/full wallet/backend preservation. Its separate180second class is added
+to focused/full scopes without changing preceding bounds. The actual production
+request entry is absent; first RED is pending.
