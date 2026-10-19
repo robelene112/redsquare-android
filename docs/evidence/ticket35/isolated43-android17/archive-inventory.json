@@ -1,0 +1,69 @@
+{
+  "backend-ui-evidence.tar": {
+    "sha256": "33591b2867aba8b96fcf6ad93f38005a1bc7ca3f5329fa8867ce4b3f5aa9d6d9",
+    "bytes": 230400,
+    "members": [
+      {
+        "name": "backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+        "bytes": 43906,
+        "sha256": "5a58f9575a0afeb40184808c2974950ea86451f73bdb777c643303317e960bac"
+      },
+      {
+        "name": "backend-ui-evidence/screen.png",
+        "bytes": 45616,
+        "sha256": "691fa34c3fd60081cb3d6ba177aef240de89c99819051b54c5429259a8608aca"
+      },
+      {
+        "name": "backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+        "bytes": 45616,
+        "sha256": "691fa34c3fd60081cb3d6ba177aef240de89c99819051b54c5429259a8608aca"
+      },
+      {
+        "name": "backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+        "bytes": 43906,
+        "sha256": "5a58f9575a0afeb40184808c2974950ea86451f73bdb777c643303317e960bac"
+      },
+      {
+        "name": "backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+        "bytes": 45616,
+        "sha256": "691fa34c3fd60081cb3d6ba177aef240de89c99819051b54c5429259a8608aca"
+      }
+    ]
+  },
+  "feed-readiness-evidence.tar": {
+    "sha256": "121e1d377d499691ec73077916fabaaeed478b1c407a26a40dbc4bf8c36de49f",
+    "bytes": 206848,
+    "members": [
+      {
+        "name": "feed-readiness-evidence/muted.xml",
+        "bytes": 39211,
+        "sha256": "967732d829b8c4f5383dbd26ef7693c21626b6eb8b146a43f2eafc70d6bcf4ac"
+      },
+      {
+        "name": "feed-readiness-evidence/muted.png",
+        "bytes": 20804,
+        "sha256": "5fb235b3df5b1ccede23144fb4a39e019e6ab34cc9f6f173e9eadde9baa6ab45"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.xml",
+        "bytes": 20628,
+        "sha256": "688e84fda66299edaf1c3b02811ba86b43ae9692333f2eb027e3f0e6431cf9e8"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.png",
+        "bytes": 36069,
+        "sha256": "c6953d00b12426d47b7099a1abdc67ae3c98f06f8e74328c2ed70cfb1ebaf9fe"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.xml",
+        "bytes": 47378,
+        "sha256": "1f311c68a7a6e214021e18f800b15e3d1f329b891fbdefe02b755164ce83acfc"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.png",
+        "bytes": 36427,
+        "sha256": "20b298eff94ffc0f00b7b08df58f8d57bcd28e165b882bf9a4bca97242c63c7e"
+      }
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+    "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+    "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+    "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+    "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+    "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+    "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+    "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+    "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+    "occurrences": 1
+  },
+  {
+    "path": "feed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+    "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+    "occurrences": 1
+  },
+  {
+    "path": "live-official-feed.txt",
+    "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+    "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+    "occurrences": 1
+  },
+  {
+    "path": "live-owner-feed.txt",
+    "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+    "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+    "occurrences": 1
+  }
+]

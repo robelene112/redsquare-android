@@ -103,5 +103,13 @@ invented, and local tools never establish physical or Google delivery acceptance
 Canonical bundle mode exits0, strict JAR/bundletool/local APK checks pass; actual
 universal APK DEX, signature/manifest/SDK and16KiB ZIP/64-bit LOAD alignment pass.
 All258 production/build objects match prepared42/43 and executing About38 full116e.
-Current full acceptance and beta publication remain pending. No final configured
-policy/provider/physical/Play result is claimed; all real gates remain open36.
+At preparation time current full acceptance and beta publication remained pending.
+No final configured policy/provider/physical/Play result is claimed; all real gates
+remain open36.
+
+Subsequent About38 full10/17 acceptance at116e and ordinary42 publication are
+complete with0/0 reviews. Candidate44's unchanged source equivalence now links
+that accepted native code. Matching43 is published with its separate signed
+installation/isolation now verified on Android10/17 using ordinary35/timing43.
+Actual configured/policy/physical/Play acceptance remains release36;44 is local
+preparation and has not been submitted.

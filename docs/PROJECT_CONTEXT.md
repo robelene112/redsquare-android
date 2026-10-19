@@ -15,14 +15,19 @@ defined in the specification so these targets can be tested consistently.
 
 ## Decisions already made
 
+These are the original scope decisions, including questions that were open during
+grilling. Published specs/tickets and the current handoff record the implemented
+details. The completion-status section below identifies actual remaining work.
+
 - The owner selected **Angels’ Foundry** as the app publisher on 2026-10-18.
   Use the business dossier's spelling, with the apostrophe after the s. This is
   the chosen publisher name; registered legal identity, account verification and
   actual public contact details remain to be confirmed for release. On 2026-10-19
   the owner confirmed that KVK registration is not yet complete.
 - The app's display name is Red Square. The native application ID is
-  `nl.davidengelen.redsquare`. Signing continuity is the next delivery ticket;
-  store publisher configuration remains release work.
+  `nl.davidengelen.redsquare`. Signed review updates retain the established
+  certificate and package as documented in REVIEW_BUILDS.md. Actual Play signing
+  enrollment and publisher configuration remain release36 work.
 - First-release baseline: the core social experience, including feed, threads,
   posting/replies, likes/reposts, profiles, following, in-app notifications and
   wallet creation/import/export. Additional features are decided individually;
@@ -234,8 +239,9 @@ so he can show a beta to friends. Complete #25, then implement the bounded
 and publish a signed review update before resuming the remaining feature tickets.
 Polish the already implemented feed, navigation, typography, spacing and Chat
 while preserving the familiar Red Square experience and existing safeguards.
-This changes delivery order, not the accepted feature scope. #35 remains open
-for integrated acceptance, physical Pixel measurements and final continuity.
+This changes delivery order, not the accepted feature scope. Integrated native
+acceptance is complete under35. The owner parked actual physical Pixel measurements
+and final continuity under36 on2026-10-19; their original requirements remain.
 
 ## Initial review milestone
 
@@ -253,7 +259,7 @@ safeguards and use this build to start physical-device performance verification.
 This is a delivery priority, not a reduction of the first-release feature scope
 or authorization to bypass the subsequent specification and ticket phases.
 
-## Scope status and remaining planning work
+## Scope and current completion status
 
 The app-wide product grill has settled the platform, release baseline, wallet
 safeguards, social/Chat capabilities, backend choice, offline behavior, review
@@ -263,12 +269,20 @@ completed ticket and final app review. This covers the proposed testing
 boundaries and breakdown; do not request routine approval again.
 [Specification #1](https://github.com/robelene112/redsquare-android/issues/1)
 and its 35 sub-issues (#2 through #36) are published with native dependencies.
-Implementation is starting with wallet/signature compatibility. Discover live
-progress from GitHub and the current handoff.
+On2026-10-19 all independent native development tickets2through35 and the
+supplementary native work, including About38, are complete. Ordinary42 is published
+after complete Android10/17 verification and two-axis review. Matching43 is
+published, with separate signed installation/isolation verified on Android10/17.
+The owner explicitly parked KVK, accounts, real provider/gateway activation and
+physical checks. Exact remaining requirements are unchecked under release36 and
+OWNER_INPUTS.md; specification1/36 stay open for actual release. Discover live
+progress from GitHub and the current handoff before acting.
 
-Resolve the following during specification and technical planning. Research facts
-and propose concrete behavior using the accepted baseline; ask the owner only
-when a remaining choice materially changes product behavior or release scope.
+The following were the original specification/planning topics. Their native
+behavior is now implemented in the published tickets; these are historical scope
+pointers, not a fresh implementation backlog. Actual remaining provider/device/
+policy/store acceptance is in36. Future changes should retain the accepted baseline
+and ask the owner only when a new decision materially changes behavior or scope.
 
 - Attachment limits, archive/search coverage, report acknowledgement and detailed
   personal-control/history behavior, grounded in the existing Saito capabilities.

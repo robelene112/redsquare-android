@@ -1,0 +1,55 @@
+{
+  "source": "b1b25ba90998858ffc0bc5fa584e40b224cdfe0a",
+  "publishedAppSource": "b5a1569de7a906786fb7518c09595a14eaa0816d",
+  "sdk": "17",
+  "nativeIdentities": 11,
+  "signedWalletObserverIdentities": 3,
+  "nativeNormalCompletions": 3,
+  "signedObserverNormalCompletions": 3,
+  "publicReads": [
+    "owner",
+    "official"
+  ],
+  "distinctWalletsAndUids": true,
+  "mainIdentityPreserved": true,
+  "originalPackageAbsenceRestored": true,
+  "actualInstalledApks": {
+    "performance-package/performance.apk": {
+      "sha256": "dc409cfed811829738d7dbafc041a074c77574a576936187cf75d3042f260e91",
+      "bytes": 37749875
+    },
+    "performance-package/main35.apk": {
+      "sha256": "4b9ce614e3e7344a90ff535d9ecdbda684ae35396ad86ecaefdb231dc78c85fd",
+      "bytes": 37508099
+    }
+  },
+  "visual": {
+    "png": 21,
+    "xml": 13
+  },
+  "optionalFailureCaptureGaps": [
+    {
+      "path": "live-official/wallet-first-failure.png",
+      "error": "",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+    },
+    {
+      "path": "live-official/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.png",
+      "error": "",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.xml",
+      "error": "syntax error: line 1, column 0",
+      "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+    }
+  ],
+  "physicalDeviceAcceptance": false,
+  "physicalTimingMeasured": false,
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/about38-isolated43-android17-39321151044/android-native-proof"
+}

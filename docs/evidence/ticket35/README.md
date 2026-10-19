@@ -83,9 +83,8 @@ while development finishes. Integrated native acceptance on ordinary40/timing41
 above is complete: full54 minimum-OS/themes/polish/recovery/update gates, two-axis
 review, signed/public delivery and separate signed35/41 installation/isolation.
 Earlier parent-open statements describe the former acceptance staging. The
-separate About38 follow-up and its prepared42/43 candidates remain pending their
-current verification and publication; those artifacts are not accepted by this
-checkpoint.
+separate About38 follow-up was pending at this checkpoint. Its subsequent42/43
+acceptance is recorded below, independently of the historical40/41 results.
 
 Actual Pixel in-place wallet/cache/draft/backend/relaunch continuity, five cached
 cold launches each≤2000ms and five fresh isolated launches each≤5000ms remain
@@ -106,12 +105,25 @@ manifest match and ordinary42/immutable41 remain unchanged across publication.
 
 The independent43 plan predates execution. New feed10/17 runs39321146982/
 39321151044 execute exactb1b25ba90998858ffc0bc5fa584e40b224cdfe0a, with unchanged
-app/harness from116e, and are pending. Expected11 native identities plus3signed
-wallet observers perSDK, separate UIDs/wallets, preserved ordinary35 address and
-restored original absence remain mandatory. Neither this new publication nor
-older41 evidence establishes new43 installation or physical42 phone continuity.
-All real36 gates remain unchecked and native35 remains closed for development.
+app/harness from116e, and are both completed SUCCESS. Retained packets:
+[Android10](isolated43-android10/README.md),67 hashes, and
+[Android17](isolated43-android17/README.md),69 hashes. Each exactly matches11PASS
+native identities plus3PASS signed wallet observers, with three normal native
+and three normal observer completions. Actual installed35/43 APK hashes match.
+Separate UIDs/wallets, preserved ordinary35 address and restored original absence
+pass with zero cleanup errors. Both public backends display posts.
+
+Each packet validates21PNG/13XML observations including raw archive members.
+Root opened six originals perSDK: before/isolated/after wallets, cached cold feed,
+and both public feeds. Only the four known absent failure-only live-wallet captures
+recur; no new gap is accepted. No image was transformed. The plan's pending wording
+is the frozen dispatch snapshot, superseded by the actual results above.
 
 Both43 publication/provenance review axes report0 findings. Fresh reviewer public
-reads match actual43/42/41 artifacts; retained19 hashes,258-object equivalence and
-empty app/harness diff match. Actual focused native43 results remain pending.
+reads match actual43/42/41 artifacts; retained19 publication hashes,258-object
+equivalence and empty app/harness diff match. Final combined native evidence and
+maintained-status review against78c5d8779 reports Spec0, documented Standards0
+and heuristic0; both axes independently verify the new packets and current tracker.
+This bounded proof does
+not establish physical42 phone continuity, Pixel timing, ARM64 or Play/provider
+acceptance. All real36 gates remain unchecked; native35 is closed for development.

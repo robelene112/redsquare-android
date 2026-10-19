@@ -3,13 +3,15 @@
 Prepared for [#49](https://github.com/robelene112/redsquare-android/issues/49),
 child of [#36](https://github.com/robelene112/redsquare-android/issues/36).
 This is a reviewable offline package, not a submitted or approved release.
-Google documentation was rechecked on2026-10-18. The latest accepted native
-checkpoint is [complete54](../evidence/ticket54/README.md) on ordinary40/timing41.
-The [fresh offline candidate44](../evidence/ticket49/prepared44/README.md) includes
-the About38 implementation and has identical258 production/build Git objects to
-prepared ordinary42/timing43 and executing full116e. Its complete current-source
-verification and signed beta delivery remain pending. Historical AAB33 retains
-its original source/evidence under49; it is superseded as current preparation.
+Google documentation was rechecked on2026-10-18. The latest complete native
+checkpoint is [About38](../evidence/ticket38/README.md): Android10 run39310202005
+and17 run39310205648 at116e, with reviewed/published ordinary42. The
+[fresh offline candidate44](../evidence/ticket49/prepared44/README.md) has the
+same258 production/build Git objects as accepted42, matching timing43 and both
+complete suites. Timing43 is published; its new signed35/43 installation/isolation
+checks pass on Android10/17. These are not physical ordinary42 update tests.
+Historical AAB33 retains its original source/evidence under49 and is superseded
+as current offline preparation.
 
 Candidate44 is not a ready production release. All provider options are absent,
 policy/contact readiness remains draft and real release gates remain unchecked

@@ -52,8 +52,8 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Geautoriseerde Android Giphy-configuratie voor Posts en Chat | Open, bestaande vraag. Gescheiden configuratie per integratie/variant. | Echte zoekresultaten, selecteren, attributie en providercontrole #16/#31. Geen browserkey lenen; sleutels alleen via de private configuratieroute in `docs/OPERATIONS.md`. |
-| Firebase/GCP-project en juiste Android-appassociaties | Open, bestaande vraag. | Echte achtergrondmeldingen #32/#33/#34. Applicatie-ID, Firebase-app/project/sender en resolver moeten bij elkaar passen. Geen service-accountbestanden in Git. |
+| Geautoriseerde Android Giphy-configuratie voor Posts en Chat | Open, bestaande vraag. Gescheiden configuratie per integratie/variant. | Echte zoekresultaten, selecteren, attributie en providercontrole onder #36 (GIPHY_POSTS en GIPHY_CHAT), na afgeronde native #16/#31. Geen browserkey lenen; sleutels alleen via de private configuratieroute in `docs/OPERATIONS.md`. |
+| Firebase/GCP-project en juiste Android-appassociaties | Open, bestaande vraag. | Echte achtergrondmeldingen onder #36 (SOCIAL_PUSH, PRIVATE_PUSH en GROUP_PUSH), na afgeronde native #32/#33/#34. Applicatie-ID, Firebase-app/project/sender en resolver moeten bij elkaar passen. Geen service-accountbestanden in Git. |
 | Werkelijke hosting en inrichting van de pushgateway | Nog te regelen binnen afgesproken beheerprocedure. | Publiek bereikbare HTTPS-resolver, afzender en echte gesloten-appbezorging. De agent kan de code en beheerinstructies verder voorbereiden. |
 
 ## Controle op je Pixel 7
@@ -61,15 +61,14 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 De gewone [beta42](https://davidengelen.nl/redsquare/) en bijpassende
 [timingbuild43](https://davidengelen.nl/redsquare/performance/) staan online met
 dezelfde appcode. Downloads, versies en ondertekening zijn gecontroleerd. De
-nieuwe installatie- en isolatiecontroles op Android10 en17 lopen nog. Dit is
-nog geen bewijs van de fysieke telefoontest.
+nieuwe installatie- en isolatiecontroles op Android10 en17 zijn geslaagd. De
+gewone testidentiteit bleef behouden en de timing-app had een aparte wallet en
+opslag. De ondertekende installatietest gebruikt gewone referentie35 en timing43;
+dat bewijst de fysieke update naar beta42 nog niet.
 
-Het eerdere geaccepteerde paar40/41 had dezelfde appcode. Testinstallaties op
-Android10 en17 bevestigden daarvoor gescheiden wallets/opslag en behoud van de
-gewone testidentiteit. Dat bewijst de fysieke Pixel-controle nog niet. Die blijft
-open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en PIXEL_FRESH). #35 bewaart het
-afgeronde ontwikkelcheckpoint. De precieze meetwijze staat in
-`docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
+De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
+PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze
+staat in `docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
 
 De timing-app gebruikt een eigen wallet. Gebruik hiervoor geen herstelbestand van
 je gewone wallet. Push en GIF-diensten zijn nog niet geconfigureerd. Als de
