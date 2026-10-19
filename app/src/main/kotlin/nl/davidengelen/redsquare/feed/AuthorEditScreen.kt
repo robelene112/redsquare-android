@@ -33,8 +33,16 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
     LaunchedEffect(state, state.reload) { state.load() }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
+        val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            if (navigation.saveCurrent !== save || !state.ready || state.busy || state.saving) false
+            else state.persist { navigation.saveCurrent === save && commit() }
+        }
         navigation.saveCurrent = save
-        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+        navigation.guardedCurrent = guarded
+        onDispose {
+            if (navigation.saveCurrent === save) navigation.saveCurrent = null
+            if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+        }
     }
     BackHandler { state.close(onClose) }
     with(state) {

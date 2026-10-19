@@ -280,7 +280,11 @@ finished. The active native backlog is now [app-wide UI55](https://github.com/ro
 consolidated from three independent whole-app audits, plus the requested
 [Node wording56](https://github.com/robelene112/redsquare-android/issues/56) and
 [repeat-like behavior57](https://github.com/robelene112/redsquare-android/issues/57).
-Two likes per second is the owner's suggested rate, not a finalized protocol rule.
+The owner authorized implementing the complete backlog without routine stops.
+The chosen local rate for57 is two new intentional likes per rolling second per
+active wallet, shared across post surfaces and node choices. This is app input
+policy, not a protocol rule. An uncertain like retries/reconciles its retained
+candidate before a later fresh like can be created; see the decision comment in57.
 Use the linked child issues and genuine tracker dependencies for sequential work.
 The shared content-first frame58 is the first major UI slice. Rendered walkthroughs,
 accessibility/motion checks and owner review of the signed result are required

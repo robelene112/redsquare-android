@@ -20,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Tab
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -139,6 +141,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
     val position = rememberLazyListState()
     val formNavigation = requireNotNull(LocalPostNavigation.current)
+    val navigationNotice = remember { SnackbarHostState() }
+    val navigationFailureMessage = stringResource(R.string.navigation_save_failed)
+    val keyboardVisible = WindowInsets.isImeVisible
+    LaunchedEffect(keyboardVisible) {
+        if (keyboardVisible) navigationNotice.currentSnackbarData?.dismiss()
+    }
     val registrar = LocalRegistryAuthority.current
     val pendingTap by notificationRoutes?.pending?.collectAsState() ?: remember { mutableStateOf<android.os.Bundle?>(null) }
     var tapRetry by remember { mutableIntStateOf(0) }
@@ -482,8 +490,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 }
             }
         }
-        if (!WindowInsets.isImeVisible && !composing && !reviewingQueue && !reviewingChanges &&
+        if (!keyboardVisible && !composing && !reviewingQueue && !reviewingChanges &&
             navigation.lastOrNull() !is BrowseDestination.Quote) {
+            SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
             HorizontalDivider()
             AppNavigation(primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->
                 val rootDestination = navigation.singleOrNull()
@@ -497,7 +506,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 if (destination == primary && atPrimaryRoot) return@select
                 val owner = wallet?.publicKey ?: return@select
                 scope.launch {
-                    formNavigation.navigate {
+                    val moved = formNavigation.navigate {
                         if (owner != currentWalletKey) return@navigate false
                         reviewingChat = false; reviewingQueue = false; reviewingChanges = false
                         chatAlertUri = null
@@ -511,6 +520,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         }
                         true
                     }
+                    if (moved) navigationNotice.currentSnackbarData?.dismiss()
+                    else if (owner == currentWalletKey && navigationNotice.currentSnackbarData == null)
+                        navigationNotice.showSnackbar(navigationFailureMessage)
                 }
             })
         }

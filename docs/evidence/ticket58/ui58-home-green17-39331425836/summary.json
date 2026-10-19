@@ -1,0 +1,20 @@
+{
+  "run": "39331425836",
+  "source": "729073be9a9d9178590e3c466d61316b78ebc7ea",
+  "expectedMethods": [
+    "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+    "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder"
+  ],
+  "completions": [
+    {
+      "method": "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+      "status": 0
+    },
+    {
+      "method": "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+      "status": 0
+    }
+  ],
+  "members": 4,
+  "limit": "Focused frame proof, not full suite or physical acceptance."
+}

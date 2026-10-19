@@ -174,7 +174,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         }
     }
 
-    suspend fun persist(): Boolean {
+    suspend fun persist(afterSave: suspend () -> Boolean = { true }): Boolean {
         if (!ready || busy) return false
         busy = true
         return try {
@@ -184,7 +184,7 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
             }
             retain(saved)
             error = false
-            true
+            afterSave()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true; false }
         finally { busy = false }
@@ -382,8 +382,17 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     }
     DisposableEffect(state) {
         val save: suspend () -> Boolean = { state.persist() }
+        val guarded: suspend (suspend () -> Boolean) -> Boolean = { commit ->
+            if (navigation.saveCurrent !== save || !state.ready || state.busy || state.preparingImage ||
+                picking != null || selected != null) false
+            else state.persist { navigation.saveCurrent === save && commit() }
+        }
         navigation.saveCurrent = save
-        onDispose { if (navigation.saveCurrent === save) navigation.saveCurrent = null }
+        navigation.guardedCurrent = guarded
+        onDispose {
+            if (navigation.saveCurrent === save) navigation.saveCurrent = null
+            if (navigation.guardedCurrent === guarded) navigation.guardedCurrent = null
+        }
     }
     BackHandler { state.close(onClose) }
     with(state) {

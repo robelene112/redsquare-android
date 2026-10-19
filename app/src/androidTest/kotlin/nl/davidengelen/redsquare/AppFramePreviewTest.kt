@@ -2,6 +2,10 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import android.os.Build
+import android.view.inspector.WindowInspector
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.test.uiautomator.UiDevice
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -47,7 +51,14 @@ class AppFramePreviewTest {
         ui.onNode(hasText("Edit profile") and hasClickAction()).performScrollTo().performClick()
         ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
         ui.onNode(hasSetTextAction()).performTextReplacement(draft)
-        ui.onNode(hasText("Home") and hasClickAction()).performClick()
+        ui.onNode(hasSetTextAction()).performClick()
+        ui.waitUntil(10_000) { imeVisible() == true }
+        ui.onNode(hasSetTextAction()).assertTextContains(draft)
+        capture("unsent-profile-real-ime.png")
+        check(UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack())
+        ui.waitUntil(10_000) { imeVisible() == false }
+        ui.onNode(hasSetTextAction()).assertTextContains(draft)
+        ui.onNode(hasText("Home") and hasClickAction()).assertIsDisplayed().performClick()
         ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
         ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
@@ -64,7 +75,7 @@ class AppFramePreviewTest {
         val wallet = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        val retained = ChatFixtureState(context, listOf("feed.", "profile.", "profiledetails.", "profiledraft."), wallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("feed.", "profile.", "profilemeta.", "profiledraft."), wallet.publicKey)
         val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
         val root = JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
             .asJsonObject.get("archiveRow")
@@ -101,6 +112,15 @@ class AppFramePreviewTest {
                 { backends.save(originalBackend); check(backends.load() == originalBackend) },
                 { check(wallets.loadExisting().exportJson() == wallet.exportJson()) })
         }
+    }
+
+    private fun imeVisible(): Boolean? {
+        var visible: Boolean? = null
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            val root = WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
+            visible = root?.let { ViewCompat.getRootWindowInsets(it)?.isVisible(WindowInsetsCompat.Type.ime()) }
+        }
+        return visible
     }
 
     private fun capture(name: String) = captureNativeScreen(File(

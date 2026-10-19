@@ -48,7 +48,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
         catch (_: Exception) { error = true }
     }
 
-    suspend fun persist(): Boolean = writes.withLock {
+    suspend fun persist(afterSave: suspend () -> Boolean = { true }): Boolean = writes.withLock {
         if (!ready || busy || saving) return@withLock false
         saving = true
         try {
@@ -58,7 +58,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
                 store.save(snapshot)
             }
             memory.text = if (available) null else text
-            true
+            afterSave()
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { error = true; false }
         finally { saving = false }

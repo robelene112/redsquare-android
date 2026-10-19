@@ -44,3 +44,27 @@ assertion after tapping selected Home. Root opened the original failure capture:
 Conversation remains displayed. The fix now recognizes actual primary roots,
 not any one-item stack. Wallet comparison in the fixture uses boolean equality
 with a constant failure message, keeping full exports out of assertion output.
+
+Home-return GREEN:729073be9/run39331425836 completedSUCCESS, exactly both
+first-use and Home-return methods PASS with one normal class completion. The
+10second return assertion is unchanged. Source re-review reports0 residual Spec
+findings for the shortcut. The next tracerc937802cf covers unsent profile edits
+before guarded form navigation is changed. Its new public profile metadata cache
+prefix was corrected locally from profiledetails to the actual profilemeta name;
+that cleanup correction will be included with the subsequent fix.
+
+Profile navigation execution c937802cf/run39332362216 is FAILURE: first-use and
+Home-return PASS; profile navigation times out at the unchanged10second feed-return
+assertion. Original capture contains the unsent profile edit with the real IME
+open. That capture alone does not establish whether the keyboard transition also
+affected the tap. The independent source finding conclusively identifies the
+missing guarded callback. The fixture now positively opens and closes the real
+IME, verifies the exact edit and a displayed Home target before tapping; no old
+assertion or timeout is removed. The corrected metadata cleanup prefix is included.
+
+Profile and author editors now hold their existing busy/save exclusion through
+durable persistence and guarded navigation commit, rejecting stale registrations
+and pending profile pickers. Existing plain persist/Back behavior keeps its default
+callback. Failed primary transitions show one brief non-queued recovery message,
+cleared on successful navigation or renewed typing. No silent draft discard or
+bypass of PostNavigation is introduced. Runtime green/review remains pending.

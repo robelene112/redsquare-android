@@ -13,8 +13,7 @@ Release36 has native blockers55 and57 in addition to its unchanged external gate
 Start structural polish with content-first shell58; implement sequentially.
 The owner now authorizes implementing this whole backlog without routine stops.
 Use a local cap of two new intentional likes per rolling second per active wallet
-across post surfaces; this is app policy, not a network rule. Record it in57 before
-implementation. Ambiguous retry must reconcile/reuse the existing candidate.
+across post surfaces; this is app policy, not a network rule. It is recorded in57 comment6278005545; ready-for-agent is set. No57 code yet. Ambiguous retry must reconcile/reuse the existing candidate.
 
 Node56 source aa40be525 and its focused Android10/17 feed/theme/public-read checks
 pass, with both source/publication review axes clear. Ordinary45 is published;
@@ -22,11 +21,16 @@ pass, with both source/publication review axes clear. Ordinary45 is published;
 RED b84f472c2 and remaining-reading-space RED e50538e60 are retained. First-use
 GREEN65e1d6002/run39329524115 passes; root opened the original320x640 capture.
 The first post is higher and Home selection is real. Captured feed-tab clipping
-was corrected in066e39e12. Current focused run39330476503 traces direct thread ->
-Home before fixing the reviewed one-item-stack shortcut. A second reviewed issue
-is legacy profile/author forms without guarded save+commit for the new tabs; trace
-and fix it next. Full58/font/IME/motion/signed acceptance remains pending. Profile
-and author drafts must never be discarded just to make navigation pass.
+was corrected in066e39e12. Run39330476503 reproduces direct thread -> Home failure; fix729073be9 and
+run39331425836 pass both methods, with source re-review Spec0 and opened originals.
+Current profile tracer c937802cf/run39332362216 fails at its10second Home return.
+The original capture shows IME open, so it does not independently isolate tap
+geometry. The next implementation strengthens the fixture with positive real-IME
+open/close and displayed Home, corrects public profilemeta cleanup, and adds
+busy/save-spanning guarded commits to profile/author forms plus brief failed-route
+feedback. No old assertion/deadline is weakened. Frame58 is still active, and
+font/viewport/reminder/recreation/motion/full/signed acceptance remains pending.
+No57 code exists yet; its local policy is recorded and ready.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
@@ -130,7 +134,7 @@ Canonical evidence: [About38](../evidence/ticket38/README.md),
 [Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
 No complete native suite needs repeating without a new change, failure or concern.
 Production changes require fresh complete verification on both SDKs. The active58 source changes need fresh verification appropriate to their actual impact.
-Current focused39330476503 runs066e39e12. Prior source runs may be cancelled by
+Current focused39331425836 runs729073be9. Prior source runs may be cancelled by
 newer commits; a cancelled source run is not acceptance.
 
 ## Tracker and actual release boundaries
