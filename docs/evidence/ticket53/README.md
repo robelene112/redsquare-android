@@ -125,3 +125,17 @@ also cleared after these guarded emulator cases, so a completed/frozen post
 cannot leak into the unchanged following policy-reader class. Runtime GREEN,
 complete SDK gates and the remaining surfaces/queues/revision/process work are
 still pending.
+
+First Profile minimum39231971429 at9a42016f1 is FAILURE: the agreement class
+passes all3 cases in13.273s, including long terms and the pinned error. Surface
+class1PASS/1FAIL in6.31s reaches cancellation but its equality assertion also
+counts the fixed Bio label. The retained native semantics explicitly show the
+complete expected EditableText and separate Text=[Bio]. Root opened the original
+editable retained bio and visible pinned long-term error. This is a fixture
+assertion defect, not lost profile data. `profile-first-minimum10/SHA256SUMS`
+binds15 originals. The failed run remains FAILURE.
+
+The fixture correction compares the exact EditableText property, following the
+existing Profile publishing tests, and retains the enabled-field assertion,
+all characters, zero transactions, deadlines and separate deliberate publication.
+No production change accompanies this correction. New GREEN remains pending.

@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -85,7 +87,8 @@ class PublishingSurfacesPreviewTest {
                             assertTrue(peer.transactions.isEmpty())
                             if (attempt == 0) {
                                 ui.onNodeWithText("Cancel").performClick()
-                                ui.onNode(hasSetTextAction()).assertIsEnabled().assertTextEquals(bio)
+                                ui.onNode(hasSetTextAction()).assertIsEnabled().assert(
+                                    SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
                                 capture("profile-cancel-keeps-editable-bio.png")
                             }
                         }

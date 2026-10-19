@@ -1,0 +1,121 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingSurfacesPreviewTest:
+INSTRUMENTATION_STATUS: test=profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Keep my profile draft until I choose to publish])
+Semantics of the node:
+Node #162 at (l=12.0, t=225.0, r=308.0, b=385.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Keep my profile draft until I choose to publish'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1dd380'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Keep my profile draft until I choose to publish'
+IsEditable = 'true'
+Text = '[Bio]'
+TextSelectionRange = 'TextRange(47, 47)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio$lambda$12$lambda$11$lambda$10(PublishingSurfacesPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$u-NFXaxNW6DzyOXFBziHn01IRZo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio(PublishingSurfacesPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Keep my profile draft until I choose to publish])
+Semantics of the node:
+Node #162 at (l=12.0, t=225.0, r=308.0, b=385.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Keep my profile draft until I choose to publish'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1dd380'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Keep my profile draft until I choose to publish'
+IsEditable = 'true'
+Text = '[Bio]'
+TextSelectionRange = 'TextRange(47, 47)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio$lambda$12$lambda$11$lambda$10(PublishingSurfacesPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$u-NFXaxNW6DzyOXFBziHn01IRZo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio(PublishingSurfacesPreviewTest.kt:70)
+
+INSTRUMENTATION_STATUS: test=profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.31
+There was 1 failure:
+1) profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (Text + EditableText = [Keep my profile draft until I choose to publish])
+Semantics of the node:
+Node #162 at (l=12.0, t=225.0, r=308.0, b=385.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Keep my profile draft until I choose to publish'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1dd380'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'Keep my profile draft until I choose to publish'
+IsEditable = 'true'
+Text = '[Bio]'
+TextSelectionRange = 'TextRange(47, 47)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 3 siblings
+Selector used: (SetText is defined)
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals(Assertions.kt:185)
+	at androidx.compose.ui.test.AssertionsKt.assertTextEquals$default(Assertions.kt:181)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio$lambda$12$lambda$11$lambda$10(PublishingSurfacesPreviewTest.kt:88)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$u-NFXaxNW6DzyOXFBziHn01IRZo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio(PublishingSurfacesPreviewTest.kt:70)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

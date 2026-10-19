@@ -21,36 +21,31 @@ supersedes the earlier need to settle every policy fact before implementation;
 actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
-Child52 is accepted/CLOSED after full native verification, separate reviews and
-ordinary37 publication. Child53 is assigned after its sole blocker52 is verified CLOSED. The first
-real native cancellation tracer has actual RED39224860486 at7c3caa95d
-(1FAIL waiting for the missing agreement window; source39224860930 SUCCESS).
-The first foreground Posts cancellation minimum has GREEN39225793708 (1PASS).
-Strengthened lookup freezes the existing composer before asynchronous reading;
-its cancellation also passes in next RED39226542495 (1PASS/1FAIL, absent Accept).
-The next minimum adds explicit revision acceptance, a pending commit barrier and
-a separate deliberate action after reopening, with GREEN39227370641 (2PASS).
-Standards repeatability finding is fixed/reviewed in844384f0e; Spec0/Standards0
-for the implemented slices. The next late-commit controlled fault tracer is
-RED39228043383 is2PASS/1FAIL (ignored synthetic fault, not a persistence defect).
-Its approved filesystem-boundary injection substitutes only final fsync on the
-guarded .dev emulator after the actual record write; GREEN39228775700 is3PASS.
-Root inspected both original failure/reopened windows; both source reviews0.
-Next Social tracer atd0d3e1186 has RED39229494198:3PASS existing/1FAIL new,
-missing terms before Like (original shows Liked). It has a separate
-180second surface class retained alongside the agreement class in full/focus.
-No Social production gate changed before RED. The next minimum gates preparation
-and frame enqueue, allowing read-only reconciliation of uncertain originals;
-GREEN39230206422 is4PASS across the two classes; both Social source reviews0.
-Next Profile tracer19f653c77 has RED39231125356:4PASS/1FAIL, missing review
-after Save profile (original already says Profile available). Profile minimum
-now gates preparation/claim/enqueue and preserves read-only old-candidate checks.
-Review fixes pin the polite save error outside long terms, use accurate wording
-for uncertain prior attempts, explain installation scope and clear owned synthetic
-records after tests so the following unchanged policy reader starts clean.
-New long-terms failure verification/GREEN and other module/worker gates,
-process/revision/error coverage and full acceptance remain pending. Review base
-is bc83a08755d71ac9acd7033264e3a30f7f2903af.
+Child52 is accepted/CLOSED after full verification, separate reviews and ordinary37
+publication. Child53 is assigned after its sole blocker52 was verified CLOSED.
+Its fixed review base is bc83a08755d71ac9acd7033264e3a30f7f2903af.
+
+Implemented #53 slices: foreground Posts cancellation, explicit installation-local
+revision storage with a pending commit barrier, Activity reopening and late-commit
+recovery, Social and Profile preparation/claim/enqueue guards. Existing uncertain
+originals can reconcile by reading. Save errors remain visible outside long terms,
+use truthful wording for uncertain earlier attempts and announce politely. Agreement
+scope is explained separately from wallet backups. Guarded synthetic cleanup keeps
+the following unchanged policy-reader class free of completed frozen drafts.
+
+Latest focused success before Profile is39230206422 atc44e55030:4PASS across
+both classes. Profile RED39231125356 at19f653c77 is4PASS/1FAIL, missing terms
+before Save profile. First minimum39231971429 at9a42016f1 is FAILURE:3PASS
+agreement (including long terms/pinned error),1PASS/1FAIL surfaces. The Profile
+failure is an assertion that also counts the Bio label; native semantics show
+exact retained EditableText. Fixture correction now compares that exact property,
+retaining enabled/zero-transaction/deadline assertions. New GREEN pending.
+Source-axis reviews for implemented slices report Standards0/Spec0.
+
+See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
+module/worker gates, revision/missing/corrupt-record and real process coverage,
+full Android10/17 acceptance, final combined review and signed update remain.
+Do not advance the next vertical slice before this Profile focus passes.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
