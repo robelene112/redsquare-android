@@ -21,6 +21,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.RedSquareActionKind
 import java.util.Base64
+import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 
 /** Counts are unsigned observations supplied with a verified post, never local increments. */
 private fun servedCount(post: FeedPost, field: String): Long? = try {
@@ -47,6 +48,7 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedP
 
 @Composable
 private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareActionKind, onQuote: ((FeedPost) -> Unit)?) {
+    val publishing = LocalPublishingAgreement.current
     LaunchedEffect(state, post.id, kind) { state?.load(post, kind) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     val observed = state?.observedPosts?.get(post.id) ?: post
@@ -59,7 +61,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     Column {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
         TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !status.available,
-            onClick = { state?.send(post, kind) }) {
+            onClick = { state?.send(post, kind, publishing::beforePublishing) }) {
             Text(stringResource(when {
                 status?.available == true -> labels[1]
                 status?.candidate != null -> labels[2]

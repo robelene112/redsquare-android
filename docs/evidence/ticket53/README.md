@@ -76,4 +76,29 @@ The next minimum adds the existing approved filesystem-boundary pattern: only
 the guarded .dev emulator intent substitutes the final directory fsync after
 the actual acceptance record write. Normal execution still calls Os.fsync. The
 existing pending barrier must then deny after reopening until a successful
-explicit retry. Runtime GREEN remains pending.
+explicit retry. Actual GREEN39228775700 ate4bca57e0 is SUCCESS:3PASS/15.534s.
+`late-green10/SHA256SUMS` binds14 originals. Root opened the failed-save and
+reopened original windows: the first retains the error and both choices, the
+second requires agreement again without granting permission from the uncertain
+write. The same case then explicitly accepts and sends exactly once. Both
+source-axis residue reviews are0findings; complete53 remains pending.
+
+Next Social tracer atd0d3e1186 runs39229494198. A separate180second surface
+class preserves the existing agreement class and its deadline; both remain in
+focused/full scopes. The Like journey cancels, requires agreement again, accepts
+without publication, then deliberately likes once. No Social production gate
+has been changed before its RED. Worker/other module/process/revision/negative
+coverage, final full10/17, reviews and signed update remain required.
+
+Actual Social RED39229494198 atd0d3e1186 is FAILURE: the original agreement
+class remains3PASS/16.132s and the new surface class has1FAIL/24.38s atline68,
+waiting for the missing agreement window. Root opened the original: the post
+already shows Liked without a review window. `social-red10/SHA256SUMS` binds
+10 originals. No Social policy code changed before this result.
+
+The next minimum gates new likes/reposts before preparation, preserving the
+existing synchronous busy guard and session coroutine. Existing uncertain
+originals can first reconcile by read only. Before sending an unobserved
+original, the UI rechecks and the existing SaitoPeer enqueue callback reads
+current durable permission with the wallet/backend selection under its lock.
+Reporting stays separate. Runtime GREEN remains pending.

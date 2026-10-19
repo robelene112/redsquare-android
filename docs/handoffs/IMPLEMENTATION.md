@@ -33,9 +33,15 @@ a separate deliberate action after reopening, with GREEN39227370641 (2PASS).
 Standards repeatability finding is fixed/reviewed in844384f0e; Spec0/Standards0
 for the implemented slices. The next late-commit controlled fault tracer is
 RED39228043383 is2PASS/1FAIL (ignored synthetic fault, not a persistence defect).
-Its approved filesystem-boundary injection now substitutes only final fsync on
-the guarded .dev emulator after the actual record write. GREEN remains pending.
-Other module/worker gates,
+Its approved filesystem-boundary injection substitutes only final fsync on the
+guarded .dev emulator after the actual record write; GREEN39228775700 is3PASS.
+Root inspected both original failure/reopened windows; both source reviews0.
+Next Social tracer atd0d3e1186 has RED39229494198:3PASS existing/1FAIL new,
+missing terms before Like (original shows Liked). It has a separate
+180second surface class retained alongside the agreement class in full/focus.
+No Social production gate changed before RED. The next minimum gates preparation
+and frame enqueue, allowing read-only reconciliation of uncertain originals;
+GREEN pending. Other module/worker gates,
 process/revision/error coverage and full acceptance remain pending. Review base
 is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
@@ -125,8 +131,9 @@ Next53 prepares installation-local versioned agreement before content publicatio
 with draft-aware useful previews and a non-preview release gate while approved
 policy is absent. Preserve first reading, wallet/payments/reporting, backend/
 identity, queued originals and pre-claim cancellation. Read its current issue
-and planning comment. The first foreground cancellation slice is implemented;
-persistence and the other publication gates remain pending. Continue justified substantive
+and planning comment. Foreground Posts cancellation, explicit revision storage,
+Activity reopening and late-commit recovery have focused GREEN. Other publication
+gates and the remaining complete acceptance are pending. Continue justified substantive
 native work under36 while owner facts remain in OWNER_INPUTS.md.
 
 ## Accepted issue51: complete 16 KB runtime proof

@@ -11,6 +11,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.policy.PublishingPolicies
 
 internal data class PostActionKey(val target: String, val kind: RedSquareActionKind)
 
@@ -73,7 +74,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         scope.launch { load(post, kind) }
     }
 
-    fun send(post: FeedPost, kind: RedSquareActionKind) {
+    fun send(post: FeedPost, kind: RedSquareActionKind, beforePublishing: suspend () -> Boolean) {
         val key = PostActionKey(post.id, kind)
         val status = actions[key] ?: return
         if (!status.ready || status.busy || status.available) return
@@ -81,6 +82,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         scope.launch {
             var candidate = status.candidate
             try {
+                if (candidate == null && !beforePublishing()) return@launch
                 if (candidate == null) candidate = withContext(Dispatchers.IO) {
                     val body = JsonObject().apply {
                         addProperty("module", "RedSquare"); addProperty("request", kind.request)
@@ -106,12 +108,12 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                             return actions.any { it.id == original.id && it.target == post.id }
                         }
                         if (!observed()) {
-                            val permitted = synchronized(SaitoLocalState.lock) {
-                                AndroidBackendStore(context).load() == backend &&
-                                    nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey
+                            if (!withContext(Dispatchers.Main.immediate) { beforePublishing() }) return@use
+                            peer.submit(original) {
+                                PublishingPolicies.requireAllowed(context)
+                                check(AndroidBackendStore(context).load() == backend &&
+                                    nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             }
-                            check(permitted)
-                            peer.submit(original)
                         }
                         if (!observed()) throw IllegalStateException("Interaction availability unknown")
                         withContext(NonCancellable) { save(key, original, true) }

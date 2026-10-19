@@ -37,6 +37,14 @@ internal sealed interface PublishingPermission {
 
 /** No owner-approved final policy is configured. Controlled input is debug/emulator-only. */
 internal object PublishingPolicies {
+    /** Background/transport callers read current durable permission, never a UI cache. */
+    fun requireAllowed(context: Context) {
+        val permission = permission(context)
+        check(permission == PublishingPermission.Preview || permission == PublishingPermission.Accepted) {
+            "Current publishing agreement is required"
+        }
+    }
+
     fun permission(context: Context): PublishingPermission {
         val configured = configured(context)
         return if (configured is PublishingPermission.Required && configured.terms != null &&

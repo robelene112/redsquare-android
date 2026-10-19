@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingSurfacesPreviewTest:
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction$lambda$11$lambda$10$lambda$9(PublishingSurfacesPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$P7Hr0YvIbpHYgx9EUye2s3TkeXc(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction(PublishingSurfacesPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: stream=
+Error in likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction$lambda$11$lambda$10$lambda$9(PublishingSurfacesPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$P7Hr0YvIbpHYgx9EUye2s3TkeXc(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction(PublishingSurfacesPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.38
+There was 1 failure:
+1) likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:93)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction$lambda$11$lambda$10$lambda$9(PublishingSurfacesPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$P7Hr0YvIbpHYgx9EUye2s3TkeXc(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction(PublishingSurfacesPreviewTest.kt:64)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
