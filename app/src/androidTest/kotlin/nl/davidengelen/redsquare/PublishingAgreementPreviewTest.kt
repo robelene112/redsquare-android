@@ -26,22 +26,82 @@ class PublishingAgreementPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
+    @Test fun failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+        val previous = fixture.takeIf { it.exists() }?.readBytes()
+        val revision = "owned-late-failure-${java.util.UUID.randomUUID()}"
+        fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
+            "terms":"Controlled late-write failure terms. No real publisher approval.",
+            "community":"Controlled retry rules. Preserve the unsent draft."}""")
+        try {
+            AndroidBackendStore(context).save(SaitoBackend.OWNER)
+            val peer = indexedPeer()
+            peer.start().use { server ->
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                ActivityScenario.launch<MainActivity>(Intent(intent)
+                    .putExtra("publishingCommitSyncUnavailable", true)).use {
+                    withFailureCapture({ capture("late-failure-first-failure.png") }) {
+                        waitFor("New post")
+                        ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
+                        ui.onNode(hasSetTextAction()).performTextReplacement("Keep the draft after failed agreement storage")
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        ui.onNodeWithText("Send").performClick()
+                        waitFor("Review publishing terms")
+                        ui.onNodeWithText("Accept").performClick()
+                        waitFor("Could not save your agreement. Nothing was sent. Try again, or cancel to keep your work.")
+                        assertTrue("Failed agreement cannot publish", peer.transactions.isEmpty())
+                        capture("late-commit-not-authorized.png")
+                        ui.onNodeWithText("Cancel").performClick()
+                        ui.onNode(hasSetTextAction()).assertTextEquals("Keep the draft after failed agreement storage")
+                        ui.onNodeWithText("Save draft").performClick()
+                        waitFor("New post")
+                    }
+                }
+                ActivityScenario.launch<MainActivity>(intent).use {
+                    withFailureCapture({ capture("late-failure-reopen-failure.png") }) {
+                        waitFor("New post")
+                        ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
+                        ui.onNode(hasSetTextAction()).assertTextEquals("Keep the draft after failed agreement storage")
+                        ui.onNodeWithText("Send").performClick()
+                        waitFor("Review publishing terms")
+                        assertTrue("An uncertain commit must not authorize after reopening", peer.transactions.isEmpty())
+                        capture("late-commit-reopened-still-needs-agreement.png")
+                        ui.onNodeWithText("Accept").performClick()
+                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        assertTrue("Retrying agreement does not publish", peer.transactions.isEmpty())
+                        ui.onNodeWithText("Send").performClick()
+                        waitFor("Available on this server.")
+                        assertEquals(1, peer.transactions.size)
+                        assertEquals("Keep the draft after failed agreement storage",
+                            nl.davidengelen.redsquare.saito.RedSquareFeed.decode(
+                                postingTransaction(peer.transactions.single()).envelope()).text)
+                        capture("late-commit-explicit-retry-published.png")
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } finally {
+            if (previous == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previous)
+        }
+    }
+
     @Test fun explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
         val previous = fixture.takeIf { it.exists() }?.readBytes()
-        fixture.writeText("""{"revision":"owned-accept-policy-one","ready":true,"enforce":true,
+        val revision = "owned-accept-${java.util.UUID.randomUUID()}"
+        fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
             "terms":"Controlled acceptance terms. No real publisher approval.",
             "community":"Controlled community rules. Keep the explicit send choice."}""")
         try {
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
-            val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
-            val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
-                val row = indexed.get()
-                if (row != null && (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString))
-                    "[$row]" else "[]"
-            }, onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) })
+            val peer = indexedPeer()
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
@@ -49,6 +109,7 @@ class PublishingAgreementPreviewTest {
                         waitFor("New post")
                         val originalWallet = AndroidWalletStore(context).loadExisting().exportJson()
                         ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement("Send only after my deliberate agreement")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         ui.onNodeWithText("Send").performClick()
@@ -59,9 +120,7 @@ class PublishingAgreementPreviewTest {
                         assertTrue("Agreement must not send the draft", peer.transactions.isEmpty())
                         capture("accepted-without-publication.png")
                         scenario.recreate()
-                        ui.waitUntil(20_000) {
-                            ui.onAllNodes(hasSetTextAction()).fetchSemanticsNodes().isNotEmpty()
-                        }
+                        waitForEditor()
                         ui.onNode(hasSetTextAction()).assertTextEquals("Send only after my deliberate agreement")
                         assertTrue("Reopening must not publish", peer.transactions.isEmpty())
                         ui.onNodeWithText("Send").performClick()
@@ -106,6 +165,7 @@ class PublishingAgreementPreviewTest {
                         waitFor("New post")
                         val originalWallet = AndroidWalletStore(context).loadExisting().exportJson()
                         ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement("Keep my unsent publishing agreement draft")
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
                         repeat(2) { attempt ->
@@ -137,6 +197,17 @@ class PublishingAgreementPreviewTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onNodeWithText(text).isDisplayed() }
+    private fun indexedPeer(): ControlledFeedPeer {
+        val indexed = java.util.concurrent.atomic.AtomicReference<com.google.gson.JsonObject?>()
+        return ControlledFeedPeer("[]", archiveResponse = { criteria ->
+            val row = indexed.get()
+            if (row != null && (!criteria.has("sig") || criteria.get("sig").asString == row.get("sig").asString))
+                "[$row]" else "[]"
+        }, onTransaction = { frame -> indexed.set(postingArchiveRow(postingTransaction(frame))) })
+    }
+    private fun waitForEditor() = ui.waitUntil(20_000) {
+        ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+    }
     private fun capture(name: String) = captureNativeScreen(File(
         InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "agreement-evidence/$name"))
 }
