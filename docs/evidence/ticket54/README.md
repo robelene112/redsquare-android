@@ -72,3 +72,23 @@ Both earlier reviews through0bf3e9b15 reported0; this follow-up is additional.
 Local production compilation at0bf passes in2m32s. Fresh focused checks follow
 the URI-observer and actual production window-scoping correction. Final full
 Android10/17 acceptance remains required for54.
+
+## Ready support GREEN atad51cdd60
+
+Actual10 run39280053024 artifacts contain2/2 publisher PASS (11.049s) and1/1
+reader PASS (16.559s);17 run39280056321 contains2/2 publisher PASS (33.065s)
+and1/1 reader PASS (16.813s). Both native command exits and focused completion
+markers pass. This now includes the literal email payload, cancellation, recreation
+and actual controlled ActivityNotFoundException with retained description. Root
+opened original missing-handler screens on both SDKs and the requested-draft17
+original. The initial resized requested-draft preview appeared blank; reopening
+the unchanged original displays the expected form. No source screenshot was edited.
+Both review axes throughad51cdd60 report0; the pinned Espresso/Monitor response
+function propagates the actual platform exception unchanged. Overall run API
+finalization may lag these artifacts; this is focused evidence, not final54.
+
+The next single native tracer exercises separate safety/privacy destinations
+through Settings and their deliberate attachment-free email drafts. Production
+still implements support only. Absent-config setup now explicitly captures and
+removes the publisher fixture before the unconfigured case, then independently
+restores it; no acceptance assertion or deadline changes.

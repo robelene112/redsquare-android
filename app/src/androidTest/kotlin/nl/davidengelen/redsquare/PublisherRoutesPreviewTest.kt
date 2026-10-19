@@ -123,6 +123,95 @@ class PublisherRoutesPreviewTest {
         }
     }
 
+    @Test fun safetyAndPrivacyContactsKeepTheirShownDestinationsSeparate() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallets = AndroidWalletStore(context)
+        val originalWallet = wallets.loadOrCreate()
+        val backends = AndroidBackendStore(context)
+        val originalBackend = backends.load()
+        val retained = ChatFixtureState(context, listOf("publisher-routes-fixture.json",
+            "publishing-policy-fixture.json"), originalWallet.publicKey)
+        var primary: Throwable? = null
+        Intents.init()
+        try {
+            for (action in listOf(Intent.ACTION_SENDTO, Intent.ACTION_VIEW)) {
+                Intents.intending(hasAction(action)).respondWith(
+                    Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
+            }
+            retained.prepare()
+            File(context.noBackupFilesDir, "publisher-routes-fixture.json").writeText(
+                """{"ready":true,"supportEmail":"support@publisher.example","safetyEmail":"safety@publisher.example","privacyEmail":"privacy@publisher.example"}""")
+            File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+                .writeText("""{"enforce":true,"ready":false}""")
+            backends.save(SaitoBackend.OWNER)
+            val peer = ControlledFeedPeer("[]")
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    withFailureCapture({ capture("purpose-contacts-first-failure.png") }) {
+                        waitFor("Settings", action = true)
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        val cases = listOf(
+                            ContactCase("Safety concerns", "Publisher safety", "safety@publisher.example",
+                                "Red Square safety concern", "A safety concern for the publisher"),
+                            ContactCase("Privacy inquiries", "Publisher privacy", "privacy@publisher.example",
+                                "Red Square privacy inquiry", "A privacy question for the publisher"))
+                        for ((index, case) in cases.withIndex()) {
+                            waitFor(case.entry, action = true)
+                            ui.onNodeWithText(case.entry).performScrollTo().performClick()
+                            waitFor(case.title)
+                            ui.onNodeWithText("Email: ${case.recipient}").assertIsDisplayed()
+                            ui.onNodeWithText("Publisher: Angels’ Foundry").assertIsDisplayed()
+                            ui.onNodeWithText("App: Red Square 0.1.0").assertIsDisplayed()
+                            waitForEditor()
+                            val externalBefore = Intents.getIntents().filter {
+                                it.action in listOf(Intent.ACTION_SENDTO, Intent.ACTION_VIEW)
+                            }
+                            assertEquals(index, externalBefore.size)
+                            ui.onNode(hasSetTextAction()).performTextReplacement(case.description)
+                            ui.onNodeWithText("Compose email").performClick()
+                            waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
+                            val external = Intents.getIntents().filter {
+                                it.action in listOf(Intent.ACTION_SENDTO, Intent.ACTION_VIEW)
+                            }
+                            assertEquals(index + 1, external.size)
+                            val draft = external.last()
+                            assertEquals(Intent.ACTION_SENDTO, draft.action)
+                            assertEquals("mailto", draft.data!!.scheme)
+                            assertEquals(case.recipient, draft.data!!.schemeSpecificPart)
+                            assertArrayEquals(arrayOf(case.recipient), draft.getStringArrayExtra(Intent.EXTRA_EMAIL))
+                            assertEquals(case.subject, draft.getStringExtra(Intent.EXTRA_SUBJECT))
+                            assertEquals("App: Red Square 0.1.0\n\nDescription:\n${case.description}", draft.getStringExtra(Intent.EXTRA_TEXT))
+                            assertEquals(setOf(Intent.EXTRA_EMAIL, Intent.EXTRA_SUBJECT, Intent.EXTRA_TEXT), draft.extras!!.keySet())
+                            assertNull(draft.clipData)
+                            assertEquals(0, draft.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
+                            capture("purpose-contact-$index.png")
+                            ui.onNodeWithText("Done").performClick()
+                        }
+                        assertTrue("Publisher routes must preserve complete wallet options",
+                            originalWallet.exportJson() == wallets.loadExisting().exportJson())
+                        assertEquals(SaitoBackend.OWNER, backends.load())
+                        assertTrue(peer.transactions.isEmpty())
+                        assertTrue(peer.reports.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { Intents.release() }, { retained.restoreFiles() },
+                { wallets.replace(wallets.loadExisting(), originalWallet) },
+                { backends.save(originalBackend); check(backends.load() == originalBackend) },
+                { retained.restorePreferences() })
+        }
+    }
+
+    private data class ContactCase(val entry: String, val title: String, val recipient: String,
+        val subject: String, val description: String)
+
     @Test fun unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -132,7 +221,8 @@ class PublisherRoutesPreviewTest {
         val originalWallet = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        val retained = ChatFixtureState(context, listOf("postdraft.", "publishing-policy-fixture.json"), originalWallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("postdraft.", "publishing-policy-fixture.json",
+            "publisher-routes-fixture.json"), originalWallet.publicKey)
         val text = "Keep this unsent draft while checking publisher support 😀"
         var primary: Throwable? = null
         Intents.init()
