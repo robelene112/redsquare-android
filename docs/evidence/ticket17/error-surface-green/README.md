@@ -31,3 +31,17 @@ shows the provider's actual visible bot-check, not playback acceptance. Actual P
 remain unchanged. No header/identity/login/proxy/node/account change. Beta24
 unchanged; #17 remains open. Giphy source research is preparation for a later
 sequential ticket, not parallel implementation.
+
+## Owner-directed development completion, 2026-10-19
+
+Native video integration and the controlled recovery above are complete and
+retained by full54 runs39294146155/39294150546 in published beta40. Both source
+reviews and final public-evidence reviews at0a11559b report Standards0/Spec0.
+The owner now parks actual external/phone checks while development completes.
+
+The unchanged real public39004585910 remains FAILURE. Actual physical embedded
+Playing, deliberate-tap/no-autoplay and close/feed recovery are unchecked under
+`VIDEO` in [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+Native17 can therefore close for development without claiming real playback or
+dropping it from release scope. Earlier whole-ticket-open statements describe the
+former staging. No provider workaround or further unchanged probe is authorized.
