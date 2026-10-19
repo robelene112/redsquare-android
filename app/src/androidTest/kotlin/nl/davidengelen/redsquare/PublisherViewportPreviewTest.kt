@@ -227,7 +227,7 @@ class PublisherViewportPreviewTest {
         }
         val active = instrumentation.uiAutomation.rootInActiveWindow
         record.addProperty("activeRootIsApp", active?.packageName?.toString() == context.packageName)
-        if (active?.packageName?.toString() == context.packageName) {
+        if (active != null && active.packageName?.toString() == context.packageName) {
             val rectangle = android.graphics.Rect()
             active.getBoundsInScreen(rectangle)
             record.addProperty("accessibilityRootBounds", rectangle.toShortString())
