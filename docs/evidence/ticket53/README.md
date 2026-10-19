@@ -312,3 +312,24 @@ unchanged. Separate Post/private/group classes each keep their own180second
 bound. The harness retains all three new outbox results and fails if any fail;
 earlier agreement classes remain fail-fast with unchanged assertions/deadlines.
 Queue UI/transport completion has not changed before these pending RED results.
+
+Queue RED39244844387 at55e7d7144 is FAILURE: the existing15 cases pass;
+all six Post/private/group queue cases fail atline161 waiting for the missing
+pause explanation. Each reached the retryable ENQUEUED checkpoint and native
+Queued observation first. `queue-red10/SHA256SUMS` retains the actual outputs,
+six public worker checkpoints and capture originals. These PNG/XML captures
+show the launcher because ActivityScenario had already closed during unwinding;
+they do not establish the failed app window. The new fixture captures inside
+the Activity scope as well. Review also tightened the authenticated-worker
+observation from challenge sent to verified expected client identity, recorded
+explicitly in future checkpoints (fbdaaaa8d; Standards0 after correction).
+
+The queue minimum adds a conditional explanation and Review terms control to
+retained Posts/private/group work without removing cancellation. The dialog
+explains that agreement leaves new drafts unsent while previously explicit
+queued messages may resume. Actual permission remains freshly checked at
+preparation/claim/enqueue, independently of the display hint. Post retries no
+longer skip durable claim for an uncertain original; both foreground and worker
+socket enqueue also recheck permission/identity/current original without another
+state mutation. Read-only reconciliation and existing claim persistence remain.
+Runtime GREEN and all complete acceptance remain pending.

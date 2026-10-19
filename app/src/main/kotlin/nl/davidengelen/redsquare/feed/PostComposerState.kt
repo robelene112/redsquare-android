@@ -141,8 +141,7 @@ internal class PostComposerState(
                                         val saved = store.load()
                                         check(saved.transaction?.id == candidate.id)
                                         if (saved.available) false
-                                        else if (saved.queued) store.claim(saved)
-                                        else true
+                                        else store.claim(saved)
                                     }
                                     catch (failure: Exception) { throw DraftPersistenceFailure(failure) }
                                 }
@@ -151,7 +150,10 @@ internal class PostComposerState(
                             }
                         }
                         if (!permitted) return@use
-                        peer.submit(candidate)
+                        peer.submit(candidate) {
+                            val current = store.load()
+                            check(current.transaction?.id == candidate.id && !current.available && store.canPublish(current))
+                        }
                         withContext(Dispatchers.Main.immediate) { submitted = true }
                         for (attempt in 0 until 6) {
                             if (peer.hasPost(candidate, owner, text)) {

@@ -148,6 +148,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         }.toString())
                     }
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint)).use {
+                      withFailureCapture({ capture("$label-ui-first-failure.png") }) {
                         when (kind) {
                             Kind.POST -> click("New post")
                             Kind.PRIVATE -> {
@@ -196,6 +197,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())
                         peer.assertHealthy()
+                      }
                     }
                 }
             }

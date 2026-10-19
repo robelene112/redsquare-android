@@ -428,6 +428,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 }
             }
         } else {
+            if (entry.automaticMessage && entry.pendingMessage != null)
+                nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(loaded && !busy && !readFailed && !navigation.transitioning)
             if(entry.queuedMessage!=null) {
                 Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
                     horizontalArrangement=Arrangement.SpaceBetween) {

@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled(PublishingGroupQueuePreviewTest.kt:10)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled(nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled(PublishingGroupQueuePreviewTest.kt:10)
+
+INSTRUMENTATION_STATUS: test=unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt(PublishingGroupQueuePreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt(nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt(PublishingGroupQueuePreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: test=explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 47.047
+There were 2 failures:
+1) unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled(nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled(PublishingGroupQueuePreviewTest.kt:10)
+2) explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt(nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.waitFor(PublishingQueueFixture.kt:219)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$20$lambda$19(PublishingQueueFixture.kt:161)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$xji4fOkzMORgRZRx-tXenQqvXAQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:117)
+	at nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest.explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt(PublishingGroupQueuePreviewTest.kt:12)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

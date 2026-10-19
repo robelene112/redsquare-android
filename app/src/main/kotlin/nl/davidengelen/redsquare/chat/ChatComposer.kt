@@ -132,6 +132,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     val retrying = saved.transaction != null && (saved.status == ChatWorkStore.Status.UNKNOWN ||
         (saved.status == ChatWorkStore.Status.SUBMITTED && typed.isBlank() && quote == null && photo == null))
     Column {
+        if (saved.automatic && !saved.deliveryComplete)
+            nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(ready && !sending && !navigation.transitioning)
         when (saved.status) {
             ChatWorkStore.Status.QUEUED -> {
                 val pending=remember(saved.transaction){PrivateChat.read(wallet,requireNotNull(saved.transaction).envelope(),contact)}

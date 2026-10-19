@@ -5,6 +5,8 @@ import android.os.Build
 import android.system.Os
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -129,6 +133,28 @@ internal val LocalPublishingAgreement = staticCompositionLocalOf<PublishingAgree
     error("Publishing agreement host is required")
 }
 
+/** A hint only. Actual preparation/claim/enqueue always read durable permission again. */
+@Composable
+internal fun QueuedPublishingAgreement(enabled: Boolean) {
+    val context = LocalContext.current.applicationContext
+    val controller = LocalPublishingAgreement.current
+    val scope = rememberCoroutineScope()
+    val required by produceState(false, context, controller.open, controller.savedNotice) {
+        value = try { withContext(Dispatchers.IO) {
+            PublishingPolicies.permission(context) is PublishingPermission.Required
+        } } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { true }
+    }
+    if (required) Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.publishing_queue_paused), Modifier.weight(1f),
+            style = MaterialTheme.typography.bodySmall)
+        TextButton(enabled = enabled, onClick = { scope.launch { controller.beforePublishing() } }) {
+            Text(stringResource(R.string.publishing_review))
+        }
+    }
+}
+
 @Composable
 internal fun PublishingAgreementDialog(controller: PublishingAgreementController) {
     val prompt = controller.prompt ?: return
@@ -149,6 +175,7 @@ internal fun PublishingAgreementDialog(controller: PublishingAgreementController
                         Text(stringResource(R.string.policy_community), style = MaterialTheme.typography.titleSmall)
                         Text(terms.community)
                         Text(stringResource(R.string.publishing_scope), style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.publishing_queued_resume), style = MaterialTheme.typography.bodySmall)
                     }
                 }
                 if (controller.saveFailed) Text(stringResource(R.string.publishing_save_failed),

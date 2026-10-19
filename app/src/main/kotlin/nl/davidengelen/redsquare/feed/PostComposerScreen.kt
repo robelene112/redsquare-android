@@ -149,6 +149,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 else if (queued && queueSaved) Text(stringResource(R.string.post_queued))
                 else if (submitted) Text(stringResource(R.string.post_submitted))
                 else if (transaction != null) Text(stringResource(R.string.post_pending))
+                if (transaction != null && !available)
+                    nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
                 if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
                     Text(stringResource(R.string.post_cancel_queued))
                 }

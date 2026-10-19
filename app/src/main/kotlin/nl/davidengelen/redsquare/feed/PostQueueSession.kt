@@ -24,7 +24,10 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
                 // Authentication happened during the Archive request. The atomic
                 // claim rechecks durable identity/selection and races with Cancel.
                 if (!store.claim(saved)) return@use
-                peer.submit(candidate)
+                peer.submit(candidate) {
+                    val current = store.load()
+                    check(current.transaction?.id == candidate.id && !current.available && store.canPublish(current))
+                }
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text))
                     store.update(saved.copy(queued = false), saved.copy(queued = false, available = true))
             }

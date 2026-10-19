@@ -1,5 +1,8 @@
 <resources>
     <string name="publishing_accept">Accept</string>
+    <string name="publishing_review">Review terms</string>
+    <string name="publishing_queue_paused">Sending is paused until you review the current publishing terms.</string>
+    <string name="publishing_queued_resume">Accepting does not publish a new draft. Messages you already queued may resume.</string>
     <string name="publishing_saved">Agreement saved. Choose your action again when you are ready.</string>
     <string name="publishing_save_failed">Could not save your agreement. New publishing attempts remain paused. Try again, or cancel to keep your work.</string>
     <string name="publishing_scope">Agreement is saved on this installation, across wallets and servers. It is not included in wallet backups.</string>
