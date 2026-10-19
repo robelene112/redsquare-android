@@ -85,6 +85,8 @@ class AppearancePreviewTest {
                             ui.onNodeWithText(label).assertIsSelected()
                             ui.onNodeWithText("A native Android client for RedSquare on Saito.")
                                 .performScrollTo()
+                            ui.onNodeWithText("Independently developed by Angels’ Foundry.").performScrollTo()
+                            ui.onNodeWithText("Version ", substring = true).performScrollTo()
                             capture("about-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Done").performClick()
                         }
