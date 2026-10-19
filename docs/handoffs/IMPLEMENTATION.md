@@ -32,9 +32,10 @@ feedback. Run39333368227 passes all3 methods; both source re-review axes have0
 residuals and root opened the returned-editor original. Viewport8104b860b/run39336828749 completedSUCCESS: exactly the larger-text
 method, all8 independently checked320dp/412dp,130%/200%,Light/Dark configurations,
 full48dp native/touch targets, original feed/guidance captures. Root opened6
-representative originals. Functional green still exposed clipped import glyphs at
-320dp/200%; the next slice reflows Import above Backup/Later and uses smaller
-corners/padded text. Default/130% retain the compact row. Rendered fix pending.
+representative originals. That historical checkpoint exposed clipped import glyphs
+at320dp/200%. Source50babd77b reflows Import above Backup/Later and uses smaller
+corners/padded text. The later focused10/17 originals confirm the rendered fix;
+default/130% retain the compact row.
 Selected native Home uses isSelected instead of ACTION_CLICK by Compose design;
 observer corrections preserve the same48dp threshold. Earlier failures remain
 retained in docs/evidence/ticket58, never reclassified.
@@ -48,7 +49,14 @@ zero originals: normal frame4(312788us) ->frame5(327933us) jumps80px with no twe
 The next production slice adds a180ms Home-only expand/shrink wrapper, disabling
 exit actions immediately and respecting real system scale. Native motion remains
 pending. Reading tracer13de2ab37/run39338696534 (separate1method) is running;
-its two source review axes0. All existing deadlines/identities remain unchanged.
+its two source review axes0. Run39338696534 completedSUCCESS, one31.265s method,
+and root opened all3 originals confirming reference05 at the same position.
+Motion6f94 runs39339460676(10)/39339457242(17) both functional2PASS, but actual
+zero-scale recordings still tween. Source39339456579 full source checksPASS.
+Reduced-motion acceptance is NOT green. Next test-only probe records the actual
+installed window MotionDurationScale after the movie and compares fresh zero
+against the original paired normal/zero process. Pinned Compose cached-flow
+behavior is a hypothesis, not yet a proven cause. All deadlines/identities remain.
 The independent complete catalog is frozen before full execution at
 ../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
 34deliberate interruptions,33continuity. Final full regression/review and signed

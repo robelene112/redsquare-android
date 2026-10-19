@@ -1,0 +1,11 @@
+Time limit set to 3 seconds
+Display is 320x640 @60.00fps (orientation=ROTATION_0), layerStack=0
+Configuring recorder for 320x640 video/avc at 20.00Mbps
+Content area is 320x640 at offset x=0 y=0
+Time limit reached
+Encoder stopping; recorded 8 frames in 3 seconds
+Stopping encoder and muxer
+Executing: /system/bin/am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///data/local/tmp/redsquare-65ba30df-419a-45c5-b4de-bc71d982a5ed.mp4
+Broadcasting: Intent { act=android.intent.action.MEDIA_SCANNER_SCAN_FILE dat=file:///... flg=0x400000 }
+Broadcast completed: result=0
+REDSQUARE_RECORDER_EXIT=0

@@ -135,6 +135,10 @@ complete first-release scope and the established production boundaries.
    with its own180second bound and no Compose rule. It exercises real platform
    animator scale1/0, reminder persistence and navigation, retaining original
    recordings, decoded full frames and timestamps for explicit visual inspection.
+   `app-frame-motion-zero` and its Android17 variant diagnose the existing zero-
+   scale method in a fresh instrumentation process. Paired normal/zero cases
+   remain in complete motion/frame/full scopes. Fresh-only proof never replaces
+   changing preferences between Activity lifetimes in the same process.
    A functional PASS does not establish motion acceptance. Complete frame/full
    scopes retain both classes. Settings/state restoration follows Activity closure.
    `app-frame-reading` and its Android17 variant isolate a separate180second

@@ -191,3 +191,27 @@ The independent full catalog is frozen before complete execution in
 full-identity-reference.json:473/474 identities,122/123 normal completions,
 34 deliberate interruptions and33 continuity records. It adds only the3 new
 classes/7 methods to accepted38. No new omission or assumption is accepted.
+
+Source39339456579 at6f94c4e8b completedSUCCESS, full source/core/gateway/Debug/
+test/Release/Performance/lint. Motion10/17 runs39339460676/39339457242 each
+completedSUCCESS with exactly2 functional methods, but root visual review rejects
+reduced motion: actual settings0 still produces intermediate content positions.
+Root opened representative original10 frames; a temporary read-only pixel replay
+tracks the unique red selected-feed indicator, bound to its native tab width and
+the independently observed80px post displacement. It exits1 for zero10/17 and0
+for normal10, reproducing the exact captured motion defect in seconds. This is
+an additional diagnostic, not a substitute for original visual review.
+
+Ranked causes: a cached window scale surviving the previous normal test, an
+unexpected test window context, or delayed platform-setting propagation. Pinned
+Compose1.11.4 caches a WhileSubscribed scale StateFlow per application context
+without a fresh settings read on resubscription, supporting the first hypothesis
+but not proving it. The next unchanged-product probe records the installed window
+context/scale only AFTER the original movie and runs the existing zero method
+alone in a fresh process as well as the unchanged paired sequence. Neither a
+fresh-only success nor functional PASS accepts the paired preference transition.
+
+Reading13de2ab37/run39338696534 completedSUCCESS, exactly1 method in31.265s.
+Root opened all3 originals: reference05 remains at the same visible position
+before Chat, after Home return and after Activity recreation. All guarded state
+and zero-send assertions remain. Full regression and signed delivery stay pending.

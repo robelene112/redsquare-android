@@ -170,6 +170,8 @@ verify_group_chat_native() {
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
         verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence
+    elif [[ "${TEST_SCOPE:-full}" == app-frame-motion-zero* ]]; then
+        verify_group_chat_native 'AppFrameMotionPreviewTest#disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable' 180 app-frame-motion app-frame-motion-evidence
     elif [[ "${TEST_SCOPE:-full}" == app-frame-motion* ]]; then
         verify_group_chat_native AppFrameMotionPreviewTest 180 app-frame-motion app-frame-motion-evidence
     elif [[ "${TEST_SCOPE:-full}" == app-frame-viewport* ]]; then

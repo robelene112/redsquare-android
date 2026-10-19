@@ -6,6 +6,11 @@ import android.media.MediaFormat
 import android.media.MediaMetadataRetriever
 import android.os.Build
 import android.os.SystemClock
+import android.provider.Settings
+import android.view.ViewGroup
+import androidx.compose.runtime.Recomposer
+import androidx.compose.ui.MotionDurationScale
+import androidx.compose.ui.platform.findViewTreeCompositionContext
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -54,6 +59,20 @@ class AppFrameMotionPreviewTest {
                 assertTrue("Dismissing backup guidance must recover reading space", before.top > after.top + 24)
                 val observation = retainFrames(movie)
                 observation.add("recording", recording)
+                // Read only after the original recording, without creating or replacing a window context.
+                activity.onActivity { screen ->
+                    val host = requireNotNull(screen.findViewById<ViewGroup>(android.R.id.content).getChildAt(0))
+                    val parent = requireNotNull(host.findViewTreeCompositionContext())
+                    val windowScale = parent.effectCoroutineContext[MotionDurationScale]
+                    observation.add("windowMotion", JsonObject().apply {
+                        addProperty("contextClass", parent.javaClass.name)
+                        addProperty("isRecomposer", parent is Recomposer)
+                        addProperty("scaleClass", windowScale?.javaClass?.name)
+                        addProperty("scaleFactor", windowScale?.scaleFactor)
+                        addProperty("settingsAnimatorScale", Settings.Global.getFloat(screen.contentResolver,
+                            Settings.Global.ANIMATOR_DURATION_SCALE, 1f))
+                    })
+                }
                 val observedScales = JsonObject()
                 originals.keys.forEach { setting ->
                     val observed = device.executeShellCommand("settings get global $setting").trim()
