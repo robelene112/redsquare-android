@@ -119,3 +119,15 @@ observer now measures the positively selected, enabled native tab itself and
 keeps the full48dp/viewport bounds; all other controls still require native click.
 Root opened the original130% light capture: compact headings and readable feed
 tabs put the post body in the upper half. Other matrix cases are not yet proved.
+
+Source check39335922049 at3067735ea completedSUCCESS, including the workflow's
+core/gateway/Debug/test/Release/Performance/lint checks. This is source acceptance
+at that revision, not runtime or final delivery acceptance.
+
+The separate plain-native motion observer deliberately has no Compose rule:
+Compose1.11.4's test recomposer bypasses the production platform motion scale.
+It records real scale1/0 with readback, actual Later/persistence/navigation,
+original movies and decoded frames with actual sample timestamps. Functional
+PASS alone does not prove motion; original before/intermediate/final positions
+must be visually inspected. No custom image-matching oracle is used. The current
+conditional reminder removal is still instantaneous; motion remains unfinished.

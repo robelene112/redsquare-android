@@ -129,6 +129,14 @@ complete first-release scope and the established production boundaries.
    actual process death and distinct recovery PID, with each shared host phase
    retaining120seconds and independent restoration. Existing process gates keep
    their identities and deadlines. A focused success is not complete acceptance.
+   For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
+   text matrix; complete frame/full scopes retain the entire existing frame class.
+   `app-frame-motion` and its Android17 variant run a separate plain native class
+   with its own180second bound and no Compose rule. It exercises real platform
+   animator scale1/0, reminder persistence and navigation, retaining original
+   recordings, decoded full frames and timestamps for explicit visual inspection.
+   A functional PASS does not establish motion acceptance. Complete frame/full
+   scopes retain both classes. Settings/state restoration follows Activity closure.
    For the isolated queued-action viewport tracer, `chat-viewport` and
    `chat-viewport-android17` run only the existing private and group cancellation cases.
    This avoids repeating unrelated queue cases on each viewport correction;
