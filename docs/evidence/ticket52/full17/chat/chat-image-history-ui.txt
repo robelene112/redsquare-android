@@ -1,0 +1,165 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatImageHistoryStorageTest:
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=entry pid=8173 max=201326592 total=201326592 free=196508800 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=originals-ready pid=8173 max=201326592 total=14913663 free=2909119 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-1 pid=8173 max=201326592 total=14913663 free=2909119 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-2 pid=8173 max=201326592 total=23668181 free=4532597 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-3 pid=8173 max=201326592 total=29511807 free=8086559 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-4 pid=8173 max=201326592 total=33721440 free=8257536 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-5 pid=8173 max=201326592 total=37846112 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-6 pid=8173 max=201326592 total=40594528 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-7 pid=8173 max=201326592 total=44571744 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-8 pid=8173 max=201326592 total=50441408 free=2744320 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-9 pid=8173 max=201326592 total=52583616 free=4939776 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-10 pid=8173 max=201326592 total=57720000 free=2904064 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-11 pid=8173 max=201326592 total=60042432 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-12 pid=8173 max=201326592 total=64691392 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-13 pid=8173 max=201326592 total=68467904 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-14 pid=8173 max=201326592 total=72457408 free=4497408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-15 pid=8173 max=201326592 total=76045504 free=4939776 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-16 pid=8173 max=201326592 total=80018624 free=5173248 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=entry pid=8173 max=201326592 total=60898496 free=2465696 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=originals-ready pid=8173 max=201326592 total=22253823 free=5563455 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-1 pid=8173 max=201326592 total=22253823 free=5497919 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-2 pid=8173 max=201326592 total=21734997 free=3611029 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-3 pid=8173 max=201326592 total=21663999 free=1184831 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-4 pid=8173 max=201326592 total=24411050 free=4280042 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-5 pid=8173 max=201326592 total=22914645 free=5695893 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-6 pid=8173 max=201326592 total=25803690 free=3665642 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-7 pid=8173 max=201326592 total=26598592 free=0 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-8 pid=8173 max=201326592 total=26770624 free=0 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-9 pid=8173 max=201326592 total=27343786 free=1912554 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-10 pid=8173 max=201326592 total=28681813 free=2238869 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-11 pid=8173 max=201326592 total=30019839 free=4314175 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-12 pid=8173 max=201326592 total=36175040 free=913408 memoryClass=192 largeMemoryClass=576 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 86.536
+
+OK (2 tests)
+
+
+INSTRUMENTATION_CODE: -1

@@ -121,3 +121,44 @@ production/build input maps across25159 and1a1a4cbd3 are identical (248 objects)
 including performance/build-support paths; d74 changes only the GIF observer.
 Spec/Standards residual packet review through1a1a4cbd3 reports0/0 with107 hashes
 independently reproduced. The new focus/reference records await residual review.
+
+## Complete Android17 result
+
+Run39213972826 at25159 is SUCCESS in all three jobs. The independent identity
+comparison is exact:432PASS, no missing/extra cases or assumptions, with
+105 normal completions,33 deliberate process interruptions and32 PASS continuity
+records. Chat183, Social208 and Wallet41 all pass. Exact profile concatenation
+is checked before excluding its duplicate aggregate. All numeric exit records
+are zero; partition-complete markers are chat/social/wallet respectively.
+
+`full17/` retains native text/checkpoints, image properties, core/lint reports,
+432 path/class/test identities, selected original observations, raw archive and
+member hashes, and a summary. Structural checks validate946PNG/811XML across
+archive and direct originals. Five optional diagnostics are explicitly recorded:
+unavailable established Chat image-history archive and four missing-file-text
+wallet-first-failure PNG/XML files. Required application gates are not excluded.
+Full original tar files remain in the recorded external artifact directory.
+
+Private recovery keeps worker4f1eaf4f-75bd-4990-8264-02cfb2e4f867 across
+PIDs6665/6711/6776; group keepsb411334e-d2a6-4e77-b2f4-083762214413 across
+7162/7209/7285. Both record zero expired requests, independent protected
+restoration and PASS continuity. Both approved fresh public feeds, authenticated
+read-only public Chat readiness, signed legacy5-to8 continuity and final wallet
+identity complete. These are read/recovery observations, not Google delivery.
+
+The actual independently signed immutable ordinary35/performance36 checks pass,
+with distinct UIDs10236/10237 and public wallets, unchanged ordinary address and
+restoration of both originally absent packages with no cleanup failures. The
+three separate one-case signed-wallet observer logs remain outside the432
+application identity comparison. This proof does not install candidate37.
+
+Root opened15 full-run originals: Light overview and restored Dark deletion;
+GIF sent credits; default generic private card and exact group; restored post
+draft and generic group card; published post and recovered unsent draft; both
+public feeds; legacy-update wallet; main35 wallet before/after and separate36
+wallet. Text/controls and intended privacy labels are visible. XML observations
+remain separate snapshots. Android17 uses the default x86_64/4096-byte image;
+this is not a new16KB, physical Pixel, configured-provider or Play proof.
+
+Full Android10 recheck39217149317 remains running. No publication or child52
+acceptance follows from the Android17 result alone.

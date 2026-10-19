@@ -24,7 +24,7 @@ remain open until demonstrated. Never present draft terms as agreed/legal consen
 Child52 is assigned for the offline draft privacy/safety reader and owner-input
 checklist. Its native acceptance, review and signed publication are in progress.
 The existing9original release criteria remain open; placeholders do not close them.
-No other implementation child is claimed. Issues50/51 are accepted/CLOSED;
+Child53 is queued and blocked by52, not claimed or implemented yet. Issues50/51 are accepted/CLOSED;
 ordinary35 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Original35-ticket count remains
 26CLOSED/nineOPEN:16,17,19,31,32,33,34,35,36. Specification1 remainsOPEN.
@@ -53,12 +53,69 @@ The remaining original criteria need concrete inputs/real environments:
   moderation operations are still unconfirmed. Release preparation
   now records those decisions; do not ask for the publisher name again or invent
   a registration, mailbox or policy URL. Do not repeat the KVK-status question
-  without new information. Resolve remaining policy/operational facts before
-  changing release behavior; verified business/account readiness remains pending.
+  without new information. Prepare draft native behavior under the owner's placeholder authorization;
+  actual approved policy/operational and business/account readiness remain pending.
   Existing Google/Giphy setup questions must not be repeated. Offline package49 is prepared, not final policy/store acceptance.
 
 Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
-open and the untracked research unread. No local build/download/watcher remains active.
+open and the untracked research unread. The active52 full-run watchers are
+identified below; no local Gradle build is active.
+
+## Active issue52: draft privacy/safety reader
+
+Review base 45a90620211c2c272ae2c76bd3e00f46a27ba070. Production minimum 74e,
+SDK dispatch correction e53, Dialog system-bar/fixed-Draft correction 795 and
+native evidence 25159 are committed. The new native case has an actual RED for
+missing Settings action, then corrected focused10/17 SUCCESS39212876918/
+39212879562:1PASS each. Root inspected actual light/dark/restored originals.
+Source39212876588 at 795 and39216609573 at d74 are SUCCESS.
+
+First full10 run39213969388 at 25159 is FAILURE:52PASS/1FAIL, later suites/gates
+unexecuted. Existing ChatGiphy artist text existed but was not visible at its
+immediate assertion. The inner failure shows a clipped group message viewport;
+outer capture shows Launcher after teardown. Neither proves the cause.
+Fixture-only d74 preserves identities/assertions/class and label deadlines,
+waiting for positive visibility and scrolling again where needed. Focused10
+39216609812 is SUCCESS:6PASS/60.905s; root sees all3 credits in the original sent
+capture. Fresh complete10 run39217149317 at 1a1a4cbd3 is running with public reads,
+immutable ordinary35/performance36. Full17 run39213972826 at 25159 is SUCCESS in all three jobs:432PASS,
+105 normal/33 deliberate/32 continuity; full packet and selected original inspection
+are retained. Production/build inputs are byte-identical across
+these sources (248 Git objects); keep a successful full17 if it completes and
+apply the documented fixture-only outstanding-SDK exception. No full acceptance
+has been inferred. Original failed/cancelled runs retain their conclusions.
+
+Current evidence is [ticket52](../evidence/ticket52/README.md). Separate Spec and
+Standards source/fixture/residual packet reviews through545d99a68 report0/0;
+all 121 hashes reproduce. The identity reference uses already committed accepted48
+identities plus the literal new policy case and is honestly recorded during
+execution. Counts are expectations until actual complete output is parsed.
+
+Canonical ordinary37/0.1.37 is prepared, **unpublished** at .scratch/review-builds/37.
+Source 25159f3a64041d8944c5bcd967b0ba6b1cd475d5; APK SHA256
+08f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4.
+Same established certificate/package; actual APK is nondebuggable and nonprofileable,
+with backup disabled, min29/target36 and REVIEW_BUILD=true. Push/Posts-Giphy/Chat-Giphy remain
+unconfigured. No production change occurred after this build. Finish required
+full results, retain originals/gates and combined review, then publish37 via
+canonical publisher, independently verify public bytes/metadata and preserve
+immutable35/separate36. Close52 only after its actual criteria pass. Parent36
+and physical/configured/operations/store requirements remain open.
+
+External raw artifacts are under /mnt/storage/redsquare-android-artifacts:
+policy52-full10-39213969388, policy52-chatgifs10-39216609812,
+policy52-full17-39213972826 and policy52-full10-recheck-39217149317. The two full
+watchers download named artifacts on completion; logs/results are under
+/tmp/redsquare-policy52-full17-* and /tmp/redsquare-policy52-full10-recheck-*.
+No node, cloud or store action occurred.
+
+After acceptance of52, claim53 sequentially. It prepares versioned installation-local
+content-policy agreement with explicit draft-aware previews and final-release
+publication gating, preserving available reading, wallet/payments, reporting,
+identity/backend and pre-claim queue cancellation. Read its current GitHub body
+and planning comment. No issue53 source exists yet; no final policy is approved by a
+fixture. Continue other substantive native work under36 as justified, leaving
+real external prerequisites in OWNER_INPUTS.md rather than manufacturing closure.
 
 ## Accepted issue51: complete 16 KB runtime proof
 

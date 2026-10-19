@@ -1,0 +1,2 @@
+PASS backend=official observedAt=1792394749527 criteria={"request":"load","field1":"RedSquare","flagged_ne":1,"limit":100,"created_earlier_than":1792394747720} rows=100 posts=87 ignored=0
+PASS backend=official observedAt=1792394749759 criteria={"request":"load","field1":"RedSquareRetweet","flagged_ne":1,"limit":100,"created_earlier_than":1792394749529} rows=39 posts=20 ignored=0
