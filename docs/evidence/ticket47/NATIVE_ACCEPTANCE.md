@@ -42,3 +42,19 @@ Earlier full failures stay failed: Android10 first39090558349 physical swipe (ge
 Canonical signed29 preparation succeeds at72ad, version29/0.1.29, SHAaef4996a7e6a1f0c43dda6e664686c0ccf944b24b7abbe508b1c6545834514ef; both preparation reviews0. Combined whole47 review atfdbfca9d6 reports Standards0/Spec0 after the current-handoff correction. Canonical publisher exits0; [publication packet](signed-preview29-published/README.md) retains independent actual public page/latest/immutable29/APK download, hash, established certificate/package/min29 and unchanged immutable28 metadata/actual APK checks. Beta29 is live at https://davidengelen.nl/redsquare/. No physical update/performance claim is made. Publication bookend4662915ee reports Standards0/Spec0. Issue47 is CLOSED: https://github.com/robelene112/redsquare-android/issues/47#issuecomment-6245494664.
 
 Controlled native injection and owned gateway/sender acceptance do not establish actual configured Google closed-app delivery, deployed observer coverage, public chain inclusion or complete history. Original32/33/34 keep their real cloud/hosting/physical requirements. Pixel7 installation/update/wallet-data continuity and measured launch targets remain35; publisher/account/privacy/declaration/Play acceptance remains36.
+
+## Parent34 development completion, 2026-10-19
+
+The owner now parks actual service/account/phone prerequisites while completing
+native tickets. Accepted44/47 supply group interests/shared consent, membership/
+category/mute/capacity controls, durable current-scope receipt, unencrypted label,
+exact tap destination and same-worker three-PID recovery. Complete54 retains all
+these gates in published beta40. Parent33 development is closed; all34 native
+prerequisites26/29/33/47 are closed. Earlier parent-open statements describe the
+former staging. Native34 can close for development after transition review.
+
+Actual configured closed-app group Google delivery, category/conversation controls,
+correct group opening and unencrypted label stay unchecked as `GROUP_PUSH` in
+[release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+Shared configured SDK/registration/interruption/locked/Doze and hosting checks stay
+`SOCIAL_PUSH`. No controlled sender or host-started process proves Google delivery.
