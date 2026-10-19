@@ -50,7 +50,6 @@ and five fresh isolated launches each≤5000ms under the maintained
 intact and use only the separate timing installation. Later provider/startup
 configuration changes require a corresponding candidate and renewed measurements.
 
-
 Both complete native packets match the independently frozen plan exactly:
 11PASS native feed/public-read identities and threePASS signed wallet observer
 methods per SDK. There are three normal native command completions and three
@@ -68,5 +67,7 @@ No physical timing or ordinary40 phone-update result is inferred from them.
 
 The retained packets are `isolated41-android10` and `isolated41-android17`. Source
 is b76fd9269, with no app/harness changes from accepted df941. Combined final
-source/evidence/publication review remains pending at this checkpoint. Parent35
-and the genuine provider/physical/operations/Play gates remain OPEN.
+source/evidence/publication review at1d9bb4378 reports Spec0, documented
+Standards0 and heuristic0. Fresh reviewer public reads also match the actual
+41/40/36 APKs. This bounded candidate delivery is accepted. Parent35 and the
+genuine provider/physical/operations/Play gates remain OPEN.

@@ -69,11 +69,11 @@ page/latest/immutable/APK also remained unchanged. Timing latest is now41;36 sta
 unpublished; never publish it as the corrected candidate. Never overwrite releases,
 change signing/package identity or erase the owner's wallet. OWNER_INPUTS names40.
 
-## Current bounded continuation: matching timing41 for35
+## Accepted matching timing41 delivery for35
 
-No new app feature is being implemented. Prepare/deliver the isolated timing
-candidate for the existing physical acceptance in35, without claiming that parent
-complete. [Prepared41](../evidence/ticket35/prepared41/README.md) contains six
+The isolated timing candidate for the existing physical acceptance in35 is
+delivered. No new app feature or provider configuration changed, and parent35
+remains open. [Prepared41](../evidence/ticket35/prepared41/README.md) contains six
 public-safe hashes. The actual APK is `.scratch/performance-builds/41/redsquare.apk`.
 
 It uses the exact same frozen df941 app source as ordinary40 and both accepted
@@ -107,11 +107,14 @@ Root opened six original screenshots per SDK; only the four already qualified
 absent failure-only wallet captures recur. Current packets are retained under35.
 No app/harness/provider configuration changed from accepted df941.
 
-Remaining steps: finish combined source/evidence/publication reviews, update35
-with the actual progress without closing its physical gates, then push the final
-bookkeeping. OWNER_INPUTS now links ordinary40 and matching timing41, with the
-physical/configuration limitations explicit. No further unblocked native feature
-implementation is identified; genuine prerequisites remain in the table below.
+Combined source/evidence/publication reviews at1d9bb4378 report Spec0,
+documented Standards0 and heuristic0. The bounded delivery is accepted. Update35
+with this progress while keeping its genuine physical/integration gates open.
+OWNER_INPUTS links ordinary40 and matching timing41, with those limitations
+explicit. No native run or local builder/download remains pending. No further
+unblocked native feature implementation is identified; genuine prerequisites are
+in the table below. Continue when their inputs or external state change, without
+repeating completed checks or treating placeholders as completion.
 
 Temporary `/tmp/redsquare-performance41-publication-check.py` has completed both
 bookends. Raw public files are on storage in `performance41-publication`. Do not
