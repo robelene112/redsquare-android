@@ -40,8 +40,21 @@ Focused10 run39292896279 at404 is SUCCESS: publisher3/3 (13.916s), profile2/2
 (12.710s), request1/1 (6.918s), availability1/1 (14.369s), viewport1/1 (13.884s),
 reader1/1 (14.724s), all exits/marker. Actual larger text/IME/physical actions and
 exact unsent Chat return now finish. Email and request XML roots match actual
-windows; root opened original long-request/Chat captures. Final production can
-now freeze. No54 full run has yet been dispatched at this checkpoint.
+windows; root opened original long-request/Chat captures. Final production is now frozen. Full10 run39294146155 and full17 run39294150546
+are dispatched atdf941ab6c, with completion pending. All256 production/build
+objects match404 exactly; object-list hash783b738e94df11cbb1938bc67cf9b3fd756fc7bb5983425fb2423a10891a63dd.
+Ordinary40 is prepared from the same df941 source. Canonical build succeeds3m34s;
+actual APK/signature/package/manifest/DEX checks pass. APK SHA256:
+0a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600.
+It remains unpublished pending both full suites and combined review.
+
+Full17 run39294150546 has completed SUCCESS in all three jobs. Retained full17
+evidence matches the independent catalog exactly:467PASS,120 normal completions,
+34 deliberate interruptions and33 PASS continuity records. Partition counts are
+Chat183/Social208/Wallet76. Root opened all18 selected original PNGs and retained
+their unchanged XML/hash records, including eight publisher screens. Only the
+exact five accepted53 optional visual-observer gaps recur; no new gap is accepted.
+Full10 remains pending. No combined final acceptance/publication is claimed yet.
 
 ### Runtime findings that govern the correction
 
@@ -75,8 +88,8 @@ for every subsequent UI change. All17 Chat/Social/Wallet partitions must complet
 The independent [expected catalog](../evidence/ticket54/full-identity-reference.json)
 was committed before full execution: accepted53 plus8 new terminal methods,
 466/467 identities,119/120 normal class completions, unchanged34 deliberate
-interruptions and33 continuity records. Its source/run fields remain empty until
-actual dispatch. Preserve every prior identity/assertion/deadline and the single
+interruptions and33 continuity records. Its source/run fields now record the actual
+df941 dispatch, without claiming full completion. Preserve every prior identity/assertion/deadline and the single
 established API29 Profile assumption. A killed setup phase is not terminal PASS.
 
 Temporary `/tmp/redsquare-policy54-retain-full.py` is adapted from the53 retainer;
@@ -107,21 +120,36 @@ Never rebuild/overwrite immutable releases or change package/signing identity.
 Ordinary39 is prepared locally from00f, verified but obsolete/unpublished after
 the window correction. Never publish it as the corrected candidate. Its hash is
 `7c93932e7618b738b7cfcf013cf5e6a8275875cfe04e4cdde61bfef364df5efa`.
-Reserve a fresh ordinary version after freeze, likely40, using
-`scripts/review-build`. Publish only after full/review acceptance via canonical
+Ordinary40 is prepared after freeze with `scripts/review-build`, from df941.
+Publish only after full/review acceptance via canonical
 `scripts/review-publish`. Update OWNER_INPUTS.md with actual delivery afterward.
 
-Six pre-publication old38/37/35 and performance36 snapshots are outside Git in
-`/mnt/storage/redsquare-android-artifacts/publisher54-publication39`.
-`/tmp/redsquare-policy54-publication-check.py` still targets39; adapt it and its
-raw directory for the actual new candidate before use. No54 publication ran.
+Six original pre-publication old38/37/35 and performance36 snapshots are preserved
+outside Git in `publisher54-publication39` under the artifacts root. They are
+copied without alteration to `publisher54-publication40` for the actual candidate.
+The adapted `/tmp/redsquare-policy54-publication40-check.py` now targets40 and
+checks actual new40 plus immutable38/37/35 and separate performance36. Inspect it
+before use; no54 publication has run. The old39 helper must not be used to publish.
 No APK/credential belongs in Git. [Delivery instructions](../REVIEW_BUILDS.md).
 
 Performance36 remains separately LIVE at <https://davidengelen.nl/redsquare/performance/>,
 with independent UID/wallet. SHA256:
 `e183dcc21c0c154fee578366534f49bd9d837c65e57c84e84c57ce8d1afb4680`.
-It is an older timing checkpoint. After54, prepare a matching final timing
-candidate for35 if useful; never label old36 as current-final-code Pixel proof.
+It is an older timing checkpoint. Never label old36 as current-final-code
+Pixel proof. The matching candidate below still needs its own delivery checks.
+
+Matching performance41 is now prepared locally from the same frozen df941 code,
+without source changes or publication. Actual APK, certificate, manifest and DEX
+checks pass: separate `.performance` package, profileable/nondebuggable, no backup,
+review=false, Push=false and both GIF options absent. SHA256:
+`cb124805454e59d9bf9474d8352a74594020bce445e2f1434144e448982af299`.
+Gradle reports BUILD SUCCESSFUL in3m and the canonical builder prints its final
+signed path/complete metadata. Outer exec78814 reports143 after that output;
+do not describe it as an observed command exit0. Independent actual-artifact
+verification exec62093 exits0. No local builder/download remains active.
+The build log is on storage at `publisher54-performance41-build.log`.
+Retain/review its public-safe metadata and publish separately only after54;
+actual two-SDK installation/isolation proof and physical timing remain pending.
 
 ## Accepted baseline and remaining gates
 
@@ -158,8 +186,7 @@ in the central list instead of delegating research facts to David.
 ## Environment and history
 
 Production netcup152.53.197.181; workspace paths remain `/home/david`. Old Hetzner
-writers stay stopped. Read operations before any node access. No local Gradle,
-APK download or emulator session is currently active. This VPS has no KVM; use
+writers stay stopped. Read operations before any node access. No local Gradle, emulator or APK download session is active. This VPS has no KVM; use
 hosted KVM and canonical Docker builders, preserve pins, and drain owned local
 Gradle before source edits. Do not start unsupported software-emulator experiments.
 Verify actual mounts/space before large writes; use

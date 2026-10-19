@@ -318,3 +318,47 @@ Both review axes through404 report0, including preservation of existing full-scr
 bar styling and floating platform appearance. Complete current-source10/17 runs
 and a fresh signed candidate remain required; older17 focused evidence does not
 replace that obligation. The independent eight-method catalog remains unchanged.
+
+## Final full dispatch and prepared ordinary40
+
+Full10 run39294146155 and full17 run39294150546 execute the same frozen
+source `df941ab6c70118275f4b257220905f5bed93d33d`, with public feed reads and
+actual35/36 isolation enabled. Completion remains pending. The previously committed
+independent identity plan is unchanged; source/run provenance is added after
+actual dispatch. All256 production/build objects match focused404 exactly,
+object-list SHA256783b738e94df11cbb1938bc67cf9b3fd756fc7bb5983425fb2423a10891a63dd.
+No older17 result substitutes for these current full gates.
+
+Ordinary40/0.1.40 is prepared from that same source, canonical build SUCCESS
+3m34s. Actual APK SHA2560a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600;
+established certificate, package, min29/target36, nondebug/nonprofileable/no
+automatic backup pass. Actual DEX review=true, Push=false and both GIF options
+absent; manifest matches38 except version. The public-safe prepared40 packet
+contains metadata/check outputs, never the APK or signing material. It remains
+unpublished pending full acceptance and combined reviews.39 remains obsolete;
+public38 and separate performance36 remain unchanged.
+
+## Complete current-source Android17 GREEN
+
+Full17 run39294150546 is completed SUCCESS at the frozen df941 source. All three
+jobs succeed: Chat183, Social208 and Wallet76 identities. The independent combined
+catalog matches exactly467, with467PASS,120 normal class completions,34 deliberate
+interruptions and33 PASS continuity records. There are no missing/extra identities,
+unexpected assumptions or nonzero class exits. Every original gate remains.
+
+The packet in `full17` retains actual run/job metadata, native outcomes, exact
+catalog comparison, raw-archive member hashes and structural validation. New
+publisher classes pass3/2/1/1/1; the existing reader passes1. Class times are
+15.646/14.330/7.305/16.527/14.506/17.797 seconds. Actual1.3font, real IME,
+physical footer actions, missing handlers and exact unsent Chat preservation pass.
+The only visual observer gaps are the exact five already documented optional53
+observations: unavailable legacy Chat image-history archive and four absent
+failure-only public-wallet captures. New publisher captures validate normally.
+
+Root opened all18 selected unchanged original PNGs, with their XML/hash records:
+eight publisher screens plus existing light theme, generic group notification,
+agreement failure/reconciliation, private/group queue cancellation and actual
+cold-process draft/send states. Owner/Official report XML shows the exact distinct
+backend URLs; the corresponding original PNGs have different hashes. No image
+transformation was made. Full10 remains pending. Neither ordinary40 nor timing41
+has been published, and no physical/provider/operations/store acceptance is claimed.

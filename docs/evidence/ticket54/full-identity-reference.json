@@ -123,7 +123,40 @@
       "expectedContinuityRecords": 33
     }
   ],
-  "executingRuns": {},
-  "executingSources": {},
-  "limits": "Full54 execution has not started. Source/run fields remain empty until actual dispatch; focused checks do not complete full acceptance."
+  "executingRuns": {
+    "android10": 39294146155,
+    "android17": 39294150546
+  },
+  "executingSources": {
+    "android10": "df941ab6c70118275f4b257220905f5bed93d33d",
+    "android17": "df941ab6c70118275f4b257220905f5bed93d33d"
+  },
+  "limits": "Expected identity catalog was committed before full execution; actual dispatch provenance added afterward. Full54 completion, combined reviews, corrected signed delivery and physical/provider/store acceptance are not yet established.",
+  "productionComparison": {
+    "sources": [
+      "404f36c91",
+      "df941ab6c70118275f4b257220905f5bed93d33d"
+    ],
+    "paths": [
+      "app/src/main",
+      "app/src/performance",
+      "app/build.gradle.kts",
+      "core/src/main",
+      "core/build.gradle.kts",
+      "push-gateway/src/main",
+      "push-gateway/build.gradle.kts",
+      "settings.gradle.kts",
+      "build.gradle.kts",
+      "gradle.properties",
+      "gradle/wrapper",
+      "build-support",
+      "app/src/debug",
+      "app/src/release",
+      "gradlew",
+      "gradlew.bat"
+    ],
+    "identical": true,
+    "objectCount": 256,
+    "objectListSha256": "783b738e94df11cbb1938bc67cf9b3fd756fc7bb5983425fb2423a10891a63dd"
+  }
 }
