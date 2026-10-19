@@ -80,7 +80,9 @@ with (destination / ".publish.lock").open("w") as lock:
         (stage / "redsquare.apk").chmod(0o644)
         metadata["apkUrl"] = f"https://davidengelen.nl/{publication_path}/releases/{metadata['versionCode']}/redsquare.apk"
         metadata["notes"] = args.notes
-        (stage / "manifest.json").write_text(json.dumps(metadata, indent=2) + "\n")
+        manifest_path = stage / "manifest.json"
+        manifest_path.write_text(json.dumps(metadata, indent=2) + "\n")
+        manifest_path.chmod(0o644)
         stage.rename(release)
     finally:
         if stage.exists():

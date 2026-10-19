@@ -206,3 +206,16 @@ uses the maintained outstanding-SDK fixture exception. The earlier failed10 run
 remains FAILURE. Final combined review and ordinary37 publication are next;
 physical Pixel, configured services, actual approved policy/operations and Play
 acceptance remain open.
+
+## Publication37
+
+Final combined reviews at3097c529f report Standards0/Spec0 and approve ordinary
+review publication. Canonical publisher succeeds. Independent download initially
+finds a0600 immutable-manifest/HTTP403 error; a targeted0644 recovery and explicit
+publisher-mode correction restore actual page/metadata/APK verification. The
+[publication packet](publication37/README.md) distinguishes retained originals
+from the initial operator-only error observation. Actual ordinary37 is now
+published and independently verified. Publication/source residual review is
+pending; child52 remains open until that review completes. Physical/configured/
+approved-policy/operations/store criteria remain open, and no final policy was
+published or agreed through this reader.

@@ -1,0 +1,49 @@
+{
+  "page37.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "latest37.json": {
+    "http": 200,
+    "bytes": 651,
+    "sha256": "d380ba9e15d1a4cf32eecc4b0354ee75e6a644d193d17a88453a67135c33e192"
+  },
+  "immutable37.json": {
+    "http": 200,
+    "bytes": 651,
+    "sha256": "d380ba9e15d1a4cf32eecc4b0354ee75e6a644d193d17a88453a67135c33e192"
+  },
+  "redsquare37.apk": {
+    "http": 200,
+    "bytes": 37590131,
+    "sha256": "08f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4"
+  },
+  "immutable35-after.json": {
+    "http": 200,
+    "bytes": 598,
+    "sha256": "be6964d97479ca3c92cbe0b920b407810d2690b0860b07debea749769a29de0e"
+  },
+  "performance-page36-after.html": {
+    "http": 200,
+    "bytes": 2629,
+    "sha256": "c652ee76fd6c9fdd4e087e8bb46fad746b7876bc60454344c7aaf184df913d1b"
+  },
+  "performance-latest36-after.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  },
+  "performance-immutable36-after.json": {
+    "http": 200,
+    "bytes": 678,
+    "sha256": "a6e0c44e64f36cd5a2f00ea41097cdcbabe97dda2cd7a50a5d294e09f3686e71"
+  },
+  "result": "PASS",
+  "source": "25159f3a64041d8944c5bcd967b0ba6b1cd475d5",
+  "actualApkMatchesPrepared": true,
+  "establishedCertificate": true,
+  "ordinary35MetadataUnchanged": true,
+  "separatePerformance36Unchanged": true,
+  "physicalDeviceAcceptance": false
+}
