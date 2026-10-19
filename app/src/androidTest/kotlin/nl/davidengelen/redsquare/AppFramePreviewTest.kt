@@ -40,6 +40,22 @@ class AppFramePreviewTest {
         capture("home-return-preserved-reminder.png")
     }
 
+    @Test fun primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor() = withFirstUseFeed("profile-navigation") {
+        val draft = "Unsent profile edit retained through primary navigation"
+        ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
+        ui.waitUntil(15_000) { ui.onNode(hasText("Edit profile") and hasClickAction()).isDisplayed() }
+        ui.onNode(hasText("Edit profile") and hasClickAction()).performScrollTo().performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+        ui.onNode(hasSetTextAction()).performTextReplacement(draft)
+        ui.onNode(hasText("Home") and hasClickAction()).performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+        ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
+        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
+        ui.onNode(hasSetTextAction()).assertTextContains(draft)
+        capture("profile-edit-retained-after-home.png")
+    }
+
     private fun withFirstUseFeed(name: String, block: () -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -48,13 +64,16 @@ class AppFramePreviewTest {
         val wallet = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        val retained = ChatFixtureState(context, listOf("feed."), wallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("feed.", "profile.", "profiledetails.", "profiledraft."), wallet.publicKey)
         val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
         val root = JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
             .asJsonObject.get("archiveRow")
         val peer = ControlledFeedPeer("[$root]", archiveResponse = { criteria ->
-            check(criteria.get("field1").asString == "RedSquare")
-            "[$root]"
+            when (criteria.get("field1").asString) {
+                "RedSquare" -> "[$root]"
+                "RedSquareLike" -> "[]"
+                else -> error("Unexpected frame browsing request")
+            }
         })
         var primary: Throwable? = null
         try {
