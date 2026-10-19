@@ -333,3 +333,21 @@ longer skip durable claim for an uncertain original; both foreground and worker
 socket enqueue also recheck permission/identity/current original without another
 state mutation. Read-only reconciliation and existing claim persistence remain.
 Runtime GREEN and all complete acceptance remain pending.
+
+Queue GREEN39245960220 at028cb8800 is SUCCESS: agreement3PASS/20.637s,
+surfaces4PASS/24.747s, group7PASS/47.244s, author1PASS/7.699s, then
+Post2PASS/14.778s, private2PASS/16.343s and group2PASS/17.41s,21PASS total.
+All six headless checkpoints record verified expected client identity. Root
+opened Post review/cancellation, private forwarding and restored group draft
+originals. `queue-green10/SHA256SUMS` binds the original outputs/checkpoints/
+captures. Standards0hard/1duplication heuristic and Spec0; refactor0a8a5cfc7
+centralizes the same guard under PostDraftStore's existing lock, with correction
+review0. This is focused proof, not complete acceptance.
+
+Source review identified a separate manual Post recovery obstruction: its early
+agreement preflight also runs before read-only lookup of an old uncertain
+original. The new aa42f648f tracer seeds only that legacy manual intent
+(queued=false/automatic=false), requires exact-original lookup and Available
+without terms or rebroadcast under ready=false, and preserves selection/signed
+bytes. Both tracer reviews0. Actual RED39246950323 is pending, with no functional
+recovery correction yet. All earlier classes and class bounds remain.
