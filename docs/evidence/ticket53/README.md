@@ -429,3 +429,29 @@ keeps the exact draft, wallet/backend and worker identity with zero publication.
 layout correction was needed for this observed configuration. Both tracer
 reviews0. A next single private-Chat tracer reuses the same already-reviewed
 fixture conditions; it is additional coverage, not yet runtime acceptance.
+
+
+Private viewport focus39253777508 at28b2f210a is SUCCESS:25PASS across the eight
+native classes, including3private-queue cases/18.299s and3group-queue cases/19.13s.
+The unchanged real process recovery/restoration also completes. Packet
+`viewport-private-green10/SHA256SUMS` binds46 originals/metadata. Actual1.3 font
+and independent1.0 restoration are recorded for both Chat variants. Root opened
+private before-review, after-terms-cancel and restored-draft originals: the full
+physical cancellation target remains visible with backup guidance, offline status
+and Required hint; physical cancellation restores the exact editable text and
+Send. No production layout correction was needed in the observed configuration.
+Both private-tracer source reviews report0.
+
+The earlier full ed1 runs39250479060/39250483054 are CANCELLED, superseded by
+complete current-source runs after these two extra application observations were
+added. The completed old Android17 Social and Wallet jobs were SUCCESS, but the
+whole runs are not accepted. `superseded-ed1` preserves actual before/after metadata.
+No failure or cancellation is relabelled SUCCESS, and no focused/full combination
+exception is introduced. Fresh complete Android10 run39254786488 and all three
+Android17 partitions in39254789942 execute at28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e.
+Both enable approved public reads and the unchanged immutable35/performance36
+checks. The revised independent identity reference expects458/API10 and459/API17,
+with unchanged114/115 normal completions,34 deliberate interruptions and33
+continuity records. These remain expectations, not observed final results.
+All251 production/build objects match ed1,046 and28b exactly; prepared38 retains
+that production source. Final complete outcomes/reviews/publication remain pending.

@@ -8,10 +8,10 @@
   "recordedDuringExecution": true,
   "notPreExecutionPlan": true,
   "basis": "Previously committed accepted52 exact path/class/test catalogs plus literal new native and process test identities from the source, independent of observed new outcomes.",
-  "executingSource": "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
+  "executingSource": "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e",
   "executingRuns": {
-    "android10": 39250479060,
-    "android17": 39250483054
+    "android10": 39254786488,
+    "android17": 39254789942
   },
   "references": [
     {
@@ -169,9 +169,21 @@
           "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
           "test": "restoreOriginalEncryptedInstallationFiles",
           "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+          "occurrences": 1
         }
       ],
-      "expectedIdentities": 456,
+      "expectedIdentities": 458,
       "expectedNormalCompletions": 114,
       "expectedDeliberateInterruptions": 34,
       "expectedContinuityRecords": 33,
@@ -332,37 +344,33 @@
           "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
           "test": "restoreOriginalEncryptedInstallationFiles",
           "occurrences": 1
+        },
+        {
+          "path": "agreement-group-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+          "test": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+          "occurrences": 1
+        },
+        {
+          "path": "agreement-private-queue-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+          "test": "requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+          "occurrences": 1
         }
       ],
-      "expectedIdentities": 457,
+      "expectedIdentities": 459,
       "expectedNormalCompletions": 115,
       "expectedDeliberateInterruptions": 34,
       "expectedContinuityRecords": 33,
       "knownAssumptions": 0
     }
   ],
-  "subsequentTracer": {
-    "source": "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3",
-    "additional": [
-      {
-        "path": "agreement-group-queue-ui.txt",
-        "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
-        "test": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
-        "occurrences": 1
-      }
-    ],
-    "expectedIdentities": {
-      "android10": 457,
-      "android17": 458
-    },
-    "normalCompletionsUnchanged": true,
-    "productionUnchanged": true
-  },
   "limits": "These are expected comparisons, never observed pass counts. Every application, recovery, public-read, signed update/isolation and final gate must complete. All Android17 partitions are required. Production changes require fresh full acceptance on both SDKs.",
   "productionComparison": {
     "sources": [
       "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
-      "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3"
+      "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3",
+      "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e"
     ],
     "paths": [
       "app/src/main",
@@ -385,5 +393,12 @@
     "identical": true,
     "objectCount": 251,
     "objectListSha256": "978145ce38b749de0bbf836e66d8bd3bb13c16e741ed423be2099252b7c7e27c"
+  },
+  "historicalSupersededFullRuns": {
+    "android10": 39250479060,
+    "android17": 39250483054,
+    "source": "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
+    "actualConclusion": "cancelled",
+    "reason": "Superseded by complete current-source suites after two supplementary viewport cases were added. Original run outcomes are preserved; completed jobs do not imply full acceptance."
   }
 }
