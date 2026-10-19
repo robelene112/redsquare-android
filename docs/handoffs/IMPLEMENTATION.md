@@ -98,28 +98,42 @@ earlier IME captures and accepted53's reader;17 reports full320x640. UiAutomator
 visibleBounds and hierarchy both clip to AccessibilityWindowInfo and are not
 independent observations. No exact cause is established.
 
-Current235666326 adds only a failure-time geometry snapshot: raw accessibility
-node/window bounds and actual same-process View tree dimensions/location/global
-visible rectangles/elevation, without user content. Original48dp assertions,
-physical taps and bounds remain. Diagnostic exceptions remain suppressed beneath
-the original failure. Focused10 run39290493647 is pending. Both review axes
-through235666326 report0. Pinned Compose documents a pre-S elevation/accessibility
-bug and caps dialog elevation8dp; do not infer that this proves a specific cause
-or weaken assertions without actual geometry evidence.
+At235666326, diagnostic10 run39290493647 reproduces the same Done failure
+(13.095s), preceding7 methods PASS. The raw diagnostic in
+`ticket54/viewport-window-geometry10` observes actual accessibility root and
+focused views320x640, but AccessibilityWindowInfo[-32,-32][288,608]. DecorView
+has16px elevation and DialogLayout8px. No raw clickable-node geometry is claimed:
+the exact-label lookup yielded none. Independent font restoration passes.
 
-Signed39/0.1.39 is prepared, NOT published, from00f812d6c. Canonical build
-passes4m36s. Actual APK hash7c93932e7618b738b7cfcf013cf5e6a8275875cfe04e4cdde61bfef364df5efa,
-established certificate, nondebug/nonprofileable/no automatic backup, min29/target36,
-actual DEX review=true and Push/GIF options absent. Manifest matches38 except
-version. Public38 remains live. Prepared39 is not accepted54 or a Pixel result.
+Current732944b93 removes unnecessary shadow elevation in the two existing
+full-screen surfaces, PolicyCenter and PublisherEmailDialog. The child is zeroed
+before a guarded Window.setElevation(0) so recomposition does not repeatedly
+recreate a surface. Public API22 fits min29 and API29 PhoneWindow recalculates
+surface insets. No padding,48dp assertion, physical action or deadline changes.
+Focused10 run39291625428 is pending to establish effectiveness through the whole
+viewport/reader journey. Prior17 focused success is at00f, not fresh732 proof.
+Both review axes through235 report0;732 review is pending. Failure geometry
+snapshots remain, without user content; capture errors are suppressed beneath
+the original failure. Do not start final fulls before the complete viewport passes.
 
-Finish the bounded geometry observation/correction, then freeze production and
-run fresh full10+17 with the independent accepted53+8 catalog (466/467 identities,
+Signed39/0.1.39 is prepared, NOT published, from00f812d6c. Its canonical build
+and actual APK/hash/signature/manifest/DEX checks pass, but it predates the shadow
+correction and must not be published as the final candidate. APK hash:
+7c93932e7618b738b7cfcf013cf5e6a8275875cfe04e4cdde61bfef364df5efa.
+Public38 remains live; never overwrite it. Build a fresh reserved ordinary
+candidate after the production freeze, likely40. Six pre-publication old38/37/35
+and performance36 snapshots are outside Git under
+`/mnt/storage/redsquare-android-artifacts/publisher54-publication39`; the prepared
+verification helper `/tmp/redsquare-policy54-publication-check.py` still targets39
+and must be adapted for the actual new candidate before use. No publication ran.
+
+Finish the bounded geometry correction, then freeze production and run fresh
+full10+17 with the independent accepted53+8 catalog (466/467 identities,
 119/120 class completions, unchanged34 interruptions/33 continuity records),
-two-axis combined reviews and ordinary signed delivery. Do not rebuild immutable38
-or publish39 before acceptance. Update OWNER_INPUTS.md only with actual release
-status. Actual contacts/policy/operations/provider/physical/store gates remain
-open. Do not stop at this intermediate slice while independent work remains.
+two-axis combined reviews and ordinary signed delivery. Update OWNER_INPUTS.md
+only with actual release status. Actual contacts/policy/operations/provider/
+physical/store gates remain open. Do not stop at this intermediate slice while
+independent work remains.
 
 ## Accepted issue52: offline draft privacy/safety reader
 
