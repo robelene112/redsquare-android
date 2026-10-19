@@ -62,7 +62,7 @@ private enum class PolicyDocument(@StringRes val title: Int, @StringRes val summ
 @Composable
 internal fun PolicyCenter(onClose: () -> Unit) {
     var selectedName by rememberSaveable { mutableStateOf<String?>(null) }
-    var supportOpen by rememberSaveable { mutableStateOf(false) }
+    var contactName by rememberSaveable { mutableStateOf<String?>(null) }
     val selected = PolicyDocument.entries.find { it.name == selectedName }
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
@@ -109,10 +109,12 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                                 }
                             }
                             if (document == null) {
-                                OutlinedCard(onClick = { supportOpen = true }, modifier = Modifier.fillMaxWidth()) {
-                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                        Text(stringResource(R.string.publisher_contact), style = MaterialTheme.typography.titleMedium)
-                                        Text(stringResource(R.string.publisher_contact_summary), style = MaterialTheme.typography.bodyMedium)
+                                PublisherContactPurpose.entries.forEach { purpose ->
+                                    OutlinedCard(onClick = { contactName = purpose.name }, modifier = Modifier.fillMaxWidth()) {
+                                        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                            Text(stringResource(purpose.entry), style = MaterialTheme.typography.titleMedium)
+                                            Text(stringResource(purpose.summary), style = MaterialTheme.typography.bodyMedium)
+                                        }
                                     }
                                 }
                                 PolicyDocument.entries.forEach { entry ->
@@ -139,7 +141,9 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                 }
             }
         }
-        if (supportOpen) PublisherSupportDialog { supportOpen = false }
+        PublisherContactPurpose.entries.find { it.name == contactName }?.let { purpose ->
+            PublisherEmailDialog(purpose) { contactName = null }
+        }
     }
 }
 

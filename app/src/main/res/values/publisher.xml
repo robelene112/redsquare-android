@@ -15,4 +15,14 @@
     <string name="publisher_compose_email">Compose email</string>
     <string name="publisher_email_unavailable">No email app could be opened. Your description is still here. Install or enable an email app, then try again.</string>
     <string name="publisher_email_requested">Email draft requested. Review and send it in your email app. No message is sent automatically.</string>
+    <string name="publisher_safety_entry">Safety concerns</string>
+    <string name="publisher_safety_summary">Contact the app publisher about safety concerns or user reports.</string>
+    <string name="publisher_safety">Publisher safety</string>
+    <string name="publisher_safety_subject">Red Square safety concern</string>
+    <string name="publisher_safety_unavailable">Publisher safety contact is not available in this preview. Contact details are still being prepared.</string>
+    <string name="publisher_privacy_entry">Privacy inquiries</string>
+    <string name="publisher_privacy_summary">Ask the app publisher about privacy and personal data.</string>
+    <string name="publisher_privacy">Publisher privacy</string>
+    <string name="publisher_privacy_subject">Red Square privacy inquiry</string>
+    <string name="publisher_privacy_unavailable">Publisher privacy contact is not available in this preview. Contact details are still being prepared.</string>
 </resources>

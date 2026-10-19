@@ -92,3 +92,23 @@ through Settings and their deliberate attachment-free email drafts. Production
 still implements support only. Absent-config setup now explicitly captures and
 removes the publisher fixture before the unconfigured case, then independently
 restores it; no acceptance assertion or deadline changes.
+
+## Purpose-specific contacts RED and first minimum
+
+At `1e520524b`,17 run39281058892 actual publisher command has2 preceding PASS
+and the new safety/privacy journey fails its20second Safety concerns entry
+observation (3cases total,50.097s). Root opened the original failure PNG: the
+reader still exposes only the support contact. The separate reader class does
+not run after this failure. Production now adds purpose-specific settings
+entries, subjects and independently validated email destinations; all defaults
+remain absent/unready and the six offline documents remain unchanged.
+
+Standards found a premature visibility assumption in the new entry fixture:
+within the same20second bound it now observes the enabled clickable node,
+scrolls, asserts display and clicks. Its separate heuristic suggested sharing
+the repeated email assertion contract; assertEmailDraft retains exact scheme,
+decoded recipient, explicit recipient array, subject, body, allowed extras and
+no attachments/grants. Independent handoff counts remain outside that helper.
+Spec review through1e520524b reports0 for the tracer. Fresh production checks
+and reviews follow; contextual user reports, request pages, actual larger text,
+full suites and signed delivery remain outstanding.

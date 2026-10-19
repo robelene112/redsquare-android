@@ -29,14 +29,14 @@ import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 
 @Composable
-internal fun PublisherSupportDialog(onClose: () -> Unit) {
+internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, onClose: () -> Unit) {
     val context = LocalContext.current
     val routes = remember(context) { PublisherRoutes.load(context) }
-    val email = routes.supportEmail.takeIf { routes.ready }
+    val email = routes.email(purpose)
     if (email == null) {
         AlertDialog(onDismissRequest = onClose,
-            title = { Text(stringResource(R.string.publisher_support)) },
-            text = { Text(stringResource(R.string.publisher_support_unavailable)) },
+            title = { Text(stringResource(purpose.title)) },
+            text = { Text(stringResource(purpose.unavailable)) },
             confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.publisher_done)) } })
         return
     }
@@ -44,7 +44,7 @@ internal fun PublisherSupportDialog(onClose: () -> Unit) {
     var draftRequested by rememberSaveable { mutableStateOf(false) }
     var handoffFailed by rememberSaveable { mutableStateOf(false) }
     val appContext = stringResource(R.string.publisher_app_context, BuildConfig.VERSION_NAME)
-    val subject = stringResource(R.string.publisher_support_subject)
+    val subject = stringResource(purpose.subject)
     val body = stringResource(R.string.publisher_email_body, appContext, description)
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
@@ -60,7 +60,7 @@ internal fun PublisherSupportDialog(onClose: () -> Unit) {
         }
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
-                Text(stringResource(R.string.publisher_support),
+                Text(stringResource(purpose.title),
                     Modifier.fillMaxWidth().padding(20.dp).semantics { heading() },
                     style = MaterialTheme.typography.titleLarge)
                 HorizontalDivider()
