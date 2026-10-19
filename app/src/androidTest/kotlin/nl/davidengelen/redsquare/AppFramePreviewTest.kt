@@ -56,9 +56,10 @@ class AppFramePreviewTest {
         ui.waitUntil(10_000) { imeVisible() == true }
         ui.onNode(hasSetTextAction()).assertTextContains(draft)
         capture("unsent-profile-real-ime.png")
-        check(UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack())
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
         ui.waitUntil(10_000) { imeVisible() == false }
         ui.onNode(hasSetTextAction()).assertTextContains(draft)
+        ui.waitUntil(10_000) { ui.onNode(hasText("Home") and hasClickAction()).isDisplayed() }
         ui.onNode(hasText("Home") and hasClickAction()).assertIsDisplayed().performClick()
         ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
@@ -107,22 +108,26 @@ class AppFramePreviewTest {
                         val minimum = 48 * context.resources.displayMetrics.density - 1
                         for (label in listOf("Wallet", "Settings", "Home", "Search", "Notifications", "Chat", "Your profile",
                             "Back up", "Later", "Import an existing wallet", "New post", "More feed actions")) {
-                            val bounds = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed()
-                                .fetchSemanticsNode().boundsInRoot
+                            val node = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
+                            val visualBounds = node.boundsInRoot
+                            val bounds = node.touchBoundsInRoot
                             var native = device.findObject(By.text(label))
                             while (native != null && !native.isClickable) native = native.parent
+                            val nativeBounds = native?.visibleBounds
                             File(folder, "$name-${label.lowercase().replace(' ', '-')}-target.json").writeText(
                                 com.google.gson.JsonObject().apply {
                                     addProperty("label", label); addProperty("minimumPixels", minimum)
-                                    addProperty("composeBounds", bounds.toString()); addProperty("viewportBounds", viewport.toString())
-                                    addProperty("nativeClickableBounds", native?.visibleBounds?.toShortString())
+                                    addProperty("composeBounds", visualBounds.toString()); addProperty("touchBounds", bounds.toString())
+                                    addProperty("viewportBounds", viewport.toString())
+                                    addProperty("nativeClickableBounds", nativeBounds?.toShortString())
                                     addProperty("fontScale", context.resources.configuration.fontScale)
                                     addProperty("density", context.resources.displayMetrics.density)
                                     addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
                                 }.toString())
                             assertTrue("$label must retain a full reachable target at $name", bounds.width >= minimum &&
                                 bounds.height >= minimum && bounds.left >= viewport.left && bounds.right <= viewport.right &&
-                                bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
+                                bounds.top >= viewport.top && bounds.bottom <= viewport.bottom && nativeBounds != null &&
+                                nativeBounds.width() >= minimum && nativeBounds.height() >= minimum)
                         }
                         ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
                         if (scale <= 1.3f) assertTrue("Reading remains dominant at $name",
@@ -147,7 +152,7 @@ class AppFramePreviewTest {
             }
         } catch (failure: Throwable) { primary = failure; throw failure }
         finally {
-            cleanupAfterTest(primary, { font.restore() },
+            cleanupAfterTest(primary, { activity.close() }, { font.restore() },
                 { device.executeShellCommand("wm size ${sizeOverride ?: "reset"}")
                     check(device.executeShellCommand("wm size").trim() == originalSize.trim()) },
                 { device.executeShellCommand("wm density ${densityOverride ?: "reset"}")

@@ -1,0 +1,153 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFramePreviewTest:
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor$lambda$10(AppFramePreviewTest.kt:59)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$nGdzNqW5SHEVmmbVMIxkRXd9wr0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor(AppFramePreviewTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor(nl.davidengelen.redsquare.AppFramePreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor$lambda$10(AppFramePreviewTest.kt:59)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$nGdzNqW5SHEVmmbVMIxkRXd9wr0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor(AppFramePreviewTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24$lambda$18(AppFramePreviewTest.kt:123)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$TC9JdsVlvKZesuT82sHAJz1k4uU(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FaxbYcznwsNgnYmZzeD1gpQtoD8(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:71)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest):
+java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24$lambda$18(AppFramePreviewTest.kt:123)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$TC9JdsVlvKZesuT82sHAJz1k4uU(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FaxbYcznwsNgnYmZzeD1gpQtoD8(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:71)
+
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 52.396
+There were 2 failures:
+1) primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor(nl.davidengelen.redsquare.AppFramePreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor$lambda$10(AppFramePreviewTest.kt:59)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$nGdzNqW5SHEVmmbVMIxkRXd9wr0(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor(AppFramePreviewTest.kt:48)
+2) largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest)
+java.lang.AssertionError: Wallet must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24$lambda$18(AppFramePreviewTest.kt:123)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$TC9JdsVlvKZesuT82sHAJz1k4uU(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$24(AppFramePreviewTest.kt:105)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$FaxbYcznwsNgnYmZzeD1gpQtoD8(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$30$lambda$29$lambda$28(AppFramePreviewTest.kt:191)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$YtxNuBxvuqz6UG9X5LWi55RY53Y(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:187)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:71)
+
+FAILURES!!!
+Tests run: 4,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

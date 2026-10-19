@@ -92,3 +92,20 @@ select only the new larger-text method at the same native seam, with the existin
 180second bound. App-frame and final full scopes retain the complete class,
 including all preceding methods. This avoids rerunning the three unchanged green
 journeys for every viewport probe; a focused pass is not complete acceptance.
+
+In-case diagnostic806541b8f/run39335047387 is FAILURE. Wallet's actual130% record
+shows40x40 Compose visual bounds and48x48 native clickable bounds, with320dp/
+density1/font1.3 positively recorded. This confirms the observer mismatch; the
+fixture now measures public touchBoundsInRoot and retains visual/native records,
+requiring both touch and native minimum48dp. Root opened the original in-case
+capture: backup wrapping and broken feed tab words also put the post body below
+half the viewport. A full-width reminder heading and compact tab typography address
+that separate observed presentation problem. No global app target-size change.
+
+The same run has a second fixture failure: pressBack returnedfalse even though
+the original capture shows the real IME closed. The fixture keeps the actual
+10second IME-closed and exact-draft assertions, and waits for displayed Home;
+the driver's Boolean is no longer treated as the user-visible result. This is not
+reported as a successful application test. Root closing now precedes independent
+font/display/appearance restoration, resolving the reviewed cleanup-order finding.
+Two additional Standards findings remain subject to fix review/runtime evidence.

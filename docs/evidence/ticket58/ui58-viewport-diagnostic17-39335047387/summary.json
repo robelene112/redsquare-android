@@ -1,0 +1,30 @@
+{
+  "run": "39335047387",
+  "source": "806541b8f681b8d74b95df9bb73d7e6ef4d8a523",
+  "expectedMethods": [
+    "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+    "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+    "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor",
+    "largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes"
+  ],
+  "completions": [
+    {
+      "method": "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+      "status": 0
+    },
+    {
+      "method": "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor",
+      "status": -2
+    },
+    {
+      "method": "largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes",
+      "status": -2
+    },
+    {
+      "method": "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+      "status": 0
+    }
+  ],
+  "members": 15,
+  "limit": "Focused frame proof, not full suite or physical acceptance."
+}

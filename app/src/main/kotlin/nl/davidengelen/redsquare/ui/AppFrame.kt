@@ -67,18 +67,19 @@ internal fun CompactBackupNotice(enabled: Boolean, onBackup: () -> Unit, onLater
     Surface(Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen).padding(bottom = AppSpacing.small)
         .animateContentSize(tween(AppSpacing.transitionMillis)), shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surfaceContainerLow) {
-        Row(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
-                TextButton(onClick = onImport, enabled = enabled, contentPadding = PaddingValues(0.dp)) {
+        Column(Modifier.padding(horizontal = AppSpacing.small, vertical = 4.dp)) {
+            Text(stringResource(R.string.wallet_backup_reminder), style = MaterialTheme.typography.labelLarge)
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                TextButton(onClick = onImport, enabled = enabled, modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(horizontal = 4.dp)) {
                     Text(stringResource(R.string.wallet_import_existing), style = MaterialTheme.typography.labelMedium)
                 }
-            }
-            TextButton(onClick = onBackup, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
-                Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
-            }
-            TextButton(onClick = onLater, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
-                Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
+                TextButton(onClick = onBackup, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
+                    Text(stringResource(R.string.wallet_back_up), style = MaterialTheme.typography.labelMedium)
+                }
+                TextButton(onClick = onLater, enabled = enabled, contentPadding = PaddingValues(horizontal = 6.dp)) {
+                    Text(stringResource(R.string.later), style = MaterialTheme.typography.labelMedium)
+                }
             }
         }
     }
