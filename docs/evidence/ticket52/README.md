@@ -162,3 +162,9 @@ this is not a new16KB, physical Pixel, configured-provider or Play proof.
 
 Full Android10 recheck39217149317 remains running. No publication or child52
 acceptance follows from the Android17 result alone.
+
+Both residual packet reviews through e2e7e2293 report0/0. They independently
+reproduce all566 hashes, exact identities and bounded recovery/isolation
+observations. Standards also reproduces68 archive hashes and1792 member hashes.
+Source39218633616 at that documentation head is SUCCESS. Complete Android10
+recheck and ordinary37 publication remain pending.

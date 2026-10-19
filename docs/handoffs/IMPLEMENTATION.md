@@ -87,7 +87,9 @@ has been inferred. Original failed/cancelled runs retain their conclusions.
 
 Current evidence is [ticket52](../evidence/ticket52/README.md). Separate Spec and
 Standards source/fixture/residual packet reviews through545d99a68 report0/0;
-all 121 hashes reproduce. The identity reference uses already committed accepted48
+the focused packet reproduces all121 hashes. Subsequent full17 packet reviews
+at e2e7e2293 also report0/0, independently reproducing all566 current hashes and
+the exact432 identities. Source39218633616 is SUCCESS. The identity reference uses already committed accepted48
 identities plus the literal new policy case and is honestly recorded during
 execution. Counts are expectations until actual complete output is parsed.
 

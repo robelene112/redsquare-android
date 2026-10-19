@@ -47,7 +47,9 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 ## Controle op je Pixel 7
 
 Voer dit uit zodra er een kandidaat klaarstaat. De agent levert instructies en
-houdt deze controles open tot de resultaten er zijn (#35).
+houdt deze controles open tot de resultaten er zijn (#35). Voor de uiteindelijke
+snelheidsmeting levert de agent een timingbuild met dezelfde appcode als de
+releasekandidaat. Een meting van een oudere timingbuild blijft een checkpoint.
 
 - [ ] Een gewone update installeren vanaf <https://davidengelen.nl/redsquare/>,
   zonder verwijderen of opslag wissen. Controleer hetzelfde publieke walletadres,
