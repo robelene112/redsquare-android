@@ -39,7 +39,12 @@ was committed before dispatch. Full17 is now completed SUCCESS in all3jobs:
 467PASS/exact467,120 normal/34 deliberate/33 continuity;500 packet hashes. Root
 opened3 complete About originals plus2publicfeeds/legacyupdate. Only5knownoptional
 53 gaps recur; full17 README qualifies repeated initial viewer previews resolved
-at original detail. Full10 still runs; combined acceptance/publication is pending.
+at original detail. Full10 also completed SUCCESS:465PASS plus sole established API29 Profile
+assumption/exact466,119/34/33,470hashes and only5knownoptional53gaps. Both suites
+are complete at116e. Root opened6relevant originals per SDK, with viewer repetition
+qualified by original hashes/PNG decoding/XML. Final combined Spec0/Standards0/
+heuristic0 accepts ordinary42 for canonical publication. Before42 bookend exits0;
+publication itself and43 signed-isolation checks remain pending.
 No other app source is being implemented in parallel. While complete38 runs, root
 verified accepted native evidence and sequentially completed development parents
 16/17/19/31/32/33/34/35, each with separate0/0 reviews, commit and explicit original

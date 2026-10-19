@@ -70,3 +70,24 @@ Both independent complete17 reviews report0 findings. They reproduce all counts,
 42 selected bindings. Read-only independent PNG decoding corroborates each theme
 selection despite the repeated viewer preview. Current10 and final combined
 review/publication remain pending.
+
+## Complete Android10 GREEN and combined native checkpoint
+
+Run39310202005 also completes SUCCESS at the exact same116e source. Its independent
+466 identities match465PASS plus the established API29 Profile assumption,
+119 normal completions,34 deliberate interruptions and33PASS continuity records.
+The [full10 packet](full10/README.md) retains470 hashes; all1029PNG/897XML entries
+validate with only the same five optional53 gaps. No new skip or deadline change.
+
+Root opened the same six relevant originals per SDK. About10 fully shows platform,
+publisher and installed .dev version. A repeated System viewer preview is qualified
+by unchanged source hashes, read-only PNG decoding and independently checked XML
+rows; no app rendering defect is inferred. All old controls/recovery/public/update/
+final-identity gates remain. Both suites are now complete; combined review and
+canonical42/43 publication are next. Prepared44 is still offline, not submitted.
+
+Final combined pre-publication review reports Spec0, documented Standards0 and
+heuristic0. Reviewers independently verify470/500 packet hashes, exact catalogs,
+all old gates and the same258 production objects across all artifact sources.
+Ordinary42 is accepted for canonical publication;43 signed isolation remains
+a separate pending delivery check. Actual release36 gates stay unchecked.
