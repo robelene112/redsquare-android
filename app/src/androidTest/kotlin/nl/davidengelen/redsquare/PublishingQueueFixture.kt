@@ -131,7 +131,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                             assertEquals(workerId, current.id)
                             assertFalse("Unaccepted intent must remain retryable", current.state.isFinished)
                             if (current.state == WorkInfo.State.ENQUEUED && current.runAttemptCount >= 1 &&
-                                peer.servedChallenges.get() > 0) pending = current
+                                wallet.publicKey in peer.clientKeys) pending = current
                         }
                         if (pending == null) SystemClock.sleep(50)
                     }
@@ -144,6 +144,7 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                             addProperty("worker", paused.id.toString()); addProperty("attempts", paused.runAttemptCount)
                             addProperty("state", paused.state.name); addProperty("transaction", candidate.id)
                             addProperty("owner", wallet.publicKey); addProperty("backend", "owner")
+                            addProperty("authenticatedOwner", wallet.publicKey in peer.clientKeys)
                         }.toString())
                     }
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", endpoint)).use {
