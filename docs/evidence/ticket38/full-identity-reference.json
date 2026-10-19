@@ -1,0 +1,29 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted54 exact path/class/test catalogs. About38 extends the existing appearance method without adding, removing or renaming identities, assertions or deadlines.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket54/full10/identities.json",
+      "sha256": "f512653bf139e77239455af6b238b1692f0a3c1cf3304404e779a4a6581dee53",
+      "previousIdentities": 466,
+      "additional": [],
+      "expectedIdentities": 466,
+      "expectedNormalCompletions": 119,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket54/full17/identities.json",
+      "sha256": "8b7a17a5ddc555683cd94b3cfe71b54454752afbf576a98932a633db2fd6c475",
+      "previousIdentities": 467,
+      "additional": [],
+      "expectedIdentities": 467,
+      "expectedNormalCompletions": 120,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    }
+  ],
+  "limits": "Expected catalogs are independent of new results. Complete38 native acceptance, signed delivery and physical/provider/store checks are not yet claimed."
+}

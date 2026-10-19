@@ -25,8 +25,12 @@ Red Square app name until a later naming decision. Add an unobtrusive inline Abo
 section at the bottom of existing scrollable Settings, with the platform reference,
 independent publisher and actual version. No new external link/SDK/permission.
 The existing appearance journey now reveals/captures the reference while retaining
-all original assertions/deadlines. Tracer commit2c8bf6374 executes beta-ui10
-run39308692404, currently pending. Production About code is not written yet.
+all original assertions/deadlines. Tracer2c8bf6374 completed RED run39308692404:
+exactly one missing-reference JUnit failure in4.655s, instrumentation process exit0.
+The seven retained RED files are hashed. Production About is implemented at
+acb08e8202f1687b59df730bfabec0337eece13b. Focused verification at that exact
+source is running: Android10 run39309307556 and Android17 run39309312329.
+Neither focused result nor complete-suite acceptance is claimed yet.
 No other app source is being implemented in parallel. Complete38 code/native/full
 reviews and signed delivery, then finish the already implemented native parents
 sequentially with their exact remaining external checks linked to36. Verify each
