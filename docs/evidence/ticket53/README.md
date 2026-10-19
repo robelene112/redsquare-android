@@ -527,3 +527,36 @@ All251 production/build objects match ed1/28b/dcc, hash978145ce38b749de0bbf836e6
 The existing unchanged-production fixture rule retains complete Android17;
 this is a complete outstanding-SDK rerun, not a release-tail exception.
 No final full10 or ordinary38 publication is claimed yet.
+
+## Complete Android10 recheck and combined acceptance preparation
+
+Recheck39265216621 atdcc6f8376 is SUCCESS. Exact458 path/class/test identities
+match the independent accepted52 reference plus27 additions, with no missing or
+extra identities:457PASS and the sole existing API29 Profile assumption.
+114 normal completions,34 deliberate interruptions and33 PASS continuity records
+complete. All numeric exits are zero and the final all-partition marker exists.
+The corrected import class passes all seven original cases in205.629s.
+
+`full10` retains complete original native/environment/checkpoint text, core/lint
+summaries, direct captures, selected archived originals and external archive/
+member hashes. Structural validation passes1004PNG/872XML; the same five optional
+unavailable diagnostics as52/17 are explicitly recorded. Root opened16 original
+frames, including larger-font cancellation, restored editors, pinned save error,
+manual reconciliation, cold recovery, public feeds and signed-wallet continuity.
+See observed/NOTES.md for independent evidence and viewer/extraction limits.
+
+Publishing PID10020 is positively gone before10128. Full-wallet digest/backend/
+revision/unsent draft survive, with zero automatic publication, one deliberate
+Send and independent installation restoration. Both approved public feed/search/
+wallet reads and authenticated public Chat readiness complete. Immutable35 and
+separate36 retain UIDs10118/10119 and different wallets, unchanged ordinary
+address, original absence restoration and no cleanup failures. Legacy5-to8,
+preview update and final diagnostic also pass. These do not install candidate38.
+
+Complete17 remains at28b and complete10 atdcc. The only test correction is bounded
+import-window observation and independent fixture cleanup. All251 production/
+build objects, all other application identities/assertions/deadlines and runners
+are unchanged. This follows the existing outstanding-SDK fixture rule. Original
+full10 FAILURE and old ed1 CANCELLED runs retain their actual conclusions.
+Final combined reviews and ordinary38 publication remain before53 closure.
+No final approved policy, configured-provider, physical Pixel or Play acceptance.

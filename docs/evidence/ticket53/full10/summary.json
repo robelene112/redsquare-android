@@ -1,0 +1,68 @@
+{
+  "source": "dcc6f83761e8cab2e0b01e7e8df06cb9dec7f510",
+  "sdk": "10",
+  "partitions": {
+    "all": {
+      "identities": 458,
+      "normalCompletions": 114,
+      "deliberateInterruptions": 34,
+      "continuityRecords": 33,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 1004,
+      "xml": 872,
+      "visualErrors": [
+        {
+          "path": "all/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        },
+        {
+          "path": "all/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "all/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "all/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "all/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "files": 285
+    }
+  },
+  "identityComparison": {
+    "expected": 458,
+    "actual": 458,
+    "missing": [],
+    "extra": []
+  },
+  "totals": {
+    "identities": 458,
+    "normalCompletions": 114,
+    "deliberateInterruptions": 34,
+    "continuityRecords": 33,
+    "png": 1004,
+    "xml": 872
+  },
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/agreement53-full10-final-39265216621",
+  "limits": "Original external tar member hashes/structural validation are observations; selected originals are inspected separately. No physical/configured-provider/store acceptance.",
+  "passed": 457,
+  "assumptions": 1,
+  "assumptionIdentities": [
+    {
+      "path": "ProfilePublishingPreviewTest-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.ProfilePublishingPreviewTest",
+      "test": "newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation"
+    }
+  ]
+}

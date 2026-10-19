@@ -127,12 +127,14 @@ cleanup, without proving a product defect. Fixture-only correctiondcc6f8376 has 
 Focused import39264046264 is SUCCESS: exact10 accepted-subset identities,
 including seven import cases/risk/storage/cold recovery, with43 hashed evidence
 files and four root-opened originals. First-case UI restoration remains asserted.
-Fresh full10 recheck39265216621 is running atdcc with public reads and immutable
-35/performance36. Full reference records separate SDK sources and the old failure.
+Fresh full10 recheck39265216621 is now SUCCESS atdcc with public reads and
+immutable35/performance36: exact458 identities,457PASS plus the sole existing
+Profile assumption,114 normal completions/34 interruptions/33 PASS continuities.
+Complete full10 evidence is retained; root opened16 originals. Full reference records separate SDK sources and the old failure.
 All251 production/build objects remain identical; successful17 may use the
 existing outstanding-SDK fixture rule. Both focused evidence reviews report0,
 reproducing all43 hashes and ten accepted-subset identities. Complete10 and
-combined reviews remain.
+combined reviews remain before acceptance.
 Prepared38 remains unpublished.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
