@@ -77,6 +77,26 @@ Report what I can review on my phone and any remaining limitations. Stop before
 the next ticket.
 ```
 
+## Resume the authorized implementation queue
+
+```text
+Work in /home/david/projects/redsquare-android. Read AGENTS.md, the current
+handoff, workflow and OWNER_INPUTS.md, then inspect actual GitHub issue status.
+Continue the already authorized implementation sequentially. Finish the active
+ticket before claiming the next unblocked one. Use the real project-local skills,
+complete required checks and separate reviews, commit accepted work and publish
+ordinary signed phone-review updates through the documented procedure.
+
+Do not stop after an intermediate slice or a completed ticket while independent
+authorized work remains. Keep missing owner inputs in OWNER_INPUTS.md and use
+clearly identified placeholders where authorized. Do not repeat recorded setup
+questions or count placeholders, draft policies or controlled tests as actual
+owner approval, configured services, physical-device proof or store acceptance.
+Preserve wallet identity, unrelated files and the existing live-service boundaries.
+If all remaining work really depends on owner input, report the concrete pending
+items with a link to that single checklist rather than inventing completion.
+```
+
 ## Review or retrospective
 
 ```text
