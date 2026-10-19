@@ -168,3 +168,41 @@ reproduce all566 hashes, exact identities and bounded recovery/isolation
 observations. Standards also reproduces68 archive hashes and1792 member hashes.
 Source39218633616 at that documentation head is SUCCESS. Complete Android10
 recheck and ordinary37 publication remain pending.
+
+## Complete Android10 recheck and combined acceptance
+
+Fresh full run39217149317 at1a1a4cbd3 is SUCCESS. Exact431 path/class/test
+identities match the independent accepted48 reference plus policy case:
+430PASS and the sole existing API29 Profile assumption, no missing/extra cases
+or failures. There are104 normal completions,33 deliberate process interruptions
+and32 PASS continuity records. The exact Profile aggregate concatenation,
+all numeric exits and final all-partition completion marker pass.
+
+`full10/` retains the complete native/checkpoint/environment/core/lint outputs,
+direct originals, selected archived observations and external archive/member
+hash inventory. Structural validation passes942PNG/810XML; the same five optional
+missing diagnostics are recorded explicitly. Root opened13 originals: Light
+overview/restored Dark deletion, all three GIF credits, generic private card,
+exact group, recovered post drafts, both public feeds, signed legacy-update
+wallet and main35 before/after/separate36 wallets. Text, privacy labels and
+unchanged/different respective public addresses are visible. Observations are
+separate frames; no whole-history or real Google delivery claim is inferred.
+
+Private workerf1b571c5-f969-4b94-b44c-9530ae084740 persists across
+PIDs16759/16980/17160; group worker23d20076-8367-4bdf-aafb-1f2816d8f943 across
+1523/1966/2325. Both record zero expired requests and successful independent
+protected restoration. Both approved fresh public feeds, authenticated public
+Chat readiness, signed legacy5-to8 continuity and final identity pass.
+Actual main35/performance36 isolation passes with UIDs10118/10119, different
+wallets, unchanged main address and restoration of original absence, no cleanup
+failures. Three separately retained signed-wallet observer logs do not add to
+431 application identities. Actual Android10 is x86_64/4096-byte pages.
+
+All248 production/build objects are identical across25159,1a1 and the current
+head. Between the two complete runs only the reviewed Chat GIF observer changes:
+positive visibility and repeat scrolling within the same label deadline, with
+all original terminal assertions, identities and class bounds retained. This
+uses the maintained outstanding-SDK fixture exception. The earlier failed10 run
+remains FAILURE. Final combined review and ordinary37 publication are next;
+physical Pixel, configured services, actual approved policy/operations and Play
+acceptance remain open.

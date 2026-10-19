@@ -22,7 +22,8 @@ actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
 Child52 is assigned for the offline draft privacy/safety reader and owner-input
-checklist. Its native acceptance, review and signed publication are in progress.
+checklist. Its native full acceptance passes; final combined review and signed publication
+are in progress.
 The existing9original release criteria remain open; placeholders do not close them.
 Child53 is queued and blocked by52, not claimed or implemented yet. Issues50/51 are accepted/CLOSED;
 ordinary35 is live at https://davidengelen.nl/redsquare/ and separate performance36
@@ -58,8 +59,8 @@ The remaining original criteria need concrete inputs/real environments:
   Existing Google/Giphy setup questions must not be repeated. Offline package49 is prepared, not final policy/store acceptance.
 
 Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
-open and the untracked research unread. The active52 full-run watchers are
-identified below; no local Gradle build is active.
+open and the untracked research unread. Both full-run downloads are complete;
+no local Gradle build or watcher is active.
 
 ## Active issue52: draft privacy/safety reader
 
@@ -77,13 +78,14 @@ outer capture shows Launcher after teardown. Neither proves the cause.
 Fixture-only d74 preserves identities/assertions/class and label deadlines,
 waiting for positive visibility and scrolling again where needed. Focused10
 39216609812 is SUCCESS:6PASS/60.905s; root sees all3 credits in the original sent
-capture. Fresh complete10 run39217149317 at 1a1a4cbd3 is running with public reads,
-immutable ordinary35/performance36. Full17 run39213972826 at 25159 is SUCCESS in all three jobs:432PASS,
+capture. Fresh complete10 run39217149317 at 1a1a4cbd3 is SUCCESS:430PASS plus the
+sole existing API29 Profile assumption, exact431 identities,104 normal,33
+deliberate interruptions and32 PASS continuity records, including public reads
+and immutable ordinary35/performance36 isolation. Full17 run39213972826 at 25159 is SUCCESS in all three jobs:432PASS,
 105 normal/33 deliberate/32 continuity; full packet and selected original inspection
 are retained. Production/build inputs are byte-identical across
 these sources (248 Git objects); keep a successful full17 if it completes and
-apply the documented fixture-only outstanding-SDK exception. No full acceptance
-has been inferred. Original failed/cancelled runs retain their conclusions.
+apply the documented fixture-only outstanding-SDK exception. The final combined packet review remains pending. Original failed/cancelled runs retain their conclusions.
 
 Current evidence is [ticket52](../evidence/ticket52/README.md). Separate Spec and
 Standards source/fixture/residual packet reviews through545d99a68 report0/0;
@@ -98,17 +100,21 @@ Source 25159f3a64041d8944c5bcd967b0ba6b1cd475d5; APK SHA256
 08f84ad0a3e5304b2acd35d9cc6b150212a4b481cab2f1e397c77c53f71cdbd4.
 Same established certificate/package; actual APK is nondebuggable and nonprofileable,
 with backup disabled, min29/target36 and REVIEW_BUILD=true. Push/Posts-Giphy/Chat-Giphy remain
-unconfigured. No production change occurred after this build. Finish required
-full results, retain originals/gates and combined review, then publish37 via
+unconfigured. No production change occurred after this build. Finish the
+combined evidence review, then publish37 via
 canonical publisher, independently verify public bytes/metadata and preserve
 immutable35/separate36. Close52 only after its actual criteria pass. Parent36
 and physical/configured/operations/store requirements remain open.
 
 External raw artifacts are under /mnt/storage/redsquare-android-artifacts:
 policy52-full10-39213969388, policy52-chatgifs10-39216609812,
-policy52-full17-39213972826 and policy52-full10-recheck-39217149317. The two full
-watchers download named artifacts on completion; logs/results are under
-/tmp/redsquare-policy52-full17-* and /tmp/redsquare-policy52-full10-recheck-*.
+policy52-full17-39213972826 and policy52-full10-recheck-39217149317. Both raw packets are downloaded. The long-running10 watcher exited143 before
+download; authoritative GitHub conclusion is SUCCESS and the complete download
+was performed separately. Logs/results are under /tmp/redsquare-policy52-full17-*
+and /tmp/redsquare-policy52-full10-recheck-*. The final packet has977 hashes,
+942PNG/810XML for10 and946PNG/811XML for17, with five explicitly qualified
+optional diagnostic absences per SDK. Root inspected13 selected10 and15 selected17
+originals. Final combined review/publication remain pending.
 No node, cloud or store action occurred.
 
 After acceptance of52, claim53 sequentially. It prepares versioned installation-local

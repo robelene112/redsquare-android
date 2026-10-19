@@ -1,0 +1,61 @@
+{
+  "source": "1a1a4cbd31859fd33aad73b5dbc01e90689924f6",
+  "sdk": "10",
+  "partitions": {
+    "all": {
+      "identities": 431,
+      "normalCompletions": 104,
+      "deliberateInterruptions": 33,
+      "continuityRecords": 32,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 942,
+      "xml": 810,
+      "visualErrors": [
+        {
+          "path": "all/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        },
+        {
+          "path": "all/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "all/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "all/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "all/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "files": 264
+    }
+  },
+  "identityComparison": {
+    "expected": 431,
+    "actual": 431,
+    "missing": [],
+    "extra": []
+  },
+  "totals": {
+    "identities": 431,
+    "normalCompletions": 104,
+    "deliberateInterruptions": 33,
+    "continuityRecords": 32,
+    "png": 942,
+    "xml": 810
+  },
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/policy52-full10-recheck-39217149317",
+  "limits": "Original external tar member hashes/structural validation are observations; selected originals are inspected separately. No physical/configured-provider/store acceptance.",
+  "passed": 430,
+  "assumptions": 1
+}
