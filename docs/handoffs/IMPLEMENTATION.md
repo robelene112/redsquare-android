@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-18. The owner authorizes completing the remaining issues
+Updated 2026-10-19. The owner authorizes completing the remaining issues
 sequentially, committing after each accepted ticket and publishing ordinary
 signed phone-review updates. Do not stop at an intermediate slice. Follow
 [workflow](../WORKFLOW.md), [context](../PROJECT_CONTEXT.md) and
@@ -37,13 +37,14 @@ The remaining original criteria need concrete inputs/real environments:
   Angels’ Foundry as publisher and directed us to the local Business dossier.
   Exact spelling includes the apostrophe after the s. The dossier confirms a free
   first Saito release and owner responsibility for Owner-backend moderation and
-  Google publisher messages. Registration, actual public contacts, domains/mail
-  and complete moderation operations are still unconfirmed. Release preparation
+  Google publisher messages. On2026-10-19 the owner confirmed KVK registration
+  is not yet complete. Actual public contacts, domains/mail and complete
+  moderation operations are still unconfirmed. Release preparation
   now records those decisions; do not ask for the publisher name again or invent
-  a registration, mailbox or policy URL. Next confirm whether KVK registration has
-  actually completed, then resolve remaining policy/operational facts before
-  changing release behavior. Existing Google/Giphy setup questions must not be
-  repeated. Offline package49 is prepared, not final policy/store acceptance.
+  a registration, mailbox or policy URL. Do not repeat the KVK-status question
+  without new information. Resolve remaining policy/operational facts before
+  changing release behavior; verified business/account readiness remains pending.
+  Existing Google/Giphy setup questions must not be repeated. Offline package49 is prepared, not final policy/store acceptance.
 
 Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
 open and the untracked research unread. No local build/download/watcher remains active.

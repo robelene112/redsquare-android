@@ -18,7 +18,8 @@ defined in the specification so these targets can be tested consistently.
 - The owner selected **Angels’ Foundry** as the app publisher on 2026-10-18.
   Use the business dossier's spelling, with the apostrophe after the s. This is
   the chosen publisher name; registered legal identity, account verification and
-  actual public contact details remain to be confirmed for release.
+  actual public contact details remain to be confirmed for release. On 2026-10-19
+  the owner confirmed that KVK registration is not yet complete.
 - The app's display name is Red Square. The native application ID is
   `nl.davidengelen.redsquare`. Signing continuity is the next delivery ticket;
   store publisher configuration remains release work.

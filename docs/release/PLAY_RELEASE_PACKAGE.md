@@ -218,7 +218,8 @@ the apostrophe after the s. The owner's private `Business/README.md` and
   undecided; this is no instruction to add a reporting SDK or claim zero data flow.
 
 The dossier records intended business registration, domains and business email,
-with no completed registration or usable public contact values confirmed. Treat
+and on 2026-10-19 the owner explicitly confirmed KVK registration is not yet
+complete. Usable public contact values remain unconfirmed. Treat
 Angels’ Foundry as the selected publisher name, not a verified registration or
 verified organization account. Do not invent a legal suffix, registration number,
 D-U-N-S number, support mailbox or policy URL. Only release-relevant decisions
@@ -228,7 +229,7 @@ are summarized here; private business records stay outside this repository.
 
 | Gate | Evidence/remaining action; none is completed by an AAB |
 | --- | --- |
-| Legal publisher and account | Chosen name: Angels’ Foundry, confirmed2026-10-18. Actual registration/legal identity, appropriate verified account, D-U-N-S where required, public contact/support details and eligible territories remain unverified. Google account-type guidance includes cryptocurrency wallets under financial services for organization accounts; noncustodial does not automatically override account guidance. [Account types](https://support.google.com/googleplay/android-developer/answer/13634885?hl=en), [organization verification](https://support.google.com/googleplay/android-developer/answer/13628312?hl=en). |
+| Legal publisher and account | Chosen name: Angels’ Foundry, confirmed2026-10-18. KVK registration is not yet complete, confirmed2026-10-19. Registered legal identity, appropriate verified account, D-U-N-S where required, public contact/support details and eligible territories remain unverified. Google account-type guidance includes cryptocurrency wallets under financial services for organization accounts; noncustodial does not automatically override account guidance. [Account types](https://support.google.com/googleplay/android-developer/answer/13634885?hl=en), [organization verification](https://support.google.com/googleplay/android-developer/answer/13628312?hl=en). |
 | Testing access | The12tester/14continuous-day production-access rule is for qualifying new PERSONAL accounts, not a general organization-account rule. Genuine organization verification and any actual Console requirements still apply. Internal testing is separate from production access. [Testing rule](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en), [review distribution](../research/PLAY_REVIEW_DISTRIBUTION.md). |
 | Financial declarations | Declare actual wallet/transfer functionality; do not select "no financial features" merely because this is chiefly Social. Noncustodial wallets are outside the specific cryptocurrency exchange/software-wallet country licensing policy, not automatically outside other financial/account/declaration rules. Resolve actual Console categories and countries; no exchange, custody, earnings or licensing claim is invented. [Financial policy](https://support.google.com/googleplay/android-developer/answer/9876821?hl=en), [specific crypto policy](https://support.google.com/googleplay/android-developer/answer/16329703?hl=en-en). |
 | Privacy policy and app access | Need identified publisher/contact, all actual providers/operators, purposes, retention/deletion and an accessible hosted policy plus in-app link. Current Settings/source has no demonstrated privacy-policy link. No final text/URL is published here. [User Data policy](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en). |
