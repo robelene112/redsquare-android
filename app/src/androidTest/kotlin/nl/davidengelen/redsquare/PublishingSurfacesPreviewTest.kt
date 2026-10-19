@@ -54,13 +54,14 @@ class PublishingSurfacesPreviewTest {
         val names = listOf("chat", "chatwork", "chatreactions").map {
             "$it.owner.${initialWallet.publicKey}.$conversation.v1"
         }
-        val retained = names.associateWith { name -> File(context.noBackupFilesDir, name).takeIf { it.exists() }?.readBytes() }
+        val retained = ChatFixtureState(context, names, initialWallet.publicKey)
         val revision = "owned-private-${java.util.UUID.randomUUID()}"
         fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
             "terms":"Controlled private Chat terms. No real publisher approval.",
             "community":"Controlled Chat rules. Accepting does not send your message."}""")
+        var primary: Throwable? = null
         try {
-            names.forEach { name -> File(context.noBackupFilesDir, name).let { check(!it.exists() || it.delete()) } }
+            retained.prepare()
             val message = "Keep my private draft 😀 until I deliberately send"
             val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
                 onTransaction = { frame ->
@@ -113,13 +114,12 @@ class PublishingSurfacesPreviewTest {
                     }
                 }
             }
-        } finally {
-            wallets.replace(wallets.loadExisting(), initialWallet)
-            for ((name, bytes) in retained) {
-                val file = File(context.noBackupFilesDir, name)
-                if (bytes == null) check(!file.exists() || file.delete()) else file.writeBytes(bytes)
-            }
-            if (previous == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previous)
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { retained.restoreFiles() },
+                { wallets.replace(wallets.loadExisting(), initialWallet) },
+                { retained.restorePreferences() },
+                { if (previous == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previous) })
         }
     }
 
