@@ -416,3 +416,16 @@ worker remains independently authenticated against the owned peer and unaccepted
 no production fix or demonstrated enlarged-font failure is claimed yet. Existing
 six queue cases and180second class bounds remain unchanged. Font, scoped files,
 preferences and identity are restored independently.
+
+
+Group viewport focus39252573443 at046d3c9c3 is SUCCESS:24PASS across the eight
+native classes, plus the unchanged process recovery/restoration. Group outbox
+class has3PASS/18.283s. Actual rendered font1.3 and original1.0 restoration are
+recorded. Root opened the original before-review, after-terms-cancel and editable
+restored-draft windows: backup guidance, offline-history status, Required hint,
+Review and the complete Cancel target coexist. Actual physical cancellation
+keeps the exact draft, wallet/backend and worker identity with zero publication.
+`viewport-group-green10/SHA256SUMS` binds35 originals/metadata. No production
+layout correction was needed for this observed configuration. Both tracer
+reviews0. A next single private-Chat tracer reuses the same already-reviewed
+fixture conditions; it is additional coverage, not yet runtime acceptance.

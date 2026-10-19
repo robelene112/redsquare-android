@@ -8,6 +8,8 @@ class PublishingPrivateQueuePreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     @Test fun unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled() =
         PublishingQueueFixture(ui, PublishingQueueFixture.Kind.PRIVATE).exercise(cancelQueued = true)
+    @Test fun requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings() =
+        PublishingQueueFixture(ui, PublishingQueueFixture.Kind.PRIVATE).exercise(cancelQueued = true, largeFont = true)
     @Test fun explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt() =
         PublishingQueueFixture(ui, PublishingQueueFixture.Kind.PRIVATE).exercise(cancelQueued = false)
 }
