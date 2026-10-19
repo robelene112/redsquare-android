@@ -37,7 +37,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     }
 
     fun prepare(transaction: SaitoTransaction, queued:Boolean=false): Saved = synchronized(SaitoLocalState.lock) {
-        assertSelected()
+        assertPublishingAllowed()
         val previous = load()
         check(!previous.frozen)
         val message = PrivateChat.read(wallet, transaction.envelope(), contact)
@@ -74,7 +74,7 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
     }
 
     fun prepareRetry(id: String): Saved = synchronized(SaitoLocalState.lock) {
-        assertSelected()
+        assertPublishingAllowed()
         val previous = load()
         check(previous.transaction?.id == id && previous.status in listOf(Status.UNKNOWN, Status.SUBMITTED))
         save(previous.copy(status = Status.UNKNOWN))
@@ -85,8 +85,13 @@ internal class ChatWorkStore(private val context: Context, private val wallet: S
         check(AndroidBackendStore(context).load() == backend)
     }
 
-    fun claim(id: String) = synchronized(SaitoLocalState.lock) {
+    fun assertPublishingAllowed() = synchronized(SaitoLocalState.lock) {
+        nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
         assertSelected()
+    }
+
+    fun claim(id: String) = synchronized(SaitoLocalState.lock) {
+        assertPublishingAllowed()
         val previous=load()
         check(previous.transaction?.id == id && (previous.frozen || (previous.automatic&&previous.status==Status.SUBMITTED)))
         if(previous.status==Status.QUEUED)save(previous.copy(status=Status.UNKNOWN))

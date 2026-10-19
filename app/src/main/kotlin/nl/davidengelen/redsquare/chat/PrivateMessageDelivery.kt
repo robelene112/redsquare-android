@@ -22,7 +22,7 @@ internal suspend fun submitPrivateMessage(context:Context,wallet:SaitoWallet,bac
             }
         }
         submitChatTransaction(wallet,endpoint,contact,candidate,ChatSubmissionCallbacks(
-            claim={work.claim(candidate.id)},assertSelected={work.assertSelected()},
+            claim={work.claim(candidate.id)},assertSelected={work.assertPublishingAllowed()},
             submitted={
                 val saved=work.record(candidate.id,ChatWorkStore.Status.SUBMITTED)
                 onProgress(saved,history.save(listOf(candidate.envelope())).entries)

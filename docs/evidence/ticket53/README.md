@@ -170,3 +170,25 @@ Cancel with exact editable text and zero raw/relay messages, explicit acceptance
 without sending, then a deliberate Send. Its owned contact metadata and scoped
 Chat files are restored after the disposable emulator case. Runtime RED pending;
 no private Chat policy implementation precedes that result.
+
+Private tracer4337cbe05 has actual RED39235677235: agreement3PASS/16.217s,
+surfaces3PASS/1FAIL in35.073s. It waits atline93 for the absent publishing
+terms. Root opened the original: the independent Android notification alerts
+prompt is shown over Chat, whose retained semantics/window already say
+Forwarded. This permission offer is not publishing agreement. The case had
+reached Send and the controlled recipient/relay path. `private-red10/SHA256SUMS`
+binds10 originals. No private publication gate preceded RED.
+
+Standards review separately found the tracer's exact-base-file restoration could
+miss multipart and AtomicFile siblings. Fixture correctiond82ac1cc7 reuses
+ChatFixtureState for scoped file families and preferences and cleanupAfterTest
+for independent restoration preserving the primary failure. Both reviews report
+zero remaining findings. It changes no acceptance assertion or production code.
+
+The private minimum now freezes Send before the UI agreement check. Preparation,
+retry preparation and atomic socket claim read fresh durable permission with
+the existing identity/backend guard; the separate Relay enqueue checks it again
+without changing the submitted original. Automatic attempts still reconcile
+available originals by reading before permission enforcement. The same claim
+path covers foreground recovery and the real WorkManager worker. Runtime GREEN
+and dedicated queue/revision/process coverage remain pending.

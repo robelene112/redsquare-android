@@ -51,7 +51,11 @@ request reconciliation remain independent. The controlled scalar2 authority uses
 the existing emulator/loopback seam, not a public registration/readiness claim.
 Registry GREEN39234748767 at6bda86ed7 is SUCCESS:3PASS/16.469s in agreement
 and3PASS/12.599s in surfaces. Root inspected the cancellation original;
-Standards0/Spec0. The next private Chat tracer is pending RED.
+Standards0/Spec0. Private Chat RED39235677235 at4337cbe05 is6PASS/1FAIL, missing
+terms after Send (Forwarded behind the separate notification permission offer).
+The fixture-only restoration correctiond82ac1cc7 has both reviews0. The private
+minimum now gates Send, preparation/retry, atomic claim and Relay enqueue, while
+leaving automatic read-only reconciliation before enforcement. New GREEN pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other

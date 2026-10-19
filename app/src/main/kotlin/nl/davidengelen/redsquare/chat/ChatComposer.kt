@@ -38,6 +38,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     permitted: Boolean, replies: ChatReplyActions, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
     val activity = requireNotNull(LocalActivity.current) as ComponentActivity
@@ -230,6 +231,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                 val original = if (retrying) saved.transaction else null
                                 scope.launch {
                                     try {
+                                        if (!publishing.beforePublishing()) return@launch
                                         val candidate = writes.withLock {
                                             saved.gifAttribution?.let { credit ->
                                                 chatPhoto(privateMessageBody(outgoing))?.source?.let { source ->
