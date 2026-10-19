@@ -576,4 +576,7 @@ The public APK source is ed1, with all251 production/build objects equal to the
 accepted28b/dcc SDK sources. No actual38 installation is claimed. Current preview
 keeps draft policies useful with no final approved bundle; Push and GIF search
 remain unconfigured. Parent36 and genuine external/physical/store gates stayopen.
-Final publication bookend reviews and issue-state recording remain next.
+Both publication bookend reviews throughf0d270a18 report Spec0/Standards0.
+They independently reproduce all19 public-safe hashes and actual downloaded
+38/37/35/performance36 bytes. All53 acceptance criteria are satisfied; record
+closure in GitHub and proceed to54 sequentially. Parent36 remains open.

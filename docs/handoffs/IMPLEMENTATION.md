@@ -22,8 +22,8 @@ actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
 Child52 is accepted/CLOSED. Child53 now has complete implementation, verification,
-separate combined reviews and ordinary38 publication. Publication bookend reviews
-and issue closure remain before claiming54. Review base for53 is
+separate combined reviews and ordinary38 publication. Publication bookend reviews throughf0d270a18 also report Spec0/Standards0.
+Record issue53 closure before claiming54. Review base for53 is
 bc83a08755d71ac9acd7033264e3a30f7f2903af. Details and historical RED/GREEN outcomes
 are in [the53 evidence index](../evidence/ticket53/README.md).
 
