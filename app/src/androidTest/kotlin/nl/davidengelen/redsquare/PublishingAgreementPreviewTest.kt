@@ -12,13 +12,14 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
+import org.junit.After
 import java.io.File
 
 /** Controlled policy input through the real app, persistent state and owned peer. */
 class PublishingAgreementPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Before fun prepareSyntheticDrafts() {
+    @Before @After fun resetSyntheticDrafts() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -32,8 +33,9 @@ class PublishingAgreementPreviewTest {
         val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
         val previous = fixture.takeIf { it.exists() }?.readBytes()
         val revision = "owned-late-failure-${java.util.UUID.randomUUID()}"
+        val longTerms = "Controlled late-write failure terms. No real publisher approval. ".repeat(60)
         fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
-            "terms":"Controlled late-write failure terms. No real publisher approval.",
+            "terms":"$longTerms",
             "community":"Controlled retry rules. Preserve the unsent draft."}""")
         try {
             AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -52,7 +54,7 @@ class PublishingAgreementPreviewTest {
                         ui.onNodeWithText("Send").performClick()
                         waitFor("Review publishing terms")
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Could not save your agreement. Nothing was sent. Try again, or cancel to keep your work.")
+                        waitFor("Could not save your agreement. New publishing attempts remain paused. Try again, or cancel to keep your work.")
                         assertTrue("Failed agreement cannot publish", peer.transactions.isEmpty())
                         capture("late-commit-not-authorized.png")
                         ui.onNodeWithText("Cancel").performClick()

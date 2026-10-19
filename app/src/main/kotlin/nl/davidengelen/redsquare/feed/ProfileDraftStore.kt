@@ -12,6 +12,7 @@ import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoProfile
 import nl.davidengelen.redsquare.saito.SaitoProfiles
+import nl.davidengelen.redsquare.policy.PublishingPolicies
 
 /** Unpublished profile changes stay encrypted and tied to their wallet and server. */
 internal class ProfileDraftStore(private val context: Context, private val owner: String, private val backend: SaitoBackend) {
@@ -156,6 +157,7 @@ internal class ProfileDraftStore(private val context: Context, private val owner
     }
 
     fun claim(id: String): Boolean = synchronized(SaitoLocalState.lock) {
+        PublishingPolicies.requireAllowed(context)
         if (nl.davidengelen.redsquare.saito.AndroidBackendStore(context).load() != backend ||
             nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey != owner) return@synchronized false
         val saved = load()

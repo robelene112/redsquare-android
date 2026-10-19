@@ -41,7 +41,14 @@ missing terms before Like (original shows Liked). It has a separate
 180second surface class retained alongside the agreement class in full/focus.
 No Social production gate changed before RED. The next minimum gates preparation
 and frame enqueue, allowing read-only reconciliation of uncertain originals;
-GREEN pending. Other module/worker gates,
+GREEN39230206422 is4PASS across the two classes; both Social source reviews0.
+Next Profile tracer19f653c77 has RED39231125356:4PASS/1FAIL, missing review
+after Save profile (original already says Profile available). Profile minimum
+now gates preparation/claim/enqueue and preserves read-only old-candidate checks.
+Review fixes pin the polite save error outside long terms, use accurate wording
+for uncertain prior attempts, explain installation scope and clear owned synthetic
+records after tests so the following unchanged policy reader starts clean.
+New long-terms failure verification/GREEN and other module/worker gates,
 process/revision/error coverage and full acceptance remain pending. Review base
 is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36

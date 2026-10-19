@@ -12,6 +12,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -23,9 +24,13 @@ class PublishingSurfacesPreviewTest {
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before fun prepare() {
+        resetSyntheticRecords()
+        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+    }
+
+    @After fun resetSyntheticRecords() {
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("social.") || it.name.startsWith("feed.") ||
                 it.name.startsWith("conversation.") || it.name.startsWith("profile.") ||

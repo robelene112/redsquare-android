@@ -15,6 +15,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
@@ -135,16 +138,21 @@ internal fun PublishingAgreementDialog(controller: PublishingAgreementController
         title = { Text(stringResource(if (terms == null) R.string.publishing_unavailable_title
             else R.string.publishing_review_title)) },
         text = {
-            Column(Modifier.heightIn(max = 380.dp).verticalScroll(rememberScrollState()),
+            Column(Modifier.heightIn(max = 380.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                if (terms == null) Text(stringResource(R.string.publishing_unavailable))
-                else {
-                    Text(stringResource(R.string.policy_terms), style = MaterialTheme.typography.titleSmall)
-                    Text(terms.terms)
-                    Text(stringResource(R.string.policy_community), style = MaterialTheme.typography.titleSmall)
-                    Text(terms.community)
+                Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    if (terms == null) Text(stringResource(R.string.publishing_unavailable))
+                    else {
+                        Text(stringResource(R.string.policy_terms), style = MaterialTheme.typography.titleSmall)
+                        Text(terms.terms)
+                        Text(stringResource(R.string.policy_community), style = MaterialTheme.typography.titleSmall)
+                        Text(terms.community)
+                        Text(stringResource(R.string.publishing_scope), style = MaterialTheme.typography.bodySmall)
+                    }
                 }
                 if (controller.saveFailed) Text(stringResource(R.string.publishing_save_failed),
+                    Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                     color = MaterialTheme.colorScheme.error)
             }
         },

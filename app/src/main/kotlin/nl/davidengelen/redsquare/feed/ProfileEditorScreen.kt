@@ -26,6 +26,7 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 
 internal class ProfileDraftMemory : ViewModel() {
     var changes: JsonObject? = null
@@ -217,13 +218,14 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
         }
     }
 
-    fun send(known: SaitoProfile?) {
+    fun send(known: SaitoProfile?, beforePublishing: suspend () -> Boolean) {
         if (!ready || busy || available || superseded || changes.size() == 0) return
         busy = true
         error = false
         networkError = false
         scope.launch {
             try {
+                if (candidate == null && !beforePublishing()) return@launch
                 withContext(Dispatchers.IO) {
                     // Save local edits even when the required fresh baseline lookup fails.
                     withContext(NonCancellable) {
@@ -252,8 +254,9 @@ private class ProfileEditorState(private val store: ProfileDraftStore, private v
                             // A previously confirmed candidate is checked without publishing it again.
                             if (previouslyAvailable) return@run
                             peer.authenticate()
+                            if (!withContext(Dispatchers.Main.immediate) { beforePublishing() }) return@run
                             if (!withContext(NonCancellable) { store.claim(transaction.id) }) return@run
-                            peer.submit(transaction)
+                            peer.submit(transaction) { check(store.claim(transaction.id)) }
                             for (attempt in 0 until 6) {
                                 if (observe(peer, transaction)) break
                                 if (attempt < 5) delay(2_000)
@@ -333,6 +336,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val store = remember(owner, backend) { ProfileDraftStore(activity.applicationContext, owner, backend) }
     val cache = remember(owner, backend) { AndroidProfileDetailsCache(activity.applicationContext, backend, owner) }
     val scope = rememberCoroutineScope()
+    val publishing = LocalPublishingAgreement.current
     val state = remember(store, memory, wallet, endpoint, cache) { ProfileEditorState(store, memory, scope, wallet, endpoint, cache) }
     val privateProfile = state.startingProfile
     val frozen = state.candidate != null
@@ -403,7 +407,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             }
             Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall)
             Button(enabled = ready && previewReady && !busy && !available && !superseded && changes.size() > 0,
-                onClick = { send(profile) }, modifier = Modifier.fillMaxWidth()) {
+                onClick = { send(profile, publishing::beforePublishing) }, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(when {
                     candidate == null -> R.string.profile_save
                     previouslyAvailable -> R.string.profile_check

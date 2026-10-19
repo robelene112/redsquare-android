@@ -102,3 +102,26 @@ originals can first reconcile by read only. Before sending an unobserved
 original, the UI rechecks and the existing SaitoPeer enqueue callback reads
 current durable permission with the wallet/backend selection under its lock.
 Reporting stays separate. Runtime GREEN remains pending.
+
+Actual Social GREEN39230206422 atc44e55030 is SUCCESS:3PASS/15.406s in the
+agreement class and1PASS/5.63s in the surface class. `social-green10/SHA256SUMS`
+binds14 originals. Root opened the deliberate Like window; both source reviews
+report0findings. No whole53 acceptance is claimed.
+
+Profile tracer19f653c77 has actual RED39231125356: original agreement3PASS/
+15.723s, surface1PASS/1FAIL in27.934s. It fails atline79 waiting for the
+missing review window after Save profile. Root opened the original: Profile
+available on this server already appears. `profile-red10/SHA256SUMS` binds10
+originals. No Profile policy code changed before RED.
+
+Next minimum gates fresh Profile preparation, permits read-only reconciliation
+of old candidates and checks permission/identity again at claim and frame
+enqueue. Review corrections also keep save errors outside long scrolling terms,
+announce them politely and replace the misleading Nothing was sent wording for
+uncertain earlier attempts. The existing failure case now uses long terms with
+the same20second bound and zero-publication assertions. Installation-scope help
+explains that agreement is separate from wallet backups. Synthetic records are
+also cleared after these guarded emulator cases, so a completed/frozen post
+cannot leak into the unchanged following policy-reader class. Runtime GREEN,
+complete SDK gates and the remaining surfaces/queues/revision/process work are
+still pending.
