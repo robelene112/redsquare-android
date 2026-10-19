@@ -30,7 +30,8 @@ internal fun PublisherRequestsDialog(onClose: () -> Unit) {
     if (url == null) {
         AlertDialog(onDismissRequest = onClose,
             title = { Text(stringResource(R.string.publisher_requests)) },
-            text = { Text(stringResource(R.string.publisher_requests_unavailable)) },
+            text = { PublisherDialogWindow()
+                Text(stringResource(R.string.publisher_requests_unavailable)) },
             confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.publisher_done)) } })
         return
     }
@@ -39,6 +40,7 @@ internal fun PublisherRequestsDialog(onClose: () -> Unit) {
     AlertDialog(onDismissRequest = onClose,
         title = { Text(stringResource(R.string.publisher_requests)) },
         text = {
+            PublisherDialogWindow()
             Column(Modifier.heightIn(max = 360.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(16.dp)) {

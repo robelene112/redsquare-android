@@ -105,16 +105,24 @@ focused views320x640, but AccessibilityWindowInfo[-32,-32][288,608]. DecorView
 has16px elevation and DialogLayout8px. No raw clickable-node geometry is claimed:
 the exact-label lookup yielded none. Independent font restoration passes.
 
-Current732944b93 removes unnecessary shadow elevation in the two existing
-full-screen surfaces, PolicyCenter and PublisherEmailDialog. The child is zeroed
-before a guarded Window.setElevation(0) so recomposition does not repeatedly
-recreate a surface. Public API22 fits min29 and API29 PhoneWindow recalculates
-surface insets. No padding,48dp assertion, physical action or deadline changes.
-Focused10 run39291625428 is pending to establish effectiveness through the whole
-viewport/reader journey. Prior17 focused success is at00f, not fresh732 proof.
-Both review axes through235 report0;732 review is pending. Failure geometry
-snapshots remain, without user content; capture errors are suppressed beneath
-the original failure. Do not start final fulls before the complete viewport passes.
+Focused10 run39291625428 at732944b93 passes the preceding7 methods and
+now completes the physical email Done action; email XML roots are320x640. The
+viewport then opens the long request URL and fails its later physical request
+Done (39px versus48dp,15.981s). Actual request root[0,38][320,626] again differs
+from accessibility Window[-32,6][288,594], with Decor16/Dialog8. Root opened the
+unchanged failure PNG and retained the complete packet. This is overall FAILURE;
+Chat return and reader still did not execute on10. Font restoration passes.
+
+The current shared minimum, PublisherDialogWindow, applies the same shadow
+correction INSIDE each actual publisher dialog owner, including ready/unready
+request and unavailable profile/contact windows. It keeps existing full-screen
+system-bar styling; floating windows keep platform bar styling over the dim.
+Child elevation is zeroed before the guarded Window setter, avoiding repeated
+surface recreation. Material shapes/dim/layout/scroll/actions and all48dp
+assertions/deadlines are unchanged. Fresh focused10 is still required before
+final freeze. Prior17 focused success is at00f, not this production proof.
+Both axes have reviewed the shared minimum; the final bar-styling preservation
+adjustment receives the next source review. No new full run has been dispatched.
 
 Signed39/0.1.39 is prepared, NOT published, from00f812d6c. Its canonical build
 and actual APK/hash/signature/manifest/DEX checks pass, but it predates the shadow

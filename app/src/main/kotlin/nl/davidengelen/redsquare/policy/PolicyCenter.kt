@@ -11,8 +11,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -20,8 +18,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
-import androidx.core.view.WindowCompat
 import nl.davidengelen.redsquare.R
 
 private data class PolicySection(@StringRes val title: Int, @StringRes val text: Int)
@@ -68,19 +64,7 @@ internal fun PolicyCenter(onClose: () -> Unit) {
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
-        val view = LocalView.current
-        val window = (view.parent as DialogWindowProvider).window
-        val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-        SideEffect {
-            // Full-screen surfaces need no shadow or additional shadow surface insets.
-            (view.parent as android.view.View).elevation = 0f
-            if (window.decorView.elevation != 0f) window.setElevation(0f)
-            // Dialogs own a separate Window; Activity system-bar appearance does not carry over.
-            WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = lightBars
-                isAppearanceLightNavigationBars = lightBars
-            }
-        }
+        PublisherDialogWindow(styleSystemBars = true)
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                 Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 8.dp),

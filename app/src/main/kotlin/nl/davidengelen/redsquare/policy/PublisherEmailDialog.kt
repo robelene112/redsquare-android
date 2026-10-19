@@ -11,10 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.heading
@@ -23,8 +21,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.DialogWindowProvider
-import androidx.core.view.WindowCompat
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 
@@ -41,7 +37,8 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
     if (email == null) {
         AlertDialog(onDismissRequest = onClose,
             title = { Text(title) },
-            text = { Column(Modifier.verticalScroll(rememberScrollState()),
+            text = { PublisherDialogWindow()
+                Column(Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(if (report != null) R.string.publisher_user_report_unavailable else purpose.unavailable))
                 if (report != null) SelectionContainer {
@@ -65,18 +62,7 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         val keyboard = LocalSoftwareKeyboardController.current
-        val view = LocalView.current
-        val window = (view.parent as DialogWindowProvider).window
-        val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f
-        SideEffect {
-            // Full-screen surfaces need no shadow or additional shadow surface insets.
-            (view.parent as android.view.View).elevation = 0f
-            if (window.decorView.elevation != 0f) window.setElevation(0f)
-            WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = lightBars
-                isAppearanceLightNavigationBars = lightBars
-            }
-        }
+        PublisherDialogWindow(styleSystemBars = true)
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                 Text(title,

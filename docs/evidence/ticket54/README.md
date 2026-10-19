@@ -281,3 +281,25 @@ alignment. Actual business/provider/physical/store acceptance remains pending.
 Prepared39 retains the earlier production code and must not be published as the
 corrected candidate. A fresh reserved ordinary build follows final verification;
 38 remains the public version. No immutable artifact is overwritten.
+
+## Full-screen correction verified; remaining request window
+
+10 run39291625428 at732944b93 still reports FAILURE overall. The prior7
+methods pass, and the viewport now completes physical email Done after the
+controlled draft, then verifies the exact normalized long request URL. Its
+email XML root is320x640, establishing the corrected full-screen accessibility
+alignment. It fails later at physical request Done,39px versus48dp (15.981s).
+The original request screenshot is fully drawn. The diagnostic observes actual
+request root[0,38][320,626] with Decor16/DialogLayout8, but accessibility window
+[-32,6][288,594], the same shifted-window pattern. Font restoration passes.
+Root opened the unchanged failure PNG and retained all native class outcomes.
+
+The correction is shared as PublisherDialogWindow, called inside each actual
+publisher dialog owner, including both request availability branches and the
+unconfigured profile/contact notices. It clears child/Window shadow elevation
+and retains existing theme-dependent bars for full-screen content. Floating
+dialogs keep their platform bar appearance over the dimmed parent. Existing Material surfaces, dim,
+shapes, text, scrolling, actions, padding and assertions remain. This shares the
+now verified full-screen mechanism with the observed floating request window;
+it does not resize the dialog or alter configuration/handoff behavior. Fresh
+native checks still need to establish the complete viewport and reader outcome.
