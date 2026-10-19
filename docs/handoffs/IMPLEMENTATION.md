@@ -98,7 +98,7 @@ retained.
 
 The original ed1 full runs39250479060/39250483054 are CANCELLED and superseded,
 not accepted; completed old Social/Wallet jobs do not imply whole acceptance.
-Fresh complete Android10 run39254786488 and all three Android17 partitions in
+Initial complete Android10 run39254786488 and all three Android17 partitions in
 39254789942 execute at28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e, including both new
 viewport cases, public reads and the unchanged immutable35/performance36 checks.
 All251 production/build objects match ed1/046/28b exactly, so prepared38 retains
@@ -111,10 +111,10 @@ completions,34 deliberate interruptions and33continuity records. Android17 outco
 115 normal completions,34 deliberate interruptions and33 PASS continuity records.
 Both packet reviews and selected-original residual reviews report0 findings,
 independently reproducing all468 full17 hashes and the20 exact selected originals.
-Full17 packet is retained at8e68601ff; root opened16 originals. Android10 has now failed in the later import class; see the next paragraph.
-#53 remains incomplete: complete current-source Android10 acceptance, final
-combined review and signed publication remain. Production
-changes require fresh full acceptance on both versions.
+Full17 packet is retained at8e68601ff; root opened16 originals. The initial
+Android10 failure and successful corrected full rerun are detailed below. #53
+remains incomplete pending final combined review and signed publication.
+Production changes require fresh full acceptance on both versions.
 
 Actual full10 run39254786488 is FAILURE at28b, not acceptance. First import case
 fails immediate Owner-header visibility after Done; its skipped outgoing-wallet
@@ -133,8 +133,8 @@ Profile assumption,114 normal completions/34 interruptions/33 PASS continuities.
 Complete full10 evidence is retained; root opened16 originals. Full reference records separate SDK sources and the old failure.
 All251 production/build objects remain identical; successful17 may use the
 existing outstanding-SDK fixture rule. Both focused evidence reviews report0,
-reproducing all43 hashes and ten accepted-subset identities. Complete10 and
-combined reviews remain before acceptance.
+reproducing all43 hashes and ten accepted-subset identities. Final combined
+reviews and signed publication remain before acceptance.
 Prepared38 remains unpublished.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
