@@ -217,3 +217,16 @@ after synchronous busy state and before preparation. Protected preparation,
 retry, raw claim and Relay enqueue independently check current durable
 permission with the existing wallet/backend guard. Incoming reactions and
 read-only history remain independent. Runtime GREEN remains pending.
+
+Reaction GREEN39237993656 atb68ba5d47 is SUCCESS: agreement3PASS/13.398s
+and surfaces4PASS/16.031s. `reaction-green10/SHA256SUMS` binds17 originals.
+Root opened the renewed-revision reaction original; both source reviews report0.
+
+Next group tracer adds four independent native journeys: creation, invitation
+preview versus joining, a message and a reaction. Each uses a unique ready
+revision, owned signed peer, exact retained-work assertions, separate acceptance
+and deliberate action, both raw/Relay originals and scoped multipart-safe
+restoration. Existing groups/messages are received as authenticated incoming
+fixtures rather than published during setup. A separate class keeps its own
+unchanged180second bound in focused and full agreement runs; earlier classes
+and deadlines remain. Group RED is pending, with no group policy implementation.

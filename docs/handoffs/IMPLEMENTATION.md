@@ -61,13 +61,16 @@ The next tracer changes the ready revision before a private Like and preserves
 the previous private message assertions. Reaction RED39237283864 at e13d6f212 is6PASS/1FAIL, waiting
 for terms after Like under the new revision; original shows Reaction forwarded.
 The minimum gates explicit toggle/retry before preparation and rechecks current
-permission at protected preparation, raw claim and Relay enqueue. GREEN pending.
+permission at protected preparation, raw claim and Relay enqueue. Reaction GREEN39237993656 atb68ba5d47 is SUCCESS:7PASS across
+both classes. Both source reviews0; root inspected the original. A new separate
+group class adds four creation/join/message/reaction tracers with its own
+180second bound. Group RED pending; no group production policy code yet.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Private reactions are the next vertical slice; obtain real RED before its minimum.
+Groups are the next vertical slice; obtain real RED before their minimum.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
