@@ -18,3 +18,18 @@ Frozen production/build inputs match minimum/focused/final and prepared signed23
 ## Subsequent verified publication
 
 Both final evidence reviews report Spec0/Standards0. Signed23 is now PUBLISHED at https://davidengelen.nl/redsquare/. Direct public page/latest/immutable23/APK hash/certificate/package/min29 and unchanged immutable22 checks pass. Retained public-only publication records: signed-preview23-published. #19 remains OPEN for Owner readiness; #41 remains the sole implementation.
+
+## Owner-directed development completion, 2026-10-19
+
+The owner now parks external readiness while completing independent development.
+The accepted16-case native implementation, complete regressions, two-axis0/0
+review and published23 above establish native19 completion. Complete54
+runs39294146155/39294150546 retain these gates in published beta40. Earlier
+whole-ticket-open statements describe the previous staging.
+
+Actual Owner Registry readiness and compatible live registration/recovery/verified
+names on both backends, including completion/finality, remain unchecked as
+`REGISTRY` in [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+Official strict public proof is not new registration; Owner timeout remains
+unresolved. Native completion authorizes no node update, broad operations or
+unchanged probe. Registration remains optional and independent of first use.
