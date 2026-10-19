@@ -46,6 +46,12 @@ stay public meanwhile. Prepared42 ordinary,43 timing and44 offline Play bundle
 all have258 identical production/build objects to acb/116e (source-equivalence.json).
 Canonical builders exit0; actual artifact DEX/manifest/certificate/hash checks pass.
 42/43 are not published;44 is not submitted. All owner/service/phone gates stay36.
+The independent43 signed-isolation plan is prepared before execution under35:
+11 existing feed/public-read identities plus three signed wallet observers perSDK,
+main35/performance43, exact distinct UID/wallet/main-address/restoration checks.
+Both plan reviews0. Execute only after current full acceptance and canonical43
+publication; freeze actual source/run provenance then. The existing harness
+supports43 directly, so no source/build/harness modification is needed.
 
 ## Latest accepted delivery: issue54 and ordinary40
 

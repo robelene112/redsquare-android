@@ -1,0 +1,114 @@
+{
+  "purpose": "Independent expected identities frozen before matching43 focused execution. Accepted54 feed catalogs and existing signed observer methods; no new identity/assertion/deadline.",
+  "referenceAppSource": "116e92935b7287e9157b30c78b8e8f1d4ad7b800",
+  "references": [
+    {
+      "sdk": "10",
+      "acceptedCatalog": "docs/evidence/ticket54/full10/identities.json",
+      "sha256": "f512653bf139e77239455af6b238b1692f0a3c1cf3304404e779a4a6581dee53"
+    },
+    {
+      "sdk": "17",
+      "acceptedCatalog": "docs/evidence/ticket54/full17/identities.json",
+      "sha256": "8b7a17a5ddc555683cd94b3cfe71b54454752afbf576a98932a633db2fd6c475"
+    }
+  ],
+  "expectedNativeIdentities": [
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+      "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+      "occurrences": 1
+    },
+    {
+      "path": "live-official-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    }
+  ],
+  "expectedSignedObserverIdentities": [
+    {
+      "path": "performance-package/main-before.log",
+      "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+      "test": "openTheCurrentPublicWalletAddress",
+      "occurrences": 1
+    },
+    {
+      "path": "performance-package/performance-wallet.log",
+      "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+      "test": "openTheCurrentPublicWalletAddress",
+      "occurrences": 1
+    },
+    {
+      "path": "performance-package/main-after.log",
+      "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+      "test": "openTheCurrentPublicWalletAddress",
+      "occurrences": 1
+    }
+  ],
+  "expectedNormalNativeCompletions": 3,
+  "expectedSignedObserverCompletions": 3,
+  "expectedPerformanceVersion": 43,
+  "expectedMainReferenceVersion": 35,
+  "requireDistinctPackageUidsAndWallets": true,
+  "requireMainPublicAddressPreserved": true,
+  "requireOriginallyAbsentPackagesRestored": true,
+  "physicalDeviceAcceptance": false,
+  "physicalTimingAcceptance": false,
+  "limits": "Prepared43 is not published yet. Execution and actual publication provenance will be recorded after acceptance; no physical Pixel/ordinary42-phone update result is inferred."
+}
