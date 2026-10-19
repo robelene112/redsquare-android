@@ -1,0 +1,84 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingAgreementPreviewTest:
+INSTRUMENTATION_STATUS: test=requiredTermsCanBeReadAndCancelledWithoutPublishingOrLosingThePost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=requiredTermsCanBeReadAndCancelledWithoutPublishingOrLosingThePost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.waitFor(PublishingAgreementPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried$lambda$9$lambda$5$lambda$4(PublishingAgreementPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.$r8$lambda$neX79yFnCDolUvUiNesIwppbMdo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried(PublishingAgreementPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried(nl.davidengelen.redsquare.PublishingAgreementPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.waitFor(PublishingAgreementPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried$lambda$9$lambda$5$lambda$4(PublishingAgreementPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.$r8$lambda$neX79yFnCDolUvUiNesIwppbMdo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried(PublishingAgreementPreviewTest.kt:46)
+
+INSTRUMENTATION_STATUS: test=failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingAgreementPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.932
+There was 1 failure:
+1) failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried(nl.davidengelen.redsquare.PublishingAgreementPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.waitFor(PublishingAgreementPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried$lambda$9$lambda$5$lambda$4(PublishingAgreementPreviewTest.kt:55)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.$r8$lambda$neX79yFnCDolUvUiNesIwppbMdo(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingAgreementPreviewTest.failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried(PublishingAgreementPreviewTest.kt:46)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

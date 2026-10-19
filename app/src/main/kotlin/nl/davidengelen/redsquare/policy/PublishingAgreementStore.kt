@@ -5,10 +5,12 @@ import android.system.Os
 import android.system.OsConstants
 import android.util.AtomicFile
 import java.io.File
+import java.io.FileDescriptor
 import java.io.FileOutputStream
 
 /** Installation-local revision only. Wallet imports and exports do not carry agreement. */
-internal class PublishingAgreementStore(context: Context) {
+internal class PublishingAgreementStore(context: Context,
+    private val commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
     private val file = AtomicFile(File(context.noBackupFilesDir, "publishing-agreement.v1"))
     private val pending = File(context.noBackupFilesDir, "publishing-agreement.pending")
 
@@ -42,23 +44,23 @@ internal class PublishingAgreementStore(context: Context) {
         require(!pending.exists() || (pending.isFile && pending.length() == 0L))
         // A late failed commit must not become permission after reopening the app.
         FileOutputStream(pending).use { it.fd.sync() }
-        syncDirectory()
+        syncDirectory(Os::fsync)
         val output = file.startWrite()
         try {
             output.write("1\n$revision".toByteArray(Charsets.US_ASCII))
             output.fd.sync()
             file.finishWrite(output)
         } catch (failure: Exception) { file.failWrite(output); throw failure }
-        syncDirectory()
+        syncDirectory(commitDirectorySync)
         check(readRevision() == revision)
         // No fallible operation follows publication. A reappearing marker after
         // power loss conservatively requires deliberate agreement again.
         check(pending.delete())
     }
 
-    private fun syncDirectory() {
+    private fun syncDirectory(sync: (FileDescriptor) -> Unit) {
         val descriptor = Os.open(file.baseFile.parentFile!!.path, OsConstants.O_RDONLY, 0)
-        try { Os.fsync(descriptor) } finally { Os.close(descriptor) }
+        try { sync(descriptor) } finally { Os.close(descriptor) }
     }
 
     companion object { private val lock = Any() }

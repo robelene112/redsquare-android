@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare.policy
 
 import android.content.Context
 import android.os.Build
+import android.system.Os
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
@@ -24,6 +25,7 @@ import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 import java.io.File
+import java.io.FileDescriptor
 
 internal data class PublishingTerms(val revision: String, val terms: String, val community: String)
 
@@ -42,9 +44,9 @@ internal object PublishingPolicies {
         else configured
     }
 
-    fun accept(context: Context, terms: PublishingTerms) {
+    fun accept(context: Context, terms: PublishingTerms, commitDirectorySync: (FileDescriptor) -> Unit) {
         check(configured(context) == PublishingPermission.Required(terms))
-        PublishingAgreementStore(context).accept(terms.revision)
+        PublishingAgreementStore(context, commitDirectorySync).accept(terms.revision)
     }
 
     private fun configured(context: Context): PublishingPermission {
@@ -73,7 +75,8 @@ internal object PublishingPolicies {
     }
 }
 
-internal class PublishingAgreementController(private val context: Context) {
+internal class PublishingAgreementController(private val context: Context,
+    private val commitDirectorySync: (FileDescriptor) -> Unit = Os::fsync) {
     var prompt by mutableStateOf<PublishingPermission.Required?>(null); private set
     var saving by mutableStateOf(false); private set
     var saveFailed by mutableStateOf(false); private set
@@ -98,7 +101,9 @@ internal class PublishingAgreementController(private val context: Context) {
         saving = true
         saveFailed = false
         try {
-            withContext(NonCancellable + Dispatchers.IO) { PublishingPolicies.accept(context, terms) }
+            withContext(NonCancellable + Dispatchers.IO) {
+                PublishingPolicies.accept(context, terms, commitDirectorySync)
+            }
             prompt = null
             savedNotice = true
         } catch (cancelled: CancellationException) { throw cancelled }

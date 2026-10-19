@@ -50,4 +50,30 @@ outside portable wallet options. A pending commit marker denies authorization
 after a failed/uncertain write. Agreement never stores a publishing action. A
 generic saved notice asks the user to choose their action again, so the test's
 post-save wording changes from Send-specific to the shared wording while keeping
-the separate explicit Send assertion. Runtime GREEN remains pending.
+the separate explicit Send assertion. Actual GREEN39227370641 at1df19eae7 is
+SUCCESS:2PASS/9.326s. `accept-green10/SHA256SUMS` binds12 originals, including
+the saved-without-publication and reopened/deliberately-published windows.
+Root opened the complete latter capture: Available on this server, original
+authored text and no agreement window after the separate Send.
+
+Second-slice review reports Spec0; Standards found one test repeatability issue:
+the fixed accepted fixture revision could skip agreement on a second invocation.
+Fixture correction844384f0e uses a fresh owned revision stable within each case,
+keeps the20second deadline and positively waits for an enabled editor. Residue
+Standards0/heuristics0. New late-commit tracer39228043383 is pending; its initial
+fault intent has no production injection yet. A failure caused by that ignored
+synthetic fault would establish missing test capability, not a demonstrated
+production persistence defect. Other modules/workers/process/revision/error and
+complete SDK verification remain pending; no new review APK is published.
+
+Late-fault RED39228043383 at844384f0e is FAILURE:2PASS/1FAIL in30.932s,
+timing out while waiting for the expected save error. The original instead shows
+Agreement saved and an unsent editable draft, because the synthetic fault was
+not injected yet. This demonstrates missing controlled fault capability, not a
+production persistence defect. `late-red10/SHA256SUMS` binds9 originals.
+
+The next minimum adds the existing approved filesystem-boundary pattern: only
+the guarded .dev emulator intent substitutes the final directory fsync after
+the actual acceptance record write. Normal execution still calls Os.fsync. The
+existing pending barrier must then deny after reopening until a successful
+explicit retry. Runtime GREEN remains pending.

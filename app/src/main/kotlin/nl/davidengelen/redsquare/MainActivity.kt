@@ -267,7 +267,14 @@ class MainActivity : ComponentActivity() {
             val giphyAttributions = remember(address) {
                 address?.let { nl.davidengelen.redsquare.media.GiphyAttributionStore(applicationContext, it) }
             }
-            val publishingAgreement = remember { PublishingAgreementController(applicationContext) }
+            val publishingAgreement = remember { PublishingAgreementController(applicationContext) { descriptor ->
+                if (BuildConfig.DEBUG && packageName == "nl.davidengelen.redsquare.dev" &&
+                    android.os.Build.HARDWARE in listOf("ranchu", "goldfish") &&
+                    intent.getBooleanExtra("publishingCommitSyncUnavailable", false)) {
+                    throw IOException("Controlled publishing agreement filesystem sync failure")
+                }
+                Os.fsync(descriptor)
+            } }
             RedSquareTheme(this@MainActivity, appearance) {
                 CompositionLocalProvider(LocalPublishingAgreement provides publishingAgreement,
                     LocalVideoFixture provides VideoFixture.fromIntent(intent),

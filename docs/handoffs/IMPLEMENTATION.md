@@ -29,8 +29,14 @@ The first foreground Posts cancellation minimum has GREEN39225793708 (1PASS).
 Strengthened lookup freezes the existing composer before asynchronous reading;
 its cancellation also passes in next RED39226542495 (1PASS/1FAIL, absent Accept).
 The next minimum adds explicit revision acceptance, a pending commit barrier and
-a separate deliberate action after reopening. GREEN, other module/worker
-publication gates and full acceptance remain pending. Review base
+a separate deliberate action after reopening, with GREEN39227370641 (2PASS).
+Standards repeatability finding is fixed/reviewed in844384f0e; Spec0/Standards0
+for the implemented slices. The next late-commit controlled fault tracer is
+RED39228043383 is2PASS/1FAIL (ignored synthetic fault, not a persistence defect).
+Its approved filesystem-boundary injection now substitutes only final fsync on
+the guarded .dev emulator after the actual record write. GREEN remains pending.
+Other module/worker gates,
+process/revision/error coverage and full acceptance remain pending. Review base
 is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
