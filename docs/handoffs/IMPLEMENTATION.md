@@ -25,10 +25,12 @@ was corrected in066e39e12. Run39330476503 reproduces direct thread -> Home failu
 run39331425836 pass both methods, with source re-review Spec0 and opened originals.
 Current profile tracer c937802cf/run39332362216 fails at its10second Home return.
 The original capture shows IME open, so it does not independently isolate tap
-geometry. The next implementation strengthens the fixture with positive real-IME
+geometry. Implementation d958685f0 strengthens the fixture with positive real-IME
 open/close and displayed Home, corrects public profilemeta cleanup, and adds
 busy/save-spanning guarded commits to profile/author forms plus brief failed-route
-feedback. No old assertion/deadline is weakened. Frame58 is still active, and
+feedback. Run39333368227 passes all3 methods; both source re-review axes have0
+residuals and root opened the returned-editor original. The next tracer covers
+actual130%/200% text,320dp/412dp layouts and light/dark backup guidance. No old assertion/deadline is weakened. Frame58 is still active, and
 font/viewport/reminder/recreation/motion/full/signed acceptance remains pending.
 No57 code exists yet; its local policy is recorded and ready.
 
@@ -134,7 +136,7 @@ Canonical evidence: [About38](../evidence/ticket38/README.md),
 [Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
 No complete native suite needs repeating without a new change, failure or concern.
 Production changes require fresh complete verification on both SDKs. The active58 source changes need fresh verification appropriate to their actual impact.
-Current focused39331425836 runs729073be9. Prior source runs may be cancelled by
+Latest completed focused39333368227 runsd958685f0 (3PASS). Prior source runs may be cancelled by
 newer commits; a cancelled source run is not acceptance.
 
 ## Tracker and actual release boundaries

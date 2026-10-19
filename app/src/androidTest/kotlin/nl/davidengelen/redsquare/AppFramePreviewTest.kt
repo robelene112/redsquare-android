@@ -67,7 +67,78 @@ class AppFramePreviewTest {
         capture("profile-edit-retained-after-home.png")
     }
 
-    private fun withFirstUseFeed(name: String, block: () -> Unit) {
+    @Test fun largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes() = withFirstUseFeed("frame-viewport") { activity ->
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val folder = File(context.cacheDir, "app-frame-evidence")
+        val font = EmulatorFontScale(context, folder, "frame")
+        val originalSize = device.executeShellCommand("wm size")
+        val originalDensity = device.executeShellCommand("wm density")
+        check(Regex("Physical size: [0-9]+x[0-9]+").containsMatchIn(originalSize))
+        check(Regex("Physical density: [0-9]+").containsMatchIn(originalDensity))
+        val sizeOverride = Regex("Override size: ([0-9]+x[0-9]+)").find(originalSize)?.groupValues?.get(1)
+        val densityOverride = Regex("Override density: ([0-9]+)").find(originalDensity)?.groupValues?.get(1)
+        val appearance = context.getSharedPreferences("appearance", 0)
+        val originalAppearance = appearance.getString("mode", null)
+        var primary: Throwable? = null
+        try {
+            device.executeShellCommand("wm density 160")
+            for ((size, width) in listOf("320x640" to 320, "412x915" to 412)) {
+                device.executeShellCommand("wm size $size")
+                for (scale in listOf(1.3f, 2f)) {
+                    font.apply(scale)
+                    activity.recreate()
+                    ui.waitUntil(15_000) { device.displayWidth == width &&
+                        ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                    for (theme in listOf("Light", "Dark")) {
+                        ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
+                        ui.onNodeWithText(theme).performScrollTo().performClick()
+                        ui.onNodeWithText("Done").performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                        val name = "frame-$width-font${(scale * 100).toInt()}-${theme.lowercase()}"
+                        val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
+                        val minimum = 48 * context.resources.displayMetrics.density - 1
+                        for (label in listOf("Wallet", "Settings", "Home", "Search", "Notifications", "Chat", "Your profile",
+                            "Back up", "Later", "Import an existing wallet", "New post", "More feed actions")) {
+                            val bounds = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed()
+                                .fetchSemanticsNode().boundsInRoot
+                            assertTrue("$label must retain a full reachable target at $name", bounds.width >= minimum &&
+                                bounds.height >= minimum && bounds.left >= viewport.left && bounds.right <= viewport.right &&
+                                bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
+                        }
+                        ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
+                        if (scale <= 1.3f) assertTrue("Reading remains dominant at $name",
+                            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+                                .fetchSemanticsNode().boundsInRoot.top < viewport.height / 2)
+                        File(folder, "$name.json").writeText(com.google.gson.JsonObject().apply {
+                            addProperty("widthPixels", device.displayWidth); addProperty("heightPixels", device.displayHeight)
+                            addProperty("widthDp", context.resources.configuration.screenWidthDp)
+                            addProperty("density", context.resources.displayMetrics.density)
+                            addProperty("fontScale", context.resources.configuration.fontScale)
+                            addProperty("theme", theme); addProperty("layoutOnly", true)
+                        }.toString())
+                        capture("$name.png")
+                        ui.onNode(hasText("Back up") and hasClickAction()).performClick()
+                        ui.onNodeWithText(context.getString(R.string.wallet_backup_private)).performScrollTo().assertIsDisplayed()
+                        capture("$name-backup-guidance.png")
+                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary, { font.restore() },
+                { device.executeShellCommand("wm size ${sizeOverride ?: "reset"}")
+                    check(device.executeShellCommand("wm size").trim() == originalSize.trim()) },
+                { device.executeShellCommand("wm density ${densityOverride ?: "reset"}")
+                    check(device.executeShellCommand("wm density").trim() == originalDensity.trim()) },
+                { check(appearance.edit().apply { if (originalAppearance == null) remove("mode")
+                    else putString("mode", originalAppearance) }.commit()) })
+        }
+    }
+
+    private fun withFirstUseFeed(name: String, block: (ActivityScenario<MainActivity>) -> Unit) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -93,12 +164,12 @@ class AppFramePreviewTest {
             backends.save(SaitoBackend.OWNER)
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     withFailureCapture({ capture("$name-failure.png") }) {
                         ui.waitUntil(15_000) {
                             ui.onAllNodesWithText("Native Red Square reference post").fetchSemanticsNodes().isNotEmpty()
                         }
-                        block()
+                        block(activity)
                         assertTrue("Navigation must retain the complete wallet and portable options",
                             wallet.exportJson() == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, backends.load())

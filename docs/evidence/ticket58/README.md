@@ -68,3 +68,12 @@ and pending profile pickers. Existing plain persist/Back behavior keeps its defa
 callback. Failed primary transitions show one brief non-queued recovery message,
 cleared on successful navigation or renewed typing. No silent draft discard or
 bypass of PostNavigation is introduced. Runtime green/review remains pending.
+
+Guarded profile navigation GREEN: d958685f0/run39333368227 completedSUCCESS,
+exactly3PASS with the real IME open/closed and original assertion deadlines. Root
+opened the returned-editor original; the exact unsent edit is retained. Both source
+re-review axes report0 residuals for this increment. This is not complete58.
+The next native tracer exercises actual130%/200% rendering at320dp and a412dp
+Pixel7-sized layout, both themes, full targets and scrollable backup guidance.
+Disposable display/font/appearance settings have independent restoration. This
+is layout verification, not a physical Pixel or performance result.

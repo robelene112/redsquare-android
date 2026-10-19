@@ -1,0 +1,25 @@
+{
+  "run": "39333368227",
+  "source": "d958685f0cc1c690fe4a29c59b6854e6a49aa691",
+  "expectedMethods": [
+    "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+    "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+    "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor"
+  ],
+  "completions": [
+    {
+      "method": "firstUsePrioritizesVisiblePostsWithAnIdentifiableHomeDestination",
+      "status": 0
+    },
+    {
+      "method": "primaryNavigationKeepsUnsentProfileEditsWhenReturningToTheEditor",
+      "status": 0
+    },
+    {
+      "method": "homeReturnsFromADirectThreadWithoutDismissingTheBackupReminder",
+      "status": 0
+    }
+  ],
+  "members": 8,
+  "limit": "Focused frame proof, not full suite or physical acceptance."
+}
