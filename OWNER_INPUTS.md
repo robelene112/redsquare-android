@@ -52,10 +52,18 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-Voer dit uit zodra er een kandidaat klaarstaat. De agent levert instructies en
-houdt deze controles open tot de resultaten er zijn (#35). Voor de uiteindelijke
-snelheidsmeting levert de agent een timingbuild met dezelfde appcode als de
-releasekandidaat. Een meting van een oudere timingbuild blijft een checkpoint.
+De gewone [beta40](https://davidengelen.nl/redsquare/) en aparte
+[timingbuild41](https://davidengelen.nl/redsquare/performance/) staan klaar met
+dezelfde appcode. Testinstallaties op Android10 en17 bevestigen gescheiden
+wallets/opslag en behoud van de gewone testidentiteit. Dit bewijst de fysieke
+Pixel-controle nog niet. De telefoontests blijven open onder #35; de precieze
+meetwijze staat in `docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
+
+De timing-app gebruikt een eigen wallet. Gebruik hiervoor geen herstelbestand van
+je gewone wallet. Push en GIF-diensten zijn nog niet geconfigureerd. Als de
+releaseconfiguratie of opstartcode verandert, levert de agent een bijpassende
+nieuwe timingbuild en worden de definitieve metingen herhaald. Een eerdere
+meting blijft dan een checkpoint.
 
 - [ ] Een gewone update installeren vanaf <https://davidengelen.nl/redsquare/>,
   zonder verwijderen of opslag wissen. Controleer hetzelfde publieke walletadres,

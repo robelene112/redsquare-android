@@ -96,25 +96,30 @@ actual41 page/latest/immutable/APK match, ordinary40 page/latest/immutable/APK r
 unchanged, and old performance36 immutable metadata/APK remain unchanged. The
 public-safe publication41 packet contains14 records. See [35 evidence](../evidence/ticket35/README.md).
 
-The independent isolation41 plan is committed before execution:11 existing native
+The independent isolation41 plan was committed before execution:11 existing native
 feed/public-read identities plus three exact signed observer methods per SDK.
-Remaining steps:
+Both focused runs are now completed SUCCESS atb76fd9269:10 run39305428306
+and17 run39305449366. Each exactly matches11 native feed/public-read identities
+plus three signed wallet observer methods, allPASS. Distinct wallets/UIDs,
+unchanged ordinary35 public address and restoration of both originally absent
+packages pass. Actual installed35/41 APK hashes match the pinned artifacts.
+Root opened six original screenshots per SDK; only the four already qualified
+absent failure-only wallet captures recur. Current packets are retained under35.
+No app/harness/provider configuration changed from accepted df941.
 
-1. Dispatch focused `feed` and `feed-android17` at one source, with public reads,
-   `performance_version=41`, `main_reference_version=35`. The unchanged observer
-   accepts published41; no harness change is needed. Both actual35/41 installation,
-   wallet/UID isolation and cleanup must pass. This proves baseline35/41 isolation,
-   not ordinary40 physical update continuity.
-2. Retain/review actual artifacts and the publication bookend, then update35 and
-   OWNER_INPUTS with the matching timing download and remaining physical gates.
+Remaining steps: finish combined source/evidence/publication reviews, update35
+with the actual progress without closing its physical gates, then push the final
+bookkeeping. OWNER_INPUTS now links ordinary40 and matching timing41, with the
+physical/configuration limitations explicit. No further unblocked native feature
+implementation is identified; genuine prerequisites remain in the table below.
 
 Temporary `/tmp/redsquare-performance41-publication-check.py` has completed both
 bookends. Raw public files are on storage in `performance41-publication`. Do not
 repeat or republish completed41 delivery. No APK/private material belongs in Git.
 
 The old separately published timing36 is an older checkpoint, not final-current-code
-Pixel proof. The new41 is now PUBLISHED and has no native
-installation or physical timing result yet. Read [review operations](../REVIEW_BUILDS.md)
+Pixel proof. The new41 is now PUBLISHED with actual two-SDK
+installation/isolation proof, and no physical timing result yet. Read [review operations](../REVIEW_BUILDS.md)
 and [physical protocol](../research/FEED_PERFORMANCE_PROTOCOL.md). Five cached
 launches must each be≤2000ms and five fresh isolated launches each≤5000ms on the
 Pixel7 under that protocol. Never import/clear the owner's ordinary wallet for timing.

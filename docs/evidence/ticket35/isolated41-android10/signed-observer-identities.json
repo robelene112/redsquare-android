@@ -1,0 +1,20 @@
+[
+  {
+    "path": "performance-package/main-before.log",
+    "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+    "test": "openTheCurrentPublicWalletAddress",
+    "occurrences": 1
+  },
+  {
+    "path": "performance-package/performance-wallet.log",
+    "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+    "test": "openTheCurrentPublicWalletAddress",
+    "occurrences": 1
+  },
+  {
+    "path": "performance-package/main-after.log",
+    "testClass": "nl.davidengelen.redsquare.WalletDeviceUiObserver",
+    "test": "openTheCurrentPublicWalletAddress",
+    "occurrences": 1
+  }
+]

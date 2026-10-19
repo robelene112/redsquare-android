@@ -109,5 +109,10 @@
   "requireMainPublicAddressPreserved": true,
   "requireOriginallyAbsentPackagesRestored": true,
   "physicalDeviceAcceptance": false,
-  "physicalTimingAcceptance": false
+  "physicalTimingAcceptance": false,
+  "executingSource": "b76fd92690468a9f46835e8b37c91a6dc7c7fb4c",
+  "executingRuns": {
+    "android10": 39305428306,
+    "android17": 39305449366
+  }
 }
