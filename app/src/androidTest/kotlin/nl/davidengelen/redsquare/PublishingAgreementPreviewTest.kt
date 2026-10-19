@@ -55,7 +55,7 @@ class PublishingAgreementPreviewTest {
                         waitFor("Review publishing terms")
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Accept").performClick()
-                        waitFor("Agreement saved. Tap Send again when you are ready.")
+                        waitFor("Agreement saved. Choose your action again when you are ready.")
                         assertTrue("Agreement must not send the draft", peer.transactions.isEmpty())
                         capture("accepted-without-publication.png")
                         scenario.recreate()

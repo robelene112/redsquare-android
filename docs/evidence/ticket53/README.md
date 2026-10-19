@@ -26,3 +26,28 @@ button checks before creating/queuing/claiming work; cancelling never stores an
 action or submits it later. No acceptance save or other module/worker gate is
 implemented in this first slice. They remain required later vertical slices,
 not completed by this foreground cancellation tracer. No new APK is published.
+
+First focused GREEN39225793708 atfafff29991 is SUCCESS:1PASS/6.319s.
+The retained original window shows both controlled paragraphs and Cancel; the
+repeated cancellation assertions preserve text, complete wallet/backend and
+zero owned-peer transactions. `first-green10/SHA256SUMS` binds14 originals.
+This is foreground cancellation proof, not complete agreement acceptance.
+
+Review correction e015855d5 moves the suspending lookup into the existing
+session-owned send coroutine after synchronous `sending=true`. Editing/actions
+are frozen before lookup and normal `finally` cleanup remains. Standards0/Spec0
+for that first-slice residue; acceptance/persistence are still pending. Interim
+focused39226403157 and source39225794456 were superseded/cancelled, never
+claimed successful. Next RED39226542495 at343fe1d6d adds explicit acceptance,
+Activity reopening and a separate deliberate Send action. Actual outcome is
+FAILURE:1PASS/1FAIL in10.357s, failing at the absent Accept button (line57).
+The retained original shows readable controlled terms with Cancel alone;
+first cancellation also passes at the strengthened e015 production source.
+`accept-red10/SHA256SUMS` binds9 originals; focused completion is unexecuted.
+
+The next minimum adds deliberate Accept with installation-local revision storage,
+outside portable wallet options. A pending commit marker denies authorization
+after a failed/uncertain write. Agreement never stores a publishing action. A
+generic saved notice asks the user to choose their action again, so the test's
+post-save wording changes from Send-specific to the shared wording while keeping
+the separate explicit Send assertion. Runtime GREEN remains pending.

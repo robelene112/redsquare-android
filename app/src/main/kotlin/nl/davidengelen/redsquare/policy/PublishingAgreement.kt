@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
@@ -27,12 +29,25 @@ internal data class PublishingTerms(val revision: String, val terms: String, val
 
 internal sealed interface PublishingPermission {
     data object Preview : PublishingPermission
+    data object Accepted : PublishingPermission
     data class Required(val terms: PublishingTerms?) : PublishingPermission
 }
 
 /** No owner-approved final policy is configured. Controlled input is debug/emulator-only. */
 internal object PublishingPolicies {
     fun permission(context: Context): PublishingPermission {
+        val configured = configured(context)
+        return if (configured is PublishingPermission.Required && configured.terms != null &&
+            PublishingAgreementStore(context).accepted(configured.terms.revision)) PublishingPermission.Accepted
+        else configured
+    }
+
+    fun accept(context: Context, terms: PublishingTerms) {
+        check(configured(context) == PublishingPermission.Required(terms))
+        PublishingAgreementStore(context).accept(terms.revision)
+    }
+
+    private fun configured(context: Context): PublishingPermission {
         if (BuildConfig.DEBUG && context.packageName == "nl.davidengelen.redsquare.dev" &&
             Build.HARDWARE in listOf("ranchu", "goldfish")) {
             val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
@@ -60,20 +75,38 @@ internal object PublishingPolicies {
 
 internal class PublishingAgreementController(private val context: Context) {
     var prompt by mutableStateOf<PublishingPermission.Required?>(null); private set
+    var saving by mutableStateOf(false); private set
+    var saveFailed by mutableStateOf(false); private set
+    var savedNotice by mutableStateOf(false); private set
     val open: Boolean get() = prompt != null
 
     /** The caller owns the coroutine/session. Agreement never stores or automatically runs its action. */
     suspend fun beforePublishing(): Boolean {
+        savedNotice = false
         val permission = try { withContext(Dispatchers.IO) { PublishingPolicies.permission(context) } }
         catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { PublishingPermission.Required(null) }
         return when (permission) {
-            PublishingPermission.Preview -> true
-            is PublishingPermission.Required -> { prompt = permission; false }
+            PublishingPermission.Preview, PublishingPermission.Accepted -> true
+            is PublishingPermission.Required -> { saveFailed = false; prompt = permission; false }
         }
     }
 
-    fun cancel() { prompt = null }
+    suspend fun accept() {
+        val terms = prompt?.terms ?: return
+        if (saving) return
+        saving = true
+        saveFailed = false
+        try {
+            withContext(NonCancellable + Dispatchers.IO) { PublishingPolicies.accept(context, terms) }
+            prompt = null
+            savedNotice = true
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { saveFailed = true }
+        finally { saving = false }
+    }
+
+    fun cancel() { if (!saving) { prompt = null; saveFailed = false } }
 }
 
 internal val LocalPublishingAgreement = staticCompositionLocalOf<PublishingAgreementController> {
@@ -84,6 +117,7 @@ internal val LocalPublishingAgreement = staticCompositionLocalOf<PublishingAgree
 internal fun PublishingAgreementDialog(controller: PublishingAgreementController) {
     val prompt = controller.prompt ?: return
     val terms = prompt.terms
+    val scope = rememberCoroutineScope()
     AlertDialog(onDismissRequest = controller::cancel,
         title = { Text(stringResource(if (terms == null) R.string.publishing_unavailable_title
             else R.string.publishing_review_title)) },
@@ -97,10 +131,15 @@ internal fun PublishingAgreementDialog(controller: PublishingAgreementController
                     Text(stringResource(R.string.policy_community), style = MaterialTheme.typography.titleSmall)
                     Text(terms.community)
                 }
+                if (controller.saveFailed) Text(stringResource(R.string.publishing_save_failed),
+                    color = MaterialTheme.colorScheme.error)
             }
         },
-        confirmButton = {},
-        dismissButton = { TextButton(onClick = controller::cancel) {
+        confirmButton = { if (terms != null) TextButton(enabled = !controller.saving,
+            onClick = { scope.launch { controller.accept() } }) {
+            Text(stringResource(R.string.publishing_accept))
+        } },
+        dismissButton = { TextButton(enabled = !controller.saving, onClick = controller::cancel) {
             Text(stringResource(if (terms == null) R.string.done else R.string.publishing_cancel))
         } })
 }

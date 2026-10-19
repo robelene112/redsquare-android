@@ -322,6 +322,8 @@ class MainActivity : ComponentActivity() {
                         if (!keyboardVisible) backend?.let { Text(stringResource(R.string.selected_server, it.domain),
                             Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                        if (publishingAgreement.savedNotice) Text(stringResource(R.string.publishing_saved),
+                            Modifier.padding(bottom = 8.dp), style = MaterialTheme.typography.bodySmall)
                         if (backupReminder && !keyboardVisible) {
                             OutlinedCard(Modifier.fillMaxWidth().padding(bottom = 8.dp)) {
                             Column(Modifier.padding(horizontal = 8.dp, vertical = 8.dp)) {
