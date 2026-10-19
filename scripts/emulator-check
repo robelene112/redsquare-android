@@ -172,6 +172,12 @@ verify_agreement() {
     verify_group_chat_native PublishingSurfacesPreviewTest 180 agreement-surfaces agreement-surfaces-evidence
     verify_group_chat_native PublishingGroupPreviewTest 180 agreement-group agreement-group-evidence
     verify_group_chat_native PublishingAuthorPreviewTest 180 agreement-author agreement-author-evidence
+    # Retain each new outbox result even when another outbox fails; any failure fails the gate.
+    local queue_failed=0
+    verify_group_chat_native PublishingPostQueuePreviewTest 180 agreement-post-queue agreement-post-queue-evidence || queue_failed=1
+    verify_group_chat_native PublishingPrivateQueuePreviewTest 180 agreement-private-queue agreement-private-queue-evidence || queue_failed=1
+    verify_group_chat_native PublishingGroupQueuePreviewTest 180 agreement-group-queue agreement-group-queue-evidence || queue_failed=1
+    [[ "$queue_failed" == 0 ]]
 }
 if [[ "${TEST_SCOPE:-full}" == agreement* ]]; then
     verify_agreement

@@ -81,13 +81,19 @@ now gates new edits before preparation, permits existing read-only observation,
 and checks current permission/selection/snapshot at claim and author enqueue.
 Typed DELETE remains independent. Shared PostDraftStore claim calls inherit
 the check, but complete post/worker enqueue and queue explanation proof remain.
-Author GREEN pending.
+Author GREEN39243087022 at0bdd876d4 is SUCCESS15PASS; both
+source reviews0. Root inspected cancellation/edit/removal originals. New
+Post/private/group queue classes use actual headless WorkManager attempts,
+then native review/cancel/resume, unchanged UUID/signature/selection and exact
+draft assertions. Each has its own180second bound; all three results are retained
+and any failure fails the gate. Queue RED pending; no explanatory UI/final Post
+enqueue code added before it.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Author editing is next; obtain its real RED before the minimum.
+Queues are next; obtain actual RED before queue UI/remaining transport changes.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.

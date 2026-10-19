@@ -294,3 +294,21 @@ snapshot without another state mutation. This also gates existing post-worker
 claim calls; complete post foreground/queue enqueue and explanatory UI proof
 remain unfinished. Existing claim persistence behavior is retained. Author GREEN
 and all remaining complete acceptance remain pending.
+
+Author GREEN39243087022 at0bdd876d4 is SUCCESS: agreement3PASS/21.654s,
+surfaces4PASS/25.556s, group7PASS/52.59s, author1PASS/8.595s,15PASS total.
+`author-green10/SHA256SUMS` binds19 originals. Root opened the editable
+cancellation, available edit and unready-policy removal windows. Both source
+reviews report0findings. Runtime variation remains below unchanged class bounds.
+
+Next queue tracers use local migration-style preview outbox input, then an
+unaccepted ready revision. Each schedules the actual existing WorkManager job
+with no MainActivity started, requires an authenticated controlled peer and a
+retryable ENQUEUED/runAttemptCount>=1 result, and verifies the same queued
+original remains cancellable and absent from Chat history. Native review then
+cancels either the terms alone or the queue itself; deliberate acceptance can
+resume only the previously signed original. Public worker UUIDs must remain
+unchanged. Separate Post/private/group classes each keep their own180second
+bound. The harness retains all three new outbox results and fails if any fail;
+earlier agreement classes remain fail-fast with unchanged assertions/deadlines.
+Queue UI/transport completion has not changed before these pending RED results.
