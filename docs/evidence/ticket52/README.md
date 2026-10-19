@@ -103,5 +103,21 @@ Fixture-only d74e25ea0 keeps all six identities, the three credit labels and fin
 visibility assertions, the180-second class and existing10-second label deadline.
 Inside that deadline it now waits for positive visibility and repeats scrolling
 if necessary while history/credits relayout. No production/build input changed.
-Focused39216609812 and a fresh complete Android10 run must verify the correction;
+Focused39216609812 atd74 is SUCCESS:6PASS/60.905s, with unchanged terminal
+visibility assertions. `chatgifs10-correction/` retains its native output and
+selected original sent-credit captures. Fresh full Android10 run39217149317
+at1a1a4cbd3 must still verify the entire SDK;
 Android17 full39213972826 remains independent and was already running at25159.
+
+Root opened the corrected Android10 sent-credit original: GIPHY credit, owned
+artist and Source are visible in the actual group view. Its native output
+separately establishes all three terminal visibility assertions. The targeted
+fix establishes a passing observation, not the cause of the earlier failure.
+
+`full-identity-reference.json` records the already committed accepted48 identity
+references plus the literal new policy case. It was recorded during these runs,
+not before execution. Expected counts are comparison values only. Complete
+production/build input maps across25159 and1a1a4cbd3 are identical (248 objects),
+including performance/build-support paths; d74 changes only the GIF observer.
+Spec/Standards residual packet review through1a1a4cbd3 reports0/0 with107 hashes
+independently reproduced. The new focus/reference records await residual review.

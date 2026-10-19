@@ -1,0 +1,71 @@
+{
+  "recordedDuringExecution": true,
+  "notPreExecutionPlan": true,
+  "basis": "Previously committed independent accepted48 identities plus the literal new PolicyCenter test. Actual execution outcomes are checked separately.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected10-identities.json",
+      "sha256": "e8593038387d5d52b32cf9bc282b409face223a026250067e3eb950abd05fb63",
+      "additional": [
+        {
+          "path": "policies-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PolicyCenterPreviewTest",
+          "test": "draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket48/full-regression/partition-plan/expected17-identities.json",
+      "sha256": "41b3e35618b6b00a701ae128eafc165ac85a44c56f4af1baebf8acd313dd28fc",
+      "additional": [
+        {
+          "path": "policies-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PolicyCenterPreviewTest",
+          "test": "draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork",
+          "occurrences": 1
+        }
+      ]
+    }
+  ],
+  "productionSources": [
+    "25159f3a64041d8944c5bcd967b0ba6b1cd475d5",
+    "1a1a4cbd31859fd33aad73b5dbc01e90689924f6"
+  ],
+  "productionObjectCount": 248,
+  "productionObjectListSha256": "cd5585dd71de5dd244ec517fc6e512a08e6fc289b3f0aba868d3cbbd02bab453",
+  "expected": {
+    "android10": {
+      "identities": 431,
+      "normalCompletions": 104,
+      "knownProfileAssumption": 1
+    },
+    "android17": {
+      "identities": 432,
+      "normalCompletions": 105
+    },
+    "deliberateInterruptions": 33,
+    "continuityRecords": 32
+  },
+  "limits": "Expected values are a comparison reference, never observed outcomes. Both full runs and all gates must pass before acceptance.",
+  "productionPaths": [
+    "app/src/main",
+    "app/src/performance",
+    "app/build.gradle.kts",
+    "core/src/main",
+    "core/build.gradle.kts",
+    "push-gateway/src/main",
+    "push-gateway/build.gradle.kts",
+    "settings.gradle.kts",
+    "build.gradle.kts",
+    "gradle.properties",
+    "gradle/wrapper",
+    "build-support",
+    "app/src/debug",
+    "app/src/release",
+    "gradlew",
+    "gradlew.bat"
+  ]
+}
