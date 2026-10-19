@@ -46,7 +46,9 @@ objects match404 exactly; object-list hash783b738e94df11cbb1938bc67cf9b3fd756fc7
 Ordinary40 is prepared from the same df941 source. Canonical build succeeds3m34s;
 actual APK/signature/package/manifest/DEX checks pass. APK SHA256:
 0a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600.
-It remains unpublished pending combined final review and delivery verification.
+Both combined pre-publication reviews report0 atd8de2d8d9. Ordinary40 is now
+published and its public delivery verification passes. Final bookend review and
+issue54 closure remain pending at this checkpoint.
 
 Full17 run39294150546 has completed SUCCESS in all three jobs. Retained full17
 evidence matches the independent catalog exactly:467PASS,120 normal completions,
@@ -59,7 +61,8 @@ plus the sole established API29 Profile assumption,119 normal completions,
 34 deliberate interruptions and33 PASS continuity records. Root opened all18
 selected original PNGs and retained their XML/hash records. All eight new
 methods and the reader pass; only the same five optional53 visual gaps recur.
-Final combined review/publication remain pending at this checkpoint.
+Both combined final pre-publication review axes report0. Ordinary40 publication
+and verification now pass; only its bookend review/closure remain.
 
 ### Runtime findings that govern the correction
 
@@ -104,8 +107,9 @@ catalog, rejecting any new visual error beyond the exact optional53 observations
 The retained packets contain463 hashes on10 and493 on17, including18 selected
 original PNG/XML pairs per SDK. Raw files are on storage in
 `publisher54-full10-39294146155` and `publisher54-full17-39294150546`.
-Do not repeat completed suites without a new change/failure/concern. Obtain both
-combined final review axes0, then publish/verify ordinary40 before closing54.
+Do not repeat completed suites without a new change/failure/concern. Both combined
+review axes are0 and ordinary40 publication/verification pass. Finish the public
+bookend review before closing54.
 
 GitHub run/job GET metadata can lag actual artifacts and show queued/in_progress
 after completion. Inspect artifact endpoints too. Distinguish actual native
@@ -115,7 +119,13 @@ completed jobs or duplicate unchanged native checks to work around stale metadat
 
 ## Signed delivery state
 
-Ordinary38/0.1.38 is LIVE at <https://davidengelen.nl/redsquare/> from
+Ordinary40/0.1.40 is LIVE at <https://davidengelen.nl/redsquare/> from df941,
+with the actual APK hash recorded above. Public page/latest/immutable40/APK,
+certificate/package/manifest and unchanged old38/37/35 plus separate performance36
+checks pass. The public-safe publication40 packet retains19 records. No physical
+Pixel installation is claimed. OWNER_INPUTS.md points to40.
+
+Ordinary38/0.1.38 remains immutable from
 ed1ae3b959d3113f677cfd466ebc01cb929927d6. APK SHA256:
 `daf258eb0c04037f11920978c126c12e0fa86e6c5b65e7fa26bbb42ef4b7b72d`.
 Established certificate:
@@ -126,16 +136,16 @@ Never rebuild/overwrite immutable releases or change package/signing identity.
 Ordinary39 is prepared locally from00f, verified but obsolete/unpublished after
 the window correction. Never publish it as the corrected candidate. Its hash is
 `7c93932e7618b738b7cfcf013cf5e6a8275875cfe04e4cdde61bfef364df5efa`.
-Ordinary40 is prepared after freeze with `scripts/review-build`, from df941.
-Publish only after full/review acceptance via canonical
-`scripts/review-publish`. Update OWNER_INPUTS.md with actual delivery afterward.
+Ordinary40 was built after freeze with `scripts/review-build`, from df941,
+then published after both full suites and combined reviews via canonical
+`scripts/review-publish`.
 
 Six original pre-publication old38/37/35 and performance36 snapshots are preserved
 outside Git in `publisher54-publication39` under the artifacts root. They are
 copied without alteration to `publisher54-publication40` for the actual candidate.
 The adapted `/tmp/redsquare-policy54-publication40-check.py` now targets40 and
-checks actual new40 plus immutable38/37/35 and separate performance36. Inspect it
-before use; no54 publication has run. The old39 helper must not be used to publish.
+checks actual new40 plus immutable38/37/35 and separate performance36. It has
+completed successfully. The old39 helper must not be used to publish.
 No APK/credential belongs in Git. [Delivery instructions](../REVIEW_BUILDS.md).
 
 Performance36 remains separately LIVE at <https://davidengelen.nl/redsquare/performance/>,

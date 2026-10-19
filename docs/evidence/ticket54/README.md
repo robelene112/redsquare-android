@@ -384,3 +384,22 @@ Both full suites now execute the same source as prepared ordinary40 and matching
 timing41. Combined final reviews and ordinary40 publication remain pending at
 this checkpoint. Actual publisher operations, configured services, physical
 Pixel/ARM64 timing/continuity and Play acceptance remain separate open gates.
+
+## Verified ordinary40 publication
+
+Both complete pre-publication review axes report0 atd8de2d8d9. Ordinary40 was
+then published through the canonical script, observed exit0, to
+<https://davidengelen.nl/redsquare/>. Direct public verification exits0/PASS:
+page/latest/immutable40, actual downloaded APK hash, established certificate,
+package/version, min29/target36 and nondebug/nonprofileable/no-backup manifest.
+The downloaded APK exactly matches the prepared APK inspected for actual DEX
+flags. Its SHA256 remains
+`0a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600`.
+
+Immutable38/37/35 metadata and actual APK hashes remain unchanged. Separate
+performance36 page/latest/immutable metadata and actual APK hash also remain
+unchanged. `publication40` retains19 public-safe records and their hash manifest;
+no APK or private signing material is committed. Prepared39 stays obsolete and
+unpublished; matching timing41 is not yet published. Publication bookend review
+and issue closure follow this checkpoint. Physical/device/provider/operations/
+Play acceptance remains unclaimed, and OWNER_INPUTS.md now points to ordinary40.
