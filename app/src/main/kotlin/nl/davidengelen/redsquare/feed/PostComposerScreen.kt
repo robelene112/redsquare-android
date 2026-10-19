@@ -19,6 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
@@ -46,6 +48,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
         val scope = rememberCoroutineScope()
         remember(store, memory) { PostComposerState(store, memory, wallet, endpoint, parent, scope, quote) }
     }
+    val publishing = LocalPublishingAgreement.current
+    val publishingScope = key(session) { rememberCoroutineScope() }
     var choosingGif by remember(state) { mutableStateOf(false) }
     var selectedImages by remember(state) { mutableStateOf<List<Uri>>(emptyList()) }
     // Only public session metadata enters saved state. Wallet material and draft
@@ -133,7 +137,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 TextButton(enabled = ready && !saving && !sending, onClick = { saveAndClose(onClose) }) {
                     Text(stringResource(R.string.post_save_draft))
                 }
-                TextButton(enabled = ready && !saving && !sending && (text.isNotBlank() || images.isNotEmpty()) && !available, onClick = ::send) {
+                TextButton(enabled = ready && !saving && !sending && (text.isNotBlank() || images.isNotEmpty()) && !available, onClick = {
+                    publishingScope.launch { if (publishing.beforePublishing()) send() }
+                }) {
                     Text(stringResource(if (transaction == null) R.string.post_send else R.string.retry))
                 }
             }

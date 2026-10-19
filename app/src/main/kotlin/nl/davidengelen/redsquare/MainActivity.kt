@@ -77,6 +77,9 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsDialog
 import nl.davidengelen.redsquare.ui.AndroidAppearanceStore
 import nl.davidengelen.redsquare.ui.Appearance
 import nl.davidengelen.redsquare.ui.RedSquareTheme
+import nl.davidengelen.redsquare.policy.PublishingAgreementController
+import nl.davidengelen.redsquare.policy.PublishingAgreementDialog
+import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 
 class MainActivity : ComponentActivity() {
     private val notificationRoutes by lazy {
@@ -264,8 +267,10 @@ class MainActivity : ComponentActivity() {
             val giphyAttributions = remember(address) {
                 address?.let { nl.davidengelen.redsquare.media.GiphyAttributionStore(applicationContext, it) }
             }
+            val publishingAgreement = remember { PublishingAgreementController(applicationContext) }
             RedSquareTheme(this@MainActivity, appearance) {
-                CompositionLocalProvider(LocalVideoFixture provides VideoFixture.fromIntent(intent),
+                CompositionLocalProvider(LocalPublishingAgreement provides publishingAgreement,
+                    LocalVideoFixture provides VideoFixture.fromIntent(intent),
                     LocalVideoDiagnostics provides videoDiagnostics,
                     LocalGiphyConfiguration provides GiphyConfiguration.fromIntent(intent),
                     nl.davidengelen.redsquare.media.LocalChatGiphyConfiguration provides GiphyConfiguration.chatFromIntent(intent),
@@ -364,7 +369,7 @@ class MainActivity : ComponentActivity() {
                                     CompositionLocalProvider(LocalPostNavigation provides postNavigation,
                                         LocalRegistryAuthority provides RegistryAuthority.fromIntent(intent, feedEndpoint)) {
                                     RegisteredIdentityScope(wallet, feedEndpoint, selected) {
-                                        val feedUnobstructed = !settingsOpen && !policiesOpen && !personalControlsOpen && !usernameOpen &&
+                                        val feedUnobstructed = !settingsOpen && !policiesOpen && !publishingAgreement.open && !personalControlsOpen && !usernameOpen &&
                                             !walletOpen && !walletBalanceOpen && !walletTransferOpen && !recoveryGuideOpen &&
                                             !savingBackend && !walletImport.busy && !walletExport.busy
                                         FeedScreen(wallet, failed, feedEndpoint, selected,
@@ -492,6 +497,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     )
+                    PublishingAgreementDialog(publishingAgreement)
                     if (policiesOpen) nl.davidengelen.redsquare.policy.PolicyCenter { policiesOpen = false }
                     if (personalControlsOpen) PersonalControlsDialog { personalControlsOpen = false }
                     if (walletOpen) AlertDialog(

@@ -23,8 +23,10 @@ remain open until demonstrated. Never present draft terms as agreed/legal consen
 
 Child52 is accepted/CLOSED after full native verification, separate reviews and
 ordinary37 publication. Child53 is assigned after its sole blocker52 is verified CLOSED. The first
-real native cancellation tracer and focused workflow scopes are prepared; RED
-has not run yet. No policy53 production implementation exists yet. Review base
+real native cancellation tracer has actual RED39224860486 at7c3caa95d
+(1FAIL waiting for the missing agreement window; source39224860930 SUCCESS).
+The first foreground Posts cancellation minimum is prepared. GREEN, persistence,
+other module/worker publication gates and full acceptance remain pending. Review base
 is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
