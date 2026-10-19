@@ -18,14 +18,16 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Tab
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.clip
@@ -401,13 +403,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
                     Text(stringResource(R.string.feed_refresh))
                 }
-            }
-            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                Button(enabled = wallet != null, onClick = { composing = true },
-                    contentPadding = PaddingValues(horizontal = 16.dp)) {
-                    Text(stringResource(R.string.post_new), style = MaterialTheme.typography.labelMedium)
-                }
                 FeedMoreActions(wallet != null, onQueue = { reviewingQueue = true }, onChanges = { reviewingChanges = true })
             }
             val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
@@ -441,7 +436,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
             }
             // Keep a restored list position until the asynchronous cache read has finished.
-            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position) {
+            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position,
+                contentPadding = PaddingValues(bottom = 88.dp)) {
                 items(visiblePosts, key = { it.id }) { post ->
                     Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -473,7 +469,19 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
     }
     Column(modifier) {
-        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) { content() }
+        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = AppSpacing.screen)) {
+            content()
+            if (home && wallet != null) {
+                val composeLabel = stringResource(R.string.post_new)
+                FloatingActionButton(onClick = { composing = true },
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = AppSpacing.screen)
+                        .semantics { text = AnnotatedString(composeLabel) },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary) {
+                    Icon(painterResource(R.drawable.ic_compose), contentDescription = null)
+                }
+            }
+        }
         if (!WindowInsets.isImeVisible && !composing && !reviewingQueue && !reviewingChanges &&
             navigation.lastOrNull() !is BrowseDestination.Quote) {
             HorizontalDivider()
