@@ -58,14 +58,17 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta40](https://davidengelen.nl/redsquare/) en aparte
-[timingbuild41](https://davidengelen.nl/redsquare/performance/) staan klaar met
-dezelfde appcode. Testinstallaties op Android10 en17 bevestigen gescheiden
-wallets/opslag en behoud van de gewone testidentiteit. Dit bewijst de fysieke
-Pixel-controle nog niet. De telefoontests blijven open onder #36
-(PIXEL_CONTINUITY, PIXEL_CACHED en PIXEL_FRESH). #35 bewaart het afgeronde
-ontwikkelcheckpoint. De precieze
-meetwijze staat in `docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
+De gewone [beta42](https://davidengelen.nl/redsquare/) staat online. De bijpassende
+timingbuild43 is voorbereid, maar nog niet gepubliceerd of gecontroleerd op
+installatie/isolerende opslag. De timingpagina biedt voorlopig de oudere41.
+Gebruik die niet als bewijs voor de uiteindelijke42-configuratie.
+
+Het eerdere geaccepteerde paar40/41 had dezelfde appcode. Testinstallaties op
+Android10 en17 bevestigden daarvoor gescheiden wallets/opslag en behoud van de
+gewone testidentiteit. Dat bewijst de fysieke Pixel-controle nog niet. Die blijft
+open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en PIXEL_FRESH). #35 bewaart het
+afgeronde ontwikkelcheckpoint. De precieze meetwijze staat in
+`docs/research/FEED_PERFORMANCE_PROTOCOL.md`.
 
 De timing-app gebruikt een eigen wallet. Gebruik hiervoor geen herstelbestand van
 je gewone wallet. Push en GIF-diensten zijn nog niet geconfigureerd. Als de

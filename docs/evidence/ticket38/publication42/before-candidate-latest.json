@@ -1,0 +1,11 @@
+{
+  "versionCode": 40,
+  "versionName": "0.1.40",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "0a02cfec93b57c985d1bb6f38aeff3c5fbbd9eb148029eba895338b69daad600",
+  "commit": "df941ab6c70118275f4b257220905f5bed93d33d",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/40/redsquare.apk",
+  "notes": "Adds publisher support, safety, privacy and data-request entries in Settings, plus publisher user reporting from profiles. Contact channels remain unavailable until real contacts and a request page are configured. Improves Android 10 dialog alignment and controls with larger text and the keyboard. Install over the existing app to preserve its wallet and drafts."
+}

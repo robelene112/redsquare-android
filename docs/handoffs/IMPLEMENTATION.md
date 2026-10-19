@@ -12,57 +12,56 @@ untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` unread and untouched.
 Continue ordinary app correctness work. No separate cybersecurity campaigns,
 restricted-access requests, provider safeguard bypasses or historical credentials.
 
-## Active38 and renewed owner instruction
+## About38 complete native verification and ordinary42 publication
 
-The owner renewed continue-all instructions after this handoff's earlier checkpoint.
-Finish independent development with placeholders; park actual owner/service/phone
-requirements in OWNER_INPUTS and the open release issue36. Read the new development-
-completion section of WORKFLOW.md. Requirements are transferred visibly, never
-claimed passed by placeholders. Parent1/release36 stay open for real release.
+The owner renewed continue-all instructions and parked actual owner/service/phone
+requirements in OWNER_INPUTS and open release36. WORKFLOW documents this staging.
+Original criteria are preserved; placeholders never count as actual acceptance.
+Parent1/release36 stay open. Native16/17/19/31/32/33/34/35 are verified CLOSED,
+each after an individual0/0 review, commit and exact unchecked transfer to36.
 
-About/reference38 is assigned and unblocked, review base3c15204aa. Use the existing
-Red Square app name until a later naming decision. Add an unobtrusive inline About
-section at the bottom of existing scrollable Settings, with the platform reference,
-independent publisher and actual version. No new external link/SDK/permission.
-The existing appearance journey now reveals/captures the reference while retaining
-all original assertions/deadlines. Tracer2c8bf6374 completed RED run39308692404:
-exactly one missing-reference JUnit failure in4.655s, instrumentation process exit0.
-The seven retained RED files are hashed. Production About is implemented at
-acb08e8202f1687b59df730bfabec0337eece13b. Focused verification at that exact
-source completed: Android10 run39309307556 and Android17 run39309312329.
-Focused10/17 completed SUCCESS,1PASS11.183s/42.421s; all six About originals
-are viewed but publisher/version are below that capture position. Fixture-only
-116e92935 additionally scrolls publisher and Version before capture. Both reviews0.
-Complete current-source runs now execute exact116e92935b7287e9157b30c78b8e8f1d4ad7b800:
-Android10 39310202005 and Android17 39310205648. The independent466/467 catalog
-was committed before dispatch. Full17 is now completed SUCCESS in all3jobs:
-467PASS/exact467,120 normal/34 deliberate/33 continuity;500 packet hashes. Root
-opened3 complete About originals plus2publicfeeds/legacyupdate. Only5knownoptional
-53 gaps recur; full17 README qualifies repeated initial viewer previews resolved
-at original detail. Full10 also completed SUCCESS:465PASS plus sole established API29 Profile
-assumption/exact466,119/34/33,470hashes and only5knownoptional53gaps. Both suites
-are complete at116e. Root opened6relevant originals per SDK, with viewer repetition
-qualified by original hashes/PNG decoding/XML. Final combined Spec0/Standards0/
-heuristic0 accepts ordinary42 for canonical publication. Before42 bookend exits0;
-publication itself and43 signed-isolation checks remain pending.
-No other app source is being implemented in parallel. While complete38 runs, root
-verified accepted native evidence and sequentially completed development parents
-16/17/19/31/32/33/34/35, each with separate0/0 reviews, commit and explicit original
-criteria retained. Exact actual checks are unchecked under36. All are verified
-CLOSED;35's accepted checkpoint is ordinary40/timing41, excluding pending38.
-Complete38 current-source/full/reviews and signed delivery next. Existing40/41
-stay public meanwhile. Prepared42 ordinary,43 timing and44 offline Play bundle
-all have258 identical production/build objects to acb/116e (source-equivalence.json).
-Canonical builders exit0; actual artifact DEX/manifest/certificate/hash checks pass.
-42/43 are not published;44 is not submitted. All owner/service/phone gates stay36.
-The independent43 signed-isolation plan is prepared before execution under35:
-11 existing feed/public-read identities plus three signed wallet observers perSDK,
-main35/performance43, exact distinct UID/wallet/main-address/restoration checks.
-Both plan reviews0. Execute only after current full acceptance and canonical43
-publication; freeze actual source/run provenance then. The existing harness
-supports43 directly, so no source/build/harness modification is needed.
+About38 review base is3c15204aa. Keep the provisional Red Square app name until
+a later naming choice. Production acb08e820 adds an inline About card at the end
+of existing scrollable Settings: platform, independent Angels’ Foundry and actual
+installed version. No external link/SDK/permission. Real legal identity remains
+unconfirmed. Tracer2c8bf6374/run39308692404 retains the actual missing-reference
+RED (1JUnitFAIL4.655s/process0). Initial focused acb10/17 runs39309307556/
+39309312329 pass1case11.183s/42.421s but capture a partial card. Fixture-only116e
+scrolls publisher/Version before capture, preserving every old assertion/deadline.
 
-## Latest accepted delivery: issue54 and ordinary40
+Both complete suites execute exact116e92935b7287e9157b30c78b8e8f1d4ad7b800:
+- Android10 run39310202005 SUCCESS: exact466,465PASS plus sole established API29
+  Profile assumption,119 normal/34 deliberate/33 continuity;470 packet hashes.
+- Android17 run39310205648 all3jobs SUCCESS: exact467PASS,120/34/33;500 hashes.
+- Independent catalogs were committed before execution. Only5knownoptional53
+  observer gaps recur. Root opened6relevant originals per SDK; complete About
+  card/three themes are verified. Repeated viewer previews are qualified by
+  original hashes, PNG decoding and separate XML. No image edit or app cause claim.
+- Final combined review reports Spec0, documented Standards0 and heuristic0.
+
+Ordinary42/0.1.42 is now LIVE at https://davidengelen.nl/redsquare/. Canonical
+publisher and independent before/after checks exit0. Actual public metadata/APK/
+certificate/manifest match prepared42, SHA256
+553ebbd62e6592a34dabc0bac7d7425cce774422b3060c6de2e36ad7fc1a7eb7.
+Source metadata6ccc48317 has the same258 production/build objects as acb/116e,
+prepared timing43 and offline bundle44. Actual DEX options remain review=true,
+Push=false and separate GIF keys absent. Immutable40 and the whole performance41
+channel remain unchanged across this42 publication. publication42 has19 hashes.
+Publication bookend review reports Spec0/Standards0/heuristic0. OWNER_INPUTS
+correctly distinguishes current42/pending43/historical40-41. Native38 closure is
+next; do not republish42.
+
+Prepared43 remains unpublished;44 is offline/unsubmitted. Canonical builders
+exit0 and actual artifact checks pass for all three. Current41 is still the live
+timing checkpoint. Execute the independent43 plan only after canonical43 delivery:
+11 native feed/public-read identities plus3signed observers perSDK, main35/perf43,
+exact distinct UID/wallet/main-address/restoration safeguards. Both plan reviews0.
+Record actual executing source/run IDs after dispatch. Existing harness supports43
+without source changes. Current-source full verification is complete; no need to
+repeat it for these documentation/artifact selection changes. Actual physical,
+provider/Google/Registry/policy/account/Play gates stay unchecked in36.
+
+## Previous accepted delivery: issue54 and ordinary40
 
 [Publisher routes54](https://github.com/robelene112/redsquare-android/issues/54)
 is CLOSED. The final [tracker record](https://github.com/robelene112/redsquare-android/issues/54#issuecomment-6274584284)

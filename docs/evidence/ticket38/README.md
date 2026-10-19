@@ -91,3 +91,16 @@ heuristic0. Reviewers independently verify470/500 packet hashes, exact catalogs,
 all old gates and the same258 production objects across all artifact sources.
 Ordinary42 is accepted for canonical publication;43 signed isolation remains
 a separate pending delivery check. Actual release36 gates stay unchecked.
+
+## Ordinary42 published
+
+Canonical publisher and independent before/after checker exit0. Actual downloaded
+42/0.1.42 APK, page/latest/immutable metadata and certificate/manifest/hash match
+prepared42 exactly. Immutable40 and the complete separate performance41 channel
+remain unchanged. The [publication42 packet](publication42/README.md) retains the
+actual public-safe records. No physical/provider/Play proof is inferred.
+
+Publication42 bookend reviews now report Spec0, documented Standards0 and
+heuristic0 after correcting OWNER_INPUTS to distinguish live42, pending43 and
+historical40/41. Fresh reviewer downloads match actual42/40/41 artifacts.
+Native38 is accepted for closure. Real release36/parent1 remain open.
