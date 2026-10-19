@@ -22,8 +22,10 @@ actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
 Child52 is accepted/CLOSED after full native verification, separate reviews and
-ordinary37 publication. Child53 is queued with its native blocker52 now CLOSED;
-claim and implement it next, sequentially. No53 source exists yet.
+ordinary37 publication. Child53 is assigned after its sole blocker52 is verified CLOSED. The first
+real native cancellation tracer and focused workflow scopes are prepared; RED
+has not run yet. No policy53 production implementation exists yet. Review base
+is bc83a08755d71ac9acd7033264e3a30f7f2903af.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
@@ -111,7 +113,7 @@ Next53 prepares installation-local versioned agreement before content publicatio
 with draft-aware useful previews and a non-preview release gate while approved
 policy is absent. Preserve first reading, wallet/payments/reporting, backend/
 identity, queued originals and pre-claim cancellation. Read its current issue
-and planning comment; no53 source exists yet. Continue justified substantive
+and planning comment; first RED tracer is prepared, production53 not implemented. Continue justified substantive
 native work under36 while owner facts remain in OWNER_INPUTS.md.
 
 ## Accepted issue51: complete 16 KB runtime proof
