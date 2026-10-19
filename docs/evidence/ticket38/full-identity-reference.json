@@ -25,5 +25,13 @@
       "expectedContinuityRecords": 33
     }
   ],
-  "limits": "Expected catalogs are independent of new results. Complete38 native acceptance, signed delivery and physical/provider/store checks are not yet claimed."
+  "limits": "Expected catalogs are independent of new results. Complete38 native acceptance, signed delivery and physical/provider/store checks are not yet claimed.",
+  "executingSources": {
+    "android10": "116e92935b7287e9157b30c78b8e8f1d4ad7b800",
+    "android17": "116e92935b7287e9157b30c78b8e8f1d4ad7b800"
+  },
+  "executingRuns": {
+    "android10": 39310202005,
+    "android17": 39310205648
+  }
 }

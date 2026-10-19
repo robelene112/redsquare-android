@@ -3,17 +3,18 @@
 Prepared for [#49](https://github.com/robelene112/redsquare-android/issues/49),
 child of [#36](https://github.com/robelene112/redsquare-android/issues/36).
 This is a reviewable offline package, not a submitted or approved release.
-Google documentation was rechecked on2026-10-18. The accepted native regression
-is [issue48](../evidence/ticket48/NATIVE_ACCEPTANCE.md); actual packaging evidence
-is [issue49](../evidence/ticket49/README.md). Candidate 33 application inputs
-match accepted48. Subsequent native50 changes the unconfigured Settings
-descriptions, verified in its focused journey and complete Android17 run
-39106585481. Android10 run39106583903 fails at a fixture's initial Wallet lookup before
-its failed-save import scenario. After a bounded fixture correction, complete10
-recheck39111106756 passes. Combined whole50 review reports0/0, and ordinary35 is
-published and independently verified; publication bookend1ead reports0/0 and50
-is CLOSED. Historical AAB33 retains its original source. Build a fresh bundle after
-the remaining native/configuration changes before final store preparation.
+Google documentation was rechecked on2026-10-18. The latest accepted native
+checkpoint is [complete54](../evidence/ticket54/README.md) on ordinary40/timing41.
+The [fresh offline candidate44](../evidence/ticket49/prepared44/README.md) includes
+the About38 implementation and has identical258 production/build Git objects to
+prepared ordinary42/timing43 and executing full116e. Its complete current-source
+verification and signed beta delivery remain pending. Historical AAB33 retains
+its original source/evidence under49; it is superseded as current preparation.
+
+Candidate44 is not a ready production release. All provider options are absent,
+policy/contact readiness remains draft and real release gates remain unchecked
+in36. Prepare a fresh candidate after actual configuration changes and verify
+the corresponding provider/native/physical behavior before submission.
 
 ## Artifact and signing decision
 

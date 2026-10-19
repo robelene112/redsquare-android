@@ -1,0 +1,32 @@
+{
+  "productionSources": [
+    "acb08e8202f1687b59df730bfabec0337eece13b",
+    "116e92935b7287e9157b30c78b8e8f1d4ad7b800",
+    "6ccc4831794079472a93d4907c1fe5d85a015737",
+    "b5a1569de7a906786fb7518c09595a14eaa0816d",
+    "c8d7222d1e8bcd9705c415009c2999b7c2132ce0"
+  ],
+  "paths": [
+    "app/src/main",
+    "app/src/performance",
+    "app/build.gradle.kts",
+    "core/src/main",
+    "core/build.gradle.kts",
+    "push-gateway/src/main",
+    "push-gateway/build.gradle.kts",
+    "settings.gradle.kts",
+    "build.gradle.kts",
+    "gradle.properties",
+    "gradle/wrapper",
+    "build-support",
+    "app/src/debug",
+    "app/src/release",
+    "gradlew",
+    "gradlew.bat"
+  ],
+  "identical": true,
+  "objectCount": 258,
+  "objectListSha256": "1842cb1d3610641cd8a60cd85092296e415d61aa6f3520a9bf2f724b00724421",
+  "fixtureDifference": "Final116e adds two publisher/version scroll observations to the existing Appearance journey; no old assertion, identity or deadline is removed.",
+  "limits": "Production/build equivalence does not by itself establish full execution or phone/provider acceptance."
+}

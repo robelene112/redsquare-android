@@ -16,7 +16,9 @@ Focused10 run39309307556 at acb is SUCCESS:1PASS11.183s, native exit0,
 13 hashed files. Root opened all three About originals: platform text is visible,
 but publisher/version remain below the captured viewport. A fixture-only follow-up
 scrolls publisher and Version into view before capturing, retaining every original
-assertion and deadline. Focused17 run39309312329 remains pending.
+assertion and deadline. Focused17 run39309312329 at acb is SUCCESS:1PASS42.421s, native exit0,
+13 hashed files. Root opened its three About originals with the same partial
+viewport limitation. Neither first packet proves the corrected capture position.
 Fresh full10/17 will use the final fixture and unchanged production.
 `full-identity-reference.json` pins the independently accepted54 catalogs before
 new complete execution:466/467 identities,119/120 normal completions,34 deliberate
@@ -24,3 +26,28 @@ interruptions and33 continuity records. The sole established API29 Profile
 assumption remains explicit; no new omission or optional gap is accepted.
 
 Actual owner/provider/store and physical acceptance remains open under release36.
+
+## Current complete verification and prepared delivery
+
+Full10 run39310202005 and full17 run39310205648 execute exact
+116e92935b7287e9157b30c78b8e8f1d4ad7b800, after both review axes accepted the
+final publisher/version scroll observation. All required partition jobs retain
+the previous assertions/deadlines, public reads and signed35/41 isolation. Their
+results remain pending; no partial execution is full acceptance.
+
+Canonical builders exit0 for ordinary42, isolated timing43 and offline bundle44.
+Actual artifact DEX/manifest/certificate/hash checks pass, and all258 production/
+build objects match focused acb and complete116e. The independently retained
+source-equivalence record binds those exact Git metadata revisions. Ordinary42/
+timing43 remain unpublished, while44 is local offline preparation only.
+
+During complete verification, root audited already accepted native parents
+16/17/19/31/32/33/34/35 and closed each development stage with separate0/0 reviews
+and commits. Their original requirements remain recorded; exact real-provider/
+Registry/Google/Pixel checks are visibly unchecked under36. No other app feature
+is implemented in parallel. Parent1/36 remain open for actual release.
+
+Both independent preparation review axes report0 findings. Reviewers verified
+focused17/prepared42/43/44 hashes, actual artifact hashes/DEX booleans and all
+five identical258-object source maps. This accepts preparation only, pending
+complete38 runtime results and signed-delivery bookends.

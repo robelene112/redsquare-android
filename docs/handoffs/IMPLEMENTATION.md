@@ -29,12 +29,23 @@ all original assertions/deadlines. Tracer2c8bf6374 completed RED run39308692404:
 exactly one missing-reference JUnit failure in4.655s, instrumentation process exit0.
 The seven retained RED files are hashed. Production About is implemented at
 acb08e8202f1687b59df730bfabec0337eece13b. Focused verification at that exact
-source is running: Android10 run39309307556 and Android17 run39309312329.
-Neither focused result nor complete-suite acceptance is claimed yet.
-No other app source is being implemented in parallel. Complete38 code/native/full
-reviews and signed delivery, then finish the already implemented native parents
-sequentially with their exact remaining external checks linked to36. Verify each
-parent's actual native evidence before closure. Existing40/41 stay public meanwhile.
+source completed: Android10 run39309307556 and Android17 run39309312329.
+Focused10/17 completed SUCCESS,1PASS11.183s/42.421s; all six About originals
+are viewed but publisher/version are below that capture position. Fixture-only
+116e92935 additionally scrolls publisher and Version before capture. Both reviews0.
+Complete current-source runs now execute exact116e92935b7287e9157b30c78b8e8f1d4ad7b800:
+Android10 39310202005 and Android17 39310205648. The independent466/467 catalog
+was committed before dispatch. Full acceptance/publication remains pending.
+No other app source is being implemented in parallel. While complete38 runs, root
+verified accepted native evidence and sequentially completed development parents
+16/17/19/31/32/33/34/35, each with separate0/0 reviews, commit and explicit original
+criteria retained. Exact actual checks are unchecked under36. All are verified
+CLOSED;35's accepted checkpoint is ordinary40/timing41, excluding pending38.
+Complete38 current-source/full/reviews and signed delivery next. Existing40/41
+stay public meanwhile. Prepared42 ordinary,43 timing and44 offline Play bundle
+all have258 identical production/build objects to acb/116e (source-equivalence.json).
+Canonical builders exit0; actual artifact DEX/manifest/certificate/hash checks pass.
+42/43 are not published;44 is not submitted. All owner/service/phone gates stay36.
 
 ## Latest accepted delivery: issue54 and ordinary40
 
@@ -93,7 +104,7 @@ page/latest/immutable/APK also remained unchanged. Timing latest is now41;36 sta
 unpublished; never publish it as the corrected candidate. Never overwrite releases,
 change signing/package identity or erase the owner's wallet. OWNER_INPUTS names40.
 
-## Accepted matching timing41 delivery for35
+## Accepted timing41 checkpoint before renewed owner staging
 
 The isolated timing candidate for the existing physical acceptance in35 is
 delivered. No new app feature or provider configuration changed, and parent35
@@ -136,10 +147,9 @@ documented Standards0 and heuristic0. The bounded delivery is accepted and
 [recorded in35](https://github.com/robelene112/redsquare-android/issues/35#issuecomment-6274902346),
 with its genuine physical/integration gates still open.
 OWNER_INPUTS links ordinary40 and matching timing41, with those limitations
-explicit. No native run or local builder/download remains pending. No further
-unblocked native feature implementation is identified; genuine prerequisites are
-in the table below. Continue when their inputs or external state change, without
-repeating completed checks or treating placeholders as completion.
+explicit. That previous41 checkpoint had no pending builder/download or unblocked feature.
+The renewed owner instruction now stages native completion separately, as above.
+Do not repeat unchanged41 checks or treat placeholders as real acceptance.
 
 Temporary `/tmp/redsquare-performance41-publication-check.py` has completed both
 bookends. Raw public files are on storage in `performance41-publication`. Do not
@@ -152,25 +162,21 @@ and [physical protocol](../research/FEED_PERFORMANCE_PROTOCOL.md). Five cached
 launches must each be≤2000ms and five fresh isolated launches each≤5000ms on the
 Pixel7 under that protocol. Never import/clear the owner's ordinary wallet for timing.
 
-## Remaining genuine gates
+## Current tracker and parked release gates
 
-Original35 tickets:26 CLOSED and nine OPEN (16,17,19,31 through36); parent1 OPEN.
-Additional37/39 through54 are CLOSED.38 is a later branding decision, explicitly
-not a new release blocker. Fetch current tracker state before final counts.
+Verified after native35 completion: only38,36 and parent1 remain OPEN. Original
+34 native tickets2through35 and all prior supplementary native children are CLOSED.
+38 is active as above. Parent1/36 stay open for actual release, not native code.
 
-| Issues | Remaining prerequisite |
-| --- | --- |
-|16,31| Separate authorized Android Posts/Chat Giphy options and actual provider proof. Native preparation accepted; existing setup question remains pending. No borrowed browser keys. |
-|17| Controlled embedded playback/recovery accepted. Public emulator provider restrictions leave actual Playing unproved. No unchanged probes or cookie/proxy/UA workarounds. Pixel playback is useful. |
-|19| Official Registry works after accepted native callback correction; Owner remains unavailable. No blind update/unchanged probe. See ticket19/FINAL_REGRESSION_CHECKPOINT and research/OWNER_REGISTRY_READINESS_NEXT_CHECK_2026_10_15. Runtime staging/instrumentation needs scoped operations authorization. |
-|32,33,34| Native gateway/Social/private/group work accepted. Actual Firebase/GCP app/project/sender/resolver, authorized gateway hosting/deploy and physical closed-app delivery remain. Preserve Firebase26 FID/register/unregister/onRegistered APIs. |
-|35| Physical Pixel7 in-place identity/cache/draft/backend continuity and the individual launch thresholds. Normal animations, stable Wi-Fi, no debugger, positive isolated PID absence. Emulator/16K/x86_64 proof is not physical/ARM64/Play proof. Matching41 preparation is the current bounded continuation. |
-|36| Real publisher/KVK/account/track/signing enrollment, approved policies/contacts/retention/moderation/child-safety/request operations, configured providers/device gates and authorized Play submission. Native49/52/53/54 preparation does not establish effective operations or legal classification. |
+The exact owner-directed parking matrix is [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+It retains13 unchecked provider/Registry/Google/Pixel/publisher/policy/submission
+gates, including expanded configured SDK/callback/rotation/interrupted/locked/Doze
+requirements. Source tickets preserve original scope and link to that matrix.
+OWNER_INPUTS is the maintained human checklist; no repeated setup questions needed.
 
-Keep concrete owner prerequisites in OWNER_INPUTS instead of repeating questions.
-Technical inspection remains the agent's responsibility. Ordinary signed static
-APK publication is authorized. Native fixture work does not authorize live node,
-cloud/IAM/provider, public policy hosting or store deployment/submission.
+Ordinary signed static APK publication is authorized. Native/placeholder preparation
+does not authorize live node/cloud/IAM/provider/public policy/store changes. No
+restricted cybersecurity activity, provider workaround or private-wallet upload.
 
 ## Environment and preserved history
 

@@ -96,3 +96,12 @@ privacy/deletion/Terms and substantive native policy/moderation flows, declarati
 track installation and authorized submission open. Original configured-provider/
 cloud gates and physical35 remain open. No policy exemption or publisher fact is
 invented, and local tools never establish physical or Google delivery acceptance.
+
+## Fresh current-code offline preparation44, 2026-10-19
+
+[Candidate44](prepared44/README.md) supersedes historical33 for offline preparation.
+Canonical bundle mode exits0, strict JAR/bundletool/local APK checks pass; actual
+universal APK DEX, signature/manifest/SDK and16KiB ZIP/64-bit LOAD alignment pass.
+All258 production/build objects match prepared42/43 and executing About38 full116e.
+Current full acceptance and beta publication remain pending. No final configured
+policy/provider/physical/Play result is claimed; all real gates remain open36.

@@ -1,0 +1,97 @@
+{
+  "libraries": [
+    {
+      "path": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "align": 16384
+        },
+        {
+          "offset": 7232,
+          "vaddr": 23616,
+          "align": 16384
+        },
+        {
+          "offset": 8144,
+          "vaddr": 40912,
+          "align": 16384
+        }
+      ],
+      "relroEndModulo16384": [
+        8192
+      ]
+    },
+    {
+      "path": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "sha256": "d3e48717c9aa147e0ab21063ba0e8e0211cabf8bf40b222640829519edbf58e1",
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "align": 16384
+        },
+        {
+          "offset": 4544,
+          "vaddr": 20928,
+          "align": 16384
+        },
+        {
+          "offset": 5160,
+          "vaddr": 37928,
+          "align": 16384
+        }
+      ],
+      "relroEndModulo16384": [
+        8192
+      ]
+    },
+    {
+      "path": "lib/x86_64/libandroidx.graphics.path.so",
+      "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0",
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "align": 16384
+        },
+        {
+          "offset": 7872,
+          "vaddr": 24256,
+          "align": 16384
+        },
+        {
+          "offset": 8808,
+          "vaddr": 41576,
+          "align": 16384
+        }
+      ],
+      "relroEndModulo16384": [
+        12288
+      ]
+    },
+    {
+      "path": "lib/x86_64/libdatastore_shared_counter.so",
+      "sha256": "fb6c9208988c49ae94943bc3236fa763ba584722e044fa4ea9a12d2941027105",
+      "loads": [
+        {
+          "offset": 0,
+          "vaddr": 0,
+          "align": 16384
+        },
+        {
+          "offset": 3872,
+          "vaddr": 20256,
+          "align": 16384
+        }
+      ],
+      "relroEndModulo16384": [
+        8192
+      ]
+    }
+  ],
+  "zipalign16": "PASS",
+  "limits": "LOAD and ZIP alignment only, not actual ARM64/all-JNI/physical/Play runtime."
+}
