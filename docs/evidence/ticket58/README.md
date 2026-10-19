@@ -108,4 +108,14 @@ the original capture shows the real IME closed. The fixture keeps the actual
 the driver's Boolean is no longer treated as the user-visible result. This is not
 reported as a successful application test. Root closing now precedes independent
 font/display/appearance restoration, resolving the reviewed cleanup-order finding.
-Two additional Standards findings remain subject to fix review/runtime evidence.
+Standards re-review of3067735ea reports0 documented and0 heuristic findings.
+Runtime verification remains pending in39335922124; focused viewport proof does
+not replace complete58 acceptance.
+
+Viewport3067735ea/run39335922124 is FAILURE at selected Home. Its actual touch
+bounds57x80 are valid, but native isSelected=true/isClickable=false. Pinned
+Compose1.11.4 intentionally omits ACTION_CLICK for selected Role.Tab nodes. The
+observer now measures the positively selected, enabled native tab itself and
+keeps the full48dp/viewport bounds; all other controls still require native click.
+Root opened the original130% light capture: compact headings and readable feed
+tabs put the post body in the upper half. Other matrix cases are not yet proved.

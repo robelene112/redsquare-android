@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFramePreviewTest:
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFramePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Home must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26$lambda$19(AppFramePreviewTest.kt:127)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$BmcWTH0Yy4DQE83aOMZt7Kgh9Is(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26(AppFramePreviewTest.kt:106)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$mzoDtGnb6qVbMuHer80PiqIi2ZQ(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$32$lambda$31$lambda$30(AppFramePreviewTest.kt:196)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$F1wkanz6UdMMZBMpEJvflt6oPew(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:192)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest):
+java.lang.AssertionError: Home must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26$lambda$19(AppFramePreviewTest.kt:127)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$BmcWTH0Yy4DQE83aOMZt7Kgh9Is(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26(AppFramePreviewTest.kt:106)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$mzoDtGnb6qVbMuHer80PiqIi2ZQ(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$32$lambda$31$lambda$30(AppFramePreviewTest.kt:196)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$F1wkanz6UdMMZBMpEJvflt6oPew(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:192)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: test=largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 30.285
+There was 1 failure:
+1) largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(nl.davidengelen.redsquare.AppFramePreviewTest)
+java.lang.AssertionError: Home must retain a full reachable target at frame-320-font130-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26$lambda$19(AppFramePreviewTest.kt:127)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$BmcWTH0Yy4DQE83aOMZt7Kgh9Is(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes$lambda$26(AppFramePreviewTest.kt:106)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$mzoDtGnb6qVbMuHer80PiqIi2ZQ(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda25.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed$lambda$32$lambda$31$lambda$30(AppFramePreviewTest.kt:196)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.$r8$lambda$F1wkanz6UdMMZBMpEJvflt6oPew(AppFramePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.AppFramePreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.withFirstUseFeed(AppFramePreviewTest.kt:192)
+	at nl.davidengelen.redsquare.AppFramePreviewTest.largerTextKeepsFrameControlsAndBackupGuidanceReachableAtBothViewportSizes(AppFramePreviewTest.kt:72)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

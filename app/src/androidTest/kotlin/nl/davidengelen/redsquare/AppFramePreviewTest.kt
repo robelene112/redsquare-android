@@ -7,6 +7,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.By
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -111,22 +114,30 @@ class AppFramePreviewTest {
                             val node = ui.onNode(hasText(label) and hasClickAction()).assertIsDisplayed().fetchSemanticsNode()
                             val visualBounds = node.boundsInRoot
                             val bounds = node.touchBoundsInRoot
+                            val selectedTab = node.config.getOrNull(SemanticsProperties.Role) == Role.Tab &&
+                                node.config.getOrNull(SemanticsProperties.Selected) == true
                             var native = device.findObject(By.text(label))
-                            while (native != null && !native.isClickable) native = native.parent
+                            // Compose advertises a selected tab as selected rather than ACTION_CLICK.
+                            while (native != null && !native.isClickable && !(selectedTab && native.isSelected)) native = native.parent
                             val nativeBounds = native?.visibleBounds
+                            val nativeAction = native?.isEnabled == true && (native?.isClickable == true ||
+                                (selectedTab && native?.isSelected == true))
                             File(folder, "$name-${label.lowercase().replace(' ', '-')}-target.json").writeText(
                                 com.google.gson.JsonObject().apply {
                                     addProperty("label", label); addProperty("minimumPixels", minimum)
                                     addProperty("composeBounds", visualBounds.toString()); addProperty("touchBounds", bounds.toString())
                                     addProperty("viewportBounds", viewport.toString())
-                                    addProperty("nativeClickableBounds", nativeBounds?.toShortString())
+                                    addProperty("nativeTargetBounds", nativeBounds?.toShortString())
+                                    addProperty("composeSelectedTab", selectedTab)
+                                    addProperty("nativeSelected", native?.isSelected)
+                                    addProperty("nativeClickable", native?.isClickable)
                                     addProperty("fontScale", context.resources.configuration.fontScale)
                                     addProperty("density", context.resources.displayMetrics.density)
                                     addProperty("screenWidthDp", context.resources.configuration.screenWidthDp)
                                 }.toString())
                             assertTrue("$label must retain a full reachable target at $name", bounds.width >= minimum &&
                                 bounds.height >= minimum && bounds.left >= viewport.left && bounds.right <= viewport.right &&
-                                bounds.top >= viewport.top && bounds.bottom <= viewport.bottom && nativeBounds != null &&
+                                bounds.top >= viewport.top && bounds.bottom <= viewport.bottom && nativeAction && nativeBounds != null &&
                                 nativeBounds.width() >= minimum && nativeBounds.height() >= minimum)
                         }
                         ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()

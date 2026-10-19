@@ -29,9 +29,18 @@ geometry. Implementation d958685f0 strengthens the fixture with positive real-IM
 open/close and displayed Home, corrects public profilemeta cleanup, and adds
 busy/save-spanning guarded commits to profile/author forms plus brief failed-route
 feedback. Run39333368227 passes all3 methods; both source re-review axes have0
-residuals and root opened the returned-editor original. The next tracer covers
-actual130%/200% text,320dp/412dp layouts and light/dark backup guidance. No old assertion/deadline is weakened. Frame58 is still active, and
-font/viewport/reminder/recreation/motion/full/signed acceptance remains pending.
+residuals and root opened the returned-editor original. The current viewport probe is3067735ead1bf5b13b74249e73c89a0f0ed9fde3 /
+run39335922124, scope app-frame-viewport-android17, exactly the larger-text method.
+Earlier diagnostic806541b8f/run39335047387 is retained as FAILURE: Compose visual
+Wallet bounds40x40 differed from actual48x48 native touch bounds. The probe now
+uses touchBoundsInRoot plus native bounds, keeps the minimum48dp requirement,
+and closes Activity before independent display/font/appearance restoration.
+Actual130% capture also showed excessive wrapping;306 tightens backup/tab layout.
+Standards re-review has0 documented/heuristic findings. Actual viewport outcome,
+complete class on both SDKs, reminder/recreation/motion/full/signed acceptance
+remain pending. A Compose rule replaces the production window recomposer, so
+real platform animator-scale acceptance needs a plain native observer without
+that rule. Do not label a test-clock change as system reduced-motion proof.
 No57 code exists yet; its local policy is recorded and ready.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
