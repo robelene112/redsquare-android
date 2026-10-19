@@ -62,6 +62,7 @@ private enum class PolicyDocument(@StringRes val title: Int, @StringRes val summ
 @Composable
 internal fun PolicyCenter(onClose: () -> Unit) {
     var selectedName by rememberSaveable { mutableStateOf<String?>(null) }
+    var supportOpen by rememberSaveable { mutableStateOf(false) }
     val selected = PolicyDocument.entries.find { it.name == selectedName }
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
@@ -108,6 +109,12 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                                 }
                             }
                             if (document == null) {
+                                OutlinedCard(onClick = { supportOpen = true }, modifier = Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Text(stringResource(R.string.publisher_contact), style = MaterialTheme.typography.titleMedium)
+                                        Text(stringResource(R.string.publisher_contact_summary), style = MaterialTheme.typography.bodyMedium)
+                                    }
+                                }
                                 PolicyDocument.entries.forEach { entry ->
                                     OutlinedCard(onClick = { selectedName = entry.name }, modifier = Modifier.fillMaxWidth()) {
                                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -132,6 +139,12 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                 }
             }
         }
+        if (supportOpen) AlertDialog(onDismissRequest = { supportOpen = false },
+            title = { Text(stringResource(R.string.publisher_support)) },
+            text = { Text(stringResource(R.string.publisher_support_unavailable)) },
+            confirmButton = { TextButton(onClick = { supportOpen = false }) {
+                Text(stringResource(R.string.publisher_done))
+            } })
     }
 }
 

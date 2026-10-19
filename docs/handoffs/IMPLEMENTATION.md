@@ -72,7 +72,10 @@ routes; actual contacts/website and operations stay in OWNER_INPUTS.md. The firs
 native tracer covers unconfigured publisher support, zero external handoff and
 preserved unsent draft/full wallet/backend. New focused scopes retain the
 existing offline reader and180second class bounds; full scopes include the new
-class. Production54 implementation/actual RED are not yet observed. No new Saito
+class. Actual RED39275678910 atcebe4dde4 reaches the reader then times out on the missing
+Contact publisher action. The first minimum adds the unconfigured support notice;
+focused GREEN is pending. The composer fixture now positively observes enabled
+editors and uses unready policy configuration. See ticket54 evidence index. No new Saito
 report API, automatic email, local wipe or operational/store compliance is implied.
 Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing

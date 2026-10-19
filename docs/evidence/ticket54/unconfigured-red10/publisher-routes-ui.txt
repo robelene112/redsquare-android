@@ -1,0 +1,53 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublisherRoutesPreviewTest:
+INSTRUMENTATION_STATUS: test=unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$5$lambda$4$lambda$3(PublisherRoutesPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$eNvT4u5WFKp4Yx3xtFvEaHQoZY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(nl.davidengelen.redsquare.PublisherRoutesPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$5$lambda$4$lambda$3(PublisherRoutesPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$eNvT4u5WFKp4Yx3xtFvEaHQoZY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: test=unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.502
+There was 1 failure:
+1) unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(nl.davidengelen.redsquare.PublisherRoutesPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$5$lambda$4$lambda$3(PublisherRoutesPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$eNvT4u5WFKp4Yx3xtFvEaHQoZY0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:47)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

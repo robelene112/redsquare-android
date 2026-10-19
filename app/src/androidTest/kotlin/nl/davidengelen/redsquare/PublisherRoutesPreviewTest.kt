@@ -29,7 +29,7 @@ class PublisherRoutesPreviewTest {
         val originalWallet = wallets.loadOrCreate()
         val backends = AndroidBackendStore(context)
         val originalBackend = backends.load()
-        val retained = ChatFixtureState(context, listOf("postdraft."), originalWallet.publicKey)
+        val retained = ChatFixtureState(context, listOf("postdraft.", "publishing-policy-fixture.json"), originalWallet.publicKey)
         val text = "Keep this unsent draft while checking publisher support 😀"
         var primary: Throwable? = null
         Intents.init()
@@ -39,6 +39,8 @@ class PublisherRoutesPreviewTest {
                     Instrumentation.ActivityResult(Activity.RESULT_CANCELED, null))
             }
             retained.prepare()
+            File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+                .writeText("""{"enforce":true,"ready":false}""")
             backends.save(SaitoBackend.OWNER)
             val peer = ControlledFeedPeer("[]")
             peer.start().use { server ->
@@ -47,6 +49,7 @@ class PublisherRoutesPreviewTest {
                     withFailureCapture({ capture("unconfigured-support-first-failure.png") }) {
                         waitFor("New post", action = true)
                         ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement(text)
                         ui.onNodeWithText("Save draft").performClick()
                         waitFor("New post", action = true)
@@ -70,6 +73,7 @@ class PublisherRoutesPreviewTest {
                         ui.onNodeWithContentDescription("Close privacy and safety").performClick()
                         waitFor("New post", action = true)
                         ui.onNodeWithText("New post").performClick()
+                        waitForEditor()
                         ui.onNode(hasSetTextAction()).assertTextEquals(text)
                         assertTrue("Publisher navigation must preserve complete wallet options",
                             originalWallet.exportJson() == wallets.loadExisting().exportJson())
@@ -92,6 +96,10 @@ class PublisherRoutesPreviewTest {
 
     private fun waitFor(text: String, action: Boolean = false) = ui.waitUntil(20_000) {
         ui.onNode(if (action) hasText(text) and hasClickAction() and isEnabled() else hasText(text)).isDisplayed()
+    }
+
+    private fun waitForEditor() = ui.waitUntil(20_000) {
+        ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed()
     }
 
     private fun capture(name: String) = captureNativeScreen(File(
