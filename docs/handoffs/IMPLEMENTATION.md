@@ -64,7 +64,12 @@ The minimum gates explicit toggle/retry before preparation and rechecks current
 permission at protected preparation, raw claim and Relay enqueue. Reaction GREEN39237993656 atb68ba5d47 is SUCCESS:7PASS across
 both classes. Both source reviews0; root inspected the original. A new separate
 group class adds four creation/join/message/reaction tracers with its own
-180second bound. Group RED pending; no group production policy code yet.
+180second bound. Group RED39238890350 at706f14067 is7PASS/4FAIL, all four atline134
+waiting for missing terms after their action. Root inspected all four originals.
+The group minimum now gates UI/new preparation/retry and durable raw/Relay
+publication before queued cancellation is consumed. Leave/removal, their retries,
+queue cancellation, stale stopping and local invitation preview/copy stay
+independent with their original identity/membership rules. Group GREEN pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other

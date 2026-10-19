@@ -11,6 +11,13 @@ import nl.davidengelen.redsquare.saito.*
 /** Local record failures are separate from unsupported or inadmissible network traffic. */
 internal class GroupChatStorageException(cause:Exception):IllegalStateException("Group records require local recovery",cause)
 
+/** Leaving/removing stays available; normal membership checks still validate those controls. */
+internal fun groupActionRequiresAgreement(candidate: SaitoTransaction): Boolean {
+    val body = SaitoEnvelope.decode(candidate.envelope()).body
+    require(body.get("module").asString == "Chat")
+    return body.get("request").asString != "chat remove"
+}
+
 /** Encrypted original group state. Opening never transmits a retained attempt. */
 internal class GroupChatStore(private val context: Context, private val wallet: SaitoWallet, private val backend: SaitoBackend) {
     enum class Status { UNKNOWN, SUBMITTED, FORWARDED, RECEIVED, STOPPED, AVAILABLE }
@@ -121,6 +128,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun prepareCreation(candidate: SaitoTransaction, creationKey: SaitoWallet? = null): Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
+        requirePublishingAgreement(candidate)
         val group = GroupChat.readCreation(candidate.envelope())
         require(SaitoEnvelope.decode(candidate.envelope()).author == wallet.publicKey)
         require(creationKey==null || creationKey.publicKey==group.id)
@@ -132,6 +140,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
     /** Confirmation belongs to this active wallet; unsigned link origin never chooses a backend. */
     fun prepareInvitation(invitation: GroupInvitation, candidate: SaitoTransaction): Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
+        requirePublishingAgreement(candidate)
         val signed=SaitoEnvelope.decode(candidate.envelope())
         require(signed.author==wallet.publicKey)
         val previous=load(invitation.id)
@@ -160,6 +169,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     private fun prepareAdminChange(candidate:SaitoTransaction,create:(NamedChatGroup,Long)->SaitoTransaction):Entry {
         assertSelected()
+        requirePublishingAgreement(candidate)
         val signed=SaitoEnvelope.decode(candidate.envelope())
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
         check(!previous.hasPendingAction)
@@ -239,6 +249,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun prepareReaction(candidate:SaitoTransaction):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
+        requirePublishingAgreement(candidate)
         val signed=SaitoEnvelope.decode(candidate.envelope())
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat like")
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
@@ -262,6 +273,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
 
     fun prepareMessage(candidate:SaitoTransaction,queued:Boolean=false):Entry = synchronized(SaitoLocalState.lock) {
         assertSelected()
+        requirePublishingAgreement(candidate)
         val signed=SaitoEnvelope.decode(candidate.envelope())
         require(signed.author==wallet.publicKey && signed.body.get("request").asString=="chat message")
         val previous=requireNotNull(load(signed.body.get("group_id").asString))
@@ -304,6 +316,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         assertSelected()
         val previous=requireNotNull(load(id))
         check(previous.candidate?.id==signature && previous.status in listOf(Status.UNKNOWN,Status.SUBMITTED))
+        requirePublishingAgreement(requireNotNull(previous.candidate))
         save(previous.copy(status=Status.UNKNOWN))
     }
 
@@ -332,9 +345,17 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         check(AndroidBackendStore(context).load() == backend)
     }
 
+    private fun requirePublishingAgreement(candidate: SaitoTransaction) {
+        if (groupActionRequiresAgreement(candidate))
+            nl.davidengelen.redsquare.policy.PublishingPolicies.requireAllowed(context)
+    }
+
     fun claim(id: String, signature: String) = synchronized(SaitoLocalState.lock) {
         assertSelected()
         var entry=requireNotNull(load(id))
+        val pending = entry.queuedMessage?.candidate ?: requireNotNull(entry.candidate)
+        check(pending.id == signature)
+        requirePublishingAgreement(pending)
         entry.queuedMessage?.let { queued ->
             check(queued.candidate.id==signature && entry.group.memberRoles[wallet.publicKey]?.active==true)
             val replay=GroupChat.replay(entry.group,entry.originals+queued.candidate.envelope())
@@ -351,6 +372,7 @@ internal class GroupChatStore(private val context: Context, private val wallet: 
         val entry=requireNotNull(load(id))
         val candidate=requireNotNull(entry.candidate)
         check(candidate.id==signature && entry.status==Status.SUBMITTED)
+        requirePublishingAgreement(candidate)
         requireActionMembership(entry)
         val signed=SaitoEnvelope.decode(candidate.envelope())
         val request=signed.body.get("request").asString

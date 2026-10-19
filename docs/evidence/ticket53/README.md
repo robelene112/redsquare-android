@@ -230,3 +230,22 @@ restoration. Existing groups/messages are received as authenticated incoming
 fixtures rather than published during setup. A separate class keeps its own
 unchanged180second bound in focused and full agreement runs; earlier classes
 and deadlines remain. Group RED is pending, with no group policy implementation.
+
+Group tracer706f14067 has actual RED39238890350: agreement3PASS/15.557s,
+surfaces4PASS/18.274s and group0PASS/4FAIL in91.585s. Every group case
+reaches its action then waits atline134 for absent publishing terms. Root opened
+all four original windows: creation/join/message already show Forwarded, and
+the reaction shows1like/Unlike. `group-red10/SHA256SUMS` binds17 originals.
+Both tracer reviews report0findings. No group policy code preceded RED.
+
+The group minimum checks the UI after synchronous busy state and before action
+preparation, including creation, joining, messages, likes and promotion. Retry
+classifies the immutable original inside its guarded coroutine. Group storage
+rechecks before protected preparation/retry, before consuming queued cancellation
+and at both raw claim and Relay recipient resolution. The latter runs inside
+SaitoPeer's existing selection/frame/enqueue lock. A validated Chat/chat remove
+control stays independent of content agreement, preserving leave/removal and
+their retry. Their original membership/identity checks remain. Queue cancellation,
+local stale-action stopping, incoming history and invitation-link preview/copy
+remain independent. Runtime GREEN and dedicated queue/process/exemption proof
+remain pending.

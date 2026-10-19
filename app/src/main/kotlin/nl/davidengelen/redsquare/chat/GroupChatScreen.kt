@@ -41,6 +41,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     onWalletMetadata: suspend (SaitoWallet,SaitoWallet) -> Unit, initialGroup: String? = null, onInitialDestinationClosed: () -> Unit = {}, onBack: () -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
+    val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
     val scope = rememberCoroutineScope()
@@ -131,11 +132,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         delay(300)
         persistDraft()
     }
-    fun act(operation:suspend()->Unit) {
+    fun act(requiresAgreement: Boolean = true, operation:suspend()->Unit) {
         if(busy||savingForNavigation||preparingPhoto||navigation.transitioning)return
         busy=true;sendFailed=false
         scope.launch {
-            try{if(persistDraft(allowBusy=true))operation()}
+            try{
+                if (requiresAgreement && !publishing.beforePublishing()) return@launch
+                if(persistDraft(allowBusy=true))operation()
+            }
             catch(cancelled:CancellationException){throw cancelled}
             catch(_:Exception){
                 sendFailed=true
@@ -378,8 +382,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
                     Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
                 if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction&&!navigation.transitioning,onClick={
-                    act {
+                    act(requiresAgreement = false) {
                         val pending=requireNotNull(entry.candidate)
+                        if (groupActionRequiresAgreement(pending) && !publishing.beforePublishing()) return@act
                         withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
                         val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
                         val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
@@ -428,7 +433,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     horizontalArrangement=Arrangement.SpaceBetween) {
                     Text(stringResource(R.string.chat_queued))
                     TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={
-                        act {
+                        act(requiresAgreement = false) {
                             draftWrites.withLock {
                                 withContext(NonCancellable){
                                     publish{
@@ -585,7 +590,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }},
         dismissButton={TextButton(enabled=!busy,onClick={stopping=false}){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&store.isStaleAdminAction(entry),onClick={
-            act {
+            act(requiresAgreement = false) {
                 val pending=requireNotNull(entry.candidate)
                 withContext(NonCancellable){publish{store.stopStaleAction(entry.group.id,pending.id);store.entries()}}
                 stopping=false
@@ -596,7 +601,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         text={Text(stringResource(R.string.group_leave_notice))},
         dismissButton={TextButton(enabled=!busy,onClick={leaving=false}){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=!busy,onClick={
-            act {
+            act(requiresAgreement = false) {
                 val candidate=withContext(Dispatchers.IO){GroupChat.leave(wallet,entry.group.id,System.currentTimeMillis())}
                 withContext(NonCancellable){publish{store.prepareLeave(candidate);store.entries()}}
                 leaving=false
@@ -645,7 +650,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         entry.group,wallet.publicKey,busy,loaded&&!busy&&!readFailed&&!entry.hasPendingAction,
         sendFailed||draftFailed,onDismiss={removing=null}) {
         val member=requireNotNull(removing)
-        act {
+        act(requiresAgreement = false) {
             val candidate=withContext(Dispatchers.IO){GroupChat.removeMember(wallet,entry.group,member,System.currentTimeMillis())}
             withContext(NonCancellable){publish{store.prepareRemoval(candidate,member);store.entries()}}
             removing=null
