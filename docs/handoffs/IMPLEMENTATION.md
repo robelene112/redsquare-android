@@ -49,13 +49,15 @@ The Registry minimum now checks an explicit callback before clearing availabilit
 or preparing, and durable permission at claim/enqueue. Read-only checks and old
 request reconciliation remain independent. The controlled scalar2 authority uses
 the existing emulator/loopback seam, not a public registration/readiness claim.
-New Registry GREEN is pending.
+Registry GREEN39234748767 at6bda86ed7 is SUCCESS:3PASS/16.469s in agreement
+and3PASS/12.599s in surfaces. Root inspected the cancellation original;
+Standards0/Spec0. The next private Chat tracer is pending RED.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Do not advance the next vertical slice before this Profile focus passes.
+Private Chat is the next vertical slice; obtain its real RED before its minimum.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.

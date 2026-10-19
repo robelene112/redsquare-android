@@ -13,6 +13,7 @@ import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.PrivateChat
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.After
@@ -41,6 +42,85 @@ class PublishingSurfacesPreviewTest {
                 it.name.startsWith("profilemeta.") || it.name.startsWith("profiledraft.") ||
                 it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
         }?.forEach { check(it.delete()) }
+    }
+
+    @Test fun privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt() {
+        val fixture = File(context.noBackupFilesDir, "publishing-policy-fixture.json")
+        val previous = fixture.takeIf { it.exists() }?.readBytes()
+        val wallets = AndroidWalletStore(context)
+        val initialWallet = wallets.loadOrCreate()
+        val recipient = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe fixture only.
+        val conversation = PrivateChat.conversationId(initialWallet.publicKey, recipient.publicKey)
+        val names = listOf("chat", "chatwork", "chatreactions").map {
+            "$it.owner.${initialWallet.publicKey}.$conversation.v1"
+        }
+        val retained = names.associateWith { name -> File(context.noBackupFilesDir, name).takeIf { it.exists() }?.readBytes() }
+        val revision = "owned-private-${java.util.UUID.randomUUID()}"
+        fixture.writeText("""{"revision":"$revision","ready":true,"enforce":true,
+            "terms":"Controlled private Chat terms. No real publisher approval.",
+            "community":"Controlled Chat rules. Accepting does not send your message."}""")
+        try {
+            names.forEach { name -> File(context.noBackupFilesDir, name).let { check(!it.exists() || it.delete()) } }
+            val message = "Keep my private draft 😀 until I deliberately send"
+            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
+                onTransaction = { frame ->
+                    val received = PrivateChat.read(recipient, postingTransaction(frame).envelope(), initialWallet.publicKey)
+                    assertEquals(message, received.text)
+                    assertEquals(initialWallet.publicKey, received.author)
+                }, relayResponse = { original ->
+                    assertEquals(message, PrivateChat.read(recipient, original, initialWallet.publicKey).text)
+                    "{\"err\":\"\",\"success\":1}"
+                })
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
+                    withFailureCapture({ capture("private-first-failure.png") }) {
+                        waitForEnabled("Chat")
+                        if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Chat").performClick()
+                        waitFor("Public key")
+                        ui.onNodeWithText("Public key").performTextReplacement(recipient.publicKey)
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        waitForEnabled("Open chat")
+                        ui.onNodeWithText("Open chat").performClick()
+                        waitFor("Message")
+                        ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                        val originalWallet = wallets.loadExisting().exportJson()
+                        ui.onNode(hasSetTextAction()).performTextReplacement(message)
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        repeat(2) { attempt ->
+                            ui.onNodeWithText("Send").performClick()
+                            waitFor("Review publishing terms")
+                            assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                            if (attempt == 0) {
+                                ui.onNodeWithText("Cancel").performClick()
+                                ui.onNode(hasSetTextAction()).assertIsEnabled().assert(
+                                    SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(message)))
+                                capture("private-cancel-keeps-editable-message.png")
+                            }
+                        }
+                        ui.onNodeWithText("Accept").performClick()
+                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        assertTrue("Agreement must not transmit either Chat leg", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
+                        ui.onNodeWithText("Send").performClick()
+                        waitFor("Forwarded. Delivery is not confirmed.")
+                        assertEquals(1, peer.transactions.size)
+                        assertEquals(1, peer.relayedMessages.size)
+                        assertTrue(originalWallet == wallets.loadExisting().exportJson())
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        capture("private-deliberately-forwarded-after-agreement.png")
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } finally {
+            wallets.replace(wallets.loadExisting(), initialWallet)
+            for ((name, bytes) in retained) {
+                val file = File(context.noBackupFilesDir, name)
+                if (bytes == null) check(!file.exists() || file.delete()) else file.writeBytes(bytes)
+            }
+            if (previous == null) check(!fixture.exists() || fixture.delete()) else fixture.writeBytes(previous)
+        }
     }
 
     @Test fun checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement() {

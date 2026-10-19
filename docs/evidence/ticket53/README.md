@@ -159,3 +159,14 @@ checks remain independent. Fresh preparation and durable claim/enqueue require
 current agreement; uncertain requests can reconcile by reading first. The
 private read helper defaults to denied publication when no callback is supplied.
 Runtime GREEN and all remaining complete issue requirements stay pending.
+
+Actual Registry GREEN39234748767 at6bda86ed7 is SUCCESS: agreement3PASS/
+16.469s and surfaces3PASS/12.599s. `registry-green10/SHA256SUMS` binds
+13 originals. Root opened the cancellation window with the exact editable
+name and retained availability. Both source reviews report0findings.
+
+The next private Chat tracer exercises native contact opening without agreement,
+Cancel with exact editable text and zero raw/relay messages, explicit acceptance
+without sending, then a deliberate Send. Its owned contact metadata and scoped
+Chat files are restored after the disposable emulator case. Runtime RED pending;
+no private Chat policy implementation precedes that result.
