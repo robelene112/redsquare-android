@@ -48,8 +48,8 @@ Motion's functional PASS is not visual acceptance. Root opened all17's normal/
 zero originals: normal frame4(312788us) ->frame5(327933us) jumps80px with no tween.
 The next production slice adds a180ms Home-only expand/shrink wrapper, disabling
 exit actions immediately and respecting real system scale. Native motion remains
-pending. Reading tracer13de2ab37/run39338696534 (separate1method) is running;
-its two source review axes0. Run39338696534 completedSUCCESS, one31.265s method,
+pending at that checkpoint. Reading tracer13de2ab37/run39338696534
+(separate1method) has both source review axes0 and completedSUCCESS, one31.265s method,
 and root opened all3 originals confirming reference05 at the same position.
 Motion6f94 runs39339460676(10)/39339457242(17) both functional2PASS, but actual
 zero-scale recordings still tween. Source39339456579 full source checksPASS.

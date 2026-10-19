@@ -215,3 +215,18 @@ Reading13de2ab37/run39338696534 completedSUCCESS, exactly1 method in31.265s.
 Root opened all3 originals: reference05 remains at the same visible position
 before Chat, after Home return and after Activity recreation. All guarded state
 and zero-send assertions remain. Full regression and signed delivery stay pending.
+
+Diagnosis293f5cff4: fresh-zero39340836020 is1functionalPASS with actual Settings0
+and window scale0, and no intermediate positions in its original frames. Paired
+39340839780 is2functionalPASS but Settings0/window scale1 and intermediate feed
+indicator positions166/150 between224 and144. Root opened the original intermediate
+frame and fresh-zero endpoint. This confirms the pinned per-process cached scale
+retains1 across windows. The paired normal movie's transition occurs beyond the
+opening-second decoded window, so its sparse decoded subset is inconclusive for
+normal motion. Complete movies remain original; the next observer decodes every
+frame of the bounded3second recording to avoid that gap.
+
+The regression now asserts the actual window scale after retaining the original
+observation and checks0->1 as well as paired1->0. This extends existing methods
+without changing their identities/deadlines. Production6f94 still fails the
+measured1->0 case; no fixed runtime acceptance is claimed.

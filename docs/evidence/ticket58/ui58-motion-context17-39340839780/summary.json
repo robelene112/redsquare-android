@@ -1,0 +1,22 @@
+{
+  "run": "39340839780",
+  "source": "293f5cff4d8ebe821958e0b85a447dc72d6f773a",
+  "expectedMethods": [
+    "normalSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+    "disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "completions": [
+    {
+      "method": "normalSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+      "status": 0
+    },
+    {
+      "method": "disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable",
+      "status": 0
+    }
+  ],
+  "members": 44,
+  "limit": "Focused native frame proof. Movies require explicit original-frame inspection. Not full regression or physical acceptance."
+}

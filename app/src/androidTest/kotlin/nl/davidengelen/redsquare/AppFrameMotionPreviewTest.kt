@@ -26,10 +26,13 @@ import org.junit.Test
 
 /** Uses Android's real window recomposer; a Compose rule would replace its motion scale. */
 class AppFrameMotionPreviewTest {
-    @Test fun normalSystemMotionKeepsDismissalAndRestoredNavigationUsable() = verifyDismissal(1)
+    @Test fun normalSystemMotionKeepsDismissalAndRestoredNavigationUsable() {
+        verifyDismissal(0, "zero-before-normal")
+        verifyDismissal(1)
+    }
     @Test fun disabledSystemMotionKeepsDismissalAndRestoredNavigationUsable() = verifyDismissal(0)
 
-    private fun verifyDismissal(scale: Int) {
+    private fun verifyDismissal(scale: Int, name: String = "motion-$scale") {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -38,7 +41,6 @@ class AppFrameMotionPreviewTest {
             .associateWith { device.executeShellCommand("settings get global $it").trim() }
         check(originals.values.all { value -> value == "null" || value.toFloatOrNull()?.let { it.isFinite() && it >= 0 } == true })
         val folder = File(context.cacheDir, "app-frame-motion-evidence").apply { mkdirs() }
-        val name = "motion-$scale"
         var primary: Throwable? = null
         try {
             originals.keys.forEach { setting ->
@@ -85,6 +87,9 @@ class AppFrameMotionPreviewTest {
                 observation.addProperty("afterPostBounds", after.toShortString())
                 observation.addProperty("acceptance", "Native endpoints/persistence only. Motion requires inspection of the original movie and actual decoded frames.")
                 File(folder, "$name.json").writeText(observation.toString())
+                val observedWindow = observation.getAsJsonObject("windowMotion")
+                assertEquals("Window animation scale must match the current system preference",
+                    scale.toFloat(), observedWindow.get("scaleFactor").asFloat, 0f)
                 activity.recreate()
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
                 assertFalse(device.hasObject(By.text("Back up your wallet")))
@@ -180,8 +185,8 @@ class AppFrameMotionPreviewTest {
             val count = requireNotNull(decoder.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_FRAME_COUNT)).toInt()
             check(count == timestamps.size && count >= 2) { "Insufficient or inconsistent native recording frames" }
             val frames = JsonArray()
-            // Keep the whole recording; decode the opening second plus endpoints without altering frame pixels.
-            for (index in timestamps.indices.filter { timestamps[it] <= 1_000_000 || it == count - 1 }) {
+            // Decode every actual frame of the bounded recording, including a late input transition.
+            for (index in timestamps.indices) {
                 val frame = requireNotNull(decoder.getFrameAtIndex(index))
                 try {
                     check(frame.width == UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).displayWidth)
