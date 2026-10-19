@@ -111,6 +111,13 @@ completions,34 deliberate interruptions and33continuity records. Outcomes remain
 to be observed. #53 remains incomplete: complete current-source Android10/17
 acceptance, final combined review and signed publication remain. Production
 changes require fresh full acceptance on both versions.
+
+Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
+under36 and natively blocked by53. It prepares truthful publisher feedback,
+profile user-report email handoff and privacy/data-request routes while actual
+contacts/website and operations stay in OWNER_INPUTS.md. It is unassigned and
+not implemented; do not start it before53 acceptance. No new Saito report API,
+automatic email, local wipe or operational/store compliance is implied.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
