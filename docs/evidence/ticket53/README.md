@@ -192,3 +192,15 @@ without changing the submitted original. Automatic attempts still reconcile
 available originals by reading before permission enforcement. The same claim
 path covers foreground recovery and the real WorkManager worker. Runtime GREEN
 and dedicated queue/revision/process coverage remain pending.
+
+Actual private GREEN39236393624 at957f1e448 is SUCCESS: agreement3PASS/
+15.956s and surfaces4PASS/17.418s. `private-green10/SHA256SUMS` binds
+13 originals. Root opened the deliberate forwarding original. Both production
+reviews report0findings; no whole53 acceptance is claimed.
+
+The next tracer extends that native journey after its successful private send:
+a distinct ready revision requires separate agreement for a Like on the same
+message. Cancel keeps it unliked, Accept emits neither leg, and a deliberate
+Like must forward exactly one matching reaction original per leg. The previous
+private-message assertions remain. Reaction RED is pending; no reaction policy
+implementation precedes it.

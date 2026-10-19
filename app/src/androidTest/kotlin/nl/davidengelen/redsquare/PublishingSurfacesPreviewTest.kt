@@ -14,6 +14,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.PrivateChat
+import nl.davidengelen.redsquare.saito.PrivateChatLike
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.After
@@ -63,13 +64,25 @@ class PublishingSurfacesPreviewTest {
         try {
             retained.prepare()
             val message = "Keep my private draft 😀 until I deliberately send"
-            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
-                onTransaction = { frame ->
-                    val received = PrivateChat.read(recipient, postingTransaction(frame).envelope(), initialWallet.publicKey)
+            val messageId = AtomicReference<String?>()
+            fun verifyOriginal(envelope: String) {
+                val signed = SaitoEnvelope.decodePayload(envelope)
+                if (signed.body.isJsonPrimitive) {
+                    val received = PrivateChat.read(recipient, envelope, initialWallet.publicKey)
                     assertEquals(message, received.text)
                     assertEquals(initialWallet.publicKey, received.author)
-                }, relayResponse = { original ->
-                    assertEquals(message, PrivateChat.read(recipient, original, initialWallet.publicKey).text)
+                    messageId.compareAndSet(null, signed.id)
+                    assertEquals(messageId.get(), signed.id)
+                } else {
+                    val reaction = PrivateChatLike.read(recipient, initialWallet.publicKey, envelope)
+                    assertEquals(initialWallet.publicKey, reaction.author)
+                    assertEquals(initialWallet.publicKey, reaction.targetAuthor)
+                    assertEquals(requireNotNull(messageId.get()), reaction.target)
+                }
+            }
+            val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||", archiveResponse = { "[]" },
+                onTransaction = { frame -> verifyOriginal(postingTransaction(frame).envelope()) }, relayResponse = { original ->
+                    verifyOriginal(SaitoEnvelope.fromSignedJson(original))
                     "{\"err\":\"\",\"success\":1}"
                 })
             peer.start().use { server ->
@@ -110,6 +123,33 @@ class PublishingSurfacesPreviewTest {
                         assertTrue(originalWallet == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                         capture("private-deliberately-forwarded-after-agreement.png")
+                        fixture.writeText("""{"revision":"$revision-reaction","ready":true,"enforce":true,
+                            "terms":"Updated controlled Chat terms include reactions. No real publisher approval.",
+                            "community":"Updated controlled Chat rules. Agree separately before reacting."}""")
+                        repeat(2) { attempt ->
+                            waitForEnabled("Like")
+                            ui.onNodeWithText("Like").performClick()
+                            waitFor("Review publishing terms")
+                            ui.onNodeWithText("Updated controlled Chat terms include reactions. No real publisher approval.").assertIsDisplayed()
+                            assertEquals(1, peer.transactions.size)
+                            assertEquals(1, peer.relayedMessages.size)
+                            if (attempt == 0) {
+                                ui.onNodeWithText("Cancel").performClick()
+                                capture("private-reaction-cancel-keeps-message-unliked.png")
+                            }
+                        }
+                        ui.onNodeWithText("Accept").performClick()
+                        waitFor("Agreement saved. Choose your action again when you are ready.")
+                        assertEquals(1, peer.transactions.size)
+                        assertEquals(1, peer.relayedMessages.size)
+                        ui.onNodeWithText("Like").performClick()
+                        waitFor("Reaction forwarded. Delivery is not confirmed.")
+                        waitFor("Unlike")
+                        assertEquals(2, peer.transactions.size)
+                        assertEquals(2, peer.relayedMessages.size)
+                        assertTrue(originalWallet == wallets.loadExisting().exportJson())
+                        assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
+                        capture("private-reaction-deliberately-forwarded-after-new-revision.png")
                         peer.assertHealthy()
                     }
                 }

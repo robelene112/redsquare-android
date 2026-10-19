@@ -55,13 +55,16 @@ Standards0/Spec0. Private Chat RED39235677235 at4337cbe05 is6PASS/1FAIL, missing
 terms after Send (Forwarded behind the separate notification permission offer).
 The fixture-only restoration correctiond82ac1cc7 has both reviews0. The private
 minimum now gates Send, preparation/retry, atomic claim and Relay enqueue, while
-leaving automatic read-only reconciliation before enforcement. New GREEN pending.
+leaving automatic read-only reconciliation before enforcement. Private GREEN39236393624 at957f1e448 is SUCCESS:7PASS across both
+classes, both source reviews0. Root inspected the deliberate forwarding original.
+The next tracer changes the ready revision before a private Like and preserves
+the previous private message assertions. Reaction RED pending.
 Source-axis reviews for implemented slices report Standards0/Spec0.
 
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: other
 module/worker gates, revision/missing/corrupt-record and real process coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
-Private Chat is the next vertical slice; obtain its real RED before its minimum.
+Private reactions are the next vertical slice; obtain real RED before its minimum.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
