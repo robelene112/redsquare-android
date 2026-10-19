@@ -269,20 +269,34 @@ completed ticket and final app review. This covers the proposed testing
 boundaries and breakdown; do not request routine approval again.
 [Specification #1](https://github.com/robelene112/redsquare-android/issues/1)
 and its 35 sub-issues (#2 through #36) are published with native dependencies.
-On2026-10-19 all independent native development tickets2through35 and the
-supplementary native work, including About38, are complete. Ordinary42 is published
-after complete Android10/17 verification and two-axis review. Matching43 is
-published, with separate signed installation/isolation verified on Android10/17.
-The owner explicitly parked KVK, accounts, real provider/gateway activation and
-physical checks. Exact remaining requirements are unchecked under release36 and
-OWNER_INPUTS.md; specification1/36 stay open for actual release. Discover live
-progress from GitHub and the current handoff before acting.
+The original native implementation tickets2through35 and prior supplementary
+slices were closed at the functional checkpoint on2026-10-19. Ordinary42 is
+published after complete Android10/17 verification and two-axis review;
+matching43 has separate signed35/43 installation/isolation proof. These functional
+checks do not establish final app-wide UI quality.
+
+The owner reviewed beta42 and explicitly rejected the claim that UI work was
+finished. The active native backlog is now [app-wide UI55](https://github.com/robelene112/redsquare-android/issues/55),
+consolidated from three independent whole-app audits, plus the requested
+[Node wording56](https://github.com/robelene112/redsquare-android/issues/56) and
+[repeat-like behavior57](https://github.com/robelene112/redsquare-android/issues/57).
+Two likes per second is the owner's suggested rate, not a finalized protocol rule.
+Use the linked child issues and genuine tracker dependencies for sequential work.
+The shared content-first frame58 is the first major UI slice. Rendered walkthroughs,
+accessibility/motion checks and owner review of the signed result are required
+before declaring app-wide UI polish accepted. Earlier closed37/39 are bounded
+history, not proof that the current UI is done.
+
+KVK, accounts, real provider/gateway activation and physical release checks remain
+parked under release36 and OWNER_INPUTS.md. They do not block the native UI work.
+Specification1 remains open. Discover current status from the tracker and handoff.
 
 The following were the original specification/planning topics. Their native
-behavior is now implemented in the published tickets; these are historical scope
-pointers, not a fresh implementation backlog. Actual remaining provider/device/
-policy/store acceptance is in36. Future changes should retain the accepted baseline
-and ask the owner only when a new decision materially changes behavior or scope.
+functional behavior is implemented in the original tickets; these are historical
+scope pointers. Current UI/repeat-like work is linked above, while actual remaining
+provider/device/policy/store acceptance is in36. Future changes should retain the
+accepted baseline and ask the owner only when a new decision materially changes
+behavior or scope.
 
 - Attachment limits, archive/search coverage, report acknowledgement and detailed
   personal-control/history behavior, grounded in the existing Saito capabilities.

@@ -1,15 +1,31 @@
 # Current implementation handoff
 
-Updated2026-10-19. All independent native development is complete. Only parent1
-and release36 remain OPEN for the exact parked actual release gates. Read
-[context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
-[operations](../OPERATIONS.md), actual tracker state and
-[OWNER_INPUTS.md](../../OWNER_INPUTS.md) before new work. No owner input is needed
-mid-development. Placeholders/draft policies are authorized and never establish
-real provider, legal, operational, physical-device or store acceptance.
+Updated2026-10-19 after the owner's beta42 UI review. The functional checkpoint
+is delivered, but the owner explicitly says the UI is still untidy and unfinished.
+Current work is [UI55](https://github.com/robelene112/redsquare-android/issues/55)
+and its audit-derived children, [Node terminology56](https://github.com/robelene112/redsquare-android/issues/56)
+and [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57).
+Three independent whole-app audits support concrete native UI work without KVK
+or provider credentials. Read the tracker for exact child scope/dependencies. Twelve audit-derived UI
+tickets58through69 plus Node56 are linked under55. All three independent auditors
+checked the published consolidation and found no missing material coverage.
+Release36 has native blockers55 and57 in addition to its unchanged external gates.
+Start structural polish with content-first shell58; implement sequentially.
+Two likes per second remains a suggested policy, not a settled network rule.
+The current task publishes the audits/backlog; no app source changed in this round.
 
-Root is the sole implementation writer. Existing review agents are
-`policy52_spec_review` and `policy52_standards_review`. Preserve unrelated untracked
+Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
+[operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
+The actual provider/physical/legal/store gates remain parked under36. Placeholders
+never establish real acceptance. Functional tests and old closed37/39 do not mean
+app-wide visual completion. UI55 remains open through rendered verification,
+signed delivery and the owner's review.
+
+Root is the sole implementation writer. The three independent read-only UI
+auditors were `ui_audit_visual`, `ui_audit_journeys` and
+`ui_audit_accessibility`; their actionable results are consolidated under55.
+Existing two-axis implementation review agents remain available. Preserve unrelated
+untracked
 `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` unread and untouched. No separate
 cybersecurity campaigns, restricted-access requests, provider safeguard bypasses
 or use of historical credentials.
@@ -97,12 +113,15 @@ Canonical evidence: [About38](../evidence/ticket38/README.md),
 [Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
 No complete native suite needs repeating without a new change, failure or concern.
 Production changes require fresh complete verification on both SDKs. No active
-builder/download remains; no more builds or checks need dispatching now.
+builder/download remains. The audit itself requires no new build; future UI changes
+need verification appropriate to their actual impact.
 
 ## Tracker and actual release boundaries
 
-Original native tickets2through35 and all supplementary native work including38
-are CLOSED. Native16/17/19/31/32/33/34/35 each had an individual0/0 review and commit,
+At the prior functional checkpoint, original native tickets2through35 and the
+then-existing supplementary work including38 were CLOSED. New UI55 children and
+repeat-like57 are OPEN. The earlier only1/36-open statement is superseded.
+Native16/17/19/31/32/33/34/35 each had an individual0/0 review and commit,
 with exact actual-provider/physical requirements visibly transferred to36 before
 closure. Original criteria remain in each ticket. This is development staging
 requested by the owner, not a declaration of production readiness.
@@ -148,5 +167,7 @@ exit0 before strict retention. View original screenshot bytes; do not edit them.
 The prior detailed handoff at`78c5d8779:docs/handoffs/IMPLEMENTATION.md` retains
 historical40/41 and54 chronology. Their accepted evidence remains intact. Obsolete
 ordinary39 was never published; never publish it. Historical active/pending prose
-does not override current tracker/source/evidence. No actual app work remains
-independently actionable under the current scope until a release gate can proceed.
+does not override current tracker/source/evidence. Native UI and repeat-like work
+is independently actionable as recorded above;
+read current issue bodies/dependencies before resuming. Keep real release gates
+separate from functional and visual development acceptance.
