@@ -64,3 +64,17 @@ Parent #31 and its external #16 dependency remain open.
 
 Publication bookend2fff4587e has Standards0/Spec0. GitHub #43 is verified CLOSED;
 [parent #31 and remaining gates](https://github.com/robelene112/redsquare-android/issues/43#issuecomment-6234126785) stay open.
+
+## Parent31 development completion, 2026-10-19
+
+The owner parked actual provider setup while asking to finish native tickets.
+Parent31's native scope is supplied by accepted43 above; its16/30 native
+prerequisites are now closed. Complete54 runs39294146155/39294150546 retain all
+six Chat GIF cases in published beta40. Parent31 can close for development.
+Earlier parent-open statements describe the former acceptance staging.
+
+Actual separately authorized Android Chat provider configuration and live private/
+group search, selected URL/credits, signed send, cached rendering and draft/failure
+recovery stay unchecked under `GIPHY_CHAT` in [release36](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19).
+Private encryption and separate Posts/Chat options remain required. This transfer
+is not live authorization, GIF-specific process death or permanent byte storage.
