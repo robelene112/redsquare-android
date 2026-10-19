@@ -83,6 +83,9 @@ class AppearancePreviewTest {
                                 ui.onAllNodes(hasText(label) and isSelected()).fetchSemanticsNodes().isNotEmpty()
                             }
                             ui.onNodeWithText(label).assertIsSelected()
+                            ui.onNodeWithText("A native Android client for RedSquare on Saito.")
+                                .performScrollTo()
+                            capture("about-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Done").performClick()
                         }
                         // The harness starts with a fresh diagnostic installation. Its default must follow Android.
