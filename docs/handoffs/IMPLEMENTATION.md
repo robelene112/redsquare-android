@@ -21,121 +21,48 @@ supersedes the earlier need to settle every policy fact before implementation;
 actual policy approval, operations, configured services and release acceptance
 remain open until demonstrated. Never present draft terms as agreed/legal consent.
 
-Child52 is accepted/CLOSED after full verification, separate reviews and ordinary37
-publication. Child53 is assigned after its sole blocker52 was verified CLOSED.
-Its fixed review base is bc83a08755d71ac9acd7033264e3a30f7f2903af.
+Child52 is accepted/CLOSED. Child53 now has complete implementation, verification,
+separate combined reviews and ordinary38 publication. Publication bookend reviews
+and issue closure remain before claiming54. Review base for53 is
+bc83a08755d71ac9acd7033264e3a30f7f2903af. Details and historical RED/GREEN outcomes
+are in [the53 evidence index](../evidence/ticket53/README.md).
 
-Implemented #53 slices now cover Posts, Social, Profile, Registry, private Chat,
-private reactions, group creation/join/message/reaction/promotion and author
-editing. Payments, reports, typed post deletion, validated group leave/removal,
-local stopping/cancellation and incoming reading keep their existing safeguards.
-No final owner-approved bundle is configured. Ordinary previews stay useful;
-non-preview configuration with missing/unready policies denies new publishing.
+Prepared consent covers Posts, Social, Profile, Registry, private/group Chat,
+reactions, author edits and actual foreground/WorkManager prepare/claim/enqueue.
+Exact revision acceptance is installation-local, outside wallet exports and
+committed behind a durable pending barrier. Cancellation preserves work; missing,
+unready/new revisions, damaged records and failed saves deny transmission.
+Payments, reporting, typed deletion/validated group leave/removal, incoming
+reading and notification choices keep their independent safeguards. Current
+ordinary previews stay draft-aware; non-preview publishing is denied without an
+approved ready bundle. No final owner-approved bundle is configured.
 
-Acceptance is installation-local and outside wallet backups. Its exact revision
-is saved with a pending commit barrier. Activity reopening, cancellation and late
-filesystem-commit failure/retry have native proof. Long terms scroll while
-errors and Accept/Cancel remain accessible. Actual preparation, claim and socket
-enqueue read current durable permission independently of the UI hint.
+Complete17 run39254789942 at28b2f210a is SUCCESS:459PASS,115 normal completions,
+34 interruptions and33 PASS continuity records, all three partitions complete.
+Corrected full10 run39265216621 atdcc6f8376 is SUCCESS: exact458 identities,
+457PASS plus the sole existing API29 Profile assumption,114/34/33 respectively.
+No missing/extra identities. Source and combined evidence reviews through81ae0eef6
+report Spec0/Standards0. All1505 pre-publication SHA-manifest entries reproduce;
+root opened16 originals per full SDK. Actual larger-font cancellation, exact
+unsent-draft/process recovery, public reads, legacy updates and35/36 isolation
+complete. These are not physical/configured-provider/store results.
 
-Latest queue focus39245960220 at028cb8800 is SUCCESS:21PASS across agreement,
-surfaces, group, author and three independent Post/private/group outbox classes.
-All six real headless WorkManager checkpoints retain a verified expected client,
-retryable work and the original signature. Native terms cancellation leaves the
-queued original cancellable; cancelling the queue restores the draft; deliberate
-agreement can resume only its previously explicit intent. Root inspected original
-screens. Both review axes report0hard findings; a duplication heuristic was
-resolved in0a8a5cfc7 by sharing the same fresh Post/author enqueue guard under
-PostDraftStore's existing lock (correction review0).
+The initial full10 run39254786488 remains FAILURE: an immediate post-dismissal
+header assertion bypassed successful-test-only wallet restoration and contaminated
+five later replacement cases. A bounded same-header observation, in-Activity
+capture and independent captured-state restoration are fixture-only. Focused
+import39264046264 passes ten original identities. The existing outstanding-SDK
+rule retains17 while rerunning full10; no application assertion/deadline was
+removed. Old ed1 full runs remain CANCELLED. All251 production/build objects match
+ed1/28b/dcc, hash978145ce38b749de0bbf836e66d8bd3bb13c16e741ed423be2099252b7c7e27c.
 
-Review subsequently found an old manual uncertain-Post recovery obstruction:
-PostComposerState's early preflight runs before read-only original lookup. A
-legacy queued=false/automatic=false attempt has no automatic worker fallback.
-New traceraa42f648f has both reviews0; actual RED39246950323 is FAILURE:
-preceding21PASS, recovery0PASS/1FAIL atline59 waiting for Available. Root opened
-the in-scope Prepared terms dialog over the uncertain original. The minimum
-now preflights only fresh preparation, reads retained original availability first,
-then checks agreement before any unobserved claim/retransmission. Fresh socket
-checks remain. Focused recovery GREEN39247874714 at79897495a is SUCCESS:
-1PASS/5.586s; both correction reviews0; root opened Available without terms.
-Packet `ticket53/manual-green10` binds10 originals.
-The new `agreement-recovery`/Android17 scopes can isolate that recovery class
-with its unchanged180second bound; complete agreement/full retain every case.
-Infrastructure review0. Original RED stays failed with its actual evidence.
-
-Recovery-state coverage58f0bf82a has both reviews0 and SUCCESS39248457801
-(2PASS/8.954s): Accepted A cannot approve an unready bundle or required revision B;
-damaged local acceptance requires explicit repair, Cancel keeps the draft, and
-only a separate Send publishes. No production code accompanied this coverage.
-State packet18hash; root inspected the original windows.
-Separate process focus39249169914 at1a88f59cc is SUCCESS: recovery2PASS/9.218s,
-one actual interruption, cold1PASS/4.11s, restore1PASS/0.352s. PID3740 is positively
-gone before3847. The same accepted revision, full-wallet digest, selected backend
-and unsent draft survive; only deliberate Send publishes once. Device-only scoped
-originals, cancellation of only the owned Post job and independent restoration
-preserve installation state. Existing process identities/deadlines remain.
-Process packet21hash; both source/correction reviews0; root opened cold originals.
-Non-preview missing-policy selection is source-reviewed and shares native-tested
-Required(null); no actual non-preview binary UI proof or final owner approval is
-claimed. The specification does not require a separate binary experiment.
-
-See [evidence53](../evidence/ticket53/README.md). Whole pre-full review ated1ae3b95
-reports0/0. Ordinary38 is prepared from that production source and independently
-verified, not published; ordinary37 remains live. Its public-safe
-metadata packet is retained. No actual candidate38 installation is claimed.
-
-A subsequent bounded layout audit identified a source-supported viewport risk.
-Group tracer046d3c9c3 and private tracer28b2f210a use actual1.3-font rendering,
-visible first-use backup guidance, offline warnings, a complete physical48dp
-Cancel target before/after terms review and actual cancellation restoring the
-original draft with no transmissions. Existing six cases and bounds are intact;
-font/installation state restore independently. Both reviews0. Group focus39252573443
-is SUCCESS/24nativePASS; private focus39253777508 is SUCCESS/25nativePASS, both
-with unchanged process recovery/restoration. Root opened three original windows
-per Chat variant, including editable text/Send after cancellation. No production
-layout fix was needed for these observed conditions. Their35/46hash packets are
-retained.
-
-The original ed1 full runs39250479060/39250483054 are CANCELLED and superseded,
-not accepted; completed old Social/Wallet jobs do not imply whole acceptance.
-Initial complete Android10 run39254786488 and all three Android17 partitions in
-39254789942 execute at28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e, including both new
-viewport cases, public reads and the unchanged immutable35/performance36 checks.
-All251 production/build objects match ed1/046/28b exactly, so prepared38 retains
-the same production. No new full-suite exception is introduced.
-
-The independent identity reference is recorded during execution, not as a
-pre-execution plan. It separates deliberately killed setup from terminal-success
-identities: current source expects458/API10 and459/API17, unchanged114/115 normal
-completions,34 deliberate interruptions and33continuity records. Android17 outcome is now observed: all three jobs SUCCESS, exact459PASS,
-115 normal completions,34 deliberate interruptions and33 PASS continuity records.
-Both packet reviews and selected-original residual reviews report0 findings,
-independently reproducing all468 full17 hashes and the20 exact selected originals.
-Full17 packet is retained at8e68601ff; root opened16 originals. The initial
-Android10 failure and successful corrected full rerun are detailed below. #53
-remains incomplete pending final combined review and signed publication.
-Production changes require fresh full acceptance on both versions.
-
-Actual full10 run39254786488 is FAILURE at28b, not acceptance. First import case
-fails immediate Owner-header visibility after Done; its skipped outgoing-wallet
-restoration contaminates five later replacement cases.1PASS/6FAIL in that class;
-426 completed identities and34 selected evidence files are retained in
-`ticket53/full10-failed`. Preceding new53 cases/process pass. Original activation
-PNG supplies only pre-dismissal evidence; host capture is0bytes. Both reviews
-support bounded same-header visibility observation and independent fixture
-cleanup, without proving a product defect. Fixture-only correctiondcc6f8376 has both source reviews0 and local compile PASS.
-Focused import39264046264 is SUCCESS: exact10 accepted-subset identities,
-including seven import cases/risk/storage/cold recovery, with43 hashed evidence
-files and four root-opened originals. First-case UI restoration remains asserted.
-Fresh full10 recheck39265216621 is now SUCCESS atdcc with public reads and
-immutable35/performance36: exact458 identities,457PASS plus the sole existing
-Profile assumption,114 normal completions/34 interruptions/33 PASS continuities.
-Complete full10 evidence is retained; root opened16 originals. Full reference records separate SDK sources and the old failure.
-All251 production/build objects remain identical; successful17 may use the
-existing outstanding-SDK fixture rule. Both focused evidence reviews report0,
-reproducing all43 hashes and ten accepted-subset identities. Final combined
-reviews and signed publication remain before acceptance.
-Prepared38 remains unpublished.
+Ordinary38/0.1.38 is now LIVE at https://davidengelen.nl/redsquare/ fromed1ae3b95.
+Independent public page/latest/immutable/APK, actual signature/package/manifest
+checks pass. APK SHA256daf258eb0c04037f11920978c126c12e0fa86e6c5b65e7fa26bbb42ef4b7b72d;
+established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Actual37/35 and separate performance36 remain unchanged. No actual candidate38
+installation or physical Pixel acceptance is claimed. Public-safe19-file
+publication evidence is retained; no APK/credential is committed.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
 under36 and natively blocked by53. It prepares truthful publisher feedback,
@@ -143,7 +70,7 @@ profile user-report email handoff and privacy/data-request routes while actual
 contacts/website and operations stay in OWNER_INPUTS.md. It is unassigned and
 not implemented; do not start it before53 acceptance. No new Saito report API,
 automatic email, local wipe or operational/store compliance is implied.
-Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
+Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
 Original35-ticket count remains26CLOSED/nineOPEN:16,17,19,31 through36.
