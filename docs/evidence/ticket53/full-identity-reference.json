@@ -8,9 +8,8 @@
   "recordedDuringExecution": true,
   "notPreExecutionPlan": true,
   "basis": "Previously committed accepted52 exact path/class/test catalogs plus literal new native and process test identities from the source, independent of observed new outcomes.",
-  "executingSource": "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e",
   "executingRuns": {
-    "android10": 39254786488,
+    "android10": 39265216621,
     "android17": 39254789942
   },
   "references": [
@@ -370,7 +369,8 @@
     "sources": [
       "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
       "046d3c9c310f0f6cea226fa8522d44a8fb4a3fa3",
-      "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e"
+      "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e",
+      "dcc6f83761e8cab2e0b01e7e8df06cb9dec7f510"
     ],
     "paths": [
       "app/src/main",
@@ -400,5 +400,29 @@
     "source": "ed1ae3b959d3113f677cfd466ebc01cb929927d6",
     "actualConclusion": "cancelled",
     "reason": "Superseded by complete current-source suites after two supplementary viewport cases were added. Original run outcomes are preserved; completed jobs do not imply full acceptance."
+  },
+  "initialCommonExecutingSource": "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e",
+  "executingSources": {
+    "android10": "dcc6f83761e8cab2e0b01e7e8df06cb9dec7f510",
+    "android17": "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e"
+  },
+  "historicalFailedFullRuns": [
+    {
+      "sdk": "10",
+      "run": 39254786488,
+      "source": "28b2f210a0d1fce6553d89ab4b26c630ce3a0a5e",
+      "actualConclusion": "failure",
+      "evidence": "docs/evidence/ticket53/full10-failed",
+      "reason": "First import case immediate header visibility failure; skipped identity restoration contaminates five subsequent replacement expectations. Actual failing post-dismissal frame unavailable; timing remains a hypothesis."
+    }
+  ],
+  "outstandingSdkFixtureCorrection": {
+    "source": "dcc6f83761e8cab2e0b01e7e8df06cb9dec7f510",
+    "changedTest": "WalletImportPreviewTest",
+    "identitiesUnchanged": true,
+    "productionUnchanged": true,
+    "focusedRun": 39264046264,
+    "focusedConclusion": "success",
+    "workflow": "Existing unchanged-production fixture correction rule: fresh full outstanding Android10; accepted complete Android17 retained. No release-tail exception or narrowed full scope."
   }
 }

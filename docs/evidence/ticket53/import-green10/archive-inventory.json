@@ -1,0 +1,135 @@
+[
+  {
+    "path": "/mnt/storage/redsquare-android-artifacts/agreement53-import-green10-39264046264/android-native-proof/.scratch/device-evidence/api-29/wallet-import-evidence.tar",
+    "sha256": "18d14f2884a1920e11b6aaa4c7de2fce8d9584892aa952b596a66963625b1f25",
+    "members": [
+      {
+        "path": "wallet-import-evidence/activated-wallet.png",
+        "sha256": "420295020f7b5fc3dad8a37e4fbeee3bdf813240846887cb3bfa548d0bae32b1",
+        "bytes": 30714
+      },
+      {
+        "path": "wallet-import-evidence/activation-owner-feed-visible.xml",
+        "sha256": "c61ece59ebe54b86e5db2c54d419eb6922efed200db4fd466305db3fc06a70ab",
+        "bytes": 22567
+      },
+      {
+        "path": "wallet-import-evidence/activation-owner-feed-visible.png",
+        "sha256": "a6fbef0718514c29a2a3620a919d76e4f389b6b821724949d8f69b16247a49b3",
+        "bytes": 18323
+      },
+      {
+        "path": "wallet-import-evidence/activated-wallet-recreated.png",
+        "sha256": "d54cd484922eb69bc351e9dac0fc0e58fb3e5c95da6875c1fc3a70bd3bab1a66",
+        "bytes": 29724
+      },
+      {
+        "path": "wallet-import-evidence/invalid-import.json-rejected.png",
+        "sha256": "6ceaa0703e37d24663e6e6c416657f1abf94ee921947fcd36d27aeb5a8e0b83a",
+        "bytes": 31199
+      },
+      {
+        "path": "wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+        "sha256": "6ceaa0703e37d24663e6e6c416657f1abf94ee921947fcd36d27aeb5a8e0b83a",
+        "bytes": 31199
+      },
+      {
+        "path": "wallet-import-evidence/invalid-backup-recovery.png",
+        "sha256": "8700e53df621e349ed5858d8613c61ec75c74a5ee2ee7a22778283b872a1b12a",
+        "bytes": 29099
+      },
+      {
+        "path": "wallet-import-evidence/stalled-provider-fresh-preview.png",
+        "sha256": "2f106ec2e1e1c7ef3d9460457320b9bfaa041d710cb1daa8101c4d9c85bffd4c",
+        "bytes": 45296
+      },
+      {
+        "path": "wallet-import-evidence/balance-positive.png",
+        "sha256": "da9cf979c23933b64d6eee4fe392d3205e3118e7c8bfebb96f00e409e491ae40",
+        "bytes": 45704
+      },
+      {
+        "path": "wallet-import-evidence/balance-zero.png",
+        "sha256": "e6e4f0dfe25edc41f039ec43fee8683e541b7961c7762b62dabf1385bbe38ae0",
+        "bytes": 46467
+      },
+      {
+        "path": "wallet-import-evidence/balance-malformed.png",
+        "sha256": "2f106ec2e1e1c7ef3d9460457320b9bfaa041d710cb1daa8101c4d9c85bffd4c",
+        "bytes": 45296
+      },
+      {
+        "path": "wallet-import-evidence/balance-stale.png",
+        "sha256": "2f106ec2e1e1c7ef3d9460457320b9bfaa041d710cb1daa8101c4d9c85bffd4c",
+        "bytes": 45296
+      },
+      {
+        "path": "wallet-import-evidence/failed-save-restored.png",
+        "sha256": "cfc68c6f8753c46cc2740d7d872671005a5af06c11e0d96a77c14e7b8331bef6",
+        "bytes": 30983
+      },
+      {
+        "path": "wallet-import-evidence/failed-save-restored-recreated.png",
+        "sha256": "dc0f9428ac444b2e2e5d9623168adf2f7866bac95e3857931990c6535fefb36b",
+        "bytes": 29245
+      },
+      {
+        "path": "wallet-import-evidence/valid-preview-same.png",
+        "sha256": "c427778614219ed32117553880449c7af68f9d6e692d94f0c6f545e2dcb888f7",
+        "bytes": 38847
+      },
+      {
+        "path": "wallet-import-evidence/confirmed-same-wallet-restore.png",
+        "sha256": "243d44f69bb6d8cc183d089efd681c50802c41695fdfd7d7f0c941307dfbcd0e",
+        "bytes": 30127
+      },
+      {
+        "path": "wallet-import-evidence/valid-preview-different.png",
+        "sha256": "70400447014d58570c3bff6e7f4afe318a86abe92c1d20dd1aced979b6880650",
+        "bytes": 45235
+      },
+      {
+        "path": "wallet-import-evidence/fresh-candidate-backup.png",
+        "sha256": "51ccfe3fae495ac5ef0da053c419c8343b58188f1477ab458578303edd9aba93",
+        "bytes": 45419
+      },
+      {
+        "path": "wallet-import-evidence/reselected-backup-required.png",
+        "sha256": "70400447014d58570c3bff6e7f4afe318a86abe92c1d20dd1aced979b6880650",
+        "bytes": 45235
+      }
+    ]
+  },
+  {
+    "path": "/mnt/storage/redsquare-android-artifacts/agreement53-import-green10-39264046264/android-native-proof/.scratch/device-evidence/api-29/wallet-risk-evidence.tar",
+    "sha256": "9a42ffa92d9de5ab75d5be96b998120877d7253b9017b0a6dd41cc15ee280666",
+    "members": [
+      {
+        "path": "wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+        "sha256": "37b47851844230c03d84c4d3c4716ef2171ca524d14c541bb5e7b4de5bd825d1",
+        "bytes": 19188
+      },
+      {
+        "path": "wallet-risk-evidence/other-assets-require-backup.png",
+        "sha256": "a36d2c11c6faab8bf9be3331e3a86beb289d74739eaab330c29a45f199fc65de",
+        "bytes": 38939
+      },
+      {
+        "path": "wallet-risk-evidence/original-wallet-restored.png",
+        "sha256": "3549f2d45a3f36b12b724380ac56f7cece4ed340923a29a1ed186f90c68f6fba",
+        "bytes": 32098
+      }
+    ]
+  },
+  {
+    "path": "/mnt/storage/redsquare-android-artifacts/agreement53-import-green10-39264046264/android-native-proof/.scratch/device-evidence/api-29/wallet-storage-recovery-evidence.tar",
+    "sha256": "911b41844d3dcdf9fc469fbeef7f15261e2fd55b2f4d86477c49506e07c420e4",
+    "members": [
+      {
+        "path": "wallet-storage-recovery-evidence/failed-save-recreated.png",
+        "sha256": "85deb571588f4e0597806ba21f6ab9608659a9bedba1bf8a05fcdb4ca4fc5f24",
+        "bytes": 30997
+      }
+    ]
+  }
+]

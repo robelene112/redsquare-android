@@ -1,0 +1,17 @@
+{
+  "source": "dcc6f83761e8cab2e0b01e7e8df06cb9dec7f510",
+  "identities": 10,
+  "passed": 10,
+  "missing": [],
+  "extra": [],
+  "scope": "Existing complete focused import scope; not full acceptance",
+  "originalReference": "docs/evidence/ticket52/full10/identities.json",
+  "classResults": {
+    "WalletImportPreviewTest": "7PASS/144.537s",
+    "WalletImportRiskPreviewTest": "1PASS/35.554s",
+    "WalletImportStorageRecoveryTest": "1PASS/1.898s"
+  },
+  "process": "One deliberately interrupted setup; one successful cold recovery identity, not two",
+  "processContinuity": "PASS: actual process death after replacement write before recovery commit; cold app startup restores outgoing public identity.\nqHFtJMTR86SDnUBxf92wsGmvfBKY2MvfAqKb5JDh1hXY\n",
+  "productionUnchanged": true
+}

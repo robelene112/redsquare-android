@@ -511,3 +511,19 @@ backend-switch/restore acceptance and300second class bound remain. Focused impor
 verification and a fresh complete outstanding Android10 run are required; the
 successful17 run remains eligible only with unchanged production. Ordinary38
 is still prepared, not published. No fresh GREEN is claimed yet.
+
+Focused import GREEN39264046264 atdcc6f8376 is SUCCESS: preview7PASS/144.537s,
+risk1PASS/35.554s, storage1PASS/1.898s and one successful cold recovery after the
+separately interrupted setup. Exact10 terminal-success identities match the
+accepted52 subset, no missing/extra cases. `import-green10` retains43 hashed files;
+root opened four originals including the positive post-dismissal Owner header.
+No production wallet fix or retroactive failed-window observation is claimed.
+Local androidTest assembly also passes. Both bounded correction reviews report0.
+
+Fresh full Android10 recheck39265216621 runs atdcc6f8376 with public reads,
+immutable35/performance36 and all existing classes/deadlines. The identity
+reference records per-SDK executing sources and retains the failed original.
+All251 production/build objects match ed1/28b/dcc, hash978145ce38b749de0bbf836e66d8bd3bb13c16e741ed423be2099252b7c7e27c.
+The existing unchanged-production fixture rule retains complete Android17;
+this is a complete outstanding-SDK rerun, not a release-tail exception.
+No final full10 or ordinary38 publication is claimed yet.

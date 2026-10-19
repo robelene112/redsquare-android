@@ -1,0 +1,62 @@
+[
+  {
+    "path": "wallet-import-process/recovered-instrumentation.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportInterruptionTest",
+    "test": "coldStartupRecoversTheOutgoingPublishedIdentity",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "explicitlyConfirmedReplacementPersistsWithoutAdoptingImportedPeers",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "onlyAFreshCompleteOutgoingBalanceAllowsSkippingTheRecommendedBackup",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "replacementRequiresANewBackupBoundToTheCurrentSelection",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-import-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportPreviewTest",
+    "test": "selectedValidBackupsPreviewIdentityAndRestoreConfirmedSameWallet",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-risk-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportRiskPreviewTest",
+    "test": "outgoingOtherAssetsAndSavedNamesCannotBeClearedByASaitoZeroResponse",
+    "occurrences": 1
+  },
+  {
+    "path": "wallet-storage-recovery-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.WalletImportStorageRecoveryTest",
+    "test": "failedDirectorySyncAfterReplacementWriteRestoresPublishedWalletOptions",
+    "occurrences": 1
+  }
+]

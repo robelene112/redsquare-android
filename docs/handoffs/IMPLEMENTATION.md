@@ -123,9 +123,14 @@ restoration contaminates five later replacement cases.1PASS/6FAIL in that class;
 `ticket53/full10-failed`. Preceding new53 cases/process pass. Original activation
 PNG supplies only pre-dismissal evidence; host capture is0bytes. Both reviews
 support bounded same-header visibility observation and independent fixture
-cleanup, without proving a product defect. A fixture-only correction is being
-compiled; focused import and fresh complete10 are required before acceptance.
-Successful17/source equivalence may use the existing outstanding-SDK rule.
+cleanup, without proving a product defect. Fixture-only correctiondcc6f8376 has both source reviews0 and local compile PASS.
+Focused import39264046264 is SUCCESS: exact10 accepted-subset identities,
+including seven import cases/risk/storage/cold recovery, with43 hashed evidence
+files and four root-opened originals. First-case UI restoration remains asserted.
+Fresh full10 recheck39265216621 is running atdcc with public reads and immutable
+35/performance36. Full reference records separate SDK sources and the old failure.
+All251 production/build objects remain identical; successful17 may use the
+existing outstanding-SDK fixture rule. Complete10 and combined reviews remain.
 Prepared38 remains unpublished.
 
 Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
