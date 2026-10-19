@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRequestsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublisherRequestsPreviewTest:
+INSTRUMENTATION_STATUS: test=requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRequestsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4$openPage(PublisherRequestsPreviewTest.kt:67)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4(PublisherRequestsPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.$r8$lambda$bgFqtzi1515ot8QmgGDfmroi370(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft(PublisherRequestsPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: stream=
+Error in requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft(nl.davidengelen.redsquare.PublisherRequestsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4$openPage(PublisherRequestsPreviewTest.kt:67)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4(PublisherRequestsPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.$r8$lambda$bgFqtzi1515ot8QmgGDfmroi370(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft(PublisherRequestsPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: test=requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 24.024
+There was 1 failure:
+1) requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft(nl.davidengelen.redsquare.PublisherRequestsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4$openPage(PublisherRequestsPreviewTest.kt:67)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft$lambda$6$lambda$5$lambda$4(PublisherRequestsPreviewTest.kt:82)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.$r8$lambda$bgFqtzi1515ot8QmgGDfmroi370(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRequestsPreviewTest.requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft(PublisherRequestsPreviewTest.kt:57)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

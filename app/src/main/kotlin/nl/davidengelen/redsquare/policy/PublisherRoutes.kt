@@ -9,10 +9,11 @@ import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import java.io.File
+import java.net.URI
 
 /** Public owner-approved configuration only. No actual contact is configured yet. */
 internal data class PublisherRoutes(val ready: Boolean = false, val supportEmail: String? = null,
-    val safetyEmail: String? = null, val privacyEmail: String? = null) {
+    val safetyEmail: String? = null, val privacyEmail: String? = null, val requestUrl: String? = null) {
     fun email(purpose: PublisherContactPurpose): String? = if (!ready) null else when (purpose) {
         PublisherContactPurpose.SUPPORT -> supportEmail
         PublisherContactPurpose.SAFETY -> safetyEmail
@@ -35,8 +36,18 @@ internal data class PublisherRoutes(val ready: Boolean = false, val supportEmail
                             address.none { it.isWhitespace() || it.code < 32 } &&
                             Patterns.EMAIL_ADDRESS.matcher(address).matches() }
                     }
+                    fun requestUrl(): String? {
+                        val element = value.get("requestUrl") ?: return null
+                        if (!element.isJsonPrimitive || !element.asJsonPrimitive.isString) return null
+                        val url = element.asString
+                        if (url.length !in 1..2048 || url.any { it.isWhitespace() || it.code < 32 }) return null
+                        val uri = try { URI(url) } catch (_: Exception) { return null }
+                        return url.takeIf { uri.scheme.equals("https", ignoreCase = true) &&
+                            !uri.host.isNullOrBlank() && uri.rawUserInfo == null && uri.rawFragment == null &&
+                            (uri.port == -1 || uri.port in 1..65535) }
+                    }
                     PublisherRoutes(ready = true, supportEmail = email("supportEmail"),
-                        safetyEmail = email("safetyEmail"), privacyEmail = email("privacyEmail"))
+                        safetyEmail = email("safetyEmail"), privacyEmail = email("privacyEmail"), requestUrl = requestUrl())
                 } catch (_: Exception) { PublisherRoutes() }
             }
             return PublisherRoutes()

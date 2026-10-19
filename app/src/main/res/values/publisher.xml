@@ -32,4 +32,12 @@
     <string name="publisher_report_server">Selected server: %1$s</string>
     <string name="publisher_user_report_explanation">This prepares a user report for the app publisher. It does not submit a post report to the selected server. No content is removed by opening an email draft.</string>
     <string name="publisher_user_report_unavailable">User reporting to the publisher is not available in this preview. Contact details are still being prepared.</string>
+    <string name="publisher_requests_entry">Data requests</string>
+    <string name="publisher_requests_summary">Check availability for access or deletion requests through the publisher website.</string>
+    <string name="publisher_requests">Publisher data requests</string>
+    <string name="publisher_requests_unavailable">Data requests are not available in this preview. The publisher request page and handling process are still being prepared.</string>
+    <string name="publisher_requests_explanation">Opening this page does not delete your wallet, local messages or server data. The publisher must verify and handle requests through its own process. Independent network or recipient copies may remain.</string>
+    <string name="publisher_open_request_page">Open request page</string>
+    <string name="publisher_browser_unavailable">No browser could be opened. The request address is still available above.</string>
+    <string name="publisher_request_page_requested">Continue in your browser. Opening the page does not submit a request or delete data.</string>
 </resources>

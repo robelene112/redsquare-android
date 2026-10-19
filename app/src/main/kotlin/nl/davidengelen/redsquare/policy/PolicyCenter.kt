@@ -63,6 +63,7 @@ private enum class PolicyDocument(@StringRes val title: Int, @StringRes val summ
 internal fun PolicyCenter(onClose: () -> Unit) {
     var selectedName by rememberSaveable { mutableStateOf<String?>(null) }
     var contactName by rememberSaveable { mutableStateOf<String?>(null) }
+    var requestsOpen by rememberSaveable { mutableStateOf(false) }
     val selected = PolicyDocument.entries.find { it.name == selectedName }
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
@@ -117,6 +118,12 @@ internal fun PolicyCenter(onClose: () -> Unit) {
                                         }
                                     }
                                 }
+                                OutlinedCard(onClick = { requestsOpen = true }, modifier = Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        Text(stringResource(R.string.publisher_requests_entry), style = MaterialTheme.typography.titleMedium)
+                                        Text(stringResource(R.string.publisher_requests_summary), style = MaterialTheme.typography.bodyMedium)
+                                    }
+                                }
                                 PolicyDocument.entries.forEach { entry ->
                                     OutlinedCard(onClick = { selectedName = entry.name }, modifier = Modifier.fillMaxWidth()) {
                                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -144,6 +151,7 @@ internal fun PolicyCenter(onClose: () -> Unit) {
         PublisherContactPurpose.entries.find { it.name == contactName }?.let { purpose ->
             PublisherEmailDialog(purpose) { contactName = null }
         }
+        if (requestsOpen) PublisherRequestsDialog { requestsOpen = false }
     }
 }
 

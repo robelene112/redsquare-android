@@ -169,3 +169,25 @@ explicit Cancel/Open, absent browser feedback, no implicit wipe and saved Post
 draft/full wallet/backend preservation. Its separate180second class is added
 to focused/full scopes without changing preceding bounds. The actual production
 request entry is absent; first RED is pending.
+
+## Request-page RED and first minimum
+
+At `2b77a8153`,10 run39285413107 completes the preceding3 publisher and1
+profile cases, then fails the20second observation for the absent Data requests
+entry (request class24.024s). Root opened the original failure PNG/XML. The
+separate reader does not run after this failure.
+
+The first minimum adds a deliberate request-page dialog and one independently
+validated nullable URL in the same readiness configuration. Defaults stay absent.
+The owned ready fixture accepts a bounded absolute HTTPS destination with host,
+no credentials/fragment and a valid optional port; malformed/missing values are
+unavailable. The URL is shown unchanged before a separate Android ACTION_VIEW.
+Cancel launches nothing, missing browser feedback retains the address, and the
+page-opening notice says it does not submit a request or delete data. This final
+plain-language notice replaces the earlier tracer-only wording before its first
+execution; destination, disclosure and all side-effect assertions are unchanged.
+
+Real website, ownership verification, handling/retention and account classification
+remain pending in36/OWNER_INPUTS.md. Fresh runtime checks/reviews, missing/invalid
+configuration regressions, actual larger text/keyboard and Chat-draft preservation,
+full10/17 and signed delivery are still required.

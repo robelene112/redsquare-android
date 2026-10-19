@@ -101,7 +101,11 @@ profile1 (both backends) and reader1 PASS;17 39284036520 same5 identities PASS.
 All exits/complete markers pass, both reviews0. Next single test-only HTTPS
 request-page tracer adds a separate180second class to focused/full scopes,
 covering explicit handoff/cancellation, missing browser, saved Post draft and
-wallet/backend preservation. Production request entry/first actual RED pending. API status can lag uploaded
+wallet/backend preservation. Actual request RED10 39285413107 at2b77a8153 haspreceding4 casesPASS then
+missing Data requests entry20s (request24.024s). Firstminimum now adds the
+request dialog plus validated nullable HTTPS URL in the same readiness config;
+no actualURL configured. ExplicitOpen/Cancel, readable destination and truthful
+missing-browser/no-submission/no-deletion copy. FreshGREEN/reviews pending. API status can lag uploaded
 actual artifacts and has intermittently returned502; do not infer app outcomes
 from stale queue/empty-step data. Download completion must precede inspection.
 

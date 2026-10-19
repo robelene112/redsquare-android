@@ -85,7 +85,7 @@ class PublisherRequestsPreviewTest {
                         assertTrue(external().isEmpty())
                         openPage()
                         ui.onNodeWithText("Open request page").performClick()
-                        waitFor("Request page requested. Continue in your browser. Opening it does not delete data.")
+                        waitFor("Continue in your browser. Opening the page does not submit a request or delete data.")
                         val handoff = external().single()
                         assertEquals(Intent.ACTION_VIEW, handoff.action)
                         assertEquals(destination, handoff.dataString)
