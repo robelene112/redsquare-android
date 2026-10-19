@@ -208,6 +208,18 @@ fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
     verify_policies
 fi
+verify_publisher_routes() {
+    verify_group_chat_native PublisherRoutesPreviewTest 180 publisher-routes publisher-routes-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
+    verify_publisher_routes
+    verify_policies
+    printf '%s\n' 'Focused publisher-route preparation only; no actual contact, delivery or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == wallet ) ]]; then
+    verify_publisher_routes
+fi
 verify_social_push() {
     local push_api granted_for_test=0 native_exit=0
     local push_scope=${1:-${TEST_SCOPE:-full}}

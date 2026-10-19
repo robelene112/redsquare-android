@@ -23,7 +23,7 @@ remain open until demonstrated. Never present draft terms as agreed/legal consen
 
 Child52 is accepted/CLOSED. Child53 now has complete implementation, verification,
 separate combined reviews and ordinary38 publication. Publication bookend reviews throughf0d270a18 also report Spec0/Standards0.
-Record issue53 closure before claiming54. Review base for53 is
+Issue53 is CLOSED after acceptance commit5c9838b02 and tracker recording. Review base for53 is
 bc83a08755d71ac9acd7033264e3a30f7f2903af. Details and historical RED/GREEN outcomes
 are in [the53 evidence index](../evidence/ticket53/README.md).
 
@@ -64,12 +64,16 @@ Actual37/35 and separate performance36 remain unchanged. No actual candidate38
 installation or physical Pixel acceptance is claimed. Public-safe19-file
 publication evidence is retained; no APK/credential is committed.
 
-Next bounded native preparation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
-under36 and natively blocked by53. It prepares truthful publisher feedback,
-profile user-report email handoff and privacy/data-request routes while actual
-contacts/website and operations stay in OWNER_INPUTS.md. It is unassigned and
-not implemented; do not start it before53 acceptance. No new Saito report API,
-automatic email, local wipe or operational/store compliance is implied.
+Active implementation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
+assigned after native blocker53 was verified CLOSED/zero open blockers. Its fixed
+review base is5c9838b02bc201fd1d72765abbf1f22b5f5fc299. It prepares truthful
+publisher feedback, profile user-report email handoff and privacy/data-request
+routes; actual contacts/website and operations stay in OWNER_INPUTS.md. The first
+native tracer covers unconfigured publisher support, zero external handoff and
+preserved unsent draft/full wallet/backend. New focused scopes retain the
+existing offline reader and180second class bounds; full scopes include the new
+class. Production54 implementation/actual RED are not yet observed. No new Saito
+report API, automatic email, local wipe or operational/store compliance is implied.
 Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
