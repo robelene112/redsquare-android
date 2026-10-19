@@ -167,6 +167,13 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
+    verify_group_chat_native AppFramePreviewTest 180 app-frame app-frame-evidence
+    if [[ "${TEST_SCOPE:-full}" == app-frame* ]]; then
+        printf '%s\n' 'Focused native app frame only; complete app acceptance not run.' > "$evidence/scope.txt"
+        exit 0
+    fi
+fi
 verify_agreement_recovery() {
     verify_group_chat_native PublishingRecoveryPreviewTest 180 agreement-recovery agreement-recovery-evidence
     python3 "$repo_dir/scripts/publishing-process-check" --evidence "$evidence/publishing-process"
