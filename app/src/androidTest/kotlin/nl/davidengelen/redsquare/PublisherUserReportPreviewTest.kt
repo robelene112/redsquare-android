@@ -22,7 +22,10 @@ import java.io.File
 class PublisherUserReportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation() {
+    @Test fun userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation() = exercise(ready = true)
+    @Test fun unconfiguredUserReportsKeepPublicContextWithoutCollectingTextOrUsingAnotherChannel() = exercise(ready = false)
+
+    private fun exercise(ready: Boolean) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
@@ -59,7 +62,8 @@ class PublisherUserReportPreviewTest {
             }
             retained.prepare()
             File(context.noBackupFilesDir, "publisher-routes-fixture.json").writeText(
-                """{"ready":true,"safetyEmail":"safety@publisher.example"}""")
+                if (ready) """{"ready":true,"safetyEmail":"safety@publisher.example"}"""
+                else """{"ready":true,"supportEmail":"support@publisher.example"}""")
             File(context.noBackupFilesDir, "publishing-policy-fixture.json")
                 .writeText("""{"enforce":true,"ready":false}""")
             wallets.replace(originalWallet, wallet)
@@ -71,7 +75,7 @@ class PublisherUserReportPreviewTest {
                     ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                         .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                         .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                        withFailureCapture({ capture("${backend.id}-report-first-failure.png") }) {
+                        withFailureCapture({ capture("${backend.id}-${if (ready) "ready" else "unconfigured"}-report-first-failure.png") }) {
                             ui.waitUntil(20_000) {
                                 ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty()
                             }
@@ -80,11 +84,12 @@ class PublisherUserReportPreviewTest {
                             waitFor("Posts", action = true)
                             fun shownContext() {
                                 ui.waitUntil(20_000) {
-                                    ui.onAllNodesWithText("Email: safety@publisher.example")
+                                    ui.onAllNodesWithText(if (ready) "Email: safety@publisher.example" else
+                                        "User reporting to the publisher is not available in this preview. Contact details are still being prepared.")
                                         .fetchSemanticsNodes().isNotEmpty()
                                 }
-                                for (text in listOf("Email: safety@publisher.example", "Publisher: Angels’ Foundry",
-                                    "Public account: $author", "Selected server: $serverUrl")) {
+                                for (text in listOfNotNull(if (ready) "Email: safety@publisher.example" else null,
+                                    "Publisher: Angels’ Foundry", "Public account: $author", "Selected server: $serverUrl")) {
                                     ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                                 }
                             }
@@ -96,31 +101,41 @@ class PublisherUserReportPreviewTest {
                                 ui.onNode(hasScrollAction()).performScrollToNode(hasText("Report user to publisher"))
                                 ui.onNodeWithText("Report user to publisher").assertIsDisplayed().performClick()
                                 shownContext()
-                                ui.onNode(hasSetTextAction()).performScrollTo()
-                                ui.waitUntil(20_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                                if (ready) {
+                                    ui.onNode(hasSetTextAction()).performScrollTo()
+                                    ui.waitUntil(20_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+                                }
                             }
                             fun external() = Intents.getIntents().filter {
                                 it.action in listOf(Intent.ACTION_SENDTO, Intent.ACTION_VIEW)
                             }
                             val before = external().size
                             openReport()
-                            ui.onNode(hasSetTextAction()).performTextReplacement("Cancel this user report")
-                            ui.onNodeWithText("Cancel").performClick()
-                            assertEquals(before, external().size)
-                            openReport()
-                            val description = "Please review this public account on $serverUrl"
-                            ui.onNode(hasSetTextAction()).performTextReplacement(description)
-                            activity.recreate()
-                            shownContext()
-                            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
-                            ui.onNode(hasSetTextAction()).assertTextContains(description)
-                            ui.onNodeWithText("Compose email").performClick()
-                            waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
-                            assertEquals(before + 1, external().size)
-                            assertPublisherEmailDraft(external().last(), "safety@publisher.example", "Red Square user report",
-                                "App: Red Square 0.1.0\nPublic account: $author\nSelected server: $serverUrl\n\nDescription:\n$description")
-                            capture("${backend.id}-exact-report-context.png")
-                            ui.onNodeWithText("Done").performClick()
+                            if (!ready) {
+                                ui.onAllNodes(hasSetTextAction()).assertCountEquals(0)
+                                ui.onAllNodesWithText("Compose email").assertCountEquals(0)
+                                assertEquals(before, external().size)
+                                capture("${backend.id}-unconfigured-report-context.png")
+                                ui.onNodeWithText("Done").performClick()
+                            } else {
+                                ui.onNode(hasSetTextAction()).performTextReplacement("Cancel this user report")
+                                ui.onNodeWithText("Cancel").performClick()
+                                assertEquals(before, external().size)
+                                openReport()
+                                val description = "Please review this public account on $serverUrl"
+                                ui.onNode(hasSetTextAction()).performTextReplacement(description)
+                                activity.recreate()
+                                shownContext()
+                                ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
+                                ui.onNode(hasSetTextAction()).assertTextContains(description)
+                                ui.onNodeWithText("Compose email").performClick()
+                                waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
+                                assertEquals(before + 1, external().size)
+                                assertPublisherEmailDraft(external().last(), "safety@publisher.example", "Red Square user report",
+                                    "App: Red Square 0.1.0\nPublic account: $author\nSelected server: $serverUrl\n\nDescription:\n$description")
+                                capture("${backend.id}-exact-report-context.png")
+                                ui.onNodeWithText("Done").performClick()
+                            }
                             assertTrue("Report preparation must preserve complete wallet options",
                                 wallet.exportJson() == wallets.loadExisting().exportJson())
                             assertEquals(backend, backends.load())

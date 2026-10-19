@@ -194,6 +194,7 @@ SDK network traffic occurs at runtime.
 | Giphy search/media | When configured, direct requests send query/key and ordinary connection data to Giphy; Posts and Chat keys are independent. Existing media display makes requests even without search keys. Media URLs are requested from the media host during previews/display; deliberate Send separately publishes selected references to Saito posts or transmits them to Chat recipients. Selected references/drafts are encrypted locally. No Giphy SDK analytics is implemented by this client; provider handling still needs verification. |
 | YouTube and external links | Tapped embeds use YouTube's web player; external links open the user's selected app/browser. Provider-controlled traffic/identifiers/content must be reflected accurately. No claim that third-party embeds have zero collection, ads or retention. |
 | Content-policy agreement | Child53 prepares an installation-local exact revision in an unencrypted bounded no-backup record, separate from wallets and portable exports. Only a deliberate successful acceptance save approves a configured ready revision. Actual publication checks it afresh before preparation/claim/enqueue. Missing/unready policies deny non-preview publishing; ordinary review builds remain draft-aware. This does not grant Android/Push consent, upload an agreement separately or demonstrate final owner approval. Complete Android10/17 verification and ordinary38 delivery are retained in53; final policy approval remains absent. |
+| Publisher email and request-page preparation | Child54 prepares separately configured support/safety/privacy email drafts and profile user reports containing the displayed public account/backend, plus deliberate HTTPS request-page opening. Descriptions stay in the open form until passed to the chosen email app; no files are attached or messages sent automatically. The external app/provider controls subsequent handling. Opening a website submits no request and deletes no data. All actual destinations remain absent/unready, pending OWNER_INPUTS.md; native checks are not operating-channel readiness. |
 | Local wallet/work/preferences/caches | Encrypted wallet/work/controls versus some unencrypted public caches/following/read markers are distinguished in the older inventory. No automatic Android backup. Local-only processing may differ from off-device collection for the form, but user-selected backup files and remote providers remain distinct. |
 
 Proposed Data safety work: enumerate each actually collected type, required vs
@@ -241,7 +242,12 @@ unaccepted queued work. Complete controlled Android10/17 runs, separate reviews 
 demonstrate the prepared mechanism. No final ready
 policy bundle is configured. Reading and wallet setup remain unobstructed; payments,
 reports, deletion and notification consent retain their separate safeguards.
-The substantive owner, operational and store gates below remain open.
+Child54 prepares a separate publisher contact/request flow alongside this reader.
+It offers support, safety and privacy email composition, another-profile user
+report context and an explicit HTTPS request-page action. No real destination is
+configured, and no draft email or opened page proves delivery, review or deletion.
+Full54 verification and signed delivery remain pending. The substantive owner,
+operational and store gates below remain open.
 
 ## Publisher decision and remaining release gates
 

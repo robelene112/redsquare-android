@@ -212,6 +212,8 @@ verify_publisher_routes() {
     verify_group_chat_native PublisherRoutesPreviewTest 180 publisher-routes publisher-routes-evidence
     verify_group_chat_native PublisherUserReportPreviewTest 180 publisher-user-report publisher-user-report-evidence
     verify_group_chat_native PublisherRequestsPreviewTest 180 publisher-requests publisher-requests-evidence
+    verify_group_chat_native PublisherAvailabilityPreviewTest 180 publisher-availability publisher-availability-evidence
+    verify_group_chat_native PublisherViewportPreviewTest 180 publisher-viewport publisher-viewport-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     verify_publisher_routes

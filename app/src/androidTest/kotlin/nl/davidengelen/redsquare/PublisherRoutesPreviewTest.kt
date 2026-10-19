@@ -234,7 +234,7 @@ class PublisherRoutesPreviewTest {
                         waitForEditor()
                         ui.onNode(hasSetTextAction()).performTextReplacement(text)
                         ui.onNodeWithText("Save draft").performClick()
-                        waitFor("New post", action = true)
+                        waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         waitFor("Draft policies")

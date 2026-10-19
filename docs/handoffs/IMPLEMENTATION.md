@@ -64,95 +64,45 @@ Actual37/35 and separate performance36 remain unchanged. No actual candidate38
 installation or physical Pixel acceptance is claimed. Public-safe19-file
 publication evidence is retained; no APK/credential is committed.
 
-Active implementation is [child54](https://github.com/robelene112/redsquare-android/issues/54),
-assigned after native blocker53 was verified CLOSED/zero open blockers. Its fixed
-review base is5c9838b02bc201fd1d72765abbf1f22b5f5fc299. It prepares truthful
-publisher feedback, profile user-report email handoff and privacy/data-request
-routes; actual contacts/website and operations stay in OWNER_INPUTS.md. Native support preparation now passes both focused SDK commands atad51cdd60:
-10 run39280053024 publisher2/2 (11.049s), reader1/1 (16.559s);17
-run39280056321 publisher2/2 (33.065s), reader1/1 (16.813s). Completion
-markers/exits pass. Exact displayed email payload, no attachments/grants, Cancel0,
-Activity recreation and actual controlled ActivityNotFoundException with retained
-description are reached. Both reviews throughad51cdd60 report0. No actual email
-or operating-channel readiness is claimed.
+## Active issue54: publisher routes
 
-Current production minimum is28c4c78ee: distinct Settings safety/privacy entries,
-subjects and independently validated nullable destinations through the shared
-PublisherEmailDialog. All defaults remain absent/unready. Actual purpose RED17
-39281058892 at1e520524b has2 preceding PASS and intended missing Safety entry
-timeout20s; primary PNG/XML retained/root opened. The entry fixture now observes
-enabled clickable existence, scrolls and asserts display before clicking. Shared
-assertEmailDraft preserves every exact payload/attachment/grant assertion and
-separate handoff counts. Reviews through28c4c78ee both report0. Actual focused
-GREEN10/17 artifacts39281882756/39281885832 at28c4c78ee now pass all3 publisher
-cases plus the original reader; complete markers/exits pass. Publisher runtimes
-13.848/45.767s and reader15.514/17.453s. Next single test-only profile-report
-tracer covers exact target/server on both backends, Cancel0 and recreation before
-controlled email. It has a separate180second class, retained in focused/full
-scopes. Exact email assertions are shared unchanged, counts stay per journey.
-First profile RED17 run39283002253 atd03c12410 reaches another account's
-profile then times out20s on missing Report user to publisher; prior3 publisher
-cases pass. The first minimum now freezes the profile's public key/server in
-retained ProfileViewState and prepares a distinct publisher safety-channel email.
-Fixture ownership now captures actual profilemeta.; URL expectations are
-independent literals and context/editor display checks scroll first. Fresh
-GREEN artifacts at41bd188d5 now pass on both SDKs:10 39284032799 publisher3,
-profile1 (both backends) and reader1 PASS;17 39284036520 same5 identities PASS.
-All exits/complete markers pass, both reviews0. Next single test-only HTTPS
-request-page tracer adds a separate180second class to focused/full scopes,
-covering explicit handoff/cancellation, missing browser, saved Post draft and
-wallet/backend preservation. Actual request RED10 39285413107 at2b77a8153 haspreceding4 casesPASS then
-missing Data requests entry20s (request24.024s). Firstminimum now adds the
-request dialog plus validated nullable HTTPS URL in the same readiness config;
-no actualURL configured. ExplicitOpen/Cancel, readable destination and truthful
-missing-browser/no-submission/no-deletion copy. FreshGREEN/reviews pending. API status can lag uploaded
-actual artifacts and has intermittently returned502; do not infer app outcomes
-from stale queue/empty-step data. Download completion must precede inspection.
+[Child54](https://github.com/robelene112/redsquare-android/issues/54) is assigned
+and OPEN after native blocker53 CLOSED. Fixed review base:
+`5c9838b02bc201fd1d72765abbf1f22b5f5fc299`. Root is the sole implementation
+writer; permitted review agents are policy52_spec_review and policy52_standards_review.
 
-No54 full acceptance/publication: contextual profile-report acceptance, HTTPS request
-route, missing/invalid configuration, actual1.3font/keyboard and Chat-draft
-preservation coverage, full Android10/17 and signed delivery remain. See
-[the54 evidence index](../evidence/ticket54/README.md) for all RED/GREEN limits.
-No new Saito report API, automatic email, local wipe or operational/store
-compliance is implied. No local Gradle/download session remains active.
+Native support/safety/privacy email forms, another-profile publisher user reports
+with captured precise public key/backend, and deliberate HTTPS request-page
+handoff are implemented. Production configuration remains absent/unready; no real
+address, website, request delivery, moderation or deletion process is claimed.
+Default screens explain unavailability before collecting a description. Existing
+signed selected-backend post reports and six offline draft readers are unchanged.
+The complete RED/GREEN history is in [the54 evidence index](../evidence/ticket54/README.md).
 
-Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
-at https://davidengelen.nl/redsquare/performance/. Build a matching timing
-candidate from the final app code before claiming physical release latency.
-Original35-ticket count remains26CLOSED/nineOPEN:16,17,19,31 through36.
-Specification1 remainsOPEN. Extra37/39 through52 are CLOSED;38 branding awaits
-its later product discussion and is not a release blocker. Do not claim the app
-or all substantive native policy work complete.
+Atc6cd852f3, focused17 run39286389935 is SUCCESS: publisher3/3 (42.171s),
+profile1/1 (10.862s), request1/1 (6.844s), reader1/1 (17.258s), all exits/marker.
+Root opened the original no-browser request screenshot.10 run39286385788 is
+FAILURE: the prior unconfigured support case clicks Settings immediately after
+observing New post; Settings is absent in the failure PNG. The other2 contact
+cases pass. Profile/request/reader do not execute on10. No app defect or precise
+timing cause is established. The fixture now waits for the actual enabled,
+displayed Settings action within the same20seconds.
 
-The remaining original criteria need concrete inputs/real environments:
+Current regression additions cover all four Settings routes with absent/unready/
+missing/invalid/nonboolean configuration; profile safety unavailability without
+falling back to support on both backends; actual1.3 font/own-dialog IME/physical
+Cancel and Compose, long request URL and exact unsent Chat preservation. Each
+new class retains its own180second bound in focused/full scopes. Browser handoff
+normalizes the HTTPS scheme only, preserving the configured display and remaining
+URI. Android documents case-sensitive intent matching; this is source-supported
+correctness, not an observed browser failure. New checks/reviews are pending.
 
-- Authorized separate Android Posts/Chat Giphy configuration/live proof16/31.
-- Actual Google application/project/sender and authorized hosting/deployment,
-  then physical closed-app delivery32/33/34. Existing setup questions remain pending.
-- Public YouTube playback17 and Owner Registry readiness19. Preserve documented
-  provider/server limits; no unchanged probe loops, provider workarounds or blind
-  node upgrades. Server instrumentation/deployment needs its own scoped procedure.
-- Actual Pixel7 installation/update/wallet/local-data continuity and five cached/
-  five fresh isolated physical launch measurements35. Never clear the owner's wallet.
-- Real publisher/legal identity/contact, retention/deletion/Terms/privacy and
-  moderation/child-safety decisions, their substantive native/operational behavior,
-  actual Console/account/track/signing and final authorized submission36. Existing
-  report/block controls are not a substitute. On2026-10-18 the owner chose
-  Angels’ Foundry as publisher and directed us to the local Business dossier.
-  Exact spelling includes the apostrophe after the s. The dossier confirms a free
-  first Saito release and owner responsibility for Owner-backend moderation and
-  Google publisher messages. On2026-10-19 the owner confirmed KVK registration
-  is not yet complete. Actual public contacts, domains/mail and complete
-  moderation operations are still unconfirmed. Release preparation
-  now records those decisions; do not ask for the publisher name again or invent
-  a registration, mailbox or policy URL. Do not repeat the KVK-status question
-  without new information. Prepare draft native behavior under the owner's placeholder authorization;
-  actual approved policy/operational and business/account readiness remain pending.
-  Existing Google/Giphy setup questions must not be repeated. Offline package49 is prepared, not final policy/store acceptance.
-
-Continue concrete authorized work when prerequisites arrive. Keep genuine blockers
-open and the untracked research unread. Both full-run downloads are complete;
-no local Gradle build or watcher is active.
+Finish focused regressions, then freeze production and run fresh full10+17 with
+all original identities, independent new-method catalog, two-axis reviews and
+ordinary signed39 delivery. Do not rebuild immutable38. Update OWNER_INPUTS.md
+only with actual new release status. Actual contacts/policy/operations/provider/
+physical/store gates remain open. Do not stop at this intermediate slice while
+independent authorized work remains.
 
 ## Accepted issue52: offline draft privacy/safety reader
 

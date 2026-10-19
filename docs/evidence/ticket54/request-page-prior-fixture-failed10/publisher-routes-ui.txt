@@ -1,0 +1,99 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublisherRoutesPreviewTest:
+INSTRUMENTATION_STATUS: test=unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Settings' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$28$lambda$27$lambda$26(PublisherRoutesPreviewTest.kt:238)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$98FEkNZ-0O2sZiAud2BkiCZuAik(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(nl.davidengelen.redsquare.PublisherRoutesPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Settings' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$28$lambda$27$lambda$26(PublisherRoutesPreviewTest.kt:238)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$98FEkNZ-0O2sZiAud2BkiCZuAik(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:231)
+
+INSTRUMENTATION_STATUS: test=unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readyPublisherSupportOnlyOpensTheShownEmailDraftAndKeepsTextWhenNoEmailAppOpens
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readyPublisherSupportOnlyOpensTheShownEmailDraftAndKeepsTextWhenNoEmailAppOpens
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=safetyAndPrivacyContactsKeepTheirShownDestinationsSeparate
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherRoutesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=safetyAndPrivacyContactsKeepTheirShownDestinationsSeparate
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 17.563
+There was 1 failure:
+1) unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(nl.davidengelen.redsquare.PublisherRoutesPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Settings' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts$lambda$28$lambda$27$lambda$26(PublisherRoutesPreviewTest.kt:238)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.$r8$lambda$98FEkNZ-0O2sZiAud2BkiCZuAik(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest$$ExternalSyntheticLambda20.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherRoutesPreviewTest.unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts(PublisherRoutesPreviewTest.kt:231)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -61,7 +61,7 @@ internal fun PublisherRequestsDialog(onClose: () -> Unit) {
                 requested = false
                 failed = false
                 try {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url).normalizeScheme()))
                     requested = true
                 } catch (_: ActivityNotFoundException) { failed = true }
                 catch (_: SecurityException) { failed = true }

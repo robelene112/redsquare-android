@@ -191,3 +191,37 @@ Real website, ownership verification, handling/retention and account classificat
 remain pending in36/OWNER_INPUTS.md. Fresh runtime checks/reviews, missing/invalid
 configuration regressions, actual larger text/keyboard and Chat-draft preservation,
 full10/17 and signed delivery are still required.
+
+## Request-page Android17 GREEN and prior Android10 fixture failure
+
+Atc6cd852f3,17 run39286389935 is SUCCESS: publisher3/3 (42.171s),
+profile1/1 (10.862s), request1/1 (6.844s), reader1/1 (17.258s). Native exits
+and completion marker pass. Root opened the unchanged original no-browser PNG.
+
+10 run39286385788 is FAILURE: prior unconfigured support clicks Settings at
+line238 after observing New post. The failure PNG shows the feed without that
+secondary header. Its other2 contact cases pass (class17.563s); profile/request/
+reader do not execute. No exact timing cause or application defect is established.
+The fixture now waits positively for the same enabled/displayed Settings action
+within the unchanged20second bound, preserving all behavioral assertions.
+
+The browser handoff now normalizes only the accepted scheme. Android documents
+case-sensitive IntentFilter scheme matching and Uri.normalizeScheme preserving
+other components. The configured URL remains displayed unchanged. This is a
+source-supported correction, not an observed runtime failure.
+
+Regression-only additions exercise5 absent/unready/missing/invalid/nonboolean
+configuration variants through actual Settings routes, contextual profile
+unavailability with a support address but no safety fallback, and actual1.3font/
+focused dialog IME/physical Cancel+Compose/long request URL/unsent Chat preservation.
+These use the agreed native UI/owned platform seams, not internal parser tests.
+Each new class keeps180seconds; no prior gate/identity/bound is removed. Fresh
+focused execution, full10/17, final reviews and signed delivery remain pending.
+
+Both review axes report0 on these regression additions before execution. Local
+`:app:compileDebugAndroidTestKotlin` succeeds in4minutes; the subsequent exact
+Chat EditableText assertion and distinct ready/unconfigured failure names still
+receive fresh hosted compilation/runtime verification. The independent expected
+full catalog is committed before full execution: accepted53 plus8 new terminal
+methods,466/467 identities,119/120 normal class completions, unchanged34 deliberate
+interruptions and33 continuity records. No completed54 full result is claimed.

@@ -1,0 +1,129 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted53 exact path/class/test catalogs plus eight explicitly enumerated new native UI method identities, independent of observed54 full results.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket53/full10/identities.json",
+      "sha256": "374559e26ddf78b1eb0c4a85344cef0b9008269d9656be5f49cfe11564aac328",
+      "previousIdentities": 458,
+      "additional": [
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "readyPublisherSupportOnlyOpensTheShownEmailDraftAndKeepsTextWhenNoEmailAppOpens",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "safetyAndPrivacyContactsKeepTheirShownDestinationsSeparate",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-user-report-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherUserReportPreviewTest",
+          "test": "userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-user-report-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherUserReportPreviewTest",
+          "test": "unconfiguredUserReportsKeepPublicContextWithoutCollectingTextOrUsingAnotherChannel",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-requests-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRequestsPreviewTest",
+          "test": "requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-availability-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherAvailabilityPreviewTest",
+          "test": "unavailablePublisherRoutesExplainAvailabilityBeforeCollectingTextOrLaunchingAnotherApp",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherViewportPreviewTest",
+          "test": "largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 466,
+      "expectedNormalCompletions": 119,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket53/full17/identities.json",
+      "sha256": "8ca1edab610ddcdfbe08a0e2b69c857d95c8400807f3851820ebcb1b482da5ca",
+      "previousIdentities": 459,
+      "additional": [
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "unconfiguredPublisherSupportExplainsAvailabilityWithoutHandingOffOrLosingDrafts",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "readyPublisherSupportOnlyOpensTheShownEmailDraftAndKeepsTextWhenNoEmailAppOpens",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-routes-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRoutesPreviewTest",
+          "test": "safetyAndPrivacyContactsKeepTheirShownDestinationsSeparate",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-user-report-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherUserReportPreviewTest",
+          "test": "userReportsKeepTheExactPublicAccountAndSelectedServerThroughConfirmation",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-user-report-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherUserReportPreviewTest",
+          "test": "unconfiguredUserReportsKeepPublicContextWithoutCollectingTextOrUsingAnotherChannel",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-requests-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherRequestsPreviewTest",
+          "test": "requestPagesRequireExplicitOpeningAndKeepTheWalletAndUnsentDraft",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-availability-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherAvailabilityPreviewTest",
+          "test": "unavailablePublisherRoutesExplainAvailabilityBeforeCollectingTextOrLaunchingAnotherApp",
+          "occurrences": 1
+        },
+        {
+          "path": "publisher-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublisherViewportPreviewTest",
+          "test": "largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat",
+          "occurrences": 1
+        }
+      ],
+      "expectedIdentities": 467,
+      "expectedNormalCompletions": 120,
+      "expectedDeliberateInterruptions": 34,
+      "expectedContinuityRecords": 33
+    }
+  ],
+  "executingRuns": {},
+  "executingSources": {},
+  "limits": "Full54 execution has not started. Source/run fields remain empty until actual dispatch; focused checks do not complete full acceptance."
+}
