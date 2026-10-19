@@ -1,6 +1,8 @@
 # Android push client configuration
 
-Part of open[#32](https://github.com/robelene112/redsquare-android/issues/32).
+Native development is tracked by [#32](https://github.com/robelene112/redsquare-android/issues/32).
+Actual configured cloud/device acceptance is parked under release36 SOCIAL_PUSH,
+PRIVATE_PUSH and GROUP_PUSH by the owner instruction of2026-10-19.
 The client source integrates Firebase Messaging26.0.0 using the supported
 [manual initialization](research/FCM_MANUAL_INITIALIZATION_2026_10_17.md) path.
 It does not require the Google-services Gradle plugin or checked-in JSON.
@@ -79,15 +81,16 @@ acceptance in#42. Actual SDK registration/cloud acceptance remains separate.
 The[isolated gateway](PUSH_GATEWAY.md) has controlled durable observer/event,
 lost-acknowledgement recovery, both-selector and external sender-adapter acceptance.
 See[autonomous processing evidence](evidence/ticket42/runtime-green/README.md);
-configured SDK callbacks/rotation and actual Google/device delivery remain#32
-acceptance. Android reconciliation binds the registered FID to the gateway through
-its separately verified signed contract. Chat must join the shared consent
-calculation before using this installation transport, so one module cannot
-unregister another. Native Chat presentation in#44 now implements cached private
-and group alert destinations, mounted-work recovery and wallet-scoped private
-message previews in Settings. Previews default off; unsupported content stays
+configured SDK callbacks/rotation and actual Google/device delivery remain
+unchecked release36 acceptance. Android reconciliation binds the registered FID
+to the gateway through its separately verified signed contract. Accepted native
+children46/47 join private/group demand to the shared consent calculation, so
+one module cannot unregister another, and provide controlled gateway receipt,
+local private decryption, current membership/policy and durable notification
+recovery. Native presentation44 supplies exact private/group destinations and
+wallet-scoped preview choices. Previews default off; unsupported content stays
 generic, and disabling previews withdraws older private alerts for that wallet.
-This retained-alert presentation does not connect Chat to Firebase or the gateway.
+These native/owned gateway results do not establish configured Google delivery.
 See[the current handoff](handoffs/IMPLEMENTATION.md) for its actual verification
 status and signed review publication. Configured push acceptance on Android10/17
 and physical Pixel/locked/Doze checks remain outstanding.
