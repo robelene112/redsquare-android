@@ -100,7 +100,10 @@ the owner chooses whether to start it. It is not required for every app-wide gri
    recovery during development after the preceding21 agreement cases passed.
    The separate180second recovery class bound and its assertions remain;
    complete `agreement` and full scopes retain every preceding agreement class
-   and this recovery gate. A focused success is not complete acceptance.
+   and this recovery gate. The separate publishing-process protocol proves an
+   actual process death and distinct recovery PID, with each shared host phase
+   retaining120seconds and independent restoration. Existing process gates keep
+   their identities and deadlines. A focused success is not complete acceptance.
    For the isolated queued-action viewport tracer, `chat-viewport` and
    `chat-viewport-android17` run only the existing private and group cancellation cases.
    This avoids repeating unrelated queue cases on each viewport correction;

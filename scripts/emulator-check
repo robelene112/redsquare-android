@@ -169,6 +169,7 @@ verify_group_chat_native() {
 }
 verify_agreement_recovery() {
     verify_group_chat_native PublishingRecoveryPreviewTest 180 agreement-recovery agreement-recovery-evidence
+    python3 "$repo_dir/scripts/publishing-process-check" --evidence "$evidence/publishing-process"
 }
 verify_agreement() {
     verify_group_chat_native PublishingAgreementPreviewTest 180 agreement agreement-evidence

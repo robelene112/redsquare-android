@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""Prove explicit agreement survives actual process death while its new draft remains unsent."""
+import argparse
+import json
+from pathlib import Path
+import re
+import subprocess
+from process_check_utils import ProcessInstrumentation, assert_process_gone, finish_process_fixture
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--evidence', type=Path, required=True)
+args = parser.parse_args()
+package = 'nl.davidengelen.redsquare.dev'
+runner = package + '.test/androidx.test.runner.AndroidJUnitRunner'
+checkpoint = 'cache/publishing-process-checkpoint.json'
+
+
+def adb(*arguments, check=True, timeout=60):
+    return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+
+
+if not adb('get-serialno').stdout.strip().startswith('emulator-'):
+    raise SystemExit('An isolated emulator is required')
+args.evidence.mkdir(parents=True, exist_ok=True)
+instrument = ProcessInstrumentation(adb, args.evidence,
+    'nl.davidengelen.redsquare.PublishingProcessRecoveryTest', runner).run
+primary = None
+try:
+    result = instrument('terminateAfterExplicitAgreementAndSavingTheUnsentDraft', 'interrupted.txt', check=False)
+    if 'FAILURES!!!' in result.stdout or 'Process crashed.' not in result.stdout:
+        raise AssertionError('Agreement fixture did not reach deliberate process termination')
+    row = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if row['phase'] != 'accepted' or row['backend'] != 'owner' or row['originalBackend'] not in ('owner', 'official'):
+        raise AssertionError('Missing explicit-agreement checkpoint')
+    if not re.fullmatch(r'[1-9A-HJ-NP-Za-km-z]{43,45}', row['owner']):
+        raise AssertionError('Invalid public owner')
+    if not re.fullmatch(r'[0-9a-f]{64}', row['walletDigest']):
+        raise AssertionError('Invalid wallet continuity digest')
+    if not re.fullmatch(r'owned-process-[0-9a-f-]{36}', row['revision']):
+        raise AssertionError('Invalid controlled revision')
+    assert_process_gone(adb, package, row['pid'])
+    (args.evidence / 'accepted-checkpoint.json').write_text(json.dumps(row, indent=2) + '\n')
+    adb('shell', 'am', 'force-stop', package)
+    recovered = instrument('coldProcessKeepsAgreementButRequiresDeliberateSend', 'recovered.txt')
+    if 'OK (1 test)' not in recovered.stdout:
+        raise AssertionError('Cold agreement recovery failed')
+    final = json.loads(adb('exec-out', 'run-as', package, 'cat', checkpoint).stdout)
+    if final != dict(row, phase='verified', recoveredPid=final['recoveredPid'], signature=final['signature']):
+        raise AssertionError('Agreement recovery changed its original checkpoint')
+    if not isinstance(final['recoveredPid'], int) or final['recoveredPid'] <= 0 or final['recoveredPid'] == row['pid']:
+        raise AssertionError('Recovery did not use a new process')
+    if not re.fullmatch(r'[0-9a-f]{128}', final['signature']):
+        raise AssertionError('Missing exact signed post')
+    (args.evidence / 'recovered-checkpoint.json').write_text(json.dumps(final, indent=2) + '\n')
+    (args.evidence / 'continuity.txt').write_text(
+        'PASS: explicit controlled agreement survives real process death; cold startup retains the unsent draft, '
+        'full wallet and selected backend; a deliberate Send publishes exactly once without requesting agreement again.\n'
+        'This controlled revision is not actual owner policy approval.\n')
+except BaseException as failure:
+    primary = failure
+    raise
+finally:
+    finish_process_fixture(instrument, args.evidence, package, 'publishing-process-evidence', primary)

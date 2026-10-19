@@ -360,3 +360,21 @@ now preflights fresh preparation only; retained attempts first query their
 original and can confirm availability read-only. An unobserved retry checks
 agreement before claim/retransmission and still uses the fresh enqueue guard.
 Recovery GREEN and complete issue53 acceptance remain pending.
+
+Manual recovery GREEN39247874714 at79897495a is SUCCESS:1PASS/5.586s.
+`manual-green10/SHA256SUMS` binds10 originals. Root opened the actual Available
+window with no agreement dialog. Both correction reviews report0findings.
+Subsequent copy cleanup makes the saved notice truthful for both new drafts and
+previously queued intent; existing native assertions still require no publication
+from agreement alone. Privacy draft describes the installation-local revision.
+
+Additional existing-minimum coverage58f0bf82a has both reviews0: acceptance A,
+unready bundle, new revision B, unreadable persisted record, cancellation and
+explicit repair/deliberate Send. Its two-case focused run39248457801 is pending.
+A new separate host-driven process fixture now saves explicit agreement and an
+unsent draft, kills the actual process, then requires a different PID, retained
+wallet/backend/draft, no automatic publication and one deliberate Send without
+another terms prompt. Encrypted installation snapshots remain device-only and
+restoration is independent. Its host phases keep the shared120second bounds;
+no existing process gate or180second recovery-class assertion changes.
+This new process coverage is not yet runtime acceptance.

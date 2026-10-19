@@ -56,13 +56,25 @@ preceding21PASS, recovery0PASS/1FAIL atline59 waiting for Available. Root opened
 the in-scope Prepared terms dialog over the uncertain original. The minimum
 now preflights only fresh preparation, reads retained original availability first,
 then checks agreement before any unobserved claim/retransmission. Fresh socket
-checks remain. Focused recovery GREEN is pending.
+checks remain. Focused recovery GREEN39247874714 at79897495a is SUCCESS:
+1PASS/5.586s; both correction reviews0; root opened Available without terms.
+Packet `ticket53/manual-green10` binds10 originals.
 The new `agreement-recovery`/Android17 scopes can isolate that recovery class
 with its unchanged180second bound; complete agreement/full retain every case.
 Infrastructure review0. Original RED stays failed with its actual evidence.
 
+Additional native recovery-state coverage58f0bf82a has both reviews0 and runs in
+39248457801: Accepted A cannot approve an unready bundle or required revision B;
+damaged local acceptance requires explicit repair, Cancel keeps the draft, and
+only a separate Send publishes. No production code accompanied this coverage.
+A separate process fixture is now prepared: host-observed actual death after
+agreement and saved unsent draft, distinct cold PID, unchanged wallet/backend,
+no auto-publication and deliberate Send without another agreement prompt.
+Device-only scoped originals and independent restoration preserve installation
+state. Existing process identities/deadlines remain. New process proof pending.
+
 See [evidence53](../evidence/ticket53/README.md). #53 remains incomplete: manual
-recovery GREEN, revision/missing/corrupt-record and real process coverage,
+revision/missing/corrupt-record and real process runtime coverage,
 full Android10/17 acceptance, final combined review and signed update remain.
 Finish these independent native controls before final acceptance and publication.
 Ordinary37 is live at https://davidengelen.nl/redsquare/ and separate performance36
