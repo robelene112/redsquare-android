@@ -84,7 +84,7 @@ class PublisherRoutesPreviewTest {
                         ui.onNodeWithText("Compose email").performClick()
                         waitFor("Email draft requested. Review and send it in your email app. No message is sent automatically.")
                         val draft = external().single()
-                        assertEmailDraft(draft, "support@publisher.example", "Red Square support",
+                        assertPublisherEmailDraft(draft, "support@publisher.example", "Red Square support",
                             "App: Red Square 0.1.0\n\nDescription:\n$description")
                         capture("ready-support-draft-requested.png")
                         ui.onNodeWithText("Done").performClick()
@@ -175,7 +175,7 @@ class PublisherRoutesPreviewTest {
                             }
                             assertEquals(index + 1, external.size)
                             val draft = external.last()
-                            assertEmailDraft(draft, case.recipient, case.subject,
+                            assertPublisherEmailDraft(draft, case.recipient, case.subject,
                                 "App: Red Square 0.1.0\n\nDescription:\n${case.description}")
                             capture("purpose-contact-$index.png")
                             ui.onNodeWithText("Done").performClick()
@@ -274,18 +274,6 @@ class PublisherRoutesPreviewTest {
                 { backends.save(originalBackend); check(backends.load() == originalBackend) },
                 { retained.restorePreferences() })
         }
-    }
-
-    private fun assertEmailDraft(draft: Intent, recipient: String, subject: String, body: String) {
-        assertEquals(Intent.ACTION_SENDTO, draft.action)
-        assertEquals("mailto", draft.data!!.scheme)
-        assertEquals(recipient, draft.data!!.schemeSpecificPart)
-        assertArrayEquals(arrayOf(recipient), draft.getStringArrayExtra(Intent.EXTRA_EMAIL))
-        assertEquals(subject, draft.getStringExtra(Intent.EXTRA_SUBJECT))
-        assertEquals(body, draft.getStringExtra(Intent.EXTRA_TEXT))
-        assertEquals(setOf(Intent.EXTRA_EMAIL, Intent.EXTRA_SUBJECT, Intent.EXTRA_TEXT), draft.extras!!.keySet())
-        assertNull(draft.clipData)
-        assertEquals(0, draft.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
     }
 
     private fun waitFor(text: String, action: Boolean = false) = ui.waitUntil(20_000) {

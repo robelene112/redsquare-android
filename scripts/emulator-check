@@ -210,6 +210,7 @@ if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == all || "$partition" == 
 fi
 verify_publisher_routes() {
     verify_group_chat_native PublisherRoutesPreviewTest 180 publisher-routes publisher-routes-evidence
+    verify_group_chat_native PublisherUserReportPreviewTest 180 publisher-user-report publisher-user-report-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == publisher-routes* ]]; then
     verify_publisher_routes

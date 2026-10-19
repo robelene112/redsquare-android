@@ -97,7 +97,7 @@ the owner chooses whether to start it. It is not required for every app-wide gri
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
    `publisher-routes` and `publisher-routes-android17` isolate the native publisher
-   route class and existing offline policy reader, each with its own180second
+   route classes and existing offline policy reader, each with its own180second
    class bound. Full scopes retain both. Controlled Android intent interception
    prevents real email or external request delivery; it is not operational proof.
    `agreement-recovery` and `agreement-recovery-android17` isolate native policy

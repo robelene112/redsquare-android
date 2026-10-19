@@ -112,3 +112,20 @@ no attachments/grants. Independent handoff counts remain outside that helper.
 Spec review through1e520524b reports0 for the tracer. Fresh production checks
 and reviews follow; contextual user reports, request pages, actual larger text,
 full suites and signed delivery remain outstanding.
+
+## Purpose-specific contacts GREEN at28c4c78ee
+
+Actual10 run39281882756 has3/3 publisher PASS (13.848s) plus1/1 reader PASS
+(15.514s);17 run39281885832 has3/3 publisher PASS (45.767s) plus1/1 reader
+PASS (17.453s). Native exits and focused completion markers pass. Root opened
+both purpose originals on10 and privacy on17. Both reviews through28c4c78ee
+report0, including the fixture fixes. These are controlled handoffs and focused
+results; no actual mailbox or full54 release acceptance is claimed.
+
+The next single native tracer opens another public profile on each supported
+backend, cancels without handoff, then retains its exact account/server context
+and editable description across Activity recreation before a deliberate email
+draft. It uses a separate180second class bound, added to focused/full scopes
+without widening or removing existing gates. The exact Android email assertion
+contract is shared unchanged between the actual native journeys; handoff counts
+remain local. Profile production entry is still absent and actual RED is pending.

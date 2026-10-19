@@ -68,22 +68,39 @@ Active implementation is [child54](https://github.com/robelene112/redsquare-andr
 assigned after native blocker53 was verified CLOSED/zero open blockers. Its fixed
 review base is5c9838b02bc201fd1d72765abbf1f22b5f5fc299. It prepares truthful
 publisher feedback, profile user-report email handoff and privacy/data-request
-routes; actual contacts/website and operations stay in OWNER_INPUTS.md. The first
-native tracer covers unconfigured publisher support, zero external handoff and
-preserved unsent draft/full wallet/backend. New focused scopes retain the
-existing offline reader and180second class bounds; full scopes include the new
-class. Actual RED39275678910 atcebe4dde4 reaches the reader then times out on the missing
-Contact publisher action. The first minimum adds the unconfigured support notice;
-first tracer GREEN and existing reader PASS are observed at8013e73c3 in
-39277633853 (API later reportsSUCCESS). Ready-support RED17 atbcfd47010 reaches
-the expected unavailable notice. Productionminimum0bf3e9b15 compiles and both
-reviews report0, but actual10/17 focused commands fail only the raw URI observer
-after controlled email handoff: encoded%40 versus literal@. The observer now
-asserts exact decoded recipient plus scheme. A source-supported correction moves
-the keyboard controller read into its actual Dialog window. Fresh GREEN is pending.
-The composer fixture positively observes enabled editors and uses unready policy
-configuration. See ticket54 evidence index. No new Saito
-report API, automatic email, local wipe or operational/store compliance is implied.
+routes; actual contacts/website and operations stay in OWNER_INPUTS.md. Native support preparation now passes both focused SDK commands atad51cdd60:
+10 run39280053024 publisher2/2 (11.049s), reader1/1 (16.559s);17
+run39280056321 publisher2/2 (33.065s), reader1/1 (16.813s). Completion
+markers/exits pass. Exact displayed email payload, no attachments/grants, Cancel0,
+Activity recreation and actual controlled ActivityNotFoundException with retained
+description are reached. Both reviews throughad51cdd60 report0. No actual email
+or operating-channel readiness is claimed.
+
+Current production minimum is28c4c78ee: distinct Settings safety/privacy entries,
+subjects and independently validated nullable destinations through the shared
+PublisherEmailDialog. All defaults remain absent/unready. Actual purpose RED17
+39281058892 at1e520524b has2 preceding PASS and intended missing Safety entry
+timeout20s; primary PNG/XML retained/root opened. The entry fixture now observes
+enabled clickable existence, scrolls and asserts display before clicking. Shared
+assertEmailDraft preserves every exact payload/attachment/grant assertion and
+separate handoff counts. Reviews through28c4c78ee both report0. Actual focused
+GREEN10/17 artifacts39281882756/39281885832 at28c4c78ee now pass all3 publisher
+cases plus the original reader; complete markers/exits pass. Publisher runtimes
+13.848/45.767s and reader15.514/17.453s. Next single test-only profile-report
+tracer covers exact target/server on both backends, Cancel0 and recreation before
+controlled email. It has a separate180second class, retained in focused/full
+scopes. Exact email assertions are shared unchanged, counts stay per journey.
+Profile production is absent; its first actual RED is pending. API status can lag uploaded
+actual artifacts and has intermittently returned502; do not infer app outcomes
+from stale queue/empty-step data. Download completion must precede inspection.
+
+No54 full acceptance/publication: contextual profile user-report, HTTPS request
+route, missing/invalid configuration, actual1.3font/keyboard and Chat-draft
+preservation coverage, full Android10/17 and signed delivery remain. See
+[the54 evidence index](../evidence/ticket54/README.md) for all RED/GREEN limits.
+No new Saito report API, automatic email, local wipe or operational/store
+compliance is implied. No local Gradle/download session remains active.
+
 Ordinary38 is live at https://davidengelen.nl/redsquare/ and separate performance36
 at https://davidengelen.nl/redsquare/performance/. Build a matching timing
 candidate from the final app code before claiming physical release latency.
