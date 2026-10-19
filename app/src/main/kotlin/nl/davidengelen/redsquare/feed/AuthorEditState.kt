@@ -173,8 +173,7 @@ internal class AuthorEditState(private val store: PostDraftStore, private val me
                                 }
                                 if (!permitted) return@use
                                 peer.submit(transaction) {
-                                    val saved = store.load()
-                                    check(saved.transaction?.id == transaction.id && !saved.available && store.canPublish(saved))
+                                    store.assertCanPublish(transaction.id)
                                 }
                                 for (attempt in 0 until 6) {
                                     if (observed()) break

@@ -166,6 +166,12 @@ internal class PostDraftStore private constructor(private val context: Context, 
         same(load(), expected)
     }
 
+    /** Socket callers share one fresh original/availability/permission check without another write. */
+    fun assertCanPublish(id: String) = synchronized(lock) {
+        val current = load()
+        check(current.transaction?.id == id && !current.available && canPublish(current))
+    }
+
     fun claim(expected: Saved): Boolean = synchronized(lock) {
         if (!canPublish(expected)) return@synchronized false
         update(expected, expected.copy(queued = false))

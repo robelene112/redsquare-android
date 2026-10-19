@@ -151,8 +151,7 @@ internal class PostComposerState(
                         }
                         if (!permitted) return@use
                         peer.submit(candidate) {
-                            val current = store.load()
-                            check(current.transaction?.id == candidate.id && !current.available && store.canPublish(current))
+                            store.assertCanPublish(candidate.id)
                         }
                         withContext(Dispatchers.Main.immediate) { submitted = true }
                         for (attempt in 0 until 6) {

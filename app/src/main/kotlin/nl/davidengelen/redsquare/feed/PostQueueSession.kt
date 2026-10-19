@@ -25,8 +25,7 @@ internal suspend fun resumeQueuedPosts(context: Context, wallet: SaitoWallet, ba
                 // claim rechecks durable identity/selection and races with Cancel.
                 if (!store.claim(saved)) return@use
                 peer.submit(candidate) {
-                    val current = store.load()
-                    check(current.transaction?.id == candidate.id && !current.available && store.canPublish(current))
+                    store.assertCanPublish(candidate.id)
                 }
                 if (peer.hasPost(candidate, wallet.publicKey, saved.text))
                     store.update(saved.copy(queued = false), saved.copy(queued = false, available = true))
