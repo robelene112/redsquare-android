@@ -170,8 +170,16 @@ class ChatGiphyPreviewTest {
                                 capture("$prefix-selected")
                                 fun credits(name: String) {
                                     for (label in listOf("Powered by GIPHY", "By Owned Chat artist", "Source")) {
-                                        ui.waitUntil(10_000) { ui.onAllNodesWithText(label).fetchSemanticsNodes().isNotEmpty() }
-                                        if (!displayed(hasText(label))) ui.onNodeWithText(label).performScrollTo()
+                                        ui.waitUntil(10_000) {
+                                            if (ui.onAllNodesWithText(label).fetchSemanticsNodes().isEmpty()) false
+                                            else {
+                                                if (!displayed(hasText(label))) {
+                                                    try { ui.onNodeWithText(label).performScrollTo() }
+                                                    catch (_: AssertionError) { /* History/credits can relayout during scrolling. */ }
+                                                }
+                                                displayed(hasText(label))
+                                            }
+                                        }
                                         ui.onNodeWithText(label).assertIsDisplayed()
                                     }
                                     capture(name)
