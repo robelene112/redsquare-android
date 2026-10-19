@@ -87,23 +87,25 @@ Final combined review/publication remain pending at this checkpoint.
 The completed `full-android10` and `full-android17` execute one final source, with
 `public_feed_read=true`, `performance_version=36`, `main_reference_version=35`.
 Default4K pages are appropriate; accepted51's optional16K run is not mandatory
-for every subsequent UI change. All17 Chat/Social/Wallet partitions must complete.
+for every subsequent UI change. All17 Chat/Social/Wallet partitions are complete.
 
 The independent [expected catalog](../evidence/ticket54/full-identity-reference.json)
 was committed before full execution: accepted53 plus8 new terminal methods,
 466/467 identities,119/120 normal class completions, unchanged34 deliberate
-interruptions and33 continuity records. Its source/run fields now record the actual
-df941 dispatch, without claiming full completion. Preserve every prior identity/assertion/deadline and the single
-established API29 Profile assumption. A killed setup phase is not terminal PASS.
+interruptions and33 continuity records. Its source/run fields identify the actual
+df941 executions. Both complete retained packets match that plan exactly, with
+every prior identity/assertion/deadline and the single established API29 Profile
+assumption preserved. A killed setup phase is not terminal PASS.
 
-Temporary `/tmp/redsquare-policy54-retain-full.py` is adapted from the53 retainer;
-inspect it before use. It requires completed SUCCESS metadata, exact configured
-source/runs, complete artifact directories and an exact independent catalog.
-Download10 to `<raw>/android-native-proof`, and17 to corresponding
-`android-native-proof-chat`, `-social`, `-wallet` subdirectories. Wait for each
-actual download exit0 before processing. Large artifacts belong on storage.
-Retain original PNG/XML/hash records, inspect meaningful originals and obtain
-both combined review axes0 before publishing/closing54.
+Temporary `/tmp/redsquare-policy54-retain-full.py`, adapted from53, has completed
+successfully for both SDKs. All downloads exited0 before processing. It checked
+completed SUCCESS metadata, exact source/runs, complete artifacts and the independent
+catalog, rejecting any new visual error beyond the exact optional53 observations.
+The retained packets contain463 hashes on10 and493 on17, including18 selected
+original PNG/XML pairs per SDK. Raw files are on storage in
+`publisher54-full10-39294146155` and `publisher54-full17-39294150546`.
+Do not repeat completed suites without a new change/failure/concern. Obtain both
+combined final review axes0, then publish/verify ordinary40 before closing54.
 
 GitHub run/job GET metadata can lag actual artifacts and show queued/in_progress
 after completion. Inspect artifact endpoints too. Distinguish actual native
