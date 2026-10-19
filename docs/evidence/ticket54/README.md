@@ -303,3 +303,18 @@ shapes, text, scrolling, actions, padding and assertions remain. This shares the
 now verified full-screen mechanism with the observed floating request window;
 it does not resize the dialog or alter configuration/handoff behavior. Fresh
 native checks still need to establish the complete viewport and reader outcome.
+
+## Complete focused Android10 GREEN at404f36c91
+
+Run39292896279 is SUCCESS: publisher3/3 (13.916s), profile2/2 (12.710s),
+request1/1 (6.918s), availability1/1 (14.369s), viewport1/1 (13.884s), reader1/1
+(14.724s). All exits and focused completion marker pass. The whole actual1.3font/
+IME/physical email and request actions/exact Chat-draft journey now executes.
+Email XML root is320x640 and request root[0,38][320,626], matching their actual
+windows without the prior shadow offset. Root opened unchanged long-request
+and preserved-Chat originals; font configuration1.3 and restoration1.0 are retained.
+
+Both review axes through404 report0, including preservation of existing full-screen
+bar styling and floating platform appearance. Complete current-source10/17 runs
+and a fresh signed candidate remain required; older17 focused evidence does not
+replace that obligation. The independent eight-method catalog remains unchanged.
