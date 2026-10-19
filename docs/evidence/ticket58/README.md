@@ -16,3 +16,10 @@ This is implementation in progress, not complete58 or app-wide UI acceptance.
 Native green, theme/font/IME/motion/recovery walkthroughs, full regression,
 two-axis review and signed UI delivery remain pending. The separate Node45 beta
 is wording-only and is not delivery of this redesign.
+
+The first production execution e50538e60/run39328611127 is also FAILURE:
+Home selection now passes, but the post body begins below half the320px-wide
+viewport. Original capture/root inspection confirms the remaining action row
+uses reading space. This is retained as reading-space-red17, not green proof.
+The next minimal slice65e1d6002 moves compose to a persistent native vector action,
+keeps maintenance in the feed toolbar and reserves list space beneath the action.
