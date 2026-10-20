@@ -41,7 +41,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta49, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
+| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta50, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
 | Moderatieproces voor jouw backend en meldingen aan de appuitgever | David heeft verantwoordelijkheid geaccepteerd; bereikbare kanalen, behandeling, escalatie en daadwerkelijk toezicht nog te bepalen. | Werkende rapportage en moderatie. Een verzonden melding betekent niet automatisch beoordeeld of verwijderd. |
 | Privacy- en verwijderproces | Nog te bepalen: bereikbaar verzoekkanaal, eigendomscontrole zonder privésleutel, afhandeling en terugkoppeling. | Werkelijk uitvoerbare verzoeken en een webroute naast de app. Wallet vervangen of een bericht verbergen is geen volledige gegevensverwijdering. |
 | Bewaartermijnen en uitzonderingen | Nog te bepalen voor eigen serverlogs, archieven/back-ups, meldingen, verzoeken en eventuele pushgateway. | Waarheidsgetrouwe privacytekst en daadwerkelijke opruimprocedures. Geen vaste termijn of juridische uitzondering als feit invullen. |
@@ -58,8 +58,9 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta49](https://davidengelen.nl/redsquare/) staat online. Deze update
-bevat het compactere appframe en de Node-benaming; de verdere UI-verbeteringen
+De gewone [beta50](https://davidengelen.nl/redsquare/) staat online. Deze update
+bevat het compactere appframe, de Node-benaming en herhaald liken met een limiet
+van twee nieuwe likes per seconde per wallet; de verdere UI-verbeteringen
 zijn nog in uitvoering onder #55. Download, versie en ondertekening zijn gecontroleerd.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
@@ -67,7 +68,7 @@ checkpoint en bevat nog niet de nieuwe Node-tekst of het huidige appframe. Gebru
 niet als definitieve meting van de actuele app. De eerdere geslaagde Android10/17
 installatieproef gebruikte gewone referentie35 en timing43: gescheiden wallets en
 opslag, met behoud van de gewone testidentiteit. Dat bewijst geen fysieke update
-naar beta49. Voor de definitieve metingen levert de agent een passende timingbuild.
+naar beta50. Voor de definitieve metingen levert de agent een passende timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
 PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze

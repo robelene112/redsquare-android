@@ -10,37 +10,17 @@ sequential implementation, review, commits and signed in-place beta delivery.
    [Node56](https://github.com/robelene112/redsquare-android/issues/56) are complete:
    full native acceptance,0/0 paired reviews and signed49 public delivery with
    final Spec0/documented Standards0/heuristic0 review at a193ff163.
-2. Finish final evidence/publication for active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
-   then59 through69 in dependency order. Review base a0948570a. Production147
-   implements reviewed repeat/journal/lease/count generation, durable two-intent
-   wallet-wide rolling limit and pending-social wallet-replacement disclosure.
-   Detailed original RED/GREEN and rendered/native/independent signature proof
-   is in docs/evidence/ticket57/README.md. Confirmation-time acknowledgment reset
-   is source-reviewed without a separate late-arriving-work native journey.
-   Corrected focused repeat/isolation/import and real second-Like process bothSDK
-   are SUCCESS; exact original retries and durable rate survive actual process
-   death. Main full39396615570/39396619548 atfec all3jobs SUCCESS each. Initial
-   full option omitted public reads; exactly those three goals are supplied by
-   unchanged feed39399533451/39399537091 and Chat39399540274/39399544249 atb2,
-   all SUCCESS. All16 executable/test/config/reference Git inputs match. Bounded
-   procedure and future automatic full public-read guard are reviewed0/0, source
-   39399971481SUCCESS. This is full partitioned verification plus separate public
-   reads, never a rewrite of initial execution history or an application waiver.
-   Both SHA-bound strict collector commands exit0: canonical481/482 identities,
-   126/127 normal completions,35 interruptions,34 continuity. Sole oldAPI29Profile
-   assumption and exactfive optional53 observer gaps only. Passed incidental nine
-   feed duplicates/one normal/one cold-continuity/two archives perSDK are separately
-   retained and not counted twice. Original pre-execution catalog is unchanged.
-   Full10packet481hashes/89archives/2299members;17packet495/89/2309. Root opened
-   actual full cold-rate/owner-feed/official-funding originals. Full packet review
-   is next, then canonical signed50 publication and final public-packet review.
-   Prepared50 is frozen285, SHA58f50ecfd835732a1f86918cc72617da299d548e9ef46186c1f1b9b62f4285da,
-   37,819,787bytes. Existing key/package, APK/DEX/manifest checks and paired reviews0.
-   Public before50snapshot passes against current49+immutable49/45+wholeperformance43.
-   Ordinary49 remains LIVE;50 is NOT published. Never rebuild50. Close57 only after
-   reviewed public delivery, then proceed directly to59. Chosen policy remains
-   two NEW deliberate intents per rolling second per wallet across both nodes
-   and post surfaces; pending likes retry their exact original on its origin node.
+2. Repeat likes57 is implemented and complete native evidence has final
+   Spec0/documented Standards0/heuristic0 review at9e7b0f65c. Canonical ordinary50
+   publication and independent public before/after checks exit0. The public APK
+   matches frozen285 prepared50 exactly; immutable49/45 and wholeperformance43
+   are preserved. Final public-packet review is next, then close57 and immediately
+   implement59 through69 in dependency order. Never rebuild50. Detailed original
+   RED/GREEN, full481/482 canonical identities,35 interruptions/34 continuity per
+   SDK and supplemental public-read provenance are in ticket57's evidence README.
+   Confirmation-time acknowledgment reset is source-reviewed without a separate
+   late-arriving-work native journey. Two new deliberate likes per rolling second
+   per wallet across both nodes/surfaces; pending likes retry their exact original.
 3. Keep [UI55](https://github.com/robelene112/redsquare-android/issues/55) open
    through the owner's final beta review. Native feature delivery does not
    establish app-wide visual acceptance. Original native2 through35 and prior
