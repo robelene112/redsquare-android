@@ -725,6 +725,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(signedUnlike.body == signed.body && signedUnlike.author == signed.author)
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages[1]) == unlike.envelope())
                             File(context.cacheDir, "private-chat-evidence/$envelopePrefix-unlike-envelope.json").writeText(unlike.envelope())
+                            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-unliked.png"), text)
                             scenario.recreate()
                             waitFor(counterpart)
