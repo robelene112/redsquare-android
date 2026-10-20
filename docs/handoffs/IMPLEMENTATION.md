@@ -38,13 +38,20 @@ both reopened body assertions before original display goals. Both source axes0.
 No exact original/Relay/count/restoration goal or deadline is weakened.
 
 Latest compiled candidatefa21f295d8ff39206c81e30da081a677ed57a402, source39374755440
-in progress. Await SUCCESS before corrected chat-ui and fresh full10/17 dispatch.
+SUCCESS. Focused actions39375651913/39375654197 bothSUCCESS10methods each,
+positive48dp interrupted-reaction history regression, native48px versus prior10px.
+Actual private recovery39375656551/39375658999 bothSUCCESS, exact2 IDs each, PIDs
+3458->3836/2583->4366 and full checkpoint/cache/draft/original/zero-send/restoration
+checks. Root opened corrected interrupted/unlike-recreated and recovered originals
+on bothSDKs; draft/reaction cold view still has no visible history, retained62 case.
+Fresh full39376144681(10)/39376147196(17)
+now executing atfa, same source. Exact bindings recorded before outcomes.
 Priorf2 source39374150855SUCCESS; a1 source39374682292CANCELLED by newerfa, not
 acceptance. Canonical signed49 PREPARED from frozen productiona1 in the external review-worktree;
 shared counter49 reserved, APK6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a.
 Actual certificate/manifest/DEX verified, min29/target36, nondebug/nonprofile, backupfalse,
 reviewtrue, Push/PostsGIF/ChatGIF absent. Before-publication bookendPASS.
-Preparation review pending;48/47/46 superseded and unpublished.
+Both preparation review axes0;48/47/46 superseded and unpublished.
 Ordinary45 stays LIVE, immutable45/performance43 unchanged.49 public after-check, complete native acceptance/review/publication pending.
 
 Earlier complete focused group:10 at e674/run39370550836 and17 at003/run39372650163
@@ -60,8 +67,8 @@ verified; prior focused successes are not acceptance of its new layout.
 
 Latest retained packets preserve all actual failed/successful outcomes and raw
 native originals. See../evidence/ticket58/README.md. No full acceptance/publication.
-Dispatch full10/17 at the same compiled source BEFORE evidence-only pushes, bind
-exact runs/source before outcomes and retain failed e205 attempts as failed. The
+Fresh full10/17 was dispatched before evidence-only pushes, with exact source/run
+bindings before outcomes; failed e205 attempts remain failed previousAttempts. The
 frozen473/474 identities,122/123 normal completions,34 interruptions and33 continuity
 gates remain. Keep56/58 open until verified delivery, then57 and59..69 sequentially.
 External prerequisites stay under36. Protected untracked research stays untouched.

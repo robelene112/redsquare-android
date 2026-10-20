@@ -111,7 +111,7 @@
       "expectedContinuityRecords": 33
     }
   ],
-  "limits": "Complete58 execution, visual motion acceptance, signed delivery and physical/provider/store gates are not yet claimed.",
+  "limits": "Complete58 full acceptance and signed49 delivery are not yet claimed. Existing focused frame/font/IME/system-motion evidence remains scoped and current for unchanged shared-frame production; no physical/configured-provider/store acceptance.",
   "previousAttempts": [
     {
       "source": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
@@ -376,15 +376,72 @@
         }
       },
       "limit": "Both complete attemptsFAILED at group promotion preparation120second bound.17 socialSUCCESS; wallet76 original identitiesPASS but later legacy APK checksum rejects. No complete acceptance or tail-only exception because Chat application gate failed."
+    },
+    {
+      "source": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
+      "runs": {
+        "android10": 39360894371,
+        "android17": 39360896559
+      },
+      "conclusions": {
+        "android10": "failure",
+        "android17": "failure"
+      },
+      "terminalRuns": {
+        "android10": {
+          "conclusion": "failure",
+          "id": 39360894371,
+          "jobs": [
+            {
+              "conclusion": "failure",
+              "id": 118426573935,
+              "name": "native-proof (all)",
+              "status": "completed"
+            }
+          ],
+          "source": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
+          "status": "completed",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39360894371"
+        },
+        "android17": {
+          "conclusion": "failure",
+          "id": 39360896559,
+          "jobs": [
+            {
+              "conclusion": "failure",
+              "id": 118426580501,
+              "name": "native-proof (chat)",
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "id": 118426580830,
+              "name": "native-proof (social)",
+              "status": "completed"
+            },
+            {
+              "conclusion": "success",
+              "id": 118426580844,
+              "name": "native-proof (wallet)",
+              "status": "completed"
+            }
+          ],
+          "source": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
+          "status": "completed",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39360896559"
+        }
+      },
+      "limit": "Both whole runs remain FAILURE in group UI.17 social and wallet successes do not establish complete acceptance. Subsequent real private viewport fixes require fresh full verification."
     }
   ],
   "executingRuns": {
-    "android10": 39360894371,
-    "android17": 39360896559
+    "android10": 39376144681,
+    "android17": 39376147196
   },
   "executingSources": {
-    "android10": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
-    "android17": "e2056df1d3001c3303ce3a6d706b01dc0c68772c"
+    "android10": "fa21f295d8ff39206c81e30da081a677ed57a402",
+    "android17": "fa21f295d8ff39206c81e30da081a677ed57a402"
   },
-  "sourceEquivalence": "The bound e205 full10/17 attempts both completedFAILURE in GroupChatPreviewTest. Current production587 fixes the independently reproduced private zero-height status viewport;48 is prepared/unpublished and47 superseded. Current587 group actions1PASS perSDK, private four-case2PASS/2FAIL perSDK; later fixture positioning/cardinality corrections pending. No fresh full dispatch or complete acceptance yet. Frozen473/474 identities,122/123 completions,34 interruptions,33 continuity and original deadlines remain unchanged."
+  "sourceEquivalence": "Productiona1 bounds reaction notices in the existing named Chat status after retained10px history failure.49prepared from frozena1;48superseded unpublished. Executingfa differs froma1 only in fixtures/evidence. Source39374755440SUCCESS. Actions39375651913/39375654197 bothSUCCESS10methods each and positive48dp regression. Actual private recovery39375656551/39375658999 bothSUCCESS. Fresh full runs bound before their outcomes. Frozen473/474 identities,122/123 normal completions,34 interruptions,33 continuity and original deadlines unchanged.",
+  "candidateSource": "fa21f295d8ff39206c81e30da081a677ed57a402"
 }

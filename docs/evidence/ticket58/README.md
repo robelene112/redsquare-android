@@ -866,3 +866,26 @@ reviewtrue and Push/PostsGIF/ChatGIF unconfigured confirmed from actual APK.
 Before-publication bookendPASS:ordinary45 live and immutable45/performance43
 unchanged.49 remains unpublished; source/full/native/preparation review and
 public after-check are still required.48/47/46 superseded without publication.
+
+Corrected fa focused reaction/actions [10](ui58-private-reaction-bounded-actions10-39375651913/summary.json)/
+[17](ui58-private-reaction-bounded-actions17-39375654197/summary.json) bothSUCCESS:
+exact10 accepted38 identities each,68.501/74.561seconds, unchanged180second bound.
+Positive48dp Compose regression passes; native interrupted-reaction history is
+[16,298][304,346] on bothSDKs,48px versus prior10px. Root opened both original
+interrupted captures and both corrected unlike-recreated originals perSDK. Body
+scrolling retains original expected-text/native goals; this is focused recovery/
+compatibility proof, not the broader62 message-first design.
+
+Corrected actual private recovery [10](ui58-private-reaction-bounded-process10-39375656551/summary.json)/
+[17](ui58-private-reaction-bounded-process17-39375658999/summary.json) bothSUCCESS:
+exact2 accepted38 normal identities each, PIDs3458->3836/2583->4366, full checkpoint
+equality except phase/new PID, exact original/cache/draft/uncertain candidates,
+zero transmissions and independent restoration. Root opened pending-message and
+draft/reaction cold originals on bothSDKs. The latter still shows no history;
+retained continuity does not establish that rendered state. Preserve this62 case.
+
+Fresh full39376144681(Android10)/39376147196(Android17) dispatched at exactfa
+before evidence-only pushes. Independent473/474 identity catalogs and exact runs/
+source bound before outcomes. Every old failure keeps its terminal conclusion;
+e205 moved to previousAttempts with actual job results.49 preparation reviews0
+on both axes; full results and signed publication remain pending.

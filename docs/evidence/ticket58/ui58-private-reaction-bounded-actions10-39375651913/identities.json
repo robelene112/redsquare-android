@@ -1,0 +1,62 @@
+[
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "aNativeReplyRetainsItsQuoteAndTypedDraftUntilExplicitSending",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "anAuthenticatedZeroTimestampReplyStillRequiresTypedBodyBeforeSending",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "anUncertainPrivateReactionRetriesItsExactOriginalWithoutTogglingAgain",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "authenticatedAvailableReactionsDeduplicateAndSurviveAnUnavailableArchive",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "incomingPrivateReactionsKeepOriginalIdentityAcrossDuplicatesAndReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "replacingTheActiveWalletHidesOtherIdentityReactionsAndRetainsTheirExactOriginal",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "switchingBackendsKeepsUncertainAndForwardedReactionsOnTheirOriginalServer",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatActionsPreviewTest",
+    "test": "unavailableReactionStorageDoesNotHideReadableMessagesAndCanRecover",
+    "occurrences": 1
+  }
+]
