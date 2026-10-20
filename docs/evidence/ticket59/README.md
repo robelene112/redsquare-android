@@ -758,3 +758,20 @@ Both3c complete dispatches now finish FAILURE: Chat fails the identical queued
 Members target on both SDKs; all wallet and social jobs succeed. Final run/job
 metadata is retained separately, preserving the earlier17 in-progress capture.
 Paired correction/evidence reviews through56b report0 residual findings.
+
+## Preserve ordinary management while fixing queued status
+
+The minimized old4ae viewport runs39435980283/39435984470 each fail exactly one
+of the existing two cancellation methods at the same22pixel Members target.
+Each retains30 original members plus actual chat-viewport goal logs.
+Intermediate5a10run39436228435 passes both original cancellation journeys,
+but its independent GroupAdmin10run39436239311 fails4of12 methods because
+Members is no longer directly displayed. All24 original admin members remain
+retained. This intermediate layout is not accepted and has no signed candidate.
+
+The refined layout changes section order only for an actual queued message.
+Ordinary groups keep their existing management-before-history order; queued
+groups expose management at the real status scroll end. Stable section keys
+retain the same history-status host through reordering and keyboard transitions.
+Primary delivery/Retry,80dp bound, warnings, handlers, deadlines and assertions
+remain unchanged. Corrected native acceptance is still pending.

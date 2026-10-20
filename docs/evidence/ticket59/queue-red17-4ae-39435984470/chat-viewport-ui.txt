@@ -1,0 +1,70 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Full Chat action target must stay inside the usable screen: Rect(16, 181 - 100, 203), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:341)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:323)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.IllegalStateException: Full Chat action target must stay inside the usable screen: Rect(16, 181 - 100, 203), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:341)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:323)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 71.304
+There was 1 failure:
+1) anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.IllegalStateException: Full Chat action target must stay inside the usable screen: Rect(16, 181 - 100, 203), minimum=48, bars=24/0
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction(ChatQueuePreviewTest.kt:341)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.physicalChatAction$default(ChatQueuePreviewTest.kt:323)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:184)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(ChatQueuePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

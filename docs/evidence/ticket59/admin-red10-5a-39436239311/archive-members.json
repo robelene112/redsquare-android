@@ -1,0 +1,127 @@
+{
+  "run": 39436239311,
+  "source": "5a0c389d1012716b5de0096068fcd02cf534b6da",
+  "archiveSha256": "a4599619cb4f0f4a5d971afa296a3d022d39c8b2fffe34ec998d340c09518d04",
+  "members": [
+    {
+      "member": "group-admin-evidence/stale-confirmation-failure-transport.json",
+      "bytes": 38,
+      "sha256": "cf272e1be6601827bce5b0dbfaf747fdde099de2f4539cc5cfcd03d8d5a04783"
+    },
+    {
+      "member": "group-admin-evidence/stale-confirmation-failure.xml",
+      "bytes": 45116,
+      "sha256": "9916fb89d0faad51512a036e846b977ba5ae91a0013b2f47a63d28d9de3acd72"
+    },
+    {
+      "member": "group-admin-evidence/stale-confirmation-failure.png",
+      "bytes": 34124,
+      "sha256": "a5823b6d6c9e57dbf0e160aa7493954e6d0c29dbcda90dfb7f6c24ca3c6c2e37"
+    },
+    {
+      "member": "group-admin-evidence/stale-confirmation-failure.semantics.txt",
+      "bytes": 16908,
+      "sha256": "9b73c8c965ff7fbc872d7d72b91235e2d956088f2f08f8d59878aa05eb9e0c8e"
+    },
+    {
+      "member": "group-admin-evidence/removal-failure-transport.json",
+      "bytes": 38,
+      "sha256": "cf272e1be6601827bce5b0dbfaf747fdde099de2f4539cc5cfcd03d8d5a04783"
+    },
+    {
+      "member": "group-admin-evidence/removal-failure.xml",
+      "bytes": 45119,
+      "sha256": "eb9c69f45a40fec012e7dab754d78bd9c546d0042c09316fba54790873d217a8"
+    },
+    {
+      "member": "group-admin-evidence/removal-failure.png",
+      "bytes": 34374,
+      "sha256": "896d0c79b4be6771de66f7290f62a60d1356c2aef01533269e888ecc6e7abb0e"
+    },
+    {
+      "member": "group-admin-evidence/removal-failure.semantics.txt",
+      "bytes": 16946,
+      "sha256": "419cd3db45dd104bd95836d946df39d36cb6c49bd6e6c9c67e1e0d204b0d1829"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-refused.xml",
+      "bytes": 19940,
+      "sha256": "9d83a218cf2bb449bd17c04ca0eb87bc46cadf94280ac264bf018eab80788f13"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-refused.png",
+      "bytes": 41462,
+      "sha256": "efde38558a593d580d48fe557a0c705961aad7caa5f617c19c95c2bc5852c984"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-new-message.xml",
+      "bytes": 42669,
+      "sha256": "9991cb74cc7e00ae0bb6aeeaa16aa38a7daca81121adf5ae307669c4b4126e71"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-new-message.png",
+      "bytes": 34947,
+      "sha256": "f9c97fef12041826871450ea4a1432d60bc113b759b637c1dbf5f455666a8b29"
+    },
+    {
+      "member": "group-admin-evidence/failure-transport.json",
+      "bytes": 38,
+      "sha256": "cf272e1be6601827bce5b0dbfaf747fdde099de2f4539cc5cfcd03d8d5a04783"
+    },
+    {
+      "member": "group-admin-evidence/failure.xml",
+      "bytes": 45115,
+      "sha256": "2b8778cff8bc6413a4c7d2e64728d47637f3ecb65c28f910a54aeeea0ea2ad4f"
+    },
+    {
+      "member": "group-admin-evidence/failure.png",
+      "bytes": 33209,
+      "sha256": "74bf11c1d39f5680139acc9a5f36df816d8670c4fee9f523989921692f1d87c4"
+    },
+    {
+      "member": "group-admin-evidence/failure.semantics.txt",
+      "bytes": 17016,
+      "sha256": "9c98cdba45f5f1cb01385b048608ac397a3fa1268fcb4fb3a0c5eaec8c87d72d"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-failure-transport.json",
+      "bytes": 38,
+      "sha256": "cf272e1be6601827bce5b0dbfaf747fdde099de2f4539cc5cfcd03d8d5a04783"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-failure.xml",
+      "bytes": 45118,
+      "sha256": "db45612a3667a6d9dc2626d9eb57d90c6402890d22e95ad43e53d7063bb67e8a"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-failure.png",
+      "bytes": 33345,
+      "sha256": "175d24f9d8a311463b64f3656312cb82e50321fe16effb0b29692b632eda6720"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-failure.semantics.txt",
+      "bytes": 17020,
+      "sha256": "76c14d20297788bfb545212a97bdd06e557ccc45299cdebed5a5fc2451484e19"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale.xml",
+      "bytes": 47135,
+      "sha256": "2dd2646ffa6282c559305a147d8fea6f45b51686c5f011778a1882214f382b91"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale.png",
+      "bytes": 33721,
+      "sha256": "daeb7810c45e65159fb6b83a60a3561c39849b6740ebd04d25508281e3f8efc2"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale-new-message.xml",
+      "bytes": 48807,
+      "sha256": "2816e7c64ab642cd25d71eec95bfec314a4d5b4a95c69869f6a3ccdc6456e426"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale-new-message.png",
+      "bytes": 37119,
+      "sha256": "690bf0cca79329ab9c355675ee12173bea20f84cd6200388c92fb3d98019ac8b"
+    }
+  ]
+}

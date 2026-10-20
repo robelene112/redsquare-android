@@ -38,6 +38,8 @@ import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
 
+private enum class GroupStatusSection { HISTORY, MANAGEMENT }
+
 /** Named-group UI is separate from private Chat and shares the selected wallet/backend. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -337,6 +339,11 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val keyboardVisible = WindowInsets.isImeVisible
     val entry = entries.firstOrNull { it.group.id == selected }
     val staleAction = entry?.let(store::isStaleAdminAction) == true
+    // Queued controls sit below this viewport. Keep management at its scroll end
+    // there, while ordinary conversations retain their direct management access.
+    val statusSections = if (entry?.queuedMessage != null)
+        listOf(GroupStatusSection.HISTORY, GroupStatusSection.MANAGEMENT)
+    else listOf(GroupStatusSection.MANAGEMENT, GroupStatusSection.HISTORY)
     BoxWithConstraints(modifier.fillMaxSize()) {
     val statusMaxHeight=minOf(maxHeight/3,80.dp)
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
@@ -385,28 +392,35 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         }
                     })
             }
-            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
-                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
-            if(entry!=null) {
-                if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
-                    style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                if (!keyboardVisible) FlowRow {
-                    TextButton(enabled=!navigation.transitioning,onClick={if(!navigation.transitioning)members=true}) { Text(stringResource(R.string.group_members)) }
-                    if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
-                        TextButton(enabled=!busy&&!navigation.transitioning&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={if(!navigation.transitioning)inviting=true}) { Text(stringResource(R.string.group_invite)) }
-                        TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
-                    }
-                }
+            statusSections.forEach { section ->
+                key(section) {
+                    when (section) {
+                        GroupStatusSection.HISTORY -> InlineStatus(
+                            if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+                            details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+                        GroupStatusSection.MANAGEMENT -> if(entry!=null) {
+                            if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
+                                style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+                            if (!keyboardVisible) FlowRow {
+                                TextButton(enabled=!navigation.transitioning,onClick={if(!navigation.transitioning)members=true}) { Text(stringResource(R.string.group_members)) }
+                                if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
+                                    TextButton(enabled=!busy&&!navigation.transitioning&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={if(!navigation.transitioning)inviting=true}) { Text(stringResource(R.string.group_invite)) }
+                                    TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                                }
+                            }
 
-                if(staleAction) {
-                    Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
-                    TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning)stopping=true}){Text(stringResource(R.string.group_stop_action))}
-                }
-                if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
-                    Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
-                if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
-                if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}){
-                    Text(stringResource(R.string.chat_load_older))
+                            if(staleAction) {
+                                Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
+                                TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning)stopping=true}){Text(stringResource(R.string.group_stop_action))}
+                            }
+                            if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
+                                Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
+                            if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
+                            if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}){
+                                Text(stringResource(R.string.chat_load_older))
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -1,0 +1,381 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupAdminPreviewTest:
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$9(GroupAdminPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$tqsl8sMVMXDf1vW2gzAsu0_Bngo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:65)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$9(GroupAdminPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$tqsl8sMVMXDf1vW2gzAsu0_Bngo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:65)
+
+INSTRUMENTATION_STATUS: test=aPromotionConfirmationUpdatesWhenItsTargetLeaves
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening$lambda$4(GroupAdminPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$RWFo-262pQyVqZAEZiy4CGVl4vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda43.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening(GroupAdminPreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening$lambda$4(GroupAdminPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$RWFo-262pQyVqZAEZiy4CGVl4vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda43.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening(GroupAdminPreviewTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedSubmittedStopIsVisibleAndPreservesUncertaintyThroughNewWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedSubmittedStopIsVisibleAndPreservesUncertaintyThroughNewWork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Members' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$76(GroupAdminPreviewTest.kt:439)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$hAIAccY2A1xsfW-NLr1gUXapONw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:427)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Members' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$76(GroupAdminPreviewTest.kt:439)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$hAIAccY2A1xsfW-NLr1gUXapONw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:427)
+
+INSTRUMENTATION_STATUS: test=anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRemovalCannotSubmitAfterItsAdministratorLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRemovalCannotSubmitAfterItsAdministratorLeaves
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionCannotSubmitAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionCannotSubmitAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRemovalCannotRelayOrRetryAfterItsAdministratorLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRemovalCannotRelayOrRetryAfterItsAdministratorLeaves
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal$lambda$27(GroupAdminPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$yuVrJANh2op9vUbBDAbPbBSWPfs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal(GroupAdminPreviewTest.kt:213)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal(nl.davidengelen.redsquare.GroupAdminPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal$lambda$27(GroupAdminPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$yuVrJANh2op9vUbBDAbPbBSWPfs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal(GroupAdminPreviewTest.kt:213)
+
+INSTRUMENTATION_STATUS: test=aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stoppingAStalePromotionRetainsItsOriginalAndAllowsNewMessages
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=stoppingAStalePromotionRetainsItsOriginalAndAllowsNewMessages
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupAdminPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=12
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 46.601
+There were 4 failures:
+1) aPromotionConfirmationUpdatesWhenItsTargetLeaves(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves$lambda$9(GroupAdminPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$tqsl8sMVMXDf1vW2gzAsu0_Bngo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aPromotionConfirmationUpdatesWhenItsTargetLeaves(GroupAdminPreviewTest.kt:65)
+2) anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening$lambda$4(GroupAdminPreviewTest.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$RWFo-262pQyVqZAEZiy4CGVl4vo(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda43.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening(GroupAdminPreviewTest.kt:21)
+3) anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Members' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole$lambda$76(GroupAdminPreviewTest.kt:439)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$hAIAccY2A1xsfW-NLr1gUXapONw(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$default(GroupAdminPreviewTest.kt:338)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole(GroupAdminPreviewTest.kt:427)
+4) aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal(nl.davidengelen.redsquare.GroupAdminPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'Promote member pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal$lambda$27(GroupAdminPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$yuVrJANh2op9vUbBDAbPbBSWPfs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi$lambda$54$lambda$53$lambda$52(GroupAdminPreviewTest.kt:375)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.$r8$lambda$FBGp-X3hpmtejw5mGBcjl-zCLEI(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.withAdminUi(GroupAdminPreviewTest.kt:364)
+	at nl.davidengelen.redsquare.GroupAdminPreviewTest.aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal(GroupAdminPreviewTest.kt:213)
+
+FAILURES!!!
+Tests run: 12,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

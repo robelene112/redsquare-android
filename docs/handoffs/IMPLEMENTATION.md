@@ -322,3 +322,9 @@ maximum unchanged. Existing focused old-source viewport runs39435980283/
 runs must finish but cannot accept changed source. Fresh focused/full checks,
 reviews and a new signed candidate are required.50 stays live;51through55 are
 rejected. Continue59, then sequential60through69.
+
+The latest unaccepted refinement restricts history-before-management to actual
+queued messages, retaining ordinary management access and stable keyed status
+hosts. Intermediate5a viewport10passes2/2, but GroupAdmin10fails4/12 from hidden
+Members, so5a is not accepted. Old4ae minimized viewport10/17both reproduce
+the22pixel failure (one of two methods). No56 candidate reserved yet.
