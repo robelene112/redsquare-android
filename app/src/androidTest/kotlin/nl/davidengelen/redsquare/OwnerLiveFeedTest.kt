@@ -87,6 +87,27 @@ class OwnerLiveFeedTest {
                                 }
                                 val query = JsonObject().apply { addProperty("request", "archive"); add("data", criteria) }
                                 val response = peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8)
+                                // Observe the public RPC shape before strict decoding; never
+                                // reinterpret an object/error response as an empty successful page.
+                                runCatching {
+                                    val bytes = response.toByteArray(Charsets.UTF_8)
+                                    val shape = JsonObject().apply {
+                                        addProperty("backend", backend.id); addProperty("stream", stream)
+                                        addProperty("bytes", bytes.size)
+                                        addProperty("sha256", java.security.MessageDigest.getInstance("SHA-256")
+                                            .digest(bytes).joinToString("") { "%02x".format(it.toInt() and 255) })
+                                        addProperty("topLevel", when (response.firstOrNull { !it.isWhitespace() }) {
+                                            '[' -> "array"; '{' -> "object"; else -> "other"
+                                        })
+                                        // Field names only, bounded and filtered; no remote values or post bodies.
+                                        if (response.trimStart().startsWith("{")) {
+                                            val names = com.google.gson.JsonParser.parseString(response).asJsonObject.keySet()
+                                                .filter { it.matches(Regex("[A-Za-z0-9_]{1,64}")) }.sorted().take(16)
+                                            add("objectFields", com.google.gson.JsonArray().apply { names.forEach { add(it) } })
+                                        }
+                                    }
+                                    File(directory, "public-response-$stream.json").writeText(shape.toString())
+                                }
                                 val page = if (stream == "RedSquare") RedSquareFeed.readSearch(response)
                                     else RedSquareFeed.readCurrentQuotes(response)
                                 File(directory, "public-search.txt").appendText(

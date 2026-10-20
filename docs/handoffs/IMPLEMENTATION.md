@@ -82,6 +82,12 @@ Packetfullfc-wallet-entry10 hasactual6PASS1FAILlog/fullinventory; no fabricated
 nativefailureimage. Reuse existing20second enabled/displayed/clickable openWallet
 helper at startup/recreation, moving it toclass (existingfailedsavecallersunchanged).
 Invalid/UTF8/address/persistenceassertionsunchanged. Focusedimportstillrequired.
+Freshfc17walletalsoFAILS publicofficialread OwnerLiveFeedTestline90: objectinstead
+ofrowarrayon100rowRedSquaresearch;initialfeedpassed. No responsebody/fieldnames
+retained, causeUNKNOWN (notestablishedfallback/servererror). Packetfullfc-public-read17.
+ObserveraddsONLYshape/bytes/hash/filteredfieldnames,notremotevalues, beforestrict
+decoding;harnesscopiesbeforePASSgate. Noquery/decoder/deadline/productionchanges.
+ThisrequiredpublicgateisNOTanoptionalobservergap. Focusedpublicread17needed.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

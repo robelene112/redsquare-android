@@ -370,3 +370,22 @@ invalid-file/UTF8 recovery, exact address and wallet-persistence assertions
 remain. This is a ready-action observer correction, not a proven production
 initialization cause. Corrected focused import and fresh complete acceptance
 remain required; no production or signed52 change.
+
+## Full17 public Archive response is not a row array
+
+The same fc17wallet job completes its controlled wallet cases but fails the
+explicit official public-read gate: OwnerLiveFeedTest line90 receives an object
+where strict readSearch requires an Archive row array. Initial official feed
+rendering already passed; the failure is in the separate100-row public search
+read. The response body/field names were not retained, so neither a server error,
+dispatcher fallback nor a transport cause is established. The failed log and
+original official screen/feed are retained in fullfc-public-read17. This remains
+a failed required public-read gate, not an accepted optional observer gap.
+
+The public-read observer now records only bounded response shape, bytes, hash
+and filtered field names before strict decoding, including on failure. It never
+records remote values/post bodies or interprets an object as an empty page.
+The harness copies these diagnostics before checking PASS. Query, decoding,
+wallet/funding goals and deadlines remain unchanged. No production change or
+server operation is justified by the unclassified response. Corrected diagnostic
+execution and fresh complete verification remain required.
