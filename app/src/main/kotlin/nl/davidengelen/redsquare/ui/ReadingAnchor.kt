@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.filter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.layout.positionInParent
 
 /** Compensate for header growth only while a scrolled reader is idle, never during their gesture. */
 internal fun Modifier.preserveReadingAnchor(state: LazyListState): Modifier = composed {
@@ -21,7 +21,7 @@ internal fun Modifier.preserveReadingAnchor(state: LazyListState): Modifier = co
         }
     }
     onGloballyPositioned { coordinates ->
-        val top = coordinates.positionInRoot().y
+        val top = coordinates.positionInParent().y
         val old = previousTop
         previousTop = top
         if (old != null && top != old && !state.isScrollInProgress &&
