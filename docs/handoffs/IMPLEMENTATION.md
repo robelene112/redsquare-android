@@ -10,43 +10,33 @@ sequential implementation, review, commits and signed in-place beta delivery.
    [Node56](https://github.com/robelene112/redsquare-android/issues/56) are complete:
    full native acceptance,0/0 paired reviews and signed49 public delivery with
    final Spec0/documented Standards0/heuristic0 review at a193ff163.
-2. Implement active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
-   then59 through69 in dependency order. Review base a0948570a. The first native RED is retained in
-   docs/evidence/ticket57. Initial repeat/journal/lease/count-generation sourceca
-   has0/0 review, source39388480880SUCCESS and native39389749237/39389751946
-   exact1PASS each; emitted frames pass independent WASM/Elliptic. Rate core is
-   RED->GREEN; durable Android clock/policy/feedback wiring and new recreation/
-   expiry journey are under verification. Cross-node/wallet/failure/import/process,
-   full and signed57 acceptance remain. Source51039390536214SUCCESS and both
-   rate focus39391901165/39391904287 areSUCCESS (exact2PASS each), now retained
-   with all10 actual frames independently verified. Both source/evidence axes at
-   510 report0 findings. Source3739391946186SUCCESS; both source review axes0.
-   Three-method node/thread/profile focus39392556676/39392576007 alsoSUCCESS,
-   now retained:14 original bindings/7 independently verified frames each. Import39392550414/39392553174 are actual expected
-   RED1PASS/1FAIL each: pending-Like warning absent; settled/rate-only nofalsework.
-   Their original packets are retained. New app-side hasWork/active-lease scan and
-   confirmation-time acknowledgment reset need fresh verification. Rate feedback
-   moves below the actions after original source51 PNGs revealed button reflow;
-   disabled Likes no longer say Tap again. Local core/app/test build exits0; source14739393699247SUCCESS, both axes0.
-   Corrected repeat/isolation39394728559/39394731770 each5PASS, all24actualframes
-   independently verified; import39394734921/39394738427 each2PASS. AllfourSUCCESS
-   and original packets retained. Rootopened bothSDKfeedback, pending/retry and
-   import originals.
-   New separate LikeIsolation class/focus proves different-post/wallet windows and
-   older-count/newer-pending retry; source/runtime pending. New739 fixture adds actual cold
-   recovery after a settled first plus uncertain second Like, keeping the existing
-   first-Like social process gate unchanged; local compile0 and both source axes0,
-   source73939394762330SUCCESS, runtime pending in completeSocial39395383267/
-   39395386328at285. Independent481/482 completed identity catalog is frozen before
-   full execution, with126/127normal,35interruptions and34continuity. Then all-focused/native full bothSDKs
-   with independently frozen original+additive catalog, final0/0 reviews, signed50
-   canonical delivery and issue closure. Ordinary49 remains LIVE, no57 beta yet. Canonical50 preparation is running
-   in frozenexternalworktree285, version50reserved; no publish before acceptance.
-   Its chosen policy is explicit in the issue and
-   comment6278005545: two NEW deliberate intents per rolling second per wallet
-   across post surfaces and both nodes. A pending/uncertain like for the post
-   prevents a fresh like on either node; reconcile/reuse the exact candidate
-   on its original node.
+2. Finish active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
+   then59 through69 in dependency order. Review base a0948570a. Detailed original
+   RED/GREEN outcomes and their limits are in docs/evidence/ticket57/README.md.
+   Production147 has reviewed repeat/journal/lease/count-generation, durable
+   two-intent wallet-wide rolling rate and initial pending-social import disclosure.
+   Source14739393699247 and73939394762330 are SUCCESS. Corrected focus
+   39394728559/39394731770 each pass3 Repeat+2 Isolation methods, with24 original
+   bindings/12 independently WASM/Elliptic-verified frames per SDK. Import
+   39394734921/39394738427 each pass2 real SAF preview methods. All four runs are
+   SUCCESS with retained raw packets; root opened both SDK feedback, pending/
+   exact-retry and import originals. Earlier failed import37 runs remain failed.
+   The confirmation-time acknowledgment reset is source-reviewed, without a
+   separate late-arriving-work native journey. Initial pending disclosure and
+   different-post/wallet/late-count journeys have passed native verification.
+   New739 adds actual cold recovery after a settled first plus uncertain second
+   Like while retaining the original first-Like process gate. Local compile and
+   both source axes0; native process/original-social acceptance is running in
+   completeSocial39395383267/39395386328 at285. The independent catalog is frozen
+   before full execution:481/482 completed identities,126/127 normal completions,
+   35 deliberate interruptions and34 continuity records, every original gate kept.
+   Next retain complete Social, execute both complete SDK suites, final0/0 review,
+   signed50 canonical delivery and close57. Ordinary49 remains LIVE. Version50 is
+   reserved and canonical preparation runs in the external frozen285 worktree;
+   no public57 delivery is established. The chosen policy is issue57/comment
+   6278005545: two NEW deliberate intents per rolling second per wallet across
+   post surfaces and both nodes. A pending or uncertain like prevents a fresh
+   like on either node; reconcile/reuse its exact candidate on its original node.
 3. Keep [UI55](https://github.com/robelene112/redsquare-android/issues/55) open
    through the owner's final beta review. Native feature delivery does not
    establish app-wide visual acceptance. Original native2 through35 and prior
