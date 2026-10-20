@@ -188,7 +188,17 @@ class ChatMutePreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { scenario ->
-                    withFailureCapture({ capture(if (alert) "group-alert-failure" else "$prefix-mute-failure") }) {
+                    withFailureCapture({
+                        val failureName = if (alert) "group-alert-failure" else "$prefix-mute-failure"
+                        capture(failureName)
+                        runCatching {
+                            File(context.cacheDir, "chat-mute-evidence/$failureName-reception.json")
+                                .writeText(JsonObject().apply {
+                                    addProperty("acceptedIncomingAcknowledgements", peer.incomingAcknowledgements.count { it[0] == 13.toByte() })
+                                    addProperty("rejectedIncomingAcknowledgements", peer.incomingAcknowledgements.count { it[0] == 14.toByte() })
+                                }.toString())
+                        }
+                    }) {
                         fun open() {
                             val chat = hasText("Chat") and hasClickAction() and isEnabled()
                             ui.waitUntil(20_000) { displayed(hasText("Groups")) || displayed(chat) }
@@ -514,6 +524,12 @@ class ChatMutePreviewTest {
         ui.onNode(action).performClick()
     }
     private fun displayed(target: SemanticsMatcher) = try { ui.onNode(target).assertIsDisplayed(); true } catch (_: AssertionError) { false }
-    private fun capture(name: String) = captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
-        "chat-mute-evidence/$name.png"))
+    private fun capture(name: String) {
+        val file = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "chat-mute-evidence/$name.png")
+        captureNativeScreen(file)
+        runCatching {
+            File(file.parentFile, "$name.semantics.txt").writeText(
+                ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+        }
+    }
 }
