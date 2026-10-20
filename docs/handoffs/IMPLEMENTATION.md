@@ -145,6 +145,19 @@ setting/app/full-scope change, no actualfixclaim until observed. Currententire20
 run39470519533 continuesunchanged. After experimentalproof, integrate the bounded
 API29 initialization, remove temporarydiagnosticcode, and verify finalharness.
 
+Reviewed diagnostic experiment source33fa686e11fbb23b6f59cf3ae577bfe038bf6e09
+is now executing five fresh before/after runs39472512423/39472517029/39472520887/
+39472525371/39472529831 at verify/status59-runtime-33fa686e1 and its b/c/d/e pins.
+Original parityclass unchanged from207; only optional diagnostic lifecycle changes.
+All native app/full commands remain unchanged. Root/SDK29/serial/type guards,
+individual PID absence/replacement and identical heap-property checks are reviewed
+Spec0/Standards0/heuristic0. No result/fix inferred yet. Sourcecheck at33 is active.
+If any experiment begins16MiB then finishes512MiB with identical properties,
+retain original baselineRED and24postnativepasses as causal lifecycle evidence.
+Then integrate bounded API29 initialization, remove DEBUG/tempdiagnosticcode,
+add meaningful fail-fast environment verification and run final full10 as needed.
+Do not weaken any original native app goal or change real-device heap policy.
+
 After actual complete10 success: strict collect, inspect originals, paired final
 review, publish immutable58 with canonical script, independent after-bookend,
 public safe packet/final review/close59, then immediately60–70. Never stop at59.
