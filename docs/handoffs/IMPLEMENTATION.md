@@ -28,10 +28,13 @@ adds best-effort primitive flag/bounds/duration observations and isolates the sa
 existing method in private-push-dismissal scopes. Original swipe,5second goals,
 180second class bound,11-case full command and all later gates stay. Both source
 review axes0. Source39377858558SUCCESS; focused original-method diagnosis
-39378314704(10)/39378317046(17) dispatched at ec, results pending.
+39378314704(10)/39378317046(17) bothSUCCESS, same original gesture. Both actual
+notifications clearable=true/ongoing=false/flags24, text hidden and owned alert
+absent after swipe; gesture calls168/320ms. This does not prove earlier cause.
+Fresh full10 run39378808769 at ec now executing, bound before outcomes.
 Full17fa39376147196 remains in progress: WalletSUCCESS, exact76 accepted38 IDs
-and partition-complete verified in external ui58-full17-fa-39376147196; Chat/Social
-not yet complete. No whole/full acceptance or49publication. Appa1 unchanged.
+and partition-complete verified in external ui58-full17-fa-39376147196. Social
+job alsoSUCCESS; Chat stillrunning, no complete17 acceptance. No whole/full acceptance or49publication. Appa1 unchanged.
 
 Shared frame58 remains ACTIVE. Productiona1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4
 moves reaction status/error into the existing named quarter-height Chat status

@@ -903,3 +903,21 @@ same existing method. Both source axes0; source39377858558SUCCESS. Focused origi
 partition marker verified, Chat/Social outstanding.49 productiona1 unchanged,
 prepared/unpublished. Neither a failed10 run nor a passing17 partition is full
 acceptance.
+
+Original-method diagnostic [10](ui58-private-dismissal-diagnostic10-39378314704/summary.json)/
+[17](ui58-private-dismissal-diagnostic17-39378317046/summary.json) bothSUCCESS at ec,
+7.066/17.691seconds. Exactly one original accepted38 method each, with explicit
+focused-path mapping. Gesture and all5second/no-redelivery/identity goals unchanged.
+Actual notification clearable=true, ongoing=false, flags24, text hidden and owned
+notification absent after the swipe. Gesture-call observations168/320ms. Root
+opened both before/deduplicated native originals perSDK;10 later launcher capture
+contains its context menu. This establishes neither a cause nor a fix for the
+prior full failure. It did not reproduce in these isolated runs.
+
+New full10 run39378808769 at ec dispatched after sourceSUCCESS and both diagnostic
+successes, bound before outcomes.17 full remains at fa with identical productiona1;
+SocialSUCCESS exact208 accepted38 identities and complete marker verified, Wallet
+SUCCESS exact76, Chatpending. Diagnostic/harness-only ec does not change app inputs,
+original gestures or full assertion/deadline coverage.49 remains prepared/unpublished.
+Both sources’ full results must be inspected before acceptance; prior10failure stays
+failed in previousAttempts. Frozen473/474 catalogs unchanged.

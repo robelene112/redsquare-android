@@ -432,16 +432,43 @@
         }
       },
       "limit": "Both whole runs remain FAILURE in group UI.17 social and wallet successes do not establish complete acceptance. Subsequent real private viewport fixes require fresh full verification."
+    },
+    {
+      "source": "fa21f295d8ff39206c81e30da081a677ed57a402",
+      "runs": {
+        "android10": 39376144681
+      },
+      "conclusions": {
+        "android10": "failure"
+      },
+      "terminalRuns": {
+        "android10": {
+          "id": 39376144681,
+          "source": "fa21f295d8ff39206c81e30da081a677ed57a402",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39376144681",
+          "jobs": [
+            {
+              "id": 118474619350,
+              "name": "native-proof (all)",
+              "status": "completed",
+              "conclusion": "failure"
+            }
+          ]
+        }
+      },
+      "limit": "Actual failed physical notification dismissal335 in11-case command. Native originals retain notification; no cause proved. Later full gates absent.17fa remains independently bound; no acceptance inferred."
     }
   ],
   "executingRuns": {
-    "android10": 39376144681,
+    "android10": 39378808769,
     "android17": 39376147196
   },
   "executingSources": {
-    "android10": "fa21f295d8ff39206c81e30da081a677ed57a402",
+    "android10": "ec7ec4d8c30ac40795256ea924cc49c582f15498",
     "android17": "fa21f295d8ff39206c81e30da081a677ed57a402"
   },
-  "sourceEquivalence": "Productiona1 remains current, signed49prepared/unpublished; subsequentec diagnostic-only fixtures/harness leave app inputs unchanged. Full10fa39376144681FAILURE at physical private notification dismissal335,11methods10PASS1FAIL; later full gates not run. Full17fa39376147196 stillinprogress, WalletSUCCESS76IDs alone not full acceptance. Sourceec39377858558SUCCESS; focused diagnosis39378314704/39378317046 dispatched at ec, results pending. Original gesture/assertions/deadlines retained. Frozen473/474 identities,122/123 normal completions,34 interruptions and33 continuity unchanged.",
+  "sourceEquivalence": "Productiona1 and prepared unpublished49 unchanged.17fa full39376147196 remains running with Wallet/Social jobsSUCCESS, Chatpending. New10 full39378808769 at ec dispatched after source39377858558SUCCESS and focused original-method39378314704/39378317046SUCCESS. ec adds safe diagnostic observations and focused routing only; original gesture, assertions/deadlines unchanged. Earlier failed10fa remains failed. New exact bindings recorded before outcomes; frozen473/474 identities,122/123 normal completions,34 interruptions/33 continuity unchanged.",
   "candidateSource": "fa21f295d8ff39206c81e30da081a677ed57a402"
 }

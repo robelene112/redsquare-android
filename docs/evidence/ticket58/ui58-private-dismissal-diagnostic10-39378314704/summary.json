@@ -1,0 +1,27 @@
+{
+  "run": 39378314704,
+  "source": "ec7ec4d8c30ac40795256ea924cc49c582f15498",
+  "sdk": "10",
+  "conclusion": "success",
+  "methods": 1,
+  "independentAccepted38Method": {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal",
+    "occurrences": 1
+  },
+  "focusedPathMapping": "private-push-dismissal-ui.txt maps to original chat-alerts-ui.txt for the same class/method only.",
+  "originalPhysicalGestureUnchanged": true,
+  "observation": {
+    "clearable": true,
+    "ongoing": false,
+    "flags": 24,
+    "cardBounds": "[4,180][316,285]",
+    "displayWidth": 320,
+    "displayHeight": 640,
+    "gestureMillis": 168,
+    "textHidden": true,
+    "ownedNotificationStillActive": false
+  },
+  "limit": "Focused original-method success only, not full acceptance or proof of earlier failure cause. Original5second disappearance/active-state, no-redelivery/identity/cleanup and180second class bound remain. Appa1/signed49 unchanged and unpublished."
+}

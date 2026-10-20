@@ -1,0 +1,8 @@
+[
+  {
+    "path": "private-push-dismissal-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal",
+    "occurrences": 1
+  }
+]
