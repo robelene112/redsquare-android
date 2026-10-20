@@ -1,0 +1,221 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushPreviewTest:
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SocialPushTapPreviewTest:
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor$lambda$54(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$dsAEVG0wTFYqIYsOT7Oit6o_caY(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:297)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:48)
+
+INSTRUMENTATION_STATUS: stream=
+Error in theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(nl.davidengelen.redsquare.SocialPushTapPreviewTest):
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor$lambda$54(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$dsAEVG0wTFYqIYsOT7Oit6o_caY(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:297)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:48)
+
+INSTRUMENTATION_STATUS: test=theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aPublicKeyMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SocialPushTapPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=11
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 81.329
+There was 1 failure:
+1) theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(nl.davidengelen.redsquare.SocialPushTapPreviewTest)
+java.lang.IllegalStateException: No compose hierarchies found in the app. Possible reasons include: (1) the Activity that calls setContent did not launch; (2) setContent was not called; (3) setContent was called before the ComposeTestRule ran. If setContent is called by the Activity, make sure the Activity is launched after the ComposeTestRule runs
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes(TestOwner.kt:106)
+	at androidx.compose.ui.test.TestOwnerKt.getAllSemanticsNodes$default(TestOwner.kt:98)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes(SemanticsNodeInteraction.kt:249)
+	at androidx.compose.ui.test.SemanticsNodeInteractionCollection.fetchSemanticsNodes$default(SemanticsNodeInteraction.kt:245)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor$lambda$54(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$dsAEVG0wTFYqIYsOT7Oit6o_caY(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda30.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.waitFor(SocialPushTapPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney$lambda$21$lambda$20$lambda$19(SocialPushTapPreviewTest.kt:297)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.$r8$lambda$yGCklkpEVIyz0TVC_XmAUYof6I4(Unknown Source:0)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.tapJourney(SocialPushTapPreviewTest.kt:205)
+	at nl.davidengelen.redsquare.SocialPushTapPreviewTest.theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings(SocialPushTapPreviewTest.kt:48)
+
+FAILURES!!!
+Tests run: 11,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -93,6 +93,16 @@ explicit retry. UI adb-exit record is absent by the existing reports harness,
 not invented. Root opened capacity pause/resume and bothSDK report not-sent/
 repaired originals. These are focused scopes, not complete regression.
 
+Latest full10 run39349228406 at638 FAILED in social-push:10PASS/1FAIL, an immediate
+No Compose hierarchies exception atSocialPushTapPreviewTest.waitFor:503 after a
+native notification tap. The original capture retains draft/photo/IME but does
+not prove eventual routing. Test-only next helper usesatLeastOneRootRequired=false
+within the same15second goal, preserving every exact matcher and later journey
+assertion. Both source review axes0. Failure packet retains90 originals. Full17
+39349230920 continues at638; do not cancel or supersede it before its result.
+No production change. Fresh10 verification is still required; if17 completes
+successfully at638, the documented fixture-only split-source exception may apply.
+
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
 same6ca certificate, manifest/DEX checks and both preparation reviews0. Full

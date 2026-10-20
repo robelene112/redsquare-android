@@ -500,6 +500,9 @@ class SocialPushTapPreviewTest {
     }
 
     private fun waitFor(matcher: SemanticsMatcher) {
-        ui.waitUntil(15_000) { ui.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty() }
+        // A notification tap can return before the Activity has a Compose root.
+        ui.waitUntil(15_000) {
+            ui.onAllNodes(matcher).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        }
     }
 }

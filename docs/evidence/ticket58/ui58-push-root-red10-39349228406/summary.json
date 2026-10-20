@@ -1,0 +1,68 @@
+{
+  "run": "39349228406",
+  "source": "6388840182bdab075bf672da92933cfc7c1750c3",
+  "expectedMethods": [
+    "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+    "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+    "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+    "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+    "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+    "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+    "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+    "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+    "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+    "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+    "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+      "status": 0
+    },
+    {
+      "method": "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+      "status": 0
+    },
+    {
+      "method": "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+      "status": 0
+    },
+    {
+      "method": "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings",
+      "status": -2
+    },
+    {
+      "method": "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+      "status": 0
+    },
+    {
+      "method": "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+      "status": 0
+    },
+    {
+      "method": "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+      "status": 0
+    },
+    {
+      "method": "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+      "status": 0
+    },
+    {
+      "method": "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+      "status": 0
+    },
+    {
+      "method": "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+      "status": 0
+    },
+    {
+      "method": "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+      "status": 0
+    }
+  ],
+  "members": 90,
+  "limit": "Original 11-method social-push command: 10 PASS, one immediate No Compose hierarchies exception after notification tap. Full10 overall FAILED with later gates absent. Composer/draft capture does not establish eventual routing. No whole-app, physical or Google delivery acceptance."
+}

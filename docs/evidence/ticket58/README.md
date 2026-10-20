@@ -435,3 +435,16 @@ without inventing an exit record. Root opened bothSDK reopened-not-sent original
 and17 repaired acknowledgement; wording and destination remain truthful.
 Complete full39349228406/39349230920 and live46 remain pending. No app/build/
 signing inputs have changed since9b33.
+
+Full10 run39349228406 at638 FAILED in the social-push command:10PASS/1FAIL.
+The Settings-reply journey aborts immediately in waitFor:503 after the native
+notification tap because fetchSemanticsNodes requires at least one current
+Compose root. The15second deadline is never reached. Original failure PNG/XML
+shows the retained latest unsent draft/photo/IME, not a completed notification
+route. A transient root gap is a hypothesis until a complete corrected journey.
+The next test-only helper polls with atLeastOneRootRequired=false within the
+same15second goal. It adds no catch-all or longer timeout and retains exact
+Conversation/target/draft/photo/signature/choice assertions. Both source review
+axes0. The failed run and all90 original push members are retained. Full17
+39349230920 continues at638 and has no complete result yet; it is left running.
+No app/build/signing change; signed46 remains prepared and unpublished.
