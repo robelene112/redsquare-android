@@ -36,10 +36,10 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,13:05 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53 are
-REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.54 is not reserved.
+2026-10-20,13:35 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53 are
+REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.54 is reserved and building at exact3c96bd3d8.
 Continue60 through69 sequentially after actual59 completion, without owner stops.
-The external review worktree stays frozen atf4bbe99df with rejected53.
+The external review worktree is now frozen at3c96bd3d8; prior APKs remain intact.
 
 ### Implemented and focused proof
 
@@ -97,14 +97,32 @@ unapplied delta alongside the already-restored list offset. Cache guard now wait
 for cacheReady before any empty-feed notice, including offline-empty. No timing,
 target, gesture or tolerance is weakened. Source review/runtime are pending.
 
-Current corrected a6 focuses: reading10/17 39429853283/39429858053 and group
-publishing10/17 39429863364/39429867793. These are active, not accepted yet.
-54 is not reserved. Next: inspect/review current fixes, verify focused reading/
-group/keyboard/mute/recovery, then freeze final source, prepare NEW signed54 and
-run fresh complete10/17. Require allthree jobs/publicreads/actualspeech/motion,
-strict collection, original visual inspection and paired final review before
-canonical publication and independent before/after HTTP checks. Never invoke
-52/53 after-publication checks or publish their APKs.50 stays live.
+Corrected a6 focuses all SUCCESS: reading10/17 39429853283/39429858053
+(one stronger method/10originals each), group publishing10/17 39429863364/
+39429867793 (all7methods/36originals each). Root checked all10 reading XML
+bookends: Reference post05 remains[74,431][201,479], including after outage
+recreation. Root opened17 outage-recreated PNG plus both actual group creation/
+reaction Forwarded PNGs; feedback is visible above management. Source/core/release/
+lint39429855138 at a6 succeeds. Paired source/evidence review through3c96 is0/0.
+
+Frozen final source3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f differs from a6 only
+in four docs/collector files; app/build/test inputs are identical. NEW signed54
+is reserved/building at this exactsource. Full10run39431098878/17run39431103266
+execute the same3c96 on owned verify/status59-3c96bd3d8. Both are active and
+bound in full-identity-reference.json. No full acceptance or publication yet.
+
+Additional focused3c96 runs are active: keyboard10/17 39430764376/39430768579;
+mute10/17 39430772696/39430777303; status recovery10/17 39430782031/39430786583;
+group admin10/17 39430790331/39430794067. These repeat relevant routes after
+shared layout/anchor changes; they never replace complete allthree-job proof.
+Both prior f4 complete executions finish FAILURE with both social jobsSUCCESS;
+actual final metadata is retained. Do not collect them as acceptance.
+
+Next: inspect additional focused results and actual54 APK, retain/review packet,
+wait for fresh complete10/17 including all public reads/actualspeech/motion and
+strong reading bookends, strict collection and paired final review. Then canonical
+publication and independent before/after HTTP checks. Never run52/53 publication
+after-stages or publish rejected APKs. Continue60 through69 after real59 closure.
 
 The stronger collector requires held Search loading movies/allframes/native
 bookends inside the same two existing motion methods. Its configured selfhash

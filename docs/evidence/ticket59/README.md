@@ -626,3 +626,26 @@ The strict collector additionally retains/requires all five reading-stage PNG/XM
 bookends, including before/after outage recreation. It cannot accept the older
 six-member reading packet as the stronger new journey. Frozen reference catalogs,
 archive counts and method identities remain unchanged; selfhash is updated.
+
+### Corrected a6 focused acceptance and final source freeze
+
+Reading10/17runs39429853283/39429858053 both SUCCESS: the original method now
+includes continuing-outage recreation with unchanged1pixel assertions. All five
+native XML stages on both SDKs retain Reference post05[74,431][201,479]. Ten
+originals each retained; root opened17 outage-recreated PNG. Group publishing10/17
+39429863364/39429867793 both SUCCESS, all7methods/36originals each. Root opened17
+actual creation and reaction Forwarded PNGs; delivery feedback is visibly first.
+Paired review through3c96 reports Spec0/documented Standards0/heuristic0.
+
+Source/core/release/lint39429855138 at a6 is SUCCESS. Exact Git comparison
+from a6b9d0e06aa828297b57e9c55abfb48884f07c5d to frozen final source
+3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f lists only four docs/collector files;
+application, build and test inputs are identical. New signed54 is reserved and
+building at3c96. Complete10run39431098878 and17run39431103266 execute that exact
+source on verify/status59-3c96bd3d8, allthree jobs perSDK required. Both are active,
+not accepted. Focused keyboard/mute/recovery/group-admin checks also execute3c96.
+
+Both prior f4 full runs finish FAILURE, with successful social partitions and
+failed Chat/wallet partitions. Their actual final run/job metadata is retained.
+51/52/53 remain rejected and never publishable. No focused or tail assembly can
+replace missing complete goals. Ordinary50 stays live until real acceptance.

@@ -1,0 +1,57 @@
+{
+  "run": 39429853283,
+  "source": "a6b9d0e06aa828297b57e9c55abfb48884f07c5d",
+  "archiveSha256": "c340653af65ef1ee639d7b5dc606a48380e0dc6d3f0dc8fab64d9ab7d42fc66c",
+  "members": [
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.xml",
+      "bytes": 54384,
+      "sha256": "56f6fa00eb78e89b0379407eb02e121eaecb95c1f28cb596da5a547788b6213a"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.png",
+      "bytes": 51293,
+      "sha256": "1944deabf92c330b934646226e4c4065ebc67894b86538742f69fb20b32bb9b9"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.xml",
+      "bytes": 54384,
+      "sha256": "56f6fa00eb78e89b0379407eb02e121eaecb95c1f28cb596da5a547788b6213a"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.png",
+      "bytes": 51293,
+      "sha256": "1944deabf92c330b934646226e4c4065ebc67894b86538742f69fb20b32bb9b9"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.xml",
+      "bytes": 54386,
+      "sha256": "e43ae2f3255a941ebfc4f20489d0f2030d7e0597442daa8220cfe6777e3f0c54"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.png",
+      "bytes": 51190,
+      "sha256": "a90de4050415f06fad9d058a5ceb382484d22c719d769f1c208d0821e9a85422"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-before-recreation.xml",
+      "bytes": 57647,
+      "sha256": "5fe03808fd07e81761f4c7a826964672cfbe5c157b0eeef5671c21a3e9962b4f"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-before-recreation.png",
+      "bytes": 45147,
+      "sha256": "cc8560054c7a95f2899b83daad8a5e001ea37187b661e99dd6a83f0fe4fe54e8"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-after-recreation.xml",
+      "bytes": 57647,
+      "sha256": "5fe03808fd07e81761f4c7a826964672cfbe5c157b0eeef5671c21a3e9962b4f"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-after-recreation.png",
+      "bytes": 45147,
+      "sha256": "cc8560054c7a95f2899b83daad8a5e001ea37187b661e99dd6a83f0fe4fe54e8"
+    }
+  ]
+}

@@ -88,20 +88,22 @@
     }
   ],
   "executingSources": {
-    "android10": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
-    "android17": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89"
+    "android10": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f",
+    "android17": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f"
   },
   "executingRuns": {
-    "android10": 39424620344,
-    "android17": 39424624394
+    "android10": 39431098878,
+    "android17": 39431103266
   },
   "sourceBuild": {
-    "run": 39424574004,
-    "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39424574004",
-    "conclusion": "cancelled"
+    "run": 39429855138,
+    "source": "a6b9d0e06aa828297b57e9c55abfb48884f07c5d",
+    "conclusion": "success",
+    "productionInputsEqualTo": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f",
+    "comparison": "git diff a6b9d0e06..3c96bd3d8 changes only README, full-collector.py, full-identity-reference.json and handoff under docs",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39429855138"
   },
-  "signedCandidateSource": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+  "signedCandidateSource": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
@@ -131,11 +133,18 @@
       "android17": 39418873625,
       "acceptance": "rejected",
       "reason": "Both Chat partitions fail two original group-mute visibility goals with a saved multiline draft. Both social and wallet partitions succeed. Diagnostic39422695874 proves accepted incoming messages below a17pixel clipped history viewport. Cumulative source review separately finds bypassed status transitions. Signed52 is rejected, never publishable."
+    },
+    {
+      "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+      "android10": 39424620344,
+      "android17": 39424624394,
+      "acceptance": "rejected",
+      "reason": "Both Chat partitions fail restored reading after recreation and both wallet partitions fail all seven group publishing visible-Forwarded goals. Both social partitions succeed. Final actual run metadata is retained. Signed53 is rejected and never publishable."
     }
   ],
-  "verificationRef": "verify/status59-f4bbe99df",
-  "signedCandidateVersion": 53,
-  "signedCandidateRejected": true,
+  "verificationRef": "verify/status59-3c96bd3d8",
+  "signedCandidateVersion": 54,
+  "signedCandidateRejected": false,
   "rejectedCandidateVersions": [
     51,
     52,
@@ -144,6 +153,14 @@
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
     "step": "Build and verify native sources",
-    "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89"
-  }
+    "source": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f"
+  },
+  "sourceBuildHistory": [
+    {
+      "run": 39424574004,
+      "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39424574004",
+      "conclusion": "cancelled"
+    }
+  ]
 }
