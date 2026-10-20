@@ -19,64 +19,41 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
-Shared frame58 remains ACTIVE. The current production fix keeps group history
-visible while an administration action is pending, by hiding only unusable empty
-photo/GIF picker buttons. The attachment component stays mounted; existing
-previews, credits, drafts and picker state remain. Default/private paths retain
-their behavior. Both source review axes0. Focused39360256057(10)/39360258546(17) bothSUCCESS, each16 independent accepted38
-identities, two actual process deaths and two continuity gates. Original exact
-raw/Relay/identity/history/draft/restoration goals retain their deadlines. Root
-opened both originals: Group messages now340..426,86px, with cached text visible.
-Complete39360894371(10)/39360896559(17) ate205 bothFAILED later in
-GroupChatPreviewTest, each22 methods/3 failures: invitation status visibility,
-Like visibility and old lazy-message count after scrolling newer history. Root
-opened all six original failure PNGs. Paired legacy-group RED packets retain26
-hashes/12 originals. Scoped fixture positioning is a hypothesis pending positive
-before/after observations; no additional app defect is claimed.17 social208 and
-wallet76 exact baseline identities/complete markersPASS, including public reads
-and signed5->8 continuity with exact download sizes/hashes. Later Chat gates are
-absent. Fixture-only correction uses existing status/message scroll helpers and
-moves the old-message scroll before the existing exact count. All original goals,
-assertions and180second class bound stay. App/build/signing remainf59-equivalent.
-Canonical47 is prepared/reviewed, unpublished;46 superseded. Ordinary45 is live.
+Shared frame58 remains ACTIVE. Current production58781abae7b338cb8ba5b42af271702ac4cd7f07
+caps full private status guidance in a named scrollable quarter-height region,
+retaining every warning/condition and all composer controls. The prior pending
+admin group-history fix remains. Source39368460485SUCCESS and both source review
+axes0. Paired private diagnostic RED atbbf proved history408..408px; corrected
+private39369264256(10)/39369266269(17) now complete4 methods with2PASS/2FAIL.
+Storage-partial and interrupted-sendPASS; both original after-scroll trees show
+history298..394=96px. Root opened both PNGs. Later fixture failures: older snapshot
+expects older text after scrolling the other cached message; exchanged-key case
+expects2 same-text lazy nodes simultaneously, while trees show3 rows/1 composed body.
+New fixture correction preserves both text goals and exact two original envelopes,
+then traverses each signed message key with displayed-text checks under15seconds.
+This explicitly replaces simultaneous composition counting, not record cardinality.
 
-Helper compile correction1d passes source39365176184. Focused group-ui39365571837
-(10)/39365574891(17) bothFAILED in the first one-method actions class at Copy
-visibility:71. The22-case group class is not reached, so its three positioning
-corrections are still unproved. Paired copy RED packets retain16 hashes/six original
-bindings; root opened both PNGs. Fixture-only first Copy/Reply scrolling now uses
-the same pattern as the existing cached-copy flow, preserving all clipboard,
-quote/raw/Relay/identity assertions and60second class bound. Corrected native
-before/after evidence remains pending. Private39365577261(10)/39365579302(17)
-bothFAILED:24-method class records10PASS/3FAIL, exits124 at original180second bound
-with method14 START-only. Older/cache target waits fail before existing scrolling.
-Paired private-viewport RED packets retain22 hashes/12 originals, all six PNGs
-opened. Exact absence/hang cause remains unproved. New diagnostic-only
-private-history-viewport scopes select those four existing methods in one command
-with the same180second bound and before-scroll/wait/failure native/all-root trees.
-Full/private-complete classes and process gates remain unchanged. No corrected
-private runtime or new full acceptance, and no app change is claimed.
+Group39369259389(10)/39369262266(17) overallFAIL:original actions1PASS on eachSDK
+(10.878/53.591s, unchanged60second bound), followed by mixed reception1FAIL at1-like
+display:105. Named message scrolling now precedes that same display goal, with
+separate positive body/reaction captures.22-case group/process gates were not
+reached. Obsolete reopened diagnostic captures removed only after positive native
+observations; final assertions/captures remain. Corrected runtime pending.
+All original class bounds remain. Paired current group/private partial packets
+retain30 hashes/166 archive members. Earlier RED and focused evidence is in
+../evidence/ticket58/README.md. No complete58 acceptance yet.
 
-
-Latest bbf source39367057843SUCCESS before runtime. Group39367482562(10)FAIL
-at the15second cached-body wait:96 after Copy and all first-original raw/Relay
-checks;17 run39367484988 reaches first-original-verified then class exit124/START-only
-at original60seconds, with no useful failure PNG. No exact17 later stall claim.
-Private diagnostic39367487133/39367489213 bothFAIL:3FAIL then fourth START-only,
-exit124 at unchanged180seconds. Before-scroll native/full-depth trees prove
-Private messages408..408px, zero height, in storage-partial on BOTH SDKs.
-Root opened both native originals. Paired new group/private RED packets retain
-105 hashes/85 original bindings. Other cached text is outside the current lazy
-viewport; older-target presence/display differs by SDK during layout changes.
-Production correction caps a named scrollable private status region at one-quarter
-of frame height, retaining every warning/condition and the composer controls.
-A positive48dp history regression precedes the original storage-partial scroll.
-Fixture-only scoped cached/older readiness and status positioning retain original
-15second goals, display/count/raw/Relay/key/history/draft checks and class bounds.
-Corrected runtime is pending. This is a NEW app change:47 is superseded and
-unpublished,45 remains live. Prepare a new canonical signed version, verify both
-full SDKs, and publish only after complete reviewed acceptance.
-
+Canonical48 at587 is PREPARED and reviewed0 on both axes, unpublished:
+APK027f57f99944726daf3fcd829b74964b7916ff621e24c4d6b3ac5138d406123b.
+Actual package/certificate/manifest/DEX and public before-bookendPASS.47/46 are
+superseded and unpublished. Ordinary45 remains LIVE, immutable45/performance43
+unchanged. Latest source edits are fixture-only, so48 production remains current.
+Wait source CI success before runtime; next verify corrected group-ui and complete
+chat-ui on bothSDKs, including all24 history methods,10 action methods and actual
+private process recovery. The four diagnostic cases are included; their focused
+scope remains available if needed. Then fresh full bothSDK acceptance and signed delivery. Dispatch full at the
+already-compiled source before pushing evidence-only docs, to reuse the exact
+Gradle task cache. Keep58/56 open until actual acceptance/publication. Do not claim57.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration

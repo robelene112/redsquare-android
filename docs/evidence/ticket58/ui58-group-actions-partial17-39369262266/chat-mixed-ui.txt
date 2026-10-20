@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest:
+INSTRUMENTATION_STATUS: test=privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$19$lambda$18$lambda$17(ChatMixedReceptionPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$9YO8_1gY_FcK944BU6dGY1i1rXA(ChatMixedReceptionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$19$lambda$18$lambda$17(ChatMixedReceptionPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$9YO8_1gY_FcK944BU6dGY1i1rXA(ChatMixedReceptionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:57)
+
+INSTRUMENTATION_STATUS: test=privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.525
+There was 1 failure:
+1) privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains '1 like' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending$lambda$19$lambda$18$lambda$17(ChatMixedReceptionPreviewTest.kt:105)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.$r8$lambda$9YO8_1gY_FcK944BU6dGY1i1rXA(ChatMixedReceptionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest.privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending(ChatMixedReceptionPreviewTest.kt:57)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

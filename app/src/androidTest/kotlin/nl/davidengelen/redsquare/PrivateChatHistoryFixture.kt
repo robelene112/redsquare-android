@@ -880,8 +880,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             captureViewport("before-reopened-older-history-wait")
                             waitForMessage(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
-                            ui.onNodeWithText(cachedOlderText).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-cached.png"), olderText)
+                            ui.onNodeWithText(cachedOlderText).performScrollTo().assertIsDisplayed()
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
@@ -1115,8 +1115,26 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                             val oldText = vectors[2].asJsonObject.getAsJsonObject("plaintext").get("message").asString
                             waitFor(oldText)
-                            ui.onAllNodesWithText(oldText).assertCountEquals(2) // Independent messages intentionally share their plaintext, with different signed ciphertexts.
-                            ui.onAllNodesWithText(oldText)[1].performScrollTo().assertIsDisplayed()
+                            val restoredMessages = nl.davidengelen.redsquare.chat.ChatHistoryStore(context,
+                                requireNotNull(completeKeyWallet), SaitoBackend.OWNER, counterpart).load().entries
+                                .filter { it.message.text == oldText }
+                            val expectedOriginals = setOf(reference.get("archiveEnvelope").asString,
+                                vectors[2].asJsonObject.get("archiveEnvelope").asString)
+                            // Two distinct signed messages share their text. A lazy viewport need not compose both at once.
+                            check(restoredMessages.size == 2 && restoredMessages.map { it.envelope }.toSet() == expectedOriginals)
+                            for ((index, restored) in restoredMessages.withIndex()) {
+                                ui.waitUntil(15_000) {
+                                    runCatching {
+                                        ui.onNodeWithContentDescription("Private messages").performScrollToKey(restored.message.id)
+                                        val matches = ui.onAllNodesWithText(oldText)
+                                        check(matches.fetchSemanticsNodes(atLeastOneRootRequired = false).indices.any { match ->
+                                            runCatching { matches[match].assertIsDisplayed() }.isSuccess
+                                        })
+                                    }.isSuccess
+                                }
+                                if (index == 0) captureNativeScreen(File(context.cacheDir,
+                                    "private-chat-evidence/exchanged-key-first-restored.png"), oldText)
+                            }
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/exchanged-key-restored.png"), oldText)
                             check(peer.transactions.size == 1 && peer.relayedMessages.size == 1)
                         }

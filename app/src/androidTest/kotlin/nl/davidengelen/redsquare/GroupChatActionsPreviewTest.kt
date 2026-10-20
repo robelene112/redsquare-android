@@ -92,7 +92,6 @@ class GroupChatActionsPreviewTest {
                         ui.onNodeWithText("Remove reply").assertDoesNotExist()
                         phase("first-original-verified")
                         scenario.recreate();open()
-                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reopened-before-scroll.png"))
                         ui.waitUntil(15_000) {
                             runCatching {
                                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
@@ -100,7 +99,6 @@ class GroupChatActionsPreviewTest {
                             }.isSuccess
                         }
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
-                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reopened-after-scroll.png"))
                         ui.onNodeWithText(body).assertIsDisplayed()
                         ui.onAllNodesWithText("Copy").onLast().performScrollTo().assertIsDisplayed().performClick()
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()==body)

@@ -711,3 +711,45 @@ raw/Relay/history/key/draft/wallet goals. Status assertions scroll the named
 status region before their original displayed assertions. Corrected runtime
 is pending. This production change supersedes unpublished47; ordinary45 stays
 live. A fresh signed build and full acceptance on both SDKs are required.
+
+## Corrected private viewport and group actions, remaining fixture failures
+
+Source39368460485 at58781abae7b338cb8ba5b42af271702ac4cd7f07SUCCESS.
+Focused group39369259389(10)/39369262266(17) both overallFAILURE, but their
+original GroupChatActionsPreviewTest completes1PASS on eachSDK, including exact
+raw/Relay, literal Copy and self-reply/reopening, within60seconds (10.878/53.591s).
+Mixed reception then fails its original1-like displayed assertion:105. Original
+body is visible, reaction below the history viewport.22-case group and later
+process gates are not reached. Paired `ui58-group-actions-partial*` retain18
+hashes/30 original archive members. Root opened17 reopened-after-scroll and10
+mixed failure PNGs. Obsolete reopened diagnostic captures are now removed after
+these positive observations; original final/native assertions stay.
+
+Private39369264256(10)/39369266269(17) both complete the four-method class normally
+with2PASS/2FAIL (34.39/71.492s). Storage-partial and interrupted-send nowPASS.
+Both after-scroll trees measure messages298..394=96px; root opened both native
+originals. Remaining failures are later fixture steps: cached older snapshot:884
+expects olderText after scrolling cachedOlderText out of its way; key restoration:
+1118 expects two same-text lazy nodes simultaneously, while original trees show
+three message rows and only one such body composed. No wallet-mismatch claim:
+884 is the native expected-text capture. Paired `ui58-private-status-partial*`
+retain12 hashes/136 original members, including complete failed logs and all
+new diagnostic observations. These are partial results, never full acceptance.
+
+The cached older snapshot now follows its original older-text displayed assertion
+before the separate cached-text scroll, preserving both goals. Restored-key
+acceptance now requires exactly two retained distinct original envelopes and
+scrolls to each signed message key with a positive displayed-text check inside
+15seconds. This explicitly replaces simultaneous lazy-node counting with exact
+record cardinality plus per-original rendered traversal; it does not discard the
+two-message goal. Mixed reaction readiness similarly scrolls the named message
+region, preserving its display check and separate positive body/reaction captures.
+All original60/180second class bounds remain. Corrected runtime pending.
+
+Canonical signed48 at587 is PREPARED, reviewed0 on both axes, not published:
+SHA256027f57f99944726daf3fcd829b74964b7916ff621e24c4d6b3ac5138d406123b.
+Actual APK/certificate/package/manifest/DEX checks and eight public before-bookend
+bindingsPASS. `signed48-prepared` retains five hashes.47/46 are superseded and
+unpublished; ordinary45 live, immutable45/performance43 unchanged. New changes
+above are fixture-only, so48's production inputs remain current. Full bothSDK
+acceptance and verified publication are still required.

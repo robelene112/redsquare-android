@@ -102,8 +102,15 @@ class ChatMixedReceptionPreviewTest {
                     check(saved.messages.single().id==groupMessage.id)
                     waitEnabled(admin.publicKey);ui.onNodeWithText(admin.publicKey).assertIsDisplayed().performClick()
                     wait("Private message received in Groups");ui.onNodeWithText("Private message received in Groups").assertIsDisplayed()
-                    wait("1 like");ui.onNodeWithText("1 like").assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-visible.png"),"Private message received in Groups")
+                    ui.waitUntil(15_000) {
+                        runCatching {
+                            ui.onNodeWithContentDescription("Private messages").performScrollToNode(hasText("1 like"))
+                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                        }.isSuccess
+                    }
+                    ui.onNodeWithText("1 like").assertIsDisplayed()
+                    captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-reaction-visible.png"),"1 like")
                     ui.onNodeWithText("Back").performClick();wait("Groups");ui.onNodeWithText("Groups").performClick()
                     wait("Private-screen invited group");ui.onNodeWithText("Private-screen invited group").performClick()
                     wait("Group received in private Chat");ui.onNodeWithText("Group received in private Chat").assertIsDisplayed()
