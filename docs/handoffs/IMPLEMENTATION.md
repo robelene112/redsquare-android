@@ -351,5 +351,22 @@ Body-tap helper now uses actual unmerged body gesture for three affected image
 entries, preserving original text/frame/pixel/deadline goals. Productioncfbf
 unchanged. Agreement10 39496934335 SUCCESS191hashes/9archives159originals,25UI and actual
 process9755 to9875/recovery/restoration. Root viewed actual edited/removed forms;
-both evidence/operator-correction reviews0. Corrected native goal reruns pending. Native
-authorGREEN pending.
+both evidence/operator-correction reviews0. CurrentHEAD3d421fffa0a69f882b95af44fde97e17253f4f29
+is operator-only; production source files byte-identicalcfbf. Pinned corrected post-presentation
+10/17 39498719693/39498723698 and author10 39498727985 allSUCCESS. Four presentation
+methods23.121s/37.654s,40hashes32originals each. Root viewed all eight actual
+own menus and10Feed/17Search confirmations. Author10 eightmethods47.595s plus
+actual edit/delete cold recovery4.634s/3.118s,31hashes/13archive members, exact
+candidates/wallet/explicit recovery/zero rebroadcast preserved. Both packet
+reviews report zero findings. Next is real larger-text/content matrix and actual new-control
+a11y; full60/catalog/reviews/signed59 delivery and61–70 remain authorized. Native
+author-menu verification is complete.
+
+The next independent native viewport tracer uses a valid45-character registered
+name prefix, an actual signed synthetic registrar proof, literal Long.MAX_VALUE
+node-observed likes and12345 reposts. It measures actual count text overflow,
+complete nonoverlapping48dp targets and full identity access at320dp, font scales
+100/130/200%, Light/Dark. The existing four post methods keep their180second
+bound; the new viewport class has its own180second bound. Declared name caches
+join independently restored frame state. Both source reviews report zero
+findings. Native results and complete60 acceptance are still pending.

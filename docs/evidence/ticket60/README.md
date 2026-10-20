@@ -239,5 +239,22 @@ entry calls keep original text/route/frame/pixel/cleanup/deadline goals. Product
 remainscfbf. Agreement10 run39496934335 SUCCESS:191hashes/nine archives159originals, all25UI
 cases and actual publishing-process9755 to9875/recovery/restoration. Root viewed
 actual edited/removed forms; both evidence reviews0. Both operator-correction
-reviews0; rerun corrected native goals before author acceptance.
-Native author productGREEN remains pending.
+reviews0. Operator corrections are committed at3d421fffa0a69f882b95af44fde97e17253f4f29;
+production source files are byte-unchangedcfbf. Pinned corrected post-presentation10/17
+39498719693/39498723698 and author10 39498727985 allSUCCESS.10/17 each completes
+four methods23.121s/37.654s,40hashes/32originals each. Root viewed all eight
+actual own-menu captures and10Feed/17Search delete confirmations. Author10
+passes8methods47.595s plus actual edit/delete cold-recovery gates4.634s/3.118s,
+31hashes/13archive members. Original candidate/wallet/explicit recovery and no
+rebroadcast goals remain. Both packet reviews report zero findings. This is the author-menu
+slice; large-text/content/a11y/full60 acceptance still remains.
+Native author-menu verification is complete.
+
+The next independent native viewport tracer uses a valid45-character registered
+name prefix, an actual signed synthetic registrar proof, literal Long.MAX_VALUE
+node-observed likes and12345 reposts. It measures actual count text overflow,
+complete nonoverlapping48dp targets and full identity access at320dp, font scales
+100/130/200%, Light/Dark. The existing four post methods keep their180second
+bound; the new viewport class has its own180second bound. Declared name caches
+join independently restored frame state. Both source reviews report zero
+findings. Native results and complete60 acceptance are still pending.
