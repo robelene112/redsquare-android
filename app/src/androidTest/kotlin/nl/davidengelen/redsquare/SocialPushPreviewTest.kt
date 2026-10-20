@@ -75,7 +75,6 @@ class SocialPushPreviewTest {
                 }.toString()
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 withFailureCapture({
-                    device.openNotification()
                     captureNativeScreen(File(context.cacheDir, "social-push-evidence/$evidenceName-failure.png"))
                 }) {
                     assertEquals(SocialPushResult.PUBLISHED, runBlocking(Dispatchers.IO) {
@@ -100,9 +99,30 @@ class SocialPushPreviewTest {
                     if (dismiss) {
                         assertTrue(device.openNotification())
                         val card = visibleNotificationCard(device, "Replied to your post", 5_000)
+                        val observation = JsonObject().apply {
+                            addProperty("clearable", alerts.single().isClearable)
+                            addProperty("ongoing", alerts.single().isOngoing)
+                            addProperty("flags", alert.flags)
+                            addProperty("cardBounds", card.visibleBounds.toShortString())
+                            addProperty("displayWidth", device.displayWidth)
+                            addProperty("displayHeight", device.displayHeight)
+                        }
+                        fun retainDismissal() {
+                            runCatching {
+                                File(context.cacheDir, "social-push-evidence/dismissal-observation.json")
+                                    .writeText(observation.toString())
+                            }
+                        }
+                        retainDismissal()
+                        val gestureStarted = android.os.SystemClock.elapsedRealtime()
                         card.swipe(Direction.RIGHT, 1.0f)
-                        assertTrue("Physical swipe must remove the visible alert",
-                            device.wait(Until.gone(By.text("Replied to your post")), 5_000))
+                        observation.addProperty("gestureMillis", android.os.SystemClock.elapsedRealtime() - gestureStarted)
+                        val hidden = device.wait(Until.gone(By.text("Replied to your post")), 5_000)
+                        observation.addProperty("textHidden", hidden)
+                        observation.addProperty("ownedNotificationStillActive",
+                            runCatching { manager.activeNotifications.any { (it.tag to it.id) !in priorAlerts } }.getOrNull())
+                        retainDismissal()
+                        assertTrue("Physical swipe must remove the visible alert", hidden)
                         val dismissedBy = android.os.SystemClock.elapsedRealtime() + 5_000
                         while (manager.activeNotifications.any { (it.tag to it.id) !in priorAlerts } &&
                             android.os.SystemClock.elapsedRealtime() < dismissedBy) android.os.SystemClock.sleep(25)

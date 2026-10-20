@@ -57,6 +57,15 @@ unchanged. Fresh full10run39415267934 and17run39415423516 are active at exactfc
 on verify/status59-fc477c893; allthree mandatory partitions and public reads
 required. Source/core/release/lint39414378637 is SUCCESS. The reference binds
 these actual runs and retains rejected4a separately. Do not cancel their jobs.
+Fresh10Chat FAILS the physical social-reply swipe (10PASS/1FAIL main command),
+not reading. Packet fullfc-push-dismissal10 retains actual before/failure originals;
+old capture reopens shade and cannot establish precise post-gesture state. Narrow
+unchanged social-push10run39416588867 atfc is active. Next test-only diagnostics
+record actual notification flags/bounds/gesture duration/hidden-active result,
+without changing gesture or five-second assertions; focused existing-method
+social-push-dismissal scopes added. Complete acceptance now requires fresh10.
+Old4a17wallet fails the already-corrected same policy Like atline132, packet
+full4a-policy17; focusedfc bothPASS. No further production change yet.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

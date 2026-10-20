@@ -304,3 +304,27 @@ nondebuggable/nonprofileable, backupfalse,29/36, reviewtrue/pushfalse, separate
 GIF keys absent and no test-tool query in Release. Prepared records are retained
 in signed52-prepared. Full acceptance, public publication and independent HTTP
 bookends remain pending. Ordinary50 remains live; rejected51 is never publishable.
+
+## Current full10 physical-dismissal failure and bounded diagnosis
+
+Fresh full10fc39415267934 Chat is FAILURE: social-push-ui has10PASS/1FAIL,
+Physical swipe must remove the visible alert, at the existing five-second goal.
+The preceding frame-reading checks pass. Selected original before/failure PNG/XML,
+complete command log and full archive inventory are retained in
+fullfc-push-dismissal10. Root opened both originals. The old failure capture
+reopens the shade, so it does not prove its precise state immediately after the
+failed gesture. The other fc partitions and17full continue; no complete pass.
+No new production change or notification-clearability cause is established.
+
+A narrow unchanged social-push10 diagnostic39416588867 executes exactfc. The next
+test-only observer records actual clearable/ongoing flags, gesture-time bounds,
+gesture duration and actual hidden/active result; failure capture stops reopening
+the shade. A focused existing-method scope keeps its180second class bound and
+unchanged five-second disappearance/active-state goals. Full/ordinary social-push
+retain the complete original command and method. No cancellation shortcut,
+assertion waiver, retry-until-green acceptance or production change is introduced.
+
+Old4a17wallet also fails the same private policy reaction atline132 as10. The
+complete log, selected original failure and inventory are retained in
+full4a-policy17. The fc corrected full four-method focused runs on both SDKs
+already pass; old4a remains a rejected full attempt.

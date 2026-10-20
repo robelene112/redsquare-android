@@ -370,7 +370,9 @@ verify_social_push() {
             granted_for_test=1
         fi
     fi
-    if [[ "$push_scope" == social-push-process* ]]; then
+    if [[ "$push_scope" == social-push-dismissal* ]]; then
+        verify_group_chat_native 'SocialPushPreviewTest#aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered' 180 social-push-dismissal social-push-evidence || native_exit=$?
+    elif [[ "$push_scope" == social-push-process* ]]; then
         python3 "$repo_dir/scripts/social-push-process-check" --evidence "$evidence/social-push-process" || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
             python3 "$repo_dir/scripts/social-push-scheduled-process-check" --evidence "$evidence/social-push-scheduled-process" || native_exit=$?

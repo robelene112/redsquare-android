@@ -147,6 +147,13 @@ complete first-release scope and the established production boundaries.
    command and all recovery/group gates. Best-effort flag/bounds/gesture diagnostics
    distinguish the actual notification from an ineffective gesture; they do not
    replace physical dismissal or prove a cause.
+   `social-push-dismissal` and its Android17 variant isolate the existing physical
+   social reply dismissal method after a retained full10 failure. Its180second
+   bound and original five-second disappearance/active-state goals remain. Full
+   and social-push scopes retain all11 original methods and their unchanged class
+   bound. Best-effort flags/bounds/gesture observations and an unmodified in-scope
+   failure capture distinguish actual clearability from gesture or shade state;
+   a focused pass is not complete acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
    `app-frame-motion` and its Android17 variant run a separate plain native class

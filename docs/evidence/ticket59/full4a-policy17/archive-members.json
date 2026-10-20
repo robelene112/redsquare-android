@@ -1,0 +1,142 @@
+{
+  "run": 39412555335,
+  "source": "4a78f8864c212d7aefedf3880fc279c5a22dca50",
+  "archiveSha256": "0274f773c0d575bd92d2fd985cae5b1bfab1da9c59b413c0ba87646ec012e159",
+  "members": [
+    {
+      "member": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.xml",
+      "bytes": 48817,
+      "sha256": "05197e6e429a279729d8cb8ff30ca687e09c21a0c1402347fa5e7ac36d5c3d1a"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.png",
+      "bytes": 41233,
+      "sha256": "f9f0985e297a471ab5bf5817335246a9144284a08b4dfe16fe0c2d3a8c0570d1"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.semantics.txt",
+      "bytes": 15537,
+      "sha256": "b5c578a7dda1051e51cf93001b4da4e4ccc5f299b6e8757a77a56944a52da910"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.xml",
+      "bytes": 52263,
+      "sha256": "5843ae53f3831a8cd6e8b171619cfffb3708dd64d39f8210869610566d78f7aa"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.png",
+      "bytes": 41456,
+      "sha256": "2401bc06b28f108849ed9d39770d41c97c643cd6b33302d95e396d0439498da7"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.semantics.txt",
+      "bytes": 18627,
+      "sha256": "48fe7d7ca7b1620487cccf840ab1b2cc63cc3fc374e86237971d6d79f668193f"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-first-failure.xml",
+      "bytes": 52263,
+      "sha256": "f6bcfa03487e52afedadbe247257ec8e23d7821b068a8b1c0c8793dd1dad7f41"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-first-failure.png",
+      "bytes": 41424,
+      "sha256": "b9f0264e27d7adf8b5d0677f14cc6dd0f46188958fe0cbbcb49179a0e299e4ee"
+    },
+    {
+      "member": "agreement-surfaces-evidence/private-first-failure.semantics.txt",
+      "bytes": 18627,
+      "sha256": "48fe7d7ca7b1620487cccf840ab1b2cc63cc3fc374e86237971d6d79f668193f"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.xml",
+      "bytes": 41505,
+      "sha256": "8bdbdc19bb400bef0a971606644e025f8f7e06a7550a36e7dc4f4f4c88de93ed"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.png",
+      "bytes": 30891,
+      "sha256": "2d8b0fa204cd6a968ad7775c7e8d63048ab5e26051bbe812c6f9b8996d803f94"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.semantics.txt",
+      "bytes": 12210,
+      "sha256": "8792d82f003262483032603886f1c73123bd3365728bd66eeb7c697dadacd5e2"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.xml",
+      "bytes": 41954,
+      "sha256": "ad206d73310fd9968fb2f4cbe90d9549eba7451cbe7f259f736dc4435f042938"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.png",
+      "bytes": 33014,
+      "sha256": "83231031ecdec3448719ba2b883d8dcfaa3e14b39a06e68bd3b680a9d6a03bf1"
+    },
+    {
+      "member": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.semantics.txt",
+      "bytes": 12813,
+      "sha256": "99a24a99083083d5ec6ed5426a5408b738e0a4e5d85ef47c04e6c9ae68ea5d81"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.xml",
+      "bytes": 25476,
+      "sha256": "718d84e869f1c1cd874858bca66e00e619b9df4b00151e1383056fea9003e0d2"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.png",
+      "bytes": 30362,
+      "sha256": "25a5b8fa2bc3fb9d4a91d1b153b67c2498cdf28967bedef5c62688e459ea5d29"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.semantics.txt",
+      "bytes": 5800,
+      "sha256": "bc7cb1801852ac2662fa9eab0ab25977dc4d75130b36330bf6e66a05c2f34d60"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.xml",
+      "bytes": 24612,
+      "sha256": "64a1910f100ae1ede25a879554aaa08b338884bbaf415cfea004871133258dc4"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.png",
+      "bytes": 28093,
+      "sha256": "c0375614213b316c7c672309a335f7fc641667ca591c50bc8b09200b2ee655db"
+    },
+    {
+      "member": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.semantics.txt",
+      "bytes": 5334,
+      "sha256": "096e209903fb981139c80bef9d3506b06083fcb46f9c925ed2f440e23a389c2f"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml",
+      "bytes": 22719,
+      "sha256": "a3797263967f7186e37afe71d8b8f5088da26c663827cf18bc67ac5bad14d698"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png",
+      "bytes": 37759,
+      "sha256": "214939deb7d11a0f09bd7a2a428d3de7fd9a58e7652766040fc8ceb655fce91f"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.semantics.txt",
+      "bytes": 18394,
+      "sha256": "2b2459caaff7f37622041d696fb7a5d5d8136b926bdc769b0a502c1a6777bc41"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.xml",
+      "bytes": 45687,
+      "sha256": "29c8704206fbb52a081a66675e3e594cf0db84dd527ae500e96753350e61264c"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.png",
+      "bytes": 35320,
+      "sha256": "92e6078ab6685e9bc13e62cfbb93df90c2b89f93868e9d2efc1f7de6f75068ef"
+    },
+    {
+      "member": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.semantics.txt",
+      "bytes": 14624,
+      "sha256": "7e04ab844e75001ec8ab1714d4c7f761a1628ea105c03384b88d9a5997bd4c2a"
+    }
+  ]
+}
