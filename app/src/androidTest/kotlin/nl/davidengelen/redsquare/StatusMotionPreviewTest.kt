@@ -34,12 +34,29 @@ class StatusMotionPreviewTest {
         val originalAppearance = appearance.getString("mode", null)
         val font = EmulatorFontScale(context, folder, name)
         lateinit var peer: ControlledFeedPeer
+        val searchRequested = java.util.concurrent.CountDownLatch(1)
+        val releaseSearch = java.util.concurrent.CountDownLatch(1)
+        val rows = instrumentation.context.assets.open("native-feed-reference.json").reader().use {
+            com.google.gson.JsonParser.parseReader(it).asJsonObject.get("archiveRow").let { row -> "[$row]" }
+        }
         var primary: Throwable? = null
         try {
             originals.keys.forEach { setting -> device.executeShellCommand("settings put global $setting $scale") }
             font.apply(textScale)
             check(appearance.edit().putString("mode", theme).commit())
-            withAppFrameFixture(name, "status-motion-evidence", configurePeer = { peer = it }) { activity ->
+            withAppFrameFixture(name, "status-motion-evidence", configurePeer = { peer = it }, archiveResponse = { criteria ->
+                when (criteria.get("field1").asString) {
+                    "RedSquare" -> {
+                        if (criteria.get("limit").asInt == 100) {
+                            searchRequested.countDown()
+                            check(releaseSearch.await(10, java.util.concurrent.TimeUnit.SECONDS)) { "Controlled search response was not released" }
+                        }
+                        rows
+                    }
+                    "RedSquareLike" -> "[]"
+                    else -> error("Unexpected status-motion read")
+                }
+            }) { activity ->
                 check(device.wait(Until.hasObject(By.text("Later")), 15_000))
                 device.findObject(By.text("Later")).click()
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
@@ -87,6 +104,27 @@ class StatusMotionPreviewTest {
                 observed.addProperty("theme", theme)
                 observed.addProperty("retryBounds", bounds.toShortString())
                 observed.addProperty("minimumTargetPixels", minimum)
+                val searchNavigation = requireNotNull(device.wait(Until.findObject(By.text("Search")), 5_000))
+                searchNavigation.click()
+                val editor = requireNotNull(device.wait(Until.findObject(By.clazz("android.widget.EditText")), 5_000))
+                editor.text = "Native"
+                val search = requireNotNull(device.wait(Until.findObject(
+                    By.clickable(true).enabled(true).hasDescendant(By.text("Search history"))), 5_000))
+                captureNativeScreen(File(folder, "$name-search-before.png"))
+                val searchMovie = File(folder, "$name-search.mp4")
+                val searchRecording = recordNativeTransition(searchMovie, recordingSeconds = 5) {
+                    search.click()
+                    check(searchRequested.await(5, java.util.concurrent.TimeUnit.SECONDS))
+                    check(device.wait(Until.hasObject(By.text("Searching available history…")), 5_000))
+                    captureNativeScreen(File(folder, "$name-search-working.png"))
+                    releaseSearch.countDown()
+                    check(device.wait(Until.gone(By.text("Searching available history…")), 5_000))
+                }
+                check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 10_000))
+                captureNativeScreen(File(folder, "$name-search-after.png"))
+                val searchObserved = retainNativeMotionFrames(searchMovie)
+                searchObserved.add("recording", searchRecording)
+                observed.add("searchTransition", searchObserved)
                 File(folder, "$name.json").writeText(observed.toString())
                 assertEquals(scale.toFloat(), observed.getAsJsonObject("windowMotion").get("scaleFactor").asFloat, 0f)
                 originals.keys.forEach { setting -> assertEquals(scale.toFloat(),
@@ -99,7 +137,7 @@ class StatusMotionPreviewTest {
                 device.executeShellCommand(if (value == "null") "settings delete global $setting" else "settings put global $setting $value")
                 check(device.executeShellCommand("settings get global $setting").trim() == value)
             } }
-            cleanupAfterTest(primary, { font.restore() }, {
+            cleanupAfterTest(primary, { releaseSearch.countDown() }, { font.restore() }, {
                 check(appearance.edit().apply { if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance) }.commit())
                 check(appearance.getString("mode", null) == originalAppearance)
             }, *restorations.toTypedArray())

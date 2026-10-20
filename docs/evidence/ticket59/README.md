@@ -463,3 +463,22 @@ recorded above. No final metadata overwrites or promotes the earlier captures.
 Owned verification ref verify/status59-fc477c893 was removed only after every
 run on it completed and its remote head still matched exactfc. Currentf23
 verification ref and both complete executions remain active.
+
+## Cumulative source finding: conditional status motion
+
+Cumulative Spec review a8..6ac finds one remaining requirement gap: transient
+InlineStatus instances are conditionally mounted in Search, post composition,
+profile and Chat. AnimatedVisibility receives true on creation and is disposed
+on removal, so those hosts cannot execute their enter/exit transitions. The
+connection host is already stable. Cumulative Standards review reports0.
+
+Signed52 is explicitly SUPERSEDED and NEVER PUBLISH. Its frozen APK is untouched;
+apk-check/rejection marker preserve the reason. Existingf23 complete executions
+continue, but cannot establish the missing adopted-state motion. No53 is reserved.
+A stronger native visual tracer extends BOTH existing StatusMotion methods with
+actual Search loading at a held/released controlled Archive boundary. All prior
+recovery goals, identities,180second bound and frozen catalog stay unchanged.
+It retains a second five-second actual movie and every decoded original frame,
+plus before/working/after captures. Functional PASS alone will not establish
+motion acceptance: inspect the old conditional path first, then corrected normal
+and zero-scale behavior after stable nullable hosts. No production fix yet.

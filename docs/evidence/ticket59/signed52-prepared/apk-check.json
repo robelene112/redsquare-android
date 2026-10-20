@@ -18,5 +18,8 @@
   "targetSdk": 36,
   "testToolQueryInRelease": false,
   "published": false,
-  "physicalDeviceAcceptance": false
+  "physicalDeviceAcceptance": false,
+  "superseded": true,
+  "neverPublish": true,
+  "rejectionReason": "Cumulative59 source review found conditional status hosts bypassing entry/exit motion. A corrected production source requires a new candidate."
 }

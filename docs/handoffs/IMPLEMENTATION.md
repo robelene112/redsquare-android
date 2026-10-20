@@ -36,6 +36,20 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
+LATEST OVERRIDE: cumulative Spec source review finds one remaining motion gap:
+conditional InlineStatus call sites bypass their enter/exit transitions.52 is
+now SUPERSEDED and NEVER PUBLISH; frozen APK is untouched, rejection flag/hash
+and external marker retained.50 stays live. Currentf23 full runs may finish,
+but cannot establish this missing visual behavior. No53 is reserved yet.
+Before production changes, both existing StatusMotion methods now trace actual
+Search loading through a held/released controlled Archive response and retain
+all original movie frames. Existing identities,180second bound, prior recovery
+assertions and frozen catalog remain. Execute/inspect the old conditional path
+first, then keep transient hosts mounted with nullable summaries, re-review,
+verify corrected normal/zero motion and fresh full source, build a new53.
+Do not run the obsolete52 publication checker after-stage.
+
+
 Current checkpoint: 2026-10-20,12:07 UTC. Issue59 remains OPEN. Ordinary50 is
 LIVE; signed52 is prepared and UNPUBLISHED. Rejected51 must never be published.
 The owner authorizes continuing60 through69 after59 is completed, without a
