@@ -1,0 +1,31 @@
+{
+  "run": 39402823989,
+  "source": "0a8f853fb",
+  "archiveSha256": "98cdf0646d58453681006af992ae29f471ec6f7b3e8d168be0f87b0c065b6392",
+  "members": [
+    {
+      "archive": "status-recovery-evidence.tar",
+      "member": "status-recovery-evidence/reading-before-outage.xml",
+      "bytes": 55554,
+      "sha256": "f209f6e8e8ca4d43e5b91bd10ba246370fef5503066f35f1bdf50b5d5579656f"
+    },
+    {
+      "archive": "status-recovery-evidence.tar",
+      "member": "status-recovery-evidence/reading-before-outage.png",
+      "bytes": 50572,
+      "sha256": "65496697521864e6b6e01ca5ab2147987f11191823f3d399abcfa57055dd1fa5"
+    },
+    {
+      "archive": "status-recovery-evidence.tar",
+      "member": "status-recovery-evidence/status-recovery-failure.xml",
+      "bytes": 56391,
+      "sha256": "6e96361df1e45779c02b7e6918ae3ebf80bd24460c303396f1f4c654927d394c"
+    },
+    {
+      "archive": "status-recovery-evidence.tar",
+      "member": "status-recovery-evidence/status-recovery-failure.png",
+      "bytes": 51303,
+      "sha256": "725a8ca99c8f0b6836363f5dc33dfb21a467b6a77c999e5737d23b51d5c66488"
+    }
+  ]
+}

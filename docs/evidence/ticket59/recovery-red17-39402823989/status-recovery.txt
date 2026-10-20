@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StatusRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (OnClick is defined)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Details' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertHasClickAction(Assertions.kt:235)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed$lambda$7(StatusRecoveryPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.$r8$lambda$OdRup8KSNMMOGhvC_IDT8NGAlY4(StatusRecoveryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed(StatusRecoveryPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed(nl.davidengelen.redsquare.StatusRecoveryPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (OnClick is defined)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Details' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertHasClickAction(Assertions.kt:235)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed$lambda$7(StatusRecoveryPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.$r8$lambda$OdRup8KSNMMOGhvC_IDT8NGAlY4(StatusRecoveryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed(StatusRecoveryPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.373
+There was 1 failure:
+1) nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed(nl.davidengelen.redsquare.StatusRecoveryPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (OnClick is defined)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (Text + InputText + EditableText contains 'Details' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertHasClickAction(Assertions.kt:235)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed$lambda$7(StatusRecoveryPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.$r8$lambda$OdRup8KSNMMOGhvC_IDT8NGAlY4(StatusRecoveryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.StatusRecoveryPreviewTest.nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed(StatusRecoveryPreviewTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

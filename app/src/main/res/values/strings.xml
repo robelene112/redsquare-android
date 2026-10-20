@@ -547,4 +547,8 @@
     <string name="giphy_source_unavailable">This link could not be opened.</string>
     <string name="giphy_preview">GIF preview: %1$s</string>
     <string name="giphy_choose">Use GIF</string>
+    <string name="status_details">Details</string>
+    <string name="status_selected_node_retained">Your selected node stays selected. Cached posts remain available. New reads resume when this node responds.</string>
+    <string name="status_offline_guidance">Cached content stays available. Saved drafts remain unsent. Work you explicitly sent while offline stays tied to its original node.</string>
+    <string name="status_connection_recovered">The selected node responded again. This does not confirm delivery of pending posts, messages or transfers.</string>
 </resources>

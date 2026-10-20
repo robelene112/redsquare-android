@@ -1,0 +1,157 @@
+package nl.davidengelen.redsquare
+
+import android.app.UiAutomation
+import android.os.Build
+import android.os.SystemClock
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.view.accessibility.AccessibilityNodeInfo
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Configurator
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import java.io.File
+import java.util.Locale
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+import org.junit.Assert.*
+import org.junit.Test
+
+/** Real upstream TalkBack service output, not an AccessibilityEvent proxy or a speech mock. */
+class TalkBackStatusPreviewTest {
+    @Test fun importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val configurator = Configurator.getInstance()
+        val originalFlags = configurator.getUiAutomationFlags()
+        configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
+        val automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
+        val device = UiDevice.getInstance(instrumentation)
+        val folder = File(context.cacheDir, "status-talkback-evidence").apply { mkdirs() }
+        var primary: Throwable? = null
+        try {
+            File(folder, "accessibility-before.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
+            assertTrue("The real TalkBack service must be bound", device.executeShellCommand("dumpsys accessibility")
+                .contains("com.google.android.accessibility.talkback.TalkBackService"))
+            verifyEnglishEngine(folder)
+            val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
+                JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
+            }
+            lateinit var peer: ControlledFeedPeer
+            withAppFrameFixture("talkback-outage", "status-talkback-evidence", rows, configurePeer = { peer = it }) {
+                check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
+                click(automation, "Later")
+                check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
+                val post = node(automation, "Reference post 20")
+                assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                waitFor(5_000) { focusedText(automation) == "Reference post 20" }
+                SystemClock.sleep(1_000) // A quiet baseline after the deliberate focus announcement.
+                device.executeShellCommand("logcat -c")
+                peer.rejectNewConnections = true
+                click(automation, "Refresh")
+                check(device.wait(Until.hasObject(By.text("Node unavailable")), 20_000))
+                waitFor(10_000) { fragments(device, "Node unavailable").isNotEmpty() }
+                assertEquals("Important outage announces once", 1, fragments(device, "Node unavailable").size)
+                assertEquals("A live status must not steal the reader's focus", "Reference post 20", focusedText(automation))
+                capture(automation, File(folder, "outage.png"))
+                val requests = peer.connectionAttempts.get()
+                SystemClock.sleep(12_000) // Observe at least two real background retry intervals.
+                assertTrue("Quiet observation must include actual retry attempts", peer.connectionAttempts.get() > requests)
+                assertEquals("Polling the same failure must not repeat speech", 1, fragments(device, "Node unavailable").size)
+                assertEquals("Reference post 20", focusedText(automation))
+                peer.rejectNewConnections = false
+                check(device.wait(Until.hasObject(By.text("Back online")), 20_000))
+                waitFor(10_000) { fragments(device, "Back online").isNotEmpty() }
+                assertEquals("Recovery announces once", 1, fragments(device, "Back online").size)
+                assertEquals("Reference post 20", focusedText(automation))
+                capture(automation, File(folder, "recovered.png"))
+                File(folder, "speech-transcript.txt").writeText(device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V"))
+                File(folder, "accessibility-after.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
+                File(folder, "result.json").writeText(JsonObject().apply {
+                    addProperty("tool", "google/talkback229212fdf5842191d0a93fc95d9ca1423b346866")
+                    addProperty("outageFragments", fragments(device, "Node unavailable").size)
+                    addProperty("recoveryFragments", fragments(device, "Back online").size)
+                    addProperty("focus", focusedText(automation))
+                    addProperty("physicalAudibility", false)
+                }.toString())
+            }
+        } catch (failure: Throwable) {
+            primary = failure
+            try {
+                File(folder, "failure-speech.txt").writeText(device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V TextToSpeech:V FailoverTextToSpeech:V"))
+                File(folder, "failure-accessibility.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
+                capture(automation, File(folder, "failure.png"))
+            } catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
+            throw failure
+        } finally {
+            cleanupAfterTest(primary, { configurator.setUiAutomationFlags(originalFlags) })
+        }
+    }
+
+    private fun verifyEnglishEngine(folder: File) {
+        val context = InstrumentationRegistry.getInstrumentation().context
+        val ready = CountDownLatch(1)
+        var initialization = Int.MIN_VALUE
+        val tts = TextToSpeech(context) { initialization = it; ready.countDown() }
+        try {
+            assertTrue("English TTS initialization must complete", ready.await(15, TimeUnit.SECONDS))
+            val observation = JsonObject().apply {
+                addProperty("initialization", initialization)
+                addProperty("defaultEngine", tts.defaultEngine)
+                addProperty("installedEngines", tts.engines.joinToString { it.name })
+                addProperty("englishAvailability", tts.isLanguageAvailable(Locale.US))
+            }
+            File(folder, "engine.json").writeText(observation.toString())
+            assertEquals(TextToSpeech.SUCCESS, initialization)
+            assertTrue("A real English voice must be installed", tts.setLanguage(Locale.US) >= TextToSpeech.LANG_AVAILABLE)
+            val completed = CountDownLatch(1)
+            var synthesisError = false
+            tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                override fun onStart(id: String?) = Unit
+                override fun onDone(id: String?) { completed.countDown() }
+                @Deprecated("Legacy TTS callback") override fun onError(id: String?) { synthesisError = true; completed.countDown() }
+            })
+            val audio = File(folder, "english-engine.wav")
+            assertEquals(TextToSpeech.SUCCESS, tts.synthesizeToFile("Red Square accessibility ready", null, audio, "status-readiness"))
+            assertTrue("Actual engine synthesis must finish", completed.await(15, TimeUnit.SECONDS))
+            assertFalse("Engine synthesis must succeed", synthesisError)
+            assertTrue("A real audio file must be produced", audio.length() > 1000)
+            assertEquals("RIFF", audio.inputStream().use { input ->
+                val header = ByteArray(4); check(input.read(header) == 4); String(header, Charsets.US_ASCII)
+            })
+        } finally { tts.shutdown() }
+    }
+
+    private fun fragments(device: UiDevice, summary: String): List<String> =
+        device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V").lineSequence()
+            .filter { it.contains("Speaking fragment text=") && it.contains(summary) }.toList()
+
+    private fun node(automation: UiAutomation, text: String): AccessibilityNodeInfo =
+        requireNotNull(automation.rootInActiveWindow).findAccessibilityNodeInfosByText(text)
+            .first { it.text?.toString() == text }
+
+    private fun click(automation: UiAutomation, text: String) {
+        var target: AccessibilityNodeInfo? = node(automation, text)
+        while (target != null && !target.isClickable) target = target.parent
+        check(requireNotNull(target).performAction(AccessibilityNodeInfo.ACTION_CLICK))
+    }
+
+    private fun focusedText(automation: UiAutomation): String? =
+        automation.rootInActiveWindow?.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.text?.toString()
+
+    private fun waitFor(timeout: Long, condition: () -> Boolean) {
+        val until = SystemClock.elapsedRealtime() + timeout
+        while (!condition() && SystemClock.elapsedRealtime() < until) SystemClock.sleep(100)
+        check(condition()) { "Accessibility condition did not complete" }
+    }
+
+    private fun capture(automation: UiAutomation, file: File) {
+        val bitmap = requireNotNull(automation.takeScreenshot())
+        try { file.outputStream().use { check(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)) } }
+        finally { bitmap.recycle() }
+    }
+}

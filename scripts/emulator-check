@@ -88,6 +88,49 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == status-talkback* ]]; then
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'Disposable emulator required' >&2; exit 2; }
+    talkback_artifacts="$repo_dir/.scratch/talkback-tool/artifacts"
+    (cd "$talkback_artifacts" && sha256sum -c SHA256SUMS)
+    cp "$talkback_artifacts/source.txt" "$evidence/talkback-source.txt"
+    cp "$talkback_artifacts/SHA256SUMS" "$evidence/talkback-tool-SHA256SUMS"
+    adb shell pm list packages > "$evidence/talkback-installed-packages.txt"
+    adb install -r "$talkback_artifacts/talkback.apk"
+    adb shell dumpsys package com.android.talkback > "$evidence/talkback-package.txt"
+    saved_services=$(adb shell settings get secure enabled_accessibility_services | tr -d '\r')
+    saved_accessibility=$(adb shell settings get secure accessibility_enabled | tr -d '\r')
+    [[ "$saved_services" =~ ^[A-Za-z0-9./_:]+$ && "$saved_accessibility" =~ ^(0|1|null)$ ]]
+    # Public test-tool preferences only. Do not modify application wallet or user data.
+    cat > "$evidence/talkback-tool-preferences.xml" <<'PREFS'
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<map>
+    <boolean name="first_time_user" value="false" />
+    <boolean name="has_training_exit" value="true" />
+    <boolean name="has_onboarding_exit" value="true" />
+    <string name="pref_log_level">2</string>
+</map>
+PREFS
+    adb push "$evidence/talkback-tool-preferences.xml" /data/local/tmp/redsquare-talkback-preferences.xml
+    adb shell run-as com.android.talkback mkdir -p /data/user_de/0/com.android.talkback/shared_prefs
+    adb shell run-as com.android.talkback cp /data/local/tmp/redsquare-talkback-preferences.xml \
+        /data/user_de/0/com.android.talkback/shared_prefs/com.android.talkback_preferences.xml
+    adb shell settings put secure enabled_accessibility_services \
+        com.android.talkback/com.google.android.accessibility.talkback.TalkBackService
+    adb shell settings put secure accessibility_enabled 1
+    status_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.TalkBackStatusPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/status-talkback.txt" || status_exit=$?
+    printf '%s\n' "$status_exit" > "$evidence/status-talkback-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - status-talkback-evidence \
+        > "$evidence/status-talkback-evidence.tar" || true
+    adb shell dumpsys accessibility > "$evidence/talkback-final-service.txt"
+    adb shell settings put secure enabled_accessibility_services "$saved_services"
+    adb shell settings put secure accessibility_enabled "$saved_accessibility"
+    [[ "$status_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/status-talkback.txt"
+    exit
+fi
 if [[ "${TEST_SCOPE:-full}" == status-recovery* ]]; then
     status_exit=0
     timeout 120 adb shell am instrument -w -r \

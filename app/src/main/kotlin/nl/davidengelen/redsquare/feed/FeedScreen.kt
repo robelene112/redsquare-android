@@ -50,6 +50,9 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
 import nl.davidengelen.redsquare.notifications.SocialPush
 import nl.davidengelen.redsquare.notifications.NotificationRoutes
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 import nl.davidengelen.redsquare.ui.AppNavigation
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.PrimaryDestination
@@ -398,13 +401,25 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             null -> Unit
         }
         Column(childModifier) {
-            if (queueWarning) Text(stringResource(R.string.post_queue_storage_error))
+            if (queueWarning) InlineStatus(stringResource(R.string.post_queue_storage_error), StatusTone.ERROR)
             val noInternet = !internet.available || (failed && !internet.validated)
-            when {
-                noInternet -> ConnectionBanner(stringResource(R.string.no_internet), false)
-                failed -> ConnectionBanner(stringResource(R.string.server_unavailable), false)
-                recovered -> ConnectionBanner(stringResource(R.string.back_online), true)
+            val connectionSummary = when {
+                noInternet -> stringResource(R.string.no_internet)
+                failed -> stringResource(R.string.server_unavailable)
+                recovered -> stringResource(R.string.back_online)
+                else -> null
             }
+            InlineStatus(connectionSummary, when {
+                noInternet -> StatusTone.WARNING
+                failed -> StatusTone.ERROR
+                else -> StatusTone.SUCCESS
+            }, details = when {
+                noInternet -> listOf(stringResource(R.string.status_offline_guidance))
+                failed -> listOf(stringResource(R.string.feed_error), stringResource(R.string.status_selected_node_retained))
+                recovered -> listOf(stringResource(R.string.status_connection_recovered))
+                else -> emptyList()
+            }, actionLabel = if (failed && !noInternet) stringResource(R.string.retry) else null,
+                actionEnabled = !loading, onAction = { refresh++ })
             Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                 FeedTab(R.string.feed_title, !followingView) { followingView = false }
                 FeedTab(R.string.following_title, followingView) { followingView = true }
@@ -437,14 +452,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             }
             if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
             when {
-                failed -> Text(stringResource(R.string.feed_error), style = MaterialTheme.typography.bodySmall)
+                failed -> Unit
                 posts.isEmpty() && loading && !walletUnavailable -> Text(stringResource(R.string.feed_loading))
                 posts.isEmpty() && !internet.available -> Text(stringResource(R.string.feed_offline_empty))
                 unreadablePage -> Text(stringResource(R.string.feed_unreadable))
                 posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
             }
             // Keep a restored list position until the asynchronous cache read has finished.
-            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = position,
+            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(position), state = position,
                 contentPadding = PaddingValues(bottom = 88.dp)) {
                 items(visiblePosts, key = { it.id }) { post ->
                     Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
@@ -538,15 +553,6 @@ private fun RowScope.FeedTab(label: Int, selected: Boolean, onClick: () -> Unit)
         }
         Box(Modifier.fillMaxWidth().height(2.dp).background(
             if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))
-    }
-}
-
-@Composable
-private fun ConnectionBanner(message: String, online: Boolean) {
-    Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-        Box(Modifier.size(8.dp).background(if (online) Color(0xff168039) else MaterialTheme.colorScheme.error, CircleShape))
-        Spacer(Modifier.width(8.dp))
-        Text(message, style = MaterialTheme.typography.labelMedium)
     }
 }
 

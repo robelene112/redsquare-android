@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Pinned upstream accessibility tool, built only on disposable hosted runners.
+set -euo pipefail
+repo_dir=$(cd -- "$(dirname -- "$0")/.." && pwd)
+tool_dir="$repo_dir/.scratch/talkback-tool"
+mkdir -p "$tool_dir/artifacts"
+if [[ -f "$tool_dir/artifacts/SHA256SUMS" ]]; then
+    (cd "$tool_dir/artifacts" && sha256sum -c SHA256SUMS)
+    exit
+fi
+curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
+    https://codeload.github.com/google/talkback/tar.gz/229212fdf5842191d0a93fc95d9ca1423b346866 \
+    -o "$tool_dir/source.tar.gz"
+printf '%s  %s\n' 5e938be5854ec05646743ef998e4ed9fda3a4f345917c930c53a25ed81e77e36 "$tool_dir/source.tar.gz" | sha256sum -c -
+mkdir -p "$tool_dir/source"
+tar -xzf "$tool_dir/source.tar.gz" --strip-components=1 -C "$tool_dir/source"
+python3 - "$tool_dir/source/shared.gradle" <<'PY'
+from pathlib import Path
+import sys
+p=Path(sys.argv[1]);s=p.read_text();before='abiFilters "armeabi-v7a", "arm64-v8a"'
+assert s.count(before)==1
+p.write_text(s.replace(before,'abiFilters "x86_64"'))
+PY
+curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
+    https://downloads.gradle.org/distributions/gradle-8.13-bin.zip -o "$tool_dir/gradle.zip"
+printf '%s  %s\n' 20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78 "$tool_dir/gradle.zip" | sha256sum -c -
+unzip -q "$tool_dir/gradle.zip" -d "$tool_dir"
+(
+    cd "$tool_dir/source"
+    GRADLE_USER_HOME="$tool_dir/gradle-home" "$tool_dir/gradle-8.13/bin/gradle" \
+        --no-daemon --max-workers=2 --console=plain \
+        '-Dorg.gradle.jvmargs=-Xmx1536m -Dfile.encoding=UTF-8' assemblePhoneDebug
+)
+cp "$tool_dir/source/build/outputs/apk/phone/debug/source-phone-debug.apk" "$tool_dir/artifacts/talkback.apk"
+printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; only ARM ABI filters changed to x86_64; unmodified speech logic and dependency versions' \
+    > "$tool_dir/artifacts/source.txt"
+(cd "$tool_dir/artifacts" && sha256sum talkback.apk source.txt > SHA256SUMS)

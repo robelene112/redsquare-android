@@ -36,6 +36,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
     val requests = java.util.concurrent.atomic.AtomicInteger()
+    val connectionAttempts = java.util.concurrent.atomic.AtomicInteger()
     val servedChallenges = java.util.concurrent.atomic.AtomicInteger()
     val clientKeys = java.util.concurrent.CopyOnWriteArrayList<String>()
     val transactions = java.util.concurrent.CopyOnWriteArrayList<ByteArray>()
@@ -71,8 +72,10 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     fun start(port: Int = 0): MockWebServer {
         val server = MockWebServer()
         server.dispatcher = object : mockwebserver3.Dispatcher() {
-            override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse =
-                if (rejectNewConnections) MockResponse.Builder().code(503).build() else response()
+            override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
+                connectionAttempts.incrementAndGet()
+                return if (rejectNewConnections) MockResponse.Builder().code(503).build() else response()
+            }
         }
         server.start(java.net.InetAddress.getByName("127.0.0.1"), port)
         return server
