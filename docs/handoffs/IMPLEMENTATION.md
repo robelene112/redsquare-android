@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20, 14:57 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
+2026-10-20, 15:06 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
 REJECTED and NEVER PUBLISH, with unchanged frozen APKs. Continue 60 through 69
 sequentially after actual #59 completion, without routine owner stops.
 
@@ -74,8 +74,14 @@ Prior actual speech/focus/quiet-poll and normal/zero-motion proof is detailed in
 execution. Android 17 original Search entry recording has a 216ms gap, not intermediate
 entry-frame proof; actual exit and Android 10 entry/exit frames were inspected.
 
-Complete Android 10 run 39437838980 and Android 17 run 39437845708 execute exact c5 on
-verify/status59-c5f0ca7c6. All three jobs/public reads, actual TalkBack/motion,
+Fresh complete Android 10 run39444883643 and Android17run39444888298 execute
+exact dc2a973aa892cdddd4cd65ef47ee31ef36f799ef on verify/status59-dc2a973aa.
+Both prior c5 dispatches finish FAILURE at two group operator steps; their social/
+wallet jobs succeed and final metadata is retained. Both review axes for the
+fixture correction have zero findings. All457 tracked production/build/workflow/
+harness entries outside docs/ and AndroidTest are exactly equal to signed56 c5;
+the evidence retains their shared tree-entry hash. Source39443999774 is SUCCESS.
+Focused group39444228866/39444233530 and private39444893909/39444898087 run dc2. All three jobs/public reads, actual TalkBack/motion,
 protected recovery and stronger reading bookends remain mandatory. Use the
 unchanged strict full-collector.py and frozen caad references in #59 evidence:
 486/487 identities,129/130 normal completions,35 interruptions,34 continuity

@@ -864,3 +864,26 @@ transaction/Relay/replay/candidate/membership/draft/wallet/node assertions remai
 No production source changes.56 stays an unpublished candidate at c5; accepting
 it requires production-input equivalence and fresh complete verification on both
 SDKs at the corrected fixture source. No failed-tail assembly is planned.
+
+## Corrected fixture dc2 complete verification
+
+Both review axes over ffee37276..dc2a973aa report zero remaining findings.
+Production/build/workflow/harness equivalence to frozen signed56 is independently
+checked: all457 tracked entries outside docs/ and app/src/androidTest/ have the
+same Git-entry SHA256, retained in dc2-production-equivalence. The only changed
+executable file is GroupChatPreviewTest. No production fix or APK rebuild occurs.
+Exact-source core/gateway/release/performance/lint39443999774 is SUCCESS.
+
+Fresh complete Android10run39444883643 and Android17run39444888298 execute
+dc2a973aa892cdddd4cd65ef47ee31ef36f799ef on verify/status59-dc2a973aa.
+All three jobs, public reads, actual speech/motion, protected recovery and all
+five reading bookends remain mandatory. Frozen catalogs, collector, assertions
+and deadlines are unchanged. Focused group-ui39444228866/39444233530 and
+private chat-ui39444893909/39444898087 run the same source to expose later
+operator problems early; they cannot replace complete native acceptance.
+
+Both prior c5 complete dispatches finish FAILURE with two group operator errors
+each, while both social and wallet jobs succeed. Their final run/job metadata
+is retained without changing earlier run-at-capture records. Signed56 remains
+prepared/unpublished;50 stays live. Final native success, visual inspection,
+paired review and public bookends are pending. Continue60through69 after59.

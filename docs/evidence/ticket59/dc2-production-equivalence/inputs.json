@@ -1,0 +1,22 @@
+{
+  "checks": "PASS",
+  "excludedPrefixes": [
+    "docs/",
+    "app/src/androidTest/"
+  ],
+  "records": [
+    {
+      "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+      "retainedTrackedEntries": 457,
+      "entriesSha256": "69a8183b2b3d4ff7385670501b2d7a692c8307ab979ca8688710e9521f08a746"
+    },
+    {
+      "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+      "retainedTrackedEntries": 457,
+      "entriesSha256": "69a8183b2b3d4ff7385670501b2d7a692c8307ab979ca8688710e9521f08a746"
+    }
+  ],
+  "changedExecutableFiles": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt"
+  ]
+}

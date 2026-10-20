@@ -88,12 +88,12 @@
     }
   ],
   "executingSources": {
-    "android10": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
-    "android17": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22"
+    "android10": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+    "android17": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef"
   },
   "executingRuns": {
-    "android10": 39437838980,
-    "android17": 39437845708
+    "android10": 39444883643,
+    "android17": 39444888298
   },
   "signedCandidateSource": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
   "toolSource": {
@@ -146,6 +146,13 @@
       "android17": 39434443499,
       "acceptance": "rejected",
       "reason": "Both complete Chat jobs fail the original physical48dp Members goal in queued offline status after reaching its scroll end, identical to3c and the minimized old-source checks. Both wallet and social jobs succeed. Final metadata retained. Signed55 rejected; corrected c5 requires fresh full acceptance."
+    },
+    {
+      "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+      "android10": 39437838980,
+      "android17": 39437845708,
+      "acceptance": "rejected",
+      "reason": "Both complete Chat jobs fail two unchanged GroupChatPreviewTest operator steps: offscreen Unlike and offscreen left-notice native lookup. Both SDK social/wallet jobs succeed. Exact original logs/captures and terminal metadata retained. Test-only visible-scroll correction requires new complete runs, never failed-tail assembly."
     }
   ],
   "verificationRef": "verify/status59-c5f0ca7c6",
@@ -196,5 +203,17 @@
     "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
     "conclusion": "success",
     "url": "https://github.com/robelene112/redsquare-android/actions/runs/39437693370"
+  },
+  "fixtureOnlyEquivalence": {
+    "path": "docs/evidence/ticket59/dc2-production-equivalence/inputs.json",
+    "signedSource": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+    "executingSource": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+    "status": "PASS",
+    "excludedPrefixes": [
+      "docs/",
+      "app/src/androidTest/"
+    ],
+    "equalTrackedEntries": 457,
+    "entriesSha256": "69a8183b2b3d4ff7385670501b2d7a692c8307ab979ca8688710e9521f08a746"
   }
 }
