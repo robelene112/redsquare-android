@@ -16,25 +16,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.ByteArrayOutputStream
 
-/** Read-only startup observations for the intermittent API29 process heap mismatch. */
-internal fun observeChatProcessRuntime(phase:String) {
-    val observation=runCatching {
-        val status=java.io.File("/proc/self/status").readLines()
-            .filter{it.startsWith("Name:")||it.startsWith("Pid:")||it.startsWith("PPid:")}
-            .joinToString("; ")
-        val parent=status.substringAfter("PPid:","").trim().toIntOrNull()
-        val parentName=parent?.let{runCatching{java.io.File("/proc/$it/cmdline").readText()
-            .replace('\u0000',' ').trim()}.getOrDefault("unavailable")}
-        "phase=$phase max=${Runtime.getRuntime().maxMemory()} is64Bit=${android.os.Process.is64Bit()} " +
-            "process=$status parent=$parentName"
-    }.getOrElse{"phase=$phase observationUnavailable=${it.javaClass.simpleName}"}
-    runCatching {
-        InstrumentationRegistry.getInstrumentation().sendStatus(0,android.os.Bundle().apply {
-            putString("stream","\n[DEBUG-59-heap] Chat runtime observation $observation\n")
-        })
-    }
-}
-
 /** Practical image history through the protected cache interface, with no network or UI writes. */
 class ChatImageHistoryStorageTest {
     @Test fun twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts() = exercise(group=false)
@@ -44,7 +25,6 @@ class ChatImageHistoryStorageTest {
     private fun exercise(group:Boolean) {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
-        observeChatProcessRuntime("storage-group-$group")
         val runtime=Runtime.getRuntime()
         val manager=context.getSystemService(android.app.ActivityManager::class.java)
         fun memory(phase:String) = InstrumentationRegistry.getInstrumentation().sendStatus(0,android.os.Bundle().apply {
@@ -53,6 +33,9 @@ class ChatImageHistoryStorageTest {
                 "memoryClass=${manager.memoryClass} largeMemoryClass=${manager.largeMemoryClass} flags=${context.applicationInfo.flags}\n")
         })
         memory("entry")
+        if(Build.VERSION.SDK_INT==29)assertEquals(
+            "The API29 emulator process must use its declared device memory class",
+            manager.memoryClass.toLong()*1024*1024,runtime.maxMemory())
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate().exportJson()
         val backend=AndroidBackendStore(context).load()

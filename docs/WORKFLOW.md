@@ -138,21 +138,13 @@ complete first-release scope and the established production boundaries.
    actual process death and distinct recovery PID, with each shared host phase
    retaining120seconds and independent restoration. Existing process gates keep
    their identities and deadlines. A focused success is not complete acceptance.
-   `chat-image-startup` is an Android10-only diagnostic that runs the unchanged
-   full-Chat prefix through photo storage, then exits before later gates with an
-   explicit diagnostic marker. It retains original class/phase bounds and input
-   fixtures. Tagged read-only process observations diagnose the intermittent
-   16MiB startup mismatch; this scope never establishes complete acceptance.
-   `chat-runtime` further reduces diagnosis to24 process-only native invocations,
-   each bounded30seconds and stopped on the first declared/actual heap mismatch.
-   It reads public emulator startup properties/processes and retains every attempt;
-   its temporary diagnostic class is excluded from full application catalogs.
-   `chat-runtime-restart` is an optional API29 emulator experiment: retain one
-   baseline parity result (success or the exact512MiB-versus16MiB mismatch),
-   restart both zygotes/system_server after declared QEMU heap properties match,
-   verify original PIDs are absent and properties unchanged, then require all24
-   fresh parity invocations to succeed. No app acceptance runs in this scope;
-   no heap property, application assertion or production installation is changed.
+   The disposable API29 image restarts its JVM services after its declared/QEMU
+   heap properties agree and before app installation. Strict original/replacement
+   PID and unchanged-property records retain this initialization. No heap value
+   is overridden. The existing photo-history cases independently require actual
+   JVM heap parity with Android's memory class before exercising their unchanged
+   history/draft payloads. Temporary process-only diagnostic scopes have been
+   removed; their original failed/passing evidence stays recorded under59.
    `chat-photo-process` and its Android17 variant isolate the existing private
    and group queued-photo process protocols. Complete `chat-images` and full
    scopes retain both, along with picker/normalization and image storage checks.

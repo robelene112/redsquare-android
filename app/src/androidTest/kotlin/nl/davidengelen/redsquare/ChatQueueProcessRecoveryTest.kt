@@ -22,7 +22,6 @@ import java.security.MessageDigest
 /** Actual queued process termination and automatic recovery, with device-only encrypted snapshots. */
 class ChatQueueProcessRecoveryTest {
     @get:Rule val ui=createEmptyComposeRule()
-    @org.junit.Before fun observeRuntime() = observeChatProcessRuntime("queue-$kind-photo-$photo")
     private val context get()=InstrumentationRegistry.getInstrumentation().targetContext.also{
         check(it.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
     }
