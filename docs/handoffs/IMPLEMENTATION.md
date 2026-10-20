@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 15:51 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
+2026-10-20 16:00 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
 Versions51 through57 are REJECTED and NEVER PUBLISH; their frozen APKs remain
 unchanged. Continue #60 through #69 sequentially after true #59 completion,
 without routine owner stops. No new owner input is needed.
@@ -44,9 +44,12 @@ without routine owner stops. No new owner input is needed.
 Current production, complete verification and reserved signed58 source is
 `72a8c63828280d61dc760331e17289cf7c93112a`, pinned at
 `verify/status59-72a8c6382`. Complete Android10run39451598613 and
-Android17run39451603260 are active. Signed58 is building in the external review
-worktree. Actual APK inspection, full native success, strict collection, visual
-inspection, final paired review and independent public bookends remain pending.
+Android17run39451603260 are active. Signed58 is prepared and immutable in the external review worktree. Actual
+APK/manifest/DEX inspection and public before-bookend PASS. APK SHA256
+178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes, established certificate, SDK29/36, nondebug/nonprofile,
+backup=false,review=true,push=false,separate GIF keys absent. Full native success,
+strict collection, final paired review and after-bookend remain pending.
 Never rebuild a frozen artifact.
 
 All twelve focused runs at72a are SUCCESS:
@@ -63,7 +66,8 @@ All twelve focused runs at72a are SUCCESS:
 All1,103 original members are retained. Promotion/removal process archives now
 use separate full-archive namespaces after review found four overwritten
 semantics files; all actual paths independently match original sizes/hashes.
-Packet correction review is pending. Both cumulative source review axes and
+Corrected Spec review verifies all1,103 exact original paths and1,295 hashes;
+Standards correction review remains pending. Both cumulative source review axes and
 provenance review have zero remaining findings. Exact72a source/core/gateway/
 release/performance/lint39449757978 is SUCCESS. Root opened both private queue
 preview-end captures, actual48px Members/Cancel targets, and progressive normal

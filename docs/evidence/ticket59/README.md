@@ -1145,3 +1145,27 @@ their expected sizes and hashes and rejects duplicate destinations across archiv
 identities. All pass. No original content is normalized, and no app, test, strict
 collector, frozen catalog or execution source changes. Packet correction review
 is pending; complete72a runs continue independently.
+
+## Prepared signed58
+
+Canonical58 build succeeds at exact72a in4m46s. Actual APK SHA256
+178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes, established certificate
+6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Actual APK manifest/DEX inspection passes: package nl.davidengelen.redsquare,
+SDK29/36, nondebuggable/nonprofileable, automatic backup=false, review=true,
+push=false, separate Posts/Chat GIF keys absent, no TalkBack query in release.
+The prepared packet contains public-safe metadata and inspection records only.
+Never rebuild58. No acceptance is inferred from successful preparation.
+
+Independent public before-bookend passes with ordinary50 still live, immutable
+50/49/45 and the entire performance43 page/metadata/APK protected. Only its
+public-safe check record is retained in Git; downloaded APKs remain external.
+Both complete72a dispatches remain active. Full native success, strict collection,
+final evidence/APK review, visual inspection and after-bookend remain required
+before actual58 publication and59 closure. No physical/provider/Play claim.
+
+The corrected archive packet's independent Spec review verifies all1,103 actual
+retained paths directly against original tar bytes, sizes, hashes and uniqueness,
+with1,295 valid manifest entries. Standards correction review remains pending.
+No executable source changed after72a.

@@ -232,7 +232,7 @@
     "conclusion": "success",
     "url": "https://github.com/robelene112/redsquare-android/actions/runs/39449757978"
   },
-  "signedCandidateState": "reserved-building, not accepted or published",
+  "signedCandidateState": "prepared and immutable, not accepted or published",
   "executingSourceCheck": {
     "run": 39449757978,
     "source": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -283,5 +283,7 @@
         "android17": "docs/evidence/ticket59/superseded-run-cancellation/39448133541-final.json"
       }
     }
-  ]
+  ],
+  "signedCandidateSha256": "178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1",
+  "signedCandidateBytes": 37856651
 }
