@@ -681,12 +681,15 @@ if [[ "${TEST_SCOPE:-full}" == queue* ]]; then
 fi
 verify_repeat_likes() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local repeat_exit=0
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.RepeatLikePreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/repeat-like-ui.txt" || true
+        > "$evidence/repeat-like-ui.txt" || repeat_exit=$?
+    printf '%s\n' "$repeat_exit" > "$evidence/repeat-like-ui-exit.txt"
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - repeat-like-evidence \
         > "$evidence/repeat-like-evidence.tar" || true
+    [[ "$repeat_exit" == 0 ]]
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/repeat-like-ui.txt"
 }
 if [[ "${TEST_SCOPE:-full}" == social-repeat* ]]; then
