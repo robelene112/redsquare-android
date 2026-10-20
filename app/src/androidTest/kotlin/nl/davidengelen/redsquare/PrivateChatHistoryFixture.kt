@@ -740,6 +740,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onAllNodesWithText(initialCount).assertCountEquals(0)
                             ui.onAllNodesWithText("Unlike").assertCountEquals(0)
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
+                            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-unlike-recreated.png"), text)
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
