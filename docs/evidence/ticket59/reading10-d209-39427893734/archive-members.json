@@ -1,0 +1,37 @@
+{
+  "run": 39427893734,
+  "source": "d209ea550015eb1568d0065177816876f85ef2e6",
+  "archiveSha256": "e0880e7509d729dfe666f16b1c5a8023138cdeeeae978038a213698ec7eeafa8",
+  "members": [
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.xml",
+      "bytes": 55753,
+      "sha256": "4644efbd77895c5c720478c560b4704a2b05af5d9bc6e965e3b5c5bc50a8d712"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.png",
+      "bytes": 51220,
+      "sha256": "b50b31823f078432ae6e329af08654a5850841bad6d6bd155ad18c15d01806ba"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.xml",
+      "bytes": 55753,
+      "sha256": "bd803b911506c0b0dbbc14a281fb0afbeba859fe48bc0010e0fe7d4c6adb65a3"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.png",
+      "bytes": 51271,
+      "sha256": "dd828dc98c25a5627ae9d66776aca57d86f19978779fc91a210245e96526d491"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.xml",
+      "bytes": 55755,
+      "sha256": "2503ba95806e1c74192980bf8b830fc550f3051dcb91b31bf7ce04ef3bf01c9a"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.png",
+      "bytes": 51171,
+      "sha256": "1e72215f01a65ace8c2a20915f4a794d308ab3271981e1fb0f4e89687a3ce012"
+    }
+  ]
+}

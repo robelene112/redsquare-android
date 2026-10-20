@@ -1,0 +1,37 @@
+{
+  "run": 39427898191,
+  "source": "d209ea550015eb1568d0065177816876f85ef2e6",
+  "archiveSha256": "0687409c14ad9d86e328d2ffec847b9f54132ad91fed76d2b15bab6ce69d97c3",
+  "members": [
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.xml",
+      "bytes": 58948,
+      "sha256": "cceca2c1883cb701d151608385c727af3eddb28510d9036b0bc279efe1cc6898"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.png",
+      "bytes": 52282,
+      "sha256": "7e81196bfb0a7a66eaf68da899ad911555cfec95525c1d253e46541e023cedee"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.xml",
+      "bytes": 58947,
+      "sha256": "2687cf74524361cc79a92f54200527b0c957050192f37d5fdd7dee9fd1ee6add"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.png",
+      "bytes": 52278,
+      "sha256": "219e3f3386af415f107b2657284af77902c2a5f900ebe9d28919f6c46696ec76"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.xml",
+      "bytes": 58949,
+      "sha256": "cf4e4f7fcce045f33a924f666abc10ac958e13ec4c7298825b18282b69aabc96"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.png",
+      "bytes": 52172,
+      "sha256": "0df223e6199c11104e8e77d34843fbc146764c3b2b8e7e0ccdcee06b8c5f92b1"
+    }
+  ]
+}

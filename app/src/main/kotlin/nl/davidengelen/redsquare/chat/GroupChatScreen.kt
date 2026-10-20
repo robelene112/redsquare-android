@@ -352,8 +352,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         Column(Modifier.heightIn(max=statusMaxHeight).verticalScroll(rememberScrollState())
             .semantics{contentDescription=statusLabel},
             verticalArrangement=Arrangement.spacedBy(4.dp)) {
-            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
-                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
             InlineStatus(if (hintsFailed) stringResource(R.string.group_hints_error) else null, StatusTone.WARNING)
             PersonalControlsStatus(personal)
             InlineStatus(if (readFailed || draftFailed) stringResource(R.string.group_error) else null, StatusTone.ERROR)
@@ -362,6 +360,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             InlineStatus(if (historyFailed) stringResource(R.string.group_history_error) else null, StatusTone.WARNING)
             InlineStatus(if (liveFailed) stringResource(R.string.group_live_error) else null, StatusTone.WARNING)
             if(entry!=null) {
+                InlineStatus(if (entry.queuedMessage==null) stringResource(when(entry.status) {
+                    GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
+                    GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
+                    GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
+                    GroupChatStore.Status.STOPPED -> R.string.group_stopped
+                    GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
+                    GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
+                }) else null, if (entry.status == GroupChatStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
                 if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                     style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                 if (!keyboardVisible) FlowRow {
@@ -371,14 +377,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
                     }
                 }
-                InlineStatus(if (entry.queuedMessage==null) stringResource(when(entry.status) {
-                    GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
-                    GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
-                    GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
-                    GroupChatStore.Status.STOPPED -> R.string.group_stopped
-                    GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
-                    GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
-                }) else null, if (entry.status == GroupChatStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
+
                 val staleAction=store.isStaleAdminAction(entry)
                 if(staleAction) {
                     Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
@@ -404,6 +403,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     Text(stringResource(R.string.chat_load_older))
                 }
             }
+            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
         }
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
