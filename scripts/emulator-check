@@ -712,6 +712,11 @@ verify_repeat_likes() {
     verify_like_isolation
 }
 
+if [[ "${TEST_SCOPE:-full}" == social-repeat-process* ]]; then
+    python3 "$repo_dir/scripts/social-process-check" --repeat --evidence "$evidence/repeat-social-process"
+    printf '%s\n' 'Focused repeat-like process recovery only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == social-repeat* ]]; then
     verify_repeat_likes
     printf '%s\n' 'Focused repeat-like check only; full acceptance not run.' > "$evidence/scope.txt"
@@ -746,6 +751,7 @@ verify_social() {
     verify_repeat_likes
     verify_like_wallet_import
     python3 "$repo_dir/scripts/social-process-check" --evidence "$evidence/social-process"
+    python3 "$repo_dir/scripts/social-process-check" --repeat --evidence "$evidence/repeat-social-process"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.SocialPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \

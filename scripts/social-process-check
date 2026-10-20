@@ -8,10 +8,14 @@ import subprocess
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--evidence", type=Path, required=True)
+parser.add_argument("--repeat", action="store_true", help="Recover the uncertain second deliberate like")
 args = parser.parse_args()
 package = "nl.davidengelen.redsquare.dev"
 runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
-test_class = "nl.davidengelen.redsquare.SocialProcessRecoveryTest"
+test_class = "nl.davidengelen.redsquare." + ("RepeatLikeProcessRecoveryTest" if args.repeat else "SocialProcessRecoveryTest")
+prepare_method = "terminateAfterASettledThenUncertainSecondLike" if args.repeat else "terminateAfterAnUncertainLike"
+recover_method = "coldStartupReconcilesSecondLikeWithoutCreatingThird" if args.repeat else "coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting"
+evidence_folder = "repeat-social-process-evidence" if args.repeat else "social-process-evidence"
 
 
 def adb(*arguments, check=True, timeout=60):
@@ -22,11 +26,11 @@ def adb(*arguments, check=True, timeout=60):
 if not adb("get-serialno").stdout.strip().startswith("emulator-"):
     raise SystemExit("This process check requires an isolated emulator")
 args.evidence.mkdir(parents=True, exist_ok=True)
-state_path = "cache/social-process-checkpoint.json"
+state_path = "cache/" + ("repeat-social-process-checkpoint.json" if args.repeat else "social-process-checkpoint.json")
 adb("shell", "run-as", package, "rm", "-f", state_path)
 try:
     prepared = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
-                   test_class + "#terminateAfterAnUncertainLike", runner,
+                   test_class + "#" + prepare_method, runner,
                    check=False, timeout=120)
     (args.evidence / "interrupted-instrumentation.txt").write_text(prepared.stdout)
     if "FAILURES!!!" in prepared.stdout:
@@ -36,19 +40,29 @@ try:
         raise AssertionError("Public social action checkpoint identity is invalid")
     if not re.fullmatch(r"[0-9a-f]{128}", row["sig"]):
         raise AssertionError("Public social action checkpoint signature is invalid")
+    if args.repeat and (not re.fullmatch(r"[0-9a-f]{128}", row["previousSig"]) or row["previousSig"] == row["sig"]):
+        raise AssertionError("Repeat preparation must retain two distinct actual originals")
     if str(row["pid"]) in adb("shell", "pidof", package, check=False).stdout.split():
         raise AssertionError("Social action process was not actually terminated")
     adb("shell", "am", "force-stop", package)
     recovered = adb("shell", "am", "instrument", "-w", "-r", "-e", "class",
-                    test_class + "#coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting", runner,
+                    test_class + "#" + recover_method, runner,
                     timeout=120)
     (args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
     if "OK (1 test)" not in recovered.stdout:
         raise AssertionError("Cold social action reconciliation did not pass")
     with (args.evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
         subprocess.run(["adb", "exec-out", "run-as", package, "cat",
-                        "cache/social-process-evidence/reconciled-without-rebroadcast.png"],
+                        "cache/" + evidence_folder + "/reconciled-without-rebroadcast.png"],
                        stdout=output, check=True, timeout=60)
+    if args.repeat:
+        recovered_pid = int(adb("exec-out", "run-as", package, "cat",
+                                "cache/" + evidence_folder + "/recovery-pid.txt").stdout.strip())
+        if recovered_pid <= 0 or recovered_pid == row["pid"]:
+            raise AssertionError("Repeat reconciliation must run in a distinct actual process")
+        (args.evidence / "process-identities.json").write_text(json.dumps({
+            "interruptedPid": row["pid"], "recoveredPid": recovered_pid,
+            "previousSig": row["previousSig"], "reconciledSig": row["sig"]}, indent=2) + "\n")
     (args.evidence / "continuity.txt").write_text(
         "PASS: process death after uncertain send; cold app startup retains the original "
         "signed candidate, checks exact verified availability, and does not rebroadcast.\n"
@@ -59,7 +73,7 @@ finally:
     try:
         with (args.evidence / "images.tar").open("wb") as output:
             capture = subprocess.run(["adb", "exec-out", "run-as", package, "tar", "-C", "cache",
-                                      "-cf", "-", "social-process-evidence"], stdout=output,
+                                      "-cf", "-", evidence_folder], stdout=output,
                                      stderr=subprocess.PIPE, timeout=10)
         (args.evidence / "capture-status.txt").write_text(str(capture.returncode) + "\n" +
                                                         capture.stderr.decode("utf-8", errors="replace"))
