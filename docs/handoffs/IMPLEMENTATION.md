@@ -36,45 +36,62 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 16:34 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
-Versions51 through57 are REJECTED and NEVER PUBLISH; their frozen APKs remain
-unchanged. Continue #60 through #69, then bounded rendered follow-up #70, after true #59 completion,
-without routine owner stops. No new owner input is needed.
+2026-10-20 16:44 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
+Finish59, then60through69 and bounded rendered navigation follow-up70 sequentially,
+without routine owner stops.70 is linked to55/blocked by59 and queued after69.
+No new owner input is needed. Physical/provider/KVK/store prerequisites remain parked.
 
-Current production, complete verification and reserved signed58 source is
-`72a8c63828280d61dc760331e17289cf7c93112a`, pinned at
-`verify/status59-72a8c6382`. Complete Android10run39455628348 and
-Android17run39451603260 targets the same source.17 is now complete SUCCESS,
-strict collector487/487,130 normal completions,35 interruptions,34 continuity,
-92 archives,0 assumptions and no unexpected gaps.10 replacement remains active.
-Actual17 TalkBackPID14123/utterances4and6 and normal/zero motion originals are
-validated and root-inspected. Both-SDK acceptance and publication remain pending. Signed58 is prepared and immutable in the external review worktree. Actual
-APK/manifest/DEX inspection and public before-bookend PASS. APK SHA256
-178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
-37,856,651bytes, established certificate, SDK29/36, nondebug/nonprofile,
-backup=false,review=true,push=false,separate GIF keys absent. Full native success,
-strict collection, final paired review and after-bookend remain pending.
-Never rebuild a frozen artifact.
+Production, signed58 and accepted complete17 source:
+`72a8c63828280d61dc760331e17289cf7c93112a` at verify/status59-72a8c6382.
+Complete17run39451603260 all3 SUCCESS. Strict unchanged collector passes487/487,
+130 normal completions,35 deliberate interruptions,34 continuity,92 archives and
+0 assumptions, with only exact53 observer gaps. Actual bound TalkBackPID14123,
+utterances4/6 real AUDIO/DONE once, unchanged focus and settings; real window1/0
+motion/font200Dark/130Light and all five1px reading bookends pass/root-inspected.
+Both scoped17/photo-route review axes at2fb108ee4 report0, all639+111 hashes and
+2,526 full archive members/82 focused originals independently byte-bound.
+This accepts one SDK, not global publication or app-wide/physical readiness.
 
-Earlier complete10run39451598613 Chat failed both photo-history cases with an
-actual16MiB process limit, matching a retained unexplained ticket32 symptom.
-Device properties still report512m; unchanged successful ticket53 reports actual
-512MiB. Exact original failure logs/properties/AVD state remain retained. No
-heap/input/assertion/deadline/source change. Separate unchanged storage checks
-39455476639/39455481021 both SUCCESS on10/17:2cases67.755/78.878seconds,
-actual max512MiB/192MiB. All original counts/recovery assertions unchanged.
-Their success does not prove the earlier16MiB cause or fill failed full gates.
-Unchanged whole-photo10run39456809459 also SUCCESS:10 UI/two actual process
-protocols/two storage cases,512MiB with the same app flags as failed full.82
-original members retained; broader full cause still unproved.
-Both bounded original-failure and28-hash storage packet review axes report zero
-findings. Very-large-text full17 originals show residual shared navigation word
-breaks (Hom/e,Searc/h); #70 tracks the bounded follow-up under55, after69 and
-before final UI acceptance. It is natively linked to55 and blocked by59. Replacement full10 uses the same72a ref;
-Workflow concurrency cancelled the old social job. That run is terminal CANCELLED,
-with Chat FAILURE/wallet SUCCESS and final metadata retained. New full10 must independently
-pass every goal. Old wallet successes cannot fill it. Signed58 remains prepared,
-immutable and unpublished. Cause and complete acceptance are still pending.
+Signed58 is immutable/prepared/unpublished in the external review worktree,
+SHA256178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes, established cert, SDK29/36, nondebug/nonprofile/backup=false,
+review=true/push=false/separate GIF keys absent. Actual manifest/DEX and protected
+public before-bookend pass; both preparation reviews0. Never rebuild58.
+
+Complete10first72a run39451598613 Chat fails both unchanged photo-history cases
+at actual16MiB despite device512m. Root cause unknown, matching old32 symptom.
+Exact failure logs/properties/AVD+terminalmetadata retained. Same-ref replacement
+concurrency cancelled oldsocial: overallCANCELLED,ChatFAILURE,walletSUCCESS.
+Unchanged storage10/17 39455476639/39455481021 both SUCCESS,2cases67.755/78.878s,
+actual max512/192MiB. Wholephoto10 39456809459 SUCCESS:10UI89.851s,two actual
+private/group process protocols,two storage83.654s,512MiB with same appflags as
+failedfull.82 originals retained; narrower sequence doesnot establish broad cause.
+Both failure/storage/wholephoto packet reviews0. No heap/source/data/budget change.
+
+Second complete10run39455628348 social FAILS Search case8 line278,8otherspass
+52.830s. WalletSUCCESS; Chat still running, retain its actual terminal result.
+All30 original members/goal log retained. RootPNG/XMLshows priorverifiedperson,
+no fresh-error summary and enabled action when captured; no proof tap/request.
+Search remount source begins cacheReady=false; old fixture taps before waiting.
+Corrected test-only source `d567b00849dc8ac84989610195331e50fd772068`, pinned
+verify/status59-search-d567b0084, positively waits for displayed/enabled clickable
+Search action before that tap/capture and exact original displayed error after.
+All9 identities,20s goals,180s class and all qualification/absence/key/wallet/node/
+zeroTX assertions remain. Spec correction review0; Standards pending.
+Focused Search10run39459680040/17run39459685383 active. Source check39459628860
+active. Exact production-equivalence inventories prove457 unchanged tracked
+entries outside docs/AndroidTest, including build/workflow/harness/signing inputs,
+from72a to d567. Only SearchPreviewTest differs.58 remains exact72a.
+
+Fresh entire10 at d567 has not been dispatched; wait for focused/review results.
+Config10 run is intentionally null and cannot pass strict collection. Complete17
+at72a can remain only with exact production equivalence and corrected full10
+acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
+new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,
+public reads, real speech/motion/recovery/five reading bookends remain mandatory.
+After actual complete10 success: strict collect, inspect originals, paired final
+review, publish immutable58 with canonical script, independent after-bookend,
+public safe packet/final review/close59, then immediately60–70. Never stop at59.
 
 All twelve earlier focused runs at72a are SUCCESS:
 

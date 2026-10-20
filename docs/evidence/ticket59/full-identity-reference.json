@@ -88,11 +88,11 @@
     }
   ],
   "executingSources": {
-    "android10": "72a8c63828280d61dc760331e17289cf7c93112a",
+    "android10": "d567b00849dc8ac84989610195331e50fd772068",
     "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
   },
   "executingRuns": {
-    "android10": 39455628348,
+    "android10": null,
     "android17": 39451603260
   },
   "signedCandidateSource": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -173,6 +173,12 @@
       "android10": 39451598613,
       "acceptance": "rejected",
       "reason": "Chat job fails both unchanged photo-history storage cases at actual16MiB process limit, while device reports512m and unchanged prior baseline records512MiB. Cause unproven. Wallet succeeds. Same-source fresh full10 dispatch replaces this attempt via configured workflow concurrency; remaining old social job may be cancelled. Full final job states retained separately. No supplemental or failed-tail assembly."
+    },
+    {
+      "source": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "android10": 39455628348,
+      "acceptance": "rejected",
+      "reason": "Social job fails SearchPreviewTest cached-name fresh-check visible error assertion after returning from Profile. Wallet succeeds, Chat finishes separately. Original30members/goal log/capture metadata retained; capture doesnot prove tap/request cause. No failed-tail or focused assembly."
     }
   ],
   "verificationRef": "verify/status59-72a8c6382",
@@ -260,7 +266,7 @@
     "conclusion": "success",
     "acceptance": "source/core/gateway/release/performance/lint only; complete native acceptance pending"
   },
-  "executingState": "Android17 complete SUCCESS and strict487/130/35/34/92 checks pass; Android10 replacement active. Complete both-SDK acceptance and publication still pending.",
+  "executingState": "Android17 complete72a SUCCESS and strict487/130/35/34/92 checks pass. Second complete10 social fails; corrected fixture d567 focused runs pending, fresh entire10 not dispatched. Null10 run is intentionally ineligible for collection.",
   "fixtureEquivalenceHistory": [
     {
       "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",
@@ -273,6 +279,17 @@
       ],
       "equalTrackedEntries": 457,
       "entriesSha256": "de174f5af823fc6e9aa7edcd0ff1ce1b0feea5f2ef4e98bfb02c2f1f9b413e0d"
+    },
+    {
+      "productionSource": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "executingSource": "d567b00849dc8ac84989610195331e50fd772068",
+      "path": "docs/evidence/ticket59/search-fixture-production-equivalence/inputs.json",
+      "equalProductionEntries": 457,
+      "onlyNonDocsDifference": [
+        "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPreviewTest.kt"
+      ],
+      "completeAndroid17Run": 39451603260,
+      "signedVersion": 58
     }
   ],
   "currentProductionSource": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -305,5 +322,9 @@
     }
   ],
   "signedCandidateSha256": "178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1",
-  "signedCandidateBytes": 37856651
+  "signedCandidateBytes": 37856651,
+  "verificationRefs": {
+    "android10": "verify/status59-search-d567b0084",
+    "android17": "verify/status59-72a8c6382"
+  }
 }
