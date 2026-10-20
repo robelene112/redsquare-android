@@ -297,7 +297,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
 
     val keyboardVisible = WindowInsets.isImeVisible
     BoxWithConstraints(modifier.fillMaxSize()) {
-    val statusMaxHeight = maxHeight / 4
+    val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() }) {
@@ -326,14 +326,14 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     if (reactions.saved.status == ChatReactionStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
                 InlineStatus(if (reactions.failed && !reactionHistoryFailed) stringResource(R.string.chat_reaction_error) else null, StatusTone.ERROR)
             }
-            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
-                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
             PersonalControlsStatus(personal)
             InlineStatus(if (contactsFailed || failed) stringResource(R.string.chat_load_error) else null, StatusTone.ERROR)
             InlineStatus(if (cacheFailed) stringResource(R.string.chat_cache_error) else null, StatusTone.WARNING)
             InlineStatus(if (groupReceiveFailed) stringResource(R.string.chat_group_receive_error) else null, StatusTone.WARNING)
             InlineStatus(if (reactionHistoryFailed) stringResource(R.string.chat_reaction_cache_error) else null, StatusTone.WARNING)
             InlineStatus(if (incomplete) stringResource(R.string.chat_incomplete) else null, StatusTone.WARNING)
+            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
         }
         val contact = counterparty
         if (contact == null) {

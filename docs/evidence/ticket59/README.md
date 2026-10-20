@@ -906,3 +906,42 @@ A fresh same-source focused17run39445406794 repeats the unchanged command to
 observe completion. Full10/17 continue independently. No deadline, action,
 assertion or production change is made; neither attempt can replace full proof.
 Paired provenance correction reviews through a19ce4079 report0 residual findings.
+
+## Private status viewport regression,56 rejected
+
+Early complete private UI10run39444893909 and17run39444898087 bothFAIL
+at the original15second cached-message wait in the key-only restoration case.
+Both native failure XMLs show Chat status114px and Private messages42px
+([16,298][304,340]), below the existing48dp readable-history guard. Root opened
+the17 PNG. The original goal checks height before scrolling, so it does not
+establish missing cache/decryption data. Ranked explanations are: (1) observed
+status-height pressure prevents history readiness; (2) a separately absent lazy
+node explains10's older-cache operator failure; (3) actual missing retained
+history remains a fallback if corrected viewport/real scrolling still fails.
+
+The10 suite finishes24methods/2failures;17finishes24/1failure.10's additional
+older-history case fails at894 because the cached older body is not currently
+composed after scrolling another message into view. Existing real named-list
+wait/scroll is now used before the same displayed/body/identity/node/zero-send
+assertions. Original15second/180second bounds are unchanged.
+
+Private status is now capped at the smaller of80dp and one quarter of available
+height, matching the proven compact group limit while keeping all guidance
+scrollable. Routine Available history moves after actual failures/warnings so
+recovery remains immediately accessible. No controls, candidate, draft, cache,
+privacy or delivery semantics change. All original native assertions remain.
+Corrected runtime is pending; focused private-history viewport and complete
+private UI/actions/process checks will exercise both SDKs before a fresh full
+dispatch. These are existing approved native/controlled-peer/recovery seams.
+
+Signed56 is now REJECTED and NEVER PUBLISH, unchanged at its originalc5 source/
+SHA. An explicit external marker and prepared-packet rejection are retained.
+51through56 are rejected; ordinary50 remains live. Do not reserve/build57 until
+the corrected focused private integration is exercised. Currentdc2 full runs
+continue as superseded observations; they cannot accept changed production.
+
+Corrected group10run39444228866 is SUCCESS: GroupActions1, mixed1, group22
+(150.474s within180) and actual group process continuity PASS. All114 original
+members from4 archives and complete logs are retained. Root opened visible
+Unlike and left-reopened originals. Exact candidate/raw/replay/membership/
+draft/wallet/node assertions are unchanged.17 repeat39445406794 is pending.

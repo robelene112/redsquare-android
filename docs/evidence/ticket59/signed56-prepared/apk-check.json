@@ -18,5 +18,8 @@
   "targetSdk": 36,
   "testToolQueryInRelease": false,
   "published": false,
-  "physicalDeviceAcceptance": false
+  "physicalDeviceAcceptance": false,
+  "superseded": true,
+  "neverPublish": true,
+  "rejectionReason": "Both exactdc2 focused private UI runs fail the unchanged48dp readable-history goal after recreation. Original native XML on both SDKs shows Private messages [16,298][304,340], only42px, beside114px status. Correcting private status requires changed production and a fresh signed candidate;56 is rejected and never publishable."
 }

@@ -36,21 +36,32 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20, 15:05 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
-REJECTED and NEVER PUBLISH, with unchanged frozen APKs. Continue 60 through 69
-sequentially after actual #59 completion, without routine owner stops.
+2026-10-20, 15:13 UTC. #59 remains OPEN;50 is LIVE.51through56 are
+REJECTED and NEVER PUBLISH. Continue60through69 sequentially after true59
+completion, without routine owner stops. No new owner input is required.
 
-Production source is c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22. Both full
-c5 Chat jobs now fail two GroupChatPreviewTest operator steps: offscreen Unlike
-following added reaction count, and native left-notice lookup below status scroll.
-The leave protocol assertions pass before its native lookup fails at line12;
-this is not a screenshot-write failure. Each packet retains84 original members.
-A test-only correction uses the existing real history/status scroll helpers,
-positive visibility and unchanged1/1 pre-click counts/candidate. All original
-assertions/deadlines/identities remain. No production changes;56 remains an
-unpublished candidate, requiring proved production-input equivalence and fresh
-complete verification on both SDKs at the corrected fixture source. No failed-tail
-assembly. See latest59 README section before resuming.
+Latest early private dc2 runs39444893909/39444898087 reproduce a production
+viewport defect on both SDKs: Private messages42px versus the unchanged48dp
+guard, beside114px status.10also has a separate lazy cached-body operator
+failure; it finishes24/2failures,17finishes24/1failure. Root opened17original.
+Private status now uses min(80dp,maxHeight/4), keeping all guidance scrollable;
+actual failures/warnings precede routine Available history. Existing named-list
+wait/scroll now reaches the separately offscreen cached older body. All original
+assertions/deadlines/identities remain. Corrected native execution is pending.
+Read the latest59 README section; no newer signed candidate is reserved yet.
+
+Signed56 is rejected because production changes after its c5 source. Its APK
+remains immutable. Both dc2 complete runs39444883643/39444888298 continue
+as superseded observations, not acceptance for changed production. The dc2
+source check39443999774 is SUCCESS; equivalence to56 was independently
+reviewed before this later production defect was found. Both provenance reviews
+througha19ce4079 have0 residual findings.
+
+Group10focused39444228866 atdc2 passes all1+1+22 methods and actual process
+continuity,114 original members from4archives retained. Root opened visible
+Unlike and left-reopened.17focused39444233530 timed out after complete business/
+cleanup phases but no instrumentation result; it remainsFAILURE. Same-source
+repeat39445406794 is pending. No timeout or acceptance assertion is relaxed.
 
  Shared nullable
 InlineStatus hosts retain entry/reversal/exit and remove inactive layout slots.
@@ -97,6 +108,9 @@ Native full acceptance, final review and publication remain pending. The
 publication 56 helper expects this exact source/artifact and protects immutable
 50/49/45 plus the whole performance 43 channel. Physical/provider/Play acceptance
 remains parked, not waived.
+
+Historical candidate56 preparation above is superseded by its explicit rejection
+in the current checkpoint. Never publish56.
 
 All failed/superseded runs retain actual conclusions. Final 3c and 4ae dispatches
 fail the queued Members 48dp goal on both SDKs; their social/wallet jobs pass.
