@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.test.platform.app.InstrumentationRegistry
 
 /** Tap the uniquely named post control itself, rather than an offscreen semantic node. */
 internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
@@ -9,6 +11,21 @@ internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
         onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     onNode(hasScrollAction()).performScrollToNode(hasText(text))
+    val composer = onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes()
+        .singleOrNull()?.touchBoundsInRoot
+    if (composer != null) {
+        val target = onNodeWithText(text).fetchSemanticsNode().touchBoundsInRoot
+        if (target.overlaps(composer)) {
+            val clearance = 8 * InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
+            onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                check(scroll(0f, target.bottom - composer.top + clearance))
+            }
+            waitForIdle()
+            check(!onNodeWithText(text).fetchSemanticsNode().touchBoundsInRoot.overlaps(composer)) {
+                "Post control remains obscured by the floating composer"
+            }
+        }
+    }
     onNodeWithText(text).assertIsDisplayed().assertIsEnabled().performClick()
 }
 

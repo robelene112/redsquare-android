@@ -75,9 +75,10 @@ class ImagePostingTest {
             }
             Intents.init()
             try {
-                Intents.intending(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
+                val pickerIntent = anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
                     hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
-                    hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
+                    hasAction("com.google.android.gms.provider.action.PICK_IMAGES"))
+                Intents.intending(pickerIntent)
                     .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, result))
                 val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
                     val candidate = postingTransaction(frame)
@@ -146,6 +147,7 @@ class ImagePostingTest {
                                         }.toString())
                                     capture("quote-before-tap.png")
                                     ui.clickVisiblePostContent("Quote")
+                                    ui.waitUntil(10_000) { ui.onNodeWithText("Quote post").isDisplayed() }
                                 }
                             }
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -153,9 +155,9 @@ class ImagePostingTest {
                                 androidx.compose.ui.semantics.SemanticsProperties.EditableText, androidx.compose.ui.text.AnnotatedString("")))
                             else ui.onNode(hasSetTextAction()).performTextReplacement(text)
                             ui.clickImagePicker()
-                            Intents.intended(anyOf(hasAction(Intent.ACTION_OPEN_DOCUMENT), hasAction(Intent.ACTION_GET_CONTENT),
-                                hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
-                                hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
+                            // Real launch follows asynchronous durable draft persistence.
+                            ui.waitUntil(10_000) { Intents.getIntents().any(pickerIntent::matches) }
+                            Intents.intended(pickerIntent)
                             // Quoted original has its own gallery; wait for the preparation control to settle.
                             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             assertTrue(peer.transactions.isEmpty())

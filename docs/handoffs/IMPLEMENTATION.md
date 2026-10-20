@@ -678,3 +678,26 @@ bound an expected exact account. Separate full-key reachability proof remains.
 Both bounded source reviews0; local app/test Kotlin compile succeeds1m46s.
 Native acceptance remains pending. Quote-only diagnostic28d4 runs39517459457/39517462062
 are underway; the immediate original picker intent assertion remains unchanged.
+
+Both replacement ce complete runs now terminate CANCELLED, social/wallet FAILED,
+Chat cancelled explicitly after the two established failures. Four actual-outcome
+packets retain23archives479 originals per social and22archives286/287 per wallet.
+Raw Chat partitions also remain externally. Missing later gates are unaccepted.
+
+Focused image diagnostic10 run39517459457 and17 run39517462062 at28d4 terminate
+FAILURE with exactly the quote method failing; image-only passes both this time.
+Root viewed both quote-before-tap PNGs and exact matching bounds: Quote232,507,304,555
+overlaps floating composer248,483,304,539. These are pre-helper observations, not
+an atomic hit-test trace. Existing helper scrolls again before clicking. Actual
+New post route after that click is proven separately. Preparation5/lifecycle7
+and both actual image process protocols pass, not complete acceptance.
+
+Fixture-only correction scrolls an obscured post control above the actual FAB,
+checks residual overlap and retains the physical click. Quote test positively
+requires Quote post before attaching/sending. Image picker keeps the exact
+intended-intent assertion and adds a bounded10second positive observation for
+its real launch after asynchronous durable persistence. Exact images/quote/
+recipients/cleanup and180second class bound remain. Both source reviews0;
+local app/test Kotlin compile succeeds1m46s. Corrected native image proof pending.
+Public-feed correction10 run39517873786 at48fc completes SUCCESS;17 still pending.
+Full60/reviews/publication59 remain required; prepared59 held, public58 unchanged.
