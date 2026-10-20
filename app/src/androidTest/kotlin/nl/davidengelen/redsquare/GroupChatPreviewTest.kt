@@ -539,6 +539,8 @@ class GroupChatPreviewTest {
                             check(departure.recipients==listOf(group.id,fixture.publicKey))
                             check(GroupChat.applyControl(group,originalLeave).memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
                             ui.onNodeWithText("Invite").assertDoesNotExist()
+                            ui.waitForGroupStatus("You have left this group.")
+                            ui.onNodeWithText("You have left this group.").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left.png"),"You have left this group.")
                         }
                         scenario.recreate()
@@ -555,6 +557,8 @@ class GroupChatPreviewTest {
                             check(restored.group.controls.last()==originalLeave)
                             check(requireNotNull(restored.candidate).envelope()==originalLeave)
                             check(restored.group.memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
+                            ui.waitForGroupStatus("You have left this group.")
+                            ui.onNodeWithText("You have left this group.").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left-reopened.png"),"You have left this group.")
                         }
                         val expected=if(leaving)2 else 1
@@ -804,7 +808,12 @@ class GroupChatPreviewTest {
                             deliver(first) // An echoed original must not toggle its own like a second time.
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reaction-liked.png"),"1 like")
-                            ui.onNodeWithText("Unlike").assertIsEnabled().performClick()
+                            waitForGroupMessage("Unlike")
+                            ui.onNodeWithText("Unlike").assertIsDisplayed().assertIsEnabled()
+                            captureGroupViewport("reaction-unlike-ready")
+                            check(peer.transactions.size==1&&peer.relayedMessages.size==1)
+                            check(saved().candidate?.envelope()==first.envelope())
+                            ui.onNodeWithText("Unlike").assertIsDisplayed().assertIsEnabled().performClick()
                             ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
                             ui.onNodeWithText("1 like").assertDoesNotExist()
                             val second=requireNotNull(saved().candidate)

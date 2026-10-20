@@ -36,11 +36,23 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20, 14:37 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
+2026-10-20, 14:57 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
 REJECTED and NEVER PUBLISH, with unchanged frozen APKs. Continue 60 through 69
 sequentially after actual #59 completion, without routine owner stops.
 
-Final source is c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22. Shared nullable
+Production source is c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22. Both full
+c5 Chat jobs now fail two GroupChatPreviewTest operator steps: offscreen Unlike
+following added reaction count, and native left-notice lookup below status scroll.
+The leave protocol assertions pass before its native lookup fails at line12;
+this is not a screenshot-write failure. Each packet retains84 original members.
+A test-only correction uses the existing real history/status scroll helpers,
+positive visibility and unchanged1/1 pre-click counts/candidate. All original
+assertions/deadlines/identities remain. No production changes;56 remains an
+unpublished candidate, requiring proved production-input equivalence and fresh
+complete verification on both SDKs at the corrected fixture source. No failed-tail
+assembly. See latest59 README section before resuming.
+
+ Shared nullable
 InlineStatus hosts retain entry/reversal/exit and remove inactive layout slots.
 Full guidance stays accessible. Feed reading saves the parent-relative header
 baseline and unapplied correction with its list offset; cached restoration waits

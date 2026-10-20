@@ -838,3 +838,29 @@ Spec, documented Standards or heuristic findings. The owned4ae verification
 ref was removed after exact remote-head and all-four-runs-completed checks.
 The activec5 verification ref remains. Current full native acceptance and
 publication are still pending.
+
+## Full c5 group operator failures, test-only correction
+
+Both complete Chat jobs fail two of the existing 22 GroupChatPreviewTest
+methods. The reaction case waits for Like after tapping an offscreen Unlike;
+the retained native liked/failure captures show 1 like but no visible Unlike.
+The history viewport is 109 pixels high, so the existing real history-scroll
+helper can reveal the complete action. A missed tap is a source-supported
+explanation; no old post-tap transport counts were retained to exclude every
+transport alternative.
+
+The leave case completes all existing raw/Relay, exact departure, membership and
+Invite-removal checks, then fails NativeScreenEvidence.kt:12, the native expected-
+text lookup. It is not a screenshot-write failure. The left-membership notice
+exists in Compose but is outside the bounded status viewport. Both failed goal
+packets retain all84 original members per SDK and their actual goal logs.
+
+Only test operation changes: use existing real history scrolling before Unlike,
+assert it is displayed/enabled, capture the visible pre-click state, and require
+the original1/1 raw counts/candidate still unchanged immediately before clicking.
+Use existing status scrolling and a displayed assertion before both left-notice
+captures. All original15second goals,22 method identities,180second class bound,
+transaction/Relay/replay/candidate/membership/draft/wallet/node assertions remain.
+No production source changes.56 stays an unpublished candidate at c5; accepting
+it requires production-input equivalence and fresh complete verification on both
+SDKs at the corrected fixture source. No failed-tail assembly is planned.
