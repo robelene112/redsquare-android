@@ -70,8 +70,12 @@ cases at the old reminder-inChat expectation (2othermethodsPASS each); group7
 and surfaces4PASS. Original packets retained;17 agreement39345995233 has the same outcomes.
 A test-only correction asserts reminder absence plus persistedhidden=false there
 and in the same two legacy ChatQueue cancellation cases, preserving allworker/
-signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. Corrected complete agreement39346896065/39346898616 and focused cancellation
-viewport39346900869/39346903466 run at3cc. All changes since9b33
+signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. Corrected complete agreement39346896065(10)/39346898616(17) at3cc bothSUCCESS:
+exactly27 accepted38 identities each,25 ordinary methods plus2 process recovery/
+restoration methods. Distinct actual PIDs and original wallet/revision/draft
+continuity retained. Focused cancellation viewport39346900869(10)/39346903466(17)
+also bothSUCCESS,2 methods perSDK. Root opened original warning/cancel/reopened
+and larger-text agreement cancellation/restored drafts on bothSDKs. All changes since9b33
 are fixtures/harness/evidence only; production/build/signing inputs are identical.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256

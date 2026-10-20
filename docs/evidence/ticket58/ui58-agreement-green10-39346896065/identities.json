@@ -1,0 +1,164 @@
+[
+  {
+    "path": "agreement-author-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingAuthorPreviewTest",
+    "test": "editingRequiresAgreementButRemovingThePostRemainsAvailableWithUnapprovedPolicies",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+    "test": "explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+    "test": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupQueuePreviewTest",
+    "test": "unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "cancellingAGroupReactionKeepsTheMessageUnliked",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "cancellingGroupPublicationKeepsTheEditableMessage",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "creatingAGroupRequiresAgreementAndKeepsItsUnpublishedDetailsOnCancel",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "leavingAGroupRemainsAvailableWithUnapprovedPolicies",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "previewingAnInvitationIsIndependentButJoiningRequiresAgreement",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-group-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingGroupPreviewTest",
+    "test": "removingAMemberRemainsAvailableWithUnapprovedPolicies",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-post-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+    "test": "explicitAgreementResumesTheQueuedPostWithoutSigningAnotherAttempt",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-post-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingPostQueuePreviewTest",
+    "test": "unacceptedBackgroundPostsKeepTheirOriginalAndCanBeCancelled",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-private-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+    "test": "explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-private-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+    "test": "requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-private-queue-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest",
+    "test": "unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-recovery-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+    "test": "unapprovedPolicyStillAllowsManualReadOnlyReconciliationOfTheOriginalPost",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-recovery-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingRecoveryPreviewTest",
+    "test": "unreadyNewAndUnreadableAgreementStatesPreserveTheDraftUntilExplicitCurrentAcceptance",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-surfaces-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+    "test": "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-surfaces-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+    "test": "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-surfaces-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+    "test": "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-surfaces-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingSurfacesPreviewTest",
+    "test": "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+    "test": "explicitAgreementSurvivesActivityReopeningButStillRequiresDeliberateSend",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+    "test": "failedAcceptanceCommitStaysUnacceptedAfterReopeningAndCanBeExplicitlyRetried",
+    "occurrences": 1
+  },
+  {
+    "path": "agreement-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingAgreementPreviewTest",
+    "test": "requiredTermsCanBeReadAndCancelledWithoutPublishingOrLosingThePost",
+    "occurrences": 1
+  },
+  {
+    "path": "publishing-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+    "test": "coldProcessKeepsAgreementButRequiresDeliberateSend",
+    "occurrences": 1
+  },
+  {
+    "path": "publishing-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.PublishingProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  }
+]

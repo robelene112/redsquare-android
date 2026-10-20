@@ -377,3 +377,18 @@ Source/run bindings were updated before their outcomes; the independently frozen
 catalog, public reads and immutable signed35/43 observer inputs are unchanged.
 Corrected complete agreement39346896065/39346898616 and focused cancellation
 viewport39346900869/39346903466 also run at3cc. No new outcome is claimed yet.
+
+Corrected3cc acceptance: complete agreement39346896065(10)/39346898616(17) both
+SUCCESS, matching all27 independent accepted38 identities perSDK (25 ordinary
+methods plus2 process recovery/restoration methods). All8 class exits are0;
+original checkpoints prove distinct interrupted/recovered PIDs10160/10264(10)
+and5763/5841(17), the same wallet digest/revision/unsent text and deliberate
+publication only after recovery. Each packet retains147 original members,
+including62 PNG and62 XML. This is controlled policy/recovery proof, not actual
+owner policy approval or complete app regression.
+Focused cancellation viewport39346900869(10)/39346903466(17) bothSUCCESS, exactly
+2 original methods perSDK. Root opened original warning/cancel/reopened screens
+on bothSDKs and larger-text agreement cancellation/restored drafts. Native48dp
+physical cancellation, exact drafts, original candidate identities, warnings and
+recovery assertions remain intact. Whole-app full39347038831/39347042348 and
+signed46 publication remain pending; production remains9b33-equivalent.

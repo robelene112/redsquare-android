@@ -1,0 +1,603 @@
+{
+  "archives": {
+    "agreement-author-evidence.tar": "beda307a5b37dce07a0550d8a323ad2e3051dc1570a13c143906cc904b1b09fd",
+    "agreement-evidence.tar": "2365e48a52ddf633a06fd162cc54b05b5c0a85470c3465aa0d01cc0b67c8d68a",
+    "agreement-group-evidence.tar": "1d881fd6843de5be2be1808b7c92f6ea4e6331573868e8519c57307f7140e04e",
+    "agreement-group-queue-evidence.tar": "2b90347ebf102595e1090d53e469cd49e4bde5eefacf2a8e2d78b0375a080c36",
+    "agreement-post-queue-evidence.tar": "28b2038aa8c6ed16b514fa01806097c359f155d3f43c343dc8f73966a2a169fa",
+    "agreement-private-queue-evidence.tar": "26454e71649ead25a7f958273d000527acf7d678263e301b739cf128931fc769",
+    "agreement-recovery-evidence.tar": "684a2c441a0795d02528480c7161d0d251b4c9045715d1212e276f45f09c6c54",
+    "agreement-surfaces-evidence.tar": "e89208e7ea1ed36382cf41535d1a5c1c58712917b8394fc38622f24874d31780",
+    "publishing-process/images.tar": "1e2081a45fe276c673a37ad71e8f40dd3fec585faba80f6b54e5daff16efed31"
+  },
+  "members": {
+    "agreement-author-evidence.tar::agreement-author-evidence/author-cancel-keeps-editable-text.xml": {
+      "path": "originals/agreement-author-evidence/author-cancel-keeps-editable-text.xml",
+      "sha256": "040f0328970a4ae6654fdf5ca271af66935cb14806eb11154ec50a0abe9f40fb"
+    },
+    "agreement-author-evidence.tar::agreement-author-evidence/author-cancel-keeps-editable-text.png": {
+      "path": "originals/agreement-author-evidence/author-cancel-keeps-editable-text.png",
+      "sha256": "c2968cde6cf0db956fd9eba23b2475e54c04d4f2519aaff4ca1657d33452d9f4"
+    },
+    "agreement-author-evidence.tar::agreement-author-evidence/author-edit-deliberately-available-after-agreement.xml": {
+      "path": "originals/agreement-author-evidence/author-edit-deliberately-available-after-agreement.xml",
+      "sha256": "3819198eb91b705d4d9802d1d290b9dfc84ff67342062da2001b7b1e6f22ae8f"
+    },
+    "agreement-author-evidence.tar::agreement-author-evidence/author-edit-deliberately-available-after-agreement.png": {
+      "path": "originals/agreement-author-evidence/author-edit-deliberately-available-after-agreement.png",
+      "sha256": "b313f12a9bc6d695e6513709ccd022ed330eeb5a66f1da05cf05d6a744baabb8"
+    },
+    "agreement-author-evidence.tar::agreement-author-evidence/author-post-removal-without-content-agreement.xml": {
+      "path": "originals/agreement-author-evidence/author-post-removal-without-content-agreement.xml",
+      "sha256": "9b13e4948380596275d549bb0f9211a969328dca4eb3def4b8e1fc303b048e5e"
+    },
+    "agreement-author-evidence.tar::agreement-author-evidence/author-post-removal-without-content-agreement.png": {
+      "path": "originals/agreement-author-evidence/author-post-removal-without-content-agreement.png",
+      "sha256": "47a2ddb8d4de28fef7561ed48056d88f41cf2d2682a37812365b0a07784112de"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-0-review.xml": {
+      "path": "originals/agreement-evidence/cancel-0-review.xml",
+      "sha256": "b0a138f07c521deb19088adea0b589faa4a8703e8115dec62b4135817d328f20"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-0-review.png": {
+      "path": "originals/agreement-evidence/cancel-0-review.png",
+      "sha256": "a7d75de3c31b3fa063a48f6eb492084cfca7f87b25b3daa5c1d90a017dfd31d5"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-1-review.xml": {
+      "path": "originals/agreement-evidence/cancel-1-review.xml",
+      "sha256": "b0a138f07c521deb19088adea0b589faa4a8703e8115dec62b4135817d328f20"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-1-review.png": {
+      "path": "originals/agreement-evidence/cancel-1-review.png",
+      "sha256": "a7d75de3c31b3fa063a48f6eb492084cfca7f87b25b3daa5c1d90a017dfd31d5"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-keeps-draft.xml": {
+      "path": "originals/agreement-evidence/cancel-keeps-draft.xml",
+      "sha256": "9f16dd7550da59667f3bf6df135b474bcd7d5796741cb11aed29fa9c3aca353b"
+    },
+    "agreement-evidence.tar::agreement-evidence/cancel-keeps-draft.png": {
+      "path": "originals/agreement-evidence/cancel-keeps-draft.png",
+      "sha256": "e7d6b98ce476c071d092e40bd62d482177fa2faf2a42f8fd0f5fcfdafa13e23e"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-not-authorized.xml": {
+      "path": "originals/agreement-evidence/late-commit-not-authorized.xml",
+      "sha256": "4ba0116621014dec3b543f5b455c6271160f779ebe98b3a3c3f479935996b45a"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-not-authorized.png": {
+      "path": "originals/agreement-evidence/late-commit-not-authorized.png",
+      "sha256": "652e4ca11bc359fbb917b80ba2f3f8093d2267cd7251f7ff8f433a31f367c3d9"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-reopened-still-needs-agreement.xml": {
+      "path": "originals/agreement-evidence/late-commit-reopened-still-needs-agreement.xml",
+      "sha256": "ece19baa2b52eebb74d6d7cc188fa8a72d1dcec3113c6238e262d1c76c5af7f9"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-reopened-still-needs-agreement.png": {
+      "path": "originals/agreement-evidence/late-commit-reopened-still-needs-agreement.png",
+      "sha256": "59b5a82e7ddb4094763dfedd57a3cb0757b059505744a58cbc9a967a5674df9d"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-explicit-retry-published.xml": {
+      "path": "originals/agreement-evidence/late-commit-explicit-retry-published.xml",
+      "sha256": "3e95b4b478f03333d606d22faefe042e64416e59259eaa49d6399f6acddacfd6"
+    },
+    "agreement-evidence.tar::agreement-evidence/late-commit-explicit-retry-published.png": {
+      "path": "originals/agreement-evidence/late-commit-explicit-retry-published.png",
+      "sha256": "3387afaee33d833eb5dc9a21a0ece964456967887886fa3f4147d12f1f351077"
+    },
+    "agreement-evidence.tar::agreement-evidence/accepted-without-publication.xml": {
+      "path": "originals/agreement-evidence/accepted-without-publication.xml",
+      "sha256": "699c824c3ee54b0bd06d806833e241897002338633a55db90a74017985b0ab0b"
+    },
+    "agreement-evidence.tar::agreement-evidence/accepted-without-publication.png": {
+      "path": "originals/agreement-evidence/accepted-without-publication.png",
+      "sha256": "1df6c6474cbce843e568248005fe16285a66e845e3b83e9221cfdfece97a59d0"
+    },
+    "agreement-evidence.tar::agreement-evidence/accepted-reopened-deliberately-published.xml": {
+      "path": "originals/agreement-evidence/accepted-reopened-deliberately-published.xml",
+      "sha256": "908db69f38cc81fb09a85763cb42b3e25ee93d61a447dd6fdfd5d04052882ab7"
+    },
+    "agreement-evidence.tar::agreement-evidence/accepted-reopened-deliberately-published.png": {
+      "path": "originals/agreement-evidence/accepted-reopened-deliberately-published.png",
+      "sha256": "5b9ce57cbaa7cb6b55364ee5d09b075164340630853b0d44d7a86862efa090ed"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.xml": {
+      "path": "originals/agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.xml",
+      "sha256": "504faa20df5c4cc00dc493839a2f4e4fdb659f95c2297df58b50e60abd2cd2c8"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.png": {
+      "path": "originals/agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.png",
+      "sha256": "adbd795248f2e77995e598dc7381d7565b2c645c21944a5ab03c9370265ec7bd"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/reaction-cancel-keeps-work.xml": {
+      "path": "originals/agreement-group-evidence/reaction-cancel-keeps-work.xml",
+      "sha256": "00433659d9665a7dc5b838a6b4b9a9815397cb0c7e0087ae6d7943cc3b5d67d1"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/reaction-cancel-keeps-work.png": {
+      "path": "originals/agreement-group-evidence/reaction-cancel-keeps-work.png",
+      "sha256": "d5aa6647fc67253a4ba6e9f6aadcca7589a461de4f7e292844593a62b53fd63a"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.xml",
+      "sha256": "8ac31f7cb4a3bc98a94e7c2384799882f6a20e49550facacbab9952df6c6ae94"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.png",
+      "sha256": "10df07065245a9ae5a1f6c48a72803245f3396067e330377053c9706b9f5bcbb"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.xml": {
+      "path": "originals/agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.xml",
+      "sha256": "b72b4a2e9bd5f554199b3cb9670f0ef7343bad2a61f0804b3ebdaaf35a17c208"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.png": {
+      "path": "originals/agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.png",
+      "sha256": "6bca4434557d49b7269f1183839939615f738d453dc6ea097499a225d2897b82"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/promotion-cancel-keeps-work.xml": {
+      "path": "originals/agreement-group-evidence/promotion-cancel-keeps-work.xml",
+      "sha256": "2fc09253c7faa7cb21c12deae0ddf3f117db847ace52969bc4d4698dcf41610a"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/promotion-cancel-keeps-work.png": {
+      "path": "originals/agreement-group-evidence/promotion-cancel-keeps-work.png",
+      "sha256": "02cb6ae38accc5973f314b35399d1ec786f81fe7648cdd15813d8b8d9dc0bfd6"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.xml",
+      "sha256": "5529b9451129e44d7d5bf76e4be95e5bdd85ea5bbf5d8411d329ad7a15f90a82"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.png",
+      "sha256": "794dde695e97b638841eb380b784efb8dd35853072e8b184be14963a67a0f1ba"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/message-cancel-keeps-work.xml": {
+      "path": "originals/agreement-group-evidence/message-cancel-keeps-work.xml",
+      "sha256": "867aa9d848589ab7f9eb6c76228e9f7764fd5d4a75063aa5956d6642269d4c1d"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/message-cancel-keeps-work.png": {
+      "path": "originals/agreement-group-evidence/message-cancel-keeps-work.png",
+      "sha256": "a4d714f84fb26996f0453dd555b5120dc8951fca16f926bfd92875b38e79e505"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/message-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-group-evidence/message-deliberately-forwarded-after-agreement.xml",
+      "sha256": "c9acdfe4a18960f32768a3eeb00b6659c097d9d99f73a1c547aced687ba946be"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/message-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-group-evidence/message-deliberately-forwarded-after-agreement.png",
+      "sha256": "48d0d223388fb319fe0fd18783dc4245b96dc2051dde63a7e24bc6a72b1e3287"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/join-cancel-keeps-work.xml": {
+      "path": "originals/agreement-group-evidence/join-cancel-keeps-work.xml",
+      "sha256": "461defed54ada4962a1f11a23bfcfd3b2714c58ecffc1f5a86956ca0d42c6175"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/join-cancel-keeps-work.png": {
+      "path": "originals/agreement-group-evidence/join-cancel-keeps-work.png",
+      "sha256": "c95dc6d26a698f8b878b5313593b51328ea34e95b113a631498d7736fa948a5c"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/join-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-group-evidence/join-deliberately-forwarded-after-agreement.xml",
+      "sha256": "7d7e562be6986889991ca1f3d0a864477b3f3272db73a872620c60e06e030a3c"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/join-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-group-evidence/join-deliberately-forwarded-after-agreement.png",
+      "sha256": "623e44e91362676c4e4381bcc687a41302130da280e2a843a15f556c18d8cf7b"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/create-cancel-keeps-work.xml": {
+      "path": "originals/agreement-group-evidence/create-cancel-keeps-work.xml",
+      "sha256": "1b5ea594b574ac5da36820b97c972d769f74ecb7319e6ae6b402232d06c4a100"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/create-cancel-keeps-work.png": {
+      "path": "originals/agreement-group-evidence/create-cancel-keeps-work.png",
+      "sha256": "338db668c12cfbf8baa832f2ea23cb601e0772fdc7cb6dfc55bc9b54093a55b1"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/create-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-group-evidence/create-deliberately-forwarded-after-agreement.xml",
+      "sha256": "d966c642f6d040bfa32767edd64d8611182956374766aa3eaf9582a45773c170"
+    },
+    "agreement-group-evidence.tar::agreement-group-evidence/create-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-group-evidence/create-deliberately-forwarded-after-agreement.png",
+      "sha256": "b776b6fedda5448d86e6be9f33ac3c13825e98499dfbdb824aa33f7762fc263b"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-worker-paused.json": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-worker-paused.json",
+      "sha256": "9feaf83fbeeafd9ec6f1591dd28d9914239f7c53dba1955fec4acdebf7956240"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.xml",
+      "sha256": "9e0a8b887b258e399b6904d5018276c1634371cbaa53a82cc0f0389d425c676a"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.png",
+      "sha256": "171a997dbf734adccb3110bb340dcc3d080778f15811c66c91f4ac10c36e44d3"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.xml",
+      "sha256": "b201bda788d9d3de740a9f203780f5a9e552f60eec444a1e34d13e6764fe91b3"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.png",
+      "sha256": "c754afd28cea4437832d0c5f4cea99e40390923aaa92df1467089fb2a7075a4f"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-font-scale.json": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-font-scale.json",
+      "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-worker-paused.json": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-worker-paused.json",
+      "sha256": "67c1f0859e8877a9dd30e217cc349b91d2a268570f4c8a7e9153bbc0e979dd37"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-before-review.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-before-review.xml",
+      "sha256": "233c8f329de9e81cdff791fea1043e15668436b26e3ed264995cd4e8061831f6"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-before-review.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-before-review.png",
+      "sha256": "4ab2fdf0266a7516cfb52385656c18adf0fce26ccb26b0deca1ba87bb2abdd3d"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.xml",
+      "sha256": "233c8f329de9e81cdff791fea1043e15668436b26e3ed264995cd4e8061831f6"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.png",
+      "sha256": "4ab2fdf0266a7516cfb52385656c18adf0fce26ccb26b0deca1ba87bb2abdd3d"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-before-cancel.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-before-cancel.xml",
+      "sha256": "233c8f329de9e81cdff791fea1043e15668436b26e3ed264995cd4e8061831f6"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-before-cancel.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-before-cancel.png",
+      "sha256": "4ab2fdf0266a7516cfb52385656c18adf0fce26ccb26b0deca1ba87bb2abdd3d"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.xml",
+      "sha256": "bda38dee882deb49b49b2cc1e8cd112e092c849a68522978b741ecdfabfe817d"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.png": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.png",
+      "sha256": "8a9d50e4b4c5e99e3bb4b5343c022d5a37a7d77a62dd4be17c87064bdc3431c0"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-cancel-font130-font-restored.json": {
+      "path": "originals/agreement-group-queue-evidence/group-cancel-font130-font-restored.json",
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-resume-worker-paused.json": {
+      "path": "originals/agreement-group-queue-evidence/group-resume-worker-paused.json",
+      "sha256": "2a796460796c0d34501604304cb3553a3be7837f0beeb26e52efba883f8ac2b2"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.xml",
+      "sha256": "2af0b326b641e171261e6eb9ad6df08b8c8c7cb49d2916e59718410ef4b67b1a"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.png",
+      "sha256": "7dc422bf8f92c4b9802fa87a71b2f4aa6ad928c65e3d2edef779a9b850b82a97"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.xml": {
+      "path": "originals/agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.xml",
+      "sha256": "73ea4758a98fffc1dc6839f5077202bccf2ecb4b03772450bb6c87ddbcf22c71"
+    },
+    "agreement-group-queue-evidence.tar::agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.png": {
+      "path": "originals/agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.png",
+      "sha256": "bf3153552647b75b03e153f04d1fc9aa084b7d1982b3f508b97ecf610cd742ca"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-cancel-worker-paused.json": {
+      "path": "originals/agreement-post-queue-evidence/post-cancel-worker-paused.json",
+      "sha256": "a31bd64f428b76bd91cb447295e9cbcf0aa63efe84785bbfd2c936b1945334b0"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.xml",
+      "sha256": "87c81cf1e88b3a2073af446aee6a9144833713500820c37ec8bf2c54cadb4067"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.png",
+      "sha256": "18636f18459dc22c6976bfb78a80a7049fdaaba904b9e80678c66bf6d8603785"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.xml": {
+      "path": "originals/agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.xml",
+      "sha256": "11ca147fa234da61603394cd4fb36eaacb1287de23cfd3451dd2169a83e95d75"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.png": {
+      "path": "originals/agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.png",
+      "sha256": "6234bbfcd7194d8aef60c1ec7b110047e1378df98456a5f5aaaf5d94e5719854"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-resume-worker-paused.json": {
+      "path": "originals/agreement-post-queue-evidence/post-resume-worker-paused.json",
+      "sha256": "65bbe663bfcd6a5295159b6e323225367c956fe18b50e4896dc5e0245c55920b"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.xml",
+      "sha256": "4d79c8c59a495aafb2626e2ad2414f7644a1a9cd86e6b73b8e0176a156ac3447"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png",
+      "sha256": "8d8bb6d45f89d202ecf0434db5d5c1382339d92b09997b94ce7dfdaee542d5c6"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.xml": {
+      "path": "originals/agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.xml",
+      "sha256": "2526b7a5f4d24de2b2cf10678a4092d575241ee40c96a76efe8dcbc1ac636344"
+    },
+    "agreement-post-queue-evidence.tar::agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.png": {
+      "path": "originals/agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.png",
+      "sha256": "d082506322dc10dd9e2ec0fb5ec7e42203c7e55a5c606751bec9f380531db2eb"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-resume-worker-paused.json": {
+      "path": "originals/agreement-private-queue-evidence/private-resume-worker-paused.json",
+      "sha256": "cd683661374724580150b5bef48fde3b1ef819f02373902cbc4081f474775e2b"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml",
+      "sha256": "88eecb893b25b96d384fef8db7f781a780bb81807d3fbcde2773db30013898fd"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png",
+      "sha256": "941317d56b9123878041123db5500b9957c14dfef81bb90bcad66bd04922262c"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml",
+      "sha256": "964624dc007b2522d10db4fdbe6642ff265da8d9c1f19e9cb77f1fd5d3691606"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png": {
+      "path": "originals/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png",
+      "sha256": "beb9b1608cb0fdee2c81b5b10aba0e98a5d41982608b5be1f50eba6ad667b884"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-font-scale.json": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-font-scale.json",
+      "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-worker-paused.json": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-worker-paused.json",
+      "sha256": "1fbc1d0a9461b51a4ac7cf49560d69779fe25319aaefc5fe1fdb527ae4c79970"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-before-review.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-before-review.xml",
+      "sha256": "c780737124a973c9ff26a3c001e2e3f019b7fd828b43f9a302bc86f7518234fc"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-before-review.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-before-review.png",
+      "sha256": "f18d3b615aa86ac294f4332243ee63e55908555cd1dfa519dd63144435861b91"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.xml",
+      "sha256": "c780737124a973c9ff26a3c001e2e3f019b7fd828b43f9a302bc86f7518234fc"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.png",
+      "sha256": "f18d3b615aa86ac294f4332243ee63e55908555cd1dfa519dd63144435861b91"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-before-cancel.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-before-cancel.xml",
+      "sha256": "c780737124a973c9ff26a3c001e2e3f019b7fd828b43f9a302bc86f7518234fc"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-before-cancel.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-before-cancel.png",
+      "sha256": "f18d3b615aa86ac294f4332243ee63e55908555cd1dfa519dd63144435861b91"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.xml",
+      "sha256": "520cf17e5887fb888076e2984191f2763bf390328e1b38ede89807e0b5409345"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.png",
+      "sha256": "0ab9fdbcb9bb2d8361f64beeec827ee2bc689e7cdfc04014f3a3f820d8391bed"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-font130-font-restored.json": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-font130-font-restored.json",
+      "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-worker-paused.json": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-worker-paused.json",
+      "sha256": "45c77b3ca6479c5fa210cd690b9f2fba4e9a48087af55cabfc3013d5ba079434"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml",
+      "sha256": "8c554c149f4661a8f66e928fbd7698d3867ec98dc1d12b15be60836322f37724"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png",
+      "sha256": "cdf9cd26980e8595a952f4de7587f43336118241b7b6a954e4ad239812fe7914"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml",
+      "sha256": "ec2077494ce33e97ceaee36ee2d57bb8ea943a8a094e2f2d540953bd4e47a3fd"
+    },
+    "agreement-private-queue-evidence.tar::agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png": {
+      "path": "originals/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png",
+      "sha256": "f84d273056fb2f7f611a9f95136ac00f5459f05cb74cd0f7e0f7029cd118b635"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.xml": {
+      "path": "originals/agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.xml",
+      "sha256": "ad93aef2a1350d822a67c7859a22e467b70c7d608552ece54bbd3285d54e9298"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.png": {
+      "path": "originals/agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.png",
+      "sha256": "b7e8547b7ba792ee9dd8645184e3ffd98cf793e8f64bb8d986614cb127125ae3"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.xml": {
+      "path": "originals/agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.xml",
+      "sha256": "507a46bedf06fd50a3cbf23832118c4647377fa0388da830d89b605f6ddb007e"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.png": {
+      "path": "originals/agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.png",
+      "sha256": "63d24c53345f98936ca182fef4452052a13034c3b97dc3c59bbfc876c0cb7b5b"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.xml": {
+      "path": "originals/agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.xml",
+      "sha256": "456a7f2f160e57ebbff90a2d99512e75dee701799bc96068b1327342d804267a"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.png": {
+      "path": "originals/agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.png",
+      "sha256": "8bfffc19099f674be9ee11e06c002bf02636a71566f7d5edda4e1452e30742de"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.xml": {
+      "path": "originals/agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.xml",
+      "sha256": "456a7f2f160e57ebbff90a2d99512e75dee701799bc96068b1327342d804267a"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.png": {
+      "path": "originals/agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.png",
+      "sha256": "8bfffc19099f674be9ee11e06c002bf02636a71566f7d5edda4e1452e30742de"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.xml": {
+      "path": "originals/agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.xml",
+      "sha256": "1dde3d4fbcb9e2dc14b83ae0cfc485c8a3493356247f81f070ffe40e5b0be103"
+    },
+    "agreement-recovery-evidence.tar::agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.png": {
+      "path": "originals/agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.png",
+      "sha256": "957daf02c1a04d68fc231a6b66777bf744da8f0cdd30cdb30bad1e70101eeeb5"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-cancel-keeps-editable-message.xml": {
+      "path": "originals/agreement-surfaces-evidence/private-cancel-keeps-editable-message.xml",
+      "sha256": "f972ead01bf3a0e4f74b6c6b2e31ceb728e493a48645694182615a028214a311"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-cancel-keeps-editable-message.png": {
+      "path": "originals/agreement-surfaces-evidence/private-cancel-keeps-editable-message.png",
+      "sha256": "1ae347937c7f822692f8a2839d3bc048d44355866ad02fc24bdfd58c028f909a"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-cancel-keeps-editable-message.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/private-cancel-keeps-editable-message.semantics.txt",
+      "sha256": "10caebcc0480bc49f37d3d6b56b251bb65b575b51dd7e45d4725b024a9888cb9"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.xml": {
+      "path": "originals/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.xml",
+      "sha256": "ff9d60b3391401160df4e7295ed0e7b5cd1003286c0600e5d440a5cc918efe57"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.png": {
+      "path": "originals/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.png",
+      "sha256": "9ba5080d82d30abe65f272db6a84448afb82611117edfecf7980e7323d19ceb1"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.semantics.txt",
+      "sha256": "dc262489caaf5ed271196188e3385b90ca5b7b942026c263663b1b8fd0698c11"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.xml": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.xml",
+      "sha256": "ac9bc9845ca55ad09b35e001960e2080a1f349a42938592c437dfb4f71edf94b"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.png": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.png",
+      "sha256": "fee8667da6bacb092e78993d89d5810d0a31a3a1314da293e2ab5fc054fe6558"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.semantics.txt",
+      "sha256": "dc262489caaf5ed271196188e3385b90ca5b7b942026c263663b1b8fd0698c11"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.xml": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.xml",
+      "sha256": "3e8fa39e2907f3f50ee1a21a86d59a4b0c041e2de7e236d4a7ce442dea5ff25d"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.png": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.png",
+      "sha256": "0d72c578f8b2c5bf09e7e3c860f0386669d3bcce0e3fb3ce7ff7199e7bdb53f0"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.semantics.txt",
+      "sha256": "f63b1ab6c7ff330dac2710989a79078167b08f2425dcc74e19e9314c80cf987a"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.xml": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.xml",
+      "sha256": "a76a7264051e22ea4b21621ca9c73793897bc32401782e25d8f9b4f93ac55b88"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.png": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.png",
+      "sha256": "7c212dce59e07baa1940ea1bb0d86071e9a7bf3c9f8a13b609abb90c96fe96aa"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.semantics.txt",
+      "sha256": "776b65576dbe51e3eadb07f59ebf5c1732db888c2ec43880e0df816fbbeaa024"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.xml": {
+      "path": "originals/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.xml",
+      "sha256": "5c54ad51bda427502db1a8bd7128d096e50d2654981d9d6495f95c3fd9a14c3a"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.png": {
+      "path": "originals/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.png",
+      "sha256": "29beb1262dee8d77d1e9185129c5e1c9761ee870b6925ab2b0b0ddb197cf304d"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.semantics.txt",
+      "sha256": "9594201ec10f0ae3319d093a93b9305d64e685cdd8e1e414d6747ea5a3c1b789"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-deliberately-published-after-agreement.xml": {
+      "path": "originals/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.xml",
+      "sha256": "ad1ada65c86013bcf4a0c2a2693493f6975abdfba6a2264fa9d0fe9b1998a254"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-deliberately-published-after-agreement.png": {
+      "path": "originals/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.png",
+      "sha256": "15a32e81687b6ffc21dae0e7675c92e1aa13fa145ecf678f58318c3909bdc5f9"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/profile-deliberately-published-after-agreement.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.semantics.txt",
+      "sha256": "fb4ee5800887d335e2da07e8bf60449bb1a2f689017f62a235fce14602fb316f"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.xml": {
+      "path": "originals/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.xml",
+      "sha256": "d9a0ff5908c62f701ca13211e7315618b0f88ced7f07826012b67778441271e5"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.png": {
+      "path": "originals/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.png",
+      "sha256": "a5d828e8bb7191b2fc216269e5db8f8e5bcf8e69ebf251878f957b39715a4318"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.semantics.txt",
+      "sha256": "06a5405a84b987f5db9435524e401a31665ee3ddcc49a905f24d3fb3507147c6"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.xml": {
+      "path": "originals/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.xml",
+      "sha256": "220565384c6c7fc90147ef4cf1d73999f30a874d0e8e34a2351f8d810ca57285"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.png": {
+      "path": "originals/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.png",
+      "sha256": "b41999bf01aa6d1e93bf7b5e1856314c57764b775058c47d82d753c60f77149f"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.semantics.txt",
+      "sha256": "1c9cff43b4fc618c2d714548efdaa469f0abfa29bfb198a6c77ccdf7f654e422"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml": {
+      "path": "originals/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml",
+      "sha256": "bebf65d750cb5bfc29da44abcb5c088115a56378585ab4bc66b7f8d5be454d71"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png": {
+      "path": "originals/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png",
+      "sha256": "22dd831b129a7eaf3c66cbbd06effa99d05cc21daa8586194dc6b9606a6edf32"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-cancelled-and-reviewed-again.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.semantics.txt",
+      "sha256": "ab446827d9d080be1de9e8f1cc467f2f344a831dd51222d0a6a4b861fe82e06a"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-deliberately-published-after-agreement.xml": {
+      "path": "originals/agreement-surfaces-evidence/like-deliberately-published-after-agreement.xml",
+      "sha256": "9baee12574ab7f44328598034c46da99f45b078245d651e25b298447b8fc42f8"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-deliberately-published-after-agreement.png": {
+      "path": "originals/agreement-surfaces-evidence/like-deliberately-published-after-agreement.png",
+      "sha256": "7969f55b369738e8b7a05f8f722d294ccf1f7a5c408d8df2a3f1fad74ccec3f3"
+    },
+    "agreement-surfaces-evidence.tar::agreement-surfaces-evidence/like-deliberately-published-after-agreement.semantics.txt": {
+      "path": "originals/agreement-surfaces-evidence/like-deliberately-published-after-agreement.semantics.txt",
+      "sha256": "ab31ca8715bfc3b2c2b6fce676f22b6fb6c54cec70ece0c443e6e6f1256c70e4"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/accepted-draft-before-process-death.xml": {
+      "path": "originals/publishing-process/publishing-process-evidence/accepted-draft-before-process-death.xml",
+      "sha256": "d16aad74c1df9cf371ac05a06eca9885fb7d1c8920f356de54980c8e95c28f73"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/accepted-draft-before-process-death.png": {
+      "path": "originals/publishing-process/publishing-process-evidence/accepted-draft-before-process-death.png",
+      "sha256": "81ec07d5ae721c2769c08babcae468079112f00d8e96d47060bab0aead5529e1"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/cold-agreement-keeps-unsent-draft.xml": {
+      "path": "originals/publishing-process/publishing-process-evidence/cold-agreement-keeps-unsent-draft.xml",
+      "sha256": "273eedfa783b5679f5c69cb8827c205e3720237fac1d8617957b18aa5b1db60c"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/cold-agreement-keeps-unsent-draft.png": {
+      "path": "originals/publishing-process/publishing-process-evidence/cold-agreement-keeps-unsent-draft.png",
+      "sha256": "d264f9f2fef2d160fc12660b86ac406a18ed6862ed322fbb5876a10d6c81ca35"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/cold-agreement-deliberate-send.xml": {
+      "path": "originals/publishing-process/publishing-process-evidence/cold-agreement-deliberate-send.xml",
+      "sha256": "f8e0880900326f6529a2285e8b8863bb94f490c78373d05207cdd77ba236b8e4"
+    },
+    "publishing-process/images.tar::publishing-process-evidence/cold-agreement-deliberate-send.png": {
+      "path": "originals/publishing-process/publishing-process-evidence/cold-agreement-deliberate-send.png",
+      "sha256": "c3bef57ace97a75fe9eacc54cf2d58bb2c1c09cd797b990427fa3ddeee7075a2"
+    }
+  }
+}

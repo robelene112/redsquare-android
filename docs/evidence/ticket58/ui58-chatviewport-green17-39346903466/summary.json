@@ -1,0 +1,23 @@
+{
+  "run": "39346903466",
+  "source": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+  "expectedMethods": [
+    "anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending",
+    "anOfflinePrivateMessageRemainsCancellableAfterReopening"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending",
+      "status": 0
+    },
+    {
+      "method": "anOfflinePrivateMessageRemainsCancellableAfterReopening",
+      "status": 0
+    }
+  ],
+  "members": 36,
+  "limit": "Focused native queued private/group cancellation and viewport proof. Not complete Chat queues, whole-app regression, physical/provider/store acceptance."
+}

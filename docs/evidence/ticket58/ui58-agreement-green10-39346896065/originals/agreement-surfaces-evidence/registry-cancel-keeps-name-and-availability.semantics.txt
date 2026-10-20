@@ -1,0 +1,89 @@
+Printing with useUnmergedTree = 'true'
+Node #727 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+ |-Node #728 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #836 at (l=16.0, t=45.0, r=34.0, b=63.0)px
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 4.0.dp), topEnd = CornerSize(size = 4.0.dp), bottomEnd = CornerSize(size = 4.0.dp), bottomStart = CornerSize(size = 4.0.dp))'
+    |-Node #837 at (l=42.0, t=46.0, r=208.0, b=62.0)px
+    | Text = '[Red Square]'
+    | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #838 at (l=212.0, t=34.0, r=252.0, b=74.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Text = '[Wallet]'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |-Node #840 at (l=260.0, t=34.0, r=300.0, b=74.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Text = '[Settings]'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |-Node #842 at (l=16.0, t=80.0, r=153.0, b=93.0)px
+    | Text = '[Node: saito.davidengelen.nl]'
+    | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #813 at (l=16.0, t=101.0, r=304.0, b=636.0)px
+      IsTraversalGroup = 'true'
+      Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@54a38bc'
+      VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+      Actions = [ScrollBy, ScrollByOffset]
+       |-Node #814 at (l=16.0, t=105.0, r=74.0, b=145.0)px
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #816 at (l=30.0, t=115.0, r=61.0, b=135.0)px
+       |    Text = '[Back]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #817 at (l=16.0, t=157.0, r=244.0, b=181.0)px
+       | Text = '[Choose a Saito username]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #818 at (l=16.0, t=189.0, r=304.0, b=237.0)px
+       | Text = '[Optional. You can read, post and chat without a username.]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #819 at (l=16.0, t=245.0, r=304.0, b=350.0)px
+       | ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+       | EditableText = 'ConsentCase1'
+       | FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@a1192a9'
+       | Focused = 'false'
+       | ImeAction = 'Default'
+       | InputText = 'ConsentCase1'
+       | IsEditable = 'true'
+       | TextSelectionRange = 'TextRange(12, 12)'
+       | Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+       | MergeDescendants = 'true'
+       |  |-Node #823 at (l=16.0, t=254.0, r=304.0, b=310.0)px
+       |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 4.0.dp), topEnd = CornerSize(size = 4.0.dp), bottomEnd = CornerSize(size = 4.0.dp), bottomStart = CornerSize(size = 4.0.dp))'
+       |  |-Node #828 at (l=32.0, t=245.0, r=87.0, b=263.0)px
+       |  | Text = '[Username]'
+       |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |  |-Node #825 at (l=32.0, t=270.0, r=288.0, b=294.0)px
+       |  | Shape = 'RectangleShape'
+       |  |-Node #830 at (l=32.0, t=314.0, r=288.0, b=350.0)px
+       |    Text = '[1 to 45 letters or digits. Your name ends in @saito.]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #831 at (l=16.0, t=362.0, r=142.0, b=402.0)px
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #833 at (l=40.0, t=372.0, r=118.0, b=392.0)px
+       |    Text = '[Check name]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #843 at (l=16.0, t=418.0, r=157.0, b=458.0)px
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #845 at (l=40.0, t=428.0, r=133.0, b=448.0)px
+       |    Text = '[Register name]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #846 at (l=16.0, t=470.0, r=304.0, b=518.0)px
+         Text = '[This username is currently available. Checking does not reserve it.]'
+         Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
