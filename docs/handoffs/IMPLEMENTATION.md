@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,14:37 UTC.59 remains OPEN. Ordinary 50 is LIVE.51 through 55 are
+2026-10-20, 14:37 UTC. #59 remains OPEN. Ordinary 50 is LIVE. 51 through 55 are
 REJECTED and NEVER PUBLISH, with unchanged frozen APKs. Continue 60 through 69
 sequentially after actual #59 completion, without routine owner stops.
 
@@ -46,43 +46,43 @@ Full guidance stays accessible. Feed reading saves the parent-relative header
 baseline and unapplied correction with its list offset; cached restoration waits
 for cacheReady. Stronger native outage/recreation focuses pass both SDKs with
 all five anchors identical at the unchanged bound of 1 pixel. Group status remains
-bounded to80dp or one third of height, preserving readable history. Primary
+bounded to 80dp or one third of height, preserving readable history. Primary
 status/Retry comes first; queued-only section ordering exposes Members at the
 scroll end while preserving ordinary management access. All handlers/guards,
 original candidate identity, warnings and scrollable guidance remain.
 
-All four final c5 focused checks pass: viewport Android 10 run39437692175 andAndroid 17 run39437697687
-(2 methods/36 originals each), admin Android 10 run39437703036 andAndroid 17 run39437707377
-(12 methods/24 originals each). Root opened both actual48 pixel Members targets
+All four final c5 focused checks pass: viewport Android 10 run 39437692175 and Android 17 run 39437697687
+(2 methods/36 originals each), admin Android 10 run 39437703036 and Android 17 run 39437707377
+(12 methods/24 originals each). Root opened both actual 48 pixel Members targets
 and both restored Submitted/Retry captures with their preserved drafts. Paired
 source/focused evidence reviews report0 residual findings. Local debug/app-test
 compilation and exact-source core/gateway/release/performance/lint 39437693370 pass.
 Prior actual speech/focus/quiet-poll and normal/zero-motion proof is detailed in
 [ticket59 evidence](../evidence/ticket59/README.md); it does not replace final full
-execution.17 original Search entry recording has a216ms gap, not intermediate
-entry-frame proof; actual exit and10 entry/exit frames were inspected.
+execution. Android 17 original Search entry recording has a 216ms gap, not intermediate
+entry-frame proof; actual exit and Android 10 entry/exit frames were inspected.
 
-Complete Android 10 run39437838980 andAndroid 17 run39437845708 execute exactc5 on
+Complete Android 10 run 39437838980 and Android 17 run 39437845708 execute exact c5 on
 verify/status59-c5f0ca7c6. All three jobs/public reads, actual TalkBack/motion,
 protected recovery and stronger reading bookends remain mandatory. Use the
-unchanged strict full-collector.py and frozen caad references in59 evidence:
+unchanged strict full-collector.py and frozen caad references in #59 evidence:
 486/487 identities,129/130 normal completions,35 interruptions,34 continuity
-and92 archives each. No failed-tail or supplemental assembly is planned.
+and 92 archives each. No failed-tail or supplemental assembly is planned.
 
-Signed 56 is prepared and immutable in the external review worktree at exactc5.
-APK SHA256cd0e2e512fda2d0e95597349f7c0d039585504286c1fdf04eba72d5d4b65503e,
-37,856,651bytes, established50 certificate. Actual APK/manifest/DEX inspection
+Signed 56 is prepared and immutable in the external review worktree at exact c5.
+APK SHA256 cd0e2e512fda2d0e95597349f7c0d039585504286c1fdf04eba72d5d4b65503e,
+37,856,651 bytes, established 50 certificate. Actual APK/manifest/DEX inspection
 and independent public before-bookend pass. Independent preparation review
-at48105bf2e reports0 remaining findings on both axes. Package/SDK29/36, nondebug/nonprofile,
+at 48105bf2e reports 0 remaining findings on both axes. Package/SDK29/36, nondebug/nonprofile,
 backup=false,review=true,push=false,separateGIFkeys absent. Never rebuild 56.
 Native full acceptance, final review and publication remain pending. The
 publication 56 helper expects this exact source/artifact and protects immutable
-50/49/45 plus the whole performance43 channel. Physical/provider/Play acceptance
+50/49/45 plus the whole performance 43 channel. Physical/provider/Play acceptance
 remains parked, not waived.
 
 All failed/superseded runs retain actual conclusions. Final 3c and 4ae dispatches
 fail the queued Members 48dp goal on both SDKs; their social/wallet jobs pass.
-Old focused 4ae reproduces22px; intermediate 5a fixes queued access but hides
+Old focused 4ae reproduces 22px; intermediate 5a fixes queued access but hides
 ordinary Members. Final c5 passes both contexts without relaxing any assertions.
 Earlier reading/group-feedback/motion failures and rejected APKs remain in the
 canonical evidence README. Old owned completed f23/f4/outage7a/3c verification
