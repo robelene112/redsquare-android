@@ -331,8 +331,30 @@ abstract class PrivatePushWorkFixture {
                 assertNotNull(device.wait(Until.findObject(By.text("New message")), 10_000))
                 capture("generic-alert")
                 val card = visibleNotificationCard(device, "New message", 5_000)
+                val dismissal = JsonObject().apply {
+                    addProperty("clearable", alert.isClearable)
+                    addProperty("ongoing", alert.isOngoing)
+                    addProperty("flags", alert.notification.flags)
+                    addProperty("cardBounds", runCatching { card.visibleBounds.toShortString() }.getOrNull())
+                    addProperty("displayWidth", device.displayWidth)
+                    addProperty("displayHeight", device.displayHeight)
+                }
+                fun recordDismissal() {
+                    runCatching {
+                        File(context.cacheDir, "chat-alert-evidence/private-$capturePrefix-dismissal.json")
+                            .writeText(dismissal.toString())
+                    }
+                }
+                recordDismissal()
+                val gestureStarted = SystemClock.elapsedRealtime()
                 card.swipe(Direction.RIGHT, 1.0f)
-                assertTrue(device.wait(Until.gone(By.text("New message")), 5_000))
+                dismissal.addProperty("gestureMillis", SystemClock.elapsedRealtime() - gestureStarted)
+                val hidden = device.wait(Until.gone(By.text("New message")), 5_000)
+                dismissal.addProperty("textHidden", hidden)
+                dismissal.addProperty("ownedNotificationStillActive",
+                    runCatching { manager.activeNotifications.any { it.tag == tag } }.getOrNull())
+                recordDismissal()
+                assertTrue(hidden)
                 val dismissedBy = SystemClock.elapsedRealtime() + 5_000
                 while (manager.activeNotifications.any { it.tag == tag } && SystemClock.elapsedRealtime() < dismissedBy)
                     SystemClock.sleep(25)

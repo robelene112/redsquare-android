@@ -140,6 +140,13 @@ complete first-release scope and the established production boundaries.
    Relay/history/photo-pixel/restoration assertions remain. Before/after native
    and all-root Compose observations diagnose history visibility; focused passes
    never replace complete acceptance.
+   `private-push-dismissal` and its Android17 variant isolate the existing physical
+   private worker notification dismissal method after a retained full-suite
+   failure. Its existing180second class bound and5second dismissal/active-state
+   goals stay unchanged. Full/Chat alert scopes keep the original eleven-case
+   command and all recovery/group gates. Best-effort flag/bounds/gesture diagnostics
+   distinguish the actual notification from an ineffective gesture; they do not
+   replace physical dismissal or prove a cause.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
    `app-frame-motion` and its Android17 variant run a separate plain native class

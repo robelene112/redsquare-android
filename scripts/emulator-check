@@ -320,6 +320,9 @@ verify_chat_alerts() {
             granted_for_test=1
         fi
     fi
+    if [[ "${1:-all}" == private-dismissal ]]; then
+        verify_group_chat_native 'PrivatePushWorkPreviewTest#chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal' 180 private-push-dismissal chat-alert-evidence || native_exit=$?
+    fi
     if [[ "${1:-all}" == all ]]; then
         verify_group_chat_native "ChatAlertPreviewTest,nl.davidengelen.redsquare.ChatPushConsentPreviewTest,nl.davidengelen.redsquare.PrivatePushWorkPreviewTest" 180 chat-alerts chat-alert-evidence || native_exit=$?
         if [[ "$native_exit" == 0 ]]; then
@@ -343,6 +346,11 @@ verify_chat_alerts() {
     fi
     return "$native_exit"
 }
+if [[ "${TEST_SCOPE:-full}" == private-push-dismissal* ]]; then
+    verify_chat_alerts private-dismissal
+    printf '%s\n' 'Focused existing physical private notification dismissal only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == private-push-mute* ]]; then
     verify_chat_alerts private-mute
     printf '%s\n' 'Focused owned private mute/retained receipt only; configured Google delivery and full acceptance not run.' > "$evidence/scope.txt"
