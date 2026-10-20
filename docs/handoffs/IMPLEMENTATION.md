@@ -96,12 +96,28 @@ repaired originals. These are focused scopes, not complete regression.
 Latest full10 run39349228406 at638 FAILED in social-push:10PASS/1FAIL, an immediate
 No Compose hierarchies exception atSocialPushTapPreviewTest.waitFor:503 after a
 native notification tap. The original capture retains draft/photo/IME but does
-not prove eventual routing. Test-only next helper usesatLeastOneRootRequired=false
+not prove eventual routing. Test-only092238769 usesatLeastOneRootRequired=false
 within the same15second goal, preserving every exact matcher and later journey
 assertion. Both source review axes0. Failure packet retains90 originals. Full17
 39349230920 continues at638; do not cancel or supersede it before its result.
-No production change. Fresh10 verification is still required; if17 completes
-successfully at638, the documented fixture-only split-source exception may apply.
+No production change. New full Android10 run39350667797 and focused social-push
+runs39350663269/39350665509 execute092238769. PerSDK source/run binding was frozen
+before outcomes; full Android17 run39349230920 remains at638. The subsequently failed17 Chat partition means that17 attempt cannot provide
+complete acceptance; a fresh17 full run is required after the GIF fixture fix.
+Pending10 and unfinished17 partition outcomes are not inferred.
+
+Full17 run39349230920 at638 now has a FAILED Chat partition: ChatGiphy6 methods,
+5PASS/1FAIL, reply Add GIF visibility timeout at161. Parent wallet/social still
+run; no full result inferred. The58-original packet records this partial status.
+Next fixture scopes the button to the existing composition preview and scrolls
+only if not visible, preserving the10second goal, all animation/quote/credits/
+queue/URL/transaction assertions and180second class bound. Reply-only before/
+after native + all-root Compose trees will verify the offscreen hypothesis.
+
+Focused social-push39350663269(10)/39350665509(17) at092 bothSUCCESS:11 main-command
+PASS each, plus binding/worker commands. Original Settings-route Conversation
+and exact returned draft/photo are retained; root opened10 representatives.
+The corrected journey passes its original deadline, not a measured root-gap claim.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

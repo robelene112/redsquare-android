@@ -448,3 +448,37 @@ Conversation/target/draft/photo/signature/choice assertions. Both source review
 axes0. The failed run and all90 original push members are retained. Full17
 39349230920 continues at638 and has no complete result yet; it is left running.
 No app/build/signing change; signed46 remains prepared and unpublished.
+
+Test-only092238769 polls for the Compose root within the unchanged15second goal.
+Focused social-push runs39350663269(Android10)/39350665509(Android17) and fresh
+full Android10 run39350667797 execute that source. Full Android17 run39349230920
+continues unchanged at638; dispatching a10-only full scope does not cancel it. PerSDK source/run bindings were recorded
+before outcomes. All app/build/signing inputs remain9b33-equivalent; the catalog
+is unchanged. The fixture-only split-source acceptance exception can apply only
+after both complete SDK suites pass. There is no complete17 acceptance yet.
+
+Full17 run39349230920 at638 has a completedFAILED Chat partition: ChatGiphy's
+six methods record5PASS/1FAIL. The reply method times out at the existing10second
+visible Add GIF goal. Original capture retains the reply quote, exact draft and
+Add photo; it does not show Add GIF or prove its offscreen bounds. Parent status
+was stillin_progress when retaining58 original members; wallet/social outcomes
+are not inferred. The next fixture scopes Add GIF to the existing composition
+preview and scrolls only when it is not displayed, then requires the same10second
+visible goal and actual click. Reply-only before/after native observations and
+full-depth all-root Compose trees will distinguish clipping from absent state.
+Animation, attribution, quote, saved work, queue/cancel, original URL, signed
+transmission and all deadlines remain. No production change or green claim.
+
+The observed17 Chat failure means the existing638 attempt cannot provide complete
+acceptance, regardless of its unfinished partition outcomes. A fresh17 full run
+is required after the GIF fixture correction. The pending092 Android10 full run
+continues; no result is inferred. The perSDK binding records current attempts,
+not completed acceptance.
+
+Focused social-push39350663269(Android10)/39350665509(Android17) at092238769 both
+SUCCESS, exactly11 main-commandPASS perSDK, plus the scope's binding and worker
+commands. Original10 Settings-route Conversation and returned exact draft/photo
+captures were opened by root;17 originals are retained. This demonstrates the
+complete corrected journey within its existing deadline, without measuring the
+transient root gap or claiming actual Google delivery. Full acceptance remains
+pending. No production change.

@@ -1,0 +1,45 @@
+{
+  "run": "39349230920",
+  "source": "6388840182bdab075bf672da92933cfc7c1750c3",
+  "expectedMethods": [
+    "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+    "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft"
+  ],
+  "overallRunConclusion": "",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft",
+      "status": 0
+    },
+    {
+      "method": "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+      "status": -2
+    },
+    {
+      "method": "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    },
+    {
+      "method": "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    }
+  ],
+  "members": 58,
+  "limit": "Completed Chat partition FAILED in the six-method GIF command: five PASS/one reply case timeout at the existing10second visible Add GIF goal. Parent full17 is still in progress with wallet/social outcomes unknown. Original reply/typed draft capture does not establish offscreen button bounds until new Compose layout observations. Not whole-app regression or actual provider acceptance.",
+  "overallRunStatusAtCapture": "in_progress",
+  "failedPartition": "chat"
+}

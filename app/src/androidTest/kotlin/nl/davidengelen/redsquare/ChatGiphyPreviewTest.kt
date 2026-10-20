@@ -157,8 +157,13 @@ class ChatGiphyPreviewTest {
                             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                             androidx.test.espresso.Espresso.closeSoftKeyboard()
                             assertEquals(0, provider.requestCount)
-                            val add = hasText("Add GIF") and hasClickAction() and isEnabled()
+                            val preview = hasContentDescription(context.getString(R.string.chat_composition_preview))
+                            val add = hasText("Add GIF") and hasClickAction() and isEnabled() and hasAnyAncestor(preview)
+                            if (flow == GifFlow.REPLY) captureLayout("$prefix-before-gif-scroll")
+                            if (!displayed(add)) ui.onNode(add).performScrollTo()
                             ui.waitUntil(10_000) { displayed(add) }
+                            ui.onNode(add).assertIsDisplayed()
+                            if (flow == GifFlow.REPLY) captureLayout("$prefix-after-gif-scroll")
                             ui.onNode(add).performClick()
                             if (selection) {
                                 val use = hasText("Use GIF") and hasClickAction() and isEnabled()
@@ -328,5 +333,10 @@ class ChatGiphyPreviewTest {
 
     private fun displayed(target: SemanticsMatcher, unmerged: Boolean = false) =
         try { ui.onNode(target, useUnmergedTree = unmerged).assertIsDisplayed(); true } catch (_: AssertionError) { false }
+    private fun captureLayout(name: String) {
+        capture(name)
+        File(context.cacheDir, "chat-giphy-evidence/$name.semantics.txt").writeText(
+            ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+    }
     private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "chat-giphy-evidence/$name.png"))
 }
