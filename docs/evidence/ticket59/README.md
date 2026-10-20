@@ -753,3 +753,8 @@ methods pass. Its95 original members are retained in queue-red17-3c-39431103266.
 Corrected5a focused viewport10run39436228435/17run39436233728 and
 GroupAdmin10run39436239311/17run39436244211 are active; all original goals and
 deadlines remain. New complete acceptance has not yet been dispatched.
+
+Both3c complete dispatches now finish FAILURE: Chat fails the identical queued
+Members target on both SDKs; all wallet and social jobs succeed. Final run/job
+metadata is retained separately, preserving the earlier17 in-progress capture.
+Paired correction/evidence reviews through56b report0 residual findings.
