@@ -296,3 +296,21 @@ agreement captures can have multiple Compose roots, so a single-root print may
 throw before the real assertion. The recorder now prints all roots with explicit
 full subtree depth. This changes diagnostics only; no UI or acceptance condition.
 The e6 focused attempts will be superseded, never treated as acceptance.
+
+Complete17 run39343154589 at9b33 endedFAILURE in all3partitions, never accepted:
+wallet has the same publishing-surface visibility failure as10; chat records
+6PASS/4FAIL in ChatKeyboard at its obsolete reminder-in-Chat assertion after IME
+dismissal; social records2PASS/1FAIL in Giphy because native image bounds
+[16,456][304,636] require bottom+8=644 outside the640px screenshot. Earlier gates
+passed but later gates are missing. Original failure packets retain these limits.
+The Giphy harness has no separate adb-exit record; its3 complete method statuses
+and normal instrumentation terminal marker are retained without inventing one.
+
+Keyboard's corrected expectation keeps backup guidance absent in Chat and the
+existing hidden=false persistence check, with every real-IME, exact-draft, physical
+Send, group-membership and transmission assertion unchanged. The existing frame
+journey verifies the reminder reappears on Home without dismissal. GIF's observer
+positions the same image via its nearest vertical scroll ancestor only when the
+original outside8px samples would leave the bitmap. It records initial/positioned
+bounds and preserves every animation, attribution, original-URL, draft and pixel
+containment assertion. These are test-only changes, not fixed runtime acceptance.

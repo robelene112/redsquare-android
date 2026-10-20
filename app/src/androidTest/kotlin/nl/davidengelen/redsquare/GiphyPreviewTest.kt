@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import android.graphics.Color
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import mockwebserver3.Dispatcher
 import mockwebserver3.RecordedRequest
 import okio.Buffer
@@ -315,7 +317,32 @@ class GiphyPreviewTest {
         ui.waitForIdle()
         ui.onNodeWithContentDescription(label).assertIsDisplayed()
         // The UiDevice bitmap and accessibility bounds both use screen coordinates.
-        val bounds = requireNotNull(UiDevice.getInstance(instrumentation).findObject(By.desc(label))).visibleBounds
+        val device = UiDevice.getInstance(instrumentation)
+        val initial = requireNotNull(device.findObject(By.desc(label))).visibleBounds
+        assertFalse("The image must have visible screen bounds", initial.isEmpty)
+        // ScrollTo exposes the image itself, but the containment oracle also needs its two 8px outside samples.
+        val adjustment = when {
+            initial.top - 8 < 0 -> (initial.top - 16).toFloat()
+            initial.bottom + 8 >= device.displayHeight -> (initial.bottom + 16 - device.displayHeight).toFloat()
+            else -> 0f
+        }
+        if (adjustment != 0f) {
+            capture("$name-before-sample-positioning")
+            ui.onNodeWithContentDescription(label).onAncestors().filter(hasScrollAction() and
+                SemanticsMatcher.keyIsDefined(SemanticsProperties.VerticalScrollAxisRange)).onFirst()
+                .performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                    assertTrue("The vertical viewport must expose both containment samples", scroll(0f, adjustment))
+                }
+            ui.waitForIdle()
+        }
+        val bounds = requireNotNull(device.findObject(By.desc(label))).visibleBounds
+        File(context.cacheDir, "giphy-evidence/$name-sample-positioning.json").writeText(
+            com.google.gson.JsonObject().apply {
+                addProperty("initialBounds", initial.toShortString())
+                addProperty("adjustmentPixels", adjustment)
+                addProperty("positionedBounds", bounds.toShortString())
+                addProperty("displayHeight", device.displayHeight)
+            }.toString())
         assertFalse("The image must have visible screen bounds", bounds.isEmpty)
         capture("$name-bounds")
         val screenshot = android.graphics.BitmapFactory.decodeFile(File(context.cacheDir, "giphy-evidence/$name-bounds.png").path)

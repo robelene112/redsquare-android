@@ -182,7 +182,7 @@ class ChatKeyboardPreviewTest {
                         fun restoredChrome() {
                             ui.waitUntil(10_000) { displayed(hasText("Wallet") and hasClickAction()) }
                             if (!photo) {
-                                ui.waitUntil(10_000) { displayed(hasText(context.getString(R.string.wallet_backup_reminder))) }
+                                ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertDoesNotExist()
                                 check(!context.getSharedPreferences("wallet-backup-reminders", 0)
                                     .getBoolean("hidden:${wallet.publicKey}", true))
                             }
@@ -196,7 +196,7 @@ class ChatKeyboardPreviewTest {
                         readySend()
                         captureNativeScreen(File(folder, "$kind-keyboard-open.png"))
                         // Ordinary Back should dismiss the IME, preserve the exact draft,
-                        // and reveal the same reminder and conversation controls again.
+                        // and restore conversation controls while backup guidance stays on Home.
                         val injectedBack = device.pressBack()
                         println("Back injection reported $injectedBack; observing keyboard dismissal")
                         ui.waitUntil(10_000) { !observeKeyboard() }

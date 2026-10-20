@@ -41,13 +41,22 @@ Earlier293 probes and e098 regression retain the proven pinned Compose cache
 defect in both directions (Settings0/window1 and Settings1/window0).
 
 Full39343151613(Android10) FAILED at the private publishing-surface visible-Unlike
-goal (3other surfaces PASS);39343154589(Android17, all3partitions) is running at
+goal (3other surfaces PASS). Complete17 run39343154589 also FAILED in all3parts:
+wallet same visibility issue; chat4 keyboard failures expect obsolete backup
+chrome inChat after IME dismissal (6photo casesPASS); social GIF's bottom+8
+sample leaves the screenshot. These failures are retained and never accepted.
+Both full runs executed
 the same9b33 source, with public reads and immutable signed35/43 observer inputs.
 The independent pre-execution catalog binds exact source/runIDs locally at
 ../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
 34deliberate interruptions,33continuity. No complete58 acceptance yet. The next test-only surfaces probe records the
 Compose tree before targeted scrolling; transaction/identity assertions and
-existing20second helper/180second class bounds remain.
+existing20second helper/180second class bounds remain. HEADeca374c37 is test-only:
+all-root tree printing avoids a reviewed modal-root diagnostic error in e6db.
+Focused surfaces39344505651(10)/39344508913(17) and complete agreement39344699117(10)/
+39344701551(17) run at eca. App production is unchanged from9b33; signed46 remains
+prepared/unpublished. No cause is claimed until pre-scroll tree + reached action
+prove the offscreen hypothesis. Old e6 focused attempts are superseded.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

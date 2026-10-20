@@ -1,0 +1,299 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatKeyboardPreviewTest:
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 108.382
+There were 4 failures:
+1) groupChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+2) privateChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:38)
+3) groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:28)
+4) privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29$restoredChrome(ChatKeyboardPreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$31$lambda$30$lambda$29(ChatKeyboardPreviewTest.kt:203)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$8LcWmYMPfooYGOsnnVmPfZ1dLVM(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda23.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen(ChatKeyboardPreviewTest.kt:27)
+
+FAILURES!!!
+Tests run: 10,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

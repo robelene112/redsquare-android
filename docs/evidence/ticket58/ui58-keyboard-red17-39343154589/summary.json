@@ -1,0 +1,63 @@
+{
+  "run": "39343154589",
+  "source": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
+  "expectedMethods": [
+    "privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+    "groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+    "privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+    "groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+    "privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+    "groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+    "privateChatKeepsFirstUseSendReachableWithLargerText",
+    "groupChatKeepsFirstUseSendReachableWithLargerText",
+    "privateChatKeepsLongReplyPhotoSendReachableWithLargerText",
+    "groupChatKeepsLongReplyPhotoSendReachableWithLargerText"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "privateChatKeepsLongReplyPhotoSendReachableWithLargerText",
+      "status": 0
+    },
+    {
+      "method": "groupChatKeepsLongReplyPhotoSendReachableWithLargerText",
+      "status": 0
+    },
+    {
+      "method": "privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+      "status": 0
+    },
+    {
+      "method": "groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+      "status": 0
+    },
+    {
+      "method": "groupChatKeepsFirstUseSendReachableWithLargerText",
+      "status": -2
+    },
+    {
+      "method": "privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen",
+      "status": 0
+    },
+    {
+      "method": "groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto",
+      "status": 0
+    },
+    {
+      "method": "privateChatKeepsFirstUseSendReachableWithLargerText",
+      "status": -2
+    },
+    {
+      "method": "groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+      "status": -2
+    },
+    {
+      "method": "privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen",
+      "status": -2
+    }
+  ],
+  "members": 92,
+  "limit": "Focused native frame proof. Movies require explicit original-frame inspection. Not full regression or physical acceptance."
+}
