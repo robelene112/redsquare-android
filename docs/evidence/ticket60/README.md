@@ -314,3 +314,17 @@ Each of the three classes has its own unchanged180second bound. Both source
 reviews0; the only later adjustment imports the already used public getOrNull
 extension. Local app/test Kotlin compile succeeds1m45s after that import fix.
 Production remainscfbf; new content and extracted-helper native proof pending.
+
+Content/helper native10 run39506459830 and17 run39506463821 atda6093d568df44b1ef8f1f1f660e3e616d6115a9
+complete SUCCESS. Four original methods24.751s/66.885s, extracted viewport
+21.187s/25.605s and new content18.381s/22.245s pass. Packets177/179 hashes,
+three archives162 exact originals each; both evidence reviews0. Six configuration
+cells per SDK record320dp,100/130/200 fonts and Light/Dark. Ordered rendered
+red/blue pixels, verified quoted author/text, absent visual/accessible counts and
+final wallet/backend/zero sends/health/independent restoration pass. Root viewed
+10body/red1/130darkblue2/200quote+footer and17body/130quote/200footer.
+Observation limit: all six17 verified-quote XMLs omit the quoted text; passing
+Compose assertions and the unchanged130%Light PNG positively show author/body.
+PNG and hierarchy are separate observations; no cause or app defect established.
+Do not claim these17 XMLs confirm quote text. Four-context media/quote, pending/
+failed/status matrix, actual new-control TalkBack and complete60 delivery remain.
