@@ -48,8 +48,10 @@ NOTpublished.50LIVE,51REJECTED. Independent52beforeHTTPbookend PASS exists in
 /mnt/storage/redsquare-android-artifacts/status59-publication-52,afterNOTexecuted.
 Waitall3successjobs/SDK, strictcollector+originalmotion/speech/visualreview,
 pairedfinalreview, canonicalpublish52andindependentafterbookend,close59,CONTINUE60.
-Temporaryverificationfcandf23refs areowned; deleteonlyaftertheirrunsfinishand
-confirmheadunchanged. Nevercancelunfinishedpriorpartitionsorrebuild50/51/52.
+Ownedverify/status59-fc477c893 wasdeletedafterallitsrunscompletedandremotehead
+wasverifiedexactfc. Itsfourrejectedfullfinalmetadatarecordsareretainedin
+rejected-run-final-metadata. verify/status59-f23bc380dremainsACTIVE; deleteonly
+afteritsrunsfinishandconfirmheadunchanged. Nevercancelunfinishedpriorpartitionsorrebuild50/51/52.
 
 
 59 is OPEN, ordinary50 remains live. Current source fc477c893 includes production

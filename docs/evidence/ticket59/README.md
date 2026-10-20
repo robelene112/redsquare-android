@@ -455,3 +455,11 @@ are mandatory. Frozen486/487 catalog and collector are unchanged. Actual binding
 retain both4a andfc rejected attempts, and independently bind signed52's identical
 production/build inputs tofc. Complete acceptance, final review and publication
 remain pending;50 stays live and52 stays prepared.
+
+Allfour rejected broad runs now finish FAILURE; final original GitHub job
+metadata is retained in rejected-run-final-metadata alongside earlier in-progress
+captures. Their social partitions pass; Chat and wallet partitions fail as
+recorded above. No final metadata overwrites or promotes the earlier captures.
+Owned verification ref verify/status59-fc477c893 was removed only after every
+run on it completed and its remote head still matched exactfc. Currentf23
+verification ref and both complete executions remain active.
