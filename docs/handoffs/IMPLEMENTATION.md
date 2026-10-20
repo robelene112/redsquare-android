@@ -303,6 +303,9 @@ The authoritative latest pointer is ticket59 evidence README section
 GroupAdmin e8 focused10/17 both succeed with the original explicit-retry goals.
 Final4ae adds visible/pre-click capture and1/1 checks without app changes.
 Fresh complete10run39434438881 and17run39434443499 execute exact4ae88dcaf.
-Signed55 is building there.51through54 are rejected and never publishable;50
-remains live. Native full acceptance, APK inspection and final review/publication
-are pending. Finish59, then sequential60through69 without routine pauses.
+Signed55 is prepared there; actual APK certificate/manifest/DEX inspection and
+independent public before-bookend pass. Frozen APK SHA256 is
+fc4c6a4ee1ade45bea04f97038c3c392dd60c05ae3b7e72011f176a3ee0bf7ba.
+51through54 are rejected and never publishable;50 remains live. Native full
+acceptance and final review/publication are pending. Never rebuild55.
+Finish59, then sequential60through69 without routine pauses.
