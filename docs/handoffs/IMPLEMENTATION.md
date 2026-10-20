@@ -19,111 +19,66 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
-Shared frame58 is active at production9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4.
-The compact header/Home-only reminder, selected primary navigation, persistent
-compose action, guarded draft navigation and reading-position restoration are
-implemented. Import reflows at200% rather than clipping its glyphs. Historical
-REDs, diagnostic observer corrections and original bytes remain in
-../evidence/ticket58/README.md and its packets; no old failure is reclassified.
+Shared frame58 remains ACTIVE. Last production change is
+9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4; every subsequent commit through current
+cae84e5ad0bd8fc85cef6b4a452a5f0c1ac35f7e is fixtures/harness/evidence only, with
+identical app/build/signing inputs. The compact frame, Home-only backup/import
+notice, selected primary navigation, guarded drafts, reading-position restoration
+and lifecycle-owned actual system-motion scale are implemented.
 
-Focused39342318884(Android10)/39342315882(Android17) both completedSUCCESS:
-exactly4 frame +1 reading-position +2 real-system-motion methods perSDK. All8
-320dp/412dp,130%/200%,Light/Dark configurations pass full48dp touch/native targets.
-Root opened current font/guidance/IME/Chat and before/after reading originals.
-The narrow200% captions wrap; this is reachability proof, not app-wide polish.
+Accepted focused frame proof:39342318884(Android10)/39342315882(Android17), each
+4 frame +1 reading-position +2 native motion methods. All8 actual320dp/412dp,
+130%/200%,Light/Dark configurations retain48dp touch/native targets. Narrow200%
+captions wrap but remain reachable. Original recordings show normal intermediate
+positions and no intermediate zero-scale movement, with Settings/window0->1->0.
+This is shared-frame proof, not whole-app visual completion.
 
-Motion is now verified in the original frames: normal has intermediate positions,
-zero has none, including0->1->0 across windows, and actual window scales match
-settings. Root opened representative originals on bothSDKs. The factory reads
-fresh settings per window, observes changes and releases with the window lifecycle.
-Both source review axes0; ordinary Compose test factory/frame clocks remain intact.
-Earlier293 probes and e098 regression retain the proven pinned Compose cache
-defect in both directions (Settings0/window1 and Settings1/window0).
+Other current focused evidence, retained under../evidence/ticket58/README.md:
+- Keyboard39345370402/39345373579:10PASS perSDK, real IME and exact drafts/sends.
+- GIF39345377196/39345380431:3 previewPASS perSDK plus posting. Original outside8px
+  samples are positioned within the screenshot by12px scrolling.
+- Complete agreement39346896065/39346898616:27 accepted38 identities perSDK,
+  including actual process death/recovery/restoration with unchanged wallet/draft.
+- Cancellation viewport39346900869/39346903466:2PASS perSDK, physical48dp actions.
+- Capacity39349185535/39349188302:1PASS perSDK,101-group pause/automatic resume,
+  preserved subscription/categories/history/draft and correct node wording.
+- Reports39349191022/39349193931:12 identities perSDK (11 UI +1 actual cold-process
+  recovery). Original signed report survives and retry remains explicit. Existing
+  harness has no separate UI adb-exit record; that absence is retained honestly.
+- Social push39350663269/39350665509 at092238769:11 main +1 binding +3 workerPASS
+  perSDK. Corrected no-root polling retains the same15second route goal and exact
+  conversation/latest draft/photo checks. These scopes exclude process recovery
+  and actual Google delivery. A root-gap duration was not measured.
+Both review axes have0 residual findings for the reviewed sources/evidence.
 
-Full39343151613(Android10) and39343154589(Android17, all3parts) at9b33 FAILED
-and remain failed. Private publishing's Unlike target was below the short history;
-ChatKeyboard expected the now Home-only reminder inChat; GIF's outside8px sample
-left the640px bitmap. Original packets retain these failures and missing later gates.
-Focused private surfaces39344505651(10)/39344508913(17) at eca both4PASS;
-pre/post trees and original PNGs prove362..382 offscreen ->292..312 visible.
-One17 XML dump omits the child despite PNG/tree, because captures are not atomic.
-The final capture now waits for native Unlike before exporting. Complete agreement
-eca39344699117/39344701551 FAIL at an offscreen group reaction target,6other group
-casesPASS. ba3ad0240 scrolls that exact reaction target before clicking, retaining
-all agreement, cancellation, identity, membership and transmission assertions.
+Complete acceptance is still pending. Current independently frozen473/474 catalog
+and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
+Android10 run39350667797 executes092238769 and is still running. Android17
+run39349230920 executes6388840182: Chat partition FAILED at ChatGiphy's reply
+Add GIF visibility goal (5 other methodsPASS); wallet partitionSUCCESS, social
+still running. Leave the remaining job running to retain its actual outcome. That17 attempt cannot provide
+complete acceptance. Historical failed and cancelled attempts remain unchanged
+in the evidence trail; never relabel them SUCCESS.
 
-Focused aa08 keyboard39345370402(10)/39345373579(17) bothSUCCESS, exactly10PASS
-each. GIF39345377196(10)/39345380431(17) bothSUCCESS, exactly3 previewPASS each;
-posting also passes in those scopes. Original GIF bounds456..636 move to444..624
-by12px so the original8px samples remain within the bitmap. Keyboard retains every
-real-IME, exact-draft and explicit-Send assertion; backup guidance stays absent in
-Chat without persisting dismissal. All focused packets are retained and reviewed.
+Latest test-onlycae84e5ad scopes Add GIF to the existing composition preview and
+scrolls only when hidden, then requires the original10second visibility goal.
+Reply-only before/after native + all-root full-depth Compose observations on10
+show Add GIF445..485 below preview329..442, then402..442 inside after43px scroll.
+Every animation/quote/credit/queue/URL/signature assertion and180second class bound
+remains. Focused chat-gifs39351423400(10)/39351426372(17) atcae areSUCCESS with all6PASS
+perSDK and the same original bounds. Root opened both after-scroll PNGs. Fresh
+complete acceptance remains pending;
+no new production or signing build is needed solely for these fixture changes.
 
-Full10 run39347038831 at3cc FAILED later in the capacity notice: its test expects
-"this server", actual PNG/XML correctly displays "this node". Earlier frame,
-agreement/recovery, keyboard and alert gates pass; later full gates are absent.
-Exact failed method and six group-capacity originals are retained. Full17
-39347042348's Chat partition alsoFAILED; replacement per-scope concurrency
-cancelled its unfinished social/wallet jobs, so the actual whole run isCANCELLED.
-The failed class and cancelled overall conclusion are both retained.
-No complete58 acceptance. The frozen473/474 catalog and original failed/cancelled
-attempts remain in../evidence/ticket58/full-identity-reference.json.
-
-Corrected complete agreement39346896065(10)/39346898616(17) at3cc bothSUCCESS:
-27 accepted38 identities each (25 class methods plus2 process recovery/restoration),
-distinct actual interrupted/recovered PIDs and preserved wallet/revision/unsent
-text. Focused cancellation viewport39346900869/39346903466 also bothSUCCESS,
-2 methods perSDK. Root opened original warning/cancel/reopened and larger-text
-agreement cancellation/restored drafts on bothSDKs. Both evidence review axes0.
-
-Test-only638884018 changes the capacity literal to node; a read-only
-independent audit also found ReportPreviewTest's unavailable/reopened report
-literal still says server, corrected to node with no behavior changes. The capacity
-wallet equality assertion no longer dumps export values on failure. All prior
-method, assertion, deadline and recovery requirements remain. No app/build/signing
-changes since9b33. Source39348053376 at doc/evidence2bcd9f355 completedSUCCESS,
-including core/gateway, Debug/tests, Release/Performance assembly and lint.
-Fresh full39349228406(10)/39349230920(17, all3parts) now run at exact6388840182;
-frozen473/474 catalog unchanged, source/run IDs bound before outcomes. Focused
-capacity39349185535(10)/39349188302(17) at638 bothSUCCESS,1 method each,8 original
-members each. Reports39349191022(10)/39349193931(17) bothSUCCESS, exactly12 accepted38
-identities (11 UI methods +1 cold-process recovery),90 originals each. Actual
-interrupted/recovered PIDs4250/4332 and5040/5118 preserve the signed report and
-explicit retry. UI adb-exit record is absent by the existing reports harness,
-not invented. Root opened capacity pause/resume and bothSDK report not-sent/
-repaired originals. These are focused scopes, not complete regression.
-
-Latest full10 run39349228406 at638 FAILED in social-push:10PASS/1FAIL, an immediate
-No Compose hierarchies exception atSocialPushTapPreviewTest.waitFor:503 after a
-native notification tap. The original capture retains draft/photo/IME but does
-not prove eventual routing. Test-only092238769 usesatLeastOneRootRequired=false
-within the same15second goal, preserving every exact matcher and later journey
-assertion. Both source review axes0. Failure packet retains90 originals. Full17
-39349230920 continues at638; do not cancel or supersede it before its result.
-No production change. New full Android10 run39350667797 and focused social-push
-runs39350663269/39350665509 execute092238769. PerSDK source/run binding was frozen
-before outcomes; full Android17 run39349230920 remains at638. The subsequently failed17 Chat partition means that17 attempt cannot provide
-complete acceptance; a fresh17 full run is required after the GIF fixture fix.
-Pending10 and unfinished17 partition outcomes are not inferred.
-
-Full17 run39349230920 at638 now has a FAILED Chat partition: ChatGiphy6 methods,
-5PASS/1FAIL, reply Add GIF visibility timeout at161. Parent wallet/social still
-run; no full result inferred. The58-original packet records this partial status.
-Next fixture scopes the button to the existing composition preview and scrolls
-only if not visible, preserving the10second goal, all animation/quote/credits/
-queue/URL/transaction assertions and180second class bound. Reply-only before/
-after native + all-root Compose trees will verify the offscreen hypothesis.
-
-Focused social-push39350663269(10)/39350665509(17) at092 bothSUCCESS:11 main-command
-PASS each, plus binding/worker commands. Original Settings-route Conversation
-and exact returned draft/photo are retained; root opened10 representatives.
-The corrected journey passes its original deadline, not a measured root-gap claim.
-
-Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
+Ordinary46 is PREPARED, not published, at9b33. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
-same6ca certificate, manifest/DEX checks and both preparation reviews0. Full
-regression/review and signed UI delivery remain pending. Source39342315719
-completedSUCCESS (core/gateway, Debug/tests, Release/Performance and lint). No57 code exists yet; its local policy is recorded and ready.
+established6ca certificate, nondebuggable/nonprofileable, backupfalse, reviewtrue,
+push/PostsGIF/ChatGIF unconfigured. Both preparation review axes0. Actual shared
+counter46 is already reserved. Canonical publisher and public before/after checks
+remain mandatory after complete native acceptance/review. Ordinary45 stays LIVE.
+Source39348053376 passed core/gateway, Debug/tests, Release/Performance and lint.
+No57 code exists yet; its local policy is recorded and ready. Finish58 and signed
+UI delivery before claiming another ticket, then proceed57 and59through69.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).

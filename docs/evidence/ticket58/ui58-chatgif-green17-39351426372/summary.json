@@ -1,0 +1,43 @@
+{
+  "run": "39351426372",
+  "source": "cae84e5ad0bd8fc85cef6b4a452a5f0c1ac35f7e",
+  "expectedMethods": [
+    "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+    "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft",
+      "status": 0
+    },
+    {
+      "method": "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+      "status": 0
+    },
+    {
+      "method": "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    },
+    {
+      "method": "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    }
+  ],
+  "members": 72,
+  "limit": "All six original controlled Chat GIF methods PASS with unchanged animation/credits/quote/draft/queue/cancel/URL/signature assertions and class deadline. Original reply semantics show Add GIF445..485 below preview329..442 before scrolling, then402..442 inside after43px scroll. Not complete app regression, real provider delivery or physical acceptance."
+}

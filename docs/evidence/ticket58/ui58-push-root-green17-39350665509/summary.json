@@ -1,0 +1,68 @@
+{
+  "run": "39350665509",
+  "source": "092238769ffc6a956ff9f04f78b2fafef9397786",
+  "expectedMethods": [
+    "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+    "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+    "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+    "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+    "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+    "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+    "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+    "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+    "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+    "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+    "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "aPhysicallyDismissedReplyStaysSilentWhenItsReferenceIsRedelivered",
+      "status": 0
+    },
+    {
+      "method": "anAvailableSignedReplyShowsOneAndroidReplyAlertAfterVerifyingItsParent",
+      "status": 0
+    },
+    {
+      "method": "tappingAReplyPreservesTheLatestUnsentPostAndPhotoAndOpensTheExactConversation",
+      "status": 0
+    },
+    {
+      "method": "theReplyAndMentionAlertChoiceCanBeEnabledAndDisabledInSettings",
+      "status": 0
+    },
+    {
+      "method": "aReplyTapOpensWithoutAnActivityAndIsConsumedAcrossScreenRecreation",
+      "status": 0
+    },
+    {
+      "method": "aReplyTapPreservesTheLatestUnsentGroupChatAndPhoto",
+      "status": 0
+    },
+    {
+      "method": "aPublicKeyMentionShowsAMentionAlertAndOpensItsPost",
+      "status": 0
+    },
+    {
+      "method": "aReplyTapPreservesTheLatestUnsentPrivateChatAndPhoto",
+      "status": 0
+    },
+    {
+      "method": "androidNotificationCategoriesCanBeOpenedWithoutLosingTheLatestPost",
+      "status": 0
+    },
+    {
+      "method": "enablingSocialAlertsWorksEvenAfterTheGeneralAndroidPromptWasOffered",
+      "status": 0
+    },
+    {
+      "method": "aVerifiedUsernameMentionShowsAMentionAlertAndOpensItsPost",
+      "status": 0
+    }
+  ],
+  "members": 92,
+  "limit": "Original 11-method controlled social-push command PASS, including exact Settings-reply notification route and retained draft/photo. Overall focused scope also passes binding and worker commands. Not complete process recovery, whole-app regression, real Google delivery or physical/provider acceptance."
+}

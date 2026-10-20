@@ -478,7 +478,19 @@ not completed acceptance.
 Focused social-push39350663269(Android10)/39350665509(Android17) at092238769 both
 SUCCESS, exactly11 main-commandPASS perSDK, plus the scope's binding and worker
 commands. Original10 Settings-route Conversation and returned exact draft/photo
-captures were opened by root;17 originals are retained. This demonstrates the
+captures were opened by root;17 returned-draft PNG also shows the exact latest
+text and photo. Its separately captured XML still shows Conversation, so that
+non-atomic XML observation is not positive restored-draft evidence. Exact Compose
+assertions pass; original PNG/XML are retained without treating them as atomic. This demonstrates the
 complete corrected journey within its existing deadline, without measuring the
 transient root gap or claiming actual Google delivery. Full acceptance remains
 pending. No production change.
+
+Focused Chat GIF39351423400(Android10)/39351426372(Android17) atcae bothSUCCESS,
+all6 original methodsPASS perSDK. Each retains72 original members, including
+before/after native PNG/XML and full-depth all-root Compose trees. Both original
+trees show preview329..442 with Add GIF445..485 before scrolling, then402..442
+after43px scroll. Root opened both original after-scroll PNGs. This proves the
+viewport explanation for the retained reply failure; all animation, quote,
+credit, draft, queue/cancel, URL/signature assertions and180second class bound
+remain. These focused passes are not complete regression or provider acceptance.
