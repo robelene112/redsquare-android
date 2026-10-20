@@ -454,24 +454,22 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         } else {
             if (entry.automaticMessage && entry.pendingMessage != null)
                 nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(loaded && !busy && !readFailed && !navigation.transitioning)
-            if(entry.queuedMessage!=null) {
-                Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
-                    horizontalArrangement=Arrangement.SpaceBetween) {
-                    InlineStatus(stringResource(R.string.chat_queued), modifier = Modifier.weight(1f))
-                    TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={
-                        act(requiresAgreement = false) {
-                            draftWrites.withLock {
-                                withContext(NonCancellable){
-                                    publish{
-                                        store.cancelQueued(entry.group.id,entry.queuedMessage.candidate.id);store.entries()
-                                    }
-                                    changeMessage(withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft})
+            val queuedMessage = entry.queuedMessage
+            InlineStatus(if (queuedMessage != null) stringResource(R.string.chat_queued) else null,
+                actionLabel = stringResource(R.string.chat_cancel_queued),
+                actionEnabled = loaded&&!busy&&!readFailed&&!navigation.transitioning,
+                onAction = {
+                    if (queuedMessage != null) act(requiresAgreement = false) {
+                        draftWrites.withLock {
+                            withContext(NonCancellable){
+                                publish{
+                                    store.cancelQueued(entry.group.id,queuedMessage.candidate.id);store.entries()
                                 }
+                                changeMessage(withContext(Dispatchers.IO){requireNotNull(store.load(entry.group.id)).draft})
                             }
                         }
-                    }){Text(stringResource(R.string.chat_cancel_queued))}
-                }
-            }
+                    }
+                })
             val messagesLabel=stringResource(R.string.group_messages)
             val messageList=rememberLazyListState()
             val visible=entry.messages.filter{personal?.ready==true &&

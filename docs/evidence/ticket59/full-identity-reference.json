@@ -157,14 +157,15 @@
   ],
   "verificationRef": "verify/status59-private-ready",
   "signedCandidateVersion": 57,
-  "signedCandidateRejected": false,
+  "signedCandidateRejected": true,
   "rejectedCandidateVersions": [
     51,
     52,
     53,
     54,
     55,
-    56
+    56,
+    57
   ],
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
@@ -209,15 +210,21 @@
       "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39443999774"
+    },
+    {
+      "run": 39446244398,
+      "source": "49a92703b63659ee7b7a9d4da03dc01616f5dd49",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39446244398",
+      "productionInputsEqualTo": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+      "comparison": "ff9-production-equivalence/inputs.json excludes only docs/ and AndroidTest;457 equal Git entries. New exactff9 full jobs still require source/release/lint."
     }
   ],
   "sourceBuild": {
-    "run": 39446244398,
-    "source": "49a92703b63659ee7b7a9d4da03dc01616f5dd49",
+    "run": 39447946565,
+    "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
     "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39446244398",
-    "productionInputsEqualTo": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
-    "comparison": "ff9-production-equivalence/inputs.json excludes only docs/ and AndroidTest;457 equal Git entries. New exactff9 full jobs still require source/release/lint."
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39447946565"
   },
   "fixtureOnlyEquivalence": {
     "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",
@@ -238,13 +245,22 @@
       "android17": 39444888298,
       "acceptance": "superseded, not accepted",
       "reason": "Later49a production corrects proven42px private history; both complete dc2 dispatches continue with actual conclusions.10wallet already fails policy merged-editor readiness. Final run/job states must be retained after completion."
+    },
+    {
+      "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+      "android10": 39448128550,
+      "android17": 39448133541,
+      "acceptance": "superseded; cancellation requested, never accepted",
+      "reason": "Cumulative source review proves two conditionally disposed queued-status hosts bypass exit. Correcting lifecycle and preserving48dp controls changes production; signed57 rejected."
     }
   ],
-  "signedCandidateState": "reserved-building, not accepted or published",
+  "signedCandidateState": "REJECTED, never publish",
   "executingSourceCheck": {
     "run": 39447946565,
     "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
-    "status": "in_progress",
-    "acceptance": "pending"
-  }
+    "status": "completed",
+    "acceptance": "source/core/gateway/release/performance/lint only, native full acceptance pending",
+    "conclusion": "success"
+  },
+  "executingState": "superseded, cancellation requested after cumulative queued-host finding; corrected full dispatch pending"
 }

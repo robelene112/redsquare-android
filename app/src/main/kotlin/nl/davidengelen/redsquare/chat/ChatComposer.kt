@@ -143,37 +143,34 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                 val previewLabel=stringResource(R.string.chat_queued_preview)
                 BoxWithConstraints {
                     val previewMaxHeight=maxHeight/2
-                    Column {
-                        Column(Modifier.heightIn(max=previewMaxHeight).verticalScroll(rememberScrollState())
-                            .semantics{contentDescription=previewLabel}) {
-                            ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true,backend=backend,onQuote={})
-                        }
-                        Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
-                            horizontalArrangement=Arrangement.SpaceBetween) {
-                            InlineStatus(stringResource(R.string.chat_queued), modifier = Modifier.weight(1f))
-                            TextButton(enabled=ready&&!sending&&!navigation.transitioning,onClick=cancel@{
-                                if (navigation.transitioning || sending) return@cancel
-                                sending=true
-                                scope.launch {
-                                    try {
-                                        writes.withLock {
-                                            withContext(NonCancellable) {
-                                                saved=withContext(Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
-                                                changeText(saved.draft)
-                                            }
-                                        }
-                                        failed=false
-                                    }catch(cancelled:CancellationException){throw cancelled}
-                                    catch(_:Exception){failed=true}
-                                    finally{sending=false}
-                                }
-                            }){Text(stringResource(R.string.chat_cancel_queued))}
-                        }
+                    Column(Modifier.heightIn(max=previewMaxHeight).verticalScroll(rememberScrollState())
+                        .semantics{contentDescription=previewLabel}) {
+                        ChatMessageBubble(pending.author,pending.text,pending.createdAt,outgoing=true,backend=backend,onQuote={})
                     }
                 }
             }
             else -> Unit
         }
+        InlineStatus(if (saved.status == ChatWorkStore.Status.QUEUED) stringResource(R.string.chat_queued) else null,
+            actionLabel = stringResource(R.string.chat_cancel_queued),
+            actionEnabled = ready&&!sending&&!navigation.transitioning,
+            onAction = cancel@{
+                if (saved.status != ChatWorkStore.Status.QUEUED || navigation.transitioning || sending) return@cancel
+                sending=true
+                scope.launch {
+                    try {
+                        writes.withLock {
+                            withContext(NonCancellable) {
+                                saved=withContext(Dispatchers.IO){work.cancelQueued(requireNotNull(saved.transaction).id)}
+                                changeText(saved.draft)
+                            }
+                        }
+                        failed=false
+                    }catch(cancelled:CancellationException){throw cancelled}
+                    catch(_:Exception){failed=true}
+                    finally{sending=false}
+                }
+            })
         val deliverySummary = when (saved.status) {
             ChatWorkStore.Status.UNKNOWN -> stringResource(R.string.chat_send_unknown)
             ChatWorkStore.Status.SUBMITTED -> stringResource(R.string.chat_send_submitted)

@@ -57,6 +57,8 @@ Use unchanged full-collector.py. No failed-tail assembly. Prior dc2 runs remain
 superseded, with actual terminal metadata to retain. No new owner input needed.
 
 
+## Earlier private diagnostics (historical)
+
 2026-10-20, 15:13 UTC. #59 remains OPEN;50 is LIVE.51through56 are
 REJECTED and NEVER PUBLISH. Continue60through69 sequentially after true59
 completion, without routine owner stops. No new owner input is required.

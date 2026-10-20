@@ -41,10 +41,11 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
     val actions: @Composable RowScope.() -> Unit = {
         val detailsLabel = stringResource(R.string.status_details_for, renderedSummary)
         if (details.isNotEmpty()) TextButton(enabled = summary != null,
-            modifier = Modifier.semantics { contentDescription = detailsLabel }, onClick = { openedDetails = renderedSummary to details.toList() }) {
+            modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = detailsLabel }, onClick = { openedDetails = renderedSummary to details.toList() }) {
             Text(stringResource(R.string.status_details), style = MaterialTheme.typography.labelMedium)
         }
-        if (actionLabel != null) TextButton(enabled = summary != null && actionEnabled, onClick = onAction) {
+        if (actionLabel != null) TextButton(modifier = Modifier.heightIn(min = 48.dp),
+            enabled = summary != null && actionEnabled, onClick = onAction) {
             Text(actionLabel, style = MaterialTheme.typography.labelMedium)
         }
     }
