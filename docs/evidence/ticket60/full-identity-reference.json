@@ -154,9 +154,15 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingSources": {},
-  "executingRuns": {},
-  "executingState": "Initial full attempts rejected; cache-isolation reproduction and replacement complete runs pending.",
+  "executingSources": {
+    "android10": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
+    "android17": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4"
+  },
+  "executingRuns": {
+    "android10": 39515617424,
+    "android17": 39515760750
+  },
+  "executingState": "Replacement complete runs dispatched after paired17-case browse/post reproduction passed; no complete acceptance yet.",
   "rejectedExecutions": [
     {
       "source": "90f94ffa1178e0f68839155fe55d302d7a036e3b",

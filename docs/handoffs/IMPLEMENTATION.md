@@ -633,3 +633,26 @@ including the original browse precondition. Both pending. Both rejected-full
 packets' terminal outcomes/hashes/originals are reviewed0/0. The prepared59 packet
 now includes11 matching production/build Git object pairs90f→ce480; both reviews0.
 This proves source/input equivalence, never APK-byte equivalence or acceptance.
+
+Corrected browse/post reproduction10 run39514685233 and17 run39514688634 atce480df16d2fbc81d0f2ca2070bf5c59edc181e4
+complete SUCCESS. Original browse8 runs before all9 post methods;17 exact native
+identities per SDK. Packets358/360hashes, seven archives336 exact originals each;
+both evidence reviews0. Browse22.342s/59.37s and status18.937s/22.432s. Root viewed
+both corrected same-post-thread PNGs and100Light/200Dark native-region records.
+All six cells per SDK show native nonclickable summary only, with no polite
+thread-click container. Merged Compose card diagnostics do include the body and
+polite flag, but actual Android nodes isolate the summary. This closes the
+verification question without an application defect or production change.
+All original count/content/media/quote/identity/target/retry/wallet/backend/zero
+sends/restoration goals pass after the real browse precondition.
+
+Replacement complete10 run39515617424 and17 run39515760750 execute that exactce
+source. They are pending, each with three mandatory partitions. Frozen catalog
+remainsf098 with496/497 identities,136/137 normal completions,35 deliberate
+interruptions,34 continuity records and99 archives. Require every job and the
+complete independently frozen catalog; no assembly from cancelled90f partitions.
+Prepared signed59 remains exact90f production-equivalent APK, held/unpublished.
+Next: collect complete results, inspect/review, publish59 only after acceptance,
+then close60 and continue61–69 followed70.55/1/36 and actual owner/provider/phone
+release gates remain open as previously documented. Do not stop at routine
+milestones. Unrelated NATIVE_GROUP_CHAT_CONTRACT.md remains untouched/unread.
