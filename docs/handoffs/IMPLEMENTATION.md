@@ -53,12 +53,27 @@ Both review axes have0 residual findings for the reviewed sources/evidence.
 
 Complete acceptance is still pending. Current independently frozen473/474 catalog
 and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
-Fresh full39355334984(Android10)/39355337570(Android17, all3 partitions) run
-at077baa5b19, with source/run bindings recorded before outcomes. Complete
-acceptance is pending. Preceding3abe attempts are bothFAILED in private-photo
-visibility;17 wallet/socialSUCCESS and ChatFAILED. Their failed recovery,
-checkpoint and successful restoration remain separate from corrected focused
-proof. All older failed/cancelled attempts retain actual outcomes.
+Complete attempts39355334984(Android10)/39355337570(Android17) at077 are both
+FAILED.10 and17 Chat hit the same120second host timeout preparing promotion in
+GroupChatProcessRecoveryTest, with START only and no completed preparation
+checkpoint/native snapshot. Restoration method1PASS is separate from that failed
+preparation.17 socialSUCCESS; wallet has all76 accepted38 identities and public
+readsPASS, then fails ci-review-update's legacy APK checksum before signed-update
+continuity/final diagnostic. Runner bad bytes/headers were not retained. Local
+VPS5/8 files and separate HTTP200 downloads match immutable manifests, which does
+not establish the runner's failure cause. No retry or relaxed validation.
+
+Diagnostic-only5eb9fb09ecc17b6e9a4e667db23fdcd8d1ac4f04 adds constant stages with
+monotonic times and pre-status/history-scroll native/all-root trees to group
+recovery. Host retains stages and stops only a timed-out debug emulator process
+before existing restoration. Original assertions and120second phase bounds stay.
+The download observer records public HTTP/length/actual+expected hash metadata
+before the unchanged checksum rejection. Both source review axes0. Focused
+group-admin39358679469(10)/39358681910(17) run at5eb to locate the stall. No cause
+or corrected runtime is claimed yet. Paired group-stall and17 download-failure
+packets retain actual failed metadata; evidence review pending. Complete native
+acceptance remains pending; the download-tail exception cannot cover this failed
+Chat application gate. All historical failures retain actual outcomes.
 
 Earlier fixturecae84e5ad scopes Add GIF to the existing composition preview and
 scrolls only when hidden, then requires the original10second visibility goal.

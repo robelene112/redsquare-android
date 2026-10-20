@@ -1,0 +1,11 @@
+{
+  "source": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+  "run": 39355337570,
+  "sdk": "17",
+  "overallRunConclusion": "failure",
+  "preparation": "host120second TimeoutExpired, not completed deliberate process termination",
+  "restorationMethod": "1 PASS",
+  "nativeImagesAvailable": false,
+  "rawCaptureArchiveSha256": "4f0296be3b2c30924234c93bb836487f2b99f9d6278bfa323448e77faef61598",
+  "limit": "Original preparation output has START only; no completed preparation checkpoint or useful native snapshot was retained. Capture command exit0 does not make its malformed/unavailable tar valid. Restoration method1PASS is separate from preparation failure. Exact stall location/cause and failed legacy-download body are not inferred; no corrected runtime or complete acceptance."
+}

@@ -547,3 +547,30 @@ outcomes. Independent473/474 identities and all existing deadlines remain.
 Source39354689887 at077 passed core/gateway, Debug/test, Release/Performance and
 lint. All app/build/signing inputs remain9b33-equivalent; signed46 is still
 prepared/unpublished and ordinary45 remains live.
+
+Complete077 runs39355334984(10)/39355337570(17) are bothFAILED. Group promotion
+preparation times out at the existing120second host bound on bothSDKs. Original
+interrupted output has START only, no completed preparation checkpoint or useful
+native image; capture exit0 does not validate the unavailable/malformed tar.
+Restoration method1PASS remains separate from failed preparation. Paired
+ui58-group-stall-red packets retain each7 hashes, including the actual unavailable
+archive and selected original host traceback. No progress/cause is inferred.
+
+17 wallet independently matches all76 accepted38 identities and public reads/
+native compatibility/update noticePASS. Its later ci-review-update rejects a
+legacy APK checksum before signed-update continuity/final diagnostic. The failed
+runner bytes/headers are absent. ui58-update-download-red17 retains12 hashes,
+selected host failure, exact identities/raw log inventory and separate VPS
+observations: local immutable5/8 files and new HTTP200 downloads match manifests.
+Those separate observations do not prove what the runner received or a transient
+cause.17 socialSUCCESS. Because Chat also failed, this whole attempt cannot
+satisfy the release-tail-only exception.
+
+Diagnostic-only5eb9fb09e adds constant stage/monotonic-time records and pre-scroll
+native/all-root trees to the existing group recovery. The host retains stages
+and stops only timed-out debug-emulator instrumentation before restoration.
+Original120second phases and every acceptance assertion remain. The legacy
+download observer records public HTTP headers/byte count/hashes before the
+unchanged checksum check; no automatic retry or relaxed validation. Both source
+review axes0. Focused group-admin39358679469(10)/39358681910(17) execute5eb; no
+corrected outcome or complete acceptance is claimed. App/build/signing unchanged.

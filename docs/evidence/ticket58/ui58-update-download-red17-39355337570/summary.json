@@ -1,0 +1,10 @@
+{
+  "source": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+  "run": 39355337570,
+  "overallRunConclusion": "failure",
+  "walletPartitionConclusion": "failure",
+  "accepted38WalletIdentities": 76,
+  "identityComparison": "exact match",
+  "newChecksumDiagnosticsAtFailure": false,
+  "limit": "All76 original wallet application identities match accepted38 and observed public reads/native compatibility/update notice pass. Later ci-review-update rejects the downloaded legacy APK checksum before signed-update continuity/final diagnostic. Runner failed bytes/headers were not retained; VPS local5/8 files and independent HTTP200 downloads match manifests but do not prove what the runner received. No claimed transient cause or relaxed checksum. Other Chat partition alsoFAILED, so this attempt cannot use the release-tail-only exception as complete acceptance."
+}
