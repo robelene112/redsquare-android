@@ -1,0 +1,26 @@
+[
+  {
+    "path": "chat-photo-group-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+    "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-photo-group-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-photo-private-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+    "test": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-photo-private-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  }
+]

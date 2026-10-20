@@ -1,0 +1,32 @@
+{
+  "run": "39354696326",
+  "source": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+  "sdk": "10",
+  "identities": 4,
+  "normalCompletions": 4,
+  "deliberateInterruptions": 2,
+  "continuityGates": 2,
+  "continuity": {
+    "private": {
+      "interruptedPid": 3448,
+      "recoveredPid": 3715,
+      "candidate": "9635237129f92ce1fcb328ceea1bc71ca04152b0b73d070ec2bddb73c0160e3243db0a41b5be70d398710d08f3a50fe0cf6b9a14bf1033c12ea9f84ea642d42f",
+      "candidateDigest": "0ebf96464d4c2ff535021886dac00c6094c90e22cc59a3e044ab0173a6fdbc83",
+      "walletDigest": "0a1e9c30dadb69718e8da66ee77bb79c06bbe508265fab1296dcde5bfd428427",
+      "backend": "owner",
+      "limit": "Controlled disposable fixture. Original signed raw/Relay once, independently decoded photo/caption, cached history, wallet/backend and restoration assertions pass; no real recipient delivery."
+    },
+    "group": {
+      "interruptedPid": 4052,
+      "recoveredPid": 4470,
+      "candidate": "93d058262dac3e922a704fbef256f5259a2a9cddce29632074a6acf1c1db9a4353153245fce2005b2b230876c6329031aec24c57b687b69b456378222d4c0ca2",
+      "candidateDigest": "4358359c92feac466bb152095b4ecd851641881928744516d13fa9c47afb6b00",
+      "walletDigest": "0a1e9c30dadb69718e8da66ee77bb79c06bbe508265fab1296dcde5bfd428427",
+      "backend": "owner",
+      "limit": "Controlled disposable fixture. Original signed raw/Relay once, independently decoded photo/caption, cached history, wallet/backend and restoration assertions pass; no real recipient delivery."
+    }
+  },
+  "originalMembers": 20,
+  "limit": "Both existing private/group queued-photo real process protocols PASS, with unchanged120second per-phase bound and exact identity/raw/Relay/recipient/text/history/pixel/restoration assertions. Before/after original observations require explicit rendered inspection. Not complete app regression, physical performance or actual recipient/provider delivery.",
+  "renderedObservation": "Root opened final private/group queued-original-automatically-forwarded PNGs: red photos visible. Final native XML places private Image1 at252..370 within history216..370 and group Image1 at327..378 within history291..378. After-scroll Compose shows private image252..432, partially clipped by the154px viewport. Immediate after-scroll private native PNG/XML still show the older cached row and are not positive scrolled-state evidence. Final captures and unchanged passing pixel assertions provide positive observations. This is recovery/visibility proof, not complete Chat viewport polish."
+}

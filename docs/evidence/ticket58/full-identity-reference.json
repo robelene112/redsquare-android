@@ -288,15 +288,60 @@
         }
       },
       "limit": "Both whole attempts FAILED. Android10 reached the same prior reply GIF visibility timeout at ChatGiphy:161. Android17 Chat FAILED there; wallet and social partitions both completedSUCCESS. Neither is complete acceptance; no application source changed."
+    },
+    {
+      "executingSources": {
+        "android10": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
+        "android17": "3abeecd35cf033a02f02cd958db5fea1428b8dd5"
+      },
+      "executingRuns": {
+        "android10": 39352373816,
+        "android17": 39352376831
+      },
+      "actualStates": {
+        "android10": {
+          "run": 39352373816,
+          "source": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (all)",
+              "conclusion": "failure"
+            }
+          ]
+        },
+        "android17": {
+          "run": 39352376831,
+          "source": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (chat)",
+              "conclusion": "failure"
+            },
+            {
+              "name": "native-proof (social)",
+              "conclusion": "success"
+            },
+            {
+              "name": "native-proof (wallet)",
+              "conclusion": "success"
+            }
+          ]
+        }
+      },
+      "limit": "Both whole attemptsFAILED in private queued-photo cold-recovery visibility at ChatQueueProcessRecoveryTest:216. Android17 wallet/socialSUCCESS, ChatFAILED. Exact relay/text/history assertions precede the failed20second photo goal. Failed phase/restoration/original native observations remain separate from corrected focused proof; neither is complete acceptance."
     }
   ],
   "executingRuns": {
-    "android10": 39352373816,
-    "android17": 39352376831
+    "android10": 39355334984,
+    "android17": 39355337570
   },
   "executingSources": {
-    "android10": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
-    "android17": "3abeecd35cf033a02f02cd958db5fea1428b8dd5"
+    "android10": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+    "android17": "077baa5b19b495c8b0cfb3099525e630965b56c4"
   },
-  "sourceEquivalence": "Both3abe complete attempts reached private queued-photo recovery:10 whole runFAILED;17 ChatFAILED, walletSUCCESS and social pending. Existing20second photo visibility goal fails after relay/text/history assertions. New fixture-only targeted history scroll is under diagnosis; no application/build/signing input changes from9b33. Expected identities/assertions/deadlines unchanged. Current run bindings are failed/pending attempts, not complete acceptance."
+  "sourceEquivalence": "Fresh complete SDK runs at077baa5b19 contain the paired focused-green private/group queued-photo fixture correction, alongside earlier root-polling/GIF corrections. All application/build/signing inputs remain identical to production9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4. Independent identities, assertions and deadlines are unchanged. Current source/run bindings recorded before outcomes; focused success is not complete acceptance."
 }

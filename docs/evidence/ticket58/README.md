@@ -522,3 +522,28 @@ raw/Relay/recipient/text/history/wallet checks and120second phase bounds remain.
 Before/after native/all-root semantics will test the offscreen hypothesis. New
 chat-photo-process scopes run both existing private/group photo protocols; full
 and images scopes retain all. Source review axes0; no corrected runtime claim.
+
+Focused photo process39354696326(Android10)/39354698834(Android17) at077 both
+SUCCESS. Each matches all4 independent accepted38 normal-method identities,
+with2 deliberate process deaths,2 continuity gates and original restoration.
+Private interrupted/recovered PIDs3448/3715(10),2929/4426(17); group4052/4470(10),
+4683/4760(17). Exact original raw/Relay once, recipient, decoded photo/caption,
+cached history, wallet/backend and pixel assertions retain120second phase bounds.
+Each packet has38 hashes/20 original members, including full-depth all-root
+Compose trees and original native PNG/XML. Root opened final private/group PNGs
+on bothSDKs: red photos visible. The newly composed private photo follows targeted
+scrolling, with Compose bounds252..432 against history216..370.10 final native
+XML confirms visible252..370; its immediate after-scroll observations remain old.
+17 separately captured nativeXML still omits the photo, including final XML.
+Those stale observations are retained and are not positive photo evidence.
+Photos remain partly clipped in these short history viewports; complete Chat
+viewport polish belongs to62. Passing exact pixel/continuity checks and final
+positive PNGs establish recovery/visibility, not provider or full acceptance.
+
+Preceding3abe full10/17 attempts completedFAILED at the old private-photo goal;
+17 wallet/socialSUCCESS and ChatFAILED. Current full39355334984(10)/39355337570
+(17, all3 partitions) execute077, with source/run bindings recorded before
+outcomes. Independent473/474 identities and all existing deadlines remain.
+Source39354689887 at077 passed core/gateway, Debug/test, Release/Performance and
+lint. All app/build/signing inputs remain9b33-equivalent; signed46 is still
+prepared/unpublished and ordinary45 remains live.

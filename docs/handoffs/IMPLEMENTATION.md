@@ -53,17 +53,14 @@ Both review axes have0 residual findings for the reviewed sources/evidence.
 
 Complete acceptance is still pending. Current independently frozen473/474 catalog
 and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
-Full39352373816(Android10) at3abe is nowFAILED in private queued-photo cold
-recovery, assertPhoto:216. Full17 run39352376831 at3abe has the same ChatFAILED,
-walletSUCCESS and social still pending. Exact relay/text/history assertions
-precede the20second image-visibility timeout; original native capture shows only
-the cached first message in private history216..370. Offscreen rendering remains
-a hypothesis until targeted-scroll observations. Original failed recovery,
-checkpoint and successful restoration are retained in paired ui58-photo-red packets.
-Do not supersede the remaining17 social job before it finishes. Neither attempt
-provides complete acceptance. All older failed/cancelled attempts remain unchanged.
+Fresh full39355334984(Android10)/39355337570(Android17, all3 partitions) run
+at077baa5b19, with source/run bindings recorded before outcomes. Complete
+acceptance is pending. Preceding3abe attempts are bothFAILED in private-photo
+visibility;17 wallet/socialSUCCESS and ChatFAILED. Their failed recovery,
+checkpoint and successful restoration remain separate from corrected focused
+proof. All older failed/cancelled attempts retain actual outcomes.
 
-Latest test-onlycae84e5ad scopes Add GIF to the existing composition preview and
+Earlier fixturecae84e5ad scopes Add GIF to the existing composition preview and
 scrolls only when hidden, then requires the original10second visibility goal.
 Reply-only before/after native + all-root full-depth Compose observations on10
 show Add GIF445..485 below preview329..442, then402..442 inside after43px scroll.
@@ -73,13 +70,20 @@ perSDK and the same original bounds. Root opened both after-scroll PNGs. Fresh
 complete acceptance remains pending;
 no new production or signing build is needed solely for these fixture changes.
 
-The latest fixture extends the existing index1 group-history scroll to completed
-private photo history. Before death, a private queued photo remains in the composer
-and keeps its existing pixel assertion there. Both real process protocols retain
-the same120second phase bounds and exact identity/raw Relay/history/pixel/restore
-assertions. New chat-photo-process scopes isolate both private/group protocols;
-complete images/full scopes retain them. Source review axes0; focused outcomes
-and before/after native/all-root semantics observations are still pending.
+Fixture077baa5b19b495c8b0cfb3099525e630965b56c4 extends the existing index1
+group-history scroll to completed private photo history. Before death, a private
+queued photo remains in the composer and keeps its existing pixel assertion.
+Focused39354696326(Android10)/39354698834(Android17) bothSUCCESS:4 independent
+accepted38 identities,2 deliberate process deaths and2 continuity gates perSDK.
+Private PIDs3448->3715/2929->4426 and group4052->4470/4683->4760 differ; original
+signed raw/Relay once, photo/caption, cached history, wallet/backend and restoration
+checks pass within the same120second phase bounds. Both protocols remain in
+images/full scopes. Root opened final private/group PNGs on bothSDKs: red photos
+visible. Compose shows the newly visible private photo after target scrolling;
+10 final nativeXML agrees. Immediate10 observations and17 nativeXML remain stale
+and are not positive photo evidence. Photos are partly clipped in current short
+history viewports; this is recovery proof, not62 Chat viewport polish. Both
+source review axes0; paired evidence review pending.
 
 Ordinary46 is PREPARED, not published, at9b33. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
@@ -87,7 +91,8 @@ established6ca certificate, nondebuggable/nonprofileable, backupfalse, reviewtru
 push/PostsGIF/ChatGIF unconfigured. Both preparation review axes0. Actual shared
 counter46 is already reserved. Canonical publisher and public before/after checks
 remain mandatory after complete native acceptance/review. Ordinary45 stays LIVE.
-Source39348053376 passed core/gateway, Debug/tests, Release/Performance and lint.
+Source39354689887 at077 passed core/gateway, Debug/tests, Release/Performance
+and lint.
 No57 code exists yet; its local policy is recorded and ready. Finish58 and signed
 UI delivery before claiming another ticket, then proceed57 and59through69.
 
