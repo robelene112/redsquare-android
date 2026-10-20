@@ -434,3 +434,23 @@ production, build, dependency and signing-script inputs remain unchanged, with
 explicit identical Git objects retained. This is production equivalence, not
 identity of the changed test/harness sources. Complete primary execution still
 has to pass and52 remains unpublished.
+
+## Public diagnostic GREEN and current complete execution
+
+Public17f23[39418060620](https://github.com/robelene112/redsquare-android/actions/runs/39418060620)
+is SUCCESS. Both actual OwnerLiveFeedTest invocations PASS, including native feed,
+the separate100-row public search/quote reads and fresh unfunded wallet balance/
+funding checks. Both streams on both nodes return arrays. Actual RedSquare bytes
+are4,892,856(owner)/4,896,658(official), quotes61,964/65,145; hashes and field-free
+shape records are retained with the original logs/selected captures. No response
+values were retained and the earlier object's cause remains UNKNOWN. This focused
+success does not replace any failed mandatory full goal.
+
+Fresh complete10[39418870684](https://github.com/robelene112/redsquare-android/actions/runs/39418870684)
+and17[39418873625](https://github.com/robelene112/redsquare-android/actions/runs/39418873625)
+execute exactf23 on verify/status59-f23bc380d. Source/core/release/lint39418053776
+is SUCCESS. Allthree jobs per SDK, actual public reads, real TalkBack and motion
+are mandatory. Frozen486/487 catalog and collector are unchanged. Actual bindings
+retain both4a andfc rejected attempts, and independently bind signed52's identical
+production/build inputs tofc. Complete acceptance, final review and publication
+remain pending;50 stays live and52 stays prepared.
