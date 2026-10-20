@@ -799,3 +799,20 @@ each context and still requires its own actual full acceptance.
 The temporary owned f23/f4/outage7a/3c verification refs were removed only after
 exact remote-head and all-runs-completed checks; committed source/history and
 all retained evidence remain. Active4ae andc5 refs are retained.
+
+## Correctedc5 focused recovery acceptance and56 preparation
+
+Allfour finalc5 focused runs are SUCCESS: viewport10run39437692175 and
+17run39437697687 each pass both original cancellation journeys (36 original
+members each); admin10run39437703036 and17run39437707377 each pass all12
+original methods (24 original members each). Root opened both actual Members
+post-scroll PNGs and native clickable bounds: [16,213][100,261], exactly48px
+on these density1 images, versus the old22px. Root also opened both restored
+rejected-promotion pre-click captures: Submitted plus Retry is visible with
+the preserved draft. The final explicit same-candidate/raw-count assertions pass.
+
+Local debug and instrumentation compilation passes in5m2s; exact-source
+core/gateway/release/performance/lint run39437693370 is SUCCESS. Signed56 is
+reserved and building at exactc5.51through55 remain rejected. Completec5
+10/17 execution, actual APK inspection, final review and publication remain
+pending. Focused results never substitute for those complete gates.

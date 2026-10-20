@@ -95,7 +95,7 @@
     "android10": 39437838980,
     "android17": 39437845708
   },
-  "signedCandidateSource": "4ae88dcafe13c24d738df45e8998cf7679f79a6d",
+  "signedCandidateSource": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
@@ -149,8 +149,8 @@
     }
   ],
   "verificationRef": "verify/status59-c5f0ca7c6",
-  "signedCandidateVersion": 55,
-  "signedCandidateRejected": true,
+  "signedCandidateVersion": 56,
+  "signedCandidateRejected": false,
   "rejectedCandidateVersions": [
     51,
     52,
@@ -190,5 +190,11 @@
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39436168049"
     }
-  ]
+  ],
+  "sourceBuild": {
+    "run": 39437693370,
+    "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+    "conclusion": "success",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39437693370"
+  }
 }

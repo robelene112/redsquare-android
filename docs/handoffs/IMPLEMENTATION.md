@@ -333,3 +333,9 @@ Current final-source full10run39437838980 and17run39437845708 execute exactc5f
 on verify/status59-c5f0ca7c6. All gates and frozen catalog remain mandatory.
 Final corrected viewport/admin focused runs are also active. Source review0/0;
 new candidate not yet reserved.55 stays rejected and50 remains live.
+
+Allfour finalc5 viewport/admin runs are SUCCESS:2/2 viewport and12/12 admin
+per SDK. Both native Members targets are48px; both restored Retry captures are
+visible with preserved drafts. Exact-source source build39437693370 succeeds.
+Signed56 is now reserved/building atc5; actual APK inspection and full native
+acceptance/final review/publication remain pending. Never publish51through55.
