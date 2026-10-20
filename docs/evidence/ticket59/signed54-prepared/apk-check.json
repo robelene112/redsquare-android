@@ -21,5 +21,5 @@
   "physicalDeviceAcceptance": false,
   "superseded": true,
   "neverPublish": true,
-  "rejectionReason": "Both focused GroupAdmin suites fail the original15second recovery goal after retrying a rejected promotion. The captured Retry target is outside the bounded status viewport. Group recovery presentation is changing; require fresh candidate/full verification."
+  "rejectionReason": "Both focused GroupAdmin suites fail the original15second recovery goal after the attempted Retry click on a rejected promotion. Retained native captures omit Retry. The below-viewport target is a source-supported hypothesis; a missed click versus a second transport failure remains unproved. Group recovery presentation is changing; require fresh candidate/full verification."
 }

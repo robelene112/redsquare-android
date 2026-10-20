@@ -241,6 +241,7 @@ class GroupAdminPreviewTest {
             reject.set(false)
             ui.onNodeWithText("Retry").assertIsDisplayed()
             captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/rejected-relay-restored-ready-to-retry.png"))
+            check(test.peer.transactions.size==1&&test.peer.relayedMessages.size==1)
             ui.onNodeWithText("Retry").performClick()
             ui.waitUntil(15_000){test.store.load(test.key.publicKey)?.status==GroupChatStore.Status.FORWARDED}
             ui.waitUntil(15_000){test.peer.transactions.size==2&&test.peer.relayedMessages.size==2}
