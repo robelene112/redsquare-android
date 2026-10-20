@@ -453,7 +453,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             InlineStatus(if (cacheWarning) stringResource(R.string.feed_cache_warning) else null, StatusTone.WARNING)
             val feedNotice = when {
                 failed -> null
-                posts.isEmpty() && loading && !walletUnavailable -> R.string.feed_loading
+                // Resolve the local cache before mounting a network-loading notice.
+                // Its initial exit must not offset a restored cached reading position.
+                cacheReady && posts.isEmpty() && loading && !walletUnavailable -> R.string.feed_loading
                 posts.isEmpty() && !internet.available -> R.string.feed_offline_empty
                 unreadablePage -> R.string.feed_unreadable
                 else -> null

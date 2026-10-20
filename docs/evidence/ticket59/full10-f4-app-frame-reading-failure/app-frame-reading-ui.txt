@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.AppFrameReadingPreviewTest:
+INSTRUMENTATION_STATUS: test=returningFromChatRetainsTheScrolledFeedThroughRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.AppFrameReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Return to the same visible reading position expected:<437.0> but was:<475.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.assertReadingPosition(AppFrameReadingPreviewTest.kt:41)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation$lambda$3(AppFrameReadingPreviewTest.kt:33)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.$r8$lambda$n5tmQaDDG-i5Oh_plSTXnuz2PbE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation(AppFrameReadingPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in returningFromChatRetainsTheScrolledFeedThroughRecreation(nl.davidengelen.redsquare.AppFrameReadingPreviewTest):
+java.lang.AssertionError: Return to the same visible reading position expected:<437.0> but was:<475.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.assertReadingPosition(AppFrameReadingPreviewTest.kt:41)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation$lambda$3(AppFrameReadingPreviewTest.kt:33)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.$r8$lambda$n5tmQaDDG-i5Oh_plSTXnuz2PbE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation(AppFrameReadingPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=returningFromChatRetainsTheScrolledFeedThroughRecreation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.047
+There was 1 failure:
+1) returningFromChatRetainsTheScrolledFeedThroughRecreation(nl.davidengelen.redsquare.AppFrameReadingPreviewTest)
+java.lang.AssertionError: Return to the same visible reading position expected:<437.0> but was:<475.0>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:577)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.assertReadingPosition(AppFrameReadingPreviewTest.kt:41)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation$lambda$3(AppFrameReadingPreviewTest.kt:33)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.$r8$lambda$n5tmQaDDG-i5Oh_plSTXnuz2PbE(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.AppFrameReadingPreviewTest.returningFromChatRetainsTheScrolledFeedThroughRecreation(AppFrameReadingPreviewTest.kt:20)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

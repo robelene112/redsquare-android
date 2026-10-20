@@ -1,0 +1,37 @@
+{
+  "run": 39424624394,
+  "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+  "archiveSha256": "99458a407a295a282928b54643caf5e69728686dd8a34000f9c736a3b1ec10d8",
+  "members": [
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.xml",
+      "bytes": 58949,
+      "sha256": "b4a3c02e749cc6575d4848091756781a445d3f2b1530e6b4a1badae5e32a2f73"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.png",
+      "bytes": 52607,
+      "sha256": "51347cca996ea5123bf465ce2b28e3f14a2e8848ff94759ac56e0ddde857747f"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.xml",
+      "bytes": 58949,
+      "sha256": "b4a3c02e749cc6575d4848091756781a445d3f2b1530e6b4a1badae5e32a2f73"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.png",
+      "bytes": 52607,
+      "sha256": "51347cca996ea5123bf465ce2b28e3f14a2e8848ff94759ac56e0ddde857747f"
+    },
+    {
+      "member": "app-frame-reading-evidence/reading-position-failure.xml",
+      "bytes": 58953,
+      "sha256": "30ce52e14f30fd012c5b1bea208633f854fab559f8a08ce87efd60ae7b662b49"
+    },
+    {
+      "member": "app-frame-reading-evidence/reading-position-failure.png",
+      "bytes": 52921,
+      "sha256": "e07629448a08bc2508d59c2e1763a55dbfb711af94c7f564d6194e803e0a898f"
+    }
+  ]
+}

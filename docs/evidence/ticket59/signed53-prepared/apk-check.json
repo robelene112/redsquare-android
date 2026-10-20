@@ -18,5 +18,8 @@
   "targetSdk": 36,
   "testToolQueryInRelease": false,
   "published": false,
-  "physicalDeviceAcceptance": false
+  "physicalDeviceAcceptance": false,
+  "superseded": true,
+  "neverPublish": true,
+  "rejectionReason": "Both complete f4 Chat partitions fail restored reading position after Activity recreation.10wallet also fails all seven group publishing visible-status goals. Preserve frozen APK; investigate before new candidate."
 }
