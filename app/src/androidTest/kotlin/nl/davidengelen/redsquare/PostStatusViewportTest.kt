@@ -61,8 +61,12 @@ class PostStatusViewportTest {
                     val native = liveNodes(root)
                     File(folder, "$label-live-regions.json").writeText(JsonObject().apply {
                         addProperty("mergedNodes", polite.joinToString { it.config.toString() })
-                        addProperty("nativeNodes", native.joinToString { "text=${it.text} description=${it.contentDescription} clickable=${it.isClickable}" })
+                        addProperty("nativeNodes", native.joinToString { "text=${it.text} description=${it.contentDescription} clickable=${it.isClickable} actions=${it.actionList}" })
                     }.toString())
+                    assertFalse("A live region must not include the clickable thread container", native.any { node ->
+                        node.actionList.any { it.id == AccessibilityNodeInfo.ACTION_CLICK &&
+                            it.label?.toString() == "Open thread by $name" }
+                    })
                     val statusRegions = native.filter { it.text?.contains("Like unavailable") == true }
                     assertEquals("One concise live status must remain separate from the clickable post", 1, statusRegions.size)
                     val statusRegion = statusRegions.single()
