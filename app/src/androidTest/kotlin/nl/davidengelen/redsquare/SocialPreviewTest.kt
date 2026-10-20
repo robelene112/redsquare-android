@@ -343,9 +343,21 @@ class SocialPreviewTest {
                 check(blocked.mkdir())
                 val obstacle = java.io.File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
                 try {
-                    ui.clickVisiblePostContent("Like")
-                    waitFor("Could not finish this action. Retry checks the original action before sending it again.")
-                    assertTrue(peer.transactions.isEmpty())
+                    withFailureCapture({ captureFeedEvidence("social-evidence/action-status-failure.png") }) {
+                        ui.clickVisiblePostContent("Like")
+                        waitFor("Like unavailable")
+                        assertTrue(peer.transactions.isEmpty())
+                        captureFeedEvidence("social-evidence/action-status-summary.png")
+                        val details = hasContentDescription("Details: Like unavailable") and hasClickAction()
+                        ui.onNode(hasScrollAction()).performScrollToNode(details)
+                        ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
+                        ui.onNodeWithText("Like post by Anon-jesTu2").assertIsDisplayed()
+                        ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.")
+                            .assertIsDisplayed()
+                        assertTrue("Opening action details must not transmit", peer.transactions.isEmpty())
+                        captureFeedEvidence("social-evidence/action-status-details.png")
+                        ui.onNodeWithText("Done").performClick()
+                    }
                 } finally { check(obstacle.delete()); check(blocked.delete()) }
                 // Authoritative unreadable storage prevents signing before any save attempt.
                 // Reload after repair rather than assuming an absent prior operation.

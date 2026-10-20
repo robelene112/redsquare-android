@@ -53,7 +53,7 @@ public identity dialogs; local app and AndroidTest Kotlin builds succeed. Both
 partial reviews0. Focused native GREEN39482727589(Android10,5.941s) and
 39482731607(Android17,23.929s) pass same1e41. Root viewed allsix original native
 PNGs; eachpacket14 hashes/sixPNG-XML members verified by both reviewers0.
-CurrentHEAD475aba968da16b511ba18324052617e9483660e9 adds the next four-context
+Tracer475aba968da16b511ba18324052617e9483660e9 adds the next four-context
 tracer and updates existing report/profile test operators without changing their
 application/raw/control/recovery assertions. All bounded reviews0. The first
 four-context attempt39483900170 at1c295 fails only its invalid comma-in-date
@@ -73,21 +73,24 @@ pixel/provider/control/recovery assertions and has0/0 source reviews. Existing u
 79hashes/63originalmembers retained. Social-repeat39487196972 SUCCESS:3repeat
 12.926s+2isolation10.145s,37hashes/24members retained. All original goals remain.
 Search39487200550 FAILURE before emulator on SDK image Zip SeekableByteChannel
-error;3hashes retain original failure. Fresh same-source Search39488234632 SUCCESS, original packet inspection pending
-on verify/posts60-operators-2530bff22. Existing status-talkback39487748992 at2530
-isSUCCESS; retain/inspect original speech/focus evidence before later new-action a11y work.
+error;3hashes retain original failure. Fresh same-source Search39488234632 SUCCESS:9methods70.253s,42hashes/32originals.
+Existing status-talkback39487748992 SUCCESS:31.632s,31hashes/eight originals,
+service3614 outage/recovery START/AUDIO/DONE, Reference post20 focus and exact
+settings restoration. Root viewed actual Search/outage captures; paired evidence
+reviews0. Physical audibility false; new-control speech remains pending.
 The native named-quote capture shows flush border/text: add modest quote padding
 within60, retaining original-level verification/hiding/media.
 Third PostPresentation tracer committed2a8e9fbc0099c81265f3cb129a52a4b8ce64f717
 (0/0 test-stage reviews), native RED39487610528 completed FAILURE at2a8:2PASS/
 1expected missing contextual Like.24hashes/16originals retained, root viewed oldrow.
-Count/geometry goals unreached. Current compact-control WIP (Spec0, Standards
-status-doc residual corrected) adds vector controls/associated counts/full targets/
+Count/geometry goals unreached. Compact-control productd3646f1835aa2a45653213e969c0c96bc3bf34f9 (Spec0, Standards0) adds vector controls/associated counts/full targets/
 accessible context while keeping all parser/controller/rate/send behavior; local
 app+test build27841 SUCCESS4m19s (existing PostImages deprecation only). Quote padding is included. Raw status/rate animation
 await next slice. Native compact-control GREEN still needed. That new tracer checks contextual
 social controls, same-control node counts2likes/1repost,48dp targets/full bounds/
-non-overlap/single defaultrow without any send. Inspect new nativeGREEN before next functional tracer. Existing shared-card product staysf652.
+non-overlap/single defaultrow without any send. Pinned active native10/17 runs39490261361/39490266017 and existing social10
+39490270580 execute exactd364. Inspect new nativeGREEN before next functional
+tracer. Earlier operator regression production remainsf652.
 Focused existing reports39483951409 at1c295 isSUCCESS:11UIcases119.469s and
 actualprocess4181 to4263/exactretry/zeroType4 restorationPASS. Packet107hashes/
 90originalmembers retained. Small WIP ReportAction scrollable dialogtext review

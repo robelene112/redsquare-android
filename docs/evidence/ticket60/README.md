@@ -143,4 +143,18 @@ START/AUDIO/DONE, retains Reference post20 focus and restores original settings.
 Root inspected original speech/result/engine/WAV and outage image. English WAV
 is mono16bit22050Hz39149frames. Physical audibility is explicitly false. These
 are shared-card regressions atf652 production, not new-control speech proof.
-Both newly retained packets await independent evidence review.
+Both independent evidence reviews verify the Search42/TalkBack31 hashes and
+original archive bindings, goals and restoration with0 findings. New controls
+are committed atd3646f1835aa2a45653213e969c0c96bc3bf34f9. Pinned native
+post-presentation10 run39490261361,17 run39490266017 and existing social10
+run39490270580 are active. No native productGREEN is claimed yet.
+
+Compact-control Android10 GREEN39490261361 atd364 completes all three methods
+in13.107s. Packet24hashes/16exact originals retains contextual actions, real2likes/
+1repost association, full48dp viewport targets and deliberate non-overlap. Root
+viewed actual compact-controls PNG: vector controls and counts align on one row.
+Android17 and existing social regressions remain active. Next vertical tracer
+extends existing failedSaving recovery journey with a concise Like unavailable
+summary and contextual Details holding the original full explanation; opening
+Details must transmit nothing. Original unreadable-save obstacle, finally repair,
+explicit Retry, exact original wallet/target/frame and peer-health goals remain.
