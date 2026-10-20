@@ -97,6 +97,18 @@ at72a can remain only with exact production equivalence and corrected full10
 acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
 new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,
 public reads, real speech/motion/recovery/five reading bookends remain mandatory.
+Diagnostic-only source6005061f94fa0e42a60d575a95dcaf9bd207a4c9 adds temporary
+[DEBUG-59-heap] entry observations (maxMemory,bitness,Pid/PPid,best-effort parent)
+to existing storage and queue phases, plus optional Android10-only
+chat-image-startup scope. This executes the unchanged full-Chat prefix through
+storage and then exits explicitly diagnostic-only, preserving every class/phase
+bound. Both review axes0 after delivery best-effort and SDK-routing corrections.
+Canonical AndroidTest compile succeeds4m; YAML/bash/diff checks pass. Source
+check39466710122 and diagnostic prefix39466808494/isolated storage39466812449 are
+active at verify/status59-heap-6005061f9. Not acceptance, no cause/fix inferred.
+Remove tagged temporary observations after resolution. No production change;
+58 stays immutable/unpublished. Do not rerun full blindly or weaken storage.
+
 After actual complete10 success: strict collect, inspect originals, paired final
 review, publish immutable58 with canonical script, independent after-bookend,
 public safe packet/final review/close59, then immediately60–70. Never stop at59.
