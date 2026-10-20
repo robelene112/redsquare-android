@@ -88,6 +88,24 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+verify_group_chat_native() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0
+    timeout "$seconds" adb shell am instrument -w -r \
+        -e class "nl.davidengelen.redsquare.$test_class" \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/$prefix-ui.txt" || native_exit=$?
+    printf '%s\n' "$native_exit" > "$evidence/$prefix-ui-exit.txt"
+    if [[ "$native_exit" == 124 ]]; then
+        # Retain the actual timed-out window separately from the last successful fixture capture.
+        timeout 10 adb exec-out screencap -p > "$evidence/$prefix-timeout.png" || true
+        timeout 15 adb shell uiautomator dump /sdcard/redsquare-timeout.xml > "$evidence/$prefix-timeout-dump.txt" 2>&1 &&
+            timeout 10 adb pull /sdcard/redsquare-timeout.xml "$evidence/$prefix-timeout.xml" >/dev/null || true
+    fi
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
+        > "$evidence/$capture.tar" || true
+    [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
+}
 verify_status_talkback() (
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'Disposable emulator required' >&2; exit 2; }
     talkback_artifacts="$repo_dir/.scratch/talkback-tool/artifacts"
@@ -177,6 +195,7 @@ PREFS
         > "$evidence/status-talkback-evidence.tar" || true
     adb shell dumpsys accessibility > "$evidence/talkback-final-service.txt"
     [[ "$status_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/status-talkback.txt"
+    verify_group_chat_native TalkBackPostPreviewTest 180 post-talkback post-talkback-evidence
 )
 verify_status_ui() {
     local kind=$1 class_name bound status_exit=0
@@ -260,24 +279,7 @@ if [[ "${TEST_SCOPE:-full}" == beta-ui* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then verify_appearance; fi
-verify_group_chat_native() {
-    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
-    local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0
-    timeout "$seconds" adb shell am instrument -w -r \
-        -e class "nl.davidengelen.redsquare.$test_class" \
-        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/$prefix-ui.txt" || native_exit=$?
-    printf '%s\n' "$native_exit" > "$evidence/$prefix-ui-exit.txt"
-    if [[ "$native_exit" == 124 ]]; then
-        # Retain the actual timed-out window separately from the last successful fixture capture.
-        timeout 10 adb exec-out screencap -p > "$evidence/$prefix-timeout.png" || true
-        timeout 15 adb shell uiautomator dump /sdcard/redsquare-timeout.xml > "$evidence/$prefix-timeout-dump.txt" 2>&1 &&
-            timeout 10 adb pull /sdcard/redsquare-timeout.xml "$evidence/$prefix-timeout.xml" >/dev/null || true
-    fi
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
-        > "$evidence/$capture.tar" || true
-    [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
-}
+
 if [[ "${TEST_SCOPE:-full}" == post-presentation* ]]; then
     verify_group_chat_native PostPresentationPreviewTest 180 post-presentation post-presentation-evidence
     verify_group_chat_native PostPresentationViewportTest 180 post-viewport post-viewport-evidence
