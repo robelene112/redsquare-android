@@ -1322,3 +1322,22 @@ The collector and independently frozen catalog are unchanged.58 remains
 immutable/prepared/unpublished,50live; native10 success, actual visual evidence,
 final paired review and public after-bookend remain pending. Continue60through69
 and rendered navigation70 after actual59 completion without routine stops.
+
+
+## Repeated actual16MiB failure in corrected complete10
+
+Complete10run39460998051 at exact d567 is terminal FAILURE: wallet and social
+succeed, Chat fails both unchanged photo-history methods in3.552s. PID14790
+reports max16777216 with memoryClass512/largeMemoryClass512 and device heapsize512m.
+Both first-photo writes fail allocating5,242,928bytes at EncryptedLocalFile.load:37.
+The [original failure packet](photo-history-red10-d567-39460998051/) preserves
+exact logs/properties/AVD and final run/job metadata. The known unavailable1084byte
+photo-history archive is recorded by exact hash; it never waives this native error.
+
+The preceding unchanged complete72a Chat job39455628348 instead passes the same
+storage methods in46.266s at actual512MiB, PID12068 and the same application flags.
+Its raw Chat partition is downloaded externally for direct comparison. Focused
+storage and whole-photo successes therefore do not establish the broader cause.
+Diagnose process startup/isolation before another complete run. No heap increase,
+largeHeap declaration, smaller photo fixture, dropped assertion or supplemental
+acceptance assembly is authorized by these observations.58 stays unpublished.

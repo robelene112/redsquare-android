@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 16:53 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
+2026-10-20 17:25 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
 Finish59, then60through69 and bounded rendered navigation follow-up70 sequentially,
 without routine owner stops.70 is linked to55/blocked by59 and queued after69.
 No new owner input is needed. Physical/provider/KVK/store prerequisites remain parked.
@@ -86,8 +86,13 @@ SUCCESS. Exact production-equivalence inventories prove457 unchanged tracked
 entries outside docs/AndroidTest, including build/workflow/harness/signing inputs,
 from72a to d567. Only SearchPreviewTest differs.58 remains exact72a.
 
-Fresh entire10run39460998051 at exact d567 is active on
-verify/status59-search-d567b0084; config binds that exact source/ref/run. Complete17
+Fresh entire10run39460998051 at exact d567 is terminal FAILURE:
+walletSUCCESS,socialSUCCESS,ChatFAILURE. Both photo-history cases again fail at
+actual16MiB in PID14790 (3.552s), despite reported512m. Exact logs/properties/AVD/
+terminalmetadata retained under photo-history-red10-d567-39460998051. The unchanged
+second full72a Chat instead passed both at actual512MiB in PID12068 (46.266s).
+No blind complete rerun: diagnose process startup/isolation first.
+verify/status59-search-d567b0084 remains the exact executing source/ref/run. Complete17
 at72a can remain only with exact production equivalence and corrected full10
 acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
 new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,

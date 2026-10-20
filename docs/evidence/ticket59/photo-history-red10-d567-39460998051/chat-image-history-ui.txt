@@ -1,0 +1,137 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatImageHistoryStorageTest:
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=entry pid=14790 max=16777216 total=16777216 free=13549056 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=originals-ready pid=14790 max=16777216 total=16711128 free=0 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=true phase=before-photo-1 pid=14790 max=16777216 total=16712904 free=0 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3108176 free bytes and 3035KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:447)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.saveMembership(GroupChatStore.kt:414)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:247)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:211)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest):
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3108176 free bytes and 3035KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:447)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.saveMembership(GroupChatStore.kt:414)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:247)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:211)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=entry pid=14790 max=16777216 total=16777216 free=2679088 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=originals-ready pid=14790 max=16777216 total=16421504 free=880640 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo history group=false phase=before-photo-1 pid=14790 max=16777216 total=16421504 free=880640 memoryClass=512 largeMemoryClass=512 flags=684211782
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImageHistoryStorageTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3455392 free bytes and 3374KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.write(ChatHistoryStore.kt:41)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.save(ChatHistoryStore.kt:90)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest):
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3455392 free bytes and 3374KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.write(ChatHistoryStore.kt:41)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.save(ChatHistoryStore.kt:90)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.552
+There were 2 failures:
+1) sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest)
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3108176 free bytes and 3035KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.save(GroupChatStore.kt:447)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.saveMembership(GroupChatStore.kt:414)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.retainReplay(GroupChatStore.kt:247)
+	at nl.davidengelen.redsquare.chat.GroupChatStore.receive(GroupChatStore.kt:211)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.sixteenOrdinaryGroupPhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:23)
+2) twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(nl.davidengelen.redsquare.ChatImageHistoryStorageTest)
+java.lang.OutOfMemoryError: Failed to allocate a 5242928 byte allocation with 3455392 free bytes and 3374KB until OOM, target footprint 16777216, growth limit 16777216
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.load(EncryptedLocalFile.kt:37)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save(EncryptedLocalFile.kt:95)
+	at nl.davidengelen.redsquare.saito.EncryptedLocalFile.save$default(EncryptedLocalFile.kt:61)
+	at nl.davidengelen.redsquare.chat.EncryptedChatRecord.save(EncryptedChatRecord.kt:40)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.write(ChatHistoryStore.kt:41)
+	at nl.davidengelen.redsquare.chat.ChatHistoryStore.save(ChatHistoryStore.kt:90)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise$saveHistory(ChatImageHistoryStorageTest.kt:71)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.exercise(ChatImageHistoryStorageTest.kt:79)
+	at nl.davidengelen.redsquare.ChatImageHistoryStorageTest.twelveOrdinaryPrivatePhotosRemainAvailableWithoutLosingEarlierHistoryOrDrafts(ChatImageHistoryStorageTest.kt:21)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
