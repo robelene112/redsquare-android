@@ -98,6 +98,20 @@ for kind,part,wanted in [('feed','wallet',{'live-owner-feed.txt','live-official-
  assert len(run_meta['jobs'])==1 and all(j['conclusion']=='success'for j in run_meta['jobs'])
  raw=Path(setting['artifactDirectory'])/'android-native-proof'/f'.scratch/device-evidence/api-{"37.0"if sdk=="17"else"29"}'
  assert not (raw/'partition.txt').exists(),'Supplement must be its actual focused scope'
+ required=set(wanted)
+ if kind=='feed':
+  for backend in ['owner','official']:
+   required.add(f'fresh-live-{backend}.txt')
+   required.update(f'live-{backend}/{name}'for name in ['screen.png','feed.png','balance.png','balance.xml','funding.png','funding.xml','result.txt','public-wallet.txt','public-search.txt','transport-status.txt'])
+  required.update(['feed-ui.txt','feed-cold-launch/continuity.txt','backend-ui-evidence.tar','feed-readiness-evidence.tar'])
+ else:required.add('public-chat/readiness.json')
+ assert all((raw/name).is_file()for name in required),{'missingRequiredSupplementFiles':sorted(name for name in required if not(raw/name).is_file())}
+ image_bindings={}
+ primary_root=source/('android-native-proof-'+part)/f'.scratch/device-evidence/api-{"37.0"if sdk=="17"else"29"}'
+ for name in ['system-image.txt','system-image.properties','page-size.txt','requested-page-size.txt','device-abi.txt','system-build.txt']:
+  data=(raw/name).read_bytes();assert data==(primary_root/name).read_bytes(),('Supplement image/config mismatch',kind,name)
+  image_bindings[name]=sha(data)
+
  found=ids.identities(raw)
  goals=Counter({k:n for k,n in found.items()if k[0]in wanted})
  duplicates=Counter({k:n for k,n in expected.items()if kind=='feed'and k[0]=='feed-ui.txt'})
@@ -164,9 +178,13 @@ for kind,part,wanted in [('feed','wallet',{'live-owner-feed.txt','live-official-
    assert(raw/f'live-{backend}/public-wallet.txt').read_text().startswith('PASS backend='+backend)
    lines=(raw/f'live-{backend}/public-search.txt').read_text().splitlines()
    assert len(lines)==2 and all(line.startswith('PASS backend='+backend)for line in lines)
+ incidental_normals=sum(p.read_text(errors='replace').count('INSTRUMENTATION_CODE: -1')for p in raw.rglob('*.txt'))-len(wanted)
+ incidental_continuity=sum(p.name=='continuity.txt'for p in raw.rglob('*.txt'))
+ assert incidental_normals==(1 if kind=='feed'else 0)and incidental_continuity==(1 if kind=='feed'else 0)
+ assert set(incidental_archives)==({'backend-ui-evidence.tar','feed-readiness-evidence.tar'}if kind=='feed'else set())
  (supplemental/'original-file-bindings.json').write_text(json.dumps(originals,indent=2)+'\n')
  (supplemental/'incidental-archive-inventory.json').write_text(json.dumps(incidental_archives,indent=2)+'\n')
- record={'run':run,'source':public_config['source'],'scope':kind,'ownedPartition':part,'canonicalGoals':ids.rows(goals),'selectedOriginalFiles':selected_originals,'incidentalCompletedIdentities':ids.rows(duplicates),'incidentalContinuityRecords':sum(p.name=='continuity.txt'for p in raw.rglob('*.txt')),'incidentalNormalCompletions':sum(p.read_text(errors='replace').count('INSTRUMENTATION_CODE: -1')for p in raw.rglob('*.txt'))-len(wanted),'limits':'All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads.'}
+ record={'run':run,'source':public_config['source'],'scope':kind,'ownedPartition':part,'canonicalGoals':ids.rows(goals),'selectedOriginalFiles':selected_originals,'requiredFiles':sorted(required),'imageConfigBindings':image_bindings,'incidentalCompletedIdentities':ids.rows(duplicates),'incidentalContinuityRecords':incidental_continuity,'incidentalNormalCompletions':incidental_normals,'limits':'All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads.'}
  (supplemental/'assembly.json').write_text(json.dumps(record,indent=2)+'\n');public_executions.append(record)
 
 comparison={'expected':expected.total(),'actual':actual.total(),'missing':ids.rows(expected-actual),'extra':ids.rows(actual-expected)}
