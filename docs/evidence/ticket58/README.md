@@ -314,3 +314,26 @@ positions the same image via its nearest vertical scroll ancestor only when the
 original outside8px samples would leave the bitmap. It records initial/positioned
 bounds and preserves every animation, attribution, original-URL, draft and pixel
 containment assertion. These are test-only changes, not fixed runtime acceptance.
+
+Private-surface probe eca374c37 completedSUCCESS on39344505651(10)/39344508913(17),
+4PASS each. The pre-scroll unmerged tree has Unlike at y362..382 below the history
+bottom322; the post-scroll tree has y292..312 and original PNGs show the action.
+The XML-only replay passes10 but returns missing child for17's separate dump;
+its original PNG and Compose tree show the action. These observations are not
+atomic, so the XML gap is not relabelled as an app-state failure. The next final
+capture positively waits for native Unlike before dumping, without dropping any
+UI assertion. Private transmission, relay, agreement and identity assertions pass.
+
+Complete agreement runs39344699117(10)/39344701551(17) at eca bothFAIL at group
+reaction's policy-dialog goal:6other group methodsPASS; the Like target is below
+the short history in the original failure scene. The next fixture scrolls only
+the reaction target before clicking, and Unlike after forwarding. Every policy,
+cancellation, transaction, relay, wallet and membership check remains. This is a
+bounded response to actual RED, not a blanket change to disabled-state checks.
+
+GIF39345377196(10) at aa08dd7b6 completedSUCCESS; its3 preview methods pass with
+the original pixel/animation/attribution assertions. GIF/keyboard17 and the new
+group correction remain pending. The GIF metadata write now follows capture,
+which creates its owned folder, removing accidental test-order dependence.
+No production inputs differ from signed46/source9b33. Full58 acceptance remains
+pending and both original complete attempts remain FAILED.

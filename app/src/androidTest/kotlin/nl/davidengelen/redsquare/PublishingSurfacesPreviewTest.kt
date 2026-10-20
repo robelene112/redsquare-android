@@ -150,7 +150,7 @@ class PublishingSurfacesPreviewTest {
                         assertEquals(2, peer.relayedMessages.size)
                         assertTrue(originalWallet == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
-                        capture("private-reaction-deliberately-forwarded-after-new-revision.png")
+                        capture("private-reaction-deliberately-forwarded-after-new-revision.png", "Unlike")
                         peer.assertHealthy()
                     }
                 }
@@ -384,9 +384,9 @@ class PublishingSurfacesPreviewTest {
         ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
     }
-    private fun capture(name: String) {
+    private fun capture(name: String, expectedText: String? = null) {
         val file = File(context.cacheDir, "agreement-surfaces-evidence/$name")
-        captureNativeScreen(file)
+        captureNativeScreen(file, expectedText)
         File(file.parentFile, file.nameWithoutExtension + ".semantics.txt")
             .writeText(ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
     }

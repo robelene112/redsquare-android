@@ -336,6 +336,8 @@ class GiphyPreviewTest {
             ui.waitForIdle()
         }
         val bounds = requireNotNull(device.findObject(By.desc(label))).visibleBounds
+        assertFalse("The image must have visible screen bounds", bounds.isEmpty)
+        capture("$name-bounds")
         File(context.cacheDir, "giphy-evidence/$name-sample-positioning.json").writeText(
             com.google.gson.JsonObject().apply {
                 addProperty("initialBounds", initial.toShortString())
@@ -343,8 +345,6 @@ class GiphyPreviewTest {
                 addProperty("positionedBounds", bounds.toShortString())
                 addProperty("displayHeight", device.displayHeight)
             }.toString())
-        assertFalse("The image must have visible screen bounds", bounds.isEmpty)
-        capture("$name-bounds")
         val screenshot = android.graphics.BitmapFactory.decodeFile(File(context.cacheDir, "giphy-evidence/$name-bounds.png").path)
         try {
             val x = bounds.centerX()

@@ -150,7 +150,7 @@ class PublishingGroupPreviewTest {
                         }
                         if (action.requiresAgreement) {
                             repeat(2) { attempt ->
-                                click(action.button)
+                                click(action.button, scrollIntoView = action == Action.REACTION)
                                 waitFor("Review publishing terms")
                                 assertTrue(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                                 assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
@@ -178,7 +178,7 @@ class PublishingGroupPreviewTest {
                             assertTrue("Acceptance does not execute the group action", peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             assertTrue(wallet.exportJson() == wallets.loadExisting().exportJson())
                         }
-                        click(action.button)
+                        click(action.button, scrollIntoView = action == Action.REACTION)
                         waitFor("Forwarded. Delivery is not confirmed.")
                         assertEquals(1, peer.transactions.size)
                         assertEquals(1, peer.relayedMessages.size)
@@ -190,7 +190,7 @@ class PublishingGroupPreviewTest {
                             val id = signed.body.get(if (action == Action.CREATE) "id" else "group_id").asString
                             assertTrue(id in wallets.loadExisting().namedChatGroupIds())
                         }
-                        if (action == Action.REACTION) ui.onNodeWithText("Unlike").assertIsDisplayed()
+                        if (action == Action.REACTION) ui.onNodeWithText("Unlike").performScrollTo().assertIsDisplayed()
                         if (!action.requiresAgreement) {
                             ui.onNodeWithText("Review publishing terms").assertDoesNotExist()
                             ui.onNodeWithText("Publishing terms are being prepared").assertDoesNotExist()
@@ -212,9 +212,11 @@ class PublishingGroupPreviewTest {
     private fun assertEditable(label: String, text: String) = ui.onNodeWithText(label).assertIsEnabled().assert(
         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text)))
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onNodeWithText(text).isDisplayed() }
-    private fun click(text: String) {
+    private fun click(text: String, scrollIntoView: Boolean = false) {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled() and hasClickAction()).fetchSemanticsNodes().size == 1 }
-        ui.onNodeWithText(text).performClick()
+        val target = ui.onNodeWithText(text)
+        if (scrollIntoView) target.performScrollTo().assertIsDisplayed()
+        target.performClick()
     }
     private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "agreement-group-evidence/$name"))
 }

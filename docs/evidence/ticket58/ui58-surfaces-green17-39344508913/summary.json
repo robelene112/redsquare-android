@@ -1,0 +1,33 @@
+{
+  "run": "39344508913",
+  "source": "eca374c379751cac97133bd9a6dda21edcfe7c07",
+  "expectedMethods": [
+    "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+    "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+    "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+    "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+      "status": 0
+    },
+    {
+      "method": "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+      "status": 0
+    },
+    {
+      "method": "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+      "status": 0
+    },
+    {
+      "method": "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction",
+      "status": 0
+    }
+  ],
+  "members": 33,
+  "limit": "Focused native frame proof. Movies require explicit original-frame inspection. Not full regression or physical acceptance."
+}

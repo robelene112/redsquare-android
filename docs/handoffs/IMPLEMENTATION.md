@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-19 after the owner's beta42 UI review. The functional checkpoint
+Updated2026-10-20 after the owner's beta42 UI review. The functional checkpoint
 is delivered, but the owner explicitly says the UI is still untidy and unfinished.
 Current work is [UI55](https://github.com/robelene112/redsquare-android/issues/55)
 and its audit-derived children, [Node terminology56](https://github.com/robelene112/redsquare-android/issues/56)
@@ -57,6 +57,16 @@ Focused surfaces39344505651(10)/39344508913(17) and complete agreement3934469911
 39344701551(17) run at eca. App production is unchanged from9b33; signed46 remains
 prepared/unpublished. No cause is claimed until pre-scroll tree + reached action
 prove the offscreen hypothesis. Old e6 focused attempts are superseded.
+Private surfaces eca39344505651(10)/39344508913(17) now4PASS each; pre/post tree
+and original PNGs prove362..382 offscreen ->292..312 visible. One17 XML dump
+omits the child despite PNG/tree; final capture now waits positively for native
+Unlike before exporting. Full agreement eca39344699117/39344701551 FAIL in group
+reaction before the policy dialog (other6 group casesPASS). A reaction-only
+scroll correction is being verified; all existing agreement/identity/send gates
+remain. aa08dd7b6 also corrects obsolete ChatKeyboard reminder expectations and
+positions original GIF pixel samples; focused39345370402(10 keyboard) SUCCESS,
+39345373579(17 keyboard) pending,39345377196(10 GIF) SUCCESS,
+39345380431(17 GIF) pending. No app production change since9b33.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
