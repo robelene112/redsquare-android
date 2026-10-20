@@ -1,5 +1,9 @@
 package nl.davidengelen.redsquare.chat
 
+import nl.davidengelen.redsquare.ui.preserveReadingAnchor
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.layout.*
@@ -313,21 +317,21 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             .semantics { contentDescription = statusLabel }) {
             reactionState?.let { reactions ->
                 when (reactions.saved.status) {
-                    ChatReactionStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_reaction_unknown))
-                    ChatReactionStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_reaction_submitted))
-                    ChatReactionStore.Status.FORWARDED -> Text(stringResource(R.string.chat_reaction_forwarded))
+                    ChatReactionStore.Status.UNKNOWN -> InlineStatus(stringResource(R.string.chat_reaction_unknown), StatusTone.WARNING)
+                    ChatReactionStore.Status.SUBMITTED -> InlineStatus(stringResource(R.string.chat_reaction_submitted), StatusTone.INFO)
+                    ChatReactionStore.Status.FORWARDED -> InlineStatus(stringResource(R.string.chat_reaction_forwarded), StatusTone.INFO)
                     ChatReactionStore.Status.NONE -> Unit
                 }
-                if (reactions.failed && !reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_error))
+                if (reactions.failed && !reactionHistoryFailed) InlineStatus(stringResource(R.string.chat_reaction_error), StatusTone.ERROR)
             }
-            if (!keyboardVisible) Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (!keyboardVisible) InlineStatus(stringResource(R.string.status_available_history),
+                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
             PersonalControlsStatus(personal)
-            if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
-            if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
-            if (groupReceiveFailed) Text(stringResource(R.string.chat_group_receive_error))
-            if (reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_cache_error))
-            if (incomplete) Text(stringResource(R.string.chat_incomplete))
+            if (contactsFailed || failed) InlineStatus(stringResource(R.string.chat_load_error), StatusTone.ERROR)
+            if (cacheFailed) InlineStatus(stringResource(R.string.chat_cache_error), StatusTone.WARNING)
+            if (groupReceiveFailed) InlineStatus(stringResource(R.string.chat_group_receive_error), StatusTone.WARNING)
+            if (reactionHistoryFailed) InlineStatus(stringResource(R.string.chat_reaction_cache_error), StatusTone.WARNING)
+            if (incomplete) InlineStatus(stringResource(R.string.chat_incomplete), StatusTone.WARNING)
         }
         val contact = counterparty
         if (contact == null) {
@@ -401,7 +405,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val reactions = requireNotNull(reactionState)
             val messageList = rememberLazyListState()
             val messagesLabel=stringResource(R.string.chat_messages)
-            LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel}, state = messageList) {
+            LazyColumn(Modifier.weight(1f).preserveReadingAnchor(messageList).semantics{contentDescription=messagesLabel}, state = messageList) {
                 items(visible, key = { it.id }) { message ->
                     val outgoing = message.author == wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),

@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.chat
 
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.lifecycle.ViewModel
@@ -147,7 +150,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                         }
                         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
                             horizontalArrangement=Arrangement.SpaceBetween) {
-                            Text(stringResource(R.string.chat_queued))
+                            InlineStatus(stringResource(R.string.chat_queued), modifier = Modifier.weight(1f))
                             TextButton(enabled=ready&&!sending&&!navigation.transitioning,onClick=cancel@{
                                 if (navigation.transitioning || sending) return@cancel
                                 sending=true
@@ -169,17 +172,28 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                     }
                 }
             }
-            ChatWorkStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_send_unknown))
-            ChatWorkStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_send_submitted))
-            ChatWorkStore.Status.FORWARDED -> Text(stringResource(R.string.chat_send_forwarded))
-            ChatWorkStore.Status.AVAILABLE -> Text(stringResource(R.string.chat_send_available))
-            ChatWorkStore.Status.NONE -> Unit
+            else -> Unit
         }
-        if (failed) Text(stringResource(when {
+        val deliverySummary = when (saved.status) {
+            ChatWorkStore.Status.UNKNOWN -> stringResource(R.string.chat_send_unknown)
+            ChatWorkStore.Status.SUBMITTED -> stringResource(R.string.chat_send_submitted)
+            ChatWorkStore.Status.FORWARDED -> stringResource(R.string.chat_send_forwarded)
+            ChatWorkStore.Status.AVAILABLE -> stringResource(R.string.chat_send_available)
+            ChatWorkStore.Status.NONE -> if (ready && !failed && text.isNotBlank() && text == saved.draft)
+                stringResource(R.string.status_saved_locally) else null
+            ChatWorkStore.Status.QUEUED -> null
+        }
+        InlineStatus(deliverySummary, when (saved.status) {
+            ChatWorkStore.Status.UNKNOWN -> StatusTone.WARNING
+            ChatWorkStore.Status.AVAILABLE -> StatusTone.SUCCESS
+            else -> StatusTone.INFO
+        }, details = if (saved.transaction != null) listOf(stringResource(R.string.status_origin_node, backend.domain))
+            else emptyList(), announce = saved.status != ChatWorkStore.Status.NONE)
+        if (failed) InlineStatus(stringResource(when {
             !ready -> R.string.chat_work_read_error
             saved.automatic&&!saved.deliveryComplete -> R.string.chat_automatic_send_error
             else -> R.string.chat_send_error
-        }))
+        }), StatusTone.ERROR)
         if (saved.status != ChatWorkStore.Status.QUEUED) {
             BoxWithConstraints {
                 val previewMaxHeight=maxHeight/3

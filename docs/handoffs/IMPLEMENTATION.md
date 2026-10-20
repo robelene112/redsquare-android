@@ -34,7 +34,16 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Current native acceptance
+## Current repeat-like57 acceptance
+
+Ordinary50 is LIVE at <https://davidengelen.nl/redsquare/>, frozen285 APK SHA
+58f50ecfd835732a1f86918cc72617da299d548e9ef46186c1f1b9b62f4285da.
+Full partitioned10/17 atfec plus unchanged public-read supplements atb2 are all
+SUCCESS. Canonical481/482 identities,126/127 normal completions,35 interruptions,
+34 PASS continuity each; exact old assumption and five optional observer gaps.
+Both final full/public review axes report0. See ticket57's evidence README.
+
+## Frame58 native checkpoint (historical)
 
 Both complete runs use production
 `a1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4`, also the published49 source:
@@ -83,7 +92,7 @@ documented Standards0,heuristic0. Full10 and paired status at2d022ce1a also have
 and heuristic0. Reuse policy52_spec_review and policy52_standards_review for later changes. Final public-packet review against fixed2d022ce1a at
 a193ff163 reports0 findings on both axes.
 
-## Published49 and publication
+## Published49 checkpoint (historical)
 
 Ordinary49 is LIVE at <https://davidengelen.nl/redsquare/>. Previous45 remains
 immutable. Node56 has focused10/17 and larger-font acceptance, source/publication45

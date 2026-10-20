@@ -1,0 +1,10 @@
+ACCESSIBILITY MANAGER (dumpsys accessibility)
+
+User state[attributes:{id=0, currentUser=true, touchExplorationEnabled=false, displayMagnificationEnabled=false, navBarMagnificationEnabled=false, autoclickEnabled=false, nonInteractiveUiTimeout=0, interactiveUiTimeout=0, installedServiceCount=1, Ui Automation[eventTypes=TYPES_ALL_MASK, notificationTimeout=0]
+}
+     Bound services:{}
+     Enabled services:{{com.android.talkback/com.google.android.accessibility.talkback.TalkBackService}}
+     Binding services:{}]
+
+Window[AccessibilityWindowInfo[title=null, id=1, type=TYPE_SYSTEM, layer=1, bounds=Rect(0, 0 - 320, 24), focused=false, active=false, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]],
+Window[AccessibilityWindowInfo[title=Quickstep, id=3, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]]

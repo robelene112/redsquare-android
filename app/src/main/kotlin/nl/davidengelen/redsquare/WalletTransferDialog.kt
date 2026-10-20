@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare
 
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
@@ -29,7 +32,10 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
         title = { Text(stringResource(if (reviewed != null) R.string.transfer_confirm else R.string.transfer_send)) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                transfers.message?.let { Text(stringResource(it)) }
+                InlineStatus(transfers.message?.let { stringResource(it) }
+                    ?: if (transfers.busy) stringResource(R.string.status_transfer_processing) else null,
+                    if (transfers.busy) StatusTone.WORKING else if (transfers.message == R.string.transfer_cancelled)
+                        StatusTone.INFO else StatusTone.ERROR)
                 if (reviewed != null) {
                     Text(stringResource(R.string.transfer_recipient_review, reviewed.recipient))
                     Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(reviewed.amount)))
@@ -43,15 +49,15 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         val inclusion = transfers.inclusions[record.payment.transaction.id]
                         if (inclusion == null) {
                             val previous = record.lastInclusion
-                            if (previous == null) Text(stringResource(R.string.transfer_pending))
+                            if (previous == null) InlineStatus(stringResource(R.string.transfer_pending), StatusTone.WARNING)
                             else if (record.payment.transaction.id in transfers.reorganized) {
-                                Text(stringResource(R.string.transfer_reorganized, previous.height.toString()))
+                                InlineStatus(stringResource(R.string.transfer_reorganized, previous.height.toString()), StatusTone.WARNING)
                                 Text(stringResource(R.string.transfer_observed))
                             }
-                            else Text(stringResource(R.string.transfer_inclusion_unknown, previous.height.toString()))
+                            else InlineStatus(stringResource(R.string.transfer_inclusion_unknown, previous.height.toString()), StatusTone.WARNING)
                         }
                         else {
-                            Text(stringResource(R.string.transfer_included, inclusion.height.toString()))
+                            InlineStatus(stringResource(R.string.transfer_included, inclusion.height.toString()), StatusTone.SUCCESS)
                             Text(stringResource(R.string.transfer_observed))
                         }
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))

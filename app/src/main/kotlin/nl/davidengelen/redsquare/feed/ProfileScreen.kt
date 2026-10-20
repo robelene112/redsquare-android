@@ -1,5 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.AccountControls
 import nl.davidengelen.redsquare.policy.PublisherContactPurpose
@@ -232,10 +235,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     if (wallet?.publicKey == author) TextButton(onClick = { view.editing = true }) {
                         Text(stringResource(R.string.profile_edit))
                     }
-                    if (profileLoading) Text(stringResource(R.string.profile_details_loading))
-                    if (profileFailed) Text(stringResource(R.string.profile_details_error))
-                    if (profileUnreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
-                    if (profileCacheWarning) Text(stringResource(R.string.profile_details_cache_warning), style = MaterialTheme.typography.bodySmall)
+                    if (profileLoading) InlineStatus(stringResource(R.string.profile_details_loading), StatusTone.WORKING)
+                    if (profileFailed) InlineStatus(stringResource(R.string.profile_details_error), StatusTone.ERROR)
+                    if (profileUnreadable) InlineStatus(stringResource(R.string.profile_unreadable), StatusTone.WARNING)
+                    if (profileCacheWarning) InlineStatus(stringResource(R.string.profile_details_cache_warning), StatusTone.WARNING)
                     FollowingStatus(following)
                     AccountControls(author)
                     if (wallet != null && wallet.publicKey != author) TextButton(onClick = {
@@ -257,13 +260,14 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     }
                     if (personal?.ready == true && visiblePosts.size < posts.size)
                         Text(stringResource(R.string.personal_posts_hidden), style = MaterialTheme.typography.bodySmall)
-                    Text(stringResource(R.string.profile_history), style = MaterialTheme.typography.bodySmall)
-                    if (loading) Text(stringResource(R.string.profile_loading))
-                    if (failed) Text(stringResource(R.string.profile_error))
-                    if (unreadable) Text(stringResource(R.string.profile_unreadable), style = MaterialTheme.typography.bodySmall)
-                    if (unavailableLikes) Text(stringResource(R.string.profile_likes_unavailable), style = MaterialTheme.typography.bodySmall)
-                    if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
-                    if (pagingUnavailable) Text(stringResource(R.string.profile_paging_unavailable), style = MaterialTheme.typography.bodySmall)
+                    InlineStatus(stringResource(R.string.status_available_history),
+                        details = listOf(stringResource(R.string.profile_history)), announce = false)
+                    if (loading) InlineStatus(stringResource(R.string.profile_loading), StatusTone.WORKING)
+                    if (failed) InlineStatus(stringResource(R.string.profile_error), StatusTone.ERROR)
+                    if (unreadable) InlineStatus(stringResource(R.string.profile_unreadable), StatusTone.WARNING)
+                    if (unavailableLikes) InlineStatus(stringResource(R.string.profile_likes_unavailable), StatusTone.WARNING)
+                    if (cacheWarning) InlineStatus(stringResource(R.string.feed_cache_warning), StatusTone.WARNING)
+                    if (pagingUnavailable) InlineStatus(stringResource(R.string.profile_paging_unavailable), StatusTone.WARNING)
                     if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
                 }
             }

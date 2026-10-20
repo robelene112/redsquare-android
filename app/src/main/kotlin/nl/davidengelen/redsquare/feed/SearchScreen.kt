@@ -1,10 +1,15 @@
 package nl.davidengelen.redsquare.feed
 
+import nl.davidengelen.redsquare.ui.preserveReadingAnchor
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -220,6 +225,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 knownNames[key]?.name?.startsWith(view.searchedQuery, ignoreCase = true) == true)
         }.sorted()).distinct()
     }
+    val resultsPosition = rememberLazyListState()
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -242,18 +248,18 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             }
         }
         PersonalControlsStatus(personal)
-        Text(stringResource(R.string.search_coverage), style = MaterialTheme.typography.bodySmall)
-        Text(stringResource(R.string.search_people_coverage), style = MaterialTheme.typography.bodySmall)
-        if (loading) Text(stringResource(R.string.search_loading))
-        if (view.failed) Text(stringResource(R.string.search_error))
-        if (view.usernameFailed) Text(stringResource(R.string.search_username_error))
-        if (view.unreadable) Text(stringResource(R.string.search_unreadable), style = MaterialTheme.typography.bodySmall)
-        if (view.pagingUnavailable) Text(stringResource(R.string.search_paging_unavailable), style = MaterialTheme.typography.bodySmall)
-        if (view.limitReached) Text(stringResource(R.string.search_limit), style = MaterialTheme.typography.bodySmall)
+        InlineStatus(stringResource(R.string.status_search_coverage), details = listOf(
+            stringResource(R.string.search_coverage), stringResource(R.string.search_people_coverage)), announce = false)
+        if (loading) InlineStatus(stringResource(R.string.search_loading), StatusTone.WORKING)
+        if (view.failed) InlineStatus(stringResource(R.string.search_error), StatusTone.ERROR)
+        if (view.usernameFailed) InlineStatus(stringResource(R.string.search_username_error), StatusTone.WARNING)
+        if (view.unreadable) InlineStatus(stringResource(R.string.search_unreadable), StatusTone.WARNING)
+        if (view.pagingUnavailable) InlineStatus(stringResource(R.string.search_paging_unavailable), StatusTone.WARNING)
+        if (view.limitReached) InlineStatus(stringResource(R.string.search_limit), StatusTone.INFO)
         if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
-            Text(stringResource(R.string.search_save_error), style = MaterialTheme.typography.bodySmall)
+            InlineStatus(stringResource(R.string.search_save_error), StatusTone.WARNING)
         if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
-        LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
+        LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
             if (view.request > 0) {
                 items(people, key = { "person:$it" }) { personKey ->
                     val label = exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name

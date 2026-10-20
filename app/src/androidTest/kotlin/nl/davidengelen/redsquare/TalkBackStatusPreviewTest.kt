@@ -113,6 +113,7 @@ class TalkBackStatusPreviewTest {
             }
             File(folder, "engine.json").writeText(observation.toString())
             assertEquals(TextToSpeech.SUCCESS, initialization)
+            assertEquals("The controlled offline engine must be selected", "com.reecedunn.espeak", tts.defaultEngine)
             assertTrue("A real English voice must be installed", tts.setLanguage(Locale.US) >= TextToSpeech.LANG_AVAILABLE)
             val completed = CountDownLatch(1)
             var synthesisError = false

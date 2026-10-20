@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,7 @@ internal enum class StatusTone { INFO, WORKING, SUCCESS, WARNING, ERROR }
 /** Only the stable summary is live. Details and progress never repeat polling announcements. */
 @Composable
 internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
-    details: List<String> = emptyList(), modifier: Modifier = Modifier,
+    details: List<String> = emptyList(), modifier: Modifier = Modifier, announce: Boolean = true,
     actionLabel: String? = null, actionEnabled: Boolean = true, onAction: () -> Unit = {}) {
     var openedDetails by remember { mutableStateOf<Pair<String, List<String>>?>(null) }
     var previousSummary by remember { mutableStateOf(summary.orEmpty()) }
@@ -37,8 +38,9 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
     val renderedSummary = summary ?: previousSummary
     val stackedActions = LocalDensity.current.fontScale > 1.3f
     val actions: @Composable RowScope.() -> Unit = {
+        val detailsLabel = stringResource(R.string.status_details_for, renderedSummary)
         if (details.isNotEmpty()) TextButton(enabled = summary != null,
-            onClick = { openedDetails = renderedSummary to details.toList() }) {
+            modifier = Modifier.semantics { contentDescription = detailsLabel }, onClick = { openedDetails = renderedSummary to details.toList() }) {
             Text(stringResource(R.string.status_details), style = MaterialTheme.typography.labelMedium)
         }
         if (actionLabel != null) TextButton(enabled = summary != null && actionEnabled, onClick = onAction) {
@@ -51,10 +53,10 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
         StatusTone.WARNING -> MaterialTheme.colorScheme.tertiary
         else -> MaterialTheme.colorScheme.primary
     }
-    AnimatedVisibility(visible = summary != null,
+    AnimatedVisibility(visible = summary != null, modifier = modifier,
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
-        Surface(modifier.fillMaxWidth().padding(vertical = 3.dp)
+        Surface(Modifier.fillMaxWidth().padding(vertical = 3.dp)
             .animateContentSize(tween(AppSpacing.transitionMillis))
             .semantics { if (summary == null) hideFromAccessibility() },
             shape = RoundedCornerShape(AppSpacing.small), color = MaterialTheme.colorScheme.surfaceContainerLow) {
@@ -64,7 +66,7 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
                     if (tone == StatusTone.WORKING) CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
                     else Box(Modifier.size(8.dp).background(color, CircleShape))
                     Text(renderedSummary, Modifier.weight(1f).padding(horizontal = AppSpacing.small, vertical = 6.dp)
-                        .semantics { if (summary != null) liveRegion = LiveRegionMode.Polite },
+                        .semantics { if (summary != null && announce) liveRegion = LiveRegionMode.Polite },
                         style = MaterialTheme.typography.labelMedium)
                     if (!stackedActions) actions()
                 }

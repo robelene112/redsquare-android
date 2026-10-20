@@ -1,5 +1,9 @@
 package nl.davidengelen.redsquare.chat
 
+import nl.davidengelen.redsquare.ui.preserveReadingAnchor
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
+
 import androidx.activity.compose.BackHandler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
@@ -348,14 +352,15 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         Column(Modifier.heightIn(max=statusMaxHeight).verticalScroll(rememberScrollState())
             .semantics{contentDescription=statusLabel},
             verticalArrangement=Arrangement.spacedBy(4.dp)) {
-            if (!keyboardVisible) Text(stringResource(R.string.chat_available_history),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-            if(hintsFailed)Text(stringResource(R.string.group_hints_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+            if (!keyboardVisible) InlineStatus(stringResource(R.string.status_available_history),
+                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+            if(hintsFailed)InlineStatus(stringResource(R.string.group_hints_error), StatusTone.WARNING)
             PersonalControlsStatus(personal)
-            if(readFailed || draftFailed) Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
-            if(sendFailed)Text(stringResource(if(entry?.automaticMessage==true&&entry.pendingMessage!=null)
-                R.string.chat_automatic_send_error else R.string.group_error),color=MaterialTheme.colorScheme.error)
-            if(historyFailed) Text(stringResource(R.string.group_history_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
-            if(liveFailed) Text(stringResource(R.string.group_live_error),color=MaterialTheme.colorScheme.onSurfaceVariant)
+            if(readFailed || draftFailed) InlineStatus(stringResource(R.string.group_error), StatusTone.ERROR)
+            if(sendFailed)InlineStatus(stringResource(if(entry?.automaticMessage==true&&entry.pendingMessage!=null)
+                R.string.chat_automatic_send_error else R.string.group_error), StatusTone.ERROR)
+            if(historyFailed) InlineStatus(stringResource(R.string.group_history_error), StatusTone.WARNING)
+            if(liveFailed) InlineStatus(stringResource(R.string.group_live_error), StatusTone.WARNING)
             if(entry!=null) {
                 if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                     style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -366,14 +371,14 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
                     }
                 }
-                if(entry.queuedMessage==null) Text(stringResource(when(entry.status) {
+                if(entry.queuedMessage==null) InlineStatus(stringResource(when(entry.status) {
                     GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                     GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                     GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
                     GroupChatStore.Status.STOPPED -> R.string.group_stopped
                     GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
                     GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
-                }),style=MaterialTheme.typography.bodySmall)
+                }), if (entry.status == GroupChatStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
                 val staleAction=store.isStaleAdminAction(entry)
                 if(staleAction) {
                     Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
@@ -433,7 +438,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             if(entry.queuedMessage!=null) {
                 Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,
                     horizontalArrangement=Arrangement.SpaceBetween) {
-                    Text(stringResource(R.string.chat_queued))
+                    InlineStatus(stringResource(R.string.chat_queued), modifier = Modifier.weight(1f))
                     TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={
                         act(requiresAgreement = false) {
                             draftWrites.withLock {
@@ -456,7 +461,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
             val attachmentPermitted=editable&&loaded&&!readFailed
             val permitted=attachmentPermitted&&!preparingPhoto
-            LazyColumn(Modifier.weight(1f).semantics{contentDescription=messagesLabel},
+            LazyColumn(Modifier.weight(1f).preserveReadingAnchor(messageList).semantics{contentDescription=messagesLabel},
                 state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
@@ -589,7 +594,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         title={Text(stringResource(R.string.group_stop_action))},
         text={Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
             Text(stringResource(R.string.group_stop_notice))
-            if(sendFailed||draftFailed)Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+            if(sendFailed||draftFailed)InlineStatus(stringResource(R.string.group_error), StatusTone.ERROR)
         }},
         dismissButton={TextButton(enabled=!busy,onClick={stopping=false}){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=loaded&&!busy&&!readFailed&&store.isStaleAdminAction(entry),onClick={
@@ -679,7 +684,7 @@ private fun MemberManagementDialog(member:String,title:Int,notice:Int,confirm:In
             Text(member,style=MaterialTheme.typography.bodySmall)
             Text(stringResource(notice))
             if(!permitted)Text(stringResource(R.string.group_management_changed),color=MaterialTheme.colorScheme.error)
-            if(failed)Text(stringResource(R.string.group_error),color=MaterialTheme.colorScheme.error)
+            if(failed)InlineStatus(stringResource(R.string.group_error), StatusTone.ERROR)
         }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=enabled&&permitted,onClick=onConfirm){Text(stringResource(confirm))}})
 }

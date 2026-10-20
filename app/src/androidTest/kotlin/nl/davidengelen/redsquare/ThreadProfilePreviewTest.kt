@@ -314,8 +314,11 @@ class ThreadProfilePreviewTest {
                     scrollProfileTo("Independent Saito reply")
                     captureProfileObservation("cached-profile-likes-after-restart", "Independent Saito reply")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Profile history could not be refreshed. Available posts remain visible.")).fetchSemanticsNodes().isNotEmpty() }
-                    scrollProfileTo("Only available history is shown. Older posts and likes may be missing.")
+                    scrollProfileTo("Available history")
+                    ui.onNodeWithContentDescription("Details: Available history").performClick()
+                    ui.onNodeWithText("Only available history is shown. Older posts and likes may be missing.").assertIsDisplayed()
                     captureProfileObservation("cached-profile-history-warning-after-restart", context.getString(R.string.profile_history))
+                    ui.onNodeWithText("Done").performClick()
                     } catch (failure: Throwable) {
                         captureProfileFailure(failure, "cached-profile-recovery-first-failure")
                         throw failure

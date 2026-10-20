@@ -450,12 +450,12 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 else if (following.ready && following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
                 else if (following.ready && visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
             }
-            if (cacheWarning) Text(stringResource(R.string.feed_cache_warning), style = MaterialTheme.typography.bodySmall)
+            if (cacheWarning) InlineStatus(stringResource(R.string.feed_cache_warning), StatusTone.WARNING)
             when {
                 failed -> Unit
-                posts.isEmpty() && loading && !walletUnavailable -> Text(stringResource(R.string.feed_loading))
-                posts.isEmpty() && !internet.available -> Text(stringResource(R.string.feed_offline_empty))
-                unreadablePage -> Text(stringResource(R.string.feed_unreadable))
+                posts.isEmpty() && loading && !walletUnavailable -> InlineStatus(stringResource(R.string.feed_loading), StatusTone.WORKING)
+                posts.isEmpty() && !internet.available -> InlineStatus(stringResource(R.string.feed_offline_empty), StatusTone.INFO)
+                unreadablePage -> InlineStatus(stringResource(R.string.feed_unreadable), StatusTone.WARNING)
                 posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
             }
             // Keep a restored list position until the asynchronous cache read has finished.

@@ -58,6 +58,13 @@ unzip -q "$tool_dir/gradle.zip" -d "$tool_dir"
         '-Dorg.gradle.jvmargs=-Xmx1536m -Dfile.encoding=UTF-8' assemblePhoneDebug
 )
 cp "$tool_dir/source/build/outputs/apk/phone/debug/source-phone-debug.apk" "$tool_dir/artifacts/talkback.apk"
+curl --fail --location --retry 3 --connect-timeout 30 --max-time 120 \
+    https://github.com/espeak-ng/espeak-ng/releases/download/1.52.0/espeak-1.52.0-signed.apk \
+    -o "$tool_dir/artifacts/espeak.apk"
+printf '%s  %s\n' 741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf \
+    "$tool_dir/artifacts/espeak.apk" | sha256sum -c -
 printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; ARM ABI filters changed to x86_64; observation-only real engine callback logs; unmodified speech logic and dependency versions' \
     > "$tool_dir/artifacts/source.txt"
-(cd "$tool_dir/artifacts" && sha256sum talkback.apk source.txt source.patch > SHA256SUMS)
+printf '%s\n' 'espeak-ng/espeak-ng official1.52.0 release APK, source tag4870adfa25b1a32b4361592f1be8a40337c58d6c; package com.reecedunn.espeak version22, x86_64; built-in offline English voice data' \
+    > "$tool_dir/artifacts/engine-source.txt"
+(cd "$tool_dir/artifacts" && sha256sum talkback.apk espeak.apk source.txt engine-source.txt source.patch > SHA256SUMS)

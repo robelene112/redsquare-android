@@ -551,4 +551,11 @@
     <string name="status_selected_node_retained">Your selected node stays selected. Cached posts remain available. New reads resume when this node responds.</string>
     <string name="status_offline_guidance">Cached content stays available. Saved drafts remain unsent. Work you explicitly sent while offline stays tied to its original node.</string>
     <string name="status_connection_recovered">The selected node responded again. This does not confirm delivery of pending posts, messages or transfers.</string>
+    <string name="status_details_for">Details: %1$s</string>
+    <string name="status_search_coverage">Search coverage</string>
+    <string name="status_available_history">Available history</string>
+    <string name="status_unsent_draft">Unsent draft</string>
+    <string name="status_saved_locally">Saved on this device</string>
+    <string name="status_origin_node">This work belongs to %1$s. Switching nodes does not reroute it.</string>
+    <string name="status_transfer_processing">Processing transfer</string>
 </resources>

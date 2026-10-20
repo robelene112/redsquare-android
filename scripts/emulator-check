@@ -94,13 +94,50 @@ if [[ "${TEST_SCOPE:-full}" == status-talkback* ]]; then
     (cd "$talkback_artifacts" && sha256sum -c SHA256SUMS)
     cp "$talkback_artifacts/source.txt" "$evidence/talkback-source.txt"
     cp "$talkback_artifacts/source.patch" "$evidence/talkback-source.patch"
+    cp "$talkback_artifacts/engine-source.txt" "$evidence/talkback-engine-source.txt"
     cp "$talkback_artifacts/SHA256SUMS" "$evidence/talkback-tool-SHA256SUMS"
-    adb shell pm list packages > "$evidence/talkback-installed-packages.txt"
-    adb install -r "$talkback_artifacts/talkback.apk"
-    adb shell dumpsys package com.android.talkback > "$evidence/talkback-package.txt"
     saved_services=$(adb shell settings get secure enabled_accessibility_services | tr -d '\r')
     saved_accessibility=$(adb shell settings get secure accessibility_enabled | tr -d '\r')
-    [[ "$saved_services" =~ ^[A-Za-z0-9./_:]+$ && "$saved_accessibility" =~ ^(0|1|null)$ ]]
+    saved_tts=$(adb shell settings get secure tts_default_synth | tr -d '\r')
+    [[ "$saved_services" =~ ^[A-Za-z0-9./_:]+$ && "$saved_accessibility" =~ ^(0|1|null)$ && "$saved_tts" =~ ^[A-Za-z0-9._]+$ ]]
+    printf '%s=%s\n' enabled_accessibility_services "$saved_services" accessibility_enabled "$saved_accessibility" \
+        tts_default_synth "$saved_tts" > "$evidence/talkback-original-settings.txt"
+    # Install cleanup before either setting can change; preserve the primary status.
+    restore_talkback_settings() {
+        local primary_status=$? restore_status=0 observed
+        trap - EXIT
+        set +e
+        for setting in enabled_accessibility_services accessibility_enabled tts_default_synth; do
+            local previous="$saved_services"
+            [[ "$setting" != accessibility_enabled ]] || previous="$saved_accessibility"
+            [[ "$setting" != tts_default_synth ]] || previous="$saved_tts"
+            if [[ "$previous" == null ]]; then
+                adb shell settings delete secure "$setting" || restore_status=1
+            else
+                adb shell settings put secure "$setting" "$previous" || restore_status=1
+            fi
+            observed=$(adb shell settings get secure "$setting" | tr -d '\r')
+            printf '%s=%s\n' "$setting" "$observed" >> "$evidence/talkback-restored-settings.txt"
+            [[ "$observed" == "$previous" ]] || restore_status=1
+        done
+        kill "$emulator_pid" 2>/dev/null || true
+        [[ "$primary_status" != 0 ]] || primary_status=$restore_status
+        exit "$primary_status"
+    }
+    trap restore_talkback_settings EXIT
+    adb shell pm list packages > "$evidence/talkback-installed-packages.txt"
+    adb install -r "$talkback_artifacts/talkback.apk"
+    adb install -r "$talkback_artifacts/espeak.apk"
+    adb shell dumpsys package com.android.talkback > "$evidence/talkback-package.txt"
+    adb shell dumpsys package com.reecedunn.espeak > "$evidence/talkback-engine-package.txt"
+    adb shell am start -W -n com.reecedunn.espeak/.DownloadVoiceData > "$evidence/talkback-engine-data-install.txt"
+    grep -q 'Status: ok' "$evidence/talkback-engine-data-install.txt"
+    for ((attempt=0; attempt<60; attempt++)); do
+        adb shell dumpsys activity activities > "$evidence/talkback-engine-data-window.txt"
+        if ! grep -E 'mResumedActivity.*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"; then break; fi
+        sleep 0.5
+    done
+    ! grep -Eq 'mResumedActivity.*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"
     # Public test-tool preferences only. Do not modify application wallet or user data.
     cat > "$evidence/talkback-tool-preferences.xml" <<'PREFS'
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
@@ -115,27 +152,7 @@ PREFS
     adb shell run-as com.android.talkback mkdir -p /data/user_de/0/com.android.talkback/shared_prefs
     adb shell run-as com.android.talkback cp /data/local/tmp/redsquare-talkback-preferences.xml \
         /data/user_de/0/com.android.talkback/shared_prefs/com.android.talkback_preferences.xml
-    # Install cleanup before either setting can change; preserve the primary status.
-    restore_talkback_settings() {
-        local primary_status=$? restore_status=0 observed
-        trap - EXIT
-        set +e
-        for setting in enabled_accessibility_services accessibility_enabled; do
-            local previous="$saved_services"
-            [[ "$setting" != accessibility_enabled ]] || previous="$saved_accessibility"
-            if [[ "$previous" == null ]]; then
-                adb shell settings delete secure "$setting" || restore_status=1
-            else
-                adb shell settings put secure "$setting" "$previous" || restore_status=1
-            fi
-            observed=$(adb shell settings get secure "$setting" | tr -d '\r')
-            [[ "$observed" == "$previous" ]] || restore_status=1
-        done
-        kill "$emulator_pid" 2>/dev/null || true
-        [[ "$primary_status" != 0 ]] || primary_status=$restore_status
-        exit "$primary_status"
-    }
-    trap restore_talkback_settings EXIT
+    adb shell settings put secure tts_default_synth com.reecedunn.espeak
     adb shell settings put secure enabled_accessibility_services \
         com.android.talkback/com.google.android.accessibility.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
