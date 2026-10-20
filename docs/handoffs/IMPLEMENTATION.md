@@ -88,6 +88,14 @@ retained, causeUNKNOWN (notestablishedfallback/servererror). Packetfullfc-public
 ObserveraddsONLYshape/bytes/hash/filteredfieldnames,notremotevalues, beforestrict
 decoding;harnesscopiesbeforePASSgate. Noquery/decoder/deadline/productionchanges.
 ThisrequiredpublicgateisNOTanoptionalobservergap. Focusedpublicread17needed.
+Correctedkeyboard43abc10/17runs39417214514/39417211307bothSUCCESS10methods,
+116originalmembersretainedeach. Rootopened17firstusePNG, actualJSONcurrentIME322,
+Send270..318full48dp; originalstale331failureretained. Unchangedsocial11-method10
+39416588867SUCCESS94originals; cfd39416823937actuallyBOTHSDKsSUCCESS1methodeach,
+actualflags24/clearabletrue/ongoingfalse,gesture154/139ms,hiddenandownedinactive.
+RootopenedbothdismissedPNGs; noearliercauseclaim. Packetsretained. Focusedimport
+10a339417603596andfeed17publicf2339418060620areactive. Allboundedreviews0/0.
+CurrentHEADf23hasONLYtest/harness/docschangessincefcproduction;52notrebuilt.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

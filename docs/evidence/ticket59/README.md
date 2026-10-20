@@ -2,7 +2,7 @@
 
 Active sequential implementation, review base a8b2c26ef. Ordinary50 remains live;
 59 has focused native and actual TalkBack acceptance on both SDKs; fresh complete
-fc native execution and signed-delivery acceptance remain pending.
+native execution and signed-delivery acceptance remain pending.
 
 ## First actual native RED
 
@@ -389,3 +389,32 @@ The harness copies these diagnostics before checking PASS. Query, decoding,
 wallet/funding goals and deadlines remain unchanged. No production change or
 server operation is justified by the unclassified response. Corrected diagnostic
 execution and fresh complete verification remain required.
+
+## Corrected keyboard and unchanged physical-dismissal GREEN
+
+Corrected keyboard43abc426d runs10[39417214514](https://github.com/robelene112/redsquare-android/actions/runs/39417214514)
+and17[39417211307](https://github.com/robelene112/redsquare-android/actions/runs/39417211307)
+are SUCCESS, allten methods each. Complete116-member original archives and goal
+logs are retained per SDK. Actual17group first-use current measurement records
+Send[215,270][304,318], minimum48, current IME322, system top24 and visibleIMEtrue
+on a640pixel display. Root opened the original PNG with the same Gboard font-size
+notice; full Send ends exactly at the actual keyboard top318. The previous stale
+331 comparison stays failed. This does not establish its intermediate trajectory
+or app-wide Chat polish; compressed-editor improvements remain62.
+
+Unchangedfc social-push10[39416588867](https://github.com/robelene112/redsquare-android/actions/runs/39416588867)
+is SUCCESS, all11 main methods, with all94 original members retained. The separate
+cfd focused dismissal[39416823937](https://github.com/robelene112/redsquare-android/actions/runs/39416823937)
+actually executes BOTH SDKs because its workflow preceded the SDK exclusion fix.
+Both are SUCCESS, one unchanged method each and allfive original members each.
+Actual flags24, clearabletrue, ongoingfalse;10card[4,180][316,285], gesture154ms;
+17card[16,216][304,317], gesture139ms. Both observe textHiddentrue and owned alert
+inactive, then pass exact no-realert checks. Root opened both original dismissed
+screens. These successful attempts do not prove the earlier swipe failure cause.
+The original physical gesture, disappearance/active-state deadlines and complete
+command coverage remain unchanged. No focused results fill missing full gates.
+
+All bounded source/evidence reviews throughf23bc380d report Spec0/documented
+Standards0/heuristic0 after SDK-routing and optional-observer guards were fixed.
+Corrected import10ata3run39417603596 and diagnostic public-read17atf23run39418060620
+remain active. Fresh complete execution is still required;52 remains unpublished.
