@@ -36,120 +36,57 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,15:36UTC. Corrected production is72a8c63828280d61dc760331e17289cf7c93112a
-on verify/status59-72a8c6382. Cumulative Standards found queued private/group
-parents disposing before status exit; both now use stable nullable hosts plus
-existing guarded Cancel action. Null summary disables obsolete controls. Shared
-Details/actions have explicit48dp minimum height. Review/runtime pending.
+2026-10-20 15:51 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
+Versions51 through57 are REJECTED and NEVER PUBLISH; their frozen APKs remain
+unchanged. Continue #60 through #69 sequentially after true #59 completion,
+without routine owner stops. No new owner input is needed.
 
-Twelve existing scopes run bothSDKs: viewport39449815889/39449819807,
-admin39449824621/39449830056,motion39449834751/39449839448,
-reading39449843471/39449848515,keyboard39449853329/39449858282,
-privateUI/process39449862817/39449866242. Original assertions/bounds/catalog
-remain. No new full dispatch or58 reservation until focused/source review green.
+Current production, complete verification and reserved signed58 source is
+`72a8c63828280d61dc760331e17289cf7c93112a`, pinned at
+`verify/status59-72a8c6382`. Complete Android10run39451598613 and
+Android17run39451603260 are active. Signed58 is building in the external review
+worktree. Actual APK inspection, full native success, strict collection, visual
+inspection, final paired review and independent public bookends remain pending.
+Never rebuild a frozen artifact.
 
-57 is REJECTED after actual APK preparation atff9, immutable SHA
-c16fff47c81cf8d13b7f5f88e6cd21d76ebc519b655d78c97cdcd124184bcee6.
-51through57 areNEVERPUBLISH;50 staysLIVE. Four superseded dc2/ff9 fulls are
-actuallyCANCELLED with all before/terminal run/job metadata retained. No full
-acceptance is claimed. Count10actions39447773704 and private39447778541
-atff9PASS; sourceff9 alsoPASS, all predating changed production72a.
-Read latest59 README. Continue60through69 after true59completion without stops.
+All twelve focused runs at72a are SUCCESS:
 
-## Earlier ff9 full dispatch (historical)
+| Scope | Android 10 | Android 17 |
+| --- | --- | --- |
+| Queued cancellation and viewport |39449815889|39449819807|
+| Group administration and actual process recovery |39449824621|39449830056|
+| Real normal/zero window motion |39449834751|39449839448|
+| Reading through outage and recreation |39449843471|39449848515|
+| All ten keyboard cases |39449853329|39449858282|
+| Private history24/actions10 and actual process recovery |39449862817|39449866242|
 
-2026-10-20, 15:26 UTC. Current complete verification source is
-ff9da0967292cdd362554c5e0edbc4c318c26c0d, pinned verify/status59-private-ready.
-Full10run39448128550 and17run39448133541 are active. Signed57 is reserved/
-building at exactff9 in the external frozen review worktree. Actual APK inspection,
-full native success, strict collection, visual review and public bookends remain
-pending.50 staysLIVE;51through56 areREJECTED/NEVERPUBLISH, never rebuild them.
+All1,103 original members are retained. Both cumulative source review axes and
+provenance review have zero remaining findings. Exact72a source/core/gateway/
+release/performance/lint39449757978 is SUCCESS. Root opened both private queue
+preview-end captures, actual48px Members/Cancel targets, and progressive normal
+Search entry/exit frames on both SDKs, plus both zero-motion after states.
+All five reading anchors remain identical at the unchanged1px bound. Queue
+integration uses the same stable host; no separate queued-exit movie is claimed.
+See [current status evidence](../evidence/ticket59/README.md) for exact bindings.
 
-Both complete private49a focuses pass24+10 methods plus actual process
-continuity,178 originals perSDK:39446280616/39446285216. Both policiesed5
-focuses39446798072/39446802357 alsoPASS;root opened both restored-draft PNGs.
-All457 tracked non-doc/non-AndroidTest entries are equal49a toff9; only reviewed
-policy and reaction-count fixture operations differ. Paired reviews throughff9
-are0/0. Source49a39446244398SUCCESS; exactff9source39447946565 remainspending.
-The newff9focused10actions39447773704/private39447778541 remainactive.
+Stable nullable status hosts retain entry/reversal/exit and remove inactive
+layout slots. Full guidance remains accessible. Private status is capped at80dp
+or one quarter of height; group status at80dp or one third. Actual warnings and
+primary recovery remain before routine guidance. Both queued notices now retain
+stable hosts through exit, with obsolete Cancel disabled immediately. Original
+candidate, draft, privacy, mutex, navigation and delivery guards stay unchanged.
+Details/actions explicitly retain48dp targets. Saved reading baselines and
+pending correction restore with list offset. Cumulative review found no remaining
+analogous conditional host.
 
-Full acceptance still requires all three jobs, all public reads, actual speech/
-motion, protected recovery and five reading bookends at the frozen486/487 catalog.
-Use unchanged full-collector.py. No failed-tail assembly. Prior dc2 runs remain
-superseded, with actual terminal metadata to retain. No new owner input needed.
-
-
-## Earlier private diagnostics (historical)
-
-2026-10-20, 15:13 UTC. #59 remains OPEN;50 is LIVE.51through56 are
-REJECTED and NEVER PUBLISH. Continue60through69 sequentially after true59
-completion, without routine owner stops. No new owner input is required.
-
-Latest early private dc2 runs39444893909/39444898087 reproduce a production
-viewport defect on both SDKs: Private messages42px versus the unchanged48dp
-guard, beside114px status.10also has a separate lazy cached-body operator
-failure; it finishes24/2failures,17finishes24/1failure. Root opened17original.
-Private status now uses min(80dp,maxHeight/4), keeping all guidance scrollable;
-actual failures/warnings precede routine Available history. Existing named-list
-wait/scroll now reaches the separately offscreen cached older body. All original
-assertions/deadlines/identities remain. Both existing minimized viewport scopes now pass4/4 with64 originals each.
-Actual history is76px on both SDKs; root opened both native key-restoration
-captures. Complete private integration remains pending.
-Read the latest59 README section; no newer signed candidate is reserved yet.
-
-Signed56 is rejected because production changes after its c5 source. Its APK
-remains immutable. Both dc2 complete runs39444883643/39444888298 continue
-as superseded observations, not acceptance for changed production. The dc2
-source check39443999774 is SUCCESS; equivalence to56 was independently
-reviewed before this later production defect was found. Both provenance reviews
-througha19ce4079 have0 residual findings.
-
-Group10focused39444228866 atdc2 passes all1+1+22 methods and actual process
-continuity,114 original members from4archives retained. Root opened visible
-Unlike and left-reopened.17focused39444233530 timed out after complete business/
-cleanup phases but no instrumentation result; it remainsFAILURE. Same-source
-repeat39445406794 is SUCCESS:1+1+22 methods and actual process continuity,
-114 original members retained. Root opened both native corrected controls. No timeout or acceptance assertion is relaxed.
-
-Current corrected production is49a92703b63659ee7b7a9d4da03dc01616f5dd49.
-Both review axes through49a have0 remaining findings. Focused existing scopes
-on verify/status59-49a92703b are active:
-- Private-history viewport:10run39446271331,17run39446275538, bothSUCCESS.
-- Complete private UI/actions/process:10run39446280616,17run39446285216.
-- Independent actions:17run39446295094SUCCESS10/10;10run39446289596
-  fails1of10 at displayed1like after refresh. Original PNG shows Loading and no
-  count,132px history. Do not claim a proven viewport/transport cause. The
-  test now uses existing named-list wait/scroll before its same displayed count
-  and remaining assertions, within original15/180second bounds. Fresh runtime
-  remains pending. None replaces full acceptance.
-
-The latest fixture-only policy correction waits within the existing20second
-readiness goal for the visible merged editor containing the saved exact draft,
-then keeps its original exact-text/clearing/identity/node/zero-send assertions.
-Full10dc2wallet failed the immediate101lookup: no merged SetText node; root
-opened its native failure PNG, which already shows the correct saved draft.
-All34 originals and actual failed goal are retained. No draft-loss claim.
-Corrected policies10run39446798072 and17run39446802357 execute ed5e4709d
-on verify/status59-policy-ready, pending. Both review axes through ed5 are0.
-
-Shared nullable InlineStatus hosts preserve real entry/reversal/exit and remove
-inactive layout slots. Full guidance remains accessible. Saved parent-relative
-feed anchoring passes the unchanged1px outage/recreation goal. Group status
-stays bounded80dp or one third of height; primary delivery/Retry comes first,
-with queued-only management ordering and stable section keys. Original candidate,
-privacy, warnings and recovery guards remain. Earlier real speech/focus/quiet
-polling, normal/zero motion, keyboard and focused recovery proof is detailed in
-[ticket59 evidence](../evidence/ticket59/README.md), with exact original failures
-and source bindings. These earlier focused results never replace final full proof.
-
-Fresh complete acceptance for changed production is not dispatched yet. Retain
-the frozen caad independent catalogs and strict full-collector.py:486/487
+Use the unchanged strict full-collector.py and frozen caad references:486/487
 identities,129/130 normal completions,35 deliberate interruptions,34 continuity
-and92 archives perSDK. All three jobs, public reads, actual TalkBack/motion and
-five reading bookends are mandatory. No failed-tail assembly. Reserve/build a
-new signed candidate only after corrected focused private integration is green.
-Ordinary50/49/45 and whole performance43 remain protected. Never rebuild/release
-51through56. Physical/provider/store/KVK requirements remain parked, not waived.
+and92 archives per SDK. All three jobs, all public reads, actual TalkBack/motion
+and five reading bookends remain required. No failed-tail assembly. The four
+superseded dc2/ff9 dispatches were explicitly CANCELLED, with before/terminal
+metadata retained; they never count as acceptance. Historical failures, rejected
+candidates and earlier focused checks remain in the canonical evidence README.
+Physical, provider, KVK and store requirements remain parked, not waived.
 
 ## Current repeat-like57 acceptance
 

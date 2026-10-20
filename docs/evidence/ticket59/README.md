@@ -1086,3 +1086,47 @@ assertions remain. No corrected full dispatch or58 reservation yet.
 Corrected count-observer10actions39447773704 and complete10private39447778541
 atff9 bothSUCCESS. Exactff9 source39447946565 is SUCCESS. These earlier
 successes do not accept later changed production.
+
+## Corrected 72a focused integration and complete verification
+
+All twelve existing focused runs at exact72a are SUCCESS. Both cumulative
+source-review axes and the final cancellation/provenance review have zero
+remaining findings. Source/core/gateway/release/performance/lint39449757978
+is SUCCESS. All original assertions, bounds, identities and recovery checks remain.
+
+| Scope | Android 10 | Android 17 | Original archive members per SDK |
+| --- | --- | --- | --- |
+| Queued cancellation and management viewport |39449815889|39449819807|36 / 36|
+| Group administration and two actual process protocols |39449824621|39449830056|48 / 48|
+| Real normal/zero window motion |39449834751|39449839448|111 / 216|
+| Reading across Chat, outage and recreation |39449843471|39449848515|10 / 10|
+| All ten real keyboard cases |39449853329|39449858282|116 / 116|
+| Private history24, actions10 and actual process recovery |39449862817|39449866242|178 / 178|
+
+All1,103 original members across the12 packets are retained with exact source/
+run/archive binding and hashes. Root opened both private queued-preview end
+captures and the group Members/Cancel capture. Native clickable Cancel is48px
+high, e.g. group[145,272][300,320] on10 and[147,272][300,320] on17; Members
+remains[16,213][100,261],48px on both. All five reading originals on each SDK
+keep Reference post05 at[74,431][201,479], within the unchanged1px goal.
+
+Both motion packets record real WindowRecomposer scale1/0. Root opened10
+normal Search frames5/9/24/27 and17frames4/10/119/120, plus both zero-scale
+after states. Original pixels show progressive entry and exit:10sampled status
+rows21→54→67→70 at frames5/6/9/10, then65→50→31→17→9→3→0 at23through29.
+17shows38→52→60→70 at4/5/10/14 and70→64→31→0 at118through121. This is
+read-only corroboration of the opened originals, not a new application assertion
+or physical performance measurement. The queued paths reuse that shared stable
+host; queue-specific evidence here is source plus actual before/after native
+controls and cancellation, not a separately recorded queued-exit movie.
+
+Fresh complete Android10run39451598613 and Android17run39451603260 execute
+exact72a8c63828280d61dc760331e17289cf7c93112a on verify/status59-72a8c6382.
+All three jobs, source/release/lint, public reads, actual TalkBack/motion, protected
+recovery and all five reading bookends remain mandatory. Frozen486/487 catalogs,
+collector hash and exact optional gaps are unchanged. No failed-tail assembly.
+
+Signed58 is reserved/building at that same exact72a source. Actual APK
+inspection, complete native success, strict collection, final review and public
+bookends remain pending.51through57 are REJECTED/NEVER PUBLISH; immutable50
+staysLIVE. Continue60through69 after actual59 completion, without routine stops.
