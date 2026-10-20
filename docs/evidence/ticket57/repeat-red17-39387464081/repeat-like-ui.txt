@@ -1,0 +1,89 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.RepeatLikePreviewTest:
+INSTRUMENTATION_STATUS: test=laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.RepeatLikePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #118 at (l=16.0, t=333.0, r=74.0, b=373.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Liked]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Liked' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts$lambda$13$lambda$12$lambda$11(RepeatLikePreviewTest.kt:69)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$xo863B3RfZFesVm6rBXFk1Z7oqs(RepeatLikePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts(RepeatLikePreviewTest.kt:65)
+
+INSTRUMENTATION_STATUS: stream=
+Error in laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts(nl.davidengelen.redsquare.RepeatLikePreviewTest):
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #118 at (l=16.0, t=333.0, r=74.0, b=373.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Liked]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Liked' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts$lambda$13$lambda$12$lambda$11(RepeatLikePreviewTest.kt:69)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$xo863B3RfZFesVm6rBXFk1Z7oqs(RepeatLikePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts(RepeatLikePreviewTest.kt:65)
+
+INSTRUMENTATION_STATUS: test=laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.434
+There was 1 failure:
+1) laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts(nl.davidengelen.redsquare.RepeatLikePreviewTest)
+java.lang.AssertionError: Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #118 at (l=16.0, t=333.0, r=74.0, b=373.0)px
+Role = 'Button'
+Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+Text = '[Liked]'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 7 siblings
+Selector used: (Text + InputText + EditableText contains 'Liked' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsEnabled(Assertions.kt:60)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts$lambda$13$lambda$12$lambda$11(RepeatLikePreviewTest.kt:69)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.$r8$lambda$xo863B3RfZFesVm6rBXFk1Z7oqs(RepeatLikePreviewTest.kt:0)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.RepeatLikePreviewTest.laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts(RepeatLikePreviewTest.kt:65)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

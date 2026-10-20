@@ -11,8 +11,10 @@ sequential implementation, review, commits and signed in-place beta delivery.
    full native acceptance,0/0 paired reviews and signed49 public delivery with
    final Spec0/documented Standards0/heuristic0 review at a193ff163.
 2. Implement active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
-   then59 through69 in dependency order. Review base a193ff163. No57 production
-   implementation exists yet. Its chosen policy is explicit in the issue and
+   then59 through69 in dependency order. Review base a0948570a. The first native RED is retained in
+   docs/evidence/ticket57; initial repeat/journal/lease/count-generation source
+   is under development, with no rate/full/signed57 acceptance yet.
+   Its chosen policy is explicit in the issue and
    comment6278005545: two NEW deliberate intents per rolling second per wallet
    across post surfaces and both nodes. A pending/uncertain like for the post
    prevents a fresh like on either node; reconcile/reuse the exact candidate

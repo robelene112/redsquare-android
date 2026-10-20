@@ -49,7 +49,8 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedP
 @Composable
 private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareActionKind, onQuote: ((FeedPost) -> Unit)?) {
     val publishing = LocalPublishingAgreement.current
-    LaunchedEffect(state, post.id, kind) { state?.load(post, kind) }
+    val globallyBusy = state?.busy(post, kind) == true
+    LaunchedEffect(state, post.id, kind, globallyBusy) { state?.load(post, kind, refresh = !globallyBusy) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     val observed = state?.observedPosts?.get(post.id) ?: post
     val count = remember(observed.envelope, kind) {
@@ -60,7 +61,8 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.plurals.social_repost_count)
     Column {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-        TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !status.available,
+        TextButton(contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !globallyBusy && status.blockedBy == null &&
+            (!status.available || kind == RedSquareActionKind.LIKE),
             onClick = { state?.send(post, kind, publishing::beforePublishing) }) {
             Text(stringResource(when {
                 status?.available == true -> labels[1]
@@ -73,6 +75,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
             Text(stringResource(R.string.social_quote))
         }
     }
+    status?.blockedBy?.let { Text(stringResource(R.string.social_like_other_node, it.domain)) }
     if (status?.candidate != null && !status.available) Text(stringResource(R.string.social_pending))
     if (status?.countsUnavailable == true) Text(stringResource(R.string.social_counts_unavailable))
     if (status?.failed == true) {
