@@ -292,3 +292,13 @@ and failed build output; no native/app RED claimed. Replacement uses the existin
 public SemanticsActions.ScrollBy callback with the same88dp goal and idle wait.
 Both source/evidence reviews0. Corrected local app/test Kotlin compile succeeds
 2m10s. Production remains unchangedcfbf; new paired runtime proof is pending.
+
+Corrected focused native10 run39504487245 and17 run39504490510 at02bd8c8a31c56813b5539d3258c6166e7622b816
+complete SUCCESS. Four original methods25.472s/47.766s plus viewport method
+21.653s/20.818s pass. Six320dp font100/130/200 Light/Dark cells per SDK preserve
+complete counts, full48dp targets within actual scroll viewport, pairwise and
+FAB separation, full identity, final wallet/backend/zero sends/peer health and
+independent restoration. Packets101/103hashes, two archives88 originals each;
+both reviews0. Root viewed all six10 action cells,17normal/130/200 and200identity.
+Existing navigation-word wrapping at200 remains70. Remaining60 content/status/
+new-control TalkBack/full catalog/full10+17/reviews/signed59 still pending.
