@@ -1539,3 +1539,37 @@ heuristic0. Both independently verify631 hashes and all2,524 archive members,
 complete identities/completions, real speech/motion/reading and production scope.
 58 remains immutable/prepared/unpublished until canonical publication and public
 protection checks; those are the next authorized steps.
+
+
+## Delivered ordinary58 and restored ordinary fixture lifecycle
+
+[Public58](signed58-public/) is delivered by the canonical publisher from frozen72a.
+Independent public before/after checks and both final reviews report0 findings.
+Allnine public-packet hashes and actual public APK bytes/manifest/certificate
+verify:178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes. Latest/immutable metadata match. Protected ordinary50/49/45
+and the entire performance43 page/metadata/APK remain byte-equal. No APK enters Git.
+Application acceptance is the independently complete207 Android10 and72a Android17
+executions, with all631/639 hashes and2,524/2,526 archive members verified.
+No app-wide visual, physical, configured-provider or store acceptance is implied.
+
+The later [34 fixture worker failure](runtime-workers-red10-34-39476058296/)
+retains37 verified hashes/20 exact original members. All8 original publishing
+queue methods fail the actual headless-worker precondition atline142 after
+runtime initialization. Wallet isFAILURE; unused Chat/social jobs areCANCELLED,
+overallCANCELLED. This execution stays rejected and supplies no acceptance data.
+The exact cause remains unproved. Third [focused storage39476893505](runtime-storage10-34-39476893505/)
+passes both original cases at512MiB/PID4961; its17 hashes verify. This does not
+replace or repair the failed full34 execution.
+
+The experimental service-restart integration is removed. Current emulator-check
+is byte-for-byte the accepted72a ordinary lifecycle, SHA256
+4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0.
+Both restoration reviews report0 findings. The API29 storage parity assertion and
+all original payloads/identities/deadlines remain; no application source changes.
+A pinned focused agreement check of the restored source remains pending, separate
+from already accepted app delivery. Retain any future actual16MiB native failure
+as failed; no native-error waiver or mixed complete partitions is permitted.
+
+59 delivery is complete. Continue60–69 and70 sequentially;55 retains the owner's
+app-wide final UI review, and1/36 retain actual release requirements.

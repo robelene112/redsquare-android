@@ -138,15 +138,14 @@ complete first-release scope and the established production boundaries.
    actual process death and distinct recovery PID, with each shared host phase
    retaining120seconds and independent restoration. Existing process gates keep
    their identities and deadlines. A focused success is not complete acceptance.
-   The disposable API29 image restarts its JVM services after its declared/QEMU
-   heap properties agree and before app installation. Strict original/replacement
-   PID and unchanged-property records retain this initialization. Each initial/
-   replacement readiness phase has one120second bound and requires the same valid
-   tuple on two observations; the exact tuples and polls are retained. No heap
-   value is overridden. The existing photo-history cases independently require actual
-   JVM heap parity with Android's memory class before exercising their unchanged
-   history/draft payloads. Temporary process-only diagnostic scopes have been
-   removed; their original failed/passing evidence stays recorded under59.
+   API29 photo-history cases independently require actual JVM heap parity with
+   Android's declared memory class before fixture writes. The image can start a
+   16MiB process despite declaring512MiB; keep any failed native goal failed and
+   retain its metadata. The ordinary emulator lifecycle is preserved: a later run with
+   service restarts failed headless-worker verification. That fixture change was
+   removed; the exact failure cause remains unproved. Do not treat focused successes as full acceptance or combine
+   partitions from different complete dispatches. Original diagnostic packets
+   remain under59; temporary scopes/class/observation hooks have been removed.
    `chat-photo-process` and its Android17 variant isolate the existing private
    and group queued-photo process protocols. Complete `chat-images` and full
    scopes retain both, along with picker/normalization and image storage checks.

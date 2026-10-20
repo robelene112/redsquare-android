@@ -1,0 +1,26 @@
+{
+  "result": "Focused SUCCESS, not full acceptance",
+  "entryRecords": [
+    [
+      "true",
+      "4961",
+      "536870912",
+      "512"
+    ],
+    [
+      "false",
+      "4961",
+      "536870912",
+      "512"
+    ]
+  ],
+  "seconds": "55.391",
+  "heapPropertiesUnchanged": true,
+  "originalAndReplacementPidsDisjoint": true,
+  "archive": {
+    "bytes": 1084,
+    "sha256": "da79344b1e69f87dcf800866ec1a6b76dc2a200fe54d22b657774a563d5430cd",
+    "scope": "Existing unusable observer archive, not native goal evidence"
+  },
+  "scope": "Both original private/group history methods and unchanged payload/draft/growth/restoration assertions; added API29 declared/actual parity passes."
+}

@@ -1,0 +1,134 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt(PublishingPrivateQueuePreviewTest.kt:14)
+
+INSTRUMENTATION_STATUS: stream=
+Error in explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest):
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt(PublishingPrivateQueuePreviewTest.kt:14)
+
+INSTRUMENTATION_STATUS: test=explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings(PublishingPrivateQueuePreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: stream=
+Error in requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest):
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings(PublishingPrivateQueuePreviewTest.kt:12)
+
+INSTRUMENTATION_STATUS: test=requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled(PublishingPrivateQueuePreviewTest.kt:10)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest):
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled(PublishingPrivateQueuePreviewTest.kt:10)
+
+INSTRUMENTATION_STATUS: test=unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 122.755
+There were 3 failures:
+1) explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest)
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.explicitAgreementResumesTheQueuedPrivateMessageWithoutSigningAnotherAttempt(PublishingPrivateQueuePreviewTest.kt:14)
+2) requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest)
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.requiredTermsKeepPrivateQueueCancellationReachableWithLargerTextAndOfflineWarnings(PublishingPrivateQueuePreviewTest.kt:12)
+3) unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled(nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest)
+java.lang.IllegalArgumentException: Actual headless worker did not retain the unaccepted intent
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$lambda$25$lambda$24(PublishingQueueFixture.kt:142)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.$r8$lambda$pZ4gpcvs5MMskKAZdtyO_uFCblI(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingQueueFixture$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise(PublishingQueueFixture.kt:121)
+	at nl.davidengelen.redsquare.PublishingQueueFixture.exercise$default(PublishingQueueFixture.kt:32)
+	at nl.davidengelen.redsquare.PublishingPrivateQueuePreviewTest.unacceptedBackgroundPrivateMessagesKeepTheirOriginalAndCanBeCancelled(PublishingPrivateQueuePreviewTest.kt:10)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

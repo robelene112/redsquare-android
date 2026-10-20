@@ -15,7 +15,7 @@ sequential implementation, review, commits and signed in-place beta delivery.
    publication and independent public before/after checks exit0. The public APK
    matches frozen285 prepared50 exactly; immutable49/45 and wholeperformance43
    are preserved. Final public-packet review at8c1954ab9 is0/0 and57 is CLOSED.
-   Active next:59, then60 through69 in dependency order. Never rebuild50. Detailed original
+   59 is now delivered as ordinary58; next60 through69, then70 sequentially. Never rebuild50. Detailed original
    RED/GREEN, full481/482 canonical identities,35 interruptions/34 continuity per
    SDK and supplemental public-read provenance are in ticket57's evidence README.
    Confirmation-time acknowledgment reset is source-reviewed without a separate
@@ -34,10 +34,10 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Active status59 checkpoint
+## Completed status59 and next post-presentation60
 
-2026-10-20 18:47 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
-Finish59, then60through69 and bounded navigation follow-up70 sequentially,
+2026-10-20 18:57 UTC.59 delivery complete; ordinary58 LIVE;51through57 REJECTED/NEVER PUBLISH.
+Finish tracker closure59, then60through69 and bounded navigation follow-up70 sequentially,
 without routine owner stops. Owner/provider/physical/store prerequisites stay parked.
 
 Production, immutable prepared signed58 and accepted complete17 source:
@@ -45,7 +45,7 @@ Production, immutable prepared signed58 and accepted complete17 source:
 SUCCESS; unchanged strict collector accepts487identities/130normal/35interruptions/
 34continuity/92archives/0assumptions. Root inspected real TalkBack engine speech,
 normal/zero window motion and all five1px reading bookends. Both review axes0.
-Signed58 remains UNPUBLISHED, SHA256
+Signed58 is now PUBLIC, SHA256
 178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
 37,856,651bytes, established certificate, correct review manifest/DEX. Never rebuild.
 
@@ -56,19 +56,23 @@ run **39470519533**, allthree terminalSUCCESS. Unchanged strict collector passes
 TalkBackPID5149/utterances3&5/oneSTART&DONE/positiveAUDIO/noerrors, exactfive
 reading anchors[74,431][201,479], actualnormalDark200% Search/connectionframes and
 zeroLight130% Search/connectionafter. Final paired application-evidence review
-Spec0/documentedStandards0/heuristic0. Both verify631hashes/2,524members. Config correctly binds207 as primary10;17/sign58 remain72a.
+Spec0/documentedStandards0/heuristic0. Both verify631hashes/2,524members. Config correctly binds207 as primary10;17/sign58 remain72a. Public58 exactAPK/
+manifest/certificate/protected resources pass; final public reviews0/0,9hashes.
 
 Both reviewers confirm complete207 is independently eligible under WORKFLOW:
 allthree jobs perSDK atoneexecutingsource, unchangedproduction/acceptancegoals,
 reviewed72a→207 exactprojection. This doesnot claim later34 initialization ran.
 Noassembly/waiver. Publish58 only after final review/publicbookends, then60–70.
 
-Current separate fixture source34d8b106042aa643545ca6b04e5bad82dfbc023a, pin
-verify/status59-ready-34d8b106a, sourcecheck39476010575SUCCESS. Extra entire10
-39476058296 ACTIVE, focusedstorage39476053581/39476066978 SUCCESS. Each17hash
-packet retains positive multiple-name-match observations and valid stabletuples.
-Third39476075031 failsSDKzipdownloadBEFOREsource/devicechecks;3hashes retained,
-replacement39476893505 ACTIVE atsame34source. Keep laterfixtureproofseparate.
+Separate experimental fixture34 is REJECTED. Full39476058296 wallet fails8
+publishing-queue headless-worker preconditions; remainingChat/socialcancelled,
+overallCANCELLED.37hashes/20members retained,pairedreview0. Causeunproved.
+Three storage boots53581/66978/76893505 eachSUCCESS2cases512MiB;17hasheseach.
+75031SDKzipfailure remainsfailed, replaced by76893505. No34fullacceptance.
+Current emulator-check restored BYTE-EXACT72a acceptedordinarylifecycle,
+SHA4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0.
+Bothrestorationreviews0; keepAPI29storageparity/originalgoals. Pin/restored-source
+focusedagreementcheck aftercommit; that checkremainsseparate/pending.
 
 The API29 emulator intermittently starts a16MiB process despite declared512MiB.
 Process-only RED39470097733 at207 reproduces this on the first target process,
@@ -107,11 +111,11 @@ reviews0 (latest34packetverification0/0). Signed58/accepted17stayexact72a.
 
 All detailed RED/GREEN packets remain in [canonical evidence](../evidence/ticket59/README.md).
 
-After final paired review: publish immutable58 using frozen72a worktree/canonical
-script; independent public before/after protection check and safe packet/final
-review; close59 and immediately continue60. Protected ordinary50/49/45 and entire
-performance43 must remain byte-equal. Never stop at59. All app/protocol/normal
-native safeguards remain applicable. Owner/provider/physical/store gates stayparked.
+Public58 completed: canonical frozen72a script, independent public before/after,
+exact preparedbytes/establishedcertificate/actualmanifest, public9hashes verified
+bybothreviewers0. Older50/49/45 andwholeperformance43 byte-preserved.
+Commit final delivery/fixturecleanup, close59 with evidence links/update55, then
+claim60 and start its native RED. Never stop at59. Keep unrelated research unread.
 
 All twelve earlier focused runs at72a are SUCCESS:
 
