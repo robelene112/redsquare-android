@@ -514,6 +514,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
                                 onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)},
                                 gifAttribution=entry.gifAttribution,
+                                showPickerActions=!entry.hasPendingAction,
                                 onSelectGif={item->
                                     draftWrites.withLock {
                                         if(!attachmentPermitted||selected!=entry.group.id||navigation.transitioning)false

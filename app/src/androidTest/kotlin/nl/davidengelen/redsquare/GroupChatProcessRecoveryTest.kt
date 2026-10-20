@@ -6,6 +6,7 @@ import android.os.Process
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -204,6 +205,8 @@ class GroupChatProcessRecoveryTest {
         waitFor("Hello group 😀 <&>!")
         stage("before-history-scroll")
         captureLayout("before-history-scroll")
+        // Fail at the layout regression instead of entering a search with a zero-height viewport.
+        ui.onNodeWithContentDescription("Group messages").assertHeightIsAtLeast(48.dp)
         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Hello group 😀 <&>!"))
         stage("history-scrolled")
         ui.onNodeWithText("Hello group 😀 <&>!").assertIsDisplayed()

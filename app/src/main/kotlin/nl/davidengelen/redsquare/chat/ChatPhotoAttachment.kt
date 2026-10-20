@@ -29,7 +29,8 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
-    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null) = key(session) {
+    beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
+    showPickerActions: Boolean = true) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -67,7 +68,7 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                 gifAttributions = gifAttribution?.let { mapOf(attachment.source to it) }.orEmpty(),
                 onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
         }
-        if (photo == null) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
+        if (photo == null && showPickerActions) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
             scope.launch {
                 try {
                     if (beforePicker() && currentEnabled) {
@@ -79,7 +80,7 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                 catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
             }
         }) { Text(stringResource(R.string.chat_add_photo)) }
-        if (photo == null && onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+        if (photo == null && showPickerActions && onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
             onClick = {
                 scope.launch {
                     try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
