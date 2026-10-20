@@ -360,6 +360,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             InlineStatus(if (historyFailed) stringResource(R.string.group_history_error) else null, StatusTone.WARNING)
             InlineStatus(if (liveFailed) stringResource(R.string.group_live_error) else null, StatusTone.WARNING)
             if(entry!=null) {
+                val staleAction=store.isStaleAdminAction(entry)
                 InlineStatus(if (entry.queuedMessage==null) stringResource(when(entry.status) {
                     GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                     GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
@@ -367,7 +368,22 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     GroupChatStore.Status.STOPPED -> R.string.group_stopped
                     GroupChatStore.Status.RECEIVED -> if(entry.ownCreation)R.string.group_recovered else R.string.group_received
                     GroupChatStore.Status.AVAILABLE -> R.string.chat_send_available
-                }) else null, if (entry.status == GroupChatStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
+                }) else null, if (entry.status == GroupChatStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO,
+                    actionLabel = if(entry.hasPendingAction&&entry.queuedMessage==null) stringResource(R.string.group_retry) else null,
+                    actionEnabled = loaded&&!busy&&!readFailed&&!staleAction&&!navigation.transitioning,
+                    onAction = {
+                        act(requiresAgreement = false) {
+                            val pending=requireNotNull(entry.candidate)
+                            if (groupActionRequiresAgreement(pending) && !publishing.beforePublishing()) return@act
+                            withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
+                            val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
+                            val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
+                            if(entry.automaticMessage) {
+                                withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,pending)}
+                                publish{store.entries()}
+                            } else sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
+                        }
+                    })
                 if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                     style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                 if (!keyboardVisible) FlowRow {
@@ -378,26 +394,12 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     }
                 }
 
-                val staleAction=store.isStaleAdminAction(entry)
                 if(staleAction) {
                     Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
                     TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning)stopping=true}){Text(stringResource(R.string.group_stop_action))}
                 }
                 if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
                     Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
-                if(entry.hasPendingAction&&entry.queuedMessage==null) TextButton(enabled=loaded&&!busy&&!readFailed&&!staleAction&&!navigation.transitioning,onClick={
-                    act(requiresAgreement = false) {
-                        val pending=requireNotNull(entry.candidate)
-                        if (groupActionRequiresAgreement(pending) && !publishing.beforePublishing()) return@act
-                        withContext(NonCancellable){publish{store.prepareRetry(entry.group.id,pending.id);store.entries()}}
-                        val updated=withContext(Dispatchers.IO){wallet.withNamedChatGroup(entry.group.id,entry.group.name,entry.creationKey)}
-                        val creation=withContext(Dispatchers.IO){SaitoEnvelope.decode(pending.envelope()).body.get("request").asString=="chat group"}
-                        if(entry.automaticMessage) {
-                            withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,pending)}
-                            publish{store.entries()}
-                        } else sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
-                    }
-                }){Text(stringResource(R.string.group_retry))}
                 if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
                 if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}){
                     Text(stringResource(R.string.chat_load_older))

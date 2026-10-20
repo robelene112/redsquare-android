@@ -1,0 +1,25 @@
+{
+  "version": 54,
+  "source": "3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f",
+  "sha256": "7a3bd32b991aee02b289d58202ca495dcc07e62b82c201a11c4db2d35eec069c",
+  "bytes": 37856651,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "actualDex": {
+    "DEBUG": false,
+    "PUSH_CONFIGURED": false,
+    "REVIEW_BUILD": true,
+    "GIPHY_POSTS_API_KEY": false,
+    "GIPHY_CHAT_API_KEY": false
+  },
+  "debuggable": false,
+  "profileable": false,
+  "allowBackup": false,
+  "minSdk": 29,
+  "targetSdk": 36,
+  "testToolQueryInRelease": false,
+  "published": false,
+  "physicalDeviceAcceptance": false,
+  "superseded": true,
+  "neverPublish": true,
+  "rejectionReason": "Both focused GroupAdmin suites fail the original15second recovery goal after retrying a rejected promotion. The captured Retry target is outside the bounded status viewport. Group recovery presentation is changing; require fresh candidate/full verification."
+}

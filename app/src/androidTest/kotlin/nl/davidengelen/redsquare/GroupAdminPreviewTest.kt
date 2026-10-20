@@ -6,6 +6,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.google.gson.JsonObject
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Rule
@@ -357,7 +358,17 @@ class GroupAdminPreviewTest {
             peer.start().use{server->ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                 .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-admin-evidence/$failureCapture"))}) {
+                withFailureCapture({
+                    val file=File(context.cacheDir,"group-admin-evidence/$failureCapture")
+                    runCatching { file.parentFile?.mkdirs()
+                        File(file.parentFile,file.nameWithoutExtension+"-transport.json").writeText(JsonObject().apply {
+                            addProperty("transactions",peer.transactions.size)
+                            addProperty("relayedMessages",peer.relayedMessages.size)
+                        }.toString()) }
+                    captureNativeScreen(file)
+                    runCatching { File(file.parentFile,file.nameWithoutExtension+".semantics.txt")
+                        .writeText(ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE)) }
+                }) {
                     journey(AdminUiFixture(context,wallets,backend,fixture,member,key,creation,store,peer,scenario,"ws://127.0.0.1:${server.port}/wsopen"))
                 }
             }}
