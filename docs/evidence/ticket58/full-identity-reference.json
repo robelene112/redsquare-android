@@ -243,15 +243,60 @@
         "android10": "failure"
       },
       "limit": "Full10 FAILED in social-push at immediate no-Compose-root exception after notification tap. Ten other command methods passed; later gates absent. Android17 run39349230920 remains active, not superseded by this10-only retry."
+    },
+    {
+      "executingSources": {
+        "android10": "092238769ffc6a956ff9f04f78b2fafef9397786",
+        "android17": "6388840182bdab075bf672da92933cfc7c1750c3"
+      },
+      "executingRuns": {
+        "android10": 39350667797,
+        "android17": 39349230920
+      },
+      "actualStates": {
+        "android10": {
+          "run": 39350667797,
+          "source": "092238769ffc6a956ff9f04f78b2fafef9397786",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (all)",
+              "conclusion": "failure"
+            }
+          ]
+        },
+        "android17": {
+          "run": 39349230920,
+          "source": "6388840182bdab075bf672da92933cfc7c1750c3",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (wallet)",
+              "conclusion": "success"
+            },
+            {
+              "name": "native-proof (chat)",
+              "conclusion": "failure"
+            },
+            {
+              "name": "native-proof (social)",
+              "conclusion": "success"
+            }
+          ]
+        }
+      },
+      "limit": "Both whole attempts FAILED. Android10 reached the same prior reply GIF visibility timeout at ChatGiphy:161. Android17 Chat FAILED there; wallet and social partitions both completedSUCCESS. Neither is complete acceptance; no application source changed."
     }
   ],
   "executingRuns": {
-    "android10": 39350667797,
-    "android17": 39349230920
+    "android10": 39352373816,
+    "android17": 39352376831
   },
   "executingSources": {
-    "android10": "092238769ffc6a956ff9f04f78b2fafef9397786",
-    "android17": "6388840182bdab075bf672da92933cfc7c1750c3"
+    "android10": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
+    "android17": "3abeecd35cf033a02f02cd958db5fea1428b8dd5"
   },
-  "sourceEquivalence": "Both sources have identical application/build/signing inputs to production9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4. The10-only replacement changes the test wait helper to poll a missing Compose root within its existing15second goal. Current17 Chat partition has now FAILED in the reply GIF visibility case; its parent is still in progress. That17 attempt cannot provide complete acceptance; a fresh full17 run is required after the bounded fixture correction. No complete outcome is inferred for pending10 or unfinished17 partitions."
+  "sourceEquivalence": "Fresh complete SDK runs at3abeecd35 contain paired focused-green no-root polling and preview-scrolling fixture corrections. All application/build/signing inputs remain identical to production9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4. Independent expected identities/assertions/deadlines remain unchanged. Source/run bindings recorded before outcomes; no complete acceptance inferred."
 }

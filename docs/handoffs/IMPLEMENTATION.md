@@ -53,12 +53,12 @@ Both review axes have0 residual findings for the reviewed sources/evidence.
 
 Complete acceptance is still pending. Current independently frozen473/474 catalog
 and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
-Android10 run39350667797 executes092238769 and is still running. Android17
-run39349230920 executes6388840182: Chat partition FAILED at ChatGiphy's reply
-Add GIF visibility goal (5 other methodsPASS); wallet partitionSUCCESS, social
-still running. Leave the remaining job running to retain its actual outcome. That17 attempt cannot provide
-complete acceptance. Historical failed and cancelled attempts remain unchanged
-in the evidence trail; never relabel them SUCCESS.
+Both preceding attempts are nowFAILED:10 run39350667797 at092 reached the same
+prior GIF reply visibility timeout;17 run39349230920 at638 has ChatFAILED and
+both wallet/socialSUCCESS. Neither supplies complete acceptance. Fresh full
+39352373816(Android10)/39352376831(Android17, all3 partitions) run at3abeecd35,
+with bindings frozen before outcomes. Historical failures/cancellations remain
+unchanged; never relabel them SUCCESS.
 
 Latest test-onlycae84e5ad scopes Add GIF to the existing composition preview and
 scrolls only when hidden, then requires the original10second visibility goal.

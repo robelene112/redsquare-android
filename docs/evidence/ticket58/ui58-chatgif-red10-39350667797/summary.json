@@ -1,0 +1,43 @@
+{
+  "run": "39350667797",
+  "source": "092238769ffc6a956ff9f04f78b2fafef9397786",
+  "expectedMethods": [
+    "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+    "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+    "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+    "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "aSelectedPrivateGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "privateGifFailureCanRetryAndCancelWithoutLosingTheDraft",
+      "status": 0
+    },
+    {
+      "method": "aSelectedGroupGifKeepsCreditsAndCaptionThroughReopeningAndExplicitSend",
+      "status": 0
+    },
+    {
+      "method": "aPrivateReplyKeepsItsQuoteWhenAGifIsSelectedReopenedAndSent",
+      "status": -2
+    },
+    {
+      "method": "anOfficialGroupGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    },
+    {
+      "method": "anOfficialPrivateGifCanBeQueuedReopenedCancelledAndExplicitlySent",
+      "status": 0
+    }
+  ],
+  "members": 58,
+  "limit": "Actual full Android10 runFAILED; six Chat GIF methods record5PASS/1FAIL at the prior reply Add GIF visibility timeout at ChatGiphy:161. Later gates absent. Failed originals retained unchanged; paired corrected focused runs are separate evidence, not a relabelled outcome."
+}

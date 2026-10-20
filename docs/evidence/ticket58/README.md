@@ -494,3 +494,13 @@ after43px scroll. Root opened both original after-scroll PNGs. This proves the
 viewport explanation for the retained reply failure; all animation, quote,
 credit, draft, queue/cancel, URL/signature assertions and180second class bound
 remain. These focused passes are not complete regression or provider acceptance.
+
+Both preceding full attempts are now completedFAILED:10 run39350667797 at092
+reached the same prior ChatGiphy reply Add GIF goal (5PASS/1FAIL), retained in
+ui58-chatgif-red10-39350667797.17 run39349230920 at638 has ChatFAILED and both
+wallet/socialSUCCESS; all original partition archives are retained externally.
+The pending-parent snapshot in the earlier17 failure packet remains an accurate
+historical capture. Fresh full39352373816(10)/39352376831(17, all3 partitions)
+execute3abeecd35 with current source/run bindings recorded before outcomes.
+Expected473/474 identities,122/123 completions,34 interruptions and33 continuity
+gates remain frozen and unchanged. No production/build/signing change since9b33.
