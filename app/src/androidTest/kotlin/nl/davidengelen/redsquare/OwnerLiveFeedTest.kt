@@ -8,6 +8,7 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isEnabled
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -53,10 +54,11 @@ class OwnerLiveFeedTest {
         // controlled UI tests prove switching; this read must not see owner
         // content while a first official connection is still loading.
         AndroidBackendStore(instrumentation.targetContext).save(backend)
-        val identity = Regex("[1-9A-HJ-NP-Za-km-z]{44,45}")
-        val visibleAuthor = SemanticsMatcher("Visible Saito post author") { node ->
-            node.config.getOrNull(SemanticsProperties.Text)?.any { identity.matches(it.text) } == true
-        }
+        val visibleAuthor = SemanticsMatcher("Contextual Saito post profile action") { node ->
+            node.config.getOrNull(SemanticsProperties.ContentDescription)?.any {
+                it.startsWith("View profile for ") && it.removePrefix("View profile for ").isNotBlank()
+            } == true
+        } and hasClickAction()
         val directory = File(instrumentation.targetContext.cacheDir, "live-feed-evidence").apply { mkdirs() }
         ActivityScenario.launch<MainActivity>(Intent(instrumentation.targetContext, MainActivity::class.java)).use {
             try {

@@ -667,3 +667,14 @@ Quote/FAB touch bounds and native PNG before the unchanged original helper.
 Both bounded source reviews0; no fixed cause or acceptance claimed. Full10 wallet
 also failed later; raw artifacts are being inspected. Full17 and remaining Chat
 partitions still run. Prepared59 remains held, public58 unchanged.
+
+Both ce full wallet partitions fail OwnerLiveFeedTest at its old30second full-key
+text predicate. Root viewed both original screen.png captures: actual fresh
+owner feed is populated, but intended shared post header shows contextual Anon
+identity instead of raw key. Fixture now observes a nonblank clickable contextual
+profile header, retaining actual displayed identity, selected node, refresh,
+strict public RPC decoding and wallet/funding/backend goals. Old regex never
+bound an expected exact account. Separate full-key reachability proof remains.
+Both bounded source reviews0; local app/test Kotlin compile succeeds1m46s.
+Native acceptance remains pending. Quote-only diagnostic28d4 runs39517459457/39517462062
+are underway; the immediate original picker intent assertion remains unchanged.
