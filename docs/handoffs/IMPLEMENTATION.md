@@ -36,22 +36,24 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-59 remains OPEN; source implemented across destinations, no full or signed51
-acceptance yet. Source/latest proof and actual failed attempts are in
-[status59 evidence](../evidence/ticket59/README.md). Production changed last at
-1f952e214 to keep actionless status compact above the larger IME. Offline red
-indicator was restored at01f7ab620. Source reviews throughabb28da65 report0/0.
-Focused recovery10/17 and actual normal/zero motion10/17 have passed before the
-latest compact-row correction. Actual keyboard10 has10PASS;17 has9PASS/1FAIL,
-real4pixel Send clipping under the keyboard's font-update notice. Corrected
-allten-method17 run39410743176 is pending. Actual TalkBack tool runs still FAIL
-setup/lookup, never speech acceptance. Pinned tool now backports Java APIs on29;
-latest actual patch SHA42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117.
-Latest fixture fixes complete tool onboarding, retrieve interactive windows and
-declare narrow tool visibility for the instrumented debug UID. Preserve real
-callback/focus/quiet assertions and settings restoration. Full486/487 catalog
-was frozen before execution; primary-only collector reviewed0/0. No full run or
-51 reservation yet. Once59 is actually delivered, immediately continue60through69.
+59 remains OPEN, signed50 stays live. Frozen executing source4a78f8864c212d7aefedf3880fc279c5a22dca50.
+Full10run39412244072 and17run39412555335 are ACTIVE at that exact source, allthree
+partitions/public reads/additive status goals mandatory. Catalog486/487 and
+collector bindings are in [status59 evidence](../evidence/ticket59/README.md).
+Do not change source or weaken assertions while evaluating these runs. Source
+reviews through4a report0/0; its independent source/core/release/lint run is39412080920.
+Production last changed1f952e214, compact actionless rows; red offline01f preserved.
+Actual corrected17keyboard39410743176 now10PASS, including the same extraIME
+font-update notice and complete48pixel Send target ending exactly at usable318.
+ActualTalkBack10at7erun39411343189 is SUCCESS: original callback/audio evidence,
+outage/recovery eachonce, two background retries without repeated outage, same
+focus/PID3524, original/restored three settings byte-equal. Native originals inspected.
+Actual17speech remains pending. Its oldabb/7e failures show realtool phone permission
+covering the app. Current4a completes narrowly scoped upstream tool runtime grants
+before startup and requires package readback. Fresh focused17run39412530513 is ACTIVE.
+No real provider/physical/store acceptance is inferred. No51 reservation yet.
+Once full evidence/reviews and signed delivery complete59, immediately continue60through69.
+Preserve unrelated research unread/untouched. Keep invalid/failed runs actually failed.
 
 ## Current repeat-like57 acceptance
 

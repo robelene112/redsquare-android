@@ -1,0 +1,80 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkBackStatusPreviewTest:
+INSTRUMENTATION_STATUS: test=importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.waitFor(TalkBackStatusPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node$lambda$34(TalkBackStatusPreviewTest.kt:198)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$3108MV05OneGCRZzZOT2QkAiWSU(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:191)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$11(TalkBackStatusPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$QWla2B6y5mUNFKsZqsfIElceQhs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: stream=
+Error in importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(nl.davidengelen.redsquare.TalkBackStatusPreviewTest):
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.waitFor(TalkBackStatusPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node$lambda$34(TalkBackStatusPreviewTest.kt:198)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$3108MV05OneGCRZzZOT2QkAiWSU(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:191)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$11(TalkBackStatusPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$QWla2B6y5mUNFKsZqsfIElceQhs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: test=importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.156
+There was 1 failure:
+1) importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(nl.davidengelen.redsquare.TalkBackStatusPreviewTest)
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.waitFor(TalkBackStatusPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node$lambda$34(TalkBackStatusPreviewTest.kt:198)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$3108MV05OneGCRZzZOT2QkAiWSU(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:191)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:208)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$11(TalkBackStatusPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$QWla2B6y5mUNFKsZqsfIElceQhs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:61)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

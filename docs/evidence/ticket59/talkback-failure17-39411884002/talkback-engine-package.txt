@@ -1,0 +1,137 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.speech.tts.engine.INSTALL_TTS_DATA:
+        fb1e369 com.reecedunn.espeak/.DownloadVoiceData filter e3e01ee
+          Action: "android.speech.tts.engine.INSTALL_TTS_DATA"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        c996a1 com.reecedunn.espeak/.eSpeakActivity filter 34060c6
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+      android.speech.tts.engine.CONFIGURE_ENGINE:
+        3a9fcab com.reecedunn.espeak/.TtsSettingsActivity filter 19edf08
+          Action: "android.speech.tts.engine.CONFIGURE_ENGINE"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.tts.engine.CHECK_TTS_DATA:
+        111868f com.reecedunn.espeak/.CheckVoiceData filter d100d1c
+          Action: "android.speech.tts.engine.CHECK_TTS_DATA"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.tts.engine.GET_SAMPLE_TEXT:
+        37c4d25 com.reecedunn.espeak/.GetSampleText filter b0c4efa
+          Action: "android.speech.tts.engine.GET_SAMPLE_TEXT"
+          Category: "android.intent.category.DEFAULT"
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.intent.action.TTS_SERVICE:
+        f09b887 com.reecedunn.espeak/.TtsService filter cc6e3b4
+          Action: "android.intent.action.TTS_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.reecedunn.espeak]
+      Signing KeySets: 69
+
+Packages:
+  Package [com.reecedunn.espeak] (201251b):
+    appId=10237
+    pccId=-1
+    pkg=Package{1ad36b8 com.reecedunn.espeak}
+    codePath=/data/app/~~euKExVnjvrT04uaUZ8zjCw==/com.reecedunn.espeak-qQiZvt5fbsVm-QAm-BSTkA==
+    resourcePath=/data/app/~~euKExVnjvrT04uaUZ8zjCw==/com.reecedunn.espeak-qQiZvt5fbsVm-QAm-BSTkA==
+    legacyNativeLibraryDir=/data/app/~~euKExVnjvrT04uaUZ8zjCw==/com.reecedunn.espeak-qQiZvt5fbsVm-QAm-BSTkA==/lib
+    extractNativeLibs=true
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=22 minSdk=21 targetSdk=33
+    minExtensionVersions=[]
+    versionName=1.52.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    pageSizeCompat=0
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-20 11:04:12
+    lastUpdateTime=2026-10-20 11:04:13
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{7bc8c91 version:3, signatures:[a70c221c], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP KILL_AFTER_RESTORE ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    User 0: ceDataInode=352906 deDataInode=73772 pccCeDataInode=0 pccDeDataInode=0 installed=true hidden=false suspended=false appLockEnabled=false distractionFlags=0 stopped=true notLaunched=true enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/com.reecedunn.espeak
+      firstInstallTime=2026-10-20 11:04:13
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+        /data/resource-cache/com.android.systemui-neutral-S6Ad.frro
+        /data/resource-cache/com.android.systemui-accent-jy8Y.frro
+        /data/resource-cache/com.android.systemui-dynamic-T5M1.frro
+      legacy overlay paths:
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      runtime permissions:
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+  queries via component:
+    com.google.android.dialer:
+      com.reecedunn.espeak
+    com.google.android.apps.safetyhub:
+      com.reecedunn.espeak
+    com.google.android.as:
+      com.reecedunn.espeak
+    com.google.android.settings.intelligence:
+      com.reecedunn.espeak
+    com.google.android.as.oss:
+      com.reecedunn.espeak
+    com.google.android.youtube:
+      com.reecedunn.espeak
+    com.google.android.apps.accessibility.voiceaccess:
+      com.reecedunn.espeak
+    com.google.android.apps.photos:
+      com.reecedunn.espeak
+    com.google.android.apps.youtube.music:
+      com.reecedunn.espeak
+    com.google.android.marvin.talkback:
+      com.reecedunn.espeak
+    com.google.android.glasses.companion:
+      com.reecedunn.espeak
+    com.google.android.accessibility.switchaccess:
+      com.reecedunn.espeak
+    com.android.systemui:
+      com.reecedunn.espeak
+    com.google.android.cellbroadcastreceiver:
+      com.reecedunn.espeak
+    nl.davidengelen.redsquare.dev:
+      com.reecedunn.espeak
+    nl.davidengelen.redsquare.dev.test:
+      com.reecedunn.espeak
+    com.android.talkback:
+      com.reecedunn.espeak
+  queryable via interaction:
+    User 0:
+  queryable via uses-library:
+
+Dexopt state:
+  [com.reecedunn.espeak]
+    path: /data/app/~~euKExVnjvrT04uaUZ8zjCw==/com.reecedunn.espeak-qQiZvt5fbsVm-QAm-BSTkA==/base.apk
+      x86_64: [status=verify] [reason=install] [primary-abi]
+        [location is /data/app/~~euKExVnjvrT04uaUZ8zjCw==/com.reecedunn.espeak-qQiZvt5fbsVm-QAm-BSTkA==/oat/x86_64/base.odex]

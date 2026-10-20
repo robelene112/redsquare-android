@@ -182,3 +182,51 @@ All bounded source reviews throughabb28da65 report Spec0/documented Standards0/
 heuristic0 after fixes. The complete collector's extensionless tool manifest
 retention was corrected atb3a6f636a and independently reviewed0/0. Its frozen
 identity references remain unchanged. Full runs and signed51 are not started yet.
+
+## Actual speech10 GREEN and complete execution started
+
+Android10 TalkBack7e39411343189 is SUCCESS, one complete PASS. Its original
+result/logs bind real service PID3524 and labelTalkBack_TfP. Node unavailable
+has exactly one controller fragment/talkback_5 with real START, positive AUDIO
+and DONE; Back online has exactly one/talkback_7 with the same real callbacks.
+There is no matching STOP or ERROR. Two actual background retry intervals occur
+without repeated outage speech. Focus stays Reference post20 and the PID stays
+unchanged. Root opened both original native screenshots showing that same green
+focus rectangle. English-engine WAV and original/restored three settings verify.
+No physical audibility is claimed. The current independent collector's status
+validator also passes against the actual focused10 recovery/motion/speech inputs;
+this is a schema check, not a complete-run result.
+
+The node lookup defect is supported by the actual cached Compose UI1.11.4 provider:
+its methods include findFocus but do not override findAccessibilityNodeInfosByText.
+The fixture now traverses actual native child nodes with the original exact-text,
+visibility and bounded-window requirements. TalkBack speech/focus assertions are
+unchanged. The failed20510run39410533776 retains its in-scope correct-app-window
+diagnostic and allnine original members. It stays failed.
+
+Android17 keyboard1f39410743176 is SUCCESS, allten methods PASS. Root opened the
+actual larger-text group IME capture: the extra Keyboard font size updated notice
+is present again, and the actual48pixel Send target ends at318, exactly inside
+the usable viewport. Complete command outcomes and100-member archive inventory,
+with selected relevant originals, are retained. The editor is still compressed
+in this extreme group layout; message-first composition/attachment layout remains
+62 work, not app-wide visual acceptance.
+
+Old17TalkBackabb39410996700 and7e39411884002 remain FAILURE before feed readiness.
+The actual17abb native PNG shows the upstream tool's READ_PHONE_STATE system
+dialog covering Red Square. Pinned CallStateMonitor179-197 requests it on31+;
+TalkBackService2553/2560 also handles notification permission. At4a78f8864 the
+harness grants just the tool's READ_PHONE_STATE on31+ and POST_NOTIFICATIONS on33+,
+then positively checks actual package readback before enabling the service.
+The existing disposable-emulator guard and protected settings restoration remain.
+Red Square permissions and all speech assertions are unchanged. Fresh focused17
+39412530513 is pending; no17speech acceptance is claimed.
+
+Complete primary partitioned runs10[39412244072](https://github.com/robelene112/redsquare-android/actions/runs/39412244072)
+and17[39412555335](https://github.com/robelene112/redsquare-android/actions/runs/39412555335)
+are started at the exact same frozen4a78f8864c212d7aefedf3880fc279c5a22dca50.
+Each must finish allthree mandatory partitions, public reads and new status goals.
+The486/487 independent identity references predate both. Bindings are explicit in
+full-identity-reference.json. Source/core/release/lint39412080920 is also pending.
+Bounded source reviews through4a report0/0. Full evidence acceptance and signed51
+remain pending. Ordinary50 remains live; no51 has been reserved or published.
