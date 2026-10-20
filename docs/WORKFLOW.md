@@ -147,6 +147,12 @@ complete first-release scope and the established production boundaries.
    each bounded30seconds and stopped on the first declared/actual heap mismatch.
    It reads public emulator startup properties/processes and retains every attempt;
    its temporary diagnostic class is excluded from full application catalogs.
+   `chat-runtime-restart` is an optional API29 emulator experiment: retain one
+   baseline parity result (success or the exact512MiB-versus16MiB mismatch),
+   restart both zygotes/system_server after declared QEMU heap properties match,
+   verify original PIDs are absent and properties unchanged, then require all24
+   fresh parity invocations to succeed. No app acceptance runs in this scope;
+   no heap property, application assertion or production installation is changed.
    `chat-photo-process` and its Android17 variant isolate the existing private
    and group queued-photo process protocols. Complete `chat-images` and full
    scopes retain both, along with picker/normalization and image storage checks.

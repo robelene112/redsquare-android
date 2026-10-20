@@ -1406,3 +1406,25 @@ retains the unresolved cause honestly. It must independently complete allthree
 jobs and the unchanged frozen486/129/35/34/92 catalog, including actual speech,
 reading/motion, public reads and every recovery gate. No focused or failed-tail
 assembly; no earlier failure becomes success.58 remains unpublished.
+
+
+## First-process RED and declared restart experiment
+
+Cold-boot [diagnostic39470097733](process-runtime-red10-207-39470097733/) at exact207
+is terminal FAILURE at the first native process, before any screen/photo/wallet
+fixture. In0.03s PID3466/64bit reports16MiB while Android declares512MiB; actual
+ps maps parent1665 tozygote64 and system_server to1913. Global and QEMU heap
+properties both report512m. The original ten-hash packet retains this failure.
+Both independent packet/source reviews verify the original bindings.
+
+This reproduces the heap mismatch without the longer UI prefix or photo payload.
+It does not yet prove the exact boot timing cause or a fix. The next optional
+chat-runtime-restart experiment is defined before dispatch: retain one baseline
+parity result, accepting only success or that exact known512-versus16MiB
+environmental RED; restart both emulator zygote services after declared/QEMU
+heapsizes match; prove each old PID absent and each distinct new PID present;
+compare all four heap properties byte-for-byte; then require24 new native parity
+checks to pass. The baseline RED remains failed in its original log. No app
+acceptance gate runs here, and no heap property, production code, existing full
+class, input or deadline changes. Both source reviews report0 residual findings
+after strengthening the individual process lifecycle observations.

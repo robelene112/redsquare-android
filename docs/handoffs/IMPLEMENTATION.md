@@ -132,6 +132,19 @@ New entire10run39470519533 at207 is ACTIVE on verify/status59-runtime-207b0a2f3.
 Allthreejobs/frozen486/129/35/34/92 remain mandatory, with read-only process
 observations. Config binds207/that run. No focused/failed-tail assembly/waiver.
 
+A decisive cold-boot RED exists:39470097733 at207, firstprocess0.03s beforeany
+UI/photo/wallet fixture. PID3466/64bit actual16MiB vsdeclared512MiB, parent1665
+zygote64,systemserver1913; global/QEMU heapsizes512m. Original ten-hash packet
+process-runtime-red10-207-39470097733 retained, pairedreview0. Otherthree
+extra coldboots reportSUCCESS; their original downloads are still pending.
+Optional chat-runtime-restart experiment is reviewed0/0 and ready to dispatch:
+baseline knownRED/success retained; guardedAPI29/disposable/root lifecycle only;
+allthree oldPIDs individually provenabsent, allnewPIDspresent/distinct, allfour
+heappropertiesunchanged;24 post-restartnativeparitypasses required. No heap
+setting/app/full-scope change, no actualfixclaim until observed. Currententire207
+run39470519533 continuesunchanged. After experimentalproof, integrate the bounded
+API29 initialization, remove temporarydiagnosticcode, and verify finalharness.
+
 After actual complete10 success: strict collect, inspect originals, paired final
 review, publish immutable58 with canonical script, independent after-bookend,
 public safe packet/final review/close59, then immediately60–70. Never stop at59.

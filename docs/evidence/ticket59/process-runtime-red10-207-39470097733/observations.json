@@ -1,0 +1,18 @@
+{
+  "diagnosticOnly": true,
+  "nativeResult": "FAILURE",
+  "attempted": 1,
+  "plannedMaximum": 24,
+  "stoppedAtFirstMismatch": true,
+  "actualMaxBytes": 16777216,
+  "declaredBytes": 536870912,
+  "is64Bit": true,
+  "pid": 3466,
+  "parentPid": 1665,
+  "parentProcess": "zygote64",
+  "systemServerPid": 1913,
+  "nativeSeconds": 0.03,
+  "noUiPhotoWalletFixture": true,
+  "noFailureWaiver": true,
+  "noCauseFixClaim": true
+}

@@ -1,0 +1,48 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest:
+INSTRUMENTATION_STATUS: test=processHeapMatchesTheDeclaredDeviceMemoryClass
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+[DEBUG-59-heap] Chat runtime observation phase=fresh-instrumentation max=16777216 is64Bit=true process=Name:	n.redsquare.dev; Pid:	3466; PPid:	1665 parent=unavailable
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Process heap differs from this disposable device's declared memory class expected:<536870912> but was:<16777216>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest.processHeapMatchesTheDeclaredDeviceMemoryClass(ChatRuntimeDiagnosticTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in processHeapMatchesTheDeclaredDeviceMemoryClass(nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest):
+java.lang.AssertionError: Process heap differs from this disposable device's declared memory class expected:<536870912> but was:<16777216>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest.processHeapMatchesTheDeclaredDeviceMemoryClass(ChatRuntimeDiagnosticTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=processHeapMatchesTheDeclaredDeviceMemoryClass
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.03
+There was 1 failure:
+1) processHeapMatchesTheDeclaredDeviceMemoryClass(nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest)
+java.lang.AssertionError: Process heap differs from this disposable device's declared memory class expected:<536870912> but was:<16777216>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at nl.davidengelen.redsquare.ChatRuntimeDiagnosticTest.processHeapMatchesTheDeclaredDeviceMemoryClass(ChatRuntimeDiagnosticTest.kt:17)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
