@@ -1,0 +1,14 @@
+[
+  {
+    "path": "private-chat-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest",
+    "test": "coldRestartRetainsHistoryDraftAndOriginalWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  }
+]

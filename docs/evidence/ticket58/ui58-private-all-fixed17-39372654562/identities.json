@@ -1,0 +1,140 @@
+[
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "aFreshWalletCanOpenAndSendToANewPrivateContact",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "aLivePrivateRelayMessageRemainsReadableAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "aNativePrivateSendPropagatesAndRelaysTheSameEncryptedOriginal",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "aNewIncomingPrivateConversationAppearsWhileTheChatListIsOpen",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "accountBlockingHidesIncomingMessagesWithoutDeletingRecoverableHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "accountMutingKeepsAvailablePrivateMessagesReadable",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anExistingClientMentionedPrivateMessageRemainsReadableAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anExistingWebPrivateReplyCanBeReadAndCopiedWithoutChangingItsTypedBody",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anImportedContactOpensItsAvailableAuthenticatedPrivateHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anImportedConversationIdRecoversAvailablePrivateHistoryWithoutAContactKeyEntry",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "anotherPrivateContactIsRetainedWhileADifferentConversationIsOpen",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "failedLocalSavingDoesNotLoseReadableHistoryOnRefresh",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "firstChatOffersOptionalAlertsAndSkippingKeepsChatAvailable",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "importedOwnMentionedMessagesRecoverTheOriginalPrivateCounterparty",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "leavingAConversationPreservesItsUnsentDraftAndDoesNotRestoreErasedText",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "olderAvailablePrivateMessagesCanBeLoadedAndReadAfterServerHistoryDisappears",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "oneUnavailableImportedConversationDoesNotHideAnotherRecoveredPrivateConversation",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "ordinaryTypedPrivateMarkupRemainsLiteralAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "private-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivateChatPreviewTest",
+    "test": "walletReplacementExplainsUncertainChatWorkBeforeConfirmation",
+    "occurrences": 1
+  }
+]

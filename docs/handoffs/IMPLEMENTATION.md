@@ -27,42 +27,38 @@ prepared/reviewed0 on both axes, unpublished, SHA256
 Actual APK/certificate/manifest/DEX and before-bookendPASS.47/46 superseded and
 unpublished; ordinary45 live, immutable45/performance43 unchanged.
 
-Source39370155271 at e674b67ad1a3985b6d7c93aa4dcb2b7a32538285 SUCCESS.
-Group39370550836(Android10) SUCCESS:exact26 accepted38 identities,22 group+1 actions
-+1 mixed+1 recovery+1 restore; actual PIDs14124->14523, full key/draft/original/
-reaction continuity and zero automatic transmissions.22 hashes/111 original
-members retained; root opened all three corrected after-scroll native originals.
-Group17 run39370553118 FAILURE:class60second exit124/START-only despite progress
-complete after in-journey assertions/final self-reply capture. No normal completion
-or proof of cleanup, and no later group gates. New best-effort timing stages cover
-fixture setup, Activity/peer close and each cleanup; no deadline change.
+Latest compiled source003a04cc70b6403b5f028ba8b6c8f647b62a7e47 passed
+source39372164634. Complete focused group17 run39372650163 SUCCESS:exact26
+accepted38 identities,22 group+1 actions+1 mixed+1 recovery+1 restore. Actual
+PIDs5328->5407; exact checkpoint fields except phase/new PID, key/draft/original/
+reaction continuity and zero automatic transmissions. Its earlier60second timeout
+remains failed and unexplained; this normal completion does not prove its cause.
+Group10 was already complete at e674/run39370550836 with26 exact identities.
 
-Complete private39370555327(10):24 methods21PASS/3FAIL.17 run39370557265 reaches20
-starts17PASS/2FAIL then original180second bound, older-history START-only. Three
-initial text waits precede existing history scrolling; initial readiness now uses
-the existing scoped15second helper before the original display goal.
-Private process39370973797/39370976238 bothFAIL before deliberate kill at pending
-text104, prior to existing message scrolling; independent restore1PASS each.
-Existing showMessage becomes15second scoped scroll/display readiness with a
-positive nonzero-viewport guard, preserving all actual death/recovery goals.
-Private actions39371176128/39371178819 complete10 methods2PASS/8FAIL each:6 count
-display failures below visible body,2 forwarded waits with Submitted visible.
-No proved protocol/app defect. Count/action targets now scroll before original
-assertions/taps; selected quote is explicitly verified before second Reply Send,
-and peer health is checked inside the same15second forwarded goal for diagnosis.
-All original transport/identity/cardinality/negative assertions and deadlines stay.
-Seven new RED packets retain44 hashes/259 original bindings; actual failures and
-START-only limits remain. See../evidence/ticket58/README.md for every scope/result.
+Private actual recovery39372656765(10)/39372659393(17) bothSUCCESS:each2 exact
+accepted38 normal identities, actual PIDs3369->3797/3237->4489, exact checkpoints,
+retained original/history/draft/uncertain message/reaction and zero transmissions.
+Root opened recovered native originals on bothSDKs. The draft/reaction capture
+has no visible history; retained cache continuity is not rendered cache proof.
+Carry this dense real state into62. Original120second phase bounds remain.
 
-Latest changes are fixture-only,48 production current. Await both review axes and
-successful source CI before corrected runtime. Verify group-ui17, complete chat-ui
-bothSDKs and the actual private recovery tail; group10 is already complete at e674.
-Then dispatch fresh full10/17 at the same compiled source BEFORE evidence-only
-commits, record exact source/run bindings before outcomes, retain failed e205 as
-failed previous attempts. All frozen473/474 identities,122/123 completions,
-34 interruptions/33 continuity remain. No full acceptance/publication yet.
-Keep56/58 open until verified delivery, then continue57 and59..69 sequentially.
-Do not touch protected untracked research. External prerequisites stay under36.
+Complete private39372652001(10)/39372654562(17) bothFAILURE:24 normal methods,
+23PASS/1FAIL at958, the uncertain-send outgoing-text wait before its existing
+scroll. Both native failure originals show older content and saved status/Retry.
+Fixture-only03849d1a9 reuses the existing scoped15second message scroll/display
+helper there. Both source review axes0. Await successful source39373545041 before
+corrected runtime. Original exact saved bytes/signature, explicit Retry, no prior
+transmissions and later state checks remain. Separate action-tail runs39373517260
+and39373519663 at003 are in progress to verify the earlier count/quote corrections.
+
+Five latest packets retain original logs/native archives and independent identity
+comparisons. See../evidence/ticket58/README.md for exact run/source/result limits.
+48 production remains current and unpublished. No full acceptance/publication yet.
+After focused corrections, dispatch fresh full10/17 at the same compiled source
+BEFORE evidence-only commits; retain failed e205 attempts as failed. The frozen
+473/474 identities,122/123 normal completions,34 interruptions and33 continuity
+gates remain. Keep56/58 open until verified delivery, then57 and59..69 sequentially.
+External prerequisites remain under36. Protected untracked research stays untouched.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration

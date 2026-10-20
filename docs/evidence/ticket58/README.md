@@ -807,3 +807,23 @@ signed body/mentions/ciphertext/raw/Relay/count/isolation goals remain unchanged
 Corrected runtime is pending for these fixture-only changes. All original class
 and process phase bounds remain.48 production inputs remain current, prepared and
 unpublished. No fresh full58 acceptance or publication claim.
+
+Latest compiled003 focused outcomes: group17 [39372650163](ui58-group-complete-green17-39372650163/summary.json)
+SUCCESS,26 exact accepted38 identities and actual5328->5407 recovery. This pairs
+with earlier e674 group10 complete26. Private process
+[10](ui58-private-process-fixed10-39372656765/summary.json)/
+[17](ui58-private-process-fixed17-39372659393/summary.json) bothSUCCESS,2 exact
+normal identities each, PIDs3369->3797/3237->4489, exact persisted checkpoint fields
+except phase/new PID, original history/draft/uncertain candidates and zero sends.
+Root opened recovered originals on bothSDKs. The draft/reaction recovery capture
+shows no history; persisted cache assertions do not establish rendered visibility.
+This dense Chat state remains62 work. No full or physical acceptance follows.
+
+Complete private [10](ui58-private-all-fixed10-39372652001/summary.json)/
+[17](ui58-private-all-fixed17-39372654562/summary.json) remainFAILURE:24 completed
+methods,23PASS/1FAIL each,958 outgoing-text presence before scrolling. Root opened
+both failure PNGs.03849d1a9 uses the existing scoped15second scroll/display helper
+before the unchanged original display/zero-send/explicit exact Retry checks.
+Both source review axes0; corrected runtime remains pending. Separate action-tail
+runs39373517260/39373519663 at003 are in progress. App inputs remain prepared48
+at587;48 remains unpublished. Every prior failure retains its actual conclusion.
