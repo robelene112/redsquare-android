@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active post-presentation60
 
-2026-10-20 19:22 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
+2026-10-20 19:37 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
 with code/evidence review, commits and signed in-place beta delivery. Never stop
 at a routine milestone.55 remains open through owner final app-wide UI review.
@@ -48,15 +48,22 @@ full public identity details. Keep57 wallet-global2intentionalLikes/second acros
 nodes, exact candidate retry, all reporting/author/media/queue recovery semantics.
 Use existing agreed native UI/controlled-peer and core/protocol recovery seams.
 First native RED39480309592 at5126 fails the intended Report-presence assertion.
-Packet retains11 hashes and original native PNG/XML. First product slice1e41d0a52
-introduces PostCard in Feed and persistent More/report/public identity dialogs;
-local app and AndroidTest Kotlin compile succeeds. Both partial-slice reviews0.
-Focused native GREEN runs39482727589(Android10)/39482731607(Android17) are active
-on pinned verify/posts60-green-1e41d0a52. Inspect actual native interactions before
-next tracer. Thread/Search/Profile, vector social actions/status, author actions,
-render matrices and real accessibility still need subsequent vertical slices.
+First product slice1e41d0a52 introduces PostCard in Feed and persistent More/report/
+public identity dialogs; local app and AndroidTest Kotlin builds succeed. Both
+partial reviews0. Focused native GREEN39482727589(Android10,5.941s) and
+39482731607(Android17,23.929s) pass same1e41. Root viewed allsix original native
+PNGs; eachpacket14 hashes/sixPNG-XML members verified by both reviewers0.
+CurrentHEAD475aba968da16b511ba18324052617e9483660e9 adds the next four-context
+tracer and updates existing report/profile test operators without changing their
+application/raw/control/recovery assertions. All bounded reviews0. The first
+four-context attempt39483900170 at1c295 fails only its invalid comma-in-date
+expectation inFeed, beforeThread; retain as fixtureFAILURE, never appRED. Corrected
+same-node known-date/time matcher is source475. Replacement native RED39484695496
+is active on pinned verify/posts60-context-red-corrected; inspect before migrating
+Thread/Search/Profile. Focused existing reports39483951409 at1c295 is also active.
+No full60 acceptance. Vector social actions/status, coherent author menu actions,
+render matrices and actual accessibility still need subsequent vertical slices.
 Complete-suite integration/catalog extension follows implemented slices.
-Do not mistake this first partial implementation for issue60 completion.
 Restored59 focused agreement39479461972 has passed25cases, all8 original worker
 preconditions and distinct process10061/10169 recovery;191hashes/159members verify,
 both reviews0. It is separate from already accepted complete207/72a delivery.

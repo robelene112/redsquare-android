@@ -34,3 +34,19 @@ regression operators now explicitly open the real contextual menu, preserving
 all35 original report/retry/details actions and every other assertion. Both
 operator-only review axes report0. No complete60 or new signed-publication
 acceptance is claimed.
+
+
+The first four-context attempt [39483900170](fixture10-date-separator-1c295-39483900170/)
+at1c295 isFAILURE: its original Feed-menu method passes, but the new method stops
+in Feed on an incorrect comma assumption in the timestamp oracle. Actual original
+XML on10/17 is `11/14/23 10:13 PM`. This is a fixture failure, not applicationRED;
+Thread/Profile/Search goals were not reached. Original eight PNG/XML members and
+failure log remain.475aba968 corrects the matcher to require the independently
+known date and time on the same displayed node without prescribing a separator.
+Both independent correction reviews report0. Replacement39484695496 runs the
+corrected tracer before any migration of the other three production screens.
+
+Existing anonymous-fixture Feed profile operators now select the contextual
+account target; later Profile/People/full-key and signed/control/recovery
+assertions remain. Both residual operator reviews report0 atdf12eccd9. Focused
+reporting39483951409 at1c295 is active; no regression acceptance is claimed yet.
