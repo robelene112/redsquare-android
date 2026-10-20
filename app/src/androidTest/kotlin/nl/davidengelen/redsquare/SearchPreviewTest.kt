@@ -231,6 +231,11 @@ class SearchPreviewTest {
         val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
         val mode = AtomicInteger(0)
         val qualification = "Previously verified name. This search has not confirmed current ownership."
+        fun assertUsernameCheckFailed() {
+            val message = "Usernames could not be checked. Try Search history again."
+            ui.waitUntil(20_000) { ui.onNodeWithText(message).isDisplayed() }
+            ui.onNodeWithText(message).assertIsDisplayed()
+        }
         val peer = ControlledFeedPeer("[]", archiveResponse = { criteria ->
             if (criteria.has("field4") || criteria.has("field2")) "[]"
             else {
@@ -273,9 +278,14 @@ class SearchPreviewTest {
                     waitForText(name)
                     ui.onNodeWithText("Back").performClick()
                     mode.set(1)
-                    ui.onNodeWithText("Search history").performClick()
+                    // Returning to Search reloads its cache before the action is enabled.
+                    val searchAction = hasText("Search history") and hasClickAction()
+                    ui.waitUntil(20_000) { ui.onNode(searchAction and isEnabled()).isDisplayed() }
+                    ui.onNode(searchAction).assertIsDisplayed().assertIsEnabled()
+                    captureNativeScreen(File(context.cacheDir, "search-evidence/cached-check-before-refresh.png"), "Search history")
+                    ui.onNode(searchAction).assertIsDisplayed().assertIsEnabled().performClick()
                     waitForEnabled("Search history")
-                    ui.onNodeWithText("Usernames could not be checked. Try Search history again.").assertIsDisplayed()
+                    assertUsernameCheckFailed()
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText(qualification))
                     ui.onNodeWithText(qualification, useUnmergedTree = true).assertIsDisplayed()
                     ui.onAllNodesWithText("Some history could not be searched. Available results are still shown. Try again.").assertCountEquals(0)
@@ -291,7 +301,7 @@ class SearchPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement(forged)
                     ui.onNodeWithText("Search history").performClick()
                     waitForEnabled("Search history")
-                    ui.onNodeWithText("Usernames could not be checked. Try Search history again.").assertIsDisplayed()
+                    assertUsernameCheckFailed()
                     ui.onAllNodes(hasText(person) and hasClickAction() and !hasSetTextAction()).assertCountEquals(0)
                     ui.onAllNodesWithText(qualification, useUnmergedTree = true).assertCountEquals(0)
                     ui.onNode(hasSetTextAction()).performTextReplacement("Independent")

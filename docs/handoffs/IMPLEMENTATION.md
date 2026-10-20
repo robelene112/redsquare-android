@@ -38,7 +38,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 2026-10-20 16:34 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
 Versions51 through57 are REJECTED and NEVER PUBLISH; their frozen APKs remain
-unchanged. Continue #60 through #69 sequentially after true #59 completion,
+unchanged. Continue #60 through #69, then bounded rendered follow-up #70, after true #59 completion,
 without routine owner stops. No new owner input is needed.
 
 Current production, complete verification and reserved signed58 source is
@@ -69,7 +69,8 @@ protocols/two storage cases,512MiB with the same app flags as failed full.82
 original members retained; broader full cause still unproved.
 Both bounded original-failure and28-hash storage packet review axes report zero
 findings. Very-large-text full17 originals show residual shared navigation word
-breaks (Hom/e,Searc/h); keep scoped follow-up under55 before final UI acceptance. Replacement full10 uses the same72a ref;
+breaks (Hom/e,Searc/h); #70 tracks the bounded follow-up under55, after69 and
+before final UI acceptance. It is natively linked to55 and blocked by59. Replacement full10 uses the same72a ref;
 Workflow concurrency cancelled the old social job. That run is terminal CANCELLED,
 with Chat FAILURE/wallet SUCCESS and final metadata retained. New full10 must independently
 pass every goal. Old wallet successes cannot fill it. Signed58 remains prepared,

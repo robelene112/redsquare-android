@@ -1250,7 +1250,8 @@ separately as observations only and cannot fill its replacement full execution.
 These confirm scoped feedback and work preservation, not app-wide UI completion.
 Very-large-text frame labels still visibly break words in the shared navigation,
 e.g. Hom/e and Searc/h. This residual frame polish belongs to open55 and a bounded
-follow-up; it is not an observed59 status-transition defect or final UI acceptance.
+follow-up [70](https://github.com/robelene112/redsquare-android/issues/70),
+queued after69. It is not an observed59 status-transition defect or final UI acceptance.
 
 Whole-photo10run39456809459 also finishes SUCCESS at unchanged72a:10 UI cases
 in89.851seconds, both actual private/group photo process protocols, then both
@@ -1261,3 +1262,29 @@ archive matches its original1084bytes/hash. Thus this narrower prior-UI/process
 sequence does not reproduce the failure; the broader failed full's16MiB cause
 remains unproved. No heap/source/input/assertion/deadline changes are made.
 Both28-hash focused storage packet reviews report zero remaining findings.
+
+## Complete10 Search operator failure
+
+Replacement10run39455628348 social fails SearchPreviewTest case8 at line278:
+the unchanged username-check failure summary is not displayed immediately after
+returning from Profile and repeating Search history. The other eight Search
+cases pass in52.830seconds. All30 original archive members and raw goal log
+are retained. The actual failure PNG/XML show the previous verified person, no
+username-error summary and an enabled Search history button when captured.
+They do not establish whether the second physical tap started a request.
+
+Source shows that remounting Search starts with cacheReady=false, whereas the
+old operator taps before waiting for its action to be enabled. Three hypotheses
+remain: premature tap after Back, premature observation of the new status, or
+wrong fresh name-check behavior. The bounded fixture correction waits for the
+real displayed/enabled clickable action before that tap, captures its native
+window, and waits for the exact original visible failure summary before both
+unchanged failure/forged-name assertions. The20second existing assertion bound
+and180second class bound, all9 identities, qualification/absence/forged-key/
+wallet/node/zero-transaction assertions remain unchanged. This is an operator
+correction, not a proven application cause or a production fix.
+
+Both independent complete17/photo-route evidence reviews at2fb108ee4 report
+zero remaining findings:639 full17 hashes/92 archives/2,526 members and111
+whole-photo hashes/82 originals verify against actual raw bytes. Complete17
+at72a remains accepted as one SDK; complete10/native publication are pending.
