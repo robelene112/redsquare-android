@@ -283,6 +283,7 @@ if [[ "${TEST_SCOPE:-full}" == post-presentation* ]]; then
     verify_group_chat_native PostPresentationViewportTest 180 post-viewport post-viewport-evidence
     verify_group_chat_native PostContentViewportTest 180 post-content post-content-evidence
     verify_group_chat_native PostContentContextsTest 180 post-content-contexts post-content-contexts-evidence
+    verify_group_chat_native PostStatusViewportTest 180 post-status post-status-evidence
     printf '%s\n' 'Focused native post presentation only; full app acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
