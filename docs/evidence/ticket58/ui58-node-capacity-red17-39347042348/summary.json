@@ -1,0 +1,19 @@
+{
+  "run": "39347042348",
+  "source": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+  "expectedMethods": [
+    "oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery"
+  ],
+  "overallRunConclusion": "cancelled",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery",
+      "status": -2
+    }
+  ],
+  "members": 6,
+  "limit": "One controlled capacity method FAILED at an obsolete server-wording expectation; six original group-capacity-prefixed members retained from the shared chat-alert archive. Chat partition FAILED; whole full17 run is CANCELLED after replacement superseded its unfinished social/wallet partitions. No complete regression or physical/provider acceptance.",
+  "originalMemberSelection": "chat-alert-evidence/group-capacity-*"
+}

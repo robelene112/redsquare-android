@@ -63,7 +63,9 @@ Full10 run39347038831 at3cc FAILED later in the capacity notice: its test expect
 "this server", actual PNG/XML correctly displays "this node". Earlier frame,
 agreement/recovery, keyboard and alert gates pass; later full gates are absent.
 Exact failed method and six group-capacity originals are retained. Full17
-39347042348's Chat partition alsoFAILED; social/wallet are still running.
+39347042348's Chat partition alsoFAILED; replacement per-scope concurrency
+cancelled its unfinished social/wallet jobs, so the actual whole run isCANCELLED.
+The failed class and cancelled overall conclusion are both retained.
 No complete58 acceptance. The frozen473/474 catalog and original failed/cancelled
 attempts remain in../evidence/ticket58/full-identity-reference.json.
 
@@ -74,13 +76,16 @@ text. Focused cancellation viewport39346900869/39346903466 also bothSUCCESS,
 2 methods perSDK. Root opened original warning/cancel/reopened and larger-text
 agreement cancellation/restored drafts on bothSDKs. Both evidence review axes0.
 
-Next test-only correction changes the capacity literal to node; a read-only
+Test-only638884018 changes the capacity literal to node; a read-only
 independent audit also found ReportPreviewTest's unavailable/reopened report
 literal still says server, corrected to node with no behavior changes. The capacity
 wallet equality assertion no longer dumps export values on failure. All prior
 method, assertion, deadline and recovery requirements remain. No app/build/signing
 changes since9b33. Source39348053376 at doc/evidence2bcd9f355 completedSUCCESS,
 including core/gateway, Debug/tests, Release/Performance assembly and lint.
+Fresh full39349228406(10)/39349230920(17, all3parts) now run at exact6388840182;
+frozen473/474 catalog unchanged, source/run IDs bound before outcomes. Focused
+capacity39349185535/39349188302 and reports39349191022/39349193931 also run at638.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

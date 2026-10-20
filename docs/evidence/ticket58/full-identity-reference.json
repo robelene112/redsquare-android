@@ -181,11 +181,63 @@
           ]
         }
       }
+    },
+    {
+      "executingSource": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+      "executingRuns": {
+        "android10": 39347038831,
+        "android17": 39347042348
+      },
+      "terminalRuns": {
+        "android10": {
+          "id": 39347038831,
+          "source": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+          "status": "completed",
+          "conclusion": "failure",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39347038831",
+          "jobs": [
+            {
+              "id": 118382093258,
+              "name": "native-proof (all)",
+              "status": "completed",
+              "conclusion": "failure"
+            }
+          ]
+        },
+        "android17": {
+          "id": 39347042348,
+          "source": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39347042348",
+          "jobs": [
+            {
+              "id": 118382118791,
+              "name": "native-proof (chat)",
+              "status": "completed",
+              "conclusion": "failure"
+            },
+            {
+              "id": 118382119049,
+              "name": "native-proof (social)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            },
+            {
+              "id": 118382119191,
+              "name": "native-proof (wallet)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            }
+          ]
+        }
+      },
+      "limit": "Incomplete attempt. Android10 FAILED at stale server-wording capacity expectation. Android17 Chat class/partition failed at the same expectation; replacement full scope automatically supersedes/cancels its unfinished other partitions. No complete acceptance. Actual run/job states are recorded, not relabelled."
     }
   ],
-  "executingSource": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
+  "executingSource": "6388840182bdab075bf672da92933cfc7c1750c3",
   "executingRuns": {
-    "android10": 39347038831,
-    "android17": 39347042348
+    "android10": 39349228406,
+    "android17": 39349230920
   }
 }

@@ -408,3 +408,15 @@ corrected. Generic publisher server-data text, protocol variables and intentiona
 historical transfer-message alternatives remain unchanged.
 Full17 run39347042348 has a failed Chat partition; its remaining partitions are
 still running and not accepted. No app/build/signing changes since9b33.
+
+At replacement dispatch, GitHub's per-scope concurrency automatically cancelled
+the older unfinished full17 social/wallet jobs. Run39347042348 is therefore
+actuallyCANCELLED, with its Chat partition actuallyFAILED at the same capacity
+literal; both distinctions are retained. The six original17 capacity members
+positively show the required node notice and retain its failed method. No normal
+completion or app-wide acceptance is inferred for cancelled partitions.
+Fresh full39349228406(10)/39349230920(17, all3parts) execute exact6388840182 with
+public reads and immutable signed35/43 observers. The frozen473/474 identity
+catalog is unchanged and the source/run binding was recorded before outcomes.
+Focused capacity39349185535/39349188302 and reports39349191022/39349193931 run at
+the same source. No production/build/signing differences from signed46/source9b33.
