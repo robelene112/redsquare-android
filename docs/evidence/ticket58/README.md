@@ -331,9 +331,22 @@ the reaction target before clicking, and Unlike after forwarding. Every policy,
 cancellation, transaction, relay, wallet and membership check remains. This is a
 bounded response to actual RED, not a blanket change to disabled-state checks.
 
-GIF39345377196(10) at aa08dd7b6 completedSUCCESS; its3 preview methods pass with
-the original pixel/animation/attribution assertions. GIF/keyboard17 and the new
-group correction remain pending. The GIF metadata write now follows capture,
-which creates its owned folder, removing accidental test-order dependence.
-No production inputs differ from signed46/source9b33. Full58 acceptance remains
-pending and both original complete attempts remain FAILED.
+Focused keyboard39345370402(10)/39345373579(17) and GIF39345377196(10)/
+39345380431(17) at aa08dd7b6 all completedSUCCESS. Keyboard has exactly10PASS perSDK;
+GIF has exactly3 previewPASS perSDK and the scope's posting class also passes.
+Original keyboard captures retain authored work after actual IME dismissal and
+empty editors after explicit sends. GIF's initial456..636 bounds move to444..624
+by12px, preserving the same outside8px samples, animation and attribution checks.
+Root opened representative keyboard originals on bothSDKs and the17 GIF before/
+after originals. These focused results do not replace full acceptance.
+The GIF metadata write inba3 follows capture, which creates its owned folder,
+removing accidental test-order dependence. No production/build/signing inputs
+differ from signed46/source9b33.
+
+Fresh full39346126335(10)/39346130915(17, all3partitions) execute exactba3ad0240
+with public reads and immutable signed35/43 observers. The original independent
+473/474 catalog is unchanged, with new source/run bindings recorded before these
+outcomes. Previous failed9b33 attempts remain separately recorded and FAILED.
+Complete agreement39345992170(10)/39345995233(17) also runs atba3 with the targeted
+group-reaction scroll. Their outcomes, complete58 acceptance and live46 remain
+pending.

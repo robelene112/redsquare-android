@@ -1,0 +1,28 @@
+{
+  "run": "39345380431",
+  "source": "aa08dd7b65bdde00f374807db08aac0ad15b6bc0",
+  "expectedMethods": [
+    "providerFailureCanRetryAndCloseWithoutLosingTheDraft",
+    "searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork",
+    "selectedAnimatedGifSurvivesSavedDraftAndFreshActivity"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": false,
+  "completions": [
+    {
+      "method": "providerFailureCanRetryAndCloseWithoutLosingTheDraft",
+      "status": 0
+    },
+    {
+      "method": "selectedAnimatedGifSurvivesSavedDraftAndFreshActivity",
+      "status": 0
+    },
+    {
+      "method": "searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork",
+      "status": 0
+    }
+  ],
+  "members": 31,
+  "limit": "Focused native frame proof. Movies require explicit original-frame inspection. Not full regression or physical acceptance."
+}

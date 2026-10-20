@@ -40,33 +40,32 @@ Both source review axes0; ordinary Compose test factory/frame clocks remain inta
 Earlier293 probes and e098 regression retain the proven pinned Compose cache
 defect in both directions (Settings0/window1 and Settings1/window0).
 
-Full39343151613(Android10) FAILED at the private publishing-surface visible-Unlike
-goal (3other surfaces PASS). Complete17 run39343154589 also FAILED in all3parts:
-wallet same visibility issue; chat4 keyboard failures expect obsolete backup
-chrome inChat after IME dismissal (6photo casesPASS); social GIF's bottom+8
-sample leaves the screenshot. These failures are retained and never accepted.
-Both full runs executed
-the same9b33 source, with public reads and immutable signed35/43 observer inputs.
-The independent pre-execution catalog binds exact source/runIDs locally at
-../evidence/ticket58/full-identity-reference.json:473/474 identities,122/123normal,
-34deliberate interruptions,33continuity. No complete58 acceptance yet. The next test-only surfaces probe records the
-Compose tree before targeted scrolling; transaction/identity assertions and
-existing20second helper/180second class bounds remain. HEADeca374c37 is test-only:
-all-root tree printing avoids a reviewed modal-root diagnostic error in e6db.
-Focused surfaces39344505651(10)/39344508913(17) and complete agreement39344699117(10)/
-39344701551(17) run at eca. App production is unchanged from9b33; signed46 remains
-prepared/unpublished. No cause is claimed until pre-scroll tree + reached action
-prove the offscreen hypothesis. Old e6 focused attempts are superseded.
-Private surfaces eca39344505651(10)/39344508913(17) now4PASS each; pre/post tree
-and original PNGs prove362..382 offscreen ->292..312 visible. One17 XML dump
-omits the child despite PNG/tree; final capture now waits positively for native
-Unlike before exporting. Full agreement eca39344699117/39344701551 FAIL in group
-reaction before the policy dialog (other6 group casesPASS). A reaction-only
-scroll correction is being verified; all existing agreement/identity/send gates
-remain. aa08dd7b6 also corrects obsolete ChatKeyboard reminder expectations and
-positions original GIF pixel samples; focused39345370402(10 keyboard) SUCCESS,
-39345373579(17 keyboard) pending,39345377196(10 GIF) SUCCESS,
-39345380431(17 GIF) pending. No app production change since9b33.
+Full39343151613(Android10) and39343154589(Android17, all3parts) at9b33 FAILED
+and remain failed. Private publishing's Unlike target was below the short history;
+ChatKeyboard expected the now Home-only reminder inChat; GIF's outside8px sample
+left the640px bitmap. Original packets retain these failures and missing later gates.
+Focused private surfaces39344505651(10)/39344508913(17) at eca both4PASS;
+pre/post trees and original PNGs prove362..382 offscreen ->292..312 visible.
+One17 XML dump omits the child despite PNG/tree, because captures are not atomic.
+The final capture now waits for native Unlike before exporting. Complete agreement
+eca39344699117/39344701551 FAIL at an offscreen group reaction target,6other group
+casesPASS. ba3ad0240 scrolls that exact reaction target before clicking, retaining
+all agreement, cancellation, identity, membership and transmission assertions.
+
+Focused aa08 keyboard39345370402(10)/39345373579(17) bothSUCCESS, exactly10PASS
+each. GIF39345377196(10)/39345380431(17) bothSUCCESS, exactly3 previewPASS each;
+posting also passes in those scopes. Original GIF bounds456..636 move to444..624
+by12px so the original8px samples remain within the bitmap. Keyboard retains every
+real-IME, exact-draft and explicit-Send assertion; backup guidance stays absent in
+Chat without persisting dismissal. All focused packets are retained and reviewed.
+
+Fresh full39346126335(10)/39346130915(17, all3parts) run at exactba3ad0240 with
+public reads and immutable signed35/43 observers. The independent frozen catalog
+binds source and runIDs in../evidence/ticket58/full-identity-reference.json:
+473/474 identities,122/123normal,34deliberate interruptions,33continuity. Prior
+failed attempts remain recorded separately. Complete agreement39345992170(10)/
+39345995233(17) also runs atba3. No complete58 acceptance yet. All changes since9b33
+are fixtures/harness/evidence only; production/build/signing inputs are identical.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

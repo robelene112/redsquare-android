@@ -112,9 +112,23 @@
     }
   ],
   "limits": "Complete58 execution, visual motion acceptance, signed delivery and physical/provider/store gates are not yet claimed.",
-  "executingSource": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
+  "previousAttempts": [
+    {
+      "source": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
+      "runs": {
+        "android10": 39343151613,
+        "android17": 39343154589
+      },
+      "conclusions": {
+        "android10": "failure",
+        "android17": "failure"
+      },
+      "limit": "Incomplete failed full attempts. Publishing viewport, obsolete Chat reminder and GIF sample positioning failures retained separately; never complete acceptance."
+    }
+  ],
+  "executingSource": "ba3ad0240ff6644114204b08d792261b27b605b3",
   "executingRuns": {
-    "android10": 39343151613,
-    "android17": 39343154589
+    "android10": 39346126335,
+    "android17": 39346130915
   }
 }
