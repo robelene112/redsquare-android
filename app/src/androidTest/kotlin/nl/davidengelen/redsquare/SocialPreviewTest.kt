@@ -183,7 +183,7 @@ class SocialPreviewTest {
                     waitFor("Liked")
                     waitFor("Could not refresh counts. Refresh this view to try again.")
                     ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.").assertDoesNotExist()
-                    ui.onNodeWithText("Liked").assertIsNotEnabled()
+                    ui.onNodeWithText("Liked").assertIsEnabled()
                     assertEquals(1, peer.transactions.size)
                     peer.assertHealthy()
                     captureFeedEvidence("social-evidence/verified-like-count-refresh-warning.png")
@@ -347,7 +347,10 @@ class SocialPreviewTest {
                     waitFor("Could not finish this action. Retry checks the original action before sending it again.")
                     assertTrue(peer.transactions.isEmpty())
                 } finally { check(obstacle.delete()); check(blocked.delete()) }
-                ui.clickVisiblePostContent("Retry like")
+                // Authoritative unreadable storage prevents signing before any save attempt.
+                // Reload after repair rather than assuming an absent prior operation.
+                ui.clickVisiblePostContent("Retry")
+                ui.clickVisiblePostContent("Like")
                 waitFor("Liked")
                 assertEquals(1, peer.transactions.size)
                 val action = SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope())
@@ -393,7 +396,8 @@ class SocialPreviewTest {
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
                     waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    waitFor("A like is pending on saito.davidengelen.nl. Switch nodes in Settings to retry.")
+                    ui.onNodeWithText("Like").assertIsNotEnabled()
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
                     assertTrue(official.transactions.isEmpty())
                     assertTrue(owner.transactions.isEmpty())

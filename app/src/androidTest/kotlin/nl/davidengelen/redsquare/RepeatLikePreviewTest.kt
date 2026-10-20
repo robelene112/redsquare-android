@@ -5,8 +5,6 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
@@ -16,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.Base64
-import java.util.concurrent.ConcurrentHashMap
 
 /** Deliberate repeat input, observed through native controls and compatible peer frames. */
 class RepeatLikePreviewTest {
@@ -95,6 +92,58 @@ class RepeatLikePreviewTest {
         }
     }
 
+    @Test fun oneWalletSharesItsRateAcrossBothNodesThreadAndProfile() {
+        val owner = PostLikePeer()
+        val official = PostLikePeer()
+        owner.peer.start().use { ownerServer -> official.peer.start().use { officialServer ->
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
+                .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
+                .putExtra("socialLikeElapsedMillis", 10_000L)
+            withLikeActivity(intent, "rate-across-nodes") {
+                waitFor("4 likes")
+                ui.clickVisiblePostContent("Like")
+                waitFor("5 likes")
+                ui.onNodeWithText("Settings").performClick()
+                waitFor("saito.io")
+                ui.onNodeWithText("saito.io").performScrollTo().performClick()
+                waitFor("Node: saito.io")
+                waitFor("4 likes")
+                ui.clickVisiblePostContent("Like")
+                waitFor("5 likes")
+                ui.clickVisiblePostContent("Native Red Square reference post")
+                waitFor("Conversation")
+                ui.clickVisiblePostContent("Liked")
+                assertRateFeedback()
+                assertEquals(1, owner.peer.transactions.size)
+                assertEquals(1, official.peer.transactions.size)
+                captureFeedEvidence("repeat-like-evidence/thread-shares-both-node-rate.png")
+                ui.onNodeWithText("Back").performClick()
+                waitFor("New post")
+                ui.onNodeWithText("Settings").performClick()
+                waitFor("saito.davidengelen.nl")
+                ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
+                waitFor("Node: saito.davidengelen.nl")
+                waitFor("5 likes")
+                ui.clickVisiblePostContent(owner.postAuthor)
+                waitFor("Profile")
+                ui.clickVisiblePostContent("Liked")
+                assertRateFeedback()
+                assertEquals(1, owner.peer.transactions.size)
+                assertEquals(1, official.peer.transactions.size)
+                val first = postingTransaction(owner.peer.transactions.single())
+                val second = postingTransaction(official.peer.transactions.single())
+                assertNotEquals(first.id, second.id)
+                assertEquals(SaitoEnvelope.decode(first.envelope()).author,
+                    SaitoEnvelope.decode(second.envelope()).author)
+                owner.peer.assertHealthy(); official.peer.assertHealthy()
+                captureFeedEvidence("repeat-like-evidence/profile-shares-both-node-rate.png")
+                retainFrames(owner.peer, "rate-nodes-owner")
+                retainFrames(official.peer, "rate-nodes-official")
+            }
+        } }
+    }
+
     private fun assertRateFeedback() {
         val message = "Two likes per second. Try again in a moment."
         waitFor(message)
@@ -113,32 +162,7 @@ class RepeatLikePreviewTest {
     }
 
     private fun withLikes(block: (ControlledFeedPeer, Intent) -> Unit) {
-        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
-        val indexed = ConcurrentHashMap<String, JsonObject>()
-        fun countedRoot(): JsonObject = root.deepCopy().apply {
-            val envelope = JsonParser.parseString(get("tx").asString).asJsonObject
-            val count = 4 + indexed.size
-            envelope.addProperty("opt", Base64.getEncoder().encodeToString(
-                "{\"num_likes\":$count,\"num_retweets\":2}".toByteArray()))
-            addProperty("tx", envelope.toString())
-        }
-        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
-            val tx = postingTransaction(frame)
-            val action = SaitoEnvelope.decode(tx.envelope())
-            assertEquals("like tweet", action.body.get("request").asString)
-            assertEquals(setOf("signature"), action.body.getAsJsonObject("data").keySet())
-            assertEquals(root.get("sig").asString, action.body.getAsJsonObject("data").get("signature").asString)
-            indexed.putIfAbsent(action.id, JsonObject().apply {
-                addProperty("sig", action.id); addProperty("field1", "RedSquareLike")
-                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
-                addProperty("created_at", action.createdAt); addProperty("tx", tx.envelope())
-            })
-        }, archiveResponse = { criteria ->
-            if (criteria.get("field1").asString == "RedSquareLike")
-                indexed[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]"
-            else "[${countedRoot()}]"
-        })
+        val peer = PostLikePeer().peer
         peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")

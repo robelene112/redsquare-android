@@ -17,7 +17,15 @@ sequential implementation, review, commits and signed in-place beta delivery.
    exact1PASS each; emitted frames pass independent WASM/Elliptic. Rate core is
    RED->GREEN; durable Android clock/policy/feedback wiring and new recreation/
    expiry journey are under verification. Cross-node/wallet/failure/import/process,
-   full and signed57 acceptance remain. Retained-packet/rate source review pending.
+   full and signed57 acceptance remain. Retained repeat/core/rate source at510790a27
+   has Spec0/documented Standards0/heuristic0. Source39390536214 is still running;
+   afterSUCCESS dispatch social-repeat and social-repeat-android17 at REMOTE510
+   before pushing the next local fixture commit. The next local test-only slice
+   adds shared PostLikePeer, cross-node/thread/profile rate proof, isolated real
+   wallet-import pending-vs-settled disclosure (expectedRED before app fix), and
+   explicit old SocialPreview contract updates. No import app fix exists yet.
+   Local rate core+app/test compile exits0; import fixture compile exits0 before
+   the last additional node-view method (not final full verification).
    Its chosen policy is explicit in the issue and
    comment6278005545: two NEW deliberate intents per rolling second per wallet
    across post surfaces and both nodes. A pending/uncertain like for the post

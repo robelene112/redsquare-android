@@ -40,7 +40,8 @@ complete exactly one original tracer PASS with command exit0, in4.221/27.096seco
 original screenshots. Root opened both final6-like originals. Independent pinned
 WASM and Elliptic checks pass on all four emitted frames: distinct signatures
 per SDK, unchanged author/target/body/recipients and valid routed hop. This accepts
-the first repeat slice only; retained-packet review remains pending.
+the first repeat slice only. Retained repeat/core/rate source reviews at510790a27
+report Spec0, documented Standards0 and heuristic0.
 
 ## Rate implementation in progress
 
@@ -64,3 +65,20 @@ recreation continuity and a new third distinct frame only at the expiry boundary
 Its runtime, extended cross-node/wallet/failure/import/process coverage, full10/17
 acceptance and signed57 delivery are still pending. No public write, physical/
 configured-provider/policy/store acceptance is claimed.
+
+## Additional fixtures pending native execution
+
+A shared external PostLikePeer retains the original signature-deduplicated served
+counts. The added third repeat journey exercises one wallet across both approved
+nodes, a thread and a profile. Existing SocialPreview assertions now explicitly
+expect an enabled settled Like, a disabled foreign-node fresh Like with its
+origin guidance, and journal reload after an unreadable pre-sign storage fault.
+Original counts, wallet, target, zero-send and originating-node retry goals remain.
+
+New LikeWalletImportPreviewTest uses a fresh isolated outgoing wallet and the real
+SAF picker. It restores the captured original after Activity/peer closure even on
+failure, preserving the primary error. A pending social like must be disclosed;
+settled receipts plus rate metadata alone must not invent pending work. The first
+case is expected RED because WalletImport currently omits social journals. No
+app-side import fix or runtime result is claimed yet. Its separate180second
+command and focused social-import routes are additive to full/social coverage.

@@ -697,9 +697,34 @@ if [[ "${TEST_SCOPE:-full}" == social-repeat* ]]; then
     printf '%s\n' 'Focused repeat-like check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_like_wallet_import() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    # Published unsafe scalar2/3 files in the provider UID. Never owner backups.
+    adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-social-import-2.json > /dev/null
+    printf '%s' '{"wallet":{"version":5.677,"publicKey":"tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx","privateKey":"0000000000000000000000000000000000000000000000000000000000000003"}}' | \
+        adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-social-import-3.json > /dev/null
+    local import_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.LikeWalletImportPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/like-wallet-ui.txt" || import_exit=$?
+    printf '%s\n' "$import_exit" > "$evidence/like-wallet-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - like-wallet-evidence \
+        > "$evidence/like-wallet-evidence.tar" || true
+    [[ "$import_exit" == 0 ]]
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/like-wallet-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == social-import* ]]; then
+    verify_like_wallet_import
+    printf '%s\n' 'Focused social import warning check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_social() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     verify_repeat_likes
+    verify_like_wallet_import
     python3 "$repo_dir/scripts/social-process-check" --evidence "$evidence/social-process"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.SocialPreviewTest \
