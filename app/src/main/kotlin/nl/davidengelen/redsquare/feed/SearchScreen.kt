@@ -250,14 +250,14 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         PersonalControlsStatus(personal)
         InlineStatus(stringResource(R.string.status_search_coverage), details = listOf(
             stringResource(R.string.search_coverage), stringResource(R.string.search_people_coverage)), announce = false)
-        if (loading) InlineStatus(stringResource(R.string.search_loading), StatusTone.WORKING)
-        if (view.failed) InlineStatus(stringResource(R.string.search_error), StatusTone.ERROR)
-        if (view.usernameFailed) InlineStatus(stringResource(R.string.search_username_error), StatusTone.WARNING)
-        if (view.unreadable) InlineStatus(stringResource(R.string.search_unreadable), StatusTone.WARNING)
-        if (view.pagingUnavailable) InlineStatus(stringResource(R.string.search_paging_unavailable), StatusTone.WARNING)
-        if (view.limitReached) InlineStatus(stringResource(R.string.search_limit), StatusTone.INFO)
-        if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
-            InlineStatus(stringResource(R.string.search_save_error), StatusTone.WARNING)
+        InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
+        InlineStatus(if (view.failed) stringResource(R.string.search_error) else null, StatusTone.ERROR)
+        InlineStatus(if (view.usernameFailed) stringResource(R.string.search_username_error) else null, StatusTone.WARNING)
+        InlineStatus(if (view.unreadable) stringResource(R.string.search_unreadable) else null, StatusTone.WARNING)
+        InlineStatus(if (view.pagingUnavailable) stringResource(R.string.search_paging_unavailable) else null, StatusTone.WARNING)
+        InlineStatus(if (view.limitReached) stringResource(R.string.search_limit) else null, StatusTone.INFO)
+        InlineStatus(if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
+            stringResource(R.string.search_save_error) else null, StatusTone.WARNING)
         if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
             if (view.request > 0) {

@@ -401,7 +401,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             null -> Unit
         }
         Column(childModifier) {
-            if (queueWarning) InlineStatus(stringResource(R.string.post_queue_storage_error), StatusTone.ERROR)
+            InlineStatus(if (queueWarning) stringResource(R.string.post_queue_storage_error) else null, StatusTone.ERROR)
             val noInternet = !internet.available || (failed && !internet.validated)
             val connectionSummary = when {
                 noInternet -> stringResource(R.string.no_internet)
@@ -450,14 +450,21 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 else if (following.ready && following.accounts.isEmpty()) Text(stringResource(R.string.following_empty))
                 else if (following.ready && visiblePosts.isEmpty() && !loading) Text(stringResource(R.string.following_no_posts))
             }
-            if (cacheWarning) InlineStatus(stringResource(R.string.feed_cache_warning), StatusTone.WARNING)
-            when {
-                failed -> Unit
-                posts.isEmpty() && loading && !walletUnavailable -> InlineStatus(stringResource(R.string.feed_loading), StatusTone.WORKING)
-                posts.isEmpty() && !internet.available -> InlineStatus(stringResource(R.string.feed_offline_empty), StatusTone.INFO)
-                unreadablePage -> InlineStatus(stringResource(R.string.feed_unreadable), StatusTone.WARNING)
-                posts.isEmpty() && !loading && wallet != null -> Text(stringResource(R.string.feed_empty))
+            InlineStatus(if (cacheWarning) stringResource(R.string.feed_cache_warning) else null, StatusTone.WARNING)
+            val feedNotice = when {
+                failed -> null
+                posts.isEmpty() && loading && !walletUnavailable -> R.string.feed_loading
+                posts.isEmpty() && !internet.available -> R.string.feed_offline_empty
+                unreadablePage -> R.string.feed_unreadable
+                else -> null
             }
+            InlineStatus(feedNotice?.let { stringResource(it) }, when (feedNotice) {
+                R.string.feed_loading -> StatusTone.WORKING
+                R.string.feed_unreadable -> StatusTone.WARNING
+                else -> StatusTone.INFO
+            })
+            if (feedNotice == null && !failed && posts.isEmpty() && !loading && wallet != null)
+                Text(stringResource(R.string.feed_empty))
             // Keep a restored list position until the asynchronous cache read has finished.
             if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(position), state = position,
                 contentPadding = PaddingValues(bottom = 88.dp)) {

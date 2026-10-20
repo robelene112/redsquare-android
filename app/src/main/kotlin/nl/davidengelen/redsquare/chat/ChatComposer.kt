@@ -189,11 +189,11 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
             else -> StatusTone.INFO
         }, details = if (saved.transaction != null) listOf(stringResource(R.string.status_origin_node, backend.domain))
             else emptyList(), announce = saved.status != ChatWorkStore.Status.NONE)
-        if (failed) InlineStatus(stringResource(when {
+        InlineStatus(if (failed) stringResource(when {
             !ready -> R.string.chat_work_read_error
             saved.automatic&&!saved.deliveryComplete -> R.string.chat_automatic_send_error
             else -> R.string.chat_send_error
-        }), StatusTone.ERROR)
+        }) else null, StatusTone.ERROR)
         if (saved.status != ChatWorkStore.Status.QUEUED) {
             BoxWithConstraints {
                 val previewMaxHeight=maxHeight/3

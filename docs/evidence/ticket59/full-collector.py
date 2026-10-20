@@ -95,6 +95,16 @@ def validate_status_evidence(target, configured):
   assert 'REDSQUARE_RECORDER_EXIT=0' in (motion/f'{name}-recorder.txt').read_text()
   for state in ['outage','details','recovered','after-removal']:
    assert (motion/f'{name}-{state}.png').stat().st_size>100
+  search=data['searchTransition'];frames=search['decodedOriginalFrames']
+  assert search['frameCount']==len(frames) and len(frames)>=2
+  assert [frame['index'] for frame in frames]==list(range(len(frames)))
+  times=[frame['presentationTimeUs'] for frame in frames];assert all(b>a for a,b in zip(times,times[1:]))
+  assert len({sha((motion/frame['file']).read_bytes()) for frame in frames})>1
+  assert (motion/f'{name}-search.mp4').stat().st_size>1000
+  assert 'REDSQUARE_RECORDER_EXIT=0' in (motion/f'{name}-search-recorder.txt').read_text()
+  for state in ['before','working','after']:
+   for suffix in ['png','xml']:
+    assert (motion/f'{name}-search-{state}.{suffix}').stat().st_size>100
  for name in ['reading-before-outage','outage-details','reading-during-outage','reading-recovered',
               'reading-after-recovery','details-remain-open-after-recovery','details-closed-after-recovery']:
   for suffix in ['png','xml']:

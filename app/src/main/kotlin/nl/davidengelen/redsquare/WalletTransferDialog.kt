@@ -47,19 +47,16 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     transfers.available?.let { Text(stringResource(R.string.transfer_available, it)) }
                     transfers.pending.forEach { record ->
                         val inclusion = transfers.inclusions[record.payment.transaction.id]
-                        if (inclusion == null) {
-                            val previous = record.lastInclusion
-                            if (previous == null) InlineStatus(stringResource(R.string.transfer_pending), StatusTone.WARNING)
-                            else if (record.payment.transaction.id in transfers.reorganized) {
-                                InlineStatus(stringResource(R.string.transfer_reorganized, previous.height.toString()), StatusTone.WARNING)
-                                Text(stringResource(R.string.transfer_observed))
-                            }
-                            else InlineStatus(stringResource(R.string.transfer_inclusion_unknown, previous.height.toString()), StatusTone.WARNING)
-                        }
-                        else {
-                            InlineStatus(stringResource(R.string.transfer_included, inclusion.height.toString()), StatusTone.SUCCESS)
+                        val previous = record.lastInclusion
+                        val reorganized = record.payment.transaction.id in transfers.reorganized
+                        InlineStatus(when {
+                            inclusion != null -> stringResource(R.string.transfer_included, inclusion.height.toString())
+                            previous == null -> stringResource(R.string.transfer_pending)
+                            reorganized -> stringResource(R.string.transfer_reorganized, previous.height.toString())
+                            else -> stringResource(R.string.transfer_inclusion_unknown, previous.height.toString())
+                        }, if (inclusion != null) StatusTone.SUCCESS else StatusTone.WARNING)
+                        if (inclusion != null || (previous != null && reorganized))
                             Text(stringResource(R.string.transfer_observed))
-                        }
                         Text(stringResource(R.string.transfer_amount_review, WalletTransfers.display(record.payment.amount)))
                         Text(stringResource(R.string.transfer_recipient_review, record.payment.recipient))
                         Text(stringResource(R.string.transfer_pending_backend, record.backend.domain))

@@ -36,130 +36,49 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-LATEST OVERRIDE: cumulative Spec source review finds one remaining motion gap:
-conditional InlineStatus call sites bypass their enter/exit transitions.52 is
-now SUPERSEDED and NEVER PUBLISH; frozen APK is untouched, rejection flag/hash
-and external marker retained.50 stays live. Currentf23 full runs may finish,
-but cannot establish this missing visual behavior. No53 is reserved yet.
-Before production changes, both existing StatusMotion methods now trace actual
-Search loading through a held/released controlled Archive response and retain
-all original movie frames. Existing identities,180second bound, prior recovery
-assertions and frozen catalog remain. Execute/inspect the old conditional path
-first, then keep transient hosts mounted with nullable summaries, re-review,
-verify corrected normal/zero motion and fresh full source, build a new53.
-Do not run the obsolete52 publication checker after-stage.
+2026-10-20,12:43 UTC.59 remains OPEN. Ordinary50 is LIVE.51 and52 are
+REJECTED and NEVER PUBLISH; neither frozen APK is changed.53 is not reserved.
+Continue60 through69 sequentially after actual59 completion, without owner stops.
 
+Cumulative source review found conditionally mounted status hosts skip their
+enter/exit motion. Actual old Search recording10run39422016108 at851 confirms
+an abrupt exit between contiguous original frames20/21. Both existing methods
+functionally pass on10 and17run39422019052, but that is not visual acceptance.
+The retained10 movie/frames are in motion-baseline10-851-39422016108. These old
+probes predate ac8's Search cache snapshot/restore repair and do not establish
+complete fixture restoration. Keep the immutable catalog/identities/deadlines.
 
-Current checkpoint: 2026-10-20,12:07 UTC. Issue59 remains OPEN. Ordinary50 is
-LIVE; signed52 is prepared and UNPUBLISHED. Rejected51 must never be published.
-The owner authorizes continuing60 through69 after59 is completed, without a
-routine stop. All owner/provider/physical/store gates remain parked as before.
+Both complete f23 runs39418870684/39418873625 finish FAILURE: both social and
+wallet partitions succeed, both Chat partitions fail two group-mute journeys
+with an existing multiline draft. Diagnostic10run39422695874 at1d985 also fails
+both original goals. Each actual raw reception reports one accepted message
+and zero rejections; full Compose trees show the actual body below the clipped
+17pixel history viewport. See mute-red10-1d985-39422695874 for original captures,
+full log and complete archive inventory. No delivery or mute defect is inferred.
 
-### Current complete executions
+Current correction keeps transient hosts stable with nullable summaries, uses
+explicit visibility state through exit and removes inactive layout slots after
+completion, and caps the existing scrollable group status/actions area at80dp
+(or one third of available height when smaller). All full details/actions remain
+scrollable. No assertion, gesture, deadline or tolerance is weakened. Collector
+now additionally requires the actual held Search loading movie, all frames and
+before/working/after native bookends inside the same two original motion cases.
+Its configured hash is updated; frozen486/487 references remain unchanged.
 
-Both runs execute exact `f23bc380d41b2454b37c4860a5fba4a56bb9e8e0` on owned
-`verify/status59-f23bc380d`:
+Pending: compile, paired source review, corrected motion/mute/keyboard/queue
+focused proof on both SDKs and original visual inspection. Then freeze new source,
+prepare immutable signed53, dispatch fresh complete10/17, bind exact run/source
+metadata, strict collection and paired final evidence review. Publish only after
+all actual complete gates succeed, independent public before/after checks and
+canonical review-publish. Do not run the obsolete52 after-publication checker.
 
-- Android10:39418870684, ACTIVE.
-- Android17:39418873625, ACTIVE.
-
-Each requires successful Chat, social and wallet jobs, every public-read gate,
-actual TalkBack and native motion. No supplemental or tail assembly is planned.
-The independent frozen catalog and unchanged strict collector require486/487
-identities,129/130 normal completions,35 deliberate interruptions,34 continuity
-records and92 archives per SDK. Preserve the exact established API29 Profile
-assumption and only the five exact accepted53 observer gaps. Source/core/release/
-lint39418053776 at the samef23 source is SUCCESS.
-
-The signed app's production source is `fc477c8936f11ae85923b8e02c61c6a6c6558db5`.
-[Production equivalence](../evidence/ticket59/production-equivalence-fc-f23.json)
-proves every non-documentation difference atf23 is one of four reviewed test
-fixtures, focused workflow routing or the diagnostic harness. Production, build,
-dependency and signing-script inputs are identical. Do not claim the changed
-fixtures/harness themselves are identical.
-
-### Focused proof and rejected attempts
-
-All corrected focused checks pass, with original packets retained under
-[the59 evidence](../evidence/ticket59/README.md):
-
-- Reading, status recovery and all four publishing surfaces on both SDKs atfc:
-  39414403423/39414407150,39414410300/39414413196,
-  39414416099/39414418607 respectively.
-- Corrected keyboard measurement at43abc:10run39417214514 and17run39417211307,
-  all ten methods each,116 original archive members each. Actual17 Send is
-  [215,270][304,318],48pixels high; current IME322 leaves usable bottom318.
-  Root opened the original PNG with the Gboard font-size notice.
-- Corrected import10 at a3:39417603596, all seven class methods and19 originals.
-  Root opened the post-recreation invalid-backup recovery screen.
-- Unchanged social-push10 atfc:39416588867, all eleven main methods. Focused
-  dismissal39416823937 atcfd actually runs BOTH SDKs, one passing method each.
-  Clearable=true, ongoing=false, flags24, gestures154/139ms, text hidden and
-  owned notification inactive, then no re-alert. Root opened both dismissed
-  screenshots. The earlier swipe failure's cause remains unproved.
-- Public17 atf23:39418060620, both actual node invocations PASS. Both post/quote
-  streams return arrays;100-row post responses are about4.9MB. Shape records
-  contain metadata only; public feed screenshots are separate originals.
-- Earlier actual TalkBack10:39411343189 at7e, PID3524, outage5/recovery7;
-  TalkBack17:39412530513 at4a, PID3290, outage2/recovery4. Each has correlated
-  START/positive AUDIO/DONE, quiet polling, retained focus and byte-equal settings.
-  Complete currentf23 execution must rerun actual speech and motion.
-
-All four earlier complete attempts finish FAILURE:4a runs39412244072/
-39412555335 andfc runs39415267934/39415423516. Their final job metadata is
-retained alongside earlier in-progress captures. Social partitions pass; Chat
-and wallet failures remain rejected. Focused successes cannot fill missing
-full gates. The exact failures and corrections are recorded in the evidence:
-
-- Root-relative reading compensation moved the feed80pixels on return from
-  Chat. Productionc4 uses parent-relative movement; original1pixel assertions stay.
-- Private policy reactions were tapped below the clipped history viewport.
-  Fixturefc scrolls to the real action before its three deliberate taps.
-- The physical social notification swipe failed once; observation-only metadata
-  and an unmodified in-scope capture now distinguish gesture and notification
-  state. The gesture and five-second goals are unchanged.
-- Keyboard observer compared an earlier331 inset with later Send bounds and
-  keyboard top318. Fixture43abc measures current insets alongside the target,
-  requires visible IME and preserves full48dp/viewport containment.
-- Invalid-import startup clicked before a ready Wallet action was observed.
-  Fixturea3 reuses the existing20second enabled/displayed/clickable helper.
-  There was no original in-scope screenshot and no proven initialization cause.
-- Official public100-row search returned an object instead of an array once.
-  Its body was not retained; the cause remains UNKNOWN. Fixturef23 records only
-  bounded shape/bytes/hash/filtered field names before unchanged strict decoding.
-
-All bounded source/evidence reviews throughcd6 report Spec0/documented Standards0/
-heuristic0 after the SDK-routing and optional-observation findings were fixed.
-Final complete evidence and publication still need their paired reviews.
-
-### Frozen signed52 and remaining actions
-
-Signed52 is built atfc, SHA256
-`9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96`,
-37,856,651bytes, established certificate. Actual manifest/DEX checks PASS in
-`signed52-prepared`: nondebuggable/nonprofileable, backupfalse, SDK29/36,
-reviewtrue/pushfalse, separate GIF keys empty, no test-tool package query.
-External review worktree remains frozen atfc. Never rebuild50,51 or52.
-
-Independent before-publication HTTP check already PASSed under
-`/mnt/storage/redsquare-android-artifacts/status59-publication-52`.
-`/tmp/redsquare-status59-publication52-check.py ordinary 52 after` has NOT run.
-The checker protects immutable50/49/45 and the whole performance43 channel.
-Only use canonical `scripts/review-publish` from the frozen worktree after full
-acceptance/review. Ordinary50 stays live until then. Rejected51 retains its
-external rejection marker and evidence's explicit neverPublish flag.
-
-Next: wait for all three jobs and overall SUCCESS on each current full run;
-download all three named artifacts per SDK into the external storage directory;
-run the unchanged59 full collector with exact run IDs; inspect original speech,
-motion, recovery, larger-text/IME and relevant visual evidence. Obtain paired
-final review, publish prepared52, run independent after-HTTP verification,
-retain/review the public packet, close59 and immediately implement60.
-
-Owned `verify/status59-fc477c893` was removed after all runs on it completed and
-its remote head was confirmed exactfc. Keep currentf23 ref while its runs are
-active; remove it only after completion and an unchanged-head check. Do not
-cancel needed jobs or modify the protected unrelated research file.
+Old f23 verification ref verify/status59-f23bc380d can be removed only after
+confirming no active run and exact unchanged head. Rejected prior4a/fc metadata,
+focused corrections and actual TalkBack provenance remain in59 evidence. Failed
+complete attempts never become acceptance through focused or tail assembly.
+No physical/provider/store acceptance is claimed. Keep protected unrelated
+research file unread/untouched. Owner prerequisites and original release gates
+remain parked under36.
 
 ## Current repeat-like57 acceptance
 

@@ -235,10 +235,10 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     if (wallet?.publicKey == author) TextButton(onClick = { view.editing = true }) {
                         Text(stringResource(R.string.profile_edit))
                     }
-                    if (profileLoading) InlineStatus(stringResource(R.string.profile_details_loading), StatusTone.WORKING)
-                    if (profileFailed) InlineStatus(stringResource(R.string.profile_details_error), StatusTone.ERROR)
-                    if (profileUnreadable) InlineStatus(stringResource(R.string.profile_unreadable), StatusTone.WARNING)
-                    if (profileCacheWarning) InlineStatus(stringResource(R.string.profile_details_cache_warning), StatusTone.WARNING)
+                    InlineStatus(if (profileLoading) stringResource(R.string.profile_details_loading) else null, StatusTone.WORKING)
+                    InlineStatus(if (profileFailed) stringResource(R.string.profile_details_error) else null, StatusTone.ERROR)
+                    InlineStatus(if (profileUnreadable) stringResource(R.string.profile_unreadable) else null, StatusTone.WARNING)
+                    InlineStatus(if (profileCacheWarning) stringResource(R.string.profile_details_cache_warning) else null, StatusTone.WARNING)
                     FollowingStatus(following)
                     AccountControls(author)
                     if (wallet != null && wallet.publicKey != author) TextButton(onClick = {
@@ -262,12 +262,12 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                         Text(stringResource(R.string.personal_posts_hidden), style = MaterialTheme.typography.bodySmall)
                     InlineStatus(stringResource(R.string.status_available_history),
                         details = listOf(stringResource(R.string.profile_history)), announce = false)
-                    if (loading) InlineStatus(stringResource(R.string.profile_loading), StatusTone.WORKING)
-                    if (failed) InlineStatus(stringResource(R.string.profile_error), StatusTone.ERROR)
-                    if (unreadable) InlineStatus(stringResource(R.string.profile_unreadable), StatusTone.WARNING)
-                    if (unavailableLikes) InlineStatus(stringResource(R.string.profile_likes_unavailable), StatusTone.WARNING)
-                    if (cacheWarning) InlineStatus(stringResource(R.string.feed_cache_warning), StatusTone.WARNING)
-                    if (pagingUnavailable) InlineStatus(stringResource(R.string.profile_paging_unavailable), StatusTone.WARNING)
+                    InlineStatus(if (loading) stringResource(R.string.profile_loading) else null, StatusTone.WORKING)
+                    InlineStatus(if (failed) stringResource(R.string.profile_error) else null, StatusTone.ERROR)
+                    InlineStatus(if (unreadable) stringResource(R.string.profile_unreadable) else null, StatusTone.WARNING)
+                    InlineStatus(if (unavailableLikes) stringResource(R.string.profile_likes_unavailable) else null, StatusTone.WARNING)
+                    InlineStatus(if (cacheWarning) stringResource(R.string.feed_cache_warning) else null, StatusTone.WARNING)
+                    InlineStatus(if (pagingUnavailable) stringResource(R.string.profile_paging_unavailable) else null, StatusTone.WARNING)
                     if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
                 }
             }

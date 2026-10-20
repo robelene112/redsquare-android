@@ -316,22 +316,24 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         Column(Modifier.heightIn(max = statusMaxHeight).verticalScroll(rememberScrollState())
             .semantics { contentDescription = statusLabel }) {
             reactionState?.let { reactions ->
-                when (reactions.saved.status) {
-                    ChatReactionStore.Status.UNKNOWN -> InlineStatus(stringResource(R.string.chat_reaction_unknown), StatusTone.WARNING)
-                    ChatReactionStore.Status.SUBMITTED -> InlineStatus(stringResource(R.string.chat_reaction_submitted), StatusTone.INFO)
-                    ChatReactionStore.Status.FORWARDED -> InlineStatus(stringResource(R.string.chat_reaction_forwarded), StatusTone.INFO)
-                    ChatReactionStore.Status.NONE -> Unit
+                val reactionMessage = when (reactions.saved.status) {
+                    ChatReactionStore.Status.UNKNOWN -> R.string.chat_reaction_unknown
+                    ChatReactionStore.Status.SUBMITTED -> R.string.chat_reaction_submitted
+                    ChatReactionStore.Status.FORWARDED -> R.string.chat_reaction_forwarded
+                    ChatReactionStore.Status.NONE -> null
                 }
-                if (reactions.failed && !reactionHistoryFailed) InlineStatus(stringResource(R.string.chat_reaction_error), StatusTone.ERROR)
+                InlineStatus(reactionMessage?.let { stringResource(it) },
+                    if (reactions.saved.status == ChatReactionStore.Status.UNKNOWN) StatusTone.WARNING else StatusTone.INFO)
+                InlineStatus(if (reactions.failed && !reactionHistoryFailed) stringResource(R.string.chat_reaction_error) else null, StatusTone.ERROR)
             }
-            if (!keyboardVisible) InlineStatus(stringResource(R.string.status_available_history),
+            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
                 details = listOf(stringResource(R.string.chat_available_history)), announce = false)
             PersonalControlsStatus(personal)
-            if (contactsFailed || failed) InlineStatus(stringResource(R.string.chat_load_error), StatusTone.ERROR)
-            if (cacheFailed) InlineStatus(stringResource(R.string.chat_cache_error), StatusTone.WARNING)
-            if (groupReceiveFailed) InlineStatus(stringResource(R.string.chat_group_receive_error), StatusTone.WARNING)
-            if (reactionHistoryFailed) InlineStatus(stringResource(R.string.chat_reaction_cache_error), StatusTone.WARNING)
-            if (incomplete) InlineStatus(stringResource(R.string.chat_incomplete), StatusTone.WARNING)
+            InlineStatus(if (contactsFailed || failed) stringResource(R.string.chat_load_error) else null, StatusTone.ERROR)
+            InlineStatus(if (cacheFailed) stringResource(R.string.chat_cache_error) else null, StatusTone.WARNING)
+            InlineStatus(if (groupReceiveFailed) stringResource(R.string.chat_group_receive_error) else null, StatusTone.WARNING)
+            InlineStatus(if (reactionHistoryFailed) stringResource(R.string.chat_reaction_cache_error) else null, StatusTone.WARNING)
+            InlineStatus(if (incomplete) stringResource(R.string.chat_incomplete) else null, StatusTone.WARNING)
         }
         val contact = counterparty
         if (contact == null) {

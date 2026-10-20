@@ -145,14 +145,22 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
             }
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
-                if (transaction == null) InlineStatus(stringResource(R.string.status_unsent_draft),
+                InlineStatus(if (transaction == null) stringResource(R.string.status_unsent_draft) else null,
                     details = listOf(stringResource(R.string.post_draft_local)), announce = false)
                 parent?.let { Text(stringResource(R.string.post_reply_to, registeredIdentity(it.author).name), style = MaterialTheme.typography.bodySmall) }
                 quote?.let { QuotedPost(it, backend) }
-                if (available) InlineStatus(stringResource(R.string.post_available), StatusTone.SUCCESS)
-                else if (queued && queueSaved) InlineStatus(stringResource(R.string.post_queued), StatusTone.INFO)
-                else if (submitted) InlineStatus(stringResource(R.string.post_submitted), StatusTone.INFO)
-                else if (transaction != null) InlineStatus(stringResource(R.string.post_pending), StatusTone.WARNING)
+                val deliveryStatus = when {
+                    available -> R.string.post_available
+                    queued && queueSaved -> R.string.post_queued
+                    submitted -> R.string.post_submitted
+                    transaction != null -> R.string.post_pending
+                    else -> null
+                }
+                InlineStatus(deliveryStatus?.let { stringResource(it) }, when (deliveryStatus) {
+                    R.string.post_available -> StatusTone.SUCCESS
+                    R.string.post_pending -> StatusTone.WARNING
+                    else -> StatusTone.INFO
+                })
                 if (transaction != null && !available)
                     nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
                 if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
@@ -160,18 +168,16 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
                 if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
                     onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
-                if (networkError) InlineStatus(stringResource(R.string.post_network_error), StatusTone.ERROR)
-                if (validationError) InlineStatus(stringResource(R.string.post_invalid_text), StatusTone.ERROR)
-                if (error) {
-                    InlineStatus(stringResource(R.string.post_draft_error), StatusTone.ERROR)
-                    if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-                }
+                InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
+                InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
+                InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
                 TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor != session,
                     onClick = launchImagePicker) { Text(stringResource(R.string.image_add)) }
                 TextButton(enabled = ready && !saving && !sending && transaction == null && images.size < RedSquareImages.MAX_COUNT && pickingFor == null,
                     onClick = { openImagePicker { choosingGif = true } }) { Text(stringResource(R.string.giphy_add)) }
-                if (imageError) InlineStatus(stringResource(R.string.image_prepare_failed), StatusTone.ERROR)
-                if (preparingImages) InlineStatus(stringResource(R.string.image_preparing), StatusTone.WORKING)
+                InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
+                InlineStatus(if (preparingImages) stringResource(R.string.image_preparing) else null, StatusTone.WORKING)
                 OutlinedTextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
                     placeholder = { Text(stringResource(R.string.post_write)) }, modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,

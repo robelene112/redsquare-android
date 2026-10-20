@@ -482,3 +482,29 @@ It retains a second five-second actual movie and every decoded original frame,
 plus before/working/after captures. Functional PASS alone will not establish
 motion acceptance: inspect the old conditional path first, then corrected normal
 and zero-scale behavior after stable nullable hosts. No production fix yet.
+
+### Reproduced motion and group-history defects,12:43 UTC
+
+Signed52 is rejected and never publishable after cumulative source review found
+conditional status hosts bypass transitions. The unchanged old production in
+10run39422016108 at851 functionally passes both existing methods, but original
+Search normal-motion frames20/21 show a full capsule then absence16ms later.
+The retained movie and every original frame are the visual baseline.17run39422019052
+also functionally passes; neither pass establishes coherent motion. Both851
+probes predate ac8 Search-cache ownership repair, so their fixture restoration
+is not accepted. No original catalog identity or deadline changes.
+
+Both complete f23 attempts end FAILURE, with successful social/wallet partitions
+and two group-mute failures per SDK. Focused diagnostic10run39422695874 at1d985
+reproduces both: each raw ACK record reports accepted1/rejected0, while actual
+Compose trees place the received body below a17pixel history viewport.
+`mute-red10-1d985-39422695874` retains full goal log, run/job metadata, complete
+archive-member hashes and selected original PNG/XML/Compose/receipt failures.
+This proves clipping, not lost delivery. The original visibility goals remain.
+
+The correction preserves nullable status hosts through entry/exit, drops their
+inactive layout slots, and bounds the existing scrollable group status area to
+80dp or one third of available height. Full actions/details remain reachable.
+Runtime proof and new signed candidate are pending. The strict collector now
+also requires the Search movie/all frames/native bookends in its existing two
+motion cases; its selfhash changes, frozen reference catalogs do not.

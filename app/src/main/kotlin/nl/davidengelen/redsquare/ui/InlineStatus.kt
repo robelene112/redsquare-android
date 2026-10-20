@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -53,7 +54,11 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
         StatusTone.WARNING -> MaterialTheme.colorScheme.tertiary
         else -> MaterialTheme.colorScheme.primary
     }
-    AnimatedVisibility(visible = summary != null, modifier = modifier,
+    val visibility = remember { MutableTransitionState(false) }
+    visibility.targetState = summary != null
+    // Keep the host through its exit, then remove its layout slot so a parent's
+    // spaced arrangement does not reserve gaps for inactive notices.
+    if (visibility.currentState || visibility.targetState) AnimatedVisibility(visibleState = visibility, modifier = modifier,
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
         Surface(Modifier.fillMaxWidth().padding(vertical = 3.dp)
