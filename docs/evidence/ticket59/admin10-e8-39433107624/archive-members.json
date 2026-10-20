@@ -1,0 +1,117 @@
+{
+  "run": 39433107624,
+  "source": "e8b9675614f69978d09234ee395d7dbaa369afc0",
+  "archiveSha256": "663c652d2e3ce0bb9f393573ab8e99f066e414440180c76b049dcc6a24b804b1",
+  "members": [
+    {
+      "member": "group-admin-evidence/stale-confirmation.xml",
+      "bytes": 20187,
+      "sha256": "0e23295922f34eac8c82a531851e2abc336e7fcdba1415e51624cb10ec6855b1"
+    },
+    {
+      "member": "group-admin-evidence/stale-confirmation.png",
+      "bytes": 37436,
+      "sha256": "72177ff9a19146bd760f708286a7c01657401614e53b36b577e614f23d8b3c1e"
+    },
+    {
+      "member": "group-admin-evidence/removed.xml",
+      "bytes": 20197,
+      "sha256": "08bde9b5ac9a1fe596a5633c3d7f0e91b9db9417ac70a94519558be296cb912d"
+    },
+    {
+      "member": "group-admin-evidence/removed.png",
+      "bytes": 38123,
+      "sha256": "a7a88d6b580b6846c478e1a9940ce06e7dd078bda73a1b4a550040fafb82760f"
+    },
+    {
+      "member": "group-admin-evidence/removed-reopened.xml",
+      "bytes": 20197,
+      "sha256": "08bde9b5ac9a1fe596a5633c3d7f0e91b9db9417ac70a94519558be296cb912d"
+    },
+    {
+      "member": "group-admin-evidence/removed-reopened.png",
+      "bytes": 38123,
+      "sha256": "a7a88d6b580b6846c478e1a9940ce06e7dd078bda73a1b4a550040fafb82760f"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-refused.xml",
+      "bytes": 19936,
+      "sha256": "c127396dc94af0f9d27ad649d0310cf39d1a13eba42540b78d6bcab384c33676"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-refused.png",
+      "bytes": 42081,
+      "sha256": "5e038e05c39b53080a8f2356c3509aa2a2184109c4ab117123f72879db2228b4"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-new-message.xml",
+      "bytes": 43028,
+      "sha256": "70b3cd6eca4fccdcd328354166d6c3f8f4c808e2e9d0634467b1f11ccf99efd3"
+    },
+    {
+      "member": "group-admin-evidence/submitted-stop-new-message.png",
+      "bytes": 35036,
+      "sha256": "d07f2de2a21aa48601f33c41b892ad72a211303917154756bfe97bded5a58a27"
+    },
+    {
+      "member": "group-admin-evidence/promoted.xml",
+      "bytes": 20195,
+      "sha256": "86ab2164feaf1c38b9cad587c8ddd72e1c71811800aa428ed15a808e6f844097"
+    },
+    {
+      "member": "group-admin-evidence/promoted.png",
+      "bytes": 38050,
+      "sha256": "6de5b8d4bd3bcd9c4faf69ad1651d5e0ab670f92177dd4b71644025d63d96cad"
+    },
+    {
+      "member": "group-admin-evidence/promoted-reopened.xml",
+      "bytes": 20195,
+      "sha256": "86ab2164feaf1c38b9cad587c8ddd72e1c71811800aa428ed15a808e6f844097"
+    },
+    {
+      "member": "group-admin-evidence/promoted-reopened.png",
+      "bytes": 38050,
+      "sha256": "6de5b8d4bd3bcd9c4faf69ad1651d5e0ab670f92177dd4b71644025d63d96cad"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay.xml",
+      "bytes": 41054,
+      "sha256": "1c80349180edc6470018f106e174ac49971c141c16781362724e97fba637e7a1"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay.png",
+      "bytes": 31164,
+      "sha256": "104b0aded52cbe4970cc3cfd133a29eed19f7a9c4f91b6faa87f64bbbd81ac80"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-retried.xml",
+      "bytes": 45474,
+      "sha256": "f9dfced2168314a2df01a7fb124e7b473699e1cd9ee4e5676ff77b9fb04e5c29"
+    },
+    {
+      "member": "group-admin-evidence/rejected-relay-retried.png",
+      "bytes": 33358,
+      "sha256": "98b56920bb3e90e47aaaf0e4acbb283f37c2cadd39d5fcbd5daea3ff05239496"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale.xml",
+      "bytes": 46704,
+      "sha256": "bd8b8483541130c275e35efc857b61839c7621f43353689f804e8a96154629cc"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale.png",
+      "bytes": 33182,
+      "sha256": "0a2ca01cacc3a9c7b375b05ede3664575da5809aaf9dfa92fae0159752b625fd"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale-new-message.xml",
+      "bytes": 49162,
+      "sha256": "9593597e44452e8efe86d98e1bdac948836ae18a0b3725b55cc73198478631c7"
+    },
+    {
+      "member": "group-admin-evidence/stopped-stale-new-message.png",
+      "bytes": 37189,
+      "sha256": "4d748585de8daa92498171c8f5974b7758339d211f9c259a3b38ba26cb181965"
+    }
+  ]
+}

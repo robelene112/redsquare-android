@@ -675,3 +675,34 @@ proved the presentation fix. No55 is reserved or native-accepted.
 Complete3c96 runs39431098878/39431103266 may finish independently but do not
 represent the new recovery presentation. Preserve their actual final conclusions;
 no assembly can replace fresh complete verification at corrected final source.
+
+## Explicit group Retry recovery and final4ae execution
+
+Original focused GroupAdmin10run39433107624 and17run39433112435 at
+e8b9675614f69978d09234ee395d7dbaa369afc0 both succeed. Each retains22
+original members and all existing native methods. The original explicit retry
+journey preserves its15second FORWARDED goal, exactly two raw transactions and
+two Relay messages with the same original candidate, saved draft, creation key,
+wallet and selected node. These runs precede the later pre-click capture, so
+that capture delay cannot explain their success. Root opened17 original
+rejected and retried states. Initial rejected capture still has the error first
+while busy; the later retried capture shows Forwarded. It does not establish
+where the Retry target was in the earlier failed source.
+
+Final source4ae88dcaf adds a positive displayed-Retry assertion, native capture
+and unchanged1/1 raw counts immediately before the explicit click. Final paired
+source reviews report0 Spec,0 documented Standards and0 heuristic findings.
+Complete10run39434438881 and17run39434443499 execute exact4ae88dcaf on
+verify/status59-4ae88dcaf. All three partitions, original speech/motion, public
+reads and stronger reading bookends remain mandatory. Signed55 is reserved and
+building at that source. Native full acceptance, actual APK inspection, final
+review and publication remain pending. The3c full runs finish as superseded
+observations, never acceptance of the corrected app.51through54 stay rejected;
+ordinary50 remains live.
+
+Additional exact3c focused verification is retained separately: keyboard10
+39430764376/17 39430768579 (ten methods and116 originals each), mute10
+39430772696/17 39430777303 (eight methods and105 originals each), and recovery10
+39430782031/17 39430786583 (two methods and14 originals each). All six runs are
+SUCCESS. These predate the pending-action Retry relocation and do not replace
+final4ae full acceptance.

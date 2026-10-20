@@ -295,3 +295,14 @@ Verify mounts before sizeable writes; artifacts/caches belong under
 For historical functional completion/About38/42/43 chronology, reach the detailed
 canonical evidence above; the prior handoff at f8c812822 preserves the old narrative.
 Current tracker/source/retained results supersede historical pending prose.
+
+## Latest59 checkpoint: final4ae full execution
+
+The authoritative latest pointer is ticket59 evidence README section
+"Explicit group Retry recovery and final4ae execution" and its reference JSON.
+GroupAdmin e8 focused10/17 both succeed with the original explicit-retry goals.
+Final4ae adds visible/pre-click capture and1/1 checks without app changes.
+Fresh complete10run39434438881 and17run39434443499 execute exact4ae88dcaf.
+Signed55 is building there.51through54 are rejected and never publishable;50
+remains live. Native full acceptance, APK inspection and final review/publication
+are pending. Finish59, then sequential60through69 without routine pauses.
