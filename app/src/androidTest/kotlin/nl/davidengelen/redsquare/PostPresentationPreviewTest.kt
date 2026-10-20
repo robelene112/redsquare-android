@@ -1,0 +1,47 @@
+package nl.davidengelen.redsquare
+
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.gson.JsonParser
+import java.io.File
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+
+/** Real post actions and identity through the native UI; the peer remains read-only. */
+class PostPresentationPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun postActionsKeepReportSecondaryAndFullIdentityReachable() =
+        withAppFrameFixture("post-actions", "post-presentation-evidence") {
+            val instrumentation = InstrumentationRegistry.getInstrumentation()
+            val context = instrumentation.targetContext
+            val row = instrumentation.context.assets.open("native-feed-reference.json").reader().use {
+                JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow")
+            }
+            val author = row.get("field2").asString
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            ui.onNodeWithText("Report").assertDoesNotExist()
+            val more = hasText("Post actions for Anon-jesTu2") and hasClickAction()
+            val bounds = ui.onNode(more).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            val minimum = 48 * context.resources.displayMetrics.density - 1
+            assertTrue("Post actions must retain a full 48dp target", bounds.width >= minimum && bounds.height >= minimum)
+            capture("feed-actions-secondary.png")
+            ui.onNode(more).performClick()
+            ui.onNodeWithText("Public identity").assertIsDisplayed().performClick()
+            ui.onNodeWithText(author).assertIsDisplayed()
+            capture("feed-full-public-identity.png")
+            ui.onNodeWithText("Done").performClick()
+            ui.onNode(more).performClick()
+            ui.onNodeWithText("Report").assertIsDisplayed().performClick()
+            ui.onNodeWithText(context.getString(R.string.report_confirm, "saito.davidengelen.nl")).assertIsDisplayed()
+            capture("report-confirmation-after-menu-closed.png")
+            ui.onNodeWithText(context.getString(R.string.report_cancel)).performClick()
+            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+        }
+
+    private fun capture(name: String) = captureNativeScreen(File(
+        InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "post-presentation-evidence/$name"))
+}

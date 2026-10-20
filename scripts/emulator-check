@@ -278,6 +278,11 @@ verify_group_chat_native() {
         > "$evidence/$capture.tar" || true
     [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
 }
+if [[ "${TEST_SCOPE:-full}" == post-presentation* ]]; then
+    verify_group_chat_native PostPresentationPreviewTest 180 post-presentation post-presentation-evidence
+    printf '%s\n' 'Focused native post presentation only; full app acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
         verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence

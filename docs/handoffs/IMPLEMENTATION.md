@@ -34,133 +34,57 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Completed status59 and next post-presentation60
+## Active post-presentation60
 
-2026-10-20 18:57 UTC.59 delivery complete; ordinary58 LIVE;51through57 REJECTED/NEVER PUBLISH.
-Finish tracker closure59, then60through69 and bounded navigation follow-up70 sequentially,
-without routine owner stops. Owner/provider/physical/store prerequisites stay parked.
+2026-10-20 19:01 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
+`57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
+with code/evidence review, commits and signed in-place beta delivery. Never stop
+at a routine milestone.55 remains open through owner final app-wide UI review.
 
-Production, immutable prepared signed58 and accepted complete17 source:
-`72a8c63828280d61dc760331e17289cf7c93112a`. Complete17run39451603260 allthree
-SUCCESS; unchanged strict collector accepts487identities/130normal/35interruptions/
-34continuity/92archives/0assumptions. Root inspected real TalkBack engine speech,
-normal/zero window motion and all five1px reading bookends. Both review axes0.
-Signed58 is now PUBLIC, SHA256
-178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
-37,856,651bytes, established certificate, correct review manifest/DEX. Never rebuild.
+60 scope: shared recognizable post presentation across Feed/Thread/Search/Profile,
+compact vector Like/Repost/Quote and associated truthful node counts, coherent
+secondary Report/Edit/Delete, meaningful contextual identity/author actions and
+full public identity details. Keep57 wallet-global2intentionalLikes/second across
+nodes, exact candidate retry, all reporting/author/media/queue recovery semantics.
+Use existing agreed native UI/controlled-peer and core/protocol recovery seams.
+First native RED being compiled: PostPresentationPreviewTest checks Report is
+secondary,48dp contextual More, full public identity and confirmation surviving
+menu closure without any report/transaction submission. New focused scopes
+post-presentation/post-presentation-android17 use existing180s native helper;
+complete-suite integration/catalog extension follows implemented slices.
+No production presentation code has changed yet.
 
-Complete application10 is now **207b0a2f3a279705cf9475da13e558546fba0257**,
-run **39470519533**, allthree terminalSUCCESS. Unchanged strict collector passes
-486identities/485pass+onefrozenAPI29Profileassumption/129normal/35interruptions/
-34continuity/92archives.631hashes retained. Root checked actual512MiB storage,
-TalkBackPID5149/utterances3&5/oneSTART&DONE/positiveAUDIO/noerrors, exactfive
-reading anchors[74,431][201,479], actualnormalDark200% Search/connectionframes and
-zeroLight130% Search/connectionafter. Final paired application-evidence review
-Spec0/documentedStandards0/heuristic0. Both verify631hashes/2,524members. Config correctly binds207 as primary10;17/sign58 remain72a. Public58 exactAPK/
-manifest/certificate/protected resources pass; final public reviews0/0,9hashes.
+## Completed59 and restored fixture
 
-Both reviewers confirm complete207 is independently eligible under WORKFLOW:
-allthree jobs perSDK atoneexecutingsource, unchangedproduction/acceptancegoals,
-reviewed72a→207 exactprojection. This doesnot claim later34 initialization ran.
-Noassembly/waiver. Publish58 only after final review/publicbookends, then60–70.
+[59](https://github.com/robelene112/redsquare-android/issues/59) CLOSED with signed
+[ordinary58](https://davidengelen.nl/redsquare/), production/signing source72a8c6382.
+SHA178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes, established certificate, SDK29/36, correct review manifest/DEX.
+Final application/publication reviews Spec0/documentedStandards0/heuristic0.
+Public exactAPK/latest/immutable/certificate and protected50/49/45/performance43
+before/after checksPASS. Never rebuild58 or reuse rejected51–57.
 
-Separate experimental fixture34 is REJECTED. Full39476058296 wallet fails8
-publishing-queue headless-worker preconditions; remainingChat/socialcancelled,
-overallCANCELLED.37hashes/20members retained,pairedreview0. Causeunproved.
-Three storage boots53581/66978/76893505 eachSUCCESS2cases512MiB;17hasheseach.
-75031SDKzipfailure remainsfailed, replaced by76893505. No34fullacceptance.
-Current emulator-check restored BYTE-EXACT72a acceptedordinarylifecycle,
-SHA4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0.
-Bothrestorationreviews0; keepAPI29storageparity/originalgoals. Pin/restored-source
-focusedagreementcheck aftercommit; that checkremainsseparate/pending.
+Complete app proof: Android10at207b0a2f3/run39470519533, allthreeSUCCESS,
+486frozen identities/485pass+oneoldAPI29Profileassumption/129normal/35interruptions/
+34continuity/92archives,631hashes/2,524members. Android17at72a/run39451603260,
+allthreeSUCCESS,487/130/35/34/92,0assumptions,639hashes/2,526members.
+Both independently strict-collected, no assembly. Actual service/engine speech,
+normal/zero window motion,48dp recovery, allfive1px reading anchors and prior
+keyboard/process/public-read/native goals pass; originals root-inspected.
+[Canonical evidence](../evidence/ticket59/README.md) has full history/limits.
 
-The API29 emulator intermittently starts a16MiB process despite declared512MiB.
-Process-only RED39470097733 at207 reproduces this on the first target process,
-0.03s, before UI/photos/wallet fixtures. Ten original hashes/metadata retained.
-Three earlier complete10 attempts fail respectively photo storage/Searchfixture/
-photo storage; exact failures remain in ticket59 README. Search correctiond567
-preserves every original assertion and has successful9-case focused proof onbothSDKs.
-No app/photo payload/heap-setting/acceptance weakening is authorized.
-
-Four restart experiments at33fa succeed with96 fresh post-restart512MiB processes,
-strict old/new PID lifecycle and unchanged four heap properties. Allfour baselines
-are512MiB, so direct16-to512 transition remains unobserved. Fifth39472529831 fails
-before any post-restart attempt: oldPIDs absent but replacement record empty.
-Twelve original hashes retained; paired reviews0. Corrected20a readiness clears
-boot flag after oldPIDdeath, requires bootflag plus allthree named services within
-one real120second bound, then individually proves distinct live replacementPIDs.
-The corrected20a cohort is now terminal:39474492226/39474501778 SUCCESS with48
-post-restart512MiB processes, both baselines512MiB;39474473095 FAILURE before the
-first accepted replacement PID.182 original hashes retained. Empty recorddoesnot
-prove missing versus multiple-PID output. No direct16-to512 transition observed.
-
-6c initialization before installation fails allthree entire10jobs/run39474812231:
-Chat/social initial recordempty; walletreplacementrecordempty afteroldPIDdeath.
-Ten original hashes retained. Sourcecheck39474765871 and focusedstorage39474806130
-SUCCESS separately. No appgoal runs infailedfull6c; no assembly permitted.
-
-Final34d8b106 uses the SAME120second/two-valid-observation capture for bothinitial
-and replacementPIDtuples; retainactualtuple/polls, noindependentfreshnamelookup.
-Rootpresence/originaldeath/replacementdisjointness/unchangedheappropertiesremain.
-Existing API29photo-history parityassert beforewrites and alloriginalpayloads/
-identities/assertions stay. Temporaryscopes/class/DEBUG removed.72a→34equivalence
-has456of457 exactnon-docs/non-AndroidTest entries; onlyAPI29harnessdiffers.
-SDK17script/workflow/queue/storageprojections reconstruct72a exactly; Search
-correctionpreserves originalgoals/acceptedfocused17proof. Pairedsource/equivalence
-reviews0 (latest34packetverification0/0). Signed58/accepted17stayexact72a.
-
-All detailed RED/GREEN packets remain in [canonical evidence](../evidence/ticket59/README.md).
-
-Public58 completed: canonical frozen72a script, independent public before/after,
-exact preparedbytes/establishedcertificate/actualmanifest, public9hashes verified
-bybothreviewers0. Older50/49/45 andwholeperformance43 byte-preserved.
-Commit final delivery/fixturecleanup, close59 with evidence links/update55, then
-claim60 and start its native RED. Never stop at59. Keep unrelated research unread.
-
-All twelve earlier focused runs at72a are SUCCESS:
-
-| Scope | Android 10 | Android 17 |
-| --- | --- | --- |
-| Queued cancellation and viewport |39449815889|39449819807|
-| Group administration and actual process recovery |39449824621|39449830056|
-| Real normal/zero window motion |39449834751|39449839448|
-| Reading through outage and recreation |39449843471|39449848515|
-| All ten keyboard cases |39449853329|39449858282|
-| Private history24/actions10 and actual process recovery |39449862817|39449866242|
-
-All1,103 original members are retained. Promotion/removal process archives now
-use separate full-archive namespaces after review found four overwritten
-semantics files; all actual paths independently match original sizes/hashes.
-Corrected Spec review verifies all1,103 exact original paths and1,295 hashes;
-Standards independently confirms the same bindings with zero findings. Both
-signed58 preparation reviews also verify the actual APK and public before-bookend
-with zero findings. Both cumulative source review axes and
-provenance review have zero remaining findings. Exact72a source/core/gateway/
-release/performance/lint39449757978 is SUCCESS. Root opened both private queue
-preview-end captures, actual48px Members/Cancel targets, and progressive normal
-Search entry/exit frames on both SDKs, plus both zero-motion after states.
-All five reading anchors remain identical at the unchanged1px bound. Queue
-integration uses the same stable host; no separate queued-exit movie is claimed.
-See [current status evidence](../evidence/ticket59/README.md) for exact bindings.
-
-Stable nullable status hosts retain entry/reversal/exit and remove inactive
-layout slots. Full guidance remains accessible. Private status is capped at80dp
-or one quarter of height; group status at80dp or one third. Actual warnings and
-primary recovery remain before routine guidance. Both queued notices now retain
-stable hosts through exit, with obsolete Cancel disabled immediately. Original
-candidate, draft, privacy, mutex, navigation and delivery guards stay unchanged.
-Details/actions explicitly retain48dp targets. Saved reading baselines and
-pending correction restore with list offset. Cumulative review found no remaining
-analogous conditional host.
-
-Use the unchanged strict full-collector.py and frozen caad references:486/487
-identities,129/130 normal completions,35 deliberate interruptions,34 continuity
-and92 archives per SDK. All three jobs, all public reads, actual TalkBack/motion
-and five reading bookends remain required. No failed-tail assembly. The four
-superseded dc2/ff9 dispatches were explicitly CANCELLED, with before/terminal
-metadata retained; they never count as acceptance. Historical failures, rejected
-candidates and earlier focused checks remain in the canonical evidence README.
-Physical, provider, KVK and store requirements remain parked, not waived.
+API29 can start a16MiB process despite declared512MiB. The temporary service-
+restart fixture34 is REJECTED: full39476058296 wallet fails8 original headless
+queue preconditions, unusedChat/socialCANCELLED,overallCANCELLED;37hashes/20members
+retained with cause unproved. Its three focused storage successes do not establish
+full acceptance. Current emulator-check ordinary lifecycle is byte-exact accepted
+72a (before adding60focused scope), SHA4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0.
+Temporary scopes/class/DEBUG removed. Keep API29 storage parity assertion before
+fixturewrites and all original payloads/identities/deadlines. No native-error waiver.
+Restored-source **57ee5eb02** focusedagreement **39479461972 ACTIVE**, pin
+verify/status59-restored-57ee5eb02. Retain its actual result independently; no
+further59full is required by workflow after accepted207/17 atunchangedproduction.
+No pending34 acceptance. No production node/provider/cloud/store mutation.
 
 ## Current repeat-like57 acceptance
 
