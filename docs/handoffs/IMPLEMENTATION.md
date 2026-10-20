@@ -36,66 +36,72 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,12:43 UTC.59 remains OPEN. Ordinary50 is LIVE.51 and52 are
-REJECTED and NEVER PUBLISH; neither frozen APK is changed.53 is built and APK-inspected atf4bbe99df in the external worktree; unpublished.
+2026-10-20,13:05 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53 are
+REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.54 is not reserved.
 Continue60 through69 sequentially after actual59 completion, without owner stops.
+The external review worktree stays frozen atf4bbe99df with rejected53.
 
-Cumulative source review found conditionally mounted status hosts skip their
-enter/exit motion. Actual old Search recording10run39422016108 at851 confirms
-an abrupt exit between contiguous original frames20/21. Both existing methods
-functionally pass on10 and17run39422019052, but that is not visual acceptance.
-The retained10 movie/frames are in motion-baseline10-851-39422016108. These old
-probes predate ac8's Search cache snapshot/restore repair and do not establish
-complete fixture restoration. Keep the immutable catalog/identities/deadlines.
+### Implemented and focused proof
 
-Both complete f23 runs39418870684/39418873625 finish FAILURE: both social and
-wallet partitions succeed, both Chat partitions fail two group-mute journeys
-with an existing multiline draft. Diagnostic10run39422695874 at1d985 also fails
-both original goals. Each actual raw reception reports one accepted message
-and zero rejections; full Compose trees show the actual body below the clipped
-17pixel history viewport. See mute-red10-1d985-39422695874 for original captures,
-full log and complete archive inventory. No delivery or mute defect is inferred.
+Stable nullable InlineStatus hosts retain entry/reversal/exit and remove inactive
+layout slots. Full guidance remains accessible. The group status/actions region
+is bounded to80dp or one third of height, retaining its existing scroll behavior.
+Paired source review through68ea has0 residual findings. Original frozen486/487
+catalog references and all deadlines/targets/tolerances remain unchanged.
 
-Current correction keeps transient hosts stable with nullable summaries, uses
-explicit visibility state through exit and removes inactive layout slots after
-completion, and caps the existing scrollable group status/actions area at80dp
-(or one third of available height when smaller). All full details/actions remain
-scrollable. No assertion, gesture, deadline or tolerance is weakened. Collector
-now additionally requires the actual held Search loading movie, all frames and
-before/working/after native bookends inside the same two original motion cases.
-Its configured hash is updated; frozen486/487 references remain unchanged.
+- bb8 mute10/17runs39424301229/39424305506 SUCCESS,8methods/105originals each.
+  Actual group history grows from17to85pixels; body305..324 is fully visible with
+  the saved multiline draft. Root opened both native originals and Compose data.
+- f4 motion10/17runs39424574430/39424578068 SUCCESS,2methods each. Original10
+  Search frames30/32/35 and60/62/65 demonstrate progressive entry/exit;17frames
+  115/116/117 show exit.17entry has216ms recording gap, not intermediate-frame
+  proof. Both zero-motion originals inspected. All frames/movies retained.
+- f4 keyboard10/17runs39424581644/39424585472 SUCCESS,10methods/116originals each.
+  Root opened17 actual Send[215,270][304,318],48pixels, current visible IME322,
+  screen640 including the Gboard notice. No bounds or assertions are weakened.
+-53 actual APK inspection PASS, SHAaaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574,
+  established certificate/SDK29/36/nondebug/nonprofile/backupfalse/reviewtrue,
+  pushfalse/separateGIFkeysempty/noTalkBackquery. This is not native acceptance.
+  Before-HTTP bookend PASS is historical preparation only. Never publish53.
 
-Local debug/app-test compilation atbb8 succeeds. Paired review through68ea
-reports0 residual findings. Final sourcef4bbe99df (same production as68ea) is
-frozen for new signed53 and complete10run39424620344/17run39424624394 on
-verify/status59-f4bbe99df. Final motion10/17runs39424574430/39424578068
-are SUCCESS, both2methods each. Keyboard10/17runs39424581644/39424585472
-are SUCCESS, all10 methods each.
-Both motion runs succeed; original10 entry/exit and17 exit/zero frames inspected.
-Preliminarybb8 mute39424301229/39424305506 both succeed, all8 methods each;
-root opened both readable group body/saved draft captures. Signed53 actual APK
-checks PASS, SHAaaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574.
-Independent before-HTTP bookend PASS.53 remains UNPUBLISHED. Standalone source
-39424574004 is canceled by a documentation push, not accepted; each complete
-job independently runs mandatory source/core/release/lint checks. Main4f source
-run39424796169 is separate and still active.
-Current full failures: both Chat partitions fail original reading position after
-Activity recreation (10 +38pixels,17 +4pixels);10wallet fails7group publishing
-methods because forwarded status is outside the newly bounded status viewport.
-Other partitions continue. These runs cannot establish acceptance. Diagnose
-original captures before any source or fixture correction; preserve all bounds.
-Pending: fix actual regressions, fresh relevant focused/full verification, strict
-collection and paired final evidence review. Publish only after
-all actual complete gates succeed, independent public before/after checks and
-canonical review-publish. Do not run the obsolete52 after-publication checker.
+### Current failures and diagnosis
 
-Old f23 verification ref verify/status59-f23bc380d can be removed only after
-confirming no active run and exact unchanged head. Rejected prior4a/fc metadata,
-focused corrections and actual TalkBack provenance remain in59 evidence. Failed
-complete attempts never become acceptance through focused or tail assembly.
-No physical/provider/store acceptance is claimed. Keep protected unrelated
-research file unread/untouched. Owner prerequisites and original release gates
-remain parked under36.
+Complete f4 runs39424620344/39424624394 cannot establish acceptance. Both Chat
+partitions fail AppFrameReading after Activity recreation:10 +38pixels,17 +4.
+Return from Chat itself passes. Original captures show unchanged list viewport
+but displaced restored content.10wallet also fails all7group publishing methods
+waiting for visible Forwarded feedback. Clipped feedback versus failed submission
+is still a hypothesis; no cause is asserted before diagnostic evidence.
+Other full partitions continue independently. Do not cancel them or collect a
+failed overall run as acceptance. Full source/core/release/lint steps pass;
+standalone f4 source39424574004 is canceled, not accepted. Documentation-only4f
+source39424796169 succeeds; it does not establish later7c production acceptance.
+
+Observation-only574 diagnostic39426864176 runs the same seven group methods
+with raw peer Tx/Relay counts and all-root Compose captures. New agreement-group
+scopes retain180seconds and exact prior assertions; complete scopes keep allcases.
+At7c5e807c4 the only production correction gates initial network-loading notice
+on cacheReady, so an initial exit cannot offset the newly mounted restored cached
+list. Actual cache load sets posts thenready before later network refresh. Existing
+reading1pixel assertions remain. Focused10/17runs39426991453/39426995692 are active.
+Paired review finds no source/harness issue; latest documentation corrections
+still require confirmation. All original failures/archives are retained in59.
+
+Pending: diagnose group feedback, verify cache-ready correction, address actual
+findings, then freeze corrected final source and prepare a NEW signed candidate.
+Require fresh successful complete10/17(allthree jobs/publicreads/speech/motion),
+strict collection, original visual inspection and paired final review before
+canonical publication and independent before/after HTTP checks. Obsolete52/53
+publication checker after-stages must never run. Issue remains open throughout.
+
+The stronger collector requires held Search loading movies/allframes/native
+bookends inside the same two existing motion methods. Its configured selfhash
+is updated; catalog references remain frozen atcaad1528391951187c6d6bb91373c32a48f5e37e.
+Owned refs verify/status59-f4bbe99df and oldf23 stay until no active run and exact
+head checks permit removal. Monitor process29998 ended143 without collection;
+manual checking is required. No successful full f4 packet has been collected.
+Owner/provider/physical/store prerequisites remain parked under36, not waived.
+Protected unrelated research remains unread/untouched; one implementation writer.
 
 ## Current repeat-like57 acceptance
 

@@ -546,7 +546,8 @@ Root opened actual17 group-text-font130 physical Send/IME capture. Native bounds
 including the same real Gboard font-size notice. No target, inset or deadline is
 relaxed. Other saved-draft/attachment/history presentation remains62's bounded work.
 
-Signed53 is prepared at exactf4bbe99dfef6fcb7a149ba80abf97be98ccd9e89,
+Signed53 was prepared at exactf4bbe99dfef6fcb7a149ba80abf97be98ccd9e89,
+but is now REJECTED and NEVER PUBLISH after the complete failures below.
 SHA256aaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574,
 37,856,651bytes. Actual APK manifest/DEX/certificate checks PASS: established
 certificate, package nl.davidengelen.redsquare, SDK29/36, nondebuggable,
@@ -561,3 +562,26 @@ strict collection, original evidence inspection and paired final review remain
 required. The earlier standalone f4 source run39424574004 was canceled by the
 subsequent documentation-only main push; it is not successful source evidence.
 Every full job independently retains the mandatory build/core/release/lint step.
+
+### Rejected53 and current correction
+
+Both complete f4 Chat jobs fail reading position after Activity recreation,
+while return from Chat itself passes. Original10drift is+38pixels;17is+4pixels,
+with the original1pixel bound unchanged. Actual captures and full logs/inventories
+are retained in full10/17-f4-app-frame-reading-failure.10wallet additionally
+fails all7group publishing visible-Forwarded goals; full10-f4-agreement-group-failure
+retains24originals. Clipped feedback versus submission failure remains a hypothesis
+until new raw peer counts and all-root Compose captures at574 distinguish them.
+
+53's frozen APK remains unchanged and explicitly superseded/neverPublish in its
+inspection packet and external rejection marker. Do not run its after-publication
+checker or publisher. A NEW candidate is required after final production corrections.
+The cache-ready guard at7c changes production, so53 cannot represent that fix.
+
+The7c correction gates initial feed network-loading notice on completed cache
+load, avoiding an initial notice exit while mounting a restored cached list.
+Focused original reading10/17runs39426991453/39426995692 are active, with1pixel
+assertions unchanged. Group diagnostic39426864176 at574 preserves all7methods,
+180second bounds and original signed/raw Relay/visible-state goals. Complete
+agreement/full scopes retain every case. Source/harness paired review reports0
+findings; current documentation correction requires review confirmation.
