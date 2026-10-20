@@ -57,7 +57,10 @@ actual16MiB process limit, matching a retained unexplained ticket32 symptom.
 Device properties still report512m; unchanged successful ticket53 reports actual
 512MiB. Exact original failure logs/properties/AVD state remain retained. No
 heap/input/assertion/deadline/source change. Separate unchanged storage checks
-39455476639/39455481021 run on10/17. Replacement full10 uses the same72a ref;
+39455476639/39455481021 both SUCCESS on10/17:2cases67.755/78.878seconds,
+actual max512MiB/192MiB. All original counts/recovery assertions unchanged.
+Their success does not prove the earlier16MiB cause or fill failed full gates.
+Both bounded original-failure evidence review axes report zero findings. Replacement full10 uses the same72a ref;
 Workflow concurrency cancelled the old social job. That run is terminal CANCELLED,
 with Chat FAILURE/wallet SUCCESS and final metadata retained. New full10 must independently
 pass every goal. Old wallet successes cannot fill it. Signed58 remains prepared,

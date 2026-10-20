@@ -1201,3 +1201,16 @@ jobs and every frozen goal independently. Old successful wallet evidence cannot
 fill the new execution. Complete17run39451603260 continues; both SDK wallet jobs
 of the earlier pair succeed. Actual full/native/public acceptance remains pending.
 Signed58 stays immutable, prepared and unpublished;50 stays live.
+
+The unchanged focused storage runs both finish SUCCESS:10run39455476639 has
+two cases in67.755seconds with actual maxMemory536,870,912bytes;17run39455481021
+has two cases in78.878seconds with maxMemory201,326,592bytes. Each retains all
+12/16 photos, extra-photo growth, exact prior history/draft/installation identity
+and original SDK-specific atomic-write behavior. Raw logs/properties/AVD and
+terminal run metadata are retained with hashes. No heap/source/data/assertion/
+deadline change or complete acceptance is inferred. The earlier16MiB cause
+remains unknown; these separate successes never fill a failed full execution.
+
+Both independent reviews of847cb69e..fb1b35ed6 report zero remaining findings,
+including all seven failure-packet hashes and exact original-byte bindings.
+Complete10repeat39455628348 and original17run39451603260 continue at72a.
