@@ -32,8 +32,10 @@ Only the four known absent failure-only live-wallet captures recur. Each theme
 packet validates11PNG/11XML with no gaps. All original archive/member hashes and
 retained files are recorded. Root opened theme light/dark/Settings, cached cold feed
 and both public feeds per SDK. No image was transformed. Node labels and visible
-selected domains are correct. Current larger-text label inspection remains pending
-alongside the new app-frame work; it is not claimed by these default-font runs.
+selected domains are correct. The later shared-frame58 proof inspects all eight320dp/412dp,130%/200%,
+Light/Dark configurations, including readable selected-domain labels. See
+[paired full native evidence](../ticket58/README.md). Default-font focused56
+runs alone did not establish that larger-text acceptance.
 
 ## Prepared signed45
 
@@ -51,6 +53,15 @@ bytes unchanged. Final public-bookend reviews report Spec0, documented Standards
 after OWNER_INPUTS reconciliation to current45 and historical43. This build changes wording only;
 it is not delivery of the app-wide UI redesign or configured services.
 
-No new full-suite, physical timing, ordinary45 phone update, provider or Play
-acceptance is inferred. #56 remains open until its remaining rendered/signed
-acceptance is complete. All UI work and real release gates retain their status.
+## Shared-frame follow-through
+
+Complete58 runs39378808769(Android10) and39376147196(Android17) accept all473/474
+frozen identities with only the established API29 Profile assumption. Both paired
+full-evidence axes report0 findings. Actual larger-font/theme/viewport originals
+were inspected, with Node wording and selected domains retained. Signed49 now
+includes both56 and58: [public bookends](../ticket58/publication49/README.md)
+verify the downloaded APK, package, certificate, source and preserved immutable45/
+performance43 channel. Final public-packet review remains pending before closing56.
+
+No physical timing, ordinary49 phone-update continuity, configured-provider or Play
+acceptance is inferred. Broader UI and real release gates retain their status.

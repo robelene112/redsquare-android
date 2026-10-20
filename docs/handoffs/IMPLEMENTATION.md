@@ -7,9 +7,9 @@ sequential implementation, review, commits and signed in-place beta delivery.
 ## Resume here
 
 1. Finish active [frame58](https://github.com/robelene112/redsquare-android/issues/58):
-   review the newly retained Android10 packet and paired status, then publish
-   prepared49 through the canonical procedure below. Native verification is
-   complete; delivery is still pending. Keep56/58 open until verified delivery.
+   finish final public-packet review of published49. Native verification and
+   paired evidence reviews are complete with0 findings; actual public checks PASS.
+   Keep56/58 open until the final public review has no residual findings.
 2. Continue [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
    then59 through69 in dependency order. No57 implementation exists yet.
    Its chosen policy is explicit in the issue and comment6278005545: two NEW
@@ -32,7 +32,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 ## Current native acceptance
 
 Both complete runs use production
-`a1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4`, also the prepared49 source:
+`a1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4`, also the published49 source:
 
 | SDK | Actual complete run/source | Frozen identities | Normal completions | Deliberate interruptions | Continuity |
 | --- | --- | --- | --- | --- | --- |
@@ -74,16 +74,15 @@ native originals. No app/gesture fix or explanation is inferred from later succe
 Other failed/superseded attempts retain actual states in the reference/history.
 
 Full17 retained evidence was independently reviewed at f8c812822: Spec0,
-documented Standards0,heuristic0. Newly retained full10 and paired status still
-need the same two-axis review before publication. Reuse policy52_spec_review and
-policy52_standards_review as read-only reviewers against the fixed preceding HEAD.
+documented Standards0,heuristic0. Full10 and paired status at2d022ce1a also have Spec0, documented Standards0
+and heuristic0. Reuse policy52_spec_review and policy52_standards_review for the
+final public-packet review against fixed2d022ce1a.
 
-## Prepared49 and publication
+## Published49 and publication
 
-Ordinary45 remains LIVE at <https://davidengelen.nl/redsquare/>. Source aa40be525;
-APK SHA256129217527cb76265669a99ecdea79e009024787beacbbba1bc0f7357336eb740.
-Node56 already has focused10/17 verification, source/publication0/0 review and
-signed45 delivery; it stays open through larger-font and signed58 acceptance.
+Ordinary49 is LIVE at <https://davidengelen.nl/redsquare/>. Previous45 remains
+immutable. Node56 has focused10/17 and larger-font acceptance, source/publication45
+review and signed49 follow-through;56/58 await final public-packet review.
 
 Prepared49/0.1.49 is frozen in external worktree
 `/mnt/storage/redsquare-android-artifacts/review-worktree` at exact production a1.
@@ -95,15 +94,13 @@ automatic backup=false,review=true,Push=false and separate Posts/Chat GIF keys a
 [Prepared packet](../evidence/ticket58/signed49-prepared/apk-check.json).
 Shared version counter49 is reserved. Superseded46/47/48 were never published.
 
-After final paired review, from that frozen worktree run canonical
-`scripts/review-publish .scratch/review-builds/49 --notes '<truthful English notes>'`.
-The before bookend already passed and is retained externally under
-`ui58-publication-49`. Then run
-`python3 /tmp/redsquare-ui58-publication49-check.py ordinary 49 after`.
-It must verify actual public APK/metadata/certificate/package/source, immutable45
-and the entire other performance43 channel. Retain/review public results, commit
-completion evidence and close56/58 only when earned. Never publish48/47/46.
-Install ordinary updates over the existing app, preserving its wallet.
+Canonical `scripts/review-publish` from that frozen worktree completed with exit0.
+The independent before/after checker also exits0/PASS, verifying the actual public
+APK/metadata/certificate/package/source, immutable45 and the whole performance43
+channel. [Public packet](../evidence/ticket58/publication49/README.md) retains
+public-safe records only. Final two-axis packet review remains before closing56/58.
+Never rebuild49 or publish superseded48/47/46. Install ordinary updates over the
+existing app, preserving its wallet.
 
 All review artifacts use established certificate
 `6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.

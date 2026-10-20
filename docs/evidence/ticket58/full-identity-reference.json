@@ -111,7 +111,7 @@
       "expectedContinuityRecords": 33
     }
   ],
-  "limits": "Complete paired native58 verification is retained. Signed49 remains prepared/unpublished pending final retained-evidence review and canonical delivery. Actual physical Pixel, configured-provider, policy operations and store acceptance remain under36. This is shared-frame acceptance, not app-wide UI acceptance.",
+  "limits": "Complete paired native58 verification and both evidence-review axes are complete with0 findings. Signed49 is published and actual public checks PASS; final public-packet review is pending. Actual physical Pixel, configured-provider, policy operations and store acceptance remain under36. This is shared-frame acceptance, not app-wide UI acceptance.",
   "previousAttempts": [
     {
       "source": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
@@ -474,5 +474,6 @@
   "completedEvidence": {
     "android10": "docs/evidence/ticket58/full10-ec-39378808769/summary.json",
     "android17": "docs/evidence/ticket58/full17-fa-39376147196/summary.json"
-  }
+  },
+  "publishedEvidence": "docs/evidence/ticket58/publication49/after-check.json"
 }

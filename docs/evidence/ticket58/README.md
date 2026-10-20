@@ -30,8 +30,11 @@ observations report clearable=true,ongoing=false,flags24,textHidden=true and no
 owned active notification; gesture calls143/150/153ms. The prior failed dismissal
 remains failed and its cause remains unproved. Diagnostics changed no gesture.
 
-Signed49 is prepared and reviewed, with the established identity, but remains
-unpublished until final paired-evidence review and canonical public checks.
+Both paired full-evidence review axes report0 residual findings at2d022ce1a.
+[Signed49 is published](publication49/README.md) with the established identity.
+Canonical publication and independent actual public checks exit0, preserving
+immutable45 and the entire performance43 channel. Final public-packet review
+is pending;56/58 remain open through that review.
 No physical/configured-provider/store or app-wide UI acceptance is claimed.
 
 ## Implementation and diagnosis history

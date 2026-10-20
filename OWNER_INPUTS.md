@@ -1,6 +1,6 @@
 # Nog nodig van David
 
-Bijgewerkt: 19 oktober 2026. Dit is het centrale overzicht voor jouw bijdragen
+Bijgewerkt: 20 oktober 2026. Dit is het centrale overzicht voor jouw bijdragen
 aan de eerste release. Werk dit document bij zodra iets geregeld is. De agent
 houdt de status bij en gaat ondertussen verder met herkenbare placeholders en
 concepten. Een placeholder geldt nooit als een afgeronde integratie, geldende
@@ -41,7 +41,7 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 | Nodig | Status | Waarvoor |
 | --- | --- | --- |
-| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta45, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
+| Akkoord op privacyverklaring, gebruiksvoorwaarden, gedragsregels en kindveiligheidsstandaarden | Concepten beschikbaar in beta49, via Settings en Privacy and safety. Instemming en contact-/verzoekroutes zijn voorbereid; echte kanalen, definitieve teksten en goedkeuring volgen. | Definitieve teksten, openbare hosting en versiegebonden instemming #36. |
 | Moderatieproces voor jouw backend en meldingen aan de appuitgever | David heeft verantwoordelijkheid geaccepteerd; bereikbare kanalen, behandeling, escalatie en daadwerkelijk toezicht nog te bepalen. | Werkende rapportage en moderatie. Een verzonden melding betekent niet automatisch beoordeeld of verwijderd. |
 | Privacy- en verwijderproces | Nog te bepalen: bereikbaar verzoekkanaal, eigendomscontrole zonder privésleutel, afhandeling en terugkoppeling. | Werkelijk uitvoerbare verzoeken en een webroute naast de app. Wallet vervangen of een bericht verbergen is geen volledige gegevensverwijdering. |
 | Bewaartermijnen en uitzonderingen | Nog te bepalen voor eigen serverlogs, archieven/back-ups, meldingen, verzoeken en eventuele pushgateway. | Waarheidsgetrouwe privacytekst en daadwerkelijke opruimprocedures. Geen vaste termijn of juridische uitzondering als feit invullen. |
@@ -58,16 +58,16 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta45](https://davidengelen.nl/redsquare/) staat online. Deze update
-wijzigt Server naar Node; de bredere UI-verbeteringen zijn nog in uitvoering onder
-#55. Download, versie en ondertekening zijn gecontroleerd.
+De gewone [beta49](https://davidengelen.nl/redsquare/) staat online. Deze update
+bevat het compactere appframe en de Node-benaming; de verdere UI-verbeteringen
+zijn nog in uitvoering onder #55. Download, versie en ondertekening zijn gecontroleerd.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
-checkpoint en bevat nog niet de nieuwe Node-tekst of komende UI-code. Gebruik hem
+checkpoint en bevat nog niet de nieuwe Node-tekst of het huidige appframe. Gebruik hem
 niet als definitieve meting van de actuele app. De eerdere geslaagde Android10/17
 installatieproef gebruikte gewone referentie35 en timing43: gescheiden wallets en
 opslag, met behoud van de gewone testidentiteit. Dat bewijst geen fysieke update
-naar beta45. Voor de definitieve metingen levert de agent een passende timingbuild.
+naar beta49. Voor de definitieve metingen levert de agent een passende timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
 PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze
