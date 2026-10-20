@@ -21,7 +21,14 @@ from pathlib import Path
 import sys
 p=Path(sys.argv[1]);s=p.read_text();before='abiFilters "armeabi-v7a", "arm64-v8a"'
 assert s.count(before)==1
-p.write_text(s.replace(before,'abiFilters "x86_64"'))
+s=s.replace(before,'abiFilters "x86_64"')
+assert s.count('sourceCompatibility JavaVersion.VERSION_17')==1
+s=s.replace('sourceCompatibility JavaVersion.VERSION_17',
+    'coreLibraryDesugaringEnabled true\n        sourceCompatibility JavaVersion.VERSION_17')
+assert s.count('dependencies {')==1
+s=s.replace('dependencies {',
+    "dependencies {\n    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'")
+p.write_text(s)
 PY
 # Observation-only logs at real engine callbacks, never the synthetic fallback path.
 python3 - "$tool_dir/source" <<'PYOBSERVE'
@@ -63,7 +70,7 @@ curl --fail --location --retry 3 --connect-timeout 30 --max-time 120 \
     -o "$tool_dir/artifacts/espeak.apk"
 printf '%s  %s\n' 741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf \
     "$tool_dir/artifacts/espeak.apk" | sha256sum -c -
-printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; ARM ABI filters changed to x86_64; observation-only real engine callback logs; unmodified speech logic and dependency versions' \
+printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; x86_64 ABI; desugar_jdk_libs2.1.5 Java API backport; observation-only real engine callback logs; upstream speech control flow and existing dependency pins retained' \
     > "$tool_dir/artifacts/source.txt"
 printf '%s\n' 'espeak-ng/espeak-ng official1.52.0 release APK, source tag4870adfa25b1a32b4361592f1be8a40337c58d6c; package com.reecedunn.espeak version22, x86_64; built-in offline English voice data' \
     > "$tool_dir/artifacts/engine-source.txt"

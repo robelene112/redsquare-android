@@ -51,9 +51,11 @@ class StatusMotionPreviewTest {
                 check(device.wait(Until.hasObject(By.text("Posts could not be refreshed. Try again.")), 5_000))
                 captureNativeScreen(File(folder, "$name-details.png"))
                 device.findObject(By.text("Done")).click()
-                val retry = device.wait(Until.findObject(By.text("Retry").enabled(true)), 5_000)
-                assertNotNull(retry)
-                val bounds = requireNotNull(retry).visibleBounds
+                var retryNode = device.wait(Until.findObject(By.text("Retry").enabled(true)), 5_000)
+                while (retryNode != null && !retryNode.isClickable) retryNode = retryNode.parent
+                val retry = requireNotNull(retryNode)
+                assertTrue("Retry must be an enabled native action", retry.isEnabled)
+                val bounds = retry.visibleBounds
                 val minimum = 48 * context.resources.displayMetrics.density - 1
                 assertTrue("Retry stays fully reachable with larger text", bounds.width() >= minimum && bounds.height() >= minimum &&
                     bounds.top >= 0 && bounds.bottom <= device.displayHeight && bounds.left >= 0 && bounds.right <= device.displayWidth)

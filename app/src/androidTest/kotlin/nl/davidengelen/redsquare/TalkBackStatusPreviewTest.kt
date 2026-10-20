@@ -36,9 +36,14 @@ class TalkBackStatusPreviewTest {
             configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             device = UiDevice.getInstance(instrumentation)
+            val service = android.content.ComponentName("com.android.talkback", "com.google.android.marvin.talkback.TalkBackService")
+            val manager = instrumentation.context.packageManager
+            val serviceLabel = manager.getServiceInfo(service, 0).loadLabel(manager).toString()
             waitFor(15_000) {
-                device.executeShellCommand("dumpsys accessibility").substringAfter("Bound services:", "")
-                    .substringBefore("Enabled services:").contains("com.google.android.marvin.talkback.TalkBackService")
+                val dump = device.executeShellCommand("dumpsys accessibility")
+                val bound = dump.substringAfter("Bound services:", "").substringBefore("Enabled services:")
+                (bound.contains(service.className) || bound.contains("Service[label=$serviceLabel,")) &&
+                    dump.substringAfter("Enabled services:", "").contains(service.flattenToString())
             }
             File(folder, "accessibility-before.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
             val serviceProcess = talkbackProcess(device)
@@ -90,6 +95,7 @@ class TalkBackStatusPreviewTest {
                     addProperty("focus", focusedText(automation))
                     addProperty("physicalAudibility", false)
                     addProperty("serviceProcess", serviceProcess)
+                    addProperty("serviceLabel", serviceLabel)
                 }.toString())
             }
         } catch (failure: Throwable) {
