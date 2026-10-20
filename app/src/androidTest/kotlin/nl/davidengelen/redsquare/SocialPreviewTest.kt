@@ -79,7 +79,7 @@ class SocialPreviewTest {
                     ui.onNodeWithText("5 likes").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
                     waitFor("New post")
-                    ui.clickVisiblePostContent(root.get("field2").asString)
+                    ui.clickVisiblePostProfile("Anon-${root.get("field2").asString.take(6)}")
                     waitFor("Profile")
                     waitFor("Liked")
                     assertVisibleProfileLike("5 likes")

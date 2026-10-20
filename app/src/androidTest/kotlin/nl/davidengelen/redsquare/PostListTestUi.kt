@@ -23,3 +23,13 @@ internal fun ComposeTestRule.clickVisiblePostMenuAction(authorName: String, acti
     waitUntil(20_000) { onNode(hasText(action) and isEnabled()).isDisplayed() }
     onNode(hasText(action) and isEnabled()).assertIsDisplayed().performClick()
 }
+
+/** Open the account named by a post header, including its contextual avatar action. */
+internal fun ComposeTestRule.clickVisiblePostProfile(authorName: String) {
+    val profile = hasContentDescription("View profile for $authorName") and hasClickAction()
+    waitUntil(20_000) {
+        onAllNodes(profile).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+    }
+    onNode(hasScrollAction()).performScrollToNode(profile)
+    onNode(profile).assertIsDisplayed().assertIsEnabled().performClick()
+}

@@ -157,8 +157,7 @@ class PersonalControlsProcessRecoveryTest {
         }
     }
     private fun openProfile(author: String) {
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
-        ui.onNodeWithText(author).assertIsDisplayed().performClick()
+        ui.clickVisiblePostProfile("Anon-${author.take(6)}")
         waitFor("Profile")
     }
     private fun openManagement() {

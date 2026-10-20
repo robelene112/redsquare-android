@@ -79,8 +79,7 @@ class PublisherUserReportPreviewTest {
                             ui.waitUntil(20_000) {
                                 ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty()
                             }
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
-                            ui.onNodeWithText(author).performClick()
+                            ui.clickVisiblePostProfile("Anon-${author.take(6)}")
                             waitFor("Posts", action = true)
                             fun shownContext() {
                                 ui.waitUntil(20_000) {

@@ -471,9 +471,9 @@ class FollowingPreviewTest {
     private fun openFeedProfile(author: String) {
         progress("Scrolling to public fixture author")
         // A visible post body does not guarantee its author link is in the viewport.
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText(author))
+        ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("View profile for Anon-${author.take(6)}"))
         progress("Opening public fixture profile")
-        ui.onNodeWithText(author).assertIsDisplayed().performClick()
+        ui.onNodeWithContentDescription("View profile for Anon-${author.take(6)}").assertIsDisplayed().performClick()
         waitFor("Profile")
     }
 

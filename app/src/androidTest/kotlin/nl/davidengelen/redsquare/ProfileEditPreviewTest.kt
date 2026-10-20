@@ -158,7 +158,7 @@ class ProfileEditPreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     val post = hasText("Native Red Square reference post")
                     ui.onNode(hasScrollAction()).performScrollToNode(post)
-                    val identity = hasText(author) and hasAnyAncestor(hasAnyChild(post))
+                    val identity = hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()
                     ui.onNode(identity).assertIsDisplayed().performClick()
                     ui.waitUntil(20_000) { ui.onAllNodesWithText("Signed bio 🌱\nSecond line").fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Signed bio 🌱\nSecond line").assertIsDisplayed()
@@ -197,7 +197,7 @@ class ProfileEditPreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     val post = hasText("Native Red Square reference post")
                     ui.onNode(hasScrollAction()).performScrollToNode(post)
-                    ui.onNode(hasText(author) and hasAnyAncestor(hasAnyChild(post))).performClick()
+                    ui.onNode(hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()).performClick()
                     ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText(bio).assertExists()
                     capture("long-bio-before-scroll.png")
@@ -499,7 +499,7 @@ class ProfileEditPreviewTest {
     private fun openReferenceAuthor(author: String) {
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         val post = hasText("Native Red Square reference post")
-        val identity = hasText(author) and hasAnyAncestor(hasAnyChild(post))
+        val identity = hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()
         ui.waitUntil(15_000) {
             try {
                 if (!ui.onNode(post).isDisplayed()) ui.onNode(hasScrollAction()).performScrollToNode(post)

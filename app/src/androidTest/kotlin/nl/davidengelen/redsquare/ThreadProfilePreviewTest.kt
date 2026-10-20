@@ -33,7 +33,7 @@ class ThreadProfilePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
@@ -108,7 +108,7 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Back").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes().isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Likes")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Likes").performClick()
@@ -174,7 +174,7 @@ class ThreadProfilePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Replies").performClick()
@@ -278,7 +278,7 @@ class ThreadProfilePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             try {
                 ActivityScenario.launch<MainActivity>(intent).use {
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
@@ -296,7 +296,7 @@ class ThreadProfilePreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use {
                     try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
                     // The offline header can fill a small screen before this lazy row is composed.
@@ -377,7 +377,7 @@ class ThreadProfilePreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 try {
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                    ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
@@ -521,8 +521,7 @@ class ThreadProfilePreviewTest {
     }
 
     private fun openProfileFromList(author: String) {
-        scrollProfileTo(author)
-        ui.onNodeWithText(author).performClick()
+        ui.clickVisiblePostProfile("Anon-${author.take(6)}")
         ui.waitUntil(15_000) { ui.onAllNodesWithText("Profile")
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
