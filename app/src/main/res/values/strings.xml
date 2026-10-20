@@ -32,6 +32,11 @@
         <item quantity="one">%1$d repost</item>
         <item quantity="other">%1$d reposts</item>
     </plurals>
+    <string name="social_action_pending">%1$s pending</string>
+    <string name="social_action_unavailable">%1$s unavailable</string>
+    <string name="social_action_counts_unavailable">%1$s counts unavailable</string>
+    <string name="social_in_progress">%1$s in progress</string>
+    <string name="social_pending_elsewhere">Like pending on %1$s</string>
     <string name="social_pending">Pending. Availability on this node has not been verified.</string>
     <string name="social_error">Could not finish this action. Retry checks the original action before sending it again.</string>
     <string name="social_counts_unavailable">Could not refresh counts. Refresh this view to try again.</string>

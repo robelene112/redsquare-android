@@ -1,11 +1,5 @@
 package nl.davidengelen.redsquare.feed
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -21,8 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
 import kotlinx.coroutines.delay
@@ -35,6 +27,8 @@ import nl.davidengelen.redsquare.saito.RedSquareActionKind
 import java.util.Base64
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 /** Counts are unsigned observations supplied with a verified post, never local increments. */
 private fun servedCount(post: FeedPost, field: String): Long? = try {
@@ -58,12 +52,9 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, 
             if (onQuote != null) SocialControl(stringResource(R.string.social_quote), R.drawable.ic_quote,
                 stringResource(R.string.post_quote_for, author), enabled = state != null, onClick = { onQuote(post) })
         }
+        RedSquareActionKind.entries.forEach { kind -> SocialActionStatus(post, state, kind, author) }
         val feedback = state?.actions?.get(PostActionKey(post.id, RedSquareActionKind.LIKE))?.rateFeedback ?: 0L
-        AnimatedVisibility(feedback != 0L,
-            enter = expandVertically(tween(180)) + fadeIn(tween(180)),
-            exit = shrinkVertically(tween(180)) + fadeOut(tween(180))) {
-            Text(stringResource(R.string.social_like_rate), Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-        }
+        InlineStatus(if (feedback != 0L) stringResource(R.string.social_like_rate) else null, StatusTone.WARNING)
     }
 }
 
@@ -100,21 +91,43 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val description = stringResource(if (kind == RedSquareActionKind.LIKE)
         R.string.post_like_for else R.string.post_repost_for, author)
     val retrying = status?.candidate != null && !status.available
-    Column {
-        SocialControl(label, if (kind == RedSquareActionKind.LIKE) R.drawable.ic_like else R.drawable.ic_repost,
-            if (retrying) stringResource(R.string.post_retry_action, description) else description,
-            countLabel, enabled, status?.available == true,
-            listOfNotNull(if (status?.available == true) label else null, likeAgain).joinToString(". ").ifEmpty { null }) {
-            state?.send(post, kind, publishing::beforePublishing)
-        }
-        status?.blockedBy?.let { Text(stringResource(R.string.social_like_other_node, it.domain)) }
-        if (status?.candidate != null && !status.available) Text(stringResource(R.string.social_pending))
-        if (status?.countsUnavailable == true) Text(stringResource(R.string.social_counts_unavailable))
-        if (status?.failed == true) {
-            Text(stringResource(R.string.social_error))
-            if (!status.ready) TextButton(onClick = { state?.retryLoad(post, kind) }) { Text(stringResource(R.string.retry)) }
-        }
+    SocialControl(label, if (kind == RedSquareActionKind.LIKE) R.drawable.ic_like else R.drawable.ic_repost,
+        if (retrying) stringResource(R.string.post_retry_action, description) else description,
+        countLabel, enabled, status?.available == true,
+        listOfNotNull(if (status?.available == true) label else null, likeAgain).joinToString(". ").ifEmpty { null }) {
+        state?.send(post, kind, publishing::beforePublishing)
     }
+}
+
+/** Stable full-width feedback cannot push one action away from its associated count. */
+@Composable
+private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSquareActionKind, author: String) {
+    val status = state?.actions?.get(PostActionKey(post.id, kind))
+    val action = stringResource(if (kind == RedSquareActionKind.LIKE) R.string.social_like else R.string.social_repost)
+    val blocked = status?.blockedBy
+    val pending = status?.candidate != null && !status.available
+    val summary = when {
+        blocked != null -> stringResource(R.string.social_pending_elsewhere, blocked.domain)
+        status?.busy == true -> stringResource(R.string.social_in_progress, action)
+        pending -> stringResource(R.string.social_action_pending, action)
+        status?.countsUnavailable == true -> stringResource(R.string.social_action_counts_unavailable, action)
+        status?.failed == true -> stringResource(R.string.social_action_unavailable, action)
+        else -> null
+    }
+    val details = buildList {
+        add(stringResource(if (kind == RedSquareActionKind.LIKE) R.string.post_like_for else R.string.post_repost_for, author))
+        if (blocked != null) add(stringResource(R.string.social_like_other_node, blocked.domain))
+        if (pending) add(stringResource(R.string.social_pending))
+        if (status?.countsUnavailable == true) add(stringResource(R.string.social_counts_unavailable))
+        if (status?.failed == true) add(stringResource(R.string.social_error))
+    }
+    val retryLoad = status?.failed == true && !status.ready
+    InlineStatus(summary, when {
+        status?.busy == true -> StatusTone.WORKING
+        status?.failed == true && !pending -> StatusTone.ERROR
+        else -> StatusTone.WARNING
+    }, details = details, actionLabel = if (retryLoad) stringResource(R.string.retry) else null,
+        onAction = { state?.retryLoad(post, kind) })
 }
 
 /** The count shares its action's visual target and accessibility state. Missing counts stay absent. */

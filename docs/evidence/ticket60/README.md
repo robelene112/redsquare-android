@@ -28,8 +28,8 @@ PNG/XML members are retained; root inspected the three actual native PNGs.
 
 The next native tracer visits the same independently signed post through Feed,
 Thread, Profile and Search, checking recognizable author/profile access, known
-UTC fixture time, contextual More and primary actions. Thread/Search/Profile
-production still uses old rows; native RED is pending. Existing reporting
+UTC fixture time, contextual More and primary actions. At this test stage Thread/Search/Profile
+production still used old rows; the subsequent native RED is recorded below. Existing reporting
 regression operators now explicitly open the real contextual menu, preserving
 all35 original report/retry/details actions and every other assertion. Both
 operator-only review axes report0. No complete60 or new signed-publication
@@ -100,7 +100,7 @@ reviews report0. Native [RED39487610528](red10-social-controls-2a8-39487610528/)
 at2a8e9fbc0 completes three methods with twoPASS and the intended missing
 contextual Like failure.24 hashes/16 exact originals are retained; root viewed
 the unchanged old social row. Count association/geometry assertions were not
-reached. New compact controls now await native runtime verification.
+reached. Subsequent compact-control GREEN is recorded below.
 
 
 Existing operator regressions at2530 (production remainsf652):
@@ -131,9 +131,9 @@ callbacks remain. Raw status Text and rate animation are deliberately retained
 until the following status slice. Quote padding fixes the observed flush border
 while preserving personal hiding/one-level verification/media. Local app+test
 build27841 succeeds in4m19s, with only the existing PostImages deprecation;
-native productGREEN is pending. Spec source/RED review0; Standards source0,
-maintained status pointers corrected for residual review. Existing status-talkback39487748992 at2530 isSUCCESS; retain/inspect the
-actual speech/focus evidence before describing its bounded result.
+native productGREEN on10/17 is recorded below. Both source/RED review axes0.
+Existing status-talkback39487748992 original speech/focus evidence is retained
+and inspected as recorded below.
 
 Existing Search replacement39488234632 succeeds at exact2530:9methods70.253s,
 42hashes/32 exact originals retained. Root viewed reply-search recreation. Existing
@@ -147,14 +147,45 @@ Both independent evidence reviews verify the Search42/TalkBack31 hashes and
 original archive bindings, goals and restoration with0 findings. New controls
 are committed atd3646f1835aa2a45653213e969c0c96bc3bf34f9. Pinned native
 post-presentation10 run39490261361,17 run39490266017 and existing social10
-run39490270580 are active. No native productGREEN is claimed yet.
+run39490270580 areSUCCESS; their bounded goals and review are recorded below.
 
 Compact-control Android10 GREEN39490261361 atd364 completes all three methods
 in13.107s. Packet24hashes/16exact originals retains contextual actions, real2likes/
 1repost association, full48dp viewport targets and deliberate non-overlap. Root
 viewed actual compact-controls PNG: vector controls and counts align on one row.
-Android17 and existing social regressions remain active. Next vertical tracer
+Android17 and existing social regressions also succeed as recorded below. Next vertical tracer
 extends existing failedSaving recovery journey with a concise Like unavailable
 summary and contextual Details holding the original full explanation; opening
 Details must transmit nothing. Original unreadable-save obstacle, finally repair,
 explicit Retry, exact original wallet/target/frame and peer-health goals remain.
+
+Compact-control Android17 GREEN39490266017 also succeeds at exactd364:3methods
+52.161s,24hashes/16original members. Root viewed its actual compact-controls PNG.
+Existing social10 run39490270580 succeeds at same source:70hashes/six archives/
+43original members. Original repeat3/isolation2/import2/Social8 pass19.133s/
+14.858s/24.755s/24.148s, plus ordinary and repeated actual process-death recovery;
+repeat process4527 to4635, distinct previous/reconciled originals and zero third
+intent. Both packet audits report0 evidence findings; Standards current-status
+documentation residual is resolved; final paired findings0. Existing social goals
+are preserved; native status attempt39491249249 at9f3816e97 fails solely during SDK29
+download/unzip before emulator or any Social method. Three hashes retain original
+terminal metadata/log/limits in sdk-download-status10-9f381-39491249249. It is
+neither applicationRED nor runtime acceptance. Same-source Android17 status
+tracer39492262522 completesFAILURE at9f381:Social8 has7PASS/1intended missing
+Like unavailable summary,42.583s; preceding repeat/isolation/import and both
+process gatesPASS. Packet71hashes/six archives43original members retains original
+failure PNG; root viewed long raw error forcing Repost onto another row. Details
+and repaired retry goals were not reached. Status presentation implementation
+now follows this actualRED; complete60 acceptance is still pending.
+
+Current status implementation keeps controls together and renders each action's
+feedback below them through permanently hosted InlineStatus. Concise progress,
+pending, other-node, unavailable and count-refresh summaries retain contextual
+Details and original explanations. Explicit failed-load Retry stays the original
+retryLoad callback; pending send Retry remains the original social button. Counts,
+controller/send/rate policy/effects and two-second rate-feedback lifetime remain.
+Rate feedback now uses the same status host. Three older native operators target the new summaries and open their actual
+contextual Details to retain each original full-explanation assertion. Their
+behavior/recovery/raw goals are unchanged. New status captures retain PNG/XML. Local Kotlin build33222 succeeds3m33s with only the existing PostImages warning.
+Both source/RED evidence reviews report0 after71-hash count reconciliation;
+product runtime remains pending.

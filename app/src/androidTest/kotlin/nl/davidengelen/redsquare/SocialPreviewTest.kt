@@ -181,7 +181,8 @@ class SocialPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.clickVisiblePostContent("Like")
                     waitFor("Liked")
-                    waitFor("Could not refresh counts. Refresh this view to try again.")
+                    waitFor("Like counts unavailable")
+                    assertActionDetails("Like counts unavailable", "Could not refresh counts. Refresh this view to try again.")
                     ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.").assertDoesNotExist()
                     ui.onNodeWithText("Liked").assertIsEnabled()
                     assertEquals(1, peer.transactions.size)
@@ -283,7 +284,8 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(initial) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.clickVisiblePostContent(initial)
-                    waitFor("Pending. Availability on this node has not been verified.")
+                    waitFor("$initial pending")
+                    assertActionDetails("$initial pending", "Pending. Availability on this node has not been verified.")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText(retry) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     assertEquals(1, peer.transactions.size)
                 } catch (failure: Throwable) {
@@ -343,11 +345,11 @@ class SocialPreviewTest {
                 check(blocked.mkdir())
                 val obstacle = java.io.File(blocked, "retain-public-save-fault").apply { writeText("public test fault") }
                 try {
-                    withFailureCapture({ captureFeedEvidence("social-evidence/action-status-failure.png") }) {
+                    withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-failure.png")) }) {
                         ui.clickVisiblePostContent("Like")
                         waitFor("Like unavailable")
                         assertTrue(peer.transactions.isEmpty())
-                        captureFeedEvidence("social-evidence/action-status-summary.png")
+                        captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-summary.png"))
                         val details = hasContentDescription("Details: Like unavailable") and hasClickAction()
                         ui.onNode(hasScrollAction()).performScrollToNode(details)
                         ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
@@ -355,7 +357,7 @@ class SocialPreviewTest {
                         ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.")
                             .assertIsDisplayed()
                         assertTrue("Opening action details must not transmit", peer.transactions.isEmpty())
-                        captureFeedEvidence("social-evidence/action-status-details.png")
+                        captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-details.png"))
                         ui.onNodeWithText("Done").performClick()
                     }
                 } finally { check(obstacle.delete()); check(blocked.delete()) }
@@ -408,7 +410,9 @@ class SocialPreviewTest {
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
                     waitFor("Native Red Square reference post")
-                    waitFor("A like is pending on saito.davidengelen.nl. Switch nodes in Settings to retry.")
+                    waitFor("Like pending on saito.davidengelen.nl")
+                    assertActionDetails("Like pending on saito.davidengelen.nl",
+                        "A like is pending on saito.davidengelen.nl. Switch nodes in Settings to retry.")
                     ui.onNodeWithText("Like").assertIsNotEnabled()
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
                     assertTrue(official.transactions.isEmpty())
@@ -435,6 +439,14 @@ class SocialPreviewTest {
         ui.onNode(hasScrollAction()).performScrollToNode(hasText("Liked"))
         ui.onNodeWithText("Liked").assertIsDisplayed()
         ui.onNodeWithText(count).assertIsDisplayed()
+    }
+
+    private fun assertActionDetails(summary: String, explanation: String) {
+        val details = hasContentDescription("Details: $summary") and hasClickAction()
+        ui.onNode(hasScrollAction()).performScrollToNode(details)
+        ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
+        ui.onNodeWithText(explanation).assertIsDisplayed()
+        ui.onNodeWithText("Done").performClick()
     }
 
     private fun waitFor(text: String) {

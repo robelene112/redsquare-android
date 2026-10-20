@@ -86,10 +86,10 @@ Third PostPresentation tracer committed2a8e9fbc0099c81265f3cb129a52a4b8ce64f717
 Count/geometry goals unreached. Compact-control productd3646f1835aa2a45653213e969c0c96bc3bf34f9 (Spec0, Standards0) adds vector controls/associated counts/full targets/
 accessible context while keeping all parser/controller/rate/send behavior; local
 app+test build27841 SUCCESS4m19s (existing PostImages deprecation only). Quote padding is included. Raw status/rate animation
-await next slice. Native compact-control GREEN still needed. That new tracer checks contextual
+await next slice. Native compact-control GREEN10/17 is retained below. That new tracer checks contextual
 social controls, same-control node counts2likes/1repost,48dp targets/full bounds/
-non-overlap/single defaultrow without any send. Pinned active native10/17 runs39490261361/39490266017 and existing social10
-39490270580 execute exactd364. Inspect new nativeGREEN before next functional
+non-overlap/single defaultrow without any send. Pinned native10/17 runs39490261361/39490266017 and existing social10
+39490270580 allSUCCESS at exactd364. Inspect new nativeGREEN before next functional
 tracer. Earlier operator regression production remainsf652.
 Focused existing reports39483951409 at1c295 isSUCCESS:11UIcases119.469s and
 actualprocess4181 to4263/exactretry/zeroType4 restorationPASS. Packet107hashes/
@@ -282,3 +282,32 @@ Verify mounts before sizeable writes; artifacts/caches belong under
 For historical functional completion/About38/42/43 chronology, reach the detailed
 canonical evidence above; the prior handoff at f8c812822 preserves the old narrative.
 Current tracker/source/retained results supersede historical pending prose.
+
+
+## Latest60 slice continuation
+
+Compact controls source d3646f1835aa2a45653213e969c0c96bc3bf34f9 passes native
+post-presentation10 run39490261361 (3methods13.107s) and17 run39490266017
+(3methods52.161s). Each packet24hashes/16originals; root viewed both actual compact
+rows.10/17 packet audits0. Existing social10 run39490270580
+SUCCESS:70hashes/6archives43originals, repeat3/isolation2/import2/Social8 plus both
+actual process-death recovery gates (repeat4527 to4635). Both evidence audits0;
+Standards status-documentation residual resolved; final0.
+Next single tracer9f3816e97c65a9aca43a16babc8e4c6b56e46015 enhances failedSaving
+with concise Like unavailable and contextual Details/full original explanation,
+zero frames while opening details. Original finally repair, Retry, wallet/target/
+frame and peer-health assertions remain. Both test-stage reviews0. Native status
+attempt39491249249 fails before emulator on SDK29 download/unzip;3hash retained
+packet sdk-download-status10-9f381-39491249249 is no applicationRED. Same-source
+Android17 replacement39492262522 at9f381 completes actual intendedRED:Social8
+has7PASS/1missing Like unavailable (42.583s), preceding repeat/isolation/import
+and both process gatesPASS. Packet71hashes/6archives43members, root viewed actual
+raw long error/row wrapping. Details/repair goals not reached. Status WIP now
+uses permanent full-width InlineStatus below unchanged controls, concise summaries
+and contextual original Details, original retryLoad and pending Retry callbacks,
+same two-second rate effect/controller/count/send policies. Three existing operators
+adapt summary labels and retain full explanations by opening actual Details;
+new status captures retain PNG/XML. Local build33222 SUCCESS3m33s, only existing PostImages warning. Source/RED
+evidence reviews0 after71-hash count reconciliation; native statusGREEN pending. Committed product remainsd364. Unrelated research
+file remains untouched. Remaining60 status/author menu/matrix/a11y/full delivery
+and61 through70 remain authorized sequential work; do not stop at a slice.
