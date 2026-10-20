@@ -70,6 +70,28 @@ internal class SocialActionJournal(private val context: Context, private val own
         check(storage.load().let { !it.unreadable && it.values == listOf(record) })
     }
 
+    companion object {
+        /** Pending/unreadable social work is identity-wide; rate receipts alone are not work. */
+        fun hasWork(context: Context, owner: String): Boolean = synchronized(SaitoLocalState.lock) {
+            require(SaitoWallet.isPublicKey(owner))
+            if (SocialActionOperations.hasWork(owner)) return@synchronized true
+            val files = requireNotNull(context.noBackupFilesDir.listFiles())
+            for (node in SaitoBackend.entries) {
+                val prefix = "social.${node.id}.$owner."
+                for (file in files.filter { it.name.startsWith(prefix) }) {
+                    if (file.name.endsWith(".new")) return@synchronized true
+                    val suffix = file.name.removePrefix(prefix).removeSuffix(".bak")
+                    val match = Regex("([0-9a-f]{128})\\.(like|repost)\\.v1").matchEntire(suffix)
+                        ?: return@synchronized true
+                    val kind = RedSquareActionKind.entries.single { it.storageId == match.groupValues[2] }
+                    val saved = SocialActionJournal(context, owner, node, PostActionKey(match.groupValues[1], kind)).load()
+                    if (saved?.available != true) return@synchronized true
+                }
+            }
+            false
+        }
+    }
+
     private fun same(left: Saved?, right: Saved?) = left?.candidate?.encoded() == right?.candidate?.encoded() &&
         left?.available == right?.available && left?.previous?.encoded() == right?.previous?.encoded()
 }
@@ -79,6 +101,9 @@ internal object SocialActionOperations {
     private data class Key(val owner: String, val post: PostActionKey)
     private val active = mutableStateMapOf<Key, Any>()
 
+    fun hasWork(owner: String): Boolean = synchronized(SaitoLocalState.lock) {
+        active.keys.any { it.owner == owner }
+    }
     fun busy(owner: String, key: PostActionKey): Boolean = synchronized(SaitoLocalState.lock) {
         active.containsKey(Key(owner, key))
     }

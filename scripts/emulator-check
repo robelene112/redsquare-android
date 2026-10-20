@@ -679,6 +679,24 @@ if [[ "${TEST_SCOPE:-full}" == queue* ]]; then
     printf '%s\n' 'Focused post queue check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_like_isolation() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    local isolation_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.LikeIsolationPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/like-isolation-ui.txt" || isolation_exit=$?
+    printf '%s\n' "$isolation_exit" > "$evidence/like-isolation-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - like-isolation-evidence \
+        > "$evidence/like-isolation-evidence.tar" || true
+    [[ "$isolation_exit" == 0 ]]
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/like-isolation-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == social-isolation* ]]; then
+    verify_like_isolation
+    printf '%s\n' 'Focused social isolation check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_repeat_likes() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     local repeat_exit=0
@@ -691,7 +709,9 @@ verify_repeat_likes() {
         > "$evidence/repeat-like-evidence.tar" || true
     [[ "$repeat_exit" == 0 ]]
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/repeat-like-ui.txt"
+    verify_like_isolation
 }
+
 if [[ "${TEST_SCOPE:-full}" == social-repeat* ]]; then
     verify_repeat_likes
     printf '%s\n' 'Focused repeat-like check only; full acceptance not run.' > "$evidence/scope.txt"

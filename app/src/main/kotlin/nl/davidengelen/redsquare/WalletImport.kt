@@ -135,7 +135,9 @@ class WalletImport(
                         .decode(ByteBuffer.wrap(buffer, 0, size)).toString()
                     var nativeWork = try {
                         nl.davidengelen.redsquare.saito.TransferStore(activity.applicationContext,
-                            operation.original.publicKey).pending().isNotEmpty() || SaitoBackend.entries.any { backend ->
+                            operation.original.publicKey).pending().isNotEmpty() ||
+                            nl.davidengelen.redsquare.feed.SocialActionJournal.hasWork(activity.applicationContext,
+                                operation.original.publicKey) || SaitoBackend.entries.any { backend ->
                             nl.davidengelen.redsquare.feed.PostDraftStore.authorWork(activity.applicationContext,
                                 operation.original.publicKey, backend).isNotEmpty() ||
                                 nl.davidengelen.redsquare.feed.ProfileDraftStore(activity.applicationContext,
@@ -235,6 +237,24 @@ class WalletImport(
             if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
                 cancel(); activating = false; return@launch
             }
+            if (!view.sameIdentity) {
+                val socialWork = withContext(Dispatchers.IO) {
+                    try { nl.davidengelen.redsquare.feed.SocialActionJournal.hasWork(
+                        activity.applicationContext, selected.original.publicKey) }
+                    catch (_: Exception) { true }
+                }
+                if (candidate !== selected || currentWallet() !== selected.original || currentBackend() != selected.backend) {
+                    cancel(); activating = false; return@launch
+                }
+                if (socialWork && !selected.risks.pendingWork) {
+                    selected.risks = selected.risks.copy(pendingWork = true)
+                    preview = preview?.copy(risks = selected.risks, acknowledged = false)
+                    message = R.string.wallet_import_work_changed
+                    busy = false
+                    activating = false
+                    return@launch
+                }
+            }
             val result = activate(selected.original, selected.wallet)
             candidate = null
             preview = null
@@ -297,7 +317,7 @@ class WalletImport(
     private class Candidate(val wallet: SaitoWallet, val original: SaitoWallet,
         val backend: SaitoBackend?, nativeWork: Boolean, nativeName: String?) {
         // Candidate construction runs on IO, keeping large imported metadata off the UI thread.
-        val risks = original.replacementRisks().let {
+        var risks = original.replacementRisks().let {
             it.copy(savedName = nativeName ?: it.savedName, pendingWork = it.pendingWork || nativeWork)
         }
     }

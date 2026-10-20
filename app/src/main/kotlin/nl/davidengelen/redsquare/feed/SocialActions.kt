@@ -1,5 +1,11 @@
 package nl.davidengelen.redsquare.feed
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -43,11 +49,19 @@ private fun servedCount(post: FeedPost, field: String): Long? = try {
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
 internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedPost) -> Unit)? = null) {
+    Column(Modifier.fillMaxWidth()) {
     FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
     RedSquareActionKind.entries.forEach { kind ->
         SocialAction(post, state, kind, onQuote)
     }
     ReportAction(post, state?.reports)
+    }
+    val feedback = state?.actions?.get(PostActionKey(post.id, RedSquareActionKind.LIKE))?.rateFeedback ?: 0L
+    AnimatedVisibility(feedback != 0L,
+        enter = expandVertically(tween(180)) + fadeIn(tween(180)),
+        exit = shrinkVertically(tween(180)) + fadeOut(tween(180))) {
+        Text(stringResource(R.string.social_like_rate), Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+    }
     }
 }
 
@@ -71,13 +85,14 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val labels = if (kind == RedSquareActionKind.LIKE)
         listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.plurals.social_like_count)
     else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.plurals.social_repost_count)
-    val likeAgain = if (kind == RedSquareActionKind.LIKE && status?.available == true)
+    val enabled = status?.ready == true && !status.busy && !globallyBusy && status.blockedBy == null &&
+        (!status.available || kind == RedSquareActionKind.LIKE)
+    val likeAgain = if (enabled && kind == RedSquareActionKind.LIKE && status?.available == true)
         stringResource(R.string.social_like_again_description) else null
     Column {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
         TextButton(modifier = Modifier.semantics { likeAgain?.let { stateDescription = it } },
-            contentPadding = PaddingValues(horizontal = 4.dp), enabled = status?.ready == true && !status.busy && !globallyBusy && status.blockedBy == null &&
-            (!status.available || kind == RedSquareActionKind.LIKE),
+            contentPadding = PaddingValues(horizontal = 4.dp), enabled = enabled,
             onClick = { state?.send(post, kind, publishing::beforePublishing) }) {
             Text(stringResource(when {
                 status?.available == true -> labels[1]
@@ -90,8 +105,6 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
             Text(stringResource(R.string.social_quote))
         }
     }
-    if (feedback != 0L) Text(stringResource(R.string.social_like_rate),
-        Modifier.semantics { liveRegion = LiveRegionMode.Polite })
     status?.blockedBy?.let { Text(stringResource(R.string.social_like_other_node, it.domain)) }
     if (status?.candidate != null && !status.available) Text(stringResource(R.string.social_pending))
     if (status?.countsUnavailable == true) Text(stringResource(R.string.social_counts_unavailable))

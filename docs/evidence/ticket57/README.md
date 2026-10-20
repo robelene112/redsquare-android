@@ -60,9 +60,20 @@ and displays brief polite feedback. An enabled settled Like has an accessible
 like-again state description. A deterministic clock is debug/emulator/loopback-
 only; the release path always uses real elapsed time.
 
-The added native journey requires rejection, no extra frames/queue, Activity
-recreation continuity and a new third distinct frame only at the expiry boundary.
-Its runtime, extended cross-node/wallet/failure/import/process coverage, full10/17
+Native rate runs39391901165(Android10)/39391904287(Android17) at510790a27
+are SUCCESS, exactly2 PASS each with exit0. [10 packet](rate-green10-39391901165/summary.json)
+and [17 packet](rate-green17-39391904287/summary.json) bind ten original members
+and independently verify all five signed frames per SDK. The native recreation,
+rejection/no-extra-frame/no-queue, polite semantics and1000ms-expiry goals pass.
+Root opened10 feedback and17 recreated feedback originals. Those source51 images
+also reveal that placing feedback within the Like column reflows the other
+controls. The current source moves the animated message below the shared actions
+so the controls retain their position; fresh rendered acceptance is pending.
+Semantics assertions do not establish actual TalkBack speech.
+
+The later37 cross-node/thread/profile journeys39392556676/39392576007 also
+complete SUCCESS, exactly3 methods per SDK; raw retention remains pending.
+Extended wallet/different-post/late-count/import/process coverage, fresh full10/17
 acceptance and signed57 delivery are still pending. No public write, physical/
 configured-provider/policy/store acceptance is claimed.
 
@@ -79,6 +90,28 @@ New LikeWalletImportPreviewTest uses a fresh isolated outgoing wallet and the re
 SAF picker. It restores the captured original after Activity/peer closure even on
 failure, preserving the primary error. A pending social like must be disclosed;
 settled receipts plus rate metadata alone must not invent pending work. The first
-case is expected RED because WalletImport currently omits social journals. No
-app-side import fix or runtime result is claimed yet. Its separate180second
-command and focused social-import routes are additive to full/social coverage.
+case is expected RED because WalletImport currently omits social journals. Its separate180second command and focused social-import routes are additive to
+full/social coverage.
+
+Both actual import runs at37 are the expected RED:39392550414(10),20.102seconds,
+and39392553174(17),42.381seconds. Each has1 PASS for settled/rate-only work and
+1 FAIL for the absent pending-Like warning, with command exit0 and original
+workflow FAILURE. Both packets preserve six hashes, two original PNG bindings,
+raw logs and failed run identity. Root opened10 pending failure and17 settled
+preview. No suppressed cleanup failure appears; original-wallet restoration is
+asserted by the fixture.
+
+The new app fix scans validated wallet-wide social journals on both nodes,
+includes active leases, conservatively treats unreadable/partial records as work,
+and excludes rate-only receipts. Confirming a replacement rechecks for work that
+appeared after the preview, resets acknowledgment and explains the change.
+A disabled Like no longer instructs the user to tap again. Native import GREEN
+and final source review remain pending.
+
+LikeIsolationPreviewTest adds a separate180second owned command: the same cap
+covers another signed post while a different wallet has its own window, and
+restoring the first wallet keeps its window; an older count failure cannot turn
+the newer pending retry into another candidate. These actual native journeys
+are pending. Their controlled peer retains signature-deduplicated counts and
+observes actual exact-signature requests. Every Activity closes before wallet
+restoration, preserving a primary failure. Existing gates/deadlines remain.

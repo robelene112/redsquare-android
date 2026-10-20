@@ -1,0 +1,56 @@
+{
+  "archive": "/mnt/storage/redsquare-android-artifacts/likes57-rate-green10-39391901165/android-native-proof/.scratch/device-evidence/api-29/repeat-like-evidence.tar",
+  "sha256": "32fc63ed9eddcd61b59fdc24e7b1b746553d8ecaf1016a6c69ed3ab720ddd75d",
+  "members": [
+    {
+      "member": "repeat-like-evidence/rate-limit-feedback.png",
+      "bytes": 43432,
+      "sha256": "91ffc84998c83f3443dd63b5349a26047a74b1f9f9a69ac4e96210802d5ff6a0"
+    },
+    {
+      "member": "repeat-like-evidence/recreated-rate-limit.png",
+      "bytes": 43432,
+      "sha256": "91ffc84998c83f3443dd63b5349a26047a74b1f9f9a69ac4e96210802d5ff6a0"
+    },
+    {
+      "member": "repeat-like-evidence/rolling-window-expired.png",
+      "bytes": 39740,
+      "sha256": "33586cf6178e0c4ab9bee6a7ffa0934c9d4bfcbadc744ca6bb7585ce8fbcbca6"
+    },
+    {
+      "member": "repeat-like-evidence/rate-recreation/native-like-0.base64",
+      "bytes": 800,
+      "sha256": "1f3af37a9a1d1d6893d5d8265693ccc2620b283b8c8653ce69fe859f7a3ca764"
+    },
+    {
+      "member": "repeat-like-evidence/rate-recreation/native-like-1.base64",
+      "bytes": 800,
+      "sha256": "e2a462ff0550fd22419614847b4bb283a913cc862a1e6c99479e57b838fedd79"
+    },
+    {
+      "member": "repeat-like-evidence/rate-recreation/native-like-2.base64",
+      "bytes": 800,
+      "sha256": "03192f0d26838f10a0e795e8707272fc26096500bd08b9bc90dbd5ebd708c054"
+    },
+    {
+      "member": "repeat-like-evidence/settled-like-ready-again.png",
+      "bytes": 39823,
+      "sha256": "a88d0f228a48de14715d96888b2a4ec0e488d0c38c7738d6e704e4d20fb76a90"
+    },
+    {
+      "member": "repeat-like-evidence/two-distinct-served-likes.png",
+      "bytes": 39805,
+      "sha256": "2d8035ec37f1395c06600814c073cd2af60aa00cb72824a34c6bf723b45c4464"
+    },
+    {
+      "member": "repeat-like-evidence/deliberate/native-like-0.base64",
+      "bytes": 800,
+      "sha256": "c943e0461a456e1ef7a190b467313f840669da4bea01aa3a9de1a0bf8436a5dc"
+    },
+    {
+      "member": "repeat-like-evidence/deliberate/native-like-1.base64",
+      "bytes": 800,
+      "sha256": "36c0fcbd1119d64e869b29abddcbdb0cc0c6aff341422bfcd37c1e6f80907e17"
+    }
+  ]
+}
