@@ -24,8 +24,9 @@ class PostPresentationPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNodeWithText("Report").assertDoesNotExist()
-            val more = hasText("Post actions for Anon-jesTu2") and hasClickAction()
-            val bounds = ui.onNode(more).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+            val more = (hasText("Post actions for Anon-jesTu2") or
+                hasContentDescription("Post actions for Anon-jesTu2")) and hasClickAction()
+            val bounds = ui.onNode(more).assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
             val minimum = 48 * context.resources.displayMetrics.density - 1
             assertTrue("Post actions must retain a full 48dp target", bounds.width >= minimum && bounds.height >= minimum)
             capture("feed-actions-secondary.png")

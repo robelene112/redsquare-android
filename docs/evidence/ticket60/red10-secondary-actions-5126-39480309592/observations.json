@@ -1,0 +1,7 @@
+{
+  "result": "Expected native RED before production presentation changes",
+  "assertion": "Report must not remain a primary post-row action",
+  "observed": "One Report button exists at[16,301][83,341]",
+  "seconds": 5.065,
+  "limits": "Later menu/identity/confirmation and48dp assertions are not reached. No feature acceptance. Subsequent test-stage refinement accepts accessible text/description and uses touch bounds; this first failed assertion is unchanged."
+}

@@ -471,29 +471,9 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(position), state = position,
                 contentPadding = PaddingValues(bottom = 88.dp)) {
                 items(visiblePosts, key = { it.id }) { post ->
-                    Column(Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 12.dp)) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                            GeneratedProfilePicture(post.author, Modifier.size(48.dp).clip(CircleShape).clickable { openProfile(post.author) })
-                            Column(Modifier.weight(1f)) {
-                                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                                    Text(registeredIdentity(post.author).name, Modifier.weight(1f).clickable { openProfile(post.author) },
-                                        maxLines = 1, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.titleSmall)
-                                    Text(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH)
-                                        .format(Date(post.createdAt)), Modifier.padding(start = 8.dp),
-                                        style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                }
-                                Text(post.author, Modifier.clickable { openProfile(post.author) }, maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text(post.text, Modifier.clickable { navigation.add(BrowseDestination.Conversation(post)) }.padding(vertical = 8.dp),
-                            style = MaterialTheme.typography.bodyLarge)
-                        PostImages(post.images, backend)
-                        PostVideo(post, backend)
-                        QuoteContent(post, quotes, backend)
-                            }
-                        }
-                        SocialActions(post, social) { navigation.add(BrowseDestination.Quote(it)) }
-                    }
+                    PostCard(post, backend, onIdentity = { openProfile(it) },
+                        onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,
+                        onQuote = { navigation.add(BrowseDestination.Quote(it)) })
                     HorizontalDivider()
                 }
             }

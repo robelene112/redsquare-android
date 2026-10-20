@@ -11,19 +11,25 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
 
 @Composable
-internal fun ReportAction(post: FeedPost, state: ReportState?) {
-    if (state == null || !state.canReport(post)) return
+internal fun ReportAction(post: FeedPost, state: ReportState?,
+    control: @Composable (String?, Boolean, () -> Unit) -> Unit = { label, enabled, onClick ->
+        if (label != null) TextButton(enabled = enabled, onClick = onClick) { Text(label) }
+    }) {
+    if (state == null || !state.canReport(post)) {
+        control(null, false, {})
+        return
+    }
     LaunchedEffect(state, post.id) { state.load(post) }
     val status = state.statuses[post.id]
     var confirming by rememberSaveable(post.id) { mutableStateOf(false) }
     var showingResult by rememberSaveable(post.id) { mutableStateOf(false) }
-    TextButton(enabled = (status?.ready == true || status?.failed == true) && status?.busy != true, onClick = {
-        if (status?.acknowledged == true || status?.ready != true) showingResult = true else confirming = true
-    }) { Text(stringResource(when {
+    control(stringResource(when {
         status?.acknowledged == true -> R.string.report_details
         status?.candidate != null -> R.string.report_retry
         else -> R.string.report_action
-    })) }
+    }), (status?.ready == true || status?.failed == true) && status?.busy != true) {
+        if (status?.acknowledged == true || status?.ready != true) showingResult = true else confirming = true
+    }
     if (confirming) AlertDialog(onDismissRequest = { confirming = false },
         title = { Text(stringResource(R.string.report_confirm, state.backend.domain)) },
         text = { Column {
