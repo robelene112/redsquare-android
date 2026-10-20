@@ -569,6 +569,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.waitUntil(5_000) { peer.transactions.size == 1 }
                             check(peer.relayedMessages.isEmpty())
                             check(postingTransaction(peer.transactions.single()).encoded() == expected.get("networkBase64").asString)
+                            ui.onNodeWithContentDescription("Private messages").assertHeightIsAtLeast(48.dp)
+                            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-private-reaction-retry-interrupted.png"), text)
                             historyUnavailable.set(true)
                             scenario.recreate()

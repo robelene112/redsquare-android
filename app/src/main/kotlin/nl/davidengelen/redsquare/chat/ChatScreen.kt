@@ -311,6 +311,15 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         // Keep full recovery guidance reachable without consuming the message viewport.
         Column(Modifier.heightIn(max = statusMaxHeight).verticalScroll(rememberScrollState())
             .semantics { contentDescription = statusLabel }) {
+            reactionState?.let { reactions ->
+                when (reactions.saved.status) {
+                    ChatReactionStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_reaction_unknown))
+                    ChatReactionStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_reaction_submitted))
+                    ChatReactionStore.Status.FORWARDED -> Text(stringResource(R.string.chat_reaction_forwarded))
+                    ChatReactionStore.Status.NONE -> Unit
+                }
+                if (reactions.failed && !reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_error))
+            }
             if (!keyboardVisible) Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             PersonalControlsStatus(personal)
@@ -421,13 +430,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }
                 }
             }
-            when (reactions.saved.status) {
-                ChatReactionStore.Status.UNKNOWN -> Text(stringResource(R.string.chat_reaction_unknown))
-                ChatReactionStore.Status.SUBMITTED -> Text(stringResource(R.string.chat_reaction_submitted))
-                ChatReactionStore.Status.FORWARDED -> Text(stringResource(R.string.chat_reaction_forwarded))
-                ChatReactionStore.Status.NONE -> Unit
-            }
-            if (reactions.failed && !reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_error))
             if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
                 TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry(publishing::beforePublishing) }) {
                     Text(stringResource(R.string.chat_reaction_retry))
