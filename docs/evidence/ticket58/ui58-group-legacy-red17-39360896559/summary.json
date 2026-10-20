@@ -1,0 +1,21 @@
+{
+  "source": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
+  "run": 39360896559,
+  "conclusion": "failure",
+  "groupUiMethods": 22,
+  "groupUiFailures": 3,
+  "groupAdminUiPass": 12,
+  "groupAdminRecoveredProtocols": {
+    "promotion": {
+      "pid": 10987,
+      "recoveredPid": 11065,
+      "retryVerified": true
+    },
+    "removal": {
+      "pid": 11181,
+      "recoveredPid": 11258,
+      "retryVerified": true
+    }
+  },
+  "limit": "Full17 Chat fails later in GroupChatPreviewTest:765 invitation status visibility,790 Like visibility and483 old live-message node count after scrolling to later messages. Root opened all three original PNGs. Status is a finite independent scroll viewport; Like is below the visible message body; the oldest target is not necessarily composed after scrolling to later history. Scoped positioning is a fixture hypothesis pending positive before/after evidence, not a proved application defect. Wallet and social partitionsSUCCESS; remaining Chat gates absent, no full acceptance. Earlier zero-height administration regression now passes both actual cold protocols with identical originals and explicit Retry."
+}

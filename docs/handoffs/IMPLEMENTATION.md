@@ -27,9 +27,18 @@ their behavior. Both source review axes0. Focused39360256057(10)/39360258546(17)
 identities, two actual process deaths and two continuity gates. Original exact
 raw/Relay/identity/history/draft/restoration goals retain their deadlines. Root
 opened both originals: Group messages now340..426,86px, with cached text visible.
-Fresh full39360894371(10)/39360896559(17) executee2056df1d, app/build/signing
-equivalent tof59. Catalog bound before outcomes. Canonical47 is prepared and
-reviewed, not published;46 superseded. Ordinary45 remains live.
+Complete39360894371(10)/39360896559(17) ate205 bothFAILED later in
+GroupChatPreviewTest, each22 methods/3 failures: invitation status visibility,
+Like visibility and old lazy-message count after scrolling newer history. Root
+opened all six original failure PNGs. Paired legacy-group RED packets retain26
+hashes/12 originals. Scoped fixture positioning is a hypothesis pending positive
+before/after observations; no additional app defect is claimed.17 social208 and
+wallet76 exact baseline identities/complete markersPASS, including public reads
+and signed5->8 continuity with exact download sizes/hashes. Later Chat gates are
+absent. Fixture-only correction uses existing status/message scroll helpers and
+moves the old-message scroll before the existing exact count. All original goals,
+assertions and180second class bound stay. App/build/signing remainf59-equivalent.
+Canonical47 is prepared/reviewed, unpublished;46 superseded. Ordinary45 is live.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration

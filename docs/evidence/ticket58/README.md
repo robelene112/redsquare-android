@@ -615,3 +615,24 @@ whose only differences fromf59 are evidence/docs. Their independent473/474 catal
 122/123 completions,34 interruptions and33 continuity expectations were bound
 before outcomes, with public reads and immutable35/43 observers enabled. No full
 outcome, signed delivery, physical/provider or store acceptance is claimed yet.
+
+Completee205 attempts39360894371(Android10)/39360896559(Android17) bothFAILED
+later in GroupChatPreviewTest, each22 methods with3 failures: invitation status
+visibility:765, Like visibility:790, and an old live-message node count:483 after
+scrolling to newer history. Paired ui58-group-legacy-red packets retain26 hashes
+and12 original PNG/XML members. Root opened all six original failure PNGs.
+Status lives in its finite independent viewport; Like follows the visible body;
+old lazy history need not remain composed after scrolling newer rows. Scoped
+positioning is a fixture hypothesis until positive before/after evidence, not
+proof of an application defect. Earlier zero-height admin regression now passes
+12UI methods and both actual cold promotion/removal protocols in these full runs.
+17 social208 and wallet76 identities match accepted38 exactly, including complete
+markers, public reads and signed5->8 continuity. New runner download observations
+are HTTP200, complete sizes and exact hashes. They do not establish the cause of
+the previous runner checksum failure. Later Chat gates are absent; no full claim.
+
+The next fixture-only correction uses the established scoped status/message
+helpers, and moves the original old-message scroll before its original exact
+node-count assertion. All original assertions,15second goals and180second class
+bound remain. Three before/after native/all-root observations test positioning.
+No app/build/signing change:47 remains prepared/unpublished atf59; ordinary45 live.

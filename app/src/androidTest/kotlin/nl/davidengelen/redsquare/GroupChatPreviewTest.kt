@@ -480,11 +480,13 @@ class GroupChatPreviewTest {
                                     ui.onAllNodesWithText("Live while archive is unavailable").assertCountEquals(1)
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/archive-unavailable-cached.png"),"Live while archive is unavailable")
                                 }
+                                if(archiveFault)captureGroupViewport("archive-before-old-message-scroll")
+                                waitForGroupMessage("Live group message")
+                                if(archiveFault)captureGroupViewport("archive-after-old-message-scroll")
                                 ui.onAllNodesWithText("Live group message").assertCountEquals(1)
                                 val cached=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
                                 check(cached.group.memberRoles[member]==ChatGroupRole.MEMBER)
                                 check(cached.group.memberRoles[invitation.admin]==ChatGroupRole.ADMIN)
-                                waitForGroupMessage("Live group message")
                                 captureNativeScreen(File(context.cacheDir,"group-chat-evidence/messages-cached.png"),"Live group message")
                                 if(drafting){
                                     assertRestoredGroupDraft()
@@ -761,8 +763,10 @@ class GroupChatPreviewTest {
                         }
                         ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         val received=if(importing)"Recovered signed group information." else "Received a signed group invitation."
-                        waitFor(received)
+                        if(brokenHints)captureGroupViewport("hints-before-status-scroll")
+                        ui.waitForGroupStatus(received)
                         ui.onNodeWithText(received).assertIsDisplayed()
+                        if(brokenHints)captureGroupViewport("hints-after-status-scroll")
                         ui.onNodeWithText("Retry").assertDoesNotExist()
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         deliver(message)
@@ -785,8 +789,10 @@ class GroupChatPreviewTest {
                         if(reacting){
                             fun saved()=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),activeBackend).load(group.id))
                             val target=GroupChat.readMessage(group,message.envelope())
-                            waitFor("Like")
+                            captureGroupViewport("reaction-before-action-scroll")
+                            waitForGroupMessage("Like")
                             ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            captureGroupViewport("reaction-after-action-scroll")
                             ui.onNodeWithText("Like").assertIsDisplayed().performClick()
                             waitFor("1 like")
                             ui.waitUntil(15_000){ui.onAllNodes(hasText("Unlike") and isEnabled()).fetchSemanticsNodes().size==1}
@@ -1040,6 +1046,12 @@ class GroupChatPreviewTest {
         androidx.test.espresso.Espresso.closeSoftKeyboard()
         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Send").assertIsDisplayed().assertIsEnabled()}.isSuccess}
         ui.onNodeWithText("Send").assertIsDisplayed().assertIsEnabled().performClick()
+    }
+
+    private fun captureGroupViewport(name:String) {
+        captureNativeScreen(File(context.cacheDir,"group-chat-evidence/$name.png"))
+        File(context.cacheDir,"group-chat-evidence/$name.semantics.txt").writeText(
+            ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE))
     }
 
     private fun waitForGroupMessage(text:String) {
