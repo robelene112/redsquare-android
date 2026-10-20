@@ -1341,3 +1341,34 @@ storage and whole-photo successes therefore do not establish the broader cause.
 Diagnose process startup/isolation before another complete run. No heap increase,
 largeHeap declaration, smaller photo fixture, dropped assertion or supplemental
 acceptance assembly is authorized by these observations.58 stays unpublished.
+
+
+## Read-only runtime observations and smaller startup loop
+
+Diagnostic source6005061f94fa0e42a60d575a95dcaf9bd207a4c9 adds best-effort tagged
+process observations at existing storage/queue entries, plus an Android10-only
+full-Chat-prefix scope which exits after storage with an explicit diagnostic marker.
+Both source review axes report0 residual findings. Canonical AndroidTest compile
+succeeds4m, and source/core/gateway/release/lint run39466710122 is SUCCESS.
+
+Three separate fresh Android10 storage boots at exact6005 all pass the unchanged
+two original methods at512MiB and64bit, with parent commandline unavailable:
+
+| Run and original packet | PID / parent | Time |
+| --- | --- | --- |
+| [39466812449](runtime-storage10-600-39466812449/) |3375 /1665|78.012s|
+| [39467293150](runtime-storage10-600-39467293150/) |3449 /1663|78.839s|
+| [39467297057](runtime-storage10-600-39467297057/) |3331 /1664|75.637s|
+
+Each packet retains six exact hashes, goal/exit/property/AVD originals, the exact
+old unavailable archive observation and final SUCCESS metadata. These successes
+do not explain or waive the two earlier full-suite16MiB errors. Diagnostic prefix
+39466808494 remains active. No heap or production changes have been made.
+
+Temporary diagnosis source207b0a2f3a279705cf9475da13e558546fba0257 further reduces
+the loop to24 fresh instrumented process starts, comparing actual heap with the
+independently declared Android memory class. Each attempt retains its original
+log/exit and read-only process observations and stops at the first failure.
+The class runs only in optional Android10-only chat-runtime, not full application
+catalogs. Both source reviews report0 findings; no causal or acceptance claim.
+Remove temporary tagged observations and class after resolution.58 stays unpublished.

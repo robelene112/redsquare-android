@@ -104,10 +104,18 @@ chat-image-startup scope. This executes the unchanged full-Chat prefix through
 storage and then exits explicitly diagnostic-only, preserving every class/phase
 bound. Both review axes0 after delivery best-effort and SDK-routing corrections.
 Canonical AndroidTest compile succeeds4m; YAML/bash/diff checks pass. Source
-check39466710122 and diagnostic prefix39466808494/isolated storage39466812449 are
-active at verify/status59-heap-6005061f9. Not acceptance, no cause/fix inferred.
-Remove tagged temporary observations after resolution. No production change;
-58 stays immutable/unpublished. Do not rerun full blindly or weaken storage.
+check39466710122 SUCCESS. Three separately booted storage runs39466812449/
+39467293150/39467297057 at6005 all SUCCESS2/2 at512MiB,64bit,78.012/78.839/75.637s.
+Each exact original packet has6 verified hashes; both packet review axes0.
+Prefix39466808494 remains active at verify/status59-heap-6005061f9.
+Temporary diagnostic source207b0a2f3a279705cf9475da13e558546fba0257 adds guarded
+API29-only chat-runtime:24 process-only invocations, each30s, actual/declared heap
+parity and per-attempt logs/exits/process list plus startup properties. No old
+full identities/assertions/budgets change. Both source reviews0, local AndroidTest
+compile SUCCESS1m58s. Reduced run39468918082 is active on
+verify/status59-runtime-207b0a2f3. Not acceptance, no cause/fix inferred.
+Remove tagged temporary observations and class after resolution. No production
+change;58 stays immutable/unpublished. No blind full rerun or weaker storage.
 
 After actual complete10 success: strict collect, inspect originals, paired final
 review, publish immutable58 with canonical script, independent after-bookend,
