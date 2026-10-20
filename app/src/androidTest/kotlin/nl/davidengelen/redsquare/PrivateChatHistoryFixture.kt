@@ -707,7 +707,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor(initialCount)
-                            ui.onNodeWithText(text).assertIsDisplayed()
+                            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText(initialCount).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Unlike").assertIsEnabled()
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
@@ -734,7 +734,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
                             waitForEnabled("Like")
-                            ui.onNodeWithText(text).assertIsDisplayed()
+                            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
                             if (concurrentLike) {
                                 waitFor("1 like")
                                 ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
