@@ -574,3 +574,19 @@ download observer records public HTTP headers/byte count/hashes before the
 unchanged checksum check; no automatic retry or relaxed validation. Both source
 review axes0. Focused group-admin39358679469(10)/39358681910(17) execute5eb; no
 corrected outcome or complete acceptance is claimed. App/build/signing unchanged.
+
+Focused5eb group-admin39358679469(Android10)/39358681910(Android17) bothFAILED.
+New ui58-group-viewport-red packets each retain11 hashes, six original native/
+all-root tree members, stages, host120second failure and independent restoration.
+Both trees measure Group messages top340/bottom340, zero height. Root opened both
+original before-history PNGs: pending status, disabled picker rows and saved
+multiline draft consume the viewport. The last stage is before-history-scroll.
+This establishes a layout regression; neither failed preparation is recovery proof.
+
+The production fix keeps ChatPhotoAttachment mounted but hides its empty-photo
+picker actions while group administration is pending. Existing attachments,
+credits, state and drafts stay present; private/default paths are unchanged.
+An explicit48dp minimum-history assertion precedes the original cached-message
+scroll, without reducing any original goal or deadline. Both source review axes0.
+Fresh focused/full paired acceptance is required. Prepared signed46 is superseded
+and remains unpublished; a new canonical candidate must include this fix.

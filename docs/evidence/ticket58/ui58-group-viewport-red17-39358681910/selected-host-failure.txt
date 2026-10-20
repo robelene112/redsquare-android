@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8715373Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/group-chat-process-check", line 32, in <module>
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8716889Z     result = instrument('terminateWithGroupKeyHistoryDraftAndUncertainOriginal', 'interrupted.txt', check=False)
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8718673Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8719519Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/process_check_utils.py", line 13, in run
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8720608Z     result = self.adb('shell', 'am', 'instrument', '-w', '-r', '-e', 'class',
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8721477Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8722274Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/group-chat-process-check", line 21, in adb
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8723262Z     return subprocess.run(['adb', *arguments], capture_output=True, text=True, check=check, timeout=timeout)
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8723986Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8724781Z   File "/usr/lib/python3.12/subprocess.py", line 550, in run
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8725349Z     stdout, stderr = process.communicate(input, timeout=timeout)
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8725840Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8726349Z   File "/usr/lib/python3.12/subprocess.py", line 1209, in communicate
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8726951Z     stdout, stderr = self._communicate(input, endtime, timeout)
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8727600Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8728038Z   File "/usr/lib/python3.12/subprocess.py", line 2116, in _communicate
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8728671Z     self._check_timeout(endtime, orig_timeout, stdout, stderr)
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8729132Z   File "/usr/lib/python3.12/subprocess.py", line 1253, in _check_timeout
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8729544Z     raise TimeoutExpired(
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8731117Z subprocess.TimeoutExpired: Command '['adb', 'shell', 'am', 'instrument', '-w', '-r', '-e', 'class', 'nl.davidengelen.redsquare.GroupChatProcessRecoveryTest#terminateWithGroupKeyHistoryDraftAndUncertainOriginal', '-e', 'groupAction', 'promotion', 'nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner']' timed out after 120 seconds
+native-proof (all)	Verify Android 17 runtime	2026-10-20T02:32:37.8990332Z ##[error]Process completed with exit code 1.

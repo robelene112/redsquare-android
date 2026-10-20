@@ -19,10 +19,15 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
-Shared frame58 remains ACTIVE. Last production change is
-9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4; subsequent changes through fixture source
-cae84e5ad0bd8fc85cef6b4a452a5f0c1ac35f7e are fixtures/harness/evidence only, with
-identical app/build/signing inputs. The compact frame, Home-only backup/import
+Shared frame58 remains ACTIVE. The current production fix keeps group history
+visible while an administration action is pending, by hiding only unusable empty
+photo/GIF picker buttons. The attachment component stays mounted; existing
+previews, credits, drafts and picker state remain. Default/private paths retain
+their behavior. Both source review axes0. Fresh paired focused/full acceptance
+and a new canonical signed candidate are required. Prepared46 is superseded and
+unpublished; ordinary45 remains live.
+
+The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
 and lifecycle-owned actual system-motion scale are implemented.
 
@@ -63,17 +68,19 @@ continuity/final diagnostic. Runner bad bytes/headers were not retained. Local
 VPS5/8 files and separate HTTP200 downloads match immutable manifests, which does
 not establish the runner's failure cause. No retry or relaxed validation.
 
-Diagnostic-only5eb9fb09ecc17b6e9a4e667db23fdcd8d1ac4f04 adds constant stages with
-monotonic times and pre-status/history-scroll native/all-root trees to group
-recovery. Host retains stages and stops only a timed-out debug emulator process
-before existing restoration. Original assertions and120second phase bounds stay.
-The download observer records public HTTP/length/actual+expected hash metadata
-before the unchanged checksum rejection. Both source review axes0. Focused
-group-admin39358679469(10)/39358681910(17) run at5eb to locate the stall. No cause
-or corrected runtime is claimed yet. Paired group-stall and17 download-failure
-packets retain actual failed metadata; evidence review pending. Complete native
-acceptance remains pending; the download-tail exception cannot cover this failed
-Chat application gate. All historical failures retain actual outcomes.
+Diagnostic5eb9fb09ecc17b6e9a4e667db23fdcd8d1ac4f04 focused group-admin
+39358679469(10)/39358681910(17) bothFAILED at the unchanged120second promotion
+preparation bound. The added stages localize the stall to before-history-scroll.
+Both all-root trees measure Group messages at top340/bottom340, zero height.
+Root opened both original PNGs: pending status, disabled picker rows and multiline
+draft occupy the viewport, with no visible cached history. Paired group-viewport
+RED packets retain six original native/tree members each, stages, original
+failure and independent restoration1PASS. The positive48dp history regression
+now fails before an unbounded zero-height scroll. No corrected runtime is claimed.
+The public-download observer retains response/length/hashes before the unchanged
+checksum rejection; no automatic retry or relaxed validation. Complete native
+acceptance remains pending, including the legacy update tail. Historical failures
+keep their actual outcomes.
 
 Earlier fixturecae84e5ad scopes Add GIF to the existing composition preview and
 scrolls only when hidden, then requires the original10second visibility goal.

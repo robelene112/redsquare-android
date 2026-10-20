@@ -1,0 +1,11 @@
+{
+  "source": "5eb9fb09ecc17b6e9a4e667db23fdcd8d1ac4f04",
+  "run": 39358679469,
+  "sdk": "10",
+  "conclusion": "failure",
+  "groupMessagesHeightPixels": 0,
+  "measuredBounds": "left16 top340 right304 bottom340",
+  "lastStage": "before-history-scroll",
+  "originalMembers": 6,
+  "limit": "Preparation still fails at the original120second bound. Stages and full-depth semantics localize the unbounded scroll to a zero-height history. Root opened both original before-history PNGs: pending promotion status, saved multiline draft and disabled picker rows occupy the content; cached message is absent from visible history. Restoration1PASS is independent. No completed preparation or corrected runtime is claimed."
+}
