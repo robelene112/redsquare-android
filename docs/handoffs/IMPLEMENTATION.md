@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active post-presentation60
 
-2026-10-20 19:37 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
+2026-10-20 19:44 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
 with code/evidence review, commits and signed in-place beta delivery. Never stop
 at a routine milestone.55 remains open through owner final app-wide UI review.
@@ -58,9 +58,16 @@ tracer and updates existing report/profile test operators without changing their
 application/raw/control/recovery assertions. All bounded reviews0. The first
 four-context attempt39483900170 at1c295 fails only its invalid comma-in-date
 expectation inFeed, beforeThread; retain as fixtureFAILURE, never appRED. Corrected
-same-node known-date/time matcher is source475. Replacement native RED39484695496
-is active on pinned verify/posts60-context-red-corrected; inspect before migrating
-Thread/Search/Profile. Focused existing reports39483951409 at1c295 is also active.
+same-node known-date/time matcher is source475. Corrected native RED39484695496
+fails exactly missing Thread contextual profile target after Feed/date goals pass;
+18 hashes/ten original members retained, root viewed native oldThread. Current
+WIP migrates Thread/Search/Profile to PostCard with unchanged input/callbacks and
+removes now-unused fallback Report renderer/showReport flag in review. Local
+app+AndroidTest build12962 is running. Next commit/pin and focused GREEN10/17
+plus existing browse regression; never call this whole60 completion. Focused existing reports39483951409 at1c295 isSUCCESS:11UIcases119.469s and
+actualprocess4181 to4263/exactretry/zeroType4 restorationPASS. Packet107hashes/
+90originalmembers retained. Small WIP ReportAction scrollable dialogtext review
+polish awaits native larger-font proof; no controller/callback changes.
 No full60 acceptance. Vector social actions/status, coherent author menu actions,
 render matrices and actual accessibility still need subsequent vertical slices.
 Complete-suite integration/catalog extension follows implemented slices.

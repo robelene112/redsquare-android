@@ -2,9 +2,7 @@ package nl.davidengelen.redsquare.feed
 
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
-import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -134,16 +132,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         }
         LazyColumn(Modifier.fillMaxSize()) {
             items(visiblePosts, key = { it.id }) { post ->
-                Column(Modifier.padding(vertical = 12.dp)) {
-                    Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },
-                        style = MaterialTheme.typography.titleMedium)
-                    Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
-                        style = MaterialTheme.typography.bodyLarge)
-                    PostImages(post.images, backend)
-                    PostVideo(post, backend)
-                    QuoteContent(post, quotes, backend)
-                    SocialActions(post, social, onQuote)
-                }
+                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote)
                 HorizontalDivider()
             }
         }

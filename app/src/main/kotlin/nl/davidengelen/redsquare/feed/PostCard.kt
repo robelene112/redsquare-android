@@ -59,7 +59,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
         PostImages(post.images, backend)
         PostVideo(post, backend)
         QuoteContent(post, quotes, backend)
-        SocialActions(post, social, onQuote, showReport = false)
+        SocialActions(post, social, onQuote)
     }
 }
 

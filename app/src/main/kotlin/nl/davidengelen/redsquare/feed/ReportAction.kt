@@ -1,20 +1,21 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
 
 @Composable
 internal fun ReportAction(post: FeedPost, state: ReportState?,
-    control: @Composable (String?, Boolean, () -> Unit) -> Unit = { label, enabled, onClick ->
-        if (label != null) TextButton(enabled = enabled, onClick = onClick) { Text(label) }
-    }) {
+    control: @Composable (String?, Boolean, () -> Unit) -> Unit) {
     if (state == null || !state.canReport(post)) {
         control(null, false, {})
         return
@@ -32,7 +33,7 @@ internal fun ReportAction(post: FeedPost, state: ReportState?,
     }
     if (confirming) AlertDialog(onDismissRequest = { confirming = false },
         title = { Text(stringResource(R.string.report_confirm, state.backend.domain)) },
-        text = { Column {
+        text = { Column(Modifier.verticalScroll(rememberScrollState())) {
             if (status?.failed == true) Text(stringResource(
                 when {
                     status.backendError -> R.string.report_backend_error
@@ -48,7 +49,7 @@ internal fun ReportAction(post: FeedPost, state: ReportState?,
         dismissButton = { TextButton(onClick = { confirming = false }) { Text(stringResource(R.string.report_cancel)) } })
     if (showingResult) AlertDialog(onDismissRequest = { showingResult = false },
         title = { Text(stringResource(R.string.report_result_title, state.backend.domain)) },
-        text = { Column { Text(stringResource(when {
+        text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(stringResource(when {
             status?.ready != true && status?.failed == true -> R.string.report_load_error
             status?.ready != true -> R.string.report_loading
             status?.acknowledged == true -> R.string.report_acknowledged

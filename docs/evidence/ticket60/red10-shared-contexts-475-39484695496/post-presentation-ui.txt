@@ -1,0 +1,82 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: stream=
+Error in samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(nl.davidengelen.redsquare.PostPresentationPreviewTest):
+java.lang.AssertionError: Assert failed: The component with ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.26
+There was 1 failure:
+1) samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(nl.davidengelen.redsquare.PostPresentationPreviewTest)
+java.lang.AssertionError: Assert failed: The component with ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:76)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:54)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:47)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

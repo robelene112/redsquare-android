@@ -48,14 +48,12 @@ private fun servedCount(post: FeedPost, field: String): Long? = try {
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
-internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedPost) -> Unit)? = null,
-    showReport: Boolean = true) {
+internal fun SocialActions(post: FeedPost, state: SocialState?, onQuote: ((FeedPost) -> Unit)? = null) {
     Column(Modifier.fillMaxWidth()) {
     FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
     RedSquareActionKind.entries.forEach { kind ->
         SocialAction(post, state, kind, onQuote)
     }
-    if (showReport) ReportAction(post, state?.reports)
     }
     val feedback = state?.actions?.get(PostActionKey(post.id, RedSquareActionKind.LIKE))?.rateFeedback ?: 0L
     AnimatedVisibility(feedback != 0L,

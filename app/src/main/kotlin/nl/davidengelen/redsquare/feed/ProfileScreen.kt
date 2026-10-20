@@ -272,16 +272,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 }
             }
             items(visiblePosts, key = { it.id }) { post ->
-                Column(Modifier.clickable { onPost(post) }.padding(vertical = 12.dp)) {
-                    Text(registeredIdentity(post.author).name, Modifier.clickable { onIdentity(post.author) },
-                        style = MaterialTheme.typography.titleMedium)
-                    Text(post.text, Modifier.clickable { onPost(post) }.padding(vertical = 8.dp),
-                        style = MaterialTheme.typography.bodyLarge)
-                    PostImages(post.images, backend)
-                    PostVideo(post, backend)
-                    QuoteContent(post, quotes, backend)
-                    SocialActions(post, social, onQuote)
-                }
+                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote)
                 HorizontalDivider()
             }
         }

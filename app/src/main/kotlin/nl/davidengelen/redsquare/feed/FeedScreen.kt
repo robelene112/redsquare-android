@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare.feed
 
-import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -32,7 +30,6 @@ import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -59,9 +56,6 @@ import nl.davidengelen.redsquare.ui.PrimaryDestination
 import nl.davidengelen.redsquare.ui.FeedMoreActions
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
-import java.text.DateFormat
-import java.util.Date
-import java.util.Locale
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class)

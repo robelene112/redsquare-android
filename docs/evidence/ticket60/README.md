@@ -49,4 +49,26 @@ corrected tracer before any migration of the other three production screens.
 Existing anonymous-fixture Feed profile operators now select the contextual
 account target; later Profile/People/full-key and signed/control/recovery
 assertions remain. Both residual operator reviews report0 atdf12eccd9. Focused
-reporting39483951409 at1c295 is active; no regression acceptance is claimed yet.
+[reporting39483951409](reports10-menu-recovery-1c295-39483951409/) at1c295 succeeds:
+11originalUI cases in119.469s within the unchanged180s bound, plus actual process
+death4181 to4263, same wallet/node, unknown delivery without automatic send,
+explicit identical retry and acknowledgement, zero type4 transactions. The packet
+retains107 hashes/two archives/90 original members. Root viewed the native
+acknowledgement and recovered-unknown dialogs. This is bounded Android10 reporting
+regression proof, not complete60 acceptance. The later scrollable dialog-text
+polish still requires the larger-font native walkthrough.
+
+
+Corrected [ThreadRED39484695496](red10-shared-contexts-475-39484695496/) at475aba968
+reaches and passes the Feed date/identity/actions goals, then fails the intended
+missing contextual profile control in Thread at54/76. Its18 hashes/ten original
+bindings retain the old Thread with bare author, no avatar/time/menu and Report
+on its own row; root viewed the original failure PNG. Search/Profile goals were
+not reached. This is the genuine next presentationRED.
+
+Current product slice routes Thread/Search/Profile through the same PostCard as
+Feed, preserving every post/backend/navigation/media/quote/social input. All
+reporting hosts remain outside their menus; now-unused fallback renderer/flag
+paths and imports are removed during review. Native migrationGREEN is pending.
+Remaining60 scope includes compact vector social actions/status, coherent author
+menu actions, large-text/content rendering and actual accessibility proof.
