@@ -15,6 +15,7 @@ parser.add_argument("--evidence", type=Path, required=True)
 args = parser.parse_args()
 if args.older >= args.newer:
     parser.error("The second version must be newer")
+args.evidence.mkdir(parents=True, exist_ok=True)
 repo = Path(__file__).resolve().parent.parent
 downloads = repo / ".scratch/update-artifacts"
 downloads.mkdir(parents=True, exist_ok=True)
@@ -33,11 +34,17 @@ for version in [args.older, args.newer]:
     apk_request = urllib.request.Request(root + "redsquare.apk",
         headers={"User-Agent": "redsquare-review-check/1"})
     with urllib.request.urlopen(apk_request, timeout=60) as response, path.open("wb") as output:
+        observation = {"version": version, "httpStatus": response.status,
+            "url": response.url, "headers": {name: response.headers.get(name) for name in
+                ("Content-Length", "Content-Range", "Content-Encoding", "Content-Type", "ETag")}}
         while chunk := response.read(1024 * 1024):
             output.write(chunk)
             if output.tell() > 100 * 1024 * 1024:
                 raise SystemExit("Preview APK exceeded the download limit")
-    if hashlib.sha256(path.read_bytes()).hexdigest() != manifest["sha256"]:
+    actual_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+    observation.update(bytes=path.stat().st_size, sha256=actual_hash, expectedSha256=manifest["sha256"])
+    (args.evidence / f"download-{version}.json").write_text(json.dumps(observation, indent=2) + "\n")
+    if actual_hash != manifest["sha256"]:
         raise SystemExit("Downloaded APK checksum is invalid")
     tools = Path(os.environ["ANDROID_HOME"]) / "build-tools/35.0.0"
     verified = subprocess.check_output([str(tools / "apksigner"), "verify", "--print-certs", str(path)], text=True)

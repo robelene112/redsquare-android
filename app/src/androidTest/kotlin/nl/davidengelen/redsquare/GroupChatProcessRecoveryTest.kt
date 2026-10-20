@@ -30,6 +30,7 @@ class GroupChatProcessRecoveryTest {
         check(it in listOf("reaction","promotion","removal"))
     }
     private val checkpoint get()=File(context.cacheDir,"group-chat-process-checkpoint.json")
+    private val stages get()=File(context.cacheDir,"group-chat-process-stages.txt")
     private val originals get()=File(context.noBackupFilesDir,"group-chat-process-originals")
     private val key=SaitoWallet.fromPrivateKey("0".repeat(63)+"3") // Public unsafe fixtures only.
     private val member=SaitoWallet.fromPrivateKey("0".repeat(63)+"2").publicKey
@@ -43,6 +44,8 @@ class GroupChatProcessRecoveryTest {
 
     @Test fun terminateWithGroupKeyHistoryDraftAndUncertainOriginal() {
         check(!checkpoint.exists()&&!originals.exists())
+        check(!stages.exists()||stages.delete())
+        stage("starting")
         val captures=File(context.cacheDir,"group-chat-process-evidence")
         check(!captures.exists()||captures.deleteRecursively()) // Only synthetic captures, never protected records.
         val wallets=AndroidWalletStore(context)
@@ -61,6 +64,7 @@ class GroupChatProcessRecoveryTest {
                 if(prefs.contains(keyName))addProperty("value",prefs.getBoolean(keyName,false))})
         }})
         writeCheckpoint(row)
+        stage("snapshot-saved")
         synchronized(SaitoLocalState.lock){processFixtureFiles(context,fileNames(backend)).filterNot{it.startsWith("wallet.")}.forEach{name->
             val file=File(context.noBackupFilesDir,name);check(!file.exists()||file.delete())
         }}
@@ -84,14 +88,21 @@ class GroupChatProcessRecoveryTest {
         if(action=="reaction")store.receive(removal.envelope())
         row.addProperty("originDigest",digest(creation));row.addProperty("messageDigest",digest(message))
         row.addProperty("controlDigest",digest(removal.envelope()));row.addProperty("keyDigest",digest(key.exportJson()))
+        stage("fixture-ready")
         val peer=peer()
         peer.start().use{server->launch(server.port){
-            open();waitFor(context.getString(R.string.group_history_error));waitFor("Hello group 😀 <&>!")
+            stage("activity-launched")
+            open();stage("group-open")
+            waitFor(context.getString(R.string.group_history_error));waitFor("Hello group 😀 <&>!")
+            stage("history-ready")
             ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
             ui.onNodeWithText("Message").performTextReplacement(draft)
+            stage("draft-entered")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
+            stage("keyboard-closed")
             ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Back").assertIsDisplayed()}.isSuccess}
             ui.onNodeWithText("Back").performClick();waitFor("Create group")
+            stage("list-returned")
             val current=requireNotNull(store.load(key.publicKey))
             val candidate=when(action) {
                 "promotion" -> GroupChat.promote(fixture,current.group,member,1700000123458)
@@ -102,17 +113,22 @@ class GroupChatProcessRecoveryTest {
                     .also{store.prepareReaction(it)}
             }
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
+            stage("candidate-saved")
             ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
             waitForEnabled("Create group")
             ui.onNodeWithText("Native group 😀 <&>").performClick()
+            stage("pending-group-open")
             assertUi();assertState(row,backend,peer)
+            stage("pending-assertions-passed")
             capture("pending-before-death.png",draft)
             row.addProperty("phase","pending");writeCheckpoint(row)
+            stage("before-death")
             Process.killProcess(Process.myPid());error("Expected actual process termination")
         }}
     }
 
     @Test fun coldRestartRetainsGroupStateWithoutSending() {
+        stage("cold-start")
         val row=readCheckpoint();assertEquals("pending",row.get("phase").asString)
         assertNotEquals(row.get("pid").asInt,Process.myPid())
         val backend=SaitoBackend.entries.single{it.id==row.get("backend").asString}
@@ -144,6 +160,7 @@ class GroupChatProcessRecoveryTest {
         assertEquals(row.get("originalWalletDigest").asString,digest(AndroidWalletStore(context).loadExisting().exportJson()))
         assertEquals(backend,AndroidBackendStore(context).load())
         check(originals.deleteRecursively());check(checkpoint.delete())
+        check(!stages.exists()||stages.delete())
     }
     private fun assertState(row:JsonObject,backend:SaitoBackend,peer:ControlledFeedPeer,forwarded:Boolean=false) {
         assertEquals(row.get("walletDigest").asString,digest(AndroidWalletStore(context).loadExisting().exportJson()))
@@ -176,12 +193,19 @@ class GroupChatProcessRecoveryTest {
         peer.assertHealthy()
     }
     private fun assertUi() {
+        stage("before-status-scroll")
+        captureLayout("before-status-scroll")
         ui.waitForGroupStatus(context.getString(R.string.group_unknown));ui.onNodeWithText(context.getString(R.string.group_unknown)).assertIsDisplayed()
+        stage("unknown-status-visible")
         ui.waitForGroupStatus("Retry", enabled=true);ui.onNodeWithText("Retry").assertIsDisplayed().assertIsEnabled()
+        stage("retry-visible")
         ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Message").fetchSemanticsNode().config[SemanticsProperties.EditableText].text==draft}.getOrDefault(false)}
         ui.onNodeWithText("Message").assertIsDisplayed().assertIsNotEnabled().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText,AnnotatedString(draft)))
         waitFor("Hello group 😀 <&>!")
+        stage("before-history-scroll")
+        captureLayout("before-history-scroll")
         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("Hello group 😀 <&>!"))
+        stage("history-scrolled")
         ui.onNodeWithText("Hello group 😀 <&>!").assertIsDisplayed()
         ui.onNodeWithText("Send").assertIsNotEnabled()
         ui.onNodeWithText(if(action=="reaction")"Unlike" else "Like").assertIsNotEnabled()
@@ -205,6 +229,14 @@ class GroupChatProcessRecoveryTest {
     private fun open(){waitForEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
         waitFor("Native group 😀 <&>");ui.onNodeWithText("Native group 😀 <&>").performClick()}
     private fun capture(name:String,text:String?=null)=captureNativeScreen(File(context.cacheDir,"group-chat-process-evidence/$name"),text)
+    private fun captureLayout(name:String) {
+        capture("$name.png")
+        File(context.cacheDir,"group-chat-process-evidence/$name.semantics.txt").writeText(
+            ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE))
+    }
+    private fun stage(value:String)=java.io.FileOutputStream(stages,true).use {
+        it.write("$value ${android.os.SystemClock.elapsedRealtime()}\n".toByteArray());it.fd.sync()
+    }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
 }
