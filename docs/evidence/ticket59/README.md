@@ -1007,3 +1007,35 @@ Relay/report checks and native bookend. It uses no hidden nodes, arbitrary delay
 new identity or widened180second class bound. Production remains exact49a;
 policy readiness remains the only other executable fixture change since49a.
 Corrected runtime and complete private/process/final full proof remain pending.
+
+## Complete private focused acceptance, fresh ff9 full dispatch
+
+Both complete private scopes at49a are SUCCESS:10run39446280616 and
+17run39446285216 each preserve24 history methods,10 action methods and the
+actual process recovery protocol,178 original members from2 archives perSDK.
+Cold continuity retains exact original/message/reaction/draft/identity/backend
+state with zero automatic transmissions. This later10 success does not repair
+the earlier standalone count observer failure or prove its cause. Both corrected
+policy runs39446798072/39446802357 ated5 are SUCCESS,1 method/34 originals
+each; root opened both saved-draft restored PNGs.
+
+Core/gateway/release/performance/lint39446244398 at49a is SUCCESS. Both reviews
+over the later one-line count observer/evidence throughff9 have0 findings. All
+457 tracked production/build/workflow/harness entries outside docs/AndroidTest
+are exactly equal from49a toff9, retained in ff9-production-equivalence. Only
+the two reviewed test fixtures differ. New corrected10actions39447773704 and
+10private-UI/process39447778541 executeff9 and remain pending.
+
+Fresh complete Android10run39448128550 and Android17run39448133541 execute
+exactff9da0967292cdd362554c5e0edbc4c318c26c0d on verify/status59-private-ready.
+All three jobs, source/release/lint, public reads, actual TalkBack/motion, protected
+recovery and five reading bookends remain mandatory. Frozen486/487 catalogs,
+collector hash, all deadlines/acceptance assertions and exact optional gaps are
+unchanged. No failed-tail or supplemental assembly. Prior dc2 dispatches continue
+as superseded observations, with actual final conclusions to retain.
+
+Signed57 is reserved/building at that exactff9 source in the canonical external
+review worktree. No actual APK or native full acceptance is claimed yet.51through
+56 remain REJECTED/NEVER PUBLISH and immutable;50 is stillLIVE. Final strict
+collection, visual inspection, paired review and independent public bookends
+remain required before publication and59closure, then sequential60through69.

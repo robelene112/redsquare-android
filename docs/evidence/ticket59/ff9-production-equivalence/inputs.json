@@ -1,0 +1,23 @@
+{
+  "checks": "PASS",
+  "excludedPrefixes": [
+    "docs/",
+    "app/src/androidTest/"
+  ],
+  "records": [
+    {
+      "source": "49a92703b63659ee7b7a9d4da03dc01616f5dd49",
+      "retainedTrackedEntries": 457,
+      "entriesSha256": "de174f5af823fc6e9aa7edcd0ff1ce1b0feea5f2ef4e98bfb02c2f1f9b413e0d"
+    },
+    {
+      "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+      "retainedTrackedEntries": 457,
+      "entriesSha256": "de174f5af823fc6e9aa7edcd0ff1ce1b0feea5f2ef4e98bfb02c2f1f9b413e0d"
+    }
+  ],
+  "changedExecutableFiles": [
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PrivateChatHistoryFixture.kt"
+  ]
+}

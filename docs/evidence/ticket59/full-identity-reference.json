@@ -88,14 +88,14 @@
     }
   ],
   "executingSources": {
-    "android10": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
-    "android17": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef"
+    "android10": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+    "android17": "ff9da0967292cdd362554c5e0edbc4c318c26c0d"
   },
   "executingRuns": {
-    "android10": 39444883643,
-    "android17": 39444888298
+    "android10": 39448128550,
+    "android17": 39448133541
   },
-  "signedCandidateSource": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+  "signedCandidateSource": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
@@ -155,9 +155,9 @@
       "reason": "Both complete Chat jobs fail two unchanged GroupChatPreviewTest operator steps: offscreen Unlike and offscreen left-notice native lookup. Both SDK social/wallet jobs succeed. Exact original logs/captures and terminal metadata retained. Test-only visible-scroll correction requires new complete runs, never failed-tail assembly."
     }
   ],
-  "verificationRef": "verify/status59-dc2a973aa",
-  "signedCandidateVersion": 56,
-  "signedCandidateRejected": true,
+  "verificationRef": "verify/status59-private-ready",
+  "signedCandidateVersion": 57,
+  "signedCandidateRejected": false,
   "rejectedCandidateVersions": [
     51,
     52,
@@ -169,7 +169,7 @@
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
     "step": "Build and verify native sources",
-    "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef"
+    "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d"
   },
   "sourceBuildHistory": [
     {
@@ -203,24 +203,48 @@
       "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39437693370"
+    },
+    {
+      "run": 39443999774,
+      "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39443999774"
     }
   ],
   "sourceBuild": {
-    "run": 39443999774,
-    "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+    "run": 39446244398,
+    "source": "49a92703b63659ee7b7a9d4da03dc01616f5dd49",
     "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39443999774"
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39446244398",
+    "productionInputsEqualTo": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+    "comparison": "ff9-production-equivalence/inputs.json excludes only docs/ and AndroidTest;457 equal Git entries. New exactff9 full jobs still require source/release/lint."
   },
   "fixtureOnlyEquivalence": {
-    "path": "docs/evidence/ticket59/dc2-production-equivalence/inputs.json",
-    "signedSource": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
-    "executingSource": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+    "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",
+    "focusedProductionSource": "49a92703b63659ee7b7a9d4da03dc01616f5dd49",
+    "executingSource": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
     "status": "PASS",
     "excludedPrefixes": [
       "docs/",
       "app/src/androidTest/"
     ],
     "equalTrackedEntries": 457,
-    "entriesSha256": "69a8183b2b3d4ff7385670501b2d7a692c8307ab979ca8688710e9521f08a746"
+    "entriesSha256": "de174f5af823fc6e9aa7edcd0ff1ce1b0feea5f2ef4e98bfb02c2f1f9b413e0d"
+  },
+  "supersededRunningExecutions": [
+    {
+      "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
+      "android10": 39444883643,
+      "android17": 39444888298,
+      "acceptance": "superseded, not accepted",
+      "reason": "Later49a production corrects proven42px private history; both complete dc2 dispatches continue with actual conclusions.10wallet already fails policy merged-editor readiness. Final run/job states must be retained after completion."
+    }
+  ],
+  "signedCandidateState": "reserved-building, not accepted or published",
+  "executingSourceCheck": {
+    "run": 39447946565,
+    "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
+    "status": "in_progress",
+    "acceptance": "pending"
   }
 }
