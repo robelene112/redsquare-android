@@ -133,7 +133,20 @@ class ImagePostingTest {
                                     waitFor("Conversation")
                                     ui.onNodeWithText("Reply").performClick()
                                 }
-                                "quote" -> ui.clickVisiblePostContent("Quote")
+                                "quote" -> {
+                                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote"))
+                                    val target = ui.onNodeWithText("Quote").fetchSemanticsNode().touchBoundsInRoot
+                                    val composer = ui.onNode(hasText("New post") and hasClickAction())
+                                        .fetchSemanticsNode().touchBoundsInRoot
+                                    File(context.cacheDir, "images-evidence/quote-tap-bounds.json").apply { parentFile?.mkdirs() }
+                                        .writeText(JsonObject().apply {
+                                            addProperty("quote", target.toString())
+                                            addProperty("floatingComposer", composer.toString())
+                                            addProperty("overlap", target.overlaps(composer))
+                                        }.toString())
+                                    capture("quote-before-tap.png")
+                                    ui.clickVisiblePostContent("Quote")
+                                }
                             }
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             if (text.isEmpty()) ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(

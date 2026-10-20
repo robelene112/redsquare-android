@@ -656,3 +656,14 @@ Next: collect complete results, inspect/review, publish59 only after acceptance,
 then close60 and continue61–69 followed70.55/1/36 and actual owner/provider/phone
 release gates remain open as previously documented. Do not stop at routine
 milestones. Unrelated NATIVE_GROUP_CHAT_CONTRACT.md remains untouched/unread.
+
+Replacement full10 run39515617424 atce480 reaches all17 browse/post goals and
+passes them, then social fails in ImagePostingTest: quote submits a New post
+without quote signature, and image-only checks picker intent before observing
+one. Root viewed original quote/post failure PNGs. FAB interception is a leading
+unproved hypothesis; Add-images persists asynchronously before launch, so its
+immediate intent observation may race. Diagnostic-only source captures actual
+Quote/FAB touch bounds and native PNG before the unchanged original helper.
+Both bounded source reviews0; no fixed cause or acceptance claimed. Full10 wallet
+also failed later; raw artifacts are being inspected. Full17 and remaining Chat
+partitions still run. Prepared59 remains held, public58 unchanged.
