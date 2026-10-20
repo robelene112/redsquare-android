@@ -302,3 +302,15 @@ independent restoration. Packets101/103hashes, two archives88 originals each;
 both reviews0. Root viewed all six10 action cells,17normal/130/200 and200identity.
 Existing navigation-word wrapping at200 remains70. Remaining60 content/status/
 new-control TalkBack/full catalog/full10+17/reviews/signed59 still pending.
+
+Next native content tracer signs two ordered local reference images and an
+independently signed embedded original. Six320dp font100/130/200 Light/Dark
+cells check actual red/blue rendered pixels, quote attribution/text, and no
+invented visual or accessible counts. Shared PostViewportFixture extracts the
+accepted real Settings/font/display/resource journey; all existing count,48dp,
+viewport/FAB, full identity and Registry assertions remain. Focused window and
+physical-format/320dp guards plus per-cell configuration records are additive.
+Each of the three classes has its own unchanged180second bound. Both source
+reviews0; the only later adjustment imports the already used public getOrNull
+extension. Local app/test Kotlin compile succeeds1m45s after that import fix.
+Production remainscfbf; new content and extracted-helper native proof pending.

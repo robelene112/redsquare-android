@@ -58,130 +58,95 @@ class PostPresentationViewportTest {
             }) { activity ->
             val device = UiDevice.getInstance(instrumentation)
             val folder = File(context.cacheDir, "post-viewport-evidence").apply { mkdirs() }
-            val font = EmulatorFontScale(context, folder, "post")
-            val originalSize = device.executeShellCommand("wm size")
-            val originalDensity = device.executeShellCommand("wm density")
-            val sizeOverride = Regex("Override size: ([0-9]+x[0-9]+)").find(originalSize)?.groupValues?.get(1)
-            val densityOverride = Regex("Override density: ([0-9]+)").find(originalDensity)?.groupValues?.get(1)
-            val appearance = context.getSharedPreferences("appearance", 0)
-            val originalAppearance = appearance.getString("mode", null)
             val profile = hasContentDescription("View profile for $name") and hasClickAction()
             val more = hasContentDescription("Post actions for $name") and hasClickAction()
-            var primary: Throwable? = null
-            try {
-                ui.waitUntil(20_000) { ui.onNode(profile).isDisplayed() }
-                ui.onNodeWithText("Later").performClick()
-                device.executeShellCommand("wm density 160")
-                device.executeShellCommand("wm size 320x640")
-                for (scale in listOf(1f, 1.3f, 2f)) {
-                    font.apply(scale)
-                    activity.recreate()
-                    ui.waitUntil(15_000) { device.displayWidth == 320 &&
-                        ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
-                    for (theme in listOf("Light", "Dark")) {
-                        val label = "post-320-font${(scale * 100).toInt()}-${theme.lowercase()}"
-                        withFailureCapture({ capture("$label-failure.png") }) {
-                            ui.onNode(hasText("Settings") and hasClickAction()).performClick()
-                            ui.onNodeWithText(theme).performScrollTo().performClick()
-                            ui.waitUntil(10_000) { ui.onNode(hasText(theme) and isSelected()).isDisplayed() }
-                            ui.onNodeWithText("Done").performClick()
-                            ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
-                            ui.onNode(hasScrollAction()).performScrollToNode(profile)
-                            ui.onNode(profile).assertIsDisplayed()
-                            capture("$label-identity-body.png")
-                            val actions = listOf("Like", "Repost", "Quote").map { action ->
-                                hasContentDescription("$action post by $name") and hasClickAction()
-                            }
-                            ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
-                            // Use the existing trailing space to bring the entire footer above the floating composer.
-                            ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
-                                check(scroll(0f, 88 * context.resources.displayMetrics.density))
-                            }
-                            ui.waitForIdle()
-                            val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
-                            val composer = ui.onNode(hasText("New post") and hasClickAction())
-                                .assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
-                            val minimum = 48 * context.resources.displayMetrics.density - 1
-                            val bounds = actions.map { target ->
-                                val node = ui.onNode(target).assertIsDisplayed().assertIsEnabled().fetchSemanticsNode()
-                                node.touchBoundsInRoot.also { rect ->
-                                    assertTrue("Complete reachable 48dp post action at $label", rect.width >= minimum &&
-                                        rect.height >= minimum && rect.left >= viewport.left && rect.right <= viewport.right &&
-                                        rect.top >= viewport.top && rect.bottom <= viewport.bottom)
-                                    assertFalse("Floating composer must not obscure the reachable action at $label",
-                                        rect.overlaps(composer))
-                                }
-                            }
-                            bounds.forEachIndexed { index, left -> bounds.drop(index + 1).forEach { right ->
-                                assertFalse("Post action targets must not overlap at $label", left.overlaps(right))
-                            } }
-                            for (count in listOf("9223372036854775807 likes", "12345 reposts")) {
-                                val results = mutableListOf<TextLayoutResult>()
-                                ui.onNodeWithText(count, useUnmergedTree = true).assertIsDisplayed()
-                                    .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
-                                assertEquals("Count must have an actual rendered text layout", 1, results.size)
-                                val layout = results.single()
-                                File(folder, "$label-${if (count.endsWith("likes")) "likes" else "reposts"}-layout.json")
-                                    .writeText(JsonObject().apply {
-                                        addProperty("count", count)
-                                        addProperty("size", layout.size.toString())
-                                        addProperty("constraints", layout.layoutInput.constraints.toString())
-                                        addProperty("paragraphWidth", layout.multiParagraph.width)
-                                        addProperty("paragraphHeight", layout.multiParagraph.height)
-                                        addProperty("didOverflowWidth", layout.didOverflowWidth)
-                                        addProperty("didOverflowHeight", layout.didOverflowHeight)
-                                        addProperty("didExceedMaxLines", layout.multiParagraph.didExceedMaxLines)
-                                        addProperty("lineCount", layout.lineCount)
-                                        addProperty("lineBounds", (0 until layout.lineCount).joinToString { line ->
-                                            "${layout.getLineLeft(line)},${layout.getLineTop(line)},${layout.getLineRight(line)},${layout.getLineBottom(line)}"
-                                        })
-                                    }.toString())
-                                // Paragraph allocation can exceed shrink-wrapped Text width even when every glyph fits.
-                                // Measure the actual rendered lines and completeness rather than the unused paragraph space.
-                                assertFalse("Complete observed $count must fit vertically at $label", layout.didOverflowHeight)
-                                assertFalse(layout.multiParagraph.didExceedMaxLines)
-                                assertTrue(layout.lineCount > 0)
-                                for (line in 0 until layout.lineCount) {
-                                    assertFalse("Observed count must not be ellipsized", layout.isLineEllipsized(line))
-                                    assertTrue("Complete observed $count must fit horizontally at $label",
-                                        layout.getLineLeft(line) >= 0f && layout.getLineRight(line) <= layout.size.width)
-                                }
-                                assertEquals("Every observed count character must remain rendered", count.length,
-                                    layout.getLineEnd(layout.lineCount - 1))
-                            }
-                            File(folder, "$label.json").writeText(JsonObject().apply {
-                                addProperty("widthPixels", device.displayWidth)
-                                addProperty("widthDp", context.resources.configuration.screenWidthDp)
-                                addProperty("fontScale", context.resources.configuration.fontScale)
-                                addProperty("selectedAppearance", theme)
-                                addProperty("touchBounds", bounds.joinToString())
-                                addProperty("scrollViewport", viewport.toString())
-                                addProperty("floatingComposer", composer.toString())
-                            }.toString())
-                            capture("$label-actions-counts.png")
-                            ui.onNode(hasScrollAction()).performScrollToNode(more)
-                            ui.onNode(more).assertIsDisplayed().performClick()
-                            ui.onNodeWithText("Public identity").performClick()
-                            ui.onNode(hasText(name) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
-                            ui.onNode(hasText(author.publicKey) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
-                            capture("$label-full-public-identity.png")
-                            ui.onNodeWithText("Done").performClick()
-                        }
+            ui.waitUntil(20_000) { ui.onNode(profile).isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            ui.withPostViewports(activity, folder, "post") { label, theme ->
+                ui.onNode(hasScrollAction()).performScrollToNode(profile)
+                ui.onNode(profile).assertIsDisplayed()
+                capture("$label-identity-body.png")
+                val actions = listOf("Like", "Repost", "Quote").map { action ->
+                    hasContentDescription("$action post by $name") and hasClickAction()
+                }
+                ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
+                // Use the existing trailing space to bring the entire footer above the floating composer.
+                ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                    check(scroll(0f, 88 * context.resources.displayMetrics.density))
+                }
+                ui.waitForIdle()
+                val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
+                val composer = ui.onNode(hasText("New post") and hasClickAction())
+                    .assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
+                val minimum = 48 * context.resources.displayMetrics.density - 1
+                val bounds = actions.map { target ->
+                    val node = ui.onNode(target).assertIsDisplayed().assertIsEnabled().fetchSemanticsNode()
+                    node.touchBoundsInRoot.also { rect ->
+                        assertTrue("Complete reachable 48dp post action at $label", rect.width >= minimum &&
+                            rect.height >= minimum && rect.left >= viewport.left && rect.right <= viewport.right &&
+                            rect.top >= viewport.top && rect.bottom <= viewport.bottom)
+                        assertFalse("Floating composer must not obscure the reachable action at $label",
+                            rect.overlaps(composer))
                     }
                 }
-                assertTrue(requireNotNull(observedPeer).registryQueries.any {
-                    it.get("request").asString == "registry namecheck" && it.get("identifier").asString == name
-                })
-            } catch (failure: Throwable) { primary = failure; throw failure }
-            finally {
-                cleanupAfterTest(primary, { activity.close() }, { font.restore() },
-                    { device.executeShellCommand("wm size ${sizeOverride ?: "reset"}")
-                        check(device.executeShellCommand("wm size").trim() == originalSize.trim()) },
-                    { device.executeShellCommand("wm density ${densityOverride ?: "reset"}")
-                        check(device.executeShellCommand("wm density").trim() == originalDensity.trim()) },
-                    { check(appearance.edit().apply { if (originalAppearance == null) remove("mode")
-                        else putString("mode", originalAppearance) }.commit()) })
+                bounds.forEachIndexed { index, left -> bounds.drop(index + 1).forEach { right ->
+                    assertFalse("Post action targets must not overlap at $label", left.overlaps(right))
+                } }
+                for (count in listOf("9223372036854775807 likes", "12345 reposts")) {
+                    val results = mutableListOf<TextLayoutResult>()
+                    ui.onNodeWithText(count, useUnmergedTree = true).assertIsDisplayed()
+                        .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
+                    assertEquals("Count must have an actual rendered text layout", 1, results.size)
+                    val layout = results.single()
+                    File(folder, "$label-${if (count.endsWith("likes")) "likes" else "reposts"}-layout.json")
+                        .writeText(JsonObject().apply {
+                            addProperty("count", count)
+                            addProperty("size", layout.size.toString())
+                            addProperty("constraints", layout.layoutInput.constraints.toString())
+                            addProperty("paragraphWidth", layout.multiParagraph.width)
+                            addProperty("paragraphHeight", layout.multiParagraph.height)
+                            addProperty("didOverflowWidth", layout.didOverflowWidth)
+                            addProperty("didOverflowHeight", layout.didOverflowHeight)
+                            addProperty("didExceedMaxLines", layout.multiParagraph.didExceedMaxLines)
+                            addProperty("lineCount", layout.lineCount)
+                            addProperty("lineBounds", (0 until layout.lineCount).joinToString { line ->
+                                "${layout.getLineLeft(line)},${layout.getLineTop(line)},${layout.getLineRight(line)},${layout.getLineBottom(line)}"
+                            })
+                        }.toString())
+                    // Paragraph allocation can exceed shrink-wrapped Text width even when every glyph fits.
+                    // Measure the actual rendered lines and completeness rather than the unused paragraph space.
+                    assertFalse("Complete observed $count must fit vertically at $label", layout.didOverflowHeight)
+                    assertFalse(layout.multiParagraph.didExceedMaxLines)
+                    assertTrue(layout.lineCount > 0)
+                    for (line in 0 until layout.lineCount) {
+                        assertFalse("Observed count must not be ellipsized", layout.isLineEllipsized(line))
+                        assertTrue("Complete observed $count must fit horizontally at $label",
+                            layout.getLineLeft(line) >= 0f && layout.getLineRight(line) <= layout.size.width)
+                    }
+                    assertEquals("Every observed count character must remain rendered", count.length,
+                        layout.getLineEnd(layout.lineCount - 1))
+                }
+                File(folder, "$label.json").writeText(JsonObject().apply {
+                    addProperty("widthPixels", device.displayWidth)
+                    addProperty("widthDp", context.resources.configuration.screenWidthDp)
+                    addProperty("fontScale", context.resources.configuration.fontScale)
+                    addProperty("selectedAppearance", theme)
+                    addProperty("touchBounds", bounds.joinToString())
+                    addProperty("scrollViewport", viewport.toString())
+                    addProperty("floatingComposer", composer.toString())
+                }.toString())
+                capture("$label-actions-counts.png")
+                ui.onNode(hasScrollAction()).performScrollToNode(more)
+                ui.onNode(more).assertIsDisplayed().performClick()
+                ui.onNodeWithText("Public identity").performClick()
+                ui.onNode(hasText(name) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
+                ui.onNode(hasText(author.publicKey) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
+                capture("$label-full-public-identity.png")
+                ui.onNodeWithText("Done").performClick()
             }
+            assertTrue(requireNotNull(observedPeer).registryQueries.any {
+                it.get("request").asString == "registry namecheck" && it.get("identifier").asString == name
+            })
         }
     }
 
