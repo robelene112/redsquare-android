@@ -19,54 +19,50 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
-Shared frame58 remains ACTIVE. Production remains58781abae7b338cb8ba5b42af271702ac4cd7f07:
-named quarter-height private status viewport retains all guidance/conditions and
-composer controls; prior pending-admin group fix remains. Signed48 at587 is
-prepared/reviewed0 on both axes, unpublished, SHA256
-027f57f99944726daf3fcd829b74964b7916ff621e24c4d6b3ac5138d406123b.
-Actual APK/certificate/manifest/DEX and before-bookendPASS.47/46 superseded and
-unpublished; ordinary45 live, immutable45/performance43 unchanged.
+Shared frame58 remains ACTIVE. Productiona1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4
+moves reaction status/error into the existing named quarter-height Chat status
+viewport, with unchanged text/conditions and directly reachable Retry below the
+list. The earlier guidance-only cap did not cover these notices. Latest038
+Android10 originalXML measures Private messages at216..226=10px during interrupted
+reaction retry; root opened its original. Positive48dp regression and body display
+precede the unchanged native expected-text capture. Both production source axes0.
+Broader message-first Chat polish remains62.
 
-Latest compiled source003a04cc70b6403b5f028ba8b6c8f647b62a7e47 passed
-source39372164634. Complete focused group17 run39372650163 SUCCESS:exact26
-accepted38 identities,22 group+1 actions+1 mixed+1 recovery+1 restore. Actual
-PIDs5328->5407; exact checkpoint fields except phase/new PID, key/draft/original/
-reaction continuity and zero automatic transmissions. Its earlier60second timeout
-remains failed and unexplained; this normal completion does not prove its cause.
-Group10 was already complete at e674/run39370550836 with26 exact identities.
+Complete private history39373971880(10)/39373974243(17) at038 now24PASS each,
+108.041/154.842seconds, original180second bounds. Whole runs remainFAILURE because
+actions complete10 methods7PASS/3FAIL on10 and9PASS/1FAIL on17; no process tail.
+10 has the10px reaction capture572 plus the two already diagnosed728 captures.
+17 stops at734 original body assert after reopening; root original shows only
+timestamp/count/actions. f2 positions unlike capture bodies; fa21f295d positions
+both reopened body assertions before original display goals. Both source axes0.
+No exact original/Relay/count/restoration goal or deadline is weakened.
 
-Private actual recovery39372656765(10)/39372659393(17) bothSUCCESS:each2 exact
-accepted38 normal identities, actual PIDs3369->3797/3237->4489, exact checkpoints,
-retained original/history/draft/uncertain message/reaction and zero transmissions.
-Root opened recovered native originals on bothSDKs. The draft/reaction capture
-has no visible history; retained cache continuity is not rendered cache proof.
-Carry this dense real state into62. Original120second phase bounds remain.
+Latest compiled candidatefa21f295d8ff39206c81e30da081a677ed57a402, source39374755440
+in progress. Await SUCCESS before corrected chat-ui and fresh full10/17 dispatch.
+Priorf2 source39374150855SUCCESS; a1 source39374682292CANCELLED by newerfa, not
+acceptance. Canonical signed49 building from frozen productiona1 in the external
+review-worktree; shared counter49 reserved.48/47/46 superseded and unpublished.
+Ordinary45 stays LIVE, immutable45/performance43 unchanged.49 preparation and
+public before/after checks, complete native acceptance/review/publication pending.
 
-Complete private39372652001(10)/39372654562(17) bothFAILURE:24 normal methods,
-23PASS/1FAIL at958, outgoing-text wait before scrolling. Both failure originals
-show older content and saved status/Retry. Fixture-only03849d1a9 reuses the existing
-scoped15second scroll/display helper. Both source axes0; source39373545041SUCCESS.
-Corrected complete private39373971880/39373974243 at038 is in progress.
+Earlier complete focused group:10 at e674/run39370550836 and17 at003/run39372650163
+bothSUCCESS, exact26 accepted38 identities each.17 actual PIDs5328->5407,10
+14124->14523, full protected key/draft/original/reaction continuity and zero sends.
+Private actual recovery at003 runs39372656765/39372659393 bothSUCCESS,2 exact
+accepted38 normal IDs each, PIDs3369->3797/3237->4489, exact checkpoints except
+phase/new PID, original history/draft/uncertain message/reaction and zero sends.
+Root opened corrected group17/recovered private originals on bothSDKs. Dense
+private draft/reaction capture has no visible history; retained cache continuity
+is not rendered cache proof. This remains62 work. Fresh productiona1 must be
+verified; prior focused successes are not acceptance of its new layout.
 
-Action-only39373517260(10)/39373519663(17) at003 bothFAILURE:10 normal methods,
-8PASS/2FAIL at728 native expected-body capture after action/count scrolls. Root
-opened all four originals: timestamp/actions visible, body offscreen. Both native
-Reply variants nowPASS, without proving which prior hypothesis caused failure.
-Distinct unlike original/raw/Relay/count checks precede the two failed captures;
-later recreation was not reached.307c9652c positively scrolls the body before the
-unchanged capture. f2c8cd463 also positions the later recreated capture after its
-same count-scrolling pattern, source-supported without claiming a later observed
-failure. Both source axes0 for307 andf2; successful f2 source/runtime gates remain pending.
-Original goals/bounds/cleanup and production587/prepared48 remain unchanged.
-
-Seven latest packets retain original logs/native archives and independent identity
-comparisons. See../evidence/ticket58/README.md for exact run/source/result limits.
-48 production remains current and unpublished. No full acceptance/publication yet.
-After focused corrections, dispatch fresh full10/17 at the same compiled source
-BEFORE evidence-only commits; retain failed e205 attempts as failed. The frozen
-473/474 identities,122/123 normal completions,34 interruptions and33 continuity
+Latest retained packets preserve all actual failed/successful outcomes and raw
+native originals. See../evidence/ticket58/README.md. No full acceptance/publication.
+Dispatch full10/17 at the same compiled source BEFORE evidence-only pushes, bind
+exact runs/source before outcomes and retain failed e205 attempts as failed. The
+frozen473/474 identities,122/123 normal completions,34 interruptions and33 continuity
 gates remain. Keep56/58 open until verified delivery, then57 and59..69 sequentially.
-External prerequisites remain under36. Protected untracked research stays untouched.
+External prerequisites stay under36. Protected untracked research stays untouched.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration

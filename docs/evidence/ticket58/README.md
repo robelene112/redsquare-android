@@ -839,3 +839,21 @@ also positions its later recreated capture after the same scroll pattern. The
 later line was not observed failing. Assertions, bounds and app inputs unchanged.
 Corrected runtime remains pending. Source038 isSUCCESS; complete private runtime
 39373971880/39373974243 at038 is still in progress.
+
+Complete private at038 [10](ui58-private-initial-fixed10-39373971880/summary.json)/
+[17](ui58-private-initial-fixed17-39373974243/summary.json): all24 original history
+methodsPASS,108.041/154.842seconds, same180second bound. Whole commandsFAILURE:
+action10 completes7PASS/3FAIL on10,9PASS/1FAIL on17. Process tail not reached.
+10 interrupted reaction originalXML measures Private messages216..226=10px;
+original PNG shows submitted/error/Retry and only the bubble author. This is a
+real layout failure, beyond the diagnosed offscreen728 captures.17 fails734 body
+display after reopening; root opened its original showing timestamp/count/actions.
+
+Productiona1 moves unchanged reaction notices into the existing bounded named
+Chat status before guidance; Retry stays directly reachable below history. New
+48dp positive regression and body display precede the unchanged interrupted
+native capture. fa positions two reopened body assertions, retaining original
+display goals. All source review axes0. Fresh fa source39374755440 pending;
+no runtime acceptance yet. Signed49 is building at frozen productiona1.48/47/46
+remain unpublished and superseded; ordinary45 live. Fresh full10/17, public
+bookends and delivery remain mandatory. Broader dense Chat states remain62.
