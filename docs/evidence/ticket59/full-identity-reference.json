@@ -170,5 +170,11 @@
       "comparison": "git diff a6b9d0e06..3c96bd3d8 changes only README, full-collector.py, full-identity-reference.json and handoff under docs",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39429855138"
     }
-  ]
+  ],
+  "sourceBuild": {
+    "run": 39434435443,
+    "source": "4ae88dcafe13c24d738df45e8998cf7679f79a6d",
+    "conclusion": "success",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39434435443"
+  }
 }
