@@ -73,7 +73,12 @@ paths and imports are removed during review. The migration is committed atf65204
 Local app+AndroidTest Kotlin compilation succeeds in4m13s. Both bounded source
 reviews and RED-packet reviews report0. Pinned native post-presentation
 39486218923(Android10),39486223271(Android17), and existing browse39486227817
-are active at the samef652 source; migrationGREEN is pending.
+all succeed at the samef652 source. Post-presentation10 completes2methods in
+11.413s and17 in29.462s; each22-hash packet retains14 exact originals. Both
+independent reviews verify them with0 findings. Root viewed all eight actual
+Feed/Thread/Profile/Search captures across both SDKs. Existing browse10 retains
+all eight methods,24.639s, zero failures, and14 original PNG/XML members.
+This establishes the four-context slice, not whole60 acceptance.
 Remaining60 scope includes compact vector social actions/status, coherent author
 menu actions, large-text/content rendering and actual accessibility proof.
 
@@ -85,3 +90,10 @@ selection. Actual name text and explicit card association remain where required;
 all raw/rate/registry/pixel/provider/control/recovery/cleanup/deadline assertions
 are unchanged. Both source-only reviews report0. Native regression proof follows;
 no new acceptance is inferred from source review.
+
+
+Next native tracer adds contextual Like/Repost/Quote controls, truthful2likes/
+1repost associated with their respective control, full48dp reachable targets,
+non-overlap and a deliberate default single row. The peer remains read-only and
+existing methods/deadlines/restoration checks are unchanged. Both test-stage
+reviews report0; native RED is pending before changing social controls.

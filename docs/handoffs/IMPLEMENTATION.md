@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active post-presentation60
 
-2026-10-20 19:52 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
+2026-10-20 19:55 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
 with code/evidence review, commits and signed in-place beta delivery. Never stop
 at a routine milestone.55 remains open through owner final app-wide UI review.
@@ -63,13 +63,20 @@ fails exactly missing Thread contextual profile target after Feed/date goals pas
 18 hashes/ten original members retained, root viewed native oldThread. Sourcef6520438412124bce7a5aa837f1221663cd6ae34 migrates
 Thread/Search/Profile to PostCard with unchanged inputs/callbacks and removes
 obsolete fallback Report renderer/showReport flag in review. Local app+AndroidTest
-Kotlin compile succeeds4m13s; paired partial reviews0. Native GREEN10 run39486218923,
-GREEN17 run39486223271 and existing browse10 run39486227817 are active on pinned
-verify/posts60-context-green-f65204384. Inspect actual results/screens before next
-tracer. Additional6-file WIP operators for RepeatLike/Search/PersonalControls/
-Username/ImageSelection/Video match current merged post semantics, preserve
-all prior assertions and have0/0 source-only reviews; commit and run relevant
-focused existing regressions. Native results are pending; never call this whole60 completion. Focused existing reports39483951409 at1c295 isSUCCESS:11UIcases119.469s and
+Kotlin compile succeeds4m13s; paired partial reviews0. Native GREEN10 run39486218923
+andGREEN17 run39486223271 bothSUCCESS atf652: two methods each,11.413s/29.462s,
+22hashes/14originals each verified by both review axes0. Root viewed all8 actual
+context captures. Existing browse10 run39486227817 alsoSUCCESS:8cases24.639s,
+14originalmembers retained. These are bounded four-context proof, not all60.
+Operator-only2530bff2251203f3d54a40cf0f8198de1d72156e preserves raw/rate/registry/
+pixel/provider/control/recovery assertions and has0/0 source reviews. Existing
+usernames39487193396, social-repeat39487196972, search39487200550 are active on
+verify/posts60-operators-2530bff22. Inspect actual outcomes, do not infer passes.
+Next third PostPresentation tracer (WIP,0/0 test-stage reviews) checks contextual
+social controls, same-control node counts2likes/1repost,48dp targets/full bounds/
+non-overlap/single defaultrow without any send. Commit/pin/nativeRED before
+implementing compact vector social controls. Existing shared-card product staysf652.
+Focused existing reports39483951409 at1c295 isSUCCESS:11UIcases119.469s and
 actualprocess4181 to4263/exactretry/zeroType4 restorationPASS. Packet107hashes/
 90originalmembers retained. Small WIP ReportAction scrollable dialogtext review
 polish awaits native larger-font proof; no controller/callback changes.

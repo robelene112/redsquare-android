@@ -71,6 +71,37 @@ class PostPresentationPreviewTest {
             assertPostPresentation("search")
         }
 
+    @Test fun socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets() =
+        withAppFrameFixture("post-social-targets", "post-presentation-evidence") {
+            val context = InstrumentationRegistry.getInstrumentation().targetContext
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
+            val minimum = 48 * context.resources.displayMetrics.density - 1
+            val targets = listOf(
+                Triple("Like post by Anon-jesTu2", "Like", "2 likes"),
+                Triple("Repost post by Anon-jesTu2", "Repost", "1 repost"),
+                Triple("Quote post by Anon-jesTu2", "Quote", null)
+            ).map { (description, label, count) ->
+                val action = ui.onNode(hasContentDescription(description) and hasClickAction())
+                    .assertIsDisplayed().assertTextContains(label)
+                if (count != null) action.assertTextContains(count)
+                val bounds = action.fetchSemanticsNode().touchBoundsInRoot
+                assertTrue("$label must have a complete non-clipped48dp target", bounds.width >= minimum &&
+                    bounds.height >= minimum && bounds.left >= viewport.left && bounds.right <= viewport.right &&
+                    bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
+                bounds
+            }
+            assertTrue("Default-size post actions must share one deliberate row",
+                targets.maxOf { it.top } - targets.minOf { it.top } < 1)
+            targets.zipWithNext().forEach { (left, right) ->
+                assertTrue("Adjacent post action targets must not overlap", left.right <= right.left)
+            }
+            ui.onNodeWithText("0 likes").assertDoesNotExist()
+            ui.onNodeWithText("0 reposts").assertDoesNotExist()
+            capture("compact-social-controls-with-node-counts.png")
+        }
+
     private fun assertPostPresentation(surface: String) {
         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
         ui.onNodeWithContentDescription("View profile for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
