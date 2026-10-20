@@ -1,0 +1,57 @@
+{
+  "run": 39428759403,
+  "source": "7a8dad0a54a8237641ca831e8ffc3c47a6cea406",
+  "archiveSha256": "6dae2c621c48e4a1c1b88c7ea750a6dab9e8daea9ceba4ab1915fb2e027b2ec5",
+  "members": [
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.xml",
+      "bytes": 55753,
+      "sha256": "990fbdc9203f5ef4b41fb368b1352846f0fa50d53daeba2643e68c2fff52802a"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-before-chat.png",
+      "bytes": 51297,
+      "sha256": "e1a0d2a69dd5e32214d371ee60b28e3b56fb13b40914a5943ccd1d66c995ec96"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.xml",
+      "bytes": 55759,
+      "sha256": "05873b9e1a287aec811c2722a1732f16f55d5d3daccfc1847ac6afff46a9de03"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-chat.png",
+      "bytes": 51320,
+      "sha256": "a65f3b2c2fc017c2248641cb1344c68fed7665ce31b7af686b854dccdd95a5e3"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.xml",
+      "bytes": 55761,
+      "sha256": "31fbb060660836d9794357286bb745660ff6d558ff48f08dab1de3ab9c108dce"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-feed-after-recreation.png",
+      "bytes": 51221,
+      "sha256": "1123c460dc5e2fa62ff52fefb7c3852d5bc5c88b1eb7450c254e910c6048db05"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-before-recreation.xml",
+      "bytes": 59022,
+      "sha256": "8194048787b8da294551fc5ed61f25ae09553f2527ab27ba912fc273af3b68f9"
+    },
+    {
+      "member": "app-frame-reading-evidence/scrolled-outage-before-recreation.png",
+      "bytes": 45175,
+      "sha256": "b1c42685a59df6f3d6dce48968cb2e6229b5aa5bd3ef7c48e06b62b92ed1a268"
+    },
+    {
+      "member": "app-frame-reading-evidence/reading-position-failure.xml",
+      "bytes": 55779,
+      "sha256": "5abc96fa568687d689ab1ad72d215d444585d9a56e2d0941b36db57706004a5d"
+    },
+    {
+      "member": "app-frame-reading-evidence/reading-position-failure.png",
+      "bytes": 45166,
+      "sha256": "8a1c5244f7e13a522df138de28812cab1ca45d32f4c2e510967ee108aca510dc"
+    }
+  ]
+}
