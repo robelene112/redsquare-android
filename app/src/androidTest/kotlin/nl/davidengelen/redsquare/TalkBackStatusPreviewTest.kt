@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.UiAutomation
 import android.os.Build
 import android.os.SystemClock
@@ -32,10 +33,15 @@ class TalkBackStatusPreviewTest {
         lateinit var device: UiDevice
         val folder = File(context.cacheDir, "status-talkback-evidence").apply { mkdirs() }
         var primary: Throwable? = null
+        var originalServiceFlags: Int? = null
         try {
             configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             device = UiDevice.getInstance(instrumentation)
+            originalServiceFlags = automation.serviceInfo.flags
+            automation.serviceInfo = automation.serviceInfo.apply {
+                flags = flags or AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
+            }
             val service = android.content.ComponentName("com.android.talkback", "com.google.android.marvin.talkback.TalkBackService")
             val manager = instrumentation.context.packageManager
             val serviceLabel = manager.getServiceInfo(service, 0).loadLabel(manager).toString()
@@ -111,7 +117,11 @@ class TalkBackStatusPreviewTest {
             })
             throw failure
         } finally {
-            cleanupAfterTest(primary, { configurator.setUiAutomationFlags(originalFlags) })
+            cleanupAfterTest(primary, {
+                originalServiceFlags?.let { original ->
+                    automation.serviceInfo = automation.serviceInfo.apply { flags = original }
+                }
+            }, { configurator.setUiAutomationFlags(originalFlags) })
         }
     }
 
@@ -176,9 +186,23 @@ class TalkBackStatusPreviewTest {
     private fun appRoots(automation: UiAutomation): List<AccessibilityNodeInfo> = automation.windows.mapNotNull { it.root }
         .filter { it.packageName?.toString() == InstrumentationRegistry.getInstrumentation().targetContext.packageName }
 
-    private fun node(automation: UiAutomation, text: String): AccessibilityNodeInfo =
-        appRoots(automation).flatMap { it.findAccessibilityNodeInfosByText(text) }
-            .first { it.text?.toString() == text && it.isVisibleToUser }
+    private fun node(automation: UiAutomation, text: String): AccessibilityNodeInfo {
+        var found: AccessibilityNodeInfo? = null
+        withFailureCapture({
+            val folder = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "status-talkback-evidence")
+            File(folder, "node-lookup-failure.txt").writeText("requested=$text serviceFlags=${automation.serviceInfo.flags}\n" +
+                automation.windows.joinToString("\n") { window ->
+                    "id=${window.id} title=${window.title} active=${window.isActive} focused=${window.isFocused} rootPackage=${window.root?.packageName}"
+                })
+        }) {
+            waitFor(5_000) {
+                found = appRoots(automation).flatMap { it.findAccessibilityNodeInfosByText(text) }
+                    .firstOrNull { it.text?.toString() == text && it.isVisibleToUser }
+                found != null
+            }
+        }
+        return requireNotNull(found)
+    }
 
     private fun click(automation: UiAutomation, text: String) {
         var target: AccessibilityNodeInfo? = node(automation, text)
