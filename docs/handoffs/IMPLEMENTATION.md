@@ -69,8 +69,15 @@ Local debug/app-test compilation atbb8 succeeds. Paired review through68ea
 reports0 residual findings. Final sourcef4bbe99df (same production as68ea) is
 frozen for new signed53 and complete10run39424620344/17run39424624394 on
 verify/status59-f4bbe99df. Final motion10/17runs39424574430/39424578068 and
-keyboard10/17runs39424581644/39424585472 are active; preliminarybb8 mute
-runs39424301229/39424305506 also run. Source build39424574004 is active.
+keyboard10/17runs39424581644/39424585472 are SUCCESS, all10 methods each.
+Both motion runs succeed; original10 entry/exit and17 exit/zero frames inspected.
+Preliminarybb8 mute39424301229/39424305506 both succeed, all8 methods each;
+root opened both readable group body/saved draft captures. Signed53 actual APK
+checks PASS, SHAaaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574.
+Independent before-HTTP bookend PASS.53 remains UNPUBLISHED. Standalone source
+39424574004 is canceled by a documentation push, not accepted; each complete
+job independently runs mandatory source/core/release/lint checks. Main4f source
+run39424796169 is separate and still active.
 Pending: corrected focused proof, original visual inspection, successful complete
 allthree partitions perSDK, actual APK inspection, strict collection and paired
 final evidence review. Publish only after

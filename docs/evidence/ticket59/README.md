@@ -515,3 +515,49 @@ bb8;68ea retains active transitions via `!visibility.isIdle`, removing the slot
 only after idle. Corrected native execution is still pending. Full f23 final
 run/job metadata is retained under rejected-run-final-metadata; both social and
 wallet partitions succeed, both Chat partitions fail. Signed52 remains rejected.
+
+### Corrected focused verification and immutable53 preparation
+
+| Journey | Android10 | Android17 | Actual result |
+| --- | --- | --- | --- |
+| Group/private mute atbb8 |39424301229|39424305506|SUCCESS, all8 methods each,105 original members each|
+| Normal/zero status motion atf4 |39424574430|39424578068|SUCCESS, both methods each,154/195 original members|
+| Real IME atf4 |39424581644|39424585472|SUCCESS, all10 methods each,116 original members each|
+
+Root opened both muted incoming originals and actual Compose observations:
+group history is now85pixels at269..354; body305..324 is fully visible with the
+saved multiline draft. Prior17pixel RED remains unchanged. These bb8 results
+precede the one-line68ea reversal fix; complete f4 execution must establish final
+source acceptance. Both full f4 runs include all original mute/recovery cases.
+
+Root inspected original normal10 Search frames30/32/35 and60/62/65, showing
+progressive entry and exit. A temporary read-only PNG column check corroborates
+native capsule growth5/20/39/53/61/67/70rows and shrink65/50/31/17/9/3/0rows.
+This is visual corroboration, not a substituted application assertion. Actual17
+frames115/116/117 show progressive exit65/31/0rows. Its entry has a216ms recording
+gap, so that movie alone does not demonstrate intermediate entry frames. Original
+normal10 entry, shared source and actual17 exit remain distinguished. Root opened
+both zero-motion Search movies' original working/removed frames; no interpolated
+capsule growth/shrink is visible. Every original movie/frame/timestamp is retained.
+Functional PASS alone is not the motion oracle.
+
+Root opened actual17 group-text-font130 physical Send/IME capture. Native bounds
+[215,270][304,318] retain48pixels, with visible current IME322 and screen640,
+including the same real Gboard font-size notice. No target, inset or deadline is
+relaxed. Other saved-draft/attachment/history presentation remains62's bounded work.
+
+Signed53 is prepared at exactf4bbe99dfef6fcb7a149ba80abf97be98ccd9e89,
+SHA256aaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574,
+37,856,651bytes. Actual APK manifest/DEX/certificate checks PASS: established
+certificate, package nl.davidengelen.redsquare, SDK29/36, nondebuggable,
+nonprofileable, backupfalse, reviewtrue/pushfalse, separate GIF keys empty and
+no TalkBack tool package query in release. The APK remains UNPUBLISHED. External
+independent before-publication HTTP bookend PASS protects ordinary50/49/45 and
+the complete performance43 channel.51/52 remain rejected and immutable.
+
+Fresh complete10run39424620344/17run39424624394 execute exactf4 on the owned
+verification ref. Allthree partitions, public reads, actual speech, native motion,
+strict collection, original evidence inspection and paired final review remain
+required. The earlier standalone f4 source run39424574004 was canceled by the
+subsequent documentation-only main push; it is not successful source evidence.
+Every full job independently retains the mandatory build/core/release/lint step.

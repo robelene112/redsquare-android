@@ -1,0 +1,587 @@
+{
+  "run": 39424581644,
+  "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+  "archiveSha256": "9df9de56711b8cd9d1e5dae2ea1cc918c01035100f9847c56fb25e05184058b6",
+  "members": [
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-font-scale.json",
+      "bytes": 108,
+      "sha256": "e77dfb40a0e53c9f97dae04e5a92dcd59dcb3911a6400c3cbf7d7b5ad2631a4c"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-closed.xml",
+      "bytes": 42891,
+      "sha256": "1289fa7f60bdb41559437f100c753931f910a70a754b492c9bc0893aa1453c49"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-closed.png",
+      "bytes": 54874,
+      "sha256": "84e83ce4631ca272c885b8bd89c94118836bd3ae8751c90d15cba9d17d40d8e9"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "2cc0668e4a7caded9eb4b083e08e3ebc577a8c032e363940efa33f3efcc9cd74"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.xml",
+      "bytes": 46810,
+      "sha256": "f7f5d2bafb3c3a18a16e09719f6a9996f451b51981b2de02da8817978bf39ccc"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime.png",
+      "bytes": 42057,
+      "sha256": "96e8df88dce45ef7aa9756ea53be2cb5a7c66212a4e705b04706791f59bd7add"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "7ab7f6ee07920d5a0d1a2e592bc2fe1eab441c9faecaabbf98061a8c0f106d3b"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-keyboard-open.xml",
+      "bytes": 46810,
+      "sha256": "5c5bd65e401c301e3bec40fba04f6ee757e24a820681e0fc9a87f7b0b6ee5c6a"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-keyboard-open.png",
+      "bytes": 42157,
+      "sha256": "6c92d8e171b79214141f8e22b724625bdc00e8f59e2725deca6a18841dd866b3"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-keyboard-dismissed-unsent.xml",
+      "bytes": 43389,
+      "sha256": "9a44830894635adb6df1205c2097c6887532d0c59a412235de68be8790524544"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-keyboard-dismissed-unsent.png",
+      "bytes": 49086,
+      "sha256": "12fcf20671a1e266defc5b1296dd3445c325de31dea26c3bf2230d0412c7bac5"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-explicitly-sent.xml",
+      "bytes": 47799,
+      "sha256": "db1d9f46c3d3ba482f10a99f0ce05c20c50d5ad10f3135fb3114cbb8cb07fc72"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-explicitly-sent.png",
+      "bytes": 49008,
+      "sha256": "179da23a1c3ad55593625f18ce783d092b2d36badf6a5f913d2053567b0e9376"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-font130-font-restore.json",
+      "bytes": 97,
+      "sha256": "f5fda3b4ff9660c518416f26559961436a780bb82bbd0c50ed5e269f504fa6bc"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-font-scale.json",
+      "bytes": 108,
+      "sha256": "e77dfb40a0e53c9f97dae04e5a92dcd59dcb3911a6400c3cbf7d7b5ad2631a4c"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed.xml",
+      "bytes": 42857,
+      "sha256": "cc434e7493e8caef340e2c7e154d3d8959b866c113ffeea9aacc8df0aa0087c2"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed.png",
+      "bytes": 49067,
+      "sha256": "0fa20ed9624b8dc1e6a24d6edc6d6cfdf952e07e21642c5a4c98348a2d7556e0"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "b593c88ef0151922b98b79327d7a0cf0e0572cdca789385ba5407b758119253d"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-ime.xml",
+      "bytes": 44487,
+      "sha256": "51419cd32b82feebbc577631787579831ec460e6e10c89a95f8c44b798d82d80"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-ime.png",
+      "bytes": 39648,
+      "sha256": "4b914794a9b2dd0e0f35d7d6d299a1f4eea90593d4117dc41df0f202667baca6"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "077d6b6145614eff86b7cbc2ddbd05d95114c41358bb34cb061e20e47bee9edd"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-keyboard-open.xml",
+      "bytes": 44523,
+      "sha256": "18c7ae515d1fc1ee2fc305a6d2b32d330e2064791f2491743db9b87c53326f9c"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-keyboard-open.png",
+      "bytes": 41145,
+      "sha256": "0a7a578c0e3716cefd83a9c8172999eb6f33692e1a4de5c696d4b7c3635e954f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-keyboard-dismissed-unsent.xml",
+      "bytes": 42944,
+      "sha256": "a47334c6ba917d908629d39f111063dda9fc791abd49fec86fb247ae85bd789d"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-keyboard-dismissed-unsent.png",
+      "bytes": 40918,
+      "sha256": "32e8cb7af042ebb8acd94f509dda368b14756eba7e78b1acf2ca910652649d6f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-explicitly-sent.xml",
+      "bytes": 46913,
+      "sha256": "f3b379d930de4e4eda09a4cd67c4a4e4bb40c54f610ab834f228f1a80a992d35"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-explicitly-sent.png",
+      "bytes": 42902,
+      "sha256": "220bce786791314247d470c6c131c15f2a8ff63b92611e163db17cacaff4d85a"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-font130-font-restore.json",
+      "bytes": 96,
+      "sha256": "9e6759aa619bf912e483d6a0b5867ab59154d4e2b05e52a8d0f3d335baff58cf"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-closed.xml",
+      "bytes": 44274,
+      "sha256": "27beff52db1fa9a8cdb092185b78a0b647d30702186d15179120a1f468e5bdc2"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-closed.png",
+      "bytes": 42167,
+      "sha256": "5ea3d3c81a6d001bae8b6ff3d0d75ca8cfdd232b3aee224fdbe5e9ccdaf97ab6"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "041daf720ace3759b57d9a58f3c7eed68b255efb4e72198a68c9e0be0c0787dc"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-ime.xml",
+      "bytes": 48184,
+      "sha256": "a22e8444e3af4a437d35ca085e4570819ff6438de6c434e29967b574350b04c2"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-ime.png",
+      "bytes": 37719,
+      "sha256": "e4ddcb4c358b93220cfb4a7a098c8b1b3e6f16d6a445de48a302154343a4f9fe"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "b2939d169a357d0fc0c241edaa56cc1f37b644a6dad45a64efa723f40dbdc00f"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-keyboard-open.xml",
+      "bytes": 48200,
+      "sha256": "6967401c46b7a580b3f83e8229245c6d7fe7f1959f03b47d1978fc6e3acb6c19"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-keyboard-open.png",
+      "bytes": 39643,
+      "sha256": "2ef883fc218b0040db6dd6acc89ecf5e4d0e2531d8331c8de8046c1702d3301c"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-keyboard-dismissed-unsent.xml",
+      "bytes": 44772,
+      "sha256": "76f507285c89d6a47503d6f9d8792bf6b975bf94aeb1f4c1673239ce258fb092"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-keyboard-dismissed-unsent.png",
+      "bytes": 41631,
+      "sha256": "2910b48bfc69a4465f69b048af6a364257b2e64072202fdd88dd415e825f3535"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-explicitly-sent.xml",
+      "bytes": 49178,
+      "sha256": "7f819e8e24362ea9e466d2fb659833ef7a4594fd8c56d27d0e6b253212d6f071"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-long-reply-explicitly-sent.png",
+      "bytes": 39283,
+      "sha256": "38612b43b45830a56aed129845932632e76ce8959d2727f71176970043bfbfaf"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-physical-send-ime.xml",
+      "bytes": 47839,
+      "sha256": "bbfa15725ab1870eb2f334b5b9652173b657ce37b8121f33846699eab78ed923"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-physical-send-ime.png",
+      "bytes": 36987,
+      "sha256": "98966685a2c644dda27d71ffeba4108a6dd4f9cf0254ffc43fff0820e24d925f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "b2939d169a357d0fc0c241edaa56cc1f37b644a6dad45a64efa723f40dbdc00f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-keyboard-open.xml",
+      "bytes": 47855,
+      "sha256": "ede810a4c9fe08cfe94ec4f89c3689900173ca8bebcf2ee75acee980b19b6e39"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-keyboard-open.png",
+      "bytes": 38877,
+      "sha256": "4709b2dc19a7e8561142df492caf6bd4779262209e460f2a610e2146de1abb9b"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-keyboard-dismissed-unsent.xml",
+      "bytes": 45552,
+      "sha256": "8eeaf2e8af2d6fb328df8f400226cf5fd1e4307c834b8232233f3fdef126dd55"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-keyboard-dismissed-unsent.png",
+      "bytes": 35173,
+      "sha256": "4960d8eace97cc447700b4dc98333e72f6a261b5eb2e6c8e745d0b5d21adbbf4"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-explicitly-sent.xml",
+      "bytes": 49198,
+      "sha256": "660fdf6c202bea14a21b39299ddffce68fafd76e54fe8d3675fb5008be250409"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-explicitly-sent.png",
+      "bytes": 31534,
+      "sha256": "f168a183bad02014210b74b8a8df7c7465a4136daf8ab528f7615676b7ccdcc2"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-font-scale.json",
+      "bytes": 107,
+      "sha256": "4c84fd24e93ecd09bb8e80ef99f9b29e08cc3bed5ed4b507cb0af1a13554da21"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-closed.xml",
+      "bytes": 45951,
+      "sha256": "5f6682395df691b0b4b0df7b11100299629c1dec6f9b73ae043d831f0feb4ed3"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-closed.png",
+      "bytes": 44733,
+      "sha256": "7d101ae0fc742e63da5700e6af9705fa6ebc6fc0947a9a6c70220e5d9ef13919"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "b593c88ef0151922b98b79327d7a0cf0e0572cdca789385ba5407b758119253d"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-ime.xml",
+      "bytes": 47895,
+      "sha256": "05ca0b963b81890b43ac39132bdab8fd320a906c71f942e8521c7950a5f59645"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-ime.png",
+      "bytes": 41475,
+      "sha256": "14388e3a13b4934b5088bdc65ad11366fde55ef147be5e13a443586314a73f97"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "2a5f1a71679db9374ba54d533df4b7740d9802d3f1cda5db8aca21b5f26349e0"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-keyboard-open.xml",
+      "bytes": 49487,
+      "sha256": "f7efecda4de82b0f897ef2ca55a32a4454b667d334c712f026228de4668aafb5"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-keyboard-open.png",
+      "bytes": 40392,
+      "sha256": "b94e057bcb508ff7f4fec7500a4cab655e8560b363161c2b53d63785e0ae6332"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-keyboard-dismissed-unsent.xml",
+      "bytes": 46353,
+      "sha256": "668c739437ff42752822c4acab84ab489555ad1769a7bd9ea70381d8434bd98f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-keyboard-dismissed-unsent.png",
+      "bytes": 43431,
+      "sha256": "033858b3f73ada1ba0134b6380f0a154efcd56e70eb5dc8ab0d0345b0e015538"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-explicitly-sent.xml",
+      "bytes": 48034,
+      "sha256": "71b2b21775c12f2b09cf3bc05ddf4ca14d3ad1c4af4f93ed57556feeb6f7dc00"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-explicitly-sent.png",
+      "bytes": 43189,
+      "sha256": "a019a1d761dc1f8813b7c10ef655755556bc951895a79741f1d3d693026fceb7"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-font130-font-restore.json",
+      "bytes": 95,
+      "sha256": "60ab8ffd1292437e74b1f0b7b5488fc35405d7528e70b395f923bdbc15210e3d"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-physical-send-ime.xml",
+      "bytes": 47792,
+      "sha256": "df5f37a82e64782024508c3607cc1c76ea7ee5d90111ef77211ff0a2f74cb461"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-physical-send-ime.png",
+      "bytes": 37719,
+      "sha256": "e4ddcb4c358b93220cfb4a7a098c8b1b3e6f16d6a445de48a302154343a4f9fe"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "b2939d169a357d0fc0c241edaa56cc1f37b644a6dad45a64efa723f40dbdc00f"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-keyboard-open.xml",
+      "bytes": 47808,
+      "sha256": "dd795644d3604e27e2d086d75557caaeb32095debc0baaa765a84cfe29ad58bd"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-keyboard-open.png",
+      "bytes": 39643,
+      "sha256": "2ef883fc218b0040db6dd6acc89ecf5e4d0e2531d8331c8de8046c1702d3301c"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-keyboard-dismissed-unsent.xml",
+      "bytes": 44380,
+      "sha256": "f9cf290fc6f11c705a75428b27c8a49f5daa0d41525d89462868fcf6f841ea6b"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-keyboard-dismissed-unsent.png",
+      "bytes": 41612,
+      "sha256": "043118feaca127ccd75d56f0205b3344831e45e54532654157cb94649df23e79"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-explicitly-sent.xml",
+      "bytes": 48860,
+      "sha256": "ccbef694ee49c0de44212990781c6f22a96ba2bcd9a0d83cc9e20934875e82e9"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-photo-explicitly-sent.png",
+      "bytes": 36145,
+      "sha256": "cf4d487d1033b3e7ccbd47ccb64fdba1a47748463e369f51ac6afb9c5f2be459"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-closed.xml",
+      "bytes": 45470,
+      "sha256": "9d912e4c0d4de7fc7eed95be3ac40317314ba1770bf747ac8ccb8497d86295d1"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-closed.png",
+      "bytes": 37828,
+      "sha256": "7e36d2993fd81a657d0a2ba092faa55f404bbc8f7f119e830a40dc42c81c5da5"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "041daf720ace3759b57d9a58f3c7eed68b255efb4e72198a68c9e0be0c0787dc"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-ime.xml",
+      "bytes": 47839,
+      "sha256": "bbfa15725ab1870eb2f334b5b9652173b657ce37b8121f33846699eab78ed923"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-ime.png",
+      "bytes": 36987,
+      "sha256": "98966685a2c644dda27d71ffeba4108a6dd4f9cf0254ffc43fff0820e24d925f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "b2939d169a357d0fc0c241edaa56cc1f37b644a6dad45a64efa723f40dbdc00f"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-keyboard-open.xml",
+      "bytes": 47855,
+      "sha256": "ede810a4c9fe08cfe94ec4f89c3689900173ca8bebcf2ee75acee980b19b6e39"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-keyboard-open.png",
+      "bytes": 38877,
+      "sha256": "4709b2dc19a7e8561142df492caf6bd4779262209e460f2a610e2146de1abb9b"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-keyboard-dismissed-unsent.xml",
+      "bytes": 45552,
+      "sha256": "8eeaf2e8af2d6fb328df8f400226cf5fd1e4307c834b8232233f3fdef126dd55"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-keyboard-dismissed-unsent.png",
+      "bytes": 35196,
+      "sha256": "1408ed450176cf4eb4385d51b4b8aaf24b354ba5697308142be2ed1470f9a662"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-explicitly-sent.xml",
+      "bytes": 49516,
+      "sha256": "ab3fde5827a6052e9be2f91b3dca9ca5920df52286ad2c7c1dd12527bc8513c9"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-photo-long-reply-explicitly-sent.png",
+      "bytes": 34528,
+      "sha256": "5eeb36bd7eda6e43bdfe76610b646f4dba8e4804ac25ab51ccb7b07e31b9c02b"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-font-scale.json",
+      "bytes": 107,
+      "sha256": "4c84fd24e93ecd09bb8e80ef99f9b29e08cc3bed5ed4b507cb0af1a13554da21"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-closed.xml",
+      "bytes": 45985,
+      "sha256": "4ec64c9279bfc00e536e1ba00f62a5b448dda846981230d61124cead3b1c23f1"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-closed.png",
+      "bytes": 49519,
+      "sha256": "62493735bcca93a6ef43ba985260db71f432989019adbde455dbafc892e93875"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-closed-bounds.json",
+      "bytes": 133,
+      "sha256": "1a4a7f9d35340708490352aa616dd903d49d36e915e641029cb2600d4effff4d"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-ime.xml",
+      "bytes": 49440,
+      "sha256": "65924f7a61f10bc86961c798c53eebe30694a24e35d3e8c2dc450e98b9cd8be8"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-ime.png",
+      "bytes": 42275,
+      "sha256": "2e0d0987ac0503e2704d2fbb8847837e462f24129980bc9b8d1d3c5ab61a651c"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "f0982da12b70cbf9fd601a98732b44596b02ebc5c067478b1b3478c9089e16ae"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-keyboard-open.xml",
+      "bytes": 49440,
+      "sha256": "3087447d460fb77458fd5562023c9292fcdc564d17337ad54c4748081100989f"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-keyboard-open.png",
+      "bytes": 42243,
+      "sha256": "e4ca84dec11bc3df6d19f79bd63baf16eceb9eed1807d08121b3dc7305d79d80"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-keyboard-dismissed-unsent.xml",
+      "bytes": 46006,
+      "sha256": "460af36def9fc5e31a75384c017506ac1a75bce2dfc9c5598569027144130f1a"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-keyboard-dismissed-unsent.png",
+      "bytes": 49535,
+      "sha256": "ce5eeff186e53b97ed6cc93be520dccb42c5f131ce0416e8288f32851bd55e23"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-explicitly-sent.xml",
+      "bytes": 48926,
+      "sha256": "5bc8acdbca76f40b93e7a74b6382d24e3644ada5ea7ed3a8c1f6e4b5f977df33"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-explicitly-sent.png",
+      "bytes": 48789,
+      "sha256": "c463c918cbde7da3994c4e50545534a1edbb08ecd684f65be483efc4cc7010a7"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-font130-font-restore.json",
+      "bytes": 95,
+      "sha256": "60ab8ffd1292437e74b1f0b7b5488fc35405d7528e70b395f923bdbc15210e3d"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-physical-send-ime.xml",
+      "bytes": 47891,
+      "sha256": "99c52cfd86040267af66269cad04631c9b066036920f4d4df8514c141134deaa"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-physical-send-ime.png",
+      "bytes": 38422,
+      "sha256": "dc7b5955edeec28a05d04a8e303cbc42e31d35b41cb3fa86a2321cb4fb63677c"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "f92612378019cfc3972ae8c14346ddb8dc2c69273318287eba0a4db4436e2fa1"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-keyboard-open.xml",
+      "bytes": 49491,
+      "sha256": "788f3835785840b7738d256a7c037912200116ca89d957d1e3f96adcf62ba07d"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-keyboard-open.png",
+      "bytes": 40704,
+      "sha256": "2ffacb545b008bee0bbd8cf8a067281288c18fcf780d15945e6c8197452ae9f3"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-keyboard-dismissed-unsent.xml",
+      "bytes": 47580,
+      "sha256": "4a3bd215e20668dc184ff42541b0690badf43d75a84594895e8ae854b84c3c5c"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-keyboard-dismissed-unsent.png",
+      "bytes": 37223,
+      "sha256": "19ccf3109b2ed150d25c4ceb6dd131226be02a3582b2f66acc4776ff78775814"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-explicitly-sent.xml",
+      "bytes": 49260,
+      "sha256": "5e491ba1479e0a6c41befeab1cfab6dbeec7eccfbc53c0db9e28292c65c6d1ec"
+    },
+    {
+      "member": "chat-keyboard-evidence/group-text-explicitly-sent.png",
+      "bytes": 37335,
+      "sha256": "f049d03dc706cd26d654e398963f48298b243f47e1a0c77a2ab08399e0b7d1bd"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-physical-send-ime.xml",
+      "bytes": 49428,
+      "sha256": "532310fdeddb84a4142151fdca9bd9ac89b792edbe323afbd3c7d6383db258de"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-physical-send-ime.png",
+      "bytes": 39572,
+      "sha256": "66e947b3020a1015ed1bcdaf06921f39f97d504fd543fb27124a5addb1d8fa87"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-physical-send-ime-bounds.json",
+      "bytes": 133,
+      "sha256": "b2939d169a357d0fc0c241edaa56cc1f37b644a6dad45a64efa723f40dbdc00f"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-keyboard-open.xml",
+      "bytes": 47798,
+      "sha256": "a4741871bf98e26be6583c03cd651faf722becb6efb3e933970f2f1dc6557686"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-keyboard-open.png",
+      "bytes": 39415,
+      "sha256": "87628cc215d88d239af710d9f26b76a5b6203e51f23f0491281b62d68eeec949"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-keyboard-dismissed-unsent.xml",
+      "bytes": 46408,
+      "sha256": "8dbb4e150e7e8c3aea72b8a1bc339d69495d132ae4924cbbfc01af8f2c0dd460"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-keyboard-dismissed-unsent.png",
+      "bytes": 43364,
+      "sha256": "dae1292c835e54698b377553d25d48bbbeb24899c0351ea27872fa0d940108b5"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-explicitly-sent.xml",
+      "bytes": 48922,
+      "sha256": "554b9a2e856232b38e58509cc29258f321483b7b750db37ca2d6a8a44b394431"
+    },
+    {
+      "member": "chat-keyboard-evidence/private-text-explicitly-sent.png",
+      "bytes": 41989,
+      "sha256": "d28c5bf5543351a49e794ca8dcbfc85c5f6287e5c957de6e666e114ea1e27976"
+    }
+  ]
+}

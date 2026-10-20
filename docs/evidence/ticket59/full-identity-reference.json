@@ -98,7 +98,8 @@
   "sourceBuild": {
     "run": 39424574004,
     "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39424574004"
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39424574004",
+    "conclusion": "cancelled"
   },
   "signedCandidateSource": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
   "toolSource": {
@@ -138,5 +139,10 @@
   "rejectedCandidateVersions": [
     51,
     52
-  ]
+  ],
+  "sourceVerification": {
+    "requiredWithinEveryFullJob": true,
+    "step": "Build and verify native sources",
+    "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89"
+  }
 }
