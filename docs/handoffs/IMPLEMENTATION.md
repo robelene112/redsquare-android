@@ -27,15 +27,21 @@ sequential implementation, review, commits and signed in-place beta delivery.
    Their original packets are retained. New app-side hasWork/active-lease scan and
    confirmation-time acknowledgment reset need fresh verification. Rate feedback
    moves below the actions after original source51 PNGs revealed button reflow;
-   disabled Likes no longer say Tap again. Local import-fix core/app/test build exits0; source147 and both axes0, native GREEN pending.
+   disabled Likes no longer say Tap again. Local core/app/test build exits0; source14739393699247SUCCESS, both axes0.
+   Corrected repeat/isolation39394728559/39394731770 each5PASS, all24actualframes
+   independently verified; import39394734921/39394738427 each2PASS. AllfourSUCCESS
+   and original packets retained. Rootopened bothSDKfeedback, pending/retry and
+   import originals.
    New separate LikeIsolation class/focus proves different-post/wallet windows and
    older-count/newer-pending retry; source/runtime pending. New739 fixture adds actual cold
    recovery after a settled first plus uncertain second Like, keeping the existing
    first-Like social process gate unchanged; local compile0 and both source axes0,
-   runtime pending. Independent481/482 completed identity catalog is frozen before
+   source73939394762330SUCCESS, runtime pending in completeSocial39395383267/
+   39395386328at285. Independent481/482 completed identity catalog is frozen before
    full execution, with126/127normal,35interruptions and34continuity. Then all-focused/native full bothSDKs
    with independently frozen original+additive catalog, final0/0 reviews, signed50
-   canonical delivery and issue closure. Ordinary49 remains LIVE, no57 beta yet.
+   canonical delivery and issue closure. Ordinary49 remains LIVE, no57 beta yet. Canonical50 preparation is running
+   in frozenexternalworktree285, version50reserved; no publish before acceptance.
    Its chosen policy is explicit in the issue and
    comment6278005545: two NEW deliberate intents per rolling second per wallet
    across post surfaces and both nodes. A pending/uncertain like for the post

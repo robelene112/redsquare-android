@@ -136,3 +136,32 @@ repeat recovery. Deliberately killed preparation is counted separately, so the
 expected complete totals are481/482 identities,126/127 normal completions,
 35 deliberate interruptions and34 continuity records. Both SDKs retain all three
 Chat/Social/Wallet goal sets and the established sole API29 Profile assumption.
+
+
+## Corrected147 focused acceptance
+
+Source39393699247(147) and39394762330(739) are SUCCESS. Both complete source
+review axes at739 and the frozen catalog/evidence at285 report0 findings.
+Corrected production147 is unchanged by739's additive process fixture or285 docs.
+
+Focused147 runs39394728559(Android10)/39394731770(Android17) are SUCCESS:
+exactly3 Repeat plus2 Isolation PASS, two separate180second commands with exit0.
+Each packet binds24 original members and12 actual signed frames; all24 emitted
+frames across both SDKs pass independent pinned WASM/Elliptic checks. The native
+journeys establish cross-post/wallet rate isolation, retained original-wallet
+window, and exact newer uncertain retry despite an older count request failure.
+Root opened the10 rate-feedback/newer-pending and17 recreated-feedback/newer-
+reconciled originals. Feedback now appears below the action row; general action
+layout remains60 work.
+
+Import39394734921(10)/39394738427(17) both SUCCESS, exactly2 PASS and exit0,
+with six hashes/two original bindings per SDK. Actual SAF preview discloses the
+pending Like and does not label settled/rate receipts as pending work. Root
+opened10 pending disclosure and17 settled preview. These successful correction
+runs do not alter the retained37 RED outcomes.
+
+Complete social scopes39395383267/39395386328 are now running at285, including
+every old social-action method, original first-Like process gate and additive
+second-Like process recovery. Full SDK and signed57 acceptance are still pending.
+Canonical signed50 preparation started from frozen285 with the established key;
+preparation is not public delivery and no result is assumed before completion.

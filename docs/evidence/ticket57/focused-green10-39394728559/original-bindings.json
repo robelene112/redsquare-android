@@ -1,0 +1,134 @@
+[
+  {
+    "archive": "/mnt/storage/redsquare-android-artifacts/likes57-focused-green10-39394728559/android-native-proof/.scratch/device-evidence/api-29/repeat-like-evidence.tar",
+    "sha256": "8df3c9779479f932f96e5db62517bf122f9c64da4702ab3ce74240f12f0bc0cd",
+    "members": [
+      {
+        "member": "repeat-like-evidence/rate-limit-feedback.png",
+        "bytes": 43846,
+        "sha256": "8aa0c210bed552f97b401853a7cdac61f11b0eabd6021137013d11b52e7296ba"
+      },
+      {
+        "member": "repeat-like-evidence/recreated-rate-limit.png",
+        "bytes": 43846,
+        "sha256": "8aa0c210bed552f97b401853a7cdac61f11b0eabd6021137013d11b52e7296ba"
+      },
+      {
+        "member": "repeat-like-evidence/rolling-window-expired.png",
+        "bytes": 39995,
+        "sha256": "3fa63c601407a4eaf799355044c84e871fb2c1e2b8abc7200a6be0d713f3751d"
+      },
+      {
+        "member": "repeat-like-evidence/rate-recreation/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "d063374e0cd8b558f6e0cd441b1f4b323f804bbd03640fb242faa4c5ed74a769"
+      },
+      {
+        "member": "repeat-like-evidence/rate-recreation/native-like-1.base64",
+        "bytes": 800,
+        "sha256": "e724ec5136cbc183b9f56d615e74276b7eb340c9158a5219cdb91eaf853593f3"
+      },
+      {
+        "member": "repeat-like-evidence/rate-recreation/native-like-2.base64",
+        "bytes": 800,
+        "sha256": "1346d2f09e92fe2b8c08a3117cd00d7a5b9271dad369c0eb24dc6a8e79602fd7"
+      },
+      {
+        "member": "repeat-like-evidence/thread-shares-both-node-rate.png",
+        "bytes": 35767,
+        "sha256": "22fdd9da001a29e7a39f3647fe1813647120a7b96c87f84e09c463074803dde0"
+      },
+      {
+        "member": "repeat-like-evidence/profile-shares-both-node-rate.png",
+        "bytes": 47765,
+        "sha256": "4da9b5d1ecb92cf56bdce6f1a4f3350564cc75ee98dde41f21334e31f8920007"
+      },
+      {
+        "member": "repeat-like-evidence/rate-nodes-owner/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "1545a6891bfbe7efbf36f354e889bcfa6a4a2b2a11638ded123bea1061ee137e"
+      },
+      {
+        "member": "repeat-like-evidence/rate-nodes-official/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "4c36f15239e01f59d87ee6fdd0476f7b2f0151395396bf113515660e6e131fa3"
+      },
+      {
+        "member": "repeat-like-evidence/settled-like-ready-again.png",
+        "bytes": 40137,
+        "sha256": "8417692c89d52c51a910283dbe60e227b8ac20316ec2deab4ddec68decdedfa9"
+      },
+      {
+        "member": "repeat-like-evidence/two-distinct-served-likes.png",
+        "bytes": 40121,
+        "sha256": "9cf140a9bc5bb239ad9e79372ae39a1ae9d521e5b461dac2bd95cad6b60ffe76"
+      },
+      {
+        "member": "repeat-like-evidence/deliberate/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "66a7cf2a81b0048827ecc66f8d7d6395aea04611650b940a804d676146138a54"
+      },
+      {
+        "member": "repeat-like-evidence/deliberate/native-like-1.base64",
+        "bytes": 800,
+        "sha256": "5a89a9a472946a467ee87f2dab03ee97f91ddcdc71e6d4e4f74e47ea26b34f11"
+      }
+    ]
+  },
+  {
+    "archive": "/mnt/storage/redsquare-android-artifacts/likes57-focused-green10-39394728559/android-native-proof/.scratch/device-evidence/api-29/like-isolation-evidence.tar",
+    "sha256": "0293a33d65ea71ce55d7902e22537473ff4fd3529ea49813020fd2d9b4e0f627",
+    "members": [
+      {
+        "member": "like-isolation-evidence/newer-pending-after-old-count-failure.png",
+        "bytes": 49886,
+        "sha256": "1867238c0371e891e963454043ec6b2366083e8ce19def61ce4cb61ecbcedc65"
+      },
+      {
+        "member": "like-isolation-evidence/newer-original-reconciled-without-rebroadcast.png",
+        "bytes": 39980,
+        "sha256": "9f20ead254f07883d7fcc2f550a4118fa6bb6e9546963e4d9f35e6dbd833baa0"
+      },
+      {
+        "member": "like-isolation-evidence/late-count/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "bcb82c79932c5a11117ece55fd82eebfb217c6a077a3c49f97839cecfc0c475d"
+      },
+      {
+        "member": "like-isolation-evidence/late-count/native-like-1.base64",
+        "bytes": 800,
+        "sha256": "223567f263ea2354fb2abac140b85a52b5e4306f0da037b21a078f244f875589"
+      },
+      {
+        "member": "like-isolation-evidence/another-post-shares-cap.png",
+        "bytes": 38332,
+        "sha256": "68cad96958c8bf463aa5bf722759aac6abed8fcd3636b09ffba2d0478b57e058"
+      },
+      {
+        "member": "like-isolation-evidence/other-wallet-new-like.png",
+        "bytes": 35906,
+        "sha256": "e093394a157cfee513e85800deb1c8b8e098aa911ef051ef17aab677dd1855fa"
+      },
+      {
+        "member": "like-isolation-evidence/original-wallet-still-capped.png",
+        "bytes": 32285,
+        "sha256": "e356d391b2a0fdf45d16cfaeac3f08013169616977a3b3cd62bfb7f699a5dd15"
+      },
+      {
+        "member": "like-isolation-evidence/wallet-window/native-like-0.base64",
+        "bytes": 800,
+        "sha256": "c36def5db5b56c3b128a41633bb3ea17c499affb63b3e4cf3dc103def849611a"
+      },
+      {
+        "member": "like-isolation-evidence/wallet-window/native-like-1.base64",
+        "bytes": 800,
+        "sha256": "70a0a739f5e9a7eb5789384477114efd62a0b11aa0558e65806b3aeb94d03da0"
+      },
+      {
+        "member": "like-isolation-evidence/wallet-window/native-like-2.base64",
+        "bytes": 800,
+        "sha256": "a4ebbbd40d3b18c8b783fc60faa453ec6a30df76d79c04948ed42a73b628d007"
+      }
+    ]
+  }
+]

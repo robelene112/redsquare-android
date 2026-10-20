@@ -1,0 +1,18 @@
+{
+  "conclusion": "success",
+  "databaseId": 39394738427,
+  "headSha": "1470ddbd22301a58c65a79ceaa449f51a0c407c9",
+  "status": "completed",
+  "url": "https://github.com/robelene112/redsquare-android/actions/runs/39394738427",
+  "identities": 2,
+  "passed": {
+    "like-wallet": [
+      "uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet",
+      "settledLikeAndRateReceiptsAloneDoNotInventPendingWork"
+    ]
+  },
+  "originalFrames": 0,
+  "originalMembers": 2,
+  "independentWasmElliptic": "No outgoing frame retention in import preview packet; native assertions verify isolated send and original-wallet restoration",
+  "limits": "Focused147 repeat/isolation or actual SAF risk preview only. Extended cold process/full/signed57 acceptance remains pending. Semantics are not actual TalkBack speech; no public writes/physical/provider/store acceptance."
+}
