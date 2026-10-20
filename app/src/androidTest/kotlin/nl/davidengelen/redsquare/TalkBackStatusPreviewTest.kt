@@ -196,12 +196,18 @@ class TalkBackStatusPreviewTest {
                 })
         }) {
             waitFor(5_000) {
-                found = appRoots(automation).flatMap { it.findAccessibilityNodeInfosByText(text) }
-                    .firstOrNull { it.text?.toString() == text && it.isVisibleToUser }
+                found = appRoots(automation).firstNotNullOfOrNull { root -> visibleTextNode(root, text) }
                 found != null
             }
         }
         return requireNotNull(found)
+    }
+
+    private fun visibleTextNode(root: AccessibilityNodeInfo, text: String): AccessibilityNodeInfo? {
+        if (root.text?.toString() == text && root.isVisibleToUser) return root
+        return (0 until root.childCount).firstNotNullOfOrNull { index ->
+            root.getChild(index)?.let { child -> visibleTextNode(child, text) }
+        }
     }
 
     private fun click(automation: UiAutomation, text: String) {
