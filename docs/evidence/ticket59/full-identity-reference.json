@@ -88,19 +88,19 @@
     }
   ],
   "executingSources": {
-    "android10": "f23bc380d41b2454b37c4860a5fba4a56bb9e8e0",
-    "android17": "f23bc380d41b2454b37c4860a5fba4a56bb9e8e0"
+    "android10": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+    "android17": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89"
   },
   "executingRuns": {
-    "android10": 39418870684,
-    "android17": 39418873625
+    "android10": 39424620344,
+    "android17": 39424624394
   },
   "sourceBuild": {
-    "run": 39418053776,
-    "source": "f23bc380d41b2454b37c4860a5fba4a56bb9e8e0",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39418053776"
+    "run": 39424574004,
+    "source": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39424574004"
   },
-  "signedCandidateSource": "fc477c8936f11ae85923b8e02c61c6a6c6558db5",
+  "signedCandidateSource": "f4bbe99dfef6fcb7a149ba80abf97be98ccd9e89",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
@@ -132,11 +132,11 @@
       "reason": "Both Chat partitions fail two original group-mute visibility goals with a saved multiline draft. Both social and wallet partitions succeed. Diagnostic39422695874 proves accepted incoming messages below a17pixel clipped history viewport. Cumulative source review separately finds bypassed status transitions. Signed52 is rejected, never publishable."
     }
   ],
-  "verificationRef": "verify/status59-f23bc380d",
-  "signedCandidateVersion": 52,
-  "productionEquivalence": {
-    "path": "docs/evidence/ticket59/production-equivalence-fc-f23.json",
-    "sha256": "58044db498a900ed745c8ce0532c594959f029187e9b3474ca47c3b0f691ea8f"
-  },
-  "signedCandidateRejected": true
+  "verificationRef": "verify/status59-f4bbe99df",
+  "signedCandidateVersion": 53,
+  "signedCandidateRejected": false,
+  "rejectedCandidateVersions": [
+    51,
+    52
+  ]
 }
