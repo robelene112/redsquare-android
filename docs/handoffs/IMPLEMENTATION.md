@@ -47,7 +47,9 @@ failure; it finishes24/2failures,17finishes24/1failure. Root opened17original.
 Private status now uses min(80dp,maxHeight/4), keeping all guidance scrollable;
 actual failures/warnings precede routine Available history. Existing named-list
 wait/scroll now reaches the separately offscreen cached older body. All original
-assertions/deadlines/identities remain. Corrected native execution is pending.
+assertions/deadlines/identities remain. Both existing minimized viewport scopes now pass4/4 with64 originals each.
+Actual history is76px on both SDKs; root opened both native key-restoration
+captures. Complete private integration remains pending.
 Read the latest59 README section; no newer signed candidate is reserved yet.
 
 Signed56 is rejected because production changes after its c5 source. Its APK
@@ -67,10 +69,14 @@ repeat39445406794 is SUCCESS:1+1+22 methods and actual process continuity,
 Current corrected production is49a92703b63659ee7b7a9d4da03dc01616f5dd49.
 Both review axes through49a have0 remaining findings. Focused existing scopes
 on verify/status59-49a92703b are active:
-- Private-history viewport:10run39446271331,17run39446275538.
+- Private-history viewport:10run39446271331,17run39446275538, bothSUCCESS.
 - Complete private UI/actions/process:10run39446280616,17run39446285216.
-- Independent actions:10run39446289596,17run39446295094, to exercise later
-  cases even if a preceding history case fails. None replaces full acceptance.
+- Independent actions:17run39446295094SUCCESS10/10;10run39446289596
+  fails1of10 at displayed1like after refresh. Original PNG shows Loading and no
+  count,132px history. Do not claim a proven viewport/transport cause. The
+  test now uses existing named-list wait/scroll before its same displayed count
+  and remaining assertions, within original15/180second bounds. Fresh runtime
+  remains pending. None replaces full acceptance.
 
 The latest fixture-only policy correction waits within the existing20second
 readiness goal for the visible merged editor containing the saved exact draft,

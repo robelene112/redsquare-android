@@ -980,3 +980,30 @@ ed5e4709d with the original20second readiness/180second class bounds. They
 remain pending, as do all six private-focused49a runs. All new executable
 changes after49a are confined to PolicyCenterPreviewTest; private integration
 runs at49a exercise the same production source. No fresh candidate reserved.
+
+## Corrected private viewport, later reaction observer
+
+Both minimized existing private-history scopes at49a are SUCCESS:
+10run39446271331 and17run39446275538 each4/4,25.758/47.543s within
+the original180second class bound. Both retain64 original archive members plus
+all-root observations. Root opened both actual key-only-restored PNGs: readable
+cached incoming text, Chat status80px [16,163][304,243], Private messages76px
+[16,264][304,340], versus the reproduced42px. The original48dp guard is
+unchanged. The actual load error now appears fully before routine guidance.
+
+Standalone private actions17run39446295094 at49a is SUCCESS, all10 original
+methods.10run39446289596 completes10 with1FAIL at380, the displayed1-like
+assertion after restoring reaction storage and refreshing. Earlier raw read
+completion and absence of reaction error do not prove the UI refresh/transition
+is finished. The subsequent native failure PNG, opened by root, shows Loading
+messages and no visible count. Its history is132px; no viewport-collapse cause
+or proven offscreen-versus-refresh cause is inferred. All87 original members
+and exact failed goal are retained.
+
+Only that observed test operation changes: use the existing15second named
+Private messages wait/real scroll with48dp guard for1 like, then retain the same
+enabled Like, displayed count, warning/error absence, wallet/node and zero raw/
+Relay/report checks and native bookend. It uses no hidden nodes, arbitrary delay,
+new identity or widened180second class bound. Production remains exact49a;
+policy readiness remains the only other executable fixture change since49a.
+Corrected runtime and complete private/process/final full proof remain pending.

@@ -375,7 +375,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.waitUntil(15_000) { historyReads.get() > messageOnlyReads &&
                                 ui.onAllNodesWithText(context.getString(R.string.chat_reaction_error))
                                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
-                            waitFor("1 like")
+                            waitForMessage("1 like")
                             waitForEnabled("Like")
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             ui.onAllNodesWithText(warning).assertCountEquals(0)
