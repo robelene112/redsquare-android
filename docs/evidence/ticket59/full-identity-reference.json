@@ -93,8 +93,10 @@
   "signedCandidateSource": null,
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
-    "toolPatchSha256": "6ae93cc2512b3fe4691ffc5847d1870cf1fed64592e1d93f56bc701144cabb02",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf",
     "actualSpeechAcceptance": false
-  }
+  },
+  "collectorSha256": "64c9092326607b3e99e8bcaa570fa0076c9e0f10b51c80ec638b4a87c31470bc",
+  "catalogFreezeCommit": "caad1528391951187c6d6bb91373c32a48f5e37e"
 }

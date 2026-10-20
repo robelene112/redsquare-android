@@ -1,0 +1,27 @@
+--------- beginning of main
+I/ndroid.talkbac( 3668): Late-enabling -Xcheck:jni
+E/ndroid.talkbac( 3668): Unknown bits set in runtime_flags: 0x8000
+W/ndroid.talkbac( 3668): Unexpected CPU variant for X86 using defaults: x86_64
+W/ndroid.talkbac( 3668): Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (greylist, reflection, allowed)
+I/TextToSpeech( 3668): Sucessfully bound to com.reecedunn.espeak
+W/GooglePlayServicesUtil( 3668): com.android.talkback requires the Google Play Store, but it is missing.
+E/BluetoothAdapter( 3668): Bluetooth binder is null
+D/AndroidRuntime( 3668): Shutting down VM
+--------- beginning of crash
+E/AndroidRuntime( 3668): FATAL EXCEPTION: main
+E/AndroidRuntime( 3668): Process: com.android.talkback, PID: 3668
+E/AndroidRuntime( 3668): java.lang.NoSuchMethodError: No static method toUnmodifiableSet()Ljava/util/stream/Collector; in class Ljava/util/stream/Collectors; or its super classes (declaration of 'java.util.stream.Collectors' appears in /apex/com.android.runtime/javalib/core-oj.jar)
+E/AndroidRuntime( 3668): 	at com.google.android.accessibility.talkback.braille.TalkBackForBrailleImeImpl.<clinit>(TalkBackForBrailleImeImpl.java:71)
+E/AndroidRuntime( 3668): 	at com.google.android.accessibility.talkback.TalkBackService.initializeInfrastructure(TalkBackService.java:2328)
+E/AndroidRuntime( 3668): 	at com.google.android.accessibility.talkback.TalkBackService.onServiceConnected(TalkBackService.java:1559)
+E/AndroidRuntime( 3668): 	at android.accessibilityservice.AccessibilityService.dispatchServiceConnected(AccessibilityService.java:501)
+E/AndroidRuntime( 3668): 	at android.accessibilityservice.AccessibilityService.access$100(AccessibilityService.java:220)
+E/AndroidRuntime( 3668): 	at android.accessibilityservice.AccessibilityService$2.onServiceConnected(AccessibilityService.java:1625)
+E/AndroidRuntime( 3668): 	at android.accessibilityservice.AccessibilityService$IAccessibilityServiceClientWrapper.executeMessage(AccessibilityService.java:1852)
+E/AndroidRuntime( 3668): 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+E/AndroidRuntime( 3668): 	at android.os.Handler.dispatchMessage(Handler.java:107)
+E/AndroidRuntime( 3668): 	at android.os.Looper.loop(Looper.java:214)
+E/AndroidRuntime( 3668): 	at android.app.ActivityThread.main(ActivityThread.java:7356)
+E/AndroidRuntime( 3668): 	at java.lang.reflect.Method.invoke(Native Method)
+E/AndroidRuntime( 3668): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+E/AndroidRuntime( 3668): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)

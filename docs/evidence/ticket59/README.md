@@ -79,3 +79,44 @@ use a bounded five seconds to include Back online removal. Full Chat partitions
 now require allthree new status classes, including real TalkBack, in addition to
 every existing goal. Their separate scoped runs remain diagnostics until full
 acceptance and evidence review.
+
+## Post-adoption recovery and actual tool/measurement failures
+
+At49bc8b1e5, Android17 recovery39407518067 is SUCCESS, exactly two PASS,
+including Details remaining readable after recovery and banner removal. All14
+original PNG/XML members are retained and archive-bound.
+
+Android17 motion39407515027 is FAILURE, two actual failed assertions. Original
+XML shows the observer measured the nonclickable Retry TextView. Its enabled
+clickable parent is81x48pixels at200percent/Dark and59x48 at130percent/Light,
+on this density1 image. Root opened both original failure PNGs. The fixture now
+walks to the actual native clickable ancestor and keeps the original48dp and
+fully-visible bounds requirements. No movie or motion acceptance came from this
+failed run; no production defect or production correction is inferred.
+
+Android10 TalkBack39407511890 is FAILURE before app launch. The three original
+members include a real tool-process crash: Collectors.toUnmodifiableSet is absent
+onAPI29. Root opened the crash-dialog PNG and read the original stack trace.
+The corrected builder enables core-library desugaring2.1.5 only in the pinned
+tool. The actual Bound services dump also uses the installed service label,
+TalkBack_TfP, rather than its component class; the observer now obtains that label
+from package metadata, requires the exact enabled component, and still requires
+a stable real PID and completed real-engine speech. A bound entry alone cannot
+satisfy speech acceptance. Original/restored secure settings match exactly.
+
+The generated corrected tool patch has SHA256
+42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117.
+It was reproduced from the SHA-bound original source archive with the exact
+builder transformations, including its five callback observations. The actual
+hosted APK and patch still must be checked after the new build. This replaces the
+older6ae93c patch binding without changing either frozen identity reference.
+Official [Java API backport table](https://developer.android.com/studio/write/java11-default-support-table)
+includes the missing Collectors method. App dependencies and speech control flow
+are unchanged. New focused attempts are39409237488(TalkBack10) and39409240959
+(motion17), both atf455ca044; acceptance awaits their actual results.
+
+The complete primary-only collector and486/487 catalog are prepared before full
+execution. They require all previous checks plus the five additive status cases,
+129/130 normal completions,35 deliberate interruptions,34 continuity records
+and92 archives per SDK, with no new exclusion or unexpected assumption. Actual
+full execution, real speech, post-adoption IME journeys and signed51 remain pending.

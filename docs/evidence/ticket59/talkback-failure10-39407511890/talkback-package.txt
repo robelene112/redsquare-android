@@ -1,0 +1,205 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        41ad2b2 com.android.talkback/com.google.android.accessibility.talkback.preference.GestureChangeNotificationActivity filter fd8f256
+          Action: "android.intent.action.MAIN"
+        34a2203 com.android.talkback/com.google.android.accessibility.talkback.NotificationActivity filter db992d7
+          Action: "android.intent.action.MAIN"
+        e3f9580 com.android.talkback/com.google.android.accessibility.talkback.keyboard.TalkBackKeymapChangesActivity filter c0b37c4
+          Action: "android.intent.action.MAIN"
+      com.google.android.accessibility.talkback.training.START:
+        19fd7b9 com.android.talkback/com.google.android.accessibility.talkback.trainingcommon.TrainingActivity filter 7aa3471
+          Action: "com.google.android.accessibility.talkback.training.START"
+          Category: "android.intent.category.DEFAULT"
+      .BrailleGradeActivity:
+        6df67fe com.android.talkback/com.google.android.accessibility.braille.brailledisplay.settings.BrailleGradeActivity filter 15ca6ad
+          Action: ".BrailleGradeActivity"
+          Category: "android.intent.category.DEFAULT"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        b42db5f com.android.talkback/androidx.profileinstaller.ProfileInstallReceiver filter 16bf62e
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      com.google.android.libraries.appdoctor.ACTION_TELE_DOCTOR_FIX:
+        4c889ac com.android.talkback/com.google.android.libraries.appdoctor.AppDoctorReceiver filter 609dde2
+          Action: "com.google.android.libraries.appdoctor.ACTION_TELE_DOCTOR_FIX"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        b42db5f com.android.talkback/androidx.profileinstaller.ProfileInstallReceiver filter a660c30
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        b42db5f com.android.talkback/androidx.profileinstaller.ProfileInstallReceiver filter 24a00a9
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        b42db5f com.android.talkback/androidx.profileinstaller.ProfileInstallReceiver filter 58e05cf
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+      android.intent.action.MY_PACKAGE_REPLACED:
+        a5d3675 com.android.talkback/com.google.android.accessibility.brailleime.MyPackageReplacedReceiver filter 29a8573
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.view.InputMethod:
+        3c6060a com.android.talkback/com.google.android.accessibility.brailleime.BrailleIme filter 598fe65 permission android.permission.BIND_INPUT_METHOD
+          Action: "android.view.InputMethod"
+      android.accessibilityservice.AccessibilityService:
+        6e3ce7b com.android.talkback/com.google.android.marvin.talkback.TalkBackService filter 57bb5c permission android.permission.BIND_ACCESSIBILITY_SERVICE
+          Action: "android.accessibilityservice.AccessibilityService"
+          Category: "android.accessibilityservice.category.FEEDBACK_AUDIBLE"
+          Category: "android.accessibilityservice.category.FEEDBACK_HAPTIC"
+          Category: "android.accessibilityservice.category.FEEDBACK_SPOKEN"
+
+Permissions:
+  Permission [com.android.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (60a9498):
+    sourcePackage=com.android.talkback
+    uid=10118 gids=null type=0 prot=signature
+    perm=Permission{157c4f1 com.android.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{3c678d6 com.android.talkback/10118}
+
+Registered ContentProviders:
+  com.android.talkback/androidx.core.content.FileProvider:
+    Provider{fd6d757 com.android.talkback/androidx.core.content.FileProvider}
+  com.android.talkback/com.google.mlkit.common.internal.MlKitInitProvider:
+    Provider{8606244 com.android.talkback/com.google.mlkit.common.internal.MlKitInitProvider}
+  com.android.talkback/com.google.android.accessibility.talkback.labeling.LabelProvider:
+    Provider{392bf2d com.android.talkback/com.google.android.accessibility.talkback.labeling.LabelProvider}
+  com.android.talkback/androidx.startup.InitializationProvider:
+    Provider{5894c62 com.android.talkback/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [com.android.talkback.mlkitinitprovider]:
+    Provider{8606244 com.android.talkback/com.google.mlkit.common.internal.MlKitInitProvider}
+      applicationInfo=ApplicationInfo{68791f3 com.android.talkback}
+  [com.android.talkback.providers.FileProvider]:
+    Provider{fd6d757 com.android.talkback/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{68791f3 com.android.talkback}
+  [com.android.talkback.providers.LabelProvider]:
+    Provider{392bf2d com.android.talkback/com.google.android.accessibility.talkback.labeling.LabelProvider}
+      applicationInfo=ApplicationInfo{68791f3 com.android.talkback}
+  [com.android.talkback.androidx-startup]:
+    Provider{5894c62 com.android.talkback/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{68791f3 com.android.talkback}
+
+Key Set Manager:
+  [com.android.talkback]
+      Signing KeySets: 7
+
+Packages:
+  Package [com.android.talkback] (3c678d6):
+    userId=10118
+    pkg=Package{b235eb0 com.android.talkback}
+    codePath=/data/app/com.android.talkback-hX6WTscO7wo0-RjCcK0b-Q==
+    resourcePath=/data/app/com.android.talkback-hX6WTscO7wo0-RjCcK0b-Q==
+    legacyNativeLibraryDir=/data/app/com.android.talkback-hX6WTscO7wo0-RjCcK0b-Q==/lib
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    versionCode=0 minSdk=26 targetSdk=30
+    versionName=TfPu_release_16_2-2026_10_20_1013
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{68791f3 com.android.talkback}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.android.talkback
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      com.google.android.wearable
+      wear-sdk
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-10-20 10:27:11
+    firstInstallTime=2026-10-20 10:27:12
+    lastUpdateTime=2026-10-20 10:27:12
+    signatures=PackageSignatures{1092129 version:2, signatures:[8f339d86], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    declared permissions:
+      com.android.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.USE_FINGERPRINT
+      android.permission.READ_PHONE_STATE
+      android.permission.VIBRATE
+      android.permission.WAKE_LOCK
+      android.permission.MODIFY_AUDIO_SETTINGS
+      android.permission.RECORD_AUDIO
+      android.permission.QUERY_ALL_PACKAGES
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.FOREGROUND_SERVICE
+      android.permission.GET_PACKAGE_SIZE
+      com.google.android.providers.gsf.permission.READ_GSERVICES
+      android.permission.POST_NOTIFICATIONS
+      com.google.android.apps.aicore.service.BIND_SERVICE
+      com.google.android.marvin.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.BLUETOOTH
+      android.permission.BLUETOOTH_ADMIN
+      android.permission.BLUETOOTH_CONNECT
+      android.permission.BLUETOOTH_SCAN
+      com.android.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+    install permissions:
+      android.permission.MODIFY_AUDIO_SETTINGS: granted=true
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.BLUETOOTH: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.BLUETOOTH_ADMIN: granted=true
+      android.permission.GET_PACKAGE_SIZE: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.USE_FINGERPRINT: granted=true
+      android.permission.VIBRATE: granted=true
+      com.android.talkback.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+      android.permission.WAKE_LOCK: granted=true
+    User 0: ceDataInode=123410 installed=true hidden=false suspended=false stopped=true notLaunched=true enabled=0 instant=false virtual=false
+      gids=[3002, 3003, 3001]
+      runtime permissions:
+        android.permission.ACCESS_FINE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.ACCESS_COARSE_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.READ_PHONE_STATE: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+        android.permission.RECORD_AUDIO: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Package Changes:
+  Sequence number=32
+  User 0:
+    seq=0, package=com.android.permissioncontroller
+    seq=1, package=com.android.systemui
+    seq=3, package=com.android.sdksetup
+    seq=4, package=com.android.provision
+    seq=9, package=com.android.messaging
+    seq=10, package=nl.davidengelen.redsquare.dev
+    seq=11, package=nl.davidengelen.redsquare.dev.test
+    seq=12, package=com.android.settings
+    seq=13, package=com.android.calendar
+    seq=14, package=com.android.camera2
+    seq=23, package=com.android.email
+    seq=24, package=com.android.gallery3d
+    seq=25, package=com.android.inputmethod.latin
+    seq=26, package=com.android.talkback
+    seq=27, package=com.android.nfc
+    seq=28, package=com.reecedunn.espeak
+    seq=30, package=com.android.traceur
+    seq=31, package=com.android.stk
+
+
+Dexopt state:
+  [com.android.talkback]
+    path: /data/app/com.android.talkback-hX6WTscO7wo0-RjCcK0b-Q==/base.apk
+      x86_64: [status=run-from-apk] [reason=unknown]
+
+
+Compiler stats:
+  [com.android.talkback]
+    (No recorded stats)
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:
