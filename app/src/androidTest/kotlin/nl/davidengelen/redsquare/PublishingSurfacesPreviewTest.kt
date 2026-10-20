@@ -128,6 +128,7 @@ class PublishingSurfacesPreviewTest {
                             "community":"Updated controlled Chat rules. Agree separately before reacting."}""")
                         repeat(2) { attempt ->
                             waitForEnabled("Like")
+                            waitForScrollable("Like")
                             ui.onNodeWithText("Like").performClick()
                             waitFor("Review publishing terms")
                             ui.onNodeWithText("Updated controlled Chat terms include reactions. No real publisher approval.").assertIsDisplayed()
@@ -142,6 +143,7 @@ class PublishingSurfacesPreviewTest {
                         waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertEquals(1, peer.transactions.size)
                         assertEquals(1, peer.relayedMessages.size)
+                        waitForScrollable("Like")
                         ui.onNodeWithText("Like").performClick()
                         waitFor("Reaction forwarded. Delivery is not confirmed.")
                         capture("private-reaction-forwarded-before-scroll.png")
