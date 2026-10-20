@@ -383,3 +383,16 @@ records size/constraints/paragraph/overflow flags and actual line bounds before
 the unchanged overflow assertion. No application change or GREEN is claimed.
 Both evidence and diagnostic-source reviews report zero findings;52/54 hashes
 verified. Overlay occlusion is separate from the internal text-overflow flag.
+
+Diagnostic10 run39502566486 at36c880614dd270274da1a5f5c27ec8d0e8256320
+retains FAILURE7.956s,53hashes/two archives41 originals; preceding four post
+methods pass. Actual count size141x13 and rendered line0,0,141,13 fit exactly.
+The paragraph allocation is272px, which alone triggers didOverflowWidth. These
+three attempts expose a fixture false positive, not established application
+truncation. Both diagnostic evidence reviews0. The corrected predicate retains
+exact literal text, complete final character offset, every rendered line inside
+the text width, no ellipsis/exceeded lines and no vertical overflow. Existing
+trailing feed space is reached by real88dp scrolling; all48dp targets must fit
+the actual list viewport and avoid the composer, independently of pairwise
+nonoverlap. Production is unchanged; corrected native verification is pending.
+Both final correction source reviews report zero findings.

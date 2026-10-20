@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationViewportTest:
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Complete observed 9223372036854775807 likes must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28$lambda$20(PostPresentationViewportTest.kt:130)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Zl6wGVX_OPIo-phYi7288VD7gn0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$oNVRQ2wcFIIAq07sD6SHiSNNq2w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: stream=
+Error in longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest):
+java.lang.AssertionError: Complete observed 9223372036854775807 likes must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28$lambda$20(PostPresentationViewportTest.kt:130)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Zl6wGVX_OPIo-phYi7288VD7gn0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$oNVRQ2wcFIIAq07sD6SHiSNNq2w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.956
+There was 1 failure:
+1) longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest)
+java.lang.AssertionError: Complete observed 9223372036854775807 likes must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28$lambda$20(PostPresentationViewportTest.kt:130)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Zl6wGVX_OPIo-phYi7288VD7gn0(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$28(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$oNVRQ2wcFIIAq07sD6SHiSNNq2w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

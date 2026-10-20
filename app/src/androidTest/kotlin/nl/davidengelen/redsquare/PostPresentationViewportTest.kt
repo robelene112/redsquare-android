@@ -93,7 +93,11 @@ class PostPresentationViewportTest {
                                 hasContentDescription("$action post by $name") and hasClickAction()
                             }
                             ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
-                            val viewport = ui.onRoot().fetchSemanticsNode().boundsInRoot
+                            // Use the existing trailing space to bring the entire footer above the floating composer.
+                            ui.onNode(hasScrollAction()).performScrollBy(0f, 88 * context.resources.displayMetrics.density)
+                            val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
+                            val composer = ui.onNode(hasText("New post") and hasClickAction())
+                                .assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
                             val minimum = 48 * context.resources.displayMetrics.density - 1
                             val bounds = actions.map { target ->
                                 val node = ui.onNode(target).assertIsDisplayed().assertIsEnabled().fetchSemanticsNode()
@@ -101,6 +105,8 @@ class PostPresentationViewportTest {
                                     assertTrue("Complete reachable 48dp post action at $label", rect.width >= minimum &&
                                         rect.height >= minimum && rect.left >= viewport.left && rect.right <= viewport.right &&
                                         rect.top >= viewport.top && rect.bottom <= viewport.bottom)
+                                    assertFalse("Floating composer must not obscure the reachable action at $label",
+                                        rect.overlaps(composer))
                                 }
                             }
                             bounds.forEachIndexed { index, left -> bounds.drop(index + 1).forEach { right ->
@@ -127,7 +133,18 @@ class PostPresentationViewportTest {
                                             "${layout.getLineLeft(line)},${layout.getLineTop(line)},${layout.getLineRight(line)},${layout.getLineBottom(line)}"
                                         })
                                     }.toString())
-                                assertFalse("Complete observed $count must fit at $label", layout.hasVisualOverflow)
+                                // Paragraph allocation can exceed shrink-wrapped Text width even when every glyph fits.
+                                // Measure the actual rendered lines and completeness rather than the unused paragraph space.
+                                assertFalse("Complete observed $count must fit vertically at $label", layout.didOverflowHeight)
+                                assertFalse(layout.multiParagraph.didExceedMaxLines)
+                                assertTrue(layout.lineCount > 0)
+                                for (line in 0 until layout.lineCount) {
+                                    assertFalse("Observed count must not be ellipsized", layout.isLineEllipsized(line))
+                                    assertTrue("Complete observed $count must fit horizontally at $label",
+                                        layout.getLineLeft(line) >= 0f && layout.getLineRight(line) <= layout.size.width)
+                                }
+                                assertEquals("Every observed count character must remain rendered", count.length,
+                                    layout.getLineEnd(layout.lineCount - 1))
                             }
                             File(folder, "$label.json").writeText(JsonObject().apply {
                                 addProperty("widthPixels", device.displayWidth)
@@ -135,6 +152,8 @@ class PostPresentationViewportTest {
                                 addProperty("fontScale", context.resources.configuration.fontScale)
                                 addProperty("selectedAppearance", theme)
                                 addProperty("touchBounds", bounds.joinToString())
+                                addProperty("scrollViewport", viewport.toString())
+                                addProperty("floatingComposer", composer.toString())
                             }.toString())
                             capture("$label-actions-counts.png")
                             ui.onNode(hasScrollAction()).performScrollToNode(more)
