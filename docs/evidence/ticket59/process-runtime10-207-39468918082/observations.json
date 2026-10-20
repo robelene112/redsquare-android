@@ -1,0 +1,201 @@
+{
+  "diagnosticOnly": true,
+  "processes": [
+    {
+      "attempt": 1,
+      "original": "runtime-1.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3447,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 2,
+      "original": "runtime-2.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3496,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 3,
+      "original": "runtime-3.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3533,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 4,
+      "original": "runtime-4.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3573,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 5,
+      "original": "runtime-5.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3611,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 6,
+      "original": "runtime-6.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3652,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 7,
+      "original": "runtime-7.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3692,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 8,
+      "original": "runtime-8.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3729,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 9,
+      "original": "runtime-9.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3766,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 10,
+      "original": "runtime-10.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3804,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 11,
+      "original": "runtime-11.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3843,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 12,
+      "original": "runtime-12.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3880,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 13,
+      "original": "runtime-13.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3918,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 14,
+      "original": "runtime-14.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3956,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 15,
+      "original": "runtime-15.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 3994,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 16,
+      "original": "runtime-16.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4032,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 17,
+      "original": "runtime-17.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4071,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 18,
+      "original": "runtime-18.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4108,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 19,
+      "original": "runtime-19.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4145,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 20,
+      "original": "runtime-20.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4183,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 21,
+      "original": "runtime-21.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4234,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 22,
+      "original": "runtime-22.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4272,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 23,
+      "original": "runtime-23.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4310,
+      "parentPid": 1664
+    },
+    {
+      "attempt": 24,
+      "original": "runtime-24.txt",
+      "maxBytes": 536870912,
+      "is64Bit": true,
+      "pid": 4348,
+      "parentPid": 1664
+    }
+  ],
+  "uniquePids": 24,
+  "allNativeResults": "OK (1 test)",
+  "causeEstablished": false,
+  "fullAcceptance": false
+}

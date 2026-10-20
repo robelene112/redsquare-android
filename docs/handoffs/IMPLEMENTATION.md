@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 17:25 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
+2026-10-20 17:59 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
 Finish59, then60through69 and bounded rendered navigation follow-up70 sequentially,
 without routine owner stops.70 is linked to55/blocked by59 and queued after69.
 No new owner input is needed. Physical/provider/KVK/store prerequisites remain parked.
@@ -92,7 +92,7 @@ actual16MiB in PID14790 (3.552s), despite reported512m. Exact logs/properties/AV
 terminalmetadata retained under photo-history-red10-d567-39460998051. The unchanged
 second full72a Chat instead passed both at actual512MiB in PID12068 (46.266s).
 No blind complete rerun: diagnose process startup/isolation first.
-verify/status59-search-d567b0084 remains the exact executing source/ref/run. Complete17
+verify/status59-search-d567b0084 is the exact source/ref of that retained failed run. Complete17
 at72a can remain only with exact production equivalence and corrected full10
 acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
 new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,
@@ -107,15 +107,30 @@ Canonical AndroidTest compile succeeds4m; YAML/bash/diff checks pass. Source
 check39466710122 SUCCESS. Three separately booted storage runs39466812449/
 39467293150/39467297057 at6005 all SUCCESS2/2 at512MiB,64bit,78.012/78.839/75.637s.
 Each exact original packet has6 verified hashes; both packet review axes0.
-Prefix39466808494 remains active at verify/status59-heap-6005061f9.
+Prefix39466808494 subsequently SUCCESS at verify/status59-heap-6005061f9.
 Temporary diagnostic source207b0a2f3a279705cf9475da13e558546fba0257 adds guarded
 API29-only chat-runtime:24 process-only invocations, each30s, actual/declared heap
 parity and per-attempt logs/exits/process list plus startup properties. No old
 full identities/assertions/budgets change. Both source reviews0, local AndroidTest
-compile SUCCESS1m58s. Reduced run39468918082 is active on
+compile SUCCESS1m58s. Reduced run39468918082 subsequently SUCCESS on
 verify/status59-runtime-207b0a2f3. Not acceptance, no cause/fix inferred.
 Remove tagged temporary observations and class after resolution. No production
-change;58 stays immutable/unpublished. No blind full rerun or weaker storage.
+change;58 stays immutable/unpublished. No weaker storage or blind rerun.
+
+Prefix39466808494 SUCCESS at6005: eight queue/storage observations512MiB/64bit,
+sameparent1664, storagePID12678. Process-only39468918082 SUCCESS at207:24 distinct
+PIDs, all512MiB/64bit, sameparent1664; originalps mapszygote64/system_server1912.
+Both diagnostic packets retain original native logs, not new visual acceptance.
+Cause remains unresolved. Four extra fresh-boot probes39470085970/39470089859/
+39470093783/39470097733 at207 remain diagnostic. Sourcecheck39468854173 SUCCESS.
+Qualified72a→207 equivalence has455 exact unchanged of457 entries outside docs/
+AndroidTest; only2harness files add diagnostic-only branches/choices/exclusions.
+Removing those inactive additions reproduces original full script/workflow bytes.
+Both independent equivalence reviews0; original full classes/inputs/bounds/routing
+unchanged. Signed58 and accepted17 stay exact72a.
+New entire10run39470519533 at207 is ACTIVE on verify/status59-runtime-207b0a2f3.
+Allthreejobs/frozen486/129/35/34/92 remain mandatory, with read-only process
+observations. Config binds207/that run. No focused/failed-tail assembly/waiver.
 
 After actual complete10 success: strict collect, inspect originals, paired final
 review, publish immutable58 with canonical script, independent after-bookend,

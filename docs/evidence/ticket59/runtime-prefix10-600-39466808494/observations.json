@@ -1,0 +1,41 @@
+{
+  "diagnosticOnly": true,
+  "observations": [
+    {
+      "original": "chat-photo-group-process/recovered.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-group-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t12403; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-photo-private-process/restored.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-private-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t11989; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-image-history-ui.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=storage-group-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t12678; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-image-history-ui.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=storage-group-false max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t12678; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-photo-private-process/recovered.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-private-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t11713; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-photo-private-process/interrupted.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-private-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t11429; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-photo-group-process/interrupted.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-group-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t12035; PPid:\t1664 parent=unavailable"
+    },
+    {
+      "original": "chat-photo-group-process/restored.txt",
+      "stream": "[DEBUG-59-heap] Chat runtime observation phase=queue-group-photo-true max=536870912 is64Bit=true process=Name:\tn.redsquare.dev; Pid:\t12624; PPid:\t1664 parent=unavailable"
+    }
+  ],
+  "causeEstablished": false,
+  "fullAcceptance": false,
+  "noNewVisualAcceptanceClaim": true,
+  "uiArchivesRemainExternal": true
+}

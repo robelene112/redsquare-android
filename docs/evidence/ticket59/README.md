@@ -1372,3 +1372,37 @@ log/exit and read-only process observations and stops at the first failure.
 The class runs only in optional Android10-only chat-runtime, not full application
 catalogs. Both source reviews report0 findings; no causal or acceptance claim.
 Remove temporary tagged observations and class after resolution.58 stays unpublished.
+
+
+## Observed prefix and24 fresh processes; entire10 at207
+
+The [unchanged-prefix run39466808494](runtime-prefix10-600-39466808494/) is SUCCESS
+at6005. Original native goal/exit logs and both actual photo-process protocols
+are retained. All eight queue/storage observations show512MiB/64bit with the
+same parent1664; storage usesPID12678. These logs establish native diagnostic
+results, not new independent visual acceptance; UI archives remain external.
+
+The [process-only run39468918082](process-runtime10-207-39468918082/) is SUCCESS
+at207. All24 original native invocations pass, with24 distinct targetPIDs,
+512MiB/64bit and parent1664. Original ps identifies1664 aszygote64 and1912 as
+system_server. Actual properties and loaded init.ranchu capture remain alongside
+per-attempt logs/exits. This does not prove the cause of the earlier16MiB failures.
+Four additional separate cold-boot probes39470085970/39470089859/39470093783/
+39470097733 use the same207 source and stay diagnostic only.
+
+Source/core/gateway/release/performance/lint run39468854173 at207 is SUCCESS.
+The [qualified equivalence packet](runtime-fixture-production-equivalence/)
+compares exact72a/207 Git records:455 of457 entries outside docs/AndroidTest
+are unchanged. The two changed harness files add only optional diagnostic scopes.
+Removing three inactive diagnostic branches restores the exact original full
+emulator script; removing the diagnostic choices/exclusions restores the exact
+original workflow. Full routing, classes, data and deadlines are unchanged.
+Both independent equivalence reviews report0 findings. Production/build/signing
+inputs remain unchanged;58 and accepted17 stay at exact72a.
+
+New entire10run39470519533 executes exact207 at verify/status59-runtime-207b0a2f3
+with read-only runtime observations. This follows the smaller diagnostics and
+retains the unresolved cause honestly. It must independently complete allthree
+jobs and the unchanged frozen486/129/35/34/92 catalog, including actual speech,
+reading/motion, public reads and every recovery gate. No focused or failed-tail
+assembly; no earlier failure becomes success.58 remains unpublished.

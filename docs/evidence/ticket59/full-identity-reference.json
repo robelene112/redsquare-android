@@ -88,11 +88,11 @@
     }
   ],
   "executingSources": {
-    "android10": "d567b00849dc8ac84989610195331e50fd772068",
+    "android10": "207b0a2f3a279705cf9475da13e558546fba0257",
     "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
   },
   "executingRuns": {
-    "android10": 39460998051,
+    "android10": 39470519533,
     "android17": 39451603260
   },
   "signedCandidateSource": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -186,6 +186,14 @@
         "wallet": "success"
       },
       "finalMetadata": "docs/evidence/ticket59/search-red10-72a-39455628348/run-final.json"
+    },
+    {
+      "sdk": "10",
+      "source": "d567b00849dc8ac84989610195331e50fd772068",
+      "run": 39460998051,
+      "status": "completed",
+      "conclusion": "failure",
+      "reason": "Wallet/social succeed; both unchanged Chat photo-history methods fail at actual16MiB in PID14790 despite512m reported device heap. Exact terminal failure packet retained. Later unchanged prefix and three storage boots succeed at512MiB;24 process-only starts also succeed. Cause unresolved; no failure waiver or assembly."
     }
   ],
   "signedCandidateVersion": 58,
@@ -203,7 +211,7 @@
     "requiredWithinEveryFullJob": true,
     "step": "Build and verify native sources",
     "sources": {
-      "android10": "d567b00849dc8ac84989610195331e50fd772068",
+      "android10": "207b0a2f3a279705cf9475da13e558546fba0257",
       "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
     }
   },
@@ -265,25 +273,32 @@
       "source": "72a8c63828280d61dc760331e17289cf7c93112a",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39449757978"
+    },
+    {
+      "run": 39459628860,
+      "source": "d567b00849dc8ac84989610195331e50fd772068",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860"
     }
   ],
   "sourceBuild": {
-    "run": 39459628860,
-    "source": "d567b00849dc8ac84989610195331e50fd772068",
+    "run": 39468854173,
+    "source": "207b0a2f3a279705cf9475da13e558546fba0257",
     "status": "completed",
     "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860"
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39468854173"
   },
   "signedCandidateState": "prepared and immutable, not accepted or published",
   "executingSourceCheck": {
-    "run": 39459628860,
-    "source": "d567b00849dc8ac84989610195331e50fd772068",
+    "run": 39468854173,
+    "source": "207b0a2f3a279705cf9475da13e558546fba0257",
     "status": "completed",
     "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860",
-    "acceptance": "Corrected fixture/source/core/gateway/release/performance/lint only; complete10 runtime acceptance remains pending."
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39468854173",
+    "acceptance": "Source/core/gateway/release/performance/lint only; complete10 runtime acceptance remains pending."
   },
-  "executingState": "Complete17 at72a accepted as one SDK. Complete10 39460998051 at production-equivalent d567 is terminal FAILURE: Chat fails both unchanged photo-history cases at actual16MiB; social and wallet succeed. No global publication acceptance, focused/failed-tail assembly or native failure waiver. Diagnose process startup before another complete run.",
+  "executingState": "Complete17 at72a remains accepted as one SDK. A fresh entire10 at production-equivalent207 39470519533 is active after three512MiB storage boots, same-prefix success and24 process-only successes. Additional cold-boot probes remain diagnostic. Earlier16MiB cause unresolved; read-only runtime observations retained for full execution. Frozen486/129/35/34/92 and allthree SUCCESS jobs required; no focused/failed-tail assembly or error waiver.58 unpublished.",
   "fixtureEquivalenceHistory": [
     {
       "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",
@@ -305,6 +320,24 @@
       "onlyNonDocsDifference": [
         "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SearchPreviewTest.kt"
       ],
+      "completeAndroid17Run": 39451603260,
+      "signedVersion": 58
+    },
+    {
+      "productionSource": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "executingSource": "207b0a2f3a279705cf9475da13e558546fba0257",
+      "path": "docs/evidence/ticket59/runtime-fixture-production-equivalence/inputs.json",
+      "unchangedTrackedEntries": 455,
+      "harnessOnlyChangedPaths": [
+        ".github/workflows/android-proof.yml",
+        "scripts/emulator-check"
+      ],
+      "normalFullScopeProjection": "Exact original bytes after removing only new inactive diagnostic branches/choices/exclusions; all full classes/inputs/deadlines/routing unchanged.",
+      "reviewAxesFindings": {
+        "spec": 0,
+        "documentedStandards": 0,
+        "heuristic": 0
+      },
       "completeAndroid17Run": 39451603260,
       "signedVersion": 58
     }
@@ -341,7 +374,7 @@
   "signedCandidateSha256": "178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1",
   "signedCandidateBytes": 37856651,
   "verificationRefs": {
-    "android10": "verify/status59-search-d567b0084",
+    "android10": "verify/status59-runtime-207b0a2f3",
     "android17": "verify/status59-72a8c6382"
   }
 }
