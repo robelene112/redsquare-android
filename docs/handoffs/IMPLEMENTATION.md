@@ -48,10 +48,15 @@ before each actual tap, retaining all policy/no-send/exact-count requirements.
 
 Fresh focused runs atfc477c893: reading10/17 39414403423/39414407150,
 status-recovery10/17 39414410300/39414413196, policy-surfaces10/17
-39414416099/39414418607. All pending at this checkpoint. Both bounded review
+39414416099/39414418607. All six SUCCESS:1reading,2recovery and4surface methods per SDK, with original
+archive-bound packets retained. Root inspected corrected17reading and reaction
+PNGs; post05 has exact original bounds through Chat and recreation. Both bounded review
 axes report0 after the fixes. New source requires fresh full10/17; do not reuse
 failed4a or treat focused proof as full. Frozen486/487 identity references stay
-unchanged. Rebind final source/run IDs only after correct dispatch.
+unchanged. Fresh full10run39415267934 and17run39415423516 are active at exactfc
+on verify/status59-fc477c893; allthree mandatory partitions and public reads
+required. Source/core/release/lint39414378637 is SUCCESS. The reference binds
+these actual runs and retains rejected4a separately. Do not cancel their jobs.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.
@@ -63,10 +68,13 @@ Send ending at usable318. Message-first compressed-editor work remains62.
 51 was built/signed at4a: SHA5d21e8c9e65ad89c4055b92bbf140ea8ee39753d7dd1a71abc6f382cd306a7ee,
 37,856,651bytes. Actual APK manifest/DEX/certificate inspection passes. It is
 SUPERSEDED, NEVER PUBLISH. A rejection marker is in the frozen external51 folder;
-evidence apk-check explicitly says neverPublish. New production needs new52 later,
-not yet reserved. External review-worktree stays at4a; do not rebuild51 or50.
-Builder session75006 may be polled for its final already-built completion;
-log /mnt/storage/redsquare-android-artifacts/status59-signed51-build.log.
+evidence apk-check explicitly says neverPublish. 52 is built atfc,
+SHA9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96,
+37,856,651bytes, actual manifest/DEX/certificate checks PASS. Its inspection is
+in signed52-prepared; no publication or full acceptance yet. External frozen
+review-worktree is atfc. Local52 builder completed exit0. Never rebuild51/50/52.
+Temporary /tmp/redsquare-status59-publication52-check.py is prepared, not run;
+protects immutable50/49/45 and wholeperformance43 with actual HTTP bookends.
 After fresh full/evidence review and actual signed delivery complete59, continue
 60through69 immediately. Keep protected research unread/untouched, source boundaries
 and real owner/provider/physical/store gates parked as before.

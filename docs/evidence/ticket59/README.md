@@ -1,7 +1,8 @@
 # Shared asynchronous status59
 
 Active sequential implementation, review base a8b2c26ef. Ordinary50 remains live;
-59 has no complete native, actual TalkBack or signed-delivery acceptance yet.
+59 has focused native and actual TalkBack acceptance on both SDKs; fresh complete
+fc native execution and signed-delivery acceptance remain pending.
 
 ## First actual native RED
 
@@ -275,3 +276,31 @@ Fresh focusedfc477c893 runs: reading10/17 39414403423/39414407150,
 status recovery10/17 39414410300/39414413196, allfour policy surfaces10/17
 39414416099/39414418607. They are pending; source reviews report0/0. Fresh full
 runs on both SDKs remain required, preserving the pre-execution486/487 catalog.
+
+## Corrected focused proof and frozen52
+
+All six focused runs at exactfc477c8936f11ae85923b8e02c61c6a6c6558db5 are
+SUCCESS: reading10/17 39414403423/39414407150 (one method each), recovery10/17
+39414410300/39414413196 (two each), policy surfaces10/17
+39414416099/39414418607 (four each). Each retained packet includes actual
+run metadata, complete command results, original archive inventory and every
+original member:6/6reading,14/14recovery,33/33surfaces. Root opened corrected17
+before/after-recreation feed PNGs and the deliberately forwarded reaction PNG.
+Native post05 bounds remain exactly[74,431][201,479] before Chat, after Chat
+and after recreation. Source/core/release/lint39414378637 is SUCCESS. These
+focused checks do not fill any failed4a full goal.
+
+Fresh full10[39415267934](https://github.com/robelene112/redsquare-android/actions/runs/39415267934)
+and17[39415423516](https://github.com/robelene112/redsquare-android/actions/runs/39415423516)
+execute the same exactfc source on verify/status59-fc477c893. Allthree mandatory
+partitions, public reads and status goals remain required. Frozen identity
+references and collector are unchanged; bindings record both rejected4a and
+currentfc attempts. Both full runs are still pending.
+
+Signed52 is built from frozenfc, SHA
+9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96,
+37,856,651bytes, established certificate. Actual manifest/DEX checks pass:
+nondebuggable/nonprofileable, backupfalse,29/36, reviewtrue/pushfalse, separate
+GIF keys absent and no test-tool query in Release. Prepared records are retained
+in signed52-prepared. Full acceptance, public publication and independent HTTP
+bookends remain pending. Ordinary50 remains live; rejected51 is never publishable.

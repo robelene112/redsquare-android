@@ -88,17 +88,17 @@
     }
   ],
   "executingSources": {
-    "android10": "4a78f8864c212d7aefedf3880fc279c5a22dca50",
-    "android17": "4a78f8864c212d7aefedf3880fc279c5a22dca50"
+    "android10": "fc477c8936f11ae85923b8e02c61c6a6c6558db5",
+    "android17": "fc477c8936f11ae85923b8e02c61c6a6c6558db5"
   },
   "executingRuns": {
-    "android10": 39412244072,
-    "android17": 39412555335
+    "android10": 39415267934,
+    "android17": 39415423516
   },
   "sourceBuild": {
-    "run": 39412080920,
-    "source": "4a78f8864c212d7aefedf3880fc279c5a22dca50",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39412080920"
+    "run": 39414378637,
+    "source": "fc477c8936f11ae85923b8e02c61c6a6c6558db5",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39414378637"
   },
   "signedCandidateSource": null,
   "toolSource": {
@@ -108,5 +108,15 @@
     "actualSpeechAcceptance": false
   },
   "collectorSha256": "ed2976f5f565ff30ef50996cc3b7fe577c59caf9866750762f7f75916bedace6",
-  "catalogFreezeCommit": "caad1528391951187c6d6bb91373c32a48f5e37e"
+  "catalogFreezeCommit": "caad1528391951187c6d6bb91373c32a48f5e37e",
+  "rejectedExecutions": [
+    {
+      "source": "4a78f8864c212d7aefedf3880fc279c5a22dca50",
+      "android10": 39412244072,
+      "android17": 39412555335,
+      "acceptance": "rejected",
+      "reason": "Both Chat partitions fail the unchanged frame reading-position test. Other jobs finish separately; no focused assembly can replace missing complete goals."
+    }
+  ],
+  "verificationRef": "verify/status59-fc477c893"
 }
