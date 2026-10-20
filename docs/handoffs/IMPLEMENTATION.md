@@ -40,6 +40,24 @@ moves the old-message scroll before the existing exact count. All original goals
 assertions and180second class bound stay. App/build/signing remainf59-equivalent.
 Canonical47 is prepared/reviewed, unpublished;46 superseded. Ordinary45 is live.
 
+Helper compile correction1d passes source39365176184. Focused group-ui39365571837
+(10)/39365574891(17) bothFAILED in the first one-method actions class at Copy
+visibility:71. The22-case group class is not reached, so its three positioning
+corrections are still unproved. Paired copy RED packets retain16 hashes/six original
+bindings; root opened both PNGs. Fixture-only first Copy/Reply scrolling now uses
+the same pattern as the existing cached-copy flow, preserving all clipboard,
+quote/raw/Relay/identity assertions and60second class bound. Corrected native
+before/after evidence remains pending. Private39365577261(10)/39365579302(17)
+bothFAILED:24-method class records10PASS/3FAIL, exits124 at original180second bound
+with method14 START-only. Older/cache target waits fail before existing scrolling.
+Paired private-viewport RED packets retain22 hashes/12 originals, all six PNGs
+opened. Exact absence/hang cause remains unproved. New diagnostic-only
+private-history-viewport scopes select those four existing methods in one command
+with the same180second bound and before-scroll/wait/failure native/all-root trees.
+Full/private-complete classes and process gates remain unchanged. No corrected
+private runtime or new full acceptance, and no app change is claimed.
+
+
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
 and lifecycle-owned actual system-motion scale are implemented.

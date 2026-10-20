@@ -191,6 +191,10 @@ complete first-release scope and the established production boundaries.
    reaction/reply slices, `chat-actions` and `chat-actions-android17` run the
    action UI class only. `chat-ui` retains history plus actions and actual
    process recovery; final full scopes retain all checks.
+   `private-history-viewport` and its Android17 variant isolate four existing
+   private-history methods for native/all-root diagnosis. They share the original
+   180second class bound. Ordinary `chat-ui` and full keep both complete classes
+   and process recovery; the diagnostic scope is not complete acceptance.
    If production source is unchanged and one SDK has passed full verification,
    a test-fixture correction can run the outstanding SDK's full scope. It runs
    release assembly/lint and the entire device suite; record both runs, unchanged

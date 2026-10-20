@@ -643,3 +643,34 @@ incorrectly referenced a function-local context from class scope. The compile RE
 packet retains actual five-run metadata and original compiler lines. A local
 target-context declaration fixes the helper scope; no app change or weakened
 assertion. Source compilation must pass before new focused runtime dispatch.
+
+Corrected helper1d65723d79e96273d392fee18ac61715188113f1 passes source39365176184
+(core/gateway, Debug/test, Release/Performance, lint). Group-ui39365571837(10)/
+39365574891(17) bothFAILED first at GroupChatActionsPreviewTest:71, Copy not
+displayed. This one-method class executes before the22-case group fixture, so
+those three preceding corrections have not yet executed. Paired copy RED packets
+retain16 hashes/six original bindings, including progress through source-visible.
+Root opened both failure PNGs: body is visible, actions are below the short
+history. No corrected runtime or new application defect is claimed.
+
+The next fixture-only change applies the existing cached-copy performScrollTo
+pattern to first Copy/Reply, retaining all exact literal clipboard/sensitivity,
+quote/mentions/raw/Relay/history/draft/identity checks and60second class bound.
+Before/after original native captures test reachability. Remaining private Chat
+UI/recovery39365577261(10)/39365579302(17) still run at1d. App/build/signing stayf59;
+47 remains prepared/unpublished. No new full dispatch or complete acceptance.
+
+Private UI39365577261(Android10)/39365579302(Android17) bothFAILED. Each original
+24-method class records10PASS/3FAIL, then exits124 at the unchanged180second host
+bound with method14 unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails
+START-only. Three15second waits fail at older target:848 or cached target:1050
+before their existing scroll. Paired private-viewport RED packets retain22 hashes/
+12 original PNG/XML members. Root opened all six originals. Other cached/outgoing
+text is visible in short history; that alone does not establish why the target is
+absent or the exact later hang. Private actions/recovery never execute.
+
+New private-history-viewport scopes select exactly those four existing methods
+in one command, preserving the180second class bound. Diagnostic-only native/
+all-root captures run before initial history scroll, older/cache waits and failure.
+The original assertions, waits, application and complete chat-ui/full cases stay
+unchanged. This is a tighter RED loop, not a correction or complete acceptance.

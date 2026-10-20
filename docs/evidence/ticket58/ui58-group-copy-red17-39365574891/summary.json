@@ -1,0 +1,9 @@
+{
+  "source": "1d65723d79e96273d392fee18ac61715188113f1",
+  "run": 39365574891,
+  "sdk": "17",
+  "conclusion": "failure",
+  "failedMethod": "groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening",
+  "failure": "Copy not displayed at71",
+  "limit": "Focused group-ui runs the actions class before the22-case group class. This first methodFAIL prevents those22 corrected paths from executing; no corrected runtime claim. The original frame shows the message body in a short scrollable history, with Copy below its viewport. The existing cached-copy path already uses performScrollTo; the proposed first Copy/Reply positioning retains exact literal clipboard/sensitivity/quote/raw/Relay/history/draft/identity assertions and60second class bound. App unchanged;47 prepared/unpublished."
+}

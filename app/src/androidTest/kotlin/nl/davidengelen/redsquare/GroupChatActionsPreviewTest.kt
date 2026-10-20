@@ -68,11 +68,14 @@ class GroupChatActionsPreviewTest {
                         previousClip=clipboard.primaryClip
                         waitForEnabled("Copy")
                         clipboardChanged=true
+                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/copy-before-scroll.png"))
+                        ui.onNodeWithText("Copy").performScrollTo().assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/copy-after-scroll.png"))
                         ui.onNodeWithText("Copy").assertIsDisplayed().performClick()
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()=="Original group message")
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
                         waitForEnabled("Reply")
-                        ui.onNodeWithText("Reply").assertIsDisplayed().performClick()
+                        ui.onNodeWithText("Reply").performScrollTo().assertIsDisplayed().performClick()
                         waitFor("Remove reply")
                         ui.onNodeWithText("Message").performTextInput(body)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()

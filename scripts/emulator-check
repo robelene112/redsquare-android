@@ -489,6 +489,11 @@ verify_private_chat_ui() {
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-chat-work-import-fixture.json > /dev/null
     chat_ui_failed=0
     local -a chat_ui_cases=(PrivateChatPreviewTest PrivateChatActionsPreviewTest)
+    local -a chat_ui_arguments=()
+    if [[ "${TEST_SCOPE:-full}" == private-history-viewport* ]]; then
+        chat_ui_cases=('PrivateChatPreviewTest#unreadableRecentPrivateMessagesDoNotPreventLoadingReadableOlderHistory,nl.davidengelen.redsquare.PrivateChatPreviewTest#aKeyOnlyImportKeepsReadableCachedMessagesAlongsideMissingExchangedKeys,nl.davidengelen.redsquare.PrivateChatPreviewTest#anInterruptedPrivateSendRemainsSavedWithoutAutomaticRebroadcast,nl.davidengelen.redsquare.PrivateChatPreviewTest#unreadableAvailableHistoryIsExplainedEvenWhenLocalSavingFails')
+        chat_ui_arguments=(-e privateHistoryViewport 1)
+    fi
     if [[ "${TEST_SCOPE:-full}" == chat-actions* ]]; then
         chat_ui_cases=(PrivateChatActionsPreviewTest)
     fi
@@ -499,7 +504,7 @@ verify_private_chat_ui() {
         fi
         chat_ui_exit=0
         timeout 180 adb shell am instrument -w -r \
-            -e class "nl.davidengelen.redsquare.$chat_ui_case" \
+            -e class "nl.davidengelen.redsquare.$chat_ui_case" "${chat_ui_arguments[@]}" \
             nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
             > "$evidence/$chat_ui_report.txt" || chat_ui_exit=$?
         printf '%s\n' "$chat_ui_exit" > "$evidence/$chat_ui_report-exit.txt"
@@ -531,6 +536,11 @@ fi
 if [[ "${TEST_SCOPE:-full}" == chat-history-process* ]]; then
     python3 "$repo_dir/scripts/private-chat-process-check" --evidence "$evidence/private-chat-process"
     printf '%s\n' 'Focused existing private Chat actual-process recovery only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "${TEST_SCOPE:-full}" == private-history-viewport* ]]; then
+    verify_private_chat_ui
+    printf '%s\n' 'Focused four existing private history viewport cases only; full/private process acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
 if [[ "${TEST_SCOPE:-full}" == chat-ui* ]]; then
