@@ -311,18 +311,30 @@ new status captures retain PNG/XML. Local build33222 SUCCESS3m33s, only existing
 evidence reviews0 after71-hash count reconciliation; native10 statusGREEN39493943186 SUCCESS15UI+bothprocessgates,74hashes/6archives
 47originals; compact10regression39493953775 SUCCESS3methods12.071s,24hashes16originals.
 Both packet audits0; root viewed actual status summary/Details PNGs. Native17
-status39493947989 remains active atb495. CurrentHEADc5bfd201292709dc4a6eaaa7fb28ca7b667f418b
+status39493947989 alsoSUCCESS atb495:76hashes/6archives47originals,15UI+bothprocess
+gates, repeat5216 to5289. Root viewed actual summary; paired evidence reviews0.
+Operator sourcec5bfd201292709dc4a6eaaa7fb28ca7b667f418b
 changes only three remaining Feed profile operators in Author/Quote fixtures;
 paired source reviews0, all other assertions byte-unchanged. Focused quotes10
 39494135294 SUCCESS7methods19.639s+actualquoteprocess5.824s,23hashes/nine originals.
-Root viewed actual Feed/Profile quote spacing; paired packet review pending. Unrelated research
+Root viewed actual Feed/Profile quote spacing; paired packet reviews0. Unrelated research
 file remains untouched. Remaining60 status/author menu/matrix/a11y/full delivery
 and61 through70 remain authorized sequential work; do not stop at a slice.
 
-Next own-menu tracer WIP in PostPresentationPreviewTest uses one actual signed
+Next own-menu tracer7350881da929a83362e7da51af194aa4edd4c89a in PostPresentationPreviewTest uses one actual signed
 own post through all4contexts: contextual Edit/Delete, original edit text, correct
 confirmation, Back and no sends. Existing3methods and180second bound retained.
 Frame fixture adds authorposts/postdraft to independent retained/restored files
 because opening author forms writes those local records. All original guards,
 Activity closure, wallet/backend and zero-frame goals remain. No author-menu
-production change yet. Review and actual nativeRED before implementation.
+production change yet. Both test-stage reviews0. NativeRED39495348332 completedFAILURE at7350881:threePASS/one intended missing
+contextual Edit in own More,12.802s.26hashes/18originals retained, root viewed
+actual Public identity-only menu. Later forms/contexts unreached. Author WIP now
+passes wallet-scoped PostAuthorActions explicitly through all shared-post contexts
+and notification references into one Author destination/existing AuthorEditScreen.
+Own-only contextual Edit/Delete replace old Thread primary buttons/state; Report
+gains context. Editor/storage/signing/policy/controller behavior unchanged. Three
+existing fixture files now open real More instead of primary buttons; their raw/
+recovery/policy assertions remain. Local34657 caller ends143 while owned builder still compiles AndroidTest; app
+Kotlin compiled, no local build conclusion. Source/RED evidence reviews0;
+native authorGREEN pending.

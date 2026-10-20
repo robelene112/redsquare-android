@@ -112,7 +112,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
                     ui.onNodeWithText("Native author's original post").performClick()
                     waitFor("Conversation")
-                    ui.onNodeWithText("Edit").performClick()
+                    ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     waitFor("Edit post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).assertTextEquals("Native author's original post")
@@ -144,7 +144,7 @@ class AuthorPostPreviewTest {
                     captureFeedEvidence("author-post-evidence/edited-post-profile.png")
                     ui.clickVisiblePostContent("Native author's edited post")
                     waitFor("Conversation")
-                    ui.onNodeWithText("Delete").performClick()
+                    ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Delete")
                     waitFor("Delete post")
                     ui.onNodeWithText("Remove this post from normal views on the selected node and this device? Historical and independent copies may remain.").assertIsDisplayed()
                     // The confirmation is rendered before its durable draft finishes loading.
@@ -267,8 +267,7 @@ class AuthorPostPreviewTest {
                     waitForList(); waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original before competing edits"))
                     ui.onNodeWithText("Original before competing edits").performClick()
-                    waitFor("Edit")
-                    ui.onNodeWithText("Edit").performClick()
+                    ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNode(hasSetTextAction()).performTextReplacement("My retained text")
                     ui.onNodeWithText("Save changes").performClick()

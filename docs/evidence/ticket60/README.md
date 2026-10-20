@@ -188,17 +188,19 @@ Rate feedback now uses the same status host. Three older native operators target
 contextual Details to retain each original full-explanation assertion. Their
 behavior/recovery/raw goals are unchanged. New status captures retain PNG/XML. Local Kotlin build33222 succeeds3m33s with only the existing PostImages warning.
 Both source/RED evidence reviews report0 after71-hash count reconciliation;
-product runtime remains pending. Status product is committed at
+bounded status runtime succeeds on10/17 as recorded below. Status product is committed at
 b495f67e23b27b8bd9954fc76a0fb0ef2be2d31b. Social10
 39493943186 succeeds:15original UI cases and both process gates,74hashes/six
 archives47originals. Compact10 regression39493953775 succeeds3methods12.071s,
 24hashes/16originals. Root viewed actual status summary and contextual Details
-PNGs; paired evidence audits0. Native17status39493947989 remains active.
+PNGs; paired evidence audits0. Native17status39493947989 alsoSUCCESS:15original UI cases and both actual
+process gates,76hashes/six archives47originals, repeat5216 to5289. Root viewed
+actual summary PNG; both evidence reviews0.
 Three remaining Feed raw-key profile operators in AuthorPostPreviewTest and
 QuotePreviewTest now use the actual contextual profile header atc5bfd201292709dc4a6eaaa7fb28ca7b667f418b; both source reviews0, every other assertion unchanged.
 Focused quotes10 run39494135294 SUCCESS atc5bfd:7UI methods19.639s and
 actual quote-process recovery5.824s.23hashes/nine exact original members retained;
-root viewed actual Feed/Profile quote padding. Packet review pending.
+root viewed actual Feed/Profile quote padding. Both evidence reviews0.
 
 Next single tracer exercises one signed own post through Feed, Thread, Profile
 and Search: contextual Edit/Delete in each More menu, correct original edit
@@ -206,4 +208,18 @@ text, real deletion confirmation, Back and zero transmissions. Existing three
 post methods and180second class bound remain. The read-only frame fixture also
 retains authorposts/postdraft files because opening author forms retains originals
 and drafts locally; original Activity-first restoration and wallet/backend/zero-
-frame assertions remain. Author-menu implementation has not started.
+frame assertions remain. Both test-stage reviews0; tracer committed7350881da929a83362e7da51af194aa4edd4c89a, nativeRED39495348332 completedFAILURE at7350881:threePASS/one intended missing
+contextual Edit in own More,12.802s. Packet26hashes/18originals; root viewed
+actual menu containing only Public identity. Later forms/contexts were unreached.
+Author-menu implementation now follows this actualRED.
+
+Current author-menu product uses one wallet-scoped PostAuthorActions route to the
+unchanged AuthorEditScreen, passed explicitly through Feed/Thread/Profile/Search
+and notification references. Only own posts offer contextual Edit/Delete; Report
+also gains account context. The obsolete Thread primary Edit/Delete row/state is
+removed. Existing editor/draft/mutex/revision/signing/policy/recovery behavior
+remains. Three existing fixture files open the actual More menu instead of their
+old primary buttons; every other substantive assertion is retained. Local build
+34657 caller ends143 while its owned container continues AndroidTest compilation;
+app Kotlin compiled, no local build conclusion yet. Both source/RED evidence
+reviews report0. Native productGREEN remains pending.

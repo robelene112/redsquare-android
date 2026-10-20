@@ -48,7 +48,7 @@ private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
     view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
-    onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
+    onIdentity: (String) -> Unit, social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend) { AndroidProfileCache(context, backend) }
@@ -272,7 +272,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                 }
             }
             items(visiblePosts, key = { it.id }) { post ->
-                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote)
+                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                 HorizontalDivider()
             }
         }

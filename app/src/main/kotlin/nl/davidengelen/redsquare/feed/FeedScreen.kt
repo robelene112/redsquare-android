@@ -136,6 +136,11 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
         }
     }
     fun back() { if (navigation.isNotEmpty()) navigation.removeAt(navigation.lastIndex) }
+    val authorActions = remember(wallet?.publicKey, navigation) {
+        wallet?.let { current -> PostAuthorActions(current.publicKey) { post, kind ->
+            if (post.author == current.publicKey) navigation.add(BrowseDestination.Author(post, kind))
+        } }
+    }
     val position = rememberLazyListState()
     val formNavigation = requireNotNull(LocalPostNavigation.current)
     val navigationNotice = remember { SnackbarHostState() }
@@ -364,27 +369,35 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     knownAccounts = following?.accounts.orEmpty() + navigationMemory.visitedProfiles,
                     onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
                     onIdentity = { openProfile(it) }, social = social, quotes = quotes,
-                    onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                 return@content
             }
             is BrowseDestination.Profile -> {
                 ProfileScreen(wallet, endpoint, backend, destination.author, destination.view, following, childModifier,
                     onBack = { back() }, onPost = { navigation.add(BrowseDestination.Conversation(it)) },
-                    onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                    onIdentity = { openProfile(it) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                 return@content
             }
             is BrowseDestination.Reference -> {
                 NotificationReferenceScreen(wallet, endpoint, backend, destination.target, quotes, childModifier,
                     onBack = { back() }, onIdentity = { openProfile(it) },
                     onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social,
-                    onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                    onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                 return@content
             }
             is BrowseDestination.Conversation -> {
                 ConversationScreen(wallet, endpoint, backend, destination.post, childModifier,
                     onBack = { back(); refresh++ }, onIdentity = { openProfile(it) },
-                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                    onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes, onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                 return@content
+            }
+            is BrowseDestination.Author -> {
+                if (wallet != null && wallet.publicKey == destination.post.author) {
+                    AuthorEditScreen(wallet, endpoint, backend, destination.post, childModifier, destination.kind) {
+                        back(); refresh++
+                    }
+                    return@content
+                }
             }
             is BrowseDestination.Quote -> {
                 if (wallet != null) {
@@ -467,7 +480,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 items(visiblePosts, key = { it.id }) { post ->
                     PostCard(post, backend, onIdentity = { openProfile(it) },
                         onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,
-                        onQuote = { navigation.add(BrowseDestination.Quote(it)) })
+                        onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
                     HorizontalDivider()
                 }
             }

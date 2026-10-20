@@ -23,16 +23,20 @@ import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.AuthorActionKind
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.ui.AppSpacing
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
 
+/** The selected wallet and its shared route into the existing author editor. */
+internal class PostAuthorActions(val owner: String, val open: (FeedPost, AuthorActionKind) -> Unit)
+
 /** One post hierarchy, with secondary actions owned outside the transient popup. */
 @Composable
 internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String) -> Unit,
-    onPost: (FeedPost) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: ((FeedPost) -> Unit)? = null) {
+    onPost: (FeedPost) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
     val author = registeredIdentity(post.author).name
     val timestamp = remember(post.createdAt) {
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH).format(Date(post.createdAt))
@@ -53,7 +57,7 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            PostMoreActions(post, author, timestamp, social?.reports)
+            PostMoreActions(post, author, timestamp, social?.reports, authorActions)
         }
         Text(post.text, Modifier.padding(vertical = AppSpacing.small), style = MaterialTheme.typography.bodyLarge)
         PostImages(post.images, backend)
@@ -64,7 +68,8 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
 }
 
 @Composable
-private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, reports: ReportState?) {
+private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, reports: ReportState?,
+    authorActions: PostAuthorActions?) {
     var expanded by remember { mutableStateOf(false) }
     var identity by rememberSaveable(post.id, post.author) { mutableStateOf(false) }
     val menuLabel = stringResource(R.string.post_actions_for, author)
@@ -79,8 +84,22 @@ private fun PostMoreActions(post: FeedPost, author: String, timestamp: String, r
             DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 DropdownMenuItem(text = { Text(stringResource(R.string.post_public_identity)) },
                     onClick = { expanded = false; identity = true })
-                if (reportLabel != null) DropdownMenuItem(text = { Text(reportLabel) }, enabled = reportEnabled,
-                    onClick = { expanded = false; report() })
+                if (authorActions?.owner == post.author) {
+                    val editLabel = stringResource(R.string.post_edit_for, author)
+                    val deleteLabel = stringResource(R.string.post_delete_for, author)
+                    DropdownMenuItem(text = { Text(stringResource(R.string.author_edit)) },
+                        modifier = Modifier.semantics { contentDescription = editLabel },
+                        onClick = { expanded = false; authorActions.open(post, AuthorActionKind.EDIT) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.author_delete)) },
+                        modifier = Modifier.semantics { contentDescription = deleteLabel },
+                        onClick = { expanded = false; authorActions.open(post, AuthorActionKind.DELETE) })
+                }
+                if (reportLabel != null) {
+                    val reportDescription = stringResource(R.string.post_report_for, author)
+                    DropdownMenuItem(text = { Text(reportLabel) }, enabled = reportEnabled,
+                        modifier = Modifier.semantics { contentDescription = reportDescription },
+                        onClick = { expanded = false; report() })
+                }
             }
         }
     }

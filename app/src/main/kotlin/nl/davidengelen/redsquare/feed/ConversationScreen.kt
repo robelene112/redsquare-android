@@ -23,12 +23,11 @@ import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
-import nl.davidengelen.redsquare.saito.AuthorActionKind
 
 @Composable
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit,
-    social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null) {
+    social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val cache = remember(backend, selected.threadId) { AndroidFeedCache(context, backend, selected.threadId) }
@@ -40,15 +39,6 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
-    var editing by rememberSaveable(selected.id) { mutableStateOf(false) }
-    var deleting by rememberSaveable(selected.id) { mutableStateOf(false) }
-    if ((editing || deleting) && wallet != null && selected.author == wallet.publicKey) {
-        AuthorEditScreen(wallet, endpoint, backend, posts.firstOrNull { it.id == selected.id } ?: selected, modifier,
-            if (deleting) AuthorActionKind.DELETE else AuthorActionKind.EDIT) {
-            editing = false; deleting = false; refresh++
-        }
-        return
-    }
     if (replying && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
         return
@@ -112,10 +102,6 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         }
         Row {
             TextButton(enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
-            if (wallet != null && selected.author == wallet.publicKey && posts.any { it.id == selected.id }) {
-                TextButton(onClick = { editing = true }) { Text(stringResource(R.string.author_edit)) }
-                TextButton(onClick = { deleting = true }) { Text(stringResource(R.string.author_delete)) }
-            }
         }
         PersonalControlsStatus(personal)
         if (personal?.ready == true && personal.hidesPosts(selected.author))
@@ -132,7 +118,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         }
         LazyColumn(Modifier.fillMaxSize()) {
             items(visiblePosts, key = { it.id }) { post ->
-                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote)
+                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                 HorizontalDivider()
             }
         }

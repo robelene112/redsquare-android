@@ -20,13 +20,13 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 internal fun NotificationReferenceScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend,
     target: String, originals: QuoteState, modifier: Modifier, onBack: () -> Unit,
     onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit, social: SocialState?,
-    onQuote: (FeedPost) -> Unit) {
+    onQuote: (FeedPost) -> Unit, authorActions: PostAuthorActions? = null) {
     LaunchedEffect(target, originals) { originals.load(target, refresh = true) }
     val status = originals.originals[target]
     val post = status?.post
     if (post != null) {
         ConversationScreen(wallet, endpoint, backend, post, modifier, onBack, onIdentity,
-            onPost, social, originals, onQuote)
+            onPost, social, originals, onQuote, authorActions)
         return
     }
     BackHandler(onBack = onBack)

@@ -89,7 +89,7 @@ class PublishingAuthorPreviewTest {
                         waitFor(originalText)
                         ui.clickVisiblePostContent(originalText)
                         waitFor("Conversation")
-                        click("Edit")
+                        ui.clickVisiblePostMenuAction("Anon-${wallet.publicKey.take(6)}", "Edit")
                         waitFor("Edit post")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement(editedText)
@@ -116,7 +116,7 @@ class PublishingAuthorPreviewTest {
                         click("Back")
                         waitFor("Conversation")
                         waitFor(editedText)
-                        click("Delete")
+                        ui.clickVisiblePostMenuAction("Anon-${wallet.publicKey.take(6)}", "Delete")
                         waitFor("Delete post")
                         ui.onNodeWithText("Remove this post from normal views on the selected node and this device? Historical and independent copies may remain.").assertIsDisplayed()
                         click("Confirm delete")

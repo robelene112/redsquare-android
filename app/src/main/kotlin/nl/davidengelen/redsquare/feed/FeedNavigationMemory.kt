@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare.feed
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import nl.davidengelen.redsquare.saito.FeedPost
+import nl.davidengelen.redsquare.saito.AuthorActionKind
 
 internal sealed interface BrowseDestination {
     class Search(val view: SearchViewState = SearchViewState()) : BrowseDestination
@@ -10,6 +11,7 @@ internal sealed interface BrowseDestination {
     data class Reference(val target: String) : BrowseDestination
     data class Conversation(val post: FeedPost) : BrowseDestination
     data class Quote(val post: FeedPost) : BrowseDestination
+    data class Author(val post: FeedPost, val kind: AuthorActionKind) : BrowseDestination
     class Profile(val author: String, val view: ProfileViewState = ProfileViewState()) : BrowseDestination
 }
 

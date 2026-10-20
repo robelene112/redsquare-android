@@ -81,7 +81,7 @@ internal class SearchViewState {
 @Composable
 internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend,
     view: SearchViewState, modifier: Modifier, knownAccounts: Set<String>, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
-    onIdentity: (String) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: (FeedPost) -> Unit) {
+    onIdentity: (String) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: (FeedPost) -> Unit, authorActions: PostAuthorActions? = null) {
     val personal = LocalPersonalControls.current
     val context = LocalContext.current.applicationContext
     val keyboard = LocalSoftwareKeyboardController.current
@@ -274,7 +274,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 }
             }
             if (view.request > 0) items(matches, key = { it.id }) { post ->
-                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote)
+                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                 HorizontalDivider()
             }
         }
