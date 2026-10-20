@@ -955,7 +955,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         if (retrying) {
                             waitFor(context.getString(R.string.chat_send_unknown))
-                            waitFor(outgoingText)
+                            waitForMessage(outgoingText)
                             ui.onNodeWithText(outgoingText).performScrollTo().assertIsDisplayed()
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unknown-original-restored.png"),
