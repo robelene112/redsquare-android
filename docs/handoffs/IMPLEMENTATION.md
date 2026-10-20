@@ -36,6 +36,28 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
+2026-10-20,15:36UTC. Corrected production is72a8c63828280d61dc760331e17289cf7c93112a
+on verify/status59-72a8c6382. Cumulative Standards found queued private/group
+parents disposing before status exit; both now use stable nullable hosts plus
+existing guarded Cancel action. Null summary disables obsolete controls. Shared
+Details/actions have explicit48dp minimum height. Review/runtime pending.
+
+Twelve existing scopes run bothSDKs: viewport39449815889/39449819807,
+admin39449824621/39449830056,motion39449834751/39449839448,
+reading39449843471/39449848515,keyboard39449853329/39449858282,
+privateUI/process39449862817/39449866242. Original assertions/bounds/catalog
+remain. No new full dispatch or58 reservation until focused/source review green.
+
+57 is REJECTED after actual APK preparation atff9, immutable SHA
+c16fff47c81cf8d13b7f5f88e6cd21d76ebc519b655d78c97cdcd124184bcee6.
+51through57 areNEVERPUBLISH;50 staysLIVE. Four superseded dc2/ff9 fulls are
+actuallyCANCELLED with all before/terminal run/job metadata retained. No full
+acceptance is claimed. Count10actions39447773704 and private39447778541
+atff9PASS; sourceff9 alsoPASS, all predating changed production72a.
+Read latest59 README. Continue60through69 after true59completion without stops.
+
+## Earlier ff9 full dispatch (historical)
+
 2026-10-20, 15:26 UTC. Current complete verification source is
 ff9da0967292cdd362554c5e0edbc4c318c26c0d, pinned verify/status59-private-ready.
 Full10run39448128550 and17run39448133541 are active. Signed57 is reserved/

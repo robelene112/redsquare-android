@@ -1039,3 +1039,50 @@ review worktree. No actual APK or native full acceptance is claimed yet.51throug
 56 remain REJECTED/NEVER PUBLISH and immutable;50 is stillLIVE. Final strict
 collection, visual inspection, paired review and independent public bookends
 remain required before publication and59closure, then sequential60through69.
+
+## Cumulative queued-host lifecycle finding,57 rejected
+
+Cumulative executable Standards review a8b2c26ef..ff9 reports one documented
+residual: both ChatComposer's QUEUED branch and GroupChatScreen's conditional
+queued Row dispose their InlineStatus parents immediately when the queue clears.
+The shared status cannot animate exit after parent disposal. This is a source-
+proved lifecycle gap, not a newly observed recording failure. Cumulative Spec
+initially reported0 and was asked to revisit those exact paths.
+
+Corrected production72a8c63828280d61dc760331e17289cf7c93112a retains both
+notices as stable nullable InlineStatus hosts in ordinary composer/group scope.
+The existing action API retains Cancel queued message and original mutex/
+NonCancellable/draft/candidate/permission/navigation guards. Null summary
+disables obsolete actions during exit; private cancellation additionally requires
+currentQUEUED state and group cancellation requires its retained queued original.
+No operation delay is added. Details/actions explicitly retain48dp minimum
+layout height when Cancel moves inside the shared card. Full guidance and
+keyboard/reduced-motion semantics remain. Corrected runtime/review pending.
+
+Signed57 finished atff9, SHA256
+c16fff47c81cf8d13b7f5f88e6cd21d76ebc519b655d78c97cdcd124184bcee6,
+37,856,651bytes, established certificate and correct actual release flags.
+It is REJECTED and NEVER PUBLISH; exact APK remains immutable with prepared-
+packet rejection and external marker.51through57 must never publish.50 stays
+LIVE. Do not reserve58 until corrected focused integration is exercised and
+cumulative executable review has no remaining findings.
+
+The four owned superseded full dispatches39444883643/39444888298(dc2) and
+39448128550/39448133541(ff9) were explicitly cancelled after exact-source
+checks, avoiding native execution on known superseded production. All actual
+before-cancel and terminal run/job metadata is retained. Their conclusions are
+CANCELLED, neverSUCCESS or repaired failures. Completed10dc2wallet policy
+failure and17dc2wallet success remain visible. The initial metadata collection
+encountered one still-active cancellation; this follow-up retains all four actual
+terminal states and refreshes the packet hashes. No acceptance claim was made.
+
+Existing focused scopes at exact72a run on verify/status59-72a8c6382:
+viewport10/17:39449815889/39449819807;admin:39449824621/39449830056;
+real normal/zero motion:39449834751/39449839448;reading:39449843471/39449848515;
+keyboard:39449853329/39449858282;private UI/actions/process:39449862817/39449866242.
+All original methods, catalog identities, target/deadline/transaction/recovery
+assertions remain. No corrected full dispatch or58 reservation yet.
+
+Corrected count-observer10actions39447773704 and complete10private39447778541
+atff9 bothSUCCESS. Exactff9 source39447946565 is SUCCESS. These earlier
+successes do not accept later changed production.

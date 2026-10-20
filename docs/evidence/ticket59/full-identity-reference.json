@@ -262,5 +262,6 @@
     "acceptance": "source/core/gateway/release/performance/lint only, native full acceptance pending",
     "conclusion": "success"
   },
-  "executingState": "superseded, cancellation requested after cumulative queued-host finding; corrected full dispatch pending"
+  "executingState": "CANCELLED/superseded after queued-host lifecycle finding. No corrected complete dispatch yet.",
+  "correctedSourcePendingVerification": "72a8c63828280d61dc760331e17289cf7c93112a"
 }
