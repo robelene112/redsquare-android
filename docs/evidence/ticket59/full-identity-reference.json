@@ -478,11 +478,25 @@
   "restoredFixture": {
     "emulatorScriptReference": "72a8c63828280d61dc760331e17289cf7c93112a",
     "emulatorScriptSha256": "4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0",
-    "scope": "Byte-exact ordinary lifecycle restored; keep API29 pre-write heap parity in original storage methods. No app/native goal change. Focused restored-source agreement verification pending.",
+    "scope": "Byte-exact ordinary lifecycle restored; API29 pre-write heap parity remains in original storage methods. No app/native goal change. Focused restored-source agreement passes separately from complete207/72a acceptance.",
     "reviews": {
       "spec": 0,
       "documentedStandards": 0,
       "heuristic": 0
+    },
+    "agreement": {
+      "run": 39479461972,
+      "source": "57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48",
+      "status": "completed",
+      "conclusion": "success",
+      "classes": 8,
+      "cases": 25,
+      "packetHashes": 191,
+      "originalArchiveMembers": 159,
+      "publishingProcessPids": [
+        10061,
+        10169
+      ]
     }
   }
 }

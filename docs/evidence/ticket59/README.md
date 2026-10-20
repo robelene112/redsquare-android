@@ -1567,8 +1567,12 @@ is byte-for-byte the accepted72a ordinary lifecycle, SHA256
 4fb15efc2e16affbbd02cbefbb8c076cec25b6d5bf6fd4af5b8d77238706aed0.
 Both restoration reviews report0 findings. The API29 storage parity assertion and
 all original payloads/identities/deadlines remain; no application source changes.
-A pinned focused agreement check of the restored source remains pending, separate
-from already accepted app delivery. Retain any future actual16MiB native failure
+The pinned focused [restored agreement39479461972](agreement10-restored57ee-39479461972/)
+at57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48 isSUCCESS: eight UIclasses,25cases,
+including all eight original headless-worker preconditions and actual publishing
+process10061 to10169 recovery. Both independent reviews verify191packet hashes
+and159 original archive members with0 findings. This focused proof stays separate
+from the already accepted complete207/72a app delivery. Retain any future actual16MiB native failure
 as failed; no native-error waiver or mixed complete partitions is permitted.
 
 59 delivery is complete. Continue60–69 and70 sequentially;55 retains the owner's

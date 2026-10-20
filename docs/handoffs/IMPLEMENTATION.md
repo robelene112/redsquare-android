@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active post-presentation60
 
-2026-10-20 19:01 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
+2026-10-20 19:22 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
 with code/evidence review, commits and signed in-place beta delivery. Never stop
 at a routine milestone.55 remains open through owner final app-wide UI review.
@@ -47,12 +47,19 @@ secondary Report/Edit/Delete, meaningful contextual identity/author actions and
 full public identity details. Keep57 wallet-global2intentionalLikes/second across
 nodes, exact candidate retry, all reporting/author/media/queue recovery semantics.
 Use existing agreed native UI/controlled-peer and core/protocol recovery seams.
-First native RED being compiled: PostPresentationPreviewTest checks Report is
-secondary,48dp contextual More, full public identity and confirmation surviving
-menu closure without any report/transaction submission. New focused scopes
-post-presentation/post-presentation-android17 use existing180s native helper;
-complete-suite integration/catalog extension follows implemented slices.
-No production presentation code has changed yet.
+First native RED39480309592 at5126 fails the intended Report-presence assertion.
+Packet retains11 hashes and original native PNG/XML. First product slice1e41d0a52
+introduces PostCard in Feed and persistent More/report/public identity dialogs;
+local app and AndroidTest Kotlin compile succeeds. Both partial-slice reviews0.
+Focused native GREEN runs39482727589(Android10)/39482731607(Android17) are active
+on pinned verify/posts60-green-1e41d0a52. Inspect actual native interactions before
+next tracer. Thread/Search/Profile, vector social actions/status, author actions,
+render matrices and real accessibility still need subsequent vertical slices.
+Complete-suite integration/catalog extension follows implemented slices.
+Do not mistake this first partial implementation for issue60 completion.
+Restored59 focused agreement39479461972 has passed25cases, all8 original worker
+preconditions and distinct process10061/10169 recovery;191hashes/159members verify,
+both reviews0. It is separate from already accepted complete207/72a delivery.
 
 ## Completed59 and restored fixture
 
