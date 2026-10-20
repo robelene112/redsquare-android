@@ -58,7 +58,7 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
     visibility.targetState = summary != null
     // Keep the host through its exit, then remove its layout slot so a parent's
     // spaced arrangement does not reserve gaps for inactive notices.
-    if (visibility.currentState || visibility.targetState) AnimatedVisibility(visibleState = visibility, modifier = modifier,
+    if (visibility.currentState || visibility.targetState || !visibility.isIdle) AnimatedVisibility(visibleState = visibility, modifier = modifier,
         enter = expandVertically(tween(AppSpacing.transitionMillis), expandFrom = Alignment.Top),
         exit = shrinkVertically(tween(AppSpacing.transitionMillis), shrinkTowards = Alignment.Top)) {
         Surface(Modifier.fillMaxWidth().padding(vertical = 3.dp)
