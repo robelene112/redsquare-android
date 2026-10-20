@@ -94,8 +94,13 @@ Send270..318full48dp; originalstale331failureretained. Unchangedsocial11-method1
 39416588867SUCCESS94originals; cfd39416823937actuallyBOTHSDKsSUCCESS1methodeach,
 actualflags24/clearabletrue/ongoingfalse,gesture154/139ms,hiddenandownedinactive.
 RootopenedbothdismissedPNGs; noearliercauseclaim. Packetsretained. Focusedimport
-10a339417603596andfeed17publicf2339418060620areactive. Allboundedreviews0/0.
-CurrentHEADf23hasONLYtest/harness/docschangessincefcproduction;52notrebuilt.
+10a339417603596SUCCESSall7classmethods/19originals; rootopenedrecreatedrecoveryPNG.
+Feed17publicf2339418060620stillactive. Allboundedreviews0/0.
+Sourcef23hasONLYtest/harness/docschangessincefcproduction;52notrebuilt.
+production-equivalence-fc-f23.json verifies allnon-docchangesareexactly4testfiles,
+workflowfocusedroutingandemulatorharness; explicitproduction/buildGitobjectsidentical.
+Do notclaimtest/harnessidentity. Newfullsshouldusef23(orproductionequivalentnewer
+fixturefix),all3partitions/SDKandallmandatorypublicreads,unchangedfrozen486/487catalog.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

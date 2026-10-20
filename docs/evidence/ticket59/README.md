@@ -418,3 +418,19 @@ All bounded source/evidence reviews throughf23bc380d report Spec0/documented
 Standards0/heuristic0 after SDK-routing and optional-observer guards were fixed.
 Corrected import10ata3run39417603596 and diagnostic public-read17atf23run39418060620
 remain active. Fresh complete execution is still required;52 remains unpublished.
+
+Corrected import10ata3[39417603596](https://github.com/robelene112/redsquare-android/actions/runs/39417603596)
+is SUCCESS, allseven WalletImportPreviewTest methods. The retained packet binds
+its complete command log and all19 original members. Root opened the original
+post-recreation invalid-backup recovery screen. Its exact wallet/address/UTF8
+assertions pass; no earlier initialization cause is inferred. The additional
+risk/storage/recovery scope steps also finish successfully; this focused packet
+retains the corrected main-class proof, not an invented full catalog.
+
+The production-equivalence-fc-f23.json check proves that every non-documentation
+difference between signed52's fc source and verification sourcef23 is confined
+to the four named test fixtures, focused routing and diagnostic harness. All
+production, build, dependency and signing-script inputs remain unchanged, with
+explicit identical Git objects retained. This is production equivalence, not
+identity of the changed test/harness sources. Complete primary execution still
+has to pass and52 remains unpublished.

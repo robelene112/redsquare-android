@@ -1,0 +1,66 @@
+{
+  "signedSource": "fc477c8936f11ae85923b8e02c61c6a6c6558db5",
+  "verificationSource": "f23bc380d41b2454b37c4860a5fba4a56bb9e8e0",
+  "productionInputsUnchanged": true,
+  "allNonDocumentationDifferences": [
+    ".github/workflows/android-proof.yml",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/ChatKeyboardPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/OwnerLiveFeedTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/WalletImportPreviewTest.kt",
+    "scripts/emulator-check"
+  ],
+  "identicalInputs": [
+    {
+      "path": "app/src/main",
+      "gitObject": "023533f91fc8f49022974a1a7663d26541021490"
+    },
+    {
+      "path": "app/src/debug",
+      "gitObject": "7da60ca2712d549d9416d73e650298a61f029532"
+    },
+    {
+      "path": "app/src/performance",
+      "gitObject": "0eb8be1ea7cd8392f1ab001ffe8bc117da2e5812"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "gitObject": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+    },
+    {
+      "path": "core",
+      "gitObject": "aa3628d1a7a1d677acd5d394cfe293132e11c2b1"
+    },
+    {
+      "path": "push-gateway",
+      "gitObject": "33751de752ce65df36e2b9b412ce95439bf7e566"
+    },
+    {
+      "path": "build-support",
+      "gitObject": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+    },
+    {
+      "path": "gradle",
+      "gitObject": "4167f4ea961fcf6b4ae64c287eee7d16241e967e"
+    },
+    {
+      "path": "build.gradle.kts",
+      "gitObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "gitObject": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    },
+    {
+      "path": "scripts/review-build",
+      "gitObject": "9bad6df4b328343652adc10d4ec21c85be9c3f29"
+    },
+    {
+      "path": "scripts/review-publish",
+      "gitObject": "3efdf298cb38243f2b32a915d15c7143e6e45be4"
+    }
+  ],
+  "preparedApkSha256": "9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96",
+  "candidate": 52,
+  "limits": "Fixture/harness source differences are explicit, not claimed identical. Original failed runs remain failed. Complete native execution and publication are still pending."
+}
