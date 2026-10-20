@@ -543,3 +543,20 @@ No complete60 execution yet. Gradle task cache now keeps one input-validated see
 per build configuration instead of one~2.4GB snapshot per commit, retaining the
 matching old-key fallback. This cache-only change does not waive compilation or
 runtime gates. Full60/reviews/signed ordinary59 and61–70 remain authorized.
+
+Pending/count native10 run39511301671 and17 run39511438494 at5da33a0cd3b361a6949e9d298e2a71af6973a529
+complete SUCCESS. All nine post methods pass; new method9.196s/10.573s. Packets
+337/339 hashes, six archives316 exact originals each. Both10 evidence reviews0;
+17 review pending. Root viewed10 Light pending/details and Dark available-count
+failure/details,17 Dark pending/details and Light available-count failure/details.
+All original font/content/identity/target/wallet/backend/restoration goals remain.
+
+Real TalkBack17 run39510905478 at6bfdf5ce620f6e518ddbc08fd3cdb32a0bdc1599
+completes SUCCESS: original outage method45.451s and new contextual controls51.732s.
+Packet69hashes/two archives42 exact originals; both evidence reviews0. All ten
+controls retain real accessibility focus and correlated START/positive AUDIO/DONE
+from servicePID3698, without ERROR/STOP. Root viewed profile/thread/Report/Delete
+focus PNGs. Original outage/recovery/focus20/quiet retries and exact secure-setting
+restoration pass. Physical audibility remains false. Retry10 run39512004750 at
+41819adfb is underway after the same pinned tool was successfully cached; do not
+claim10 new-control speech yet. Full60 and signed59 delivery remain pending.
