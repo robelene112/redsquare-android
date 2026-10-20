@@ -560,3 +560,28 @@ focus PNGs. Original outage/recovery/focus20/quiet retries and exact secure-sett
 restoration pass. Physical audibility remains false. Retry10 run39512004750 at
 41819adfb is underway after the same pinned tool was successfully cached; do not
 claim10 new-control speech yet. Full60 and signed59 delivery remain pending.
+
+Both final aggregate source reviews since57ee report0 Spec,0 documented and0
+heuristic findings. Final17 pending evidence review also0 on both axes. TalkBack10
+run39512004750 at41819adfb945b1a241e9ea681faf901ebd381f08 completes SUCCESS:
+original method31.2s/new controls56.306s. Packet67hashes/two archives42 exact
+originals, both evidence reviews0; root viewed Like/Repost/Quote/Edit focus PNGs.
+All ten contextual controls retain actual focus and completed engine speech from
+PID3555. Original outage/recovery/quiet/focus20 and exact settings restore pass;
+physical audibility remains false. Both versions now have actual new-control
+speech proof. No full60 acceptance or publication follows yet.
+
+Aggregate review raised an unproved live-region merge question. The extra oracle
+in the existing unavailable-status matrix inspects real Android AccessibilityNodeInfo
+liveRegion/text/action labels: exactly one nonclickable concise summary, with no
+polite thread-click container regardless of its text. Merged Compose flags are
+recorded only as diagnostics, because Android uses unmerged live-region settings.
+Earlier merged-only draft never executed. No production defect or fix claimed.
+Both corrected source reviews0. Initial local Kotlin compile succeeds1m54s;
+final CI must compile the subsequent additive thread-label assertion and execute
+the native observation. Every old matrix/retry/geometry/restoration goal and180s
+class bound remains. The complete collector now requires per-cell native-region
+records; both corrected collector reviews0. Catalog totals/pins unchanged.
+The reviewed pre-full freeze is nowf098f2eda9be0a06083890664633abf1108704dc,
+superseding2a only by the extra required native-region bookend. Bind actual full
+sources/runs after dispatch. Full10/17/signed ordinary59 and61–70 remain pending.
