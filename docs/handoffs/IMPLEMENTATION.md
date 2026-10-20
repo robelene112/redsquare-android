@@ -124,7 +124,15 @@ final Pixel measurements require a fresh matching candidate. Offline Play44 is
 preparation only, never submitted. Details remain in [review operations](../REVIEW_BUILDS.md),
 [About38 evidence](../evidence/ticket38/README.md) and [release package](../release/PLAY_RELEASE_PACKAGE.md).
 
-## Test-tool preparation for later accessibility tickets
+## Historical external TalkBack preparation
+
+The following describes the earlier external ABI-only build. Current59 has an
+installed real-tool attempt with an actual missing-engine failure, retained in
+its evidence README. The dedicated status-talkback scope now provisions an
+official offline eSpeak engine and a separately patched TalkBack tool with five
+observation-only real engine callback logs. Current actual speech/focus/quiet
+polling acceptance remains pending. Use scripts/ci-talkback-setup and59 evidence
+for current tool provenance; the older external artifact is not the CI tool.
 
 Official-source TalkBack229212fdf5842191d0a93fc95d9ca1423b346866,version16.2, built
 successfully outside the app in `/mnt/storage/redsquare-android-artifacts/talkback-preparation`.

@@ -36,9 +36,12 @@ class TalkBackStatusPreviewTest {
             configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
             device = UiDevice.getInstance(instrumentation)
+            waitFor(15_000) {
+                device.executeShellCommand("dumpsys accessibility").substringAfter("Bound services:", "")
+                    .substringBefore("Enabled services:").contains("com.google.android.marvin.talkback.TalkBackService")
+            }
             File(folder, "accessibility-before.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
-            assertTrue("The real TalkBack service must be bound", device.executeShellCommand("dumpsys accessibility")
-                .contains("com.google.android.accessibility.talkback.TalkBackService"))
+            val serviceProcess = talkbackProcess(device)
             verifyEnglishEngine(folder)
             val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
                 JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
@@ -48,6 +51,7 @@ class TalkBackStatusPreviewTest {
                 check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
                 click(automation, "Later")
                 check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
+                device.waitForIdle(5_000)
                 val post = node(automation, "Reference post 20")
                 assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
                 waitFor(5_000) { focusedText(automation) == "Reference post 20" }
@@ -66,12 +70,14 @@ class TalkBackStatusPreviewTest {
                 assertTrue("Quiet observation must include two actual retry attempts", peer.connectionAttempts.get() >= requests + 2)
                 assertEquals("Polling the same failure must not repeat speech", 1, fragments(device, "Node unavailable").size)
                 assertEquals("Reference post 20", focusedText(automation))
+                assertEquals("Keep the same real TalkBack process throughout the observation", serviceProcess, talkbackProcess(device))
                 peer.rejectNewConnections = false
                 check(device.wait(Until.hasObject(By.text("Back online")), 20_000))
                 waitFor(10_000) { fragments(device, "Back online").isNotEmpty() }
                 waitFor(10_000) { completedFragments(device, "Back online").size == 1 }
                 assertEquals("Recovery announces once", 1, fragments(device, "Back online").size)
                 assertEquals("Reference post 20", focusedText(automation))
+                assertEquals(serviceProcess, talkbackProcess(device))
                 capture(automation, File(folder, "recovered.png"))
                 File(folder, "speech-transcript.txt").writeText(speechLog(device))
                 File(folder, "accessibility-after.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
@@ -83,15 +89,18 @@ class TalkBackStatusPreviewTest {
                     addProperty("recoveryEngineCompletions", completedFragments(device, "Back online").joinToString())
                     addProperty("focus", focusedText(automation))
                     addProperty("physicalAudibility", false)
+                    addProperty("serviceProcess", serviceProcess)
                 }.toString())
             }
         } catch (failure: Throwable) {
             primary = failure
-            try {
-                File(folder, "failure-speech.txt").writeText(device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V TextToSpeech:V FailoverTextToSpeech:V"))
+            cleanupAfterTest(failure, {
+                File(folder, "failure-speech.txt").writeText(speechLog(device))
+            }, {
                 File(folder, "failure-accessibility.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
+            }, {
                 capture(automation, File(folder, "failure.png"))
-            } catch (captureFailure: Throwable) { failure.addSuppressed(captureFailure) }
+            })
             throw failure
         } finally {
             cleanupAfterTest(primary, { configurator.setUiAutomationFlags(originalFlags) })
@@ -137,8 +146,11 @@ class TalkBackStatusPreviewTest {
         speechLog(device).lineSequence()
             .filter { it.contains("Speaking fragment text=") && it.contains(summary) }.toList()
 
+    private fun talkbackProcess(device: UiDevice): String =
+        device.executeShellCommand("pidof com.android.talkback").trim().also { check(it.matches(Regex("[1-9][0-9]*"))) }
+
     private fun speechLog(device: UiDevice): String =
-        device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V FailoverTextToSpeech:V")
+        device.executeShellCommand("logcat -d -v brief --pid=${talkbackProcess(device)}")
 
     /** These markers originate only in real engine callbacks, never fallback completion. */
     private fun completedFragments(device: UiDevice, summary: String): List<String> {
@@ -153,9 +165,12 @@ class TalkBackStatusPreviewTest {
         }
     }
 
+    private fun appRoots(automation: UiAutomation): List<AccessibilityNodeInfo> = automation.windows.mapNotNull { it.root }
+        .filter { it.packageName?.toString() == InstrumentationRegistry.getInstrumentation().targetContext.packageName }
+
     private fun node(automation: UiAutomation, text: String): AccessibilityNodeInfo =
-        requireNotNull(automation.rootInActiveWindow).findAccessibilityNodeInfosByText(text)
-            .first { it.text?.toString() == text }
+        appRoots(automation).flatMap { it.findAccessibilityNodeInfosByText(text) }
+            .first { it.text?.toString() == text && it.isVisibleToUser }
 
     private fun click(automation: UiAutomation, text: String) {
         var target: AccessibilityNodeInfo? = node(automation, text)
@@ -164,7 +179,7 @@ class TalkBackStatusPreviewTest {
     }
 
     private fun focusedText(automation: UiAutomation): String? =
-        automation.rootInActiveWindow?.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.text?.toString()
+        appRoots(automation).firstNotNullOfOrNull { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.text?.toString() }
 
     private fun waitFor(timeout: Long, condition: () -> Boolean) {
         val until = SystemClock.elapsedRealtime() + timeout

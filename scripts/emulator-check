@@ -88,7 +88,7 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
-if [[ "${TEST_SCOPE:-full}" == status-talkback* ]]; then
+verify_status_talkback() (
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'Disposable emulator required' >&2; exit 2; }
     talkback_artifacts="$repo_dir/.scratch/talkback-tool/artifacts"
     (cd "$talkback_artifacts" && sha256sum -c SHA256SUMS)
@@ -120,7 +120,6 @@ if [[ "${TEST_SCOPE:-full}" == status-talkback* ]]; then
             printf '%s=%s\n' "$setting" "$observed" >> "$evidence/talkback-restored-settings.txt"
             [[ "$observed" == "$previous" ]] || restore_status=1
         done
-        kill "$emulator_pid" 2>/dev/null || true
         [[ "$primary_status" != 0 ]] || primary_status=$restore_status
         exit "$primary_status"
     }
@@ -134,10 +133,13 @@ if [[ "${TEST_SCOPE:-full}" == status-talkback* ]]; then
     grep -q 'Status: ok' "$evidence/talkback-engine-data-install.txt"
     for ((attempt=0; attempt<60; attempt++)); do
         adb shell dumpsys activity activities > "$evidence/talkback-engine-data-window.txt"
-        if ! grep -E 'mResumedActivity.*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"; then break; fi
+        if ! grep -E '(mResumedActivity|topResumedActivity).*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"; then break; fi
         sleep 0.5
     done
-    ! grep -Eq 'mResumedActivity.*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"
+    if grep -Eq '(mResumedActivity|topResumedActivity).*com.reecedunn.espeak/.DownloadVoiceData' "$evidence/talkback-engine-data-window.txt"; then
+        echo 'The offline voice installer did not finish' >&2
+        exit 1
+    fi
     # Public test-tool preferences only. Do not modify application wallet or user data.
     cat > "$evidence/talkback-tool-preferences.xml" <<'PREFS'
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
@@ -154,7 +156,7 @@ PREFS
         /data/user_de/0/com.android.talkback/shared_prefs/com.android.talkback_preferences.xml
     adb shell settings put secure tts_default_synth com.reecedunn.espeak
     adb shell settings put secure enabled_accessibility_services \
-        com.android.talkback/com.google.android.accessibility.talkback.TalkBackService
+        com.android.talkback/com.google.android.marvin.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
     status_exit=0
     timeout 180 adb shell am instrument -w -r \
@@ -166,20 +168,28 @@ PREFS
         > "$evidence/status-talkback-evidence.tar" || true
     adb shell dumpsys accessibility > "$evidence/talkback-final-service.txt"
     [[ "$status_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/status-talkback.txt"
-    exit
-fi
-if [[ "${TEST_SCOPE:-full}" == status-recovery* ]]; then
-    status_exit=0
-    timeout 120 adb shell am instrument -w -r \
-        -e class nl.davidengelen.redsquare.StatusRecoveryPreviewTest \
+)
+verify_status_ui() {
+    local kind=$1 class_name bound status_exit=0
+    case "$kind" in
+        recovery) class_name=StatusRecoveryPreviewTest; bound=120 ;;
+        motion) class_name=StatusMotionPreviewTest; bound=180 ;;
+        *) echo 'Unknown status verification' >&2; return 2 ;;
+    esac
+    timeout "$bound" adb shell am instrument -w -r \
+        -e class "nl.davidengelen.redsquare.$class_name" \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-        > "$evidence/status-recovery.txt" || status_exit=$?
-    printf '%s\n' "$status_exit" > "$evidence/status-recovery-exit.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - status-recovery-evidence \
-        > "$evidence/status-recovery-evidence.tar" || true
-    [[ "$status_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/status-recovery.txt"
-    exit
-fi
+        > "$evidence/status-$kind.txt" || status_exit=$?
+    printf '%s\n' "$status_exit" > "$evidence/status-$kind-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "status-$kind-evidence" \
+        > "$evidence/status-$kind-evidence.tar" || true
+    [[ "$status_exit" == 0 ]] && grep -q 'OK (2 tests)' "$evidence/status-$kind.txt"
+}
+case "${TEST_SCOPE:-full}" in
+    status-talkback*) verify_status_talkback; exit ;;
+    status-motion*) verify_status_ui motion; exit ;;
+    status-recovery*) verify_status_ui recovery; exit ;;
+esac
 verify_appearance() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     # Keep system-only setup/lock diagnostics for the night-mode fixture.
@@ -1230,6 +1240,12 @@ if [[ "$full_social" == true ]]; then
     verify_notifications
     verify_notification_permission
     python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
+fi
+# Additive59 acceptance, after ordinary application checks and before completion.
+if [[ "$full_chat" == true ]]; then
+    verify_status_ui recovery
+    verify_status_ui motion
+    verify_status_talkback
 fi
 if [[ "${TEST_SCOPE:-full}" == full && ( "$partition" == chat || "$partition" == social ) ]]; then
     printf '%s\n' "$partition" > "$evidence/partition-complete.txt"

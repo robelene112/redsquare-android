@@ -52,3 +52,30 @@ source tag4870adfa25b1a32b4361592f1be8a40337c58d6c. Actual APK inspection verifi
 packagecom.reecedunn.espeak22/min21/target33 andx86_64. Its built-in offline voice
 installer runs only on the disposable emulator. Engine synthesis, real correlated
 TalkBack callbacks and focus/quiet polling still have to pass.
+
+Second tool10run39405937141 atee is FAILURE at the fixture's Later lookup.
+English engine initialization0, language availability2 and actual WAV synthesis
+pass. Its original eight archive members and all tool patch/hash records remain
+bound. Root opened the native failure PNG/XML, which show Later in the app,
+while the active-window dump still identifies Quickstep. The selected internal
+TalkBack class was not the APK's exported legacy service: actual manifest/package
+identifies com.google.android.marvin.talkback.TalkBackService, and the actual
+Bound services section is empty. Both this run and the earlier engine-missing
+run therefore establish no bound-service speech acceptance. The original and
+restored three settings match byte for byte in this second run.
+
+Fixture correction uses that actual manifest component, waits positively for
+the Bound services section, searches visible app-owned window roots and pins
+the service PID. Official source's LogUtils prepends `talkback: ` to tags; logs
+are now collected by actual service PID rather than incompatible bare tag filters.
+Real request/START/positiveAUDIO/DONE correlation and all focus/quiet assertions
+remain mandatory. No deadline or assertion is weakened.
+
+New additive journeys cover Details surviving automatic recovery/removal and
+normal200percent/Dark versus zero130percent/Light window-motion recordings.
+The existing bounded recording/decoded-frame helper is shared without changing
+the original frame58 assertions or default three-second capture. Status recordings
+use a bounded five seconds to include Back online removal. Full Chat partitions
+now require allthree new status classes, including real TalkBack, in addition to
+every existing goal. Their separate scoped runs remain diagnostics until full
+acceptance and evidence review.

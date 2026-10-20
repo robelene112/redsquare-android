@@ -45,6 +45,27 @@ class StatusRecoveryPreviewTest {
         }
     }
 
+    @Test fun openedDetailsStayReadableAfterRecoveryAndBannerRemoval() {
+        lateinit var peer: ControlledFeedPeer
+        withAppFrameFixture("details-recovery", "status-recovery-evidence", configurePeer = { peer = it }) {
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            peer.rejectNewConnections = true
+            ui.onNodeWithText("Refresh").performClick()
+            ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
+            ui.onNodeWithContentDescription("Details: Node unavailable").performClick()
+            peer.rejectNewConnections = false
+            ui.waitUntil(20_000) { ui.onNodeWithText("Back online").isDisplayed() }
+            ui.waitUntil(5_000) { !ui.onNodeWithText("Back online").isDisplayed() }
+            ui.onNodeWithText("Posts could not be refreshed. Try again.").assertIsDisplayed()
+            capture("details-remain-open-after-recovery.png")
+            ui.onNodeWithText("Done").performClick()
+            ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+            ui.onNodeWithText("Node unavailable").assertDoesNotExist()
+            capture("details-closed-after-recovery.png")
+        }
+    }
+
     private fun assertPosition(expected: Float) {
         ui.waitForIdle()
         assertEquals("Status insertion and removal retain the visible reading anchor", expected,

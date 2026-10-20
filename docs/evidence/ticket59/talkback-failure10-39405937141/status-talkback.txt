@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkBackStatusPreviewTest:
+INSTRUMENTATION_STATUS: test=importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:200)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$9(TalkBackStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$waEBIgkl2v5vDbEIlK_zVYun-50(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: stream=
+Error in importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(nl.davidengelen.redsquare.TalkBackStatusPreviewTest):
+java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:200)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$9(TalkBackStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$waEBIgkl2v5vDbEIlK_zVYun-50(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:47)
+
+INSTRUMENTATION_STATUS: test=importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 2.736
+There was 1 failure:
+1) importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(nl.davidengelen.redsquare.TalkBackStatusPreviewTest)
+java.util.NoSuchElementException: Collection contains no element matching the predicate.
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.node(TalkBackStatusPreviewTest.kt:200)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.click(TalkBackStatusPreviewTest.kt:161)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus$lambda$9(TalkBackStatusPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.$r8$lambda$waEBIgkl2v5vDbEIlK_zVYun-50(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.TalkBackStatusPreviewTest.importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus(TalkBackStatusPreviewTest.kt:47)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
