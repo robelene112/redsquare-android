@@ -392,3 +392,19 @@ on bothSDKs and larger-text agreement cancellation/restored drafts. Native48dp
 physical cancellation, exact drafts, original candidate identities, warnings and
 recovery assertions remain intact. Whole-app full39347038831/39347042348 and
 signed46 publication remain pending; production remains9b33-equivalent.
+
+Full10 run39347038831 at3cc FAILED later in ChatPushCapacityPreviewTest. Its exact
+100-group notice expected "this server" while the actual original PNG/XML shows
+"this node", as required by56. Earlier frame, agreement/recovery, keyboard and
+alert gates passed; later full gates are absent, so no full acceptance. The one
+failed method and six original group-capacity members are retained separately.
+A literal-only fixture correction uses the required node wording, preserving
+all101-group/category/subscription/history/draft/signature/choice assertions and
+the original10second notice goal/180second class bound. Its wallet equality check
+uses a constant-message Boolean assertion instead of dumping export values.
+An independent Spec audit found the same active stale server-wording expectation
+in ReportPreviewTest's unavailable/reopened report case; that literal alone is
+corrected. Generic publisher server-data text, protocol variables and intentionally
+historical transfer-message alternatives remain unchanged.
+Full17 run39347042348 has a failed Chat partition; its remaining partitions are
+still running and not accepted. No app/build/signing changes since9b33.

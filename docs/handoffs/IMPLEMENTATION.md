@@ -59,24 +59,28 @@ by12px so the original8px samples remain within the bitmap. Keyboard retains eve
 real-IME, exact-draft and explicit-Send assertion; backup guidance stays absent in
 Chat without persisting dismissal. All focused packets are retained and reviewed.
 
-Fresh full39347038831(10)/39347042348(17, all3parts) run at exact3cc6363c9 with
-public reads and immutable signed35/43 observers. The independent frozen catalog
-binds source and runIDs in../evidence/ticket58/full-identity-reference.json:
-473/474 identities,122/123normal,34deliberate interruptions,33continuity. Prior
-failed attempts remain recorded separately. Incompleteba3 full39346126335/
-39346130915 were cancelled after the focused agreement pair proved stale Chat
-reminder assertions, avoiding known-invalid repetition; no acceptance claimed. Complete agreement39345992170(10) FAILED later in bothlarger-text Chatqueue
-cases at the old reminder-inChat expectation (2othermethodsPASS each); group7
-and surfaces4PASS. Original packets retained;17 agreement39345995233 has the same outcomes.
-A test-only correction asserts reminder absence plus persistedhidden=false there
-and in the same two legacy ChatQueue cancellation cases, preserving allworker/
-signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. Corrected complete agreement39346896065(10)/39346898616(17) at3cc bothSUCCESS:
-exactly27 accepted38 identities each,25 ordinary methods plus2 process recovery/
-restoration methods. Distinct actual PIDs and original wallet/revision/draft
-continuity retained. Focused cancellation viewport39346900869(10)/39346903466(17)
-also bothSUCCESS,2 methods perSDK. Root opened original warning/cancel/reopened
-and larger-text agreement cancellation/restored drafts on bothSDKs. All changes since9b33
-are fixtures/harness/evidence only; production/build/signing inputs are identical.
+Full10 run39347038831 at3cc FAILED later in the capacity notice: its test expects
+"this server", actual PNG/XML correctly displays "this node". Earlier frame,
+agreement/recovery, keyboard and alert gates pass; later full gates are absent.
+Exact failed method and six group-capacity originals are retained. Full17
+39347042348's Chat partition alsoFAILED; social/wallet are still running.
+No complete58 acceptance. The frozen473/474 catalog and original failed/cancelled
+attempts remain in../evidence/ticket58/full-identity-reference.json.
+
+Corrected complete agreement39346896065(10)/39346898616(17) at3cc bothSUCCESS:
+27 accepted38 identities each (25 class methods plus2 process recovery/restoration),
+distinct actual interrupted/recovered PIDs and preserved wallet/revision/unsent
+text. Focused cancellation viewport39346900869/39346903466 also bothSUCCESS,
+2 methods perSDK. Root opened original warning/cancel/reopened and larger-text
+agreement cancellation/restored drafts on bothSDKs. Both evidence review axes0.
+
+Next test-only correction changes the capacity literal to node; a read-only
+independent audit also found ReportPreviewTest's unavailable/reopened report
+literal still says server, corrected to node with no behavior changes. The capacity
+wallet equality assertion no longer dumps export values on failure. All prior
+method, assertion, deadline and recovery requirements remain. No app/build/signing
+changes since9b33. Source39348053376 at doc/evidence2bcd9f355 completedSUCCESS,
+including core/gateway, Debug/tests, Release/Performance assembly and lint.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

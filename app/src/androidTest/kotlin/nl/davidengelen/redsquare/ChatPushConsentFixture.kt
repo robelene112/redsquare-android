@@ -164,13 +164,14 @@ abstract class ChatPushConsentFixture {
                             expectedGroups.set(emptyList())
                             reconcile("mentions,private-chats,replies")
                             assertRetainedGroup()
-                            val notice = "New group alerts when closed are paused above 100 active groups on this server. Your other alerts keep their settings."
+                            val notice = "New group alerts when closed are paused above 100 active groups on this node. Your other alerts keep their settings."
                             ui.waitUntil(10_000) {
                                 try { ui.onNodeWithText(notice).assertExists(); true } catch (_: AssertionError) { false }
                             }
                             choice("Chat alerts when closed", true); choice("Replies and mentions", true)
                             assertEquals(101, groups.entries().size)
-                            assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                            assertTrue("Wallet identity and saved options must remain unchanged",
+                                wallet.exportJson() == wallets.loadExisting().exportJson())
                             assertEquals(SaitoBackend.OWNER, backends.load())
                             assertEquals(subscription, active.get()!!.get("subscription").asString)
                             ui.onNodeWithText(notice).performScrollTo().assertIsDisplayed()

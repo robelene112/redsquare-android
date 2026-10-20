@@ -309,7 +309,7 @@ class ReportPreviewTest {
                     server.close()
                     ui.clickVisiblePostContent("Report")
                     ui.onNodeWithText("Send report").performClick()
-                    val notSent = "Report was not sent to saito.davidengelen.nl. Try again when this server is available."
+                    val notSent = "Report was not sent to saito.davidengelen.nl. Try again when this node is available."
                     waitFor(notSent)
                     capture("unavailable-before-send.png", notSent)
                     assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
