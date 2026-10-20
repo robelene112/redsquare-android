@@ -10,7 +10,8 @@ import java.io.File
 
 /** Real fixed-width/theme/font journeys, restoring platform state after the Activity closes. */
 internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainActivity>, folder: File,
-    prefix: String, cell: (String, String) -> Unit) {
+    prefix: String, scales: List<Float> = listOf(1f, 1.3f, 2f), cell: (String, String) -> Unit) {
+    require(scales.isNotEmpty())
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     val font = EmulatorFontScale(context, folder, prefix)
@@ -26,7 +27,7 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
     try {
         device.executeShellCommand("wm density 160")
         device.executeShellCommand("wm size 320x640")
-        for (scale in listOf(1f, 1.3f, 2f)) {
+        for (scale in scales) {
             font.apply(scale)
             activity.recreate()
             waitUntil(15_000) { device.displayWidth == 320 && onNode(hasText("Home") and isSelected()).isDisplayed() }

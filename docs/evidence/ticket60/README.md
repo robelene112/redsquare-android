@@ -328,3 +328,13 @@ Compose assertions and the unchanged130%Light PNG positively show author/body.
 PNG and hierarchy are separate observations; no cause or app defect established.
 Do not claim these17 XMLs confirm quote text. Four-context media/quote, pending/
 failed/status matrix, actual new-control TalkBack and complete60 delivery remain.
+
+Next native tracer opens one signed media/quote post through Feed, Thread,
+Profile and Search in both themes at320dp/100% text. It verifies ordered rendered
+pixels, attributed original, full48dp targets inside each actual list, pairwise
+and FAB clearance, and no invented visual/accessibility counts. A shared signed
+fixture and pixel/quote observation helper preserve the existing six-cell
+viewport goals. Default font scales remain1/1.3/2; only this new route consumer
+selects1. Each of four classes keeps its own180second bound. Initial Standards
+duplication heuristic is resolved; both residual source reviews0. Final local
+app/test Kotlin compile succeeds1m44s. New native proof remains pending.

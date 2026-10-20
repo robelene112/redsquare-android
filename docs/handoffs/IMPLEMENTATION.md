@@ -36,23 +36,27 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active post-presentation60
 
-Current checkpoint22:05UTC: production source remainscfbf9af2ab785d524145ebe4fa408014bc527bed.
-HEAD02bd8c8a31c56813b5539d3258c6166e7622b816 passes focused native10 run39504487245
-and17 run39504490510: original four post methods25.472s/47.766s plus viewport
-method21.653s/20.818s. Six320dp cells per SDK cover100/130/200% fonts and Light/Dark,
-full painted node counts, complete nonoverlapping48dp targets inside the actual
-list viewport and clear of the FAB, full identity, wallet/backend/zero sends and
-independent restoration. Packets101/103 hashes, two archives88 originals each,
-both evidence reviews0. Root viewed all six10 action cells and17 normal/130/200
-plus200 identity. Navigation midword wrapping at200 remains existing70 scope.
-Earlier count attempts were a proven fixture false positive from unused paragraph
-width; corrected predicates check actual complete text. Two further attempts failed
-fixture compilation before emulator; existing ScrollBy callback correction compiled
-locally2m10s before paired native success. Preserve all actual failure conclusions.
-Next: media/quote/missing-count native matrix, failed/pending Light/Dark, actual
-new-control TalkBack, additive full catalog/collector frozen before execution,
-full10+17/paired reviews/signed ordinary59. Then61–69 and70 sequentially. Owner
-review55 and real release1/36 remain parked. Do not stop at this focused milestone.
+Current checkpoint22:29UTC: production source remainscfbf9af2ab785d524145ebe4fa408014bc527bed.
+Latest accepted content source da6093d568df44b1ef8f1f1f660e3e616d6115a9 passes
+native10 run39506459830 and17 run39506463821: original4methods24.751s/66.885s,
+viewport1method21.187s/25.605s and content1method18.381s/22.245s. Each SDK has
+six320dp font100/130/200 Light/Dark cells. Packets177/179 hashes, three archives162
+originals each; both reviews0. Root inspected actual PNGs. All six17 quote XMLs
+omit the original text; exact Compose assertions and original130%Light PNG
+positively confirm author/body. Do not claim those XMLs do. Preserve observation
+limits and all actual prior failure conclusions.
+New four-context media tracer is source-reviewed0/0 after extracting shared
+pixel/quote assertions (initial duplication heuristic resolved) and adding
+accessible count absence on each route. New class keeps its own180second bound;
+existing three classes and six-cell matrices remain unchanged. Shared fixture
+construction is identical; viewport helper defaults1/1.3/2, new context consumer
+explicitly1 with both themes/eight route observations. Final local app/test
+compile succeeds1m44s. New paired native dispatch is next.
+Remaining: four-context native proof, failed/pending/status matrix, actual new-
+control TalkBack, additive full catalog/collector frozen before execution,
+full10+17/paired reviews/signed ordinary59. Then61–69 and70 sequentially. Existing
+200% navigation wrapping remains70. Owner review55 and real release1/36 remain
+parked. Do not stop at a focused milestone.
 
 2026-10-20 20:10 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
@@ -458,3 +462,13 @@ Compose assertions and the unchanged130%Light PNG positively show author/body.
 PNG and hierarchy are separate observations; no cause or app defect established.
 Do not claim these17 XMLs confirm quote text. Four-context media/quote, pending/
 failed/status matrix, actual new-control TalkBack and complete60 delivery remain.
+
+Next native tracer opens one signed media/quote post through Feed, Thread,
+Profile and Search in both themes at320dp/100% text. It verifies ordered rendered
+pixels, attributed original, full48dp targets inside each actual list, pairwise
+and FAB clearance, and no invented visual/accessibility counts. A shared signed
+fixture and pixel/quote observation helper preserve the existing six-cell
+viewport goals. Default font scales remain1/1.3/2; only this new route consumer
+selects1. Each of four classes keeps its own180second bound. Initial Standards
+duplication heuristic is resolved; both residual source reviews0. Final local
+app/test Kotlin compile succeeds1m44s. New native proof remains pending.
