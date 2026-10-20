@@ -220,7 +220,7 @@ complete first-release scope and the established production boundaries.
    commit concurrently. Each runs source/core/release/lint and the complete
    selected SDK suite, mapped to the harness's `full` scope. Record and inspect
    both runs, including separately enabled public reads, before acceptance.
-   Full Android17 dispatch now uses three isolated matrix jobs: chat (appearance,
+   Full Android10 and Android17 dispatch each use three isolated matrix jobs: chat (appearance,
    Social push and all Chat/push/recovery checks), social (browse/post/media/profile/
    controls/payment/notifications and their recovery) and wallet (export/import/
    storage/feed/public reads/compatibility/update/final diagnostic). All three jobs
@@ -231,8 +231,12 @@ complete first-release scope and the established production boundaries.
    Each partition retains a distinct named artifact and a
    partition-complete marker. Their combined original class/test identities must
    cover the accepted complete suite, including API-specific cases. A passing
-   partition alone is never full acceptance. Android10 and focused scopes retain
-   their existing dispatch. This follows an actual75minute Android17 timeout with
+   partition alone is never full acceptance. Focused and combined full scopes
+   retain their existing dispatch. Android10 uses the same partition boundaries
+   starting with57, preserving the complete473 pre57 identities, API-specific
+   Profile assumption and all recovery/public-read/tail gates. Additive ticket
+   tests extend the independent catalog before final execution. The union must
+   match that catalog exactly; changing artifact location does not exclude a goal. This follows an actual75minute Android17 timeout with
    missing wallet/tail gates, not an application acceptance failure. Application
    assertions, class/request deadlines and production are unchanged.
    Full-suite job ceilings are75minutes per SDK job or120minutes for the combined

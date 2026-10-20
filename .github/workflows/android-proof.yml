@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        partition: ${{ fromJSON(inputs.scope == 'full-android17' && '["chat","social","wallet"]' || '["all"]') }}
+        partition: ${{ fromJSON((inputs.scope == 'full-android17' || inputs.scope == 'full-android10') && '["chat","social","wallet"]' || '["all"]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.scope == 'full' && 120 || startsWith(inputs.scope, 'full-') && 75 || 60 }}
     steps:
@@ -137,6 +137,7 @@ jobs:
           TEST_PUBLIC_SIGNED_UPDATE: '1'
           TEST_PUBLIC_FEED_READ: ${{ inputs.public_feed_read && '1' || '0' }}
           TEST_PUBLIC_VIDEO_REFERENCE: ${{ inputs.public_video_reference && '1' || '0' }}
+          TEST_PARTITION: ${{ matrix.partition }}
           TEST_SCOPE: ${{ inputs.scope == 'full-android10' && 'full' || inputs.scope || 'full' }}
         run: scripts/ci-android-device 29
       - name: Verify Android 17 runtime
