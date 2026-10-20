@@ -9,6 +9,7 @@ configured=json.loads((repo/'docs/evidence/ticket60/full-identity-reference.json
 assert hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==configured['collectorSha256']
 frozen=json.loads(__import__('subprocess').check_output(['git','-C',str(repo),'show',configured['catalogFreezeCommit']+':docs/evidence/ticket60/full-identity-reference.json'],text=True))
 assert configured['references']==frozen['references']and configured['recordedBeforeFullExecution']is True
+assert configured['collectorSha256']==frozen['collectorSha256'] and configured['toolSource']==frozen['toolSource']
 assert metadata['status']=='completed'and metadata['conclusion']=='success',metadata['conclusion']
 executing_source=configured['executingSources']['android'+sdk] if 'executingSources'in configured else configured['executingSource']
 assert metadata['headSha']==executing_source
