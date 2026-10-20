@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublishingSurfacesPreviewTest:
+INSTRUMENTATION_STATUS: test=privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:379)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt$lambda$13$lambda$12$lambda$11(PublishingSurfacesPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$Y6NKyKhTS26nqSHe5qaLJVVM_lY(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt(PublishingSurfacesPreviewTest.kt:91)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:379)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt$lambda$13$lambda$12$lambda$11(PublishingSurfacesPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$Y6NKyKhTS26nqSHe5qaLJVVM_lY(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt(PublishingSurfacesPreviewTest.kt:91)
+
+INSTRUMENTATION_STATUS: test=privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublishingSurfacesPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.041
+There was 1 failure:
+1) privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt(nl.davidengelen.redsquare.PublishingSurfacesPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.waitFor(PublishingSurfacesPreviewTest.kt:379)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt$lambda$13$lambda$12$lambda$11(PublishingSurfacesPreviewTest.kt:132)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.$r8$lambda$Y6NKyKhTS26nqSHe5qaLJVVM_lY(Unknown Source:0)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublishingSurfacesPreviewTest.privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt(PublishingSurfacesPreviewTest.kt:91)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -36,24 +36,40 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-59 remains OPEN, signed50 stays live. Frozen executing source4a78f8864c212d7aefedf3880fc279c5a22dca50.
-Full10run39412244072 and17run39412555335 are ACTIVE at that exact source, allthree
-partitions/public reads/additive status goals mandatory. Catalog486/487 and
-collector bindings are in [status59 evidence](../evidence/ticket59/README.md).
-Do not change source or weaken assertions while evaluating these runs. Source
-reviews through4a report0/0; its independent source/core/release/lint run is39412080920.
-Production last changed1f952e214, compact actionless rows; red offline01f preserved.
-Actual corrected17keyboard39410743176 now10PASS, including the same extraIME
-font-update notice and complete48pixel Send target ending exactly at usable318.
-ActualTalkBack10at7erun39411343189 is SUCCESS: original callback/audio evidence,
-outage/recovery eachonce, two background retries without repeated outage, same
-focus/PID3524, original/restored three settings byte-equal. Native originals inspected.
-Actual17speech remains pending. Its oldabb/7e failures show realtool phone permission
-covering the app. Current4a completes narrowly scoped upstream tool runtime grants
-before startup and requires package readback. Fresh focused17run39412530513 is ACTIVE.
-No real provider/physical/store acceptance is inferred. No51 reservation yet.
-Once full evidence/reviews and signed delivery complete59, immediately continue60through69.
-Preserve unrelated research unread/untouched. Keep invalid/failed runs actually failed.
+59 is OPEN, ordinary50 remains live. Current source fc477c893 includes production
+ReadingAnchor fix c4f8f4427: parent-relative instead of root-relative movement.
+Actual4a full10/17 both FAIL their Chat partition's old frame-reading assertion:
+expected437 versus357 after Chat/Home, exact80pixel shift with backup reminder.
+Original native before/failure pairs are retained in full4a-failures. No waived
+assertion or accepted full proof. Other old full jobs still run; let them finish
+before reusing the same full scope. Old10wallet also FAILS policy Chat reaction:
+enabled Like was below the clipped history viewport. Fixture now scrolls to it
+before each actual tap, retaining all policy/no-send/exact-count requirements.
+
+Fresh focused runs atfc477c893: reading10/17 39414403423/39414407150,
+status-recovery10/17 39414410300/39414413196, policy-surfaces10/17
+39414416099/39414418607. All pending at this checkpoint. Both bounded review
+axes report0 after the fixes. New source requires fresh full10/17; do not reuse
+failed4a or treat focused proof as full. Frozen486/487 identity references stay
+unchanged. Rebind final source/run IDs only after correct dispatch.
+
+Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
+speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.
+10PID3524/outage5/recovery7;17PID3290/outage2/recovery4. Tool narrow startup grants
+and actual debug package visibility are fixed; release permissions unchanged.
+17keyboard1f39410743176 has10PASS with the same larger Gboard notice, full48pixel
+Send ending at usable318. Message-first compressed-editor work remains62.
+
+51 was built/signed at4a: SHA5d21e8c9e65ad89c4055b92bbf140ea8ee39753d7dd1a71abc6f382cd306a7ee,
+37,856,651bytes. Actual APK manifest/DEX/certificate inspection passes. It is
+SUPERSEDED, NEVER PUBLISH. A rejection marker is in the frozen external51 folder;
+evidence apk-check explicitly says neverPublish. New production needs new52 later,
+not yet reserved. External review-worktree stays at4a; do not rebuild51 or50.
+Builder session75006 may be polled for its final already-built completion;
+log /mnt/storage/redsquare-android-artifacts/status59-signed51-build.log.
+After fresh full/evidence review and actual signed delivery complete59, continue
+60through69 immediately. Keep protected research unread/untouched, source boundaries
+and real owner/provider/physical/store gates parked as before.
 
 ## Current repeat-like57 acceptance
 

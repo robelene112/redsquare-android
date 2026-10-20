@@ -1,0 +1,47 @@
+{
+  "run": 39412530513,
+  "source": "4a78f8864c212d7aefedf3880fc279c5a22dca50",
+  "archiveSha256": "88089a23fe378e8a87fbb6efd2d3b1f11f73f88be07c7181c62f35dec1e1b1ad",
+  "members": [
+    {
+      "member": "status-talkback-evidence/accessibility-before.txt",
+      "bytes": 5125,
+      "sha256": "8572c9d71d54141780dc3c9edbee420891eb31c545def6c4bfd5e2cda7e0755b"
+    },
+    {
+      "member": "status-talkback-evidence/engine.json",
+      "bytes": 149,
+      "sha256": "8244b4ee0b73eb2c242a6aaf11e1ee8d32dd723d778a4cda30f2202c338c880b"
+    },
+    {
+      "member": "status-talkback-evidence/english-engine.wav",
+      "bytes": 78342,
+      "sha256": "8734b5c80a05d518af0fd15c03ccee73d7e53125bccdb81a6b25386593e223bc"
+    },
+    {
+      "member": "status-talkback-evidence/outage.png",
+      "bytes": 50521,
+      "sha256": "65982737fc8febbd09a4e404f993c36db8ae341b79bfcc1f4924c9b4fd0f25e5"
+    },
+    {
+      "member": "status-talkback-evidence/recovered.png",
+      "bytes": 49718,
+      "sha256": "aca73415d127f1d069bd5e499f84c87fb13e19ea4e79374cadca86dca77d895f"
+    },
+    {
+      "member": "status-talkback-evidence/speech-transcript.txt",
+      "bytes": 281292,
+      "sha256": "1e0879b3a24a592f8373efb35cb68c4ef04fc65aa33cf26d677d901086f60f1e"
+    },
+    {
+      "member": "status-talkback-evidence/accessibility-after.txt",
+      "bytes": 5290,
+      "sha256": "a95691bd1f22d5ebb1b6f1d415dbf05b636bc65eaaea080dcc867e2d53820d07"
+    },
+    {
+      "member": "status-talkback-evidence/result.json",
+      "bytes": 297,
+      "sha256": "98e86ad1dbde3f43bb26e72eaeec36b72c4c1bad9bf582fa09e0f3811d5a7360"
+    }
+  ]
+}

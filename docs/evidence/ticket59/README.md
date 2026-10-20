@@ -230,3 +230,48 @@ The486/487 independent identity references predate both. Bindings are explicit i
 full-identity-reference.json. Source/core/release/lint39412080920 is also pending.
 Bounded source reviews through4a report0/0. Full evidence acceptance and signed51
 remain pending. Ordinary50 remains live; no51 has been reserved or published.
+
+## Actual broad failures, superseded51 and corrected focused execution
+
+TalkBack17at4a39412530513 is SUCCESS, one complete PASS. Actual PID3290 has one
+outage/talkback_2 and recovery/talkback_4, each with actual START/positiveAUDIO/DONE,
+no matching ERROR/STOP, unchanged focus and byte-equal settings restoration.
+Root opened both native screenshots, read the original log and verified actual
+upstream tool grants in package state. The independent status schema validator
+passes against actual focused17 inputs too, without claiming full acceptance.
+Source/core/release/lint4a39412080920 is SUCCESS.
+
+Both4a full Chat jobs FAIL in AppFrameReadingPreviewTest: expected437, actual357
+after Chat/Home, on both SDKs. Before/failure native XML shows the backup reminder
+present in both and the exact80pixel post displacement. Root opened the original
+17failure PNG. Root-relative compensation treated ancestor reminder insertion as
+a status-header change during Home return. Atc4f8f4427, only parent-relative
+movement is compensated. Existing exact1pixel reading requirements stay unchanged;
+status insertion/removal and navigation/recreation must both pass again.
+
+The10wallet partition also FAILS the private policy-surface reaction atline132.
+Original native PNG has no visible Like; its Compose observation puts Like at
+350..390 beneath the history viewport, overlapping the later delivery status
+region. The test had observed only enabled existence before tapping the clipped
+position. Atfc477c893, the existing bounded scroll/display helper brings Like
+into view before each of the three deliberate reaction taps. Terms revisions,
+cancellation, no automatic sending, signed transaction/Relay counts, wallet and
+node preservation remain mandatory. No deadline or acceptance assertion changes.
+Selected original captures, full command logs and archive inventories are retained
+under full4a-failures, with actual run metadata at capture. Other partitions were
+still running at that capture. Later missing goals cannot be filled from focused
+runs; these are failed broad attempts and require new complete execution.
+
+The signed51 build at4a completes successfully: SHA
+5d21e8c9e65ad89c4055b92bbf140ea8ee39753d7dd1a71abc6f382cd306a7ee,
+37,856,651bytes, established certificate. Actual manifest/DEX inspection verifies
+nondebuggable/nonprofileable, backupfalse,29/36, reviewtrue/pushfalse, separate GIF
+keys absent and no test-tool package query in Release. It is SUPERSEDED and
+NON-PUBLISHABLE because its source fails broad reading acceptance. The evidence
+and external marker explicitly prohibit publication. Its bytes stay frozen;
+ordinary50 stays live. Corrected production will need new52 after acceptance.
+
+Fresh focusedfc477c893 runs: reading10/17 39414403423/39414407150,
+status recovery10/17 39414410300/39414413196, allfour policy surfaces10/17
+39414416099/39414418607. They are pending; source reviews report0/0. Fresh full
+runs on both SDKs remain required, preserving the pre-execution486/487 catalog.
