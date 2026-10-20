@@ -1130,3 +1130,18 @@ Signed58 is reserved/building at that same exact72a source. Actual APK
 inspection, complete native success, strict collection, final review and public
 bookends remain pending.51through57 are REJECTED/NEVER PUBLISH; immutable50
 staysLIVE. Continue60through69 after actual59 completion, without routine stops.
+
+## Focused archive namespace correction
+
+Review found four actual retained-file mismatches in the first72a admin packets:
+two promotion semantics files per SDK were overwritten when promotion and
+removal images.tar archives used the same destination. Raw archives and their
+inventories stayed intact. They are now re-extracted byte-for-byte under each
+full relative archive identity, with an explicit retainedPath per member. The
+ambiguous originals/images directory is removed from those two packets.
+
+Independent verification now checks all1,103 actual retained member paths against
+their expected sizes and hashes and rejects duplicate destinations across archive
+identities. All pass. No original content is normalized, and no app, test, strict
+collector, frozen catalog or execution source changes. Packet correction review
+is pending; complete72a runs continue independently.

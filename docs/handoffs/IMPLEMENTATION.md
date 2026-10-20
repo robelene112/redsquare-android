@@ -60,7 +60,10 @@ All twelve focused runs at72a are SUCCESS:
 | All ten keyboard cases |39449853329|39449858282|
 | Private history24/actions10 and actual process recovery |39449862817|39449866242|
 
-All1,103 original members are retained. Both cumulative source review axes and
+All1,103 original members are retained. Promotion/removal process archives now
+use separate full-archive namespaces after review found four overwritten
+semantics files; all actual paths independently match original sizes/hashes.
+Packet correction review is pending. Both cumulative source review axes and
 provenance review have zero remaining findings. Exact72a source/core/gateway/
 release/performance/lint39449757978 is SUCCESS. Root opened both private queue
 preview-end captures, actual48px Members/Cancel targets, and progressive normal
