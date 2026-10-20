@@ -154,13 +154,24 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingSources": {
-    "android10": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
-    "android17": "90f94ffa1178e0f68839155fe55d302d7a036e3b"
-  },
-  "executingRuns": {
-    "android10": 39513206858,
-    "android17": 39513210026
-  },
-  "executingState": "Dispatched; no complete acceptance yet."
+  "executingSources": {},
+  "executingRuns": {},
+  "executingState": "Initial full attempts rejected; cache-isolation reproduction and replacement complete runs pending.",
+  "rejectedExecutions": [
+    {
+      "source": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
+      "runs": {
+        "android10": 39513206858,
+        "android17": 39513210026
+      },
+      "conclusion": "cancelled",
+      "socialConclusion": "failure",
+      "otherPartitions": "cancelled",
+      "reason": "Original browse leaves valid thread replies; undeclared conversation cache makes the first shared-post thread identity assertion ambiguous. No native live-region or complete acceptance."
+    }
+  ],
+  "signedCandidateSource": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
+  "signedCandidateVersion": 59,
+  "signedCandidateSha256": "937b7515649dde91f8831674427aff596e48db55e4b9a00c839307d9273b2dbf",
+  "signedCandidateState": "Prepared and unpublished. Application files remain unchanged by fixture correction."
 }

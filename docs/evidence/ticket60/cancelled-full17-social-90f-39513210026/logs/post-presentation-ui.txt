@@ -1,0 +1,116 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:49)
+
+INSTRUMENTATION_STATUS: stream=
+Error in samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(nl.davidengelen.redsquare.PostPresentationPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:49)
+
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 21.56
+There was 1 failure:
+1) samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(nl.davidengelen.redsquare.PostPresentationPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.assertPostPresentation(PostPresentationPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces$lambda$10(PostPresentationPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$Z29nuROydCGj_IVhJymiIYC6ou0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces(PostPresentationPreviewTest.kt:49)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

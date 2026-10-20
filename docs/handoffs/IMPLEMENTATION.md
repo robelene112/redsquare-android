@@ -585,3 +585,44 @@ records; both corrected collector reviews0. Catalog totals/pins unchanged.
 The reviewed pre-full freeze is nowf098f2eda9be0a06083890664633abf1108704dc,
 superseding2a only by the extra required native-region bookend. Bind actual full
 sources/runs after dispatch. Full10/17/signed ordinary59 and61–70 remain pending.
+
+Signed ordinary59 is prepared, not published, from exact full source90f94ffa1178e0f68839155fe55d302d7a036e3b.
+Build succeeds5m2s; APK37885491bytes, SHA937b7515649dde91f8831674427aff596e48db55e4b9a00c839307d9273b2dbf,
+established cert6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+Actual DEX DEBUGfalse/PUSHfalse/REVIEWtrue/GIFkeys absent; manifest nondebug,
+nonprofile/backupfalse/min29target36/no release TalkBack query. Five-hash prepared
+packet and actual APK both independently reviewed0/0. Public before-bookendPASS
+protects ordinary58/50/49/45 and whole performance43 channel;14 exact resources
+are outside repo at /mnt/storage/redsquare-android-artifacts/posts60-publication-59.
+DO NOT overwrite its before records. Public ordinary58 remains live. Version59
+has been reserved and must not be rebuilt/reused; use the prepared immutable APK
+if final source remains production-equivalent. Scripts are temporary
+/tmp/redsquare-posts60-prepare59.py and /tmp/redsquare-posts60-publication59-check.py
+(the latter takes ordinary59, stage and exact90f source as separate arguments).
+
+Initial complete10 run39513206858 and17 run39513210026 at90f both terminate CANCELLED:
+social jobs FAILURE, Chat/Wallet jobs cancelled after the same social failure.
+All six source/core/release/lint steps pass. Original browse8 passes, then the
+four post methods run with one ambiguous same-author profile assertion at174
+(thread route).10 class23.128s/17class21.56s. Later post matrices including the
+new native live-region oracle are UNREACHED; final successful-path fixture guards
+are not claimed. Retained social packets54/56 hashes/two archives42 originals
+preserve exact conclusions. Complete available raw artifacts from all three
+partitions remain in external posts60-full10-90f-39513206858 and
+posts60-full17-90f-39513210026. Never count these as full acceptance or combine
+successful partial partitions into a replacement run.
+
+Root10 original PNG/XML confirms valid cached Independent Saito reply plus an
+offscreen nested reply by the root author, yielding two matching profile labels.
+ConversationScreen/AndroidFeedCache correctly merge cached history with fresh
+rows. The new read-only frame fixture had omitted conversation. from its declared
+backup/prepare/restore state. Fixture-only3c7c18843b13b4df05ba280297e9dd0ffd9c3a61
+adds that prefix, independently restoring earlier cached history after Activity
+closure. Original uniqueness assertions remain. No app/history behavior changes.
+Existing verify_browse moved byte-exact earlier; focused post scope now runs
+those original8 cases before all six post classes, reproducing full preconditions.
+Full ordering, native method identities/deadlines and catalog totals are unchanged.
+Standards review0; Spec review pending. Local app/test compile succeeds2m3s.
+Candidate90f production and all build inputs remain byte-equivalent after the
+fixture correction; do not claim identical APK bytes from source comparison.
+Fresh focused reproduction and complete10/17 acceptance remain required.
