@@ -124,6 +124,14 @@ def validate_post_evidence(target):
  assert 'OK (1 test)' in (chat/'post-talkback-ui.txt').read_text()
  assert (chat/'post-talkback-ui-exit.txt').read_text().strip()=='0'
  originals=social/'status-originals'
+ def captures(folder,names):
+  for name in names:
+   for suffix in ['png','xml']:
+    path=originals/folder/(name+'.'+suffix)
+    assert path.stat().st_size>100,str(path)
+ base=['compact-social-controls-with-node-counts','feed-actions-secondary','feed-full-public-identity','report-confirmation-after-menu-closed']
+ base += [prefix+route for route in ['feed','thread','profile','search'] for prefix in ['same-post-','own-actions-','own-delete-confirmation-']]
+ captures('post-presentation-evidence',base)
  for folder, prefix, scales in [('post-viewport-evidence','post',[100,130,200]),('post-content-evidence','content',[100,130,200]),('post-content-contexts-evidence','contexts',[100]),('post-status-evidence','status',[100,130,200]),('post-pending-evidence','pending',[100])]:
   for scale in scales:
    for theme in ['light','dark']:
@@ -131,29 +139,60 @@ def validate_post_evidence(target):
     configuration=json.loads((originals/folder/(label+'-configuration.json')).read_text())
     assert configuration['widthDp']==320 and configuration['widthPixels']==320
     assert abs(configuration['fontScale']-scale/100)<0.01 and configuration['selectedAppearance'].lower()==theme
+    if prefix=='post':
+     captures(folder,[label+'-'+state for state in ['identity-body','actions-counts','full-public-identity']])
+     for suffix in ['likes-layout','reposts-layout']:
+      layout=json.loads((originals/folder/(label+'-'+suffix+'.json')).read_text())
+      expected='9223372036854775807 likes' if suffix=='likes-layout' else '12345 reposts'
+      assert layout['count']==expected and layout['lineCount']>0 and not layout['didOverflowHeight'] and not layout['didExceedMaxLines']
+     targets=json.loads((originals/folder/(label+'.json')).read_text())
+     assert targets['touchBounds'] and targets['scrollViewport'] and targets['floatingComposer']
+    elif prefix in ['content','contexts']:
+     routes=['feed','thread','profile','search'] if prefix=='contexts' else ['']
+     captures(folder,[label+('-'+route if route else '')+'-'+state for route in routes for state in ['identity-body','image-1','image-2','verified-quote','actions-without-counts']])
+    elif prefix=='status':
+     captures(folder,[label+'-'+state for state in ['unavailable','details','retry-unavailable']])
+     targets=json.loads((originals/folder/(label+'-targets.json')).read_text())
+     assert targets['statusTargets'] and targets['scrollViewport'] and targets['floatingComposer']
+    elif prefix=='pending':
+     captures(folder,[label+'-'+state for state in ['pending','pending-details','available-counts-unavailable','counts-details']])
   restored=json.loads((originals/folder/(prefix+'-font-restored.json')).read_text())
   assert abs(restored['expected']-restored['observed'])<0.01 and restored['expected']==restored['originalScale']
   assert restored['currentSetting']==restored['originalSetting'] or (sdk=='10' and restored['originalSetting']=='null' and restored['originalScale']==1 and restored['currentSetting']=='1.0')
  talkback=chat/'status-originals/post-talkback-evidence'
  processes=set()
+ owner_context=json.loads((talkback/'owner-more-result.json').read_text())['expectedContext']
+ match=re.fullmatch(r'Post actions for (Anon-[1-9A-HJ-NP-Za-km-z]{6})',owner_context);assert match
+ owner_name=match.group(1)
+ expected_contexts={
+  'profile':'View profile for Anon-jesTu2','thread':'Open thread by Anon-jesTu2',
+  'like':'Like post by Anon-jesTu2','repost':'Repost post by Anon-jesTu2',
+  'quote':'Quote post by Anon-jesTu2','more':'Post actions for Anon-jesTu2',
+  'report':'Report post by Anon-jesTu2','owner-more':'Post actions for '+owner_name,
+  'edit':'Edit post by '+owner_name,'delete':'Delete post by '+owner_name,
+ }
  for label in ['profile','thread','like','repost','quote','more','report','owner-more','edit','delete']:
   observation=json.loads((talkback/(label+'-result.json')).read_text())
   assert observation['actualAccessibilityFocus'] is True and observation['physicalAudibility'] is False
   pid=str(observation['serviceProcess']);assert pid.isdigit() and int(pid)>0;processes.add(pid)
-  context=observation['expectedContext'];assert context and 'Anon-' in context
+  context=observation['expectedContext'];assert context==expected_contexts[label],(label,context)
   log=(talkback/(label+'-speech.txt')).read_text()
   requested=[line for line in log.splitlines() if 'Speaking fragment text=' in line and context in line]
   assert requested,(label,context)
   ids={value.strip() for value in observation['engineCompletions'].split(',')};assert ids and '' not in ids
   actual_ids={re.search(r'utteranceId=([^,\s]+)',line).group(1) for line in requested}
   assert ids <= actual_ids
+  for line in requested:
+   assert re.search(r'\(\s*'+re.escape(pid)+r'\)',line), 'Each contextual request must come from the real service PID'
   for utterance in ids:
-   for event in ['START','AUDIO','DONE']:
-    assert re.search(r'REDSQUARE_ENGINE_'+event+r' utteranceId='+re.escape(utterance)+r'(?:\s|$)',log)
-   for event in ['ERROR','STOP']:
-    assert not re.search(r'REDSQUARE_ENGINE_'+event+r' utteranceId='+re.escape(utterance)+r'(?:\s|$)',log)
-   assert re.search(r'REDSQUARE_ENGINE_AUDIO utteranceId='+re.escape(utterance)+r' bytes=[1-9][0-9]*',log)
-  assert any(re.search(r'\(\s*'+re.escape(pid)+r'\)',line) for line in requested)
+   events={}
+   for line in log.splitlines():
+    event=re.search(r'REDSQUARE_ENGINE_(START|AUDIO|DONE|ERROR|STOP) utteranceId=([^\s]+)(?: bytes=([0-9]+))?',line)
+    if event and event.group(2)==utterance:
+     assert re.search(r'\(\s*'+re.escape(pid)+r'\)',line), 'Each engine callback must come from the real service PID'
+     events.setdefault(event.group(1),[]).append(int(event.group(3) or 0))
+   assert {'START','AUDIO','DONE'} <= set(events) and not {'ERROR','STOP'} & set(events)
+   assert any(size>0 for size in events['AUDIO'])
   assert (talkback/(label+'.png')).stat().st_size>100
  assert len(processes)==1
 
