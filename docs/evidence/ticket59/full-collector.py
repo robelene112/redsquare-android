@@ -105,6 +105,7 @@ for part in ['chat','social','wallet']:
  artifact=source/('android-native-proof-'+part);root=artifact/f'.scratch/device-evidence/api-{"37.0"if sdk=="17"else"29"}';dest=target/part;dest.mkdir(exist_ok=True)
  assert (root/'partition.txt').read_text().strip()==part
  assert (root/'partition-complete.txt').read_text().strip()==part
+ if part=='chat':shutil.copyfile(root/'talkback-tool-SHA256SUMS',dest/'talkback-tool-SHA256SUMS')
  current=ids.identities(root);actual.update(current)
  info={'identities':current.total(),'normalCompletions':0,'deliberateInterruptions':0,'continuityRecords':0,'nonzeroExits':[],'failureStatuses':[],'png':0,'xml':0,'visualErrors':[],'files':0}
  for p in sorted(root.rglob('*.txt')):
