@@ -181,7 +181,6 @@
       "reason": "Social job fails SearchPreviewTest cached-name fresh-check visible error assertion after returning from Profile. Wallet succeeds, Chat finishes separately. Original30members/goal log/capture metadata retained; capture doesnot prove tap/request cause. No failed-tail or focused assembly."
     }
   ],
-  "verificationRef": "verify/status59-72a8c6382",
   "signedCandidateVersion": 58,
   "signedCandidateRejected": false,
   "rejectedCandidateVersions": [
@@ -196,7 +195,10 @@
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
     "step": "Build and verify native sources",
-    "source": "72a8c63828280d61dc760331e17289cf7c93112a"
+    "sources": {
+      "android10": "d567b00849dc8ac84989610195331e50fd772068",
+      "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
+    }
   },
   "sourceBuildHistory": [
     {
@@ -250,21 +252,29 @@
       "source": "ff9da0967292cdd362554c5e0edbc4c318c26c0d",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39447946565"
+    },
+    {
+      "run": 39449757978,
+      "source": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39449757978"
     }
   ],
   "sourceBuild": {
-    "run": 39449757978,
-    "source": "72a8c63828280d61dc760331e17289cf7c93112a",
-    "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39449757978"
+    "run": 39459628860,
+    "source": "d567b00849dc8ac84989610195331e50fd772068",
+    "status": "in_progress",
+    "conclusion": "",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860"
   },
   "signedCandidateState": "prepared and immutable, not accepted or published",
   "executingSourceCheck": {
-    "run": 39449757978,
-    "source": "72a8c63828280d61dc760331e17289cf7c93112a",
-    "status": "completed",
-    "conclusion": "success",
-    "acceptance": "source/core/gateway/release/performance/lint only; complete native acceptance pending"
+    "run": 39459628860,
+    "source": "d567b00849dc8ac84989610195331e50fd772068",
+    "status": "in_progress",
+    "conclusion": "",
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860",
+    "acceptance": "Corrected fixture/source/core/gateway/release/performance/lint only; complete10 runtime acceptance remains pending."
   },
   "executingState": "Android17 complete72a SUCCESS and strict487/130/35/34/92 checks pass. Second complete10 social fails; corrected fixture d567 focused runs pending, fresh entire10 not dispatched. Null10 run is intentionally ineligible for collection.",
   "fixtureEquivalenceHistory": [

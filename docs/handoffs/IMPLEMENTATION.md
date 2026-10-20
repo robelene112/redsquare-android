@@ -77,7 +77,7 @@ Corrected test-only source `d567b00849dc8ac84989610195331e50fd772068`, pinned
 verify/status59-search-d567b0084, positively waits for displayed/enabled clickable
 Search action before that tap/capture and exact original displayed error after.
 All9 identities,20s goals,180s class and all qualification/absence/key/wallet/node/
-zeroTX assertions remain. Spec correction review0; Standards pending.
+zeroTX assertions remain. Both correction review axes report0.
 Focused Search10run39459680040/17run39459685383 active. Source check39459628860
 active. Exact production-equivalence inventories prove457 unchanged tracked
 entries outside docs/AndroidTest, including build/workflow/harness/signing inputs,
