@@ -123,6 +123,13 @@
       "android17": 39415423516,
       "acceptance": "rejected",
       "reason": "10Chat physical social swipe and10wallet initial ready-action lookup fail.17Chat compares stale IME insets and17wallet mandatory public read receives object instead of array. Failed partitions stay failed; no focused assembly replaces complete gates."
+    },
+    {
+      "source": "f23bc380d41b2454b37c4860a5fba4a56bb9e8e0",
+      "android10": 39418870684,
+      "android17": 39418873625,
+      "acceptance": "rejected",
+      "reason": "Both Chat partitions fail two original group-mute visibility goals with a saved multiline draft. Both social and wallet partitions succeed. Diagnostic39422695874 proves accepted incoming messages below a17pixel clipped history viewport. Cumulative source review separately finds bypassed status transitions. Signed52 is rejected, never publishable."
     }
   ],
   "verificationRef": "verify/status59-f23bc380d",
@@ -130,5 +137,6 @@
   "productionEquivalence": {
     "path": "docs/evidence/ticket59/production-equivalence-fc-f23.json",
     "sha256": "58044db498a900ed745c8ce0532c594959f029187e9b3474ca47c3b0f691ea8f"
-  }
+  },
+  "signedCandidateRejected": true
 }

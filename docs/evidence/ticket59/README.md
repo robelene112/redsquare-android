@@ -508,3 +508,10 @@ inactive layout slots, and bounds the existing scrollable group status area to
 Runtime proof and new signed candidate are pending. The strict collector now
 also requires the Search movie/all frames/native bookends in its existing two
 motion cases; its selfhash changes, frozen reference catalogs do not.
+
+Bounded paired review1d985 through68ea46898 reports Spec0 residual/documented
+Standards0/heuristic0. Both identified the same early entrance-reversal edge in
+bb8;68ea retains active transitions via `!visibility.isIdle`, removing the slot
+only after idle. Corrected native execution is still pending. Full f23 final
+run/job metadata is retained under rejected-run-final-metadata; both social and
+wallet partitions succeed, both Chat partitions fail. Signed52 remains rejected.
