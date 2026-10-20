@@ -1,0 +1,77 @@
+{
+  "run": 39409512952,
+  "source": "ec71108f27ced56540ac706640b15af89bdeebdd",
+  "archiveSha256": "03e1b51dcc05b5dbf2ed40f34b7352929ceebcacd5f440b91ab08d4d0f486d0f",
+  "members": [
+    {
+      "member": "status-recovery-evidence/details-remain-open-after-recovery.xml",
+      "bytes": 16406,
+      "sha256": "35e7b0a77e33571d89e54572ed554918bfcfb1021d0b485fbc29c43eaddcb622"
+    },
+    {
+      "member": "status-recovery-evidence/details-remain-open-after-recovery.png",
+      "bytes": 35477,
+      "sha256": "ab84e51d30cfa9bb05bb7e25ac609e49e1aab90c1b161d97154f1508564b24b3"
+    },
+    {
+      "member": "status-recovery-evidence/details-closed-after-recovery.xml",
+      "bytes": 41590,
+      "sha256": "46a2b8217507cdd9968a37e79029a6c7d77862572ea4c2c5ec3f1e26925fca82"
+    },
+    {
+      "member": "status-recovery-evidence/details-closed-after-recovery.png",
+      "bytes": 34078,
+      "sha256": "c22dcaebffcd8daffb5ce2dc0041cfeab5f724c201260869b26b5773830918af"
+    },
+    {
+      "member": "status-recovery-evidence/reading-before-outage.xml",
+      "bytes": 53367,
+      "sha256": "4c2069eff79375e7348bc325d8b3691456e44de43c2f043ea4537aa42afed07f"
+    },
+    {
+      "member": "status-recovery-evidence/reading-before-outage.png",
+      "bytes": 49321,
+      "sha256": "6a42a233f6fa58f8b91111d024fedf4cf0ae36fdfab9de80d176158c8a17f57c"
+    },
+    {
+      "member": "status-recovery-evidence/outage-details.xml",
+      "bytes": 17781,
+      "sha256": "bc8ab062bbad5364f9e434edf42b24d9f0612dab6f7babb798386936bd5788a7"
+    },
+    {
+      "member": "status-recovery-evidence/outage-details.png",
+      "bytes": 39222,
+      "sha256": "cbbc5daed4588b10006b949da629b1657212f2bef063fd72c799aa0dd280d014"
+    },
+    {
+      "member": "status-recovery-evidence/reading-during-outage.xml",
+      "bytes": 55742,
+      "sha256": "360d8ab3273e2836c6d55947e23c4fa33924697149cb603aa94397e43e902d60"
+    },
+    {
+      "member": "status-recovery-evidence/reading-during-outage.png",
+      "bytes": 48887,
+      "sha256": "5bab461fa27d4a12f874d2ff81ef77eb177262f22dd8e0a5a4518e48bf053b99"
+    },
+    {
+      "member": "status-recovery-evidence/reading-recovered.xml",
+      "bytes": 54499,
+      "sha256": "c60f68778d248cd8bfcea5ad1c5fbf8d9fe729c6b15b7a243e4f45e1d9ab5d5a"
+    },
+    {
+      "member": "status-recovery-evidence/reading-recovered.png",
+      "bytes": 48206,
+      "sha256": "8d46ea79f90f1d572dbe54233a2fe5a73d43d04802dc8646545dd7455c494a9a"
+    },
+    {
+      "member": "status-recovery-evidence/reading-after-recovery.xml",
+      "bytes": 52485,
+      "sha256": "7455a517a8fa9f91dbf3ab32116402215e980cc4a4a882a88be6e85e5d27e5fd"
+    },
+    {
+      "member": "status-recovery-evidence/reading-after-recovery.png",
+      "bytes": 49130,
+      "sha256": "84133713c4e1d3242fed2e6e3e7b87861c647cac39882c4dd31517f94301a9d7"
+    }
+  ]
+}

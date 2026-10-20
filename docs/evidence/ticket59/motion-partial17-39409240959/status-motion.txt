@@ -1,0 +1,79 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusMotionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.StatusMotionPreviewTest:
+INSTRUMENTATION_STATUS: test=normalMotionAndLargeDarkTextKeepStatusRecoveryUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusMotionPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery$lambda$10(StatusMotionPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.$r8$lambda$pwrRU6ytG1uGD8Ri2utdTvsYPGg(StatusMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery(StatusMotionPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.normalMotionAndLargeDarkTextKeepStatusRecoveryUsable(StatusMotionPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in normalMotionAndLargeDarkTextKeepStatusRecoveryUsable(nl.davidengelen.redsquare.StatusMotionPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery$lambda$10(StatusMotionPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.$r8$lambda$pwrRU6ytG1uGD8Ri2utdTvsYPGg(StatusMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery(StatusMotionPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.normalMotionAndLargeDarkTextKeepStatusRecoveryUsable(StatusMotionPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=normalMotionAndLargeDarkTextKeepStatusRecoveryUsable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusMotionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=zeroMotionAndLargerLightTextKeepStatusRecoveryUsable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.StatusMotionPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=zeroMotionAndLargerLightTextKeepStatusRecoveryUsable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 55.588
+There was 1 failure:
+1) normalMotionAndLargeDarkTextKeepStatusRecoveryUsable(nl.davidengelen.redsquare.StatusMotionPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery$lambda$10(StatusMotionPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.$r8$lambda$pwrRU6ytG1uGD8Ri2utdTvsYPGg(StatusMotionPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.verifyRecovery(StatusMotionPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.StatusMotionPreviewTest.normalMotionAndLargeDarkTextKeepStatusRecoveryUsable(StatusMotionPreviewTest.kt:20)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

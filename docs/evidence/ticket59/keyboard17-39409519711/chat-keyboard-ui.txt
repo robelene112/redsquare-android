@@ -1,0 +1,185 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatKeyboardPreviewTest:
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Full Send target must stay inside the usable screen: Rect(215, 274 - 304, 322), minimum=48, barsOrIme=24/322
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.physicalSend(ChatKeyboardPreviewTest.kt:294)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28$readySend(ChatKeyboardPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28(ChatKeyboardPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$-K6WAaMgt9vD5D1ggj3RVswxyoI(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.IllegalStateException: Full Send target must stay inside the usable screen: Rect(215, 274 - 304, 322), minimum=48, barsOrIme=24/322
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.physicalSend(ChatKeyboardPreviewTest.kt:294)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28$readySend(ChatKeyboardPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28(ChatKeyboardPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$-K6WAaMgt9vD5D1ggj3RVswxyoI(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 123.17
+There was 1 failure:
+1) groupChatKeepsFirstUseSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.IllegalStateException: Full Send target must stay inside the usable screen: Rect(215, 274 - 304, 322), minimum=48, barsOrIme=24/322
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.physicalSend(ChatKeyboardPreviewTest.kt:294)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28$readySend(ChatKeyboardPreviewTest.kt:174)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$30$lambda$29$lambda$28(ChatKeyboardPreviewTest.kt:219)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$-K6WAaMgt9vD5D1ggj3RVswxyoI(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda22.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:121)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:45)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsFirstUseSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:39)
+
+FAILURES!!!
+Tests run: 10,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

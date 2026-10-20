@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-20 after complete native verification of shared frame58.
+Updated 2026-10-20 during shared asynchronous-status59 verification.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -33,6 +33,25 @@ One implementation writer; independent read-only two-axis reviews remain allowed
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
+
+## Active status59 checkpoint
+
+59 remains OPEN; source implemented across destinations, no full or signed51
+acceptance yet. Source/latest proof and actual failed attempts are in
+[status59 evidence](../evidence/ticket59/README.md). Production changed last at
+1f952e214 to keep actionless status compact above the larger IME. Offline red
+indicator was restored at01f7ab620. Source reviews throughabb28da65 report0/0.
+Focused recovery10/17 and actual normal/zero motion10/17 have passed before the
+latest compact-row correction. Actual keyboard10 has10PASS;17 has9PASS/1FAIL,
+real4pixel Send clipping under the keyboard's font-update notice. Corrected
+allten-method17 run39410743176 is pending. Actual TalkBack tool runs still FAIL
+setup/lookup, never speech acceptance. Pinned tool now backports Java APIs on29;
+latest actual patch SHA42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117.
+Latest fixture fixes complete tool onboarding, retrieve interactive windows and
+declare narrow tool visibility for the instrumented debug UID. Preserve real
+callback/focus/quiet assertions and settings restoration. Full486/487 catalog
+was frozen before execution; primary-only collector reviewed0/0. No full run or
+51 reservation yet. Once59 is actually delivered, immediately continue60through69.
 
 ## Current repeat-like57 acceptance
 

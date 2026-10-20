@@ -120,3 +120,65 @@ execution. They require all previous checks plus the five additive status cases,
 129/130 normal completions,35 deliberate interruptions,34 continuity records
 and92 archives per SDK, with no new exclusion or unexpected assumption. Actual
 full execution, real speech, post-adoption IME journeys and signed51 remain pending.
+
+## Corrected native motion, keyboard regression and tool setup
+
+Motion17f455/run39409240959 remains FAILURE: normal motion failed to observe
+the induced outage; zero motion PASS includes an actual five-second movie and
+allseven decoded originals. Root inspected every zero-motion frame, including
+pressed/disabled Retry, green Back online and removal. The initial page can
+publish rows before finishing its quote read, and the prior fixture did not
+positively require an enabled Refresh ancestor. This supports a readiness
+hypothesis, not proof of the click-time cause. The corrected fixtures require the
+actual enabled action before inducing failure. Outage goals and class deadlines
+are unchanged. Subsequent17fcb39410130250 is SUCCESS, both methods PASS.
+
+Android10ec39409509547 is SUCCESS, both motion methods PASS, retaining all69
+original members: normal200percent/Dark has36 decoded frames; zero130percent/Light
+hasseven. Root inspected original normal pressed/recovery/removal frames and
+actual metadata. Both have actual window recomposer/system scale1/0,320dp,
+fully visible48pixel Retry targets and successful recorder exits. These focused
+runs precede the later actionless-row correction; final full scopes rerun both.
+
+Android10ec39409512952 is SUCCESS, two recovery PASS and all14 original members.
+Android10ec keyboard39409515782 is SUCCESS, allten real-IME methods PASS.
+Android17ec keyboard39409519711 remains FAILURE, nine PASS and one FAIL in
+larger-text first-use group Chat. The original physical Send target is48pixels
+high, ending at322, while actual IME inset322 leaves usable screen bottom318.
+Its original PNG shows the keyboard's extra font-size-update notice and four
+pixels of target clipping. The selected group and long-photo/reply originals,
+complete class outcomes and complete archive-member inventory are retained.
+Other originals remain in the external raw directories named in the packet/run.
+The regression is genuine. No tolerance, deadline, case or IME requirement changes.
+At1f952e214, shared actionless status minimum height drops40to32dp; text can
+still expand naturally and actual buttons retain48dp targets. Corrected runtime
+and full verification remain pending. Offline connection tone was also restored
+to the agreed red treatment at01f7ab620, preserving distinct text and green recovery.
+
+Tool10f45539409237488 is FAILURE at visible app-node lookup for Later. Actual
+bound PID3565, English synthesis and real engine callbacks exist; no Java API
+crash occurs. Exact hosted patch matches42bc3770; actual tool APK SHA
+5253a7dbb53a975a55cc6f491fd182e563b8e44b152a07bd0568dae6799dbaf9.
+Root opened the in-scope failure PNG/XML showing the app and Later. A later
+accessibility dump shows Welcome to the updated TalkBack. These are non-atomic
+observations and do not prove one root cause. Pinned OnboardingInitiator requires
+pref_update_welcome_16_2_shown_key and pref_update_multi_finger_gestures_shown_key;
+the harness now provisions both official tool preferences before startup.
+Instrumentation explicitly enables interactive-window retrieval, independently
+restores its original flags, and waits within five seconds for a visible app node.
+A failed lookup records the actual window identities in scope before app cleanup.
+
+Tool17b3/run39409741664 remains FAILURE at service metadata lookup, before engine
+or app testing. Shell package output positively contains the installed legacy
+service; final accessibility dump shows it bound with no crashed-service entry.
+Queries previously lived only in the test APK, while instrumentation executes
+in the debug target UID. Atabb28da65, that debug manifest declares narrow TalkBack
+and TTS-service visibility and lookup uses the target context. Release and
+performance manifests are unchanged. Both SDKs still need actual important-
+transition speech, preserved focus and quiet polling acceptance. No physical
+speech/audibility or complete accessibility acceptance is inferred from setup.
+
+All bounded source reviews throughabb28da65 report Spec0/documented Standards0/
+heuristic0 after fixes. The complete collector's extensionless tool manifest
+retention was corrected atb3a6f636a and independently reviewed0/0. Its frozen
+identity references remain unchanged. Full runs and signed51 are not started yet.

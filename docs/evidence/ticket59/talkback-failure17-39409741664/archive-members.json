@@ -1,0 +1,22 @@
+{
+  "run": 39409741664,
+  "source": "b3a6f636afbc73c66deae5b2f35eddbca0cfcbf0",
+  "archiveSha256": "5c5afd6d507b7697984989ccf0f6dbb01d5a1f053722220aa44ed958fa035e3c",
+  "members": [
+    {
+      "member": "status-talkback-evidence/failure-speech.txt",
+      "bytes": 2559,
+      "sha256": "bc8cf256d700566ff1131306d8b4ebf7018f395adb5ebbc10e052220efbd399b"
+    },
+    {
+      "member": "status-talkback-evidence/failure-accessibility.txt",
+      "bytes": 5104,
+      "sha256": "73cb937ada684725d16da055197e29a296df77790d72c2176891b56051dd1c33"
+    },
+    {
+      "member": "status-talkback-evidence/failure.png",
+      "bytes": 175125,
+      "sha256": "7c933e4d1018d21d25dcb66c30a0b9399b800bb40f9b88a46d8cbc95cd2175d4"
+    }
+  ]
+}

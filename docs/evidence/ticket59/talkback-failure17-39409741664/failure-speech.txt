@@ -1,0 +1,23 @@
+--------- beginning of main
+I/libprocessgroup( 3992): Created cgroup /sys/fs/cgroup/apps/uid_10236
+I/libprocessgroup( 3992): Created cgroup /sys/fs/cgroup/apps/uid_10236/pid_3992
+I/Zygote  ( 3992): Process 3992 created for com.android.talkback
+I/ndroid.talkback( 3992): Late-enabling -Xcheck:jni
+I/ndroid.talkback( 3992): Using generational CollectorTypeCMC GC.
+W/ndroid.talkback( 3992): Unexpected CPU variant for x86: x86_64.
+W/ndroid.talkback( 3992): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, pantherlake, default
+D/nativeloader( 3992): Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+D/ApplicationLoaders( 3992): Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+D/ApplicationLoaders( 3992): Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+D/nativeloader( 3992): Configuring clns-9 for other apk /data/app/~~_iPrZ7fa7w4UiPeUIsrzCw==/com.android.talkback-u0SYYCzWIrFAmM48vADnKg==/base.apk. target_sdk_version=30, uses_libraries=, library_path=/data/app/~~_iPrZ7fa7w4UiPeUIsrzCw==/com.android.talkback-u0SYYCzWIrFAmM48vADnKg==/lib/x86_64:/data/app/~~_iPrZ7fa7w4UiPeUIsrzCw==/com.android.talkback-u0SYYCzWIrFAmM48vADnKg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.talkback
+V/GraphicsEnvironment( 3992): Currently set values for:
+V/GraphicsEnvironment( 3992):   angle_gl_driver_selection_pkgs=[]
+V/GraphicsEnvironment( 3992):   angle_gl_driver_selection_values=[]
+V/GraphicsEnvironment( 3992): com.android.talkback is not listed in per-application setting
+V/GraphicsEnvironment( 3992): No special selections for ANGLE, returning default driver choice
+V/GraphicsEnvironment( 3992): Neither updatable production driver nor prerelease driver is supported.
+I/ndroid.talkback( 3992): hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported) from Lcom/google/android/accessibility/talkback/eventprocessor/AccessibilityEventProcessor; (domain=app, TargetSdkVersion=30) using reflection: allowed
+D/DesktopExperienceFlags( 3992): Toggle override initialized to: false
+I/TextToSpeech( 3992): Sucessfully bound to com.reecedunn.espeak
+I/TextToSpeech( 3992): Connected to TTS engine
+I/TextToSpeech( 3992): Setting up the connection to TTS engine...
