@@ -43,8 +43,10 @@ class StatusMotionPreviewTest {
                 check(device.wait(Until.hasObject(By.text("Later")), 15_000))
                 device.findObject(By.text("Later")).click()
                 check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 15_000))
+                val refresh = requireNotNull(device.wait(Until.findObject(
+                    By.clickable(true).enabled(true).hasDescendant(By.text("Refresh"))), 5_000))
                 peer.rejectNewConnections = true
-                device.findObject(By.text("Refresh")).click()
+                refresh.click()
                 check(device.wait(Until.hasObject(By.text("Node unavailable")), 20_000))
                 captureNativeScreen(File(folder, "$name-outage.png"))
                 device.findObject(By.desc("Details: Node unavailable")).click()

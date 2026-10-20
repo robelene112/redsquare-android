@@ -61,6 +61,8 @@ class TalkBackStatusPreviewTest {
                 assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
                 waitFor(5_000) { focusedText(automation) == "Reference post 20" }
                 SystemClock.sleep(1_000) // A quiet baseline after the deliberate focus announcement.
+                check(device.wait(Until.hasObject(
+                    By.clickable(true).enabled(true).hasDescendant(By.text("Refresh"))), 5_000))
                 device.executeShellCommand("logcat -c")
                 peer.rejectNewConnections = true
                 click(automation, "Refresh")
