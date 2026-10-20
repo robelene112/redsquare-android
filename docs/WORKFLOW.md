@@ -140,8 +140,10 @@ complete first-release scope and the established production boundaries.
    their identities and deadlines. A focused success is not complete acceptance.
    The disposable API29 image restarts its JVM services after its declared/QEMU
    heap properties agree and before app installation. Strict original/replacement
-   PID and unchanged-property records retain this initialization. No heap value
-   is overridden. The existing photo-history cases independently require actual
+   PID and unchanged-property records retain this initialization. Each initial/
+   replacement readiness phase has one120second bound and requires the same valid
+   tuple on two observations; the exact tuples and polls are retained. No heap
+   value is overridden. The existing photo-history cases independently require actual
    JVM heap parity with Android's memory class before exercising their unchanged
    history/draft payloads. Temporary process-only diagnostic scopes have been
    removed; their original failed/passing evidence stays recorded under59.
