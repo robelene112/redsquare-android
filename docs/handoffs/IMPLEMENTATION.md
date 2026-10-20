@@ -481,3 +481,14 @@ so the second theme must replace rather than append the same query. The single
 operator correction preserves exact text, routes and all goals; both source
 reviews0. Final local app/test Kotlin compile succeeds1m43s. No native failure
 or acceptance is inferred from the cancelled attempts. New paired proof pending.
+
+Four-context native10 run39509028753 and17 run39509031615 atf28f03706512362e2d22efaef4287f2a7c67bec3
+complete SUCCESS. Seven methods per SDK retain the original post/viewport/content
+goals plus same signed media/quote post through Feed/Thread/Profile/Search in both
+themes at320dp/100%. Packets263/265 hashes, four archives246 exact originals each;
+both evidence reviews0. Root viewed10 Light identity/body in all four routes,
+Dark footers in all four, and17 Light Feed identity/Thread quote and Dark Profile
+footer/Search quote. Separate17 context quote XMLs include attribution/body in3of8
+and omit it in5of8;10 includes8of8. Compose assertions and original PNG proof remain
+distinct from XML observation. Production files remain unchangedcfbf. Whole60,
+status matrix/new-control TalkBack/full catalog/full10+17/signed59 remain pending.
