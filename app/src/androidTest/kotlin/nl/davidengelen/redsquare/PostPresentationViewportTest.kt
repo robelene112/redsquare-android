@@ -111,7 +111,23 @@ class PostPresentationViewportTest {
                                 ui.onNodeWithText(count, useUnmergedTree = true).assertIsDisplayed()
                                     .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(results) }
                                 assertEquals("Count must have an actual rendered text layout", 1, results.size)
-                                assertFalse("Complete observed count must fit at $label", results.single().hasVisualOverflow)
+                                val layout = results.single()
+                                File(folder, "$label-${if (count.endsWith("likes")) "likes" else "reposts"}-layout.json")
+                                    .writeText(JsonObject().apply {
+                                        addProperty("count", count)
+                                        addProperty("size", layout.size.toString())
+                                        addProperty("constraints", layout.layoutInput.constraints.toString())
+                                        addProperty("paragraphWidth", layout.multiParagraph.width)
+                                        addProperty("paragraphHeight", layout.multiParagraph.height)
+                                        addProperty("didOverflowWidth", layout.didOverflowWidth)
+                                        addProperty("didOverflowHeight", layout.didOverflowHeight)
+                                        addProperty("didExceedMaxLines", layout.multiParagraph.didExceedMaxLines)
+                                        addProperty("lineCount", layout.lineCount)
+                                        addProperty("lineBounds", (0 until layout.lineCount).joinToString { line ->
+                                            "${layout.getLineLeft(line)},${layout.getLineTop(line)},${layout.getLineRight(line)},${layout.getLineBottom(line)}"
+                                        })
+                                    }.toString())
+                                assertFalse("Complete observed $count must fit at $label", layout.hasVisualOverflow)
                             }
                             File(folder, "$label.json").writeText(JsonObject().apply {
                                 addProperty("widthPixels", device.displayWidth)

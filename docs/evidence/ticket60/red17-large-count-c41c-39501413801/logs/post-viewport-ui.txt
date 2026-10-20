@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationViewportTest:
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Complete observed count must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26$lambda$18(PostPresentationViewportTest.kt:114)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$36_qpkZEp0gfVUw_knH58Nt3fpg(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Ou8aGh8hQTNzdrNzeFos4sColR8(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: stream=
+Error in longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest):
+java.lang.AssertionError: Complete observed count must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26$lambda$18(PostPresentationViewportTest.kt:114)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$36_qpkZEp0gfVUw_knH58Nt3fpg(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Ou8aGh8hQTNzdrNzeFos4sColR8(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+INSTRUMENTATION_STATUS: test=longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.268
+There was 1 failure:
+1) longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(nl.davidengelen.redsquare.PostPresentationViewportTest)
+java.lang.AssertionError: Complete observed count must fit at post-320-font100-light
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26$lambda$18(PostPresentationViewportTest.kt:114)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$36_qpkZEp0gfVUw_knH58Nt3fpg(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda12.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes$lambda$26(PostPresentationViewportTest.kt:83)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.$r8$lambda$Ou8aGh8hQTNzdrNzeFos4sColR8(PostPresentationViewportTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationViewportTest.longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes(PostPresentationViewportTest.kt:45)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

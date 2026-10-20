@@ -258,3 +258,16 @@ complete nonoverlapping48dp targets and full identity access at320dp, font scale
 bound; the new viewport class has its own180second bound. Declared name caches
 join independently restored frame state. Both source reviews report zero
 findings. Native results and complete60 acceptance are still pending.
+
+Viewport runs39501410129(Android10) and39501413801(Android17) atc41c99467e87194389871463fa9a5403387c8ef7
+complete FAILURE at the first100%Light count-overflow assertion,7.646s/6.268s.
+Each retains two archives and40 original members. The preceding four post methods
+PASS26.088s/52.168s. Root viewed10 original failure: full likes appears present,
+while the floating composer obscures part of the repost count. Exact layout
+dimensions are needed before attributing the overflow. Later themes/font sizes,
+identity dialog and successful-path wallet/backend/zero-frame assertions are
+unreached; independent failure cleanup still executes. Diagnostic-only tracer
+records size/constraints/paragraph/overflow flags and actual line bounds before
+the unchanged overflow assertion. No application change or GREEN is claimed.
+Both evidence and diagnostic-source reviews report zero findings;52/54 hashes
+verified. Overlay occlusion is separate from the internal text-overflow flag.
