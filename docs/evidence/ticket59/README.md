@@ -1428,3 +1428,26 @@ checks to pass. The baseline RED remains failed in its original log. No app
 acceptance gate runs here, and no heap property, production code, existing full
 class, input or deadline changes. Both source reviews report0 residual findings
 after strengthening the individual process lifecycle observations.
+
+
+The five restart experiments at33fa686e have now completed. Runs39472512423,
+39472517029,39472520887 and39472525371 succeed:96 distinct post-restart target
+processes report512MiB, each parent maps to its verified newzygote64, allthree
+original process PIDs are absent, and the four recorded heap properties stay
+byte-identical. All four baselines also report512MiB, so these runs do not
+establish a direct16-to512MiB transition. Raw artifacts remain in the external
+status59-runtime-restart-33-RUN directories.
+
+[Run39472529831](runtime-restart-readiness-red10-33-39472529831/) fails before
+any post-restart invocation. The twelve-hash packet retains baseline512MiB PASS,
+proven absence of all original PIDs, the stopped marker and an empty replacement
+PID record. This establishes that the boot flag was observed before the first
+replacement PID was available, without identifying who set that flag. Both
+independent evidence reviews report0 findings.
+
+The readiness correction clears the flag only after original PID death and
+requires boot completion plus allthree process names within one120second outer
+timeout. Strict per-PID existence, disjointness and unchanged-property checks
+remain. Both independent residual source reviews report0 findings. A corrected
+cold-boot cohort remains pending; no application acceptance follows from these
+process-only experiments.

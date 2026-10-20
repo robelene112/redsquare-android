@@ -1,0 +1,12 @@
+{
+  "diagnosticOnly": true,
+  "runResult": "FAILURE",
+  "baselineParity": "PASS512MiB",
+  "originalPidRecords": "runtime-restart-previous-pids.txt",
+  "oldPidAbsenceRecord": "runtime-restart-stopped.txt",
+  "replacementPidRecordPresentButEmpty": true,
+  "postRestartNativeAttempts": 0,
+  "readinessInference": "Source reaches creation of replacement PID record only after observing boot_completed=1, then fails before recording first required zygote64 PID. That flag alone does not prove service availability.",
+  "noAppFailureWaiver": true,
+  "noFixClaim": true
+}

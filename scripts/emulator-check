@@ -291,7 +291,7 @@ restart_diagnostic_runtime() {
     [[ "$(adb shell getprop ro.zygote | tr -d '\r')" == zygote64_32 ]] || return 2
     [[ "$(timeout 10 adb shell su 0 id -u | tr -d '\r')" == 0 ]] || return 2
     local previous_pids="" previous_pid process_name process_pid process_state
-    local declared_heap qemu_heap stopped=false restarted=false runtime_wait
+    local declared_heap qemu_heap stopped=false runtime_wait
     declared_heap=$(timeout 5 adb shell getprop dalvik.vm.heapsize | tr -d '\r')
     qemu_heap=$(timeout 5 adb shell getprop ro.kernel.qemu.dalvik.vm.heapsize | tr -d '\r')
     [[ -n "$declared_heap" && "$declared_heap" == "$qemu_heap" ]] || return 1
@@ -303,7 +303,6 @@ restart_diagnostic_runtime() {
         previous_pids+=" $process_pid"
         printf '%s %s\n' "$process_name" "$process_pid" >> "$evidence/runtime-restart-previous-pids.txt"
     done
-    timeout 10 adb shell su 0 setprop sys.boot_completed 0
     timeout 10 adb shell su 0 stop zygote
     timeout 10 adb shell su 0 stop zygote_secondary
     for ((runtime_wait=0; runtime_wait<40; runtime_wait++)); do
@@ -317,13 +316,14 @@ restart_diagnostic_runtime() {
     done
     [[ "$stopped" == true ]] || return 1
     printf '%s\n' 'All captured original zygote/system_server /proc/PID directories are absent.' > "$evidence/runtime-restart-stopped.txt"
+    # An old server can still finish boot between clearing its flag and death.
+    # Clear it only after all original processes are positively absent.
+    timeout 10 adb shell su 0 setprop sys.boot_completed 0
     timeout 10 adb shell su 0 start zygote
     timeout 10 adb shell su 0 start zygote_secondary
-    for ((runtime_wait=0; runtime_wait<120; runtime_wait++)); do
-        if [[ "$(timeout 5 adb shell getprop sys.boot_completed | tr -d '\r')" == 1 ]]; then restarted=true; break; fi
-        sleep 1
-    done
-    [[ "$restarted" == true ]] || return 1
+    timeout 120 adb shell 'until [ "$(getprop sys.boot_completed)" = 1 ] &&
+        pidof zygote64 >/dev/null && pidof zygote >/dev/null &&
+        pidof system_server >/dev/null; do sleep 1; done' || return 1
     : > "$evidence/runtime-restart-current-pids.txt"
     for process_name in zygote64 zygote system_server; do
         process_pid=$(timeout 5 adb shell pidof "$process_name" | tr -d '\r')
