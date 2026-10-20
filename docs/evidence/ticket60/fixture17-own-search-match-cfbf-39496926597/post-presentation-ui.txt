@@ -1,0 +1,125 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Own post action preview' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26$lambda$25(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$3CJY2zMLE3KgCIKljkNFWKQlAq0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+INSTRUMENTATION_STATUS: stream=
+Error in ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(nl.davidengelen.redsquare.PostPresentationPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Own post action preview' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26$lambda$25(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$3CJY2zMLE3KgCIKljkNFWKQlAq0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 69.952
+There was 1 failure:
+1) ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(nl.davidengelen.redsquare.PostPresentationPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Own post action preview' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26$lambda$25(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$3CJY2zMLE3KgCIKljkNFWKQlAq0(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:139)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(PostPresentationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

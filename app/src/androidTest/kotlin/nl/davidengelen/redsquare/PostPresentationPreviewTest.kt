@@ -116,7 +116,7 @@ class PostPresentationPreviewTest {
         val row = postingArchiveRow(SaitoTransaction.create(wallet, body, 1_700_000_000_000))
         val author = "Anon-${wallet.publicKey.take(6)}"
         withAppFrameFixture("post-author-actions", "post-presentation-evidence", feedRows = "[$row]") {
-            ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() }
+            ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             assertOwnPostActions(author, "feed")
             ui.onNodeWithText("Own post action preview").performClick()
@@ -136,7 +136,7 @@ class PostPresentationPreviewTest {
             ui.onNode(hasSetTextAction()).performTextInput("Own post action preview")
             ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
             ui.onNodeWithText("Search history").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() &&
+            ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() &&
                 ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
             assertOwnPostActions(author, "search")
@@ -166,7 +166,7 @@ class PostPresentationPreviewTest {
             .assertIsDisplayed()
         capture("own-delete-confirmation-$surface.png")
         ui.onNodeWithText("Back").performClick()
-        ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() }
+        ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() }
     }
 
     private fun assertPostPresentation(surface: String) {

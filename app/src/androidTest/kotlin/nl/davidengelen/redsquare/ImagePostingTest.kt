@@ -129,7 +129,7 @@ class ImagePostingTest {
                             when (kind) {
                                 "post" -> ui.onNode(hasText("New post") and hasClickAction()).performClick()
                                 "reply" -> {
-                                    ui.clickVisiblePostContent("Signed image reference")
+                                    ui.clickVisiblePostBody("Signed image reference")
                                     waitFor("Conversation")
                                     ui.onNodeWithText("Reply").performClick()
                                 }

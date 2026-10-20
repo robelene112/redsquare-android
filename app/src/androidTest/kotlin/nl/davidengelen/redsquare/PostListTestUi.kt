@@ -12,6 +12,16 @@ internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
     onNodeWithText(text).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
+/** Tap the rendered body itself, since a merged media card's center may be its image. */
+internal fun ComposeTestRule.clickVisiblePostBody(text: String) {
+    waitUntil(20_000) {
+        onAllNodes(hasText(text), useUnmergedTree = true)
+            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+    }
+    onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText(text))
+    onNodeWithText(text, useUnmergedTree = true).assertIsDisplayed().assertIsEnabled().performClick()
+}
+
 /** Open a named post's secondary menu before invoking its real visible action. */
 internal fun ComposeTestRule.clickVisiblePostMenuAction(authorName: String, action: String) {
     val more = hasContentDescription("Post actions for $authorName") and hasClickAction()

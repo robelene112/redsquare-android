@@ -220,6 +220,24 @@ also gains account context. The obsolete Thread primary Edit/Delete row/state is
 removed. Existing editor/draft/mutex/revision/signing/policy/recovery behavior
 remains. Three existing fixture files open the actual More menu instead of their
 old primary buttons; every other substantive assertion is retained. Local build
-34657 caller ends143 while its owned container continues AndroidTest compilation;
-app Kotlin compiled, no local build conclusion yet. Both source/RED evidence
-reviews report0. Native productGREEN remains pending.
+34657 caller ends143, but its owned container independently completes
+BUILD SUCCESSFUL4m23s with exit0 (logs67452/wait64180); no rerun or app failure. Both source/RED evidence
+reviews report0. Author productcfbf9af2ab785d524145ebe4fa408014bc527bed is committed/pushed.
+Pinned post-presentation10 run39496922849 completesFAILURE atcfbf:threePASS/
+one fixture ambiguity in Search at139,20.639s. Query and rendered post share
+identical text; all Feed/Thread/Profile own-menu/form goals were reached, Search
+author actions and final zero-frame/restoration assertions not yet reached.
+Packet38hashes/30originals retains native Search/query/post capture. Root viewed it.
+Corrected waits require the actual clickable non-editable post, retaining query,
+exact body and all deadlines/goals.Android17 run39496926597 alsoFAILS the same Search ambiguity at139,69.952s,
+38hashes/30originals. Existing author10 run39496930340 has7PASS/one image-case
+Thread-entry failure before Edit (57.143s): native capture shows gallery because
+old merged-card center tap hits the image.20hashes/11originals retained. Neither
+ordinary nor delete process gate ran after that class failure. Corrected body
+operators physically tap the actual unmerged rendered body; three affected image
+entry calls keep original text/route/frame/pixel/cleanup/deadline goals. Production
+remainscfbf. Agreement10 run39496934335 SUCCESS:191hashes/nine archives159originals, all25UI
+cases and actual publishing-process9755 to9875/recovery/restoration. Root viewed
+actual edited/removed forms; both evidence reviews0. Both operator-correction
+reviews0; rerun corrected native goals before author acceptance.
+Native author productGREEN remains pending.

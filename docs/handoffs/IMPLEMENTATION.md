@@ -335,6 +335,21 @@ and notification references into one Author destination/existing AuthorEditScree
 Own-only contextual Edit/Delete replace old Thread primary buttons/state; Report
 gains context. Editor/storage/signing/policy/controller behavior unchanged. Three
 existing fixture files now open real More instead of primary buttons; their raw/
-recovery/policy assertions remain. Local34657 caller ends143 while owned builder still compiles AndroidTest; app
-Kotlin compiled, no local build conclusion. Source/RED evidence reviews0;
-native authorGREEN pending.
+recovery/policy assertions remain. Local34657 caller ends143; owned builder independently completes SUCCESS4m23s,
+actual container exit0 via logs67452/wait64180. No repeat build or app failure. Source/RED evidence reviews0;
+author productcfbf9af2ab785d524145ebe4fa408014bc527bed committed/pushed.
+Pinned post-presentation10 run39496922849 FAILS fixture ambiguity at139: query
+and post have identical text. ThreePASS, own-menu Feed/Thread/Profile goals pass;
+Search own-menu/final zero-frame goals unreached.38hashes/30originals retained in
+fixture10-own-search-match-cfbf-39496922849, root viewed actual Search capture.
+WIP correction scopes waits to actual clickable non-editable post without changing
+query/body/goals/deadlines.Android17 run39496926597 alsoFAILS exact same Search ambiguity,69.952s;
+38hashes/30originals retained. Author10 39496930340 has7PASS/one image-case
+Thread-entry failure before Edit,57.143s: native PNG shows gallery after merged
+card-center tap.20hashes/11originals retained; both later process gates unrun.
+Body-tap helper now uses actual unmerged body gesture for three affected image
+entries, preserving original text/frame/pixel/deadline goals. Productioncfbf
+unchanged. Agreement10 39496934335 SUCCESS191hashes/9archives159originals,25UI and actual
+process9755 to9875/recovery/restoration. Root viewed actual edited/removed forms;
+both evidence/operator-correction reviews0. Corrected native goal reruns pending. Native
+authorGREEN pending.

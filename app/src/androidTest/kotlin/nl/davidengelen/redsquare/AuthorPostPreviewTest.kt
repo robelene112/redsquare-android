@@ -110,7 +110,7 @@ class AuthorPostPreviewTest {
                     waitForList()
                     waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's original post"))
-                    ui.onNodeWithText("Native author's original post").performClick()
+                    ui.clickVisiblePostBody("Native author's original post")
                     waitFor("Conversation")
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Edit")
                     waitFor("Edit post")
@@ -142,7 +142,7 @@ class AuthorPostPreviewTest {
                         }.toString())
                     }
                     captureFeedEvidence("author-post-evidence/edited-post-profile.png")
-                    ui.clickVisiblePostContent("Native author's edited post")
+                    ui.clickVisiblePostBody("Native author's edited post")
                     waitFor("Conversation")
                     ui.clickVisiblePostMenuAction("Anon-${own.get()!!.get("field2").asString.take(6)}", "Delete")
                     waitFor("Delete post")
