@@ -1,0 +1,87 @@
+{
+  "source": "fa21f295d8ff39206c81e30da081a677ed57a402",
+  "sdk": "17",
+  "partitions": {
+    "chat": {
+      "identities": 190,
+      "normalCompletions": 50,
+      "deliberateInterruptions": 15,
+      "continuityRecords": 13,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 572,
+      "xml": 538,
+      "visualErrors": [
+        {
+          "path": "chat/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        }
+      ],
+      "files": 140
+    },
+    "social": {
+      "identities": 208,
+      "normalCompletions": 39,
+      "deliberateInterruptions": 16,
+      "continuityRecords": 14,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 382,
+      "xml": 294,
+      "visualErrors": [],
+      "files": 97
+    },
+    "wallet": {
+      "identities": 76,
+      "normalCompletions": 34,
+      "deliberateInterruptions": 3,
+      "continuityRecords": 6,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 169,
+      "xml": 122,
+      "visualErrors": [
+        {
+          "path": "wallet/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "files": 91
+    }
+  },
+  "identityComparison": {
+    "expected": 474,
+    "actual": 474,
+    "missing": [],
+    "extra": []
+  },
+  "totals": {
+    "identities": 474,
+    "normalCompletions": 123,
+    "deliberateInterruptions": 34,
+    "continuityRecords": 33,
+    "png": 1123,
+    "xml": 954
+  },
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/ui58-full17-fa-39376147196",
+  "limits": "Original external tar member hashes/structural validation are observations; selected originals are inspected separately. No physical/configured-provider/store acceptance.",
+  "passed": 474,
+  "assumptions": 0,
+  "assumptionIdentities": []
+}

@@ -32,9 +32,15 @@ review axes0. Source39377858558SUCCESS; focused original-method diagnosis
 notifications clearable=true/ongoing=false/flags24, text hidden and owned alert
 absent after swipe; gesture calls168/320ms. This does not prove earlier cause.
 Fresh full10 run39378808769 at ec now executing, bound before outcomes.
-Full17fa39376147196 remains in progress: WalletSUCCESS, exact76 accepted38 IDs
-and partition-complete verified in external ui58-full17-fa-39376147196. Social
-job alsoSUCCESS; Chat stillrunning, no complete17 acceptance. No whole/full acceptance or49publication. Appa1 unchanged.
+Full17fa39376147196 completed SUCCESS in all three jobs. Strict retention verifies
+exact474 PASS identities,123 normal completions,34 deliberate interruptions and
+33 PASS continuity records, unchanged independent expectations. Retained packet
+full17-fa-39376147196 has467 hashes and85 archive inventories binding2273 original
+members. PNG/XML validation reports only the five established optional53 gaps.
+Root opened actual first-use,320dp/200% dark,412dp/130% light, real profile IME,
+Chat without backup chrome, interrupted reaction and Home-return originals.
+Dense Chat recovery remains62 work. Android10 is still pending; no paired full
+acceptance or49 publication. Production a1 unchanged.
 
 Shared frame58 remains ACTIVE. Productiona1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4
 moves reaction status/error into the existing named quarter-height Chat status
@@ -83,7 +89,8 @@ is not rendered cache proof. This remains62 work. Fresh productiona1 must be
 verified; prior focused successes are not acceptance of its new layout.
 
 Latest retained packets preserve all actual failed/successful outcomes and raw
-native originals. See../evidence/ticket58/README.md. No full acceptance/publication.
+native originals. See../evidence/ticket58/README.md. Complete17 accepted; paired
+full acceptance and publication remain pending10.
 Fresh full10/17 was dispatched before evidence-only pushes, with exact source/run
 bindings before outcomes; failed e205 attempts remain failed previousAttempts. The
 frozen473/474 identities,122/123 normal completions,34 interruptions and33 continuity

@@ -921,3 +921,21 @@ SUCCESS exact76, Chatpending. Diagnostic/harness-only ec does not change app inp
 original gestures or full assertion/deadline coverage.49 remains prepared/unpublished.
 Both sources’ full results must be inspected before acceptance; prior10failure stays
 failed in previousAttempts. Frozen473/474 catalogs unchanged.
+
+
+Android17 [complete full result](full17-fa-39376147196/summary.json), run39376147196
+at fa, is SUCCESS in all three jobs. Exact independent474 identities all PASS,
+123 normal completions,34 deliberate interruptions and33 continuity records;
+no missing/extra identities, failures or assumptions. The strict unchanged
+collector exits0, retains467 packet hashes and85 archive inventories binding2273
+original members. It structurally validates1123 PNG and954 XML observations;
+only the five exact established optional53 gaps recur, with no new exclusions.
+The aggregate profile log is excluded as the existing duplicate of its four
+canonical16-case constituent logs, preserving208 independent Social identities.
+Root opened actual first-use,320dp/200% dark,412dp/130% light, real profile IME,
+Chat without backup chrome, interrupted private reaction and Home-return PNGs.
+The prior all-eight font/theme and actual normal/zero-scale motion proof remains
+current for the unchanged shared frame. Broader dense Chat remains62 work.
+Android10 full39378808769 is still running. Complete paired acceptance and signed49
+publication remain pending; neither prior failed10fa nor focused diagnostic
+success is relabelled. Production a1 and signed49 preparation are unchanged.
