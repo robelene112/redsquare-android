@@ -37,7 +37,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 ## Active status59 checkpoint
 
 2026-10-20,12:43 UTC.59 remains OPEN. Ordinary50 is LIVE.51 and52 are
-REJECTED and NEVER PUBLISH; neither frozen APK is changed.53 is now reserved; canonical build is active in the external worktree atf4bbe99df.
+REJECTED and NEVER PUBLISH; neither frozen APK is changed.53 is built and APK-inspected atf4bbe99df in the external worktree; unpublished.
 Continue60 through69 sequentially after actual59 completion, without owner stops.
 
 Cumulative source review found conditionally mounted status hosts skip their
@@ -68,8 +68,9 @@ Its configured hash is updated; frozen486/487 references remain unchanged.
 Local debug/app-test compilation atbb8 succeeds. Paired review through68ea
 reports0 residual findings. Final sourcef4bbe99df (same production as68ea) is
 frozen for new signed53 and complete10run39424620344/17run39424624394 on
-verify/status59-f4bbe99df. Final motion10/17runs39424574430/39424578068 and
-keyboard10/17runs39424581644/39424585472 are SUCCESS, all10 methods each.
+verify/status59-f4bbe99df. Final motion10/17runs39424574430/39424578068
+are SUCCESS, both2methods each. Keyboard10/17runs39424581644/39424585472
+are SUCCESS, all10 methods each.
 Both motion runs succeed; original10 entry/exit and17 exit/zero frames inspected.
 Preliminarybb8 mute39424301229/39424305506 both succeed, all8 methods each;
 root opened both readable group body/saved draft captures. Signed53 actual APK
@@ -78,9 +79,13 @@ Independent before-HTTP bookend PASS.53 remains UNPUBLISHED. Standalone source
 39424574004 is canceled by a documentation push, not accepted; each complete
 job independently runs mandatory source/core/release/lint checks. Main4f source
 run39424796169 is separate and still active.
-Pending: corrected focused proof, original visual inspection, successful complete
-allthree partitions perSDK, actual APK inspection, strict collection and paired
-final evidence review. Publish only after
+Current full failures: both Chat partitions fail original reading position after
+Activity recreation (10 +38pixels,17 +4pixels);10wallet fails7group publishing
+methods because forwarded status is outside the newly bounded status viewport.
+Other partitions continue. These runs cannot establish acceptance. Diagnose
+original captures before any source or fixture correction; preserve all bounds.
+Pending: fix actual regressions, fresh relevant focused/full verification, strict
+collection and paired final evidence review. Publish only after
 all actual complete gates succeed, independent public before/after checks and
 canonical review-publish. Do not run the obsolete52 after-publication checker.
 
