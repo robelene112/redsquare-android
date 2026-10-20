@@ -367,3 +367,13 @@ Android17 complete agreement39345995233 has the same two queue expectation
 failures at172; group7 and surfaces4PASS. All four class packets retain actual
 results and original bytes. The overall17 run remainsFAILED and later gates
 are absent. The correction is test-only, with both review axes0 for its scope.
+
+The incompleteba3 full pair39346126335/39346130915 was deliberately cancelled
+after the focused agreement pair proved obsolete reminder assertions on bothSDKs.
+This avoids repeating known-invalid expectations. It is not accepted or converted
+toSUCCESS. Fresh full39347038831(10)/39347042348(17, all3partitions) execute exact
+3cc6363c9 with the corrected fixtures and unchanged app/build/signing inputs.
+Source/run bindings were updated before their outcomes; the independently frozen
+catalog, public reads and immutable signed35/43 observer inputs are unchanged.
+Corrected complete agreement39346896065/39346898616 and focused cancellation
+viewport39346900869/39346903466 also run at3cc. No new outcome is claimed yet.

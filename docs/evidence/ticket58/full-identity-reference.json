@@ -124,11 +124,68 @@
         "android17": "failure"
       },
       "limit": "Incomplete failed full attempts. Publishing viewport, obsolete Chat reminder and GIF sample positioning failures retained separately; never complete acceptance."
+    },
+    {
+      "executingSource": "ba3ad0240ff6644114204b08d792261b27b605b3",
+      "executingRuns": {
+        "android10": 39346126335,
+        "android17": 39346130915
+      },
+      "cancellationRequested": true,
+      "limit": "Superseded incomplete runs. Actual terminal conclusions are CANCELLED after the complete focused agreement pair proved stale reminder-in-Chat expectations. No complete acceptance.",
+      "conclusions": {
+        "android10": "cancelled",
+        "android17": "cancelled"
+      },
+      "terminalRuns": {
+        "android10": {
+          "id": 39346126335,
+          "source": "ba3ad0240ff6644114204b08d792261b27b605b3",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39346126335",
+          "jobs": [
+            {
+              "id": 118379040248,
+              "name": "native-proof (all)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            }
+          ]
+        },
+        "android17": {
+          "id": 39346130915,
+          "source": "ba3ad0240ff6644114204b08d792261b27b605b3",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "url": "https://github.com/robelene112/redsquare-android/actions/runs/39346130915",
+          "jobs": [
+            {
+              "id": 118379055760,
+              "name": "native-proof (chat)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            },
+            {
+              "id": 118379055822,
+              "name": "native-proof (social)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            },
+            {
+              "id": 118379055894,
+              "name": "native-proof (wallet)",
+              "status": "completed",
+              "conclusion": "cancelled"
+            }
+          ]
+        }
+      }
     }
   ],
-  "executingSource": "ba3ad0240ff6644114204b08d792261b27b605b3",
+  "executingSource": "3cc6363c93f5ad73d0d11fd748549bc74d4a547f",
   "executingRuns": {
-    "android10": 39346126335,
-    "android17": 39346130915
+    "android10": 39347038831,
+    "android17": 39347042348
   }
 }

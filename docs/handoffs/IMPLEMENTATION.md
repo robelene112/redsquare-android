@@ -59,16 +59,19 @@ by12px so the original8px samples remain within the bitmap. Keyboard retains eve
 real-IME, exact-draft and explicit-Send assertion; backup guidance stays absent in
 Chat without persisting dismissal. All focused packets are retained and reviewed.
 
-Fresh full39346126335(10)/39346130915(17, all3parts) run at exactba3ad0240 with
+Fresh full39347038831(10)/39347042348(17, all3parts) run at exact3cc6363c9 with
 public reads and immutable signed35/43 observers. The independent frozen catalog
 binds source and runIDs in../evidence/ticket58/full-identity-reference.json:
 473/474 identities,122/123normal,34deliberate interruptions,33continuity. Prior
-failed attempts remain recorded separately. Complete agreement39345992170(10) FAILED later in bothlarger-text Chatqueue
+failed attempts remain recorded separately. Incompleteba3 full39346126335/
+39346130915 were cancelled after the focused agreement pair proved stale Chat
+reminder assertions, avoiding known-invalid repetition; no acceptance claimed. Complete agreement39345992170(10) FAILED later in bothlarger-text Chatqueue
 cases at the old reminder-inChat expectation (2othermethodsPASS each); group7
 and surfaces4PASS. Original packets retained;17 agreement39345995233 has the same outcomes.
 A test-only correction asserts reminder absence plus persistedhidden=false there
 and in the same two legacy ChatQueue cancellation cases, preserving allworker/
-signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. All changes since9b33
+signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. Corrected complete agreement39346896065/39346898616 and focused cancellation
+viewport39346900869/39346903466 run at3cc. All changes since9b33
 are fixtures/harness/evidence only; production/build/signing inputs are identical.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
