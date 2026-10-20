@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "request": "like tweet",
+  "author": "tYPRrzDBN8CzshtX5GtKzzRdVE7rEEe2J9ELxFyQzHtH",
+  "signature": "f49fe8c4055ab953488514359d0c77daf3e9e1ef2c314a29c2d746a560a68e20660ff6bd968a685c5276116e6f4c2ffa9707311f13c19293453c17ad3061393f",
+  "target": "c87f3ca402840cd7add095dbf1fda809f34d9cd3f7dae9af022e2a0f2a631f376beb54dabe886a5a73b02abe79afe51652efa57826ccd2591001d73f90544fd9",
+  "recipients": [
+    "tYPRrzDBN8CzshtX5GtKzzRdVE7rEEe2J9ELxFyQzHtH",
+    "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
+  ],
+  "reference": {
+    "saitoCommit": "9a4ca7e9442eb5e872168ced361ce741d7d139d7",
+    "saitoWasmVersion": "0.3.2",
+    "ellipticVersion": "6.6.1",
+    "wasmSha256": "f59be69dbb949368ce1fc7ef47d414cbe0281a86a206fe4bfb1128a4d087e01e"
+  }
+}

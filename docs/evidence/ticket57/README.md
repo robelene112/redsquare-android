@@ -72,7 +72,7 @@ so the controls retain their position; fresh rendered acceptance is pending.
 Semantics assertions do not establish actual TalkBack speech.
 
 The later37 cross-node/thread/profile journeys39392556676/39392576007 also
-complete SUCCESS, exactly3 methods per SDK; raw retention remains pending.
+complete SUCCESS, exactly3 methods per SDK; both original packets are now retained with14 archive bindings and7 independently verified signed frames each. Root opened the10 thread and17 profile originals.
 Extended wallet/different-post/late-count/import/process coverage, fresh full10/17
 acceptance and signed57 delivery are still pending. No public write, physical/
 configured-provider/policy/store acceptance is claimed.
@@ -105,8 +105,7 @@ The new app fix scans validated wallet-wide social journals on both nodes,
 includes active leases, conservatively treats unreadable/partial records as work,
 and excludes rate-only receipts. Confirming a replacement rechecks for work that
 appeared after the preview, resets acknowledgment and explains the change.
-A disabled Like no longer instructs the user to tap again. Native import GREEN
-and final source review remain pending.
+A disabled Like no longer instructs the user to tap again. Both source review axes at1470ddbd2 report0 findings. Native import GREEN remains pending.
 
 LikeIsolationPreviewTest adds a separate180second owned command: the same cap
 covers another signed post while a different wallet has its own window, and
@@ -115,3 +114,25 @@ the newer pending retry into another candidate. These actual native journeys
 are pending. Their controlled peer retains signature-deduplicated counts and
 observes actual exact-signature requests. Every Activity closes before wallet
 restoration, preserving a primary failure. Existing gates/deadlines remain.
+
+
+## Actual second-like process protocol
+
+Source739aa90be adds an independent deliberate second-like process journey. It
+settles the first actual signed Like, makes the distinct second Like uncertain,
+retains both public frames and kills its own process after fsync of the public
+checkpoint. The host verifies old PID absence. Cold startup checks the same
+wallet and exact second signature before/after reconciliation, sends no extra
+frame and keeps the persisted full wallet rate window. A public recovery PID
+proves this is a distinct process. Both120second host phase deadlines remain.
+The original first-Like process test is unchanged and still runs separately.
+Both source review axes report0 findings; local native fixture compilation
+exits0. Runtime remains pending.
+
+The independent complete catalog is frozen before any57 full execution in
+full-identity-reference.json. It retains every473/474 old identity and adds eight
+normal completed methods: three Repeat, two Isolation, two Import and one cold
+repeat recovery. Deliberately killed preparation is counted separately, so the
+expected complete totals are481/482 identities,126/127 normal completions,
+35 deliberate interruptions and34 continuity records. Both SDKs retain all three
+Chat/Social/Wallet goal sets and the established sole API29 Profile assumption.

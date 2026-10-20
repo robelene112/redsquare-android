@@ -1,0 +1,124 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete58 exact path/class/test catalogs plus3 Repeat,2 Isolation,2 Import and1 cold-recovered RepeatProcess methods. Deliberately killed repeat phase is separately counted as interruption, not a completed identity. Existing deadlines and every original gate retained. Both SDKs split into existing Chat/Social/Wallet goals.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket58/full10-ec-39378808769/identities.json",
+      "sha256": "24f4e7da0543bf0673c22b669ab1dd7e19891df49541bd637ae5520c61e28218",
+      "previousIdentities": 473,
+      "additional": [
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "rateLimitSurvivesRecreationAndExpiresAtTheRollingBoundary",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "oneWalletSharesItsRateAcrossBothNodesThreadAndProfile",
+          "occurrences": 1
+        },
+        {
+          "path": "like-isolation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeIsolationPreviewTest",
+          "test": "capCoversDifferentPostsButEachWalletKeepsItsOwnWindow",
+          "occurrences": 1
+        },
+        {
+          "path": "like-isolation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeIsolationPreviewTest",
+          "test": "olderCountFailureCannotReplaceTheNewerUncertainCandidate",
+          "occurrences": 1
+        },
+        {
+          "path": "like-wallet-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeWalletImportPreviewTest",
+          "test": "uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet",
+          "occurrences": 1
+        },
+        {
+          "path": "like-wallet-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeWalletImportPreviewTest",
+          "test": "settledLikeAndRateReceiptsAloneDoNotInventPendingWork",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-social-process/recovered-instrumentation.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikeProcessRecoveryTest",
+          "test": "coldStartupReconcilesSecondLikeWithoutCreatingThird",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 126,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket58/full17-fa-39376147196/identities.json",
+      "sha256": "1eeb8b14e38c61f80021defe35b9ad48bb883a5e9d3f4eed244fbb2c772c56e2",
+      "previousIdentities": 474,
+      "additional": [
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "rateLimitSurvivesRecreationAndExpiresAtTheRollingBoundary",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-like-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikePreviewTest",
+          "test": "oneWalletSharesItsRateAcrossBothNodesThreadAndProfile",
+          "occurrences": 1
+        },
+        {
+          "path": "like-isolation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeIsolationPreviewTest",
+          "test": "capCoversDifferentPostsButEachWalletKeepsItsOwnWindow",
+          "occurrences": 1
+        },
+        {
+          "path": "like-isolation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeIsolationPreviewTest",
+          "test": "olderCountFailureCannotReplaceTheNewerUncertainCandidate",
+          "occurrences": 1
+        },
+        {
+          "path": "like-wallet-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeWalletImportPreviewTest",
+          "test": "uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet",
+          "occurrences": 1
+        },
+        {
+          "path": "like-wallet-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.LikeWalletImportPreviewTest",
+          "test": "settledLikeAndRateReceiptsAloneDoNotInventPendingWork",
+          "occurrences": 1
+        },
+        {
+          "path": "repeat-social-process/recovered-instrumentation.txt",
+          "testClass": "nl.davidengelen.redsquare.RepeatLikeProcessRecoveryTest",
+          "test": "coldStartupReconcilesSecondLikeWithoutCreatingThird",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 127,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34
+    }
+  ]
+}

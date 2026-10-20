@@ -1,0 +1,16 @@
+{
+  "conclusion": "success",
+  "databaseId": 39392576007,
+  "headSha": "37e8a25d81192a5765f6c8e215590bfc85490639",
+  "status": "completed",
+  "url": "https://github.com/robelene112/redsquare-android/actions/runs/39392576007",
+  "identities": 3,
+  "passed": [
+    "rateLimitSurvivesRecreationAndExpiresAtTheRollingBoundary",
+    "oneWalletSharesItsRateAcrossBothNodesThreadAndProfile",
+    "laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts"
+  ],
+  "originalFrames": 7,
+  "independentWasmElliptic": "PASS for all7 frames, distinct within each journey, same author/target/body/recipients and valid routed hop",
+  "limits": "First repeat and persisted rate/recreation/expiry only. Cross-node/thread/profile rate is covered; different-wallet/import/extended process/full/signed57 acceptance remains pending; semantics assertions are not actual TalkBack speech."
+}

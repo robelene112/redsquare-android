@@ -22,16 +22,18 @@ sequential implementation, review, commits and signed in-place beta delivery.
    with all10 actual frames independently verified. Both source/evidence axes at
    510 report0 findings. Source3739391946186SUCCESS; both source review axes0.
    Three-method node/thread/profile focus39392556676/39392576007 alsoSUCCESS,
-   raw retention still pending. Import39392550414/39392553174 are actual expected
+   now retained:14 original bindings/7 independently verified frames each. Import39392550414/39392553174 are actual expected
    RED1PASS/1FAIL each: pending-Like warning absent; settled/rate-only nofalsework.
    Their original packets are retained. New app-side hasWork/active-lease scan and
    confirmation-time acknowledgment reset need fresh verification. Rate feedback
    moves below the actions after original source51 PNGs revealed button reflow;
-   disabled Likes no longer say Tap again. Local import-fix build is running.
+   disabled Likes no longer say Tap again. Local import-fix core/app/test build exits0; source147 and both axes0, native GREEN pending.
    New separate LikeIsolation class/focus proves different-post/wallet windows and
-   older-count/newer-pending retry; source/runtime pending. Next add actual cold
+   older-count/newer-pending retry; source/runtime pending. New739 fixture adds actual cold
    recovery after a settled first plus uncertain second Like, keeping the existing
-   first-Like social process gate unchanged. Then all-focused/native full bothSDKs
+   first-Like social process gate unchanged; local compile0 and both source axes0,
+   runtime pending. Independent481/482 completed identity catalog is frozen before
+   full execution, with126/127normal,35interruptions and34continuity. Then all-focused/native full bothSDKs
    with independently frozen original+additive catalog, final0/0 reviews, signed50
    canonical delivery and issue closure. Ordinary49 remains LIVE, no57 beta yet.
    Its chosen policy is explicit in the issue and
