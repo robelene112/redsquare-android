@@ -43,15 +43,23 @@ has no visible history; retained cache continuity is not rendered cache proof.
 Carry this dense real state into62. Original120second phase bounds remain.
 
 Complete private39372652001(10)/39372654562(17) bothFAILURE:24 normal methods,
-23PASS/1FAIL at958, the uncertain-send outgoing-text wait before its existing
-scroll. Both native failure originals show older content and saved status/Retry.
-Fixture-only03849d1a9 reuses the existing scoped15second message scroll/display
-helper there. Both source review axes0. Await successful source39373545041 before
-corrected runtime. Original exact saved bytes/signature, explicit Retry, no prior
-transmissions and later state checks remain. Separate action-tail runs39373517260
-and39373519663 at003 are in progress to verify the earlier count/quote corrections.
+23PASS/1FAIL at958, outgoing-text wait before scrolling. Both failure originals
+show older content and saved status/Retry. Fixture-only03849d1a9 reuses the existing
+scoped15second scroll/display helper. Both source axes0; source39373545041SUCCESS.
+Corrected complete private39373971880/39373974243 at038 is in progress.
 
-Five latest packets retain original logs/native archives and independent identity
+Action-only39373517260(10)/39373519663(17) at003 bothFAILURE:10 normal methods,
+8PASS/2FAIL at728 native expected-body capture after action/count scrolls. Root
+opened all four originals: timestamp/actions visible, body offscreen. Both native
+Reply variants nowPASS, without proving which prior hypothesis caused failure.
+Distinct unlike original/raw/Relay/count checks precede the two failed captures;
+later recreation was not reached.307c9652c positively scrolls the body before the
+unchanged capture. f2c8cd463 also positions the later recreated capture after its
+same count-scrolling pattern, source-supported without claiming a later observed
+failure. Both source axes0 for307 andf2; successful f2 source/runtime gates remain pending.
+Original goals/bounds/cleanup and production587/prepared48 remain unchanged.
+
+Seven latest packets retain original logs/native archives and independent identity
 comparisons. See../evidence/ticket58/README.md for exact run/source/result limits.
 48 production remains current and unpublished. No full acceptance/publication yet.
 After focused corrections, dispatch fresh full10/17 at the same compiled source

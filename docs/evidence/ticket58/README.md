@@ -827,3 +827,15 @@ before the unchanged original display/zero-send/explicit exact Retry checks.
 Both source review axes0; corrected runtime remains pending. Separate action-tail
 runs39373517260/39373519663 at003 are in progress. App inputs remain prepared48
 at587;48 remains unpublished. Every prior failure retains its actual conclusion.
+
+Action-only003 [10](ui58-private-actions-fixed10-39373517260/summary.json)/
+[17](ui58-private-actions-fixed17-39373519663/summary.json) bothFAILURE:10 normal
+methods,8PASS/2FAIL. Both native Reply variantsPASS. Both failed methods stop at728
+native expected body-text capture after count/action scrolling; root opened all
+four originals showing timestamp/actions with body offscreen. Exact distinct
+unlike/raw/Relay/count checks precede capture, but later recreation is unproved.
+307 positively positions the original body before unchanged capture; f2c8cd463
+also positions its later recreated capture after the same scroll pattern. The
+later line was not observed failing. Assertions, bounds and app inputs unchanged.
+Corrected runtime remains pending. Source038 isSUCCESS; complete private runtime
+39373971880/39373974243 at038 is still in progress.

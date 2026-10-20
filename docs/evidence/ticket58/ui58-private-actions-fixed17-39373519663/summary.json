@@ -1,0 +1,16 @@
+{
+  "run": 39373519663,
+  "source": "003a04cc70b6403b5f028ba8b6c8f647b62a7e47",
+  "sdk": "17",
+  "conclusion": "failure",
+  "completedMethods": 10,
+  "pass": 8,
+  "fail": 2,
+  "failedMethods": [
+    "anIncomingReactionDuringSubmissionKeepsNewerForwardedStatusAndBothLikes",
+    "explicitPrivateLikeAndUnlikeForwardDistinctOriginalsAndRemainAfterReopening"
+  ],
+  "observation": "Expected body-text capture wait at728 after action/count scrolling. Failure originals show timestamp and actions while body is offscreen. Earlier distinct-original/raw/Relay checks completed; later recreation not reached.",
+  "correction": "307c9652c positively scrolls original body before unchanged native expected-text capture. Both source axes0; runtime pending.",
+  "limit": "No full acceptance. App587/prepared48 unchanged and unpublished."
+}
