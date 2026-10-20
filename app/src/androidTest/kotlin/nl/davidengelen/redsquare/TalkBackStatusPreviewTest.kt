@@ -43,7 +43,7 @@ class TalkBackStatusPreviewTest {
                 flags = flags or AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS
             }
             val service = android.content.ComponentName("com.android.talkback", "com.google.android.marvin.talkback.TalkBackService")
-            val manager = instrumentation.context.packageManager
+            val manager = instrumentation.targetContext.packageManager
             val serviceLabel = manager.getServiceInfo(service, 0).loadLabel(manager).toString()
             waitFor(15_000) {
                 val dump = device.executeShellCommand("dumpsys accessibility")

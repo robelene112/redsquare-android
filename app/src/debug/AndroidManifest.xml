@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <queries>
+        <package android:name="com.android.talkback" />
+        <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
+    </queries>
     <application android:usesCleartextTraffic="true">
         <activity android:name=".CompatibilityActivity" android:exported="true" />
     </application>
