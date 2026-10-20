@@ -121,6 +121,11 @@ complete first-release scope and the established production boundaries.
    route classes and existing offline policy reader, each with its own180second
    class bound. Full scopes retain both. Controlled Android intent interception
    prevents real email or external request delivery; it is not operational proof.
+   `agreement-group` and `agreement-group-android17` isolate the existing seven
+   group publishing methods with their unchanged180second bound. Failure-only
+   raw peer counts and all-root Compose captures distinguish missing submission
+   from offscreen feedback. Complete agreement/full scopes retain every original
+   group method and assertion. Focused proof is not complete acceptance.
    `agreement-surfaces` and `agreement-surfaces-android17` isolate the existing
    four publishing-surface methods with the same180second bound. Their Compose
    trees and native captures distinguish offscreen Chat actions from wrong state;

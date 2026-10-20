@@ -110,7 +110,14 @@ class PublishingGroupPreviewTest {
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                    withFailureCapture({ capture("${action.name.lowercase()}-first-failure.png") }) {
+                    withFailureCapture({
+                        runCatching { File(context.cacheDir, "agreement-group-evidence/${action.name.lowercase()}-receipt-counts.json")
+                            .apply { parentFile?.mkdirs() }.writeText(JsonObject().apply {
+                                addProperty("transactions", peer.transactions.size)
+                                addProperty("relayedMessages", peer.relayedMessages.size)
+                            }.toString()) }
+                        capture("${action.name.lowercase()}-first-failure.png")
+                    }) {
                         click("Chat")
                         click("Groups")
                         when (action) {
@@ -218,5 +225,10 @@ class PublishingGroupPreviewTest {
         if (scrollIntoView) target.performScrollTo().assertIsDisplayed()
         target.performClick()
     }
-    private fun capture(name: String) = captureNativeScreen(File(context.cacheDir, "agreement-group-evidence/$name"))
+    private fun capture(name: String) {
+        val file = File(context.cacheDir, "agreement-group-evidence/$name")
+        captureNativeScreen(file)
+        runCatching { File(file.parentFile, file.nameWithoutExtension + ".semantics.txt")
+            .writeText(ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE)) }
+    }
 }
