@@ -66,6 +66,16 @@ without changing gesture or five-second assertions; focused existing-method
 social-push-dismissal scopes added. Complete acceptance now requires fresh10.
 Old4a17wallet fails the already-corrected same policy Like atline132, packet
 full4a-policy17; focusedfc bothPASS. No further production change yet.
+Fresh17Chat alsoFAILS group first-use second keyboard opening: old readiness
+IME331 versus later Send270..318. Actual original keyboard_holder starts318,
+PNGshows full48pixelSend. Root openedboth. physicalSend sampled insets before
+capture/nativequery using staleparameter. Current fixture measures current
+systemBars/IME after nativequery and requires visibleIME, retains exact48dp and
+containment, recordsactualbounds. Packetfullfc-keyboard17; no productionchange.
+Both fc fulls rejected; otherjobscontinue. Diagnostic39416823937 atcfd mayrun
+bothSDKs (SDKexclusionwasfixedate288); bindactualprovenance. d30makesoptional
+pre-gesture reads best-effort. Reviews0/0 afterbothdiagnosticfixes. Corrected
+keyboardfocusedandfreshcompleteverificationpending.52remainspreparednotpublished.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

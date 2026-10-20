@@ -171,7 +171,7 @@ class ChatKeyboardPreviewTest {
                             val send = hasText("Send") and hasClickAction() and isEnabled()
                             ui.waitUntil(10_000) { displayed(send) }
                             ui.onNode(send).assertIsDisplayed()
-                            val bounds = physicalSend(scenario,File(folder,"$kind-physical-send-ime.png"),imeBottom.get())
+                            val bounds = physicalSend(scenario,File(folder,"$kind-physical-send-ime.png"),requireIme=true)
                             val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
                                 context.getString(if (group) R.string.group_privacy else R.string.chat_private)))).visibleBounds
                             check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
@@ -276,21 +276,34 @@ class ChatKeyboardPreviewTest {
         }
     }
 
-    private fun physicalSend(scenario:ActivityScenario<MainActivity>,capture:File,imeBottom:Int=0):android.graphics.Rect {
+    private fun physicalSend(scenario:ActivityScenario<MainActivity>,capture:File,requireIme:Boolean=false):android.graphics.Rect {
         val instrumentation=InstrumentationRegistry.getInstrumentation()
         val device=UiDevice.getInstance(instrumentation)
-        var top=0;var bottom=0
-        scenario.onActivity { activity->
-            val bars=ViewCompat.getRootWindowInsets(activity.window.decorView)?.getInsets(WindowInsetsCompat.Type.systemBars())
-            top=bars?.top ?: 0;bottom=maxOf(bars?.bottom ?: 0,imeBottom)
-        }
         captureNativeScreen(capture)
         var target=requireNotNull(device.findObject(androidx.test.uiautomator.By.text("Send"))) {
             "Send must have a physical target beneath retained composition"
         }
         while(!target.isClickable)target=requireNotNull(target.parent){"Send has no clickable ancestor"}
         val bounds=target.visibleBounds
+        // Capture and native lookup can span an IME transition. Read current insets
+        // alongside the target instead of comparing it with the earlier readiness sample.
+        var top=0;var bottom=0;var imeVisible=false
+        scenario.onActivity { activity->
+            val insets=ViewCompat.getRootWindowInsets(activity.window.decorView)
+            top=insets?.getInsets(WindowInsetsCompat.Type.systemBars())?.top ?: 0
+            bottom=insets?.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime())?.bottom ?: 0
+            imeVisible=insets?.isVisible(WindowInsetsCompat.Type.ime())==true
+        }
         val minimum=kotlin.math.round(48*instrumentation.targetContext.resources.displayMetrics.density).toInt()
+        runCatching {
+            File(capture.parentFile,"${capture.nameWithoutExtension}-bounds.json").writeText(com.google.gson.JsonObject().apply {
+                addProperty("bounds",bounds.toShortString());addProperty("minimum",minimum)
+                addProperty("topInset",top);addProperty("bottomInset",bottom)
+                addProperty("imeVisible",imeVisible);addProperty("imeRequired",requireIme)
+                addProperty("displayHeight",device.displayHeight)
+            }.toString())
+        }
+        check(!requireIme||imeVisible){"The real system keyboard must remain visible for the Send measurement"}
         check(bounds.width()>0&&bounds.height()>=minimum&&bounds.top>=top&&bounds.bottom<=device.displayHeight-bottom) {
             "Full Send target must stay inside the usable screen: $bounds, minimum=$minimum, barsOrIme=$top/$bottom"
         }

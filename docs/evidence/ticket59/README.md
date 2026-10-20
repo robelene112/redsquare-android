@@ -328,3 +328,25 @@ Old4a17wallet also fails the same private policy reaction atline132 as10. The
 complete log, selected original failure and inventory are retained in
 full4a-policy17. The fc corrected full four-method focused runs on both SDKs
 already pass; old4a remains a rejected full attempt.
+
+## Full17 keyboard observer samples different IME states
+
+Fresh full17fc39415423516 Chat is FAILURE:9PASS/1FAIL keyboard methods, in
+groupChatKeepsFirstUseSendReachableWithLargerText after reopening the keyboard.
+The observer compares native Send[215,270][304,318] with an earlier readiness
+IME sample331, making its claimed usable bottom309. Both actual original
+physical-send and failure XML show keyboard_holder[0,318][320,640]; root opened
+both matching PNGs, where the complete48pixel Send meets the keyboard at318.
+The existing physicalSend samples insets before capture, then captures PNG/XML
+and queries the later native target using that stale parameter. This sequencing
+is source-proven; the intermediate keyboard trajectory is not recorded.
+
+The fixture now captures first, measures the actual native target and reads
+current system-bar/IME insets alongside it. It requires the real keyboard to
+still be visible, retains full48dp and exact viewport containment, and records
+those actual bounds/insets as best-effort diagnostics. No delay, tolerance or
+assertion deadline changes. Production and signed52 remain unchanged. Complete
+original log, group first-use originals and full archive inventory remain in
+fullfc-keyboard17. Both fc Chat partitions have failed; neither full is accepted.
+The other partitions continue without cancellation. Focused corrected keyboard
+and complete fresh verification remain required.
