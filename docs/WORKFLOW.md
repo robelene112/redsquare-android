@@ -143,6 +143,10 @@ complete first-release scope and the established production boundaries.
    explicit diagnostic marker. It retains original class/phase bounds and input
    fixtures. Tagged read-only process observations diagnose the intermittent
    16MiB startup mismatch; this scope never establishes complete acceptance.
+   `chat-runtime` further reduces diagnosis to24 process-only native invocations,
+   each bounded30seconds and stopped on the first declared/actual heap mismatch.
+   It reads public emulator startup properties/processes and retains every attempt;
+   its temporary diagnostic class is excluded from full application catalogs.
    `chat-photo-process` and its Android17 variant isolate the existing private
    and group queued-photo process protocols. Complete `chat-images` and full
    scopes retain both, along with picker/normalization and image storage checks.
