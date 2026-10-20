@@ -129,7 +129,7 @@ class AuthorPostPreviewTest {
                     waitFor("New post")
                     waitForRefresh()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
-                    ui.clickVisiblePostContent(own.get()!!.get("field2").asString)
+                    ui.clickVisiblePostProfile("Anon-${own.get()!!.get("field2").asString.take(6)}")
                     waitFor("Profile")
                     waitFor("Native author's edited post")
                     if (withImage) ui.assertSyntheticRedImage(postText = "Native author's edited post")

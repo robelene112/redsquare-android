@@ -61,7 +61,7 @@ class QuotePreviewTest {
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     captureQuoteEvidence("quote-evidence/current-commentary-retweet.png")
-                    ui.clickVisiblePostContent(current.get("field2").asString)
+                    ui.clickVisiblePostProfile("Anon-${current.get("field2").asString.take(6)}")
                     waitFor("Profile")
                     waitFor("Current commentary retweet")
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
@@ -298,7 +298,7 @@ class QuotePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("4 likes")
                 count.set(9)
-                ui.clickVisiblePostContent(original.get("field2").asString)
+                ui.clickVisiblePostProfile("Anon-${original.get("field2").asString.take(6)}")
                 waitFor("Profile history could not be refreshed. Available posts remain visible.")
                 waitFor("9 likes")
                 ui.onNodeWithText("9 likes").assertIsDisplayed()
