@@ -19,6 +19,19 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
+Latest regression status: full10fa39376144681 is FAILURE, Chat alerts11methods
+10PASS/1FAIL at PrivatePushWorkFixture335 after original physical RIGHT swipe.
+Before/failure native originals both retain the notification; no proved cause.
+Later Android-active-state/no-redelivery goals and subsequent full classes were
+not reached. Seven packet hashes preserve the actual RED. Diagnostic-onlyec7ec4d8c
+adds best-effort primitive flag/bounds/duration observations and isolates the same
+existing method in private-push-dismissal scopes. Original swipe,5second goals,
+180second class bound,11-case full command and all later gates stay. Both source
+review axes0. Source39377858558 pending; await SUCCESS before focused diagnosis.
+Full17fa39376147196 remains in progress: WalletSUCCESS, exact76 accepted38 IDs
+and partition-complete verified in external ui58-full17-fa-39376147196; Chat/Social
+not yet complete. No whole/full acceptance or49publication. Appa1 unchanged.
+
 Shared frame58 remains ACTIVE. Productiona1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4
 moves reaction status/error into the existing named quarter-height Chat status
 viewport, with unchanged text/conditions and directly reachable Retry below the
@@ -44,8 +57,8 @@ Actual private recovery39375656551/39375658999 bothSUCCESS, exact2 IDs each, PID
 3458->3836/2583->4366 and full checkpoint/cache/draft/original/zero-send/restoration
 checks. Root opened corrected interrupted/unlike-recreated and recovered originals
 on bothSDKs; draft/reaction cold view still has no visible history, retained62 case.
-Fresh full39376144681(10)/39376147196(17)
-now executing atfa, same source. Exact bindings recorded before outcomes.
+Fresh full39376144681(10)/39376147196(17) bound atfa before outcomes; actual
+latest status is recorded above.
 Priorf2 source39374150855SUCCESS; a1 source39374682292CANCELLED by newerfa, not
 acceptance. Canonical signed49 PREPARED from frozen productiona1 in the external review-worktree;
 shared counter49 reserved, APK6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a.

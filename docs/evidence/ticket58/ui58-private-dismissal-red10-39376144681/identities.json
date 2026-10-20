@@ -1,0 +1,62 @@
+[
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+    "test": "aColdGroupAlertUsesCachedHistoryDuringAnOutageAndRechecksMembershipOnOfficial",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+    "test": "aColdPrivateAlertOnOfficialKeepsItsDestinationAcrossRecreation",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+    "test": "aGroupAlertOpensItsGroupAndPreservesTheLatestPrivateDraft",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+    "test": "aPrivateAlertOpensItsConversationAndPreservesTheLatestOtherConversationDraft",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatAlertPreviewTest",
+    "test": "privatePreviewsRequireOptInPersistAndReturnToGenericWhenDisabled",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatPushConsentPreviewTest",
+    "test": "backgroundChatConsentPersistsAndEitherFeatureCanKeepTheSharedSubscription",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "aPendingPrivateMessageSuppressedWhileBlockedDoesNotAlertAfterUnblocking",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "aRetainedOfficialWakeChecksCurrentIdentityThenUsesTheChosenPreviewAndOpensItsExactConversation",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "ordinaryChatRetainsItsMessageWhenAlertBookkeepingIsUnavailableAndItsWakeCanRecover",
+    "occurrences": 1
+  },
+  {
+    "path": "chat-alerts-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+    "test": "ordinaryPrivateReceiptDoesNotReAlertWhenItsOpaqueWakeArrivesLater",
+    "occurrences": 1
+  }
+]

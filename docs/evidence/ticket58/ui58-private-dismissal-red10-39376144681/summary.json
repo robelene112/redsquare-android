@@ -1,0 +1,25 @@
+{
+  "run": 39376144681,
+  "source": "fa21f295d8ff39206c81e30da081a677ed57a402",
+  "sdk": "10",
+  "conclusion": "failure",
+  "commandMethods": 11,
+  "pass": 10,
+  "fail": 1,
+  "missingPassingIdentity": [
+    {
+      "path": "chat-alerts-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.PrivatePushWorkPreviewTest",
+      "test": "chatOnlyConsentReceivesAndDecryptsAnOpaqueWakeWithoutAnActivityAndDoesNotReAlertAfterDismissal",
+      "occurrences": 1
+    }
+  ],
+  "observed": "Original physical RIGHT swipe then5second Until.gone fails at335. Before/failure original native captures both show the notification. Later Android-active-state/no-redelivery goals were not reached. No proved cause.",
+  "hypotheses": [
+    "Gesture speed/distance",
+    "SystemUI transition",
+    "Nonclearable or wrong notification card"
+  ],
+  "diagnosticSource": "ec7ec4d8c adds best-effort primitive flag/bounds/duration observations and isolates same existing method. Original gesture,5second goals and180second class bound unchanged. Both source review axes0; newsource/focused runtime pending.",
+  "limit": "Whole full10 remains FAILURE, later app classes not run.17full still executing, Wallet jobSUCCESS alone not full acceptance.49 remains prepared/unpublished with unchanged productiona1."
+}

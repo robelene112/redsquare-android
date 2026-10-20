@@ -889,3 +889,16 @@ before evidence-only pushes. Independent473/474 identity catalogs and exact runs
 source bound before outcomes. Every old failure keeps its terminal conclusion;
 e205 moved to previousAttempts with actual job results.49 preparation reviews0
 on both axes; full results and signed publication remain pending.
+
+Fresh full10fa39376144681 remainsFAILURE. The
+[retained private dismissal RED](ui58-private-dismissal-red10-39376144681/summary.json)
+covers original Chat alerts11methods10PASS/1FAIL at335 physical swipe then5second
+Until.gone. Root opened generic/failure native originals; notification remains.
+Later active-state/no-redelivery checks and full classes were not reached. No
+cause is proved. ec diagnostic-only source keeps the same swipe and original
+5second/180second goals, records primitive flags/bounds/duration, and isolates the
+same existing method. Both source axes0; source39377858558/focused proof pending.
+17fa full remains in progress; Wallet jobSUCCESS/exact76 accepted38 IDs and complete
+partition marker verified, Chat/Social outstanding.49 productiona1 unchanged,
+prepared/unpublished. Neither a failed10 run nor a passing17 partition is full
+acceptance.
