@@ -410,7 +410,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 else -> null
             }
             InlineStatus(connectionSummary, when {
-                noInternet -> StatusTone.WARNING
+                noInternet -> StatusTone.ERROR
                 failed -> StatusTone.ERROR
                 else -> StatusTone.SUCCESS
             }, details = when {
