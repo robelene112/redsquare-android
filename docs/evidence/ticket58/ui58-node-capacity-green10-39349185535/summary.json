@@ -1,0 +1,19 @@
+{
+  "run": "39349185535",
+  "source": "6388840182bdab075bf672da92933cfc7c1750c3",
+  "expectedMethods": [
+    "oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery"
+  ],
+  "overallRunConclusion": "success",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "oneHundredAndOneGroupsKeepPrivateAndSocialDemandWithVisibleAutomaticCapacityRecovery",
+      "status": 0
+    }
+  ],
+  "members": 8,
+  "limit": "One controlled native capacity method PASS: 101-group pause, preserved other categories/subscription/history/draft, and automatic resume. Eight original group-capacity-prefixed members retained. Not whole-app regression, actual Google delivery, physical/provider/store acceptance.",
+  "originalMemberSelection": "chat-alert-evidence/group-capacity-*"
+}

@@ -85,7 +85,13 @@ changes since9b33. Source39348053376 at doc/evidence2bcd9f355 completedSUCCESS,
 including core/gateway, Debug/tests, Release/Performance assembly and lint.
 Fresh full39349228406(10)/39349230920(17, all3parts) now run at exact6388840182;
 frozen473/474 catalog unchanged, source/run IDs bound before outcomes. Focused
-capacity39349185535/39349188302 and reports39349191022/39349193931 also run at638.
+capacity39349185535(10)/39349188302(17) at638 bothSUCCESS,1 method each,8 original
+members each. Reports39349191022(10)/39349193931(17) bothSUCCESS, exactly12 accepted38
+identities (11 UI methods +1 cold-process recovery),90 originals each. Actual
+interrupted/recovered PIDs4250/4332 and5040/5118 preserve the signed report and
+explicit retry. UI adb-exit record is absent by the existing reports harness,
+not invented. Root opened capacity pause/resume and bothSDK report not-sent/
+repaired originals. These are focused scopes, not complete regression.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
@@ -149,7 +155,8 @@ Canonical bundle command exits0; strict JAR/bundletool/local APK/signature/manif
 DEX/16KiB ZIP and64-bit LOAD checks pass,14 public-safe packet hashes,0/0 review.
 Review=false, providers absent and policy/contact readiness draft. It is not ready
 for production submission. Renew candidate and relevant checks after real config
-changes. Shared counter45, next46 only for an actual new build; verify before use.
+changes. Shared counter46 is verified, and46 is already reserved for the prepared beta.
+Let the canonical builder allocate any later version; verify the counter before use.
 
 ## Complete current-code verification and About38
 

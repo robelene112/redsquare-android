@@ -1,0 +1,74 @@
+[
+  {
+    "path": "report-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportProcessRecoveryTest",
+    "test": "coldStartupKeepsUnknownDeliveryUntilExplicitIdenticalRetry",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "acknowledgedReportWithFailedReceiptSavingWarnsAndReopensTheSameUnknownIntent",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "authenticatedWalletReplacementIsolatesReportsAndRestorationRecoversTheOriginalRetry",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "confirmedReportGoesOnlyToNamedBackendAndAcknowledgementDoesNotRemovePost",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "failedReportSavingSendsNothingAndRepairAllowsExplicitRetry",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "invalidAndFailedRepliesNeverAcknowledgeAndEveryExplicitRetryKeepsTheOriginalReport",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "lostAcknowledgementSurvivesReopeningAndRetryUsesTheSameSignedReport",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "restoredObservedReceiptIsAdoptedByAnOlderViewWithoutSendingAgain",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "switchingBackendsKeepsReportsAndAcknowledgementsWithTheirOriginalDestination",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "unansweredReportDeadlineShowsUnknownAndExplicitRetryKeepsTheOriginalSignature",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "unavailableBackendBeforeSendingStaysNotSentAfterReopeningAndNeedsExplicitRetry",
+    "occurrences": 1
+  },
+  {
+    "path": "reports-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ReportPreviewTest",
+    "test": "unreadableReportDetailsFailClosedAndRepairRecoversTheOriginalIntent",
+    "occurrences": 1
+  }
+]

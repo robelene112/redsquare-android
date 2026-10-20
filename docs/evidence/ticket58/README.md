@@ -420,3 +420,18 @@ public reads and immutable signed35/43 observers. The frozen473/474 identity
 catalog is unchanged and the source/run binding was recorded before outcomes.
 Focused capacity39349185535/39349188302 and reports39349191022/39349193931 run at
 the same source. No production/build/signing differences from signed46/source9b33.
+
+Focused node-wording correction at6388840182 is nowGREEN on bothSDKs: capacity
+39349185535(10)/39349188302(17) each1PASS, retaining eight original capacity members
+perSDK. Actual101-group pause and automatic resume preserve other categories,
+subscription identity, history and draft. Root opened17 paused/10 resumed originals.
+Reports39349191022(10)/39349193931(17) bothSUCCESS with all12 independent accepted38
+identities (11 UI methods +1 actual cold-process recovery method). Each retains90
+original members,44 PNG/44 XML. Original checkpoints prove distinct interrupted/
+recovered PIDs4250/4332(10),5040/5118(17), preserving the exact signed report and
+requiring explicit retry. The old harness has no separate UI adb-exit record;
+complete normal terminal results and actual process continuity are retained,
+without inventing an exit record. Root opened bothSDK reopened-not-sent originals
+and17 repaired acknowledgement; wording and destination remain truthful.
+Complete full39349228406/39349230920 and live46 remain pending. No app/build/
+signing inputs have changed since9b33.

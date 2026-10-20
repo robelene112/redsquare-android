@@ -1,0 +1,19 @@
+{
+  "source": "6388840182bdab075bf672da92933cfc7c1750c3",
+  "sdk": "10",
+  "run": 39349191022,
+  "overallConclusion": "success",
+  "normalMethods": 11,
+  "processRecoveryMethods": 1,
+  "uiAdbExitRecordAvailable": false,
+  "actualIdentities": 12,
+  "deliberateProcessDeaths": 1,
+  "distinctPids": [
+    4250,
+    4332
+  ],
+  "originalMembers": 90,
+  "png": 44,
+  "xml": 44,
+  "limits": "Controlled complete report/recovery scope. Original harness has no separate UI adb-exit record; complete terminal results and actual process continuity retained. Not whole-app regression, real moderator operation, physical/provider/store acceptance."
+}
