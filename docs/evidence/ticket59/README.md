@@ -775,3 +775,27 @@ groups expose management at the real status scroll end. Stable section keys
 retain the same history-status host through reordering and keyboard transitions.
 Primary delivery/Retry,80dp bound, warnings, handlers, deadlines and assertions
 remain unchanged. Corrected native acceptance is still pending.
+
+## Currentc5 paired final verification
+
+Complete10run39437838980 and17run39437845708 execute exact
+c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22 on verify/status59-c5f0ca7c6.
+Allthree jobs per SDK, public reads, actual speech/motion, recovery and stronger
+reading bookends remain mandatory. No identities or assertion bounds change.
+The independent catalog and collector hash remain frozen. Both correction
+review axes report0 residual findings. Final corrected viewport runs
+39437692175/39437697687 and admin39437703036/39437707377 are active.
+A new signed candidate has not yet been reserved; the prior55 stays rejected
+and its original4ae source binding is intentionally retained until preparation
+of a successor. Ordinary50 remains live.
+
+Intermediate5a17viewport39436233728 also passes both existing journeys
+(36 original members), while17admin39436244211 fails the same4of12 methods
+(24 original members). Both exact original packets are retained. Root opened
+the10admin failure PNG, showing Forwarded plus history while Members is absent.
+This corroborates the context-specific layout regression; no signed artifact
+was prepared for5a. Finalc5 preserves the independently exercised layout for
+each context and still requires its own actual full acceptance.
+The temporary owned f23/f4/outage7a/3c verification refs were removed only after
+exact remote-head and all-runs-completed checks; committed source/history and
+all retained evidence remain. Active4ae andc5 refs are retained.

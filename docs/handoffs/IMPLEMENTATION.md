@@ -328,3 +328,8 @@ queued messages, retaining ordinary management access and stable keyed status
 hosts. Intermediate5a viewport10passes2/2, but GroupAdmin10fails4/12 from hidden
 Members, so5a is not accepted. Old4ae minimized viewport10/17both reproduce
 the22pixel failure (one of two methods). No56 candidate reserved yet.
+
+Current final-source full10run39437838980 and17run39437845708 execute exactc5f
+on verify/status59-c5f0ca7c6. All gates and frozen catalog remain mandatory.
+Final corrected viewport/admin focused runs are also active. Source review0/0;
+new candidate not yet reserved.55 stays rejected and50 remains live.
