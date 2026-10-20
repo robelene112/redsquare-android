@@ -1,0 +1,158 @@
+[
+  {
+    "path": "chat-mixed-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.ChatMixedReceptionPreviewTest",
+    "test": "privateMessagesAndReactionsReachGroupsAndGroupsReachPrivateChatWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-actions-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatActionsPreviewTest",
+    "test": "groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "coldRestartRetainsGroupStateWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "aKnownGroupRejoinPreviewsAndRoutesToItsRetainedAdministrator",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "aLiveAddressedGroupAppearsWithoutSendingAndItsMessagesAndDraftSurviveReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "aNamedGroupCanBeCreatedWithAnInvitationAndReadAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "aTemporarilyUnreadableGroupDraftRecoversOnRefreshWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "accountBlockingHidesIncomingGroupMessagesAndMutingKeepsThemOnBothBackends",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "anAddressedSignedCreationIsRetainedWithoutInventingAnOutgoingAttempt",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "anExistingMemberInvitationCanBeConfirmedOnTheSelectedBackendAndReadAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "anInterruptedCreationCanRetryItsSavedOriginalAndRecoverKeyMetadataWithoutAutomaticSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "anUnsentGroupDraftSurvivesBackNavigationAndReopeningWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "creationKeySurvivesReopeningBeforeWalletMetadataCanBePublished",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "explicitNamedGroupLikesToggleDistinctOriginalsAndSurviveDuplicatesAndReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "groupMessagesCombineAvailableHistoryLiveDeliveryAndPersistentCacheWithoutDuplicateSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "importedGroupIdsRecoverAvailableSignedOriginsWithoutTrustingNamesOrGrantingUnavailableMembership",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "incomingGroupStorageFailureStaysVisibleThroughReconnectAndRecoversWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "leavingANamedGroupRetainsTheSignedDepartureAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "rejoiningAKnownGroupRetainsItsOriginalAuthorityKeyAndDeparture",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "removedAuthorsCannotHideAvailableEarlierGroupHistory",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "savedUncertainGroupWorkIsIncludedInOutgoingWalletWorkAcrossBackends",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable",
+    "occurrences": 1
+  },
+  {
+    "path": "group-chat-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatPreviewTest",
+    "test": "unreadableImportedGroupHintsKeepWalletAndAuthenticatedCachedGroupsUsable",
+    "occurrences": 1
+  }
+]

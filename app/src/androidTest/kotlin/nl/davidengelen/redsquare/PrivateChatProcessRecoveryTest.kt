@@ -101,7 +101,7 @@ class PrivateChatProcessRecoveryTest {
                 capture("unknown-reaction-before-death.png", context.getString(R.string.chat_reaction_unknown))
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
                 openContact(pendingContact)
-                waitFor(context.getString(R.string.chat_send_unknown)); waitFor(pendingText)
+                waitFor(context.getString(R.string.chat_send_unknown))
                 waitForEnabled("Retry")
                 showMessage(pendingText)
                 capture("unknown-before-death.png", pendingText)
@@ -122,7 +122,7 @@ class PrivateChatProcessRecoveryTest {
             launch(server.port) {
                 openChat(); openContact(pendingContact)
                 waitFor(context.getString(R.string.chat_load_error))
-                waitFor(pendingText); waitFor(context.getString(R.string.chat_send_unknown)); waitForEnabled("Retry")
+                waitFor(context.getString(R.string.chat_send_unknown)); waitForEnabled("Retry")
                 showMessage(pendingText)
                 capture("unknown-cold-recovered.png", pendingText)
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
@@ -212,7 +212,14 @@ class PrivateChatProcessRecoveryTest {
         "private-chat-process-evidence/$name"), text)
     private fun showMessage(text: String) {
         val message = hasText(text) and !hasSetTextAction()
-        ui.onNodeWithContentDescription("Private messages").performScrollToNode(message)
+        ui.waitUntil(15_000) {
+            runCatching {
+                val history = ui.onNodeWithContentDescription("Private messages")
+                check(history.fetchSemanticsNode().boundsInRoot.height > 0f)
+                history.performScrollToNode(message)
+                ui.onNode(message).assertIsDisplayed()
+            }.isSuccess
+        }
         ui.onNode(message).assertIsDisplayed()
     }
     private fun waitFor(text: String) = ui.waitUntil(15_000) {

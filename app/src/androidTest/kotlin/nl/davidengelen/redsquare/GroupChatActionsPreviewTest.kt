@@ -21,6 +21,12 @@ class GroupChatActionsPreviewTest {
     @Test fun groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName=="nl.davidengelen.redsquare.dev"&&Build.HARDWARE in listOf("ranchu","goldfish"))
+        val progress=File(context.cacheDir,"group-chat-actions-evidence/progress.txt")
+        fun phase(value:String) {
+            // Optional timing must never prevent owned cleanup or replace its primary failure.
+            runCatching { progress.parentFile!!.mkdirs();progress.appendText("${android.os.SystemClock.elapsedRealtime()} $value\n") }
+        }
+        phase("fixture-start")
         val wallets=AndroidWalletStore(context)
         val original=wallets.loadOrCreate()
         val backend=AndroidBackendStore(context).load()
@@ -55,8 +61,6 @@ class GroupChatActionsPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context,MainActivity::class.java)
                     .putExtra("feedPeerUrl","ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl","ws://127.0.0.1:${server.port}/wsopen")).use{scenario->
-                    val progress=File(context.cacheDir,"group-chat-actions-evidence/progress.txt")
-                    fun phase(value:String){progress.parentFile!!.mkdirs();progress.appendText("${android.os.SystemClock.elapsedRealtime()} $value\n")}
                     phase("launch")
                     withFailureCapture({captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/failure.png"))}) {
                         fun open(fromFeed:Boolean=false) {
@@ -135,14 +139,21 @@ class GroupChatActionsPreviewTest {
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/self-reply-forwarded.png"),ownBody)
                         peer.assertHealthy();phase("complete")
                     }
+                    phase("before-activity-close")
                 }
+                phase("activity-closed")
             }
+            phase("peer-closed")
         }catch(failure:Throwable){primary=failure;throw failure}
-        finally{cleanupAfterTest(primary,
-            {synchronized(SaitoLocalState.lock){processFixtureFiles(context,names.toSet()).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}}},
-            {wallets.replace(wallets.loadExisting(),original)},
-            {if(clipboardChanged){previousClip?.let{clipboard.setPrimaryClip(it)} ?: clipboard.clearPrimaryClip()}},
-            *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())}
+        finally{
+            phase("cleanup-start")
+            cleanupAfterTest(primary,
+                {phase("files-restore-start");synchronized(SaitoLocalState.lock){processFixtureFiles(context,names.toSet()).forEach{val file=File(context.noBackupFilesDir,it);check(!file.exists()||file.delete())}};phase("files-restored")},
+                {phase("wallet-restore-start");wallets.replace(wallets.loadExisting(),original);phase("wallet-restored")},
+                {phase("clipboard-restore-start");if(clipboardChanged){previousClip?.let{clipboard.setPrimaryClip(it)} ?: clipboard.clearPrimaryClip()};phase("clipboard-restored")},
+                *preferences.map{(prefs,keyName,value)->{check(prefs.edit().apply{if(value==null)remove(keyName)else putBoolean(keyName,value)}.commit());Unit}}.toTypedArray())
+            phase("cleanup-complete")
+        }
     }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}

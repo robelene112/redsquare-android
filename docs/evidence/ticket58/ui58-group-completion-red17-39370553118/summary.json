@@ -1,0 +1,13 @@
+{
+  "normalMethodCompletions": 0,
+  "classExit": 124,
+  "lastProgress": "complete",
+  "limit": "Every in-journey assertion precedes complete, but command exits124 at original60seconds with START-only. Activity/peer close and state restoration were not separately timed. Exact source of overrun remains unresolved. New optional constant-time stages cover initial fixture setup, Activity close, peer close and each cleanup without skipping cleanup or replacing primary failures. This failed run is never a method PASS.",
+  "source": "e674b67ad1a3985b6d7c93aa4dcb2b7a32538285",
+  "run": 39370553118,
+  "sdk": "17",
+  "conclusion": "failure",
+  "fullAcceptance": false,
+  "productionChangesSince587": false,
+  "signed48PreparedNotPublished": true
+}

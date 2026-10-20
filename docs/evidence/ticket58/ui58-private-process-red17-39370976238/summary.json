@@ -1,0 +1,13 @@
+{
+  "preparationFailures": 1,
+  "independentRestorationPassed": true,
+  "actualDeathOrRecoveryProved": false,
+  "limit": "Preparation completesFAIL at original15second pendingText presence wait104 before its existing message scroll. Native original shows older cached text and the unknown-work Retry. Failed before deliberate kill; no completed pending checkpoint/recovery. Restoration1PASS is separate. Existing showMessage is moved before presence and made bounded with positive nonzero-history guard; all candidate/draft/reaction/wallet/transmission assertions remain.",
+  "source": "e674b67ad1a3985b6d7c93aa4dcb2b7a32538285",
+  "run": 39370976238,
+  "sdk": "17",
+  "conclusion": "failure",
+  "fullAcceptance": false,
+  "productionChangesSince587": false,
+  "signed48PreparedNotPublished": true
+}

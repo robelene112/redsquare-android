@@ -753,3 +753,57 @@ bindingsPASS. `signed48-prepared` retains five hashes.47/46 are superseded and
 unpublished; ordinary45 live, immutable45/performance43 unchanged. New changes
 above are fixture-only, so48's production inputs remain current. Full bothSDK
 acceptance and verified publication are still required.
+
+## Complete focused group10, private tail and Android17 completion diagnosis
+
+Source39370155271 at e674b67ad1a3985b6d7c93aa4dcb2b7a32538285 SUCCESS.
+Group39370550836(Android10) completes SUCCESS with exactly26 accepted38 identities:
+22 group,1 actions,1 mixed reception,1 actual cold recovery,1 restoration. Actual
+PIDs14124->14523 differ and the checkpoint/draft/key/original/reaction continuity
+and zero automatic transmission checks PASS. Packet
+`ui58-group-complete-green10-39370550836` retains22 hashes/111 original archive
+members. Root opened all three corrected after-scroll originals: old live message,
+Like and invitation status are visible. This is complete focused group proof only.
+
+Group17 run39370553118 remains FAILURE: original60second class bound, START-only,
+no normal completion. Its progress reaches complete after all in-journey assertions
+and original final self-reply capture, but Activity/peer close and restoration
+were not timed separately. Root opened the final native original. Packet
+`ui58-group-completion-red17-39370553118` retains6 hashes/5 original members.
+No cause or cleanup completion is inferred. Optional constant timing stages now
+cover initial fixture setup, Activity close, peer close and each owned cleanup;
+recording failure cannot skip cleanup or replace the primary error. The60second
+bound stays. Later group/mixed/process gates were absent from this17 attempt.
+
+Complete private39370555327(10) fails normally at24 methods21PASS/3FAIL;
+39370557265(17) exits124 at180seconds after20 starts17PASS/2FAIL, older-history
+START-only. Initial target wait327 occurs before its existing scroll in unknown
+retry, pending-wallet import and ordinary older-history cases. Native originals
+show newer outgoing/separate cached text. The existing scoped15second history
+readiness now precedes that original scroll. Paired `ui58-private-history-red*`
+retain12 hashes/142 members. Root opened all three10 failure PNGs and representative17.
+
+Private process39370973797(10)/39370976238(17) both FAIL preparation at104's
+15second pending-text wait before the existing showMessage. Native originals show
+older cached text and Retry. No deliberate kill/recovery completed; independent
+restoration1PASS perSDK remains separate. Paired `ui58-private-process-red*`
+retain14 hashes/8 original members; both failure PNGs opened. Existing pending
+showMessage now uses bounded scroll/display readiness before requiring that text,
+with a positive nonzero-viewport guard to avoid an unbounded zero-height scroll.
+The same candidate/draft/reaction/key/wallet/zero-transmission goals remain.
+
+Private action39371176128(10)/39371178819(17) both complete10 methods2PASS/8FAIL.
+Six displayed-count failures follow successful count presence with the body visible
+and its count below the viewport. Two native replies time out on forwarded status
+with Submitted visible. Bare Reply taps after quote removal were not asserted
+visible; target positioning is a hypothesis, not a proved protocol/app defect.
+Paired `ui58-private-actions-red*` retain12 hashes/104 members. Root opened reply,
+like and retry originals on10 plus reply/like on17. Count and action checks now
+scroll their actual target before the same display/click assertion. Both Reply
+taps require visibility, the second also verifies its selected quote before Send.
+The unchanged15second forwarded predicate additionally checks controlled-peer
+health to reveal any original protocol rejection promptly. Exact independent
+signed body/mentions/ciphertext/raw/Relay/count/isolation goals remain unchanged.
+Corrected runtime is pending for these fixture-only changes. All original class
+and process phase bounds remain.48 production inputs remain current, prepared and
+unpublished. No fresh full58 acceptance or publication claim.

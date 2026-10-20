@@ -324,8 +324,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Refresh").assertIsEnabled()
                             peer.sendIncoming(requireNotNull(liveTransaction))
                         }
-                        waitFor(text)
                         captureViewport("before-initial-history-scroll")
+                        waitForMessage(text)
                         if (storagePartial) ui.waitUntil(15_000) {
                             runCatching { ui.onNodeWithContentDescription("Private messages").assertHeightIsAtLeast(48.dp) }.isSuccess
                         }
@@ -469,7 +469,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Retry reaction").performClick()
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                             val original = postingTransaction(peer.transactions.single())
                             check(original.encoded() == expected.get("networkBase64").asString)
@@ -513,7 +513,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onAllNodesWithText(context.getString(R.string.chat_reaction_unknown)).assertCountEquals(0)
                             check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty())
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-official-separate.png"), text)
-                            ui.onNodeWithText("Like").performClick()
+                            ui.onNodeWithText("Like").performScrollTo().assertIsDisplayed().performClick()
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
                             waitFor("1 like")
@@ -532,7 +532,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Retry reaction").performClick()
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 2 }
                             val owner = postingTransaction(peer.transactions.last())
                             check(owner.encoded() == expected.get("networkBase64").asString)
@@ -540,7 +540,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             chooseBackend(SaitoBackend.OFFICIAL)
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.onAllNodesWithText("Retry reaction").assertCountEquals(0)
                             scenario.recreate()
                             waitFor(counterpart)
@@ -548,7 +548,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor(text)
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-official-recreated.png"), text)
                             check(store.loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OFFICIAL)
@@ -584,7 +584,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Retry reaction").assertIsEnabled().performClick()
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 1 }
                             peer.transactions.forEach { frame ->
                                 check(postingTransaction(frame).encoded() == expected.get("networkBase64").asString)
@@ -598,7 +598,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor(context.getString(R.string.chat_reaction_forwarded))
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/explicit-private-reaction-retry-recreated.png"), text)
                             check(AndroidWalletStore(context).loadOrCreate().exportJson() == wallet.exportJson())
                             check(AndroidBackendStore(context).load() == SaitoBackend.OWNER)
@@ -621,7 +621,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             peer.sendIncoming(packet(0))
                             waitFor("1 like")
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.any { it[0] == 13.toByte() } }
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Like").assertIsEnabled() // The contact's like does not select our Like.
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like.png"), text)
                             historyUnavailable.set(true)
@@ -635,7 +635,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             peer.sendIncoming(packet(0))
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements }
                             check(peer.incomingAcknowledgements.last()[0] == 13.toByte())
-                            ui.onNodeWithText("1 like").assertIsDisplayed()
+                            ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/incoming-private-like-duplicate.png"), text)
                             peer.sendIncoming(packet(1))
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements + 1 }
@@ -668,7 +668,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             val initialCount = if (concurrentLike) "2 likes" else "1 like"
                             waitForEnabled("Message")
                             waitForEnabled("Like")
-                            ui.onNodeWithText("Like").assertIsEnabled().performClick()
+                            ui.onNodeWithText("Like").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                             if (concurrentLike) {
                                 ui.waitUntil(5_000) { reactionRelayEntered.count == 0L }
                                 waitFor(context.getString(R.string.chat_reaction_submitted))
@@ -687,7 +687,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             }
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
                             waitFor(initialCount)
-                            ui.onNodeWithText(initialCount).assertIsDisplayed()
+                            ui.onNodeWithText(initialCount).performScrollTo().assertIsDisplayed()
                             waitForEnabled("Unlike")
                             ui.onNodeWithText("Unlike").assertIsEnabled()
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
@@ -706,16 +706,16 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor(initialCount)
                             ui.onNodeWithText(text).assertIsDisplayed()
-                            ui.onNodeWithText(initialCount).assertIsDisplayed()
+                            ui.onNodeWithText(initialCount).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText("Unlike").assertIsEnabled()
                             waitFor("Reaction forwarded. Delivery is not confirmed.")
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-like-recreated.png"), text)
                             waitForEnabled("Unlike")
-                            ui.onNodeWithText("Unlike").assertIsEnabled().performClick()
+                            ui.onNodeWithText("Unlike").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                             waitForEnabled("Like")
                             if (concurrentLike) {
                                 waitFor("1 like")
-                                ui.onNodeWithText("1 like").assertIsDisplayed()
+                                ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             }
                             ui.onAllNodesWithText(initialCount).assertCountEquals(0)
                             ui.waitUntil(5_000) { peer.transactions.size == 2 && peer.relayedMessages.size == 2 }
@@ -734,7 +734,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(text).assertIsDisplayed()
                             if (concurrentLike) {
                                 waitFor("1 like")
-                                ui.onNodeWithText("1 like").assertIsDisplayed()
+                                ui.onNodeWithText("1 like").performScrollTo().assertIsDisplayed()
                             }
                             ui.onAllNodesWithText(initialCount).assertCountEquals(0)
                             ui.onAllNodesWithText("Unlike").assertCountEquals(0)
@@ -751,7 +751,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             val body = expected.get("body").asString
                             val capturePrefix = if (zeroReply) "native-zero-reply" else "native-reply"
                             waitForEnabled("Message")
-                            ui.onNodeWithText("Reply").assertIsEnabled().performClick()
+                            ui.onNodeWithText("Reply").performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
                             ui.onNodeWithText("Send").assertIsNotEnabled()
                             ui.onNodeWithText("Message").performTextInput(body)
                             clickAfterTyping("Back")
@@ -768,9 +768,15 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
                                 SemanticsProperties.EditableText, AnnotatedString(body)))
                             ui.onAllNodesWithText("Remove reply").assertCountEquals(0)
-                            ui.onNodeWithText("Reply").performClick()
+                            ui.onNodeWithText("Reply").performScrollTo().assertIsDisplayed().performClick()
+                            waitFor("Remove reply")
+                            ui.onNodeWithText(expected.get("quotedText").asString).assertIsDisplayed()
                             clickAfterTyping("Send")
-                            waitFor(context.getString(R.string.chat_send_forwarded))
+                            ui.waitUntil(15_000) {
+                                peer.assertHealthy()
+                                ui.onAllNodesWithText(context.getString(R.string.chat_send_forwarded))
+                                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                            }
                             ui.waitUntil(5_000) { peer.transactions.size == 1 && peer.relayedMessages.size == 1 }
                             val received = PrivateChat.receive(recipientWallet, peer.transactions.single().drop(1).toByteArray())
                             check(received.message.text == outgoingText && received.message.author == wallet.publicKey)

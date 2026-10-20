@@ -19,41 +19,50 @@ Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
 source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
-Shared frame58 remains ACTIVE. Current production58781abae7b338cb8ba5b42af271702ac4cd7f07
-caps full private status guidance in a named scrollable quarter-height region,
-retaining every warning/condition and all composer controls. The prior pending
-admin group-history fix remains. Source39368460485SUCCESS and both source review
-axes0. Paired private diagnostic RED atbbf proved history408..408px; corrected
-private39369264256(10)/39369266269(17) now complete4 methods with2PASS/2FAIL.
-Storage-partial and interrupted-sendPASS; both original after-scroll trees show
-history298..394=96px. Root opened both PNGs. Later fixture failures: older snapshot
-expects older text after scrolling the other cached message; exchanged-key case
-expects2 same-text lazy nodes simultaneously, while trees show3 rows/1 composed body.
-New fixture correction preserves both text goals and exact two original envelopes,
-then traverses each signed message key with displayed-text checks under15seconds.
-This explicitly replaces simultaneous composition counting, not record cardinality.
+Shared frame58 remains ACTIVE. Production remains58781abae7b338cb8ba5b42af271702ac4cd7f07:
+named quarter-height private status viewport retains all guidance/conditions and
+composer controls; prior pending-admin group fix remains. Signed48 at587 is
+prepared/reviewed0 on both axes, unpublished, SHA256
+027f57f99944726daf3fcd829b74964b7916ff621e24c4d6b3ac5138d406123b.
+Actual APK/certificate/manifest/DEX and before-bookendPASS.47/46 superseded and
+unpublished; ordinary45 live, immutable45/performance43 unchanged.
 
-Group39369259389(10)/39369262266(17) overallFAIL:original actions1PASS on eachSDK
-(10.878/53.591s, unchanged60second bound), followed by mixed reception1FAIL at1-like
-display:105. Named message scrolling now precedes that same display goal, with
-separate positive body/reaction captures.22-case group/process gates were not
-reached. Obsolete reopened diagnostic captures removed only after positive native
-observations; final assertions/captures remain. Corrected runtime pending.
-All original class bounds remain. Paired current group/private partial packets
-retain30 hashes/166 archive members. Earlier RED and focused evidence is in
-../evidence/ticket58/README.md. No complete58 acceptance yet.
+Source39370155271 at e674b67ad1a3985b6d7c93aa4dcb2b7a32538285 SUCCESS.
+Group39370550836(Android10) SUCCESS:exact26 accepted38 identities,22 group+1 actions
++1 mixed+1 recovery+1 restore; actual PIDs14124->14523, full key/draft/original/
+reaction continuity and zero automatic transmissions.22 hashes/111 original
+members retained; root opened all three corrected after-scroll native originals.
+Group17 run39370553118 FAILURE:class60second exit124/START-only despite progress
+complete after in-journey assertions/final self-reply capture. No normal completion
+or proof of cleanup, and no later group gates. New best-effort timing stages cover
+fixture setup, Activity/peer close and each cleanup; no deadline change.
 
-Canonical48 at587 is PREPARED and reviewed0 on both axes, unpublished:
-APK027f57f99944726daf3fcd829b74964b7916ff621e24c4d6b3ac5138d406123b.
-Actual package/certificate/manifest/DEX and public before-bookendPASS.47/46 are
-superseded and unpublished. Ordinary45 remains LIVE, immutable45/performance43
-unchanged. Latest source edits are fixture-only, so48 production remains current.
-Wait source CI success before runtime; next verify corrected group-ui and complete
-chat-ui on bothSDKs, including all24 history methods,10 action methods and actual
-private process recovery. The four diagnostic cases are included; their focused
-scope remains available if needed. Then fresh full bothSDK acceptance and signed delivery. Dispatch full at the
-already-compiled source before pushing evidence-only docs, to reuse the exact
-Gradle task cache. Keep58/56 open until actual acceptance/publication. Do not claim57.
+Complete private39370555327(10):24 methods21PASS/3FAIL.17 run39370557265 reaches20
+starts17PASS/2FAIL then original180second bound, older-history START-only. Three
+initial text waits precede existing history scrolling; initial readiness now uses
+the existing scoped15second helper before the original display goal.
+Private process39370973797/39370976238 bothFAIL before deliberate kill at pending
+text104, prior to existing message scrolling; independent restore1PASS each.
+Existing showMessage becomes15second scoped scroll/display readiness with a
+positive nonzero-viewport guard, preserving all actual death/recovery goals.
+Private actions39371176128/39371178819 complete10 methods2PASS/8FAIL each:6 count
+display failures below visible body,2 forwarded waits with Submitted visible.
+No proved protocol/app defect. Count/action targets now scroll before original
+assertions/taps; selected quote is explicitly verified before second Reply Send,
+and peer health is checked inside the same15second forwarded goal for diagnosis.
+All original transport/identity/cardinality/negative assertions and deadlines stay.
+Seven new RED packets retain44 hashes/259 original bindings; actual failures and
+START-only limits remain. See../evidence/ticket58/README.md for every scope/result.
+
+Latest changes are fixture-only,48 production current. Await both review axes and
+successful source CI before corrected runtime. Verify group-ui17, complete chat-ui
+bothSDKs and the actual private recovery tail; group10 is already complete at e674.
+Then dispatch fresh full10/17 at the same compiled source BEFORE evidence-only
+commits, record exact source/run bindings before outcomes, retain failed e205 as
+failed previous attempts. All frozen473/474 identities,122/123 completions,
+34 interruptions/33 continuity remain. No full acceptance/publication yet.
+Keep56/58 open until verified delivery, then continue57 and59..69 sequentially.
+Do not touch protected untracked research. External prerequisites stay under36.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
