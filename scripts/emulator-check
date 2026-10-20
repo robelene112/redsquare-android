@@ -17,6 +17,9 @@ if [[ "${TEST_SCOPE:-full}" == full ]]; then
     [[ "$partition" == all || "$partition" == chat ]] && full_chat=true
     [[ "$partition" == all || "$partition" == social ]] && full_social=true
 fi
+# Reproduce the unchanged full-Chat prefix through photo storage without later gates.
+# Diagnostic scope only; never records complete acceptance.
+if [[ "${TEST_SCOPE:-full}" == chat-image-startup ]]; then full_chat=true; fi
 avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
 if [[ ! -f "$avd_home/redsquare-proof.ini" ]]; then
     printf 'no\n' | avdmanager create avd --name redsquare-proof --package "$TEST_SYSTEM_IMAGE"
@@ -524,6 +527,10 @@ if [[ "${TEST_SCOPE:-full}" == chat-images* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then verify_chat_images; fi
+if [[ "${TEST_SCOPE:-full}" == chat-image-startup ]]; then
+    printf '%s\n' 'Diagnostic full-Chat startup prefix through photo storage only; later Chat/public/release gates and complete acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_chat_mute() {
     local notification_api granted_for_test=0 native_exit=0
     notification_api="$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
