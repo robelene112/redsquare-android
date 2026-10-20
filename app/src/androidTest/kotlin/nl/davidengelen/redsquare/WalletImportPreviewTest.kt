@@ -32,6 +32,18 @@ import mockwebserver3.MockResponse
 class WalletImportPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
+    private fun openWallet(stage: String) {
+        withFailureCapture({ captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+            "wallet-import-evidence/wallet-entry-$stage-failure.png")) }) {
+            val action = hasText("Wallet") and hasClickAction() and isEnabled()
+            ui.waitUntil(20_000) {
+                try { ui.onNode(action).assertIsDisplayed(); true }
+                catch (_: AssertionError) { false }
+            }
+            ui.onNode(action).performClick()
+        }
+    }
+
     @Test fun failedSavingThroughConfirmedImportRestoresTheVisibleAndSavedWallet() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -45,17 +57,7 @@ class WalletImportPreviewTest {
                 .body("${System.currentTimeMillis()}-1234-${"a".repeat(64)}.snap\n").build()
         }
         server.start(InetAddress.getByName("127.0.0.1"), 0)
-        fun openWallet(stage: String) {
-            withFailureCapture({ captureNativeScreen(File(context.cacheDir,
-                "wallet-import-evidence/failed-save-$stage-wallet-entry-failure.png")) }) {
-                val action = hasText("Wallet") and hasClickAction() and isEnabled()
-                ui.waitUntil(20_000) {
-                    try { ui.onNode(action).assertIsDisplayed(); true }
-                    catch (_: AssertionError) { false }
-                }
-                ui.onNode(action).performClick()
-            }
-        }
+
         try {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
@@ -104,7 +106,7 @@ class WalletImportPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use { scenario ->
-            ui.onNodeWithText("Wallet").performClick()
+            openWallet("invalid-backup-entry")
             val address = displayedWalletAddress(ui)
             val failed = "That file is not a valid Saito wallet backup. Your wallet is unchanged."
             for (name in listOf("invalid-import.json", "malformed-utf8-import.json")) {
@@ -124,7 +126,7 @@ class WalletImportPreviewTest {
             }
             ui.onNodeWithText("Done").performClick()
             scenario.recreate()
-            ui.onNodeWithText("Wallet").performClick()
+            openWallet("invalid-backup-recreated-entry")
             assertEquals(address, displayedWalletAddress(ui))
             captureFeedEvidence("wallet-import-evidence/invalid-backup-recovery.png")
         }

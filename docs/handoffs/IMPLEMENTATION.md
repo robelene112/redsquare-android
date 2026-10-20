@@ -76,6 +76,12 @@ Both fc fulls rejected; otherjobscontinue. Diagnostic39416823937 atcfd mayrun
 bothSDKs (SDKexclusionwasfixedate288); bindactualprovenance. d30makesoptional
 pre-gesture reads best-effort. Reviews0/0 afterbothdiagnosticfixes. Corrected
 keyboardfocusedandfreshcompleteverificationpending.52remainspreparednotpublished.
+Freshfc10wallet alsoFAILS invalid-import initialWalletclick before anyfilepicker:
+no mergedWalletnode, oneunmergedmatch, no initialreadywait or inscopefailurecapture.
+Packetfullfc-wallet-entry10 hasactual6PASS1FAILlog/fullinventory; no fabricated
+nativefailureimage. Reuse existing20second enabled/displayed/clickable openWallet
+helper at startup/recreation, moving it toclass (existingfailedsavecallersunchanged).
+Invalid/UTF8/address/persistenceassertionsunchanged. Focusedimportstillrequired.
 
 Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
 speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.

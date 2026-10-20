@@ -350,3 +350,23 @@ original log, group first-use originals and full archive inventory remain in
 fullfc-keyboard17. Both fc Chat partitions have failed; neither full is accepted.
 The other partitions continue without cancellation. Focused corrected keyboard
 and complete fresh verification remain required.
+
+## Full10 wallet entry lacks a ready-action wait
+
+The fc10wallet partition also FAILS: wallet-import-ui has6PASS/1FAIL,
+invalidSelectedBackupShowsRecoveryAndRetainsTheCurrentWallet. Initial Wallet
+performClick atline107 finds no merged node, before any file selection. The
+assertion reports one unmerged match, which does not prove a ready clickable
+Wallet. This case had no initial readiness wait or in-scope capture. The retained
+packet fullfc-wallet-entry10 includes its actual complete log and archive
+inventory; there is no invented failure screenshot or successful invalid-import
+proof. The final harness screenshot is later than the failing method and is not
+used to establish its precise initial state.
+
+The test now reuses its class's existing20second enabled/displayed/clickable
+Wallet helper at startup and after recreation, with an in-scope failure capture.
+The helper moves from one method to the class; its existing callers, bounds,
+invalid-file/UTF8 recovery, exact address and wallet-persistence assertions
+remain. This is a ready-action observer correction, not a proven production
+initialization cause. Corrected focused import and fresh complete acceptance
+remain required; no production or signed52 change.
