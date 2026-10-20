@@ -71,6 +71,8 @@ class LikeWalletImportPreviewTest {
                         .putExtra("balanceApiUrl", "http://127.0.0.1:${balances.port}/balance/")).use {
                         withFailureCapture({ captureFeedEvidence("like-wallet-evidence/${if (pending) "pending" else "settled"}-failure.png") }) {
                             waitFor("4 likes")
+                            ui.clickVisiblePostContent("Native Red Square reference post")
+                            waitFor("Conversation")
                             ui.clickVisiblePostContent("Like")
                             if (pending) {
                                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled())
