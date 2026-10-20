@@ -1,0 +1,159 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete59 catalogs plus ten additive post and real TalkBack methods. All original identities, recovery, public reads, class deadlines, exclusions and tool pins remain mandatory. No full execution yet.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket59/full10-207-39470519533/identities.json",
+      "sha256": "bdef8ede9b79203676cc9092611d0926b91eb991cceb0ccd11a48e6a19ff9264",
+      "previousIdentities": 486,
+      "additional": [
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "postActionsKeepReportSecondaryAndFullIdentityReachable",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing",
+          "occurrences": 1
+        },
+        {
+          "path": "post-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationViewportTest",
+          "test": "longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-content-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostContentViewportTest",
+          "test": "multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-content-contexts-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostContentContextsTest",
+          "test": "sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-status-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostStatusViewportTest",
+          "test": "unavailableLikeDetailsAndRetryRemainReachableAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-pending-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPendingViewportTest",
+          "test": "pendingRetryAndAvailableActionWithFailedCountRefreshStayExplicitInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackPostPreviewTest",
+          "test": "postControlsAndOwnerMenuSpeakTheirActionAndAccountContext",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 136,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 99
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket59/full17-72a-39451603260/identities.json",
+      "sha256": "f33cc4b43c7b22e60d48a79b2109b39f63fe6dc089286a23b5cb08f179529e72",
+      "previousIdentities": 487,
+      "additional": [
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "postActionsKeepReportSecondaryAndFullIdentityReachable",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets",
+          "occurrences": 1
+        },
+        {
+          "path": "post-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationPreviewTest",
+          "test": "ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing",
+          "occurrences": 1
+        },
+        {
+          "path": "post-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPresentationViewportTest",
+          "test": "longRegisteredIdentityAndNodeCountsRemainReadableAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-content-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostContentViewportTest",
+          "test": "multipleImagesAndQuotedOriginalStayReadableWithoutInventedCountsAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-content-contexts-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostContentContextsTest",
+          "test": "sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-status-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostStatusViewportTest",
+          "test": "unavailableLikeDetailsAndRetryRemainReachableAcrossTextSizesAndThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-pending-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostPendingViewportTest",
+          "test": "pendingRetryAndAvailableActionWithFailedCountRefreshStayExplicitInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "post-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackPostPreviewTest",
+          "test": "postControlsAndOwnerMenuSpeakTheirActionAndAccountContext",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 137,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 99
+    }
+  ],
+  "catalogFreezeCommit": "PENDING_FREEZE",
+  "collectorSha256": "e22a22e29c607eac63eb844530c305acc96764b4f5cddfac06f47c183bb424e2",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingSources": {},
+  "executingRuns": {}
+}
