@@ -745,3 +745,10 @@ guards are unchanged. Focused old-source viewport10run39435980283 and
 17run39435984470 execute the existing two original cancellation journeys for
 a smaller reproduction. Corrected focused/full verification and a fresh signed
 candidate remain pending. No target threshold or assertion is relaxed.
+
+The3c Android17 full Chat job independently fails the same original Members
+48dp assertion with exact same Rect(16,181-100,203), while its other12 queue
+methods pass. Its95 original members are retained in queue-red17-3c-39431103266.
+Corrected5a focused viewport10run39436228435/17run39436233728 and
+GroupAdmin10run39436239311/17run39436244211 are active; all original goals and
+deadlines remain. New complete acceptance has not yet been dispatched.
