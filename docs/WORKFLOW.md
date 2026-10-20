@@ -239,6 +239,22 @@ complete first-release scope and the established production boundaries.
    match that catalog exactly; changing artifact location does not exclude a goal. This follows an actual75minute Android17 timeout with
    missing wallet/tail gates, not an application acceptance failure. Application
    assertions, class/request deadlines and production are unchanged.
+   Complete full scopes automatically enable their existing public-read gates;
+   focused scopes keep their explicit opt-in. If a completed full dispatch omitted
+   that option before this guard existed, the only permitted deficit is exactly
+   OwnerLiveFeedTest in live-owner-feed.txt and live-official-feed.txt plus
+   PublicPrivateChatReadTest in public-chat.txt. Run the unchanged existing feed
+   (public_feed_read=true) and chat-public scopes on each affected SDK. Every main
+   and supplemental job must succeed. Prove identical application, tests, harness,
+   workflow, build configuration and pinned reference inputs across those executing
+   sources. Bind all supplemental goal logs, readiness data and captures to the
+   original runs/files; retain incidental repeated feed checks separately and
+   require them to pass. The canonical union must still match the independently
+   frozen full catalog and completion/recovery totals exactly, with no other
+   deficit, new exclusion or unexpected assumption. Describe acceptance as full
+   partitioned verification plus separately executed public-read gates, never as
+   those gates having run in the initial dispatch. This bounded assembly is not
+   the failed-observer tail exception and cannot waive any application failure.
    Full-suite job ceilings are75minutes per SDK job or120minutes for the combined
    `full` scope; source/focused jobs retain60minutes. The previous complete
    Android17 job took over57minutes, leaving little room below60 for runner
