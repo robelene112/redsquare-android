@@ -1,0 +1,53 @@
+{
+  "candidateSource": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
+  "fixtureSource": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
+  "objects": {
+    "app/src/main": {
+      "candidate": "fa9432787d287fa9fbed5fa38426543ae897a7f6",
+      "correctedFixtureSource": "fa9432787d287fa9fbed5fa38426543ae897a7f6"
+    },
+    "core/src/main": {
+      "candidate": "f482cdb7a81261d81509a34a296e734f8cba2bed",
+      "correctedFixtureSource": "f482cdb7a81261d81509a34a296e734f8cba2bed"
+    },
+    "push-gateway/src/main": {
+      "candidate": "c54a4d37d5c2c994d774265594943a492fbc00d7",
+      "correctedFixtureSource": "c54a4d37d5c2c994d774265594943a492fbc00d7"
+    },
+    "app/build.gradle.kts": {
+      "candidate": "75eb5a385fe22dfc6ef13898ab16088573a30ee8",
+      "correctedFixtureSource": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+    },
+    "core/build.gradle.kts": {
+      "candidate": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "correctedFixtureSource": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+    },
+    "push-gateway/build.gradle.kts": {
+      "candidate": "517dcc470f27fb27f9bdfc758dfd81a473192f90",
+      "correctedFixtureSource": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "build.gradle.kts": {
+      "candidate": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "correctedFixtureSource": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    "settings.gradle.kts": {
+      "candidate": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "correctedFixtureSource": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    },
+    "gradle.properties": {
+      "candidate": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "correctedFixtureSource": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    },
+    "gradle/wrapper": {
+      "candidate": "1810dfedd6e27f6054311daa5de9c327adf0fdae",
+      "correctedFixtureSource": "1810dfedd6e27f6054311daa5de9c327adf0fdae"
+    },
+    "build-support": {
+      "candidate": "d4e9d93da0aa0ecff553a7562080b63521a8be34",
+      "correctedFixtureSource": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+    }
+  },
+  "productionInputsIdentical": true,
+  "apkBytesEquivalenceClaimed": false,
+  "fullAcceptancePending": true
+}

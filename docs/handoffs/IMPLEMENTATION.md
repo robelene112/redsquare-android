@@ -626,3 +626,10 @@ Standards review0; Spec review pending. Local app/test compile succeeds2m3s.
 Candidate90f production and all build inputs remain byte-equivalent after the
 fixture correction; do not claim identical APK bytes from source comparison.
 Fresh focused reproduction and complete10/17 acceptance remain required.
+
+Conversation fixture correction now has0 Spec/0 documented/0 heuristic findings.
+Corrected focused10 run39514685233 and17 run39514688634 executece480df16d2fbc81d0f2ca2070bf5c59edc181e4,
+including the original browse precondition. Both pending. Both rejected-full
+packets' terminal outcomes/hashes/originals are reviewed0/0. The prepared59 packet
+now includes11 matching production/build Git object pairs90f→ce480; both reviews0.
+This proves source/input equivalence, never APK-byte equivalence or acceptance.
