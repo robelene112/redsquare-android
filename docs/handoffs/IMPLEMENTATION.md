@@ -40,10 +40,12 @@ No exact original/Relay/count/restoration goal or deadline is weakened.
 Latest compiled candidatefa21f295d8ff39206c81e30da081a677ed57a402, source39374755440
 in progress. Await SUCCESS before corrected chat-ui and fresh full10/17 dispatch.
 Priorf2 source39374150855SUCCESS; a1 source39374682292CANCELLED by newerfa, not
-acceptance. Canonical signed49 building from frozen productiona1 in the external
-review-worktree; shared counter49 reserved.48/47/46 superseded and unpublished.
-Ordinary45 stays LIVE, immutable45/performance43 unchanged.49 preparation and
-public before/after checks, complete native acceptance/review/publication pending.
+acceptance. Canonical signed49 PREPARED from frozen productiona1 in the external review-worktree;
+shared counter49 reserved, APK6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a.
+Actual certificate/manifest/DEX verified, min29/target36, nondebug/nonprofile, backupfalse,
+reviewtrue, Push/PostsGIF/ChatGIF absent. Before-publication bookendPASS.
+Preparation review pending;48/47/46 superseded and unpublished.
+Ordinary45 stays LIVE, immutable45/performance43 unchanged.49 public after-check, complete native acceptance/review/publication pending.
 
 Earlier complete focused group:10 at e674/run39370550836 and17 at003/run39372650163
 bothSUCCESS, exact26 accepted38 identities each.17 actual PIDs5328->5407,10

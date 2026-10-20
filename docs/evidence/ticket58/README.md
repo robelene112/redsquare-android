@@ -857,3 +857,12 @@ display goals. All source review axes0. Fresh fa source39374755440 pending;
 no runtime acceptance yet. Signed49 is building at frozen productiona1.48/47/46
 remain unpublished and superseded; ordinary45 live. Fresh full10/17, public
 bookends and delivery remain mandatory. Broader dense Chat states remain62.
+
+[Signed49 preparation](signed49-prepared/apk-check.json) is complete at frozena1.
+Canonical builder exits0 in4m42s. Actual APK SHA256
+6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a,
+established6ca certificate, nondebug/nonprofile, min29/target36, backupfalse,
+reviewtrue and Push/PostsGIF/ChatGIF unconfigured confirmed from actual APK.
+Before-publication bookendPASS:ordinary45 live and immutable45/performance43
+unchanged.49 remains unpublished; source/full/native/preparation review and
+public after-check are still required.48/47/46 superseded without publication.
