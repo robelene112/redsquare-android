@@ -887,3 +887,22 @@ each, while both social and wallet jobs succeed. Their final run/job metadata
 is retained without changing earlier run-at-capture records. Signed56 remains
 prepared/unpublished;50 stays live. Final native success, visual inspection,
 paired review and public bookends are pending. Continue60through69 after59.
+
+## Focused group17 runner timeout, no acceptance inferred
+
+Focused39444233530 at exactdc2 finishes FAILURE: the unchanged60second
+GroupChatActionsPreviewTest command exits124 with START-only instrumentation.
+Its original phase record reaches both exact signed originals, literal clipboard,
+reopening, self-reply, all native captures, Activity/peer closure and independent
+cleanup-complete. Fixture-start62910ms to cleanup-complete115952ms is53.042s;
+the host command additionally includes runner initialization/finalization. Native
+self-reply PNG was opened and shows the correct body and Forwarded status.
+No completed test result was returned, so this is not a PASS and later mixed/
+22-method/process goals were not reached. The exact5 original members, goal/exit
+logs, timeout dump and terminal run metadata are retained. No cause or runtime
+fix is claimed.
+
+A fresh same-source focused17run39445406794 repeats the unchanged command to
+observe completion. Full10/17 continue independently. No deadline, action,
+assertion or production change is made; neither attempt can replace full proof.
+Paired provenance correction reviews through a19ce4079 report0 residual findings.
