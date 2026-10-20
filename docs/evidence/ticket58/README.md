@@ -590,3 +590,28 @@ An explicit48dp minimum-history assertion precedes the original cached-message
 scroll, without reducing any original goal or deadline. Both source review axes0.
 Fresh focused/full paired acceptance is required. Prepared signed46 is superseded
 and remains unpublished; a new canonical candidate must include this fix.
+
+Corrected group-admin39360256057(Android10)/39360258546(Android17) atf59 both
+SUCCESS. Each exactly matches16 independently accepted38 identities:12 UI methods,
+plus promotion/removal cold recovery and restoration, with two deliberate deaths
+and two continuity gates. Promotion PIDs8474->8843/4686->4769; removal9207->9541/
+4911->5031. Exact persisted signed originals, Relay once on explicit Retry,
+wallet/backend/key/history/draft and restored state retain all original deadlines.
+Paired ui58-group-green packets retain50 hashes/92 original member bindings.
+Root opened both before-history originals: saved text is visible, and both trees
+measure Group messages340..426,86px height instead of zero. This is the pending
+administration regression fix, not complete Chat polish or full acceptance.
+
+Canonical47 is PREPARED atf59f01faacc696d5e5956933614737aee1875289. Actual APK SHA
+bbb7e5bb939807f6dbb51cd50c6c46d0f41ba40b06d165eb35a8a88fd736bb3e, same established
+certificate/package, version47/0.1.47, min29/target36, nondebuggable/nonprofileable,
+backupfalse. Actual DEX has reviewtrue, pushfalse and no Posts/Chat provider keys.
+Both preparation review axes0. Public before-bookend confirms ordinary45 remains
+live and immutable45/performance43 bytes match.47 is unpublished;46 superseded.
+
+Source39360230027 atf59 passed core/gateway, Debug/test, Release/Performance and
+lint. Fresh full39360894371(10)/39360896559(17, all3 partitions) executee2056df1d,
+whose only differences fromf59 are evidence/docs. Their independent473/474 catalog,
+122/123 completions,34 interruptions and33 continuity expectations were bound
+before outcomes, with public reads and immutable35/43 observers enabled. No full
+outcome, signed delivery, physical/provider or store acceptance is claimed yet.

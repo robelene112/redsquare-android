@@ -23,9 +23,13 @@ Shared frame58 remains ACTIVE. The current production fix keeps group history
 visible while an administration action is pending, by hiding only unusable empty
 photo/GIF picker buttons. The attachment component stays mounted; existing
 previews, credits, drafts and picker state remain. Default/private paths retain
-their behavior. Both source review axes0. Fresh paired focused/full acceptance
-and a new canonical signed candidate are required. Prepared46 is superseded and
-unpublished; ordinary45 remains live.
+their behavior. Both source review axes0. Focused39360256057(10)/39360258546(17) bothSUCCESS, each16 independent accepted38
+identities, two actual process deaths and two continuity gates. Original exact
+raw/Relay/identity/history/draft/restoration goals retain their deadlines. Root
+opened both originals: Group messages now340..426,86px, with cached text visible.
+Fresh full39360894371(10)/39360896559(17) executee2056df1d, app/build/signing
+equivalent tof59. Catalog bound before outcomes. Canonical47 is prepared and
+reviewed, not published;46 superseded. Ordinary45 remains live.
 
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
@@ -76,8 +80,8 @@ Root opened both original PNGs: pending status, disabled picker rows and multili
 draft occupy the viewport, with no visible cached history. Paired group-viewport
 RED packets retain six original native/tree members each, stages, original
 failure and independent restoration1PASS. The positive48dp history regression
-now fails before an unbounded zero-height scroll. No corrected runtime is claimed.
-The public-download observer retains response/length/hashes before the unchanged
+now fails before an unbounded zero-height scroll. The later corrected focused proof above establishes visible history/recovery;
+these RED runs remain failed. The public-download observer retains response/length/hashes before the unchanged
 checksum rejection; no automatic retry or relaxed validation. Complete native
 acceptance remains pending, including the legacy update tail. Historical failures
 keep their actual outcomes.

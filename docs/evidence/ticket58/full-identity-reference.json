@@ -333,15 +333,58 @@
         }
       },
       "limit": "Both whole attemptsFAILED in private queued-photo cold-recovery visibility at ChatQueueProcessRecoveryTest:216. Android17 wallet/socialSUCCESS, ChatFAILED. Exact relay/text/history assertions precede the failed20second photo goal. Failed phase/restoration/original native observations remain separate from corrected focused proof; neither is complete acceptance."
+    },
+    {
+      "executingRuns": {
+        "android10": 39355334984,
+        "android17": 39355337570
+      },
+      "executingSources": {
+        "android10": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+        "android17": "077baa5b19b495c8b0cfb3099525e630965b56c4"
+      },
+      "actualStates": {
+        "android10": {
+          "source": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (all)",
+              "conclusion": "failure"
+            }
+          ]
+        },
+        "android17": {
+          "source": "077baa5b19b495c8b0cfb3099525e630965b56c4",
+          "status": "completed",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "native-proof (chat)",
+              "conclusion": "failure"
+            },
+            {
+              "name": "native-proof (social)",
+              "conclusion": "success"
+            },
+            {
+              "name": "native-proof (wallet)",
+              "conclusion": "failure"
+            }
+          ]
+        }
+      },
+      "limit": "Both complete attemptsFAILED at group promotion preparation120second bound.17 socialSUCCESS; wallet76 original identitiesPASS but later legacy APK checksum rejects. No complete acceptance or tail-only exception because Chat application gate failed."
     }
   ],
   "executingRuns": {
-    "android10": 39355334984,
-    "android17": 39355337570
+    "android10": 39360894371,
+    "android17": 39360896559
   },
   "executingSources": {
-    "android10": "077baa5b19b495c8b0cfb3099525e630965b56c4",
-    "android17": "077baa5b19b495c8b0cfb3099525e630965b56c4"
+    "android10": "e2056df1d3001c3303ce3a6d706b01dc0c68772c",
+    "android17": "e2056df1d3001c3303ce3a6d706b01dc0c68772c"
   },
-  "sourceEquivalence": "Current077 full attempts completedFAILURE. Both10 and17 Chat timed out at120second GroupChatProcessRecoveryTest promotion preparation.17 socialSUCCESS; wallet application identities/public readsPASS but later legacy APK checksum rejects before signed-update/final diagnostic. Diagnostic-only5eb source is in focused group-admin runs, not new full acceptance. App/build/signing inputs remain9b33-equivalent; frozen identities/assertions/deadlines unchanged."
+  "sourceEquivalence": "New full runs executee2056df1d, production/build/signing equivalent to reviewedf59f01faacc696d5e5956933614737aee1875289, which fixes zero-height group history by hiding unusable pending picker rows. Only evidence/docs differ. Recorded before outcomes. Independent473/474 identities,122/123 completions,34 interruptions,33 continuity and all earlier assertions/deadlines stay frozen. Public reads enabled with immutable35/43 observers. Prepared47 is unpublished,46 superseded; ordinary45 live. Fresh full acceptance on bothSDKs required."
 }

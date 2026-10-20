@@ -1,0 +1,23 @@
+{
+  "source": "f59f01faacc696d5e5956933614737aee1875289",
+  "run": 39360256057,
+  "sdk": "10",
+  "conclusion": "success",
+  "independentAccepted38Identities": 16,
+  "uiMethods": 12,
+  "deliberateProcessDeaths": 2,
+  "continuityGates": 2,
+  "protocols": {
+    "promotion": {
+      "pid": 8474,
+      "recoveredPid": 8843,
+      "retryVerified": true
+    },
+    "removal": {
+      "pid": 9207,
+      "recoveredPid": 9541,
+      "retryVerified": true
+    }
+  },
+  "limit": "Focused original group-admin UI and promotion/removal recovery only. All exact raw/identity/history/draft/Retry assertions retain original120second process phases and180second UI class bound. No full, physical, provider or store acceptance;47 remains prepared/unpublished."
+}

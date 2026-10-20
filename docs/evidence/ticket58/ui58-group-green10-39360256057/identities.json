@@ -1,0 +1,98 @@
+[
+  {
+    "path": "group-admin-promotion-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "coldRestartRetainsGroupStateWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-promotion-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-removal-process/recovered.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "coldRestartRetainsGroupStateWithoutSending",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-removal-process/restored.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupChatProcessRecoveryTest",
+    "test": "restoreOriginalEncryptedInstallationFiles",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aFailedSubmittedStopIsVisibleAndPreservesUncertaintyThroughNewWork",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aPreparedPromotionCannotTransmitOrRetryAfterTheTargetLeaves",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aPromotionCannotRelayOrRetryAfterItsAdministratorLosesAuthority",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aPromotionCannotSubmitAfterItsAdministratorLosesAuthority",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aPromotionConfirmationUpdatesWhenItsTargetLeaves",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aPromotionStopsAtRelayWhenARenameArrivesAfterRawSubmission",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aRejectedPromotionRelayShowsUncertaintyAndRetriesTheSameOriginal",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aRemovalCannotRelayOrRetryAfterItsAdministratorLeaves",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "aRemovalCannotSubmitAfterItsAdministratorLeaves",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "anAdminCanPromoteAMemberWithoutLosingTheDraftAndReopenTheNewRole",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "anAdminCanRemoveAMemberAndRetainTheDraftAndRemovalAfterReopening",
+    "occurrences": 1
+  },
+  {
+    "path": "group-admin-ui.txt",
+    "testClass": "nl.davidengelen.redsquare.GroupAdminPreviewTest",
+    "test": "stoppingAStalePromotionRetainsItsOriginalAndAllowsNewMessages",
+    "occurrences": 1
+  }
+]
