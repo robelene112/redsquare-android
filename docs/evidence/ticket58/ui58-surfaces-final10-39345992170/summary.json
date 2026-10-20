@@ -1,0 +1,33 @@
+{
+  "run": "39345992170",
+  "source": "ba3ad0240ff6644114204b08d792261b27b605b3",
+  "expectedMethods": [
+    "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+    "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+    "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+    "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "privateChatCancellationKeepsTheDraftAndAcceptanceDoesNotSendIt",
+      "status": 0
+    },
+    {
+      "method": "profilePublishingRequiresAgreementAndCancellationKeepsTheEditableBio",
+      "status": 0
+    },
+    {
+      "method": "checkingANameStaysAvailableButRegistrationRequiresSeparateAgreement",
+      "status": 0
+    },
+    {
+      "method": "likingRequiresAgreementAndCancellingDoesNotSaveOrTransmitTheAction",
+      "status": 0
+    }
+  ],
+  "members": 33,
+  "limit": "Focused controlled native publishing/agreement evidence. Overall run remains FAILED; later acceptance gates are absent. Not full regression, public publication or physical/provider acceptance."
+}

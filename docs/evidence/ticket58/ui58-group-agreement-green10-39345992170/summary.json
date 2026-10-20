@@ -1,0 +1,48 @@
+{
+  "run": "39345992170",
+  "source": "ba3ad0240ff6644114204b08d792261b27b605b3",
+  "expectedMethods": [
+    "creatingAGroupRequiresAgreementAndKeepsItsUnpublishedDetailsOnCancel",
+    "previewingAnInvitationIsIndependentButJoiningRequiresAgreement",
+    "cancellingGroupPublicationKeepsTheEditableMessage",
+    "cancellingAGroupReactionKeepsTheMessageUnliked",
+    "promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel",
+    "removingAMemberRemainsAvailableWithUnapprovedPolicies",
+    "leavingAGroupRemainsAvailableWithUnapprovedPolicies"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "success",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "removingAMemberRemainsAvailableWithUnapprovedPolicies",
+      "status": 0
+    },
+    {
+      "method": "cancellingAGroupReactionKeepsTheMessageUnliked",
+      "status": 0
+    },
+    {
+      "method": "leavingAGroupRemainsAvailableWithUnapprovedPolicies",
+      "status": 0
+    },
+    {
+      "method": "promotingAMemberRequiresAgreementAndKeepsConfirmationOnCancel",
+      "status": 0
+    },
+    {
+      "method": "cancellingGroupPublicationKeepsTheEditableMessage",
+      "status": 0
+    },
+    {
+      "method": "previewingAnInvitationIsIndependentButJoiningRequiresAgreement",
+      "status": 0
+    },
+    {
+      "method": "creatingAGroupRequiresAgreementAndKeepsItsUnpublishedDetailsOnCancel",
+      "status": 0
+    }
+  ],
+  "members": 24,
+  "limit": "Focused controlled native publishing/agreement evidence. Overall run remains FAILED; later acceptance gates are absent. Not full regression, public publication or physical/provider acceptance."
+}

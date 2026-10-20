@@ -1,0 +1,28 @@
+{
+  "run": "39345995233",
+  "source": "ba3ad0240ff6644114204b08d792261b27b605b3",
+  "expectedMethods": [
+    "unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled",
+    "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+    "explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt"
+  ],
+  "overallRunConclusion": "failure",
+  "classResult": "failure",
+  "adbExitRecordAvailable": true,
+  "completions": [
+    {
+      "method": "unacceptedBackgroundGroupMessagesKeepTheirOriginalAndCanBeCancelled",
+      "status": 0
+    },
+    {
+      "method": "requiredTermsKeepGroupQueueCancellationReachableWithLargerTextAndOfflineWarnings",
+      "status": -2
+    },
+    {
+      "method": "explicitAgreementResumesTheQueuedGroupMessageWithoutSigningAnotherAttempt",
+      "status": 0
+    }
+  ],
+  "members": 17,
+  "limit": "Focused controlled native publishing/agreement evidence. Overall run remains FAILED; later acceptance gates are absent. Not full regression, public publication or physical/provider acceptance."
+}

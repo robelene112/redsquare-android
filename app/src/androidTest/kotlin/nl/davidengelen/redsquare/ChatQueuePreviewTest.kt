@@ -166,7 +166,8 @@ class ChatQueuePreviewTest {
                         ui.waitUntil(30_000){warnings.all{resource->
                             ui.onAllNodesWithText(context.getString(resource)).fetchSemanticsNodes().isNotEmpty()}&&
                             ui.onAllNodes(actionError).fetchSemanticsNodes().isNotEmpty()}
-                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
+                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertDoesNotExist()
+                        check(!backupPrefs.getBoolean(backupKey,true))
                         // Reachability applies even while the existing safety guard disables cancellation.
                         physicalChatAction(scenario,"three-warnings")
                         val queuedBeforeScroll=requireNotNull(requireNotNull(store.load(key.publicKey)).queuedMessage).candidate.envelope()
@@ -471,7 +472,8 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                                 retained.transaction?.let{PrivateChat.read(wallet,it.envelope(),contact).text==text}==true
                         }
                         ui.waitUntil(30_000){ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).fetchSemanticsNodes().isNotEmpty()}
-                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertIsDisplayed()
+                        ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertDoesNotExist()
+                        check(!backupPrefs.getBoolean(backupKey,true))
                         physicalChatAction(scenario,"long-message",kind="private")
                         val queuedWork=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact)
                         val beforeScroll=requireNotNull(queuedWork.load().transaction).envelope()

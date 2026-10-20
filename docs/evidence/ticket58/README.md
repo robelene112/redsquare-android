@@ -350,3 +350,20 @@ outcomes. Previous failed9b33 attempts remain separately recorded and FAILED.
 Complete agreement39345992170(10)/39345995233(17) also runs atba3 with the targeted
 group-reaction scroll. Their outcomes, complete58 acceptance and live46 remain
 pending.
+
+Complete agreement39345992170(10) atba3 FAILED later in the two larger-text Chat
+queue cases,2PASS/1FAIL each. Both wait atPublishingQueueFixture:172 for the old
+backup reminder insideChat. The original PNG/XML shows reachable cancellation,
+queued intent and offline warnings. Group7 and surfaces4 nowPASS, including the
+targeted reaction scroll and positive native Unlike capture. Their retained class
+results do not change the overall failure or establish missing later gates.
+The next test-only correction asserts reminder absence plus persistedhidden=false.
+The two ChatQueue cancellation fixtures contain the same obsolete reminder-positive
+expectation; they receive the same scoped correction. Every original worker,
+signature, warning, physical48dp target, cancellation and deadline check remains.
+Home reminder-positive assertions remain intact. No production change.
+
+Android17 complete agreement39345995233 has the same two queue expectation
+failures at172; group7 and surfaces4PASS. All four class packets retain actual
+results and original bytes. The overall17 run remainsFAILED and later gates
+are absent. The correction is test-only, with both review axes0 for its scope.

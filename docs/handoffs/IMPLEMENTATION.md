@@ -63,8 +63,12 @@ Fresh full39346126335(10)/39346130915(17, all3parts) run at exactba3ad0240 with
 public reads and immutable signed35/43 observers. The independent frozen catalog
 binds source and runIDs in../evidence/ticket58/full-identity-reference.json:
 473/474 identities,122/123normal,34deliberate interruptions,33continuity. Prior
-failed attempts remain recorded separately. Complete agreement39345992170(10)/
-39345995233(17) also runs atba3. No complete58 acceptance yet. All changes since9b33
+failed attempts remain recorded separately. Complete agreement39345992170(10) FAILED later in bothlarger-text Chatqueue
+cases at the old reminder-inChat expectation (2othermethodsPASS each); group7
+and surfaces4PASS. Original packets retained;17 agreement39345995233 has the same outcomes.
+A test-only correction asserts reminder absence plus persistedhidden=false there
+and in the same two legacy ChatQueue cancellation cases, preserving allworker/
+signature/warning/physicaltarget/cancel/deadline checks. No complete58 acceptance yet. All changes since9b33
 are fixtures/harness/evidence only; production/build/signing inputs are identical.
 
 Ordinary46 is PREPARED, not published, at the same9b33 source. Actual APK SHA256

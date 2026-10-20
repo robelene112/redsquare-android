@@ -169,7 +169,9 @@ internal class PublishingQueueFixture(private val ui: ComposeTestRule, private v
                         waitFor("Queued")
                         waitFor("Sending is paused until you review the current publishing terms.")
                         if (largeFont) {
-                            waitFor(context.getString(R.string.wallet_backup_reminder))
+                            ui.onNodeWithText(context.getString(R.string.wallet_backup_reminder)).assertDoesNotExist()
+                            check(!context.getSharedPreferences("wallet-backup-reminders", 0)
+                                .getBoolean("hidden:${wallet.publicKey}", true))
                             val warnings = if (kind == Kind.GROUP) listOf(R.string.group_history_error, R.string.group_live_error)
                                 else listOf(R.string.chat_load_error)
                             ui.waitUntil(30_000) { warnings.all { resource -> ui.onAllNodesWithText(context.getString(resource))
