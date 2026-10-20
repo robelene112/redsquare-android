@@ -284,3 +284,11 @@ trailing feed space is reached by real88dp scrolling; all48dp targets must fit
 the actual list viewport and avoid the composer, independently of pairwise
 nonoverlap. Production is unchanged; corrected native verification is pending.
 Both final correction source reviews report zero findings.
+
+Corrected-scroll attempts39503713760/39503717663 at7d89518dd2194898ba64f97f9f5d3792a7209020
+fail fixture compilation on unavailable performScrollBy before both runtime
+steps, which are skipped. Three-hash packets per SDK preserve exact metadata
+and failed build output; no native/app RED claimed. Replacement uses the existing
+public SemanticsActions.ScrollBy callback with the same88dp goal and idle wait.
+Both source/evidence reviews0. Corrected local app/test Kotlin compile succeeds
+2m10s. Production remains unchangedcfbf; new paired runtime proof is pending.

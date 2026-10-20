@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-20 during shared asynchronous-status59 verification.
+Updated 2026-10-20 during shared post-presentation60 verification.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -35,6 +35,28 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active post-presentation60
+
+Current checkpoint21:57UTC: production source remainscfbf9af2ab785d524145ebe4fa408014bc527bed.
+HEAD7d89518dd2194898ba64f97f9f5d3792a7209020 adds only viewport-test corrections
+and retained evidence. Author-menu/source/actual10+17/menu+author-process proof
+is complete with paired0 reviews. The first viewport attempts atc41c fail a
+fixture false positive: actual141px count text fits141px, while unused paragraph
+allocation272px sets didOverflowWidth. Diagnostic36c880/39502566486 retains that
+exact result; no application count-truncation defect is established. Corrected
+actual painted-line/complete-character/no-ellipsis goals and stronger actual
+scroll-viewport/FAB-free48dp target assertions have both source reviews0.
+Pinned attempts10 run39503713760 and17 run39503717663 both fail fixture
+compilation on an unavailable performScrollBy extension, before any emulator
+step. Three-hash packets per SDK retain exact failures. Existing public ScrollBy
+semantics callback replaces it with the same88dp goal and an idle wait. Both
+source/evidence reviews0. Corrected local app/test compilation succeeds2m10s.
+New paired native dispatch is next.
+Inspect and retain both actual results before the next content/status/a11y tracer.
+Do not call focused proof complete60 acceptance. Remaining: media/quote/missing
+counts, failed/pending Light/Dark, actual new-control TalkBack, additive full
+catalog/collector frozen before execution, full10+17/paired reviews/signed ordinary59.
+Then61–69 and70 sequentially. Owner review55 and real release1/36 remain parked.
+
 
 2026-10-20 20:10 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
@@ -396,3 +418,11 @@ trailing feed space is reached by real88dp scrolling; all48dp targets must fit
 the actual list viewport and avoid the composer, independently of pairwise
 nonoverlap. Production is unchanged; corrected native verification is pending.
 Both final correction source reviews report zero findings.
+
+Corrected-scroll attempts39503713760/39503717663 at7d89518dd2194898ba64f97f9f5d3792a7209020
+fail fixture compilation on unavailable performScrollBy before both runtime
+steps, which are skipped. Three-hash packets per SDK preserve exact metadata
+and failed build output; no native/app RED claimed. Replacement uses the existing
+public SemanticsActions.ScrollBy callback with the same88dp goal and idle wait.
+Both source/evidence reviews0. Corrected local app/test Kotlin compile succeeds
+2m10s. Production remains unchangedcfbf; new paired runtime proof is pending.

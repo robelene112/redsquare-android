@@ -94,7 +94,10 @@ class PostPresentationViewportTest {
                             }
                             ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
                             // Use the existing trailing space to bring the entire footer above the floating composer.
-                            ui.onNode(hasScrollAction()).performScrollBy(0f, 88 * context.resources.displayMetrics.density)
+                            ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+                                check(scroll(0f, 88 * context.resources.displayMetrics.density))
+                            }
+                            ui.waitForIdle()
                             val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
                             val composer = ui.onNode(hasText("New post") and hasClickAction())
                                 .assertIsDisplayed().fetchSemanticsNode().touchBoundsInRoot
