@@ -104,7 +104,7 @@ for kind,part,wanted in [('feed','wallet',{'live-owner-feed.txt','live-official-
  assert found==goals+duplicates and goals==Counter({k:n for k,n in public_expected.items()if k[0]in wanted}),ids.rows(found)
  supplemental=target/'supplemental'/kind;supplemental.mkdir(parents=True,exist_ok=True)
  (supplemental/'run.json').write_text(json.dumps(run_meta,indent=2)+'\n')
- originals={};incidental_archives={};selected=[]
+ originals={};incidental_archives={};selected_originals=[]
  for p in sorted(raw.rglob('*')):
   if not p.is_file()or p.name=='emulator.log':continue
   rel=p.relative_to(raw);b=p.read_bytes();key=rel.as_posix()
@@ -136,7 +136,7 @@ for kind,part,wanted in [('feed','wallet',{'live-owner-feed.txt','live-official-
   if out.exists():assert out.read_bytes()==b,('Previously collected evidence differs',str(out))
   out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(b)
   if not owned:continue
-  selected.append({'path':key,'source':str(p),'sha256':sha(b)})
+  selected_originals.append({'path':key,'source':str(p),'sha256':sha(b)})
   info=parts[part];info['files']+=1
   if p.suffix in ['.png','.xml']:
    direct_key=part+'/'+key;entry={'sha256':sha(b),'bytes':len(b),'supplementRun':run,'source':str(p)}
@@ -166,7 +166,7 @@ for kind,part,wanted in [('feed','wallet',{'live-owner-feed.txt','live-official-
    assert len(lines)==2 and all(line.startswith('PASS backend='+backend)for line in lines)
  (supplemental/'original-file-bindings.json').write_text(json.dumps(originals,indent=2)+'\n')
  (supplemental/'incidental-archive-inventory.json').write_text(json.dumps(incidental_archives,indent=2)+'\n')
- record={'run':run,'source':public_config['source'],'scope':kind,'ownedPartition':part,'canonicalGoals':ids.rows(goals),'selectedOriginalFiles':selected,'incidentalCompletedIdentities':ids.rows(duplicates),'incidentalContinuityRecords':sum(p.name=='continuity.txt'for p in raw.rglob('*.txt')),'incidentalNormalCompletions':sum(p.read_text(errors='replace').count('INSTRUMENTATION_CODE: -1')for p in raw.rglob('*.txt'))-len(wanted),'limits':'All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads.'}
+ record={'run':run,'source':public_config['source'],'scope':kind,'ownedPartition':part,'canonicalGoals':ids.rows(goals),'selectedOriginalFiles':selected_originals,'incidentalCompletedIdentities':ids.rows(duplicates),'incidentalContinuityRecords':sum(p.name=='continuity.txt'for p in raw.rglob('*.txt')),'incidentalNormalCompletions':sum(p.read_text(errors='replace').count('INSTRUMENTATION_CODE: -1')for p in raw.rglob('*.txt'))-len(wanted),'limits':'All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads.'}
  (supplemental/'assembly.json').write_text(json.dumps(record,indent=2)+'\n');public_executions.append(record)
 
 comparison={'expected':expected.total(),'actual':actual.total(),'missing':ids.rows(expected-actual),'extra':ids.rows(actual-expected)}
