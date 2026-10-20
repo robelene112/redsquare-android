@@ -17,7 +17,8 @@ class AppFrameReadingPreviewTest {
         val rows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
             JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
         }
-        withAppFrameFixture("reading-position", "app-frame-reading-evidence", rows) { activity ->
+        lateinit var peer: ControlledFeedPeer
+        withAppFrameFixture("reading-position", "app-frame-reading-evidence", rows, configurePeer = { peer = it }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Reference post 20").isDisplayed() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
@@ -32,7 +33,24 @@ class AppFrameReadingPreviewTest {
             activity.recreate()
             assertReadingPosition(before)
             capture("scrolled-feed-after-recreation.png")
+            ui.waitUntil(5_000) { ui.onNode(hasText("Refresh") and isEnabled() and hasClickAction()).isDisplayed() }
+            peer.rejectNewConnections = true
+            ui.onNodeWithText("Refresh").performClick()
+            assertOutageDetails()
+            assertReadingPosition(before)
+            capture("scrolled-outage-before-recreation.png")
+            activity.recreate()
+            assertOutageDetails()
+            assertReadingPosition(before)
+            capture("scrolled-outage-after-recreation.png")
         }
+    }
+
+    private fun assertOutageDetails() {
+        ui.waitUntil(20_000) { ui.onNodeWithText("Node unavailable").isDisplayed() }
+        ui.onNodeWithContentDescription("Details: Node unavailable").performClick()
+        ui.onNodeWithText("Posts could not be refreshed. Try again.").assertIsDisplayed()
+        ui.onNodeWithText("Done").performClick()
     }
 
     private fun assertReadingPosition(expected: Float) {

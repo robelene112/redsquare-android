@@ -77,13 +77,17 @@ failed overall run as acceptance. Full source/core/release/lint steps pass;
 standalone f4 source39424574004 is canceled, not accepted. Documentation-only4f
 source39424796169 succeeds; it does not establish later7c production acceptance.
 
-Observation-only574 diagnostic39426864176 runs the same seven group methods
+The574 diagnostic39426864176 and initial7c reading39426991453/39426995692
+fail compilation before device execution because the new diagnostic lacked a
+JsonObject import. They provide no native evidence. Import fixd209 compiles
+locally (debug/app-test4m38s). Replacement group39427888785 and reading10/17
+39427893734/39427898191 execute d209. Group uses the same seven methods
 with raw peer Tx/Relay counts and all-root Compose captures. New agreement-group
 scopes retain180seconds and exact prior assertions; complete scopes keep allcases.
 At7c5e807c4 the only production correction gates initial network-loading notice
 on cacheReady, so an initial exit cannot offset the newly mounted restored cached
 list. Actual cache load sets posts thenready before later network refresh. Existing
-reading1pixel assertions remain. Focused10/17runs39426991453/39426995692 are active.
+reading1pixel assertions remain. Replacement original reading10/17runs39427893734/39427898191 are active.
 Paired review finds no source/harness issue; latest documentation corrections
 still require confirmation. All original failures/archives are retained in59.
 

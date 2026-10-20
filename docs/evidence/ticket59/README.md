@@ -585,3 +585,16 @@ assertions unchanged. Group diagnostic39426864176 at574 preserves all7methods,
 180second bounds and original signed/raw Relay/visible-state goals. Complete
 agreement/full scopes retain every case. Source/harness paired review reports0
 findings; current documentation correction requires review confirmation.
+
+The initial574 diagnostic39426864176 and7c reading runs39426991453/39426995692
+fail compilation before any device execution: JsonObject import was missing in
+the new observation code. They prove no native behavior. d209 fixes that import;
+local debug/app-test compilation succeeds in4m38s. Replacement group39427888785
+and reading10/17runs39427893734/39427898191 execute exactd209.
+
+The existing reading method now additionally exercises scrolled outage, meaningful
+Details/Done guidance, Activity recreation during continued node outage, and the
+same original1pixel anchor goal. All preceding Chat-return/online-recreation
+assertions and180second bound remain. The modifier's parent baseline is not yet
+changed; run/inspect the old restoration behavior before a proposed saved-baseline
+fix. This is stronger existing-identity coverage, not a new catalog identity.
