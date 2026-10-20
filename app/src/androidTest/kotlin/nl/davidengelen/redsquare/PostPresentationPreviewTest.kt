@@ -4,6 +4,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
+import com.google.gson.JsonObject
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import java.io.File
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -101,6 +103,71 @@ class PostPresentationPreviewTest {
             ui.onNodeWithText("0 reposts").assertDoesNotExist()
             capture("compact-social-controls-with-node-counts.png")
         }
+
+    @Test fun ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val wallet = AndroidWalletStore(context).loadOrCreate()
+        val body = JsonObject().apply {
+            addProperty("module", "RedSquare"); addProperty("request", "create tweet")
+            add("data", JsonObject().apply { addProperty("text", "Own post action preview") })
+        }
+        val row = postingArchiveRow(SaitoTransaction.create(wallet, body, 1_700_000_000_000))
+        val author = "Anon-${wallet.publicKey.take(6)}"
+        withAppFrameFixture("post-author-actions", "post-presentation-evidence", feedRows = "[$row]") {
+            ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            assertOwnPostActions(author, "feed")
+            ui.onNodeWithText("Own post action preview").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() &&
+                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+            assertOwnPostActions(author, "thread")
+            ui.onNodeWithText("Back").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+            ui.onNodeWithContentDescription("View profile for $author").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
+                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
+            assertOwnPostActions(author, "profile")
+            ui.onNode(hasText("Home") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText("Search") and hasClickAction()).performClick()
+            ui.onNode(hasSetTextAction()).performTextInput("Own post action preview")
+            ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+            ui.onNodeWithText("Search history").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() &&
+                ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
+            assertOwnPostActions(author, "search")
+        }
+    }
+
+    private fun assertOwnPostActions(author: String, surface: String) {
+        val more = hasContentDescription("Post actions for $author") and hasClickAction()
+        val edit = hasContentDescription("Edit post by $author") and hasClickAction()
+        val delete = hasContentDescription("Delete post by $author") and hasClickAction()
+        ui.onNode(more).assertIsDisplayed().performClick()
+        ui.onNode(edit).assertIsDisplayed().assertIsEnabled().assertTextContains("Edit")
+        ui.onNode(delete).assertIsDisplayed().assertIsEnabled().assertTextContains("Delete")
+        ui.onNodeWithText("Report").assertDoesNotExist()
+        capture("own-actions-$surface.png")
+        ui.onNode(edit).performClick()
+        ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+        ui.onNodeWithText("Edit post").assertIsDisplayed()
+        ui.onNode(hasSetTextAction()).assertTextEquals("Own post action preview")
+        ui.onNodeWithText("Back").performClick()
+        ui.waitUntil(15_000) { ui.onNode(more).isDisplayed() }
+        ui.onNode(more).performClick()
+        ui.onNode(delete).assertIsDisplayed().assertIsEnabled().performClick()
+        ui.waitUntil(15_000) { ui.onNode(hasText("Confirm delete") and isEnabled()).isDisplayed() }
+        ui.onNodeWithText("Delete post").assertIsDisplayed()
+        ui.onNodeWithText("Remove this post from normal views on the selected node and this device? Historical and independent copies may remain.")
+            .assertIsDisplayed()
+        capture("own-delete-confirmation-$surface.png")
+        ui.onNodeWithText("Back").performClick()
+        ui.waitUntil(15_000) { ui.onNodeWithText("Own post action preview").isDisplayed() }
+    }
 
     private fun assertPostPresentation(surface: String) {
         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()

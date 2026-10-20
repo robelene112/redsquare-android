@@ -302,12 +302,27 @@ packet sdk-download-status10-9f381-39491249249 is no applicationRED. Same-source
 Android17 replacement39492262522 at9f381 completes actual intendedRED:Social8
 has7PASS/1missing Like unavailable (42.583s), preceding repeat/isolation/import
 and both process gatesPASS. Packet71hashes/6archives43members, root viewed actual
-raw long error/row wrapping. Details/repair goals not reached. Status WIP now
+raw long error/row wrapping. Details/repair goals not reached. Status productb495f67e23b27b8bd9954fc76a0fb0ef2be2d31b now
 uses permanent full-width InlineStatus below unchanged controls, concise summaries
 and contextual original Details, original retryLoad and pending Retry callbacks,
 same two-second rate effect/controller/count/send policies. Three existing operators
 adapt summary labels and retain full explanations by opening actual Details;
 new status captures retain PNG/XML. Local build33222 SUCCESS3m33s, only existing PostImages warning. Source/RED
-evidence reviews0 after71-hash count reconciliation; native statusGREEN pending. Committed product remainsd364. Unrelated research
+evidence reviews0 after71-hash count reconciliation; native10 statusGREEN39493943186 SUCCESS15UI+bothprocessgates,74hashes/6archives
+47originals; compact10regression39493953775 SUCCESS3methods12.071s,24hashes16originals.
+Both packet audits0; root viewed actual status summary/Details PNGs. Native17
+status39493947989 remains active atb495. CurrentHEADc5bfd201292709dc4a6eaaa7fb28ca7b667f418b
+changes only three remaining Feed profile operators in Author/Quote fixtures;
+paired source reviews0, all other assertions byte-unchanged. Focused quotes10
+39494135294 SUCCESS7methods19.639s+actualquoteprocess5.824s,23hashes/nine originals.
+Root viewed actual Feed/Profile quote spacing; paired packet review pending. Unrelated research
 file remains untouched. Remaining60 status/author menu/matrix/a11y/full delivery
 and61 through70 remain authorized sequential work; do not stop at a slice.
+
+Next own-menu tracer WIP in PostPresentationPreviewTest uses one actual signed
+own post through all4contexts: contextual Edit/Delete, original edit text, correct
+confirmation, Back and no sends. Existing3methods and180second bound retained.
+Frame fixture adds authorposts/postdraft to independent retained/restored files
+because opening author forms writes those local records. All original guards,
+Activity closure, wallet/backend and zero-frame goals remain. No author-menu
+production change yet. Review and actual nativeRED before implementation.

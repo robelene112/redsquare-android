@@ -1,0 +1,62 @@
+{
+  "quote-evidence.tar": {
+    "sha256": "75c95c03851320f81a69b50c14907ad1ddbaea425b264726d945a9d492e66d73",
+    "bytes": 267264,
+    "members": [
+      {
+        "name": "quote-evidence/recovered-original-quote-candidate.png",
+        "bytes": 25245,
+        "sha256": "da813a0300061020fd5b9d2dc8e9ffd7c8694ebcca503f90479d01756d8eb2a4",
+        "retainedPath": "originals/quote-evidence/quote-evidence/recovered-original-quote-candidate.png"
+      },
+      {
+        "name": "quote-evidence/current-commentary-retweet.png",
+        "bytes": 39481,
+        "sha256": "3566149ff3e9e11bd8ce3c37e20fe17d53f64c54dabecbc6fd05c795d80b4257",
+        "retainedPath": "originals/quote-evidence/quote-evidence/current-commentary-retweet.png"
+      },
+      {
+        "name": "quote-evidence/current-retweet-profile.png",
+        "bytes": 47192,
+        "sha256": "36cbd3ae4bfb63cac5b7647f96d2f5aeda8ad02b9ae038fef7335987f63df986",
+        "retainedPath": "originals/quote-evidence/quote-evidence/current-retweet-profile.png"
+      },
+      {
+        "name": "quote-evidence/recovered-quote-draft.png",
+        "bytes": 25798,
+        "sha256": "ddd4b8faa22f91c6ae1b00a499ad6f83929629f7f9071e9588cef756e7ab8128",
+        "retainedPath": "originals/quote-evidence/quote-evidence/recovered-quote-draft.png"
+      },
+      {
+        "name": "quote-evidence/unavailable-original-recovered.png",
+        "bytes": 39679,
+        "sha256": "1fad537cd7d75e4ca048d0b78bc6a7c7bd14b7af773cccc7768af571bc72e425",
+        "retainedPath": "originals/quote-evidence/quote-evidence/unavailable-original-recovered.png"
+      },
+      {
+        "name": "quote-evidence/publication-progress.txt",
+        "bytes": 553,
+        "sha256": "997c49365d83f6abf6de1a9ba866f84902df4484d04395cc366eef150327cb63",
+        "retainedPath": "originals/quote-evidence/quote-evidence/publication-progress.txt"
+      },
+      {
+        "name": "quote-evidence/published-quote-conversation.png",
+        "bytes": 38382,
+        "sha256": "c50f4a8d221b9c4f191172b1d62786460a0c54fdcb1c55967370ae7d9fb2a266",
+        "retainedPath": "originals/quote-evidence/quote-evidence/published-quote-conversation.png"
+      },
+      {
+        "name": "quote-evidence/native-quote-frame.base64",
+        "bytes": 2088,
+        "sha256": "3c55e3aac1ddd2f502cad6d83426f8dca6cb29ce58352a17ece9793738b2d743",
+        "retainedPath": "originals/quote-evidence/quote-evidence/native-quote-frame.base64"
+      },
+      {
+        "name": "quote-evidence/backend-isolated-original-cache.png",
+        "bytes": 39481,
+        "sha256": "3566149ff3e9e11bd8ce3c37e20fe17d53f64c54dabecbc6fd05c795d80b4257",
+        "retainedPath": "originals/quote-evidence/quote-evidence/backend-isolated-original-cache.png"
+      }
+    ]
+  }
+}

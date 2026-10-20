@@ -188,4 +188,22 @@ Rate feedback now uses the same status host. Three older native operators target
 contextual Details to retain each original full-explanation assertion. Their
 behavior/recovery/raw goals are unchanged. New status captures retain PNG/XML. Local Kotlin build33222 succeeds3m33s with only the existing PostImages warning.
 Both source/RED evidence reviews report0 after71-hash count reconciliation;
-product runtime remains pending.
+product runtime remains pending. Status product is committed at
+b495f67e23b27b8bd9954fc76a0fb0ef2be2d31b. Social10
+39493943186 succeeds:15original UI cases and both process gates,74hashes/six
+archives47originals. Compact10 regression39493953775 succeeds3methods12.071s,
+24hashes/16originals. Root viewed actual status summary and contextual Details
+PNGs; paired evidence audits0. Native17status39493947989 remains active.
+Three remaining Feed raw-key profile operators in AuthorPostPreviewTest and
+QuotePreviewTest now use the actual contextual profile header atc5bfd201292709dc4a6eaaa7fb28ca7b667f418b; both source reviews0, every other assertion unchanged.
+Focused quotes10 run39494135294 SUCCESS atc5bfd:7UI methods19.639s and
+actual quote-process recovery5.824s.23hashes/nine exact original members retained;
+root viewed actual Feed/Profile quote padding. Packet review pending.
+
+Next single tracer exercises one signed own post through Feed, Thread, Profile
+and Search: contextual Edit/Delete in each More menu, correct original edit
+text, real deletion confirmation, Back and zero transmissions. Existing three
+post methods and180second class bound remain. The read-only frame fixture also
+retains authorposts/postdraft files because opening author forms retains originals
+and drafts locally; original Activity-first restoration and wallet/backend/zero-
+frame assertions remain. Author-menu implementation has not started.
