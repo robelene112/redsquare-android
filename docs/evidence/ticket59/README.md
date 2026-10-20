@@ -1442,7 +1442,7 @@ status59-runtime-restart-33-RUN directories.
 any post-restart invocation. The twelve-hash packet retains baseline512MiB PASS,
 proven absence of all original PIDs, the stopped marker and an empty replacement
 PID record. This establishes that the boot flag was observed before the first
-replacement PID was available, without identifying who set that flag. Both
+replacement PID was accepted by the strict lookup, without identifying who set that flag. Both
 independent evidence reviews report0 findings.
 
 The readiness correction clears the flag only after original PID death and
@@ -1451,3 +1451,91 @@ timeout. Strict per-PID existence, disjointness and unchanged-property checks
 remain. Both independent residual source reviews report0 findings. A corrected
 cold-boot cohort remains pending; no application acceptance follows from these
 process-only experiments.
+
+
+## Coherent pre-install runtime observations
+
+The [corrected20a cohort](runtime-ready20a-cohort/) retains182 hashes and all
+original process logs. Two runs39474492226/39474501778 succeed with48 distinct
+post-restart512MiB processes, proper newzygote64 parents and unchanged properties.
+Their baselines also report512MiB. Run39474473095 fails before its first accepted
+replacement PID; no post-restart invocation runs. This does not distinguish a
+failed lookup, multiple-PID rejection or a lifecycle transition.
+
+Entire10 [39474812231 at6c](runtime-initialization-red10-6c-39474812231/) is terminal
+FAILURE, allthree jobs, before app installation. Ten retained hashes show empty
+initial PID records for Chat/social and an empty replacement record for wallet,
+with original PID absence proven only in wallet. No application goal executes.
+Source/core/gateway/release/performance/lint39474765871 succeeds separately.
+[Focused protected photo-history39474806130 at6c](runtime-storage10-6c-39474806130/)
+also succeeds separately with15 verified hashes, both original methods at512MiB
+in PID4535 and unchanged properties/disjoint replacement PIDs; neither
+success replaces the failed complete execution.
+
+Final fixture34d8b106 uses the same bounded capture protocol for initial and
+replacement PID tuples: two consecutive coherent positive/live observations,
+boot completion, replacement disjointness from every original PID, then direct
+retention of that exact tuple and every poll. Each phase has one120second bound.
+Original PID death and unchanged heap-property checks remain mandatory. Both
+independent source reviews report0 findings. No application/AndroidTest change
+from6c. Temporary diagnosis remains removed.
+
+The [qualified production/SDK17 equivalence](runtime-initialization-production-equivalence/)
+now binds exact72a/34d8b106:456of457 non-docs/non-AndroidTest Git entries equal,
+only API29 initialization differs. SDK17 harness/workflow/queue/storage projections
+match72a byte-for-byte; the existing Search correction retains its earlier
+focused17 acceptance. Signed58 and accepted complete17 remain at72a.
+
+New entire10run39476058296 at verify/status59-ready-34d8b106a and three focused
+storage cold-boots39476053581/39476066978/39476075031 execute exact34d8b106.
+All remain pending at this checkpoint. Sourcecheck39476010575 is SUCCESS.
+The unchanged frozen collector/catalog and allthree complete jobs remain required;
+no focused, older-partition or failed-tail assembly is accepted.58 unpublished.
+
+
+## Complete application10 at207, independently collected
+
+Entire10 [39470519533](full10-207-39470519533/) is now terminal SUCCESS in allthree
+partitions at exact207b0a2f3. The unchanged frozen collector passes486/486 exact
+identities,485passed plus the single pre-existing API29Profile assumption,
+129normal completions,35deliberate interruptions,34continuity records and92archives.
+The631-hash packet retains original goals, actual full member inventories, source/
+job metadata, public reads and native status originals. Only the five exact frozen
+optional observer gaps recur. No focused, older-partition or failed-tail assembly.
+
+Both original private/group storage methods pass at actual512MiB/64bit inPID12929,
+parent1665, with Android memoryClass512. All12/16 ordinary photos, history/draft/
+growth/restoration assertions remain.207 uses read-only runtime observations and
+its reviewed exact72a production/full-scope projection. The later initialization
+of34 is not claimed to have executed in207.
+
+Root inspection confirms actual TalkBackPID5149, outageutterance talkback_3 and
+recoveryutterance talkback_5: one speaking fragment, oneSTART/oneDONE each,7/5positive
+AUDIO chunks and noERROR/STOP. The original native case also requires12quiet
+seconds with at least two actual retry attempts, unchanged Referencepost20 focus
+and the same service PID. Settings restore byte-for-byte. Original English voice
+synthesis has real nonzero WAV audio; physical audibility is explicitly false.
+
+Allfive Referencepost05 native reading bookends have bounds[74,431][201,479].
+Root opened actual normalDark200% Searchframes6/10/28/36/40 andafter, connection
+frames5/11/22, andzeroLight130% Searchworking/after plusconnectionafterremoval.
+They show real insertion, progressive exit and final layout removal under captured
+window scale1/0. Existing48dp Retry and all original recovery goals pass. The
+whole-word navigation finish remains separately open in70; this acceptance does
+not claim app-wide visual or physical/provider/store readiness.
+
+Both independent workflow eligibility reviews confirm that a successful complete
+207 execution can establish app59 behavior alongside complete17/72a: allthree jobs
+within each SDK use the same exact source, production/signing inputs stay72a and
+all acceptance goals remain. There is no documented latest-fixture requirement.
+Complete34/run39476058296 remains separate additional fixture verification, with
+sourcecheckSUCCESS and two focused storage successes39476053581/39476066978.
+The latter packets retain17hashes each; actual poll observations positively show
+temporary multiple-name matches. SDK-only failure39476075031 remains failed,
+with replacement39476893505 active at the same34 source. Earlier failures remain.
+
+Final paired application-evidence reviews report Spec0/documentedStandards0/
+heuristic0. Both independently verify631 hashes and all2,524 archive members,
+complete identities/completions, real speech/motion/reading and production scope.
+58 remains immutable/prepared/unpublished until canonical publication and public
+protection checks; those are the next authorized steps.

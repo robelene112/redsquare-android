@@ -1,0 +1,29 @@
+{
+  "source": "6c8515d64fff1f789040d58bf7874453d03cfc32",
+  "conclusion": "failure",
+  "partitions": [
+    {
+      "partition": "chat",
+      "previousPidRecordBytes": 0,
+      "currentPidRecordBytes": null,
+      "oldPidAbsenceProven": false,
+      "nativeApplicationGoals": []
+    },
+    {
+      "partition": "social",
+      "previousPidRecordBytes": 0,
+      "currentPidRecordBytes": null,
+      "oldPidAbsenceProven": false,
+      "nativeApplicationGoals": []
+    },
+    {
+      "partition": "wallet",
+      "previousPidRecordBytes": 45,
+      "currentPidRecordBytes": 0,
+      "oldPidAbsenceProven": true,
+      "nativeApplicationGoals": []
+    }
+  ],
+  "scope": "All partitions stop in pre-install runtime initialization; no application acceptance. Empty PID records do not distinguish lookup failure from rejected multi-PID output.",
+  "correction": "Use the bounded two-observation capture protocol for BOTH previous and replacement PID sets, retaining actual poll observations. No app goal, input, deadline, collector or heap setting changes."
+}

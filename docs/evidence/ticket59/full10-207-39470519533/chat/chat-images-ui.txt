@@ -1,0 +1,237 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatImagesPreviewTest:
+INSTRUMENTATION_STATUS: test=aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aCompatiblePrivatePhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aCompatibleGroupPhotoIsVisibleExpandableAndRetainedWhenTheServerNoLongerHasIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedPrivatePhotoAndItsTextSurviveReopeningBeforeExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: picker-launch at 735641 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: provider-opened at 735816 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: draft-edited at 736000 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: preparation-error-observed at 751964 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: draft-durable-capture-enter at 752648 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: draft-durable-capture-return at 752706 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: recreated at 752802 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: reopened-capture-enter at 753397 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: reopened-capture-return at 753688 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: cleanup-enter at 753703 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo group-failed-preparation: cleanup-return at 753707 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=editsDuringATimedOutGroupPhotoPreparationRemainDurableWithoutNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSelectedGroupPhotoAndItsTextSurviveReopeningBeforeExplicitSend
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRecoveredGroupPhotoAndItsCaptionUseTheExistingSignedChatSendPath
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingAQueuedPrivatePhotoRestoresItsExactCaptionAndImageWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: picker-launch at 771284 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: provider-opened at 771447 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: draft-edited at 771613 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: preparation-error-observed at 787230 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: draft-durable-capture-enter at 787713 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: draft-durable-capture-return at 787769 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: recreated at 787853 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: reopened-capture-enter at 788247 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: reopened-capture-return at 788704 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: cleanup-enter at 788714 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: stream=
+Chat photo private-failed-preparation: cleanup-return at 788717 ms
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=editsDuringATimedOutPrivatePhotoPreparationRemainDurableWithoutNavigation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=cancellingAQueuedGroupPhotoRestoresItsExactCaptionAndImageWithoutSending
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatImagesPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aRecoveredPrivatePhotoAndItsCaptionUseTheExistingSignedChatSendPath
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 83.288
+
+OK (10 tests)
+
+
+INSTRUMENTATION_CODE: -1

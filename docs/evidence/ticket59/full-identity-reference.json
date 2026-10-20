@@ -100,8 +100,8 @@
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf",
-    "actualSpeechAcceptance": false,
-    "actualSpeechAcceptanceScope": "Overall acceptance requires both current complete SDK executions. Android17 actual service/engine proof is recorded independently below.",
+    "actualSpeechAcceptance": true,
+    "actualSpeechAcceptanceScope": "Both independent complete executions now retain actual service/engine speech, one outage/recovery fragment, positive AUDIO/START/DONE and unchanged focus/settings. No physical audibility or real-provider acceptance.",
     "completeSpeechExecutions": {
       "android17": {
         "run": 39451603260,
@@ -113,7 +113,16 @@
         "focus": "Reference post 20",
         "physicalAudibility": false
       },
-      "android10": null
+      "android10": {
+        "run": 39470519533,
+        "servicePid": 5149,
+        "outageUtterance": "talkback_3",
+        "recoveryUtterance": "talkback_5",
+        "fragmentCountEach": 1,
+        "positiveEngineAudioAndDone": true,
+        "focus": "Reference post 20",
+        "physicalAudibility": false
+      }
     }
   },
   "collectorSha256": "d00f7bbf694e80d6585a255a89e3cf49af4809077c444058513aacffbc8a5219",
@@ -194,6 +203,14 @@
       "status": "completed",
       "conclusion": "failure",
       "reason": "Wallet/social succeed; both unchanged Chat photo-history methods fail at actual16MiB in PID14790 despite512m reported device heap. Exact terminal failure packet retained. Later unchanged prefix and three storage boots succeed at512MiB;24 process-only starts also succeed. Cause unresolved; no failure waiver or assembly."
+    },
+    {
+      "source": "6c8515d64fff1f789040d58bf7874453d03cfc32",
+      "android10": 39474812231,
+      "acceptance": "rejected",
+      "terminalConclusion": "failure",
+      "terminalMetadata": "docs/evidence/ticket59/runtime-initialization-red10-6c-39474812231/run-final.json",
+      "reason": "Allthree jobs fail in pre-install PID capture: Chat/social previous recordempty; wallet replacementrecordempty after proven oldPIDabsence. Noapplicationgoals run. Missing versus multiple name matches needs retained pollobservations. No failed-tail/partitionassembly."
     }
   ],
   "signedCandidateVersion": 58,
@@ -280,6 +297,27 @@
       "status": "completed",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860"
+    },
+    {
+      "run": 39468854173,
+      "source": "207b0a2f3a279705cf9475da13e558546fba0257",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39468854173"
+    },
+    {
+      "run": 39474765871,
+      "source": "6c8515d64fff1f789040d58bf7874453d03cfc32",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39474765871"
+    },
+    {
+      "run": 39476010575,
+      "source": "34d8b106042aa643545ca6b04e5bad82dfbc023a",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39476010575"
     }
   ],
   "sourceBuild": {
@@ -296,9 +334,9 @@
     "status": "completed",
     "conclusion": "success",
     "url": "https://github.com/robelene112/redsquare-android/actions/runs/39468854173",
-    "acceptance": "Source/core/gateway/release/performance/lint only; complete10 runtime acceptance remains pending."
+    "acceptance": "Original source/core/gateway/release/performance/lint SUCCESS; complete207 allthree jobs SUCCESS, strict collection/root inspection/final review pending."
   },
-  "executingState": "Complete17 at72a remains accepted as one SDK. A fresh entire10 at production-equivalent207 39470519533 is active after three512MiB storage boots, same-prefix success and24 process-only successes. Additional cold-boot probes remain diagnostic. Earlier16MiB cause unresolved; read-only runtime observations retained for full execution. Frozen486/129/35/34/92 and allthree SUCCESS jobs required; no focused/failed-tail assembly or error waiver.58 unpublished.",
+  "executingState": "Both independent complete executions pass unchanged strict collector:10at207/run39470519533 exact486(485pass+onefrozenassumption)/129normal/35interruptions/34continuity/92archives;17at72a/run39451603260 exact487/130/35/34/92. Root independently inspected native speech/motion/reading and actual512MiB storage. No assembly. Final paired evidence review pending;58unpublished. Later34 initialization remains separate fixture proof.",
   "fixtureEquivalenceHistory": [
     {
       "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",
@@ -333,6 +371,23 @@
         "scripts/emulator-check"
       ],
       "normalFullScopeProjection": "Exact original bytes after removing only new inactive diagnostic branches/choices/exclusions; all full classes/inputs/deadlines/routing unchanged.",
+      "reviewAxesFindings": {
+        "spec": 0,
+        "documentedStandards": 0,
+        "heuristic": 0
+      },
+      "completeAndroid17Run": 39451603260,
+      "signedVersion": 58
+    },
+    {
+      "productionSource": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "executingSource": "34d8b106042aa643545ca6b04e5bad82dfbc023a",
+      "path": "docs/evidence/ticket59/runtime-initialization-production-equivalence/inputs.json",
+      "unchangedTrackedEntries": 456,
+      "harnessOnlyChangedPaths": [
+        "scripts/emulator-check"
+      ],
+      "SDK17Projection": "Exact72a bytes after removing only API29-only initialization definitions/call; workflow/queue/storage projection byte-equal. Existing Search correction preserves assertions and focused17proof.",
       "reviewAxesFindings": {
         "spec": 0,
         "documentedStandards": 0,
@@ -376,5 +431,44 @@
   "verificationRefs": {
     "android10": "verify/status59-runtime-207b0a2f3",
     "android17": "verify/status59-72a8c6382"
+  },
+  "currentFixtureSource": "34d8b106042aa643545ca6b04e5bad82dfbc023a",
+  "additionalFixtureExecutions": {
+    "source": "34d8b106042aa643545ca6b04e5bad82dfbc023a",
+    "fullAndroid10": {
+      "run": 39476058296,
+      "status": "in_progress",
+      "conclusion": null,
+      "scope": "Separate later initialization proof, not part of complete207 acceptance"
+    },
+    "focusedStorage": [
+      {
+        "run": 39476053581,
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run": 39476066978,
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "run": 39476075031,
+        "status": "completed",
+        "conclusion": "failure",
+        "scope": "SDK download/unzip before source/device checks"
+      },
+      {
+        "run": 39476893505,
+        "status": "in_progress",
+        "conclusion": null,
+        "scope": "Same-source fresh replacement after SDK download failure"
+      }
+    ],
+    "sourceCheck": {
+      "run": 39476010575,
+      "status": "completed",
+      "conclusion": "success"
+    }
   }
 }

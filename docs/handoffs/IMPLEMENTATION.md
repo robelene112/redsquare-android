@@ -36,131 +36,82 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 17:59 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
-Finish59, then60through69 and bounded rendered navigation follow-up70 sequentially,
-without routine owner stops.70 is linked to55/blocked by59 and queued after69.
-No new owner input is needed. Physical/provider/KVK/store prerequisites remain parked.
+2026-10-20 18:47 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
+Finish59, then60through69 and bounded navigation follow-up70 sequentially,
+without routine owner stops. Owner/provider/physical/store prerequisites stay parked.
 
-Production, signed58 and accepted complete17 source:
-`72a8c63828280d61dc760331e17289cf7c93112a` at verify/status59-72a8c6382.
-Complete17run39451603260 all3 SUCCESS. Strict unchanged collector passes487/487,
-130 normal completions,35 deliberate interruptions,34 continuity,92 archives and
-0 assumptions, with only exact53 observer gaps. Actual bound TalkBackPID14123,
-utterances4/6 real AUDIO/DONE once, unchanged focus and settings; real window1/0
-motion/font200Dark/130Light and all five1px reading bookends pass/root-inspected.
-Both scoped17/photo-route review axes at2fb108ee4 report0, all639+111 hashes and
-2,526 full archive members/82 focused originals independently byte-bound.
-This accepts one SDK, not global publication or app-wide/physical readiness.
+Production, immutable prepared signed58 and accepted complete17 source:
+`72a8c63828280d61dc760331e17289cf7c93112a`. Complete17run39451603260 allthree
+SUCCESS; unchanged strict collector accepts487identities/130normal/35interruptions/
+34continuity/92archives/0assumptions. Root inspected real TalkBack engine speech,
+normal/zero window motion and all five1px reading bookends. Both review axes0.
+Signed58 remains UNPUBLISHED, SHA256
+178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
+37,856,651bytes, established certificate, correct review manifest/DEX. Never rebuild.
 
-Signed58 is immutable/prepared/unpublished in the external review worktree,
-SHA256178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
-37,856,651bytes, established cert, SDK29/36, nondebug/nonprofile/backup=false,
-review=true/push=false/separate GIF keys absent. Actual manifest/DEX and protected
-public before-bookend pass; both preparation reviews0. Never rebuild58.
+Complete application10 is now **207b0a2f3a279705cf9475da13e558546fba0257**,
+run **39470519533**, allthree terminalSUCCESS. Unchanged strict collector passes
+486identities/485pass+onefrozenAPI29Profileassumption/129normal/35interruptions/
+34continuity/92archives.631hashes retained. Root checked actual512MiB storage,
+TalkBackPID5149/utterances3&5/oneSTART&DONE/positiveAUDIO/noerrors, exactfive
+reading anchors[74,431][201,479], actualnormalDark200% Search/connectionframes and
+zeroLight130% Search/connectionafter. Final paired application-evidence review
+Spec0/documentedStandards0/heuristic0. Both verify631hashes/2,524members. Config correctly binds207 as primary10;17/sign58 remain72a.
 
-Complete10first72a run39451598613 Chat fails both unchanged photo-history cases
-at actual16MiB despite device512m. Root cause unknown, matching old32 symptom.
-Exact failure logs/properties/AVD+terminalmetadata retained. Same-ref replacement
-concurrency cancelled oldsocial: overallCANCELLED,ChatFAILURE,walletSUCCESS.
-Unchanged storage10/17 39455476639/39455481021 both SUCCESS,2cases67.755/78.878s,
-actual max512/192MiB. Wholephoto10 39456809459 SUCCESS:10UI89.851s,two actual
-private/group process protocols,two storage83.654s,512MiB with same appflags as
-failedfull.82 originals retained; narrower sequence doesnot establish broad cause.
-Both failure/storage/wholephoto packet reviews0. No heap/source/data/budget change.
+Both reviewers confirm complete207 is independently eligible under WORKFLOW:
+allthree jobs perSDK atoneexecutingsource, unchangedproduction/acceptancegoals,
+reviewed72a→207 exactprojection. This doesnot claim later34 initialization ran.
+Noassembly/waiver. Publish58 only after final review/publicbookends, then60–70.
 
-Second complete10run39455628348 social FAILS Search case8 line278,8otherspass
-52.830s. The run is terminal FAILURE: socialFAILURE,ChatSUCCESS,walletSUCCESS.
-Exact final run/job metadata is retained with the original Search failure packet.
-All30 original members/goal log retained. RootPNG/XMLshows priorverifiedperson,
-no fresh-error summary and enabled action when captured; no proof tap/request.
-Search remount source begins cacheReady=false; old fixture taps before waiting.
-Corrected test-only source `d567b00849dc8ac84989610195331e50fd772068`, pinned
-verify/status59-search-d567b0084, positively waits for displayed/enabled clickable
-Search action before that tap/capture and exact original displayed error after.
-All9 identities,20s goals,180s class and all qualification/absence/key/wallet/node/
-zeroTX assertions remain. Both correction and exact457-entry production-equivalence review axes report0.
-Focused Search10run39459680040/17run39459685383 both SUCCESS,all9 methods
-64.423/91.205s. Each retains32 originals including actual positive pre-click and
-fresh-error/qualified-name windows, opened by root. Source check39459628860
-SUCCESS. Exact production-equivalence inventories prove457 unchanged tracked
-entries outside docs/AndroidTest, including build/workflow/harness/signing inputs,
-from72a to d567. Only SearchPreviewTest differs.58 remains exact72a.
+Current separate fixture source34d8b106042aa643545ca6b04e5bad82dfbc023a, pin
+verify/status59-ready-34d8b106a, sourcecheck39476010575SUCCESS. Extra entire10
+39476058296 ACTIVE, focusedstorage39476053581/39476066978 SUCCESS. Each17hash
+packet retains positive multiple-name-match observations and valid stabletuples.
+Third39476075031 failsSDKzipdownloadBEFOREsource/devicechecks;3hashes retained,
+replacement39476893505 ACTIVE atsame34source. Keep laterfixtureproofseparate.
 
-Fresh entire10run39460998051 at exact d567 is terminal FAILURE:
-walletSUCCESS,socialSUCCESS,ChatFAILURE. Both photo-history cases again fail at
-actual16MiB in PID14790 (3.552s), despite reported512m. Exact logs/properties/AVD/
-terminalmetadata retained under photo-history-red10-d567-39460998051. The unchanged
-second full72a Chat instead passed both at actual512MiB in PID12068 (46.266s).
-No blind complete rerun: diagnose process startup/isolation first.
-verify/status59-search-d567b0084 is the exact source/ref of that retained failed run. Complete17
-at72a can remain only with exact production equivalence and corrected full10
-acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
-new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,
-public reads, real speech/motion/recovery/five reading bookends remain mandatory.
-Diagnostic-only source6005061f94fa0e42a60d575a95dcaf9bd207a4c9 adds temporary
-[DEBUG-59-heap] entry observations (maxMemory,bitness,Pid/PPid,best-effort parent)
-to existing storage and queue phases, plus optional Android10-only
-chat-image-startup scope. This executes the unchanged full-Chat prefix through
-storage and then exits explicitly diagnostic-only, preserving every class/phase
-bound. Both review axes0 after delivery best-effort and SDK-routing corrections.
-Canonical AndroidTest compile succeeds4m; YAML/bash/diff checks pass. Source
-check39466710122 SUCCESS. Three separately booted storage runs39466812449/
-39467293150/39467297057 at6005 all SUCCESS2/2 at512MiB,64bit,78.012/78.839/75.637s.
-Each exact original packet has6 verified hashes; both packet review axes0.
-Prefix39466808494 subsequently SUCCESS at verify/status59-heap-6005061f9.
-Temporary diagnostic source207b0a2f3a279705cf9475da13e558546fba0257 adds guarded
-API29-only chat-runtime:24 process-only invocations, each30s, actual/declared heap
-parity and per-attempt logs/exits/process list plus startup properties. No old
-full identities/assertions/budgets change. Both source reviews0, local AndroidTest
-compile SUCCESS1m58s. Reduced run39468918082 subsequently SUCCESS on
-verify/status59-runtime-207b0a2f3. Not acceptance, no cause/fix inferred.
-Remove tagged temporary observations and class after resolution. No production
-change;58 stays immutable/unpublished. No weaker storage or blind rerun.
+The API29 emulator intermittently starts a16MiB process despite declared512MiB.
+Process-only RED39470097733 at207 reproduces this on the first target process,
+0.03s, before UI/photos/wallet fixtures. Ten original hashes/metadata retained.
+Three earlier complete10 attempts fail respectively photo storage/Searchfixture/
+photo storage; exact failures remain in ticket59 README. Search correctiond567
+preserves every original assertion and has successful9-case focused proof onbothSDKs.
+No app/photo payload/heap-setting/acceptance weakening is authorized.
 
-Prefix39466808494 SUCCESS at6005: eight queue/storage observations512MiB/64bit,
-sameparent1664, storagePID12678. Process-only39468918082 SUCCESS at207:24 distinct
-PIDs, all512MiB/64bit, sameparent1664; originalps mapszygote64/system_server1912.
-Both diagnostic packets retain original native logs, not new visual acceptance.
-Cause remains unresolved. Four extra fresh-boot probes39470085970/39470089859/
-39470093783/39470097733 at207 remain diagnostic. Sourcecheck39468854173 SUCCESS.
-Qualified72a→207 equivalence has455 exact unchanged of457 entries outside docs/
-AndroidTest; only2harness files add diagnostic-only branches/choices/exclusions.
-Removing those inactive additions reproduces original full script/workflow bytes.
-Both independent equivalence reviews0; original full classes/inputs/bounds/routing
-unchanged. Signed58 and accepted17 stay exact72a.
-New entire10run39470519533 at207 is ACTIVE on verify/status59-runtime-207b0a2f3.
-Allthreejobs/frozen486/129/35/34/92 remain mandatory, with read-only process
-observations. Config binds207/that run. No focused/failed-tail assembly/waiver.
+Four restart experiments at33fa succeed with96 fresh post-restart512MiB processes,
+strict old/new PID lifecycle and unchanged four heap properties. Allfour baselines
+are512MiB, so direct16-to512 transition remains unobserved. Fifth39472529831 fails
+before any post-restart attempt: oldPIDs absent but replacement record empty.
+Twelve original hashes retained; paired reviews0. Corrected20a readiness clears
+boot flag after oldPIDdeath, requires bootflag plus allthree named services within
+one real120second bound, then individually proves distinct live replacementPIDs.
+The corrected20a cohort is now terminal:39474492226/39474501778 SUCCESS with48
+post-restart512MiB processes, both baselines512MiB;39474473095 FAILURE before the
+first accepted replacement PID.182 original hashes retained. Empty recorddoesnot
+prove missing versus multiple-PID output. No direct16-to512 transition observed.
 
-A decisive cold-boot RED exists:39470097733 at207, firstprocess0.03s beforeany
-UI/photo/wallet fixture. PID3466/64bit actual16MiB vsdeclared512MiB, parent1665
-zygote64,systemserver1913; global/QEMU heapsizes512m. Original ten-hash packet
-process-runtime-red10-207-39470097733 retained, pairedreview0. Otherthree
-extra coldboots reportSUCCESS; their original downloads are still pending.
-Optional chat-runtime-restart experiment is reviewed0/0 and ready to dispatch:
-baseline knownRED/success retained; guardedAPI29/disposable/root lifecycle only;
-allthree oldPIDs individually provenabsent, allnewPIDspresent/distinct, allfour
-heappropertiesunchanged;24 post-restartnativeparitypasses required. No heap
-setting/app/full-scope change, no actualfixclaim until observed. Currententire207
-run39470519533 continuesunchanged. After experimentalproof, integrate the bounded
-API29 initialization, remove temporarydiagnosticcode, and verify finalharness.
+6c initialization before installation fails allthree entire10jobs/run39474812231:
+Chat/social initial recordempty; walletreplacementrecordempty afteroldPIDdeath.
+Ten original hashes retained. Sourcecheck39474765871 and focusedstorage39474806130
+SUCCESS separately. No appgoal runs infailedfull6c; no assembly permitted.
 
-Reviewed diagnostic experiment source33fa686e11fbb23b6f59cf3ae577bfe038bf6e09
-is now executing five fresh before/after runs39472512423/39472517029/39472520887/
-39472525371/39472529831 at verify/status59-runtime-33fa686e1 and its b/c/d/e pins.
-Original parityclass unchanged from207; only optional diagnostic lifecycle changes.
-All native app/full commands remain unchanged. Root/SDK29/serial/type guards,
-individual PID absence/replacement and identical heap-property checks are reviewed
-Spec0/Standards0/heuristic0. No result/fix inferred yet. Sourcecheck at33 is active.
-If any experiment begins16MiB then finishes512MiB with identical properties,
-retain original baselineRED and24postnativepasses as causal lifecycle evidence.
-Then integrate bounded API29 initialization, remove DEBUG/tempdiagnosticcode,
-add meaningful fail-fast environment verification and run final full10 as needed.
-Do not weaken any original native app goal or change real-device heap policy.
+Final34d8b106 uses the SAME120second/two-valid-observation capture for bothinitial
+and replacementPIDtuples; retainactualtuple/polls, noindependentfreshnamelookup.
+Rootpresence/originaldeath/replacementdisjointness/unchangedheappropertiesremain.
+Existing API29photo-history parityassert beforewrites and alloriginalpayloads/
+identities/assertions stay. Temporaryscopes/class/DEBUG removed.72a→34equivalence
+has456of457 exactnon-docs/non-AndroidTest entries; onlyAPI29harnessdiffers.
+SDK17script/workflow/queue/storageprojections reconstruct72a exactly; Search
+correctionpreserves originalgoals/acceptedfocused17proof. Pairedsource/equivalence
+reviews0 (latest34packetverification0/0). Signed58/accepted17stayexact72a.
 
-After actual complete10 success: strict collect, inspect originals, paired final
-review, publish immutable58 with canonical script, independent after-bookend,
-public safe packet/final review/close59, then immediately60–70. Never stop at59.
+All detailed RED/GREEN packets remain in [canonical evidence](../evidence/ticket59/README.md).
+
+After final paired review: publish immutable58 using frozen72a worktree/canonical
+script; independent public before/after protection check and safe packet/final
+review; close59 and immediately continue60. Protected ordinary50/49/45 and entire
+performance43 must remain byte-equal. Never stop at59. All app/protocol/normal
+native safeguards remain applicable. Owner/provider/physical/store gates stayparked.
 
 All twelve earlier focused runs at72a are SUCCESS:
 

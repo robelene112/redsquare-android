@@ -1,0 +1,315 @@
+{
+  "scope": "Process-only diagnostic, not application acceptance",
+  "source": "20a67f30cd76701efa758d3b289d6d28229aaaeb",
+  "runs": [
+    {
+      "run": 39474473095,
+      "conclusion": "failure",
+      "baselineMaxBytes": 536870912,
+      "postRestartObservations": []
+    },
+    {
+      "run": 39474492226,
+      "conclusion": "success",
+      "baselineMaxBytes": 536870912,
+      "postRestartObservations": [
+        {
+          "attempt": 1,
+          "maxBytes": 536870912,
+          "pid": 4710,
+          "parent": 3587
+        },
+        {
+          "attempt": 2,
+          "maxBytes": 536870912,
+          "pid": 4830,
+          "parent": 3587
+        },
+        {
+          "attempt": 3,
+          "maxBytes": 536870912,
+          "pid": 4886,
+          "parent": 3587
+        },
+        {
+          "attempt": 4,
+          "maxBytes": 536870912,
+          "pid": 4924,
+          "parent": 3587
+        },
+        {
+          "attempt": 5,
+          "maxBytes": 536870912,
+          "pid": 4964,
+          "parent": 3587
+        },
+        {
+          "attempt": 6,
+          "maxBytes": 536870912,
+          "pid": 5002,
+          "parent": 3587
+        },
+        {
+          "attempt": 7,
+          "maxBytes": 536870912,
+          "pid": 5041,
+          "parent": 3587
+        },
+        {
+          "attempt": 8,
+          "maxBytes": 536870912,
+          "pid": 5078,
+          "parent": 3587
+        },
+        {
+          "attempt": 9,
+          "maxBytes": 536870912,
+          "pid": 5116,
+          "parent": 3587
+        },
+        {
+          "attempt": 10,
+          "maxBytes": 536870912,
+          "pid": 5155,
+          "parent": 3587
+        },
+        {
+          "attempt": 11,
+          "maxBytes": 536870912,
+          "pid": 5193,
+          "parent": 3587
+        },
+        {
+          "attempt": 12,
+          "maxBytes": 536870912,
+          "pid": 5231,
+          "parent": 3587
+        },
+        {
+          "attempt": 13,
+          "maxBytes": 536870912,
+          "pid": 5268,
+          "parent": 3587
+        },
+        {
+          "attempt": 14,
+          "maxBytes": 536870912,
+          "pid": 5305,
+          "parent": 3587
+        },
+        {
+          "attempt": 15,
+          "maxBytes": 536870912,
+          "pid": 5347,
+          "parent": 3587
+        },
+        {
+          "attempt": 16,
+          "maxBytes": 536870912,
+          "pid": 5385,
+          "parent": 3587
+        },
+        {
+          "attempt": 17,
+          "maxBytes": 536870912,
+          "pid": 5423,
+          "parent": 3587
+        },
+        {
+          "attempt": 18,
+          "maxBytes": 536870912,
+          "pid": 5460,
+          "parent": 3587
+        },
+        {
+          "attempt": 19,
+          "maxBytes": 536870912,
+          "pid": 5497,
+          "parent": 3587
+        },
+        {
+          "attempt": 20,
+          "maxBytes": 536870912,
+          "pid": 5535,
+          "parent": 3587
+        },
+        {
+          "attempt": 21,
+          "maxBytes": 536870912,
+          "pid": 5574,
+          "parent": 3587
+        },
+        {
+          "attempt": 22,
+          "maxBytes": 536870912,
+          "pid": 5635,
+          "parent": 3587
+        },
+        {
+          "attempt": 23,
+          "maxBytes": 536870912,
+          "pid": 5674,
+          "parent": 3587
+        },
+        {
+          "attempt": 24,
+          "maxBytes": 536870912,
+          "pid": 5712,
+          "parent": 3587
+        }
+      ]
+    },
+    {
+      "run": 39474501778,
+      "conclusion": "success",
+      "baselineMaxBytes": 536870912,
+      "postRestartObservations": [
+        {
+          "attempt": 1,
+          "maxBytes": 536870912,
+          "pid": 4547,
+          "parent": 3642
+        },
+        {
+          "attempt": 2,
+          "maxBytes": 536870912,
+          "pid": 4927,
+          "parent": 3642
+        },
+        {
+          "attempt": 3,
+          "maxBytes": 536870912,
+          "pid": 4966,
+          "parent": 3642
+        },
+        {
+          "attempt": 4,
+          "maxBytes": 536870912,
+          "pid": 5003,
+          "parent": 3642
+        },
+        {
+          "attempt": 5,
+          "maxBytes": 536870912,
+          "pid": 5041,
+          "parent": 3642
+        },
+        {
+          "attempt": 6,
+          "maxBytes": 536870912,
+          "pid": 5079,
+          "parent": 3642
+        },
+        {
+          "attempt": 7,
+          "maxBytes": 536870912,
+          "pid": 5117,
+          "parent": 3642
+        },
+        {
+          "attempt": 8,
+          "maxBytes": 536870912,
+          "pid": 5154,
+          "parent": 3642
+        },
+        {
+          "attempt": 9,
+          "maxBytes": 536870912,
+          "pid": 5192,
+          "parent": 3642
+        },
+        {
+          "attempt": 10,
+          "maxBytes": 536870912,
+          "pid": 5230,
+          "parent": 3642
+        },
+        {
+          "attempt": 11,
+          "maxBytes": 536870912,
+          "pid": 5268,
+          "parent": 3642
+        },
+        {
+          "attempt": 12,
+          "maxBytes": 536870912,
+          "pid": 5310,
+          "parent": 3642
+        },
+        {
+          "attempt": 13,
+          "maxBytes": 536870912,
+          "pid": 5348,
+          "parent": 3642
+        },
+        {
+          "attempt": 14,
+          "maxBytes": 536870912,
+          "pid": 5384,
+          "parent": 3642
+        },
+        {
+          "attempt": 15,
+          "maxBytes": 536870912,
+          "pid": 5422,
+          "parent": 3642
+        },
+        {
+          "attempt": 16,
+          "maxBytes": 536870912,
+          "pid": 5460,
+          "parent": 3642
+        },
+        {
+          "attempt": 17,
+          "maxBytes": 536870912,
+          "pid": 5497,
+          "parent": 3642
+        },
+        {
+          "attempt": 18,
+          "maxBytes": 536870912,
+          "pid": 5555,
+          "parent": 3642
+        },
+        {
+          "attempt": 19,
+          "maxBytes": 536870912,
+          "pid": 5596,
+          "parent": 3642
+        },
+        {
+          "attempt": 20,
+          "maxBytes": 536870912,
+          "pid": 5633,
+          "parent": 3642
+        },
+        {
+          "attempt": 21,
+          "maxBytes": 536870912,
+          "pid": 5670,
+          "parent": 3642
+        },
+        {
+          "attempt": 22,
+          "maxBytes": 536870912,
+          "pid": 5708,
+          "parent": 3642
+        },
+        {
+          "attempt": 23,
+          "maxBytes": 536870912,
+          "pid": 5746,
+          "parent": 3642
+        },
+        {
+          "attempt": 24,
+          "maxBytes": 536870912,
+          "pid": 5784,
+          "parent": 3642
+        }
+      ]
+    }
+  ],
+  "failureLimit": "Empty replacement record establishes failure before its first accepted PID. It does not distinguish failed lookup, multiple-PID rejection or a lifecycle transition.512 baselines do not establish a direct16-to512 transition."
+}

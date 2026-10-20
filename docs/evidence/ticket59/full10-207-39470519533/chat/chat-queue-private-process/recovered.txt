@@ -1,0 +1,27 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+[DEBUG-59-heap] Chat runtime observation phase=queue-private-photo-false max=536870912 is64Bit=true process=Name:	n.redsquare.dev; Pid:	5542; PPid:	1665 parent=unavailable
+
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueueProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.768
+
+OK (1 test)
+
+
+INSTRUMENTATION_CODE: -1

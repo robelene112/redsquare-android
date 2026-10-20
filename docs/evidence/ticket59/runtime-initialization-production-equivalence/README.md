@@ -1,0 +1,1 @@
+Production, signing and build inputs for immutable58 remain at72a. Exact Git entries and SDK17 projections are verified in inputs.json. The single non-docs/non-test change is API29-only fixture initialization. Android10 requires a fresh entire three-job run; no focused or failed-run assembly is accepted. Both independent source reviews report0 findings.
