@@ -127,7 +127,14 @@ verify_status_talkback() (
     adb shell pm list packages > "$evidence/talkback-installed-packages.txt"
     adb install -r "$talkback_artifacts/talkback.apk"
     adb install -r "$talkback_artifacts/espeak.apk"
+    # Complete upstream tool startup on this disposable device before app observation.
+    tool_sdk=$(adb shell getprop ro.build.version.sdk | tr -d '\r')
+    [[ "$tool_sdk" =~ ^[0-9]+$ ]]
+    if (( tool_sdk >= 31 )); then adb shell pm grant com.android.talkback android.permission.READ_PHONE_STATE; fi
+    if (( tool_sdk >= 33 )); then adb shell pm grant com.android.talkback android.permission.POST_NOTIFICATIONS; fi
     adb shell dumpsys package com.android.talkback > "$evidence/talkback-package.txt"
+    if (( tool_sdk >= 31 )); then grep -q 'android.permission.READ_PHONE_STATE: granted=true' "$evidence/talkback-package.txt"; fi
+    if (( tool_sdk >= 33 )); then grep -q 'android.permission.POST_NOTIFICATIONS: granted=true' "$evidence/talkback-package.txt"; fi
     adb shell dumpsys package com.reecedunn.espeak > "$evidence/talkback-engine-package.txt"
     adb shell am start -W -n com.reecedunn.espeak/.DownloadVoiceData > "$evidence/talkback-engine-data-install.txt"
     grep -q 'Status: ok' "$evidence/talkback-engine-data-install.txt"
