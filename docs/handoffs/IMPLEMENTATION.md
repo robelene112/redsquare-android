@@ -63,62 +63,40 @@ Unlike and left-reopened.17focused39444233530 timed out after complete business/
 cleanup phases but no instrumentation result; it remainsFAILURE. Same-source
 repeat39445406794 is pending. No timeout or acceptance assertion is relaxed.
 
- Shared nullable
-InlineStatus hosts retain entry/reversal/exit and remove inactive layout slots.
-Full guidance stays accessible. Feed reading saves the parent-relative header
-baseline and unapplied correction with its list offset; cached restoration waits
-for cacheReady. Stronger native outage/recreation focuses pass both SDKs with
-all five anchors identical at the unchanged bound of 1 pixel. Group status remains
-bounded to 80dp or one third of height, preserving readable history. Primary
-status/Retry comes first; queued-only section ordering exposes Members at the
-scroll end while preserving ordinary management access. All handlers/guards,
-original candidate identity, warnings and scrollable guidance remain.
+Current corrected production is49a92703b63659ee7b7a9d4da03dc01616f5dd49.
+Both review axes through49a have0 remaining findings. Focused existing scopes
+on verify/status59-49a92703b are active:
+- Private-history viewport:10run39446271331,17run39446275538.
+- Complete private UI/actions/process:10run39446280616,17run39446285216.
+- Independent actions:10run39446289596,17run39446295094, to exercise later
+  cases even if a preceding history case fails. None replaces full acceptance.
 
-All four final c5 focused checks pass: viewport Android 10 run 39437692175 and Android 17 run 39437697687
-(2 methods/36 originals each), admin Android 10 run 39437703036 and Android 17 run 39437707377
-(12 methods/24 originals each). Root opened both actual 48 pixel Members targets
-and both restored Submitted/Retry captures with their preserved drafts. Paired
-source/focused evidence reviews report0 residual findings. Local debug/app-test
-compilation and exact-source core/gateway/release/performance/lint 39437693370 pass.
-Prior actual speech/focus/quiet-poll and normal/zero-motion proof is detailed in
-[ticket59 evidence](../evidence/ticket59/README.md); it does not replace final full
-execution. Android 17 original Search entry recording has a 216ms gap, not intermediate
-entry-frame proof; actual exit and Android 10 entry/exit frames were inspected.
+The latest fixture-only policy correction waits within the existing20second
+readiness goal for the visible merged editor containing the saved exact draft,
+then keeps its original exact-text/clearing/identity/node/zero-send assertions.
+Full10dc2wallet failed the immediate101lookup: no merged SetText node; root
+opened its native failure PNG, which already shows the correct saved draft.
+All34 originals and actual failed goal are retained. No draft-loss claim.
+Corrected policy execution remains pending.
 
-Fresh complete Android 10 run39444883643 and Android17run39444888298 execute
-exact dc2a973aa892cdddd4cd65ef47ee31ef36f799ef on verify/status59-dc2a973aa.
-Both prior c5 dispatches finish FAILURE at two group operator steps; their social/
-wallet jobs succeed and final metadata is retained. Both review axes for the
-fixture correction have zero findings. All457 tracked production/build/workflow/
-harness entries outside docs/ and AndroidTest are exactly equal to signed56 c5;
-the evidence retains their shared tree-entry hash. Source39443999774 is SUCCESS.
-Focused group39444228866/39444233530 and private39444893909/39444898087 run dc2. All three jobs/public reads, actual TalkBack/motion,
-protected recovery and stronger reading bookends remain mandatory. Use the
-unchanged strict full-collector.py and frozen caad references in #59 evidence:
-486/487 identities,129/130 normal completions,35 interruptions,34 continuity
-and 92 archives each. No failed-tail or supplemental assembly is planned.
+Shared nullable InlineStatus hosts preserve real entry/reversal/exit and remove
+inactive layout slots. Full guidance remains accessible. Saved parent-relative
+feed anchoring passes the unchanged1px outage/recreation goal. Group status
+stays bounded80dp or one third of height; primary delivery/Retry comes first,
+with queued-only management ordering and stable section keys. Original candidate,
+privacy, warnings and recovery guards remain. Earlier real speech/focus/quiet
+polling, normal/zero motion, keyboard and focused recovery proof is detailed in
+[ticket59 evidence](../evidence/ticket59/README.md), with exact original failures
+and source bindings. These earlier focused results never replace final full proof.
 
-Signed 56 is prepared and immutable in the external review worktree at exact c5.
-APK SHA256 cd0e2e512fda2d0e95597349f7c0d039585504286c1fdf04eba72d5d4b65503e,
-37,856,651 bytes, established 50 certificate. Actual APK/manifest/DEX inspection
-and independent public before-bookend pass. Independent preparation review
-at 48105bf2e reports 0 remaining findings on both axes. Package/SDK29/36, nondebug/nonprofile,
-backup=false,review=true,push=false,separateGIFkeys absent. Never rebuild 56.
-Native full acceptance, final review and publication remain pending. The
-publication 56 helper expects this exact source/artifact and protects immutable
-50/49/45 plus the whole performance 43 channel. Physical/provider/Play acceptance
-remains parked, not waived.
-
-Historical candidate56 preparation above is superseded by its explicit rejection
-in the current checkpoint. Never publish56.
-
-All failed/superseded runs retain actual conclusions. Final 3c and 4ae dispatches
-fail the queued Members 48dp goal on both SDKs; their social/wallet jobs pass.
-Old focused 4ae reproduces 22px; intermediate 5a fixes queued access but hides
-ordinary Members. Final c5 passes both contexts without relaxing any assertions.
-Earlier reading/group-feedback/motion failures and rejected APKs remain in the
-canonical evidence README. Old owned completed f23/f4/outage7a/3c verification
-refs were removed after exact-head/no-active-run checks; active c5 is retained.
+Fresh complete acceptance for changed production is not dispatched yet. Retain
+the frozen caad independent catalogs and strict full-collector.py:486/487
+identities,129/130 normal completions,35 deliberate interruptions,34 continuity
+and92 archives perSDK. All three jobs, public reads, actual TalkBack/motion and
+five reading bookends are mandatory. No failed-tail assembly. Reserve/build a
+new signed candidate only after corrected focused private integration is green.
+Ordinary50/49/45 and whole performance43 remain protected. Never rebuild/release
+51through56. Physical/provider/store/KVK requirements remain parked, not waived.
 
 ## Current repeat-like57 acceptance
 

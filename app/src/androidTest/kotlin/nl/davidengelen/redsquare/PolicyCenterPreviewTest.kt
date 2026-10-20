@@ -98,7 +98,11 @@ class PolicyCenterPreviewTest {
                         unchanged()
                     }
                     ui.onNodeWithText("New post").performClick()
+                    ui.waitUntil(20_000) {
+                        ui.onNode(hasSetTextAction() and hasText("Unsent policy navigation draft")).isDisplayed()
+                    }
                     ui.onNode(hasSetTextAction()).assertTextEquals("Unsent policy navigation draft")
+                    capture("saved-draft-restored.png")
                     ui.onNode(hasSetTextAction()).performTextReplacement("")
                     ui.onNodeWithText("Save draft").performClick()
                     unchanged()

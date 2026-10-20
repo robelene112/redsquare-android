@@ -945,3 +945,21 @@ Corrected group10run39444228866 is SUCCESS: GroupActions1, mixed1, group22
 members from4 archives and complete logs are retained. Root opened visible
 Unlike and left-reopened originals. Exact candidate/raw/replay/membership/
 draft/wallet/node assertions are unchanged.17 repeat39445406794 is pending.
+
+## Policy editor readiness observation
+
+Superseded full10dc2wallet fails the existing PolicyCenterPreviewTest at101:
+immediately after New post click no merged SetText node is found, while the
+unmerged tree contains one. This is a lookup/readiness failure, not an empty
+draft assertion. The subsequent native failure PNG, opened by root, already
+shows the exact Unsent policy navigation draft. All34 original policy captures
+and the actual failed goal/exit metadata are retained. No stored-draft loss or
+proven timing cause is inferred.
+
+The test now waits within its existing20second readiness goal for the actual
+visible merged editor containing that exact saved draft, then runs the original
+exact-text assertion, records a native restored-draft bookend and performs the
+same clearing/save/identity/node/zero-send checks. It does not use hidden nodes
+or replace any assertion. The180second class bound is unchanged. This is a
+fixture-only correction on top of49a private status; corrected runtime pending.
+Paired source/evidence reviews through49a report0 residual findings.
