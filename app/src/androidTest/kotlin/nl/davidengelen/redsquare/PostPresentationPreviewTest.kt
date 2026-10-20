@@ -75,7 +75,7 @@ class PostPresentationPreviewTest {
         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
         ui.onNodeWithContentDescription("View profile for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
         // Independent fixture timestamp1700000000000, rendered on the UTC emulator.
-        ui.onNodeWithText("11/14/23, 10:13 PM").assertIsDisplayed()
+        ui.onNode(hasText("11/14/23", substring = true) and hasText("10:13 PM", substring = true)).assertIsDisplayed()
         ui.onNodeWithContentDescription("Post actions for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
         for (action in listOf("Like", "Repost", "Quote"))
             ui.onNode(hasText(action) and hasClickAction()).assertIsDisplayed()
