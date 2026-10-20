@@ -92,7 +92,7 @@
     "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
   },
   "executingRuns": {
-    "android10": 39451598613,
+    "android10": 39455628348,
     "android17": 39451603260
   },
   "signedCandidateSource": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -153,6 +153,12 @@
       "android17": 39437845708,
       "acceptance": "rejected",
       "reason": "Both complete Chat jobs fail two unchanged GroupChatPreviewTest operator steps: offscreen Unlike and offscreen left-notice native lookup. Both SDK social/wallet jobs succeed. Exact original logs/captures and terminal metadata retained. Test-only visible-scroll correction requires new complete runs, never failed-tail assembly."
+    },
+    {
+      "source": "72a8c63828280d61dc760331e17289cf7c93112a",
+      "android10": 39451598613,
+      "acceptance": "rejected",
+      "reason": "Chat job fails both unchanged photo-history storage cases at actual16MiB process limit, while device reports512m and unchanged prior baseline records512MiB. Cause unproven. Wallet succeeds. Same-source fresh full10 dispatch replaces this attempt via configured workflow concurrency; remaining old social job may be cancelled. Full final job states retained separately. No supplemental or failed-tail assembly."
     }
   ],
   "verificationRef": "verify/status59-72a8c6382",

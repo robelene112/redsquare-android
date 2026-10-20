@@ -43,7 +43,7 @@ without routine owner stops. No new owner input is needed.
 
 Current production, complete verification and reserved signed58 source is
 `72a8c63828280d61dc760331e17289cf7c93112a`, pinned at
-`verify/status59-72a8c6382`. Complete Android10run39451598613 and
+`verify/status59-72a8c6382`. Complete Android10run39455628348 and
 Android17run39451603260 are active. Signed58 is prepared and immutable in the external review worktree. Actual
 APK/manifest/DEX inspection and public before-bookend PASS. APK SHA256
 178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
@@ -52,7 +52,18 @@ backup=false,review=true,push=false,separate GIF keys absent. Full native succes
 strict collection, final paired review and after-bookend remain pending.
 Never rebuild a frozen artifact.
 
-All twelve focused runs at72a are SUCCESS:
+Earlier complete10run39451598613 Chat failed both photo-history cases with an
+actual16MiB process limit, matching a retained unexplained ticket32 symptom.
+Device properties still report512m; unchanged successful ticket53 reports actual
+512MiB. Exact original failure logs/properties/AVD state remain retained. No
+heap/input/assertion/deadline/source change. Separate unchanged storage checks
+39455476639/39455481021 run on10/17. Replacement full10 uses the same72a ref;
+Workflow concurrency cancelled the old social job. That run is terminal CANCELLED,
+with Chat FAILURE/wallet SUCCESS and final metadata retained. New full10 must independently
+pass every goal. Old wallet successes cannot fill it. Signed58 remains prepared,
+immutable and unpublished. Cause and complete acceptance are still pending.
+
+All twelve earlier focused runs at72a are SUCCESS:
 
 | Scope | Android 10 | Android 17 |
 | --- | --- | --- |
@@ -67,7 +78,9 @@ All1,103 original members are retained. Promotion/removal process archives now
 use separate full-archive namespaces after review found four overwritten
 semantics files; all actual paths independently match original sizes/hashes.
 Corrected Spec review verifies all1,103 exact original paths and1,295 hashes;
-Standards correction review remains pending. Both cumulative source review axes and
+Standards independently confirms the same bindings with zero findings. Both
+signed58 preparation reviews also verify the actual APK and public before-bookend
+with zero findings. Both cumulative source review axes and
 provenance review have zero remaining findings. Exact72a source/core/gateway/
 release/performance/lint39449757978 is SUCCESS. Root opened both private queue
 preview-end captures, actual48px Members/Cancel targets, and progressive normal

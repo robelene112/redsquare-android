@@ -1143,8 +1143,8 @@ ambiguous originals/images directory is removed from those two packets.
 Independent verification now checks all1,103 actual retained member paths against
 their expected sizes and hashes and rejects duplicate destinations across archive
 identities. All pass. No original content is normalized, and no app, test, strict
-collector, frozen catalog or execution source changes. Packet correction review
-is pending; complete72a runs continue independently.
+collector, frozen catalog or execution source changes. Both independent correction reviews report zero remaining findings;
+complete72a runs continue independently.
 
 ## Prepared signed58
 
@@ -1167,5 +1167,37 @@ before actual58 publication and59 closure. No physical/provider/Play claim.
 
 The corrected archive packet's independent Spec review verifies all1,103 actual
 retained paths directly against original tar bytes, sizes, hashes and uniqueness,
-with1,295 valid manifest entries. Standards correction review remains pending.
+with1,295 valid manifest entries. Independent Standards review confirms those
+same exact original-byte bindings with zero documented or heuristic findings.
 No executable source changed after72a.
+
+Both independent signed58 preparation reviews also report zero findings. Each
+verified the six retained packet hashes and actual immutable APK, certificate,
+manifest and DEX configuration, plus all twelve protected before-bookend
+resources against actual external downloads. This accepts preparation only;
+complete native, final rendered evidence and actual publication remain pending.
+
+## Unchanged photo-history runtime failure and complete10 repeat
+
+Complete10run39451598613 Chat fails both unchanged ChatImageHistoryStorageTest
+cases in1.791seconds at the first photo. The actual process reports maxMemory
+16,777,216bytes, versus memoryClass512 and device heapsize512m. The stack is
+EncryptedLocalFile.load's existing5,242,928byte maximum buffer. Original native
+logs, properties, AVD configuration and archive observation remain retained.
+The missing optional capture archive never waives this actual native failure.
+
+This matches the earlier ticket32 recorded symptom and source path; its cause
+was not established then either. Ticket53's successful original baseline records
+maxMemory536,870,912bytes with the same properties. No heap setting, input, count,
+assertion, deadline or production source is changed. Separate unchanged storage
+checks39455476639/39455481021 execute exact72a on10/17.
+
+Fresh complete10run39455628348 executes that same exact72a verification ref.
+The existing same-ref/scope concurrency policy replaces the previous complete10
+attempt, so its unfinished social job is CANCELLED while its failed Chat
+and successful wallet remain observations. The run is terminal CANCELLED,
+with final run/job metadata retained; it never counts as acceptance. The replacement must pass all three
+jobs and every frozen goal independently. Old successful wallet evidence cannot
+fill the new execution. Complete17run39451603260 continues; both SDK wallet jobs
+of the earlier pair succeed. Actual full/native/public acceptance remains pending.
+Signed58 stays immutable, prepared and unpublished;50 stays live.
