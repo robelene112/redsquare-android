@@ -679,8 +679,24 @@ if [[ "${TEST_SCOPE:-full}" == queue* ]]; then
     printf '%s\n' 'Focused post queue check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+verify_repeat_likes() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.RepeatLikePreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/repeat-like-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - repeat-like-evidence \
+        > "$evidence/repeat-like-evidence.tar" || true
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/repeat-like-ui.txt"
+}
+if [[ "${TEST_SCOPE:-full}" == social-repeat* ]]; then
+    verify_repeat_likes
+    printf '%s\n' 'Focused repeat-like check only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_social() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    verify_repeat_likes
     python3 "$repo_dir/scripts/social-process-check" --evidence "$evidence/social-process"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.SocialPreviewTest \
