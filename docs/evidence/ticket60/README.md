@@ -88,12 +88,59 @@ semantics: remaining repeat-like/Search profile entry, root-author association,
 registered and quoted-parent author targets, image pixel and video provider
 selection. Actual name text and explicit card association remain where required;
 all raw/rate/registry/pixel/provider/control/recovery/cleanup/deadline assertions
-are unchanged. Both source-only reviews report0. Native regression proof follows;
-no new acceptance is inferred from source review.
+are unchanged. Both source-only reviews report0. Subsequent bounded native results are recorded
+below; they do not establish all operator regressions or complete60 acceptance.
 
 
 Next native tracer adds contextual Like/Repost/Quote controls, truthful2likes/
 1repost associated with their respective control, full48dp reachable targets,
 non-overlap and a deliberate default single row. The peer remains read-only and
 existing methods/deadlines/restoration checks are unchanged. Both test-stage
-reviews report0; native RED is pending before changing social controls.
+reviews report0. Native [RED39487610528](red10-social-controls-2a8-39487610528/)
+at2a8e9fbc0 completes three methods with twoPASS and the intended missing
+contextual Like failure.24 hashes/16 exact originals are retained; root viewed
+the unchanged old social row. Count association/geometry assertions were not
+reached. New compact controls now await native runtime verification.
+
+
+Existing operator regressions at2530 (production remainsf652):
+- [Username39487193396](username10-contextual-2530-39487193396/):16UI methods
+  succeed in107.098s plus actual process5629 to5723, read-only reconciliation
+  without automatic publication and explicit exact-original Retry.79hashes/
+  63original members retained; root viewed named Feed and quoted-name PNGs.
+- [Repeat39487196972](repeat10-contextual-2530-39487196972/):three repeat-like
+  methods12.926s plus two isolation methods10.145s, both unchanged commands
+  succeed.37hashes/24original members retained. Counts/frame/rate goals remain.
+- [Search setup39487200550](sdk-download-search10-2530-39487200550/):FAILURE
+  downloading/unzipping the SDK image before emulator startup or any Search
+  method. Three hashes bind original metadata/log/observation; no app failure or
+  native acceptance. Fresh same-source Search39488234632 isSUCCESS; original goal/evidence inspection follows.
+
+Both evidence reviews verify the bounded original identities and archive/recovery
+bindings with0 findings after current-status reconciliation. Media/control and
+full60 regression proof remain pending. Actual quoted-name capture shows the
+original card's text flush against its rounded border; finish that spacing within
+60 and retain one-level verification and personal hiding behavior.
+
+
+Current compact-control product slice adds vector Like/Repost/Quote controls with
+the original labels and counts inside each48dp target, accessible action/author
+context, truthful available/retry/like-again state, and absent missing counts.
+The count parser, controller, loading, guards, effects, rate policy and send
+callbacks remain. Raw status Text and rate animation are deliberately retained
+until the following status slice. Quote padding fixes the observed flush border
+while preserving personal hiding/one-level verification/media. Local app+test
+build27841 succeeds in4m19s, with only the existing PostImages deprecation;
+native productGREEN is pending. Spec source/RED review0; Standards source0,
+maintained status pointers corrected for residual review. Existing status-talkback39487748992 at2530 isSUCCESS; retain/inspect the
+actual speech/focus evidence before describing its bounded result.
+
+Existing Search replacement39488234632 succeeds at exact2530:9methods70.253s,
+42hashes/32 exact originals retained. Root viewed reply-search recreation. Existing
+TalkBack39487748992 succeeds31.632s:31hashes/eight exact originals; real service
+3614 speaks one Node unavailable/talkback_5 and one Back online/talkback_6 with
+START/AUDIO/DONE, retains Reference post20 focus and restores original settings.
+Root inspected original speech/result/engine/WAV and outage image. English WAV
+is mono16bit22050Hz39149frames. Physical audibility is explicitly false. These
+are shared-card regressions atf652 production, not new-control speech proof.
+Both newly retained packets await independent evidence review.

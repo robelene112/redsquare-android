@@ -1,0 +1,93 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Like post by Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets$lambda$16(PostPresentationPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$5HrfhNWET4-_5yfS2AGNM_Mk-Gk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets(PostPresentationPreviewTest.kt:75)
+
+INSTRUMENTATION_STATUS: stream=
+Error in socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets(nl.davidengelen.redsquare.PostPresentationPreviewTest):
+java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Like post by Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets$lambda$16(PostPresentationPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$5HrfhNWET4-_5yfS2AGNM_Mk-Gk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets(PostPresentationPreviewTest.kt:75)
+
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.089
+There was 1 failure:
+1) socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets(nl.davidengelen.redsquare.PostPresentationPreviewTest)
+java.lang.AssertionError: Assert failed: The component with (ContentDescription = 'Like post by Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets$lambda$16(PostPresentationPreviewTest.kt:87)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$5HrfhNWET4-_5yfS2AGNM_Mk-Gk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:43)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:42)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets(PostPresentationPreviewTest.kt:75)
+
+FAILURES!!!
+Tests run: 3,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

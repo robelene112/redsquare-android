@@ -1,0 +1,56 @@
+{
+  "status-talkback-evidence.tar": {
+    "sha256": "1785d7b1ac299397d908d8f45901aa4d06b9b088e616a2782a3f99bc5bbe5fb5",
+    "bytes": 692736,
+    "members": [
+      {
+        "name": "status-talkback-evidence/accessibility-before.txt",
+        "bytes": 1108,
+        "sha256": "1420b656fd760e46916a4df6741c8d26a4ef5762bf5e3908592ec99368baf802",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/accessibility-before.txt"
+      },
+      {
+        "name": "status-talkback-evidence/engine.json",
+        "bytes": 125,
+        "sha256": "7c2ff211c01adbcb06641417bdf82dd3da04f1f09fde152d8eb2dacb1e473bd4",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/engine.json"
+      },
+      {
+        "name": "status-talkback-evidence/english-engine.wav",
+        "bytes": 78342,
+        "sha256": "8734b5c80a05d518af0fd15c03ccee73d7e53125bccdb81a6b25386593e223bc",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/english-engine.wav"
+      },
+      {
+        "name": "status-talkback-evidence/outage.png",
+        "bytes": 43119,
+        "sha256": "0202b8201d3ec34f2dc8422939aad8dc19b970e03952682c8b19f6d822889edc",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/outage.png"
+      },
+      {
+        "name": "status-talkback-evidence/recovered.png",
+        "bytes": 42447,
+        "sha256": "8097d09d546ee4d615ec8436ad053c2911b6b7246b653bc122b16b330cbaa285",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/recovered.png"
+      },
+      {
+        "name": "status-talkback-evidence/speech-transcript.txt",
+        "bytes": 517894,
+        "sha256": "2dd66e3dc298228cfb6d3ba2eee69d7c018ee5ca9e29a8511dacaaca85b74ea5",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/speech-transcript.txt"
+      },
+      {
+        "name": "status-talkback-evidence/accessibility-after.txt",
+        "bytes": 1109,
+        "sha256": "2d0676fd668d32ca984fad81f3bb299a17c1e4fc8e7fd8afcfc2d5c22ef50a95",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/accessibility-after.txt"
+      },
+      {
+        "name": "status-talkback-evidence/result.json",
+        "bytes": 297,
+        "sha256": "3805f827a6dda2f5ecb4027aa290ae53b82f7e0503e024746d3efb677adea5cc",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/result.json"
+      }
+    ]
+  }
+}

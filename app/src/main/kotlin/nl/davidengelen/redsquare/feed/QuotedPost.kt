@@ -3,7 +3,9 @@ package nl.davidengelen.redsquare.feed
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -13,12 +15,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.ui.AppSpacing
 
 @Composable
 internal fun QuoteContent(post: FeedPost, state: QuoteState?, backend: SaitoBackend) {
@@ -47,13 +51,15 @@ internal fun QuotedPost(original: FeedPost, backend: SaitoBackend) {
     val personal = LocalPersonalControls.current
     val label = stringResource(R.string.quote_original)
     OutlinedCard(Modifier.fillMaxWidth().semantics { contentDescription = label }) {
-        if (personal?.hidesPosts(original.author) != false) {
-            Text(stringResource(R.string.personal_quote_hidden), style = MaterialTheme.typography.bodySmall)
-        } else Column {
-            Text(registeredIdentity(original.author).name, style = MaterialTheme.typography.labelMedium)
-            Text(original.text, style = MaterialTheme.typography.bodyMedium)
-            PostImages(original.images, backend)
-            PostVideo(original, backend)
+        Column(Modifier.padding(AppSpacing.small), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            if (personal?.hidesPosts(original.author) != false) {
+                Text(stringResource(R.string.personal_quote_hidden), style = MaterialTheme.typography.bodySmall)
+            } else {
+                Text(registeredIdentity(original.author).name, style = MaterialTheme.typography.labelMedium)
+                Text(original.text, style = MaterialTheme.typography.bodyMedium)
+                PostImages(original.images, backend)
+                PostVideo(original, backend)
+            }
         }
     }
 }
