@@ -442,8 +442,9 @@ is SUCCESS. Both actual OwnerLiveFeedTest invocations PASS, including native fee
 the separate100-row public search/quote reads and fresh unfunded wallet balance/
 funding checks. Both streams on both nodes return arrays. Actual RedSquare bytes
 are4,892,856(owner)/4,896,658(official), quotes61,964/65,145; hashes and field-free
-shape records are retained with the original logs/selected captures. No response
-values were retained and the earlier object's cause remains UNKNOWN. This focused
+shape records are retained with the original logs/selected captures. Shape
+records omit remote values; original public feed screenshots are retained
+separately. The earlier object's cause remains UNKNOWN. This focused
 success does not replace any failed mandatory full goal.
 
 Fresh complete10[39418870684](https://github.com/robelene112/redsquare-android/actions/runs/39418870684)
