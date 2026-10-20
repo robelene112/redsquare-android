@@ -37,7 +37,7 @@ class PostContentContextsTest {
                 assertContent(reference, "$label-profile")
                 home(profile)
                 ui.onNode(hasText("Search") and hasClickAction()).performClick()
-                ui.onNode(hasSetTextAction()).performTextInput("Media and quote viewport")
+                ui.onNode(hasSetTextAction()).performTextReplacement("Media and quote viewport")
                 ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
                 ui.onNodeWithText("Search history").performClick()
                 ui.waitUntil(15_000) {

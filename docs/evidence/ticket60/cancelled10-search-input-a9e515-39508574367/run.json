@@ -1,0 +1,180 @@
+{
+  "conclusion": "cancelled",
+  "databaseId": 39508574367,
+  "headSha": "a9e51529565338f1d784b521281869ff3ac7d1f3",
+  "jobs": [
+    {
+      "completedAt": "2026-10-20T22:31:33Z",
+      "conclusion": "cancelled",
+      "databaseId": 118923620611,
+      "name": "native-proof (all)",
+      "startedAt": "2026-10-20T22:30:15Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-20T22:30:17Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-20T22:30:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:30:17Z",
+          "conclusion": "skipped",
+          "name": "Validate optional 16 KB environment",
+          "number": 2,
+          "startedAt": "2026-10-20T22:30:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "cancelled",
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 3,
+          "startedAt": "2026-10-20T22:30:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Run actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6",
+          "number": 4,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Locate dependency cache",
+          "number": 5,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Restore dependencies from the earlier proof cache",
+          "number": 6,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Restore verified build dependencies",
+          "number": 7,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Restore Gradle task outputs",
+          "number": 8,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Check runner SDK and acceleration",
+          "number": 9,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Build and verify native sources",
+          "number": 10,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Restore pinned TalkBack tool",
+          "number": 11,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Build or verify pinned TalkBack tool",
+          "number": 12,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Retain pinned TalkBack tool",
+          "number": 13,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Retain Gradle task outputs before device tests",
+          "number": 14,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Retain dependencies before device tests",
+          "number": 15,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Verify Android 10 runtime",
+          "number": 16,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:30Z",
+          "conclusion": "skipped",
+          "name": "Verify Android 17 runtime",
+          "number": 17,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:31Z",
+          "conclusion": "success",
+          "name": "Retain verification evidence",
+          "number": 18,
+          "startedAt": "2026-10-20T22:31:30Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:31Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "number": 36,
+          "startedAt": "2026-10-20T22:31:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-20T22:31:31Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 37,
+          "startedAt": "2026-10-20T22:31:31Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39508574367/job/118923620611"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/robelene112/redsquare-android/actions/runs/39508574367"
+}

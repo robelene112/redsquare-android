@@ -1,0 +1,1 @@
+Cancelled before both Android runtime steps. Source inspection found the repeated theme journey appended to a retained SearchViewState.query; replace the query through the actual text field instead. No native assertion ran, no application failure or acceptance claimed.
