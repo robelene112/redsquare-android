@@ -19,7 +19,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
     val wallet = wallets.loadOrCreate()
     val backends = AndroidBackendStore(context)
     val originalBackend = backends.load()
-    val retained = ChatFixtureState(context, listOf("feed.", "profile.", "profilemeta.", "profiledraft.", "search.",
+    val retained = ChatFixtureState(context, listOf("feed.", "conversation.", "profile.", "profilemeta.", "profiledraft.", "search.",
         "authorposts.", "postdraft.", "namemap."), wallet.publicKey)
     val reminder = context.getSharedPreferences("wallet-backup-reminders", 0)
     val rows = feedRows ?: JsonParser.parseReader(instrumentation.context.assets.open("native-feed-reference.json").reader())
