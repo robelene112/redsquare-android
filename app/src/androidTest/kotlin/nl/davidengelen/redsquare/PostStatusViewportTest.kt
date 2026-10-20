@@ -3,10 +3,11 @@ package nl.davidengelen.redsquare
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
+import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
 import com.google.gson.JsonObject
 import java.io.File
 import nl.davidengelen.redsquare.saito.*
@@ -52,17 +53,22 @@ class PostStatusViewportTest {
                     ui.waitForIdle()
                     val polite = ui.onAllNodes(SemanticsMatcher.expectValue(
                         SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).fetchSemanticsNodes()
+                    val root = requireNotNull(InstrumentationRegistry.getInstrumentation().uiAutomation.rootInActiveWindow)
+                    check(root.packageName?.toString() == context.packageName)
+                    fun liveNodes(node: AccessibilityNodeInfo): List<AccessibilityNodeInfo> =
+                        (if (node.liveRegion == View.ACCESSIBILITY_LIVE_REGION_POLITE) listOf(node) else emptyList()) +
+                            (0 until node.childCount).flatMap { index -> node.getChild(index)?.let(::liveNodes).orEmpty() }
+                    val native = liveNodes(root)
                     File(folder, "$label-live-regions.json").writeText(JsonObject().apply {
                         addProperty("mergedNodes", polite.joinToString { it.config.toString() })
+                        addProperty("nativeNodes", native.joinToString { "text=${it.text} description=${it.contentDescription} clickable=${it.isClickable}" })
                     }.toString())
-                    val statusRegions = polite.filter { node ->
-                        node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { it.text == "Like unavailable" }
-                    }
+                    val statusRegions = native.filter { it.text?.contains("Like unavailable") == true }
                     assertEquals("One concise live status must remain separate from the clickable post", 1, statusRegions.size)
                     val statusRegion = statusRegions.single()
-                    assertEquals("Only the concise summary belongs in the live announcement", listOf("Like unavailable"),
-                        statusRegion.config.getOrNull(SemanticsProperties.Text).orEmpty().map { it.text })
-                    assertFalse("The post action must not become a live announcement", statusRegion.config.contains(SemanticsActions.OnClick))
+                    assertEquals("Only the concise summary belongs in the native live announcement", "Like unavailable",
+                        statusRegion.text?.toString())
+                    assertFalse("The post action must not become a native live announcement", statusRegion.isClickable)
                     ui.onNodeWithContentDescription("Like post by $name").assertIsNotEnabled()
                     ui.onNodeWithText("Like unavailable", useUnmergedTree = true).assertIsDisplayed()
                     val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
