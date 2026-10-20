@@ -100,7 +100,21 @@
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf",
-    "actualSpeechAcceptance": false
+    "actualSpeechAcceptance": false,
+    "actualSpeechAcceptanceScope": "Overall acceptance requires both current complete SDK executions. Android17 actual service/engine proof is recorded independently below.",
+    "completeSpeechExecutions": {
+      "android17": {
+        "run": 39451603260,
+        "servicePid": 14123,
+        "outageUtterance": "talkback_4",
+        "recoveryUtterance": "talkback_6",
+        "fragmentCountEach": 1,
+        "positiveEngineAudioAndDone": true,
+        "focus": "Reference post 20",
+        "physicalAudibility": false
+      },
+      "android10": null
+    }
   },
   "collectorSha256": "d00f7bbf694e80d6585a255a89e3cf49af4809077c444058513aacffbc8a5219",
   "catalogFreezeCommit": "caad1528391951187c6d6bb91373c32a48f5e37e",
@@ -246,7 +260,7 @@
     "conclusion": "success",
     "acceptance": "source/core/gateway/release/performance/lint only; complete native acceptance pending"
   },
-  "executingState": "in_progress; all three jobs and full frozen catalog required for each SDK",
+  "executingState": "Android17 complete SUCCESS and strict487/130/35/34/92 checks pass; Android10 replacement active. Complete both-SDK acceptance and publication still pending.",
   "fixtureEquivalenceHistory": [
     {
       "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",

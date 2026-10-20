@@ -1214,3 +1214,50 @@ remains unknown; these separate successes never fill a failed full execution.
 Both independent reviews of847cb69e..fb1b35ed6 report zero remaining findings,
 including all seven failure-packet hashes and exact original-byte bindings.
 Complete10repeat39455628348 and original17run39451603260 continue at72a.
+
+## Complete Android17 at72a and unchanged whole-photo follow-up
+
+Complete17run39451603260 finishes SUCCESS in all three jobs. The unchanged
+strict collector passes487/487 expected identities,130 normal completions,
+35 deliberate interruptions,34 PASS continuity records and92 archive
+inventories. No assumptions, missing/extra identities, nonzero exits, failure
+statuses or unexpected evidence errors occur. Only the same exact five optional
+observer gaps accepted at53 remain; every native goal is mandatory and passes.
+No supplemental or failed-tail assembly is used. Current10repeat39455628348
+remains active; this17 result alone does not permit58 publication.
+
+Actual TalkBack service PID14123 is bound, with one Node unavailable request
+(talkback_4) and one Back online request(talkback_6). Both have real positive
+engine AUDIO and START/DONE without ERROR/STOP. Focus remains Reference post20,
+the English engine WAV has signal, quiet polling and original/restored settings
+checks pass. This establishes disposable-engine/service behavior, not physical
+audibility, Pixel continuity, timing or configured provider/store readiness.
+
+Root opens the actual17 normal Search frames4/8/22/25 and connection frames
+3/6/12/16, plus normal working/outage and zero-scale Search-after bookends.
+All original movies, decoded frames and timestamps remain retained. Real
+WindowRecomposer scale1/0, font200Dark/130Light and320dp width are recorded.
+Read-only original pixel observation corroborates Search entry20→39→53→61→70
+status rows at4through8, and exit64→50→31→9→3→0 at20through25. This is visual
+corroboration, not a new app assertion or physical performance result.
+All five reading XMLs retain Reference post05 at[74,431][201,479], preserving
+the unchanged1px bound through Chat, recreation and continuing outage.
+
+Root also opens complete17 policy saved-draft and agreement cancel-keeps-draft
+originals, plus social submitted-awaiting-node, failed-save-retains-text and
+cache-offline-search originals. Current10's first wallet originals are inspected
+separately as observations only and cannot fill its replacement full execution.
+These confirm scoped feedback and work preservation, not app-wide UI completion.
+Very-large-text frame labels still visibly break words in the shared navigation,
+e.g. Hom/e and Searc/h. This residual frame polish belongs to open55 and a bounded
+follow-up; it is not an observed59 status-transition defect or final UI acceptance.
+
+Whole-photo10run39456809459 also finishes SUCCESS at unchanged72a:10 UI cases
+in89.851seconds, both actual private/group photo process protocols, then both
+storage cases in83.654seconds with actual512MiB and the same application flags
+as the failed full's storage process. All82 original members are retained under
+unique full-archive namespaces. Only the exact old53 unavailable history capture
+archive matches its original1084bytes/hash. Thus this narrower prior-UI/process
+sequence does not reproduce the failure; the broader failed full's16MiB cause
+remains unproved. No heap/source/input/assertion/deadline changes are made.
+Both28-hash focused storage packet reviews report zero remaining findings.

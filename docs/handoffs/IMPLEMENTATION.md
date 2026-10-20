@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 16:00 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
+2026-10-20 16:34 UTC. Issue #59 is OPEN. Ordinary version50 is LIVE.
 Versions51 through57 are REJECTED and NEVER PUBLISH; their frozen APKs remain
 unchanged. Continue #60 through #69 sequentially after true #59 completion,
 without routine owner stops. No new owner input is needed.
@@ -44,7 +44,11 @@ without routine owner stops. No new owner input is needed.
 Current production, complete verification and reserved signed58 source is
 `72a8c63828280d61dc760331e17289cf7c93112a`, pinned at
 `verify/status59-72a8c6382`. Complete Android10run39455628348 and
-Android17run39451603260 are active. Signed58 is prepared and immutable in the external review worktree. Actual
+Android17run39451603260 targets the same source.17 is now complete SUCCESS,
+strict collector487/487,130 normal completions,35 interruptions,34 continuity,
+92 archives,0 assumptions and no unexpected gaps.10 replacement remains active.
+Actual17 TalkBackPID14123/utterances4and6 and normal/zero motion originals are
+validated and root-inspected. Both-SDK acceptance and publication remain pending. Signed58 is prepared and immutable in the external review worktree. Actual
 APK/manifest/DEX inspection and public before-bookend PASS. APK SHA256
 178ddc631bf4082cc2f165ed8ac34a26f55f59c9ac8950acba965cb863e8b7e1,
 37,856,651bytes, established certificate, SDK29/36, nondebug/nonprofile,
@@ -60,7 +64,12 @@ heap/input/assertion/deadline/source change. Separate unchanged storage checks
 39455476639/39455481021 both SUCCESS on10/17:2cases67.755/78.878seconds,
 actual max512MiB/192MiB. All original counts/recovery assertions unchanged.
 Their success does not prove the earlier16MiB cause or fill failed full gates.
-Both bounded original-failure evidence review axes report zero findings. Replacement full10 uses the same72a ref;
+Unchanged whole-photo10run39456809459 also SUCCESS:10 UI/two actual process
+protocols/two storage cases,512MiB with the same app flags as failed full.82
+original members retained; broader full cause still unproved.
+Both bounded original-failure and28-hash storage packet review axes report zero
+findings. Very-large-text full17 originals show residual shared navigation word
+breaks (Hom/e,Searc/h); keep scoped follow-up under55 before final UI acceptance. Replacement full10 uses the same72a ref;
 Workflow concurrency cancelled the old social job. That run is terminal CANCELLED,
 with Chat FAILURE/wallet SUCCESS and final metadata retained. New full10 must independently
 pass every goal. Old wallet successes cannot fill it. Signed58 remains prepared,
