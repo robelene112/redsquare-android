@@ -44,7 +44,7 @@ class ReportPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("confirmation-failure.png") }) {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                     ui.onNodeWithText("This sends this post to this node's moderators. Acknowledgement does not mean it has been reviewed or removed.").assertIsDisplayed()
                     assertTrue(peer.reports.isEmpty())
@@ -89,7 +89,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("reopening-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     waitFor(uncertain)
@@ -99,7 +99,7 @@ class ReportPreviewTest {
                     capture("lost-acknowledgement.png", uncertain)
                     ui.onNodeWithText("Done").performClick()
                     activity.recreate()
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(uncertain)
                     ui.onNodeWithText(uncertain).assertIsDisplayed()
                     assertEquals(1, peer.reports.size)
@@ -128,7 +128,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("deadline-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     waitFor(uncertain)
@@ -137,7 +137,7 @@ class ReportPreviewTest {
                     val original = peer.reports.single().copyOfRange(5, peer.reports.single().size)
                     assertTrue(peer.transactions.isEmpty())
                     ui.onNodeWithText("Done").assertIsEnabled().performClick()
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(uncertain)
                     assertEquals(1, peer.reports.size)
                     peer.withholdReportReply = false
@@ -162,7 +162,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("saving-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Cancel").performClick()
                     ui.onNodeWithText("Wallet").performClick()
                     val author = displayedWalletAddress(ui)
@@ -173,7 +173,7 @@ class ReportPreviewTest {
                     var failure: Throwable? = null
                     try {
                         obstacle.writeText("public test fault")
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Send report").performClick()
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Done") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
@@ -194,7 +194,7 @@ class ReportPreviewTest {
                         if (failure == null && cleanupFailure != null) throw requireNotNull(cleanupFailure)
                     }
                     ui.onNodeWithText("Done").performClick()
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                     assertTrue(peer.reports.isEmpty())
                     ui.onNodeWithText("Send report").performClick()
@@ -254,13 +254,13 @@ class ReportPreviewTest {
                 withFailureCapture({ capture("receipt-save-failure.png") }) {
                     var failure: Throwable? = null
                     try {
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Cancel").performClick()
                         ui.onNodeWithText("Wallet").performClick()
                         val author = displayedWalletAddress(ui)
                         ui.onNodeWithText("Done").performClick()
                         savePath.set(File(context.noBackupFilesDir, "report.owner.$author.${root.get("sig").asString}.v1"))
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Send report").performClick()
                         val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
                         waitFor(acknowledged)
@@ -273,7 +273,7 @@ class ReportPreviewTest {
                         repairSaving()
                         ui.onNodeWithText("Done").performClick()
                         activity.recreate()
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                         waitFor(uncertain)
                         capture("receipt-save-reopened-unknown.png", uncertain)
@@ -304,10 +304,10 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")).use { activity ->
                 withFailureCapture({ capture("unavailable-before-send-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Cancel").performClick()
                     server.close()
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     val notSent = "Report was not sent to saito.davidengelen.nl. Try again when this node is available."
                     waitFor(notSent)
@@ -315,7 +315,7 @@ class ReportPreviewTest {
                     assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                     ui.onNodeWithText("Done").performClick()
                     activity.recreate()
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(notSent)
                     capture("unavailable-before-send-reopened.png", notSent)
                     assertTrue(peer.reports.isEmpty()); assertTrue(peer.transactions.isEmpty())
@@ -343,7 +343,7 @@ class ReportPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${ownerServer.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use { activity ->
                     withFailureCapture({ capture("backend-isolation-failure.png") }) {
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Send report").performClick()
                         val uncertain = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                         waitFor(uncertain)
@@ -356,7 +356,7 @@ class ReportPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("saito.io", substring = false).performScrollTo().performClick()
                         waitFor("Node: saito.io")
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Report to saito.io?").assertIsDisplayed()
                         capture("backend-official-confirmation.png", "Report to saito.io?")
                         assertEquals(1, owner.reports.size); assertTrue(official.reports.isEmpty())
@@ -376,14 +376,14 @@ class ReportPreviewTest {
                         assertEquals(root.get("sig").asString, officialReport.body.getAsJsonObject("data").get("signature").asString)
                         ui.onNodeWithText("Done").performClick()
                         activity.recreate()
-                        ui.clickVisiblePostContent("Report details")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report details")
                         waitFor(officialAck)
                         assertEquals(1, official.reports.size)
                         ui.onNodeWithText("Done").performClick()
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("saito.davidengelen.nl", substring = false).performScrollTo().performClick()
                         waitFor("Node: saito.davidengelen.nl")
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         waitFor(uncertain)
                         capture("backend-owner-restored-unknown.png", uncertain)
                         assertEquals(1, owner.reports.size); assertEquals(1, official.reports.size)
@@ -415,7 +415,7 @@ class ReportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                 withFailureCapture({ capture("unreadable-details-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     waitFor(unknown)
@@ -443,7 +443,7 @@ class ReportPreviewTest {
                         restoreNeeded = true
                         saved.outputStream().use { it.write("invalid public report fixture".toByteArray()); it.fd.sync() }
                         activity.recreate()
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         val error = "Report details for saito.davidengelen.nl could not be opened. Retry to reload them. Nothing new has been sent."
                         waitFor(error)
                         capture("unreadable-details-closed.png", error)
@@ -455,7 +455,7 @@ class ReportPreviewTest {
                         capture("unreadable-details-repaired-unknown.png", unknown)
                         assertEquals(1, peer.reports.size)
                         ui.onNodeWithText("Done").performClick()
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         peer.disconnectAfterReport = false
                         ui.onNodeWithText("Send report").performClick()
                         val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
@@ -517,7 +517,7 @@ class ReportPreviewTest {
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
                 ActivityScenario.launch<MainActivity>(intent).use {
                     withFailureCapture({ capture("identity-replacement-failure.png") }) {
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Send report").performClick()
                         val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                         waitFor(unknown)
@@ -566,7 +566,7 @@ class ReportPreviewTest {
                         assertEquals("retain-this-opaque-option", JsonParser.parseString(walletStore.loadExisting().exportJson())
                             .asJsonObject.getAsJsonObject("reportFixtureExtension").get("opaque").asString)
                         ui.onNodeWithText("Done").performClick()
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                         ui.onNodeWithText(unknown).assertDoesNotExist()
                         capture("identity-incoming-independent-report.png", "Report to saito.davidengelen.nl?")
@@ -576,7 +576,7 @@ class ReportPreviewTest {
                 }
                 ActivityScenario.launch<MainActivity>(intent).use {
                     withFailureCapture({ capture("identity-restoration-failure.png") }) {
-                        ui.clickVisiblePostContent("Report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                         ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                         assertEquals(1, peer.reports.size)
                         ui.onNodeWithText("Cancel").performClick()
@@ -593,7 +593,7 @@ class ReportPreviewTest {
                         assertTrue("Restoration must retain all original options",
                             JsonParser.parseString(originalWallet.exportJson()) == JsonParser.parseString(walletStore.loadExisting().exportJson()))
                         ui.onNodeWithText("Done").performClick()
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                         waitFor(unknown)
                         capture("identity-original-restored-unknown.png", unknown)
@@ -659,7 +659,7 @@ class ReportPreviewTest {
                     val acknowledged = "Report acknowledged by saito.davidengelen.nl. Moderator review is separate."
                     variants.forEachIndexed { index, variant ->
                         reply.set(variant.text); peer.reportReplyIsError = variant.wireError
-                        ui.clickVisiblePostContent(if (index == 0) "Report" else "Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", if (index == 0) "Report" else "Retry report")
                         ui.onNodeWithText("Report to saito.davidengelen.nl?").assertIsDisplayed()
                         assertEquals(index, peer.reports.size)
                         ui.onNodeWithText("Send report").performClick()
@@ -673,14 +673,14 @@ class ReportPreviewTest {
                         assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                         ui.onNodeWithText("Done").performClick()
                         activity.recreate()
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         waitFor(variant.feedback)
                         capture("invalid-ack-${variant.label}-reopened.png", variant.feedback)
                         assertEquals(index + 1, peer.reports.size)
                         ui.onNodeWithText("Cancel").performClick()
                     }
                     reply.set("{}"); peer.reportReplyIsError = false
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(unknown)
                     assertEquals(variants.size, peer.reports.size)
                     ui.onNodeWithText("Send report").performClick()
@@ -723,12 +723,12 @@ class ReportPreviewTest {
             val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
             ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ capture("restored-receipt-first-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Cancel").performClick()
                     val owner = AndroidWalletStore(context).loadExisting().publicKey
                     val file = File(context.noBackupFilesDir, "report.owner.$owner.${root.get("sig").asString}.v1")
                     recordFile.set(file)
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     waitFor(acknowledged)
                     capture("restored-receipt-original-acknowledged.png", acknowledged)
@@ -757,7 +757,7 @@ class ReportPreviewTest {
                 restore(file, requireNotNull(pending.get()))
                 ActivityScenario.launch<MainActivity>(intent).use { activity ->
                     withFailureCapture({ capture("restored-receipt-stale-view-failure.png") }) {
-                        ui.clickVisiblePostContent("Retry report")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                         waitFor(unknown)
                         capture("restored-receipt-stale-unknown.png", unknown)
                         assertEquals(1, peer.reports.size)
@@ -774,7 +774,7 @@ class ReportPreviewTest {
                         assertTrue(peer.transactions.isEmpty()); peer.assertHealthy()
                         ui.onNodeWithText("Done").performClick()
                         activity.recreate()
-                        ui.clickVisiblePostContent("Report details")
+                        ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report details")
                         waitFor(acknowledged)
                         capture("restored-receipt-reopened.png", acknowledged)
                         assertTrue(record(read(file)).get("acknowledged").asBoolean)

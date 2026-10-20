@@ -43,6 +43,46 @@ class PostPresentationPreviewTest {
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
         }
 
+    @Test fun samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces() =
+        withAppFrameFixture("post-contexts", "post-presentation-evidence") {
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            assertPostPresentation("feed")
+            ui.onNodeWithText("Native Red Square reference post").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() &&
+                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+            assertPostPresentation("thread")
+            ui.onNodeWithText("Back").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+            ui.onNodeWithContentDescription("View profile for Anon-jesTu2").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
+                ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
+            assertPostPresentation("profile")
+            ui.onNode(hasText("Home") and hasClickAction()).performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
+            ui.onNode(hasText("Search") and hasClickAction()).performClick()
+            ui.onNode(hasSetTextAction()).performTextInput("reference")
+            ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+            ui.onNodeWithText("Search history").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() &&
+                ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
+            assertPostPresentation("search")
+        }
+
+    private fun assertPostPresentation(surface: String) {
+        ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
+        ui.onNodeWithContentDescription("View profile for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
+        // Independent fixture timestamp1700000000000, rendered on the UTC emulator.
+        ui.onNodeWithText("11/14/23, 10:13 PM").assertIsDisplayed()
+        ui.onNodeWithContentDescription("Post actions for Anon-jesTu2").assertIsDisplayed().assertHasClickAction()
+        for (action in listOf("Like", "Repost", "Quote"))
+            ui.onNode(hasText(action) and hasClickAction()).assertIsDisplayed()
+        ui.onNodeWithText("Report").assertDoesNotExist()
+        capture("same-post-$surface.png")
+    }
+
     private fun capture(name: String) = captureNativeScreen(File(
         InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "post-presentation-evidence/$name"))
 }

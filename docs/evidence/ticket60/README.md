@@ -16,5 +16,21 @@ assertion is unchanged. Both residual test-stage reviews report0 findings.
 
 First implementation adds a reusable post card and permanently hosted secondary
 menu/report dialogs in Feed, retaining the original reporting controller and
-other contexts' reporting until their later migration. Native GREEN remains
-pending. No complete60 or new signed-publication acceptance is claimed.
+other contexts' reporting until their later migration. First native
+[Android10 GREEN39482727589](green10-secondary-actions-1e41-39482727589/)
+at1e41d0a522f2206d7aa5e7bfa734322de54c19d2 succeeds in5.941s. All three
+original PNG/XML pairs are retained and root visually inspected the actual Feed,
+selectable public identity and reporting confirmation after menu closure. No
+report/transaction was submitted; wallet/backend restoration checks pass.
+[Android17 counterpart39482731607](green17-secondary-actions-1e41-39482731607/)
+also succeeds in23.929s at the same1e41 source. Its14 hashes/six original
+PNG/XML members are retained; root inspected the three actual native PNGs.
+
+The next native tracer visits the same independently signed post through Feed,
+Thread, Profile and Search, checking recognizable author/profile access, known
+UTC fixture time, contextual More and primary actions. Thread/Search/Profile
+production still uses old rows; native RED is pending. Existing reporting
+regression operators now explicitly open the real contextual menu, preserving
+all35 original report/retry/details actions and every other assertion. Both
+operator-only review axes report0. No complete60 or new signed-publication
+acceptance is claimed.

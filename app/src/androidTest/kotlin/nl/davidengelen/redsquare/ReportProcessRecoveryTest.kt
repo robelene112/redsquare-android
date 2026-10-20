@@ -53,7 +53,7 @@ class ReportProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("interruption-failure.png") }) {
-                    ui.clickVisiblePostContent("Report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Report")
                     ui.onNodeWithText("Send report").performClick()
                     ui.waitUntil(5_000) { received.count == 0L }
                     peer.assertHealthy()
@@ -84,7 +84,7 @@ class ReportProcessRecoveryTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 withFailureCapture({ capture("cold-recovery-failure.png") }) {
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     val unknown = "Report delivery to saito.davidengelen.nl is unknown. Try again to send the same report."
                     waitFor(unknown)
                     capture("cold-recovered-unknown.png", unknown)
@@ -93,7 +93,7 @@ class ReportProcessRecoveryTest {
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(row.get("owner").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
-                    ui.clickVisiblePostContent("Retry report")
+                    ui.clickVisiblePostMenuAction("Anon-jesTu2", "Retry report")
                     waitFor(unknown)
                     assertTrue(peer.reports.isEmpty())
                     ui.onNodeWithText("Send report").performClick()
