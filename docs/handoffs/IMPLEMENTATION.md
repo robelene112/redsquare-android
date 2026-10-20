@@ -36,110 +36,116 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-Latest execution checkpoint: full10run39418870684 and17run39418873625 ACTIVE at
-exactf23bc380d41b2454b37c4860a5fba4a56bb9e8e0, refverify/status59-f23bc380d.
-Allsix jobs required, no supplemental/tail assembly. Frozen486/487 catalog and
-collector unchanged. Source/core/release/lint39418053776 SUCCESS. Focused import,
-keyboardbothSDKs, unchangedphysicaldismissalbothSDKs and public17read allSUCCESS.
-Public17f2339418060620 nowhas actualarrayresponses forbothstreams/bothnodes;
-100rowpayloadsabout4.9MB. PreviousobjectcauseUNKNOWN andfailedfullsremainfailed.
-Production/signing/buildinputs remainfc-equivalent;52preparedSHA9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96,
-NOTpublished.50LIVE,51REJECTED. Independent52beforeHTTPbookend PASS exists in
-/mnt/storage/redsquare-android-artifacts/status59-publication-52,afterNOTexecuted.
-Waitall3successjobs/SDK, strictcollector+originalmotion/speech/visualreview,
-pairedfinalreview, canonicalpublish52andindependentafterbookend,close59,CONTINUE60.
-Ownedverify/status59-fc477c893 wasdeletedafterallitsrunscompletedandremotehead
-wasverifiedexactfc. Itsfourrejectedfullfinalmetadatarecordsareretainedin
-rejected-run-final-metadata. verify/status59-f23bc380dremainsACTIVE; deleteonly
-afteritsrunsfinishandconfirmheadunchanged. Nevercancelunfinishedpriorpartitionsorrebuild50/51/52.
+Current checkpoint: 2026-10-20,12:07 UTC. Issue59 remains OPEN. Ordinary50 is
+LIVE; signed52 is prepared and UNPUBLISHED. Rejected51 must never be published.
+The owner authorizes continuing60 through69 after59 is completed, without a
+routine stop. All owner/provider/physical/store gates remain parked as before.
 
+### Current complete executions
 
-59 is OPEN, ordinary50 remains live. Current source fc477c893 includes production
-ReadingAnchor fix c4f8f4427: parent-relative instead of root-relative movement.
-Actual4a full10/17 both FAIL their Chat partition's old frame-reading assertion:
-expected437 versus357 after Chat/Home, exact80pixel shift with backup reminder.
-Original native before/failure pairs are retained in full4a-failures. No waived
-assertion or accepted full proof. Other old full jobs still run; let them finish
-before reusing the same full scope. Old10wallet also FAILS policy Chat reaction:
-enabled Like was below the clipped history viewport. Fixture now scrolls to it
-before each actual tap, retaining all policy/no-send/exact-count requirements.
+Both runs execute exact `f23bc380d41b2454b37c4860a5fba4a56bb9e8e0` on owned
+`verify/status59-f23bc380d`:
 
-Fresh focused runs atfc477c893: reading10/17 39414403423/39414407150,
-status-recovery10/17 39414410300/39414413196, policy-surfaces10/17
-39414416099/39414418607. All six SUCCESS:1reading,2recovery and4surface methods per SDK, with original
-archive-bound packets retained. Root inspected corrected17reading and reaction
-PNGs; post05 has exact original bounds through Chat and recreation. Both bounded review
-axes report0 after the fixes. New source requires fresh full10/17; do not reuse
-failed4a or treat focused proof as full. Frozen486/487 identity references stay
-unchanged. Fresh full10run39415267934 and17run39415423516 are active at exactfc
-on verify/status59-fc477c893; allthree mandatory partitions and public reads
-required. Source/core/release/lint39414378637 is SUCCESS. The reference binds
-these actual runs and retains rejected4a separately. Do not cancel their jobs.
-Fresh10Chat FAILS the physical social-reply swipe (10PASS/1FAIL main command),
-not reading. Packet fullfc-push-dismissal10 retains actual before/failure originals;
-old capture reopens shade and cannot establish precise post-gesture state. Narrow
-unchanged social-push10run39416588867 atfc is active. Next test-only diagnostics
-record actual notification flags/bounds/gesture duration/hidden-active result,
-without changing gesture or five-second assertions; focused existing-method
-social-push-dismissal scopes added. Complete acceptance now requires fresh10.
-Old4a17wallet fails the already-corrected same policy Like atline132, packet
-full4a-policy17; focusedfc bothPASS. No further production change yet.
-Fresh17Chat alsoFAILS group first-use second keyboard opening: old readiness
-IME331 versus later Send270..318. Actual original keyboard_holder starts318,
-PNGshows full48pixelSend. Root openedboth. physicalSend sampled insets before
-capture/nativequery using staleparameter. Current fixture measures current
-systemBars/IME after nativequery and requires visibleIME, retains exact48dp and
-containment, recordsactualbounds. Packetfullfc-keyboard17; no productionchange.
-Both fc fulls rejected; otherjobscontinue. Diagnostic39416823937 atcfd mayrun
-bothSDKs (SDKexclusionwasfixedate288); bindactualprovenance. d30makesoptional
-pre-gesture reads best-effort. Reviews0/0 afterbothdiagnosticfixes. Corrected
-keyboardfocusedandfreshcompleteverificationpending.52remainspreparednotpublished.
-Freshfc10wallet alsoFAILS invalid-import initialWalletclick before anyfilepicker:
-no mergedWalletnode, oneunmergedmatch, no initialreadywait or inscopefailurecapture.
-Packetfullfc-wallet-entry10 hasactual6PASS1FAILlog/fullinventory; no fabricated
-nativefailureimage. Reuse existing20second enabled/displayed/clickable openWallet
-helper at startup/recreation, moving it toclass (existingfailedsavecallersunchanged).
-Invalid/UTF8/address/persistenceassertionsunchanged. Focusedimportstillrequired.
-Freshfc17walletalsoFAILS publicofficialread OwnerLiveFeedTestline90: objectinstead
-ofrowarrayon100rowRedSquaresearch;initialfeedpassed. No responsebody/fieldnames
-retained, causeUNKNOWN (notestablishedfallback/servererror). Packetfullfc-public-read17.
-ObserveraddsONLYshape/bytes/hash/filteredfieldnames,notremotevalues, beforestrict
-decoding;harnesscopiesbeforePASSgate. Noquery/decoder/deadline/productionchanges.
-ThisrequiredpublicgateisNOTanoptionalobservergap. Focusedpublicread17needed.
-Correctedkeyboard43abc10/17runs39417214514/39417211307bothSUCCESS10methods,
-116originalmembersretainedeach. Rootopened17firstusePNG, actualJSONcurrentIME322,
-Send270..318full48dp; originalstale331failureretained. Unchangedsocial11-method10
-39416588867SUCCESS94originals; cfd39416823937actuallyBOTHSDKsSUCCESS1methodeach,
-actualflags24/clearabletrue/ongoingfalse,gesture154/139ms,hiddenandownedinactive.
-RootopenedbothdismissedPNGs; noearliercauseclaim. Packetsretained. Focusedimport
-10a339417603596SUCCESSall7classmethods/19originals; rootopenedrecreatedrecoveryPNG.
-Feed17publicf2339418060620stillactive. Allboundedreviews0/0.
-Sourcef23hasONLYtest/harness/docschangessincefcproduction;52notrebuilt.
-production-equivalence-fc-f23.json verifies allnon-docchangesareexactly4testfiles,
-workflowfocusedroutingandemulatorharness; explicitproduction/buildGitobjectsidentical.
-Do notclaimtest/harnessidentity. Newfullsshouldusef23(orproductionequivalentnewer
-fixturefix),all3partitions/SDKandallmandatorypublicreads,unchangedfrozen486/487catalog.
+- Android10:39418870684, ACTIVE.
+- Android17:39418873625, ACTIVE.
 
-Actual real TalkBack10at7e39411343189 and17at4a39412530513 are SUCCESS, complete
-speech/audio/quiet/focus/PID assertions, settings byte-equal and originals opened.
-10PID3524/outage5/recovery7;17PID3290/outage2/recovery4. Tool narrow startup grants
-and actual debug package visibility are fixed; release permissions unchanged.
-17keyboard1f39410743176 has10PASS with the same larger Gboard notice, full48pixel
-Send ending at usable318. Message-first compressed-editor work remains62.
+Each requires successful Chat, social and wallet jobs, every public-read gate,
+actual TalkBack and native motion. No supplemental or tail assembly is planned.
+The independent frozen catalog and unchanged strict collector require486/487
+identities,129/130 normal completions,35 deliberate interruptions,34 continuity
+records and92 archives per SDK. Preserve the exact established API29 Profile
+assumption and only the five exact accepted53 observer gaps. Source/core/release/
+lint39418053776 at the samef23 source is SUCCESS.
 
-51 was built/signed at4a: SHA5d21e8c9e65ad89c4055b92bbf140ea8ee39753d7dd1a71abc6f382cd306a7ee,
-37,856,651bytes. Actual APK manifest/DEX/certificate inspection passes. It is
-SUPERSEDED, NEVER PUBLISH. A rejection marker is in the frozen external51 folder;
-evidence apk-check explicitly says neverPublish. 52 is built atfc,
-SHA9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96,
-37,856,651bytes, actual manifest/DEX/certificate checks PASS. Its inspection is
-in signed52-prepared; no publication or full acceptance yet. External frozen
-review-worktree is atfc. Local52 builder completed exit0. Never rebuild51/50/52.
-Temporary /tmp/redsquare-status59-publication52-check.py is prepared, not run;
-protects immutable50/49/45 and wholeperformance43 with actual HTTP bookends.
-After fresh full/evidence review and actual signed delivery complete59, continue
-60through69 immediately. Keep protected research unread/untouched, source boundaries
-and real owner/provider/physical/store gates parked as before.
+The signed app's production source is `fc477c8936f11ae85923b8e02c61c6a6c6558db5`.
+[Production equivalence](../evidence/ticket59/production-equivalence-fc-f23.json)
+proves every non-documentation difference atf23 is one of four reviewed test
+fixtures, focused workflow routing or the diagnostic harness. Production, build,
+dependency and signing-script inputs are identical. Do not claim the changed
+fixtures/harness themselves are identical.
+
+### Focused proof and rejected attempts
+
+All corrected focused checks pass, with original packets retained under
+[the59 evidence](../evidence/ticket59/README.md):
+
+- Reading, status recovery and all four publishing surfaces on both SDKs atfc:
+  39414403423/39414407150,39414410300/39414413196,
+  39414416099/39414418607 respectively.
+- Corrected keyboard measurement at43abc:10run39417214514 and17run39417211307,
+  all ten methods each,116 original archive members each. Actual17 Send is
+  [215,270][304,318],48pixels high; current IME322 leaves usable bottom318.
+  Root opened the original PNG with the Gboard font-size notice.
+- Corrected import10 at a3:39417603596, all seven class methods and19 originals.
+  Root opened the post-recreation invalid-backup recovery screen.
+- Unchanged social-push10 atfc:39416588867, all eleven main methods. Focused
+  dismissal39416823937 atcfd actually runs BOTH SDKs, one passing method each.
+  Clearable=true, ongoing=false, flags24, gestures154/139ms, text hidden and
+  owned notification inactive, then no re-alert. Root opened both dismissed
+  screenshots. The earlier swipe failure's cause remains unproved.
+- Public17 atf23:39418060620, both actual node invocations PASS. Both post/quote
+  streams return arrays;100-row post responses are about4.9MB. Shape records
+  contain metadata only; public feed screenshots are separate originals.
+- Earlier actual TalkBack10:39411343189 at7e, PID3524, outage5/recovery7;
+  TalkBack17:39412530513 at4a, PID3290, outage2/recovery4. Each has correlated
+  START/positive AUDIO/DONE, quiet polling, retained focus and byte-equal settings.
+  Complete currentf23 execution must rerun actual speech and motion.
+
+All four earlier complete attempts finish FAILURE:4a runs39412244072/
+39412555335 andfc runs39415267934/39415423516. Their final job metadata is
+retained alongside earlier in-progress captures. Social partitions pass; Chat
+and wallet failures remain rejected. Focused successes cannot fill missing
+full gates. The exact failures and corrections are recorded in the evidence:
+
+- Root-relative reading compensation moved the feed80pixels on return from
+  Chat. Productionc4 uses parent-relative movement; original1pixel assertions stay.
+- Private policy reactions were tapped below the clipped history viewport.
+  Fixturefc scrolls to the real action before its three deliberate taps.
+- The physical social notification swipe failed once; observation-only metadata
+  and an unmodified in-scope capture now distinguish gesture and notification
+  state. The gesture and five-second goals are unchanged.
+- Keyboard observer compared an earlier331 inset with later Send bounds and
+  keyboard top318. Fixture43abc measures current insets alongside the target,
+  requires visible IME and preserves full48dp/viewport containment.
+- Invalid-import startup clicked before a ready Wallet action was observed.
+  Fixturea3 reuses the existing20second enabled/displayed/clickable helper.
+  There was no original in-scope screenshot and no proven initialization cause.
+- Official public100-row search returned an object instead of an array once.
+  Its body was not retained; the cause remains UNKNOWN. Fixturef23 records only
+  bounded shape/bytes/hash/filtered field names before unchanged strict decoding.
+
+All bounded source/evidence reviews throughcd6 report Spec0/documented Standards0/
+heuristic0 after the SDK-routing and optional-observation findings were fixed.
+Final complete evidence and publication still need their paired reviews.
+
+### Frozen signed52 and remaining actions
+
+Signed52 is built atfc, SHA256
+`9b0edc6ca1b0fe28db95759c36aa7e85a567d61bd89a4da3abbed087a7106c96`,
+37,856,651bytes, established certificate. Actual manifest/DEX checks PASS in
+`signed52-prepared`: nondebuggable/nonprofileable, backupfalse, SDK29/36,
+reviewtrue/pushfalse, separate GIF keys empty, no test-tool package query.
+External review worktree remains frozen atfc. Never rebuild50,51 or52.
+
+Independent before-publication HTTP check already PASSed under
+`/mnt/storage/redsquare-android-artifacts/status59-publication-52`.
+`/tmp/redsquare-status59-publication52-check.py ordinary 52 after` has NOT run.
+The checker protects immutable50/49/45 and the whole performance43 channel.
+Only use canonical `scripts/review-publish` from the frozen worktree after full
+acceptance/review. Ordinary50 stays live until then. Rejected51 retains its
+external rejection marker and evidence's explicit neverPublish flag.
+
+Next: wait for all three jobs and overall SUCCESS on each current full run;
+download all three named artifacts per SDK into the external storage directory;
+run the unchanged59 full collector with exact run IDs; inspect original speech,
+motion, recovery, larger-text/IME and relevant visual evidence. Obtain paired
+final review, publish prepared52, run independent after-HTTP verification,
+retain/review the public packet, close59 and immediately implement60.
+
+Owned `verify/status59-fc477c893` was removed after all runs on it completed and
+its remote head was confirmed exactfc. Keep currentf23 ref while its runs are
+active; remove it only after completion and an unchanged-head check. Do not
+cancel needed jobs or modify the protected unrelated research file.
 
 ## Current repeat-like57 acceptance
 
