@@ -64,44 +64,52 @@ catalog references and all deadlines/targets/tolerances remain unchanged.
   pushfalse/separateGIFkeysempty/noTalkBackquery. This is not native acceptance.
   Before-HTTP bookend PASS is historical preparation only. Never publish53.
 
-### Current failures and diagnosis
+### Current failures and corrections
 
-Complete f4 runs39424620344/39424624394 cannot establish acceptance. Both Chat
-partitions fail AppFrameReading after Activity recreation:10 +38pixels,17 +4.
-Return from Chat itself passes. Original captures show unchanged list viewport
-but displaced restored content.10wallet also fails all7group publishing methods
-waiting for visible Forwarded feedback. Clipped feedback versus failed submission
-is still a hypothesis; no cause is asserted before diagnostic evidence.
-Other full partitions continue independently. Do not cancel them or collect a
-failed overall run as acceptance. Full source/core/release/lint steps pass;
-standalone f4 source39424574004 is canceled, not accepted. Documentation-only4f
-source39424796169 succeeds; it does not establish later7c production acceptance.
+Complete f4 runs39424620344/39424624394 remain rejected. Both Chat jobs fail
+reading after Activity recreation (+38/+4pixels); both wallet jobs fail all7group
+publishing visible-status goals.10social succeeds;17social finishes independently.
+Keep actual final states, never collect a failed overall run as acceptance.
 
-The574 diagnostic39426864176 and initial7c reading39426991453/39426995692
-fail compilation before device execution because the new diagnostic lacked a
-JsonObject import. They provide no native evidence. Import fixd209 compiles
-locally (debug/app-test4m38s). Replacement group39427888785 and reading10/17
-39427893734/39427898191 execute d209. Group uses the same seven methods
-with raw peer Tx/Relay counts and all-root Compose captures. New agreement-group
-scopes retain180seconds and exact prior assertions; complete scopes keep allcases.
-At7c5e807c4 the only production correction gates initial network-loading notice
-on cacheReady, so an initial exit cannot offset the newly mounted restored cached
-list. Actual cache load sets posts thenready before later network refresh. Existing
-reading1pixel assertions remain. Replacement original reading10/17runs39427893734/39427898191 are active.
-Paired review finds no source/harness issue; latest documentation corrections
-still require confirmation. All original failures/archives are retained in59.
+The missing JsonObject import caused compile-only failures39426864176 and
+39426991453/39426995692. d209 fixes it and local debug/app-test compilation
+succeeds. Replacement original reading10/17runs39427893734/39427898191 both
+SUCCESS. Root opened17 recreation PNG and checked all6 native XML anchors:
+Reference post05 stays[74,431][201,479] before Chat/after Chat/after recreation.
+This proof predates the later baseline/priority changes; final source still needs
+complete verification. Both paired reviews confirm fixture/doc corrections.
 
-Pending: diagnose group feedback, verify cache-ready correction, address actual
-findings, then freeze corrected final source and prepare a NEW signed candidate.
-Require fresh successful complete10/17(allthree jobs/publicreads/speech/motion),
+Actual d209 group diagnostic39427888785 reproduces all7 failures. Each retains
+raw Tx1/Relay1, and all-root Compose shows actual Forwarded at303..317 (Join321..335)
+below its181..261 viewport. This now proves offscreen feedback, not failed sending.
+0a785 moves current delivery ahead of management/history, with all operations,
+copy, guards,80dp bound and scrollable guidance preserved. No assertion is changed.
+
+Stronger existing reading tracer7a8 adds scrolled outage -> Details/Done ->
+Activity recreation during continued outage -> same original1pixel anchor goal.
+Both10run39428759403 and17run39428763754 reproduce exact437to383 drift (-54).
+Original XML anchors move[74,431][201,479] to[74,377][201,425]; root opened10
+failure PNG. All preceding Chat/online-recreation goals pass. Retained evidence
+is outage-red10/17-7a8. Catalog identity and180second bound remain unchanged.
+
+Current production at a6b9d0e06 saves the parent-relative header baseline and
+unapplied delta alongside the already-restored list offset. Cache guard now waits
+for cacheReady before any empty-feed notice, including offline-empty. No timing,
+target, gesture or tolerance is weakened. Source review/runtime are pending.
+
+Current corrected a6 focuses: reading10/17 39429853283/39429858053 and group
+publishing10/17 39429863364/39429867793. These are active, not accepted yet.
+54 is not reserved. Next: inspect/review current fixes, verify focused reading/
+group/keyboard/mute/recovery, then freeze final source, prepare NEW signed54 and
+run fresh complete10/17. Require allthree jobs/publicreads/actualspeech/motion,
 strict collection, original visual inspection and paired final review before
-canonical publication and independent before/after HTTP checks. Obsolete52/53
-publication checker after-stages must never run. Issue remains open throughout.
+canonical publication and independent before/after HTTP checks. Never invoke
+52/53 after-publication checks or publish their APKs.50 stays live.
 
 The stronger collector requires held Search loading movies/allframes/native
 bookends inside the same two existing motion methods. Its configured selfhash
 is updated; catalog references remain frozen atcaad1528391951187c6d6bb91373c32a48f5e37e.
-Owned refs verify/status59-f4bbe99df and oldf23 stay until no active run and exact
+Owned refs verify/status59-f4bbe99df, verify/status59-outage-7a8dad0a5 and oldf23 stay until no active run and exact
 head checks permit removal. Monitor process29998 ended143 without collection;
 manual checking is required. No successful full f4 packet has been collected.
 Owner/provider/physical/store prerequisites remain parked under36, not waived.

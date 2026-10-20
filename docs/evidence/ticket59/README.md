@@ -598,3 +598,31 @@ same original1pixel anchor goal. All preceding Chat-return/online-recreation
 assertions and180second bound remain. The modifier's parent baseline is not yet
 changed; run/inspect the old restoration behavior before a proposed saved-baseline
 fix. This is stronger existing-identity coverage, not a new catalog identity.
+
+### Proven clipping and restored-header baseline, a6 correction
+
+Original reading10/17 atd209 (39427893734/39427898191) both SUCCESS after initial
+cache-ready guard. Native Reference post05 bounds are[74,431][201,479] across all
+three original before/after/recreation bookends on each SDK. Root opened17 PNG.
+
+Actual group diagnostic10run39427888785 atd209 fails all7 original visibility
+goals. Every raw record contains exactly Tx1/Relay1. Full Compose shows actual
+Forwarded text at303..317 (Join321..335), outside181..261 status viewport. This
+establishes clipping rather than failed submission. All43 originals are retained
+with full goal log and archive inventory in group-feedback-red10-d209-39427888785.
+0a785 prioritizes current delivery, then management, then available-history guidance
+inside the same80dp scroll area. Copy/signing/permissions/recovery are unchanged.
+
+The strengthened existing reading method at7a8 reproduces a separate ongoing-
+outage recreation drift on both SDKs (39428759403/39428763754):437to383 exactly,
+with original1pixel bound. All prior online/Chat checks pass. Native body bounds
+move[74,431][201,479] to[74,377][201,425]. Ten originals each and full logs are
+retained in outage-red10/17-7a8; root opened10 failure PNG. a6 saves the parent's
+relative baseline and pending correction with the restored list offset. Initial
+cache guard now also suppresses premature offline-empty notices. Corrected runtime
+is pending, with original identities/180second bound and assertions unchanged.
+
+The strict collector additionally retains/requires all five reading-stage PNG/XML
+bookends, including before/after outage recreation. It cannot accept the older
+six-member reading packet as the stronger new journey. Frozen reference catalogs,
+archive counts and method identities remain unchanged; selfhash is updated.

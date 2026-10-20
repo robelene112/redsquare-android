@@ -109,6 +109,10 @@ def validate_status_evidence(target, configured):
               'reading-after-recovery','details-remain-open-after-recovery','details-closed-after-recovery']:
   for suffix in ['png','xml']:
    assert (originals/'status-recovery-evidence'/f'{name}.{suffix}').stat().st_size>100
+ for name in ['scrolled-feed-before-chat','scrolled-feed-after-chat','scrolled-feed-after-recreation',
+              'scrolled-outage-before-recreation','scrolled-outage-after-recreation']:
+  for suffix in ['png','xml']:
+   assert (originals/'app-frame-reading-evidence'/f'{name}.{suffix}').stat().st_size>100
 
 actual=Counter();parts={};archive_inventory={};direct_inventory={}
 for part in ['chat','social','wallet']:
@@ -139,7 +143,7 @@ for part in ['chat','social','wallet']:
    for member in t.getmembers():
     if not member.isfile():continue
     b=t.extractfile(member).read();entry={'name':member.name,'bytes':len(b),'sha256':sha(b)};record['members'].append(entry)
-    if p.name in {'status-recovery-evidence.tar', 'status-motion-evidence.tar', 'status-talkback-evidence.tar'}:
+    if p.name in {'status-recovery-evidence.tar', 'status-motion-evidence.tar', 'status-talkback-evidence.tar', 'app-frame-reading-evidence.tar'}:
      name=Path(member.name)
      assert not name.is_absolute() and '..' not in name.parts
      out=dest/'status-originals'/name;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(b)
