@@ -492,3 +492,54 @@ footer/Search quote. Separate17 context quote XMLs include attribution/body in3o
 and omit it in5of8;10 includes8of8. Compose assertions and original PNG proof remain
 distinct from XML observation. Production files remain unchangedcfbf. Whole60,
 status matrix/new-control TalkBack/full catalog/full10+17/signed59 remain pending.
+
+The unavailable-action tracer uses a fresh owned journal obstacle with real
+reload/Details/Retry, not injected UI status. Six320dp100/130/200 Light/Dark cells
+require48dp viewport/FAB-safe controls, contextual full guidance, disabled Like,
+zero sends and independent cleanup. Both source reviews0; local Kotlin compile
+succeeds1m49s. Native10 run39510531128 at a71c8d44ac06c631bbfa8ba997b3cfeed573bdd1
+is SUCCESS; eight methods pass, including status19.546s. Packet315hashes/five
+archives296 originals. Root viewed100Light/130Dark/200Light status and200Dark
+Details. Native17 run39510533858 has successful runtime/evidence steps and eight
+passing methods, status22.214s, but overall CANCELLED after a premature follow-up
+triggered concurrency cancellation. Packet317hashes/five archives296 originals
+keeps that actual conclusion; it is not a successful workflow. Root viewed17
+100Dark/200Dark status. Both evidence reviews0. Follow-up39511304967 was explicitly
+cancelled before runtime; its two-hash packet preserves no-acceptance scope.
+
+Shared NativeTalkBackObservation extracts the prior real service/English-engine/
+focus/speech/cleanup helper for two clients. Original status observation body is
+byte-identical, with its unchanged180s bound,12s quiet/two real retries/focus20
+and actual engine START/AUDIO/DONE goals. New post controls require actual native
+accessibility focus and completed contextual speech for profile/thread/Like/
+Repost/Quote/More/Report/own Edit/Delete. Separate180s class preserves zero sends.
+An initial harness failure-masking finding was fixed with an explicitly terminal
+original status/JUnit gate; independent host checks reject exit1/124 or missing
+JUnit marker before the additive class. Both corrected source reviews0; local
+Kotlin compile succeeds1m43s.10 run39510902797 fails during pinned-tool NDK21.4
+ZIP installation before runtime, retained as a three-hash tool failure, not app
+RED.17 run39510905478 rebuilt the same pinned tool and is running. No new-control
+TalkBack acceptance yet. Cached tool pins/patch remain unchanged.
+
+The next pending/count tracer submits one actual signed controlled Like per
+Light/Dark320dp100% cell, withholds node availability, then reconciles the exact
+candidate without rebroadcast and forces unavailable target-count readback. The
+last literal node count4 remains; no local5 is invented. Independent owned-action
+fixture restores declared journals/rate/cache/preferences/backend/full wallet;
+existing zero-send frame fixture remains strict. Wallet comparison uses a Boolean
+assertion to avoid printing private values. Both source reviews0; local Kotlin
+compile1m44s succeeds. New focused10 run39511301671 and17 run39511438494 at5da33a0cd
+are pending; no acceptance inferred. Source production files remain identicalcfbf.
+
+Complete60 catalog references accepted complete59 identities, adds ten native
+methods and seven class completions/archives. Expected10/17 totals496/497 identities,
+136/137 normal completions,35 interruptions,34 continuity and99 archives. Full
+social invokes all six post classes; full Chat adds actual post TalkBack. The
+additive collector preserves59 validations/exclusions/tool pins, requires every
+post capture/layout/target bookend, per-label contextual speech and request/engine
+PID lineage. Both corrected catalog reviews0. Freeze is2a94a14d5ffb8abe741fc531a778bb32601e9335;
+references, collector SHA and tool inputs are bound to that pre-execution record.
+No complete60 execution yet. Gradle task cache now keeps one input-validated seed
+per build configuration instead of one~2.4GB snapshot per commit, retaining the
+matching old-key fallback. This cache-only change does not waive compilation or
+runtime gates. Full60/reviews/signed ordinary59 and61–70 remain authorized.

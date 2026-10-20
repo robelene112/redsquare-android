@@ -1,0 +1,282 @@
+native-proof (all)	Build or verify pinned TalkBack tool	﻿2026-10-20T22:54:36.0015618Z ##[group]Run scripts/ci-talkback-setup
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0015996Z ^[[36;1mscripts/ci-talkback-setup^[[0m
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0081580Z shell: /usr/bin/bash -e {0}
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0082004Z env:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0082472Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0083716Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0084527Z   MAVEN_ARGS: -ntp
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0084936Z ##[endgroup]
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0272939Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0273956Z                                  Dload  Upload   Total   Spent    Left  Speed
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.0274414Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:36.8921578Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:37.9026664Z 100 4612k    0 4612k    0     0  5332k      0 --:--:-- --:--:-- --:--:-- 5331k
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.2080610Z 100 10.0M    0 10.0M    0     0  5477k      0 --:--:--  0:00:01 --:--:-- 5475k
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.2081912Z 100 12.0M    0 12.0M    0     0  5678k      0 --:--:--  0:00:02 --:--:-- 5680k
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.2219222Z /home/runner/work/redsquare-android/redsquare-android/.scratch/talkback-tool/source.tar.gz: OK
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.6350837Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.6352042Z                                  Dload  Upload   Total   Spent    Left  Speed
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.6352667Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.6711816Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.6712757Z 100   169  100   169    0     0   4660      0 --:--:-- --:--:-- --:--:--  4694
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.8634515Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.8635508Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:38.8847640Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:39.3743505Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:39.3744556Z 100  130M  100  130M    0     0   176M      0 --:--:-- --:--:-- --:--:--  267M
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:39.4797449Z /home/runner/work/redsquare-android/redsquare-android/.scratch/talkback-tool/gradle.zip: OK
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0180400Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0183705Z Welcome to Gradle 8.13!
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0192684Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0203974Z Here are the highlights of this release:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0204729Z  - Daemon JVM auto-provisioning
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0205373Z  - Enhancements for Scala plugin and JUnit testing
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0206166Z  - Improvements for build authors and plugin developers
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0206677Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0207251Z For more details see https://docs.gradle.org/8.13/release-notes.html
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.0207794Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:41.1172989Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:54:42.2174340Z Daemon will be stopped at the end of the build 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:18.2170674Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:18.2192816Z > Configure project :
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:18.2194445Z WARNING: The option setting 'android.jetifier.ignorelist=proguard.jar' is experimental.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1165843Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1177413Z > Configure project :braillebrltty
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1179338Z This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1181666Z Checking the license for package NDK (Side by side) 21.4.7075529 in /usr/local/lib/android/sdk/licenses
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1182780Z License for package NDK (Side by side) 21.4.7075529 accepted.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:22.1183992Z Preparing "Install NDK (Side by side) 21.4.7075529 v.21.4.7075529".
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1214917Z Warning: An error occurred while preparing SDK package NDK (Side by side) 21.4.7075529: Error on ZipFile unknown archive.:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1244060Z java.io.IOException: Error on ZipFile unknown archive
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1274284Z 	at org.apache.commons.compress.archivers.zip.ZipFile.<init>(ZipFile.java:383)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1298648Z 	at org.apache.commons.compress.archivers.zip.ZipFile.<init>(ZipFile.java:323)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1299760Z 	at org.apache.commons.compress.archivers.zip.ZipFile.<init>(ZipFile.java:279)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1300874Z 	at com.android.repository.util.InstallerUtil.unzip(InstallerUtil.java:101)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1302029Z 	at com.android.repository.impl.installer.BasicInstaller.doPrepare(BasicInstaller.java:91)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1303778Z 	at com.android.repository.impl.installer.AbstractPackageOperation.prepare(AbstractPackageOperation.java:340)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1305335Z 	at com.android.builder.sdk.DefaultSdkLoader.installRemotePackages(DefaultSdkLoader.java:365)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1306623Z 	at com.android.builder.sdk.DefaultSdkLoader.installSdkTool(DefaultSdkLoader.java:454)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1307793Z 	at com.android.build.gradle.internal.SdkHandler.installNdk(SdkHandler.java:329)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1309053Z 	at com.android.build.gradle.internal.cxx.configure.NdkLocatorKt.findNdkPathImpl(NdkLocator.kt:242)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1310481Z 	at com.android.build.gradle.internal.cxx.configure.NdkLocator.findNdkPath(NdkLocator.kt:425)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1311798Z 	at com.android.build.gradle.internal.ndk.NdkHandler.getNdkStatus(NdkHandler.kt:83)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1313014Z 	at com.android.build.gradle.internal.ndk.NdkHandler.getNdkPlatform(NdkHandler.kt:96)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1315099Z 	at com.android.build.gradle.internal.cxx.gradle.generator.CxxConfigurationModelKt.tryCreateConfigurationParameters(CxxConfigurationModel.kt:213)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1317542Z 	at com.android.build.gradle.internal.cxx.configure.CxxCreateGradleTasksKt.createCxxTasks(CxxCreateGradleTasks.kt:89)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1319481Z 	at com.android.build.gradle.internal.VariantTaskManager.createTopLevelTasks(VariantTaskManager.kt:217)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1321228Z 	at com.android.build.gradle.internal.VariantTaskManager.createTasks(VariantTaskManager.kt:141)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1394502Z 	at com.android.build.gradle.internal.plugins.BasePlugin.createAndroidTasks(BasePlugin.kt:770)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1395949Z 	at com.android.build.gradle.internal.plugins.BasePlugin$createTasks$2$1.call(BasePlugin.kt:612)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1397611Z 	at com.android.build.gradle.internal.profile.NoOpAnalyticsConfiguratorService.recordBlock(NoOpAnalyticsConfiguratorService.kt:57)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1399266Z 	at com.android.build.gradle.internal.plugins.BasePlugin$createTasks$2.accept(BasePlugin.kt:607)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1400562Z 	at com.android.build.gradle.internal.plugins.BasePlugin$createTasks$2.accept(BasePlugin.kt:604)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1402435Z 	at com.android.build.gradle.internal.crash.CrashReporting$afterEvaluate$1.execute(crash_reporting.kt:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1404637Z 	at com.android.build.gradle.internal.crash.CrashReporting$afterEvaluate$1.execute(crash_reporting.kt:35)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1406529Z 	at org.gradle.internal.code.DefaultUserCodeApplicationContext$CurrentApplication$1.execute(DefaultUserCodeApplicationContext.java:124)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1408949Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingAction$1.run(DefaultListenerBuildOperationDecorator.java:173)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1424297Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1426013Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1427852Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1429450Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1431420Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1433067Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1434853Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1436760Z 	at org.gradle.configuration.internal.DefaultListenerBuildOperationDecorator$BuildOperationEmittingAction.execute(DefaultListenerBuildOperationDecorator.java:170)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1438653Z 	at org.gradle.internal.event.BroadcastDispatch$ActionInvocationHandler.dispatch(BroadcastDispatch.java:99)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1440102Z 	at org.gradle.internal.event.BroadcastDispatch$ActionInvocationHandler.dispatch(BroadcastDispatch.java:87)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1441538Z 	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:44)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1473544Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1474265Z 	at org.gradle.internal.event.BroadcastDispatch$SingletonDispatch.dispatch(BroadcastDispatch.java:268)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1504206Z 	at org.gradle.internal.event.BroadcastDispatch$SingletonDispatch.dispatch(BroadcastDispatch.java:170)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1533774Z FAILURE: Build failed with an exception.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1534895Z 	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:84)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1564165Z 	at org.gradle.internal.event.AbstractBroadcastDispatch.dispatch(AbstractBroadcastDispatch.java:70)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1587002Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1587702Z 	at org.gradle.internal.event.BroadcastDispatch$CompositeDispatch.dispatch(BroadcastDispatch.java:380)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1624240Z 	at org.gradle.internal.event.BroadcastDispatch$CompositeDispatch.dispatch(BroadcastDispatch.java:272)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1625632Z 	at org.gradle.internal.event.ListenerBroadcast.dispatch(ListenerBroadcast.java:160)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1645859Z * What went wrong:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1646671Z 	at org.gradle.internal.event.ListenerBroadcast.dispatch(ListenerBroadcast.java:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1665183Z A problem occurred configuring project ':braillebrltty'.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1666483Z 	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1674360Z > com.android.builder.sdk.InstallFailedException: Failed to install the following SDK components:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1688849Z       ndk;21.4.7075529 NDK (Side by side) 21.4.7075529
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1694399Z 	at jdk.proxy1/jdk.proxy1.$Proxy62.afterEvaluate(Unknown Source)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1704477Z   Install the missing components using the SDK manager in Android Studio.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1706275Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate$1.execute(LifecycleProjectEvaluator.java:247)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1708559Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate$1.execute(LifecycleProjectEvaluator.java:244)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1710483Z 	at org.gradle.api.internal.project.DefaultProject.stepEvaluationListener(DefaultProject.java:1604)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1712394Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator$NotifyAfterEvaluate.run(LifecycleProjectEvaluator.java:253)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1714615Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1716502Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1718281Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1720085Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1722655Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1725108Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1727122Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1729203Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.lambda$run$0(LifecycleProjectEvaluator.java:114)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1731563Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$applyToMutableState$1(DefaultProjectStateRegistry.java:435)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1734415Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.lambda$fromMutableState$2(DefaultProjectStateRegistry.java:458)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1735572Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1736201Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withReplacedLocks(DefaultWorkerLeaseService.java:359)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1737463Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.fromMutableState(DefaultProjectStateRegistry.java:458)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1739757Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.applyToMutableState(DefaultProjectStateRegistry.java:434)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1741049Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1742226Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.run(LifecycleProjectEvaluator.java:100)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1744429Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1746419Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1749277Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1750940Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1752039Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1753060Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1754983Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1756751Z 	at org.gradle.configuration.project.LifecycleProjectEvaluator.evaluate(LifecycleProjectEvaluator.java:72)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1757658Z 	at org.gradle.api.internal.project.DefaultProject.evaluateUnchecked(DefaultProject.java:828)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1758574Z 	at org.gradle.api.internal.project.ProjectLifecycleController.lambda$ensureSelfConfigured$2(ProjectLifecycleController.java:89)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1759792Z 	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1760670Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1761524Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1762524Z 	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransitionIfNotCurrentlyTransitioning$10(StateTransitionController.java:199)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1763843Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1765180Z 	at org.gradle.internal.model.StateTransitionController.maybeTransitionIfNotCurrentlyTransitioning(StateTransitionController.java:195)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1766282Z 	at org.gradle.api.internal.project.ProjectLifecycleController.ensureSelfConfigured(ProjectLifecycleController.java:89)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1767341Z 	at org.gradle.api.internal.project.DefaultProjectStateRegistry$ProjectStateImpl.ensureConfigured(DefaultProjectStateRegistry.java:400)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1768440Z 	at org.gradle.execution.TaskPathProjectEvaluator.configure(TaskPathProjectEvaluator.java:70)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1769232Z 	at org.gradle.execution.TaskPathProjectEvaluator.configureHierarchy(TaskPathProjectEvaluator.java:86)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1770307Z 	at org.gradle.configuration.DefaultProjectsPreparer.prepareProjects(DefaultProjectsPreparer.java:50)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1771268Z 	at org.gradle.configuration.BuildTreePreparingProjectsPreparer.prepareProjects(BuildTreePreparingProjectsPreparer.java:65)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1772315Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer$ConfigureBuild.run(BuildOperationFiringProjectsPreparer.java:52)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1773502Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1774944Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1775792Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1776652Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1777517Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1778386Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1779227Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1780184Z 	at org.gradle.configuration.BuildOperationFiringProjectsPreparer.prepareProjects(BuildOperationFiringProjectsPreparer.java:40)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1781206Z 	at org.gradle.initialization.VintageBuildModelController.lambda$prepareProjects$2(VintageBuildModelController.java:84)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1782137Z 	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1783006Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1784442Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1785393Z 	at org.gradle.internal.model.StateTransitionController.lambda$transitionIfNotPreviously$11(StateTransitionController.java:213)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1786253Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1787077Z 	at org.gradle.internal.model.StateTransitionController.transitionIfNotPreviously(StateTransitionController.java:209)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1788011Z 	at org.gradle.initialization.VintageBuildModelController.prepareProjects(VintageBuildModelController.java:84)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1789389Z 	at org.gradle.initialization.VintageBuildModelController.prepareToScheduleTasks(VintageBuildModelController.java:71)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1791309Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$prepareToScheduleTasks$6(DefaultBuildLifecycleController.java:175)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1793413Z 	at org.gradle.internal.model.StateTransitionController.lambda$doTransition$14(StateTransitionController.java:255)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1794966Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1796568Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:254)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1798130Z 	at org.gradle.internal.model.StateTransitionController.lambda$maybeTransition$9(StateTransitionController.java:190)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1799631Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1801083Z 	at org.gradle.internal.model.StateTransitionController.maybeTransition(StateTransitionController.java:186)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1802917Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.prepareToScheduleTasks(DefaultBuildLifecycleController.java:173)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1805395Z 	at org.gradle.internal.buildtree.DefaultBuildTreeWorkPreparer.scheduleRequestedTasks(DefaultBuildTreeWorkPreparer.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1806543Z 	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1807658Z 	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController$scheduleAndRunRequestedTasks$1.apply(VintageBuildTreeWorkController.kt:35)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1808712Z 	at org.gradle.composite.internal.DefaultIncludedBuildTaskGraph.withNewWorkGraph(DefaultIncludedBuildTaskGraph.java:112)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1809766Z 	at org.gradle.internal.cc.impl.VintageBuildTreeWorkController.scheduleAndRunRequestedTasks(VintageBuildTreeWorkController.kt:35)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1810914Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$scheduleAndRunTasks$1(DefaultBuildTreeLifecycleController.java:77)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1812055Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.lambda$runBuild$4(DefaultBuildTreeLifecycleController.java:120)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1813050Z 	at org.gradle.internal.model.StateTransitionController.lambda$transition$6(StateTransitionController.java:169)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1814800Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1816360Z 	at org.gradle.internal.model.StateTransitionController.lambda$transition$7(StateTransitionController.java:169)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1817741Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:46)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1819069Z 	at org.gradle.internal.model.StateTransitionController.transition(StateTransitionController.java:169)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1820806Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.runBuild(DefaultBuildTreeLifecycleController.java:117)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1822777Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:77)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1825167Z 	at org.gradle.internal.buildtree.DefaultBuildTreeLifecycleController.scheduleAndRunTasks(DefaultBuildTreeLifecycleController.java:72)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1826950Z 	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:31)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1828373Z 	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1829902Z 	at org.gradle.internal.buildtree.ProblemReportingBuildActionRunner.run(ProblemReportingBuildActionRunner.java:49)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1831666Z 	at org.gradle.launcher.exec.BuildOutcomeReportingBuildActionRunner.run(BuildOutcomeReportingBuildActionRunner.java:71)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1833954Z 	at org.gradle.tooling.internal.provider.FileSystemWatchingBuildActionRunner.run(FileSystemWatchingBuildActionRunner.java:135)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1835887Z 	at org.gradle.launcher.exec.BuildCompletionNotifyingBuildActionRunner.run(BuildCompletionNotifyingBuildActionRunner.java:41)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1837809Z 	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.lambda$execute$0(RootBuildLifecycleBuildActionExecutor.java:54)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1839435Z 	at org.gradle.composite.internal.DefaultRootBuildState.run(DefaultRootBuildState.java:130)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1841004Z 	at org.gradle.launcher.exec.RootBuildLifecycleBuildActionExecutor.execute(RootBuildLifecycleBuildActionExecutor.java:54)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1842881Z 	at org.gradle.internal.buildtree.InitDeprecationLoggingActionExecutor.execute(InitDeprecationLoggingActionExecutor.java:62)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1844629Z 	at org.gradle.internal.buildtree.InitProblems.execute(InitProblems.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1845888Z 	at org.gradle.internal.buildtree.DefaultBuildTreeContext.execute(DefaultBuildTreeContext.java:40)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1847619Z 	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.lambda$execute$0(BuildTreeLifecycleBuildActionExecutor.java:71)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1849335Z 	at org.gradle.internal.buildtree.BuildTreeState.run(BuildTreeState.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1850804Z 	at org.gradle.launcher.exec.BuildTreeLifecycleBuildActionExecutor.execute(BuildTreeLifecycleBuildActionExecutor.java:71)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1852643Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$2.call(RunAsBuildOperationBuildActionExecutor.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1854785Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor$2.call(RunAsBuildOperationBuildActionExecutor.java:63)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1856758Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1858837Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1860697Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1862314Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1864178Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1865842Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1867428Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1869143Z 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionExecutor.execute(RunAsBuildOperationBuildActionExecutor.java:63)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1871121Z 	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.lambda$execute$0(RunAsWorkerThreadBuildActionExecutor.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1872798Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1874616Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1876311Z 	at org.gradle.launcher.exec.RunAsWorkerThreadBuildActionExecutor.execute(RunAsWorkerThreadBuildActionExecutor.java:36)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1878288Z 	at org.gradle.tooling.internal.provider.continuous.ContinuousBuildActionExecutor.execute(ContinuousBuildActionExecutor.java:110)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1880245Z 	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecutor.execute(SubscribableBuildActionExecutor.java:64)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1881886Z 	at org.gradle.internal.session.DefaultBuildSessionContext.execute(DefaultBuildSessionContext.java:46)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1884185Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:92)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1886552Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor$ActionImpl.apply(BuildSessionLifecycleBuildActionExecutor.java:80)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1888403Z 	at org.gradle.internal.session.BuildSessionState.run(BuildSessionState.java:73)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1890127Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:62)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1892421Z 	at org.gradle.internal.buildprocess.execution.BuildSessionLifecycleBuildActionExecutor.execute(BuildSessionLifecycleBuildActionExecutor.java:41)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1894841Z 	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:64)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1896989Z 	at org.gradle.internal.buildprocess.execution.StartParamsValidatingActionExecutor.execute(StartParamsValidatingActionExecutor.java:32)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1899175Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:51)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1901571Z 	at org.gradle.internal.buildprocess.execution.SessionFailureReportingActionExecutor.execute(SessionFailureReportingActionExecutor.java:39)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1903879Z 	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:47)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1905677Z 	at org.gradle.internal.buildprocess.execution.SetupLoggingActionExecutor.execute(SetupLoggingActionExecutor.java:31)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1907166Z 	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:70)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1908432Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1909901Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1911427Z 	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:39)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1912975Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1914730Z 	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:29)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1916295Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1917971Z 	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:35)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1919663Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1921207Z 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.lambda$execute$0(ForwardClientInput.java:40)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1922759Z 	at org.gradle.internal.daemon.clientinput.ClientInputForwarder.forwardInput(ClientInputForwarder.java:80)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1924399Z 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1925846Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1927277Z 	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:53)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1928726Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1930050Z 	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:63)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1931274Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1932675Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1934733Z 	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:84)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1936208Z 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1937611Z 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1939177Z 	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:52)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1940778Z 	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1942316Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1943881Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:48)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1945215Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1946458Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1947586Z 	at java.base/java.lang.Thread.run(Thread.java:840)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1948337Z Caused by: java.util.zip.ZipException: Archive is not a ZIP archive
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1949580Z 	at org.apache.commons.compress.archivers.zip.ZipFile.positionAtEndOfCentralDirectoryRecord(ZipFile.java:1221)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1951164Z 	at org.apache.commons.compress.archivers.zip.ZipFile.positionAtCentralDirectory(ZipFile.java:1097)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1952635Z 	at org.apache.commons.compress.archivers.zip.ZipFile.populateFromCentralDirectory(ZipFile.java:713)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1954323Z 	at org.apache.commons.compress.archivers.zip.ZipFile.<init>(ZipFile.java:376)
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1955094Z 	... 198 more
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1955584Z "Install NDK (Side by side) 21.4.7075529 v.21.4.7075529" failed.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1956048Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1957166Z [Incubating] Problems report is available at: file:///home/runner/work/redsquare-android/redsquare-android/.scratch/talkback-tool/source/build/reports/problems/problems-report.html
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1958442Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1958929Z Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1959597Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1960349Z You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1961271Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1962162Z For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1963628Z * Try:
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1964082Z > Run with --stacktrace option to get the stack trace.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1964761Z > Run with --info or --debug option to get more log output.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1965392Z > Run with --scan to get full insights.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1965945Z > Get more help at https://help.gradle.org.
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1966320Z 
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.1966489Z BUILD FAILED in 59s
+native-proof (all)	Build or verify pinned TalkBack tool	2026-10-20T22:55:40.6524079Z ##[error]Process completed with exit code 1.
