@@ -61,7 +61,7 @@ internal fun InlineStatus(summary: String?, tone: StatusTone = StatusTone.INFO,
             .semantics { if (summary == null) hideFromAccessibility() },
             shape = RoundedCornerShape(AppSpacing.small), color = MaterialTheme.colorScheme.surfaceContainerLow) {
             Column {
-                Row(Modifier.padding(start = AppSpacing.small, end = 4.dp).heightIn(min = 40.dp),
+                Row(Modifier.padding(start = AppSpacing.small, end = 4.dp).heightIn(min = 32.dp),
                     verticalAlignment = Alignment.CenterVertically) {
                     if (tone == StatusTone.WORKING) CircularProgressIndicator(Modifier.size(14.dp), strokeWidth = 2.dp)
                     else Box(Modifier.size(8.dp).background(color, CircleShape))
