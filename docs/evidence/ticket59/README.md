@@ -816,3 +816,19 @@ core/gateway/release/performance/lint run39437693370 is SUCCESS. Signed56 is
 reserved and building at exactc5.51through55 remain rejected. Completec5
 10/17 execution, actual APK inspection, final review and publication remain
 pending. Focused results never substitute for those complete gates.
+
+## Prepared56 and final rejected4ae conclusions
+
+Signed56 preparation completes at exactc5. Actual APK SHA256
+cd0e2e512fda2d0e95597349f7c0d039585504286c1fdf04eba72d5d4b65503e,
+37,856,651bytes, established50 certificate. Actual DEX/manifest inspection
+passes: SDK29/36, nondebug/nonprofile, backup=false,review=true,push=false,
+separate GIF keys absent. Independent public before-bookend passes with50 live.
+The immutable56 artifact must never be rebuilt. Full native/final review/public
+delivery acceptance remains pending.
+
+Both old4ae dispatches now finish FAILURE at the identical22pixel queued
+Members target (1of13 queue methods fails per SDK); all social/wallet jobs pass.
+Each failed goal retains95 exact original members plus logs; terminal run/job
+metadata is retained separately. These failures stay failures. The correctedc5
+complete dispatches remain the only current native acceptance candidates.

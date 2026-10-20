@@ -36,116 +36,56 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,13:35 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53/54 are
-REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.55 is not reserved.
-Continue60 through69 sequentially after actual59 completion, without owner stops.
-The external review worktree is now frozen at3c96bd3d8; prior APKs remain intact.
+2026-10-20,14:37 UTC.59 remains OPEN. Ordinary50 is LIVE.51through55 are
+REJECTED and NEVER PUBLISH, with unchanged frozen APKs. Continue60through69
+sequentially after actual59 completion, without routine owner stops.
 
-### Implemented and focused proof
+Final source is c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22. Shared nullable
+InlineStatus hosts retain entry/reversal/exit and remove inactive layout slots.
+Full guidance stays accessible. Feed reading saves the parent-relative header
+baseline and unapplied correction with its list offset; cached restoration waits
+for cacheReady. Stronger native outage/recreation focuses pass both SDKs with
+all five anchors identical at the unchanged1pixel bound. Group status remains
+bounded to80dp or one third of height, preserving readable history. Primary
+status/Retry comes first; queued-only section ordering exposes Members at the
+scroll end while preserving ordinary management access. All handlers/guards,
+original candidate identity, warnings and scrollable guidance remain.
 
-Stable nullable InlineStatus hosts retain entry/reversal/exit and remove inactive
-layout slots. Full guidance remains accessible. The group status/actions region
-is bounded to80dp or one third of height, retaining its existing scroll behavior.
-Paired source review through68ea has0 residual findings. Original frozen486/487
-catalog references and all deadlines/targets/tolerances remain unchanged.
+Allfour finalc5 focused checks pass: viewport10run39437692175 and17run39437697687
+(2methods/36originals each), admin10run39437703036 and17run39437707377
+(12methods/24originals each). Root opened both actual48pixel Members targets
+and both restored Submitted/Retry captures with their preserved drafts. Paired
+source/focused evidence reviews report0 residual findings. Local debug/app-test
+compilation and exact-source core/gateway/release/performance/lint39437693370 pass.
+Prior actual speech/focus/quiet-poll and normal/zero-motion proof is detailed in
+[ticket59 evidence](../evidence/ticket59/README.md); it does not replace final full
+execution.17 original Search entry recording has a216ms gap, not intermediate
+entry-frame proof; actual exit and10 entry/exit frames were inspected.
 
-- bb8 mute10/17runs39424301229/39424305506 SUCCESS,8methods/105originals each.
-  Actual group history grows from17to85pixels; body305..324 is fully visible with
-  the saved multiline draft. Root opened both native originals and Compose data.
-- f4 motion10/17runs39424574430/39424578068 SUCCESS,2methods each. Original10
-  Search frames30/32/35 and60/62/65 demonstrate progressive entry/exit;17frames
-  115/116/117 show exit.17entry has216ms recording gap, not intermediate-frame
-  proof. Both zero-motion originals inspected. All frames/movies retained.
-- f4 keyboard10/17runs39424581644/39424585472 SUCCESS,10methods/116originals each.
-  Root opened17 actual Send[215,270][304,318],48pixels, current visible IME322,
-  screen640 including the Gboard notice. No bounds or assertions are weakened.
--53 actual APK inspection PASS, SHAaaf8c611361901b7993773a575ebe97ae6e867606996bced53f904f390292574,
-  established certificate/SDK29/36/nondebug/nonprofile/backupfalse/reviewtrue,
-  pushfalse/separateGIFkeysempty/noTalkBackquery. This is not native acceptance.
-  Before-HTTP bookend PASS is historical preparation only. Never publish53.
+Complete10run39437838980 and17run39437845708 execute exactc5 on
+verify/status59-c5f0ca7c6. Allthree jobs/public reads, actual TalkBack/motion,
+protected recovery and stronger reading bookends remain mandatory. Use the
+unchanged strict full-collector.py and frozen caad references in59 evidence:
+486/487 identities,129/130 normal completions,35 interruptions,34 continuity
+and92 archives each. No failed-tail or supplemental assembly is planned.
 
-### Current failures and corrections
+Signed56 is prepared and immutable in the external review worktree at exactc5.
+APK SHA256cd0e2e512fda2d0e95597349f7c0d039585504286c1fdf04eba72d5d4b65503e,
+37,856,651bytes, established50 certificate. Actual APK/manifest/DEX inspection
+and independent public before-bookend pass. Package/SDK29/36, nondebug/nonprofile,
+backup=false,review=true,push=false,separateGIFkeys absent. Never rebuild56.
+Native full acceptance, final review and publication remain pending. The
+publication56 helper expects this exact source/artifact and protects immutable
+50/49/45 plus the whole performance43 channel. Physical/provider/Play acceptance
+remains parked, not waived.
 
-Complete f4 runs39424620344/39424624394 remain rejected. Both Chat jobs fail
-reading after Activity recreation (+38/+4pixels); both wallet jobs fail all7group
-publishing visible-status goals.10social succeeds;17social finishes independently.
-Keep actual final states, never collect a failed overall run as acceptance.
-
-The missing JsonObject import caused compile-only failures39426864176 and
-39426991453/39426995692. d209 fixes it and local debug/app-test compilation
-succeeds. Replacement original reading10/17runs39427893734/39427898191 both
-SUCCESS. Root opened17 recreation PNG and checked all6 native XML anchors:
-Reference post05 stays[74,431][201,479] before Chat/after Chat/after recreation.
-This proof predates the later baseline/priority changes; final source still needs
-complete verification. Both paired reviews confirm fixture/doc corrections.
-
-Actual d209 group diagnostic39427888785 reproduces all7 failures. Each retains
-raw Tx1/Relay1, and all-root Compose shows actual Forwarded at303..317 (Join321..335)
-below its181..261 viewport. This now proves offscreen feedback, not failed sending.
-0a785 moves current delivery ahead of management/history, with all operations,
-copy, guards,80dp bound and scrollable guidance preserved. No assertion is changed.
-
-Stronger existing reading tracer7a8 adds scrolled outage -> Details/Done ->
-Activity recreation during continued outage -> same original1pixel anchor goal.
-Both10run39428759403 and17run39428763754 reproduce exact437to383 drift (-54).
-Original XML anchors move[74,431][201,479] to[74,377][201,425]; root opened10
-failure PNG. All preceding Chat/online-recreation goals pass. Retained evidence
-is outage-red10/17-7a8. Catalog identity and180second bound remain unchanged.
-
-Current production at a6b9d0e06 saves the parent-relative header baseline and
-unapplied delta alongside the already-restored list offset. Cache guard now waits
-for cacheReady before any empty-feed notice, including offline-empty. No timing,
-target, gesture or tolerance is weakened. Source review/runtime are pending.
-
-Corrected a6 focuses all SUCCESS: reading10/17 39429853283/39429858053
-(one stronger method/10originals each), group publishing10/17 39429863364/
-39429867793 (all7methods/36originals each). Root checked all10 reading XML
-bookends: Reference post05 remains[74,431][201,479], including after outage
-recreation. Root opened17 outage-recreated PNG plus both actual group creation/
-reaction Forwarded PNGs; feedback is visible above management. Source/core/release/
-lint39429855138 at a6 succeeds. Paired source/evidence review through3c96 is0/0.
-
-Frozen final source3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f differs from a6 only
-in four docs/collector files; app/build/test inputs are identical. Signed54 was built and APK-inspected at this exact source but is now REJECTED
-and NEVER PUBLISH after the additional group-admin failures below. Full10run39431098878/17run39431103266
-execute the same3c96 on owned verify/status59-3c96bd3d8. Both are active and
-bound in full-identity-reference.json. No full acceptance or publication yet.
-
-Additional focused3c96 keyboard/mute/recovery runs all SUCCESS: keyboard10/17 39430764376/39430768579;
-mute10/17 39430772696/39430777303; status recovery10/17 39430782031/39430786583;
-group admin10/17 39430790331/39430794067 both FAIL one rejected-promotion retry
-case at the original15second persisted-Forwarded goal (GroupAdminPreviewTest242).
-The restored Submitted status is visible but Retry is absent from native XML/PNG,
-with the control below the80dp viewport in source. A missed tap versus a second
-transport refusal remains a diagnosis hypothesis, not proved until corrected
-execution/raw observations. These repeat relevant routes after
-shared layout/anchor changes; they never replace complete allthree-job proof.
-Both prior f4 complete executions finish FAILURE with both social jobsSUCCESS;
-actual final metadata is retained. Do not collect them as acceptance.
-
-Current e8 source places the existing Retry action directly in its pending
-InlineStatus, retaining its exact enabled conditions and operation callback.
-Failure captures now retain best-effort all-root Compose and raw transport counts.
-49b adds a real visible-Retry assertion/native before-click capture, without
-changing identity,15second goal or same-original raw/Relay requirements.
-Corrected e8 admin10/17runs39433107624/39433112435 are active. No55 is reserved.
-54 actual APK inspection and historical before-HTTP check PASS do not override
-its rejected native route. Never publish54 or run its after-publication checker.
-
-Next: diagnose/verify group retry, source review and new candidate/full freeze,
-then require fresh complete10/17 including all public reads/actualspeech/motion and
-strong reading bookends, strict collection and paired final review. Then canonical
-publication and independent before/after HTTP checks. Never run52/53 publication
-after-stages or publish rejected APKs. Continue60 through69 after real59 closure.
-
-The stronger collector requires held Search loading movies/allframes/native
-bookends inside the same two existing motion methods. Its configured selfhash
-is updated; catalog references remain frozen atcaad1528391951187c6d6bb91373c32a48f5e37e.
-Owned refs verify/status59-f4bbe99df, verify/status59-outage-7a8dad0a5 and oldf23 stay until no active run and exact
-head checks permit removal. Monitor process29998 ended143 without collection;
-manual checking is required. No successful full f4 packet has been collected.
-Owner/provider/physical/store prerequisites remain parked under36, not waived.
-Protected unrelated research remains unread/untouched; one implementation writer.
+All failed/superseded runs retain actual conclusions. Final3c and4ae dispatches
+fail the queued Members48dp goal on both SDKs; their social/wallet jobs pass.
+Old focused4ae reproduces22px; intermediate5a fixes queued access but hides
+ordinary Members. Finalc5 passes both contexts without relaxing any assertions.
+Earlier reading/group-feedback/motion failures and rejected APKs remain in the
+canonical evidence README. Old owned completed f23/f4/outage7a/3c verification
+refs were removed after exact-head/no-active-run checks; activec5 is retained.
 
 ## Current repeat-like57 acceptance
 
@@ -239,13 +179,13 @@ preparation only, never submitted. Details remain in [review operations](../REVI
 
 ## Historical external TalkBack preparation
 
-The following describes the earlier external ABI-only build. Current59 has an
-installed real-tool attempt with an actual missing-engine failure, retained in
-its evidence README. The dedicated status-talkback scope now provisions an
-official offline eSpeak engine and a separately patched TalkBack tool with five
-observation-only real engine callback logs. Current actual speech/focus/quiet
-polling acceptance remains pending. Use scripts/ci-talkback-setup and59 evidence
-for current tool provenance; the older external artifact is not the CI tool.
+The following describes the earlier external ABI-only build. Subsequent59
+focused real-engine/service speech, focus and quiet-poll checks pass on10/17;
+currentc5 full acceptance remains pending. The earlier missing-engine failure
+and later corrected tool provenance are retained in59 evidence. The dedicated
+CI tool provisions official offline eSpeak and a separate TalkBack patch with
+five observation-only real engine callback logs. Use scripts/ci-talkback-setup
+and59 evidence for current provenance; the older preparation below is historical.
 
 Official-source TalkBack229212fdf5842191d0a93fc95d9ca1423b346866,version16.2, built
 successfully outside the app in `/mnt/storage/redsquare-android-artifacts/talkback-preparation`.
@@ -295,47 +235,3 @@ Verify mounts before sizeable writes; artifacts/caches belong under
 For historical functional completion/About38/42/43 chronology, reach the detailed
 canonical evidence above; the prior handoff at f8c812822 preserves the old narrative.
 Current tracker/source/retained results supersede historical pending prose.
-
-## Latest59 checkpoint: final4ae full execution
-
-The authoritative latest pointer is ticket59 evidence README section
-"Explicit group Retry recovery and final4ae execution" and its reference JSON.
-GroupAdmin e8 focused10/17 both succeed with the original explicit-retry goals.
-Final4ae adds visible/pre-click capture and1/1 checks without app changes.
-Fresh complete10run39434438881 and17run39434443499 execute exact4ae88dcaf.
-Signed55 is prepared there; actual APK certificate/manifest/DEX inspection and
-independent public before-bookend pass. Frozen APK SHA256 is
-fc4c6a4ee1ade45bea04f97038c3c392dd60c05ae3b7e72011f176a3ee0bf7ba.
-51through54 are rejected and never publishable;50 remains live. Native full
-acceptance and final review/publication are pending. Never rebuild55.
-Finish59, then sequential60through69 without routine pauses.
-
-## Superseding59 correction: queued management viewport
-
-55 is now REJECTED, never publishable. The3c full10 Chat job finds Members
-clipped to22pixels after scrolling queued status to its end. Captured native PNG/
-XML and198/198 scroll checkpoint establish the ordering defect; cancellation
-remains visible.4ae has the same queued layout. Corrected source places routine
-history guidance before management while keeping delivery/Retry first and80dp
-maximum unchanged. Existing focused old-source viewport runs39435980283/
-39435984470 reproduce the two original cancellation journeys. Current full4ae
-runs must finish but cannot accept changed source. Fresh focused/full checks,
-reviews and a new signed candidate are required.50 stays live;51through55 are
-rejected. Continue59, then sequential60through69.
-
-The latest unaccepted refinement restricts history-before-management to actual
-queued messages, retaining ordinary management access and stable keyed status
-hosts. Intermediate5a viewport10passes2/2, but GroupAdmin10fails4/12 from hidden
-Members, so5a is not accepted. Old4ae minimized viewport10/17both reproduce
-the22pixel failure (one of two methods). No56 candidate reserved yet.
-
-Current final-source full10run39437838980 and17run39437845708 execute exactc5f
-on verify/status59-c5f0ca7c6. All gates and frozen catalog remain mandatory.
-Final corrected viewport/admin focused runs are also active. Source review0/0;
-new candidate not yet reserved.55 stays rejected and50 remains live.
-
-Allfour finalc5 viewport/admin runs are SUCCESS:2/2 viewport and12/12 admin
-per SDK. Both native Members targets are48px; both restored Retry captures are
-visible with preserved drafts. Exact-source source build39437693370 succeeds.
-Signed56 is now reserved/building atc5; actual APK inspection and full native
-acceptance/final review/publication remain pending. Never publish51through55.
