@@ -1,6 +1,9 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -47,6 +50,19 @@ class PostStatusViewportTest {
                         scroll(0f, 88 * context.resources.displayMetrics.density)
                     }
                     ui.waitForIdle()
+                    val polite = ui.onAllNodes(SemanticsMatcher.expectValue(
+                        SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).fetchSemanticsNodes()
+                    File(folder, "$label-live-regions.json").writeText(JsonObject().apply {
+                        addProperty("mergedNodes", polite.joinToString { it.config.toString() })
+                    }.toString())
+                    val statusRegions = polite.filter { node ->
+                        node.config.getOrNull(SemanticsProperties.Text).orEmpty().any { it.text == "Like unavailable" }
+                    }
+                    assertEquals("One concise live status must remain separate from the clickable post", 1, statusRegions.size)
+                    val statusRegion = statusRegions.single()
+                    assertEquals("Only the concise summary belongs in the live announcement", listOf("Like unavailable"),
+                        statusRegion.config.getOrNull(SemanticsProperties.Text).orEmpty().map { it.text })
+                    assertFalse("The post action must not become a live announcement", statusRegion.config.contains(SemanticsActions.OnClick))
                     ui.onNodeWithContentDescription("Like post by $name").assertIsNotEnabled()
                     ui.onNodeWithText("Like unavailable", useUnmergedTree = true).assertIsDisplayed()
                     val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
