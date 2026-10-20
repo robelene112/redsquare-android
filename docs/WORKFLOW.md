@@ -133,6 +133,13 @@ complete first-release scope and the established production boundaries.
    actual process death and distinct recovery PID, with each shared host phase
    retaining120seconds and independent restoration. Existing process gates keep
    their identities and deadlines. A focused success is not complete acceptance.
+   `chat-photo-process` and its Android17 variant isolate the existing private
+   and group queued-photo process protocols. Complete `chat-images` and full
+   scopes retain both, along with picker/normalization and image storage checks.
+   The existing120second per-process-phase deadline and original identity/raw
+   Relay/history/photo-pixel/restoration assertions remain. Before/after native
+   and all-root Compose observations diagnose history visibility; focused passes
+   never replace complete acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
    `app-frame-motion` and its Android17 variant run a separate plain native class

@@ -20,8 +20,8 @@ source/publication review. Ordinary45 remains LIVE;56 stays open through the
 larger-font acceptance and signed UI delivery in58.
 
 Shared frame58 remains ACTIVE. Last production change is
-9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4; every subsequent commit through current
-cae84e5ad0bd8fc85cef6b4a452a5f0c1ac35f7e is fixtures/harness/evidence only, with
+9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4; subsequent changes through fixture source
+cae84e5ad0bd8fc85cef6b4a452a5f0c1ac35f7e are fixtures/harness/evidence only, with
 identical app/build/signing inputs. The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
 and lifecycle-owned actual system-motion scale are implemented.
@@ -53,12 +53,15 @@ Both review axes have0 residual findings for the reviewed sources/evidence.
 
 Complete acceptance is still pending. Current independently frozen473/474 catalog
 and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
-Both preceding attempts are nowFAILED:10 run39350667797 at092 reached the same
-prior GIF reply visibility timeout;17 run39349230920 at638 has ChatFAILED and
-both wallet/socialSUCCESS. Neither supplies complete acceptance. Fresh full
-39352373816(Android10)/39352376831(Android17, all3 partitions) run at3abeecd35,
-with bindings frozen before outcomes. Historical failures/cancellations remain
-unchanged; never relabel them SUCCESS.
+Full39352373816(Android10) at3abe is nowFAILED in private queued-photo cold
+recovery, assertPhoto:216. Full17 run39352376831 at3abe has the same ChatFAILED,
+walletSUCCESS and social still pending. Exact relay/text/history assertions
+precede the20second image-visibility timeout; original native capture shows only
+the cached first message in private history216..370. Offscreen rendering remains
+a hypothesis until targeted-scroll observations. Original failed recovery,
+checkpoint and successful restoration are retained in paired ui58-photo-red packets.
+Do not supersede the remaining17 social job before it finishes. Neither attempt
+provides complete acceptance. All older failed/cancelled attempts remain unchanged.
 
 Latest test-onlycae84e5ad scopes Add GIF to the existing composition preview and
 scrolls only when hidden, then requires the original10second visibility goal.
@@ -69,6 +72,14 @@ remains. Focused chat-gifs39351423400(10)/39351426372(17) atcae areSUCCESS with 
 perSDK and the same original bounds. Root opened both after-scroll PNGs. Fresh
 complete acceptance remains pending;
 no new production or signing build is needed solely for these fixture changes.
+
+The latest fixture extends the existing index1 group-history scroll to completed
+private photo history. Before death, a private queued photo remains in the composer
+and keeps its existing pixel assertion there. Both real process protocols retain
+the same120second phase bounds and exact identity/raw Relay/history/pixel/restore
+assertions. New chat-photo-process scopes isolate both private/group protocols;
+complete images/full scopes retain them. Source review axes0; focused outcomes
+and before/after native/all-root semantics observations are still pending.
 
 Ordinary46 is PREPARED, not published, at9b33. Actual APK SHA256
 311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,

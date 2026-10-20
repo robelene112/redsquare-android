@@ -1,0 +1,14 @@
+{
+  "source": "3abeecd35cf033a02f02cd958db5fea1428b8dd5",
+  "run": 39352376831,
+  "sdk": "17",
+  "capturedParentStatus": "in_progress",
+  "capturedParentConclusion": "",
+  "recoveryClass": "ChatQueueProcessRecoveryTest",
+  "recoveryMethod": "coldRestartAutomaticallyForwardsTheSameOriginalAndKeepsHistory",
+  "recoveryResult": "failure",
+  "preparationResult": "deliberate process termination",
+  "restorationResult": "1 PASS",
+  "originalMembers": 4,
+  "limit": "Actual queued private-photo cold-recovery phase fails at the existing20second image visibility goal after relay/text/history assertions. Native failure observation shows the cached message but no photo in the current history viewport; offscreen cause remains a hypothesis until targeted-scroll observations. No whole-run or group-photo acceptance. Original failed phase, pending checkpoint and successful restoration are retained; failure-stage text is a retained preparation marker, not a recovery-phase trace."
+}

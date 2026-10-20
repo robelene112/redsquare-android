@@ -504,3 +504,21 @@ historical capture. Fresh full39352373816(10)/39352376831(17, all3 partitions)
 execute3abeecd35 with current source/run bindings recorded before outcomes.
 Expected473/474 identities,122/123 completions,34 interruptions and33 continuity
 gates remain frozen and unchanged. No production/build/signing change since9b33.
+
+The3abe complete attempts now reach private queued-photo cold recovery:10
+39352373816 isFAILED,17 39352376831 has ChatFAILED, walletSUCCESS and social
+still pending. The existing20second photo visibility goal at assertPhoto:216
+fails after exact relay/text/history/wallet/backend assertions. Native17 failure
+shows the cached first message, with private history216..370 and no visible
+photo. Paired ui58-photo-red packets retain original interrupted/failed recovery/
+successful restoration/checkpoint and4 original native members each. Their26
+hashes retain actual parent states, including17 pending at capture. The retained
+failure-stage text is a preparation marker, not a recovery trace.
+
+The next test-only change applies the existing bounded index1 group-history
+scroll to completed private photo history. Before death, private queued photos
+remain in the composer and keep their existing pixel assertion there. All exact
+raw/Relay/recipient/text/history/wallet checks and120second phase bounds remain.
+Before/after native/all-root semantics will test the offscreen hypothesis. New
+chat-photo-process scopes run both existing private/group photo protocols; full
+and images scopes retain all. Source review axes0; no corrected runtime claim.

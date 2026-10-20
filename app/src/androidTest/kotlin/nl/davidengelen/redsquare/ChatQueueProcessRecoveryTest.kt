@@ -96,7 +96,7 @@ class ChatQueueProcessRecoveryTest {
             val candidate=queued(backend)
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             assertPending(row,backend);stage("queued-persisted")
-            if(photo)assertPhoto(inHistory=true)
+            if(photo)assertPhoto(inHistory=kind=="group")
             stage("queued-photo-visible")
             capture("queued-before-death.png")
             row.addProperty("phase","pending");writeCheckpoint(row)
@@ -207,11 +207,14 @@ class ChatQueueProcessRecoveryTest {
     }
     private fun assertPhoto(inHistory:Boolean=false) {
         val image=hasContentDescription("Image 1 of 1")
-        if(kind=="group"&&inHistory) {
-            val list=hasContentDescription(context.getString(R.string.group_messages)) and hasScrollAction()
+        if(inHistory) {
+            val label=if(kind=="group")R.string.group_messages else R.string.chat_messages
+            val list=hasContentDescription(context.getString(label)) and hasScrollAction()
             ui.waitUntil(20_000){displayed(list)}
             // The fixture has one cached text followed by this queued/sent photo. Avoid unbounded search scrolling.
+            captureLayout("$kind-history-before-photo-scroll")
             ui.onNode(list).performScrollToIndex(1)
+            captureLayout("$kind-history-after-photo-scroll")
         }
         ui.waitUntil(20_000){displayed(image)}
         val bitmap=ui.onNode(image).captureToImage().asAndroidBitmap()
@@ -220,5 +223,10 @@ class ChatQueueProcessRecoveryTest {
     private fun click(text:String) {val target=hasText(text) and hasClickAction() and isEnabled();ui.waitUntil(20_000){displayed(target)};ui.onNode(target).performClick()}
     private fun waitFor(text:String)=ui.waitUntil(20_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun displayed(target:SemanticsMatcher)=try{ui.onNode(target).assertIsDisplayed();true}catch(_:AssertionError){false}
+    private fun captureLayout(name:String) {
+        capture("$name.png")
+        File(context.cacheDir,"chat-queue-process-evidence/$name.semantics.txt").writeText(
+            ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE))
+    }
     private fun capture(name:String)=captureNativeScreen(File(context.cacheDir,"chat-queue-process-evidence/$name"))
 }

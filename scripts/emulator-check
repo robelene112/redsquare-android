@@ -373,12 +373,20 @@ if [[ "${TEST_SCOPE:-full}" == chat-gifs* ]]; then
     exit 0
 fi
 if [[ "$full_chat" == true ]]; then verify_chat_gifs; fi
-verify_chat_images() {
-    verify_group_chat_native ChatImagesPreviewTest 120 chat-images chat-images-evidence
+verify_chat_photo_recovery() {
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind private --photo --evidence "$evidence/chat-photo-private-process"
     python3 "$repo_dir/scripts/chat-queue-process-check" --kind group --photo --evidence "$evidence/chat-photo-group-process"
+}
+verify_chat_images() {
+    verify_group_chat_native ChatImagesPreviewTest 120 chat-images chat-images-evidence
+    verify_chat_photo_recovery
     verify_chat_image_storage
 }
+if [[ "${TEST_SCOPE:-full}" == chat-photo-process* ]]; then
+    verify_chat_photo_recovery
+    printf '%s\n' 'Focused native queued Chat photo process recovery only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-image-storage* ]]; then
     verify_chat_image_storage
     printf '%s\n' 'Focused protected Chat image history only; native picker/process and full acceptance not run.' > "$evidence/scope.txt"
