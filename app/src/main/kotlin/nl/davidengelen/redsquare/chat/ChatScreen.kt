@@ -3,6 +3,8 @@ package nl.davidengelen.redsquare.chat
 import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -290,7 +292,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
 
     val keyboardVisible = WindowInsets.isImeVisible
-    Column(modifier.fillMaxSize()) {
+    BoxWithConstraints(modifier.fillMaxSize()) {
+    val statusMaxHeight = maxHeight / 4
+    Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() }) {
                 Text(stringResource(R.string.browse_back))
@@ -303,14 +307,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
         Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
-        if (!keyboardVisible) Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant)
-        PersonalControlsStatus(personal)
-        if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
-        if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
-        if (groupReceiveFailed) Text(stringResource(R.string.chat_group_receive_error))
-        if (reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_cache_error))
-        if (incomplete) Text(stringResource(R.string.chat_incomplete))
+        val statusLabel = stringResource(R.string.chat_status)
+        // Keep full recovery guidance reachable without consuming the message viewport.
+        Column(Modifier.heightIn(max = statusMaxHeight).verticalScroll(rememberScrollState())
+            .semantics { contentDescription = statusLabel }) {
+            if (!keyboardVisible) Text(stringResource(R.string.chat_available_history), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            PersonalControlsStatus(personal)
+            if (contactsFailed || failed) Text(stringResource(R.string.chat_load_error))
+            if (cacheFailed) Text(stringResource(R.string.chat_cache_error))
+            if (groupReceiveFailed) Text(stringResource(R.string.chat_group_receive_error))
+            if (reactionHistoryFailed) Text(stringResource(R.string.chat_reaction_cache_error))
+            if (incomplete) Text(stringResource(R.string.chat_incomplete))
+        }
         val contact = counterparty
         if (contact == null) {
             TextButton(onClick={reviewingGroups=true}) { Text(stringResource(R.string.group_title)) }
@@ -428,6 +437,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 entries = ChatHistoryStore.merge(entries, saved)
             }
         }
+    }
     }
 }
 

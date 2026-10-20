@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonArray
@@ -325,7 +326,11 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         }
                         waitFor(text)
                         captureViewport("before-initial-history-scroll")
+                        if (storagePartial) ui.waitUntil(15_000) {
+                            runCatching { ui.onNodeWithContentDescription("Private messages").assertHeightIsAtLeast(48.dp) }.isSuccess
+                        }
                         ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+                        if (storagePartial) captureViewport("after-initial-history-scroll")
                         if (reactionStorage) {
                             val warning = "Could not restore or save reactions on this device. Messages remain readable."
                             waitFor(warning)
@@ -858,7 +863,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitForEnabled("Load older messages")
                             ui.onNodeWithText("Load older messages").assertIsEnabled().performClick()
                             captureViewport("before-older-history-wait")
-                            waitFor(olderText)
+                            waitForMessage(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
                             ui.waitUntil(15_000) {
                                 ui.onAllNodesWithText("Load older messages").fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
@@ -872,8 +877,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
-                            captureViewport("before-older-history-wait")
-                            waitFor(olderText)
+                            captureViewport("before-reopened-older-history-wait")
+                            waitForMessage(olderText)
                             ui.onNodeWithText(olderText).performScrollTo().assertIsDisplayed()
                             ui.onNodeWithText(cachedOlderText).performScrollTo().assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/$capturePrefix-cached.png"), olderText)
@@ -986,7 +991,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             return@withFailureCapture
                         }
                         if (partialKeys || storagePartial) {
-                            waitFor(context.getString(R.string.chat_incomplete))
+                            waitForStatus(context.getString(R.string.chat_incomplete))
                             ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
                             if (partialKeys) ui.onAllNodesWithText(text).assertCountEquals(1)
                         }
@@ -1036,7 +1041,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         check(historyReads.get() > 0)
                         if (storageFailure) {
                             val warning = "Could not restore or save private history on this device. Messages fetched now may be unavailable after closing Chat."
-                            waitFor(warning)
+                            waitForStatus(warning)
                             ui.onNodeWithText(warning).assertIsDisplayed()
                             synchronized(SaitoLocalState.lock) { check(cacheFile.isDirectory && cacheFile.list()!!.isEmpty() && cacheFile.delete()) }
                             historyUnavailable.set(true)
@@ -1044,7 +1049,10 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitFor("Could not load chats. Check your connection and try Refresh.")
                             waitFor(text)
                             ui.onNodeWithText(text).assertIsDisplayed()
-                            if (storagePartial) ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
+                            if (storagePartial) {
+                                waitForStatus(context.getString(R.string.chat_incomplete))
+                                ui.onNodeWithText(context.getString(R.string.chat_incomplete)).assertIsDisplayed()
+                            }
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/memory-after-save-failure.png"), text)
                             historyUnavailable.set(false)
                             historyPruned.set(true)
@@ -1062,8 +1070,9 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         ui.onNodeWithText(counterpart).assertIsDisplayed().performClick()
                         waitFor("Could not load chats. Check your connection and try Refresh.")
                         captureViewport("before-cached-history-wait")
-                        waitFor(text)
-                        ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text) and !hasSetTextAction())
+                        waitForMessage(text)
+                        captureViewport("after-cached-history-scroll")
+                        ui.onNodeWithContentDescription("Private messages").performScrollToNode(hasText(text) and !hasSetTextAction())
                         ui.onNodeWithText(text).assertIsDisplayed()
                         ui.onNodeWithText("Could not load chats. Check your connection and try Refresh.").assertIsDisplayed()
                         captureNativeScreen(File(context.cacheDir, "private-chat-evidence/cached-history-unavailable.png"), text)
@@ -1154,6 +1163,21 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
         androidx.test.espresso.Espresso.closeSoftKeyboard()
         ui.waitUntil(15_000){runCatching{ui.onNodeWithText(text).assertIsDisplayed().assertIsEnabled()}.isSuccess}
         ui.onNodeWithText(text).assertIsDisplayed().assertIsEnabled().performClick()
+    }
+
+    private fun waitForMessage(text: String) = ui.waitUntil(15_000) {
+        runCatching {
+            ui.onNodeWithContentDescription("Private messages").assertHeightIsAtLeast(48.dp)
+                .performScrollToNode(hasText(text) and !hasSetTextAction())
+            ui.onNodeWithText(text).assertIsDisplayed()
+        }.isSuccess
+    }
+
+    private fun waitForStatus(text: String) = ui.waitUntil(15_000) {
+        runCatching {
+            ui.onNodeWithContentDescription("Chat status").performScrollToNode(hasText(text))
+            ui.onNodeWithText(text).assertIsDisplayed()
+        }.isSuccess
     }
 
     fun waitForEnabled(text: String) = ui.waitUntil(15_000) {

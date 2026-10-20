@@ -674,3 +674,40 @@ in one command, preserving the180second class bound. Diagnostic-only native/
 all-root captures run before initial history scroll, older/cache waits and failure.
 The original assertions, waits, application and complete chat-ui/full cases stay
 unchanged. This is a tighter RED loop, not a correction or complete acceptance.
+
+## Private status viewport and remaining cached-message positioning
+
+Source39367057843 atbbf24e72ef7d72e178c25d863e765ad3b851d09e completedSUCCESS before four focused dispatches.
+Group39367482562(Android10) completes its first one-method classFAIL at96,
+the original15second cached-body wait before scrolling. Original Copy after-scroll
+shows the control and first-original-verified records all exact clipboard,
+quote/mentions/raw/Relay assertions. Android17 run39367484988 reaches that same
+verified phase, then exits124 at the original60second class ceiling with START-only.
+Its failure XML has no useful text and no failure PNG completed; the exact later
+stall point is unproved. Neither reaches the22-case group class. Paired
+`ui58-group-reopen-red10-39367482562`/`ui58-group-reopen-red17-39367484988`
+retain23 hashes/13 original member bindings. Root opened both after-scroll PNGs
+and the Android10 failure. The corrected cached-body readiness now scrolls the
+named message list and checks display within the original15seconds, retaining
+all subsequent original assertions and60second class bound.
+
+Private diagnostic39367487133(10)/39367489213(17) bothFAIL at the original
+180second four-method command bound: three completedFAIL, fourth START-only.
+The storage-partial before-scroll native/all-root observations measure
+Private messages408..408px on both SDKs. Root opened both original PNGs: full
+warnings consume the history viewport. This is a proved production layout defect,
+unlike the earlier unresolved timeout hypothesis. Other cached observations show
+a34/106px list positioned at newer outgoing text. The older target on10 passes
+presence then fails display during layout change;17 fails its presence wait.
+Paired `ui58-private-four-red10-39367487133`/`ui58-private-four-red17-39367489213`
+retain82 hashes/72 original bindings. No complete private/process/full claim.
+
+Production now gives full private status guidance a named scrollable viewport
+capped at a quarter of available frame height. Privacy, every warning and their
+conditions remain, and composer controls are unchanged. A positive48dp history
+regression precedes the original storage-partial scroll. Scoped cached/older
+readiness scrolls within the original15seconds, retaining all display/count,
+raw/Relay/history/key/draft/wallet goals. Status assertions scroll the named
+status region before their original displayed assertions. Corrected runtime
+is pending. This production change supersedes unpublished47; ordinary45 stays
+live. A fresh signed build and full acceptance on both SDKs are required.

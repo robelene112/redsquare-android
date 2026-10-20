@@ -58,6 +58,26 @@ Full/private-complete classes and process gates remain unchanged. No corrected
 private runtime or new full acceptance, and no app change is claimed.
 
 
+Latest bbf source39367057843SUCCESS before runtime. Group39367482562(10)FAIL
+at the15second cached-body wait:96 after Copy and all first-original raw/Relay
+checks;17 run39367484988 reaches first-original-verified then class exit124/START-only
+at original60seconds, with no useful failure PNG. No exact17 later stall claim.
+Private diagnostic39367487133/39367489213 bothFAIL:3FAIL then fourth START-only,
+exit124 at unchanged180seconds. Before-scroll native/full-depth trees prove
+Private messages408..408px, zero height, in storage-partial on BOTH SDKs.
+Root opened both native originals. Paired new group/private RED packets retain
+105 hashes/85 original bindings. Other cached text is outside the current lazy
+viewport; older-target presence/display differs by SDK during layout changes.
+Production correction caps a named scrollable private status region at one-quarter
+of frame height, retaining every warning/condition and the composer controls.
+A positive48dp history regression precedes the original storage-partial scroll.
+Fixture-only scoped cached/older readiness and status positioning retain original
+15second goals, display/count/raw/Relay/key/history/draft checks and class bounds.
+Corrected runtime is pending. This is a NEW app change:47 is superseded and
+unpublished,45 remains live. Prepare a new canonical signed version, verify both
+full SDKs, and publish only after complete reviewed acceptance.
+
+
 The compact frame, Home-only backup/import
 notice, selected primary navigation, guarded drafts, reading-position restoration
 and lifecycle-owned actual system-motion scale are implemented.

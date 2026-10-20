@@ -68,9 +68,7 @@ class GroupChatActionsPreviewTest {
                         previousClip=clipboard.primaryClip
                         waitForEnabled("Copy")
                         clipboardChanged=true
-                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/copy-before-scroll.png"))
                         ui.onNodeWithText("Copy").performScrollTo().assertIsDisplayed()
-                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/copy-after-scroll.png"))
                         ui.onNodeWithText("Copy").assertIsDisplayed().performClick()
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()=="Original group message")
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
@@ -93,8 +91,16 @@ class GroupChatActionsPreviewTest {
                         check(peer.relayRecipients.single()==listOf(fixture.publicKey,admin.publicKey))
                         ui.onNodeWithText("Remove reply").assertDoesNotExist()
                         phase("first-original-verified")
-                        scenario.recreate();open();waitFor(body)
+                        scenario.recreate();open()
+                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reopened-before-scroll.png"))
+                        ui.waitUntil(15_000) {
+                            runCatching {
+                                ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
+                                ui.onNodeWithText(body).assertIsDisplayed()
+                            }.isSuccess
+                        }
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
+                        captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reopened-after-scroll.png"))
                         ui.onNodeWithText(body).assertIsDisplayed()
                         ui.onAllNodesWithText("Copy").onLast().performScrollTo().assertIsDisplayed().performClick()
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()==body)

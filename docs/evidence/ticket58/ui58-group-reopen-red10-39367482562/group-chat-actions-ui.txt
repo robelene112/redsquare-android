@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupChatActionsPreviewTest:
+INSTRUMENTATION_STATUS: test=groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupChatActionsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.waitFor(GroupChatActionsPreviewTest.kt:143)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$4ZsPlwAN6vskcJQTEhIewqofJZc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(nl.davidengelen.redsquare.GroupChatActionsPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.waitFor(GroupChatActionsPreviewTest.kt:143)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$4ZsPlwAN6vskcJQTEhIewqofJZc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:61)
+
+INSTRUMENTATION_STATUS: test=groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.365
+There was 1 failure:
+1) groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(nl.davidengelen.redsquare.GroupChatActionsPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.waitFor(GroupChatActionsPreviewTest.kt:143)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening$lambda$14$lambda$13$lambda$12(GroupChatActionsPreviewTest.kt:96)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.$r8$lambda$4ZsPlwAN6vskcJQTEhIewqofJZc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupChatActionsPreviewTest.groupReplyUsesCompatibleQuoteAndCopyRetainsOnlyLiteralBodyAcrossReopening(GroupChatActionsPreviewTest.kt:61)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
