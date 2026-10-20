@@ -28,12 +28,14 @@ class TalkBackStatusPreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
         val configurator = Configurator.getInstance()
         val originalFlags = configurator.getUiAutomationFlags()
-        configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
-        val automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
-        val device = UiDevice.getInstance(instrumentation)
+        lateinit var automation: UiAutomation
+        lateinit var device: UiDevice
         val folder = File(context.cacheDir, "status-talkback-evidence").apply { mkdirs() }
         var primary: Throwable? = null
         try {
+            configurator.setUiAutomationFlags(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
+            automation = instrumentation.getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
+            device = UiDevice.getInstance(instrumentation)
             File(folder, "accessibility-before.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
             assertTrue("The real TalkBack service must be bound", device.executeShellCommand("dumpsys accessibility")
                 .contains("com.google.android.accessibility.talkback.TalkBackService"))
@@ -55,26 +57,30 @@ class TalkBackStatusPreviewTest {
                 click(automation, "Refresh")
                 check(device.wait(Until.hasObject(By.text("Node unavailable")), 20_000))
                 waitFor(10_000) { fragments(device, "Node unavailable").isNotEmpty() }
+                waitFor(10_000) { completedFragments(device, "Node unavailable").size == 1 }
                 assertEquals("Important outage announces once", 1, fragments(device, "Node unavailable").size)
                 assertEquals("A live status must not steal the reader's focus", "Reference post 20", focusedText(automation))
                 capture(automation, File(folder, "outage.png"))
                 val requests = peer.connectionAttempts.get()
                 SystemClock.sleep(12_000) // Observe at least two real background retry intervals.
-                assertTrue("Quiet observation must include actual retry attempts", peer.connectionAttempts.get() > requests)
+                assertTrue("Quiet observation must include two actual retry attempts", peer.connectionAttempts.get() >= requests + 2)
                 assertEquals("Polling the same failure must not repeat speech", 1, fragments(device, "Node unavailable").size)
                 assertEquals("Reference post 20", focusedText(automation))
                 peer.rejectNewConnections = false
                 check(device.wait(Until.hasObject(By.text("Back online")), 20_000))
                 waitFor(10_000) { fragments(device, "Back online").isNotEmpty() }
+                waitFor(10_000) { completedFragments(device, "Back online").size == 1 }
                 assertEquals("Recovery announces once", 1, fragments(device, "Back online").size)
                 assertEquals("Reference post 20", focusedText(automation))
                 capture(automation, File(folder, "recovered.png"))
-                File(folder, "speech-transcript.txt").writeText(device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V"))
+                File(folder, "speech-transcript.txt").writeText(speechLog(device))
                 File(folder, "accessibility-after.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
                 File(folder, "result.json").writeText(JsonObject().apply {
                     addProperty("tool", "google/talkback229212fdf5842191d0a93fc95d9ca1423b346866")
                     addProperty("outageFragments", fragments(device, "Node unavailable").size)
                     addProperty("recoveryFragments", fragments(device, "Back online").size)
+                    addProperty("outageEngineCompletions", completedFragments(device, "Node unavailable").joinToString())
+                    addProperty("recoveryEngineCompletions", completedFragments(device, "Back online").joinToString())
                     addProperty("focus", focusedText(automation))
                     addProperty("physicalAudibility", false)
                 }.toString())
@@ -127,8 +133,24 @@ class TalkBackStatusPreviewTest {
     }
 
     private fun fragments(device: UiDevice, summary: String): List<String> =
-        device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V").lineSequence()
+        speechLog(device).lineSequence()
             .filter { it.contains("Speaking fragment text=") && it.contains(summary) }.toList()
+
+    private fun speechLog(device: UiDevice): String =
+        device.executeShellCommand("logcat -d -v brief -s SpeechControllerImpl:V FailoverTextToSpeech:V")
+
+    /** These markers originate only in real engine callbacks, never fallback completion. */
+    private fun completedFragments(device: UiDevice, summary: String): List<String> {
+        val log = speechLog(device)
+        return fragments(device, summary).mapNotNull { line ->
+            Regex("utteranceId=([^,\\s]+)").find(line)?.groupValues?.get(1)
+        }.filter { id ->
+            fun callback(event: String) = Regex("REDSQUARE_ENGINE_$event utteranceId=${Regex.escape(id)}(?:\\s|$)")
+                .containsMatchIn(log)
+            callback("START") && callback("AUDIO") && callback("DONE") && !callback("ERROR") && !callback("STOP") &&
+                Regex("REDSQUARE_ENGINE_AUDIO utteranceId=${Regex.escape(id)} bytes=[1-9][0-9]*").containsMatchIn(log)
+        }
+    }
 
     private fun node(automation: UiAutomation, text: String): AccessibilityNodeInfo =
         requireNotNull(automation.rootInActiveWindow).findAccessibilityNodeInfosByText(text)

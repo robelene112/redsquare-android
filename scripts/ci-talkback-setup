@@ -14,6 +14,8 @@ curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
 printf '%s  %s\n' 5e938be5854ec05646743ef998e4ed9fda3a4f345917c930c53a25ed81e77e36 "$tool_dir/source.tar.gz" | sha256sum -c -
 mkdir -p "$tool_dir/source"
 tar -xzf "$tool_dir/source.tar.gz" --strip-components=1 -C "$tool_dir/source"
+cp "$tool_dir/source/shared.gradle" "$tool_dir/original-shared.gradle"
+cp "$tool_dir/source/utils/src/main/java/com/google/android/accessibility/utils/output/FailoverTextToSpeech.java" "$tool_dir/original-FailoverTextToSpeech.java"
 python3 - "$tool_dir/source/shared.gradle" <<'PY'
 from pathlib import Path
 import sys
@@ -21,6 +23,30 @@ p=Path(sys.argv[1]);s=p.read_text();before='abiFilters "armeabi-v7a", "arm64-v8a
 assert s.count(before)==1
 p.write_text(s.replace(before,'abiFilters "x86_64"'))
 PY
+# Observation-only logs at real engine callbacks, never the synthetic fallback path.
+python3 - "$tool_dir/source" <<'PYOBSERVE'
+from pathlib import Path
+import sys
+p=Path(sys.argv[1])/'utils/src/main/java/com/google/android/accessibility/utils/output/FailoverTextToSpeech.java'
+s=p.read_text()
+for callback, arguments, event, suffix in [
+    ('onStart','String utteranceId','START',''),
+    ('onAudioAvailable','String utteranceId, byte[] audio','AUDIO',' + " bytes=" + audio.length'),
+    ('onDone','String utteranceId','DONE',''),
+    ('onError','String utteranceId','ERROR',''),
+    ('onStop','String utteranceId, boolean interrupted','STOP',' + " interrupted=" + interrupted'),
+]:
+    before=f'public void {callback}({arguments}) {{'
+    assert s.count(before)==1, callback
+    s=s.replace(before,before+'\n      LogUtils.i(TAG, "REDSQUARE_ENGINE_'+event+' utteranceId=" + utteranceId'+suffix+');')
+p.write_text(s)
+PYOBSERVE
+diff -u --label a/shared.gradle --label b/shared.gradle "$tool_dir/original-shared.gradle" \
+    "$tool_dir/source/shared.gradle" > "$tool_dir/artifacts/source.patch" || [[ "$?" == 1 ]]
+diff -u --label a/FailoverTextToSpeech.java --label b/FailoverTextToSpeech.java \
+    "$tool_dir/original-FailoverTextToSpeech.java" \
+    "$tool_dir/source/utils/src/main/java/com/google/android/accessibility/utils/output/FailoverTextToSpeech.java" \
+    >> "$tool_dir/artifacts/source.patch" || [[ "$?" == 1 ]]
 curl --fail --location --retry 3 --connect-timeout 30 --max-time 300 \
     https://downloads.gradle.org/distributions/gradle-8.13-bin.zip -o "$tool_dir/gradle.zip"
 printf '%s  %s\n' 20f1b1176237254a6fc204d8434196fa11a4cfb387567519c61556e8710aed78 "$tool_dir/gradle.zip" | sha256sum -c -
@@ -32,6 +58,6 @@ unzip -q "$tool_dir/gradle.zip" -d "$tool_dir"
         '-Dorg.gradle.jvmargs=-Xmx1536m -Dfile.encoding=UTF-8' assemblePhoneDebug
 )
 cp "$tool_dir/source/build/outputs/apk/phone/debug/source-phone-debug.apk" "$tool_dir/artifacts/talkback.apk"
-printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; only ARM ABI filters changed to x86_64; unmodified speech logic and dependency versions' \
+printf '%s\n' 'google/talkback229212fdf5842191d0a93fc95d9ca1423b346866; ARM ABI filters changed to x86_64; observation-only real engine callback logs; unmodified speech logic and dependency versions' \
     > "$tool_dir/artifacts/source.txt"
-(cd "$tool_dir/artifacts" && sha256sum talkback.apk source.txt > SHA256SUMS)
+(cd "$tool_dir/artifacts" && sha256sum talkback.apk source.txt source.patch > SHA256SUMS)
