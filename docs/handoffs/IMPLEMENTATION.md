@@ -61,7 +61,8 @@ Group10focused39444228866 atdc2 passes all1+1+22 methods and actual process
 continuity,114 original members from4archives retained. Root opened visible
 Unlike and left-reopened.17focused39444233530 timed out after complete business/
 cleanup phases but no instrumentation result; it remainsFAILURE. Same-source
-repeat39445406794 is pending. No timeout or acceptance assertion is relaxed.
+repeat39445406794 is SUCCESS:1+1+22 methods and actual process continuity,
+114 original members retained. Root opened both native corrected controls. No timeout or acceptance assertion is relaxed.
 
 Current corrected production is49a92703b63659ee7b7a9d4da03dc01616f5dd49.
 Both review axes through49a have0 remaining findings. Focused existing scopes
@@ -77,7 +78,8 @@ then keeps its original exact-text/clearing/identity/node/zero-send assertions.
 Full10dc2wallet failed the immediate101lookup: no merged SetText node; root
 opened its native failure PNG, which already shows the correct saved draft.
 All34 originals and actual failed goal are retained. No draft-loss claim.
-Corrected policy execution remains pending.
+Corrected policies10run39446798072 and17run39446802357 execute ed5e4709d
+on verify/status59-policy-ready, pending. Both review axes through ed5 are0.
 
 Shared nullable InlineStatus hosts preserve real entry/reversal/exit and remove
 inactive layout slots. Full guidance remains accessible. Saved parent-relative

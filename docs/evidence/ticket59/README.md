@@ -963,3 +963,20 @@ same clearing/save/identity/node/zero-send checks. It does not use hidden nodes
 or replace any assertion. The180second class bound is unchanged. This is a
 fixture-only correction on top of49a private status; corrected runtime pending.
 Paired source/evidence reviews through49a report0 residual findings.
+
+## Paired group dc2 focused completion
+
+Same-source17repeat39445406794 is SUCCESS with GroupActions1(38.430s),
+mixed1(12.840s), GroupChat22(142.003s), and actual group process continuity.
+All unchanged60/60/180second class bounds hold. All114 original members from
+4archives and complete logs are retained, matching10's coverage. Root opened
+17visible Unlike and left-reopened originals. This later success neither turns
+the earlier timeout into a PASS nor establishes its cause. No production/input
+change occurred between those two17attempts. Full acceptance remains separate.
+
+Both review axes over the policy fixture correction49a..ed5 report0 remaining
+findings. Corrected policies10run39446798072 and17run39446802357 execute exact
+ed5e4709d with the original20second readiness/180second class bounds. They
+remain pending, as do all six private-focused49a runs. All new executable
+changes after49a are confined to PolicyCenterPreviewTest; private integration
+runs at49a exercise the same production source. No fresh candidate reserved.
