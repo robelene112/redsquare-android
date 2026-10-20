@@ -706,3 +706,12 @@ Additional exact3c focused verification is retained separately: keyboard10
 39430782031/17 39430786583 (two methods and14 originals each). All six runs are
 SUCCESS. These predate the pending-action Retry relocation and do not replace
 final4ae full acceptance.
+
+Signed55 is now prepared at exact4ae88dcafe13c24d738df45e8998cf7679f79a6d.
+Actual APK SHA256fc4c6a4ee1ade45bea04f97038c3c392dd60c05ae3b7e72011f176a3ee0bf7ba,
+37,856,651bytes. The actual certificate equals established50; package remains
+nl.davidengelen.redsquare, min29/target36, nondebuggable/nonprofileable, backup
+false, REVIEW_BUILD true, DEBUG/PUSH false and separate GIF keys absent. The
+actual APK DEX/manifest checks pass. Independent public before-bookend passes
+while ordinary50 remains live. This is preparation, not native acceptance or
+publication. Never rebuild this frozen55 artifact.
