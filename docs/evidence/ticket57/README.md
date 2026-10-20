@@ -217,3 +217,44 @@ immutable49/45 and the entire unchanged performance43 channel. This is read-only
 publication preparation.50 remains unpublished until complete acceptance/review.
 Prepared50 and failed combined-scope packets at fec have final Spec0, documented
 Standards0 and heuristic0 review. The earlier documentation findings are resolved.
+
+
+## Complete partitioned verification plus separate public reads
+
+Both main full dispatches39396615570(10)/39396619548(17) atfec complete SUCCESS,
+all3 jobs each. The original invocation omitted public_feed_read, so main results
+are missing exactly the two public feed identities and one public Chat identity.
+They are not described as having executed those gates. Existing focused feed
+39399533451/39399537091 and publicChat39399540274/39399544249 atb2 all complete
+SUCCESS. All16 executable/test/harness/workflow/config/reference Git input objects
+match across their immutable executing sources, including test-fixtures.
+
+The bounded WORKFLOW rule preserves every original goal and no application
+failure is waived. Future full scopes automatically include public reads after
+32c9fdcbe; source39399971481 and both source review axes are SUCCESS/0 findings.
+The strict collector's initial reference/list shadowing and required-evidence/
+compiled-fixture binding findings were fixed before use; both axes atb59257292
+report0 residual findings. The collector is SHA-bound and asserts the original
+pre-execution reference object is unchanged from285.
+
+Both actual collector commands exit0. Canonical combined evidence:
+
+| SDK | Completed identities | Normal goal completions | Deliberate interruptions | Continuity |
+| --- | --- | --- | --- | --- |
+| Android10 |481:480 PASS, sole established API29 Profile assumption |126 |35 |34 PASS |
+| Android17 |482 PASS |127 |35 |34 PASS |
+
+No missing/extra canonical identities, new exclusions or unexpected assumptions.
+All mandatory public captures/data exist; image/ABI/page/build properties match
+main and supplement. Each extra feed execution's nine repeated cases, one normal
+completion, one cold-continuity and two actual archives are retained separately,
+pass, and do not inflate canonical totals. Only the exact five old optional53
+observer gaps recur, under their original owning Chat/Wallet paths.
+
+Android10 retains481 hashes/89 canonical archive inventories/2299 original
+members;17 retains495/89/2309. Each packet also binds every supplemental original
+file and inventories its two incidental feed archives. Root opened full10 exact
+cold-rate recovery and actual owner-node feed, plus full17 official-node funding.
+The former includes the actual no-third-like feedback; the latter reads and
+funding checks are read-only with fresh unfunded identities. Full evidence review
+is pending. Signed50 is still prepared only and ordinary49 remains live.

@@ -1,0 +1,246 @@
+{
+  "chat/social-push-scheduled-process/autonomous-alert.png": {
+    "sha256": "1517fdb1b6e3638c9362500012a592a85416c291404a60fb9e10544a6aed4e6d",
+    "bytes": 85566
+  },
+  "chat/social-push-scheduled-process/autonomous-alert.xml": {
+    "sha256": "ccc369db7d62191fd37f58a623439be9b1b4103aabf2e8d9abcab2c842d28351",
+    "bytes": 53265
+  },
+  "social/author-delete-process/reconciled-without-rebroadcast.png": {
+    "sha256": "f93b3d1d2b9e480a0df4b1e1c2c4fa45511472e89e4c76dbceed3427080f0904",
+    "bytes": 25424
+  },
+  "social/author-edit-process/reconciled-without-rebroadcast.png": {
+    "sha256": "7a276b97a3f08c6d52ac0ec72eec9bcf647040a6bc9b144afb385f746281a287",
+    "bytes": 17449
+  },
+  "social/image-queue-process/cold-delivery.png": {
+    "sha256": "0edf364b93eea117e8fdde8a93351d2639d636fcd500270a1d051693d41c0f21",
+    "bytes": 37643
+  },
+  "social/picker-reference.png": {
+    "sha256": "084b3eae6054deef0778dc5fb4f54df208d7ca05695d8d5c96ece0b04d6cc14d",
+    "bytes": 74
+  },
+  "social/post-process/reconciled-without-rebroadcast.png": {
+    "sha256": "2357268ac334e2a0829b51a2efdf7e1684725384e21e0b32d10441c8263bac22",
+    "bytes": 21172
+  },
+  "social/post-queue-process/cold-delivery.png": {
+    "sha256": "08bb8a925fcc198f7fdbaf8fa40a35a7fce991e6291e32e74bed54cd2d061df0",
+    "bytes": 52290
+  },
+  "social/quote-process/reconciled-without-rebroadcast.png": {
+    "sha256": "6cd658dca2f863bd3aef4aca2329ec5ae0745e2986f437abb6d18de8f745d824",
+    "bytes": 25373
+  },
+  "social/repeat-social-process/reconciled-without-rebroadcast.png": {
+    "sha256": "fa905dba48745424c11d5cef85fd6a8b1fce975e0fafeda7c378b13eaf8d415b",
+    "bytes": 44880
+  },
+  "social/social-process/reconciled-without-rebroadcast.png": {
+    "sha256": "edcc8ba639a0c75670cc1ef6885907b65a577a4e755a8f7c62b1e860f541212d",
+    "bytes": 40733
+  },
+  "social/video-last-window.png": {
+    "sha256": "567c860851c8df7ce0c2c5aef2c084cac2233be906381b47d13985870c7b4b53",
+    "bytes": 197960
+  },
+  "wallet/after.xml": {
+    "sha256": "b9ae64fa31652137abd2d5af4a843c7006184dd29d77f85801736a59a6fb91d5",
+    "bytes": 5031
+  },
+  "wallet/backend-ui-screen.png": {
+    "sha256": "894f367af6dd1fd89a3c050456843a6fca1fff720bce759dc552d30757bb0843",
+    "bytes": 35764
+  },
+  "wallet/before.xml": {
+    "sha256": "bb2d8ceeab9ea4c297cbba0cdb4ab2cf6e0d092ae850ca299cfdbbc8cd6ad350",
+    "bytes": 4214
+  },
+  "wallet/diagnostic.png": {
+    "sha256": "f3a4a7347febf37903859df66bc19b2e5bcbe922c505b822f8e0581c15c780ac",
+    "bytes": 30925
+  },
+  "wallet/feed-cold-launch/feed.png": {
+    "sha256": "66484727eb8e7ca67d72b518e3dce02cb7c91342fb78766ff0eb26126698cf9f",
+    "bytes": 43798
+  },
+  "wallet/feed-cold-launch/last-ui.xml": {
+    "sha256": "1ca054a755e0f90b4b11f480dd8b458d096f3f170d4a94e0f09af059082e10b1",
+    "bytes": 28988
+  },
+  "wallet/preview-update/screen.png": {
+    "sha256": "e8ee3886bc5752831312593d5734a43b6fcd1f2b8d219aa5c7f62a3f6976ef57",
+    "bytes": 19255
+  },
+  "wallet/signed-update/observation-1.png": {
+    "sha256": "aa58283d2fb017aa35277d147c6e1da050a19a809b17b83da1bb9836bbc5fc8a",
+    "bytes": 17983
+  },
+  "wallet/signed-update/observation-1.xml": {
+    "sha256": "963c2afc820b4bbb6477d0956ec63eb7f8e4c6e1763a89afa7edb3fd344a6073",
+    "bytes": 18561
+  },
+  "wallet/signed-update/observation-2.png": {
+    "sha256": "aa58283d2fb017aa35277d147c6e1da050a19a809b17b83da1bb9836bbc5fc8a",
+    "bytes": 17983
+  },
+  "wallet/signed-update/observation-2.xml": {
+    "sha256": "963c2afc820b4bbb6477d0956ec63eb7f8e4c6e1763a89afa7edb3fd344a6073",
+    "bytes": 18561
+  },
+  "wallet/signed-update/observation-3.png": {
+    "sha256": "edac9802d86b99e1f2d8645e4fd64d9c1408831ea56716d7302ec07aa51d3c8e",
+    "bytes": 21342
+  },
+  "wallet/signed-update/observation-3.xml": {
+    "sha256": "963c2afc820b4bbb6477d0956ec63eb7f8e4c6e1763a89afa7edb3fd344a6073",
+    "bytes": 18561
+  },
+  "wallet/signed-update/observation-4.png": {
+    "sha256": "edac9802d86b99e1f2d8645e4fd64d9c1408831ea56716d7302ec07aa51d3c8e",
+    "bytes": 21342
+  },
+  "wallet/signed-update/observation-4.xml": {
+    "sha256": "963c2afc820b4bbb6477d0956ec63eb7f8e4c6e1763a89afa7edb3fd344a6073",
+    "bytes": 18561
+  },
+  "wallet/signed-update/wallet.png": {
+    "sha256": "3fc671b860d8bbd15805ba2b5c966e3c2a1c5c90acfad90eee870ce0faf5c3d0",
+    "bytes": 23325
+  },
+  "wallet/wallet-cold-launch/observation-1.png": {
+    "sha256": "056ffca476f7b20cb4971ac93d80b62f894eb8417e9e1a304c4dc73981e7cc84",
+    "bytes": 29540
+  },
+  "wallet/wallet-cold-launch/observation-1.xml": {
+    "sha256": "1b1a2f50f9052816d475d0567272d3e9ef055dd41cbf9a1dbb1df631c0265316",
+    "bytes": 26023
+  },
+  "wallet/wallet-cold-launch/observation-2.png": {
+    "sha256": "056ffca476f7b20cb4971ac93d80b62f894eb8417e9e1a304c4dc73981e7cc84",
+    "bytes": 29540
+  },
+  "wallet/wallet-cold-launch/observation-2.xml": {
+    "sha256": "1b1a2f50f9052816d475d0567272d3e9ef055dd41cbf9a1dbb1df631c0265316",
+    "bytes": 26023
+  },
+  "wallet/wallet-cold-launch/wallet.png": {
+    "sha256": "c99dd5ce8aa139efa4021159fcb533f77dca0c00346e7b9322e7a861e6cd9cb2",
+    "bytes": 197982
+  },
+  "wallet/wallet-export-process/process-recovery.png": {
+    "sha256": "1fa7457102efe24a73ca944955a648cc34047980c01aa0e9454c15d4d64e6c2c",
+    "bytes": 29785
+  },
+  "wallet/wallet-export-process/process-retry.png": {
+    "sha256": "32dc39a2f59ebffb577e8e201b1c45e55b08365f890935bb98ec54dfcd327336",
+    "bytes": 31769
+  },
+  "wallet/wallet-import-process/cold-recovery.png": {
+    "sha256": "d8d3a7e9cf166433d47fea3f2cfba4cf1617437184a1012169e23b35a11cc1a4",
+    "bytes": 30607
+  },
+  "wallet/live-official/balance.png": {
+    "sha256": "77fdb0ac2b5e2220a290e51bd861962d3ef024df707c5a5376731ba91e8218cb",
+    "bytes": 27886,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/balance.png"
+  },
+  "wallet/live-official/balance.xml": {
+    "sha256": "3ae3a6f17c2c989856082bb8bbf91255752b1f699a0124705a223aaf94bc7aaa",
+    "bytes": 24302,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/balance.xml"
+  },
+  "wallet/live-official/feed.png": {
+    "sha256": "706b8eb83e4b2abc285170c71ae17984c702b71546c8963140a79bf00fa29122",
+    "bytes": 55445,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/feed.png"
+  },
+  "wallet/live-official/funding.png": {
+    "sha256": "3594e48192f94e2bb013fe7a8c0a6fbfacef6b4952e770c1e3e19f8ccf426646",
+    "bytes": 31812,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/funding.png"
+  },
+  "wallet/live-official/funding.xml": {
+    "sha256": "896f3bdafd68b7029b529c07ff9e3f9f75682e8277e2f32785fb9795ed983c1c",
+    "bytes": 29390,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/funding.xml"
+  },
+  "wallet/live-official/screen.png": {
+    "sha256": "91cde16da64e64a98330c8d869288dda0746d717e5fb85de01e1ed35b7e8df9f",
+    "bytes": 51977,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/screen.png"
+  },
+  "wallet/live-official/wallet-first-failure.png": {
+    "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed",
+    "bytes": 82,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/wallet-first-failure.png",
+    "validationError": "PNG signature"
+  },
+  "wallet/live-official/wallet-first-failure.xml": {
+    "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54",
+    "bytes": 82,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/wallet-first-failure.xml",
+    "validationError": "syntax error: line 1, column 0"
+  },
+  "wallet/live-owner/balance.png": {
+    "sha256": "00572e66189d1e86b8718dd4917d90556cd21b357fb4af21db09fb8d57c8e4a3",
+    "bytes": 28383,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/balance.png"
+  },
+  "wallet/live-owner/balance.xml": {
+    "sha256": "3deae57c7220a21333428356c6b4fe1804b418bc70d87bc10eab9016c2f87e29",
+    "bytes": 24315,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/balance.xml"
+  },
+  "wallet/live-owner/feed.png": {
+    "sha256": "960e310a92670beced76025fd3ecd8b7a0fdb6bfa15d6a087f6a7c83a11cbade",
+    "bytes": 56001,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/feed.png"
+  },
+  "wallet/live-owner/funding.png": {
+    "sha256": "3594e48192f94e2bb013fe7a8c0a6fbfacef6b4952e770c1e3e19f8ccf426646",
+    "bytes": 31812,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/funding.png"
+  },
+  "wallet/live-owner/funding.xml": {
+    "sha256": "896f3bdafd68b7029b529c07ff9e3f9f75682e8277e2f32785fb9795ed983c1c",
+    "bytes": 29390,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/funding.xml"
+  },
+  "wallet/live-owner/screen.png": {
+    "sha256": "a340b29bf644307aed343dd6ed104bbeeac9b15bcc15f8b5b0fb35bd775a4a21",
+    "bytes": 52491,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/screen.png"
+  },
+  "wallet/live-owner/wallet-first-failure.png": {
+    "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed",
+    "bytes": 82,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.png",
+    "validationError": "PNG signature"
+  },
+  "wallet/live-owner/wallet-first-failure.xml": {
+    "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54",
+    "bytes": 82,
+    "supplementRun": 39399537091,
+    "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.xml",
+    "validationError": "syntax error: line 1, column 0"
+  }
+}

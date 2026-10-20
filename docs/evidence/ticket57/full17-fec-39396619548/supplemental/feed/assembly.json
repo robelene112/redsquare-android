@@ -1,0 +1,259 @@
+{
+  "run": 39399537091,
+  "source": "b2ad823b16c8aba0d6b316cfddc3d4d1d7ee5a93",
+  "scope": "feed",
+  "ownedPartition": "wallet",
+  "canonicalGoals": [
+    {
+      "path": "live-official-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "testClass": "nl.davidengelen.redsquare.OwnerLiveFeedTest",
+      "test": "freshInstallationReadsTheSelectedApprovedPublicFeed",
+      "occurrences": 1
+    }
+  ],
+  "selectedOriginalFiles": [
+    {
+      "path": "fresh-live-official.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/fresh-live-official.txt",
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "fresh-live-owner.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/fresh-live-owner.txt",
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    {
+      "path": "live-official/balance.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/balance.png",
+      "sha256": "77fdb0ac2b5e2220a290e51bd861962d3ef024df707c5a5376731ba91e8218cb"
+    },
+    {
+      "path": "live-official/balance.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/balance.xml",
+      "sha256": "3ae3a6f17c2c989856082bb8bbf91255752b1f699a0124705a223aaf94bc7aaa"
+    },
+    {
+      "path": "live-official/feed.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/feed.png",
+      "sha256": "706b8eb83e4b2abc285170c71ae17984c702b71546c8963140a79bf00fa29122"
+    },
+    {
+      "path": "live-official/funding.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/funding.png",
+      "sha256": "3594e48192f94e2bb013fe7a8c0a6fbfacef6b4952e770c1e3e19f8ccf426646"
+    },
+    {
+      "path": "live-official/funding.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/funding.xml",
+      "sha256": "896f3bdafd68b7029b529c07ff9e3f9f75682e8277e2f32785fb9795ed983c1c"
+    },
+    {
+      "path": "live-official/public-search.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/public-search.txt",
+      "sha256": "c0c6ef8ddfa149f387e1a93a9f395446b03817d1147fe4db0c62c30d7bd4176b"
+    },
+    {
+      "path": "live-official/public-wallet.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/public-wallet.txt",
+      "sha256": "f8fc3bb000126483f8e4710e2adc3eb6672e085bcd93b6bf094639b7fff401ac"
+    },
+    {
+      "path": "live-official/result.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/result.txt",
+      "sha256": "4f1773dcb44e5e93a2763149054cb1d2461450b6b2d429372a0b50fe379e217c"
+    },
+    {
+      "path": "live-official/screen.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/screen.png",
+      "sha256": "91cde16da64e64a98330c8d869288dda0746d717e5fb85de01e1ed35b7e8df9f"
+    },
+    {
+      "path": "live-official/transport-status.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/transport-status.txt",
+      "sha256": "d65b940b92da950633422bc83794227fba9ea16d5bef1f84b47461f440fca98d"
+    },
+    {
+      "path": "live-official/wallet-first-failure.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/wallet-first-failure.png",
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": "live-official/wallet-first-failure.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official/wallet-first-failure.xml",
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": "live-official-feed.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-official-feed.txt",
+      "sha256": "a347176396d2b1bdbe88c423da94b90557f792ce57d503eeab3725e9dbffa3b0"
+    },
+    {
+      "path": "live-owner/balance.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/balance.png",
+      "sha256": "00572e66189d1e86b8718dd4917d90556cd21b357fb4af21db09fb8d57c8e4a3"
+    },
+    {
+      "path": "live-owner/balance.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/balance.xml",
+      "sha256": "3deae57c7220a21333428356c6b4fe1804b418bc70d87bc10eab9016c2f87e29"
+    },
+    {
+      "path": "live-owner/feed.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/feed.png",
+      "sha256": "960e310a92670beced76025fd3ecd8b7a0fdb6bfa15d6a087f6a7c83a11cbade"
+    },
+    {
+      "path": "live-owner/funding.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/funding.png",
+      "sha256": "3594e48192f94e2bb013fe7a8c0a6fbfacef6b4952e770c1e3e19f8ccf426646"
+    },
+    {
+      "path": "live-owner/funding.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/funding.xml",
+      "sha256": "896f3bdafd68b7029b529c07ff9e3f9f75682e8277e2f32785fb9795ed983c1c"
+    },
+    {
+      "path": "live-owner/public-search.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/public-search.txt",
+      "sha256": "0be0ad273d26cc1800b55522a8d4cc3b693706ebd4419538ed58c2a0cd566f58"
+    },
+    {
+      "path": "live-owner/public-wallet.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/public-wallet.txt",
+      "sha256": "dde4913eb11615552e59599a998296081af651c9395a05b552c98fe67324b105"
+    },
+    {
+      "path": "live-owner/result.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/result.txt",
+      "sha256": "666941711c1791efd8257c7826a2a1482131dccc824289df827b8599cde47948"
+    },
+    {
+      "path": "live-owner/screen.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/screen.png",
+      "sha256": "a340b29bf644307aed343dd6ed104bbeeac9b15bcc15f8b5b0fb35bd775a4a21"
+    },
+    {
+      "path": "live-owner/transport-status.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/transport-status.txt",
+      "sha256": "e89ea5ec70a89e89a5fd7e4c0ccd850554fac288da8622ace927c5e5f556e93c"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.png",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.png",
+      "sha256": "0674f1e6f2fd5107e555545ab556af45b28f38b67b24a245b0c5c44e2f723bed"
+    },
+    {
+      "path": "live-owner/wallet-first-failure.xml",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner/wallet-first-failure.xml",
+      "sha256": "cf9a8ae358bb608ffa619d80c20da1cd10bf1713661f8d561b49498fe2280e54"
+    },
+    {
+      "path": "live-owner-feed.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091/android-native-proof/.scratch/device-evidence/api-37.0/live-owner-feed.txt",
+      "sha256": "c407f212d6bd7ccdb805be9764c543efaac79a6e33f1018f5ed64ee2c4fc9fb9"
+    }
+  ],
+  "requiredFiles": [
+    "backend-ui-evidence.tar",
+    "feed-cold-launch/continuity.txt",
+    "feed-readiness-evidence.tar",
+    "feed-ui.txt",
+    "fresh-live-official.txt",
+    "fresh-live-owner.txt",
+    "live-official-feed.txt",
+    "live-official/balance.png",
+    "live-official/balance.xml",
+    "live-official/feed.png",
+    "live-official/funding.png",
+    "live-official/funding.xml",
+    "live-official/public-search.txt",
+    "live-official/public-wallet.txt",
+    "live-official/result.txt",
+    "live-official/screen.png",
+    "live-official/transport-status.txt",
+    "live-owner-feed.txt",
+    "live-owner/balance.png",
+    "live-owner/balance.xml",
+    "live-owner/feed.png",
+    "live-owner/funding.png",
+    "live-owner/funding.xml",
+    "live-owner/public-search.txt",
+    "live-owner/public-wallet.txt",
+    "live-owner/result.txt",
+    "live-owner/screen.png",
+    "live-owner/transport-status.txt"
+  ],
+  "imageConfigBindings": {
+    "system-image.txt": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b",
+    "system-image.properties": "bf15b0b43bd0155b258b3756cf523dd917735042633edbb645b34c285a45832d",
+    "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0",
+    "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+    "system-build.txt": "71fa916fc1a09e7fbf426c8e9a70e9ed2b29a67f5c73cc432c5525f89c250eee"
+  },
+  "incidentalCompletedIdentities": [
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.BackendPreviewTest",
+      "test": "unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "authenticatedFeedSurvivesReopeningAndRecoversWithoutLosingPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "refreshAndRecreationKeepTheVisiblePostWhenNewPostsArrive",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedPreviewTest",
+      "test": "unreadableRefreshExplainsTheProblemWhileKeepingCachedPosts",
+      "occurrences": 1
+    },
+    {
+      "path": "feed-ui.txt",
+      "testClass": "nl.davidengelen.redsquare.FeedReadinessPreviewTest",
+      "test": "fullyDrawnWaitsForVisiblePostsAndUnmutingMakesTheFeedInteractive",
+      "occurrences": 1
+    }
+  ],
+  "incidentalContinuityRecords": 1,
+  "incidentalNormalCompletions": 1,
+  "limits": "All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads."
+}

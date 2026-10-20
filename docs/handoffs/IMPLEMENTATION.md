@@ -10,43 +10,37 @@ sequential implementation, review, commits and signed in-place beta delivery.
    [Node56](https://github.com/robelene112/redsquare-android/issues/56) are complete:
    full native acceptance,0/0 paired reviews and signed49 public delivery with
    final Spec0/documented Standards0/heuristic0 review at a193ff163.
-2. Finish active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
-   then59 through69 in dependency order. Review base a0948570a. Detailed original
-   RED/GREEN outcomes and their limits are in docs/evidence/ticket57/README.md.
-   Production147 has reviewed repeat/journal/lease/count-generation, durable
-   two-intent wallet-wide rolling rate and initial pending-social import disclosure.
-   Source14739393699247 and73939394762330 are SUCCESS. Corrected focus
-   39394728559/39394731770 each pass3 Repeat+2 Isolation methods, with24 original
-   bindings/12 independently WASM/Elliptic-verified frames per SDK. Import
-   39394734921/39394738427 each pass2 real SAF preview methods. All four runs are
-   SUCCESS with retained raw packets; root opened both SDK feedback, pending/
-   exact-retry and import originals. Earlier failed import37 runs remain failed.
-   The confirmation-time acknowledgment reset is source-reviewed, without a
-   separate late-arriving-work native journey. Initial pending disclosure and
-   different-post/wallet/late-count journeys have passed native verification.
-   New739 adds actual cold recovery after a settled first plus uncertain second
-   Like while retaining the original first-Like process gate. Local compile and
-   both source axes0; completeSocial39395383267/39395386328 actually FAIL at two ambiguous
-   import Like selectors after5PASS, before any process or oldSocial gates.
-   Both original packets are retained. Fixture-onlye266 opens the canonical
-   Conversation first, preserving assertions/deadlines; both source axes0.
-   Source39396012366SUCCESS; both process focus39396110427/39396113577
-   SUCCESS: one actual kill, one cold recoveryPASS, one continuity each. Exact
-   distinctPIDs3378->3573 and2948->4198, all4actualframes independentlyverified.
-   Both14-hash packets retained; rootopened10recovery/17uncertain originals. The independent catalog is frozen
-   before full execution:481/482 completed identities,126/127 normal completions,
-   35 deliberate interruptions and34 continuity records, every original gate kept.
-   Complete SDK39396615570/39396619548 atfec are running, all3jobs each;
-   frozen expectations now bound to those runs/source without changing counts.
-   Next retain/review complete acceptance, final0/0 review,
-   signed50 canonical delivery and close57. Ordinary49 remains LIVE. Version50 is
-   reserved and canonical preparation completed0 in external frozen285 worktree.
-   Actual APK/DEX/signature/manifest checks0 and both reviewaxes0. Public before
-   snapshot50passesagainstlive49+immutable49/45+wholeperformance43. No public57
-   delivery is established. Never rebuild50; actualfullmustpass beforepublication. The chosen policy is issue57/comment
-   6278005545: two NEW deliberate intents per rolling second per wallet across
-   post surfaces and both nodes. A pending or uncertain like prevents a fresh
-   like on either node; reconcile/reuse its exact candidate on its original node.
+2. Finish final evidence/publication for active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
+   then59 through69 in dependency order. Review base a0948570a. Production147
+   implements reviewed repeat/journal/lease/count generation, durable two-intent
+   wallet-wide rolling limit and pending-social wallet-replacement disclosure.
+   Detailed original RED/GREEN and rendered/native/independent signature proof
+   is in docs/evidence/ticket57/README.md. Confirmation-time acknowledgment reset
+   is source-reviewed without a separate late-arriving-work native journey.
+   Corrected focused repeat/isolation/import and real second-Like process bothSDK
+   are SUCCESS; exact original retries and durable rate survive actual process
+   death. Main full39396615570/39396619548 atfec all3jobs SUCCESS each. Initial
+   full option omitted public reads; exactly those three goals are supplied by
+   unchanged feed39399533451/39399537091 and Chat39399540274/39399544249 atb2,
+   all SUCCESS. All16 executable/test/config/reference Git inputs match. Bounded
+   procedure and future automatic full public-read guard are reviewed0/0, source
+   39399971481SUCCESS. This is full partitioned verification plus separate public
+   reads, never a rewrite of initial execution history or an application waiver.
+   Both SHA-bound strict collector commands exit0: canonical481/482 identities,
+   126/127 normal completions,35 interruptions,34 continuity. Sole oldAPI29Profile
+   assumption and exactfive optional53 observer gaps only. Passed incidental nine
+   feed duplicates/one normal/one cold-continuity/two archives perSDK are separately
+   retained and not counted twice. Original pre-execution catalog is unchanged.
+   Full10packet481hashes/89archives/2299members;17packet495/89/2309. Root opened
+   actual full cold-rate/owner-feed/official-funding originals. Full packet review
+   is next, then canonical signed50 publication and final public-packet review.
+   Prepared50 is frozen285, SHA58f50ecfd835732a1f86918cc72617da299d548e9ef46186c1f1b9b62f4285da,
+   37,819,787bytes. Existing key/package, APK/DEX/manifest checks and paired reviews0.
+   Public before50snapshot passes against current49+immutable49/45+wholeperformance43.
+   Ordinary49 remains LIVE;50 is NOT published. Never rebuild50. Close57 only after
+   reviewed public delivery, then proceed directly to59. Chosen policy remains
+   two NEW deliberate intents per rolling second per wallet across both nodes
+   and post surfaces; pending likes retry their exact original on its origin node.
 3. Keep [UI55](https://github.com/robelene112/redsquare-android/issues/55) open
    through the owner's final beta review. Native feature delivery does not
    establish app-wide visual acceptance. Original native2 through35 and prior

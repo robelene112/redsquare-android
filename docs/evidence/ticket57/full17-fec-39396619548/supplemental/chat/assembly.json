@@ -1,0 +1,42 @@
+{
+  "run": 39399544249,
+  "source": "b2ad823b16c8aba0d6b316cfddc3d4d1d7ee5a93",
+  "scope": "chat",
+  "ownedPartition": "chat",
+  "canonicalGoals": [
+    {
+      "path": "public-chat.txt",
+      "testClass": "nl.davidengelen.redsquare.PublicPrivateChatReadTest",
+      "test": "bothApprovedBackendsSupportAuthenticatedPrivateHistoryReads",
+      "occurrences": 1
+    }
+  ],
+  "selectedOriginalFiles": [
+    {
+      "path": "public-chat/readiness.json",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-chat17-39399544249/android-native-proof/.scratch/device-evidence/api-37.0/public-chat/readiness.json",
+      "sha256": "7dde3cfb3218d3f15bfa19daa3445505013db2513ec4cd6587c59db90e72f8e7"
+    },
+    {
+      "path": "public-chat.txt",
+      "source": "/mnt/storage/redsquare-android-artifacts/likes57-public-chat17-39399544249/android-native-proof/.scratch/device-evidence/api-37.0/public-chat.txt",
+      "sha256": "5e2fd9a38f8cc2bdcdaf10569179aee9868fc779673cbecb2d543e97c4142390"
+    }
+  ],
+  "requiredFiles": [
+    "public-chat.txt",
+    "public-chat/readiness.json"
+  ],
+  "imageConfigBindings": {
+    "system-image.txt": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b",
+    "system-image.properties": "bf15b0b43bd0155b258b3756cf523dd917735042633edbb645b34c285a45832d",
+    "page-size.txt": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "requested-page-size.txt": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0",
+    "device-abi.txt": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62",
+    "system-build.txt": "71fa916fc1a09e7fbf426c8e9a70e9ed2b29a67f5c73cc432c5525f89c250eee"
+  },
+  "incidentalCompletedIdentities": [],
+  "incidentalContinuityRecords": 0,
+  "incidentalNormalCompletions": 0,
+  "limits": "All incidental executions must pass and are retained separately; duplicate canonical feed cases and their cold-continuity do not inflate the frozen complete-goal catalog/totals. Initial full dispatch did not include these opt-in public reads."
+}
