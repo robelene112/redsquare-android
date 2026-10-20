@@ -99,10 +99,11 @@ class SocialPushPreviewTest {
                     if (dismiss) {
                         assertTrue(device.openNotification())
                         val card = visibleNotificationCard(device, "Replied to your post", 5_000)
+                        val currentAlert = manager.activeNotifications.single { (it.tag to it.id) !in priorAlerts }
                         val observation = JsonObject().apply {
-                            addProperty("clearable", alerts.single().isClearable)
-                            addProperty("ongoing", alerts.single().isOngoing)
-                            addProperty("flags", alert.flags)
+                            addProperty("clearable", currentAlert.isClearable)
+                            addProperty("ongoing", currentAlert.isOngoing)
+                            addProperty("flags", currentAlert.notification.flags)
                             addProperty("cardBounds", card.visibleBounds.toShortString())
                             addProperty("displayWidth", device.displayWidth)
                             addProperty("displayHeight", device.displayHeight)
