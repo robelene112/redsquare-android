@@ -6,16 +6,17 @@ sequential implementation, review, commits and signed in-place beta delivery.
 
 ## Resume here
 
-1. Finish active [frame58](https://github.com/robelene112/redsquare-android/issues/58):
-   finish final public-packet review of published49. Native verification and
-   paired evidence reviews are complete with0 findings; actual public checks PASS.
-   Keep56/58 open until the final public review has no residual findings.
-2. Continue [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
-   then59 through69 in dependency order. No57 implementation exists yet.
-   Its chosen policy is explicit in the issue and comment6278005545: two NEW
-   deliberate intents per rolling second per wallet across post surfaces and
-   both nodes. A pending/uncertain like for the post prevents a fresh like on
-   either node; reconcile/reuse the exact candidate on its original node.
+1. Scoped [frame58](https://github.com/robelene112/redsquare-android/issues/58) and
+   [Node56](https://github.com/robelene112/redsquare-android/issues/56) are complete:
+   full native acceptance,0/0 paired reviews and signed49 public delivery with
+   final Spec0/documented Standards0/heuristic0 review at a193ff163.
+2. Implement active [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
+   then59 through69 in dependency order. Review base a193ff163. No57 production
+   implementation exists yet. Its chosen policy is explicit in the issue and
+   comment6278005545: two NEW deliberate intents per rolling second per wallet
+   across post surfaces and both nodes. A pending/uncertain like for the post
+   prevents a fresh like on either node; reconcile/reuse the exact candidate
+   on its original node.
 3. Keep [UI55](https://github.com/robelene112/redsquare-android/issues/55) open
    through the owner's final beta review. Native feature delivery does not
    establish app-wide visual acceptance. Original native2 through35 and prior
@@ -75,14 +76,14 @@ Other failed/superseded attempts retain actual states in the reference/history.
 
 Full17 retained evidence was independently reviewed at f8c812822: Spec0,
 documented Standards0,heuristic0. Full10 and paired status at2d022ce1a also have Spec0, documented Standards0
-and heuristic0. Reuse policy52_spec_review and policy52_standards_review for the
-final public-packet review against fixed2d022ce1a.
+and heuristic0. Reuse policy52_spec_review and policy52_standards_review for later changes. Final public-packet review against fixed2d022ce1a at
+a193ff163 reports0 findings on both axes.
 
 ## Published49 and publication
 
 Ordinary49 is LIVE at <https://davidengelen.nl/redsquare/>. Previous45 remains
 immutable. Node56 has focused10/17 and larger-font acceptance, source/publication45
-review and signed49 follow-through;56/58 await final public-packet review.
+review and signed49 follow-through; final public-packet reviews are0/0.
 
 Prepared49/0.1.49 is frozen in external worktree
 `/mnt/storage/redsquare-android-artifacts/review-worktree` at exact production a1.
@@ -98,7 +99,7 @@ Canonical `scripts/review-publish` from that frozen worktree completed with exit
 The independent before/after checker also exits0/PASS, verifying the actual public
 APK/metadata/certificate/package/source, immutable45 and the whole performance43
 channel. [Public packet](../evidence/ticket58/publication49/README.md) retains
-public-safe records only. Final two-axis packet review remains before closing56/58.
+public-safe records only. Final two-axis packet reviews at a193ff163 report0 residual findings.
 Never rebuild49 or publish superseded48/47/46. Install ordinary updates over the
 existing app, preserving its wallet.
 

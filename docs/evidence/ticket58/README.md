@@ -33,8 +33,8 @@ remains failed and its cause remains unproved. Diagnostics changed no gesture.
 Both paired full-evidence review axes report0 residual findings at2d022ce1a.
 [Signed49 is published](publication49/README.md) with the established identity.
 Canonical publication and independent actual public checks exit0, preserving
-immutable45 and the entire performance43 channel. Final public-packet review
-is pending;56/58 remain open through that review.
+immutable45 and the entire performance43 channel. Final public-packet reviews at a193ff163 report Spec0, documented Standards0
+and heuristic0. Scoped56/58 delivery is complete.
 No physical/configured-provider/store or app-wide UI acceptance is claimed.
 
 ## Implementation and diagnosis history

@@ -61,7 +61,8 @@ full-evidence axes report0 findings. Actual larger-font/theme/viewport originals
 were inspected, with Node wording and selected domains retained. Signed49 now
 includes both56 and58: [public bookends](../ticket58/publication49/README.md)
 verify the downloaded APK, package, certificate, source and preserved immutable45/
-performance43 channel. Final public-packet review remains pending before closing56.
+performance43 channel. Final public-packet reviews at a193ff163 report Spec0, documented Standards0
+and heuristic0. Scoped56 delivery is complete.
 
 No physical timing, ordinary49 phone-update continuity, configured-provider or Play
 acceptance is inferred. Broader UI and real release gates retain their status.
