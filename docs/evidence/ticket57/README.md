@@ -165,3 +165,27 @@ every old social-action method, original first-Like process gate and additive
 second-Like process recovery. Full SDK and signed57 acceptance are still pending.
 Canonical signed50 preparation started from frozen285 with the established key;
 preparation is not public delivery and no result is assumed before completion.
+
+
+## Combined-scope selector failure and prepared50
+
+CompleteSocial39395383267(10)/39395386328(17) at285 both actually FAIL before
+any process gate:3 Repeat+2 Isolation methods pass, then both import methods
+find two Like controls in a cache containing the preceding different-post
+fixture. Logs retain two actual assertion failures and command exit0 per SDK.
+The ten-hash packets bind both original failure PNGs. Root opened10 pending
+and17 settled originals, each showing Reference post20 and the canonical post.
+These are scope failures, not evidence of a production bug or process acceptance.
+Fixture-only e26672bf4 opens the canonical post's Conversation before Like;
+assertions, native restoration and all deadlines remain. Both source review axes
+report0 findings. Source39396012366 and focused process39396110427/39396113577
+are running, with per-job native source build before runtime.
+
+Canonical signed50 preparation exits0 from frozen285, retaining established
+certificate/package50/0.1.50, actual APK SHA256
+58f50ecfd835732a1f86918cc72617da299d548e9ef46186c1f1b9b62f4285da.
+Actual signature, manifest and DEX inspection exits0: min29/target36,
+nondebuggable/nonprofileable,backup=false,review=true,Push=false and separate
+Posts/Chat GIF keys absent. Artifact/source are unchanged by e266's test-only
+selector correction. It is prepared only; no public50 or physical/store/provider
+acceptance is claimed. Ordinary49 remains live. Full checks remain pending.

@@ -26,14 +26,17 @@ sequential implementation, review, commits and signed in-place beta delivery.
    different-post/wallet/late-count journeys have passed native verification.
    New739 adds actual cold recovery after a settled first plus uncertain second
    Like while retaining the original first-Like process gate. Local compile and
-   both source axes0; native process/original-social acceptance is running in
-   completeSocial39395383267/39395386328 at285. The independent catalog is frozen
+   both source axes0; completeSocial39395383267/39395386328 actually FAIL at two ambiguous
+   import Like selectors after5PASS, before any process or oldSocial gates.
+   Both original packets are retained. Fixture-onlye266 opens the canonical
+   Conversation first, preserving assertions/deadlines; both source axes0.
+   Source39396012366 and process focus39396110427/39396113577 are running. The independent catalog is frozen
    before full execution:481/482 completed identities,126/127 normal completions,
    35 deliberate interruptions and34 continuity records, every original gate kept.
-   Next retain complete Social, execute both complete SDK suites, final0/0 review,
+   Next prove actual second-Like process, complete Social/full SDK suites, final0/0 review,
    signed50 canonical delivery and close57. Ordinary49 remains LIVE. Version50 is
-   reserved and canonical preparation runs in the external frozen285 worktree;
-   no public57 delivery is established. The chosen policy is issue57/comment
+   reserved and canonical preparation completed0 in external frozen285 worktree.
+   Actual APK/DEX/signature/manifest checks0; no public57 delivery is established. The chosen policy is issue57/comment
    6278005545: two NEW deliberate intents per rolling second per wallet across
    post surfaces and both nodes. A pending or uncertain like prevents a fresh
    like on either node; reconcile/reuse its exact candidate on its original node.

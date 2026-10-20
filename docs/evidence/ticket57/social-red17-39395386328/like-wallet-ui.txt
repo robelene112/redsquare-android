@@ -1,0 +1,113 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikeWalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.LikeWalletImportPreviewTest:
+INSTRUMENTATION_STATUS: test=uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikeWalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet(LikeWalletImportPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: stream=
+Error in uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet(nl.davidengelen.redsquare.LikeWalletImportPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet(LikeWalletImportPreviewTest.kt:34)
+
+INSTRUMENTATION_STATUS: test=uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikeWalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=settledLikeAndRateReceiptsAloneDoNotInventPendingWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.LikeWalletImportPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.settledLikeAndRateReceiptsAloneDoNotInventPendingWork(LikeWalletImportPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: stream=
+Error in settledLikeAndRateReceiptsAloneDoNotInventPendingWork(nl.davidengelen.redsquare.LikeWalletImportPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.settledLikeAndRateReceiptsAloneDoNotInventPendingWork(LikeWalletImportPreviewTest.kt:38)
+
+INSTRUMENTATION_STATUS: test=settledLikeAndRateReceiptsAloneDoNotInventPendingWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 5.639
+There were 2 failures:
+1) uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet(nl.davidengelen.redsquare.LikeWalletImportPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet(LikeWalletImportPreviewTest.kt:34)
+2) settledLikeAndRateReceiptsAloneDoNotInventPendingWork(nl.davidengelen.redsquare.LikeWalletImportPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Like' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.PostListTestUiKt.clickVisiblePostContent(PostListTestUi.kt:12)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike$lambda$9$lambda$8$lambda$7$lambda$6(LikeWalletImportPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.$r8$lambda$rJnuROvkYpbu_S6OyPqQgtRlFhA(LikeWalletImportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.previewLike(LikeWalletImportPreviewTest.kt:72)
+	at nl.davidengelen.redsquare.LikeWalletImportPreviewTest.settledLikeAndRateReceiptsAloneDoNotInventPendingWork(LikeWalletImportPreviewTest.kt:38)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

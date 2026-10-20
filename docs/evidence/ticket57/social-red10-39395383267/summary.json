@@ -1,0 +1,13 @@
+{
+  "conclusion": "failure",
+  "databaseId": 39395383267,
+  "headSha": "285d84bacef662ea357612fc2b256b8e9b93c8f4",
+  "status": "completed",
+  "url": "https://github.com/robelene112/redsquare-android/actions/runs/39395383267",
+  "passedBeforeFailure": 5,
+  "failed": 2,
+  "instrumentationExit": 0,
+  "observation": "Both LikeWalletImport methods fail before clicking Like because the earlier isolation journey leaves an extra cached signed post. Original captures show two posts and two Like controls. No process preparation or SocialPreview execution is reached.",
+  "correction": "e26672bf4 selects the canonical post and waits for Conversation before Like; same assertions and deadlines, no cache deletion. Corrected combined runtime pending.",
+  "limits": "Actual failed combined scope, not process/full/signed57 acceptance. No claimed production defect."
+}
