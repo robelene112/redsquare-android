@@ -18,5 +18,8 @@
   "targetSdk": 36,
   "testToolQueryInRelease": false,
   "published": false,
-  "physicalDeviceAcceptance": false
+  "physicalDeviceAcceptance": false,
+  "superseded": true,
+  "neverPublish": true,
+  "rejectionReason": "The complete3c Android10 Chat partition fails the original48dp Members target after scrolling queued offline group status to its end. The4ae queued presentation is unchanged. Guidance ordering is being corrected; require a fresh signed candidate and complete verification."
 }

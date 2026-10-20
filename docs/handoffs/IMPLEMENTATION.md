@@ -309,3 +309,16 @@ fc4c6a4ee1ade45bea04f97038c3c392dd60c05ae3b7e72011f176a3ee0bf7ba.
 51through54 are rejected and never publishable;50 remains live. Native full
 acceptance and final review/publication are pending. Never rebuild55.
 Finish59, then sequential60through69 without routine pauses.
+
+## Superseding59 correction: queued management viewport
+
+55 is now REJECTED, never publishable. The3c full10 Chat job finds Members
+clipped to22pixels after scrolling queued status to its end. Captured native PNG/
+XML and198/198 scroll checkpoint establish the ordering defect; cancellation
+remains visible.4ae has the same queued layout. Corrected source places routine
+history guidance before management while keeping delivery/Retry first and80dp
+maximum unchanged. Existing focused old-source viewport runs39435980283/
+39435984470 reproduce the two original cancellation journeys. Current full4ae
+runs must finish but cannot accept changed source. Fresh focused/full checks,
+reviews and a new signed candidate are required.50 stays live;51through55 are
+rejected. Continue59, then sequential60through69.

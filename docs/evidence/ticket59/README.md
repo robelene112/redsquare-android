@@ -721,3 +721,27 @@ SUCCESS at exact4ae. Independent actual55 preparation review through08cb has
 0 Spec,0 documented Standards and0 heuristic findings. Full device acceptance
 and final publication remain pending; these preparation checks do not replace
 them.
+
+## Whole-run queued management clipping,55 rejected
+
+The3c Android10 full Chat job fails one original ChatQueuePreviewTest method,
+anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending.
+The unchanged physical48dp Members target is only22pixels high after the actual
+status scroll reaches198/198. The native PNG and XML show Members clipped at the
+status viewport top, followed by Available history; Cancel queued message stays
+fully visible below. Root opened both original pre-assertion and failure PNGs.
+The packet retains all95 original archive members and actual failed goal log.
+The full dispatch is still finishing its other jobs at capture time.
+
+This queued presentation is identical at4ae; the Retry relocation applies only
+when no queued message exists. Signed55 is now REJECTED and NEVER PUBLISH, with
+unchanged frozen APK and explicit marker. Ordinary50 stays live. The active4ae
+full jobs finish as observations and cannot accept the next corrected source.
+
+The correction keeps primary delivery/Retry first and moves routine history
+guidance ahead of management, so the real status-scroll end exposes Members.
+The80dp bound, warning access, cancellation, draft and exact signed-message
+guards are unchanged. Focused old-source viewport10run39435980283 and
+17run39435984470 execute the existing two original cancellation journeys for
+a smaller reproduction. Corrected focused/full verification and a fresh signed
+candidate remain pending. No target threshold or assertion is relaxed.

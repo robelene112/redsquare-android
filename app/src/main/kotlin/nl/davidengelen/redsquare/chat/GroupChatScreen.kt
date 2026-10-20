@@ -336,6 +336,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     }
     val keyboardVisible = WindowInsets.isImeVisible
     val entry = entries.firstOrNull { it.group.id == selected }
+    val staleAction = entry?.let(store::isStaleAdminAction) == true
     BoxWithConstraints(modifier.fillMaxSize()) {
     val statusMaxHeight=minOf(maxHeight/3,80.dp)
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
@@ -360,7 +361,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             InlineStatus(if (historyFailed) stringResource(R.string.group_history_error) else null, StatusTone.WARNING)
             InlineStatus(if (liveFailed) stringResource(R.string.group_live_error) else null, StatusTone.WARNING)
             if(entry!=null) {
-                val staleAction=store.isStaleAdminAction(entry)
                 InlineStatus(if (entry.queuedMessage==null) stringResource(when(entry.status) {
                     GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                     GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
@@ -384,6 +384,10 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             } else sendPrepared(entry.group.id,pending,updated,originalRelay=creation)
                         }
                     })
+            }
+            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+            if(entry!=null) {
                 if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                     style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
                 if (!keyboardVisible) FlowRow {
@@ -405,8 +409,6 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     Text(stringResource(R.string.chat_load_older))
                 }
             }
-            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
-                details = listOf(stringResource(R.string.chat_available_history)), announce = false)
         }
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {

@@ -143,12 +143,13 @@
   ],
   "verificationRef": "verify/status59-4ae88dcaf",
   "signedCandidateVersion": 55,
-  "signedCandidateRejected": false,
+  "signedCandidateRejected": true,
   "rejectedCandidateVersions": [
     51,
     52,
     53,
-    54
+    54,
+    55
   ],
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
