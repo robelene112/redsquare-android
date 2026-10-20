@@ -11,7 +11,7 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
 
 /** Read-only frame peer and declared local state, restored after the Activity closes. No recomposer replacement. */
-internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, block: (ActivityScenario<MainActivity>) -> Unit) {
+internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-frame-evidence", feedRows: String? = null, configurePeer: (ControlledFeedPeer) -> Unit = {}, block: (ActivityScenario<MainActivity>) -> Unit) {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val context = instrumentation.targetContext
     check(context.packageName == "nl.davidengelen.redsquare.dev" && Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -30,6 +30,7 @@ internal fun withAppFrameFixture(name: String, evidenceFolder: String = "app-fra
             else -> error("Unexpected frame browsing request")
         }
     })
+    configurePeer(peer)
     var primary: Throwable? = null
     try {
         retained.prepare()
