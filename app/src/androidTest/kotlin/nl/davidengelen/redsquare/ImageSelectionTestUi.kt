@@ -59,7 +59,7 @@ internal fun ComposeTestRule.clickImagePicker() {
 internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {
     val image = hasContentDescription("Image 1 of 1").let { label ->
         if (postText == null) label
-        else label and hasAnyAncestor(hasAnyChild(hasText(postText) and hasClickAction()))
+        else label and hasAnyAncestor(hasText(postText) and hasClickAction())
     }
     waitUntil(15_000) { onAllNodes(image).fetchSemanticsNodes().isNotEmpty() }
     if (postText != null) onNode(hasScrollAction()).performScrollToNode(image)

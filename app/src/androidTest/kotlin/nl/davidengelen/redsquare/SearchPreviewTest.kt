@@ -807,8 +807,7 @@ class SearchPreviewTest {
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed().performClick()
                     waitForEnabled("Reply")
                     ui.onNodeWithText("Conversation").assertIsDisplayed()
-                    ui.onNode(hasText("Anon-${author.take(6)}") and hasParent(hasAnyChild(hasText("Independent Saito reply"))),
-                        useUnmergedTree = true).performClick()
+                    ui.clickVisiblePostProfile("Anon-${author.take(6)}")
                     waitForText("Profile")
                     ui.onNodeWithText(author).assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()

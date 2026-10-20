@@ -69,6 +69,19 @@ not reached. This is the genuine next presentationRED.
 Current product slice routes Thread/Search/Profile through the same PostCard as
 Feed, preserving every post/backend/navigation/media/quote/social input. All
 reporting hosts remain outside their menus; now-unused fallback renderer/flag
-paths and imports are removed during review. Native migrationGREEN is pending.
+paths and imports are removed during review. The migration is committed atf6520438412124bce7a5aa837f1221663cd6ae34.
+Local app+AndroidTest Kotlin compilation succeeds in4m13s. Both bounded source
+reviews and RED-packet reviews report0. Pinned native post-presentation
+39486218923(Android10),39486223271(Android17), and existing browse39486227817
+are active at the samef652 source; migrationGREEN is pending.
 Remaining60 scope includes compact vector social actions/status, coherent author
 menu actions, large-text/content rendering and actual accessibility proof.
+
+
+A final operator review updates six existing fixtures for the new merged post
+semantics: remaining repeat-like/Search profile entry, root-author association,
+registered and quoted-parent author targets, image pixel and video provider
+selection. Actual name text and explicit card association remain where required;
+all raw/rate/registry/pixel/provider/control/recovery/cleanup/deadline assertions
+are unchanged. Both source-only reviews report0. Native regression proof follows;
+no new acceptance is inferred from source review.

@@ -61,14 +61,15 @@ class UsernamePreviewTest {
                     waitForEnabled("Refresh") // Archive observation precedes signed post parsing and publication.
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
-                    val targetAuthor = hasText("NativeCase7@saito") and hasParent(hasAnyChild(hasText(text)))
-                    ui.waitUntil(20_000) { ui.onAllNodes(targetAuthor, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(targetAuthor, useUnmergedTree = true).assertIsDisplayed()
+                    val targetAuthor = hasText("NativeCase7@saito") and hasContentDescription("View profile for NativeCase7@saito") and
+                        hasClickAction() and hasAnyAncestor(hasText(text) and hasClickAction())
+                    ui.waitUntil(20_000) { ui.onAllNodes(targetAuthor).fetchSemanticsNodes().isNotEmpty() }
+                    ui.onNode(targetAuthor).assertIsDisplayed()
                     assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
                         it.getAsJsonArray("keys").any { key -> key.asString == author } })
                     assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
                     capture("username-shared-feed.png", "NativeCase7@saito")
-                    ui.onNode(targetAuthor, useUnmergedTree = true).performClick()
+                    ui.onNode(targetAuthor).performClick()
                     waitForText("Profile")
                     ui.onNodeWithText(author).assertIsDisplayed()
                     ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(author)), useUnmergedTree = true).assertIsDisplayed()
@@ -76,7 +77,7 @@ class UsernamePreviewTest {
                     waitForText(text)
                     ui.clickVisiblePostContent(text)
                     waitForEnabled("Reply")
-                    ui.onNode(targetAuthor, useUnmergedTree = true).assertIsDisplayed()
+                    ui.onNode(targetAuthor).assertIsDisplayed()
                     capture("username-shared-conversation.png", "NativeCase7@saito")
                     ui.onNodeWithText("Reply").performClick()
                     waitForText("Replying to NativeCase7@saito")
@@ -261,7 +262,7 @@ class UsernamePreviewTest {
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedText)
                     ui.onNode(quotedText, useUnmergedTree = true).assertIsDisplayed()
                     ui.onNode(hasText("Anon-${reader.publicKey.take(6)}") and
-                        hasParent(hasAnyChild(hasText("Current commentary retweet"))), useUnmergedTree = true).assertExists()
+                        hasContentDescription("View profile for Anon-${reader.publicKey.take(6)}") and hasAnyAncestor(hasText("Current commentary retweet") and hasClickAction())).assertExists()
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quotedName)
                     ui.onNode(quotedName, useUnmergedTree = true).assertIsDisplayed()
                     capture("username-quoted-name.png", "NativeCase7@saito")

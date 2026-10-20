@@ -334,9 +334,10 @@ class PersonalControlsPreviewTest {
                 waitForEnabled("Refresh")
                 showPost("Independent Saito reply")
                 showPost("Native Red Square reference post")
-                val authorLink = hasClickAction() and hasAnySibling(hasText("Native Red Square reference post"))
-                // The root is the first chronological card. Nested replies may share its author.
-                ui.onAllNodes(authorLink, useUnmergedTree = true)[0].assertIsDisplayed().performClick()
+                val authorLink = hasContentDescription("View profile for Anon-${author.take(6)}") and
+                    hasAnyAncestor(hasText("Native Red Square reference post") and hasClickAction())
+                // Associate the account with this root card, even when replies share its author.
+                ui.onNode(authorLink).assertIsDisplayed().performClick()
                 waitFor("Profile")
                 waitFor(author)
                 waitFor("Mute account")

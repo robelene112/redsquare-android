@@ -349,7 +349,7 @@ class VideoPreviewTest {
     """.trimIndent()).build()
 
     private fun watch(postText: String) {
-        val button = hasText("Watch on YouTube") and hasAnyAncestor(hasAnyChild(hasText(postText) and hasClickAction()))
+        val button = hasText("Watch on YouTube") and hasAnyAncestor(hasText(postText) and hasClickAction())
         ui.onNode(hasScrollAction()).performScrollToNode(button)
         ui.onNode(button).assertIsDisplayed().performClick()
     }

@@ -125,7 +125,7 @@ class RepeatLikePreviewTest {
                 ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                 waitFor("Node: saito.davidengelen.nl")
                 waitFor("5 likes")
-                ui.clickVisiblePostContent(owner.postAuthor)
+                ui.clickVisiblePostProfile("Anon-${owner.postAuthor.take(6)}")
                 waitFor("Profile")
                 ui.clickVisiblePostContent("Liked")
                 assertRateFeedback()
