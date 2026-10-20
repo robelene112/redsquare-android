@@ -731,7 +731,8 @@ status scroll reaches198/198. The native PNG and XML show Members clipped at the
 status viewport top, followed by Available history; Cancel queued message stays
 fully visible below. Root opened both original pre-assertion and failure PNGs.
 The packet retains all95 original archive members and actual failed goal log.
-The full dispatch is still finishing its other jobs at capture time.
+At the earlier failure observation the other jobs were finishing; the retained
+run-at-capture metadata is terminal FAILURE for the complete10 dispatch.
 
 This queued presentation is identical at4ae; the Retry relocation applies only
 when no queued message exists. Signed55 is now REJECTED and NEVER PUBLISH, with
