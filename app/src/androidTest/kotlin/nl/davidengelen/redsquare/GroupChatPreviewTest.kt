@@ -1049,6 +1049,7 @@ class GroupChatPreviewTest {
     }
 
     private fun captureGroupViewport(name:String) {
+        val context=InstrumentationRegistry.getInstrumentation().targetContext
         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/$name.png"))
         File(context.cacheDir,"group-chat-evidence/$name.semantics.txt").writeText(
             ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE))

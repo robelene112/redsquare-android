@@ -636,3 +636,10 @@ helpers, and moves the original old-message scroll before its original exact
 node-count assertion. All original assertions,15second goals and180second class
 bound remain. Three before/after native/all-root observations test positioning.
 No app/build/signing change:47 remains prepared/unpublished atf59; ordinary45 live.
+
+Initial1cb source39364756602 and focused39364756553/39364758729/39364760713/
+39364762515 allFAILED compilation before device execution. captureGroupViewport
+incorrectly referenced a function-local context from class scope. The compile RED
+packet retains actual five-run metadata and original compiler lines. A local
+target-context declaration fixes the helper scope; no app change or weakened
+assertion. Source compilation must pass before new focused runtime dispatch.

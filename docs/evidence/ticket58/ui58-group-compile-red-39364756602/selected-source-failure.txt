@@ -1,0 +1,6 @@
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:06.5479715Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt:1052:34 Function invocation 'context(...)' expected.
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:06.5480675Z > Task :app:compileDebugAndroidTestKotlin FAILED
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:06.5489155Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt:1052:42 Unresolved reference 'cacheDir'.
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:06.5490592Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt:1053:14 Function invocation 'context(...)' expected.
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:06.5491935Z e: file:///home/runner/work/redsquare-android/redsquare-android/app/src/androidTest/kotlin/nl/davidengelen/redsquare/GroupChatPreviewTest.kt:1053:22 Unresolved reference 'cacheDir'.
+native-proof (all)	Build and verify native sources	2026-10-20T03:34:41.7477973Z BUILD FAILED in 1m 27s

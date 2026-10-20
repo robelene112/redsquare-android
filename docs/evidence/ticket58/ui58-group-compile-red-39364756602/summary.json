@@ -1,0 +1,14 @@
+{
+  "source": "1cb168591a05770834b483a97301deb61088ff35",
+  "failedRuns": [
+    39364756602,
+    39364756553,
+    39364758729,
+    39364760713,
+    39364762515
+  ],
+  "deviceExecution": false,
+  "cause": "The new class-level captureGroupViewport helper referenced context, but contexts in this fixture are function locals. Kotlin failed context/cacheDir resolution.",
+  "correction": "Declare the target context locally inside the capture helper. App/build/signing and all acceptance assertions remain unchanged.",
+  "limit": "Compile failures only, no corrected build or runtime claim. Source CI must pass before new runtime scopes."
+}
