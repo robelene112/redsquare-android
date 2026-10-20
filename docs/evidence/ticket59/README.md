@@ -1288,3 +1288,37 @@ Both independent complete17/photo-route evidence reviews at2fb108ee4 report
 zero remaining findings:639 full17 hashes/92 archives/2,526 members and111
 whole-photo hashes/82 originals verify against actual raw bytes. Complete17
 at72a remains accepted as one SDK; complete10/native publication are pending.
+
+## Corrected Search focus and production-equivalent complete10
+
+Both corrected d567 Search runs are SUCCESS:10run39459680040/17run39459685383
+all9 methods in64.423/91.205seconds, within the unchanged180second class bound.
+Both32-member original packets retain the actual visible/enabled pre-click
+window and subsequent username-error/qualified-name state, opened by root.
+Native10 Search action is[16,214][160,262],enabled/clickable and48px high.
+No cause is inferred from these successful observations or capture timing.
+All original qualification, absent-forged-key, owner/node and zero-send assertions
+remain. Both operator and production-equivalence review axes report0.
+
+Exact Git inventories independently verify457 identical entries outside docs/
+and AndroidTest between72a and d567b00849dc8ac84989610195331e50fd772068.
+The only non-doc difference is SearchPreviewTest. This includes unchanged
+production, build, workflow, harness and signing inputs; signed58 and accepted
+complete17 retain their exact72a binding. Corrected d567 source/core/gateway/
+release/performance/lint39459628860 is SUCCESS.
+
+Second72a full10run39455628348 is terminal FAILURE: socialFAILURE,ChatSUCCESS,
+walletSUCCESS. Exact terminal metadata is retained with the original Search
+failure packet and refreshed hashes. That complete Chat success does not turn
+the failed dispatch into acceptance and cannot fill the corrected full.
+
+Fresh full10run39460998051 executes exact d567 at
+verify/status59-search-d567b0084. Allthree jobs, full frozen486 identities,129
+normal completions,35 interruptions,34 continuity,92 archives, every public read,
+actual service/engine speech, normal/zero motion and all five reading bookends
+remain mandatory. Complete17at72a stays separately bound through the reviewed
+production equivalence, per the established fixture-only outstanding-SDK rule.
+The collector and independently frozen catalog are unchanged.58 remains
+immutable/prepared/unpublished,50live; native10 success, actual visual evidence,
+final paired review and public after-bookend remain pending. Continue60through69
+and rendered navigation70 after actual59 completion without routine stops.

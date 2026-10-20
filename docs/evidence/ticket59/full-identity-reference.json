@@ -92,7 +92,7 @@
     "android17": "72a8c63828280d61dc760331e17289cf7c93112a"
   },
   "executingRuns": {
-    "android10": null,
+    "android10": 39460998051,
     "android17": 39451603260
   },
   "signedCandidateSource": "72a8c63828280d61dc760331e17289cf7c93112a",
@@ -178,7 +178,14 @@
       "source": "72a8c63828280d61dc760331e17289cf7c93112a",
       "android10": 39455628348,
       "acceptance": "rejected",
-      "reason": "Social job fails SearchPreviewTest cached-name fresh-check visible error assertion after returning from Profile. Wallet succeeds, Chat finishes separately. Original30members/goal log/capture metadata retained; capture doesnot prove tap/request cause. No failed-tail or focused assembly."
+      "reason": "Social job fails SearchPreviewTest cached-name fresh-check visible error assertion after returning from Profile. Wallet succeeds, Chat finishes separately. Original30members/goal log/capture metadata retained; capture doesnot prove tap/request cause. No failed-tail or focused assembly.",
+      "terminalConclusion": "failure",
+      "jobConclusions": {
+        "social": "failure",
+        "chat": "success",
+        "wallet": "success"
+      },
+      "finalMetadata": "docs/evidence/ticket59/search-red10-72a-39455628348/run-final.json"
     }
   ],
   "signedCandidateVersion": 58,
@@ -263,20 +270,20 @@
   "sourceBuild": {
     "run": 39459628860,
     "source": "d567b00849dc8ac84989610195331e50fd772068",
-    "status": "in_progress",
-    "conclusion": "",
+    "status": "completed",
+    "conclusion": "success",
     "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860"
   },
   "signedCandidateState": "prepared and immutable, not accepted or published",
   "executingSourceCheck": {
     "run": 39459628860,
     "source": "d567b00849dc8ac84989610195331e50fd772068",
-    "status": "in_progress",
-    "conclusion": "",
+    "status": "completed",
+    "conclusion": "success",
     "url": "https://github.com/robelene112/redsquare-android/actions/runs/39459628860",
     "acceptance": "Corrected fixture/source/core/gateway/release/performance/lint only; complete10 runtime acceptance remains pending."
   },
-  "executingState": "Android17 complete72a SUCCESS and strict487/130/35/34/92 checks pass. Second complete10 social fails; corrected fixture d567 focused runs pending, fresh entire10 not dispatched. Null10 run is intentionally ineligible for collection.",
+  "executingState": "Complete17 at72a accepted as one SDK; corrected full10 39460998051 at production-equivalent d567 is active. Allthree jobs and complete frozen486/129/35/34/92 checks required. No supplemental or failed-tail assembly.",
   "fixtureEquivalenceHistory": [
     {
       "path": "docs/evidence/ticket59/ff9-production-equivalence/inputs.json",

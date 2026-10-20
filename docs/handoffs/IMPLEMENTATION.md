@@ -36,7 +36,7 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20 16:44 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
+2026-10-20 16:53 UTC.59 OPEN; ordinary50 LIVE;51through57 REJECTED/NEVER PUBLISH.
 Finish59, then60through69 and bounded rendered navigation follow-up70 sequentially,
 without routine owner stops.70 is linked to55/blocked by59 and queued after69.
 No new owner input is needed. Physical/provider/KVK/store prerequisites remain parked.
@@ -69,7 +69,8 @@ failedfull.82 originals retained; narrower sequence doesnot establish broad caus
 Both failure/storage/wholephoto packet reviews0. No heap/source/data/budget change.
 
 Second complete10run39455628348 social FAILS Search case8 line278,8otherspass
-52.830s. WalletSUCCESS; Chat still running, retain its actual terminal result.
+52.830s. The run is terminal FAILURE: socialFAILURE,ChatSUCCESS,walletSUCCESS.
+Exact final run/job metadata is retained with the original Search failure packet.
 All30 original members/goal log retained. RootPNG/XMLshows priorverifiedperson,
 no fresh-error summary and enabled action when captured; no proof tap/request.
 Search remount source begins cacheReady=false; old fixture taps before waiting.
@@ -77,14 +78,16 @@ Corrected test-only source `d567b00849dc8ac84989610195331e50fd772068`, pinned
 verify/status59-search-d567b0084, positively waits for displayed/enabled clickable
 Search action before that tap/capture and exact original displayed error after.
 All9 identities,20s goals,180s class and all qualification/absence/key/wallet/node/
-zeroTX assertions remain. Both correction review axes report0.
-Focused Search10run39459680040/17run39459685383 active. Source check39459628860
-active. Exact production-equivalence inventories prove457 unchanged tracked
+zeroTX assertions remain. Both correction and exact457-entry production-equivalence review axes report0.
+Focused Search10run39459680040/17run39459685383 both SUCCESS,all9 methods
+64.423/91.205s. Each retains32 originals including actual positive pre-click and
+fresh-error/qualified-name windows, opened by root. Source check39459628860
+SUCCESS. Exact production-equivalence inventories prove457 unchanged tracked
 entries outside docs/AndroidTest, including build/workflow/harness/signing inputs,
 from72a to d567. Only SearchPreviewTest differs.58 remains exact72a.
 
-Fresh entire10 at d567 has not been dispatched; wait for focused/review results.
-Config10 run is intentionally null and cannot pass strict collection. Complete17
+Fresh entire10run39460998051 at exact d567 is active on
+verify/status59-search-d567b0084; config binds that exact source/ref/run. Complete17
 at72a can remain only with exact production equivalence and corrected full10
 acceptance per workflow. No failed-tail/focused/old-wallet assembly. All three
 new10 jobs, frozen486 identities/129normal/35interruptions/34continuity/92archives,
