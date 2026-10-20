@@ -1,5 +1,41 @@
 # Content-first application frame58
 
+## Current verified state
+
+Both complete native runs are SUCCESS with unchanged production
+`a1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4`:
+
+- [Android10](full10-ec-39378808769/summary.json), run39378808769 at ec:
+  exactly473 expected identities,472 PASS and the sole established API29 Profile
+  assumption,122 normal completions,34 deliberate interruptions,33 PASS continuity
+  records. The packet has437 hashes and85 inventories binding2269 original members.
+- [Android17](full17-fa-39376147196/summary.json), run39376147196 at fa:
+  exactly474 PASS identities,123 normal completions,34 interruptions and33 PASS
+  continuity records. All three jobs succeeded;467 hashes and85 inventories bind
+  2273 original members. Both independent reviews of the17 packet report0 findings.
+
+The unchanged strict collector exits0 for each SDK. There are no missing/extra
+identities or new exclusions. Only the five exact established optional53 observer
+gaps recur. Android10 structurally validates1117 PNG/954 XML observations;17
+validates1123 PNG/954 XML. The existing Profile aggregate remains a duplicate of
+its four canonical constituent logs, preserving the independent catalog.
+
+Root inspected original first-use,320dp/130% light,320dp/200% dark,412dp/130%
+light, real profile IME, Chat without backup chrome, Home-return and interrupted
+reaction PNGs on10; corresponding17 originals and the earlier actual motion/
+all-eight font/theme proof were also inspected. Large-font wrapping is retained;
+this does not accept the broader post/Chat destination polish. Both10 worker
+notification before/after originals were opened. All three10 full dismissal
+observations report clearable=true,ongoing=false,flags24,textHidden=true and no
+owned active notification; gesture calls143/150/153ms. The prior failed dismissal
+remains failed and its cause remains unproved. Diagnostics changed no gesture.
+
+Signed49 is prepared and reviewed, with the established identity, but remains
+unpublished until final paired-evidence review and canonical public checks.
+No physical/configured-provider/store or app-wide UI acceptance is claimed.
+
+## Implementation and diagnosis history
+
 Review baseaa40be525. Initial tracer sourceb84f472c2, Android17 run39326953921,
 retains the actual RED:1JUnit failure in11.938seconds because no selected Home
 destination exists. Instrumentation process exits0; the test result is FAILURE.
@@ -12,9 +48,9 @@ node guard and existing draft-save navigation remain. Returning to Home restores
 feed position; Search and own-profile state are retained by the scoped navigation
 memory. Wallet and Settings stay reachable, and node context remains visible.
 
-This is implementation in progress, not complete58 or app-wide UI acceptance.
-Native green, theme/font/IME/motion/recovery walkthroughs, full regression,
-two-axis review and signed UI delivery remain pending. The separate Node45 beta
+At this initial slice, native green, theme/font/IME/motion/recovery walkthroughs,
+full regression, two-axis review and signed UI delivery were still pending.
+The current verified state above supersedes this historical status. The separate Node45 beta
 is wording-only and is not delivery of this redesign.
 
 The first production execution e50538e60/run39328611127 is also FAILURE:

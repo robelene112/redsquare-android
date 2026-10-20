@@ -111,7 +111,7 @@
       "expectedContinuityRecords": 33
     }
   ],
-  "limits": "Complete58 full acceptance and signed49 delivery are not yet claimed. Existing focused frame/font/IME/system-motion evidence remains scoped and current for unchanged shared-frame production; no physical/configured-provider/store acceptance.",
+  "limits": "Complete paired native58 verification is retained. Signed49 remains prepared/unpublished pending final retained-evidence review and canonical delivery. Actual physical Pixel, configured-provider, policy operations and store acceptance remain under36. This is shared-frame acceptance, not app-wide UI acceptance.",
   "previousAttempts": [
     {
       "source": "9b33d3fefa5d47dbaaf0f05fdfe8735938ffd1e4",
@@ -469,6 +469,10 @@
     "android10": "ec7ec4d8c30ac40795256ea924cc49c582f15498",
     "android17": "fa21f295d8ff39206c81e30da081a677ed57a402"
   },
-  "sourceEquivalence": "Production a1 and prepared unpublished signed49 unchanged. Android17 full39376147196 at fa completed SUCCESS in all three jobs; retained exact474 PASS identities,123 normal completions,34 deliberate interruptions and33 continuity records. Android10 full39378808769 at ec is still running. ec only adds best-effort primitive notification diagnostics and focused routing, preserving the original gesture, assertions and deadlines. Prior failed10fa remains failed. Frozen473/474 catalogs unchanged. Complete paired acceptance and signed publication remain pending.",
-  "candidateSource": "fa21f295d8ff39206c81e30da081a677ed57a402"
+  "sourceEquivalence": "Android10 full39378808769 at ec completed SUCCESS: exact473 identities,472 PASS and the sole established API29 Profile assumption,122 normal completions,34 deliberate interruptions,33 continuity records. Android17 full39376147196 at fa completed SUCCESS in all three jobs: exact474 PASS,123 normal completions,34 interruptions and33 continuity. Both use unchanged production a1, the prepared signed49 source. ec only adds best-effort primitive notification diagnostics and focused routing; original gestures, assertions and deadlines are preserved. Frozen expectations and previous failed conclusions are unchanged.",
+  "candidateSource": "fa21f295d8ff39206c81e30da081a677ed57a402",
+  "completedEvidence": {
+    "android10": "docs/evidence/ticket58/full10-ec-39378808769/summary.json",
+    "android17": "docs/evidence/ticket58/full17-fa-39376147196/summary.json"
+  }
 }

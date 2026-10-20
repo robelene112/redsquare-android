@@ -1,351 +1,157 @@
 # Current implementation handoff
 
-Updated2026-10-20 after the owner's beta42 UI review. The functional checkpoint
-is delivered, but the owner explicitly says the UI is still untidy and unfinished.
-Current work is [UI55](https://github.com/robelene112/redsquare-android/issues/55)
-and its audit-derived children, [Node terminology56](https://github.com/robelene112/redsquare-android/issues/56)
-and [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57).
-Three independent whole-app audits support concrete native UI work without KVK
-or provider credentials. Read the tracker for exact child scope/dependencies. Twelve audit-derived UI
-tickets58through69 plus Node56 are linked under55. All three independent auditors
-checked the published consolidation and found no missing material coverage.
-Release36 has native blockers55 and57 in addition to its unchanged external gates.
-Start structural polish with content-first shell58; implement sequentially.
-The owner now authorizes implementing this whole backlog without routine stops.
-Use a local cap of two new intentional likes per rolling second per active wallet
-across post surfaces; this is app policy, not a network rule. It is recorded in57 comment6278005545; ready-for-agent is set. No57 code yet. Ambiguous retry must reconcile/reuse the existing candidate.
+Updated 2026-10-20 after complete native verification of shared frame58.
+The owner authorizes finishing the entire backlog without routine stops, with
+sequential implementation, review, commits and signed in-place beta delivery.
 
-Node56 source aa40be525 passed focused Android10/17 feed/theme/public reads and
-source/publication review. Ordinary45 remains LIVE;56 stays open through the
-larger-font acceptance and signed UI delivery in58.
+## Resume here
 
-Latest regression status: full10fa39376144681 is FAILURE, Chat alerts11methods
-10PASS/1FAIL at PrivatePushWorkFixture335 after original physical RIGHT swipe.
-Before/failure native originals both retain the notification; no proved cause.
-Later Android-active-state/no-redelivery goals and subsequent full classes were
-not reached. Seven packet hashes preserve the actual RED. Diagnostic-onlyec7ec4d8c
-adds best-effort primitive flag/bounds/duration observations and isolates the same
-existing method in private-push-dismissal scopes. Original swipe,5second goals,
-180second class bound,11-case full command and all later gates stay. Both source
-review axes0. Source39377858558SUCCESS; focused original-method diagnosis
-39378314704(10)/39378317046(17) bothSUCCESS, same original gesture. Both actual
-notifications clearable=true/ongoing=false/flags24, text hidden and owned alert
-absent after swipe; gesture calls168/320ms. This does not prove earlier cause.
-Fresh full10 run39378808769 at ec now executing, bound before outcomes.
-Full17fa39376147196 completed SUCCESS in all three jobs. Strict retention verifies
-exact474 PASS identities,123 normal completions,34 deliberate interruptions and
-33 PASS continuity records, unchanged independent expectations. Retained packet
-full17-fa-39376147196 has467 hashes and85 archive inventories binding2273 original
-members. PNG/XML validation reports only the five established optional53 gaps.
-Root opened actual first-use,320dp/200% dark,412dp/130% light, real profile IME,
-Chat without backup chrome, interrupted reaction and Home-return originals.
-Dense Chat recovery remains62 work. Android10 is still pending; no paired full
-acceptance or49 publication. Production a1 unchanged.
-
-Shared frame58 remains ACTIVE. Productiona1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4
-moves reaction status/error into the existing named quarter-height Chat status
-viewport, with unchanged text/conditions and directly reachable Retry below the
-list. The earlier guidance-only cap did not cover these notices. Latest038
-Android10 originalXML measures Private messages at216..226=10px during interrupted
-reaction retry; root opened its original. Positive48dp regression and body display
-precede the unchanged native expected-text capture. Both production source axes0.
-Broader message-first Chat polish remains62.
-
-Complete private history39373971880(10)/39373974243(17) at038 now24PASS each,
-108.041/154.842seconds, original180second bounds. Whole runs remainFAILURE because
-actions complete10 methods7PASS/3FAIL on10 and9PASS/1FAIL on17; no process tail.
-10 has the10px reaction capture572 plus the two already diagnosed728 captures.
-17 stops at734 original body assert after reopening; root original shows only
-timestamp/count/actions. f2 positions unlike capture bodies; fa21f295d positions
-both reopened body assertions before original display goals. Both source axes0.
-No exact original/Relay/count/restoration goal or deadline is weakened.
-
-Latest compiled candidatefa21f295d8ff39206c81e30da081a677ed57a402, source39374755440
-SUCCESS. Focused actions39375651913/39375654197 bothSUCCESS10methods each,
-positive48dp interrupted-reaction history regression, native48px versus prior10px.
-Actual private recovery39375656551/39375658999 bothSUCCESS, exact2 IDs each, PIDs
-3458->3836/2583->4366 and full checkpoint/cache/draft/original/zero-send/restoration
-checks. Root opened corrected interrupted/unlike-recreated and recovered originals
-on bothSDKs; draft/reaction cold view still has no visible history, retained62 case.
-Fresh full39376144681(10)/39376147196(17) bound atfa before outcomes; actual
-latest status is recorded above.
-Priorf2 source39374150855SUCCESS; a1 source39374682292CANCELLED by newerfa, not
-acceptance. Canonical signed49 PREPARED from frozen productiona1 in the external review-worktree;
-shared counter49 reserved, APK6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a.
-Actual certificate/manifest/DEX verified, min29/target36, nondebug/nonprofile, backupfalse,
-reviewtrue, Push/PostsGIF/ChatGIF absent. Before-publication bookendPASS.
-Both preparation review axes0;48/47/46 superseded and unpublished.
-Ordinary45 stays LIVE, immutable45/performance43 unchanged.49 public after-check, complete native acceptance/review/publication pending.
-
-Earlier complete focused group:10 at e674/run39370550836 and17 at003/run39372650163
-bothSUCCESS, exact26 accepted38 identities each.17 actual PIDs5328->5407,10
-14124->14523, full protected key/draft/original/reaction continuity and zero sends.
-Private actual recovery at003 runs39372656765/39372659393 bothSUCCESS,2 exact
-accepted38 normal IDs each, PIDs3369->3797/3237->4489, exact checkpoints except
-phase/new PID, original history/draft/uncertain message/reaction and zero sends.
-Root opened corrected group17/recovered private originals on bothSDKs. Dense
-private draft/reaction capture has no visible history; retained cache continuity
-is not rendered cache proof. This remains62 work. Fresh productiona1 must be
-verified; prior focused successes are not acceptance of its new layout.
-
-Latest retained packets preserve all actual failed/successful outcomes and raw
-native originals. See../evidence/ticket58/README.md. Complete17 accepted; paired
-full acceptance and publication remain pending10.
-Fresh full10/17 was dispatched before evidence-only pushes, with exact source/run
-bindings before outcomes; failed e205 attempts remain failed previousAttempts. The
-frozen473/474 identities,122/123 normal completions,34 interruptions and33 continuity
-gates remain. Keep56/58 open until verified delivery, then57 and59..69 sequentially.
-External prerequisites stay under36. Protected untracked research stays untouched.
-
-The compact frame, Home-only backup/import
-notice, selected primary navigation, guarded drafts, reading-position restoration
-and lifecycle-owned actual system-motion scale are implemented.
-
-Accepted focused frame proof:39342318884(Android10)/39342315882(Android17), each
-4 frame +1 reading-position +2 native motion methods. All8 actual320dp/412dp,
-130%/200%,Light/Dark configurations retain48dp touch/native targets. Narrow200%
-captions wrap but remain reachable. Original recordings show normal intermediate
-positions and no intermediate zero-scale movement, with Settings/window0->1->0.
-This is shared-frame proof, not whole-app visual completion.
-
-Other current focused evidence, retained under../evidence/ticket58/README.md:
-- Keyboard39345370402/39345373579:10PASS perSDK, real IME and exact drafts/sends.
-- GIF39345377196/39345380431:3 previewPASS perSDK plus posting. Original outside8px
-  samples are positioned within the screenshot by12px scrolling.
-- Complete agreement39346896065/39346898616:27 accepted38 identities perSDK,
-  including actual process death/recovery/restoration with unchanged wallet/draft.
-- Cancellation viewport39346900869/39346903466:2PASS perSDK, physical48dp actions.
-- Capacity39349185535/39349188302:1PASS perSDK,101-group pause/automatic resume,
-  preserved subscription/categories/history/draft and correct node wording.
-- Reports39349191022/39349193931:12 identities perSDK (11 UI +1 actual cold-process
-  recovery). Original signed report survives and retry remains explicit. Existing
-  harness has no separate UI adb-exit record; that absence is retained honestly.
-- Social push39350663269/39350665509 at092238769:11 main +1 binding +3 workerPASS
-  perSDK. Corrected no-root polling retains the same15second route goal and exact
-  conversation/latest draft/photo checks. These scopes exclude process recovery
-  and actual Google delivery. A root-gap duration was not measured.
-Both review axes have0 residual findings for the reviewed sources/evidence.
-
-Complete acceptance is still pending. Current independently frozen473/474 catalog
-and perSDK source/run bindings are in../evidence/ticket58/full-identity-reference.json.
-Complete attempts39355334984(Android10)/39355337570(Android17) at077 are both
-FAILED.10 and17 Chat hit the same120second host timeout preparing promotion in
-GroupChatProcessRecoveryTest, with START only and no completed preparation
-checkpoint/native snapshot. Restoration method1PASS is separate from that failed
-preparation.17 socialSUCCESS; wallet has all76 accepted38 identities and public
-readsPASS, then fails ci-review-update's legacy APK checksum before signed-update
-continuity/final diagnostic. Runner bad bytes/headers were not retained. Local
-VPS5/8 files and separate HTTP200 downloads match immutable manifests, which does
-not establish the runner's failure cause. No retry or relaxed validation.
-
-Diagnostic5eb9fb09ecc17b6e9a4e667db23fdcd8d1ac4f04 focused group-admin
-39358679469(10)/39358681910(17) bothFAILED at the unchanged120second promotion
-preparation bound. The added stages localize the stall to before-history-scroll.
-Both all-root trees measure Group messages at top340/bottom340, zero height.
-Root opened both original PNGs: pending status, disabled picker rows and multiline
-draft occupy the viewport, with no visible cached history. Paired group-viewport
-RED packets retain six original native/tree members each, stages, original
-failure and independent restoration1PASS. The positive48dp history regression
-now fails before an unbounded zero-height scroll. The later corrected focused proof above establishes visible history/recovery;
-these RED runs remain failed. The public-download observer retains response/length/hashes before the unchanged
-checksum rejection; no automatic retry or relaxed validation. Complete native
-acceptance remains pending, including the legacy update tail. Historical failures
-keep their actual outcomes.
-
-Earlier fixturecae84e5ad scopes Add GIF to the existing composition preview and
-scrolls only when hidden, then requires the original10second visibility goal.
-Reply-only before/after native + all-root full-depth Compose observations on10
-show Add GIF445..485 below preview329..442, then402..442 inside after43px scroll.
-Every animation/quote/credit/queue/URL/signature assertion and180second class bound
-remains. Focused chat-gifs39351423400(10)/39351426372(17) atcae areSUCCESS with all6PASS
-perSDK and the same original bounds. Root opened both after-scroll PNGs. Fresh
-complete acceptance remains pending;
-no new production or signing build is needed solely for these fixture changes.
-
-Fixture077baa5b19b495c8b0cfb3099525e630965b56c4 extends the existing index1
-group-history scroll to completed private photo history. Before death, a private
-queued photo remains in the composer and keeps its existing pixel assertion.
-Focused39354696326(Android10)/39354698834(Android17) bothSUCCESS:4 independent
-accepted38 identities,2 deliberate process deaths and2 continuity gates perSDK.
-Private PIDs3448->3715/2929->4426 and group4052->4470/4683->4760 differ; original
-signed raw/Relay once, photo/caption, cached history, wallet/backend and restoration
-checks pass within the same120second phase bounds. Both protocols remain in
-images/full scopes. Root opened final private/group PNGs on bothSDKs: red photos
-visible. Compose shows the newly visible private photo after target scrolling;
-10 final nativeXML agrees. Immediate10 observations and17 nativeXML remain stale
-and are not positive photo evidence. Photos are partly clipped in current short
-history viewports; this is recovery proof, not62 Chat viewport polish. Both
-source review axes0; paired evidence review pending.
-
-Ordinary46 is PREPARED, not published, at9b33. Actual APK SHA256
-311d82372566d2eac34e983838c4507b54d4d20ab0740fada1907d58bb95cdb5,
-established6ca certificate, nondebuggable/nonprofileable, backupfalse, reviewtrue,
-push/PostsGIF/ChatGIF unconfigured. Both preparation review axes0. Actual shared
-counter46 is already reserved. Canonical publisher and public before/after checks
-remain mandatory after complete native acceptance/review. Ordinary45 stays LIVE.
-Source39354689887 at077 passed core/gateway, Debug/tests, Release/Performance
-and lint.
-No57 code exists yet; its local policy is recorded and ready. Finish58 and signed
-UI delivery before claiming another ticket, then proceed57 and59through69.
+1. Finish active [frame58](https://github.com/robelene112/redsquare-android/issues/58):
+   review the newly retained Android10 packet and paired status, then publish
+   prepared49 through the canonical procedure below. Native verification is
+   complete; delivery is still pending. Keep56/58 open until verified delivery.
+2. Continue [repeat likes57](https://github.com/robelene112/redsquare-android/issues/57),
+   then59 through69 in dependency order. No57 implementation exists yet.
+   Its chosen policy is explicit in the issue and comment6278005545: two NEW
+   deliberate intents per rolling second per wallet across post surfaces and
+   both nodes. A pending/uncertain like for the post prevents a fresh like on
+   either node; reconcile/reuse the exact candidate on its original node.
+3. Keep [UI55](https://github.com/robelene112/redsquare-android/issues/55) open
+   through the owner's final beta review. Native feature delivery does not
+   establish app-wide visual acceptance. Original native2 through35 and prior
+   supplements37 through54 are closed;1/36 retain actual release requirements.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
-[operations](../OPERATIONS.md) and [OWNER_INPUTS.md](../../OWNER_INPUTS.md).
-The actual provider/physical/legal/store gates remain parked under36. Placeholders
-never establish real acceptance. Functional tests and old closed37/39 do not mean
-app-wide visual completion. UI55 remains open through rendered verification,
-signed delivery and the owner's review.
+[operations](../OPERATIONS.md) and [owner prerequisites](../../OWNER_INPUTS.md).
+Use existing agreed native UI, controlled-peer, core/protocol and recovery seams.
+One implementation writer; independent read-only two-axis reviews remain allowed.
+Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
+UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
+provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-Root is the sole implementation writer. The three independent read-only UI
-auditors were `ui_audit_visual`, `ui_audit_journeys` and
-`ui_audit_accessibility`; their actionable results are consolidated under55.
-Existing two-axis implementation review agents remain available. Preserve unrelated
-untracked
-`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` unread and untouched. No separate
-cybersecurity campaigns, restricted-access requests, provider safeguard bypasses
-or use of historical credentials.
+## Current native acceptance
 
-## Current signed delivery
+Both complete runs use production
+`a1ab68a8bf73cf856e950cc02f4bb27ee3b98fa4`, also the prepared49 source:
 
-Ordinary45/0.1.45 is LIVE at <https://davidengelen.nl/redsquare/>. Install over the
-existing ordinary app; never uninstall or erase the owner's wallet. Package is
-`nl.davidengelen.redsquare`, actual APK SHA256
-`129217527cb76265669a99ecdea79e009024787beacbbba1bc0f7357336eb740`, source metadata
-`aa40be52500889d9e602b99198ba655864799f92`. Actual DEX review=true, Push=false,
-separate Posts/Chat GIF keys absent. No configured services or final policies.
+| SDK | Actual complete run/source | Frozen identities | Normal completions | Deliberate interruptions | Continuity |
+| --- | --- | --- | --- | --- | --- |
+| Android10 |39378808769 at ec7ec4d8c30ac40795256ea924cc49c582f15498, SUCCESS |473:472 PASS, one established API29 Profile assumption |122 |34 |33 PASS |
+| Android17 |39376147196 at fa21f295d8ff39206c81e30da081a677ed57a402, all3 jobs SUCCESS |474 PASS |123 |34 |33 PASS |
 
-Historical timing43/0.1.43 is LIVE at <https://davidengelen.nl/redsquare/performance/>.
-Independent package/storage `nl.davidengelen.redsquare.performance`, actual APK
-SHA256 `dc409cfed811829738d7dbafc041a074c77574a576936187cf75d3042f260e91`, source
-metadata `b5a1569de7a906786fb7518c09595a14eaa0816d`. Actual DEX review=false,
-Push=false and GIF keys absent. This is the separate profiling app, never a reason
-to import or clear the ordinary wallet. It does not match current45 or coming UI code. Actual Pixel timing remains pending36.
+The strict unchanged collector exits0 for each. There are no missing/extra cases,
+new exclusions or unexpected assumptions. The pre-execution independent catalog
+is [bound here](../evidence/ticket58/full-identity-reference.json). Android10 has
+437 packet hashes/85 inventories/2269 original archive members;17 has467/85/2273.
+Only the five exact established optional53 observer gaps recur. The existing
+Profile aggregate duplicates its four canonical16-case logs and remains excluded
+as before. Root inspected relevant actual native first-use, larger-font/theme,
+IME, Home-return, Chat and interrupted-reaction originals on both SDKs.
 
-Historical42/43 publications used canonical scripts and independent actual public before/
-after checks, all exit0. Actual downloaded APK/metadata/signature/manifest match
-prepared artifacts. At42 publication immutable40 and the whole performance41
-channel were unchanged; at43 publication ordinary42's whole channel and immutable41
-were unchanged. Each publication packet has19 hashes and0/0 bookend reviews.
-Prepared42/43 each retain6 hashes. Current45 uses the same canonical scripts:
-5 prepared hashes,19 publication hashes, exact public APK/metadata and unchanged
-immutable42/performance43 checks, all exit0 and0/0 review. See ticket56 evidence.
-Do not rebuild or republish accepted artifacts.
+[Frame58 evidence](../evidence/ticket58/README.md) is the detailed reference for
+source changes, original failures, corrected focused evidence and full packets.
+Production a1 bounds unchanged private reaction status/error text inside the
+existing quarter-height status viewport. Corrected history has48px versus the
+reproduced10px. Dense private cold draft/reaction recovery still shows no history,
+despite exact persisted continuity; preserve that specific case for62 (comment
+6284800407). Separate attachment rows/actions/newest anchoring remain62 work.
+The broader post presentation remains60 work.
 
-All signed artifacts use established certificate
-`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`, min29/target36,
-nondebuggable, automatic backupfalse. Ordinary is nonprofileable, timing profileable.
-Historical source equivalence verifies the same258 production/build objects across accepted
-About38 production/full116e/42/43/offline44; object-list SHA256
-`1842cb1d3610641cd8a60cd85092296e415d61aa6f3520a9bf2f724b00724421`.
+Frame proof includes all8 actual320dp/412dp,130%/200%,Light/Dark configurations,
+48dp targets, guarded profile drafts, reading-position restoration and real
+normal/zero system-motion recordings. Root replayed the original focused movies;
+unchanged shared-frame production permits reuse. Both complete runs retain all
+existing keyboard, queue, policy, private/group and wallet/process acceptance.
+Source39377858558 at ec is SUCCESS. ec changes diagnostics/focused routing only;
+the original notification swipe,5second goals and180second class bound remain.
 
-Offline Play44 is prepared only, never published or submitted. Source metadata
-`c8d7222d1e8bcd9705c415009c2999b7c2132ce0`, AAB SHA256
-`ed81b15ee9afdd21a3ed9edb30ef8dc32e4dd4e6e08ca11b6f83678be8bf5a3b`.
-Canonical bundle command exits0; strict JAR/bundletool/local APK/signature/manifest/
-DEX/16KiB ZIP and64-bit LOAD checks pass,14 public-safe packet hashes,0/0 review.
-Review=false, providers absent and policy/contact readiness draft. It is not ready
-for production submission. Renew candidate and relevant checks after real config
-changes. Shared counter46 is verified, and46 is already reserved for the prepared beta.
-Let the canonical builder allocate any later version; verify the counter before use.
+Prior full10fa39376144681 remains FAILURE at physical notification dismissal.
+Its cause is unproved. Focused original-method runs39378314704/39378317046 and
+complete10ec subsequently succeed with the original gesture. Actual full10 JSON
+shows all three notifications clearable,not ongoing,flags24,hidden after swipe
+and absent from Android active notifications. Root opened worker before/after
+native originals. No app/gesture fix or explanation is inferred from later success.
+Other failed/superseded attempts retain actual states in the reference/history.
 
-## Complete current-code verification and About38
+Full17 retained evidence was independently reviewed at f8c812822: Spec0,
+documented Standards0,heuristic0. Newly retained full10 and paired status still
+need the same two-axis review before publication. Reuse policy52_spec_review and
+policy52_standards_review as read-only reviewers against the fixed preceding HEAD.
 
-Native38 is CLOSED afterb1b25ba90. Provisional app name remains Red Square; later
-own-name branding stays in OWNER_INPUTS. Productionacb08e820 adds the inline About
-card at the bottom of existing Settings: platform, independent Angels’ Foundry
-and installed version. No external link, SDK or permission. Real company identity
-remains unconfirmed. Fixed review base3c15204aa. Evidence retains actual RED and
-initial partial-card focused captures; fixture-only116e scrolls the complete card
-before capture without changing production, old assertions or deadlines.
+## Prepared49 and publication
 
-Both complete suites execute exact`116e92935b7287e9157b30c78b8e8f1d4ad7b800`:
-- Android10 run39310202005 completedSUCCESS:466 exact identities,465PASS plus
-  the sole established API29 Profile assumption,119 normal completions,
-  34 deliberate interruptions and33PASS continuity records;470 packet hashes.
-- Android17 run39310205648 completedSUCCESS in all3jobs:467PASS,120 normal,
-  34 interruptions and33 continuity;500 hashes. Chat183/Social208/Wallet76.
-- Independent expected catalogs were committed before execution. Root opened six
-  relevant original PNGs per SDK including complete About/three themes. Original
-  hashes/PNG decoding/separate XML qualify repeated viewer previews; no image
-  edits or inferred app cause. Only five known optional53 observer gaps recur.
-- Combined source/full review at00d8e4e09 and publication42 review atb1b25ba90 each
-  report Spec0, documented Standards0 and heuristic0.
+Ordinary45 remains LIVE at <https://davidengelen.nl/redsquare/>. Source aa40be525;
+APK SHA256129217527cb76265669a99ecdea79e009024787beacbbba1bc0f7357336eb740.
+Node56 already has focused10/17 verification, source/publication0/0 review and
+signed45 delivery; it stays open through larger-font and signed58 acceptance.
 
-Fresh matching43 focused runs both completedSUCCESS at exact
-`b1b25ba90998858ffc0bc5fa584e40b224cdfe0a`:10 run39321146982,17 run39321151044.
-Frozen plan43 predates execution. App/harness diff against accepted116e excluding
-documentation is empty;258 production inputs match. Each exactly covers11PASS
-native feed/public-read identities plus3PASS signed observer identities, three
-normal completions per group. Actual installed35/43 hashes match preparation.
-Distinct UIDs/wallets, preserved ordinary35 public address, restoration of both
-originally absent packages and zero cleanup errors pass. Both public feeds show
-posts. Each validates21PNG/13XML; root opened six originals per SDK. Only four
-known absent failure-only wallet captures recur. Packet hashes67/69 respectively.
-These are signed35/43 emulator checks, not ordinary42 physical update or timing.
-Final combined retained-evidence/status review against78c5d8779 reports Spec0,
-documented Standards0 and heuristic0. Both axes independently verified new packet
-hashes/original bindings, frozen identity coverage, installed artifacts and tracker.
+Prepared49/0.1.49 is frozen in external worktree
+`/mnt/storage/redsquare-android-artifacts/review-worktree` at exact production a1.
+APK `.scratch/review-builds/49/redsquare.apk` has SHA256
+`6ca047967b0ef06c30a47a2c7e9ae4e899602a33f7ef771de5c3dab8f6bb956a`.
+Preparation and actual APK certificate/manifest/DEX reviews both report0 findings.
+Package `nl.davidengelen.redsquare`, min29/target36, nondebuggable/nonprofileable,
+automatic backup=false,review=true,Push=false and separate Posts/Chat GIF keys absent.
+[Prepared packet](../evidence/ticket58/signed49-prepared/apk-check.json).
+Shared version counter49 is reserved. Superseded46/47/48 were never published.
 
-Canonical evidence: [About38](../evidence/ticket38/README.md),
-[timing35](../evidence/ticket35/README.md),
-[offline44](../evidence/ticket49/prepared44/README.md) and
-[Play preparation](../release/PLAY_RELEASE_PACKAGE.md).
-No complete native suite needs repeating without a new change, failure or concern.
-Production changes require fresh complete verification on both SDKs. The active58 source changes need fresh verification appropriate to their actual impact.
-Latest completed focused39333368227 runsd958685f0 (3PASS). Prior source runs may be cancelled by
-newer commits; a cancelled source run is not acceptance.
+After final paired review, from that frozen worktree run canonical
+`scripts/review-publish .scratch/review-builds/49 --notes '<truthful English notes>'`.
+The before bookend already passed and is retained externally under
+`ui58-publication-49`. Then run
+`python3 /tmp/redsquare-ui58-publication49-check.py ordinary 49 after`.
+It must verify actual public APK/metadata/certificate/package/source, immutable45
+and the entire other performance43 channel. Retain/review public results, commit
+completion evidence and close56/58 only when earned. Never publish48/47/46.
+Install ordinary updates over the existing app, preserving its wallet.
 
-## Tracker and actual release boundaries
+All review artifacts use established certificate
+`6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2`.
+Historical performance43 remains at <https://davidengelen.nl/redsquare/performance/>,
+separate package/storage and profileable. It does not match current UI code;
+final Pixel measurements require a fresh matching candidate. Offline Play44 is
+preparation only, never submitted. Details remain in [review operations](../REVIEW_BUILDS.md),
+[About38 evidence](../evidence/ticket38/README.md) and [release package](../release/PLAY_RELEASE_PACKAGE.md).
 
-At the prior functional checkpoint, original native tickets2through35 and the
-then-existing supplementary work including38 were CLOSED. New UI55 children and
-repeat-like57 are OPEN. The earlier only1/36-open statement is superseded.
-Native16/17/19/31/32/33/34/35 each had an individual0/0 review and commit,
-with exact actual-provider/physical requirements visibly transferred to36 before
-closure. Original criteria remain in each ticket. This is development staging
-requested by the owner, not a declaration of production readiness.
+## Test-tool preparation for later accessibility tickets
 
-[Release36 parking matrix](https://github.com/robelene112/redsquare-android/issues/36#owner-directed-parking-of-external-acceptance-2026-10-19)
-retains13 unchecked gates: GIPHY_POSTS, GIPHY_CHAT, VIDEO, REGISTRY, SOCIAL_PUSH,
-PRIVATE_PUSH, GROUP_PUSH, PIXEL_CONTINUITY, PIXEL_CACHED, PIXEL_FRESH, PUBLISHER,
-POLICY_OPERATIONS and FINAL_SUBMISSION. Configured SDK cold startup/register/
-unregister/FID/callback rotation/interruption/locked/Doze requirements remain.
-Actual embedded video remains unproved and the earlier public run remains FAILURE;
-Owner Registry availability is unproved. Neither is silently deferred from scope.
+Official-source TalkBack229212fdf5842191d0a93fc95d9ca1423b346866,version16.2, built
+successfully outside the app in `/mnt/storage/redsquare-android-artifacts/talkback-preparation`.
+Only tracked patch is ARM ABI filters to x86_64; no speech logic or dependency
+version changes. Actual APK hash58b6833f25052b81a328415ed5c1ece8aba35b95d5682742e47cc3894b3bb5e9,
+package com.android.talkback,min26/target30,debug,all5 native libraries x86_64.
+Root checked the actual patch/metadata/hash. Build logs and setup failures remain
+external. No installation/service startup/TTS-engine readiness/speech acceptance
+exists yet. A later dedicated disposable scope must preserve accessibility services
+with UiAutomation DONT_SUPPRESS flags and positively verify active TalkBack and
+an English TTS engine. Service-generated speech transcripts differ from raw events
+and from audible completion. Do not equate generic completion callbacks with real
+engine success; stock code can synthesize them on failed/empty speech.
 
-KVK is unfinished. Angels’ Foundry is the selected publisher; no legal identifier,
-contact or provider credential is invented. OWNER_INPUTS is the maintained human
-checklist. Technical provider verification remains agent work once applicable.
-Actual contact/moderation/privacy/deletion/hosting procedures, final public policy
-and store/account acceptance remain open. No mid-development setup question needed.
+## Parked real release acceptance and environment
 
-Pixel protocol requires five cached launches each≤2000ms and five fresh isolated
-launches each≤5000ms on Pixel7, stable Wi-Fi/normal animations/no debugger, positive
-isolated PID absence and candidate/config matching. Never import/clear the ordinary
-wallet. See[protocol](../research/FEED_PERFORMANCE_PROTOCOL.md). No physical, ARM64,
-configured Google/provider delivery or Play installation result is claimed.
+Owner-directed parking under36 retains13 unchecked gates: GIPHY_POSTS,GIPHY_CHAT,
+VIDEO,REGISTRY,SOCIAL_PUSH,PRIVATE_PUSH,GROUP_PUSH,PIXEL_CONTINUITY,PIXEL_CACHED,
+PIXEL_FRESH,PUBLISHER,POLICY_OPERATIONS,FINAL_SUBMISSION. Google/provider lifecycle,
+locked/Doze,actual video/Registry availability,physical/ARM64 and Play requirements
+remain real. Placeholders and controlled fixtures never satisfy those gates.
+Angels’ Foundry is the chosen publisher; KVK is unfinished. Actual legal/contact/
+provider/account/operational setup stays in OWNER_INPUTS. No mid-development
+question is required for independently actionable native work.
 
-Ordinary signed static APK publication is authorized. Native/placeholder preparation
-does not authorize live node/cloud/IAM/provider/public policy/store mutation or
-outbound contact. Follow the concrete operations/publication procedure later.
+Pixel protocol still requires five cached launches each<=2000ms and five fresh
+isolated launches each<=5000ms,stable Wi-Fi,normal animations,no debugger and exact
+candidate/config matching. Preserve the ordinary wallet. See the maintained
+[protocol](../research/FEED_PERFORMANCE_PROTOCOL.md). No physical timing is claimed.
 
-## Environment and preserved history
+Netcup152.53.197.181,hostname v2202609429510531338,is production. Old Hetzner writers
+stay disabled. No production node/cloud/IAM/provider/policy/store mutation is
+implied by native work. Static signed APK publication is explicitly authorized.
+Local VPS has no KVM; use hosted disposable emulators and bounded Docker builders.
+Verify mounts before sizeable writes; artifacts/caches belong under
+`/mnt/storage/redsquare-android-artifacts`. Current raw full directories are
+`ui58-full10-ec-39378808769` and `ui58-full17-fa-39376147196` there.
 
-Netcup152.53.197.181, hostnamev2202609429510531338, is production. Old Hetzner
-writers stay stopped. Verify actual mounts before large writes; artifacts belong
-under`/mnt/storage/redsquare-android-artifacts`. No local KVM; use hosted KVM and
-canonical bounded Docker builders. Preserve pins; known SDK XML/TransformableState
-warnings are nonblocking. APK/AAB/private signing material never belongs in Git.
-
-Raw current complete artifacts are`about38-full10-39310202005` and
-`about38-full17-39310205648`; focused43 artifacts are
-`about38-isolated43-android10-39321146982` and
-`about38-isolated43-android17-39321151044`, all under that storage root. Downloads
-exit0 before strict retention. View original screenshot bytes; do not edit them.
-
-The prior detailed handoff at`78c5d8779:docs/handoffs/IMPLEMENTATION.md` retains
-historical40/41 and54 chronology. Their accepted evidence remains intact. Obsolete
-ordinary39 was never published; never publish it. Historical active/pending prose
-does not override current tracker/source/evidence. Native UI and repeat-like work
-is independently actionable as recorded above;
-read current issue bodies/dependencies before resuming. Keep real release gates
-separate from functional and visual development acceptance.
+For historical functional completion/About38/42/43 chronology, reach the detailed
+canonical evidence above; the prior handoff at f8c812822 preserves the old narrative.
+Current tracker/source/retained results supersede historical pending prose.
