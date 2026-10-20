@@ -109,7 +109,8 @@ class PostPendingViewportTest {
                     assertEquals("One deliberate action per theme", 2, peer.transactions.size)
                     assertEquals(2, indexed.size)
                     assertTrue(peer.reports.isEmpty())
-                    assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
+                    assertTrue("The complete wallet and portable options must remain unchanged",
+                        wallet.exportJson() == wallets.loadExisting().exportJson())
                     assertEquals(SaitoBackend.OWNER, backends.load())
                     peer.assertHealthy()
                 }
