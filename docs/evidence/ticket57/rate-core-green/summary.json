@@ -1,0 +1,10 @@
+{
+  "command": "scripts/android-build :core:test --tests nl.davidengelen.redsquare.feed.PostLikeInputPolicyTest",
+  "exitCode": 0,
+  "seconds": 70,
+  "focusedTests": 1,
+  "result": "PASS",
+  "policySha256": "c00c18f4b9535d04fc74da051379377a6586580157a452bb3c81591ae665eaf1",
+  "testSha256": "bf11d3eded85cc602fd2782dbb14e7b59459b830f9b88a87f7719c2149d11c62",
+  "limits": "Pure rolling-window policy only. Android persistence/wiring and full57 acceptance require independent native evidence."
+}

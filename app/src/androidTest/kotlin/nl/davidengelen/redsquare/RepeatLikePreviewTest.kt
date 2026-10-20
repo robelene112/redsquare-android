@@ -27,12 +27,92 @@ class RepeatLikePreviewTest {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
-        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("social.") ||
+        context.noBackupFilesDir.listFiles()?.filter { it.name.startsWith("social.") || it.name.startsWith("socialrate.") ||
             it.name.startsWith("feed.") || it.name.startsWith("conversation.") ||
             it.name.startsWith("profile.") }?.forEach { check(it.delete()) }
     }
 
     @Test fun laterDeliberateLikeSignsADistinctActionAndShowsOnlyServedCounts() {
+        withLikes { peer, intent ->
+            withLikeActivity(intent, "deliberate") {
+                waitFor("4 likes")
+                ui.clickVisiblePostContent("Like")
+                waitFor("5 likes")
+                ui.onNodeWithText("Liked").assertIsEnabled()
+                captureFeedEvidence("repeat-like-evidence/settled-like-ready-again.png")
+                ui.clickVisiblePostContent("Liked")
+                waitFor("6 likes")
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Liked") and isEnabled())
+                    .fetchSemanticsNodes().isNotEmpty() }
+                assertEquals(2, peer.transactions.size)
+                val originals = peer.transactions.map(::postingTransaction)
+                assertNotEquals(originals[0].id, originals[1].id)
+                assertEquals(SaitoEnvelope.decode(originals[0].envelope()).author,
+                    SaitoEnvelope.decode(originals[1].envelope()).author)
+                ui.onNodeWithText("Unlike").assertDoesNotExist()
+                peer.assertHealthy()
+                captureFeedEvidence("repeat-like-evidence/two-distinct-served-likes.png")
+                retainFrames(peer, "deliberate")
+            }
+        }
+    }
+
+    @Test fun rateLimitSurvivesRecreationAndExpiresAtTheRollingBoundary() {
+        withLikes { peer, intent ->
+            intent.putExtra("socialLikeElapsedMillis", 10_000L)
+            withLikeActivity(intent, "rate-recreation") { scenario ->
+                waitFor("4 likes")
+                ui.clickVisiblePostContent("Like")
+                waitFor("5 likes")
+                ui.clickVisiblePostContent("Liked")
+                waitFor("6 likes")
+                ui.clickVisiblePostContent("Liked")
+                assertRateFeedback()
+                assertEquals(2, peer.transactions.size)
+                captureFeedEvidence("repeat-like-evidence/rate-limit-feedback.png")
+                scenario.recreate()
+                waitFor("6 likes")
+                ui.clickVisiblePostContent("Liked")
+                assertRateFeedback()
+                assertEquals(2, peer.transactions.size)
+                ui.onNodeWithText("Retry like").assertDoesNotExist()
+                ui.onNodeWithText("Queued").assertDoesNotExist()
+                captureFeedEvidence("repeat-like-evidence/recreated-rate-limit.png")
+            }
+            intent.putExtra("socialLikeElapsedMillis", 11_000L)
+            withLikeActivity(intent, "rate-expired") {
+                waitFor("6 likes")
+                ui.clickVisiblePostContent("Liked")
+                waitFor("7 likes")
+                assertEquals(3, peer.transactions.size)
+                assertEquals(3, peer.transactions.map(::postingTransaction).map { it.id }.toSet().size)
+                assertEquals(1, peer.transactions.map(::postingTransaction)
+                    .map { SaitoEnvelope.decode(it.envelope()).author }.toSet().size)
+                peer.assertHealthy()
+                captureFeedEvidence("repeat-like-evidence/rolling-window-expired.png")
+                retainFrames(peer, "rate-recreation")
+            }
+        }
+    }
+
+    private fun assertRateFeedback() {
+        val message = "Two likes per second. Try again in a moment."
+        waitFor(message)
+        ui.onNode(hasText(message) and SemanticsMatcher.expectValue(
+            androidx.compose.ui.semantics.SemanticsProperties.LiveRegion,
+            androidx.compose.ui.semantics.LiveRegionMode.Polite)).assertIsDisplayed()
+    }
+
+    private fun retainFrames(peer: ControlledFeedPeer, journey: String) {
+        peer.transactions.forEachIndexed { index, frame ->
+            File(context.cacheDir, "repeat-like-evidence/$journey/native-like-$index.base64").apply {
+                parentFile?.mkdirs()
+                writeText(Base64.getEncoder().encodeToString(frame))
+            }
+        }
+    }
+
+    private fun withLikes(block: (ControlledFeedPeer, Intent) -> Unit) {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val indexed = ConcurrentHashMap<String, JsonObject>()
@@ -60,32 +140,16 @@ class RepeatLikePreviewTest {
             else "[${countedRoot()}]"
         })
         peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                withFailureCapture({ captureFeedEvidence("repeat-like-evidence/repeat-failure.png") }) {
-                    waitFor("4 likes")
-                    ui.clickVisiblePostContent("Like")
-                    waitFor("5 likes")
-                    ui.onNodeWithText("Liked").assertIsEnabled()
-                    captureFeedEvidence("repeat-like-evidence/settled-like-ready-again.png")
-                    ui.clickVisiblePostContent("Liked")
-                    waitFor("6 likes")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Liked") and isEnabled())
-                        .fetchSemanticsNodes().isNotEmpty() }
-                    assertEquals(2, peer.transactions.size)
-                    assertEquals(2, indexed.size)
-                    val originals = peer.transactions.map(::postingTransaction)
-                    assertNotEquals(originals[0].id, originals[1].id)
-                    assertEquals(SaitoEnvelope.decode(originals[0].envelope()).author,
-                        SaitoEnvelope.decode(originals[1].envelope()).author)
-                    ui.onNodeWithText("Unlike").assertDoesNotExist()
-                    peer.assertHealthy()
-                    captureFeedEvidence("repeat-like-evidence/two-distinct-served-likes.png")
-                    peer.transactions.forEachIndexed { index, frame ->
-                        File(context.cacheDir, "repeat-like-evidence/native-like-$index.base64")
-                            .writeText(Base64.getEncoder().encodeToString(frame))
-                    }
-                }
+            val intent = Intent(context, MainActivity::class.java)
+                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+            block(peer, intent)
+        }
+    }
+
+    private fun withLikeActivity(intent: Intent, journey: String, block: (ActivityScenario<MainActivity>) -> Unit) {
+        ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+            withFailureCapture({ captureFeedEvidence("repeat-like-evidence/$journey-failure.png") }) {
+                block(scenario)
             }
         }
     }

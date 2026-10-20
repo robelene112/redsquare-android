@@ -17,15 +17,19 @@ internal data class PostActionKey(val target: String, val kind: RedSquareActionK
 
 internal data class ActionStatus(val candidate: SaitoTransaction? = null, val available: Boolean = false,
     val ready: Boolean = false, val busy: Boolean = false, val failed: Boolean = false,
-    val countsUnavailable: Boolean = false, val blockedBy: SaitoBackend? = null)
+    val countsUnavailable: Boolean = false, val blockedBy: SaitoBackend? = null,
+    val rateFeedback: Long = 0)
 
 /** One selected wallet/backend's social operations, shared across its visible post views. */
 internal class SocialState(private val context: Context, private val wallet: SaitoWallet,
-    private val backend: SaitoBackend, private val endpoint: String, private val scope: CoroutineScope) {
+    private val backend: SaitoBackend, private val endpoint: String, private val scope: CoroutineScope,
+    inputClock: () -> Long = android.os.SystemClock::elapsedRealtime) {
     val reports = ReportState(context, wallet, backend, endpoint, scope)
     val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
     private val generations = mutableMapOf<PostActionKey, Any>()
+    private val inputRate = PostLikeInputRate(context, wallet.publicKey, inputClock)
+    private var feedbackSequence = 0L
     /** Called only for fresh node responses, never when reopening older cached views. */
     fun observe(posts: List<FeedPost>) {
         posts.forEach { post ->
@@ -75,7 +79,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             status.available && kind != RedSquareActionKind.LIKE) return
         val token = Any()
         if (!SocialActionOperations.acquire(wallet.publicKey, key, token)) return
-        generations[key] = token
+        val previousGeneration = generations.put(key, token)
         actions[key] = status.copy(busy = true, failed = false)
         scope.launch(start = CoroutineStart.UNDISPATCHED) {
             var candidate: SaitoTransaction? = null
@@ -97,16 +101,31 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                 }
                 candidate = saved?.candidate?.takeIf { !saved.available } ?: retry
                 if (candidate == null && !beforePublishing()) return@launch
-                if (candidate == null) candidate = withContext(Dispatchers.IO) {
-                    val nodes = if (kind == RedSquareActionKind.LIKE) SaitoBackend.entries else listOf(backend)
-                    val latest = nodes.mapNotNull { journal(key, it).load()?.candidate }
-                        .maxOfOrNull { SaitoEnvelope.decode(it.envelope()).createdAt } ?: -1L
-                    val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(latest, 1))
-                    val body = JsonObject().apply {
-                        addProperty("module", "RedSquare"); addProperty("request", kind.request)
-                        add("data", JsonObject().apply { addProperty("signature", post.id) })
+                if (candidate == null) {
+                    candidate = withContext(Dispatchers.IO) {
+                        synchronized(SaitoLocalState.lock) {
+                            check(nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey &&
+                                AndroidBackendStore(context).load() == backend)
+                            if (kind == RedSquareActionKind.LIKE && !inputRate.reserve()) return@synchronized null
+                            val nodes = if (kind == RedSquareActionKind.LIKE) SaitoBackend.entries else listOf(backend)
+                            val latest = nodes.mapNotNull { journal(key, it).load()?.candidate }
+                                .maxOfOrNull { SaitoEnvelope.decode(it.envelope()).createdAt } ?: -1L
+                            val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(latest, 1))
+                            val body = JsonObject().apply {
+                                addProperty("module", "RedSquare"); addProperty("request", kind.request)
+                                add("data", JsonObject().apply { addProperty("signature", post.id) })
+                            }
+                            SaitoTransaction.create(wallet, body, timestamp,
+                                (listOf(post.author) + post.recipients).distinct())
+                        }
                     }
-                    SaitoTransaction.create(wallet, body, timestamp, (listOf(post.author) + post.recipients).distinct())
+                    if (candidate == null) {
+                        // Rejected input must not discard the previous operation's count observation.
+                        if (previousGeneration != null) generations[key] = previousGeneration
+                        actions[key] = ActionStatus(saved?.candidate, saved?.available == true, ready = true,
+                            countsUnavailable = status.countsUnavailable, rateFeedback = ++feedbackSequence)
+                        return@launch
+                    }
                 }
                 val original = requireNotNull(candidate)
                 actions[key] = ActionStatus(original, ready = true, busy = true)
@@ -149,7 +168,8 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             catch (_: Exception) {
                 if (generations[key] === token) {
                     val current = actions[key] ?: status
-                    actions[key] = if (!durableRead) ActionStatus(failed = true)
+                    actions[key] = if (!durableRead || candidate == null)
+                        ActionStatus(current.candidate, current.available, failed = true)
                     else current.copy(candidate = candidate ?: current.candidate, failed = !current.available,
                         countsUnavailable = current.available)
                 }
@@ -157,6 +177,13 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                 SocialActionOperations.release(wallet.publicKey, key, token)
                 if (generations[key] === token) actions[key]?.let { actions[key] = it.copy(busy = false) }
             }
+        }
+    }
+
+    fun clearRateFeedback(post: FeedPost, kind: RedSquareActionKind, sequence: Long) {
+        val key = PostActionKey(post.id, kind)
+        actions[key]?.takeIf { it.rateFeedback == sequence }?.let {
+            actions[key] = it.copy(rateFeedback = 0)
         }
     }
 

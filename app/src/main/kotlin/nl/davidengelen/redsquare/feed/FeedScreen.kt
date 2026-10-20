@@ -72,7 +72,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     val context = activity.applicationContext
     val scope = rememberCoroutineScope()
     val personal = LocalPersonalControls.current
-    val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope) } }
+    val social = remember(wallet, backend, endpoint) { wallet?.let { SocialState(context, it, backend, endpoint, scope, PostLikeInputClock.fromIntent(activity.intent, endpoint)) } }
     val quotes = remember(wallet, backend, endpoint) { QuoteState(context, wallet, backend, endpoint, scope) }
     val following = remember(wallet?.publicKey) { wallet?.let { FollowingState(context, it.publicKey, scope) } }
     LaunchedEffect(following) { following?.load() }

@@ -28,7 +28,7 @@ class SocialPreviewTest {
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("social.") || it.name.startsWith("feed.") ||
+            it.name.startsWith("social.") || it.name.startsWith("socialrate.") || it.name.startsWith("feed.") ||
                 it.name.startsWith("conversation.") || it.name.startsWith("profile.")
         }?.forEach { check(it.delete()) }
     }
