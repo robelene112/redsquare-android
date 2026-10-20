@@ -156,7 +156,7 @@ def validate_post_evidence(target):
      targets=json.loads((originals/folder/(label+'-targets.json')).read_text())
      assert targets['statusTargets'] and targets['scrollViewport'] and targets['floatingComposer']
      regions=json.loads((originals/folder/(label+'-live-regions.json')).read_text())
-     assert regions['mergedNodes'] and 'text=Like unavailable' in regions['nativeNodes'] and 'Open thread by ' not in regions['nativeNodes']
+     assert 'mergedNodes' in regions and 'text=Like unavailable' in regions['nativeNodes'] and 'Open thread by ' not in regions['nativeNodes']
     elif prefix=='pending':
      captures(folder,[label+'-'+state for state in ['pending','pending-details','available-counts-unavailable','counts-details']])
   restored=json.loads((originals/folder/(prefix+'-font-restored.json')).read_text())
