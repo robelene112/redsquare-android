@@ -152,7 +152,15 @@ Root checked the actual patch/metadata/hash. Build logs and setup failures remai
 external. No installation/service startup/TTS-engine readiness/speech acceptance
 exists yet. A later dedicated disposable scope must preserve accessibility services
 with UiAutomation DONT_SUPPRESS flags and positively verify active TalkBack and
-an English TTS engine. Service-generated speech transcripts differ from raw events
+an English TTS engine. Set `Configurator.getInstance().setUiAutomationFlags` before
+UiDevice access and use flagged direct calls throughout the dedicated scope;
+restore prior flags afterward. Priming Instrumentation once is insufficient:
+its no-argument getUiAutomation resets existing flags. Official
+[Instrumentation](https://developer.android.com/reference/android/app/Instrumentation#getUiAutomation(int))
+and [Configurator](https://developer.android.com/reference/androidx/test/uiautomator/Configurator#setUiAutomationFlags(int))
+docs and the actual cached2.4.0 UiDevice bytecode confirm that behavior. The
+external `uiautomator-javap.txt` records the latter read-only inspection.
+Service-generated speech transcripts differ from raw events
 and from audible completion. Do not equate generic completion callbacks with real
 engine success; stock code can synthesize them on failed/empty speech.
 
