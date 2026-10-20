@@ -36,8 +36,8 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active status59 checkpoint
 
-2026-10-20,13:35 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53 are
-REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.54 is reserved and building at exact3c96bd3d8.
+2026-10-20,13:35 UTC.59 remains OPEN. Ordinary50 is LIVE.51/52/53/54 are
+REJECTED and NEVER PUBLISH; all frozen APKs remain unchanged.55 is not reserved.
 Continue60 through69 sequentially after actual59 completion, without owner stops.
 The external review worktree is now frozen at3c96bd3d8; prior APKs remain intact.
 
@@ -106,20 +106,34 @@ reaction Forwarded PNGs; feedback is visible above management. Source/core/relea
 lint39429855138 at a6 succeeds. Paired source/evidence review through3c96 is0/0.
 
 Frozen final source3c96bd3d8679430b3ce60b00ca5c2b327da5cf0f differs from a6 only
-in four docs/collector files; app/build/test inputs are identical. NEW signed54
-is reserved/building at this exactsource. Full10run39431098878/17run39431103266
+in four docs/collector files; app/build/test inputs are identical. Signed54 was built and APK-inspected at this exact source but is now REJECTED
+and NEVER PUBLISH after the additional group-admin failures below. Full10run39431098878/17run39431103266
 execute the same3c96 on owned verify/status59-3c96bd3d8. Both are active and
 bound in full-identity-reference.json. No full acceptance or publication yet.
 
-Additional focused3c96 runs are active: keyboard10/17 39430764376/39430768579;
+Additional focused3c96 keyboard/mute/recovery runs all SUCCESS: keyboard10/17 39430764376/39430768579;
 mute10/17 39430772696/39430777303; status recovery10/17 39430782031/39430786583;
-group admin10/17 39430790331/39430794067. These repeat relevant routes after
+group admin10/17 39430790331/39430794067 both FAIL one rejected-promotion retry
+case at the original15second persisted-Forwarded goal (GroupAdminPreviewTest242).
+The restored Submitted status is visible but Retry is absent from native XML/PNG,
+with the control below the80dp viewport in source. A missed tap versus a second
+transport refusal remains a diagnosis hypothesis, not proved until corrected
+execution/raw observations. These repeat relevant routes after
 shared layout/anchor changes; they never replace complete allthree-job proof.
 Both prior f4 complete executions finish FAILURE with both social jobsSUCCESS;
 actual final metadata is retained. Do not collect them as acceptance.
 
-Next: inspect additional focused results and actual54 APK, retain/review packet,
-wait for fresh complete10/17 including all public reads/actualspeech/motion and
+Current e8 source places the existing Retry action directly in its pending
+InlineStatus, retaining its exact enabled conditions and operation callback.
+Failure captures now retain best-effort all-root Compose and raw transport counts.
+49b adds a real visible-Retry assertion/native before-click capture, without
+changing identity,15second goal or same-original raw/Relay requirements.
+Corrected e8 admin10/17runs39433107624/39433112435 are active. No55 is reserved.
+54 actual APK inspection and historical before-HTTP check PASS do not override
+its rejected native route. Never publish54 or run its after-publication checker.
+
+Next: diagnose/verify group retry, source review and new candidate/full freeze,
+then require fresh complete10/17 including all public reads/actualspeech/motion and
 strong reading bookends, strict collection and paired final review. Then canonical
 publication and independent before/after HTTP checks. Never run52/53 publication
 after-stages or publish rejected APKs. Continue60 through69 after real59 closure.

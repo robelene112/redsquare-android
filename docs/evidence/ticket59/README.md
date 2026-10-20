@@ -649,3 +649,29 @@ Both prior f4 full runs finish FAILURE, with successful social partitions and
 failed Chat/wallet partitions. Their actual final run/job metadata is retained.
 51/52/53 remain rejected and never publishable. No focused or tail assembly can
 replace missing complete goals. Ordinary50 stays live until real acceptance.
+
+### Rejected54 and group retry presentation
+
+Signed54 is built and actual APK inspection PASS at3c96, SHA256
+7a3bd32b991aee02b289d58202ca495dcc07e62b82c201a11c4db2d35eec069c,
+37,856,651bytes, established certificate and expected SDK/manifest/DEX flags.
+Independent before-HTTP bookend PASS is preparation only.54 is now REJECTED and
+NEVER PUBLISH: both additional group-admin runs39430790331/39430794067 fail the
+original15second persisted-Forwarded goal after rejected promotion retry. All
+original logs/22archive members each are retained in admin-red10/17-3c. Native
+failure captures show Submitted but no Retry, consistent with its source position
+below the80dp viewport. A missed tap versus retry transport failure remains a
+hypothesis; no unobserved transport counts are asserted. Frozen APK is unchanged.
+
+The other six focused3c96 scopes succeed: keyboard10/17, mute10/17 and recovery10/17.
+Current e8 moves the exact existing Retry action into pending InlineStatus with
+unchanged enabled guards/policy/raw candidate callback. GroupAdmin failure capture
+adds optional all-root Compose/transport counts.49b adds visible-Retry/native
+before-click proof before the original click and all original signed/Relay/15second
+goals. Corrected e8 focused admin10/17runs39433107624/39433112435 are active,
+without the later49b observation. That distinction avoids claiming a capture delay
+proved the presentation fix. No55 is reserved or native-accepted.
+
+Complete3c96 runs39431098878/39431103266 may finish independently but do not
+represent the new recovery presentation. Preserve their actual final conclusions;
+no assembly can replace fresh complete verification at corrected final source.
