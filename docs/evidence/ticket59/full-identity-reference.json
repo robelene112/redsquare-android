@@ -155,7 +155,7 @@
       "reason": "Both complete Chat jobs fail two unchanged GroupChatPreviewTest operator steps: offscreen Unlike and offscreen left-notice native lookup. Both SDK social/wallet jobs succeed. Exact original logs/captures and terminal metadata retained. Test-only visible-scroll correction requires new complete runs, never failed-tail assembly."
     }
   ],
-  "verificationRef": "verify/status59-c5f0ca7c6",
+  "verificationRef": "verify/status59-dc2a973aa",
   "signedCandidateVersion": 56,
   "signedCandidateRejected": false,
   "rejectedCandidateVersions": [
@@ -168,7 +168,7 @@
   "sourceVerification": {
     "requiredWithinEveryFullJob": true,
     "step": "Build and verify native sources",
-    "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22"
+    "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef"
   },
   "sourceBuildHistory": [
     {
@@ -196,13 +196,19 @@
       "source": "5a0c389d1012716b5de0096068fcd02cf534b6da",
       "conclusion": "success",
       "url": "https://github.com/robelene112/redsquare-android/actions/runs/39436168049"
+    },
+    {
+      "run": 39437693370,
+      "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+      "conclusion": "success",
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39437693370"
     }
   ],
   "sourceBuild": {
-    "run": 39437693370,
-    "source": "c5f0ca7c6b3818313aa3f620c6983ceaa19e2a22",
+    "run": 39443999774,
+    "source": "dc2a973aa892cdddd4cd65ef47ee31ef36f799ef",
     "conclusion": "success",
-    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39437693370"
+    "url": "https://github.com/robelene112/redsquare-android/actions/runs/39443999774"
   },
   "fixtureOnlyEquivalence": {
     "path": "docs/evidence/ticket59/dc2-production-equivalence/inputs.json",
