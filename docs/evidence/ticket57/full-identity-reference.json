@@ -158,5 +158,88 @@
       "path": "settings.gradle.kts",
       "gitObject": "0095b7ade761bc539b703724c717ece3a9d1879b"
     }
-  ]
+  ],
+  "separatelyExecutedPublicReads": {
+    "reason": "Initial full dispatch omitted public_feed_read. Expected catalog remains unchanged. Complete partitioned verification is combined with separately executed unchanged public-read gates, under the bounded WORKFLOW rule at32c9fdcbe; never relabel the initial runs as including those reads.",
+    "source": "b2ad823b16c8aba0d6b316cfddc3d4d1d7ee5a93",
+    "android10": {
+      "feed": {
+        "run": 39399533451,
+        "artifactDirectory": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed10-39399533451"
+      },
+      "chat": {
+        "run": 39399540274,
+        "artifactDirectory": "/mnt/storage/redsquare-android-artifacts/likes57-public-chat10-39399540274"
+      }
+    },
+    "android17": {
+      "feed": {
+        "run": 39399537091,
+        "artifactDirectory": "/mnt/storage/redsquare-android-artifacts/likes57-public-feed17-39399537091"
+      },
+      "chat": {
+        "run": 39399544249,
+        "artifactDirectory": "/mnt/storage/redsquare-android-artifacts/likes57-public-chat17-39399544249"
+      }
+    },
+    "executionInputEquality": [
+      {
+        "path": "app/src",
+        "gitObject": "87c1b5af07122d3e9b64b59adbd052ba64a6fb0a"
+      },
+      {
+        "path": "core/src",
+        "gitObject": "4308a106a06eac2b100bd021d1a2c0498bd30e44"
+      },
+      {
+        "path": "push-gateway/src",
+        "gitObject": "45b3cc0c755c77aee4120427f2bf1eeb22bb7ead"
+      },
+      {
+        "path": "scripts",
+        "gitObject": "b7a9b537534bbeb8b06e82d4b395f3f47b1372d6"
+      },
+      {
+        "path": ".github/workflows",
+        "gitObject": "759c3d825477e34142b002fe82537b3813dded64"
+      },
+      {
+        "path": "gradle",
+        "gitObject": "4167f4ea961fcf6b4ae64c287eee7d16241e967e"
+      },
+      {
+        "path": "build-support",
+        "gitObject": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+      },
+      {
+        "path": "app/build.gradle.kts",
+        "gitObject": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+      },
+      {
+        "path": "core/build.gradle.kts",
+        "gitObject": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+      },
+      {
+        "path": "push-gateway/build.gradle.kts",
+        "gitObject": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+      },
+      {
+        "path": "gradle.properties",
+        "gitObject": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+      },
+      {
+        "path": "build.gradle.kts",
+        "gitObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+      },
+      {
+        "path": "settings.gradle.kts",
+        "gitObject": "0095b7ade761bc539b703724c717ece3a9d1879b"
+      },
+      {
+        "path": "docs/research",
+        "gitObject": "8d579377839675318498e551ec53b2a1112dfdc2"
+      }
+    ]
+  },
+  "collectorSha256": "119dd02a70058f01d8e895611f4ad8a352084478ea44a4ba97d7f19af7986b1f"
 }
