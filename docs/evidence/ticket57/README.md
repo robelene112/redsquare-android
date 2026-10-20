@@ -189,3 +189,31 @@ nondebuggable/nonprofileable,backup=false,review=true,Push=false and separate
 Posts/Chat GIF keys absent. Artifact/source are unchanged by e266's test-only
 selector correction. It is prepared only; no public50 or physical/store/provider
 acceptance is claimed. Ordinary49 remains live. Full checks remain pending.
+
+
+## Actual second-like cold recovery GREEN
+
+Source39396012366 at e26672bf4 is SUCCESS. Focused actual process runs
+39396110427(Android10)/39396113577(Android17) are both SUCCESS: exactly one
+intentional crashed preparation followed by one normal cold recovery PASS and
+one PASS continuity record. Actual process identities are3378->3573 and2948->4198.
+Both14-hash packets retain five archive members, raw phase logs and host PID/
+signature records. All four emitted frames pass independent pinned WASM/Elliptic
+checks and exactly match the host's first/second signature pair. Native assertions
+verify exact second-original reconciliation, zero rebroadcast, same wallet and
+persisted rate rejection of a fresh third input. Root opened10 cold-recovered
+and17 second-uncertain originals. This accepts the new isolated process journey;
+original Social/full acceptance remains separate.
+
+Complete runs39396615570(10)/39396619548(17) are in progress at fec4cfb13,
+each with all three Chat/Social/Wallet jobs. The original pre-execution identity
+expectations are unchanged; exact runs/source are now bound in the reference.
+Source/production equality to the signed285 candidate is recorded by Git objects.
+Every full job repeats complete source checks before its device suite. No full
+result or subset success is substituted for complete acceptance.
+
+The independent public50 before snapshot exits0/PASS against current ordinary49,
+immutable49/45 and the entire unchanged performance43 channel. This is read-only
+publication preparation.50 remains unpublished until complete acceptance/review.
+Prepared50 and failed combined-scope packets at fec have final Spec0, documented
+Standards0 and heuristic0 review. The earlier documentation findings are resolved.

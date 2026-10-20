@@ -120,5 +120,43 @@
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34
     }
+  ],
+  "executingSource": "fec4cfb1389a3410c378773bb523a6f288ec944a",
+  "executingRuns": {
+    "android10": 39396615570,
+    "android17": 39396619548
+  },
+  "sourceBuild": {
+    "source": "e26672bf43db8e11ee59e15b26373a9c4e0f2d06",
+    "run": 39396012366,
+    "result": "SUCCESS",
+    "binding": "Executing source differs only in documentation; full jobs also repeat their own complete source checks before runtime."
+  },
+  "signedCandidateSource": "285d84bacef662ea357612fc2b256b8e9b93c8f4",
+  "productionSourceEquivalence": [
+    {
+      "path": "app/src/main",
+      "gitObject": "48299fe747c78b2afca85f9cd295efa3fc682382"
+    },
+    {
+      "path": "core/src/main",
+      "gitObject": "f482cdb7a81261d81509a34a296e734f8cba2bed"
+    },
+    {
+      "path": "app/build.gradle.kts",
+      "gitObject": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+    },
+    {
+      "path": "core/build.gradle.kts",
+      "gitObject": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+    },
+    {
+      "path": "build.gradle.kts",
+      "gitObject": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "gitObject": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    }
   ]
 }
