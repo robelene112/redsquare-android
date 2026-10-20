@@ -897,7 +897,8 @@ Until.gone. Root opened generic/failure native originals; notification remains.
 Later active-state/no-redelivery checks and full classes were not reached. No
 cause is proved. ec diagnostic-only source keeps the same swipe and original
 5second/180second goals, records primitive flags/bounds/duration, and isolates the
-same existing method. Both source axes0; source39377858558/focused proof pending.
+same existing method. Both source axes0; source39377858558SUCCESS. Focused original-method runs
+39378314704(10)/39378317046(17) dispatched at ec, results pending.
 17fa full remains in progress; Wallet jobSUCCESS/exact76 accepted38 IDs and complete
 partition marker verified, Chat/Social outstanding.49 productiona1 unchanged,
 prepared/unpublished. Neither a failed10 run nor a passing17 partition is full

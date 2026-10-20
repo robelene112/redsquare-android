@@ -27,7 +27,8 @@ not reached. Seven packet hashes preserve the actual RED. Diagnostic-onlyec7ec4d
 adds best-effort primitive flag/bounds/duration observations and isolates the same
 existing method in private-push-dismissal scopes. Original swipe,5second goals,
 180second class bound,11-case full command and all later gates stay. Both source
-review axes0. Source39377858558 pending; await SUCCESS before focused diagnosis.
+review axes0. Source39377858558SUCCESS; focused original-method diagnosis
+39378314704(10)/39378317046(17) dispatched at ec, results pending.
 Full17fa39376147196 remains in progress: WalletSUCCESS, exact76 accepted38 IDs
 and partition-complete verified in external ui58-full17-fa-39376147196; Chat/Social
 not yet complete. No whole/full acceptance or49publication. Appa1 unchanged.
