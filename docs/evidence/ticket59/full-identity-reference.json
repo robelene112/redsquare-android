@@ -1,0 +1,100 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete57 canonical catalogs plus two recovery, two real-window motion and one real TalkBack service/engine journey. Every prior gate, method and deadline retained; new goals are mandatory in existing Chat partition. Public-read gates execute in the actual full dispatch. No supplemental or failed-tail assembly is planned.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket57/full10-fec-39396615570/identities.json",
+      "sha256": "b5629d4ed8cf8cbdf4c93d79a91c1c05586346bdb13bb60acf147e5b04e8d70b",
+      "previousIdentities": 481,
+      "additional": [
+        {
+          "path": "status-recovery.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusRecoveryPreviewTest",
+          "test": "nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed",
+          "occurrences": 1
+        },
+        {
+          "path": "status-recovery.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusRecoveryPreviewTest",
+          "test": "openedDetailsStayReadableAfterRecoveryAndBannerRemoval",
+          "occurrences": 1
+        },
+        {
+          "path": "status-motion.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
+          "test": "normalMotionAndLargeDarkTextKeepStatusRecoveryUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "status-motion.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
+          "test": "zeroMotionAndLargerLightTextKeepStatusRecoveryUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "status-talkback.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackStatusPreviewTest",
+          "test": "importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 129,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 92
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket57/full17-fec-39396619548/identities.json",
+      "sha256": "461b1c3a70ee317c9c2e305d5c6a99afb7a4bbee89d7cdb2a53cb9b132b84f26",
+      "previousIdentities": 482,
+      "additional": [
+        {
+          "path": "status-recovery.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusRecoveryPreviewTest",
+          "test": "nodeOutageDetailsAndRecoveryPreserveTheScrolledFeed",
+          "occurrences": 1
+        },
+        {
+          "path": "status-recovery.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusRecoveryPreviewTest",
+          "test": "openedDetailsStayReadableAfterRecoveryAndBannerRemoval",
+          "occurrences": 1
+        },
+        {
+          "path": "status-motion.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
+          "test": "normalMotionAndLargeDarkTextKeepStatusRecoveryUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "status-motion.txt",
+          "testClass": "nl.davidengelen.redsquare.StatusMotionPreviewTest",
+          "test": "zeroMotionAndLargerLightTextKeepStatusRecoveryUsable",
+          "occurrences": 1
+        },
+        {
+          "path": "status-talkback.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackStatusPreviewTest",
+          "test": "importantOutageAnnouncesOnceWithoutMovingAccessibilityFocus",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 130,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 92
+    }
+  ],
+  "executingSources": {},
+  "executingRuns": {},
+  "sourceBuild": null,
+  "signedCandidateSource": null,
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "6ae93cc2512b3fe4691ffc5847d1870cf1fed64592e1d93f56bc701144cabb02",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf",
+    "actualSpeechAcceptance": false
+  }
+}
