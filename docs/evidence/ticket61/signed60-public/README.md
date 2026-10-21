@@ -27,4 +27,6 @@ Spec0/documented Standards0/heuristic0. No partition/supplement assembly.
 
 This is an ordinary signed in-place beta update, not configured-provider,
 physical Pixel timing/continuity, Play or owner final app-wide UI acceptance.
-Those requirements remain with36 and55. Public packet final review follows.
+Those requirements remain with36 and55. Final public packet review returns
+Spec0/documented Standards0/heuristic0; all28 hashes and14 protected resources
+were independently verified, including current public APK bytes.

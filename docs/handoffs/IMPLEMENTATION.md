@@ -16,7 +16,8 @@ sequential implementation, review, commits and signed in-place beta delivery.
    matches frozen285 prepared50 exactly; immutable49/45 and wholeperformance43
    are preserved. Final public-packet review at8c1954ab9 is0/0 and57 is CLOSED.
    59 is delivered as ordinary58;60 native acceptance and ordinary59 publication
-   are complete and60 is CLOSED after final0/0 publication review. Active61, then62–69 and70
+   are complete and60 is CLOSED after final0/0 publication review.61 is also complete
+   with signed60 and final public0/0 review. Next62–69 and70
    sequentially. Never rebuild50 or59. Detailed original
    RED/GREEN, full481/482 canonical identities,35 interruptions/34 continuity per
    SDK and supplemental public-read provenance are in ticket57's evidence README.
@@ -36,11 +37,11 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Composer61 delivered, final public review pending
+## Composer61 delivered; resume with62
 
 61 production, complete native acceptance and ordinary60 public delivery are
 complete. Both native evidence reviews return Spec0/documented Standards0/
-heuristic0. Final public-packet review is pending; then close61/update55 and start
+heuristic0. Final public-packet reviews are also0/0. Close61/update55 and start
 62–69 then70 sequentially, without a routine final/stop.55 owner final UI and36
 actual provider/physical/store requirements remain open.
 

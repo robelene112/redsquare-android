@@ -2,7 +2,7 @@
 
 ## Current checkpoint, 2026-10-21 05:17 UTC
 
-Native61 and public delivery are complete; final publication review remains.
+Native61 and public delivery are complete, with final publication reviews0/0.
 Final production is4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c;
 executing fixture sourced434d190aed906e26f2f326f7ce9c258020c4de3 includes later
 test and evidence corrections without changing the11 production/build Git objects.
@@ -77,7 +77,8 @@ reproduced APK bytes. Canonical publication and independent public after check
 both exit0. Public bytes/signature/manifest match the exact held APK; protected
 ordinary59/58/50/49/45 and the whole performance43 channel are unchanged. See
 [public proof](signed60-public/README.md). Never rebuild or reuse60. Final public
-packet review follows. Provider, physical and store requirements stay with36;
+packet review returns Spec0/documented Standards0/heuristic0. Provider, physical
+and store requirements stay with36;
 55 remains open through owner final app-wide UI review.
 
 ## Historical checkpoints
