@@ -856,3 +856,22 @@ pending. Root viewed current10 compact/profile/failed/count-refresh originals
 and17 thread/quoted-search/200%Dark failure/confirmed-like-count-refresh PNGs.
 Existing200%navigation word splits stay70. Independent final evidence review
 and paired complete acceptance/publication59 remain pending. Prepared59 held.
+
+Complete Android17 run39522662606 executes the same exact4124 source and all
+three original partitions succeed. Frozen collector passes497 identities with
+no assumptions,137 normal completions,35 deliberate interruptions,34 continuity
+records and99 archive records. Packet full17-4124-39522662606 retains1011 hashes
+and validates1395 PNG/1109 XML observations. The same exact five established
+optional observer gaps recur; no collector/exception changes were needed.
+Ten real contextual post controls have actual accessibility focus and completed
+positive-audio engine callbacks from bound TalkBack PID14232. Physical audibility
+is not claimed. Root viewed current full17 thread, quoted Search,200%Dark failed
+status and confirmed-like count-refresh-failure originals. The quoted Search
+capture is scrolled to the quote; it does not independently show the complete
+action row. Native goals separately scroll/verify the footer. Existing200%
+navigation word splits remain70. Complete10 packet has independent Spec0,
+documented Standards0 and heuristic0 review at91138913e. Both final full runs
+now pass; final17 independent review and actual prepared59 publication are next.
+Prepared source90f and executing4124 have eleven identical production/build
+Git objects; this does not claim independent build-byte reproducibility. The
+actual59 APK remains frozen and unpublished at this checkpoint.
