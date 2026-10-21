@@ -8,11 +8,16 @@ internal fun ComposeTestRule.waitForGroupStatus(text: String, enabled: Boolean =
     val target = if (enabled) hasText(text) and isEnabled() else hasText(text)
     waitUntil(15_000) {
         try {
-            onNodeWithContentDescription("Group status and actions").performScrollToNode(hasText(text))
+            if (!onNode(target).isDisplayed()) {
+                val details = onNodeWithContentDescription("Conversation information and controls")
+                val viewport = if (details.isDisplayed()) details
+                    else onNodeWithContentDescription("Group status and actions")
+                viewport.performScrollToNode(hasText(text))
+            }
         } catch (_: AssertionError) {
             // A not-yet-published status is retried inside the original readiness deadline.
             return@waitUntil false
         }
-        onAllNodes(target).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        onNode(target).isDisplayed()
     }
 }

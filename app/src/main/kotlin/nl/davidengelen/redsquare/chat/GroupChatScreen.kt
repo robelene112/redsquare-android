@@ -335,6 +335,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         finally{olderLoading=false}
     }
     val keyboardVisible = WindowInsets.isImeVisible
+    var details by remember(wallet.publicKey, backend, selected) { mutableStateOf(false) }
     val entry = entries.firstOrNull { it.group.id == selected }
     val staleAction = entry?.let(store::isStaleAdminAction) == true
     // Queued controls sit below this viewport. Keep management at its scroll end
@@ -347,16 +348,24 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
             TextButton(enabled=!busy&&!savingForNavigation&&!navigation.transitioning,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
-            Text(entry?.group?.name ?: stringResource(R.string.group_title),Modifier.weight(1f),style=MaterialTheme.typography.titleLarge,
-                maxLines=2,overflow=TextOverflow.Ellipsis)
+            Column(Modifier.weight(1f)) {
+                Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.titleMedium,
+                    maxLines=1,overflow=TextOverflow.Ellipsis)
+                Text(stringResource(R.string.group_unencrypted),style=MaterialTheme.typography.labelSmall,
+                    color=MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             entry?.let { ConversationMuteButton(it.group.id) }
-            TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
+            val detailsLabel = stringResource(R.string.chat_conversation_details)
+            if (entry != null) TextButton(onClick = { details = true },
+                modifier = Modifier.semantics { contentDescription = detailsLabel }) { Text(stringResource(R.string.status_details)) }
+            else TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
-        Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
+        if (entry == null) Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,
+            color=MaterialTheme.colorScheme.onSurfaceVariant)
         // Full status text stays scrollable while queued controls keep their space.
         val statusLabel=stringResource(R.string.group_status_actions)
-        Column(Modifier.heightIn(max=statusMaxHeight).verticalScroll(rememberScrollState())
-            .semantics{contentDescription=statusLabel},
+        val statusContent: @Composable (Boolean) -> Unit = { expanded ->
+        Column(
             verticalArrangement=Arrangement.spacedBy(4.dp)) {
             InlineStatus(if (hintsFailed) stringResource(R.string.group_hints_error) else null, StatusTone.WARNING)
             PersonalControlsStatus(personal)
@@ -366,7 +375,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             InlineStatus(if (historyFailed) stringResource(R.string.group_history_error) else null, StatusTone.WARNING)
             InlineStatus(if (liveFailed) stringResource(R.string.group_live_error) else null, StatusTone.WARNING)
             if(entry!=null) {
-                InlineStatus(if (entry.queuedMessage==null) stringResource(when(entry.status) {
+                InlineStatus(if (entry.queuedMessage==null && (expanded || entry.status in listOf(
+                    GroupChatStore.Status.UNKNOWN, GroupChatStore.Status.SUBMITTED,
+                    GroupChatStore.Status.FORWARDED, GroupChatStore.Status.STOPPED))) stringResource(when(entry.status) {
                     GroupChatStore.Status.UNKNOWN -> R.string.group_unknown
                     GroupChatStore.Status.SUBMITTED -> R.string.group_submitted
                     GroupChatStore.Status.FORWARDED -> R.string.group_forwarded
@@ -390,37 +401,54 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         }
                     })
             }
+            if (!expanded && entry?.group?.memberRoles?.get(wallet.publicKey) == ChatGroupRole.LEFT)
+                Text(stringResource(R.string.group_left))
             statusSections.forEach { section ->
                 key(section) {
                     when (section) {
                         GroupStatusSection.HISTORY -> InlineStatus(
-                            if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+                            if (expanded || entry == null && !keyboardVisible) stringResource(R.string.status_available_history) else null,
                             details = listOf(stringResource(R.string.chat_available_history)), announce = false)
-                        GroupStatusSection.MANAGEMENT -> if(entry!=null) {
-                            if(!keyboardVisible&&entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
+                        GroupStatusSection.MANAGEMENT -> if(expanded && entry!=null) {
+                            if(entry.group.confirmedInvitation!=null) Text(stringResource(R.string.group_invitation_origin),
                                 style=MaterialTheme.typography.bodySmall,color=MaterialTheme.colorScheme.onSurfaceVariant)
-                            if (!keyboardVisible) FlowRow {
-                                TextButton(enabled=!navigation.transitioning,onClick={if(!navigation.transitioning)members=true}) { Text(stringResource(R.string.group_members)) }
+                            FlowRow {
+                                TextButton(enabled=!navigation.transitioning,onClick={if(!navigation.transitioning){details=false;members=true}}) { Text(stringResource(R.string.group_members)) }
                                 if(entry.group.memberRoles[wallet.publicKey]?.active==true) {
-                                    TextButton(enabled=!busy&&!navigation.transitioning&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={if(!navigation.transitioning)inviting=true}) { Text(stringResource(R.string.group_invite)) }
-                                    TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning)leaving=true}) { Text(stringResource(R.string.group_leave)) }
+                                    TextButton(enabled=!busy&&!navigation.transitioning&&entry.group.memberRoles.values.any{it==ChatGroupRole.ADMIN},onClick={if(!navigation.transitioning){details=false;inviting=true}}) { Text(stringResource(R.string.group_invite)) }
+                                    TextButton(enabled=!busy&&!navigation.transitioning&&!entry.hasPendingAction,onClick={if(!navigation.transitioning){details=false;leaving=true}}) { Text(stringResource(R.string.group_leave)) }
                                 }
                             }
 
                             if(staleAction) {
                                 Text(stringResource(R.string.group_stale_action),color=MaterialTheme.colorScheme.error)
-                                TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning)stopping=true}){Text(stringResource(R.string.group_stop_action))}
+                                TextButton(enabled=loaded&&!busy&&!readFailed&&!navigation.transitioning,onClick={if(!navigation.transitioning){details=false;stopping=true}}){Text(stringResource(R.string.group_stop_action))}
                             }
                             if(entry.stoppedActions.isNotEmpty()&&entry.status!=GroupChatStore.Status.STOPPED)
                                 Text(stringResource(R.string.group_stopped_history),style=MaterialTheme.typography.bodySmall)
                             if(entry.group.memberRoles[wallet.publicKey]==ChatGroupRole.LEFT) Text(stringResource(R.string.group_left))
-                            if(hasOlder&&olderCursor!=null) TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}){
-                                Text(stringResource(R.string.chat_load_older))
-                            }
                         }
                     }
                 }
             }
+        }
+        }
+        Column(Modifier.heightIn(max=statusMaxHeight).verticalScroll(rememberScrollState())
+            .semantics{contentDescription=statusLabel}) { statusContent(false) }
+        if (details && entry != null) ConversationDetails(onDismiss = { details = false }) {
+            Text(entry.group.name, style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.group_privacy), style = MaterialTheme.typography.bodyMedium)
+            androidx.compose.foundation.text.selection.SelectionContainer { Text(entry.group.id) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextButton(enabled=!busy&&!paging&&!navigation.transitioning,
+                    onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
+            }
+            statusContent(true)
+        }
+        if (entry != null && hasOlder && olderCursor != null) TextButton(
+            enabled=!busy&&!paging&&!navigation.transitioning,
+            onClick={if(!initialLoading&&!olderLoading&&!busy&&!navigation.transitioning){olderLoading=true;olderRequest++}}) {
+            Text(stringResource(R.string.chat_load_older))
         }
         if(entry==null) {
             Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
@@ -488,25 +516,24 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         horizontalAlignment=if(outgoing)Alignment.End else Alignment.Start){
                         var copyFailed by remember(item.id){mutableStateOf(false)}
                         val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
-                        ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,backend=backend,selectable=true){reference->
-                            val index=visible.indexOfFirst{it.author+it.createdAt==reference}
-                            if(index>=0)showMessage(index)
-                        }
                         val likedBy=entry.likedBy(item)
-                        if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
-                        FlowRow{
-                        TextButton(enabled=permitted,onClick={
+                        ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,backend=backend,selectable=true,
+                            actions = {
+                            ChatMessageActions(wallet.publicKey in likedBy, permitted, permitted && replyPrefix != null,
+                                onLike = {
                             act {
                                 val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
                                 withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
                                 sendPrepared(entry.group.id,candidate,wallet)
                             }
-                        }){Text(stringResource(if(wallet.publicKey in likedBy)R.string.chat_unlike else R.string.chat_like))}
-                        TextButton(enabled=permitted&&replyPrefix!=null,onClick={
+                        }, onReply = {
                             if(!navigation.transitioning)replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
-                        }){Text(stringResource(R.string.post_reply))}
-                        TextButton(onClick={copyFailed=!copyPrivateMessage(context,item.text)}){Text(stringResource(R.string.chat_copy))}
+                        }, onCopy = {copyFailed=!copyPrivateMessage(context,item.text)})
+                        }) { reference ->
+                            val index=visible.indexOfFirst{it.author+it.createdAt==reference}
+                            if(index>=0)showMessage(index)
                         }
+                        if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
                         if(copyFailed)Text(stringResource(R.string.chat_copy_error))
                     }
                 }

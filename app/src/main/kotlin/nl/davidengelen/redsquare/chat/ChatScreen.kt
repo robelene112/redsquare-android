@@ -294,6 +294,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
 
     val keyboardVisible = WindowInsets.isImeVisible
+    var details by remember(wallet.publicKey, backend, counterparty) { mutableStateOf(false) }
     BoxWithConstraints(modifier.fillMaxSize()) {
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
@@ -301,18 +302,25 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() }) {
                 Text(stringResource(R.string.browse_back))
             }
-            Text(stringResource(R.string.chat_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
-            counterparty?.let { contact ->
-                ConversationMuteButton(remember(wallet.publicKey, contact) { PrivateChat.conversationId(wallet.publicKey, contact) })
+            Column(Modifier.weight(1f)) {
+                Text(counterparty?.let { registeredIdentity(it).name } ?: stringResource(R.string.chat_title),
+                    style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(stringResource(R.string.chat_encrypted), style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
+            counterparty?.let { ConversationMuteButton(PrivateChat.conversationId(wallet.publicKey, it)) }
+            val detailsLabel = stringResource(R.string.chat_conversation_details)
+            if (counterparty != null) TextButton(onClick = { details = true },
+                modifier = Modifier.semantics { contentDescription = detailsLabel }) {
+                Text(stringResource(R.string.status_details))
+            } else TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
-        Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
+        if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         val statusLabel = stringResource(R.string.chat_status)
         // Keep full recovery guidance reachable without consuming the message viewport.
-        Column(Modifier.heightIn(max = statusMaxHeight).verticalScroll(rememberScrollState())
-            .semantics { contentDescription = statusLabel }) {
+        val statusContent: @Composable (Boolean) -> Unit = { expanded ->
+            Column {
             reactionState?.let { reactions ->
                 val reactionMessage = when (reactions.saved.status) {
                     ChatReactionStore.Status.UNKNOWN -> R.string.chat_reaction_unknown
@@ -330,10 +338,22 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             InlineStatus(if (groupReceiveFailed) stringResource(R.string.chat_group_receive_error) else null, StatusTone.WARNING)
             InlineStatus(if (reactionHistoryFailed) stringResource(R.string.chat_reaction_cache_error) else null, StatusTone.WARNING)
             InlineStatus(if (incomplete) stringResource(R.string.chat_incomplete) else null, StatusTone.WARNING)
-            InlineStatus(if (!keyboardVisible) stringResource(R.string.status_available_history) else null,
+            InlineStatus(if (expanded || counterparty == null && !keyboardVisible) stringResource(R.string.status_available_history) else null,
                 details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+            }
         }
+        Column(Modifier.heightIn(max = statusMaxHeight).verticalScroll(rememberScrollState())
+            .semantics { contentDescription = statusLabel }) { statusContent(false) }
         val contact = counterparty
+        if (details && contact != null) ConversationDetails(onDismiss = { details = false }) {
+            Text(registeredIdentity(contact).name, style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodyMedium)
+            androidx.compose.foundation.text.selection.SelectionContainer { Text(contact) }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
+            }
+            statusContent(true)
+        }
         if (contact == null) {
             TextButton(onClick={reviewingGroups=true}) { Text(stringResource(R.string.group_title)) }
             Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
@@ -391,8 +411,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
         } else {
-            Text(contact, Modifier.padding(vertical = 4.dp), style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (loading) Text(stringResource(R.string.chat_loading))
             if (hasOlder) TextButton(enabled = !loading && !olderLoading && olderCursor != null, onClick = {
                 olderLoading = true
@@ -411,25 +429,21 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
                         horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
-                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend) { reference ->
+                        val replyPrefix = remember(message) { privateReplyPrefix(message) }
+                        val likedBy = reactions.saved.likedBy(message)
+                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend,
+                            actions = {
+                            ChatMessageActions(wallet.publicKey in likedBy,
+                                canLike = personal?.ready == true && reactions.editable,
+                                canReply = replies.replyTo != null && replyPrefix != null,
+                                onLike = { reactions.toggle(message, publishing::beforePublishing) },
+                                onReply = { replies.replyTo?.invoke(message) },
+                                onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
+                        }) { reference ->
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                             if (index >= 0) showMessage(index)
                         }
-                        val replyPrefix = remember(message) { privateReplyPrefix(message) }
-                        val likedBy = reactions.saved.likedBy(message)
                         if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            TextButton(enabled = personal?.ready == true && reactions.editable,
-                                onClick = { reactions.toggle(message, publishing::beforePublishing) }) {
-                                Text(stringResource(if (wallet.publicKey in likedBy) R.string.chat_unlike else R.string.chat_like))
-                            }
-                            TextButton(enabled = replies.replyTo != null && replyPrefix != null, onClick = { replies.replyTo?.invoke(message) }) {
-                                Text(stringResource(R.string.post_reply))
-                            }
-                            TextButton(onClick = { copyFailed = !copyPrivateMessage(context, message.text) }) {
-                                Text(stringResource(R.string.chat_copy))
-                            }
-                        }
                         if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                     }
                 }

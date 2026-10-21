@@ -30,7 +30,7 @@ class GroupAdminPreviewTest {
             open(fromFeed=true);waitForEnabled("Message")
             ui.onNodeWithText("Message").performTextInput("Retain this removal draft")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Remove member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
             ui.onNodeWithContentDescription("Remove member $member").assertIsDisplayed().assertIsEnabled().performClick()
             waitForEnabled("Confirm removal");ui.onNodeWithText("Confirm removal").performClick()
@@ -45,13 +45,13 @@ class GroupAdminPreviewTest {
             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
             check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
             check(saved.group.memberRoles[member]==ChatGroupRole.REMOVED&&saved.draft=="Retain this removal draft")
-            waitForEnabled("Members");ui.onNodeWithText("Members").performClick()
+            waitForEnabled("Members");ui.withConversationControl("Members") { performClick() }
             ui.onNodeWithText("removed").assertIsDisplayed()
             ui.onNodeWithContentDescription("Remove member $member").assertDoesNotExist()
             captureNativeScreen(File(context.cacheDir,"group-admin-evidence/removed.png"),member)
             ui.onNodeWithText("Done").performClick()
             scenario.recreate();open();waitFor("Retain this removal draft")
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.onNodeWithText("removed").assertIsDisplayed()
             check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
             check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
@@ -72,7 +72,7 @@ class GroupAdminPreviewTest {
             waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this confirmation draft")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
             ui.waitUntil(15_000){store.load(key.publicKey)?.draft=="Keep this confirmation draft"}
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.onNodeWithContentDescription("Promote member ${member.publicKey}").performClick()
             waitForEnabled("Confirm promotion")
             val leave=GroupChat.leave(member,key.publicKey,1700000123457)
@@ -83,7 +83,7 @@ class GroupAdminPreviewTest {
             ui.onNodeWithText("Confirm promotion").assertIsDisplayed().assertIsNotEnabled()
             ui.onNodeWithText("Cancel").performClick()
             waitFor("Keep this confirmation draft")
-            ui.onNodeWithText("Members").performClick();waitFor("left")
+            ui.withConversationControl("Members") { performClick();waitFor("left") }
             ui.onNodeWithContentDescription("Promote member ${member.publicKey}").assertDoesNotExist()
             val saved=requireNotNull(store.load(key.publicKey))
             check(saved.candidate!!.envelope()==creation.envelope()&&saved.status==GroupChatStore.Status.FORWARDED)
@@ -106,9 +106,11 @@ class GroupAdminPreviewTest {
             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
             waitFor("Stopped stale promotion");ui.onNodeWithText("Stopped stale promotion").performClick()
             waitForEnabled("Members")
-            ui.waitForGroupStatus("This saved group action no longer matches the current membership or group details.")
-            ui.onNodeWithText("This saved group action no longer matches the current membership or group details.").assertIsDisplayed()
-            ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
+            ui.withConversationDetails {
+                ui.waitForGroupStatus("This saved group action no longer matches the current membership or group details.")
+                ui.onNodeWithText("This saved group action no longer matches the current membership or group details.").assertIsDisplayed()
+                ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
+            }
             waitFor("Earlier delivery may still have happened. This only stops further attempts on this device and keeps the original record.")
             waitForEnabled("Stop on this device");ui.onNodeWithText("Stop on this device").performClick()
             waitFor("Stopped on this device. Earlier delivery is uncertain.")
@@ -138,7 +140,12 @@ class GroupAdminPreviewTest {
             check(saved.originals.contains(stale.envelope()))
             check(saved.stoppedActions.single().candidate.envelope()==stale.envelope()&&
                 saved.stoppedActions.single().previousStatus==GroupChatStore.Status.UNKNOWN)
-            waitFor("Stopped group actions remain saved here. Their earlier delivery is uncertain.")
+            ui.withConversationDetails {
+                waitFor("Stopped group actions remain saved here. Their earlier delivery is uncertain.")
+                ui.onNodeWithText("Stopped group actions remain saved here. Their earlier delivery is uncertain.")
+                    .performScrollTo().assertIsDisplayed()
+                captureNativeScreen(File(test.context.cacheDir,"group-admin-evidence/stopped-stale-history-details.png"))
+            }
             check(postingTransaction(test.peer.transactions.single()).envelope()==candidate.envelope())
             check(SaitoEnvelope.fromSignedJson(test.peer.relayedMessages.single())==candidate.envelope())
             check(test.wallets.loadExisting().exportJson()==test.wallet.exportJson()&&AndroidBackendStore(test.context).load()==test.backend)
@@ -162,7 +169,9 @@ class GroupAdminPreviewTest {
             waitFor("Groups");ui.onNodeWithText("Groups").performClick()
             waitFor("Submitted stopped action");ui.onNodeWithText("Submitted stopped action").performClick()
             waitForEnabled("Members")
-            ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
+            ui.withConversationDetails {
+                ui.waitForGroupStatus("Stop trying this action", enabled=true);ui.onNodeWithText("Stop trying this action").performClick()
+            }
             waitForEnabled("Stop on this device")
             // A real protected selection change between preview and confirmation must refuse saving.
             val altered=test.wallet.withNamedChatGroup(key,"Changed fixture metadata",test.key)
@@ -218,7 +227,7 @@ class GroupAdminPreviewTest {
             waitFor("Rejected promotion");ui.onNodeWithText("Rejected promotion").performClick()
             waitForEnabled("Message");ui.onNodeWithText("Message").performTextInput("Keep this rejected draft")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.onNodeWithContentDescription("Promote member ${test.memberWallet.publicKey}").performClick()
             waitForEnabled("Confirm promotion");ui.onNodeWithText("Confirm promotion").performClick()
             waitFor(test.context.getString(R.string.group_error))
@@ -436,7 +445,7 @@ class GroupAdminPreviewTest {
             open(fromFeed=true);waitForEnabled("Message")
             ui.onNodeWithText("Message").performTextInput("Retain this admin draft")
             androidx.test.espresso.Espresso.closeSoftKeyboard()
-            ui.onNodeWithText("Members").assertIsDisplayed().performClick()
+            ui.withConversationControl("Members") { assertIsDisplayed().performClick() }
             ui.waitUntil(15_000){ui.onAllNodesWithContentDescription("Promote member $member").fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
             ui.onNodeWithContentDescription("Promote member $member").assertIsDisplayed().assertIsEnabled().performClick()
             waitForEnabled("Confirm promotion");ui.onNodeWithText("Confirm promotion").performClick()
@@ -451,13 +460,13 @@ class GroupAdminPreviewTest {
             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.single())==candidate.envelope())
             check(peer.relayRecipients.single()==listOf(fixture.publicKey,member))
             check(saved.group.memberRoles[member]==ChatGroupRole.ADMIN&&saved.draft=="Retain this admin draft")
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.onNodeWithContentDescription("Promote member $member").assertDoesNotExist()
             ui.onAllNodesWithText("admin").assertCountEquals(2)
             captureNativeScreen(File(context.cacheDir,"group-admin-evidence/promoted.png"),member)
             ui.onNodeWithText("Done").performClick()
             scenario.recreate();open();waitFor("Retain this admin draft")
-            ui.onNodeWithText("Members").performClick()
+            ui.withConversationControl("Members") { performClick() }
             ui.onAllNodesWithText("admin").assertCountEquals(2)
             check(store.load(key.publicKey)!!.candidate!!.envelope()==candidate.envelope())
             check(wallets.loadExisting().exportJson()==fixture.exportJson()&&AndroidBackendStore(context).load()==backend)
@@ -467,7 +476,14 @@ class GroupAdminPreviewTest {
 
         }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
-    private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+    private fun waitForEnabled(text:String) {
+        val check = { ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()} }
+        when (text) {
+            "Like", "Unlike", "Reply", "Copy" -> ui.withMessageAction(text) { check() }
+            "Members", "Invite", "Leave group", "Refresh" -> ui.withConversationControl(text) { check() }
+            else -> check()
+        }
+    }
 }
 
 /** Shared actual submission wiring; each scenario owns its authenticated mutation and assertions. */

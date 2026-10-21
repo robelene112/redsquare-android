@@ -47,7 +47,7 @@ class ConversationViewportPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                    ui.withPostViewports(activity, folder, "conversation-private-latest", scales = listOf(1.3f)) { label, _ ->
+                    ui.withPostViewports(activity, folder, "conversation-private-latest", scales = listOf(1f, 1.3f, 2f)) { label, _ ->
                         val chat = hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }
                         ui.onNode(chat).performClick()
@@ -62,6 +62,7 @@ class ConversationViewportPreviewTest {
                         // Readiness above allows either current layout. This acceptance assertion
                         // independently requires the newest original, without moving the viewport.
                         ui.onNodeWithText(bodies.last()).assertIsDisplayed()
+                        ui.inspectConversationControls(activity, folder, label, contact.publicKey, group = false)
                         check(cache.load().entries.map { it.envelope } == originals)
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())

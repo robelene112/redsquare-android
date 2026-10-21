@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:22 UTC:62 shared viewport native10/17 GREEN; compact UI/matrix under review.
+Updated 2026-10-21 07:27 UTC:62 compact UI/matrix source reviews0/0; final compile active.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -186,6 +186,15 @@ SUCCESS3m40 with explicit exit0; later native operator/matrix additions still
 compiling and under review. Actual menu/Details operators retain original assertion
 chains and state/raw/recovery goals; physical queued Members now goes through
 Details and still measures/clicks its48dp target and verifies exact pending state.
+Final source reviews return Spec0/documented Standards0/heuristic0 after correcting
+missed Refresh/menu/status operators, preserving negative Unlike assertions inside
+a positively opened popup, primary-failure cleanup, nested Details ownership and
+actual popup/IME disappearance rather than Back injection Boolean. List-entry
+full privacy paragraphs stay available because those routes have no Details.
+Group FORWARDED and LEFT feedback stay main; received/recovered/invitation-origin/
+stale management/stopped-history observations now enter real Details with their
+existing assertions/captures. Full names remain available there too. Latest final
+compile is active, explicit external record conversation62-compact-final-compile.json.
 Existing cached-private and group-reading methods add100/130/200% Light/Dark,
 full Details/context menu and actual system IME history-height checks (96dp at
 normal/130,48dp200). Original method IDs/class180 bounds remain. Added group cells

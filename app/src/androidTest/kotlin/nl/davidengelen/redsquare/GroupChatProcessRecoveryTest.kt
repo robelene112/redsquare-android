@@ -115,7 +115,7 @@ class GroupChatProcessRecoveryTest {
             }
             row.addProperty("candidate",candidate.id);row.addProperty("candidateDigest",digest(candidate.envelope()))
             stage("candidate-saved")
-            ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
+            ui.withConversationControl("Refresh") { assertIsEnabled().performClick() }
             waitForEnabled("Create group")
             ui.onNodeWithText("Native group 😀 <&>").performClick()
             stage("pending-group-open")

@@ -329,8 +329,11 @@ class GroupChatPreviewTest {
                             val group=GroupChat.confirmInvitation(invitation,envelope)
                             check(group.creationEnvelope==null && group.memberRoles[fixture.publicKey]==ChatGroupRole.MEMBER)
                             check(!group.memberRoles.containsKey(invitation.sender))
-                            waitFor("Joined using invitation details.")
-                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
+                            ui.withConversationDetails {
+                                waitFor("Joined using invitation details.")
+                                ui.onNodeWithText("Joined using invitation details.").performScrollTo().assertIsDisplayed()
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/joined.png"),invitation.name)
+                            }
                             if(paginating){
                                 ui.waitForGroupStatus("Load older messages")
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Load older messages") and isEnabled()).fetchSemanticsNodes().size==1}
@@ -395,8 +398,10 @@ class GroupChatPreviewTest {
                             if(archiveFault){
                                 brokenHistory.set(true)
                                 androidx.test.espresso.Espresso.closeSoftKeyboard()
-                                ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Refresh").assertIsDisplayed()}.isSuccess}
-                                ui.onNodeWithText("Refresh").assertIsDisplayed().performClick()
+                                ui.withConversationControl("Refresh") {
+                                    ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Refresh").assertIsDisplayed()}.isSuccess}
+                                }
+                                ui.withConversationControl("Refresh") { assertIsDisplayed().performClick() }
                                 ui.waitUntil(15_000){failedHistoryReads.get()>0}
                                 ui.waitForGroupStatus("Older group history could not be loaded. Your cached messages are kept.")
                                     ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
@@ -445,8 +450,10 @@ class GroupChatPreviewTest {
                                         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-unreadable.png"),"Group information could not be read or saved, or the action could not be completed. Your existing records are kept.")
                                     }catch(failure:Throwable){faultFailure=failure;throw failure}
                                     finally{cleanupAfterTest(faultFailure,{synchronized(SaitoLocalState.lock){record.writeBytes(retainedEncrypted)}})}
-                                    ui.waitUntil(15_000){ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().size==1}
-                                    ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                                    ui.withConversationControl("Refresh") {
+                                        ui.waitUntil(15_000){ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().size==1}
+                                    }
+                                    ui.withConversationControl("Refresh") { assertIsDisplayed().assertIsEnabled().performClick() }
                                     assertRestoredGroupDraft()
                                     ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-refresh-restored.png"),"Keep this unsent group draft")
@@ -513,10 +520,10 @@ class GroupChatPreviewTest {
                         check(group.name == "Beta crew" && group.memberRoles[member] == ChatGroupRole.MEMBER)
                         check(store.loadExisting().publicKey == fixture.publicKey)
                         captureNativeScreen(File(context.cacheDir,"group-chat-evidence/created.png"),"Beta crew")
-                        ui.onNodeWithText("Members").assertIsDisplayed().performClick()
+                        ui.withConversationControl("Members") { assertIsDisplayed().performClick() }
                         waitFor(member)
                         ui.onNodeWithText("Done").performClick()
-                        ui.onNodeWithText("Invite").assertIsDisplayed().performClick()
+                        ui.withConversationControl("Invite") { assertIsDisplayed().performClick() }
                         waitFor("Invitation link")
                         val link = ui.onNodeWithContentDescription("Group invitation link").fetchSemanticsNode()
                             .config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString("") { it.text }
@@ -524,7 +531,7 @@ class GroupChatPreviewTest {
                         check(parsed.id == group.id && parsed.name == group.name && parsed.sender == fixture.publicKey && parsed.admin == fixture.publicKey)
                         ui.onNodeWithText("Done").performClick()
                         if(leaving) {
-                            ui.onNodeWithText("Leave group").assertIsDisplayed().assertIsEnabled().performClick()
+                            ui.withConversationControl("Leave group") { assertIsDisplayed().assertIsEnabled().performClick() }
                             waitFor("Leaving does not erase messages or copies held by other people.")
                             check(peer.transactions.size==1 && peer.relayedMessages.size==1)
                             ui.onNodeWithText("Leave").assertIsEnabled().performClick()
@@ -538,7 +545,7 @@ class GroupChatPreviewTest {
                             check(departure.body.get("member_id").asString==fixture.publicKey && departure.body.get("group_id").asString==group.id)
                             check(departure.recipients==listOf(group.id,fixture.publicKey))
                             check(GroupChat.applyControl(group,originalLeave).memberRoles[fixture.publicKey]==ChatGroupRole.LEFT)
-                            ui.onNodeWithText("Invite").assertDoesNotExist()
+                            ui.withConversationControl("Invite") { assertDoesNotExist() }
                             ui.waitForGroupStatus("You have left this group.")
                             ui.onNodeWithText("You have left this group.").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/left.png"),"You have left this group.")
@@ -551,7 +558,7 @@ class GroupChatPreviewTest {
                         if(leaving){
                             ui.onNodeWithText("Beta crew").assertIsDisplayed().performClick()
                             waitFor("You have left this group.")
-                            ui.onNodeWithText("Invite").assertDoesNotExist()
+                            ui.withConversationControl("Invite") { assertDoesNotExist() }
                             val restored=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(group.id))
                             val originalLeave=SaitoEnvelope.fromSignedJson(peer.relayedMessages.last())
                             check(restored.group.controls.last()==originalLeave)
@@ -722,7 +729,7 @@ class GroupChatPreviewTest {
                             deliver(creation) // Requires the passive receiver to reconnect without Refresh.
                             waitFor(group.name)
                             ui.onNodeWithText(error).assertIsDisplayed()
-                            ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                            ui.withConversationControl("Refresh") { assertIsDisplayed().assertIsEnabled().performClick() }
                             ui.waitUntil(15_000){ui.onAllNodes(hasText(error)).fetchSemanticsNodes().isEmpty()}
                             ui.onNodeWithText(error).assertDoesNotExist()
                             val unknownKey=SaitoWallet.fromPrivateKey("0".repeat(63)+"8") // Public unsafe fixture only.
@@ -768,10 +775,12 @@ class GroupChatPreviewTest {
                         ui.onNodeWithText(group.name).assertIsDisplayed().performClick()
                         val received=if(importing)"Recovered signed group information." else "Received a signed group invitation."
                         if(brokenHints)captureGroupViewport("hints-before-status-scroll")
-                        ui.waitForGroupStatus(received)
-                        ui.onNodeWithText(received).assertIsDisplayed()
-                        if(brokenHints)captureGroupViewport("hints-after-status-scroll")
-                        ui.onNodeWithText("Retry").assertDoesNotExist()
+                        ui.withConversationDetails {
+                            ui.waitForGroupStatus(received)
+                            ui.onNodeWithText(received).assertIsDisplayed()
+                            if(brokenHints)captureGroupViewport("hints-after-status-scroll")
+                            ui.onNodeWithText("Retry").assertDoesNotExist()
+                        }
                         check(peer.transactions.isEmpty()&&peer.relayedMessages.isEmpty())
                         deliver(message)
                         if(personalPolicy){
@@ -779,11 +788,13 @@ class GroupChatPreviewTest {
                             scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor(group.name);ui.onNodeWithText(group.name).performClick()
                             ui.waitUntil(15_000){ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size==1}
-                            ui.onNodeWithText("Received a signed group invitation.").assertIsDisplayed()
-                            ui.onNodeWithText("Live incoming group history").assertDoesNotExist()
-                            val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,activeBackend).load(group.id))
-                            check(saved.messages.single().id==message.id)
-                            captureNativeScreen(File(context.cacheDir,"group-chat-evidence/personal-${activeBackend.id}-blocked.png"),"Received a signed group invitation.")
+                            ui.withConversationDetails {
+                                ui.onNodeWithText("Received a signed group invitation.").performScrollTo().assertIsDisplayed()
+                                ui.onNodeWithText("Live incoming group history").assertDoesNotExist()
+                                val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,fixture,activeBackend).load(group.id))
+                                check(saved.messages.single().id==message.id)
+                                captureNativeScreen(File(context.cacheDir,"group-chat-evidence/personal-${activeBackend.id}-blocked.png"),"Received a signed group invitation.")
+                            }
                             controls.save(controls.load(),PersonalPolicy(muted=setOf(admin.publicKey)))
                             scenario.recreate();waitFor("Groups");ui.onNodeWithText("Groups").performClick()
                             waitFor(group.name);ui.onNodeWithText(group.name).performClick()
@@ -795,11 +806,11 @@ class GroupChatPreviewTest {
                             val target=GroupChat.readMessage(group,message.envelope())
                             captureGroupViewport("reaction-before-action-scroll")
                             waitForGroupMessage("Like")
-                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.withMessageAction("Like") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1} }
                             captureGroupViewport("reaction-after-action-scroll")
-                            ui.onNodeWithText("Like").assertIsDisplayed().performClick()
+                            ui.withMessageAction("Like") { assertIsDisplayed().performClick() }
                             waitFor("1 like")
-                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Unlike") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.withMessageAction("Unlike") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Unlike") and isEnabled()).fetchSemanticsNodes().size==1} }
                             waitFor("Forwarded. Delivery is not confirmed.")
                             val first=requireNotNull(saved().candidate)
                             reactionOriginals.add(first.envelope())
@@ -809,12 +820,12 @@ class GroupChatPreviewTest {
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reaction-liked.png"),"1 like")
                             waitForGroupMessage("Unlike")
-                            ui.onNodeWithText("Unlike").assertIsDisplayed().assertIsEnabled()
+                            ui.withMessageAction("Unlike") { assertIsDisplayed().assertIsEnabled() }
                             captureGroupViewport("reaction-unlike-ready")
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
                             check(saved().candidate?.envelope()==first.envelope())
-                            ui.onNodeWithText("Unlike").assertIsDisplayed().assertIsEnabled().performClick()
-                            ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            ui.withMessageAction("Unlike") { assertIsDisplayed().assertIsEnabled().performClick() }
+                            ui.withMessageAction("Like") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1} }
                             ui.onNodeWithText("1 like").assertDoesNotExist()
                             val second=requireNotNull(saved().candidate)
                             check(first.id!=second.id)
@@ -851,7 +862,7 @@ class GroupChatPreviewTest {
                             val replay=GroupChat.replay(saved.group,saved.originals)
                             check(replay.reactions.map{it.envelope}==reactionOriginals)
                             check(replay.likedBy(saved.messages.single()).isEmpty())
-                            ui.onNodeWithText("Like").assertIsEnabled()
+                            ui.withMessageAction("Like") { assertIsEnabled() }
                             ui.onNodeWithText("1 like").assertDoesNotExist()
                         }else check(saved.candidate==null)
                         if(importing){
@@ -1065,6 +1076,10 @@ class GroupChatPreviewTest {
     }
 
     private fun waitForGroupMessage(text:String) {
+        if (text in listOf("Like", "Unlike", "Reply", "Copy")) {
+            ui.withMessageAction(text) { assertIsDisplayed() }
+            return
+        }
         ui.waitUntil(15_000){
             runCatching {
                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(text))

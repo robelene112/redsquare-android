@@ -179,8 +179,10 @@ class ChatQueuePreviewTest {
                             ui.onNode(warning).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-warning-$name.png"))
                         }
-                        status.performScrollToNode(hasText("Members") and hasClickAction())
-                        scrollChatRegionToEnd("Group status and actions","group-cancel-status-scroll.json")
+                        ui.onNode(hasContentDescription("Conversation details") and hasClickAction()).performClick()
+                        ui.onNodeWithContentDescription("Conversation information and controls")
+                            .performScrollToNode(hasText("Members") and hasClickAction())
+                        scrollChatRegionToEnd("Conversation information and controls","group-cancel-status-scroll.json")
                         val members=physicalChatAction(scenario,"members-action",action="Members")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(members.centerX(),members.centerY()))

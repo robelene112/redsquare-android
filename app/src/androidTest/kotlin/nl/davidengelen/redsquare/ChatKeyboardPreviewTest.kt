@@ -173,7 +173,7 @@ class ChatKeyboardPreviewTest {
                             ui.onNode(send).assertIsDisplayed()
                             val bounds = physicalSend(scenario,File(folder,"$kind-physical-send-ime.png"),requireIme=true)
                             val privacy = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(
-                                context.getString(if (group) R.string.group_privacy else R.string.chat_private)))).visibleBounds
+                                context.getString(if (group) R.string.group_unencrypted else R.string.chat_encrypted)))).visibleBounds
                             check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
                                 "Chat privacy indication must remain below the status bar: $privacy"
                             }
@@ -188,9 +188,10 @@ class ChatKeyboardPreviewTest {
                             }
                             if (group) {
                                 val members=hasText("Members") and hasClickAction()
-                                if(!displayed(members))ui.onNodeWithContentDescription("Group status and actions")
-                                    .performScrollToNode(members)
-                                ui.waitUntil(10_000) { displayed(members) }
+                                ui.withConversationControl("Members") {
+                                    ui.waitUntil(10_000) { displayed(members) }
+                                    assertIsDisplayed()
+                                }
                             }
                         }
                         readySend()

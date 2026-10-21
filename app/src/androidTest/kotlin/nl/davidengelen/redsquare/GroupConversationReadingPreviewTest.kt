@@ -66,7 +66,7 @@ class GroupConversationReadingPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                    ui.withPostViewports(activity, folder, "group-conversation-reading", scales = listOf(1.3f)) { label, _ ->
+                    ui.withPostViewports(activity, folder, "group-conversation-reading", scales = listOf(1f, 1.3f, 2f)) { label, _ ->
                         val newestBeforeOpening = expectedBodies.last()
                         val chat = hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }
@@ -103,13 +103,14 @@ class GroupConversationReadingPreviewTest {
                             expectedBodies += body
                             expectedEnvelopes += transaction.envelope()
                         }
-                        val offset = if (label.endsWith("light")) 0 else 100
+                        val offset = (expectedBodies.size - 70) * 50
                         val followed = "Incoming group message at the end ($label)."
                         reader.followIncoming(followed) { deliver(followed, 1700000223400L + offset, 1001 + offset) }
                         val waiting = "Incoming group message while reading older history ($label)."
                         reader.receiveWhileReadingOlder(bodies[20], waiting) {
                             deliver(waiting, 1700000223401L + offset, 1002 + offset)
                         }
+                        ui.inspectConversationControls(activity, folder, label, groupId, group = true)
                         val retainedGroup = requireNotNull(cache.load(groupId))
                         check(retainedGroup.originals == expectedEnvelopes && retainedGroup.group.creationEnvelope == creation.envelope())
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)

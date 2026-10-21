@@ -150,8 +150,10 @@ class ChatGiphyPreviewTest {
                             open()
                             if (flow == GifFlow.REPLY) {
                                 val reply = hasText("Reply") and hasClickAction() and isEnabled()
-                                ui.waitUntil(20_000) { displayed(reply) }
-                                ui.onNode(reply).performClick()
+                                ui.withMessageAction("Reply") {
+                                    ui.waitUntil(20_000) { displayed(reply) }
+                                    ui.onNode(reply).performClick()
+                                }
                                 ui.onNodeWithText("Remove reply").assertIsDisplayed()
                             }
                             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)

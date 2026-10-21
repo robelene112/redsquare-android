@@ -129,7 +129,7 @@ class PublishingSurfacesPreviewTest {
                         repeat(2) { attempt ->
                             waitForEnabled("Like")
                             waitForScrollable("Like")
-                            ui.onNodeWithText("Like").performClick()
+                            ui.withMessageAction("Like") { performClick() }
                             waitFor("Review publishing terms")
                             ui.onNodeWithText("Updated controlled Chat terms include reactions. No real publisher approval.").assertIsDisplayed()
                             assertEquals(1, peer.transactions.size)
@@ -144,7 +144,7 @@ class PublishingSurfacesPreviewTest {
                         assertEquals(1, peer.transactions.size)
                         assertEquals(1, peer.relayedMessages.size)
                         waitForScrollable("Like")
-                        ui.onNodeWithText("Like").performClick()
+                        ui.withMessageAction("Like") { performClick() }
                         waitFor("Reaction forwarded. Delivery is not confirmed.")
                         capture("private-reaction-forwarded-before-scroll.png")
                         waitForScrollable("Unlike")
@@ -379,12 +379,18 @@ class PublishingSurfacesPreviewTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onNodeWithText(text).isDisplayed() }
-    private fun waitForEnabled(text: String) = ui.waitUntil(20_000) {
-        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+    private fun waitForEnabled(text: String) {
+        val check = { ui.waitUntil(20_000) {
+            ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+        } }
+        if (text in listOf("Like", "Unlike")) ui.withMessageAction(text) { check() } else check()
     }
     private fun waitForScrollable(text: String) {
-        ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
-        ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+        val check: SemanticsNodeInteraction.() -> Unit = {
+            ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+            performScrollTo().assertIsDisplayed()
+        }
+        if (text in listOf("Like", "Unlike")) ui.withMessageAction(text, check) else ui.onNodeWithText(text).check()
     }
     private fun capture(name: String, expectedText: String? = null) {
         val file = File(context.cacheDir, "agreement-surfaces-evidence/$name")

@@ -173,8 +173,8 @@ class PublishingGroupPreviewTest {
                                         Action.JOIN -> ui.onNodeWithText("Join").assertIsEnabled()
                                         Action.MESSAGE -> assertEditable("Message", message)
                                         Action.REACTION -> {
-                                            ui.onNodeWithText("Like").assertIsEnabled()
-                                            ui.onNodeWithText("Unlike").assertDoesNotExist()
+                                            ui.withMessageAction("Like") { assertIsEnabled() }
+                                            ui.withMessageAction("Unlike") { assertDoesNotExist() }
                                         }
                                         Action.PROMOTION, Action.REMOVAL, Action.LEAVE -> ui.onNodeWithText(action.button).assertIsEnabled()
                                     }
@@ -198,7 +198,7 @@ class PublishingGroupPreviewTest {
                             val id = signed.body.get(if (action == Action.CREATE) "id" else "group_id").asString
                             assertTrue(id in wallets.loadExisting().namedChatGroupIds())
                         }
-                        if (action == Action.REACTION) ui.onNodeWithText("Unlike").performScrollTo().assertIsDisplayed()
+                        if (action == Action.REACTION) ui.withMessageAction("Unlike") { performScrollTo().assertIsDisplayed() }
                         if (!action.requiresAgreement) {
                             ui.onNodeWithText("Review publishing terms").assertDoesNotExist()
                             ui.onNodeWithText("Publishing terms are being prepared").assertDoesNotExist()
@@ -221,10 +221,16 @@ class PublishingGroupPreviewTest {
         SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(text)))
     private fun waitFor(text: String) = ui.waitUntil(20_000) { ui.onNodeWithText(text).isDisplayed() }
     private fun click(text: String, scrollIntoView: Boolean = false) {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled() and hasClickAction()).fetchSemanticsNodes().size == 1 }
-        val target = ui.onNodeWithText(text)
-        if (scrollIntoView) target.performScrollTo().assertIsDisplayed()
-        target.performClick()
+        val action: SemanticsNodeInteraction.() -> Unit = {
+            ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled() and hasClickAction()).fetchSemanticsNodes().size == 1 }
+            if (scrollIntoView) performScrollTo().assertIsDisplayed()
+            performClick()
+        }
+        when (text) {
+            "Like", "Unlike" -> ui.withMessageAction(text, action)
+            "Members", "Leave group" -> ui.withConversationControl(text, action)
+            else -> ui.onNodeWithText(text).action()
+        }
     }
     private fun capture(name: String) {
         val file = File(context.cacheDir, "agreement-group-evidence/$name")

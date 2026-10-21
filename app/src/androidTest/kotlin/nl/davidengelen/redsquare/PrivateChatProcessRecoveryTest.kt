@@ -97,7 +97,7 @@ class PrivateChatProcessRecoveryTest {
                 ui.onNode(hasSetTextAction()).performTextReplacement(draftText)
                 waitFor(context.getString(R.string.chat_reaction_unknown)); waitFor("1 like")
                 waitForEnabled(context.getString(R.string.chat_reaction_retry))
-                ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                ui.withMessageAction("Unlike") { assertIsNotEnabled() }
                 capture("unknown-reaction-before-death.png", context.getString(R.string.chat_reaction_unknown))
                 ui.onNodeWithText("Back").performClick(); waitFor("Public key")
                 openContact(pendingContact)
@@ -137,7 +137,7 @@ class PrivateChatProcessRecoveryTest {
                 waitFor(reference.getAsJsonObject("plaintext").get("message").asString)
                 waitFor(context.getString(R.string.chat_reaction_unknown)); waitFor("1 like")
                 waitForEnabled(context.getString(R.string.chat_reaction_retry))
-                ui.onNodeWithText("Unlike").assertIsNotEnabled()
+                ui.withMessageAction("Unlike") { assertIsNotEnabled() }
                 capture("unknown-reaction-cold-recovered.png", context.getString(R.string.chat_reaction_unknown))
                 capture("draft-and-cache-cold-recovered.png", draftText)
                 assertState(row, backend, controlled)

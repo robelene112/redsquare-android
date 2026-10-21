@@ -72,12 +72,12 @@ class GroupChatActionsPreviewTest {
                         previousClip=clipboard.primaryClip
                         waitForEnabled("Copy")
                         clipboardChanged=true
-                        ui.onNodeWithText("Copy").performScrollTo().assertIsDisplayed()
-                        ui.onNodeWithText("Copy").assertIsDisplayed().performClick()
+                        ui.withMessageAction("Copy") { performScrollTo().assertIsDisplayed() }
+                        ui.withMessageAction("Copy") { assertIsDisplayed().performClick() }
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()=="Original group message")
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
                         waitForEnabled("Reply")
-                        ui.onNodeWithText("Reply").performScrollTo().assertIsDisplayed().performClick()
+                        ui.withMessageAction("Reply") { performScrollTo().assertIsDisplayed().performClick() }
                         waitFor("Remove reply")
                         ui.onNodeWithText("Message").performTextInput(body)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
@@ -104,7 +104,7 @@ class GroupChatActionsPreviewTest {
                         }
                         ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(body))
                         ui.onNodeWithText(body).assertIsDisplayed()
-                        ui.onAllNodesWithText("Copy").onLast().performScrollTo().assertIsDisplayed().performClick()
+                        ui.withLastMessageAction("Copy") { performScrollTo().assertIsDisplayed().performClick() }
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()==body)
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
                         val reopened=requireNotNull(store.load(key.publicKey))
@@ -115,7 +115,7 @@ class GroupChatActionsPreviewTest {
                         phase("cached-copy-verified")
                         captureNativeScreen(File(context.cacheDir,"group-chat-actions-evidence/reply-cached-copy.png"),body)
                         phase("cached-copy-captured")
-                        ui.onAllNodesWithText("Reply").onLast().performScrollTo().assertIsDisplayed().assertIsEnabled().performClick()
+                        ui.withLastMessageAction("Reply") { performScrollTo().assertIsDisplayed().assertIsEnabled().performClick() }
                         waitFor("Remove reply");phase("self-reply-selected")
                         val ownBody="Replying to my own message"
                         ui.onNodeWithText("Message").performTextInput(ownBody)
@@ -156,5 +156,12 @@ class GroupChatActionsPreviewTest {
         }
     }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
-    private fun waitForEnabled(text:String)=ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
+    private fun waitForEnabled(text:String) {
+        val check = { ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()} }
+        when (text) {
+            "Like", "Unlike", "Reply", "Copy" -> ui.withMessageAction(text) { check() }
+            "Members", "Invite", "Leave group", "Refresh" -> ui.withConversationControl(text) { check() }
+            else -> check()
+        }
+    }
 }
