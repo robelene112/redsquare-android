@@ -128,14 +128,17 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     fun open() {
                         if (kind == ComposerJourneyKind.POST) ui.onNode(hasText("New post") and hasClickAction()).performClick()
                         else {
-                            ui.clickVisiblePostBody(referenceText)
+                            // Earlier theme publications may quote the same text. Open only the actual root body.
+                            val body = hasText(referenceText) and !hasAnyAncestor(hasContentDescription("Quoted original"))
+                            ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(body)
+                            ui.onNode(body, useUnmergedTree = true).assertIsDisplayed().performClick()
                             ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
                             if (kind == ComposerJourneyKind.REPLY) ui.onNodeWithText("Reply").performClick()
                             else {
-                                val quote = hasText("Quote") and hasClickAction() and
-                                    hasAnyAncestor(hasText(referenceText) and hasClickAction())
-                                ui.onNode(hasScrollAction()).performScrollToNode(quote)
-                                ui.onNode(quote).assertIsDisplayed().performClick()
+                                val referenceCard = hasClickAction() and hasAnyChild(hasText(referenceText))
+                                val quote = hasText("Quote") and hasClickAction() and hasAnyAncestor(referenceCard)
+                                ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quote)
+                                ui.onNode(quote, useUnmergedTree = true).assertIsDisplayed().performClick()
                             }
                         }
                         ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
