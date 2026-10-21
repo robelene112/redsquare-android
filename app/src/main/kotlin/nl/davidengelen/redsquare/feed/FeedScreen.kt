@@ -501,8 +501,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 }
             }
         }
-        if (!keyboardVisible && !composing && !reviewingQueue && !reviewingChanges &&
-            navigation.lastOrNull() !is BrowseDestination.Quote) {
+        val destination = navigation.lastOrNull()
+        val writingReply = destination is BrowseDestination.Conversation && formNavigation.saveCurrent != null
+        if (!keyboardVisible && !composing && !reviewingQueue && !reviewingChanges && !writingReply &&
+            destination !is BrowseDestination.Quote && destination !is BrowseDestination.Author) {
             SnackbarHost(navigationNotice, Modifier.padding(horizontal = AppSpacing.screen))
             HorizontalDivider()
             AppNavigation(primary, wallet != null && !formNavigation.transitioning, onSelect = select@{ destination ->

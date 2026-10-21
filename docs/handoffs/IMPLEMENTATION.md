@@ -1213,3 +1213,21 @@ clickable button, both visible. Operator now selects that clickable button by
 its Quote-text descendant plus the same original-body ancestor, and explicitly
 requires enabled state before physical tap. No app/assertion/timeout waiver.
 17at858 remains pending; later corrected paired composer proof follows.
+
+Quote-button operator4a20 has independent Spec0/documented Standards0/heuristic0,
+local app/test Kotlin compile SUCCESS2m7s. Corrected combined composer10run39537697930
+and17run39537697883 execute exact4a20; pending. Each includes all eight methods.
+Earlier17run39536671803 at858 also FAILS the same initial unmerged Quote lookup;
+focus1/draft2/post1/reply1 PASS51.435/24.328/24.263/25.237s respectively, quote
+later goals and work group unreached. Packet failed17-composer-quote-selector-858-39536671803
+retains121 hashes/three archives101 originals. Root viewed17Dark post-available
+and10Light reply-submitted originals from the failed overall dispatches; their
+bounded successful methods do not make the failed broad scope acceptance.
+
+Actual10 reply-submitted original shows a remaining presentation difference:
+the bottom destination bar consumes space in the mounted reply/author forms,
+where New post and Quote already hide it. Current61 refinement hides that bar
+only for a mounted Conversation reply guard or an Author route. Back/Done and
+all existing save/navigation/identity/node guards remain. Ordinary conversation,
+Chat and profile forms retain their existing route policy. No new behavioral
+state, transaction, storage or catalog goal changes. Source/native proof follows.

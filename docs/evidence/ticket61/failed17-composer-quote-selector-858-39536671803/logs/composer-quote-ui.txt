@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerQuoteJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ComposerQuoteJourneyTest:
+INSTRUMENTATION_STATUS: test=imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerQuoteJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches ((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((OnClick is defined) && (hasAnyChildThat(Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false))))) in scrollable container
+Semantics of the node:
+Node #359 at (l=16.0, t=277.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@604e1ec'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21$open(ComposerPublishingJourneyTest.kt:146)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:159)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$yxhmS8yI6st43_QCMm70bDR-Slg(ComposerPublishingJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:121)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:41)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerQuoteJourneyTest):
+java.lang.AssertionError: No node found that matches ((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((OnClick is defined) && (hasAnyChildThat(Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false))))) in scrollable container
+Semantics of the node:
+Node #359 at (l=16.0, t=277.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@604e1ec'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21$open(ComposerPublishingJourneyTest.kt:146)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:159)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$yxhmS8yI6st43_QCMm70bDR-Slg(ComposerPublishingJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:121)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:41)
+
+INSTRUMENTATION_STATUS: test=imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.375
+There was 1 failure:
+1) imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerQuoteJourneyTest)
+java.lang.AssertionError: No node found that matches ((Text + InputText + EditableText contains 'Quote' (ignoreCase: false)) && (OnClick is defined)) && (hasAnyAncestorThat((OnClick is defined) && (hasAnyChildThat(Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false))))) in scrollable container
+Semantics of the node:
+Node #359 at (l=16.0, t=277.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@604e1ec'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21$open(ComposerPublishingJourneyTest.kt:146)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:159)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$yxhmS8yI6st43_QCMm70bDR-Slg(ComposerPublishingJourneyTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda14.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:121)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerQuoteJourneyTest.imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:41)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
