@@ -2,11 +2,11 @@
   "preparedSource": "b997f301c2c3830ce3767866ce296d2abf95c36f",
   "focusedSource": "107dde881c29c8c9bd62945db79b210bb3157592",
   "completeExecutingSources": {
-    "android10": "2305c929c6321a7a38b987033ca9a3e06bba7008",
+    "android10": "d3541b71ed5514ab47dbfc9b6cdf3c55ec1e93f0",
     "android17": "796eb1fb60ce3e63bd0e603530d6620d82278d64"
   },
   "completeExecutingRuns": {
-    "android10": 39687987767,
+    "android10": 39692824874,
     "android17": 39681571919
   },
   "sameReleaseProductionAndBuildObjects": true,
@@ -27,6 +27,6 @@
     "scripts/signing-init": "100755 blob 12d9c137c3dee0ed6a616c60a9e70d6181355a9b\tscripts/signing-init"
   },
   "apkSha256": "054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000",
-  "nativeAcceptance": "Sixfocused107SUCCESS/final0; complete17-796-39681571919 acceptedwhole/all3SUCCESS/frozen512PASS/final0. Complete10-230-39687987767 rejectedCANCELLEDafterChatdisabledGroupeditor/WalletblankpostDonewindowFAILURE, rootcancelSocialafter2failures; packet265hashes/final0. FocusedTalkBack10-057-39687841909SUCCESS/final0. Newfixtureonlysame15sactualeditorreadiness/WalletfailureonlyboundedIME-window-thread-PIDlogs/causeunproved, source0/0/mainapp/testcompileSUCCESS2m2wall/Gradle1m59. FreshfocusedSend/Import10 andfreshwhole10stillrequired. CI sparsecheckoutexcludesonlyretaineddocs/evidence, unchanged813sourceGitblobs/ninebuildtasksPASS18m47/final0, noappgoalchange.14Release/buildobjectsunchanged; signed62HELD/public60/withheld61, noAPKrebuild; finalwhole10/review/publication/publicafterrequired.",
+  "nativeAcceptance": "Complete17-796-39681571919 acceptedwhole512PASS/final0; sixfocused107SUCCESS/final0; focusedTalkBack057SUCCESS/final0; newfocusedSend10-d354-39691847550 2PASS40.130s andImport10-d354-39691847795 7PASS145.424s+risk/storage/process, bothfocusedpacketfinal0/0. WalletblankNOTreproduced/causeunproved; failureobserversstayactive/original15sgoalunchanged. Freshentire10-d354-39692824874 pendingall3parts; rejected230nothingreused.14Release/buildobjectsverifiedequalb99/107/796/d354. Source0/0/maincompile2m2/sourceCI39691836518SUCCESS. CIsparsecheckout/sourcevalidationPASS/hosted3ssteponly. NoAPKrebuild; signed62held/public60/withheld61, finalwhole10/review/publication/publicafterrequired.",
   "limits": "Source-object equivalence only. Actual signed manifest/DEX/certificate checked separately. No physical/provider/Play/owner visual acceptance."
 }

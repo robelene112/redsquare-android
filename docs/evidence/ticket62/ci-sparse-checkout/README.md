@@ -14,7 +14,10 @@ directory. The unchanged full CI task set completes SUCCESS/explicit0 in18m47s
 Release APK/lintDebug and isolated Performance APK/lintPerformance. No omitted task,
 class split, retried app class, source assertion or timeout change.
 
-This is local input/materialization/build proof, not a hosted network-speed claim.
+The complete focused Send10run39691847550 atd354 separately records a successful
+hosted checkout step in3seconds, versus67/82/80seconds in baseline full17-796.
+hosted-checkout.json binds those exact completed-step timestamps. Different hosted
+runners and one sparse observation do not establish app or whole-pipeline performance.
 Existing full17-796 and rejected full10-230 both used the previous complete checkout;
 their original outcomes and source bindings are unchanged. All14 Release/build
 objects match held signed62; this CI delta introduces no product change or native

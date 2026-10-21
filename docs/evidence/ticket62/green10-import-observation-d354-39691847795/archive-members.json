@@ -1,0 +1,158 @@
+{
+  "wallet-import-evidence.tar": {
+    "sha256": "0b22f4167db11aa9654f6569289ebca0b8bff3b104ae6a63cbd65ae637a0721c",
+    "bytes": 678400,
+    "members": [
+      {
+        "name": "wallet-import-evidence/activated-wallet.png",
+        "bytes": 29650,
+        "sha256": "bd51193e9407f59441f2c7b6cbb64ab815031f78acb79cbb08caa70e160b4dd8",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activated-wallet.png"
+      },
+      {
+        "name": "wallet-import-evidence/activation-owner-feed-visible.xml",
+        "bytes": 19536,
+        "sha256": "cc822898e75ac8bc06efcf2ab15cd4f7c75478ac039f801f9bea90c79fff3274",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activation-owner-feed-visible.xml"
+      },
+      {
+        "name": "wallet-import-evidence/activation-owner-feed-visible.png",
+        "bytes": 14653,
+        "sha256": "47ea750d37997ca7531c1d618030cfa14aa2a81df6dd58fdacfb20a22d628df1",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activation-owner-feed-visible.png"
+      },
+      {
+        "name": "wallet-import-evidence/activated-wallet-recreated.png",
+        "bytes": 29385,
+        "sha256": "7959ef75b2f128d6c52c057df7efa3957b16e4fd4740c4bf2de136eecc0e0f17",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activated-wallet-recreated.png"
+      },
+      {
+        "name": "wallet-import-evidence/invalid-import.json-rejected.png",
+        "bytes": 31135,
+        "sha256": "f9f83003959f2eb056fd346f41bfb8d098fe8ae62992e1d6f1af9684b5ed3ee7",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/invalid-import.json-rejected.png"
+      },
+      {
+        "name": "wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+        "bytes": 31135,
+        "sha256": "f9f83003959f2eb056fd346f41bfb8d098fe8ae62992e1d6f1af9684b5ed3ee7",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/malformed-utf8-import.json-rejected.png"
+      },
+      {
+        "name": "wallet-import-evidence/invalid-backup-recovery.png",
+        "bytes": 29156,
+        "sha256": "f61f3c404f6d1d772c6bb62a493415ed5ca48cf26f3d02f1f8444f94f035232b",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/invalid-backup-recovery.png"
+      },
+      {
+        "name": "wallet-import-evidence/stalled-provider-fresh-preview.png",
+        "bytes": 44924,
+        "sha256": "5d3ae2a583b98452177859543d4bf855a4eb846e2157ff5ca6916f9e8a4652aa",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/stalled-provider-fresh-preview.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-positive.png",
+        "bytes": 45473,
+        "sha256": "af5b8f0bd577843e206b507629bbc623593dba1e7663c0decc7d7d4a44f60b59",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-positive.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-zero.png",
+        "bytes": 46156,
+        "sha256": "8853d4d5d0fb3bc1293b9179cbed9d19f87b39804781fbeaa07c21727e48e687",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-zero.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-malformed.png",
+        "bytes": 34548,
+        "sha256": "a24d1cdd5bbd7ba8a02d57fb04869f7667b6967140734631a3fa645dc85877df",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-malformed.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-stale.png",
+        "bytes": 44924,
+        "sha256": "5d3ae2a583b98452177859543d4bf855a4eb846e2157ff5ca6916f9e8a4652aa",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-stale.png"
+      },
+      {
+        "name": "wallet-import-evidence/failed-save-restored.png",
+        "bytes": 30716,
+        "sha256": "5948f011e1d92dd1f6c4b1556744acd02ad6efb223bfb6ca05a40617c9d5a8c6",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/failed-save-restored.png"
+      },
+      {
+        "name": "wallet-import-evidence/failed-save-restored-recreated.png",
+        "bytes": 29076,
+        "sha256": "b4ab65d745a7b6ed80e53b3bcbb1e40c710784f165f1a54edb37e373170f44a6",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/failed-save-restored-recreated.png"
+      },
+      {
+        "name": "wallet-import-evidence/valid-preview-same.png",
+        "bytes": 39131,
+        "sha256": "d9cdccc8bec4d05070a76d47d4b2848184a2c41d7332f7b567ef043ce27cdf5e",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/valid-preview-same.png"
+      },
+      {
+        "name": "wallet-import-evidence/confirmed-same-wallet-restore.png",
+        "bytes": 29165,
+        "sha256": "7f28c04ce667a87ee0abf8ba18dc24d4ca35446ce4f295037071ca0e76edd328",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/confirmed-same-wallet-restore.png"
+      },
+      {
+        "name": "wallet-import-evidence/valid-preview-different.png",
+        "bytes": 44924,
+        "sha256": "5d3ae2a583b98452177859543d4bf855a4eb846e2157ff5ca6916f9e8a4652aa",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/valid-preview-different.png"
+      },
+      {
+        "name": "wallet-import-evidence/fresh-candidate-backup.png",
+        "bytes": 45159,
+        "sha256": "5f8b778917c878ab2fc01f165ff41d948eb7127c62e7cdbd51d629c90170142b",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/fresh-candidate-backup.png"
+      },
+      {
+        "name": "wallet-import-evidence/reselected-backup-required.png",
+        "bytes": 45043,
+        "sha256": "b5d48e57d50559ad43d740c7914699564bde5ddf15ca35bee03fd25b30bfad3c",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/reselected-backup-required.png"
+      }
+    ]
+  },
+  "wallet-risk-evidence.tar": {
+    "sha256": "68e019c198811f22721cc6d9325a49bff8c9fc1561543a744d5336426569fb86",
+    "bytes": 88576,
+    "members": [
+      {
+        "name": "wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+        "bytes": 15408,
+        "sha256": "3496fd6c2c10f51934e992a30ed6524018685226e9eb3b524100860441be272a",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/incoming-wallet-needs-own-backup.png"
+      },
+      {
+        "name": "wallet-risk-evidence/other-assets-require-backup.png",
+        "bytes": 38522,
+        "sha256": "69a274f9dfc25b4edc2f4e96d0582e4eaa35f601d89cd94c1b592e320d07e53e",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/other-assets-require-backup.png"
+      },
+      {
+        "name": "wallet-risk-evidence/original-wallet-restored.png",
+        "bytes": 30378,
+        "sha256": "93d4be1e9a21b2d48ddf61214cbe3a38c6fde818cb43c34f8debcd36015f4301",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/original-wallet-restored.png"
+      }
+    ]
+  },
+  "wallet-storage-recovery-evidence.tar": {
+    "sha256": "05d2522cce4fd5c348088fb17cfc378d3a35edd9d0635c05d2d58a1cd5327ceb",
+    "bytes": 32768,
+    "members": [
+      {
+        "name": "wallet-storage-recovery-evidence/failed-save-recreated.png",
+        "bytes": 30632,
+        "sha256": "6a53bd49b84faadfef50739bce2cad1545578c35975abc7c3d3385a3f0398081",
+        "retainedPath": "originals/wallet-storage-recovery-evidence/wallet-storage-recovery-evidence/failed-save-recreated.png"
+      }
+    ]
+  }
+}

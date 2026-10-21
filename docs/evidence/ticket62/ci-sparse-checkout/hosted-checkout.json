@@ -1,0 +1,45 @@
+{
+  "baseline": {
+    "run": 39681571919,
+    "source": "796eb1fb60ce3e63bd0e603530d6620d82278d64",
+    "wholeConclusion": "success",
+    "steps": [
+      {
+        "job": "native-proof (chat)",
+        "jobId": 119505565803,
+        "startedAt": "2026-10-21T21:48:29Z",
+        "completedAt": "2026-10-21T21:49:36Z",
+        "seconds": 67.0
+      },
+      {
+        "job": "native-proof (social)",
+        "jobId": 119505566158,
+        "startedAt": "2026-10-21T21:48:30Z",
+        "completedAt": "2026-10-21T21:49:52Z",
+        "seconds": 82.0
+      },
+      {
+        "job": "native-proof (wallet)",
+        "jobId": 119505566199,
+        "startedAt": "2026-10-21T21:48:30Z",
+        "completedAt": "2026-10-21T21:49:50Z",
+        "seconds": 80.0
+      }
+    ]
+  },
+  "sparseCheckout": {
+    "run": 39691847550,
+    "source": "d3541b71ed5514ab47dbfc9b6cdf3c55ec1e93f0",
+    "wholeConclusion": "success",
+    "steps": [
+      {
+        "job": "native-proof (all)",
+        "jobId": 119539682348,
+        "startedAt": "2026-10-21T23:12:17Z",
+        "completedAt": "2026-10-21T23:12:20Z",
+        "seconds": 3.0
+      }
+    ]
+  },
+  "limit": "Observed checkout step only; different hosted runners. Not app or whole-pipeline performance."
+}
