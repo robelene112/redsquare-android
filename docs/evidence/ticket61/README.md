@@ -56,3 +56,20 @@ local/delivery-status slice must keep that feedback reachable and understandable
 This is focused writing/keyboard GREEN, not complete61 visual acceptance.
 Initial10 RED packet also has independent Spec0/documented Standards0/heuristic0
 review at9a95f356c. Final GREEN evidence review and remaining61 work follow.
+
+Local-status testsource24d compiles1m56 and has independent Spec0/documented
+Standards0/heuristic0 review. Initial17run39530382797 at exact24d completes
+FAILURE38.446s at missing Saved on this device after real Save/reopen and exact
+text recovery. Original PNG/XML show Unsent draft, establishing a missing status
+distinction, not failed persistence. Packet red17-draft-status-24d-39530382797
+retains21 hashes/one archive9 originals. Root viewed saved PNG and matching XML;
+font restores exactly1.0. Later edit/Back/Dark/successful-path wallet/node/zeroTX/
+health assertions are unreached. Independent declared cleanup still executes.
+No GREEN or complete61 acceptance is claimed. Next minimal product tracks the
+last confirmed persisted content and pins its concise local status above the
+scrolling body.
+
+Image picker operator8c9cd69509fa64e91adee7527685a89c470b278c has paired source0/0
+and localcompileSUCCESS1m51. Existing focused images10run39530896216 and17run39530898925
+execute exact8c9; outcomes pending. Source-only scroll adaptation was not a
+previously observed native failure. Both retain original media/process goals.

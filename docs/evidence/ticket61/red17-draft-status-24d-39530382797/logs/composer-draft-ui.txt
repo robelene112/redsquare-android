@@ -1,0 +1,89 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest:
+INSTRUMENTATION_STATUS: test=savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Saved on this device' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5$lambda$4(ComposerDraftStatusPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$dSexfyAs1SY_YP-bAQc8MLVaD7E(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5(ComposerDraftStatusPreviewTest.kt:20)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$5mNKiXUZtXIJp-PGto-SDeUGTfM(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus(ComposerDraftStatusPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus(nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Saved on this device' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5$lambda$4(ComposerDraftStatusPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$dSexfyAs1SY_YP-bAQc8MLVaD7E(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5(ComposerDraftStatusPreviewTest.kt:20)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$5mNKiXUZtXIJp-PGto-SDeUGTfM(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus(ComposerDraftStatusPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 38.446
+There was 1 failure:
+1) savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus(nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Saved on this device' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5$lambda$4(ComposerDraftStatusPreviewTest.kt:38)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$dSexfyAs1SY_YP-bAQc8MLVaD7E(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus$lambda$5(ComposerDraftStatusPreviewTest.kt:20)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.$r8$lambda$5mNKiXUZtXIJp-PGto-SDeUGTfM(ComposerDraftStatusPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest.savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus(ComposerDraftStatusPreviewTest.kt:17)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

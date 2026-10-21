@@ -1,0 +1,62 @@
+{
+  "composer-draft-evidence.tar": {
+    "sha256": "26f8826f141215d1064ab61fe492783dcfc7e019c3b37f4adb1ef27b6ef48c8f",
+    "bytes": 301056,
+    "members": [
+      {
+        "name": "composer-draft-evidence/composer-draft-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-font-scale.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-saved.xml",
+        "bytes": 25798,
+        "sha256": "77bd270e76deace41e363f0f2df414824c60eae56918263060d000e57c576e05",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-saved.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-saved.png",
+        "bytes": 26460,
+        "sha256": "f1a48da416a7965631a8c96a266305dfa729f10fac03ca615d913627c8f8c26e",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-saved.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-failure.xml",
+        "bytes": 25798,
+        "sha256": "77bd270e76deace41e363f0f2df414824c60eae56918263060d000e57c576e05",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-failure.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-failure.png",
+        "bytes": 26460,
+        "sha256": "f1a48da416a7965631a8c96a266305dfa729f10fac03ca615d913627c8f8c26e",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-failure.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-font-restored.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-failure.xml",
+        "bytes": 13047,
+        "sha256": "9bdf93ce1ad2469d9066a774de332071afcfb58964f748c0b92616c28e0f44ba",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-failure.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-failure.png",
+        "bytes": 174352,
+        "sha256": "0e10225203f2b3f0303918dd2f566400eb10562eeef21061c205630baede7131",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-failure.png"
+      }
+    ]
+  }
+}
