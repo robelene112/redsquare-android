@@ -1,5 +1,81 @@
 # Composer61 verification
 
+## Current checkpoint, 2026-10-21 05:06 UTC
+
+Issue61 remains open. Final production is4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c;
+executing fixture sourced434d190aed906e26f2f326f7ce9c258020c4de3 includes later
+test and evidence corrections without changing the11 production/build Git objects.
+Review base is957331d234d6173d9e80408eeb799e628b73973c.
+Paired cumulative and correction reviews have no outstanding Spec or documented/
+heuristic Standards findings. Ordinary59 is still public; prepared60 is held.
+
+### Delivered behavior in the candidate
+
+Writing precedes optional attachments. A vector Back, primary Send/Retry/Done and
+anchored Image/GIF/Save controls establish the hierarchy. Local saved feedback
+tracks the last confirmed content rather than merely the existence of a draft.
+Busy delivery feedback takes priority over availability. Post/reply/quote retain
+original content, media, publishing agreement and wallet/node bindings. Reply
+and author editors hide the app navigation while editing. Queue and saved-author
+items show their original node and safe existing cancel/reopen/retry operations.
+No transport, permission, signing or original-attempt recovery contract changes.
+
+### Focused native proof
+
+- [Android10 composer](green10-composer-061-39539974168/README.md): eight methods,
+  six independently bounded classes, four archives/156 originals. Both320dp130%
+  themes, actual IME, attachment/leave/return/policy/submitted/available journeys,
+  saved-state distinction and work-list/cancel/reopen behavior pass at final production.
+- [Android17 composer](green17-composer-4a20-39537697883/README.md): all eight
+  methods pass before the final form-navigation and busy-priority refinements.
+  Both rejected full061 executions also passed those eight methods at final
+  production, but do not count as full acceptance.
+- [Android10 GIF](green10-gifs-toolbar-d434-39543035131/README.md) and
+  [Android17 GIF](green17-gifs-toolbar-d434-39543037960/README.md): all nine
+  original provider/animation/credit/draft/post/reply/quote methods pass atd434;
+  two archives/67 originals each. Test entry now taps the displayed fixed toolbar
+  directly and scrolls only when needed. Assertions and180second class bounds remain.
+- Existing image, author and offline queue/process proofs are retained in the
+  named green packets here and are required again in full verification. The new
+  queue viewport setup is policy-paused migration input, not a newly demonstrated
+  offline UI send. The media saved-state fault is an early unavailable-record
+  fault, not a reproduction of late fsync failure.
+
+Root additionally inspected original final10 Dark writing/IME, Light post IME,
+Dark submitted reply, Light queued list, Dark saved-author list and reopened
+editor, comparing the initial writing/IME and old recovered-draft captures.
+The independent visual reviews found no material finding in their bounded views.
+These observations do not establish physical Pixel timing or owner app-wide acceptance.
+
+### Complete regression and publication remain pending
+
+Fresh full10 run39543807318 and full17 run39543990339 both execute exactd434.
+All three partitions in each dispatch are required. Full10 SUCCESS passes strict
+collection:503 PASS plus the one accepted API29 Profile assumption,504 exact
+identities,142 normal completions,35 interruptions,34 continuity records and103
+archives. The identity difference is empty in both directions. Android17 Wallet
+has succeeded; its Social and Chat partitions remain active at this checkpoint. Frozen58e catalog and collector
+require504/505 identities,142/143 normal completions,35 interruptions,34 continuity
+records and103 archives per SDK, preserving the old API29 Profile assumption and
+exact five optional-observer gaps. See [frozen execution reference](full-identity-reference.json).
+
+Rejected full061 attempts remain separate:17run39540030117 FAILURE with Social
+failure and Wallet/Chat success;10run39540771845 CANCELLED with Social failure,
+Wallet success and superseded Chat cancellation. Both failed Social packets keep
+757 hashes and separate terminal metadata. No successful old partition is assembled
+into replacement acceptance. Their obsolete unconditional GIF scroll operator
+failed before provider interaction; the corrected focused scopes above pass.
+
+[Prepared60](signed60-prepared/README.md) was built once at4c and remains
+unpublished. Eleven production/build Git objects match both061 andd434; this is
+source equivalence, not independently reproduced APK bytes. Publish only the
+exact held APK after both complete runs and final original-evidence reviews,
+then verify public bytes/signature/manifest and protected release bookends.
+Never rebuild or reuse60. Provider, physical and store requirements stay with36;
+55 remains open through owner final app-wide UI review.
+
+## Historical checkpoints
+
 Review base957331d234d6173d9e80408eeb799e628b73973c. Production remains the accepted
 ordinary59 source at this initial checkpoint. Existing native UI/controlled-peer,
 actual platform IME, protected storage and process seams remain the agreed basis.

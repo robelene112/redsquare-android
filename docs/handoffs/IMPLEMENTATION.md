@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 04:32 UTC after corrected GIF61 acceptance and fresh complete10/17 dispatches.
+Updated 2026-10-21 05:06 UTC after corrected full10 strict acceptance; full17 pending.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -59,8 +59,11 @@ Source reviews0/0 and app/test compile SUCCESS2m5. Do not restart historical RED
   Includes911 reply/author form-bar and4c busy-priority refinements. Earlier
  17run39537697883 at4a20 passes all8 methods but predates those refinements.
 - Fresh complete10run39543807318 and17run39543990339 execute EXACTd434; all6jobs
-  active at04:32 UTC. All3partitions remain mandatory in each dispatch. No full61
-  acceptance yet. Full reference binds actual source/run IDs and frozen58e catalog.
+  bound to the same source. Full10 SUCCESS passes strict collection:503 PASS plus
+  one prior API29 Profile assumption;504 exact identities,142 normal completions,
+ 35 interruptions,34 continuity records and103 archives. Full17 Wallet succeeds;
+  Social/Chat remain active at05:06 UTC. No paired full61 acceptance yet.
+  Full reference binds actual source/run IDs and frozen58e catalog.
   Expected504/505 identities,142/143 normal completions,35 interruptions,
   34 continuity and103 archives; all original assertions/deadlines/tool pins and
   exact5 prior optional-observer gaps remain. Collector: full-collector.py under
