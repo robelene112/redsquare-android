@@ -1,0 +1,266 @@
+{
+  "chat/conversation-filtering-evidence.tar": {
+    "bytes": 730624,
+    "sha256": "9493f3314aa67b9f187d0b09b0b82faaa7e9007b810ceac2e390c6d3ebfce0d6",
+    "members": [
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl",
+        "bytes": 2783,
+        "sha256": "70a12eceaaf46055d2a62127a6ab1c8ed098b60c3ccda20405bcc5f3a61df512",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-font-scale.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml",
+        "bytes": 41747,
+        "sha256": "560f184a921a7f0673af3a40814d519205a53a994e99f9cc60f1bd231f95edac",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png",
+        "bytes": 45340,
+        "sha256": "abe3bc805b79c4093b9653475fd3449b45aec196191a367ddb8aad62e8fa5ca8",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml",
+        "bytes": 42570,
+        "sha256": "47c51da553661834d4529a73e57a2724fdd7069cdb70340fca392f1e70da5c48",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png",
+        "bytes": 46757,
+        "sha256": "2d205607b6740ca4b225e9d0577cd3be2c53d2b56aed77407e4b66f8f7f043b7",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml",
+        "bytes": 42570,
+        "sha256": "47c51da553661834d4529a73e57a2724fdd7069cdb70340fca392f1e70da5c48",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png",
+        "bytes": 46757,
+        "sha256": "2d205607b6740ca4b225e9d0577cd3be2c53d2b56aed77407e4b66f8f7f043b7",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-anchor.json",
+        "bytes": 132,
+        "sha256": "9a5208fb2ea58ac92893034fb757605346db61efb1339ecf6f9dafbfd72eb074",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-anchor.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-without-arrival.xml",
+        "bytes": 42570,
+        "sha256": "47c51da553661834d4529a73e57a2724fdd7069cdb70340fca392f1e70da5c48",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-without-arrival.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-without-arrival.png",
+        "bytes": 46757,
+        "sha256": "2d205607b6740ca4b225e9d0577cd3be2c53d2b56aed77407e4b66f8f7f043b7",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-without-arrival.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-anchor.json",
+        "bytes": 132,
+        "sha256": "9a5208fb2ea58ac92893034fb757605346db61efb1339ecf6f9dafbfd72eb074",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-light-revealed-anchor.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-opened.xml",
+        "bytes": 41747,
+        "sha256": "560f184a921a7f0673af3a40814d519205a53a994e99f9cc60f1bd231f95edac",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-opened.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-opened.png",
+        "bytes": 45340,
+        "sha256": "188cf982893c782758cd6e03d1e2b3b4ca2a3e8b05bed4e21c4dbd8784b06787",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-opened.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-older-before-filtering.xml",
+        "bytes": 42989,
+        "sha256": "09b789e776f32e079435d89869617560acfe61ce5ebd9a60466fbe4562221925",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-older-before-filtering.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-older-before-filtering.png",
+        "bytes": 45123,
+        "sha256": "830e0470a20542d525375da2b70895396ba60a95f7973e2cc45a5c4435c8ddb7",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-older-before-filtering.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-blocked-without-arrival.xml",
+        "bytes": 42570,
+        "sha256": "8ef4ade8d2730a9e0f83cd92a4adb1f025a528f797c8cf69f053a51f8bbef6c6",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-blocked-without-arrival.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-blocked-without-arrival.png",
+        "bytes": 44541,
+        "sha256": "4a9fe7fcf821b5a608f8491bfd2fdc0d1f331838f231ce44391d066f625dd028",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-blocked-without-arrival.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-failure.xml",
+        "bytes": 42570,
+        "sha256": "8ef4ade8d2730a9e0f83cd92a4adb1f025a528f797c8cf69f053a51f8bbef6c6",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-failure.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-dark-failure.png",
+        "bytes": 44541,
+        "sha256": "4a9fe7fcf821b5a608f8491bfd2fdc0d1f331838f231ce44391d066f625dd028",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-320-font130-dark-failure.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/chat/conversation-filtering-evidence/conversation-filtering-font-restored.json"
+      }
+    ]
+  },
+  "wallet/agreement-private-queue-evidence.tar": {
+    "bytes": 652800,
+    "sha256": "ae80e07c78da9579d5df3d755fa0a4a11a87c8af6b5021116ea70a46f43c9c58",
+    "members": [
+      {
+        "name": "agreement-private-queue-evidence/private-resume-worker-paused.json",
+        "bytes": 325,
+        "sha256": "e2e092754d948e963cdbeb853f969c0c22511e5b709c0cfd37173253e8daf403",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-resume-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml",
+        "bytes": 41149,
+        "sha256": "41ae72d9b85f279b71fd76f6bc6c20ff27102615c9fe32590eeebdb300c53d20",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png",
+        "bytes": 40379,
+        "sha256": "6ae5f62983f97360dc300a92feab707607762e0d2f288f7b22ed241996a6a197",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml",
+        "bytes": 44813,
+        "sha256": "29d0ec585fc9359ab42541e970fa023dab03b51356a46f3eb3b2ac20385956e9",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png",
+        "bytes": 40303,
+        "sha256": "d2f2d24001d7b2f8a1fff7987371a00ede39bc6f6ce70717b988594d774b75d2",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-font-scale.json",
+        "bytes": 99,
+        "sha256": "8576612a58a4134fb7e7bc685456d63ba16af0c0389d2a13b4e7a61a042beee2",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-font-scale.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-worker-paused.json",
+        "bytes": 325,
+        "sha256": "12bdf0e53ae9fe875d73c9c7e6ce295d31635ccad5e7552e9dd03e810771c539",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-review.xml",
+        "bytes": 42427,
+        "sha256": "92a23f0c448df60354fc5513af5f945ec0fbbaf815903583875c654f0a9cfdb4",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-before-review.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-review.png",
+        "bytes": 50580,
+        "sha256": "c071d493469b1ba6f69c1c096dd4db9eb43ad66cc0c74c6d0c1f6952f7c56b43",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-before-review.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-ui-first-failure.xml",
+        "bytes": 42427,
+        "sha256": "92a23f0c448df60354fc5513af5f945ec0fbbaf815903583875c654f0a9cfdb4",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-ui-first-failure.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-ui-first-failure.png",
+        "bytes": 50580,
+        "sha256": "c071d493469b1ba6f69c1c096dd4db9eb43ad66cc0c74c6d0c1f6952f7c56b43",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-ui-first-failure.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-first-failure.xml",
+        "bytes": 22992,
+        "sha256": "a11a438ac3496262bc21d1109f322819119bf33926007c64907c4c84b6b62f56",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-first-failure.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-first-failure.png",
+        "bytes": 104979,
+        "sha256": "c1fc89c11adaff88b5466d82271fbdb37a28c77679262dd0e3f81b36d64be6a3",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-first-failure.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-font130-font-restored.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-worker-paused.json",
+        "bytes": 325,
+        "sha256": "031878d3bb3645c46c8e0d6322847b343ee3db41c203fad277ce2bc168348934",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml",
+        "bytes": 41149,
+        "sha256": "8cbc7c2132829325bc257067e5c2300c434c0157bebfcbdc3dcf89a78cba0a98",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png",
+        "bytes": 40325,
+        "sha256": "eaacf083f57c5484526b372a7187b739c0000245b05f54a964b43666db35e405",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml",
+        "bytes": 40180,
+        "sha256": "276e751bdaf25bb599e8031cc6f8831c70a20d3ab529799230a95216265645ea",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png",
+        "bytes": 33860,
+        "sha256": "d2a76fc008a82632628c92018dc23ab408b988ae722094fae5817f710e9960d4",
+        "retainedPath": "originals/wallet/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png"
+      }
+    ]
+  }
+}

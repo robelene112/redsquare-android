@@ -52,12 +52,15 @@ ReadingAnchor compensates for ancestor header movement through the budget contai
 Actual filtering originals show Loading disappears and message20 shifts31px.
 Private queued Cancel is pinned outside supplemental scroll; original action callback,
 guards/lock/store/draft restore are unchanged. Actual663 queue target clips to32px
-on BOTH SDKs. Both source reviews0/0; local canonical compile active.
+on BOTH SDKs. Both source reviews0/0; local canonical compileSUCCESS3m43s/explicit0.
 
 Six fresh focused107 scopes: conversation-viewport, agreement, chat-keyboard on10/17.
 Dispatch record external conversation62-anchor-queue-focused-dispatch.json. Review
-originals and exact assertions; then run fresh complete10/17 at this corrected
-product. No accepted full663 result is possible:10 Chat+Wallet fail;17 Wallet fails.
+originals and exact assertions. Fresh complete b99 runs39677570258/39677581200
+execute unchanged107production plus evidence/docs. No accepted full663 result is
+possible:10 Chat+Wallet fail;17 Wallet fails. Remaining663partitions conclude CANCELLED following replacement dispatch; later
+explicit cancellation requests report already-completed runs. Preserve terminal
+whole CANCELLED and failed-partition conclusions.
 Observer26998 retains terminal whole runs and does not collect failed executions.
 Eight focused663 packets have final evidenceSpec0/Standards0/heuristic0: keyboard
 10methods94.247/141.925s,96px history inallfour dense cases; own-send bothPASS;
