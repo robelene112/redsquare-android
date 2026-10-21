@@ -9,10 +9,15 @@ import java.io.File
 /** Separate screen observations, not an atomic screenshot/hierarchy pair. */
 fun captureNativeScreen(file: File, expectedText: String? = null) {
     val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    traceConversationOperator("capture-ready-before:${file.name}")
     expectedText?.let { check(device.wait(Until.hasObject(By.text(it)), 10_000)) }
+    traceConversationOperator("capture-ready-after:${file.name}")
     file.parentFile?.mkdirs()
+    traceConversationOperator("capture-hierarchy-before:${file.name}")
     device.dumpWindowHierarchy(File(file.parentFile, file.nameWithoutExtension + ".xml"))
+    traceConversationOperator("capture-screenshot-before:${file.name}")
     check(device.takeScreenshot(file))
+    traceConversationOperator("capture-screenshot-after:${file.name}")
 }
 
 fun withFailureCapture(capture: () -> Unit, block: () -> Unit) {
