@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 05:56 UTC:62 first cached-opening GREEN on10/17 retained; review pending.
+Updated 2026-10-21 06:04 UTC:62 cached-opening GREEN reviewed0/0; live-reading tracer compiles.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -66,9 +66,17 @@ one unchanged method15.956s/56.562s, both320dp130% themes. One archive9 original
 per SDK; packets green10-private-latest-34b-39551269289 and
 green17-private-latest-34b-39551271684. Root viewed10 Light/Dark and17 Dark opened
 originals.69 visible, but old layout still clips its lower text/actions. This is
-only cached-opening GREEN, not full62 polish. Final focused evidence review follows.
-Next vertical case: incoming follows only at end, preserves older reading and
-offers New messages. Keep original test identity/assertions and180second bound. This is only first
+only cached-opening GREEN, not full62 polish. Final paired focused evidence review
+returns Spec0/documented Standards0/heuristic0.
+
+Next vertical tracer PrivateConversationReadingPreviewTest uses actual authenticated
+peer receipt/acknowledgment, protected original cache, real touch/accessibility
+scrolling and public native scroll semantics at130% Light/Dark. It requires incoming
+follow only at the end, a stable older text position within one pixel and a New
+messages action. New coherent class retains a separate180second bound alongside
+the unchanged first cached-opening class; full Chat retains both. App/test compile
+SUCCESS2m3. No incoming-follow product implementation yet. Source review and actual
+Android17 RED follow. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

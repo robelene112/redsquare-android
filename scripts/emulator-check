@@ -480,6 +480,7 @@ if [[ "$full_chat" == true ]]; then
 fi
 verify_conversation_viewport() {
     verify_group_chat_native ConversationViewportPreviewTest 180 conversation-viewport conversation-viewport-evidence
+    verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-conversation-reading-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == conversation-viewport* ]]; then
     verify_conversation_viewport
