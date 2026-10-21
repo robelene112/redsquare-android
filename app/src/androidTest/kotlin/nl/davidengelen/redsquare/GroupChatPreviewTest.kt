@@ -410,8 +410,8 @@ class GroupChatPreviewTest {
                                 androidx.test.espresso.Espresso.closeSoftKeyboard()
                                 ui.withConversationControl("Refresh") {
                                     ui.waitUntil(15_000){runCatching{ui.onNodeWithText("Refresh").assertIsDisplayed()}.isSuccess}
+                                    assertIsDisplayed().performClick()
                                 }
-                                ui.withConversationControl("Refresh") { assertIsDisplayed().performClick() }
                                 ui.waitUntil(15_000){failedHistoryReads.get()>0}
                                 ui.waitForGroupStatus("Older group history could not be loaded. Your cached messages are kept.")
                                     ui.onNodeWithText("Older group history could not be loaded. Your cached messages are kept.").assertIsDisplayed()
@@ -462,8 +462,8 @@ class GroupChatPreviewTest {
                                     finally{cleanupAfterTest(faultFailure,{synchronized(SaitoLocalState.lock){record.writeBytes(retainedEncrypted)}})}
                                     ui.withConversationControl("Refresh") {
                                         ui.waitUntil(15_000){ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().size==1}
+                                        assertIsDisplayed().assertIsEnabled().performClick()
                                     }
-                                    ui.withConversationControl("Refresh") { assertIsDisplayed().assertIsEnabled().performClick() }
                                     assertRestoredGroupDraft()
                                     ui.onNodeWithText("Group information could not be read or saved, or the action could not be completed. Your existing records are kept.").assertDoesNotExist()
                                     captureNativeScreen(File(context.cacheDir,"group-chat-evidence/draft-refresh-restored.png"),"Keep this unsent group draft")
@@ -815,8 +815,10 @@ class GroupChatPreviewTest {
                             fun saved()=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,walletStore.loadExisting(),activeBackend).load(group.id))
                             val target=GroupChat.readMessage(group,message.envelope())
                             captureGroupViewport("reaction-before-action-scroll")
-                            waitForGroupMessage("Like")
-                            ui.withMessageAction("Like") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1} }
+                            ui.withMessageAction("Like") {
+                                assertIsDisplayed()
+                                ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                            }
                             captureGroupViewport("reaction-after-action-scroll")
                             ui.withMessageAction("Like") { assertIsDisplayed().performClick() }
                             waitFor("1 like")
@@ -829,7 +831,6 @@ class GroupChatPreviewTest {
                             deliver(first) // An echoed original must not toggle its own like a second time.
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reaction-liked.png"),"1 like")
-                            waitForGroupMessage("Unlike")
                             ui.withMessageAction("Unlike") { assertIsDisplayed().assertIsEnabled() }
                             captureGroupViewport("reaction-unlike-ready")
                             check(peer.transactions.size==1&&peer.relayedMessages.size==1)
