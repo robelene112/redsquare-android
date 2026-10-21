@@ -167,6 +167,11 @@ complete first-release scope and the established production boundaries.
    bound. Best-effort flags/bounds/gesture observations and an unmodified in-scope
    failure capture distinguish actual clearability from gesture or shade state;
    a focused pass is not complete acceptance.
+   For composer61, `composer-focus` and its Android17 variant isolate the actual
+   writing hierarchy,130% Light/Dark system-IME and exact local-return journey.
+   Its separate180second class bound also remains in full Social. Existing
+   post/media/queue/policy/process assertions and deadlines are unchanged.
+   Focused success is not complete composer or full-app acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
    `app-frame-motion` and its Android17 variant run a separate plain native class

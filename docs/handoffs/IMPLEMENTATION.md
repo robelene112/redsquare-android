@@ -16,7 +16,7 @@ sequential implementation, review, commits and signed in-place beta delivery.
    matches frozen285 prepared50 exactly; immutable49/45 and wholeperformance43
    are preserved. Final public-packet review at8c1954ab9 is0/0 and57 is CLOSED.
    59 is delivered as ordinary58;60 native acceptance and ordinary59 publication
-   are complete and60 is ready for closure after final0/0 publication review. Next61–69, then70
+   are complete and60 is CLOSED after final0/0 publication review. Active61, then62–69 and70
    sequentially. Never rebuild50 or59. Detailed original
    RED/GREEN, full481/482 canonical identities,35 interruptions/34 continuity per
    SDK and supplemental public-read provenance are in ticket57's evidence README.
@@ -36,24 +36,25 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Current delivery: post presentation60
+## Active composer61
 
-All production code and focused original visual/native checks are complete.
-Exact4124 full10 run39522483659 and full17 run39522662606 both SUCCESS in all3
-partitions. Frozen catalog matches496/497 identities,136/137 normal completions,
-35 interruptions and34 continuity records per SDK. Android10 retains only its
-established Profile assumption; Android17 all497PASS. Both full packets have
-Spec0/documented Standards0/heuristic0 review. No rejected partition assembly.
+60 is CLOSED after complete paired native acceptance, independent0/0 review
+and actual signed ordinary59 publication. Public review page remains
+https://davidengelen.nl/redsquare/. Final source/evidence record957331d234d6173d9e80408eeb799e628b73973c
+is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
+Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
 
-Ordinary59 is now LIVE at https://davidengelen.nl/redsquare/. Prepared source90f
-and executing4124 have identical eleven production/build objects. Existing59 APK
-published once without rebuild; SHA937b7515649dde91f8831674427aff596e48db55e4b9a00c839307d9273b2dbf.
-Independent after check confirms exact public bytes/cert/metadata/manifest and
-preserved ordinary58/50/49/45/performance43. Final publication packet and current owner-pointer reviews at2501c6d85 are
-Spec0/documented Standards0/heuristic0. Close60, then start61 composer/author forms/queued and saved
-publishing work, followed62–69 and70 sequentially without routine stops.
-No61 implementation has started. Physical/provider/store36 and owner review55
-remain parked/open. Never rebuild/reuse59 or touch the protected untracked file.
+Use existing agreed native UI/controlled-peer/actual-IME/storage/process seams.
+First tracer observes writing before optional attachments, full Send target above
+actual IME at320dp/130% Light/Dark, and exact draft after leave/return, with zero
+transactions and independently restored declared state. New focused composer-focus
+scope and full Social retain a separate180second class bound. No production61
+change or RED/GREEN yet. Preserve all original posting/media/queue/policy/author
+and process acceptance. Complete61 includes focused post/reply/quote publishing,
+truthful durable-save/busy/outcome copy and coherent queued/saved author work.
+Then62–69 and70 sequentially without routine stops. Physical/provider/store36
+and owner app-wide55 remain open. Never rebuild/reuse59 or read/touch the
+protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
 
 ## Historical60 implementation and verification notes
 
