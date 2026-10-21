@@ -8,6 +8,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import java.io.File
 
 /** Actual user navigation around conversation controls, without changing fixture assertions. */
@@ -67,8 +69,16 @@ internal fun ComposeTestRule.withConversationDetails(action: () -> Unit) {
     try { action() }
     catch (failure: Throwable) { primary = failure; throw failure }
     finally {
-        cleanupAfterTest(primary, { if (opened && !alreadyOpen && onNode(title).isDisplayed())
-            onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+        cleanupAfterTest(primary, {
+            if (opened && !alreadyOpen) {
+                if (onAllNodes(title).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+                    onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
+                waitUntil(5_000) { onAllNodes(title).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
+                // Native measurements must observe the window closing as well as Compose dismissal.
+                val instrumentation = InstrumentationRegistry.getInstrumentation()
+                check(UiDevice.getInstance(instrumentation).wait(Until.gone(
+                    By.pkg(instrumentation.targetContext.packageName).text("Conversation details")), 5_000))
+            }
         })
     }
 }
@@ -118,4 +128,31 @@ internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScena
     val reported = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
     println("Back injection reported $reported; observing system keyboard dismissal")
     waitUntil(10_000) { !keyboardVisible() }
+}
+
+/** The worker fixtures use the actual Android hierarchy without a Compose rule. */
+internal fun withNativeConversationDetails(device: UiDevice, packageName: String, action: (() -> Long) -> Unit) {
+    val readyBy = android.os.SystemClock.elapsedRealtime() + 20_000
+    fun remaining(): Long = (readyBy - android.os.SystemClock.elapsedRealtime()).also {
+        check(it > 0) { "Conversation details must be observed within 20 seconds" }
+    }
+    val title = By.pkg(packageName).text("Conversation details")
+    var primary: Throwable? = null
+    var opening = false
+    try {
+        val opener = requireNotNull(device.wait(Until.findObject(
+            By.pkg(packageName).desc("Conversation details")), remaining()))
+        opening = true
+        opener.click()
+        check(device.wait(Until.hasObject(title), remaining()))
+        action(::remaining)
+    } catch (failure: Throwable) { primary = failure; throw failure }
+    finally {
+        cleanupAfterTest(primary, {
+            if (opening && device.hasObject(title)) {
+                requireNotNull(device.wait(Until.findObject(By.pkg(packageName).text("Done")), 5_000)).click()
+                check(device.wait(Until.gone(title), 5_000))
+            }
+        })
+    }
 }

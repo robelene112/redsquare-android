@@ -211,7 +211,7 @@ class GroupChatProcessRecoveryTest {
         stage("history-scrolled")
         ui.onNodeWithText("Hello group 😀 <&>!").assertIsDisplayed()
         ui.onNodeWithText("Send").assertIsNotEnabled()
-        ui.onNodeWithText(if(action=="reaction")"Unlike" else "Like").assertIsNotEnabled()
+        ui.withMessageAction(if(action=="reaction")"Unlike" else "Like") { assertIsNotEnabled() }
         if(action=="reaction"){
             waitFor("1 like")
             ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText("1 like"))

@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 17:10 UTC:62 test-only operator correction675563729 reviewed/compiled; fresh complete SDK pair active.
+Updated 2026-10-21 17:40 UTC:62 residual native operators and owned Details dismissal reviewed/compiled; replacement complete SDK pair next.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,23 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active conversation62
+
+Current correction after675: both terminal Chat jobs fail3/10 original keyboard
+methods at physicalSend287. Native PNG/XML shows Details still open when physical
+Send is measured. Full-key assertions pass; Wallet succeeds on both SDKs; Social
+is still active at this snapshot. Selected failed10/17-details-window-675 packets
+retain original Chat keyboard artifacts, metadata and raw inventory without
+claiming whole-run completion. No passing partition is reused.
+
+The owned Details helper now clicks Done, observes Compose dismissal and native
+window disappearance before physical measurement. Seven residual AndroidTest files
+also migrate actual Details/media/message-menu operators while preserving exact
+identity/privacy/error predicates, shared original observation budgets and all
+class/request/physical/layout/protocol/restoration goals. Native worker fixtures
+use real Android hierarchy without a new Compose rule. Production and emulator
+harness remain byte-identical to814. Source paired reviews0/0; app/test compilation
+SUCCESS2m6 with explicit exit0. Fresh complete SDK pair follows; original frozen
+catalog/collector/tool pins remain. Ordinary60 live, no signed61 yet.
 
 Latest primary executions: complete10run39641247652 and17run39641251883 execute
 exact675563729f5fa22303832efe6290838e58f525d2, dispatched17:09UTC. All three

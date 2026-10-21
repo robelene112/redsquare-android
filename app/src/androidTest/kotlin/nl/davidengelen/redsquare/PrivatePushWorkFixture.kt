@@ -214,8 +214,11 @@ abstract class PrivatePushWorkFixture {
                     row.click()
                     assertTrue("Tapping the actual card must show the cached message in the app",
                         device.wait(Until.hasObject(By.pkg(context.packageName).text(text)), 20_000))
-                    assertTrue("The destination must be the exact sender's conversation",
-                        device.wait(Until.hasObject(By.pkg(context.packageName).text(sender.publicKey)), 20_000))
+                    withNativeConversationDetails(device, context.packageName) { remaining ->
+                        assertTrue("The destination must be the exact sender's conversation",
+                            device.wait(Until.hasObject(By.pkg(context.packageName).text(sender.publicKey)), remaining()))
+                        capture("exact-conversation-details")
+                    }
                     assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                     assertEquals(backend, backends.load())
                     requireNotNull(peer).assertHealthy()

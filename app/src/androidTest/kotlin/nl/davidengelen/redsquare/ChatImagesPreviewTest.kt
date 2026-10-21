@@ -188,7 +188,13 @@ class ChatImagesPreviewTest {
                                 // Keep the source blocked past the existing 300ms autosave window.
                                 val afterAutosaveWindow = android.os.SystemClock.elapsedRealtime() + 500
                                 ui.waitUntil(2_000) { android.os.SystemClock.elapsedRealtime() >= afterAutosaveWindow }
-                                ui.waitUntil(20_000) { displayed(hasText("Could not prepare or save the images. Your draft is still here.")) && displayed(add) }
+                                val retryReadyBy = android.os.SystemClock.elapsedRealtime() + 20_000
+                                ui.waitUntil(20_000) { displayed(hasText("Could not prepare or save the images. Your draft is still here.")) }
+                                ui.withAttachmentAction {
+                                    val remaining = retryReadyBy - android.os.SystemClock.elapsedRealtime()
+                                    check(remaining > 0) { "Photo retry controls must be ready within 20 seconds" }
+                                    ui.waitUntil(remaining) { displayed(hasText("Could not prepare or save the images. Your draft is still here.")) && displayed(add) }
+                                }
                                 trace("preparation-error-observed")
                                 assertDraft()
                                 // Observe the agreed protected draft API before Back/recreation could save it for us.

@@ -58,7 +58,16 @@ class ChatMixedReceptionPreviewTest {
                     waitEnabled("Chat");ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                     wait("Groups");ui.onNodeWithText("Groups").performClick()
                     wait("Foreground group");ui.onNodeWithText("Foreground group").performClick()
-                    wait("Received a signed group invitation.")
+                    val receivedBy = android.os.SystemClock.elapsedRealtime() + 15_000
+                    ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Conversation details").isDisplayed() }
+                    ui.withConversationDetails {
+                        val remaining = receivedBy - android.os.SystemClock.elapsedRealtime()
+                        check(remaining > 0) { "The invitation status must be visible within 15 seconds" }
+                        ui.waitUntil(remaining) { ui.onAllNodesWithText("Received a signed group invitation.")
+                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                        ui.onNodeWithText("Received a signed group invitation.").performScrollTo().assertIsDisplayed()
+                        check(android.os.SystemClock.elapsedRealtime() <= receivedBy)
+                    }
                     var requestId=900
                     fun deliver(transaction:SaitoTransaction,acknowledgement:Byte=13) {
                         val id=requestId++
@@ -75,7 +84,10 @@ class ChatMixedReceptionPreviewTest {
                     check(ChatReactionStore(context,fixture,backend,admin.publicKey).load().likedBy(privateTarget)==setOf(admin.publicKey))
                     check(GroupChatStore(context,fixture,backend).load(firstKey.publicKey)!!.messages.isEmpty())
                     ui.onNodeWithText("Private message received in Groups").assertDoesNotExist()
-                    captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-retained-in-groups.png"),"Received a signed group invitation.")
+                    ui.withConversationDetails {
+                        ui.onNodeWithText("Received a signed group invitation.").performScrollTo().assertIsDisplayed()
+                        captureNativeScreen(File(context.cacheDir,"chat-mixed-evidence/private-retained-in-groups.png"),"Received a signed group invitation.")
+                    }
                     val oldConnections=peer.authenticatedConnectionIds
                     ui.onNodeWithText("Back").performClick();wait("Create group")
                     ui.onNodeWithText("Back").performClick();wait("Public key")

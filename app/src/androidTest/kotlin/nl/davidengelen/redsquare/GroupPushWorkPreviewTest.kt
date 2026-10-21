@@ -376,8 +376,11 @@ class GroupPushWorkPreviewTest {
                         device.wait(Until.hasObject(By.pkg(context.packageName).text(text)), 20_000))
                     assertTrue("The destination must be the exact group",
                         device.wait(Until.hasObject(By.pkg(context.packageName).text(group.name)), 20_000))
-                    assertTrue("The group destination must retain its unencrypted label",
-                        device.wait(Until.hasObject(By.pkg(context.packageName).text("Group messages are unencrypted.")), 20_000))
+                    withNativeConversationDetails(device, context.packageName) { remaining ->
+                        assertTrue("The group destination must retain its unencrypted label",
+                            device.wait(Until.hasObject(By.pkg(context.packageName).text("Group messages are unencrypted.")), remaining()))
+                        capture("exact-conversation-details")
+                    }
                     assertEquals(wallet.exportJson(), wallets.loadExisting().exportJson())
                     assertEquals(backend, backends.load())
                     requireNotNull(peer).assertHealthy()

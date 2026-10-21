@@ -95,14 +95,28 @@ class ChatAlertPreviewTest {
                 val endpoint = "ws://127.0.0.1:${server.port}/wsopen"
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", endpoint).putExtra("feedOfficialPeerUrl", endpoint)).use { scenario ->
+                    fun observeDestination(name: String) {
+                        val readyBy = android.os.SystemClock.elapsedRealtime() + 20_000
+                        ui.waitUntil(20_000) { displayed(hasText(incomingText)) }
+                        ui.withConversationDetails {
+                            ui.onNode(hasText(targetIdentity) and hasAnyAncestor(isDialog())).performScrollTo().assertIsDisplayed()
+                            ui.onNodeWithText(if (groupAlert) "Group messages are unencrypted." else "Private messages are encrypted.")
+                                .performScrollTo().assertIsDisplayed()
+                            check(android.os.SystemClock.elapsedRealtime() <= readyBy) {
+                                "Exact route identity and privacy must be visible within 20 seconds"
+                            }
+                            capture("$name-details")
+                        }
+                        ui.onNodeWithText(incomingText).assertIsDisplayed()
+                        capture(name)
+                    }
                     withFailureCapture({
                         try {
                             capture(if (previews) "private-previews-failure" else "$capturePrefix-tap-failure")
                             if (cold && displayed(hasText(context.getString(R.string.social_push_open_failed)))) {
                                 // Diagnose Retry without changing the original first-open failure outcome.
                                 click(hasText("Retry"))
-                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
-                                capture("$capturePrefix-diagnostic-retry")
+                                observeDestination("$capturePrefix-diagnostic-retry")
                                 instrumentation.sendStatus(2, android.os.Bundle().apply {
                                     putString("stream", "Diagnostic Retry reached the target; original first-open failure retained.")
                                 })
@@ -158,13 +172,10 @@ class ChatAlertPreviewTest {
                             previewChoice(scenario, peer, sender, wallet, notifications, existingAlerts)
                         } else {
                             visible.click()
-                            ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
-                            ui.onNodeWithText(if (groupAlert) "Group messages are unencrypted." else "Private messages are encrypted.").assertIsDisplayed()
-                            capture("$capturePrefix-opened")
+                            observeDestination("$capturePrefix-opened")
                             if (cold) {
                                 recreateCurrentActivity()
-                                ui.waitUntil(20_000) { displayed(hasText(incomingText)) && displayed(hasText(targetIdentity)) }
-                                capture("$capturePrefix-recreated")
+                                observeDestination("$capturePrefix-recreated")
                             }
                             val savedDraft = ChatWorkStore(context, wallet, backend, editingContact).load()
                             assertEquals(latestDraft, savedDraft.draft)
