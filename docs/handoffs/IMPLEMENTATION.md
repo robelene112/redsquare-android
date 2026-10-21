@@ -1293,3 +1293,38 @@ avoid AndroidX core1.7 stale-snapshot interval; same15s bound now positively che
 different/resumed/focused instance with320dp/font/Home. No retry, dropped assertion
 or class-bound change. Narrow source reviews both0 residual. Fresh compile/native
 pending; all later classes in failed8a25 remain unreached, not accepted.
+
+
+Corrected fixture source061c6727e977bd1a845d0232c8fefe93c13803a3 has independent
+Spec0/documented Standards0/heuristic0, local app/test compile SUCCESS4m3s.
+Failure/prose32hash and prepared60 actualAPK7hash checkpoints independently
+reviewed0/0 on both axes. Corrected combined10run39539974168 executes exact061;
+pending. Complete17run39540030117 also executes exact061: Social119025420656,
+Wallet119025420865,Chat119025420940. Complete Social retains every new composer
+method; this full gate verifies the corrected fixture while focused10 runs.
+Frozen58e catalog and every original identity/assertion/deadline/tool stay intact.
+Reference binds actual17metadata; no full10 dispatched yet/no acceptance.
+Prepared60 source4c and executing061 share all11 production/build objects;
+updated prepared packet8hashes adds exact source-equivalence, no byte-rebuild claim.
+No new APK assembly; prepared60 held/public59 unchanged. Full17/10 actual outcomes,
+original evidence reviews/publication checks remain required before61 closure.
+
+
+Corrected combined10run39539974168 at061 SUCCESS: all8 methods, six180s classes;
+focus13.909/draft17.96/post20.794/reply21.786/quote20.399/work17.654s. Packet
+ green10-composer-061-39539974168 retains178hashes/four archives156 originals,
+including8additive lifecycle logs. Root viewedLightreplyreturnactualIME andDarkquote
+Available. Newcurrent-instance recreation/positive readiness and sameUI-thread
+coordinate observation pass all original goals in both130%themes. Historical
+failures remain separate; no historical-cause proof follows. This includes911/4c
+production refinements. Full10run39540771845 starts exact061: Chat119027751479,
+Wallet119027751744,Social119027751752. Full17run39540030117 remains in progress.
+Reference binds both actualrun/source sets; all frozen58e catalogs/tools/deadlines/
+old exclusions unchanged. Source-equivalence checkpoint independently reviewed0/0;
+new10evidence review and both full outcomes/publication60 remain pending.
+
+Focused10 packet178 hashes/four archives156 exact originals and final full10/17
+metadata bindings independently reviewed Spec0/documented Standards0/heuristic0.
+Both complete dispatches remain active at061; no complete acceptance or beta60
+publication. Keep the prepared60 immutable artifact and public59 unchanged until
+complete original gates/evidence review. Continue61, then62 through69 and70.

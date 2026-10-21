@@ -130,5 +130,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Not dispatched. Focused acceptance and independent catalog review remain pending."
+  "executingState": "Complete Android17 and Android10 runs execute final061 source, with three partitions each. Corrected combined10focused run39539974168 passes all eight methods; prior17focused4a20 also passed all eight. Complete runs and final acceptance remain pending. Frozen catalog, identities, class deadlines, partitions, exclusions and tools are unchanged.",
+  "executingSources": {
+    "android17": "061c6727e977bd1a845d0232c8fefe93c13803a3",
+    "android10": "061c6727e977bd1a845d0232c8fefe93c13803a3"
+  },
+  "executingRuns": {
+    "android17": 39540030117,
+    "android10": 39540771845
+  }
 }

@@ -1,0 +1,53 @@
+{
+  "candidateSource": "4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c",
+  "fixtureSource": "061c6727e977bd1a845d0232c8fefe93c13803a3",
+  "objects": {
+    "app/src/main": {
+      "candidate": "4854490500be01c0607f01e30cbe2b6899e45c8e",
+      "fixtureSource": "4854490500be01c0607f01e30cbe2b6899e45c8e"
+    },
+    "core/src/main": {
+      "candidate": "f482cdb7a81261d81509a34a296e734f8cba2bed",
+      "fixtureSource": "f482cdb7a81261d81509a34a296e734f8cba2bed"
+    },
+    "push-gateway/src/main": {
+      "candidate": "c54a4d37d5c2c994d774265594943a492fbc00d7",
+      "fixtureSource": "c54a4d37d5c2c994d774265594943a492fbc00d7"
+    },
+    "app/build.gradle.kts": {
+      "candidate": "75eb5a385fe22dfc6ef13898ab16088573a30ee8",
+      "fixtureSource": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+    },
+    "core/build.gradle.kts": {
+      "candidate": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+      "fixtureSource": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+    },
+    "push-gateway/build.gradle.kts": {
+      "candidate": "517dcc470f27fb27f9bdfc758dfd81a473192f90",
+      "fixtureSource": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+    },
+    "build.gradle.kts": {
+      "candidate": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "fixtureSource": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    "settings.gradle.kts": {
+      "candidate": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "fixtureSource": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    },
+    "gradle.properties": {
+      "candidate": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "fixtureSource": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    },
+    "gradle/wrapper": {
+      "candidate": "1810dfedd6e27f6054311daa5de9c327adf0fdae",
+      "fixtureSource": "1810dfedd6e27f6054311daa5de9c327adf0fdae"
+    },
+    "build-support": {
+      "candidate": "d4e9d93da0aa0ecff553a7562080b63521a8be34",
+      "fixtureSource": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+    }
+  },
+  "productionInputsIdentical": true,
+  "apkBytesEquivalenceClaimed": false,
+  "fullAcceptancePending": true
+}

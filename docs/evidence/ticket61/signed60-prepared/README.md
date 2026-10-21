@@ -16,3 +16,6 @@ APK and raw build outputs stay external at
 /mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/60.
 The retained checker records exact assertions without storing credential values.
 No version reuse or independent build-byte reproducibility is claimed.
+
+Eleven production/build Git objects match executing fixture source061c6727.
+This establishes source equivalence only. Runtime and complete61 remain pending.
