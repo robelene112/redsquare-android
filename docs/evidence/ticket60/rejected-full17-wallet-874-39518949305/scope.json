@@ -1,0 +1,10 @@
+{
+  "kind": "Rejected complete dispatch, original partition retained",
+  "source": "874adf442901395e922eb81c921b3a961794b7d2",
+  "workflowConclusion": "failure",
+  "partition": "wallet",
+  "partitionConclusion": "success",
+  "acceptance": false,
+  "limits": "No complete60, physical-device, configured-provider or store acceptance. Never assemble this rejected dispatch with replacement partitions.",
+  "observations": "All original wallet/public-read/recovery/tail goals and partition-complete marker pass. Four pre-existing failure-only PNG/XML observer payloads match accepted baseline53 limits. This successful partial partition remains part of an overall failed dispatch, not complete acceptance."
+}

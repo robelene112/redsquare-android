@@ -814,3 +814,37 @@ Retained Chat634hashes/11archives575 originals, Social741/27/646, Wallet425/22/2
 both evidence reviews0. All raw bindings/original bytes preserved. Successful
 Wallet is not assembled with replacement partitions. Full17 currently has
 Social FAILURE, Wallet SUCCESS, Chat pending. No complete60/publication59 yet.
+
+Corrected video/profile10 run39521543680 at4c3a succeeds: original video4methods
+25.777s precede profile7/5/2/2methods40.045/27.836/21.148/28.64s. Single existing
+API29 assumption remains. Packet128hashes/3archives102 originals, both reviews0.
+Corrected17 run39521546085 succeeds: video4 63.13s, profile7/5/2/2 45.487/35.405/
+23.531/31.051s, all20 pass. Packet134hashes/3archives106 originals, both reviews0.
+Both retain original two actual process deaths, same wallet/backend, picker/media/
+source-deletion recovery and exact signed read-only reconciliation. Root viewed
+verified-profile, long-bio reachable history and cached-offline PNGs on both.
+
+Broader original Chat-alerts10 run39521783331 at4c3a succeeds: original11methods
+109.584s, mute1 8.246s, capacity1 36.419s, group7 75.068s plus original private/
+group process protocols. Packet189hashes/4archives153 originals, both reviews0.
+Root viewed private no-Activity home and group SystemUI alert PNGs. No app/gesture
+change or causal explanation of the earlier physical-dismissal failure claimed.
+
+Old complete17 run39518949305 at874 completes FAILURE: Social FAILED, Chat/Wallet
+SUCCESS. Retained Chat1735hashes/37archive records1531 originals (36 valid archives
+plus exact old optional unavailable-archive payload), Social745/27/648, Wallet428/
+22/287. Both reviews0. The1100-byte chat-image-history observer error, SHAe5322bbd4952cbbe650b833959734ac261bebaa456b26fbff10d0ad4f19cf4e7,
+is preserved as raw bytes without invented members. Accepted53 and59 summaries
+already list this optional path/error on BOTH SDKs, alongside four failure-only
+wallet observer payloads. Strict59/60 collectors and exception lists are unchanged;
+these are existing limits, not newly waived goals. Temporary rejected-only
+retainer handles that exact error prefix outside the repo. All raw originals stay
+external as well. No successful partial partition is assembled into acceptance.
+
+Fresh complete10 run39522483659 and17 run39522662606 now both execute exact
+4124c149a9cd331a59dbc016dde86ee0924f6b2d. All six jobs are in native runtime;
+no complete acceptance yet. Candidate90f→4124 additional11 production/build
+objects match, both reviews0. Prepared59 held/unpublished, public58 remains live.
+Require full frozen496/497 identities, all original recovery/public reads/native
+bookends, independent review and actual signed publication checks before60 closure.
+Then continue61–69 followed70 without stopping. No61 implementation has started.

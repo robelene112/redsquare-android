@@ -1,0 +1,10 @@
+{
+  "kind": "Rejected complete dispatch, original partition retained",
+  "source": "874adf442901395e922eb81c921b3a961794b7d2",
+  "workflowConclusion": "failure",
+  "partition": "chat",
+  "partitionConclusion": "success",
+  "acceptance": false,
+  "limits": "No complete60, physical-device, configured-provider or store acceptance. Never assemble this rejected dispatch with replacement partitions.",
+  "observations": "Original Chat/native/recovery goals and partition-complete marker pass.37 archive records include36 valid archives with1531 exact original members and the pre-existing optional chat-image-history-evidence unavailable-archive observer. The exact1100-byte tar-error payload is retained under raw-archives, SHAe5322bbd4952cbbe650b833959734ac261bebaa456b26fbff10d0ad4f19cf4e7. Both SDK baseline53 summaries already declare this exact path/error; strict full collectors and exception lists are unchanged. No members invented and no newly excluded goal."
+}
