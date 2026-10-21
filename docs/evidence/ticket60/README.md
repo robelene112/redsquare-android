@@ -378,3 +378,13 @@ now pass; final17 independent review and actual prepared59 publication are next.
 Prepared source90f and executing4124 have eleven identical production/build
 Git objects; this does not claim independent build-byte reproducibility. The
 actual59 APK remains frozen and unpublished at this checkpoint.
+
+Both final full packets have independent Spec0, documented Standards0 and
+heuristic0 review: Android10 at91138913e and Android17 at5d7918846. Ordinary59 is
+now published through the canonical publisher and its independent public after
+check passes. Public59 is byte-identical to the frozen prepared APK; certificate,
+package/version/manifest and latest/immutable metadata match. Ordinary58/50/49/45
+and all performance43 resources remain unchanged. Publication originals and
+procedure are retained in signed59-public. No rebuild/reuse of59 occurred.
+Final publication evidence review is pending. Physical/provider/store acceptance
+and owner app-wide visual review remain36/55, not inferred from this delivery.

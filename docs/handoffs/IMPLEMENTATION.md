@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-20 during shared post-presentation60 verification.
+Updated 2026-10-21 after post-presentation60 native acceptance and beta59 publication.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -15,7 +15,9 @@ sequential implementation, review, commits and signed in-place beta delivery.
    publication and independent public before/after checks exit0. The public APK
    matches frozen285 prepared50 exactly; immutable49/45 and wholeperformance43
    are preserved. Final public-packet review at8c1954ab9 is0/0 and57 is CLOSED.
-   59 is now delivered as ordinary58; next60 through69, then70 sequentially. Never rebuild50. Detailed original
+   59 is delivered as ordinary58;60 native acceptance and ordinary59 publication
+   are complete, pending final publication review/closure. Next61–69, then70
+   sequentially. Never rebuild50 or59. Detailed original
    RED/GREEN, full481/482 canonical identities,35 interruptions/34 continuity per
    SDK and supplemental public-read provenance are in ticket57's evidence README.
    Confirmation-time acknowledgment reset is source-reviewed without a separate
@@ -34,29 +36,26 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Active post-presentation60
+## Current delivery: post presentation60
 
-Current checkpoint22:29UTC: production source remainscfbf9af2ab785d524145ebe4fa408014bc527bed.
-Latest accepted content source da6093d568df44b1ef8f1f1f660e3e616d6115a9 passes
-native10 run39506459830 and17 run39506463821: original4methods24.751s/66.885s,
-viewport1method21.187s/25.605s and content1method18.381s/22.245s. Each SDK has
-six320dp font100/130/200 Light/Dark cells. Packets177/179 hashes, three archives162
-originals each; both reviews0. Root inspected actual PNGs. All six17 quote XMLs
-omit the original text; exact Compose assertions and original130%Light PNG
-positively confirm author/body. Do not claim those XMLs do. Preserve observation
-limits and all actual prior failure conclusions.
-New four-context media tracer is source-reviewed0/0 after extracting shared
-pixel/quote assertions (initial duplication heuristic resolved) and adding
-accessible count absence on each route. New class keeps its own180second bound;
-existing three classes and six-cell matrices remain unchanged. Shared fixture
-construction is identical; viewport helper defaults1/1.3/2, new context consumer
-explicitly1 with both themes/eight route observations. Final local app/test
-compile succeeds1m44s. New paired native dispatch is next.
-Remaining: four-context native proof, failed/pending/status matrix, actual new-
-control TalkBack, additive full catalog/collector frozen before execution,
-full10+17/paired reviews/signed ordinary59. Then61–69 and70 sequentially. Existing
-200% navigation wrapping remains70. Owner review55 and real release1/36 remain
-parked. Do not stop at a focused milestone.
+All production code and focused original visual/native checks are complete.
+Exact4124 full10 run39522483659 and full17 run39522662606 both SUCCESS in all3
+partitions. Frozen catalog matches496/497 identities,136/137 normal completions,
+35 interruptions and34 continuity records per SDK. Android10 retains only its
+established Profile assumption; Android17 all497PASS. Both full packets have
+Spec0/documented Standards0/heuristic0 review. No rejected partition assembly.
+
+Ordinary59 is now LIVE at https://davidengelen.nl/redsquare/. Prepared source90f
+and executing4124 have identical eleven production/build objects. Existing59 APK
+published once without rebuild; SHA937b7515649dde91f8831674427aff596e48db55e4b9a00c839307d9273b2dbf.
+Independent after check confirms exact public bytes/cert/metadata/manifest and
+preserved ordinary58/50/49/45/performance43. Final publication packet review is
+pending before60 closure. Then start61 composer/author forms/queued and saved
+publishing work, followed62–69 and70 sequentially without routine stops.
+No61 implementation has started. Physical/provider/store36 and owner review55
+remain parked/open. Never rebuild/reuse59 or touch the protected untracked file.
+
+## Historical60 implementation and verification notes
 
 2026-10-20 20:10 UTC.59 CLOSED; ordinary58 LIVE.60 assigned/unblocked; review base
 `57ee5eb024ee22ce9dac6d9f2db3e9bc7122de48`. Continue60–69 then70 sequentially,
