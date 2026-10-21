@@ -1,0 +1,32 @@
+{
+  "group-chat-actions-evidence.tar": {
+    "sha256": "dcbab1038de18011dee6105cc8db5d8fcb6fe0e6976e1a61f2fb1482aaac61ce",
+    "bytes": 104448,
+    "members": [
+      {
+        "name": "group-chat-actions-evidence/progress.txt",
+        "bytes": 201,
+        "sha256": "25d82f4a7743e49157a098c35396fff7bc0f23c3f54e7f9885b65f738df374fd",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/progress.txt"
+      },
+      {
+        "name": "group-chat-actions-evidence/operator-timing.txt",
+        "bytes": 2605,
+        "sha256": "611f1d6ed8dbda74407895eb600aaf617b00a93f1f8baed4cacbc511f8cb614c",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/operator-timing.txt"
+      },
+      {
+        "name": "group-chat-actions-evidence/reply-cached-copy.xml",
+        "bytes": 56403,
+        "sha256": "7a756c8199977f671a73d3e16500e41ca390741423db147181c917cbf58f4b5c",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/reply-cached-copy.xml"
+      },
+      {
+        "name": "group-chat-actions-evidence/reply-cached-copy.png",
+        "bytes": 40159,
+        "sha256": "529bde58060d9e76ef96d47d81101b800212cb4a6cdd77a8cd7dc0454eee7eaa",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/reply-cached-copy.png"
+      }
+    ]
+  }
+}

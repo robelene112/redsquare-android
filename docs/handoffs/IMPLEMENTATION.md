@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 18:43 UTC:62 complete4e9 suites active; legacy tail timing-only2c3 diagnostics active.
+Updated 2026-10-21 19:04 UTC:62 complete4e9 suites active; group987 focused pair and pagination readiness correction active.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,30 +46,30 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
-Timing-only probe source2c32171b30fb30ef8610400f61f68ac34159af7b is pushed;
-compile SUCCESS2m1 explicit0, source reviews0/0. Full4e9 suites below remain active
-and unchanged. Focused legacy17 group-ui39652089671 TIMEOUT124 under original60s:
-one method starts, second original is verified, self-reply XML exists but PNG and
-JUnit completion do not; fixture-through-cleanup56.597s. Accepted61 same-class13.22s historical
-comparison is not controlled causal proof. Focused17 private chat-ui39652094420
-TIMEOUT124 under original180s:23PASS,24th starts, no class completion. Historical
-accepted61 timing127.453s. Later scopes remain unreached. Group-admin39652098536
-SUCCESS12 methods90.888s plus original promotion/removal process protocols.
-Packets red17-legacy-group-actions-timeout-4e9 and private-history-timeout-4e9 keep
-21/94 hashes,5/81 originals. green17-legacy-group-admin-4e9 keeps80 hashes/50
-originals across3 archives. Root inspected original group timeout and stage XML.
+Timing-only2c3 focused private17run39654785651 is SUCCESS: original24methods142.093s,
+10actions147.003s and actual process recovery. Eight native Details closing guards
+total4.288s; removing them is unsupported. Packet green17-private-legacy-timing-2c3
+retains202hashes/2archives179originals. Group17run39654780451 exits124 under60s;
+Copy readiness/scroll and Reply readiness separately cost5.203/2.834/3.116s.
+Packet red17-group-menu-timing-2c3 retains20hashes/1archive4originals.
+Group10run39654871455 has GroupActions PASS25.772s/mixed PASS, then GroupPreview
+14PASS, one explicit pagination assertion failure (disabled Load older still
+present after message), and unfinished method16 before180s timeout. Do not repeat
+the initial incorrect15PASS count. Packet red10-group-history-timing-2c3 retains
+115hashes/3archives97originals. Both axes found the count error; README corrected,
+all corrected packet/source residual reviews0/0. Root viewed the actual pagination failure.
 
-Do not increase deadlines or infer an app crash/screenshot cause. Best-effort
-CONVERSATION62_TIMING probes record only static stages/filenames and monotonic
-clock in the two existing evidence folders: menu open/idle/Back/close, Details
-content/Done/Compose/native disappearance, capture expected-text/dump/screenshot.
-No navigation/assertion/cleanup change. Diagnostic17 group-ui39654780451 and
-chat-ui39654785651 plus differential10 group-ui39654871455 execute exact2c3.
-Observer /tmp/redsquare62-watch-timing-2c3.py downloads terminal artifacts to
-/mnt/storage/redsquare-android-artifacts/conversation62-timing-SCOPE-2c3-RUN.
-Use actual timing to coalesce redundant fixture navigation only if supported;
-retain all original assertions/targets/protocol/state and60/180second bounds.
-Remove temporary timing probes after diagnosis, before final delivery.
+Source9875bf29ae7c4fd77144187990040fa6d6dee5e0 coalesces Copy/Reply readiness,
+scrolling and clicking within actual owned menus, preserving original assertions
+and60s class bound. Both source reviews0; compile SUCCESS explicit0. It also adds
+static per-case GroupPreview timing through the existing temporary helper,
+without changing its22methods/180s. Focused group10run39657602480 and17run39657607096
+pending. Observer /tmp/redsquare62-watch-timing-987.py downloads terminal outputs.
+Use actual timing to minimize redundant fixture navigation, never widen deadlines
+or split original classes. Remove temporary CONVERSATION62_TIMING probes and Rule
+before final delivery. Current narrow WIP also requires original pagination-button
+absence within SAME15s message-readiness loop, retaining final absence/count/cutoff/
+saved-state checks. Both source axes residual0; app/test compile SUCCESS2m22s explicit0. Fresh native pending.
 
 Fresh complete10run39651967639 and17run39651972836 execute exact
 4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba, dispatched18:21UTC. Each requires all

@@ -360,7 +360,9 @@ class GroupChatPreviewTest {
                                 check(olderReads.get()==0)
                                 ui.waitForGroupStatus("Load older messages", enabled=true)
                                 ui.onNodeWithText("Load older messages").assertIsDisplayed().assertIsEnabled().performClick()
-                                waitForGroupMessage("Available older group message")
+                                waitForGroupMessage("Available older group message") {
+                                    ui.onNodeWithText("Load older messages").assertDoesNotExist()
+                                }
                                 check(olderReads.get()==1 && requestedCutoff.get()==oldestRecent)
                                 ui.onNodeWithText("Load older messages").assertDoesNotExist()
                                 val saved=requireNotNull(nl.davidengelen.redsquare.chat.GroupChatStore(context,store.loadExisting(),SaitoBackend.OWNER).load(invitation.id))
@@ -1083,7 +1085,7 @@ class GroupChatPreviewTest {
             ui.onAllNodes(isRoot(),useUnmergedTree=true).printToString(maxDepth=Int.MAX_VALUE))
     }
 
-    private fun waitForGroupMessage(text:String) {
+    private fun waitForGroupMessage(text:String, settled: () -> Unit = {}) {
         if (text in listOf("Like", "Unlike", "Reply", "Copy")) {
             ui.withMessageAction(text) { assertIsDisplayed() }
             return
@@ -1092,6 +1094,7 @@ class GroupChatPreviewTest {
             runCatching {
                 ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(text))
                 ui.onNodeWithText(text).assertIsDisplayed()
+                settled()
             }.isSuccess
         }
         ui.onNodeWithText(text).assertIsDisplayed()

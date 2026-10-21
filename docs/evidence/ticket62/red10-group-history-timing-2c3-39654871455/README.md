@@ -1,0 +1,7 @@
+# Android10 group legacy timing diagnosis
+
+Exact2c32171b30fb30ef8610400f61f68ac34159af7b, group-ui run39654871455: terminal FAILURE. Original GroupChatActions completes25.772seconds and mixed reception completes before GroupChatPreview reaches its original180second host bound. Fourteen methods PASS, one fails its assertion, and the sixteenth starts without class completion. Method8 signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning fails at source line357 because the disabled Load older messages node still exists after the new message is visible. This assertion failure is distinct from the later host timeout; its cause is not established by the failure capture. The later group process protocol is unreached. Three archives retain97 original members. Passing earlier classes do not establish complete group or application acceptance.
+
+The2c tracer did not cover GroupChatPreview. A temporary watcher now records that class's static method boundaries through the same best-effort trace helper before changing its navigation. The original22 identities, assertions and180second bound stay intact. Historical accepted61 Android10 class timing136.295seconds is not controlled causal proof. No timeout increase, class split or acceptance exclusion is proposed.
+
+External original artifact: `/mnt/storage/redsquare-android-artifacts/conversation62-timing-group-ui10-2c3-39654871455/android-native-proof`. Retention preserves original bytes and hashes; its PASS status describes retention, not native acceptance.
