@@ -426,43 +426,47 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             var outgoingRequest by remember(wallet.publicKey, backend, contact) {
                 mutableStateOf<ConversationMessageRequest?>(null)
             }
-            ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
-                stringResource(R.string.chat_messages), Modifier.weight(1f),
-                requestMessage = outgoingRequest, historyMessageKeys = entries.map { it.message.id },
-                historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
-                items(visible, key = { it.id }) { message ->
-                    val outgoing = message.author == wallet.publicKey
-                    Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
-                        horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
-                        var copyFailed by remember(message.id) { mutableStateOf(false) }
-                        val replyPrefix = remember(message) { privateReplyPrefix(message) }
-                        val likedBy = reactions.saved.likedBy(message)
-                        ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend,
-                            actions = {
-                            ChatMessageActions(wallet.publicKey in likedBy,
-                                canLike = personal?.ready == true && reactions.editable,
-                                canReply = replies.replyTo != null && replyPrefix != null,
-                                onLike = { reactions.toggle(message, publishing::beforePublishing) },
-                                onReply = { replies.replyTo?.invoke(message) },
-                                onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
-                        }) { reference ->
-                            val index = visible.indexOfFirst { it.author + it.createdAt == reference }
-                            if (index >= 0) showMessage(index)
-                        }
-                        if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
-                        if (copyFailed) Text(stringResource(R.string.chat_copy_error))
-                    }
-                }
-            }
             if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
                 TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry(publishing::beforePublishing) }) {
                     Text(stringResource(R.string.chat_reaction_retry))
                 }
             }
-            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies,
-                onOutgoing = { id -> outgoingRequest = ConversationMessageRequest(id, (outgoingRequest?.attempt ?: 0) + 1) }) { saved ->
-                entries = ChatHistoryStore.merge(entries, saved)
-            }
+            ConversationContent(Modifier.weight(1f),
+                history = { historyModifier ->
+                    ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
+                        stringResource(R.string.chat_messages), historyModifier,
+                        requestMessage = outgoingRequest, historyMessageKeys = entries.map { it.message.id },
+                        historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
+                        items(visible, key = { it.id }) { message ->
+                            val outgoing = message.author == wallet.publicKey
+                            Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                                horizontalAlignment = if (outgoing) Alignment.End else Alignment.Start) {
+                                var copyFailed by remember(message.id) { mutableStateOf(false) }
+                                val replyPrefix = remember(message) { privateReplyPrefix(message) }
+                                val likedBy = reactions.saved.likedBy(message)
+                                ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend,
+                                    actions = {
+                                    ChatMessageActions(wallet.publicKey in likedBy,
+                                        canLike = personal?.ready == true && reactions.editable,
+                                        canReply = replies.replyTo != null && replyPrefix != null,
+                                        onLike = { reactions.toggle(message, publishing::beforePublishing) },
+                                        onReply = { replies.replyTo?.invoke(message) },
+                                        onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
+                                }) { reference ->
+                                    val index = visible.indexOfFirst { it.author + it.createdAt == reference }
+                                    if (index >= 0) showMessage(index)
+                                }
+                                if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
+                                if (copyFailed) Text(stringResource(R.string.chat_copy_error))
+                            }
+                        }
+                    }
+                }, composer = { composerModifier ->
+                    ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies,
+                        onOutgoing = { id -> outgoingRequest = ConversationMessageRequest(id, (outgoingRequest?.attempt ?: 0) + 1) }, modifier = composerModifier) { saved ->
+                        entries = ChatHistoryStore.merge(entries, saved)
+                    }
+                })
         }
     }
     }
