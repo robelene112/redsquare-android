@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete replacement SDK suites active at exact675563729 after test-only legacy operator correction. All production and harness sources unchanged from814, frozen identities/goals/pins unchanged. Rejected814 dispatches remain failures; no accepted full62 result yet.",
+  "executingState": "Fresh complete527 replacement SDK suites active after test-only actual-control/dismissal corrections. All production/harness sources unchanged from814; frozen identities/goals/pins unchanged. Rejected675 Chat failures retained; older Social jobs cancelled by workflow replacement. No accepted full62 result yet.",
   "executingSources": {
-    "10": "527dc9723cefccc4961400fd79d224e1c066bc52",
-    "17": "527dc9723cefccc4961400fd79d224e1c066bc52"
+    "android10": "527dc9723cefccc4961400fd79d224e1c066bc52",
+    "android17": "527dc9723cefccc4961400fd79d224e1c066bc52"
   },
   "executingRuns": {
-    "10": 39645666425,
-    "17": 39645671283
+    "android10": 39645666425,
+    "android17": 39645671283
   },
   "rejectedExecutions": [
     {
@@ -146,15 +146,15 @@
       "sdk": "10",
       "run": 39641247652,
       "source": "675563729f5fa22303832efe6290838e58f525d2",
-      "conclusion": "chat-job-failure; whole run active at snapshot",
-      "reason": "Three original keyboard methods reach physical Send while Details remains open. Wallet succeeds; Social active at retained snapshot. Replacement repeats all partitions, without reusing successes."
+      "conclusion": "cancelled",
+      "reason": "Terminal Chat FAILURE3/10 keyboard methods while Details remains open; Wallet SUCCESS; Social cancelled by replacement workflow concurrency. Retained pre-replacement snapshot accurately shows Social active. No passing partition reused."
     },
     {
       "sdk": "17",
       "run": 39641251883,
       "source": "675563729f5fa22303832efe6290838e58f525d2",
-      "conclusion": "chat-job-failure; whole run active at snapshot",
-      "reason": "Three original keyboard methods reach physical Send while Details remains open. Wallet succeeds; Social active at retained snapshot. Replacement repeats all partitions, without reusing successes."
+      "conclusion": "cancelled",
+      "reason": "Terminal Chat FAILURE3/10 keyboard methods while Details remains open; Wallet SUCCESS; Social cancelled by replacement workflow concurrency. Retained pre-replacement snapshot accurately shows Social active. No passing partition reused."
     }
   ]
 }
