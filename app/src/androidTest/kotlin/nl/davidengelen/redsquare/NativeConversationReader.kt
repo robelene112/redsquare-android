@@ -65,7 +65,17 @@ internal class NativeConversationReader(private val ui: ComposeTestRule, private
         assertTrue("An own send starts while deliberately reading older history", !atEnd())
         capture("older-before-own-send")
         send()
-        ui.waitUntil(10_000) { ui.onNodeWithText(outgoing).isDisplayed() && atEnd() }
+        withFailureCapture({
+            val axis = ui.onNodeWithContentDescription(messagesLabel).fetchSemanticsNode()
+                .config.getOrNull(SemanticsProperties.VerticalScrollAxisRange)
+            val range = ui.runOnIdle { axis?.let { it.value() to it.maxValue() } }
+            File(folder, "$label-own-send-failure-observation.json").writeText(JsonObject().apply {
+                addProperty("outgoingDisplayed", ui.onNodeWithText(outgoing).isDisplayed())
+                range?.let { addProperty("scrollValue", it.first); addProperty("scrollMaximum", it.second) }
+            }.toString())
+        }) {
+            ui.waitUntil(10_000) { ui.onNodeWithText(outgoing).isDisplayed() && atEnd() }
+        }
         capture("own-send-exposes-latest")
     }
 
