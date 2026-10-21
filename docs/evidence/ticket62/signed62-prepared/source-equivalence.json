@@ -2,11 +2,11 @@
   "preparedSource": "b997f301c2c3830ce3767866ce296d2abf95c36f",
   "focusedSource": "107dde881c29c8c9bd62945db79b210bb3157592",
   "completeExecutingSources": {
-    "android10": "796eb1fb60ce3e63bd0e603530d6620d82278d64",
+    "android10": "2305c929c6321a7a38b987033ca9a3e06bba7008",
     "android17": "796eb1fb60ce3e63bd0e603530d6620d82278d64"
   },
   "completeExecutingRuns": {
-    "android10": 39681561379,
+    "android10": 39687987767,
     "android17": 39681571919
   },
   "sameReleaseProductionAndBuildObjects": true,
@@ -27,6 +27,6 @@
     "scripts/signing-init": "100755 blob 12d9c137c3dee0ed6a616c60a9e70d6181355a9b\tscripts/signing-init"
   },
   "apkSha256": "054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000",
-  "nativeAcceptance": "All six focused107 scopes SUCCESS and finalsource/evidence0/0. Fresh complete796bothSDKs required after rejectedb99system-abort/SDKZIPfailures. Application/test/build inputs unchanged; CIonly bounded SDK retry and after-failure diagnostic capture, all goals/deadlines/pins unchanged. Signed62 remains unpublished until bothcomplete proof/finalreview then publication/publicaftercheck.",
+  "nativeAcceptance": "All six focused107 scopes SUCCESS/final0/0; complete17-796-39681571919 whole/all3SUCCESS/frozen512PASS0assumptions/final0/0. Entire10-230-39687987767 pending after rejected796TalkBackstartupfocus, with focused10-057-39687841909 alsoactive. Fixture-only057 positively observes actualWalletinitialfocus before originalsinglepostfocus; everyoriginalassertion/deadline retained. All14Release/buildobjects equivalent, noAPKrebuild; workflow allowsretainingaccepted17. Signed62held until freshentire10/fullreview/publication/publicafter.",
   "limits": "Source-object equivalence only. Actual signed manifest/DEX/certificate checked separately. No physical/provider/Play/owner visual acceptance."
 }
