@@ -149,7 +149,8 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
     val showMessage: (Int) -> Unit = { index ->
         if (index in messageKeys.indices) scope.launch { messageList.animateScrollToItem(index) }
     }
-    Box(modifier.onSizeChanged { viewportHeight = it.height }.preserveReadingAnchor(messageList, enabled = !following)) {
+    Box(modifier.onSizeChanged { viewportHeight = it.height }
+        .preserveReadingAnchor(messageList, enabled = !following, relativeToRoot = true)) {
         LazyColumn(Modifier.fillMaxSize().semantics { contentDescription = messagesLabel },
             state = messageList, verticalArrangement = verticalArrangement) {
             content(showMessage)

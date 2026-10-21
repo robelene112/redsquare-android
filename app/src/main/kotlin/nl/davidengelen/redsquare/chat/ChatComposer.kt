@@ -141,7 +141,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
         if (saved.automatic && !saved.deliveryComplete)
             nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(ready && !sending && !navigation.transitioning)
     }
-    val status: @Composable () -> Unit = {
+    val queuedAction: @Composable () -> Unit = {
         InlineStatus(if (saved.status == ChatWorkStore.Status.QUEUED) stringResource(R.string.chat_queued) else null,
             actionLabel = stringResource(R.string.chat_cancel_queued),
             actionEnabled = ready&&!sending&&!navigation.transitioning,
@@ -162,6 +162,8 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                     finally{sending=false}
                 }
             })
+    }
+    val status: @Composable () -> Unit = {
         val deliverySummary = when (saved.status) {
             ChatWorkStore.Status.UNKNOWN -> stringResource(R.string.chat_send_unknown)
             ChatWorkStore.Status.SUBMITTED -> stringResource(R.string.chat_send_submitted)
@@ -186,15 +188,19 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
     if (saved.status == ChatWorkStore.Status.QUEUED) {
         BoxWithConstraints(modifier) {
             val previewMaximum = maxHeight / 2
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                publishingNotice()
-                val pending = remember(saved.transaction) { PrivateChat.read(wallet, requireNotNull(saved.transaction).envelope(), contact) }
-                val previewLabel = stringResource(R.string.chat_queued_preview)
-                Column(Modifier.heightIn(max = previewMaximum).verticalScroll(rememberScrollState())
-                    .semantics { contentDescription = previewLabel }) {
-                    ChatMessageBubble(pending.author, pending.text, pending.createdAt, outgoing = true, backend = backend, onQuote = {})
+            Column {
+                Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState())) {
+                    publishingNotice()
+                    val pending = remember(saved.transaction) { PrivateChat.read(wallet, requireNotNull(saved.transaction).envelope(), contact) }
+                    val previewLabel = stringResource(R.string.chat_queued_preview)
+                    Column(Modifier.heightIn(max = previewMaximum).verticalScroll(rememberScrollState())
+                        .semantics { contentDescription = previewLabel }) {
+                        ChatMessageBubble(pending.author, pending.text, pending.createdAt, outgoing = true, backend = backend, onQuote = {})
+                    }
+                    status()
                 }
-                status()
+                // Keep the complete cancellation target outside scrolling previews.
+                queuedAction()
             }
         }
     } else {
