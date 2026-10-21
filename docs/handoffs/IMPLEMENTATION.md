@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 19:33 UTC:62 final complete539 pair active; signed61 immutable/held, public60.
+Updated 2026-10-21 20:03 UTC:62 full539 pending; Wallet10 entry failure corrected in fixture, signed61 held, public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -45,6 +45,35 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63087088
 https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6322922829
 
 ### Current execution and next action
+
+Full539 Wallet10run39662252940 has a terminal failed Wallet partition: original
+WalletImport7methods103.016seconds,5PASS/2initial Wallet clicks fail before import
+assertions (replacement-backup and stalled-provider). Root explicitly cancelled the other two partitions after dispatching replacement full10;
+whole run CANCELLED, failed Wallet remains failed. Packet failed10-wallet-entry-539-39662252940
+retains allpart text/inventories and16originals; no complete acceptance. Wallet17partition succeeds; full17still active.
+Five initial Wallet entry callers now reuse the unchanged20second displayed/enabled
+click helper, preserving all import/auth/backup/rollback goals and300second class
+bound. Both source reviews0/0; final compile SUCCESS1m54s/explicit0. Source6d3df7c9ccb7016e7e9812f325248be6041252ee
+executes focused import10run39667030860 and17run39667034762. Fresh full10run39667308854
+was dispatched in parallel20:05UTC at the same6dsource; retain full17if wholeSUCCESS
+at539. All acceptance goals must still finish. Prior full10remaining partitions
+were explicitly cancelled after the replacement dispatch; no passing pieces reused.
+
+Temporary diagnostic branch diagnose/group62-prefix-539 at3ffe6785f72a81e1f968b841f04a556f4eced9a9
+lives in external conversation62-warm-prefix-worktree. It changes only harness
+group-admin routing to original Admin12/process protocols then GroupPreview22,
+matching the full prefix; never merge or publish from it. Diagnostic10run39665051021
+succeeds: Admin56.302s/GroupPreview171.552s, original180s limits; packet
+green10-group-prefix-3ff-39665051021 retains139originals.17run39665055842also
+SUCCESS: Admin92.119s/Group171.345s; corresponding green17packet139originals.
+Observer89749completed both downloads. Both evidence axes0/0 except stale status
+lines, now corrected. Remove own temporary worktree after retention. These focused results never replace complete gates.
+
+CI maintenance after62: current Gradle output v2cache is immutable by build-config
+key, seeded2026-10-20, so fixture-only changes repeatedly recompile unchanged main
+and release sources. Consider a production/build source fingerprint and separate
+complete/debug cache seeds, preserving source/core/release/lint and native gates.
+No workflow/cache change has been applied.
 
 IMPORTANT: ordinary61 has now been built ONCE at exact2d5a0c2fdb0a0c31dac7a6fe922ab40c9a412b25,
 SUCCESS4m14/explicit0. SHA256d228154e12bec42a1701d531fba2157081c505d1daa22ba562de440144f69694,
@@ -114,14 +143,17 @@ display/enabled/uniqueness/count/candidate/capture/protocol/cache/cleanup assert
 original class identities/order and bounds stay. Both source reviews0; final app/
 test compile SUCCESS1m53s explicit0. No temporary CONVERSATION62_TIMING remains.
 
-FRESH COMPLETE final10run39662252940 and17run39662258345 execute exact539942ae8,
+Complete10run39662252940 and17run39662258345 execute exact539942ae8,
 dispatched19:30UTC. Each requires allthreepartitions, frozen511/512identities and
 original application/process/public-read/immutable-update/final gates. Existing
 frozen catalogs/collector/tool hashes unchanged; reference JSON binds actual run/
-source sets. Observer20041 /tmp/redsquare62-watch-complete-539.py downloads terminal
+source sets. Wallet10has the early entry failures recorded above; it cannot
+establish complete acceptance. Wallet17SUCCESS; other partitions pending. Observer20041 /tmp/redsquare62-watch-complete-539.py downloads terminal
 runs to /mnt/storage/redsquare-android-artifacts/conversation62-fullSDK-539-RUN and
 runs frozen collector ONLY if wholeSUCCESS. Never assemble passing partitions.
 Monitor failures via terminal artifacts, not in-progress private runner logs.
+Fresh complete10observer is /tmp/redsquare62-watch-full10-6d.py; original539observer
+20041remains responsible for downloading the cancelled10 and completing17.
 
 Ordinary61 is held unpublished (see IMPORTANT above), before-publicbookend PASS
 at /mnt/storage/redsquare-android-artifacts/conversation62-publication-61.

@@ -118,13 +118,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete539 SDK pair active after actual popup/Details operator corrections and removal of temporary diagnostics. Original full identities, class/request bounds, acceptance assertions, process/restoration and public-read/update/final gates remain. Both exact-source whole executions must succeed before native acceptance; earlier failed attempts remain rejected. Ordinary60 live; signed61 immutable and held unpublished.",
+  "executingState": "Fresh complete Android10run39667308854 at6d3df7c9ccb7016e7e9812f325248be6041252ee after unchanged existing readiness helper migration to five initial Wallet callers. Focused import10run39667030860/17run39667034762 also active. Full Android17run39662258345 at539 remains active; its Wallet partition succeeded. Prior complete10run39662252940 Wallet partition failed two initial entry actions before import assertions; other partitions explicitly cancelled after replacement dispatch, no results assembled. Production and frozen catalog/assertions/class bounds unchanged. Public60live; signed61immutable/held.",
   "executingSources": {
-    "android10": "539942ae8278fc070ca3c6d57d954a799f4b1c39",
+    "android10": "6d3df7c9ccb7016e7e9812f325248be6041252ee",
     "android17": "539942ae8278fc070ca3c6d57d954a799f4b1c39"
   },
   "executingRuns": {
-    "android10": 39662252940,
+    "android10": 39667308854,
     "android17": 39662258345
   },
   "rejectedExecutions": [
@@ -169,6 +169,13 @@
       "source": "527dc9723cefccc4961400fd79d224e1c066bc52",
       "conclusion": "failure",
       "reason": "Chat queue3/13 failures: positive overflow incorrectly sought in larger Details destination; private full key inline; group AVAILABLE summary inline. Social/Wallet succeed, without reuse."
+    },
+    {
+      "sdk": "10",
+      "run": 39662252940,
+      "source": "539942ae8278fc070ca3c6d57d954a799f4b1c39",
+      "conclusion": "cancelled",
+      "reason": "Wallet partition failed two initial merged Wallet entry actions before provider/import assertions (5PASS/2fail in original7method class). Root explicitly cancelled remaining Chat/Social partitions before fresh full10run39667308854. No passing partitions reused."
     }
   ]
 }

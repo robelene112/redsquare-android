@@ -1,0 +1,9 @@
+# Rejected Android10 execution at539
+
+Exact539942ae8278fc070ca3c6d57d954a799f4b1c39, run39662252940 is terminal CANCELLED after its Wallet partition had already failed. Root explicitly cancelled the remaining Chat/Social work when starting fresh full10run39667308854. The before-replacement snapshot retains the actual active whole-run state and completed Wallet failure. No passing pieces are reused.
+
+WalletImport7 methods complete in103.016seconds within their original300second class bound:5PASS,2initial entry assertion failures in aStalledBackupProviderReturnsControlAndCannotOverwriteAFreshPreview (source303) and replacementRequiresANewBackupBoundToTheCurrentSelection (source196). Both directly click Wallet immediately after Activity launch; the merged tree has no matching Wallet node although the unmerged tree has one. Their subsequent provider/import assertions are unreached. Timing remains a hypothesis, not an established app defect or proven cause.
+
+The correction at6d3df7c9ccb7016e7e9812f325248be6041252ee migrates these two and three consistent initial entries to the existing20second displayed/enabled/clickable merged Wallet readiness helper. All import, authentication, backup freshness, balance, rollback, identity, cleanup and provider deadlines remain unchanged. Compile and source reviews pass; native verification remains pending. WalletExport5PASS88.416seconds precedes the failed import class. Later risk/storage/feed/public-read/update/final gates are unreached.
+
+All three raw-part inventories and text records are retained, along with the original WalletImport archive16members. There is no in-scope screenshot of either failed direct entry. The standalone system-screen capture is post-class/teardown and cannot establish a transition cause. External original root: `/mnt/storage/redsquare-android-artifacts/conversation62-full10-539-39662252940`.
