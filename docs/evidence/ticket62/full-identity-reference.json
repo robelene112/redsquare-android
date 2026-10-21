@@ -118,7 +118,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete primary SDK suites active at exact814271d4 after paired focused GREEN; no accepted full62 result yet.",
+  "executingState": "Both first complete814 runs failed at legacy UI operators. Test-only navigation corrections reviewed0/0; fresh full SDK pair required. No complete62 acceptance.",
   "executingSources": {
     "android10": "814271d400e44dee39a82234b0eab6b70eee7160",
     "android17": "814271d400e44dee39a82234b0eab6b70eee7160"
@@ -127,5 +127,20 @@
     "android10": 39573030407,
     "android17": 39573032280
   },
-  "rejectedExecutions": []
+  "rejectedExecutions": [
+    {
+      "sdk": "10",
+      "run": 39573030407,
+      "source": "814271d400e44dee39a82234b0eab6b70eee7160",
+      "conclusion": "failure",
+      "reason": "Chat three legacy inline-key operators; Wallet closed-menu Unlike capture. Social passes but is not assembled into later acceptance."
+    },
+    {
+      "sdk": "17",
+      "run": 39573032280,
+      "source": "814271d400e44dee39a82234b0eab6b70eee7160",
+      "conclusion": "failure",
+      "reason": "Chat three legacy inline-key operators; Wallet closed-menu Unlike capture. Social passes but is not assembled into later acceptance."
+    }
+  ]
 }

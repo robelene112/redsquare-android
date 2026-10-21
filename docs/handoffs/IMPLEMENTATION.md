@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 08:58 UTC:62 corrected focused SDK pairs GREEN; fresh complete814 SDK suites active.
+Updated 2026-10-21 17:08 UTC:62 first complete814 pair rejected at legacy UI operators; narrow test-only correction reviewed.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,29 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active conversation62
+
+Current resume: both first complete814 runs39573030407/39573032280 are terminal
+FAILURE. Social SUCCESS; Chat and Wallet FAILURE. ChatKeyboardPreviewTest has3/10
+failures at134, expecting the raw private contact key inline after it moved into
+Details. Seven other methods pass. Wallet base agreement passes; PublishingSurfaces
+has1/4 failure at155, native Unlike capture after the popup helper closed the menu.
+Three other methods pass; later Chat/Wallet gates are unreached. All new conversation
+reading/filtering/own-send classes pass beforehand. No partition from these failed
+complete runs is accepted or assembled into a replacement.
+
+Selected failure packets failed10/17-full-legacy-operators-814 retain198/203 hashes,
+two archives119 originals each, Chat/Wallet text and three-partition raw inventory.
+Complete external artifacts remain at conversation62-full10/17-814-RUN roots.
+Root viewed17 keyboard/photo and agreement failure PNGs. Final packet reviews0/0.
+Current test-only correction asserts the identical full private key through actual
+Details scrolling (group title unchanged), and opens the real message popup for
+the same native Unlike screenshot/semantics. No product change or weakened identity,
+keyboard/physical Send/photo/reply/draft/protocol/restoration goal; all method names,
+class/request deadlines and frozen catalog identities remain unchanged. Source
+reviews0/0. App/test compile SUCCESS4m with explicit exit0. Fresh complete SDK pair follows, repeating all three
+partitions and the full original legacy goals; no extra redundant focused reruns.
+Ordinary60 remains live, signed61 not built. Continue62–69 then70 without stops.
+The following records describe earlier focused successes and rejected execution.
 
 Latest executing state: exact814271d400e44dee39a82234b0eab6b70eee7160 passes
 own-send10/17 runs39571556632/39571558481 (two methods34.964s/75.838s, original180).

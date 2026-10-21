@@ -152,7 +152,10 @@ class PublishingSurfacesPreviewTest {
                         assertEquals(2, peer.relayedMessages.size)
                         assertTrue(originalWallet == wallets.loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
-                        capture("private-reaction-deliberately-forwarded-after-new-revision.png", "Unlike")
+                        ui.withMessageAction("Unlike") {
+                            assertIsDisplayed()
+                            capture("private-reaction-deliberately-forwarded-after-new-revision.png", "Unlike")
+                        }
                         peer.assertHealthy()
                     }
                 }

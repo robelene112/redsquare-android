@@ -131,7 +131,10 @@ class ChatKeyboardPreviewTest {
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         val editor = hasSetTextAction() and isEnabled()
                         if(longReply||largeFont) {
-                            ui.onNodeWithText(if(group)groupName else contact.publicKey).assertIsDisplayed()
+                            if (group) ui.onNodeWithText(groupName).assertIsDisplayed()
+                            else ui.withConversationDetails {
+                                ui.onNodeWithText(contact.publicKey).performScrollTo().assertIsDisplayed()
+                            }
                             ui.waitUntil(20_000) { reads.get()>0&&
                                 (if(group)GroupChatStore(context,wallet,SaitoBackend.OWNER).load(groupId)?.draft
                                  else ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact.publicKey).load().draft)==composed }
