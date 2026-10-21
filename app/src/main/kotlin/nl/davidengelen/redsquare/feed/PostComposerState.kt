@@ -35,6 +35,7 @@ internal class PostComposerState(
 ) {
     private val owner = wallet.publicKey
     private val writes = Mutex()
+    // A write can replace the file before confirmation fails. Trust only its successful return.
     private var savedContent by mutableStateOf<PostDraftStore.Saved?>(null)
     var text by mutableStateOf("")
     var images by mutableStateOf<List<String>>(emptyList())
@@ -82,6 +83,7 @@ internal class PostComposerState(
         try {
             val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images, gifAttributions = gifAttributions)
             withContext(NonCancellable) {
+                savedContent = null
                 val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                 savedContent = persisted
                 memory.text = persisted.text
@@ -123,6 +125,7 @@ internal class PostComposerState(
                     if (transaction == null) queued = true
                     transaction = prepared
                     val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images, gifAttributions = gifAttributions)
+                    savedContent = null
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
                     savedContent = persisted
                     queued = persisted.queued
@@ -272,6 +275,7 @@ internal class PostComposerState(
                 writes.withLock {
                     // Preserve current work before any provider read or pixel allocation.
                     val prior = PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)
+                    savedContent = null
                     val persistedPrior = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(prior) }
                     savedContent = persistedPrior
                     memory.text = persistedPrior.text
@@ -290,6 +294,7 @@ internal class PostComposerState(
                     require(finalSize <= SaitoTransaction.MAX_MESSAGE_BYTES)
                     val snapshot = PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions)
                     withContext(NonCancellable) {
+                        savedContent = null
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
                         savedContent = persisted
                         images = persisted.images
@@ -323,6 +328,7 @@ internal class PostComposerState(
                     }
                     require(size <= SaitoTransaction.MAX_MESSAGE_BYTES)
                     withContext(NonCancellable) {
+                        savedContent = null
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions + (source to item.attribution))) }
                         savedContent = persisted
                         images = persisted.images
@@ -351,6 +357,7 @@ internal class PostComposerState(
                 writes.withLock {
                     val replacement = images.filterIndexed { position, _ -> position != index }
                     withContext(NonCancellable) {
+                        savedContent = null
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = replacement, gifAttributions = gifAttributions.filterKeys { it in replacement })) }
                         savedContent = persisted
                         images = persisted.images
