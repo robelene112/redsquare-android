@@ -1,0 +1,9 @@
+{
+  "kind": "Runner setup failure before native app execution in social partition",
+  "source": "874adf442901395e922eb81c921b3a961794b7d2",
+  "workflowConclusion": "cancelled",
+  "socialConclusion": "failure",
+  "otherPartitions": "cancelled",
+  "acceptance": false,
+  "observations": "Pinned API29 x86_64 system-image download/unzip failed with Error reading Zip content from a SeekableByteChannel. Social source/core/release/lint passed; its emulator/app tests never started. Other partition partial artifacts are retained externally and never promoted to complete acceptance. Replacement10 run39519620295 starts every partition anew;17 run39518949305 continues independently with identical application/tests/harness/workflow/build inputs."
+}

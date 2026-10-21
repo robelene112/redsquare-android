@@ -155,14 +155,14 @@
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
   "executingSources": {
-    "android10": "874adf442901395e922eb81c921b3a961794b7d2",
+    "android10": "0052d4a7aba1ee2d585d3133e9eb99616bdb459f",
     "android17": "874adf442901395e922eb81c921b3a961794b7d2"
   },
   "executingRuns": {
-    "android10": 39518944622,
+    "android10": 39519620295,
     "android17": 39518949305
   },
-  "executingState": "Fresh complete paired execution after reviewed physical-tap and contextual-author fixture corrections. Corrected focused image/GIF scopes still pending at dispatch; no complete acceptance yet.",
+  "executingState": "Android17 continues at874; Android10 replacement at0052 after874 social runner failed while downloading the pinned API29 system-image ZIP before app installation. Focused corrected images/GIF scopes have now passed both SDKs. No complete acceptance yet.",
   "rejectedExecutions": [
     {
       "source": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
@@ -191,5 +191,75 @@
   "signedCandidateSource": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
   "signedCandidateVersion": 59,
   "signedCandidateSha256": "937b7515649dde91f8831674427aff596e48db55e4b9a00c839307d9273b2dbf",
-  "signedCandidateState": "Prepared and unpublished. Application files remain unchanged by fixture correction."
+  "signedCandidateState": "Prepared and unpublished. Application files remain unchanged by fixture correction.",
+  "supersededInfraAttempt": {
+    "sdk": "10",
+    "source": "874adf442901395e922eb81c921b3a961794b7d2",
+    "run": 39518944622,
+    "socialJob": 118957803468,
+    "socialConclusion": "failure",
+    "reason": "API29 system-image ZIP download/unzip error before emulator/app installation in social partition. Overall CANCELLED, social FAILED, Chat/Wallet cancelled; no complete acceptance.",
+    "conclusion": "cancelled",
+    "otherPartitions": "cancelled"
+  },
+  "pairedSourceEquivalence": {
+    "android17": "874adf442901395e922eb81c921b3a961794b7d2",
+    "android10": "0052d4a7aba1ee2d585d3133e9eb99616bdb459f",
+    "objects": {
+      "app/src": {
+        "android17": "e94ca7552b7d71446ad077d6f667993cb0fdda0b",
+        "android10": "e94ca7552b7d71446ad077d6f667993cb0fdda0b"
+      },
+      "core/src": {
+        "android17": "4308a106a06eac2b100bd021d1a2c0498bd30e44",
+        "android10": "4308a106a06eac2b100bd021d1a2c0498bd30e44"
+      },
+      "push-gateway/src": {
+        "android17": "45b3cc0c755c77aee4120427f2bf1eeb22bb7ead",
+        "android10": "45b3cc0c755c77aee4120427f2bf1eeb22bb7ead"
+      },
+      "scripts": {
+        "android17": "9054bf1112b63ae18fc296a7cdae9fe068a0ce31",
+        "android10": "9054bf1112b63ae18fc296a7cdae9fe068a0ce31"
+      },
+      ".github/workflows": {
+        "android17": "80d1374dde4107ecbfd2dbb591ff2a5a1b719afe",
+        "android10": "80d1374dde4107ecbfd2dbb591ff2a5a1b719afe"
+      },
+      "app/build.gradle.kts": {
+        "android17": "75eb5a385fe22dfc6ef13898ab16088573a30ee8",
+        "android10": "75eb5a385fe22dfc6ef13898ab16088573a30ee8"
+      },
+      "core/build.gradle.kts": {
+        "android17": "ee89e44c57ab26d38036ab92575baa08c24d4df6",
+        "android10": "ee89e44c57ab26d38036ab92575baa08c24d4df6"
+      },
+      "push-gateway/build.gradle.kts": {
+        "android17": "517dcc470f27fb27f9bdfc758dfd81a473192f90",
+        "android10": "517dcc470f27fb27f9bdfc758dfd81a473192f90"
+      },
+      "build.gradle.kts": {
+        "android17": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+        "android10": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+      },
+      "settings.gradle.kts": {
+        "android17": "0095b7ade761bc539b703724c717ece3a9d1879b",
+        "android10": "0095b7ade761bc539b703724c717ece3a9d1879b"
+      },
+      "gradle.properties": {
+        "android17": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+        "android10": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+      },
+      "gradle/wrapper": {
+        "android17": "1810dfedd6e27f6054311daa5de9c327adf0fdae",
+        "android10": "1810dfedd6e27f6054311daa5de9c327adf0fdae"
+      },
+      "build-support": {
+        "android17": "d4e9d93da0aa0ecff553a7562080b63521a8be34",
+        "android10": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+      }
+    },
+    "applicationTestsHarnessWorkflowBuildInputsIdentical": true,
+    "apkBytesEquivalenceClaimed": false
+  }
 }

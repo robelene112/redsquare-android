@@ -739,3 +739,27 @@ two archives71 originals, both reviews0. Root viewed owner-reply-available and
 official-quote-indexed original PNGs. This GIF scope has no process protocol;
 all complete recovery goals remain mandatory. Corrected17 images/GIF and both
 complete874 runs remain pending. No full60 acceptance or publication59 yet.
+
+Corrected images17 run39518510478 at240a succeeds:6methods71.067s, preparation5
+20.647s, lifecycle7 64.973s and both actual image process protocols pass. Packet
+80hashes/seven archives54 originals, both reviews0. Root viewed quote-published.
+Corrected GIF17 run39518714954 atfbb69 succeeds:picker3methods56.945s/posting6
+33.572s. Packet85hashes/two archives71 originals, both reviews0. Root viewed
+official-reply-available and owner-quote-indexed. GIF scope includes no process
+protocol. All corrected focused media/public-feed checks now pass both SDKs.
+
+Complete10 run39518944622 at874 terminates CANCELLED: social fails during pinned
+API29 system-image ZIP download/unzip before emulator/app installation; Chat and
+Wallet cancelled by replacement dispatch. Source/core/release/lint passed. Exact
+job118957803468 log and actual terminal metadata retained in three-hash packet;
+both reviews0. All three raw partition artifacts remain externally. This is
+runner setup failure, not native app RED or complete acceptance.
+
+Replacement complete10 run39519620295 executes0052d4a7aba1ee2d585d3133e9eb99616bdb459f;
+complete17 run39518949305 continues874adf442901395e922eb81c921b3a961794b7d2.
+Thirteen actual Git-object pairs prove identical app/test/core/gateway/script/
+workflow/build inputs; only documentation/evidence differs. Frozen catalog and
+collector pins remain unchanged. Both metadata reviews0. Require all three jobs
+and the complete496/497 union separately; do not mix rejected partial executions.
+Prepared59 remains90f source, production-equivalent through874/0052, held. Next
+complete collection/review/publication before60 closure and61–70 continuation.
