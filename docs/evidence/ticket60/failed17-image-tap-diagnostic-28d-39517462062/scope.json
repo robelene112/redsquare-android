@@ -1,0 +1,7 @@
+{
+  "kind": "Focused diagnostic, not acceptance",
+  "conclusion": "failure",
+  "source": "28d4eda16ece8f834ce9f507668c60b615f62eb1",
+  "acceptance": false,
+  "observations": "Image command6methods has one quote failure; preparation5/lifecycle7 and both image process protocols pass. Root viewed original quote-before-tap.png and exact bounds JSON matching Android10 overlap. These are pre-helper observations, not an atomic hit-test trace. No corrected native or complete acceptance claimed."
+}
