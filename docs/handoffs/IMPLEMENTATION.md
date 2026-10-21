@@ -104,8 +104,14 @@ overlays an accessible New messages button without changing message viewport hei
 A requested latest jump shares the keyed anchoring effect. Header compensation
 remains active for older readers; a following reader avoids compensation pulling
 them away from the end. ReadingAnchor's default remains unchanged elsewhere.
-App/test compile pending; source review and unchanged original focused10/17 checks
-follow. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
+First correction7df app/test compile SUCCESS3m43; Standards0/0, Spec found
+a stale New messages action after blocking every visible author. The bounded fix
+clears known/pending opening state only when prior known nonempty data is hidden
+by a ready personal policy, keeping transient loading/restoration pending state.
+The button also requires a nonempty rendered target. Same-source intermediate
+focused10run39555428454(job119073982227) and17run39555430072(job119073985466)
+execute exact7dfef983240ddd81af179ed6b4d46c4b5b23e6fd, results pending. They
+predate this source-review correction and are not final current-source acceptance. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

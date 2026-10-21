@@ -418,6 +418,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             var latestRequest by remember(wallet.publicKey, backend, contact) { mutableIntStateOf(0) }
             var handledRequest by remember(wallet.publicKey, backend, contact) { mutableIntStateOf(0) }
             val messageIds = visible.map { it.id }
+            val historyHidden = personal?.ready == true && entries.isNotEmpty() && messageIds.isEmpty()
             suspend fun showLatest() {
                 if (visible.isEmpty()) return
                 messageList.scrollToItem(visible.lastIndex)
@@ -442,8 +443,19 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }
                 }
             }
-            LaunchedEffect(wallet.publicKey, backend, contact, messageIds, latestRequest) {
-                if (messageIds.isEmpty()) return@LaunchedEffect
+            LaunchedEffect(wallet.publicKey, backend, contact, messageIds, latestRequest, historyHidden) {
+                if (messageIds.isEmpty()) {
+                    // A deliberate policy change can hide every known message. Initial
+                    // loading/restoration must keep its saved reading state until data arrives.
+                    if (knownMessages.isNotEmpty() && historyHidden) {
+                        knownMessages = emptyList()
+                        newMessages = false
+                        openedHistory = false
+                        following = true
+                        handledRequest = latestRequest
+                    }
+                    return@LaunchedEffect
+                }
                 val firstOpening = !openedHistory
                 val requested = latestRequest != handledRequest
                 val appended = knownMessages.isNotEmpty() && knownMessages.last() != messageIds.last()
@@ -493,7 +505,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     }
                 }
             }
-            if (newMessages) FilledTonalButton(onClick = { latestRequest++ },
+            if (newMessages && messageIds.isNotEmpty()) FilledTonalButton(onClick = { latestRequest++ },
                 modifier = Modifier.align(Alignment.BottomCenter).padding(8.dp)
                     .semantics { liveRegion = LiveRegionMode.Polite }) {
                 Text(stringResource(R.string.chat_new_messages))
