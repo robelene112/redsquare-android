@@ -118,7 +118,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete Android10run39667308854 at6d3df7c9ccb7016e7e9812f325248be6041252ee after unchanged existing readiness helper migration to five initial Wallet callers. Focused import10run39667030860/17run39667034762 also active. Full Android17run39662258345 at539 remains active; its Wallet partition succeeded. Prior complete10run39662252940 Wallet partition failed two initial entry actions before import assertions; other partitions explicitly cancelled after replacement dispatch, no results assembled. Production and frozen catalog/assertions/class bounds unchanged. Public60live; signed61immutable/held.",
+  "executingState": "Fresh complete Android10run39667308854 at6d3df7c9ccb7016e7e9812f325248be6041252ee after unchanged existing readiness helper migration to five initial Wallet callers. Focused import10run39667030860/17run39667034762 both SUCCESS (original import7, risk/storage and process recovery); not complete acceptance. Full Android17run39662258345 at539 remains active; its Wallet partition succeeded. Prior complete10run39662252940 Wallet partition failed two initial entry actions before import assertions; other partitions explicitly cancelled after replacement dispatch, no results assembled. Production and frozen catalog/assertions/class bounds unchanged. Public60live; signed61immutable/held.",
   "executingSources": {
     "android10": "6d3df7c9ccb7016e7e9812f325248be6041252ee",
     "android17": "539942ae8278fc070ca3c6d57d954a799f4b1c39"
