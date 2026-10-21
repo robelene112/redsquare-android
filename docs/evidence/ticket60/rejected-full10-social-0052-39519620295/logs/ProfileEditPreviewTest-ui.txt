@@ -1,0 +1,256 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditPreviewTest:
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=walletImportPreviewWarnsAboutAFreshlyTypedBioBeforeAnySaveOrReplacement
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '3' nodes that satisfy: ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+Nodes found:
+1) Node #525 at (l=16.0, t=-68.0, r=256.0, b=-20.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+2) Node #569 at (l=16.0, t=184.0, r=256.0, b=232.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+3) Node #613 at (l=16.0, t=412.0, r=256.0, b=460.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:13 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:200)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profileHistoryRemainsReachableWithAFullMultilineBio(nl.davidengelen.redsquare.ProfileEditPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '3' nodes that satisfy: ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+Nodes found:
+1) Node #525 at (l=16.0, t=-68.0, r=256.0, b=-20.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+2) Node #569 at (l=16.0, t=184.0, r=256.0, b=232.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+3) Node #613 at (l=16.0, t=412.0, r=256.0, b=460.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:13 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:200)
+
+INSTRUMENTATION_STATUS: test=profileHistoryRemainsReachableWithAFullMultilineBio
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.openReferenceAuthor(ProfileEditPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable(ProfileEditPreviewTest.kt:245)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable(nl.davidengelen.redsquare.ProfileEditPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.openReferenceAuthor(ProfileEditPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable(ProfileEditPreviewTest.kt:245)
+
+INSTRUMENTATION_STATUS: test=cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedBioSavingKeepsWalletImportClosedAndCanBeRetriedWithoutLosingWork
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLateDraftSaveFailureCanBeRetriedInTheSameEditorAfterStorageRecovers
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLateDraftSaveFailureCanBeRetriedInTheSameEditorAfterStorageRecovers
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aSavedOwnBioDraftReturnsAfterAFreshActivityWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=7
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 3 nodes that satisfy ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar(ProfileEditPreviewTest.kt:162)
+
+INSTRUMENTATION_STATUS: stream=
+Error in viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar(nl.davidengelen.redsquare.ProfileEditPreviewTest):
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 3 nodes that satisfy ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar(ProfileEditPreviewTest.kt:162)
+
+INSTRUMENTATION_STATUS: test=viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 48.397
+There were 3 failures:
+1) profileHistoryRemainsReachableWithAFullMultilineBio(nl.davidengelen.redsquare.ProfileEditPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but found '3' nodes that satisfy: ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+Nodes found:
+1) Node #525 at (l=16.0, t=-68.0, r=256.0, b=-20.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+2) Node #569 at (l=16.0, t=184.0, r=256.0, b=232.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:28 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 5 siblings
+3) Node #613 at (l=16.0, t=412.0, r=256.0, b=460.0)px
+ContentDescription = '[View profile for Anon-jesTu2]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Anon-jesTu2, 11/14/23 10:13 PM]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 4 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.profileHistoryRemainsReachableWithAFullMultilineBio(ProfileEditPreviewTest.kt:200)
+2) cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable(nl.davidengelen.redsquare.ProfileEditPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.openReferenceAuthor(ProfileEditPreviewTest.kt:503)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.cachedProfileBioSurvivesAFreshActivityWhenSelectedBackendIsUnavailable(ProfileEditPreviewTest.kt:245)
+3) viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar(nl.davidengelen.redsquare.ProfileEditPreviewTest)
+java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 3 nodes that satisfy ((ContentDescription = 'View profile for Anon-jesTu2' (ignoreCase: false)) && (OnClick is defined))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:351)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditPreviewTest.viewingAProfileShowsItsVerifiedBioAndGeneratedSaitoAvatar(ProfileEditPreviewTest.kt:162)
+
+FAILURES!!!
+Tests run: 7,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

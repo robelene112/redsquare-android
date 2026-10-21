@@ -162,7 +162,7 @@
     "android10": 39519620295,
     "android17": 39518949305
   },
-  "executingState": "Android17 continues at874; Android10 replacement at0052 after874 social runner failed while downloading the pinned API29 system-image ZIP before app installation. Focused corrected images/GIF scopes have now passed both SDKs. No complete acceptance yet.",
+  "executingState": "Current10 binding is terminal FAILURE (Chat/Social failure, Wallet success). Current17 social fails the same profile selector and Wallet succeeds; Chat still running. Reviewed exact-reference selector correction4c3a is in focused paired verification; no complete acceptance.",
   "rejectedExecutions": [
     {
       "source": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
@@ -186,6 +186,17 @@
       "walletConclusion": "failure",
       "chatConclusion": "cancelled",
       "reason": "Browse8 and post9 pass. Later images quote shows pre-helper Quote/FAB overlap and enters New post; interception remains a supported hypothesis rather than an atomic hit-test observation. Old public-feed full-key text predicate misses the intended contextual alias header. Android10 also records no picker intent at its immediate assertion; an asynchronous persistence/launch observation race remains a hypothesis. Later goals remain unaccepted."
+    },
+    {
+      "source": "0052d4a7aba1ee2d585d3133e9eb99616bdb459f",
+      "runs": {
+        "android10": 39519620295
+      },
+      "conclusion": "failure",
+      "socialConclusion": "failure",
+      "chatConclusion": "failure",
+      "walletConclusion": "success",
+      "reason": "Original private physical-dismissal goal fails; cause unknown. Profile selector ambiguously matches three same-author cached posts. Wallet succeeds but partial partitions are not complete acceptance."
     }
   ],
   "signedCandidateSource": "90f94ffa1178e0f68839155fe55d302d7a036e3b",

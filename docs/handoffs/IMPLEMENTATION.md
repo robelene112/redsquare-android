@@ -792,3 +792,25 @@ unchanged original assertion, no app/gesture fix or new acceptance yet.
 Both complete wallet jobs now SUCCESS, but neither complete run is accepted.
 Let remaining original jobs finish for independent failure observations; never
 assemble rejected partial partitions. Prepared59 held, public58 unchanged.
+
+Paired profile/video reproduction10 run39521543680 and17 run39521546085 execute
+exact4c3a0ec3f44319709b18bc4cf7fade6e8c9ebf1b and remain pending. Broader original
+Chat-alerts10 run39521783331 also executes4c3a, preserving all11 original methods,
+private/group recovery and independent class bounds. No notification source or
+gesture change was made.
+
+Original focused dismissal10 run39521239046 atd8bb622e0272db60b54178a8963aecf5a495a3b9
+completes SUCCESS7.802s. Packet17hashes/one archive5 originals, both reviews0.
+Actual original swipe180ms yields textHiddentrue/ownedactivefalse; later
+no-redelivery/history/wallet/backend/no-Activity/restoration goals pass. Root
+viewed original deduplicated no-Activity home PNG. Prior151ms failure cause
+remains unknown; no app/gesture fix or complete acceptance is inferred.
+
+Full10 run39519620295 completes FAILURE: Chat/Social FAILED, Wallet SUCCESS.
+Social repeats the exact3same-author profile selector failures,7methods4PASS/
+3FAIL48.397s; root viewed original cached-video/reference-post failure PNG.
+The single pre-existing API29 Profile assumption remains, not a new exclusion.
+Retained Chat634hashes/11archives575 originals, Social741/27/646, Wallet425/22/286;
+both evidence reviews0. All raw bindings/original bytes preserved. Successful
+Wallet is not assembled with replacement partitions. Full17 currently has
+Social FAILURE, Wallet SUCCESS, Chat pending. No complete60/publication59 yet.

@@ -1,0 +1,38 @@
+{
+  "chat-alert-evidence.tar": {
+    "sha256": "94a00eb9d52b0866e62fb424211574d2b0f4c623a71258585429d0a798d67e08",
+    "bytes": 239616,
+    "members": [
+      {
+        "name": "chat-alert-evidence/private-worker-generic-alert.xml",
+        "bytes": 49790,
+        "sha256": "dfe76579eeb27dbfcb33b3d343100606f0f101898c5088cfcd8e1d7248b0660e",
+        "retainedPath": "originals/chat-alert-evidence/chat-alert-evidence/private-worker-generic-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-generic-alert.png",
+        "bytes": 57812,
+        "sha256": "8b1644711e66f115f44fff8484c54c784528ef9a3656cd8bd045011e6c974fa7",
+        "retainedPath": "originals/chat-alert-evidence/chat-alert-evidence/private-worker-generic-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-dismissal.json",
+        "bytes": 191,
+        "sha256": "d13fe0675dd93faf53341dd2cc91709bb31b333701f4c93ec81a71580e1c5da9",
+        "retainedPath": "originals/chat-alert-evidence/chat-alert-evidence/private-worker-dismissal.json"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-deduplicated.xml",
+        "bytes": 22988,
+        "sha256": "b53836d210e0f330552d249233894e55ddbd1dc5ba064d9d1c7b4cab0abfe2ea",
+        "retainedPath": "originals/chat-alert-evidence/chat-alert-evidence/private-worker-deduplicated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-deduplicated.png",
+        "bytes": 103743,
+        "sha256": "755d2ac3d02276ed3f57af5b64647e874836ecdcea82217bb03a208fd0449430",
+        "retainedPath": "originals/chat-alert-evidence/chat-alert-evidence/private-worker-deduplicated.png"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "Rejected complete dispatch, original partition retained",
+  "source": "0052d4a7aba1ee2d585d3133e9eb99616bdb459f",
+  "workflowConclusion": "failure",
+  "partition": "chat",
+  "partitionConclusion": "failure",
+  "acceptance": false,
+  "observations": "Original chat-alerts11 has10PASS/1FAIL at physical private-worker dismissal. Clearable/nonongoing flags24;151ms right swipe leaves text visible and owned alert active. Root viewed original failure PNG; before/failure PNGs are byte-identical. Cause remains unknown, not established app regression. Later no-redelivery and remaining alert/recovery/Chat goals are unreached. Earlier completed native goals remain observations only.",
+  "limits": "No complete60, physical-device, configured-provider or store acceptance. Never combine rejected partial partitions into replacement acceptance."
+}

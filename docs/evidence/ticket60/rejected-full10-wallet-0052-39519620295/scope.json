@@ -1,0 +1,10 @@
+{
+  "kind": "Rejected complete dispatch, original partition retained",
+  "source": "0052d4a7aba1ee2d585d3133e9eb99616bdb459f",
+  "workflowConclusion": "failure",
+  "partition": "wallet",
+  "partitionConclusion": "success",
+  "acceptance": false,
+  "observations": "Partition SUCCESS including original public-read, recovery and tail gates. Overall dispatch FAILURE because Chat/Social fail; this successful partial partition is not complete acceptance and must not be assembled with a replacement dispatch.",
+  "limits": "No complete60, physical-device, configured-provider or store acceptance. Never combine rejected partial partitions into replacement acceptance."
+}
