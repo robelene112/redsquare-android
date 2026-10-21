@@ -59,6 +59,16 @@ internal class NativeConversationReader(private val ui: ComposeTestRule, private
         capture("new-message-action-opened-latest")
     }
 
+    fun sendWhileReadingOlder(older: String, outgoing: String, send: () -> Unit) {
+        ui.onNodeWithContentDescription(messagesLabel).performScrollToNode(hasText(older))
+        ui.onNodeWithText(older).performScrollTo().assertIsDisplayed()
+        assertTrue("An own send starts while deliberately reading older history", !atEnd())
+        capture("older-before-own-send")
+        send()
+        ui.waitUntil(10_000) { ui.onNodeWithText(outgoing).isDisplayed() && atEnd() }
+        capture("own-send-exposes-latest")
+    }
+
     private fun capture(stage: String) {
         captureNativeScreen(File(folder, "$label-$stage.png"))
         File(folder, "$label-$stage.json").writeText(JsonObject().apply {

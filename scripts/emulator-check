@@ -483,12 +483,23 @@ verify_conversation_viewport() {
     verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-conversation-reading-evidence
     verify_group_chat_native GroupConversationReadingPreviewTest 180 group-conversation-reading group-conversation-reading-evidence
 }
+verify_conversation_send() {
+    verify_group_chat_native ConversationSendPreviewTest 180 conversation-send conversation-send-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == conversation-send* ]]; then
+    verify_conversation_send
+    printf '%s\n' 'Focused explicit own-send viewport only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == conversation-viewport* ]]; then
     verify_conversation_viewport
     printf '%s\n' 'Focused native conversation reading viewport only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "$full_chat" == true ]]; then verify_conversation_viewport; fi
+if [[ "$full_chat" == true ]]; then
+    verify_conversation_viewport
+    verify_conversation_send
+fi
 if [[ "${TEST_SCOPE:-full}" == chat-viewport* ]]; then
     verify_group_chat_native 'ChatQueuePreviewTest#anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending,nl.davidengelen.redsquare.ChatQueuePreviewTest#anOfflinePrivateMessageRemainsCancellableAfterReopening' 180 chat-viewport chat-queue-evidence
     printf '%s\n' 'Focused physical Chat viewport cancellation cases only; full acceptance not run.' > "$evidence/scope.txt"

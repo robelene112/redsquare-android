@@ -167,6 +167,16 @@ complete first-release scope and the established production boundaries.
    bound. Best-effort flags/bounds/gesture observations and an unmodified in-scope
    failure capture distinguish actual clearability from gesture or shade state;
    a focused pass is not complete acceptance.
+   For conversation62, `conversation-viewport` and its Android17 variant retain
+   cached private opening, real private receipt/reading and group receipt/reading
+   as separate180second classes. The private opening and group cases add actual
+   Details/menu/IME checks at100/130/200% in both themes. `conversation-send` and
+   its Android17 variant isolate explicit own sends from older history in a new
+   separate180second class; full Chat retains it alongside all three reading
+   classes. Original methods, protocol/cache/identity goals and request bounds
+   remain. Actual menus/Details replace former inline control operators; negative
+   menu assertions require a positively opened popup. Owned queue jobs are stopped
+   before fixture restoration. Focused successes do not establish full acceptance.
    For composer61, `composer-focus` and its Android17 variant isolate the actual
    writing hierarchy,130% Light/Dark system-IME and exact local-return journey.
    Its separate180second class bound also remains in full Social. Existing

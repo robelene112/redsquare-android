@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:27 UTC:62 compact UI/matrix source reviews0/0; final compile active.
+Updated 2026-10-21 07:34 UTC:62 compact UI native10/17 active; explicit own-send tracer reviewed.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -199,7 +199,19 @@ Existing cached-private and group-reading methods add100/130/200% Light/Dark,
 full Details/context menu and actual system IME history-height checks (96dp at
 normal/130,48dp200). Original method IDs/class180 bounds remain. Added group cells
 repeat real signed receipt/ACK/reading, with monotonically advancing timestamps.
-No expanded UI native run, queued-tail runtime journey, own-send or full62 yet. Existing private classes
+Expanded UI exact1f2ef8ae33088970f523e7ce43319b36a6c55806 runs10:39562116317
+and17:39562119555 are active. Final UI app/test compile SUCCESS3m46, explicit exit0.
+No expanded UI acceptance, queued-tail runtime journey, own-send or full62 yet.
+New ConversationSendPreviewTest private/group tracer seeds70 actual signed originals,
+uses actual UI to read older20, types/sends deliberately and requires the exact
+own body at actual end within10s. Raw TX/Relay/protected envelope, author/wallet/
+node, exact history, return/Home and authenticated identity/health stay independent.
+Both130% themes, own180second class. No product own-send change before actual RED.
+Symmetric conversation-send scopes keep only their SDK; full Chat adds the class
+without removing existing reading classes. Owned job discovery/cancellation and
+finished checks run independently before file/identity/preference restoration,
+preserving primary failures. Final source Spec0/documented Standards0/heuristic0.
+Tracer compile active; native RED dispatch follows. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
