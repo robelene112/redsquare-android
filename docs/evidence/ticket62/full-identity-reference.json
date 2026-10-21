@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Both first complete814 runs failed at legacy UI operators. Test-only navigation corrections reviewed0/0; fresh full SDK pair required. No complete62 acceptance.",
+  "executingState": "Fresh complete replacement SDK suites active at exact675563729 after test-only legacy operator correction. All production and harness sources unchanged from814, frozen identities/goals/pins unchanged. Rejected814 dispatches remain failures; no accepted full62 result yet.",
   "executingSources": {
-    "android10": "814271d400e44dee39a82234b0eab6b70eee7160",
-    "android17": "814271d400e44dee39a82234b0eab6b70eee7160"
+    "android10": "675563729f5fa22303832efe6290838e58f525d2",
+    "android17": "675563729f5fa22303832efe6290838e58f525d2"
   },
   "executingRuns": {
-    "android10": 39573030407,
-    "android17": 39573032280
+    "android10": 39641247652,
+    "android17": 39641251883
   },
   "rejectedExecutions": [
     {
