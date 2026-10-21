@@ -1,0 +1,7 @@
+# Android10 whole group history timing at728
+
+Exact7288413a4cc9adc7da480763d4278b884c64159a, diagnostic whole-class run39660036557: terminal FAILURE. Original GroupChatPreview22-method command exits124 under180seconds. Twenty-one PASS statuses are reported, no explicit assertion failure. Static timing logs record all22 case-finished callbacks, but the last method's JUnit completion and class result are absent. A TestWatcher finish is not proof of full method/rule or class success. Both pagination methods now report PASS with the original button-absence/count/cutoff/cache goals within the same15second readiness window.
+
+First case starts27232; last watcher finishes206904, spanning179.672seconds before final runner reporting. The reaction method takes18.662seconds after the first menu coalescing. The final operator refinement takes its existing native captures within the actual popup immediately before the same click, removing two more redundant lifetimes without dropping assertions or extending deadlines. Temporary probes and dedicated whole-class diagnostic scopes are removed after these measurements; ordinary full/group-ui ordering and goals remain.
+
+This failed focused result is not accepted as22PASS or complete application acceptance. Fresh unchanged-goal final full runs are required. External originals: `/mnt/storage/redsquare-android-artifacts/conversation62-timing-group-history10-728-39660036557/android-native-proof`.

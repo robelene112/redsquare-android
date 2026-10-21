@@ -1,0 +1,7 @@
+# Android17 whole group history timing at728
+
+Exact7288413a4cc9adc7da480763d4278b884c64159a, diagnostic run39660041552: terminal FAILURE. Original GroupChatPreview22-method command exits124 under180seconds. Thirteen methods PASS, no explicit assertion failure; method14 unavailableGroupArchiveKeepsCachedMessagesLiveDeliveryAndSendingUsable starts without completion. Both pagination methods report PASS with original goals. The remaining class methods and every action/process scope are unreached or out of this focused scope, not accepted.
+
+The first imported-history method spans62650to105304,42.654seconds, versus12.571seconds for the Android10 diagnostic. These are different SDK/runtime observations, not controlled proof of a cold-setup cause or an application performance regression. The reaction method takes20.069seconds. Final cleanup removes timing probes and temporary whole-class diagnostic routing; the final operator refinement coalesces existing popup captures/readiness/clicks while preserving every assertion and deadline. Complete final native execution, not these partial timings, must establish acceptance.
+
+External originals: `/mnt/storage/redsquare-android-artifacts/conversation62-timing-group-history17-728-39660041552/android-native-proof`. Original archive members, platform observations and class/exit logs are retained byte-for-byte with hashes. No failed run is promoted to acceptance or combined from passing pieces.
