@@ -202,6 +202,9 @@
     <string name="post_write">Write a post</string>
     <string name="post_invalid_text">This post is too large or contains invalid text. Shorten it or remove an image, then try again. Your draft is still here.</string>
     <string name="post_draft_local">Drafts stay with this wallet and node on this device. They remain unsent until you press Send.</string>
+    <string name="post_saved_device">Saved on this device</string>
+    <string name="post_unsaved_changes">Unsaved changes</string>
+    <string name="post_unsaved_detail">Choose Save draft or Back to keep your latest changes with this wallet and node on this device. Nothing is sent until you choose Send.</string>
     <string name="post_draft_error">Could not load or confirm the saved draft. Your current text remains here. Try again.</string>
     <string name="follow_account">Follow</string>
     <string name="unfollow_account">Unfollow</string>

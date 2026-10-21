@@ -174,6 +174,8 @@ complete first-release scope and the established production boundaries.
    `composer-draft` and its Android17 variant isolate saved local draft versus
    later unsaved edits and exact Back/Save return at130% in both themes. Full
    Social also retains this separate180second class and the existing focus class.
+   `composer` and its Android17 variant run both existing focus/draft classes,
+   each retaining its own180second bound. Full Social still runs both directly.
    Focused success is not complete composer or full-app acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.

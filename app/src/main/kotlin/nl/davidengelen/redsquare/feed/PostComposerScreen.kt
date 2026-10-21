@@ -147,6 +147,14 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     Text(stringResource(if (available) R.string.done else if (transaction == null) R.string.post_send else R.string.retry))
                 }
             }
+            val localStatus = if (transaction != null || !ready || error) null else when {
+                text.isEmpty() && images.isEmpty() -> R.string.status_unsent_draft
+                locallySaved -> R.string.post_saved_device
+                else -> R.string.post_unsaved_changes
+            }
+            InlineStatus(localStatus?.let { stringResource(it) },
+                details = listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
+                announce = false)
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                 parent?.let { Text(stringResource(R.string.post_reply_to, registeredIdentity(it.author).name),
@@ -167,8 +175,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
                     previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
                 quote?.let { QuotedPost(it, backend) }
-                InlineStatus(if (transaction == null) stringResource(R.string.status_unsent_draft) else null,
-                    details = listOf(stringResource(R.string.post_draft_local)), announce = false)
                 val deliveryStatus = when {
                     available -> R.string.post_available
                     queued && queueSaved -> R.string.post_queued

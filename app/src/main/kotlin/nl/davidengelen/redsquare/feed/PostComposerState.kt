@@ -35,6 +35,7 @@ internal class PostComposerState(
 ) {
     private val owner = wallet.publicKey
     private val writes = Mutex()
+    private var savedContent by mutableStateOf<PostDraftStore.Saved?>(null)
     var text by mutableStateOf("")
     var images by mutableStateOf<List<String>>(emptyList())
     var gifAttributions by mutableStateOf<Map<String, GiphyAttribution>>(emptyMap())
@@ -53,9 +54,13 @@ internal class PostComposerState(
     var sending by mutableStateOf(false)
     var reload by mutableIntStateOf(0)
     var confirmClear by mutableStateOf(false)
+    val locallySaved: Boolean get() = savedContent?.let {
+        it.text == text && it.images == images && it.gifAttributions == gifAttributions
+    } == true
     suspend fun load() {
         try {
             val saved = withContext(Dispatchers.IO) { store.load() }
+            savedContent = saved
             text = if (saved.transaction != null) saved.text else memory.text ?: saved.text
             images = if (saved.transaction != null) saved.images else memory.images ?: saved.images
             gifAttributions = (if (saved.transaction != null) saved.gifAttributions else memory.gifAttributions ?: saved.gifAttributions)
@@ -78,6 +83,7 @@ internal class PostComposerState(
             val snapshot = PostDraftStore.Saved(text, transaction, queued, available, images = images, gifAttributions = gifAttributions)
             withContext(NonCancellable) {
                 val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
+                savedContent = persisted
                 memory.text = persisted.text
                 memory.images = persisted.images
                 memory.gifAttributions = persisted.gifAttributions
@@ -118,6 +124,7 @@ internal class PostComposerState(
                     transaction = prepared
                     val snapshot = PostDraftStore.Saved(text, prepared, queued, images = images, gifAttributions = gifAttributions)
                     val persisted = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(snapshot) }
+                    savedContent = persisted
                     queued = persisted.queued
                     queueSaved = persisted.queued
                     available = persisted.available
@@ -266,6 +273,7 @@ internal class PostComposerState(
                     // Preserve current work before any provider read or pixel allocation.
                     val prior = PostDraftStore.Saved(text, images = images, gifAttributions = gifAttributions)
                     val persistedPrior = withContext(NonCancellable + Dispatchers.IO) { store.saveComposer(prior) }
+                    savedContent = persistedPrior
                     memory.text = persistedPrior.text
                     memory.images = persistedPrior.images
                     memory.gifAttributions = persistedPrior.gifAttributions
@@ -283,6 +291,7 @@ internal class PostComposerState(
                     val snapshot = PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions)
                     withContext(NonCancellable) {
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(snapshot) }
+                        savedContent = persisted
                         images = persisted.images
                         gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
@@ -315,6 +324,7 @@ internal class PostComposerState(
                     require(size <= SaitoTransaction.MAX_MESSAGE_BYTES)
                     withContext(NonCancellable) {
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = combined, gifAttributions = gifAttributions + (source to item.attribution))) }
+                        savedContent = persisted
                         images = persisted.images
                         gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
@@ -342,6 +352,7 @@ internal class PostComposerState(
                     val replacement = images.filterIndexed { position, _ -> position != index }
                     withContext(NonCancellable) {
                         val persisted = withContext(Dispatchers.IO) { store.saveComposer(PostDraftStore.Saved(text, images = replacement, gifAttributions = gifAttributions.filterKeys { it in replacement })) }
+                        savedContent = persisted
                         images = persisted.images
                         gifAttributions = persisted.gifAttributions
                         memory.images = persisted.images
