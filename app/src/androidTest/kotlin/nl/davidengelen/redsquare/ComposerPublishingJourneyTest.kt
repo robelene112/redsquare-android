@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.work.WorkManager
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.*
@@ -21,6 +22,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
@@ -57,6 +59,8 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
         .use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("root") }
     val referenceText = "Native Red Square reference post"
     val expectedText = AtomicReference<String>()
+    val authoredTexts = mutableSetOf<String>()
+    val ownedCandidates = ConcurrentHashMap.newKeySet<String>()
     val indexed = ConcurrentHashMap<String, JsonObject>()
     val visible = AtomicBoolean(false)
     val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
@@ -67,6 +71,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
         assertEquals("RedSquare", signed.body.get("module").asString)
         assertEquals("create tweet", signed.body.get("request").asString)
         assertEquals(expectedText.get(), data.get("text").asString)
+        ownedCandidates.add(candidate.id)
         assertEquals(1, data.getAsJsonArray("images").size())
         val source = data.getAsJsonArray("images")[0].asString
         assertTrue(source.startsWith("data:image/jpeg;base64,"))
@@ -117,6 +122,7 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     val text = "A retained ${kind.name.lowercase()} for $label.\nKeep my words and image together."
                     val before = peer.transactions.size
                     expectedText.set(text)
+                    authoredTexts.add(text)
                     visible.set(false)
                     policy.writeText(JsonObject().apply {
                         addProperty("revision", "owned-composer-${java.util.UUID.randomUUID()}")
@@ -220,7 +226,25 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
         }
     } catch (failure: Throwable) { primary = failure; throw failure }
     finally {
-        cleanupAfterTest(primary, { retained.restoreFiles() }, { retained.restorePreferences() },
+        cleanupAfterTest(primary, {
+            val reference = RedSquareFeed.decode(original.get("tx").asString)
+            val saved = nl.davidengelen.redsquare.feed.PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER,
+                parent = reference.takeIf { kind == ComposerJourneyKind.REPLY },
+                quote = reference.takeIf { kind == ComposerJourneyKind.QUOTE }).load()
+            saved.transaction?.takeIf { saved.text in authoredTexts }?.let { candidate ->
+                assertEquals(wallet.publicKey, RedSquareFeed.decode(candidate.envelope()).author)
+                ownedCandidates.add(candidate.id)
+            }
+        }, {
+            val failures = mutableListOf<Throwable>()
+            for (id in ownedCandidates) try {
+                WorkManager.getInstance(context).cancelUniqueWork("post:$id").result.get(5, TimeUnit.SECONDS)
+            } catch (failure: Throwable) { failures.add(failure) }
+            if (failures.isNotEmpty()) {
+                failures.drop(1).forEach(failures.first()::addSuppressed)
+                throw failures.first()
+            }
+        }, { retained.restoreFiles() }, { retained.restorePreferences() },
             { backends.save(originalBackend); check(backends.load() == originalBackend) },
             { check(wallets.loadExisting().exportJson() == wallet.exportJson()) })
     }
