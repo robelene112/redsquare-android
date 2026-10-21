@@ -262,9 +262,12 @@ signed fixture and every original assertion/restoration step. Both focused/full
 Chat retain all four reading classes plus the independent own-send class.
 Source/packet reviews Spec0/documented Standards0/heuristic0. App/test compile
 SUCCESS with explicit exit0 (conversation62-split-matrix-compile.json). Corrected
-own-send10/17 and viewport10/17 dispatch next. No current-source focused GREEN,
-full62 acceptance or signed61 yet. Draft full catalog/collector reviewed0/0 with
-510/511 identities,147/148 completions and108 archives; not frozen or executed.
+own-send10/17 runs39568087351/39568089064 and viewport10/17 runs39568091455/
+39568095212 execute exact8e8cdd025566f75ef432d9b0c4a8a80c2edd9bf6 and are active.
+No current-source focused GREEN,
+full62 acceptance or signed61 yet. Full catalog/collector reviewed0/0 with
+510/511 identities,147/148 completions and108 archives, frozen before execution
+at40df7030a3f1a29b81ec17c276d24518654270c3. No complete62 execution yet.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
 controlled peer/protected cache, with independent Activity-before-state restoration.
 Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.
