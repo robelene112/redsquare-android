@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 05:23 UTC:61 CLOSED/signed60 live;62 assigned and first tracer in progress.
+Updated 2026-10-21 05:39 UTC:62 cached-opening native RED retained; minimal fix compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,11 +46,22 @@ Continue62–69 then70 sequentially without routine stops. Public ordinary60 sta
 live; do not rebuild/reuse it. Provider/physical/store36 and owner final55 stay open.
 
 First vertical test ConversationViewportPreviewTest seeds70 real protected private
-originals, opens through the native UI and requires latest visible without a
-scroll operator. Both320dp130% themes are planned, but RED may stop at the first
-Light assertion. New focused conversation-viewport scopes retain180second bound;
-full Chat adds this class without removing any original goal. No production62
-change yet. App/test Kotlin compile SUCCESS2m3; source review precedes native RED.
+originals, opens through native UI and requires latest visible without a scroll
+operator. Initial830 app/test compile SUCCESS2m3 and paired source reviews0/0.
+Android17run39549699455 exact830ef5da7699fec274a79371a79fbe66fa1eff7e completes
+expectedFAILURE38.275s at line64: latest69 not displayed after positive first-or-last
+readiness and Private messages viewport checks. Root viewed actual opened PNG:
+initial00 visible, latest absent. Packet docs/evidence/ticket62/red17-private-latest-830-39549699455
+retains21 hashes/one archive8 originals. Light320dp130 only; Dark and later
+success-path cache/wallet/node/zeroTX/return/health assertions unreached. Independent
+cleanup closes Activity before restoration; font record1.0->1.0 retained.
+
+Minimal production patch now anchors first nonempty private history at its last
+item, retaining the initialized flag with restored list state. No layout/media/
+protocol/store change. App/test compile is active; source and RED evidence review
+follow. Same original test then needs focused GREEN on10/17. This is only first
+vertical cached-opening behavior, not all62. New focused conversation-viewport
+scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
 controlled peer/protected cache, with independent Activity-before-state restoration.
 Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.

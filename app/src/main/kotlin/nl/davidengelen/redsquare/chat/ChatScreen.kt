@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -406,6 +407,13 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
             val reactions = requireNotNull(reactionState)
             val messageList = rememberLazyListState()
+            var openedHistory by rememberSaveable(wallet.publicKey, backend, contact) { mutableStateOf(false) }
+            LaunchedEffect(wallet.publicKey, backend, contact, visible.lastOrNull()?.id) {
+                if (!openedHistory && visible.isNotEmpty()) {
+                    messageList.scrollToItem(visible.lastIndex)
+                    openedHistory = true
+                }
+            }
             val messagesLabel=stringResource(R.string.chat_messages)
             LazyColumn(Modifier.weight(1f).preserveReadingAnchor(messageList).semantics{contentDescription=messagesLabel}, state = messageList) {
                 items(visible, key = { it.id }) { message ->
