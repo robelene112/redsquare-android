@@ -70,14 +70,18 @@ class GroupChatActionsPreviewTest {
                         }
                         open(fromFeed=true);waitFor("Original group message");phase("source-visible")
                         previousClip=clipboard.primaryClip
-                        waitForEnabled("Copy")
-                        clipboardChanged=true
-                        ui.withMessageAction("Copy") { performScrollTo().assertIsDisplayed() }
-                        ui.withMessageAction("Copy") { assertIsDisplayed().performClick() }
+                        ui.withMessageAction("Copy") {
+                            waitForEnabled("Copy")
+                            clipboardChanged=true
+                            performScrollTo().assertIsDisplayed()
+                            assertIsDisplayed().performClick()
+                        }
                         check(clipboard.primaryClip!!.getItemAt(0).text.toString()=="Original group message")
                         check(clipboard.primaryClipDescription!!.extras!!.getBoolean("android.content.extra.IS_SENSITIVE"))
-                        waitForEnabled("Reply")
-                        ui.withMessageAction("Reply") { performScrollTo().assertIsDisplayed().performClick() }
+                        ui.withMessageAction("Reply") {
+                            waitForEnabled("Reply")
+                            performScrollTo().assertIsDisplayed().performClick()
+                        }
                         waitFor("Remove reply")
                         ui.onNodeWithText("Message").performTextInput(body)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()
@@ -157,11 +161,7 @@ class GroupChatActionsPreviewTest {
     }
     private fun waitFor(text:String)=ui.waitUntil(15_000){ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     private fun waitForEnabled(text:String) {
-        val check = { ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()} }
-        when (text) {
-            "Like", "Unlike", "Reply", "Copy" -> ui.withMessageAction(text) { check() }
-            "Members", "Invite", "Leave group", "Refresh" -> ui.withConversationControl(text) { check() }
-            else -> check()
-        }
+        ui.waitUntil(15_000){ui.onAllNodes(hasText(text) and isEnabled())
+            .fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty()}
     }
 }

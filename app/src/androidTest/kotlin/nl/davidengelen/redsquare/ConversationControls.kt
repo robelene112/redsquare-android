@@ -18,6 +18,7 @@ internal fun traceConversationOperator(stage: String) {
         val active = InstrumentationRegistry.getArguments().getString("class").orEmpty()
         val folder = when {
             active.contains("GroupChatActionsPreviewTest") -> "group-chat-actions-evidence"
+            active.contains("GroupChatPreviewTest") -> "group-chat-evidence"
             active.contains("PrivateChatPreviewTest") -> "private-chat-evidence"
             else -> return
         }
