@@ -993,10 +993,16 @@ images17run39532581101. Their actual metadata binds6405; outcomes pending.
 Failed-images evidence48e69be2 has independent Spec0/documented Standards0/
 heuristic0. Before-publishing-recovery-4124 retains ten byte-original native PNGs
 from the accepted full60 Android10/17 runs39522483659/39522662606: unsent composer,
-submitted intermediate composer, cancelled queued draft, delete confirmation and
+submitted intermediate composer, feed after queued cancellation, delete confirmation and
 policy-cancelled author editor. Every selected member and source archive hash is
 checked against retained full60 inventory; bindings identify4124 exactly. Root
 viewed17submitted/10delete/10cancelledqueue/17authorcancel. These historical
 captures are only before evidence, not current61 acceptance or a permanent
 submitted-state defect. Their existing themes/widths are not relabelled as a
 new complete Light/Dark or130% matrix.
+
+Before packet review: all11 hashes/ten archive+member bindings verify. The
+cancellation filename is historical: its actual PNG shows the feed after
+cancellation, not an opened draft or queue. It is not visual proof of retained
+draft contents or queue presentation. Those require their independent journey
+assertions and current61 rendered evidence.
