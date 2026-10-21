@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 17:40 UTC:62 residual native operators and owned Details dismissal reviewed/compiled; replacement complete SDK pair next.
+Updated 2026-10-21 18:09 UTC:62 complete527 replacement suites active; Wallet succeeds on both SDKs.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,375 +39,129 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active conversation62
 
-Fresh replacement complete10run39645666425 and17run39645671283 execute exact
-527dc9723cefccc4961400fd79d224e1c066bc52, dispatched17:39UTC. All three partitions
-must succeed together per SDK. Source and retained675 failure-packet reviews0/0;
-105 manifest hashes and92 exact original keyboard archive members per SDK.
-Root also viewed Android10 physical-send-closed capture. The older675 snapshots
-retain actual active Social state; replacement dispatch may cancel superseded
-work via existing workflow concurrency. No successful old partition is reused.
-Wait for complete terminal evidence before signed61. Continue63–69 then70.
+Issue62 is assigned and unblocked after58/59. Review base is
+72f43fa7462fe6af9eff85c48613dc793771cd50. Start and latest progress:
+https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6308708872
+https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6322922829
 
-Current correction after675: both terminal Chat jobs fail3/10 original keyboard
-methods at physicalSend287. Native PNG/XML shows Details still open when physical
-Send is measured. Full-key assertions pass; Wallet succeeds on both SDKs; Social
-is still active at this snapshot. Selected failed10/17-details-window-675 packets
-retain original Chat keyboard artifacts, metadata and raw inventory without
-claiming whole-run completion. No passing partition is reused.
+### Current execution and next action
 
-The owned Details helper now clicks Done, observes Compose dismissal and native
-window disappearance before physical measurement. Seven residual AndroidTest files
-also migrate actual Details/media/message-menu operators while preserving exact
-identity/privacy/error predicates, shared original observation budgets and all
-class/request/physical/layout/protocol/restoration goals. Native worker fixtures
-use real Android hierarchy without a new Compose rule. Production and emulator
-harness remain byte-identical to814. Source paired reviews0/0; app/test compilation
-SUCCESS2m6 with explicit exit0. Fresh complete SDK pair follows; original frozen
-catalog/collector/tool pins remain. Ordinary60 live, no signed61 yet.
+Fresh complete10run39645666425 and17run39645671283 execute exact
+527dc9723cefccc4961400fd79d224e1c066bc52, dispatched2026-10-21T17:39Z.
+All three partitions must succeed together per SDK. Wallet now succeeds on both;
+Chat and Social are still active at18:07UTC. No complete62 acceptance or signed61
+yet. Ordinary60 remains live. Never reuse passing partitions from rejected runs.
 
-Latest primary executions: complete10run39641247652 and17run39641251883 execute
-exact675563729f5fa22303832efe6290838e58f525d2, dispatched17:09UTC. All three
-partitions per SDK are mandatory. Only two legacy test operators changed after
-rejected814; app/core/push production and emulator harness are byte-identical.
-Source and rejected-packet paired reviews0/0; app/test compile SUCCESS4m explicit0.
-The original catalog freeze814,511/512 identities,148/149 completions,109 archives,
-35 interruptions/34 continuity, validator and tool pins remain unchanged.
-Do not assemble accepted partitions from rejected814 or focused runs. No current
-complete acceptance or signed61 yet. Ordinary60 stays live. Wait for terminal
-SDK results, collect complete raw originals and review both axes before building
-signed61 once at the exact accepted source. Then close62/update55 and continue
-63–69 then70 sequentially without stopping. Protected research remains unread.
+External completion observer /tmp/redsquare62-watch-complete.py (owned shell
+session31604) checks exact source, downloads each terminal complete run to
+/mnt/storage/redsquare-android-artifacts/conversation62-fullSDK-527-RUN and invokes
+the frozen collector only for whole-run SUCCESS. It does not publish or commit.
+If inspecting a failed terminal job before its whole run finishes, use a separate
+partial-artifact directory so the observer's original destination stays absent.
 
-Current resume: both first complete814 runs39573030407/39573032280 are terminal
-FAILURE. Social SUCCESS; Chat and Wallet FAILURE. ChatKeyboardPreviewTest has3/10
-failures at134, expecting the raw private contact key inline after it moved into
-Details. Seven other methods pass. Wallet base agreement passes; PublishingSurfaces
-has1/4 failure at155, native Unlike capture after the popup helper closed the menu.
-Three other methods pass; later Chat/Wallet gates are unreached. All new conversation
-reading/filtering/own-send classes pass beforehand. No partition from these failed
-complete runs is accepted or assembled into a replacement.
+Inspect complete original evidence and source together, resolve failures without
+weakening goals, then obtain both independent evidence reviews. Reusable read-only
+reviewers are legacy62_spec_review and legacy62_standards_review. After acceptance,
+repoint the clean external review-worktree to the exact passing source, build61
+ONCE with canonical scripts/review-build, inspect actual manifest/DEX/signature,
+run independent public before checks, publish and verify public after checks.
+Temporary prepared/public observers are /tmp/redsquare-conversation62-prepare61.py
+and /tmp/redsquare-conversation62-publication61-check.py. Both are syntax-valid but
+not executed. Verify actual shared version counter and clean worktree first.
+Retain/review public delivery, close62/update55, then implement63–69 and70
+sequentially without routine stops. Owner visual55 and actual release36 stay open.
 
-Selected failure packets failed10/17-full-legacy-operators-814 retain198/203 hashes,
-two archives119 originals each, Chat/Wallet text and three-partition raw inventory.
-Complete external artifacts remain at conversation62-full10/17-814-RUN roots.
-Root viewed17 keyboard/photo and agreement failure PNGs. Final packet reviews0/0.
-Current test-only correction asserts the identical full private key through actual
-Details scrolling (group title unchanged), and opens the real message popup for
-the same native Unlike screenshot/semantics. No product change or weakened identity,
-keyboard/physical Send/photo/reply/draft/protocol/restoration goal; all method names,
-class/request deadlines and frozen catalog identities remain unchanged. Source
-reviews0/0. App/test compile SUCCESS4m with explicit exit0. Fresh complete SDK pair follows, repeating all three
-partitions and the full original legacy goals; no extra redundant focused reruns.
-Ordinary60 remains live, signed61 not built. Continue62–69 then70 without stops.
-The following records describe earlier focused successes and rejected execution.
+### Stable product and focused proof
 
-Latest executing state: exact814271d400e44dee39a82234b0eab6b70eee7160 passes
-own-send10/17 runs39571556632/39571558481 (two methods34.964s/75.838s, original180).
-Packets green10/17-own-send-814 retain46/48 hashes, one archive34 originals each;
-both source/packet axes0/0. All private/group130% themes expose exact own body at
-native end,71/72 originals, unchanged protocol/identity/return/owned-job restoration.
-Viewport10/17 runs39571560504/39571563244 also SUCCESS: five independently bounded
-classes, including real filtering, all matrices and unchanged history/identity/
-restoration goals. Packets green10/17-reading-filtering-814 retain331/333 hashes,
-five archives311 originals each; root viewed current key captures, final packet
-reviews active. The source has final0/0 after both hidden-state corrections.
+Production/harness are byte-identical to814271d400e44dee39a82234b0eab6b70eee7160.
+ConversationMessageList owns wallet/node/conversation-scoped opening, actual tail
+bottom, incoming follow only for an end reader, one-pixel older-reader anchors,
+New messages and exact outgoing requests retained until rendered. Raw retained
+history is separate from rendered keys and queued tails. Cached filter/reveal and
+older-page prepends do not invent arrivals. Pending unread IDs survive partial
+author filtering; deliberate all-hidden states advance their baseline, while
+transient no-admitted-real-history preserves unread/follow state. Passive viewport
+resize realigns a previously following reader without changing older anchors.
+Own requests beat queued tails and emit only after explicit protected prepare/retry.
 
-Fresh complete10run39573030407 and17run39573032280 now execute exact814271d4,
-all three partitions each, started08:56UTC after focused GREEN. Revised catalog
-was frozen814271d4 before execution:511/512 identities,148/149 completions,
-109 archives,35 interruptions/34 continuity; original validators/tool pins remain.
-No accepted complete62 result or signed61 yet. Wait for terminal runs and retain
-all exact-source partitions together; never assemble focused/rejected parts.
-Ordinary60 remains live; signed61 builds once only after complete acceptance.
-Continue62–69 then70 without routine stops, keeping55 owner UI and36 actual
-physical/provider/store prerequisites open. Protected untracked research stays
-UNREAD/UNTOUCHED. The following narrative preserves earlier actual RED/GREEN history.
+Private/group headers retain concise privacy, direct mute and48dp Details access.
+Full identity/privacy/history/Refresh and group management are in actual scrollable
+Details. Urgent recovery/Retry/queued cancellation/left state remain main. Actual
+message menus preserve Like/Unlike/Reply/Copy permissions; media controller guards
+remain while Add media, bounded preview, input and Send share a compact composition
+area. Whole Create/Join buttons wrap; single-line labels and reduced gaps retain
+larger-text space. Signing/protocol/backend/provider/storage behavior is unchanged.
 
-Latest resume state:8e8 compact viewport10/17 runs39568091455/39568095212 are
-SUCCESS, all four classes and100/130/200% Details/actions/real-IME matrices.
-Packets green10/17-compact-ui-8e8 retain304/306 hashes,4archives286 originals each;
-root viewed current10/17 critical captures, final packet reviews0/0. They do not
-establish own-send/filtering/full acceptance. Actual776a filterRED17run39569496908
-FAILS47.561s after realBlock at no-New-messages assertion125;25 hashes/12 originals.
-Own-diagnostic17run39569499059 FAILS74.684s: group passes both themes, privateLight
-outgoingDisplayed=true but native scroll34582.0/max34682.0.40 hashes/27 originals.
-Both actualRED packet reviews0/0; font restoration retained, later private/filter
-goals unreached. No causal proof beyond these native observations.
+Exact814 focused GREEN pairs, retained under docs/evidence/ticket62:
 
-Current correction separates retained unfiltered history from rendered/queued
-keys. New arrivals are admitted keys in the raw appended suffix, excluding older
-pages and cached hide/reveal. Pending unread IDs preserve another unseen visible
-arrival when the newest author is blocked. Deliberate hidden states advance raw
-baseline; transient unreadiness, including queued-only display, preserves unread/
-raw/follow state and guards the end observer. Explicit queue exposure remains
-possible without consuming an own-message request. Passive viewport-height
-changes realign only a previously following reader; older readers retain anchors.
-Single-line input labels avoid actual200% closed-keyboard wrapping. Source reviews
-0/0. App/test compile SUCCESS3m44 explicit0 before the final narrow hidden-state
-guard; exact-source CI must compile that guard and prove corrected behavior.
-Revised catalog adds real filtering:511/512 identities,148/149 normal completions,
-109 archives, unchanged35 deliberate interruptions/34 continuity and original pins.
-Both draft reviews0/0. Supersedes old40df catalog before any complete62 execution.
-Corrected own-send10/17 runs39571556632/39571558481 and viewport10/17 runs
-39571560504/39571563244 execute exact814271d400e44dee39a82234b0eab6b70eee7160,
-active. Viewport now includes additive filtering in its own180second class.
-Revised catalog frozen814271d400e44dee39a82234b0eab6b70eee7160 before complete
-execution. No complete62 dispatch or signed61 yet.
+- Own-send10run39571556632 and17run39571558481: two methods34.964s/75.838s,
+  original180second bound. green10/17-own-send-814 packets retain46/48 hashes,
+  one archive34 exact originals each. Private/group130% both themes expose exact
+  outgoing bodies at native end with71/72 originals, full protocol/identity/return/
+  owned-job restoration. Root inspected original key captures; final reviews0/0.
+- Reading/filtering10run39571560504 and17run39571563244: five separate180second
+  classes; private100/130/200%, group130% and additive100/200%, both themes,
+  actual Details/actions/IME, signed receipt/ACK, end-follow, older one-pixel
+  anchors, New messages and real Settings Block/Unblock without false hints.
+  green10/17-reading-filtering-814 packets retain331/333 hashes, five archives311
+  originals each. Root inspected key UI/filter images; final reviews0/0.
 
+Focused success is not complete acceptance. Earlier actual RED and intermediate
+GREEN packets remain intact in that same evidence directory with original
+metadata, byte-bound archives and outcome limits. They document cached private
+opening830, private receipt e92, group opening3be, compact1f2 and unified1449
+layout/bounds failures, own-send eda/8e8/776 and filtering776. The previous detailed
+chronology is preserved in Git before this handoff condensation; packet README,
+logs and originals are authoritative. Do not rerun historical steps as active work.
 
-61 is CLOSED and55 updated after final public reviews0/0.62 is assigned and
-unblocked;58/59 are closed. Review base72f43fa7462fe6af9eff85c48613dc793771cd50.
-Start: https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6308708872.
-Continue62–69 then70 sequentially without routine stops. Public ordinary60 stays
-live; do not rebuild/reuse it. Provider/physical/store36 and owner final55 stay open.
+### Rejected complete runs and current test-only correction
 
-First vertical test ConversationViewportPreviewTest seeds70 real protected private
-originals, opens through native UI and requires latest visible without a scroll
-operator. Initial830 app/test compile SUCCESS2m3 and paired source reviews0/0.
-Android17run39549699455 exact830ef5da7699fec274a79371a79fbe66fa1eff7e completes
-expectedFAILURE38.275s at line64: latest69 not displayed after positive first-or-last
-readiness and Private messages viewport checks. Root viewed actual opened PNG:
-initial00 visible, latest absent. Packet docs/evidence/ticket62/red17-private-latest-830-39549699455
-retains21 hashes/one archive8 originals. Light320dp130 only; Dark and later
-success-path cache/wallet/node/zeroTX/return/health assertions unreached. Independent
-cleanup closes Activity before restoration; font record1.0->1.0 retained.
+Complete814 runs39573030407/39573032280 are terminal FAILURE: Social succeeds,
+Chat fails3/10 keyboard methods expecting the raw key inline, Wallet fails1/4
+PublishingSurfaces captures expecting Unlike after its menu closes. New conversation
+classes pass beforehand; later legacy gates remain unreached. Selected
+failed10/17-full-legacy-operators-814 packets retain198/203 hashes, two archives119
+originals each and all-partition raw inventories. Final reviews0/0. Complete
+external originals stay at conversation62-full10/17-814-RUN roots.
 
-Minimal production patch now anchors first nonempty private history at its last
-item, retaining the initialized flag with restored list state and explicit wallet/
-backend/contact effect keys. No layout/media/protocol/store change. Final scoped
-app/test compile SUCCESS1m59 and source/RED packet reviews0/0. Same original test
-executes exact34b021964c5df57f110ce3b63fc6a47445e79002:10run39551269289
-(job119060780530) and17run39551271684(job119060787855); both SUCCESS,
-one unchanged method15.956s/56.562s, both320dp130% themes. One archive9 originals
-per SDK; packets green10-private-latest-34b-39551269289 and
-green17-private-latest-34b-39551271684. Root viewed10 Light/Dark and17 Dark opened
-originals.69 visible, but old layout still clips its lower text/actions. This is
-only cached-opening GREEN, not full62 polish. Final paired focused evidence review
-returns Spec0/documented Standards0/heuristic0.
+The test-only675 correction reaches the same full key through Details and captures
+Unlike inside its actual popup. Complete675 runs39641247652/39641251883 then have
+terminal Chat FAILURE3/10 at physicalSend287: original native PNG/XML shows Details
+and Done still foreground, with no native Send. Full-key checks pass. Wallet
+succeeds on both; Social is cancelled by replacement workflow concurrency. Retained
+run snapshots accurately precede cancellation and show active Social. These whole
+runs are cancelled, not successful acceptance. Selected failed10/17-details-window-
+675 packets retain105 hashes and92 exact keyboard originals each. Root viewed
+Android10/17 failure captures. Packet reviews both0/0. This proves the observed
+dialog state, not a product Send-layout defect.
 
-Next vertical tracer PrivateConversationReadingPreviewTest uses actual authenticated
-peer receipt/acknowledgment, protected original cache, real touch/accessibility
-scrolling and public native scroll semantics at130% Light/Dark. It requires incoming
-follow only at the end, a stable older text position within one pixel and a New
-messages action. New coherent class retains a separate180second bound alongside
-the unchanged first cached-opening class; full Chat retains both. App/test compile
-SUCCESS2m3. Standards review0/0; Spec identified overwritten per-stage JSON, now
-retained separately for every stage. No incoming-follow product implementation yet.
-The fixture also declares a protected, synthetic muted-conversation baseline:
-actual receipt otherwise could create API29 Android alerts/channels outside file
-restoration. Only this fixture conversation is muted before Activity launch, with
-exact save/readback; the captured personal prefix restores afterward. No global
-notifications or existing channels are touched. Both prior c577/da24 native dispatches
-were cancelled during preparation before any device acceptance claim. Corrected Android17 RED run39553894579 executes exact
-e92a0f488c2868a09f019da5afeb4644b3462d0f, job119069067826. Scoped isolated
-app/test compile SUCCESS2m; final paired source reviews0/0. Run completes FAILURE: cached-opening method PASS60.697s both themes; live
-case20.152s fails line118 after real incoming ACK/protected retention and positive
-old atEnd=true, new atEnd=false. Packet red17-private-reading-e92-39553894579
-retains36 hashes/two archives21 originals. Root viewed before/after PNGs:69 stays,
-new body absent; initial loading notice disappears between captures, cause not
-claimed. Older-reader/New messages/Dark live cell and later success goals unreached.
+Current527 changes seven AndroidTest files only. Owned Details dismissal now
+clicks actual Done, waits for Compose removal and native-title disappearance,
+retaining nested ownership and primary-failure cleanup. Residual Chat alert,
+worker, mixed-reception, failed-photo-preparation and group process operators
+navigate actual Details/media/message menus. Original exact identity/privacy/error
+predicates, shared observation budgets, physical48dp/IME/layout goals, identities,
+class/request bounds, protocol and independent restoration all remain. Worker
+fixtures use actual native Android hierarchy without a new Compose rule.
+Compilation SUCCESS2m6 with explicit exit0; final source Spec0/documented
+Standards0/heuristic0. Runtime replacement proof is pending above.
 
-Independent low-impact presentation change makes Photo/GIF one wrapping FlowRow
-inside the existing attachment area. All picker/session/URI/draft/GIF guards and
-callbacks remain intact. No new layout-mirroring test. App/test compile SUCCESS3m44 and paired source reviews0/0.
-Existing native media/IME cases and final rendered inspection remain required.
-This row does not implement incoming following.
+### Frozen complete collector
 
-After actual RED, current private correction tracks prior known message IDs/end
-state, ignoring layout changes for an appended dataset until its follow decision.
-It opens/follows at the actual last bubble bottom, preserves an older reader and
-overlays an accessible New messages button without changing message viewport height.
-A requested latest jump shares the keyed anchoring effect. Header compensation
-remains active for older readers; a following reader avoids compensation pulling
-them away from the end. ReadingAnchor's default remains unchanged elsewhere.
-First correction7df app/test compile SUCCESS3m43; Standards0/0, Spec found
-a stale New messages action after blocking every visible author. The bounded fix
-clears known/pending opening state only when prior known nonempty data is hidden
-by a ready personal policy, keeping transient loading/restoration pending state.
-The button also requires a nonempty rendered target. Same-source intermediate
-focused10run39555428454(job119073982227) and17run39555430072(job119073985466)
-execute exact7dfef983240ddd81af179ed6b4d46c4b5b23e6fd, both SUCCESS.
-10 cached/live methods12.731s/19.152s;17 methods41.21s/17.707s. Both themes130%,
-actual ACK/retention, end-follow, older20before/after347.0px, New messages jump to
-actual end and disappear, exact74originals/wallet/node/zero-send/Back/Home/health/
-restoration all pass. Packets retain66/68 hashes, each two archives52 original members.
-Root viewed10 older/last and17 follow/older original PNGs. Old dense layout still
-clips long bubble portions and the pill overlaps older text; not full UI acceptance.
-These runs predate d935 source-review correction; d935 compileSUCCESS2m10 and
-paired source reviews0/0, no separate native blocked-hint journey claimed. Focused
-packet reviews both return Spec0/documented Standards0/heuristic0 at01126f4bf.
-Current-source full acceptance remains pending.
+Full catalog was frozen at814271d400e44dee39a82234b0eab6b70eee7160 BEFORE complete
+execution, superseding the earlier six-method40df draft. Full collector/reference:
+docs/evidence/ticket62/full-collector.py and full-identity-reference.json. Require
+511/512 literal identities (accepted61 plus seven additive methods),148/149 normal
+completions,35 deliberate interruptions,34 continuity records and109 archives per
+SDK. API29 allows only its prior baselineProfile assumption:510PASS+1assumption;
+API37 requires512PASS. Original validators, public reads, exclusion and tool pins
+remain. Source/run bookkeeping is updated locally with android10/android17 keys;
+collector/reference hashes and frozen acceptance references are unchanged.
 
-Next coherent native GroupConversationReadingPreviewTest seeds70 actual signed
-group originals through two bounded50/20 protected available-history pages, with
-signed creation and exact envelope retention. The same actual UI/socket/ACK/end/
-older one-pixel/New messages policy is required at130% both themes, under its own
-180second class bound. Only the declared synthetic group is muted and personal
-state restored independently. Actual group frame repeats every500ms until its
-matching positive ACK within the original15second request bound, accounting for
-the separate passive receiver socket; it never bypasses actual retention/UI goals.
-No group production change yet. Initial app/test compile log SUCCESS2m8, Docker
-events independently record container exit0; the outer tool later reported143,
-with cause unproved. A justified repeat keeps all29 tasks UP-TO-DATE and SUCCESS31s,
-with explicit shellObservedExit0. Spec review0; Standards documented0/heuristic1
-identified duplicated native observations. Review-stage extraction now shares only
-actual UI end/opening/follow/older/New messages and per-stage capture/atEnd goals
-in NativeConversationReader. Both protocol fixtures retain their own actual signed
-delivery/ACK/exact protected retention, initial setup and independent restoration.
-Every prior goal, identity and deadline remains; added opening capture observes
-without scrolling before its latest-message assertion. App/test compile SUCCESS2m2 with explicit shell exit0; refactor reviews both
-Spec0/documented Standards0/heuristic0. Android17 group REDrun39557475694 at exact
-3be44ffd2 is running, preserving both private classes first and adding the group
-case as a separate180second class. Actual run completes FAILURE: private cached/live methods PASS57.495s/22.409s
-both130% themes. Group method9.663s fails helper line19 latest69 not displayed
-after positive first-or-last readiness and Group viewport. Opened JSON70/end=false;
-root viewed original group PNG showing00 and no69. Packet red17-group-reading-3be-39557475694
-retains84 hashes/three archives67 originals(9cached/49private/9group). Group
-archive-read/incoming/ACK/older/Newaction/Dark and later success goals unreached;
-independent Activity-before-state/font restoration remains. No group incoming
-frame was sent before failure. Actual initial group-opening defect is reproduced.
-
-After actual RED, current product extracts the reviewed private policy into
-ConversationMessageList for both real adapters. Public interface owns viewportKey
-(wallet/node/conversation), message keys, native label, actual hidden-history signal,
-layout arrangement, an explicit latest-request counter and quote-jump callback.
-Private item/actions remain unchanged. Group keys include the actual existing
-queued item; its old queued-ID effect increments the latest-request counter,
-preserving explicit queued exposure. Each caller keeps all signing/storage/actions.
-The shared module retains prior end-state guards, actual tail-bottom follow,
-older-reader compensation and overlay New messages, with keyed saved-state isolation.
-Shared app/test compile completed SUCCESS with explicit exit0. Spec identified
-persistent queued display tails masking real incoming arrivals. The correction
-uses separate real-history keys for incoming detection and New messages targets,
-while rendered keys retain layout guards and explicit queued exposure. A reader
-following the rendered end or fully visible newest real message can follow receipt.
-Deliberately hidden history clears/hides the hint even if a queued item remains.
-Final correction reviews return Spec0/documented Standards0/heuristic0. Correction
-app/test compile completes SUCCESS with explicit exit0. Exact c458d26bd19c45ee0374cd1c2e488ca2ff154737
-native10run39559884166 and17run39559886824 both SUCCESS. Original cached/private-live/
-group-live methods pass16.307/23.055/38.769s and55.727/22.271/29.136s, respectively,
-both130% themes, each retaining its own180second class bound. Actual receipt/ACK,
-exact74 originals, identity/node/zero-send/Back/Home/health/restoration all pass.
-Private older top347.0 and group331.0 remain unchanged before/after in both themes.
-Packets green10-shared-reading-c458-39559884166 and green17-shared-reading-c458-39559886824
-retain123/125 hashes, each three archives107 byte-bound originals. Root viewed10
-Light opening/17 Dark New messages result. Old dense layout still clips portions;
-this is reading proof, not finished visual acceptance. Packet review pending.
-
-Next bounded UI source uses contextual Like/Reply/Copy in the bubble's More menu,
-compact identity+concise privacy headers, full address/privacy/history/Refresh in
-scrollable Details, and group management there. Direct mute and urgent recovery/
-retry/cancel remain main. Initial source reviews both0/0 and app/test compile
-SUCCESS3m40 with explicit exit0; later native operator/matrix additions still
-compiling and under review. Actual menu/Details operators retain original assertion
-chains and state/raw/recovery goals; physical queued Members now goes through
-Details and still measures/clicks its48dp target and verifies exact pending state.
-Final source reviews return Spec0/documented Standards0/heuristic0 after correcting
-missed Refresh/menu/status operators, preserving negative Unlike assertions inside
-a positively opened popup, primary-failure cleanup, nested Details ownership and
-actual popup/IME disappearance rather than Back injection Boolean. List-entry
-full privacy paragraphs stay available because those routes have no Details.
-Group FORWARDED and LEFT feedback stay main; received/recovered/invitation-origin/
-stale management/stopped-history observations now enter real Details with their
-existing assertions/captures. Full names remain available there too. Latest final
-compile is active, explicit external record conversation62-compact-final-compile.json.
-Existing cached-private and group-reading methods add100/130/200% Light/Dark,
-full Details/context menu and actual system IME history-height checks (96dp at
-normal/130,48dp200). Original method IDs/class180 bounds remain. Added group cells
-repeat real signed receipt/ACK/reading, with monotonically advancing timestamps.
-Expanded UI exact1f2ef8ae33088970f523e7ce43319b36a6c55806 runs10:39562116317
-and17:39562119555 are active. Final UI app/test compile SUCCESS3m46, explicit exit0.
-No expanded UI acceptance, queued-tail runtime journey, own-send or full62 yet.
-New ConversationSendPreviewTest private/group tracer seeds70 actual signed originals,
-uses actual UI to read older20, types/sends deliberately and requires the exact
-own body at actual end within10s. Raw TX/Relay/protected envelope, author/wallet/
-node, exact history, return/Home and authenticated identity/health stay independent.
-Both130% themes, own180second class. No product own-send change before actual RED.
-Symmetric conversation-send scopes keep only their SDK; full Chat adds the class
-without removing existing reading classes. Owned job discovery/cancellation and
-finished checks run independently before file/identity/preference restoration,
-preserving primary failures. Final source Spec0/documented Standards0/heuristic0.
-Tracer compile SUCCESS2m16 with explicit exit0. Actual fcbb own-send17run39562893671
-is FAILURE89.821s: group Light passes exact71/raw/identity/own-end/return; Dark
-second callback passes raw TX/Relay/body/author but10s own-body-and-end fails.
-Root viewed prior Light bubble/New messages pill/new bubble clipped at bottom.
-Private fails earlier at fixture line98 (application-object decode of encrypted
-payload); private viewport goal unexecuted, not private product RED. Packet
-red17-own-send-fcb-39562893671 retains38 hashes/one archive25 originals and final
-paired reviews0/0. Test-only decodePayload author correction committed
-eda4fd8c37888362af37df0041640fa1d9b9a9d3; corrected17REDrun39564501913
-FAILS70.935s. Private now reaches the actual10s own-body/end failure after raw
-TX/Relay/decrypted-body/author checks; later private goals unreached. Group Light
-passes, Dark own-body/end fails. Packet red17-own-send-eda-39564501913 retains38
-hashes/25 original bindings, final paired0/0. Private now emits the same scoped
-exact-message request after protected prepare/retry, with no background event.
-Source reviews0/0 and compile SUCCESS3m50 explicit0; native GREEN remains pending.
-
-Expanded UI exact1f2ef runs both FAILURE.10 cached-private six-cell matrix PASS
-46.049s and private live PASS17.419s; group four100/130 cells pass then200Light
-row readiness fails at78 after68.194s. PNG/XML shows squeezed175px Join group
-button and no displayed group row.17 first private FAIL69.169s in200Dark at
-history12dp versus original48dp requirement with actual IME and font-size banner.
-Later goals accurately unreached. Packets red10-compact-ui-1f2-39562116317 and
-red17-compact-ui-1f2-39562119555 retain243/70 hashes,228/57 byte-bound originals;
-final paired packet reviews0/0. Earlier c458 GREEN packets also final0/0.
-
-Correction uses48dp Details info icon, one-line concise privacy without redundant
-entry-list subtitle, whole-button Create/Join FlowRow and actual Add media menu
-inside the input/Send row. Session-keyed ChatPhotoAttachment retains original
-URI/picker/preparation/GIF/draft guards while exposing preview/actions layout
-slots. Bounded quote/photo previews stay, real media operators enter the popup
-with original assertions/deadlines. Unified UI compile SUCCESS3m39 explicit exit0,
-final source reviews0/0. New group-only explicit ConversationMessageRequest(key,
-attempt) remains pending until its exact history item renders and wins over queued
-tail; consumed after jump. Group emits after protected prepare. Private adapter
-initially defaulted null; its correction follows the separately proven eda RED.
-Combined group/unified compile log SUCCESS3m41 and owned Docker exit0; outer tool
-reported143, cause unproved. Exact1449 UI10run39564986431 passes private matrix
-74.313s/live31.402s then group hits original180second host exit124 without terminal
-JUnit completion. UI17run39564989139 passes private94.608s/live19.512s; group
-fails92.1s at200Dark, actual46dp history versus unchanged48dp goal. PNG/XML shows
-wrapped Message label and clipped privacy. Packets red10/17-unified-ui-1449 retain
-300 hashes each and282/283 originals; final paired reviews0/0.
-
-Current correction reduces Back padding while preserving48dp targets and removes
-group input-row/empty-preview gaps so the Message label fits. The original group
-130% method and180second bound remain; additive GroupConversationPolishPreviewTest
-covers100/200% both themes in its own180second class using the exact same shared
-signed fixture and every original assertion/restoration step. Both focused/full
-Chat retain all four reading classes plus the independent own-send class.
-Source/packet reviews Spec0/documented Standards0/heuristic0. App/test compile
-SUCCESS with explicit exit0 (conversation62-split-matrix-compile.json). Corrected
-own-send10/17 runs39568087351/39568089064 and viewport10/17 runs39568091455/
-39568095212 execute exact8e8cdd025566f75ef432d9b0c4a8a80c2edd9bf6 and are active.
-No current-source focused GREEN,
-full62 acceptance or signed61 yet. Full catalog/collector reviewed0/0 with
-510/511 identities,147/148 completions and108 archives, frozen before execution
-at40df7030a3f1a29b81ec17c276d24518654270c3. No complete62 execution yet.
-Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
-controlled peer/protected cache, with independent Activity-before-state restoration.
-Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.
-
-Current8e8 own-send10/17 runs39568087351/39568089064 terminate FAILURE39.207s/
-52.169s: group passes both themes and every exact protocol/history/own-end/return
-goal; private Light fails joint body/end10s after protocol checks, later private
-steps unreached. Root viewed both original PNGs, body/timestamp visible near status;
-no independent failed-conjunct or causal observation. Packets red10/17-own-send-8e8
-retain26 originals each. Passive viewport resizing remains a hypothesis.
-Viewport10run39568091455 is SUCCESS;17 still active. No complete62 proof yet.
-
-Cumulative paired source review found one partial-filtering bug: removing a latest
-author with other visible messages changes the tail and invents New messages.
-Product correction pending actual native RED. New ConversationFilteringPreviewTest
-reuses the cached-private setup, signs68 own/two incoming originals and uses real
-Settings/personal Block/unblock at130% both themes. It requires no invented hint,
-one-pixel older anchor, all exact originals/identity/node/zeroTX/return/restoration.
-Original cached-opening path/method/goals unchanged. Separate180class is additive
-in viewport/full; focusedfiltering scopes are SDK-symmetric. Native operators use
-actual dialog scroll. Final source reviews0/0; tracer compile explicit0 before the
-small scroll-operator adjustment. Existing frozen catalog40df will be superseded
-before complete execution to include this additive identity/archive; never use it
-for incomplete coverage. No complete62 dispatch has occurred.
+Invocation: python3 docs/evidence/ticket62/full-collector.py SDK RAW_ROOT LABEL RUN.
+It rejects unsuccessful/incomplete/mixed-source runs before acceptance. Do not
+weaken it to accept rejected partitions. All later test-only operators retain
+method identities and goals, so they require no new catalog freeze.
 
 ## Composer61 delivered
 
