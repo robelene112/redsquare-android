@@ -724,3 +724,18 @@ source equivalence does not claim identical APK bytes. Both metadata reviews0.
 Both17diagnostic and pairedactualpublic-feed retained packets also reviewed0/0.
 Next collect focused outcomes and complete raw partitions, inspect/review full
 results, publish prepared59 only after acceptance, then finish60 and continue61–70.
+
+Corrected focused images10 run39518507809 at240a4d60e05a8985426d22927c3190189a8edaab
+completes SUCCESS:6methods23.825s, preparation5methods15.08s, lifecycle7methods
+50.649s and both actual process protocols pass. Packet80hashes/seven archives56
+originals, both evidence reviews0. Root viewed quote-published with Quote post,
+Available on this node and own/original images. Exact quote/signature/recipients/
+pixels and physical action-clearance goals remain. No atomic hit-test trace or
+causal proof of the earlier picker timing hypothesis is claimed.
+
+Corrected focused GIF10 run39518711797 atfbb69c3539592b9180f4461f2eb6618a125f62f3
+completes SUCCESS:picker3methods19.54s and posting6methods26.658s. Packet83hashes/
+two archives71 originals, both reviews0. Root viewed owner-reply-available and
+official-quote-indexed original PNGs. This GIF scope has no process protocol;
+all complete recovery goals remain mandatory. Corrected17 images/GIF and both
+complete874 runs remain pending. No full60 acceptance or publication59 yet.
