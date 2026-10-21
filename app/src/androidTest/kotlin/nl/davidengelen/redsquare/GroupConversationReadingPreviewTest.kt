@@ -3,6 +3,7 @@ package nl.davidengelen.redsquare
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.chat.GroupChatStore
@@ -15,7 +16,13 @@ import java.io.File
 class GroupConversationReadingPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading() {
+    @Test fun cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading() =
+        GroupConversationFixture(ui).exercise(listOf(1.3f), "group-conversation-reading")
+}
+
+/** Signed group setup and receipt goals are identical across separately bounded viewport matrices. */
+internal class GroupConversationFixture(private val ui: ComposeTestRule) {
+    fun exercise(scales: List<Float>, prefix: String) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -38,7 +45,7 @@ class GroupConversationReadingPreviewTest {
         val originals = bodies.mapIndexed { index, body ->
             GroupChat.message(contact, group, body, 1700000123400L + index).envelope()
         }
-        val folder = File(context.cacheDir, "group-conversation-reading-evidence").apply { mkdirs() }
+        val folder = File(context.cacheDir, "$prefix-evidence").apply { mkdirs() }
         val expectedBodies = bodies.toMutableList()
         val expectedEnvelopes = originals.toMutableList()
         val historyReads = java.util.concurrent.atomic.AtomicInteger()
@@ -66,7 +73,7 @@ class GroupConversationReadingPreviewTest {
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
-                    ui.withPostViewports(activity, folder, "group-conversation-reading", scales = listOf(1f, 1.3f, 2f)) { label, _ ->
+                    ui.withPostViewports(activity, folder, prefix, scales = scales) { label, _ ->
                         val newestBeforeOpening = expectedBodies.last()
                         val chat = hasText("Chat") and hasClickAction() and isEnabled()
                         ui.waitUntil(15_000) { ui.onNode(chat).isDisplayed() }

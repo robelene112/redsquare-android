@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupConversationReadingPreviewTest:
+INSTRUMENTATION_STATUS: test=cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Actual height is 46.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:114)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$1Mmgar5IlDWFGuG1_J96G9hzAhE(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(nl.davidengelen.redsquare.GroupConversationReadingPreviewTest):
+java.lang.AssertionError: Actual height is 46.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:114)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$1Mmgar5IlDWFGuG1_J96G9hzAhE(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: test=cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 92.1
+There was 1 failure:
+1) cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(nl.davidengelen.redsquare.GroupConversationReadingPreviewTest)
+java.lang.AssertionError: Actual height is 46.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:114)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:113)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$1Mmgar5IlDWFGuG1_J96G9hzAhE(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

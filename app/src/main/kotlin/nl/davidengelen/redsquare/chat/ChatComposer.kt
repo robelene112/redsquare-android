@@ -38,7 +38,8 @@ internal class ChatReplyActions {
 
 @Composable
 internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, contact: String,
-    permitted: Boolean, replies: ChatReplyActions, onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
+    permitted: Boolean, replies: ChatReplyActions, onOutgoing: (String) -> Unit,
+    onHistory: (List<ChatHistoryStore.Entry>) -> Unit) {
     val gifCredits = nl.davidengelen.redsquare.media.LocalGiphyAttributions.current
     val context = LocalContext.current.applicationContext
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
@@ -264,6 +265,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                                                     saved = withContext(Dispatchers.IO) {
                                                         if (original == null) work.prepare(prepared,queued=true) else work.prepareRetry(prepared.id)
                                                     }
+                                                    onOutgoing(prepared.id)
                                                     if (original == null) changeText("")
                                                 }
                                                 if(saved.status!=ChatWorkStore.Status.QUEUED)

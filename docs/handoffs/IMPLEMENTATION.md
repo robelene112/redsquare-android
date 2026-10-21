@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:51 UTC:62 actual large-text/own-group RED retained; corrected source reviewed.
+Updated 2026-10-21 08:18 UTC:62 private-send and group200% corrections reviewed; fresh native proof next.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -219,7 +219,13 @@ Private fails earlier at fixture line98 (application-object decode of encrypted
 payload); private viewport goal unexecuted, not private product RED. Packet
 red17-own-send-fcb-39562893671 retains38 hashes/one archive25 originals and final
 paired reviews0/0. Test-only decodePayload author correction committed
-eda4fd8c37888362af37df0041640fa1d9b9a9d3; corrected17REDrun39564501913 is active.
+eda4fd8c37888362af37df0041640fa1d9b9a9d3; corrected17REDrun39564501913
+FAILS70.935s. Private now reaches the actual10s own-body/end failure after raw
+TX/Relay/decrypted-body/author checks; later private goals unreached. Group Light
+passes, Dark own-body/end fails. Packet red17-own-send-eda-39564501913 retains38
+hashes/25 original bindings, final paired0/0. Private now emits the same scoped
+exact-message request after protected prepare/retry, with no background event.
+Source reviews0/0 and compile SUCCESS3m50 explicit0; native GREEN remains pending.
 
 Expanded UI exact1f2ef runs both FAILURE.10 cached-private six-cell matrix PASS
 46.049s and private live PASS17.419s; group four100/130 cells pass then200Light
@@ -239,13 +245,26 @@ with original assertions/deadlines. Unified UI compile SUCCESS3m39 explicit exit
 final source reviews0/0. New group-only explicit ConversationMessageRequest(key,
 attempt) remains pending until its exact history item renders and wins over queued
 tail; consumed after jump. Group emits after protected prepare. Private adapter
-still defaults null and has no own-send correction before its actual RED. Group
-request reviews0/0; combined app/test compile active, record
-conversation62-own-group-unified-compile.json. Corrected UI10/17 dispatch follows.
-No final62 acceptance or new beta yet. Existing private classes
-and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
-vertical cached-opening behavior, not all62. New focused conversation-viewport
-scopes keep180second class bound; full Chat adds class without removing old goals.
+initially defaulted null; its correction follows the separately proven eda RED.
+Combined group/unified compile log SUCCESS3m41 and owned Docker exit0; outer tool
+reported143, cause unproved. Exact1449 UI10run39564986431 passes private matrix
+74.313s/live31.402s then group hits original180second host exit124 without terminal
+JUnit completion. UI17run39564989139 passes private94.608s/live19.512s; group
+fails92.1s at200Dark, actual46dp history versus unchanged48dp goal. PNG/XML shows
+wrapped Message label and clipped privacy. Packets red10/17-unified-ui-1449 retain
+300 hashes each and282/283 originals; final paired reviews0/0.
+
+Current correction reduces Back padding while preserving48dp targets and removes
+group input-row/empty-preview gaps so the Message label fits. The original group
+130% method and180second bound remain; additive GroupConversationPolishPreviewTest
+covers100/200% both themes in its own180second class using the exact same shared
+signed fixture and every original assertion/restoration step. Both focused/full
+Chat retain all four reading classes plus the independent own-send class.
+Source/packet reviews Spec0/documented Standards0/heuristic0. App/test compile
+SUCCESS with explicit exit0 (conversation62-split-matrix-compile.json). Corrected
+own-send10/17 and viewport10/17 dispatch next. No current-source focused GREEN,
+full62 acceptance or signed61 yet. Draft full catalog/collector reviewed0/0 with
+510/511 identities,147/148 completions and108 archives; not frozen or executed.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
 controlled peer/protected cache, with independent Activity-before-state restoration.
 Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.

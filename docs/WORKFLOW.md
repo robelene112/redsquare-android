@@ -169,10 +169,12 @@ complete first-release scope and the established production boundaries.
    a focused pass is not complete acceptance.
    For conversation62, `conversation-viewport` and its Android17 variant retain
    cached private opening, real private receipt/reading and group receipt/reading
-   as separate180second classes. The private opening and group cases add actual
-   Details/menu/IME checks at100/130/200% in both themes. `conversation-send` and
+   as separate180second classes. The original group reading method retains130%;
+   an additive group-polish class covers100/200% with the same signed history and
+   reading goals. Private opening covers100/130/200%. All include actual
+   Details/menu/IME checks in both themes. `conversation-send` and
    its Android17 variant isolate explicit own sends from older history in a new
-   separate180second class; full Chat retains it alongside all three reading
+   separate180second class; full Chat retains it alongside all four reading
    classes. Original methods, protocol/cache/identity goals and request bounds
    remain. Actual menus/Details replace former inline control operators; negative
    menu assertions require a positively opened popup. Owned queue jobs are stopped

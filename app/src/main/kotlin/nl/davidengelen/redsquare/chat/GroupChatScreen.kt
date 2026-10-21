@@ -348,7 +348,8 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val statusMaxHeight=minOf(maxHeight/3,80.dp)
     Column(Modifier.fillMaxSize(),verticalArrangement=Arrangement.spacedBy(8.dp)) {
         Row(verticalAlignment=Alignment.CenterVertically) {
-            TextButton(enabled=!busy&&!savingForNavigation&&!navigation.transitioning,onClick={back()}) { Text(stringResource(R.string.browse_back)) }
+            TextButton(enabled=!busy&&!savingForNavigation&&!navigation.transitioning,onClick={back()},
+                contentPadding=PaddingValues(horizontal=4.dp)) { Text(stringResource(R.string.browse_back)) }
             Column(Modifier.weight(1f)) {
                 Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.titleMedium,
                     maxLines=1,overflow=TextOverflow.Ellipsis)
@@ -582,7 +583,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 }
                             }
                         }) { preview, attachments ->
-                        Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                        Column {
                             Column((if(quote!=null||photo!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
                                 .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
                                 if(quote!=null){
@@ -591,7 +592,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 }
                                 preview()
                             }
-                            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
+                            Row(verticalAlignment=Alignment.CenterVertically){
                                 attachments()
                                 OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
                                     label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)

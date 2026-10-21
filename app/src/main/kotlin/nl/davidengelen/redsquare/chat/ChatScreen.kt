@@ -300,7 +300,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val statusMaxHeight = minOf(maxHeight / 4, 80.dp)
     Column(Modifier.fillMaxSize()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() }) {
+            TextButton(enabled = !closing && !navigation.transitioning, onClick = { close() },
+                contentPadding = PaddingValues(horizontal = 4.dp)) {
                 Text(stringResource(R.string.browse_back))
             }
             Column(Modifier.weight(1f)) {
@@ -422,8 +423,12 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (!keyboardVisible && visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
             val reactions = requireNotNull(reactionState)
+            var outgoingRequest by remember(wallet.publicKey, backend, contact) {
+                mutableStateOf<ConversationMessageRequest?>(null)
+            }
             ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
                 stringResource(R.string.chat_messages), Modifier.weight(1f),
+                requestMessage = outgoingRequest,
                 historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
                 items(visible, key = { it.id }) { message ->
                     val outgoing = message.author == wallet.publicKey
@@ -454,7 +459,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                     Text(stringResource(R.string.chat_reaction_retry))
                 }
             }
-            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies) { saved ->
+            ChatComposer(wallet, backend, endpoint, contact, personal?.ready == true, replies,
+                onOutgoing = { id -> outgoingRequest = ConversationMessageRequest(id, (outgoingRequest?.attempt ?: 0) + 1) }) { saved ->
                 entries = ChatHistoryStore.merge(entries, saved)
             }
         }
