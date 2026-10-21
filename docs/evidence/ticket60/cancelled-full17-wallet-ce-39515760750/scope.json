@@ -1,0 +1,15 @@
+{
+  "kind": "Rejected complete dispatch, original failed partition retained",
+  "workflowConclusion": "cancelled",
+  "retainedPartition": "wallet",
+  "partitionConclusion": "failure",
+  "otherPartitionOutcomes": {
+    "social": "failure",
+    "wallet": "failure",
+    "chat": "cancelled"
+  },
+  "source": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
+  "acceptance": false,
+  "limits": "No combination with replacement complete dispatches. Chat raw artifact retained externally; missing later native gates remain unaccepted.",
+  "observations": "OwnerLiveFeedTest times out30seconds looking for raw full-key Text. Root native screen shows actual populated selected-owner feed with intended contextual alias header. Later official/public/tail goals are unreached."
+}

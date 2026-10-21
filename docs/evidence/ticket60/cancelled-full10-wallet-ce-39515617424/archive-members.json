@@ -1,0 +1,1850 @@
+{
+  "agreement-author-evidence.tar": {
+    "sha256": "dc08e6e7e7ba3c96fc0cc4a4bfcb032a37df8b44a9431b71499548419ea8e81d",
+    "bytes": 186880,
+    "members": [
+      {
+        "name": "agreement-author-evidence/author-cancel-keeps-editable-text.xml",
+        "bytes": 33546,
+        "sha256": "fc33ab3a1221c0880d35fd1493a77c53dc3431c75cf3c364c37ed80642c62079",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-cancel-keeps-editable-text.xml"
+      },
+      {
+        "name": "agreement-author-evidence/author-cancel-keeps-editable-text.png",
+        "bytes": 23568,
+        "sha256": "403ec8d56cdb1aa3538d3b82e243d20c0cee9b5b137bbd0059f38f8e7600fa61",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-cancel-keeps-editable-text.png"
+      },
+      {
+        "name": "agreement-author-evidence/author-edit-deliberately-available-after-agreement.xml",
+        "bytes": 33972,
+        "sha256": "332bf7f47d7e2d30ace2ca643d4adf7fdc5c85de16672dd567908297ac6dff8e",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-edit-deliberately-available-after-agreement.xml"
+      },
+      {
+        "name": "agreement-author-evidence/author-edit-deliberately-available-after-agreement.png",
+        "bytes": 23773,
+        "sha256": "0ac16edeb20d78ec791f3ebfcfa49fe8f6b85957f878fb09efda8c4b121c6386",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-edit-deliberately-available-after-agreement.png"
+      },
+      {
+        "name": "agreement-author-evidence/author-post-removal-without-content-agreement.xml",
+        "bytes": 33682,
+        "sha256": "c2b534e4847972f4c15a4edbbe1ba92e4cc3a2154489dc3505bdc295cbc40173",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-post-removal-without-content-agreement.xml"
+      },
+      {
+        "name": "agreement-author-evidence/author-post-removal-without-content-agreement.png",
+        "bytes": 32099,
+        "sha256": "f838761b19d140496eb466efca484e09e60553ddd5534dd2cea063ad1f95b71d",
+        "retainedPath": "originals/agreement-author-evidence/agreement-author-evidence/author-post-removal-without-content-agreement.png"
+      }
+    ]
+  },
+  "agreement-evidence.tar": {
+    "sha256": "92760b2e6f398f1c93470f28b062dde66a635c1249876893b7fdc37d14edb01e",
+    "bytes": 428032,
+    "members": [
+      {
+        "name": "agreement-evidence/cancel-0-review.xml",
+        "bytes": 20860,
+        "sha256": "d1bdd314cf740ea0a58538ef99865f5de5b98d9432a4763b767ecdaab22a8eaa",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-0-review.xml"
+      },
+      {
+        "name": "agreement-evidence/cancel-0-review.png",
+        "bytes": 33307,
+        "sha256": "159d5c448f2f19b0225b89b744823bce18211e4c0f0a1e206096e42b7f025391",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-0-review.png"
+      },
+      {
+        "name": "agreement-evidence/cancel-1-review.xml",
+        "bytes": 20860,
+        "sha256": "d1bdd314cf740ea0a58538ef99865f5de5b98d9432a4763b767ecdaab22a8eaa",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-1-review.xml"
+      },
+      {
+        "name": "agreement-evidence/cancel-1-review.png",
+        "bytes": 33307,
+        "sha256": "159d5c448f2f19b0225b89b744823bce18211e4c0f0a1e206096e42b7f025391",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-1-review.png"
+      },
+      {
+        "name": "agreement-evidence/cancel-keeps-draft.xml",
+        "bytes": 27427,
+        "sha256": "1ca632ad9ee060b4b78ca3041b70578573094a3a5e9d8ccab3882f77a24c49aa",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-keeps-draft.xml"
+      },
+      {
+        "name": "agreement-evidence/cancel-keeps-draft.png",
+        "bytes": 20383,
+        "sha256": "6fdcf1cae95dbc1b19af562f00fad6d8c520a42e3db0d3f655a813bad954014b",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/cancel-keeps-draft.png"
+      },
+      {
+        "name": "agreement-evidence/late-commit-not-authorized.xml",
+        "bytes": 23290,
+        "sha256": "7dd97ac0ab4ff369b223ddea6f983fc4f76284dec4394fcfb36191ffd73e20bc",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-not-authorized.xml"
+      },
+      {
+        "name": "agreement-evidence/late-commit-not-authorized.png",
+        "bytes": 35599,
+        "sha256": "bd0f89538d745e33ebcf9eddc6466c6807bf518156dbfc872d326676ccbc6bfc",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-not-authorized.png"
+      },
+      {
+        "name": "agreement-evidence/late-commit-reopened-still-needs-agreement.xml",
+        "bytes": 22779,
+        "sha256": "1a8503cb23504ad89ff5e8f0a2e9cfb8ad4dac28bf73261fbd4c9eafaf087e25",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-reopened-still-needs-agreement.xml"
+      },
+      {
+        "name": "agreement-evidence/late-commit-reopened-still-needs-agreement.png",
+        "bytes": 33299,
+        "sha256": "f678fe59f69f828f956b60959c71f34680db5d1fef163786f641357e3f35b9ea",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-reopened-still-needs-agreement.png"
+      },
+      {
+        "name": "agreement-evidence/late-commit-explicit-retry-published.xml",
+        "bytes": 25793,
+        "sha256": "71a289642739c9a8c03fe1b608222f80a7ec477b8e24d85e12297c78f7c3aa2b",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-explicit-retry-published.xml"
+      },
+      {
+        "name": "agreement-evidence/late-commit-explicit-retry-published.png",
+        "bytes": 19938,
+        "sha256": "99538713b6aa0fab23908cf84da67a8569fc8932ba4456a5b1aa2966eb8e102d",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/late-commit-explicit-retry-published.png"
+      },
+      {
+        "name": "agreement-evidence/accepted-without-publication.xml",
+        "bytes": 27900,
+        "sha256": "1ff6f6d46bebe43f94f3d6aa92371ac34e51f5d772ecf8864273ad402ddd18c9",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/accepted-without-publication.xml"
+      },
+      {
+        "name": "agreement-evidence/accepted-without-publication.png",
+        "bytes": 23695,
+        "sha256": "2fe9837a14e5b71eb19f6e2b40893f8a3c99cedcc440454bcd754cb616754979",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/accepted-without-publication.png"
+      },
+      {
+        "name": "agreement-evidence/accepted-reopened-deliberately-published.xml",
+        "bytes": 25787,
+        "sha256": "92e804fb22e13de56980bc1b695ef7250af7123f5110424ef274b2374dfe3d0d",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/accepted-reopened-deliberately-published.xml"
+      },
+      {
+        "name": "agreement-evidence/accepted-reopened-deliberately-published.png",
+        "bytes": 19787,
+        "sha256": "620ee2c30f395f7abf340b65ec24fb64b15183cc801e23188c4548b7edecdbcd",
+        "retainedPath": "originals/agreement-evidence/agreement-evidence/accepted-reopened-deliberately-published.png"
+      }
+    ]
+  },
+  "agreement-group-evidence.tar": {
+    "sha256": "416ae95cfb58f2f82bf4a56ca1a3aad83609b908c996debf5cb6a572513459ca",
+    "bytes": 1189888,
+    "members": [
+      {
+        "name": "agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.xml",
+        "bytes": 49156,
+        "sha256": "4815bdaba91f78f14f25ed4f4b327df67b349ad8fe2f399a45b6f2f577317e05",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.png",
+        "bytes": 37499,
+        "sha256": "45d338959bc1f12b77aff8a497af1e12ecdf7ea11b6a7791f2cf089871588c86",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.semantics.txt",
+        "bytes": 19594,
+        "sha256": "556d42ded9d50bce3be6e7bba549b34005700ace94e4d36ba36188c74dba88f0",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/removal-deliberately-forwarded-without-content-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-cancel-keeps-work.xml",
+        "bytes": 51231,
+        "sha256": "976a71040cbebf3d80ccd45bbbe449a7bd0658d308959cc5d1e311cf23a71bbc",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-cancel-keeps-work.xml"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-cancel-keeps-work.png",
+        "bytes": 37707,
+        "sha256": "6a35084d87d700f4675af046cc716d32c024df99edb94bec0d0710193c3a567e",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-cancel-keeps-work.png"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-cancel-keeps-work.semantics.txt",
+        "bytes": 19638,
+        "sha256": "9c5b1b1514aa6c94298c4c683eeee85a6c7a8cbc7244d571ae89120431bbf9f3",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-cancel-keeps-work.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.xml",
+        "bytes": 51640,
+        "sha256": "65642565bb179cba362036ef238dbad789620ace8c8e6cafd6300a6bb6bcf742",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.png",
+        "bytes": 35958,
+        "sha256": "7caef87e4f0df703797fff0ece8215685c62f526bfe19a990fe080bde228a08b",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 19835,
+        "sha256": "e1f246edb8c19fefe61be8506014a94b4bbbcf830264483a6b43d0dff4ccee4a",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/reaction-deliberately-forwarded-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.xml",
+        "bytes": 46707,
+        "sha256": "d50cded8c6144333c252b6b79417d40af63049d78aa3816f9cef061aa4fefcee",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.png",
+        "bytes": 35770,
+        "sha256": "2f3e08b206a87312ffb19c02dbbc5c85a80f8ffab6fd1c6283c72c7576747dfe",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.semantics.txt",
+        "bytes": 18534,
+        "sha256": "efe61ba2289617d99b14cf9defe72229e6c9bfe574916a5a82bc915344ade947",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/leave-deliberately-forwarded-without-content-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-cancel-keeps-work.xml",
+        "bytes": 18964,
+        "sha256": "f868452656f2587069dcdc03afbe2807b4e7b979f3b78160ee517b381d3d42af",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-cancel-keeps-work.xml"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-cancel-keeps-work.png",
+        "bytes": 36104,
+        "sha256": "8f62aba7cbd7ca4ff032f75effbe31038339ffb17d3b2958c0c0a7752dfa6822",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-cancel-keeps-work.png"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-cancel-keeps-work.semantics.txt",
+        "bytes": 22325,
+        "sha256": "e65b06abc9041921d7c481446f8af4c6bdc8ff7fa1ec1cefec485afd503e3b02",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-cancel-keeps-work.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.xml",
+        "bytes": 49158,
+        "sha256": "2c36d51ac39e2f42595b85deeb473e9035da2884ca43e342b253af18e11a864d",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.png",
+        "bytes": 37121,
+        "sha256": "7c46e7a3ad037fd558833c6da0940ff59247ebc138d20ebff918b3ecf0c91f11",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 19687,
+        "sha256": "3d25107324df3b93f12d701f95d31c4aa08e034f2db9fa39858ede7b4c367d3c",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/promotion-deliberately-forwarded-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/message-cancel-keeps-work.xml",
+        "bytes": 48027,
+        "sha256": "33497a37d6da9288125857ef6d15015d8c4846df3cff9bec173040b20cf25df0",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-cancel-keeps-work.xml"
+      },
+      {
+        "name": "agreement-group-evidence/message-cancel-keeps-work.png",
+        "bytes": 41899,
+        "sha256": "fb7ab6334db7ad13e597111582074986448750793f7eb4a6f81f77a067ea6704",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-cancel-keeps-work.png"
+      },
+      {
+        "name": "agreement-group-evidence/message-cancel-keeps-work.semantics.txt",
+        "bytes": 19838,
+        "sha256": "5ace0a826c0115af1ccc52ccca144eecad8b3f84b308ced1d1b445e831eeff68",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-cancel-keeps-work.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/message-deliberately-forwarded-after-agreement.xml",
+        "bytes": 49156,
+        "sha256": "b5b28bef2fc2a810b7544260136846708325ed4f3e182929fc2c009f0e39e092",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/message-deliberately-forwarded-after-agreement.png",
+        "bytes": 37793,
+        "sha256": "deddf90592b439f11f44251c046550420626739515806679aedd046fe88a5b27",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/message-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 19725,
+        "sha256": "2e0f20280e1c60ad524b6870dd97c332b4cf1e6f802241bf0cb14df149ffafcc",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/message-deliberately-forwarded-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/join-cancel-keeps-work.xml",
+        "bytes": 22379,
+        "sha256": "9a1aa311d79af3fa1f1352bd5cc71083000d115228460e669e0b140a103ba464",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-cancel-keeps-work.xml"
+      },
+      {
+        "name": "agreement-group-evidence/join-cancel-keeps-work.png",
+        "bytes": 40373,
+        "sha256": "ac8718e2075cb55056dcdc77635053711f673a82bb4399f27157b98cd58b1c3a",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-cancel-keeps-work.png"
+      },
+      {
+        "name": "agreement-group-evidence/join-cancel-keeps-work.semantics.txt",
+        "bytes": 16657,
+        "sha256": "11ac4eba452f4a6105e2bc30849cc3aafc9e32e8f9a3fc325a71dc3c747efc70",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-cancel-keeps-work.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/join-deliberately-forwarded-after-agreement.xml",
+        "bytes": 45885,
+        "sha256": "3bb0fe5499f4c051b5f581d12a5a4bd73925a6acd0ba1129ce96fe21a286ec1b",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/join-deliberately-forwarded-after-agreement.png",
+        "bytes": 30401,
+        "sha256": "da51d4ffbf1294c44c039761d394b7e74441f9e81e61b02eab0c871924b3a70a",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/join-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 17124,
+        "sha256": "6eeaa2e4b3c41bbeb38aab1497fe3e2a30989ec5fce3ff7a7f46611c67b24bde",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/join-deliberately-forwarded-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/create-cancel-keeps-work.xml",
+        "bytes": 20968,
+        "sha256": "3627ebce47dea78d0d8d7f11dd7613752a1c9e47d753ff5e7f19a38b59002f73",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-cancel-keeps-work.xml"
+      },
+      {
+        "name": "agreement-group-evidence/create-cancel-keeps-work.png",
+        "bytes": 33278,
+        "sha256": "09fe68885378e21c8f35f1cd2a788224116cda145a11c6aaa9547ce22d9e41d4",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-cancel-keeps-work.png"
+      },
+      {
+        "name": "agreement-group-evidence/create-cancel-keeps-work.semantics.txt",
+        "bytes": 16598,
+        "sha256": "16ca8463160e7054166265d047599883da661ddf8adac235409aed4b215715ed",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-cancel-keeps-work.semantics.txt"
+      },
+      {
+        "name": "agreement-group-evidence/create-deliberately-forwarded-after-agreement.xml",
+        "bytes": 45455,
+        "sha256": "8a5577c206028e4a195a2c49fe7eb4bb5e463b908ac311297bef686fc18fd0f0",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-group-evidence/create-deliberately-forwarded-after-agreement.png",
+        "bytes": 31431,
+        "sha256": "6a41213575ccd786c13c8ea3184b346239a6c566f330ca76c6adf5818a1a6bbd",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-group-evidence/create-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 16906,
+        "sha256": "f3bda64ba439841985853fcd4f486503237ced85ce74d13fdf91147a2caacf2a",
+        "retainedPath": "originals/agreement-group-evidence/agreement-group-evidence/create-deliberately-forwarded-after-agreement.semantics.txt"
+      }
+    ]
+  },
+  "agreement-group-queue-evidence.tar": {
+    "sha256": "88073bd0aebff7b8a09761b31c9f645fdffefdc6f7ce7653d29a94ae14d3c193",
+    "bytes": 750080,
+    "members": [
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-worker-paused.json",
+        "bytes": 325,
+        "sha256": "81e655d80dbf55b8637beabff54da5a516e486387736167bf3390723495d13f9",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-worker-paused.json"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.xml",
+        "bytes": 48112,
+        "sha256": "b51a98727a4edaa2a8dee63b875016480ea554105fe77ca60f08d3928e9dfbb5",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.png",
+        "bytes": 42489,
+        "sha256": "8124dea54f727a56192d603619f012665163bb074f5a64327a87a1e97296520f",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.xml",
+        "bytes": 45531,
+        "sha256": "2bef38b2c85922a3f6ff7b1e368be629a94850244c6f30175181520354b15267",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.png",
+        "bytes": 40101,
+        "sha256": "f494ff4cea2228d7119de0adf29432393fd11ff947b86c7e65c83e667e46809d",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-queue-cancel-restores-editable-draft.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-font-scale.json"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-worker-paused.json",
+        "bytes": 325,
+        "sha256": "89d9e4fe3b0b35f4036ab9ed7432e4fe927b86cfb6ea847d58883ab3a6521b1b",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-worker-paused.json"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-before-review.xml",
+        "bytes": 42405,
+        "sha256": "3e97546df59eb1aeacc7d3b504a111e4594bf19462ecca785096c5f0e8610b54",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-before-review.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-before-review.png",
+        "bytes": 53930,
+        "sha256": "103a18fc410ce44723f9de12071ee6f278886d06ade86373343cc23e4d93f69e",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-before-review.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.xml",
+        "bytes": 42405,
+        "sha256": "3e97546df59eb1aeacc7d3b504a111e4594bf19462ecca785096c5f0e8610b54",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.png",
+        "bytes": 53930,
+        "sha256": "103a18fc410ce44723f9de12071ee6f278886d06ade86373343cc23e4d93f69e",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-before-cancel.xml",
+        "bytes": 42405,
+        "sha256": "3e97546df59eb1aeacc7d3b504a111e4594bf19462ecca785096c5f0e8610b54",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-before-cancel.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-before-cancel.png",
+        "bytes": 53930,
+        "sha256": "103a18fc410ce44723f9de12071ee6f278886d06ade86373343cc23e4d93f69e",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-before-cancel.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.xml",
+        "bytes": 41890,
+        "sha256": "183733226b967b41fc2cf3fbc7c8f2614dd9b45b6ca3b9b1133010d95be66e8e",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.png",
+        "bytes": 46667,
+        "sha256": "cd67fdceab68ec7a520525e35e9b09b132b1e1014cda858c734c650a2a7766e9",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-queue-cancel-restores-editable-draft.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-cancel-font130-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-cancel-font130-font-restored.json"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-resume-worker-paused.json",
+        "bytes": 325,
+        "sha256": "bda762c8870c5a1209acb61417d1450e3207473e1e9b29a9a084406281cfd543",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-resume-worker-paused.json"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.xml",
+        "bytes": 48112,
+        "sha256": "896b2864a5ea147ce6853db8ec09548bfcf1f7b81007bd9b90d7004279116448",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.png",
+        "bytes": 42576,
+        "sha256": "a527066aa0628b3b43457572f736d68655281c2effc5dd65b43c096fd71c4d16",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-resume-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.xml",
+        "bytes": 48086,
+        "sha256": "479b212afc02b4595f20fe9b0154051854f776fb89536cd278f522f1c4493bba",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.xml"
+      },
+      {
+        "name": "agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.png",
+        "bytes": 39832,
+        "sha256": "4393139c59be5475a134fd2c2e1d232cfc9956518054504a454960b12c88001f",
+        "retainedPath": "originals/agreement-group-queue-evidence/agreement-group-queue-evidence/group-resume-original-resumes-after-deliberate-agreement.png"
+      }
+    ]
+  },
+  "agreement-post-queue-evidence.tar": {
+    "sha256": "56e463060bc2912e3de3211ef5ef972088a20c14777adf9e8fa770f36590e859",
+    "bytes": 232448,
+    "members": [
+      {
+        "name": "agreement-post-queue-evidence/post-cancel-worker-paused.json",
+        "bytes": 325,
+        "sha256": "a7beef4a2541b5a8c1cd6fee247e945f64c81b793753a737045e5505acccd4a2",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-cancel-worker-paused.json"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.xml",
+        "bytes": 28736,
+        "sha256": "e10ace829230a0584f39b6e1ef83f548bda0223f799037ad7b4fbe7e12fbd6ea",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.png",
+        "bytes": 29427,
+        "sha256": "210252d3ac46752322374d5ccdce6556e1930d71c25f52424f2874cc438e0cda",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-cancel-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.xml",
+        "bytes": 27469,
+        "sha256": "5f3a64bb1dac27c33e776ce23a0f287a10c471d843c0567ba884caa6132768ad",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.png",
+        "bytes": 24809,
+        "sha256": "59d25cbeb39137cf5ad259444a091f8ca12ab9ea6ba362df30a5a2fda67ad954",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-cancel-queue-cancel-restores-editable-draft.png"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-resume-worker-paused.json",
+        "bytes": 325,
+        "sha256": "db5c7a48b9fca9dcb1ae4154a17244223ef1bc32592d3c1b9ef1e2c9a2574652",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-worker-paused.json"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.xml",
+        "bytes": 28736,
+        "sha256": "b132d61140d7563c2077b2b3536984361523d3f6321a7ae8383d9c5131cfdcb8",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png",
+        "bytes": 29544,
+        "sha256": "40ee01f78ad17f68cb21b7706e6c0757078e3a6d4b8d3242c3f02298028e8d89",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.xml",
+        "bytes": 26293,
+        "sha256": "ea96fe709b850ca26516fc1953f92206f7875ba841b7b8f253c7f457ee7b1857",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.xml"
+      },
+      {
+        "name": "agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.png",
+        "bytes": 27185,
+        "sha256": "79fb048051fa9386cd676c396b7a63150df65c957beeffea785b35e329b3e124",
+        "retainedPath": "originals/agreement-post-queue-evidence/agreement-post-queue-evidence/post-resume-original-resumes-after-deliberate-agreement.png"
+      }
+    ]
+  },
+  "agreement-private-queue-evidence.tar": {
+    "sha256": "5868d8ecdcf817d78783bde7d81b0428dc209fb65818a56ca0f0d16394d627d7",
+    "bytes": 777728,
+    "members": [
+      {
+        "name": "agreement-private-queue-evidence/private-resume-worker-paused.json",
+        "bytes": 325,
+        "sha256": "d2e9a48be72c00b312724fc34417ffbe1a048be1d5c3db2699d3544d4356742c",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-resume-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml",
+        "bytes": 44895,
+        "sha256": "26b48c8ef51545fefe951af6c0df4621cbd2cd3669d88ba764a7bcd39a221ab3",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png",
+        "bytes": 46307,
+        "sha256": "2275991faa3a139d36e12ed171ba22ece5acf6bc49d11b0752fdf3c26ee972e8",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-resume-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml",
+        "bytes": 49397,
+        "sha256": "c2de025f225df53e2c755381c58afb622bbad504b90ca62771be24b64bdcbc57",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png",
+        "bytes": 42814,
+        "sha256": "ca1291068d252f33e02b4e6ab878241dc9f090a9f0324bf1ffb5910e98fd74f7",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-resume-original-resumes-after-deliberate-agreement.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-font-scale.json",
+        "bytes": 99,
+        "sha256": "8576612a58a4134fb7e7bc685456d63ba16af0c0389d2a13b4e7a61a042beee2",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-font-scale.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-worker-paused.json",
+        "bytes": 325,
+        "sha256": "ef497b6032167165af4d1a2c51b1a1f1fbc261b7c30563b35333d9152c4c7f02",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-review.xml",
+        "bytes": 46150,
+        "sha256": "fd29070dda2a271cd26710af220d13f1f1ce62bd7e4a8b13b1604aad371c1f58",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-before-review.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-review.png",
+        "bytes": 53227,
+        "sha256": "48b08ebe1370d48cc7eefe8cec7581e6ac13b4b4e5cbd9ed5626f538ac7d54a1",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-before-review.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.xml",
+        "bytes": 46150,
+        "sha256": "fd29070dda2a271cd26710af220d13f1f1ce62bd7e4a8b13b1604aad371c1f58",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.png",
+        "bytes": 53227,
+        "sha256": "48b08ebe1370d48cc7eefe8cec7581e6ac13b4b4e5cbd9ed5626f538ac7d54a1",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-cancel.xml",
+        "bytes": 46150,
+        "sha256": "fd29070dda2a271cd26710af220d13f1f1ce62bd7e4a8b13b1604aad371c1f58",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-before-cancel.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-before-cancel.png",
+        "bytes": 53227,
+        "sha256": "48b08ebe1370d48cc7eefe8cec7581e6ac13b4b4e5cbd9ed5626f538ac7d54a1",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-before-cancel.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.xml",
+        "bytes": 47267,
+        "sha256": "51a43a2e17fd08d969b6d67fcd0eb8f62938d5d7679be56e1fc44c2d09e83e4e",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.png",
+        "bytes": 49088,
+        "sha256": "9e988a48891933357f09fdcf0dc58e255057dd33314203bca4462f5c2842f244",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-queue-cancel-restores-editable-draft.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-font130-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-font130-font-restored.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-worker-paused.json",
+        "bytes": 325,
+        "sha256": "347a65147890cd1c94eb7ddc7eafc77d20eb78147376e3174c1c9dd6f1fd13bd",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-worker-paused.json"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml",
+        "bytes": 44895,
+        "sha256": "7156cd952a5e8d36818df457727597b60e371179e9e6886a40d32f3ca6b26400",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png",
+        "bytes": 46019,
+        "sha256": "699ddd7c173ef5656056e2632fd2a25bff7afd039524598dd9f87bbbb7efce1c",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-review-cancel-keeps-queued-original.png"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml",
+        "bytes": 46010,
+        "sha256": "d0cb0af5ac73fb8beef4154c2c7b0e67a7d2939e364273a8d0254471e6eea89d",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.xml"
+      },
+      {
+        "name": "agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png",
+        "bytes": 44749,
+        "sha256": "38bc7c959f751e7d2e245c922b7901f49a623ea384306fe2e5e7040a471aaee2",
+        "retainedPath": "originals/agreement-private-queue-evidence/agreement-private-queue-evidence/private-cancel-queue-cancel-restores-editable-draft.png"
+      }
+    ]
+  },
+  "agreement-recovery-evidence.tar": {
+    "sha256": "3aa97c328274e615018917db9a589523f0026de7b413702cb344ad5b5ac4435a",
+    "bytes": 262656,
+    "members": [
+      {
+        "name": "agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.xml",
+        "bytes": 25824,
+        "sha256": "2610586411dd787381adefa59bd31a93c06619e0d9ff781dd941a82150e51455",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.xml"
+      },
+      {
+        "name": "agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.png",
+        "bytes": 23991,
+        "sha256": "e70dbcaf9de569680025a0f131838b230b35a76d4e58a44094c14385991e2173",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/manual-original-reconciled-without-policy-acceptance.png"
+      },
+      {
+        "name": "agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.xml",
+        "bytes": 17372,
+        "sha256": "74784ed0467f03e70dd9060925f289b1c69b49ae60490ff679fc6da49328e0bc",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.xml"
+      },
+      {
+        "name": "agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.png",
+        "bytes": 26108,
+        "sha256": "c66fcd4e3ec2af67b63005eb6d742f9a38b6782903bffc7a85c4f8ca05306f4d",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/unready-policy-cannot-reuse-earlier-agreement.png"
+      },
+      {
+        "name": "agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.xml",
+        "bytes": 20869,
+        "sha256": "b59b61510472be895cfb162d9b4f4a901dba0ca37a7c6cd4f575d8200e335a52",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.xml"
+      },
+      {
+        "name": "agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.png",
+        "bytes": 34419,
+        "sha256": "34475ce007ba0fe6a8357ce8b17164d98843ac0494dcb1a59ed65d48d6c6edb2",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/new-revision-requires-current-explicit-agreement.png"
+      },
+      {
+        "name": "agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.xml",
+        "bytes": 20869,
+        "sha256": "b59b61510472be895cfb162d9b4f4a901dba0ca37a7c6cd4f575d8200e335a52",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.xml"
+      },
+      {
+        "name": "agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.png",
+        "bytes": 34419,
+        "sha256": "34475ce007ba0fe6a8357ce8b17164d98843ac0494dcb1a59ed65d48d6c6edb2",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/unreadable-record-does-not-authorize-publishing.png"
+      },
+      {
+        "name": "agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.xml",
+        "bytes": 25848,
+        "sha256": "5f1d7b7085aa1d1b01861e3ae59a2338513dd02cbd7df986f916c8fcb8dcacf7",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.xml"
+      },
+      {
+        "name": "agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.png",
+        "bytes": 24547,
+        "sha256": "ed61f85b4f370d53f139017faa11ffca0c80c7b613ecf4b1e87dd0c61adc0f36",
+        "retainedPath": "originals/agreement-recovery-evidence/agreement-recovery-evidence/current-agreement-recovered-and-draft-deliberately-published.png"
+      }
+    ]
+  },
+  "agreement-surfaces-evidence.tar": {
+    "sha256": "b11796f315e22cc8b3de9428b33e12e3ab41e8aac417639f4ce46003fa51f414",
+    "bytes": 991744,
+    "members": [
+      {
+        "name": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.xml",
+        "bytes": 45988,
+        "sha256": "f8de22801c54293fdc57679d54dec5d03ad217396bec88e0d00040579a77b52e",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-cancel-keeps-editable-message.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.png",
+        "bytes": 40933,
+        "sha256": "c622cc430f21ec873e9f38e87fe368c618e3274d4585f356312a94d223c78a08",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-cancel-keeps-editable-message.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-cancel-keeps-editable-message.semantics.txt",
+        "bytes": 15535,
+        "sha256": "a8c01797bcef24c8fa901f63a5f4d736a3161bd03fdd063f1149ab001234eb24",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-cancel-keeps-editable-message.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.xml",
+        "bytes": 49315,
+        "sha256": "0535891c2001a3c994289cb3b782d698d1fa6cdc9b301817126ac35636bf60e7",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.png",
+        "bytes": 41371,
+        "sha256": "4ccf09b8ef8dfcb842acbbcd52f4cd22a0a55067138d5c683b0938d30420f78a",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.semantics.txt",
+        "bytes": 18625,
+        "sha256": "490f42ccf9cb220f62f4b0e85db16cd5f7b147898baa2a1dfe1d80f255b3eec2",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-deliberately-forwarded-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.xml",
+        "bytes": 20848,
+        "sha256": "19047c519552ddb1b4c371edecd09169a954737753048901842504d0963c76d4",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.png",
+        "bytes": 38365,
+        "sha256": "5b28b6f764503fcb6982d26ac1d2045482c63487bf7f8897a2d295ff098ef337",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.semantics.txt",
+        "bytes": 18626,
+        "sha256": "5a92aa580a98288777767abd5e6cef0ff728e5622c5000f97fd847693bca0b45",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-cancel-keeps-message-unliked.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.xml",
+        "bytes": 54208,
+        "sha256": "a7757d5a9ac0fe8084899322a8cd656294c368818ea9167e7c3311c0de15b420",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.png",
+        "bytes": 40660,
+        "sha256": "8be89d3c665d5fff3b6af96807afdda1f813a3c54a4abbdde2d2a24610d00908",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.semantics.txt",
+        "bytes": 19565,
+        "sha256": "1410d25c548fa624a02a5b777496e75ef521266f29929748485870a174fda33a",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-forwarded-before-scroll.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.xml",
+        "bytes": 53776,
+        "sha256": "dd7019354f274abd9e065d5f1ae17ad6592044d47c77a76f17dc4ffe79c29c88",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.png",
+        "bytes": 40135,
+        "sha256": "6ba7f789b495d91451b707697db4a943a765b7d734d80bc391df3fc5cf7693ef",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.semantics.txt",
+        "bytes": 19566,
+        "sha256": "32ea81ecf11e2f5fe87e31bca413fef515f731020d32253bf4c94f989fece873",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/private-reaction-deliberately-forwarded-after-new-revision.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.xml",
+        "bytes": 38932,
+        "sha256": "c70492d87c1041ca16e2b619e364287de1997ce95e2abc0e4ef44869eca7a05d",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.png",
+        "bytes": 30445,
+        "sha256": "76dff397a3fea632002deff898f243675090e6618e6e455fb89e882864ecc80e",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.semantics.txt",
+        "bytes": 12210,
+        "sha256": "5aa958da54ecb1d0c3da25f9ef751daae4bfa0b633fa726904dd5825cc926db2",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-cancel-keeps-editable-bio.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.xml",
+        "bytes": 39366,
+        "sha256": "2e41d01de0424a36afc929e85e557e4ab2af407298f40aff76c516f8b2ca073c",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.png",
+        "bytes": 32479,
+        "sha256": "5118a0761e9d524ca221dcd938563d145788a906694e43e422a72ded938939e2",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/profile-deliberately-published-after-agreement.semantics.txt",
+        "bytes": 12813,
+        "sha256": "541323db6f8dae5af1169934caf0a711677b651ca0ce16a6fe91aa84f1621538",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/profile-deliberately-published-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.xml",
+        "bytes": 23473,
+        "sha256": "b5c17720f1cc387005a7a0e859583f331507a9bdaf6f9b5d63716fa987e4539c",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.png",
+        "bytes": 30430,
+        "sha256": "c4598d1860ba99df9d716e9928621b00002caab644bd625af160aefbe3d5a841",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.semantics.txt",
+        "bytes": 5800,
+        "sha256": "ad17202acae018419be02bd3bd28d8f685aeec1f2b3d54f68b20d4f99dbae60a",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-cancel-keeps-name-and-availability.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.xml",
+        "bytes": 22639,
+        "sha256": "2d3341c1f605bc011d5d1bfc91bde02ef56faef48a86c4e2dd2dfedeb53729ef",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.png",
+        "bytes": 27860,
+        "sha256": "4338c45084b211ac70678e2692b0367b9fa4aef46eab04e870b0003e0e5bbb02",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.semantics.txt",
+        "bytes": 5334,
+        "sha256": "38ad0204a6a27d4164d338dc201f2897b165ebb8cb6f51ef213a6e1f04154be5",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/registry-deliberately-registered-after-agreement.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml",
+        "bytes": 20817,
+        "sha256": "c33394eb92474418046d913c3dbadfc02adb5916046f6b0b9c187a8d06e52631",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png",
+        "bytes": 37375,
+        "sha256": "9f4c34c818a68a098ea24484b9f2ac78a0f671dea0d569fe67199b8777e065c2",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-cancelled-and-reviewed-again.semantics.txt",
+        "bytes": 18242,
+        "sha256": "bdf84f69987fbee1be464338f0b58aaeb0b157e2c938d5b80c1ed5d090733c80",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-cancelled-and-reviewed-again.semantics.txt"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.xml",
+        "bytes": 45041,
+        "sha256": "c3ef6be1fd63525b767bca0b20d8180d8bbfbe31a3865ec7eef9e8eeeb8fa73a",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-deliberately-published-after-agreement.xml"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.png",
+        "bytes": 29874,
+        "sha256": "b15ffb9fa31798f06b4b8b3b0871059b691d2db93f9f1bc6bee86c53f5caece9",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-deliberately-published-after-agreement.png"
+      },
+      {
+        "name": "agreement-surfaces-evidence/like-deliberately-published-after-agreement.semantics.txt",
+        "bytes": 14447,
+        "sha256": "376ef74de8431487d0ef4c5d31ef123bd3258bbd390a7234c7124e43f209f472",
+        "retainedPath": "originals/agreement-surfaces-evidence/agreement-surfaces-evidence/like-deliberately-published-after-agreement.semantics.txt"
+      }
+    ]
+  },
+  "backend-ui-evidence.tar": {
+    "sha256": "c60a2ff2cf49c1bb5769673ded94a1a92cbf48f44a35ab461833e7b2088a0052",
+    "bytes": 150528,
+    "members": [
+      {
+        "name": "backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+        "bytes": 27867,
+        "sha256": "6cbf1c213b59d0d541f0856c9c53157170936b75793ee881eaab379a08f20b0f",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png"
+      },
+      {
+        "name": "backend-ui-evidence/screen.png",
+        "bytes": 29734,
+        "sha256": "998a3b41548360f789fc5c9308995c45500d42f262a009b8a716361b98df3496",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/screen.png"
+      },
+      {
+        "name": "backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+        "bytes": 29734,
+        "sha256": "998a3b41548360f789fc5c9308995c45500d42f262a009b8a716361b98df3496",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png"
+      },
+      {
+        "name": "backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+        "bytes": 27867,
+        "sha256": "6cbf1c213b59d0d541f0856c9c53157170936b75793ee881eaab379a08f20b0f",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png"
+      },
+      {
+        "name": "backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+        "bytes": 29679,
+        "sha256": "ca29962aaae280740aad6ef111998dffb97cf875a89686dd49171f37a9d56a8e",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png"
+      }
+    ]
+  },
+  "feed-readiness-evidence.tar": {
+    "sha256": "82d66b19ef2f945297f3e9dea291bab9938841530cf4bfdeaf9d19d82e778cd5",
+    "bytes": 192000,
+    "members": [
+      {
+        "name": "feed-readiness-evidence/muted.xml",
+        "bytes": 35076,
+        "sha256": "bb95619638f906f3627481abc23e058093c986447a76deac29f3076c001b02f0",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/muted.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/muted.png",
+        "bytes": 19127,
+        "sha256": "de702169e605d24cf2e83d22270918b66e72af5f331fbdea55e624ba95786eb4",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/muted.png"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.xml",
+        "bytes": 18804,
+        "sha256": "4f183b20931aca31dcd087d67ec2a35ded1bdd4cb9a9ab9ff47bee8e310ed797",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/ready-behind-dialog.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.png",
+        "bytes": 38344,
+        "sha256": "40752921ff4b306a2385d7c61d88428d6aa1fe640c11efe5dc4b2565dbdb07b2",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/ready-behind-dialog.png"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.xml",
+        "bytes": 45039,
+        "sha256": "476ab22af01837d96324e895df613894586f56395285c4b65bfc66fc07e86666",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/interactive.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.png",
+        "bytes": 29734,
+        "sha256": "998a3b41548360f789fc5c9308995c45500d42f262a009b8a716361b98df3496",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/interactive.png"
+      }
+    ]
+  },
+  "policy-evidence.tar": {
+    "sha256": "abcb6ad74a03261d2e5ec29d73139571b22054be1244ef8a3a43b809ab59544c",
+    "bytes": 1093632,
+    "members": [
+      {
+        "name": "policy-evidence/light-overview.xml",
+        "bytes": 22991,
+        "sha256": "233867050601a42d2bac108bb13f5f85042ed809eb200e35d9f33ba19c4a733a",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-overview.xml"
+      },
+      {
+        "name": "policy-evidence/light-overview.png",
+        "bytes": 37689,
+        "sha256": "04aaf1a33bcaa61670ddded8cc32060e697306f10aa18eda750f956e128ecbc2",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-overview.png"
+      },
+      {
+        "name": "policy-evidence/light-terms-of-use.xml",
+        "bytes": 22204,
+        "sha256": "659b9f6ad2e6eaa9667c65b5df5a2c8a056f788e0f64b72769a0fedefdffbf55",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-terms-of-use.xml"
+      },
+      {
+        "name": "policy-evidence/light-terms-of-use.png",
+        "bytes": 39758,
+        "sha256": "775e48e108887248f2cecedce77a78458784ba4c86664beec8c7d7a92386001f",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-terms-of-use.png"
+      },
+      {
+        "name": "policy-evidence/light-privacy-notice.xml",
+        "bytes": 21248,
+        "sha256": "681cde89e68a47b53454c36f5f69ed96f864b94c54f6b14a66ebafa65e1d91d7",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-privacy-notice.xml"
+      },
+      {
+        "name": "policy-evidence/light-privacy-notice.png",
+        "bytes": 41066,
+        "sha256": "594547ec5162e2eb806fdc9f26750e064fe388ba8d42ec6e450863fe12a58456",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-privacy-notice.png"
+      },
+      {
+        "name": "policy-evidence/light-community-guidelines.xml",
+        "bytes": 21552,
+        "sha256": "3beeed56f8c8ddd2194004e9ed8bed89191866c577ef90dd843062a3513bac1b",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-community-guidelines.xml"
+      },
+      {
+        "name": "policy-evidence/light-community-guidelines.png",
+        "bytes": 39593,
+        "sha256": "fd4a8fcce450fcaa25efa6ee2671a837daa551157bf4a6f3de6ef03bba435d02",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-community-guidelines.png"
+      },
+      {
+        "name": "policy-evidence/light-child-safety.xml",
+        "bytes": 22071,
+        "sha256": "954e01408ba9760be753336e80d6fbeff0a4b5d80d9a9dc76f66750a0b07a882",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-child-safety.xml"
+      },
+      {
+        "name": "policy-evidence/light-child-safety.png",
+        "bytes": 40003,
+        "sha256": "11dd69710d94bd6bd0cd078e99f116a3205487b4902c9688cdaefc45661ebd8d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-child-safety.png"
+      },
+      {
+        "name": "policy-evidence/light-data-and-deletion.xml",
+        "bytes": 21575,
+        "sha256": "71ed18425feb45c0c13bb1a13e315ac8dd448f366d08642d0cfdc16abb53645d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-data-and-deletion.xml"
+      },
+      {
+        "name": "policy-evidence/light-data-and-deletion.png",
+        "bytes": 39107,
+        "sha256": "c2351f7dd058a80a07e30d0733c2426c83489035fdbec8674ce86bdc567a7489",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-data-and-deletion.png"
+      },
+      {
+        "name": "policy-evidence/light-deletion-restored.xml",
+        "bytes": 21575,
+        "sha256": "71ed18425feb45c0c13bb1a13e315ac8dd448f366d08642d0cfdc16abb53645d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-deletion-restored.xml"
+      },
+      {
+        "name": "policy-evidence/light-deletion-restored.png",
+        "bytes": 39107,
+        "sha256": "c2351f7dd058a80a07e30d0733c2426c83489035fdbec8674ce86bdc567a7489",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-deletion-restored.png"
+      },
+      {
+        "name": "policy-evidence/light-contact-and-support.xml",
+        "bytes": 22057,
+        "sha256": "6f5fd4627e8c6e8376334123cde96cbf4dd4e2685c35a300cda3129240c59653",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-contact-and-support.xml"
+      },
+      {
+        "name": "policy-evidence/light-contact-and-support.png",
+        "bytes": 43605,
+        "sha256": "a08cb32d6e3195c54367be650c06eecc7093afe022a27c059561b297ff0c6925",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-contact-and-support.png"
+      },
+      {
+        "name": "policy-evidence/dark-overview.xml",
+        "bytes": 22991,
+        "sha256": "233867050601a42d2bac108bb13f5f85042ed809eb200e35d9f33ba19c4a733a",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-overview.xml"
+      },
+      {
+        "name": "policy-evidence/dark-overview.png",
+        "bytes": 39361,
+        "sha256": "c0f20b713170f9637f29b6b136fb3df2f3b7456c2ca2ae7b269bc6645e479854",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-overview.png"
+      },
+      {
+        "name": "policy-evidence/dark-terms-of-use.xml",
+        "bytes": 22204,
+        "sha256": "659b9f6ad2e6eaa9667c65b5df5a2c8a056f788e0f64b72769a0fedefdffbf55",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-terms-of-use.xml"
+      },
+      {
+        "name": "policy-evidence/dark-terms-of-use.png",
+        "bytes": 42772,
+        "sha256": "fd5f3e227ccb39820fcccb86edcad5e6164b73d5cbad5558fc8dce726486c809",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-terms-of-use.png"
+      },
+      {
+        "name": "policy-evidence/dark-privacy-notice.xml",
+        "bytes": 21248,
+        "sha256": "681cde89e68a47b53454c36f5f69ed96f864b94c54f6b14a66ebafa65e1d91d7",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-privacy-notice.xml"
+      },
+      {
+        "name": "policy-evidence/dark-privacy-notice.png",
+        "bytes": 44728,
+        "sha256": "60c919bd9eb37b21ff48853275a8c77cd4a65bb5fa7f7d4683d7cf6448981e6c",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-privacy-notice.png"
+      },
+      {
+        "name": "policy-evidence/dark-community-guidelines.xml",
+        "bytes": 21552,
+        "sha256": "3beeed56f8c8ddd2194004e9ed8bed89191866c577ef90dd843062a3513bac1b",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-community-guidelines.xml"
+      },
+      {
+        "name": "policy-evidence/dark-community-guidelines.png",
+        "bytes": 43021,
+        "sha256": "3c386b43fe8963c2f01835f150d35448df67fa888af3134cad8c5242f70ad7e5",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-community-guidelines.png"
+      },
+      {
+        "name": "policy-evidence/dark-child-safety.xml",
+        "bytes": 22071,
+        "sha256": "954e01408ba9760be753336e80d6fbeff0a4b5d80d9a9dc76f66750a0b07a882",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-child-safety.xml"
+      },
+      {
+        "name": "policy-evidence/dark-child-safety.png",
+        "bytes": 43514,
+        "sha256": "8266f7d154b08655479477810f6ed4c3a495e05fa4e8f4ed4f5f9d0b249bc158",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-child-safety.png"
+      },
+      {
+        "name": "policy-evidence/dark-data-and-deletion.xml",
+        "bytes": 21575,
+        "sha256": "71ed18425feb45c0c13bb1a13e315ac8dd448f366d08642d0cfdc16abb53645d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-data-and-deletion.xml"
+      },
+      {
+        "name": "policy-evidence/dark-data-and-deletion.png",
+        "bytes": 42813,
+        "sha256": "596f174ee9d54870c817a12167bf798475c2f34ea6fa39d801fa8ff8c15772cb",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-data-and-deletion.png"
+      },
+      {
+        "name": "policy-evidence/dark-deletion-restored.xml",
+        "bytes": 21575,
+        "sha256": "71ed18425feb45c0c13bb1a13e315ac8dd448f366d08642d0cfdc16abb53645d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-deletion-restored.xml"
+      },
+      {
+        "name": "policy-evidence/dark-deletion-restored.png",
+        "bytes": 42813,
+        "sha256": "596f174ee9d54870c817a12167bf798475c2f34ea6fa39d801fa8ff8c15772cb",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-deletion-restored.png"
+      },
+      {
+        "name": "policy-evidence/dark-contact-and-support.xml",
+        "bytes": 22057,
+        "sha256": "6f5fd4627e8c6e8376334123cde96cbf4dd4e2685c35a300cda3129240c59653",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-contact-and-support.xml"
+      },
+      {
+        "name": "policy-evidence/dark-contact-and-support.png",
+        "bytes": 46784,
+        "sha256": "b1f8fd2e3140fd6031e219a05e1b682da4ac002e3b0a8f02ff2500fb1b9821a6",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-contact-and-support.png"
+      },
+      {
+        "name": "policy-evidence/saved-draft-restored.xml",
+        "bytes": 27423,
+        "sha256": "eaf1a2e4dd292281442a9ee185797f2e7d15be728212e72f65e5f29615bb42e7",
+        "retainedPath": "originals/policy-evidence/policy-evidence/saved-draft-restored.xml"
+      },
+      {
+        "name": "policy-evidence/saved-draft-restored.png",
+        "bytes": 20349,
+        "sha256": "294c39229119275d622f403faf97d88b0819cf08649599cc341ee8935a132b75",
+        "retainedPath": "originals/policy-evidence/policy-evidence/saved-draft-restored.png"
+      }
+    ]
+  },
+  "publisher-availability-evidence.tar": {
+    "sha256": "08138fa9b35462d2d507aaacb32a87954034ce94288c63aea2068b06416bb4f1",
+    "bytes": 275456,
+    "members": [
+      {
+        "name": "publisher-availability-evidence/absent-request-unavailable.xml",
+        "bytes": 16928,
+        "sha256": "963fa0b8372c54943463a77ae2e028a1d0cd3743eff30d690cd7ca79760b31d0",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/absent-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/absent-request-unavailable.png",
+        "bytes": 36128,
+        "sha256": "428cb69357771b36c4006d0575f9857b628b044eee2fa2654c53a191f6bfb9cd",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/absent-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/unready-request-unavailable.xml",
+        "bytes": 16928,
+        "sha256": "963fa0b8372c54943463a77ae2e028a1d0cd3743eff30d690cd7ca79760b31d0",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/unready-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/unready-request-unavailable.png",
+        "bytes": 36128,
+        "sha256": "428cb69357771b36c4006d0575f9857b628b044eee2fa2654c53a191f6bfb9cd",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/unready-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/missing-destinations-request-unavailable.xml",
+        "bytes": 16928,
+        "sha256": "963fa0b8372c54943463a77ae2e028a1d0cd3743eff30d690cd7ca79760b31d0",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/missing-destinations-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/missing-destinations-request-unavailable.png",
+        "bytes": 36128,
+        "sha256": "428cb69357771b36c4006d0575f9857b628b044eee2fa2654c53a191f6bfb9cd",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/missing-destinations-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-destinations-request-unavailable.xml",
+        "bytes": 16928,
+        "sha256": "963fa0b8372c54943463a77ae2e028a1d0cd3743eff30d690cd7ca79760b31d0",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-destinations-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-destinations-request-unavailable.png",
+        "bytes": 36128,
+        "sha256": "428cb69357771b36c4006d0575f9857b628b044eee2fa2654c53a191f6bfb9cd",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-destinations-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-readiness-request-unavailable.xml",
+        "bytes": 16928,
+        "sha256": "963fa0b8372c54943463a77ae2e028a1d0cd3743eff30d690cd7ca79760b31d0",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-readiness-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-readiness-request-unavailable.png",
+        "bytes": 36128,
+        "sha256": "428cb69357771b36c4006d0575f9857b628b044eee2fa2654c53a191f6bfb9cd",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-readiness-request-unavailable.png"
+      }
+    ]
+  },
+  "publisher-requests-evidence.tar": {
+    "sha256": "d1457890965078776a51a86e408807cf313532331fce8a81aa0358ee7f9e7e2f",
+    "bytes": 182272,
+    "members": [
+      {
+        "name": "publisher-requests-evidence/request-page-explicit-open.xml",
+        "bytes": 20478,
+        "sha256": "178501476a42fac5b21adc1d51b0ae23886e7ee7e8297b48e2a8bf5fd2b1d430",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-explicit-open.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-explicit-open.png",
+        "bytes": 42706,
+        "sha256": "3dd2c266cd2d9d088bbcf25162e4ce3d3e86fad150ace393d322d8c78deb2fd6",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-explicit-open.png"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-no-browser.xml",
+        "bytes": 20469,
+        "sha256": "2690c59bfc030461d2d6a01742ac55219a51534b34010b66c25f8978b849e812",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-no-browser.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-no-browser.png",
+        "bytes": 43291,
+        "sha256": "8425355bc5e4bb4f1123b9bb3045f4a39ecc39e4ba9a1fbb8e3b4c6e7bee80dd",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-no-browser.png"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-keeps-unsent-draft.xml",
+        "bytes": 27454,
+        "sha256": "44a509670d872cc8f64bc4c7beb90f78c3e4181ac5164c5af7569a6189e3fe7a",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-keeps-unsent-draft.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-keeps-unsent-draft.png",
+        "bytes": 22291,
+        "sha256": "0b48b2f932c305724cc0cde879beb57778ba7a9996d646cba7195c3174efda39",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-keeps-unsent-draft.png"
+      }
+    ]
+  },
+  "publisher-routes-evidence.tar": {
+    "sha256": "f3bb0358655b5cec74d38a9390e64e921709a287c5fe87f21a7c4be4d85b6660",
+    "bytes": 351232,
+    "members": [
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-unavailable.xml",
+        "bytes": 17324,
+        "sha256": "cc120903816402d61c7c3fd65a466ab7ee8aad596e94110857a5fba7f369fd5a",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-unavailable.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-unavailable.png",
+        "bytes": 34493,
+        "sha256": "04b9f38f6246cbfad3f3166ab4373082daec95ca9502a816d8eb9091a1125cba",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-unavailable.png"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-keeps-draft.xml",
+        "bytes": 27458,
+        "sha256": "4ba8e49afc3bfe0487265a4beb75339430a248064cea8dc7505eb4dc5ecb309b",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-keeps-draft.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-keeps-draft.png",
+        "bytes": 22544,
+        "sha256": "7cec72c5f583a90e6e1815d91bb7be4b50883a4faeda7d72ae0fa542aafc74ec",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-keeps-draft.png"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-draft-requested.xml",
+        "bytes": 22146,
+        "sha256": "50b55cfda826ec69e7f164be7bc171635d5f122eb89a67aee2fd58c1465ac0d6",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-draft-requested.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-draft-requested.png",
+        "bytes": 38156,
+        "sha256": "cba5e525f31293ce18a508eca4ce1962533c3bbef4ae14192295dc2a49d3ebd3",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-draft-requested.png"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-no-email-app.xml",
+        "bytes": 22127,
+        "sha256": "fe5b92115114d5eba286ed936c98c3ffbe907a5a25cbf5b391e1fc74e82a2094",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-no-email-app.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-no-email-app.png",
+        "bytes": 36596,
+        "sha256": "d36a1ad8e75d93a71cfb4cb5ebbd31e85f376e66c4defa42adf29fd9a4fcb83a",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-no-email-app.png"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-0.xml",
+        "bytes": 22112,
+        "sha256": "98eaf3be19a363b7b39a8dd90213715f44551c39bbf82a8df6f4b75ef56aeb84",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-0.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-0.png",
+        "bytes": 36795,
+        "sha256": "92935edc330b8183758f0aed1e6c7468540d91d3b3a6a9ebb44f0d24c80f9dea",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-0.png"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-1.xml",
+        "bytes": 22116,
+        "sha256": "97ed6f4f4ff5f9d3d35e6aa2a29666281e474a57f3b3136234f22f56883efde4",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-1.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-1.png",
+        "bytes": 37950,
+        "sha256": "f4752324346965e3c3a41f4a7544293041497de04befb79dcea096b4534684b9",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-1.png"
+      }
+    ]
+  },
+  "publisher-user-report-evidence.tar": {
+    "sha256": "94321691f7ad981d43d9a331d578f1bc902b70c2374b52b00e4290c991387e73",
+    "bytes": 257024,
+    "members": [
+      {
+        "name": "publisher-user-report-evidence/owner-exact-report-context.xml",
+        "bytes": 22324,
+        "sha256": "4779ee4cf5e13cbaf0895460b897013b0540c753b491c6c8e728a95f2dea5416",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-exact-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-exact-report-context.png",
+        "bytes": 46250,
+        "sha256": "888e72d6a530e4d8dfef19d96950a2c7ada83b2cfbc85cdf12590ef858703168",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-exact-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-exact-report-context.xml",
+        "bytes": 22298,
+        "sha256": "b4d54ab703e116e06153018ca54857e7dedaaee214115160952e01820cc7119b",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-exact-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-exact-report-context.png",
+        "bytes": 45734,
+        "sha256": "31a916f4c938bb08c516ca96dcf2982a4b8f851acb348864a15146e65e4811ea",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-exact-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-unconfigured-report-context.xml",
+        "bytes": 19116,
+        "sha256": "127c1cdd15e28deebaacd2f45c7b15f099d29c86f134726a9dab25a9f48e6ee4",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-unconfigured-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-unconfigured-report-context.png",
+        "bytes": 37655,
+        "sha256": "7e5053c0be60d915bfee13b591fd7d0de2582589fa403322cb48bdd7e13d0f22",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-unconfigured-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-unconfigured-report-context.xml",
+        "bytes": 19103,
+        "sha256": "808052b4c4804d13024dfdaa0c8096cfad3db27c9f1a68012bd47b43174c5658",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-unconfigured-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-unconfigured-report-context.png",
+        "bytes": 36832,
+        "sha256": "50a85bb9ab03fcfb9e255a6deb439f0cae848ed35c2b7bf60cf581c64f00c6f6",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-unconfigured-report-context.png"
+      }
+    ]
+  },
+  "publisher-viewport-evidence.tar": {
+    "sha256": "1d45e9a523271057df7ced32df13f29a3b4b015846d62b970f659527e29199c6",
+    "bytes": 325120,
+    "members": [
+      {
+        "name": "publisher-viewport-evidence/publisher-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font-scale.json"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml",
+        "bytes": 41957,
+        "sha256": "c3735c2d75b1732bab97b4ec32c9e46799dba2961bbfd2bf07910f0d0d72b899",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.png",
+        "bytes": 42057,
+        "sha256": "781fe505b58198194a08473f319dcb1eeda37523034a6e521ed2afe10752fe2f",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-compose.xml",
+        "bytes": 41957,
+        "sha256": "c3735c2d75b1732bab97b4ec32c9e46799dba2961bbfd2bf07910f0d0d72b899",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-compose.png",
+        "bytes": 42057,
+        "sha256": "781fe505b58198194a08473f319dcb1eeda37523034a6e521ed2afe10752fe2f",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-long-request-page.xml",
+        "bytes": 20252,
+        "sha256": "34c2f383c499001abd396d27fb15f4c2955167a69eb66bd747fecc8a8d8ade62",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-long-request-page.png",
+        "bytes": 31271,
+        "sha256": "0d77db79f06d6edbc53ca9d7f4cd55b4e59862ec38f9c06d3caf6a401918d7e2",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml",
+        "bytes": 45993,
+        "sha256": "51657e1742410dbf770a134406d47fa502ac5db1b3187b7705344f48d636cbc4",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png",
+        "bytes": 49677,
+        "sha256": "9c3ad1ccd46521a9474e764fd50f8a8b5343bd544d5935cc30ea3b071a130f37",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font-restored.json"
+      }
+    ]
+  },
+  "publishing-process/images.tar": {
+    "sha256": "bed75995cbb944c25830403b6f2971e7fdbde0109b89ba5842b9ed4bf68659b1",
+    "bytes": 169472,
+    "members": [
+      {
+        "name": "publishing-process-evidence/accepted-draft-before-process-death.xml",
+        "bytes": 37202,
+        "sha256": "a2f477f1758119a4fe9352b491efa4ae32c4f1e27da7e2bd3ea802b7a1fcc73f",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/accepted-draft-before-process-death.xml"
+      },
+      {
+        "name": "publishing-process-evidence/accepted-draft-before-process-death.png",
+        "bytes": 24030,
+        "sha256": "592733b5f4f3c61abcb10a8f4034ceff745651f55e380fd6f0d1ad7af3589a08",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/accepted-draft-before-process-death.png"
+      },
+      {
+        "name": "publishing-process-evidence/cold-agreement-keeps-unsent-draft.xml",
+        "bytes": 27489,
+        "sha256": "0ea0dc3c99aaa33ad0adb515a13bd765f2982df77e8e230aa260daa9e8e5f143",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/cold-agreement-keeps-unsent-draft.xml"
+      },
+      {
+        "name": "publishing-process-evidence/cold-agreement-keeps-unsent-draft.png",
+        "bytes": 25064,
+        "sha256": "7a7438992028a8e331287f82daf6e0cee4b75a7cf677d9d01c4a7b02abf178cd",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/cold-agreement-keeps-unsent-draft.png"
+      },
+      {
+        "name": "publishing-process-evidence/cold-agreement-deliberate-send.xml",
+        "bytes": 25844,
+        "sha256": "5d69678396ec81a07d8c58acf5395cec74e4438816b39454e454afbe14d10dbf",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/cold-agreement-deliberate-send.xml"
+      },
+      {
+        "name": "publishing-process-evidence/cold-agreement-deliberate-send.png",
+        "bytes": 24236,
+        "sha256": "6348df67cce9a6e8aafc29f26b17ad21aafcd01cf940ba7062502ec532b60b51",
+        "retainedPath": "originals/publishing-process/images/publishing-process-evidence/cold-agreement-deliberate-send.png"
+      }
+    ]
+  },
+  "wallet-backup-evidence.tar": {
+    "sha256": "48569941aeb6c617b70d55bb935717b0f24cc3d32d5d5fa7d6617436fc7d8d48",
+    "bytes": 108032,
+    "members": [
+      {
+        "name": "wallet-backup-evidence/private-backup-guidance.png",
+        "bytes": 41659,
+        "sha256": "24db6ebc125534b7efe3c96f7f735aa2f3112d1fb3c0f49851e82d7ca26bba0b",
+        "retainedPath": "originals/wallet-backup-evidence/wallet-backup-evidence/private-backup-guidance.png"
+      },
+      {
+        "name": "wallet-backup-evidence/recovery-guide.png",
+        "bytes": 41659,
+        "sha256": "24db6ebc125534b7efe3c96f7f735aa2f3112d1fb3c0f49851e82d7ca26bba0b",
+        "retainedPath": "originals/wallet-backup-evidence/wallet-backup-evidence/recovery-guide.png"
+      },
+      {
+        "name": "wallet-backup-evidence/dismissed.png",
+        "bytes": 10043,
+        "sha256": "e21d10de0187cc3035774819a7da3b90f0e1dab9b4144beb395d34969538e779",
+        "retainedPath": "originals/wallet-backup-evidence/wallet-backup-evidence/dismissed.png"
+      },
+      {
+        "name": "wallet-backup-evidence/screen.png",
+        "bytes": 10043,
+        "sha256": "e21d10de0187cc3035774819a7da3b90f0e1dab9b4144beb395d34969538e779",
+        "retainedPath": "originals/wallet-backup-evidence/wallet-backup-evidence/screen.png"
+      }
+    ]
+  },
+  "wallet-export-evidence.tar": {
+    "sha256": "5b0cecd700e5406acbcd562d1366a9a663cd3a731de3d0928f583e63220398ef",
+    "bytes": 306688,
+    "members": [
+      {
+        "name": "wallet-export-evidence/no-lock.png",
+        "bytes": 32552,
+        "sha256": "97857ce85837c059975390ee7696ee9703a5798380cbaabfee3076f03b8c8039",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/no-lock.png"
+      },
+      {
+        "name": "wallet-export-evidence/screen.png",
+        "bytes": 30144,
+        "sha256": "f3aa511bb6516817ca9948a85ffd27220640c7d566200dd3f663142f724d4be8",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/screen.png"
+      },
+      {
+        "name": "wallet-export-evidence/provider-deadline.png",
+        "bytes": 34537,
+        "sha256": "e921ece03cb8579a1f6c07e697b4e8c6d9ddcffc6b45a7c7bfbe01930ba51c3a",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/provider-deadline.png"
+      },
+      {
+        "name": "wallet-export-evidence/write-fails.png",
+        "bytes": 34085,
+        "sha256": "c12cf1991b0287862957b5ee1735758fc1d3e96f2cf1a39c26a832e6dcd9cf10",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/write-fails.png"
+      },
+      {
+        "name": "wallet-export-evidence/read-fails.png",
+        "bytes": 34456,
+        "sha256": "a5258ffbf0e0fa1e31518a54cc0e269e695dfba291b2bc953b6e57db2a38e6e4",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/read-fails.png"
+      },
+      {
+        "name": "wallet-export-evidence/truncated-read.png",
+        "bytes": 34456,
+        "sha256": "a5258ffbf0e0fa1e31518a54cc0e269e695dfba291b2bc953b6e57db2a38e6e4",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/truncated-read.png"
+      },
+      {
+        "name": "wallet-export-evidence/provider-retry.png",
+        "bytes": 31873,
+        "sha256": "95df2eff7004e0d6462a62bccb7a6e905d8f783e23ddb4e3bf8cf305420c1306",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/provider-retry.png"
+      },
+      {
+        "name": "wallet-export-evidence/real-pin-success.png",
+        "bytes": 32382,
+        "sha256": "1b9d5870332fe104e613dc850e4798ffa4ede8ac0645521528808c562030f6b6",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/real-pin-success.png"
+      },
+      {
+        "name": "wallet-export-evidence/authentication-cancelled.png",
+        "bytes": 33340,
+        "sha256": "47e927ba1bb6fcd53bc50541018355c6244de26cd91f50eec353413302526c02",
+        "retainedPath": "originals/wallet-export-evidence/wallet-export-evidence/authentication-cancelled.png"
+      }
+    ]
+  },
+  "wallet-import-evidence.tar": {
+    "sha256": "6939a3b5510d3e690fc0a3e5346542061e37c6c48062fc823e7c563abf067e66",
+    "bytes": 712704,
+    "members": [
+      {
+        "name": "wallet-import-evidence/activated-wallet.png",
+        "bytes": 29941,
+        "sha256": "0b65d1043026d3593d7f15aa908e1d9fe558cc27704a0e6bb1dcdc2818ed7d96",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activated-wallet.png"
+      },
+      {
+        "name": "wallet-import-evidence/activation-owner-feed-visible.xml",
+        "bytes": 20911,
+        "sha256": "832bef317863fdd8d84bca8511ee0a2eb3b778c5a775a44f0d7817b380c69959",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activation-owner-feed-visible.xml"
+      },
+      {
+        "name": "wallet-import-evidence/activation-owner-feed-visible.png",
+        "bytes": 14959,
+        "sha256": "2d1f1ef5a5af37e0a2de8d35363b3a28602bd68a51ce0801820d5f38f9bd68bf",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activation-owner-feed-visible.png"
+      },
+      {
+        "name": "wallet-import-evidence/activated-wallet-recreated.png",
+        "bytes": 29666,
+        "sha256": "9554df457878eb3fb09b8b57c1c338075f1420eb4e3ec16bd07f3948e13c5274",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/activated-wallet-recreated.png"
+      },
+      {
+        "name": "wallet-import-evidence/invalid-import.json-rejected.png",
+        "bytes": 32239,
+        "sha256": "a5db527b85b6164405293ec39570e71438024b78c1539eadc0d68c1cf1fbaf32",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/invalid-import.json-rejected.png"
+      },
+      {
+        "name": "wallet-import-evidence/malformed-utf8-import.json-rejected.png",
+        "bytes": 32239,
+        "sha256": "a5db527b85b6164405293ec39570e71438024b78c1539eadc0d68c1cf1fbaf32",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/malformed-utf8-import.json-rejected.png"
+      },
+      {
+        "name": "wallet-import-evidence/invalid-backup-recovery.png",
+        "bytes": 30434,
+        "sha256": "468187143f223f1a081be947e49d1484412f94d510b3f856b20bf49e57bb3cb6",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/invalid-backup-recovery.png"
+      },
+      {
+        "name": "wallet-import-evidence/stalled-provider-fresh-preview.png",
+        "bytes": 46119,
+        "sha256": "f04f1543bdbbc2e93648f90d4e45074034625056b51ee526fbcb5f597b8b36d5",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/stalled-provider-fresh-preview.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-positive.png",
+        "bytes": 46761,
+        "sha256": "1fcde5b91fb9f8daa0c832769ff45fc189ab6501201896e3af79e2c8cb5b8fee",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-positive.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-zero.png",
+        "bytes": 47443,
+        "sha256": "74c3f02cc1cae33eaa5ff86c05190cc5d360bdab92afe5c2548b2399aa5d08bd",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-zero.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-malformed.png",
+        "bytes": 46236,
+        "sha256": "3a0e266f1d864930225ec7b7a7b3cdc8f7a32987319eca7c680b12ea379bf703",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-malformed.png"
+      },
+      {
+        "name": "wallet-import-evidence/balance-stale.png",
+        "bytes": 46236,
+        "sha256": "3a0e266f1d864930225ec7b7a7b3cdc8f7a32987319eca7c680b12ea379bf703",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/balance-stale.png"
+      },
+      {
+        "name": "wallet-import-evidence/failed-save-restored.png",
+        "bytes": 32055,
+        "sha256": "92c7fcb17386c6991fab0474020681241cef2541a875232c6a69ed07c7add00a",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/failed-save-restored.png"
+      },
+      {
+        "name": "wallet-import-evidence/failed-save-restored-recreated.png",
+        "bytes": 30381,
+        "sha256": "843ae8d2777d0c79c5f96bf2314585de80263ab437878805b23deab471efbc1e",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/failed-save-restored-recreated.png"
+      },
+      {
+        "name": "wallet-import-evidence/valid-preview-same.png",
+        "bytes": 41633,
+        "sha256": "cfc23eacf4a9a79a1570e2e2e9016a07bdb218289857028109e82e68fd33debc",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/valid-preview-same.png"
+      },
+      {
+        "name": "wallet-import-evidence/confirmed-same-wallet-restore.png",
+        "bytes": 30535,
+        "sha256": "bc30c74ea14d433d934aaa4c61fa071cf29d0805d5d36cd8b3f0fd1c7a5f242f",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/confirmed-same-wallet-restore.png"
+      },
+      {
+        "name": "wallet-import-evidence/valid-preview-different.png",
+        "bytes": 46258,
+        "sha256": "3dae02129b705d27a65cf14d863315a862d08a4df8b1bca85514dac368798065",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/valid-preview-different.png"
+      },
+      {
+        "name": "wallet-import-evidence/fresh-candidate-backup.png",
+        "bytes": 46445,
+        "sha256": "f1c90889a4518ef42b3b33aef1dff8dc97761c43b6f74314d346afbce6b603ce",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/fresh-candidate-backup.png"
+      },
+      {
+        "name": "wallet-import-evidence/reselected-backup-required.png",
+        "bytes": 46258,
+        "sha256": "3dae02129b705d27a65cf14d863315a862d08a4df8b1bca85514dac368798065",
+        "retainedPath": "originals/wallet-import-evidence/wallet-import-evidence/reselected-backup-required.png"
+      }
+    ]
+  },
+  "wallet-risk-evidence.tar": {
+    "sha256": "636d60110dac1de3e5f6ee7972be58fb88c5f9b75dbe2a053967601c32f873cf",
+    "bytes": 88064,
+    "members": [
+      {
+        "name": "wallet-risk-evidence/incoming-wallet-needs-own-backup.png",
+        "bytes": 15482,
+        "sha256": "907843381af3889e3c96af701035a32aa2a18e078cda86b0a48468e8de8f9e38",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/incoming-wallet-needs-own-backup.png"
+      },
+      {
+        "name": "wallet-risk-evidence/other-assets-require-backup.png",
+        "bytes": 38552,
+        "sha256": "72e1f736ba1f25c920cda93815bbeac04cbb85894db93052226037aec789a865",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/other-assets-require-backup.png"
+      },
+      {
+        "name": "wallet-risk-evidence/original-wallet-restored.png",
+        "bytes": 29915,
+        "sha256": "942bda8ae9367d5188660a4568b9396af402ebea9c580feb4d17c8b83ed72bdc",
+        "retainedPath": "originals/wallet-risk-evidence/wallet-risk-evidence/original-wallet-restored.png"
+      }
+    ]
+  },
+  "wallet-storage-recovery-evidence.tar": {
+    "sha256": "ca557b8f8014e68ff4176e2642877d5f669012692c1e858d538d3f2bf81c9228",
+    "bytes": 32256,
+    "members": [
+      {
+        "name": "wallet-storage-recovery-evidence/failed-save-recreated.png",
+        "bytes": 30049,
+        "sha256": "140556ed75ce147bce071c487c2f7b9d975956dbed2811998bdd7d4f62faacf6",
+        "retainedPath": "originals/wallet-storage-recovery-evidence/wallet-storage-recovery-evidence/failed-save-recreated.png"
+      }
+    ]
+  }
+}

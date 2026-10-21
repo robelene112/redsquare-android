@@ -1,0 +1,7 @@
+{
+  "kind": "Focused native diagnostic, not acceptance",
+  "source": "28d4eda16ece8f834ce9f507668c60b615f62eb1",
+  "conclusion": "failure",
+  "acceptance": false,
+  "observations": "Original image command6methods has one quote failure; image-only passes this time. Exact pre-helper Quote/FAB touch bounds overlap. Root viewed original quote-before-tap.png. Physical helper scrolls again before tap, so geometry is a pre-click observation rather than atomic hit-test trace. Original wrong-route New post failure is retained. Preparation5/lifecycle7 and both process protocols pass but do not replace complete acceptance."
+}

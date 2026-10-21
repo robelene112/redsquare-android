@@ -1,0 +1,193 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePreviewTest:
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=systemImagePickerReturnsAnOwnedSyntheticImageToTheDraft
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=selectedImageAndTextSurviveSavingAndRecreationWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=signedImagesDisplayInTheirOriginalOrderAndOpenAnImageViewer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePostingTest:
+INSTRUMENTATION_STATUS: test=imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:240)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$23$lambda$22$lambda$18(ImagePostingTest.kt:151)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$sYBFd5vUg_Q8z4sFuj7mTx-0i9I(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish(ImagePostingTest.kt:150)
+	at nl.davidengelen.redsquare.ImagePostingTest.imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(ImagePostingTest.kt:49)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$12(ImagePostingTest.kt:104)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$H99c0UT8rDRVYxK3O1-zFVuPpOg(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:144)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(nl.davidengelen.redsquare.ImagePostingTest):
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:240)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$23$lambda$22$lambda$18(ImagePostingTest.kt:151)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$sYBFd5vUg_Q8z4sFuj7mTx-0i9I(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish(ImagePostingTest.kt:150)
+	at nl.davidengelen.redsquare.ImagePostingTest.imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(ImagePostingTest.kt:49)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$12(ImagePostingTest.kt:104)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$H99c0UT8rDRVYxK3O1-zFVuPpOg(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:144)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+INSTRUMENTATION_STATUS: test=imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=imageReplyKeepsItsParentThreadRecipientsAndAttachment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=imageReplyKeepsItsParentThreadRecipientsAndAttachment
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=imageOnlyPostSignsAndServesItsOrderedPreparedImages
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePostingTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=imageOnlyPostSignsAndServesItsOrderedPreparedImages
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 26.871
+There was 1 failure:
+1) imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(nl.davidengelen.redsquare.ImagePostingTest)
+java.lang.AssertionError: Controlled peer rejected the request
+	at nl.davidengelen.redsquare.ControlledFeedPeer.assertHealthy(ControlledFeedPeer.kt:240)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$23$lambda$22$lambda$18(ImagePostingTest.kt:151)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$sYBFd5vUg_Q8z4sFuj7mTx-0i9I(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:879)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ImagePostingTest.publish(ImagePostingTest.kt:150)
+	at nl.davidengelen.redsquare.ImagePostingTest.imageQuoteKeepsItsOwnImagesAndExactAuthenticatedOriginal(ImagePostingTest.kt:49)
+	... 64 trimmed
+Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.google.gson.JsonElement.getAsString()' on a null object reference
+	at nl.davidengelen.redsquare.ImagePostingTest.publish$lambda$24$lambda$12(ImagePostingTest.kt:104)
+	at nl.davidengelen.redsquare.ImagePostingTest.$r8$lambda$H99c0UT8rDRVYxK3O1-zFVuPpOg(ImagePostingTest.kt:0)
+	at nl.davidengelen.redsquare.ImagePostingTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ControlledFeedPeer$response$1.onMessage(ControlledFeedPeer.kt:144)
+	at okhttp3.internal.ws.RealWebSocket.onReadMessage(RealWebSocket.kt:399)
+	at okhttp3.internal.ws.WebSocketReader.readMessageFrame(WebSocketReader.kt:265)
+	at okhttp3.internal.ws.WebSocketReader.processNextFrame(WebSocketReader.kt:115)
+	at okhttp3.internal.ws.RealWebSocket.loopReader(RealWebSocket.kt:317)
+	at mockwebserver3.MockWebServer.handleWebSocketUpgrade(MockWebServer.kt:845)
+	at mockwebserver3.MockWebServer.access$handleWebSocketUpgrade(MockWebServer.kt:97)
+	at mockwebserver3.MockWebServer$SocketHandler.processOneRequest(MockWebServer.kt:607)
+	at mockwebserver3.MockWebServer$SocketHandler.handle(MockWebServer.kt:533)
+	at mockwebserver3.MockWebServer.serveConnection$lambda$0(MockWebServer.kt:427)
+	at mockwebserver3.MockWebServer.$r8$lambda$_0q0B2jgUDqJDX0aEHSRVLAAlhA(MockWebServer.kt:0)
+	at mockwebserver3.MockWebServer$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at okhttp3.internal.concurrent.TaskQueue$execute$1.runOnce(TaskQueue.kt:112)
+	at okhttp3.internal.concurrent.TaskRunner$runnable$1.run(TaskRunner.kt:81)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1100)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:1572)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

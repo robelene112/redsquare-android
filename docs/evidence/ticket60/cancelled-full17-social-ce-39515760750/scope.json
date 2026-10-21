@@ -1,0 +1,15 @@
+{
+  "kind": "Rejected complete dispatch, original failed partition retained",
+  "workflowConclusion": "cancelled",
+  "retainedPartition": "social",
+  "partitionConclusion": "failure",
+  "otherPartitionOutcomes": {
+    "social": "failure",
+    "wallet": "failure",
+    "chat": "cancelled"
+  },
+  "source": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
+  "acceptance": false,
+  "limits": "No combination with replacement complete dispatches. Chat raw artifact retained externally; missing later native gates remain unaccepted.",
+  "observations": "Original browse8 and all9 additive post methods pass; later images command fails quote entering New post without quote signature. Android10 also immediately fails no recorded picker intent; Android17 image-only method passes. Remaining native classes after images are unreached."
+}
