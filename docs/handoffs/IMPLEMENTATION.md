@@ -928,3 +928,11 @@ readonly/storage-returnseam: Save/reopen→Savedonthisdevice→edit→Unsavedcha
 Back/reopenexacttext→Saved.130%LightDark;independentdeclaredrestoration/zeroTX.
 Separate180secondcomposer-draftscopes/fullSocial class; priorgates unchanged.
 No productionlocal-save metadatachange ornewREDyet.
+
+61draft-statustest24d3299da036c9b7f073bb92feb06eb1cd9e5b84 haspairedsource0/0
+andlocalcompileSUCCESS1m56. Initial17composer-draftrun39530382797 executesexact24d
+againstunchangedd552production; outcome pending. Sourceinspectionfinds existing
+ImageSelectionTestUi.clickImagePicker unconditionally requires scrollancestor,
+but61 deliberately pins controloutside scroll. Operator now scrollsonlyifnot
+alreadydisplayed; same10s/explicitdisplayed/enabled/physicalclick remain. No
+priornativeimagefailure claimed. Existingfocusedimages verification is next.

@@ -50,7 +50,11 @@ internal fun ComposeTestRule.attachSyntheticImage() {
 internal fun ComposeTestRule.clickImagePicker() {
     androidx.test.espresso.Espresso.closeSoftKeyboard()
     waitUntil(10_000) {
-        try { onNodeWithText("Add images").performScrollTo().isDisplayed() }
+        try {
+            val action = onNodeWithText("Add images")
+            if (!action.isDisplayed()) action.performScrollTo()
+            action.isDisplayed()
+        }
         catch (_: AssertionError) { false }
     }
     onNodeWithText("Add images").assertIsDisplayed().assertIsEnabled().performClick()
