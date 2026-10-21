@@ -56,7 +56,11 @@ class PostComposerFocusPreviewTest {
                 ui.waitUntil(10_000) { keyboardVisible() }
                 ui.onNode(editor).assertTextEquals(draft).assertIsDisplayed()
                 ui.onNode(hasText("Send") and hasClickAction() and isEnabled()).assertIsDisplayed()
-                val send = requireNotNull(device.findObject(By.text("Send"))).visibleBounds
+                var sendTarget = requireNotNull(device.findObject(By.text("Send")))
+                while (!sendTarget.isClickable) sendTarget = requireNotNull(sendTarget.parent) {
+                    "Send must expose a clickable native ancestor"
+                }
+                val send = sendTarget.visibleBounds
                 var keyboardTop = 0
                 var statusBottom = 0
                 activity.onActivity { screen ->
@@ -65,8 +69,9 @@ class PostComposerFocusPreviewTest {
                     statusBottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
                 }
                 val minimum = 48 * context.resources.displayMetrics.density - 1
-                assertTrue("Send retains a full48dp target above the real IME", send.width() >= minimum &&
-                    send.height() >= minimum && send.top >= statusBottom && send.bottom <= keyboardTop)
+                assertTrue("Send retains a full48dp target above the real IME", sendTarget.isEnabled &&
+                    send.width() >= minimum && send.height() >= minimum && send.left >= 0 &&
+                    send.right <= device.displayWidth && send.top >= statusBottom && send.bottom <= keyboardTop)
                 captureNativeScreen(File(folder, "$label-ime.png"))
                 File(folder, "$label-ime.json").writeText(JsonObject().apply {
                     addProperty("fontScale", context.resources.configuration.fontScale)
