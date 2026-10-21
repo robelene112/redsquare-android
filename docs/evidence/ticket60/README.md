@@ -347,3 +347,15 @@ so the second theme must replace rather than append the same query. The single
 operator correction preserves exact text, routes and all goals; both source
 reviews0. Final local app/test Kotlin compile succeeds1m43s. No native failure
 or acceptance is inferred from the cancelled attempts. New paired proof pending.
+
+Complete Android10 run39522483659 executes exact4124c149a9cd331a59dbc016dde86ee0924f6b2d
+and succeeds in all three original Chat/Social/Wallet partitions. Frozen strict
+collector passes:496 expected/actual identities,495 passed plus the exact old
+API29 Profile assumption,136 normal completions,35 deliberate interruptions,34
+continuity records and99 archive records. Packet full10-4124-39522483659 retains
+993 hashes and validates1378 PNG/1109 XML observations. The five exact old optional
+observer gaps remain classified against accepted53; no new exception is added.
+Root inspected current full10 compact actions/profile/130%Dark failed status and
+confirmed-like count-refresh failure originals. Count remains4, never invented5.
+Full17 Social/Wallet now succeed; Chat is still pending. No complete paired
+acceptance, independent final review or publication59 is claimed yet.
