@@ -32,15 +32,24 @@ class PostComposerFocusPreviewTest {
                 val editor = hasSetTextAction() and isEnabled()
                 ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                 ui.onNode(editor).performTextReplacement(draft)
-                val writingBounds = ui.onNode(editor).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-                val attachmentBounds = ui.onNode(hasText("Add images") and hasClickAction())
-                    .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val writingNode = ui.onNode(editor).assertIsDisplayed().fetchSemanticsNode()
+                val attachmentNode = ui.onNode(hasText("Add images") and hasClickAction())
+                    .assertIsDisplayed().fetchSemanticsNode()
+                // The IME can move the app header between separate observations. Compare both
+                // live coordinates in one UI-thread action instead of mixing two layout frames.
+                val (writingBounds, attachmentBounds) = ui.runOnIdle {
+                    writingNode.boundsInRoot to attachmentNode.boundsInRoot
+                }
+                assertTrue("Both writing and attachment targets retain real bounds",
+                    writingBounds.width > 0 && writingBounds.height > 0 &&
+                        attachmentBounds.width > 0 && attachmentBounds.height > 0)
                 captureNativeScreen(File(folder, "$label-writing.png"))
                 File(folder, "$label-hierarchy.json").writeText(JsonObject().apply {
                     addProperty("writingTop", writingBounds.top)
                     addProperty("writingBottom", writingBounds.bottom)
                     addProperty("attachmentTop", attachmentBounds.top)
                     addProperty("writingPrecedesAttachments", writingBounds.bottom <= attachmentBounds.top)
+                    addProperty("sameUiThreadObservation", true)
                 }.toString())
                 if (writingBounds.bottom > attachmentBounds.top) hierarchyProblems += label
 

@@ -1265,3 +1265,31 @@ progress. Current post/author display gives saving priority over Available and
 WORKING priority during active operations. Specific image-preparing summary
 retains priority over generic saving. Both narrow re-reviews report0 residual;
 all operations/guards/recovery unchanged. Fresh compile remains pending.
+
+
+Busy-priority product4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c has Spec0/documented
+Standards0/heuristic0 and local app/test compile SUCCESS1m59. Built ordinary60
+once at exact4c using canonical builder: SUCCESS4m19,37,889,755bytes, APK SHA256
+8836fbbd123c70ef4832248ee6f158183fb3593914b9cf19884825fdd13ba7d0, established
+certificate, nondebug/nonprofile/no backup/min29target36/REVIEWtrue/PUSH+GIFfalse.
+Prepared packet signed60-prepared7hashes; actual source/runtime/publication
+acceptance pending. Immutable APK remains in external review-worktree/.scratch/
+review-builds/60; NEVER rebuild or reuse60. Public59 remains live. Public before
+bookend PASS at /mnt/storage/redsquare-android-artifacts/composer61-publication-60;
+checker /tmp/redsquare-composer61-publication60-check.py. Later app changes require
+source-equivalence validation or a newly reserved candidate, never overwriting60.
+
+Diagnostic10run39539022271 at8a25 FAILS a different point: final deferred Light
+writing order, earlier realIME/both-theme/exactreturn/identity/node/zeroTX/cleanup
+assertions pass. Separate bounds214..425 versusImage346;Dark138..337/346PASS.
+Packet failed10-composer-writing-observation-8a25-39539022271 retains32hashes/one
+archive21 originals. Root viewed actualLight writing PNG above toolbar with IME;
+separate bounds can straddle header/keyboard layout frames. Current test reads
+both live bounds in one UI-thread action, adds positive bounds, retains all old
+order/IME/return goals. Lifecycle JSONL records two config replacements near
+explicit recreation; one can be explicit itself, so old4a20cause remains unproved.
+Current helper requests real Activity.recreate inside scenario.onActivity to
+avoid AndroidX core1.7 stale-snapshot interval; same15s bound now positively checks
+different/resumed/focused instance with320dp/font/Home. No retry, dropped assertion
+or class-bound change. Narrow source reviews both0 residual. Fresh compile/native
+pending; all later classes in failed8a25 remain unreached, not accepted.
