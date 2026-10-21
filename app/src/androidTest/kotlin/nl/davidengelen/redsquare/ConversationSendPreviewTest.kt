@@ -95,7 +95,7 @@ class ConversationSendPreviewTest {
                             check(SaitoEnvelope.fromSignedJson(peer.relayedMessages.last()) == original.envelope())
                             val actual = if (group) GroupChat.readMessage(signedGroup, original.envelope()).text
                                 else PrivateChat.read(wallet, original.envelope(), contact.publicKey).text
-                            check(actual == body && SaitoEnvelope.decode(original.envelope()).author == wallet.publicKey)
+                            check(actual == body && SaitoEnvelope.decodePayload(original.envelope()).author == wallet.publicKey)
                             expected += original.envelope()
                             newest = body
                         }
