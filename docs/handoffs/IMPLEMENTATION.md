@@ -46,6 +46,16 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
+Fresh complete10run39651967639 and17run39651972836 execute exact
+4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba, dispatched18:21UTC. Each requires all
+three complete partitions. Queue-only source and rejected527 packets have final
+paired0/0 reviews; compile SUCCESS2m3 explicit0. Frozen collector/catalog unchanged.
+Additional exact-source focused17 checks target previously unreached legacy tail:
+group-ui39652089671, chat-ui39652094420 and group-admin39652098536. They catch
+remaining control-operator problems sooner, without replacing either complete run.
+Completion observer: /tmp/redsquare62-watch-complete-4e9.py. Ordinary60 remains
+live, no signed61 yet. Complete native and rendered review must precede publication.
+
 Complete10run39645666425 and17run39645671283 at exact
 527dc9723cefccc4961400fd79d224e1c066bc52 are terminal FAILURE. Social and Wallet
 succeed on both; Chat queue has3/13 failures279.786s/289.22s,480second bound.
@@ -58,7 +68,7 @@ and deadlines remain. Source reviews0/0; compile SUCCESS2m3 explicit0.
 Selected failed10/17-queue-operators-527 packets retain218/222 hashes,89 originals
 each and full raw inventories518/528 files. Root viewed the three10 failure PNGs,
 17 archived-group failure and corrected17 native physical Send after Details.
-Packet reviews active. Fresh complete pair next. Ordinary60 live; no signed61.
+Final packet reviews both0/0. Fresh complete pair above. Ordinary60 live; no signed61.
 
 Completed observer /tmp/redsquare62-watch-complete.py downloaded both complete527 runs to
 /mnt/storage/redsquare-android-artifacts/conversation62-fullSDK-527-RUN and invokes

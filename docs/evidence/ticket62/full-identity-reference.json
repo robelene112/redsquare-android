@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Complete527 SDK runs are terminal FAILURE at three legacy queue operators. Social and Wallet succeed on both SDKs, without reuse. Test-only queue correction reviewed/compiled; fresh complete pair next. Frozen identities/goals/pins unchanged.",
+  "executingState": "Fresh complete4e9 SDK pair active after queue-only actual-control correction;527 failures retained/reviewed. All production/harness unchanged from814 and original frozen identities/goals/pins unchanged. No accepted full62 result yet.",
   "executingSources": {
-    "android10": "527dc9723cefccc4961400fd79d224e1c066bc52",
-    "android17": "527dc9723cefccc4961400fd79d224e1c066bc52"
+    "android10": "4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba",
+    "android17": "4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba"
   },
   "executingRuns": {
-    "android10": 39645666425,
-    "android17": 39645671283
+    "android10": 39651967639,
+    "android17": 39651972836
   },
   "rejectedExecutions": [
     {
