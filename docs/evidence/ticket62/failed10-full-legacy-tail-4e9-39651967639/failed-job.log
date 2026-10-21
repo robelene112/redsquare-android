@@ -1,0 +1,171 @@
+native-proof (wallet)	Verify Android 10 runtime	﻿2026-10-21T18:30:57.9749998Z ##[group]Run scripts/ci-android-device 29
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9750338Z ^[[36;1mscripts/ci-android-device 29^[[0m
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9825240Z shell: /usr/bin/bash -e {0}
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9825515Z env:
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9825934Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9826383Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9826736Z   MAVEN_ARGS: -ntp
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9826959Z   TEST_MAIN_REFERENCE_VERSION: 29
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9827219Z   TEST_PERFORMANCE_VERSION: 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9827464Z   TEST_PUBLIC_SIGNED_UPDATE: 1
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9827699Z   TEST_PUBLIC_FEED_READ: 1
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9827933Z   TEST_PUBLIC_VIDEO_REFERENCE: 0
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9828178Z   TEST_PARTITION: wallet
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9828393Z   TEST_SCOPE: full
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:57.9828601Z ##[endgroup]
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.0793746Z WARNING: The SDK Manager CLI tool (sdkmanager) is deprecated. Use Android CLI instead.
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.0795207Z The 'android' binary can also be found in the cmdline-tools directory, and 'android sdk' is the replacement for 'sdkmanager'.
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.0796978Z To learn more about the Android CLI and how to use it, see the documentation (https://d.android.com/tools/agents/android-cli)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.0797798Z 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.7295971Z Loading package information...                                                  
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.7985978Z Loading local repository...                                                     
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:58.7995958Z [                                       ] 3% Loading local repository...        
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.0924810Z [                                       ] 3% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.5326416Z [=                                      ] 3% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.6002869Z [=                                      ] 4% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.6339253Z [=                                      ] 5% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.6706609Z [==                                     ] 5% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.7539620Z [==                                     ] 6% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.8120622Z [==                                     ] 7% Fetch remote repository...         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.8145935Z [==                                     ] 7% Computing updates...               
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.8221132Z [===                                    ] 8% Computing updates...               
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.8305931Z [===                                    ] 10% Computing updates...              
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:30:59.8980525Z [===                                    ] 10% Installing Intel x86_64 Atom Syste
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.1029156Z [===                                    ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.1890541Z [====                                   ] 10% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.3578178Z [====                                   ] 11% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.5449545Z [====                                   ] 12% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.7240571Z [=====                                  ] 13% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.8730712Z [=====                                  ] 14% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:00.9847880Z [=====                                  ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.0591891Z [======                                 ] 15% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.2078180Z [======                                 ] 16% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.3929848Z [======                                 ] 17% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.5407930Z [=======                                ] 18% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.7250143Z [=======                                ] 19% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.7987476Z [=======                                ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:01.8639674Z [========                               ] 20% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.0064271Z [========                               ] 21% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.1557070Z [========                               ] 22% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.2491548Z [=========                              ] 23% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.3780429Z [=========                              ] 24% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.4268250Z [=========                              ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.5188684Z [==========                             ] 25% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.6409865Z [==========                             ] 26% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.8046843Z [==========                             ] 27% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:02.9435803Z [===========                            ] 28% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.0575829Z [===========                            ] 29% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.1063188Z [===========                            ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.2278439Z [============                           ] 30% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.4091141Z [============                           ] 31% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.5637142Z [============                           ] 32% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.5644135Z [============                           ] 33% Downloading x86_64-29_r08-linux.zi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6067753Z [============                           ] 33% Unzipping...                      
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6068297Z [============                           ] 33% Unzipping... x86_64/              
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6077477Z [============                           ] 33% Unzipping... x86_64/advancedFeatur
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6080154Z [=============                          ] 33% Unzipping... x86_64/advancedFeatur
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6087795Z [=============                          ] 33% Unzipping... x86_64/VerifiedBootPa
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6728608Z [=============                          ] 33% Unzipping... x86_64/kernel-ranchu 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6825628Z [=============                          ] 33% Unzipping... x86_64/NOTICE.txt    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6829158Z [=============                          ] 33% Unzipping... x86_64/build.prop    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6923176Z [=============                          ] 33% Unzipping... x86_64/userdata.img  
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6926418Z [=============                          ] 33% Unzipping... x86_64/source.propert
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6926991Z [=============                          ] 33% Unzipping... x86_64/data/         
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6927451Z [=============                          ] 33% Unzipping... x86_64/data/misc/    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6930135Z [=============                          ] 33% Unzipping... x86_64/data/misc/wifi
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.6932601Z [=============                          ] 33% Unzipping... x86_64/data/misc/apns
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:03.7020089Z [=============                          ] 33% Unzipping... x86_64/ramdisk.img   
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:04.3293256Z [=============                          ] 33% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:05.1373016Z [=============                          ] 34% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:05.4916246Z [=============                          ] 35% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:05.9059821Z [==============                         ] 35% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:06.6194447Z [==============                         ] 36% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:07.1905508Z [==============                         ] 37% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:07.9021921Z [===============                        ] 38% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:08.5982246Z [===============                        ] 39% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:08.8903451Z [===============                        ] 40% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:09.3986936Z [================                       ] 40% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:10.1588786Z [================                       ] 41% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:10.6361935Z [================                       ] 42% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:10.9941216Z [=================                      ] 43% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.1783916Z [=================                      ] 44% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.2887926Z [=================                      ] 45% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.3633300Z [==================                     ] 45% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.5522593Z [==================                     ] 46% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.7355200Z [==================                     ] 47% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:11.9460140Z [===================                    ] 48% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:12.2799672Z [===================                    ] 49% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:12.5874795Z [===================                    ] 50% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:12.8213207Z [====================                   ] 50% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:13.4629236Z [====================                   ] 51% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:14.1651698Z [====================                   ] 52% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:26.5029258Z [=====================                  ] 53% Unzipping... x86_64/system.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:26.5308041Z [=====================                  ] 53% Unzipping... x86_64/vendor.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:26.9180066Z [=====================                  ] 54% Unzipping... x86_64/vendor.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:27.6537610Z [=====================                  ] 55% Unzipping... x86_64/vendor.img    
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:27.7254023Z [=====================                  ] 55% Unzipping... x86_64/encryptionkey.
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:27.7254564Z [=======================================] 100% Unzipping... x86_64/encryptionkey
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:27.8317775Z 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:28.5363408Z Loading local repository...                                                     
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:28.7204743Z [=========                              ] 25% Loading local repository...       
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:28.7205410Z Auto-selecting single ABI x86_64
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:29.6033739Z * daemon not running; starting now at tcp:5037
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:29.7126204Z * daemon started successfully
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:46.6121907Z Do you wish to create a custom hardware profile? [no] Performing Streamed Install
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:46.6122550Z Success
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:46.7530863Z Performing Streamed Install
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:31:46.7531909Z Success
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:36:59.6985718Z PASS: pending export process interruption and authenticated recovery
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:40:47.9706650Z PASS: replacement process interruption and cold wallet recovery
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:41:12.0219759Z PASS: cached feed after cold process launch
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:00.8028107Z PASS: wallet UI continuity
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4547541Z Traceback (most recent call last):
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4548026Z   File "/usr/lib/python3.12/urllib/request.py", line 1344, in do_open
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4553409Z     h.request(req.get_method(), req.selector, req.data, headers,
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4554393Z   File "/usr/lib/python3.12/http/client.py", line 1365, in request
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4555568Z     self._send_request(method, url, body, headers, encode_chunked)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4556364Z   File "/usr/lib/python3.12/http/client.py", line 1411, in _send_request
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4558651Z     self.endheaders(body, encode_chunked=encode_chunked)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4559108Z   File "/usr/lib/python3.12/http/client.py", line 1360, in endheaders
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4560010Z     self._send_output(message_body, encode_chunked=encode_chunked)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4560546Z   File "/usr/lib/python3.12/http/client.py", line 1120, in _send_output
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4561377Z     self.send(msg)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4561723Z   File "/usr/lib/python3.12/http/client.py", line 1064, in send
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4562888Z     self.connect()
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4563319Z   File "/usr/lib/python3.12/http/client.py", line 1506, in connect
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4564730Z     self.sock = self._context.wrap_socket(self.sock,
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4565335Z                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4565696Z   File "/usr/lib/python3.12/ssl.py", line 455, in wrap_socket
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4566264Z     return self.sslsocket_class._create(
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4566527Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4566816Z   File "/usr/lib/python3.12/ssl.py", line 1042, in _create
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4567442Z     self.do_handshake()
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4567863Z   File "/usr/lib/python3.12/ssl.py", line 1320, in do_handshake
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4569095Z     self._sslobj.do_handshake()
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4569570Z ConnectionResetError: [Errno 104] Connection reset by peer
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4569800Z 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4569979Z During handling of the above exception, another exception occurred:
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4570213Z 
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4570325Z Traceback (most recent call last):
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4570774Z   File "/home/runner/work/redsquare-android/redsquare-android/scripts/ci-review-update", line 28, in <module>
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4575603Z     with urllib.request.urlopen(manifest_request, timeout=30) as response:
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4576104Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4576630Z   File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4577121Z     return opener.open(url, data, timeout)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4577473Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4577971Z   File "/usr/lib/python3.12/urllib/request.py", line 515, in open
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4578296Z     response = self._open(req, data)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4578547Z                ^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4578843Z   File "/usr/lib/python3.12/urllib/request.py", line 532, in _open
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4579215Z     result = self._call_chain(self.handle_open, protocol, protocol +
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4579552Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4579896Z   File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4580224Z     result = func(*args)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4580445Z              ^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4580733Z   File "/usr/lib/python3.12/urllib/request.py", line 1392, in https_open
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4581110Z     return self.do_open(http.client.HTTPSConnection, req,
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4581426Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4581750Z   File "/usr/lib/python3.12/urllib/request.py", line 1347, in do_open
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4582063Z     raise URLError(err)
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4582391Z urllib.error.URLError: <urlopen error [Errno 104] Connection reset by peer>
+native-proof (wallet)	Verify Android 10 runtime	2026-10-21T18:42:08.4745377Z ##[error]Process completed with exit code 1.

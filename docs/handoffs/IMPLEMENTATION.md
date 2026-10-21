@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 19:04 UTC:62 complete4e9 suites active; group987 focused pair and pagination readiness correction active.
+Updated 2026-10-21 19:15 UTC:62 complete4e9 rejected; group history operator compile/diagnosis and held signed61 active.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,6 +46,12 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
+IMPORTANT: ordinary61 has now been built ONCE at exact2d5a0c2fdb0a0c31dac7a6fe922ab40c9a412b25,
+SUCCESS4m14/explicit0. SHA256d228154e12bec42a1701d531fba2157081c505d1daa22ba562de440144f69694,
+37,975,827bytes, established cert, actual manifest/DEX checks PASS. Unpublished.
+Shared counter61. NEVER rebuild or reuse61. See signed61-prepared packet.
+
+
 Timing-only2c3 focused private17run39654785651 is SUCCESS: original24methods142.093s,
 10actions147.003s and actual process recovery. Eight native Details closing guards
 total4.288s; removing them is unsupported. Packet green17-private-legacy-timing-2c3
@@ -71,15 +77,40 @@ before final delivery. Current narrow WIP also requires original pagination-butt
 absence within SAME15s message-readiness loop, retaining final absence/count/cutoff/
 saved-state checks. Both source axes residual0; app/test compile SUCCESS2m22s explicit0. Fresh native pending.
 
-Fresh complete10run39651967639 and17run39651972836 execute exact
-4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba, dispatched18:21UTC. Each requires all
-three complete partitions. Queue-only source and rejected527 packets have final
-paired0/0 reviews; compile SUCCESS2m3 explicit0. Frozen collector/catalog unchanged.
-Additional exact-source focused17 checks target previously unreached legacy tail:
-group-ui39652089671, chat-ui39652094420 and group-admin39652098536. They catch
-remaining control-operator problems sooner, without replacing either complete run.
-Completion observer: /tmp/redsquare62-watch-complete-4e9.py. Ordinary60 remains
-live, no signed61 yet. Complete native and rendered review must precede publication.
+Complete4e9 Android10run39651967639 and17run39651972836 are now terminal FAILURE.
+10Chat andSocial succeed, including GroupPreview22PASS157.4s, GroupActions1PASS14.903s,
+PrivatePreview24PASS111.523s, PrivateActions10PASS141.005s and all their process gates.
+Wallet10 app/protected/public-read/update-notice gates finish with all14recordedclass
+exits0; subsequent immutable version8 manifest fetch fails TLS ConnectionResetError
+at ci-review-update line28. No8download or5-to8/finaldiagnostic acceptance.
+17Social/Wallet succeed; Chat GroupPreview21PASS/noassertionfailure, last22ndmethod
+starts before original180s timeout124. Later group actions/mixed/process/private
+unreached. Frozen collector was never invoked. Do not assemble passing partitions.
+Raw complete originals live at conversation62-fullSDK-4e9-RUN on external storage;
+observer47215 completed. Failed packet text/all-part inventories +17group89originals
+retained; final evidence reviews0/0. Terminal failed job logs clarify actual outcomes.
+
+Focused98710run39657602480 completes GroupActions15.105s/mixed11.861s, then all22
+GroupPreviewmethods176.599s but2explicitbutton-absencefailures/20PASS. Both paging
+methods see returned older message while disabled Load older persists. Later process
+unreached. The2d readiness fix covers both. Reaction case22.792s includes9menu
+lifetimes totaling14.419s. Focused98717run39657607096 still times out under60s:
+coalesced Copy/Reply complete once each, but only cached-copy-verified reached.
+No native capture completes, no cause/cold-performance fix claimed. Packets retained.
+
+Source7288413a4cc9adc7da480763d4278b884c64159a coalesces2more redundant Refresh Details and2reaction readiness menu
+lifetimes without changing original assertions/captures/deadlines. Both source axes0;
+compile SUCCESS2m17s explicit0, external conversation62-group-history-operators-compile.log/json.
+New group-ui-history/-android17 isolates WHOLE existing22methodclass/180s so the
+cold GroupActions fixture cannot prevent timing diagnosis. Full/group-ui original
+order/identities/process unchanged. Focused10run39660036557/17run39660041552 execute
+exact728 and are active. Measure, remove temporary timing probes/Rule, then fresh finalfullpair.
+Do not widen deadlines or split originalclasses. Five packet reviews final Spec0/documentedStandards0/heuristic0.
+
+Ordinary61 is held unpublished (see IMPORTANT above), before-publicbookend PASS
+at /mnt/storage/redsquare-android-artifacts/conversation62-publication-61.
+Signed prepared source2d has unchanged production/build trees vs814; eventual verified
+harness source needs its explicit source-equivalence check. No61rebuild. Public60live.
 
 Complete10run39645666425 and17run39645671283 at exact
 527dc9723cefccc4961400fd79d224e1c066bc52 are terminal FAILURE. Social and Wallet

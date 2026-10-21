@@ -1,0 +1,7 @@
+# Rejected complete Android10 execution at4e9
+
+Exact4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba, run39651967639: terminal FAILURE. Social and Chat partitions succeed; Wallet fails after its app/protected/public-read/update-notice gates while obtaining the newer immutable preview manifest in scripts/ci-review-update. The terminal log shows urllib URLError caused by ConnectionResetError during TLS handshake at the manifest open, source line28. Version5 APK download was HTTP200 and matched its established checksum. No version8 download observation exists. This is a transport failure, not proof of an app update defect; the remaining immutable5-to8 continuity and final diagnostic are unreached.
+
+All retained class exit files are0: Chat33, Social16, Wallet14. Group history22PASS157.4seconds, group actions1PASS14.903seconds, private history24PASS111.523seconds and private actions10PASS141.005seconds, with original bounds. Only Chat/Social have partition-complete markers. These passing app gates do not make this failed whole execution complete acceptance. The frozen collector was not invoked; no successful partitions are assembled into another accepted run.
+
+All three raw-part inventories and text/log records are retained; no new selected native archive is extracted for this transport-only Wallet failure. External original root: `/mnt/storage/redsquare-android-artifacts/conversation62-full10-4e9-39651967639`.

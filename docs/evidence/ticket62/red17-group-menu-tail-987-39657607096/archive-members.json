@@ -1,0 +1,20 @@
+{
+  "group-chat-actions-evidence.tar": {
+    "sha256": "283f34a0e831dcc57d003e9452c8ed2f5a7c2dce68238beeac37f6607e1b65c5",
+    "bytes": 4096,
+    "members": [
+      {
+        "name": "group-chat-actions-evidence/progress.txt",
+        "bytes": 113,
+        "sha256": "3d0acc694da5caeaf6c88e8417d01012cb7dc8ea6834ee3390cf5e2cd72e198a",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/progress.txt"
+      },
+      {
+        "name": "group-chat-actions-evidence/operator-timing.txt",
+        "bytes": 813,
+        "sha256": "6193bd33ee52feb1a583ade7c488389ea40b64dcf14e9bd6fedacfba158ba746",
+        "retainedPath": "originals/group-chat-actions-evidence/group-chat-actions-evidence/operator-timing.txt"
+      }
+    ]
+  }
+}

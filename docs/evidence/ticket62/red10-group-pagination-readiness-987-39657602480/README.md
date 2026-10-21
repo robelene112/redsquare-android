@@ -1,0 +1,7 @@
+# Android10 group pagination readiness diagnostic at987
+
+Exact9875bf29ae7c4fd77144187990040fa6d6dee5e0, run39657602480: terminal FAILURE. GroupActions1PASS15.105seconds and mixed1PASS11.861seconds precede GroupPreview, which completes22methods176.599seconds within its original180second bound with20PASS and2assertion failures. Both signedGroupHistoryCanPageOlderAndRemainCachedAfterArchivePruning and removedAuthorsCannotHideAvailableEarlierGroupHistory find the disabled Load older messages node still present after the returned message appears. These are actual failures, not a timeout. The later group process protocol is unreached.
+
+Source2d5a0c2fd subsequently requires both original message visibility and original button absence within the same existing15second readiness loop, preserving final absence/count/cutoff/cache assertions. Runtime proof of that correction is pending. The temporary per-case trace measures the reaction method22.792seconds, including9actual menu lifetimes totaling14.419seconds. It also identifies separate readiness/click Details lifetimes for archive/draft refresh. The subsequent narrow operator change coalesces duplicates while keeping all original checks and screenshots. No production or deadline change follows.
+
+Three archives retain102exact originals, plus original platform/class/exit logs and hashes. Root inspected both original pagination failure screens and the earlier matching2c capture. External originals: `/mnt/storage/redsquare-android-artifacts/conversation62-timing-group-ui10-987-39657602480/android-native-proof`.
