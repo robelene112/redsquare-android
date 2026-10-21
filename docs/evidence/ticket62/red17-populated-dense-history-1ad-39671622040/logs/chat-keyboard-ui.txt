@@ -1,0 +1,269 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatKeyboardPreviewTest:
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:197)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatKeepsLongReplyPhotoSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:197)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:42)
+
+INSTRUMENTATION_STATUS: test=privateChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 123), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatKeepsLongReplyPhotoSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 123), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:44)
+
+INSTRUMENTATION_STATUS: test=groupChatKeepsLongReplyPhotoSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 76 - 304, 130), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: stream=
+Error in privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 76 - 304, 130), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: test=privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatCanSendAPhotoCaptionWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 153), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: stream=
+Error in groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(nl.davidengelen.redsquare.ChatKeyboardPreviewTest):
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 153), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: test=groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatKeepsFirstUseSendReachableWithLargerText
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=groupChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatKeyboardPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=10
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=privateChatCanSendAMultilineDraftWithTheSystemKeyboardOpen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 127.392
+There were 4 failures:
+1) privateChatKeepsLongReplyPhotoSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.IllegalArgumentException: Required value was null.
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:197)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:42)
+2) groupChatKeepsLongReplyPhotoSendReachableWithLargerText(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 123), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsLongReplyPhotoSendReachableWithLargerText(ChatKeyboardPreviewTest.kt:44)
+3) privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 76 - 304, 130), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.privateChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:35)
+4) groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(nl.davidengelen.redsquare.ChatKeyboardPreviewTest)
+java.lang.IllegalStateException: Populated history must retain96dp beside a photo, long reply and multiline editor with IME: Rect(16, 92 - 304, 153), minimum=96
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32$readySend(ChatKeyboardPreviewTest.kt:199)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$lambda$34$lambda$33$lambda$32(ChatKeyboardPreviewTest.kt:222)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.$r8$lambda$vpgtgMAuSFnhDJotaXGihEzBe3U(ChatKeyboardPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest$$ExternalSyntheticLambda27.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise(ChatKeyboardPreviewTest.kt:133)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.exercise$default(ChatKeyboardPreviewTest.kt:46)
+	at nl.davidengelen.redsquare.ChatKeyboardPreviewTest.groupChatKeepsSendReachableForALongRecoveredReplyWithAPhoto(ChatKeyboardPreviewTest.kt:37)
+
+FAILURES!!!
+Tests run: 10,  Failures: 4
+
+
+INSTRUMENTATION_CODE: -1

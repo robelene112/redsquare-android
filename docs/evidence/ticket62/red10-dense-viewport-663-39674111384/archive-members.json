@@ -1,0 +1,1820 @@
+{
+  "conversation-filtering-evidence.tar": {
+    "sha256": "3d5ee19f4d3ba1f75183b359cac43d39fdb4b8e0461ef82103f94f4651bb0dc0",
+    "bytes": 369664,
+    "members": [
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl",
+        "bytes": 2793,
+        "sha256": "a8042b43c7e4d531a785a91f494a21a1371b5e5e202ed5e3186a2f2b777f87ee",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-font-scale.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml",
+        "bytes": 42216,
+        "sha256": "f7b44274de338094e4bd956479392fc7de0bca922c529aa1faa83ecdc0da7f29",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png",
+        "bytes": 46153,
+        "sha256": "66c57611774e6b4b01bb6c8e78de43d5236a9dcd3ed918b3ed8c6251406017df",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml",
+        "bytes": 43458,
+        "sha256": "7363c5b790bd83e12781c931e6b0fab431d8982ad524ad7cb3182644200a2e71",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png",
+        "bytes": 46111,
+        "sha256": "0eabfcc3943c0f493cb38f134bcf1b8e7ee0304db62b3294f04365f63232c4ee",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml",
+        "bytes": 43039,
+        "sha256": "df0eb04c5a0c318546ab3a50078b4166103c679a6d32a97c7b142ac32e5195b6",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png",
+        "bytes": 45462,
+        "sha256": "8409db667e60abfaa093b845d2aed35bd09538a3ca0e11d56a3a86f97d45449c",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.xml",
+        "bytes": 43039,
+        "sha256": "df0eb04c5a0c318546ab3a50078b4166103c679a6d32a97c7b142ac32e5195b6",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.png",
+        "bytes": 45462,
+        "sha256": "8409db667e60abfaa093b845d2aed35bd09538a3ca0e11d56a3a86f97d45449c",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-font-restored.json"
+      }
+    ]
+  },
+  "conversation-viewport-evidence.tar": {
+    "sha256": "3aa296f868451788b19842b18f9b786d5a80941982c6e0f775ee28cad22da90a",
+    "bytes": 1866752,
+    "members": [
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-activity-lifecycle.jsonl",
+        "bytes": 6212,
+        "sha256": "368236b0383611a53cf2819a4a5ce72a690f6a66523e63094605398319ef50cb",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-font-scale.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-opened.xml",
+        "bytes": 44686,
+        "sha256": "bf2a8b1335f26a29f7be2e86bc0f270d7534a7ba1df90d071cfb5057f503e84c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-opened.png",
+        "bytes": 39105,
+        "sha256": "55a5ac76a7c05c5fb95b5dd437e4708156877abe0f4aec9513637e6b75ee0759",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-full-details.xml",
+        "bytes": 23192,
+        "sha256": "386b320b9e19fbc139a23819df3d54c790bef0878dcbf9cccbb9c70c4eb7d740",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-full-details.png",
+        "bytes": 35417,
+        "sha256": "90e6df94ac77b2320a3ad25692795642ac81b8289dae2a254a36eb65c4288911",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-message-actions.xml",
+        "bytes": 15928,
+        "sha256": "28461dc3a767f9c625966d0eae23f56407827317299b0ff1817bd80dc3d434e5",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-message-actions.png",
+        "bytes": 40764,
+        "sha256": "6c942ce9dd087a748eb034166fc6ea9bc4de0c9da3510e9d5c67d6b6deca7dc1",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-history-with-ime.xml",
+        "bytes": 47939,
+        "sha256": "a2708e2cce83e3b19f11106e02d4e611a87dc262f79211cc603810d6752fb739",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-light-history-with-ime.png",
+        "bytes": 38007,
+        "sha256": "cae5d44399583f063bee9986d7c52c73f9f41c0003ac56672785b6059c0e836a",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-light-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-opened.xml",
+        "bytes": 44692,
+        "sha256": "7e38785960091f8c1889ed28d6d0739e93af22cd6a41d12b01340ff9a33e1a27",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-opened.png",
+        "bytes": 40430,
+        "sha256": "2f7242d56d9db40dd74df8e9efe2882af53055028d53dc444baa66dd0c231e65",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-full-details.xml",
+        "bytes": 23198,
+        "sha256": "6798c4afbec58d80d1b42974016df2fb6c4cbbdcb9089421495aa733d174dcaf",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-full-details.png",
+        "bytes": 35854,
+        "sha256": "21b7660addfeff6a74e64c62cc2b1a3391ae18d20f8675db57d80917cabc9ce6",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "7dde8a371368d2d1db23b510aff66d63a31251cec9175b6f343d9738888c764a",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-message-actions.png",
+        "bytes": 41665,
+        "sha256": "a509e163a1d54ed633a8b7c313d1e3870137e759e63910a0a0e18923a35c57e3",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-history-with-ime.xml",
+        "bytes": 47939,
+        "sha256": "a2708e2cce83e3b19f11106e02d4e611a87dc262f79211cc603810d6752fb739",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font100-dark-history-with-ime.png",
+        "bytes": 39273,
+        "sha256": "9c0f89841bb3ecd24bb47e38eed2c782df04f82283d2e320a6d0382f537a5c24",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font100-dark-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.xml",
+        "bytes": 42216,
+        "sha256": "0f7094ab922aacb6d760cd16de1d2b86e28367503a12a7390458334313db54eb",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.png",
+        "bytes": 45851,
+        "sha256": "9178f126f1c0e7ffe37f248ac6b974dbba0f7e971ca5c9b2686393431c33fa05",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-full-details.xml",
+        "bytes": 23200,
+        "sha256": "c0bf9dddfb48978adc2a0391d2ae2299f7101b1ea9bc33cf0ced79f880ebb176",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-full-details.png",
+        "bytes": 40293,
+        "sha256": "5af00953bb87fb108df853e891cb3629e2448d29d6e8affdde2e7473335032cc",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "3db67bff0b70a03ac267807b6995531075834058bbc1dbbdc1bcf732263e2a16",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-message-actions.png",
+        "bytes": 49278,
+        "sha256": "5bca418b7c3bacb36b6037bdde2d594bfdcdd2445f1004b3292abec6d6e22530",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-history-with-ime.xml",
+        "bytes": 47075,
+        "sha256": "3668990dc79272e7815cb9ac060f7a95dc4463a25cbf8f96bc72e5d9037aaaf8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-history-with-ime.png",
+        "bytes": 40482,
+        "sha256": "2622a936e395a80844c2866fbfe49b0f106866481db3b67b5dd8b05db2c08b53",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.xml",
+        "bytes": 42216,
+        "sha256": "0f7094ab922aacb6d760cd16de1d2b86e28367503a12a7390458334313db54eb",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.png",
+        "bytes": 45929,
+        "sha256": "54bb2fb4f552eda2aecbcb5f1138e3e0fdb7e7d8d0786adbba7afdeff2d366df",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-full-details.xml",
+        "bytes": 23200,
+        "sha256": "c0bf9dddfb48978adc2a0391d2ae2299f7101b1ea9bc33cf0ced79f880ebb176",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-full-details.png",
+        "bytes": 40372,
+        "sha256": "4c6bebf8b3b138925787e800770a41ccb38031d4fb8bb5828b30962dfcb8256c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "3db67bff0b70a03ac267807b6995531075834058bbc1dbbdc1bcf732263e2a16",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-message-actions.png",
+        "bytes": 49523,
+        "sha256": "cb0c2ff4ab6256914c285bb5b03be9b53619f0db152ab22c034673aa277dbc4b",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-history-with-ime.xml",
+        "bytes": 47075,
+        "sha256": "3668990dc79272e7815cb9ac060f7a95dc4463a25cbf8f96bc72e5d9037aaaf8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-history-with-ime.png",
+        "bytes": 40173,
+        "sha256": "a050bf2f3c7813733e68f4fd49fad4d0d060471bc751fb6dcafc04b3ef026594",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-opened.xml",
+        "bytes": 40931,
+        "sha256": "c725d7993a010ef8f7658ab781f90a71ba5b0413bb4c6d79d9983fea935800b8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-opened.png",
+        "bytes": 53036,
+        "sha256": "702a8fcb72fd2485402219edb858b698a9654aea270b48942dc9d0f6de96428b",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-full-details.xml",
+        "bytes": 23191,
+        "sha256": "c67df1d3635ffc813bbbdb23549ef62ebe2d9535e47f323dc49f16c22e43b2c5",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-full-details.png",
+        "bytes": 40862,
+        "sha256": "3bd670ae95515b973688d60dcaa8d118ddd6c5d1ecc9e5434392e6755ed7898b",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "a84866f1f13fdb854d157910397640588226230eb4dc89546e3c4719949f93d9",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-message-actions.png",
+        "bytes": 52283,
+        "sha256": "bc1d531d539a3e5be161f4ccc1a7d177bbb025146dd9d311c34c0a48342a8887",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-history-with-ime.xml",
+        "bytes": 43756,
+        "sha256": "7810655584ee57442450d5016fe85919f2d951b92c27801917d342c7820307f8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-light-history-with-ime.png",
+        "bytes": 43073,
+        "sha256": "187028ef7b3868353806e1641cba7caa8a01dcaf0fa43095d46eff875f6eabe4",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-light-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-opened.xml",
+        "bytes": 40931,
+        "sha256": "c725d7993a010ef8f7658ab781f90a71ba5b0413bb4c6d79d9983fea935800b8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-opened.png",
+        "bytes": 54016,
+        "sha256": "0332087d9d85ede592b4b9a43c115e92ef0cc546ff0388cf755f947f4fc80d63",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-full-details.xml",
+        "bytes": 23191,
+        "sha256": "c67df1d3635ffc813bbbdb23549ef62ebe2d9535e47f323dc49f16c22e43b2c5",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-full-details.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-full-details.png",
+        "bytes": 41243,
+        "sha256": "420447670fa166c2cd0f04acf6eec410b74b778d9d0dce362e617d11632ccbd3",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-full-details.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "a84866f1f13fdb854d157910397640588226230eb4dc89546e3c4719949f93d9",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-message-actions.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-message-actions.png",
+        "bytes": 52960,
+        "sha256": "e9256cdfe93917f37f1006e995ff50681d7cdd22763b1c086799e16a67eb9f9d",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-message-actions.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-history-with-ime.xml",
+        "bytes": 43756,
+        "sha256": "7810655584ee57442450d5016fe85919f2d951b92c27801917d342c7820307f8",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-history-with-ime.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font200-dark-history-with-ime.png",
+        "bytes": 43581,
+        "sha256": "4d2ce55236ecea13baa902d3fa94c457fe4c194c3910897fe24139d101ac8e0c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font200-dark-history-with-ime.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-font-restored.json"
+      }
+    ]
+  },
+  "group-conversation-polish-evidence.tar": {
+    "sha256": "8a8d6fca0e7b7fbe042c2468ba015137adf7ac33a4e820fccca3cd224e1a3998",
+    "bytes": 3479552,
+    "members": [
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-activity-lifecycle.jsonl",
+        "bytes": 4033,
+        "sha256": "5e3465f4a46e26d16b47627d03b5dfe98a0f2f5d1c89ac674c3cab4bce321184",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-font-scale.json",
+        "bytes": 98,
+        "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-font-scale.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-configuration.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.xml",
+        "bytes": 44697,
+        "sha256": "b824fe94e723739e7a164abc6491ca41a22360c4567c9f2a067960b16e604dbb",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.png",
+        "bytes": 37696,
+        "sha256": "ffdecb26ca5a5c6c3e23f024b6181b0c3fa2e0c7ff180dab3639bb0fa9d00bbc",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.json",
+        "bytes": 53,
+        "sha256": "7b47447b8933d709ae6cba1ad6e8bd82aac7b73673014537141b3f41173c9b09",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-opened.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.xml",
+        "bytes": 44697,
+        "sha256": "b824fe94e723739e7a164abc6491ca41a22360c4567c9f2a067960b16e604dbb",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.png",
+        "bytes": 37696,
+        "sha256": "ffdecb26ca5a5c6c3e23f024b6181b0c3fa2e0c7ff180dab3639bb0fa9d00bbc",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "8f66e25fa4d7e174cbc29e9013cd0518987ca26335628587508fe23164664714",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.xml",
+        "bytes": 44693,
+        "sha256": "6d7bb00b7131f7785f814858b34d6c7f196933e7f1bfb2bf736e0a19a25e8e87",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.png",
+        "bytes": 37994,
+        "sha256": "a2650e4e9293f0f4ab8a7bd7dfedf634b5227ccf215edaeb0a698c84beb47b5d",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "b629c138777bf2ca461b3692bf0df38ea3dfe71c9c864e4bbc411ed05724e897",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.xml",
+        "bytes": 44323,
+        "sha256": "5d80f52939219153a8224358853310dbad108d93ed63daeac8e366f3b19fff99",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.png",
+        "bytes": 40136,
+        "sha256": "550756c53e00da8b0a0b04d451a2c940950cbc142a7944265be0252769ca357e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.json",
+        "bytes": 68,
+        "sha256": "0c58e4ed88644c841a47066cc2cc5743c51968e83cb45fc68a2b81a695fac89b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.xml",
+        "bytes": 45125,
+        "sha256": "dce2b14e88bfde05c0e3e4282886a4256d88909adab39203a70af21f83b06aff",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.png",
+        "bytes": 38320,
+        "sha256": "f93b3a85c93bb66500e9005a9f15393f91b6c9e8c1612378ef52316291c95bb0",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.json",
+        "bytes": 61,
+        "sha256": "c35957d363bf5339f6d172eb9afb60fcaccfe62037be04b4249eb1662bd381f6",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-older.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "3f89b2fd8e251c72eed4cc0596ca8dff2c84c04755883e743dfc6925075df3f9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.xml",
+        "bytes": 46349,
+        "sha256": "7d1616b591d3ad5a7a416f6c34b80aa28f2c62bdbc68e3711d612528829b6e18",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.png",
+        "bytes": 38906,
+        "sha256": "ec48c6c0bec0191a6e461f0067fd3c8d1bfda29273951f03b792e84905476562",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "58479ea64c16067ded3f0657e8805a6038e1227c92a8e2f95703ef90b40f1edc",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.xml",
+        "bytes": 42714,
+        "sha256": "dc23615c8d60cb4e34216842e7819d1a33dc5f3457cd573c2ad402552e40c80e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.png",
+        "bytes": 41921,
+        "sha256": "39c094317b35d07fa9a11b9215858c508fbbb5f642d280c967f060194c32f915",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "f0350c3073ebdcc9bf0d83975bef5393dd988e238380716b98a264d6b1bff40b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-full-details.xml",
+        "bytes": 28624,
+        "sha256": "c6e4e5fd60e2ab7fb635b2c7739eb9278479e9ccf02efcc2fd367105104f1d2b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-full-details.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-full-details.png",
+        "bytes": 35927,
+        "sha256": "ae8f321ace49b2de9487e65cfab853ec148f1c6c28146ade73ffa12125da8f29",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-full-details.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "687e8bce758483ba79e168b6f722795596697aa1705e2de0cc3b21edefcefe80",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-message-actions.png",
+        "bytes": 42400,
+        "sha256": "0846f62c98b36e2f0b8b40aa5c8ff545d6a61ce88d05c268fa99986c8c9e2464",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-message-actions.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-history-with-ime.xml",
+        "bytes": 46310,
+        "sha256": "f00b0bd02d56c89d4971584eaf44e2951057d39d28a5440cd9aa78b2159ab39b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-light-history-with-ime.png",
+        "bytes": 36989,
+        "sha256": "c11d4f14afaef0c35fad24e53f0aac3d6b66e7ccbd8eb527c3fa2387a9b64cd1",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-light-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.xml",
+        "bytes": 42718,
+        "sha256": "4a05074de4dd74aa140176048972e90d88fba393e2ddc6f2c9bb84e6c1bc3c7a",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.png",
+        "bytes": 42645,
+        "sha256": "518d75d486b5cd6c21341b376d8c971bbd982bdf3ba6bd2febbdafbbb27fc8c9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.json",
+        "bytes": 53,
+        "sha256": "78045f31ea3acc4b433f68ec35ae99cfb231706df0f11201a1cc8e23550138c8",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-opened.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.xml",
+        "bytes": 42718,
+        "sha256": "4a05074de4dd74aa140176048972e90d88fba393e2ddc6f2c9bb84e6c1bc3c7a",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.png",
+        "bytes": 42645,
+        "sha256": "518d75d486b5cd6c21341b376d8c971bbd982bdf3ba6bd2febbdafbbb27fc8c9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "f4940d509970fa7e454a1a7e1627c7c2342885d36041ab548db79bff83ce2ea8",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.xml",
+        "bytes": 42714,
+        "sha256": "2b8d820a9c95bf0ca4d36e7bba92eff751c82d24c9d413e9145520abe1e59a83",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.png",
+        "bytes": 42897,
+        "sha256": "702b52788ac78e08e909531263659f5a4d839ffb811473a2ef5d01c24be652f8",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "393b902963757268a20544cef25bb8265de1e9da620e44347290729b9074429b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.xml",
+        "bytes": 42713,
+        "sha256": "50e86bcc508f971089aee977bc6efc8df8b671be0d6e3ac9fa3836706ea5d900",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.png",
+        "bytes": 42973,
+        "sha256": "c01bba40afed8dac9b46fa2f1a3721b676a0952937aa06c6f59ecf65bc685264",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.json",
+        "bytes": 68,
+        "sha256": "cb2643669fdfd5e5da68bcd3c3a5c227bfdc581016b5fc104358263def80a352",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.xml",
+        "bytes": 45125,
+        "sha256": "657a14c9ce483396b9441751ad28e33dcc5d2aaa889e8b16565e59df540c8dea",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.png",
+        "bytes": 39673,
+        "sha256": "ef67794b598253984dfff716c532f549c5cd2e41868929613b3a6a71fadc670f",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.json",
+        "bytes": 61,
+        "sha256": "f6850de427c363d2dd8d589977d5c717a381353ef917e65d83441b558b99e4e0",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-older.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "3f89b2fd8e251c72eed4cc0596ca8dff2c84c04755883e743dfc6925075df3f9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.xml",
+        "bytes": 46349,
+        "sha256": "c18fdd6e4744872ce1b566b66b7ad0fe0080b13bba71c4d57546e549d445b659",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.png",
+        "bytes": 40244,
+        "sha256": "798ee5f3b0e1cc8fade48ab2b714586bb854e04b05efdc9f80609d9bbaf88859",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "ccb8a6179ddf41d526eba4b9355c7b9f34c53677a0f82b11f6e8a71fb08323db",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.xml",
+        "bytes": 42712,
+        "sha256": "e932fde91a861c1c9a50555a617aec28ac6f08ff3880b61f6812e962c00fc503",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.png",
+        "bytes": 43221,
+        "sha256": "96c226529fcfa0ef25f5caa9823d335d4ab05d7d7584145a086e9248e7ebf695",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "5eece6b51a33d0f65d6bf81ba61a66ee63d0eab885eced13e3ce42083f2c30e3",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-full-details.xml",
+        "bytes": 28624,
+        "sha256": "a1afed2baad88954a74e0a1e1cdf7faace7904aa0cf9020f858c12b02587fed1",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-full-details.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-full-details.png",
+        "bytes": 36642,
+        "sha256": "b9d1b3cb2d9118c2e16cf93ceba2087f1593c8d9b6d2030529a8a1e124f7235c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-full-details.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "687e8bce758483ba79e168b6f722795596697aa1705e2de0cc3b21edefcefe80",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-message-actions.png",
+        "bytes": 43517,
+        "sha256": "e13e3ff26b9df5de22c3dccb8f4f0e26d9820b9d1680ac32cefa73d43db3e8cb",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-message-actions.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-history-with-ime.xml",
+        "bytes": 46309,
+        "sha256": "5d290ff39d175f56e779bc55f12f41226893fb813d014c58785cf8b8835f7a3e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-history-with-ime.png",
+        "bytes": 37762,
+        "sha256": "1188da0eb3f4b6d8f4173d74ae733b203b635f3a7f97799b257620ebcda502f3",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font100-dark-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-configuration.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.xml",
+        "bytes": 39338,
+        "sha256": "e023995229b44cb48c32b50afa8a8eb0a07bad756e480c63463ee3d36b1e0b13",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.png",
+        "bytes": 50471,
+        "sha256": "d043f4af74b4916c635fc073653cc9bd9f326e8076b2afb0d3a9fcbdd9a28417",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.json",
+        "bytes": 53,
+        "sha256": "9944d2df3b03f3969cf693041211c5fef7ee32234e18556f911b19214c8ca63d",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-opened.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.xml",
+        "bytes": 39338,
+        "sha256": "e023995229b44cb48c32b50afa8a8eb0a07bad756e480c63463ee3d36b1e0b13",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.png",
+        "bytes": 50471,
+        "sha256": "d043f4af74b4916c635fc073653cc9bd9f326e8076b2afb0d3a9fcbdd9a28417",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "3aa3961fe34f887148a3369fc3e623a0bff5ad7794c28dfb41b03b1b1dd211ed",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.xml",
+        "bytes": 39334,
+        "sha256": "4453e5a89096327b420ca3dcf1b757f936e930c501229baa60ba0c6b9a8a8664",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.png",
+        "bytes": 50851,
+        "sha256": "ba9fcceb1d4b9bed6c9bf12113a1472c94edd1088ac9c61aaa5d3c8bf854ad70",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "e1877fcbe6e6c07073f60fa59e9c341c4c81d8b1859e476ec99fa4f0518bdac1",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.xml",
+        "bytes": 40141,
+        "sha256": "ee3cfb2e2b5d6aab390a286fb0f1d0297cfc6d48af5a5134c90074544b84f9b2",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.png",
+        "bytes": 51895,
+        "sha256": "d050020b92f30b9acf6f7c6dafb40f115223b9590fc7d7460233482f48e3a4e9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.json",
+        "bytes": 68,
+        "sha256": "7a2122a93cf5a38aa1dcc1d06811bb99d94834851736a6fe0cb0ee95c6e58b3c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.xml",
+        "bytes": 41361,
+        "sha256": "5f995e6eff717042738310630d775c5b5e3450f032e36c91c978588eaeeb5b8c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.png",
+        "bytes": 49953,
+        "sha256": "a3fb41dac059eca6742780a630d33a93a4c4909a44a8131a091de98b0b7370c2",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.json",
+        "bytes": 61,
+        "sha256": "d2fa9097d2d1e031b306a80852d148a930fecc5ef00e926c7ea414dd2eeb90fb",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-older.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "468baf04ebc0a22cca0e1307698bfe98104096905169b37e30b12df1542e830e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.xml",
+        "bytes": 42584,
+        "sha256": "f134b925e3595da5c38b94fe5206b816b1de5a8032ad5f264a5d22bd810b02d0",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.png",
+        "bytes": 50677,
+        "sha256": "2fad4fd886355296fdb4dba762177334730b6188bd378f6a649877e5f7f535c3",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "91cca11902b998826bbca49fd1c4b78d9e53b980cae517ae656b5172210810be",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.xml",
+        "bytes": 39335,
+        "sha256": "d27f3b0472872fd41f8ee3b8414ce2a6ece33dee848a03a0d8ea82866c4072b9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.png",
+        "bytes": 50544,
+        "sha256": "e1490961e27d9806fa61d581416b57ff8cd0e7d9adf782e4b01ef121a0a18617",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "79c37b6a22ae706f4908fe3a19c9918d57f16c26dbb09add2ee9e7d80d90c861",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-full-details.xml",
+        "bytes": 23980,
+        "sha256": "6bd8ae81f48c505c5539289e051fbe5cbf360c1f29c67d4656990c2ab9e86ffa",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-full-details.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-full-details.png",
+        "bytes": 41188,
+        "sha256": "f57bb069d088ee37fac915830c6223cc76fbbfeefaf5e5d83a2b9e19e33b7e0e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-full-details.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "5a721187c67117373b301930305e2eb27a85b14062fd185fbbc4379c1192aa6c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-message-actions.png",
+        "bytes": 55310,
+        "sha256": "ad03ebfe414388c7a00ec0e5ecf79aa1ee5d1a4c182e4ea1e1ab40a5218ace1e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-message-actions.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-history-with-ime.xml",
+        "bytes": 45078,
+        "sha256": "236a7df6ca283a07ef0bfbefce72529d38c8d385232ad1de2c5ed9b0916a327c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-light-history-with-ime.png",
+        "bytes": 41865,
+        "sha256": "dd1784e4b82cb7fdf5d6bbdb82db823c4709d0af935221d65943f7ddbb6776fd",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-light-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.xml",
+        "bytes": 39339,
+        "sha256": "ef0c917ecf8fb0baa78fef4d1fc445df2de180b2fd4e4d4b66c7136aeccf8824",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.png",
+        "bytes": 50816,
+        "sha256": "d72fbacda71273587d922fff1b13d15c0df53b6aa434b3c58e619cdba385b83c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.json",
+        "bytes": 53,
+        "sha256": "813536b7dc256160b9f8a84cbf4a3713c4224cde88406c32f3660810bbcdf02b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-opened.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.xml",
+        "bytes": 39339,
+        "sha256": "ef0c917ecf8fb0baa78fef4d1fc445df2de180b2fd4e4d4b66c7136aeccf8824",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.png",
+        "bytes": 50816,
+        "sha256": "d72fbacda71273587d922fff1b13d15c0df53b6aa434b3c58e619cdba385b83c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "ff1bf0d8b5ce988ae6788756bf6ee7e9c7fcc939153ba018e479f29a286823d1",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.xml",
+        "bytes": 39335,
+        "sha256": "d27f3b0472872fd41f8ee3b8414ce2a6ece33dee848a03a0d8ea82866c4072b9",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.png",
+        "bytes": 51158,
+        "sha256": "7d00676f80884c7ac42eb71d36843f680535ae687d8717b1a6b6929f8b9aa8b2",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "b756ecf38de373a6636ba3e899d06c9759cdd53db5ce8b928b78ff5ef133d12e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.xml",
+        "bytes": 40140,
+        "sha256": "129692dd371c3dea50c7ad43efbc019b2f326630821d1a4be52f90488cb55126",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.png",
+        "bytes": 52767,
+        "sha256": "99021b6ebbd3c547d20eac655d24b504acbe1eaf78656d4bc09471f8e8a3e981",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.json",
+        "bytes": 68,
+        "sha256": "457e3db6f62878bc94a26068ae1628037138fcdd3727c8876fe22548e7f47f55",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.xml",
+        "bytes": 41361,
+        "sha256": "5f995e6eff717042738310630d775c5b5e3450f032e36c91c978588eaeeb5b8c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.png",
+        "bytes": 50577,
+        "sha256": "43f3108b92e66e585935b82f3d0d34bd5fa28ef65916c6bace9148d7a9fa679f",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.json",
+        "bytes": 61,
+        "sha256": "86e6c8624d16f5578653b7dc73c49a618a9c6bbfdb15a7fa9d24cd91d479f7d5",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-older.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "468baf04ebc0a22cca0e1307698bfe98104096905169b37e30b12df1542e830e",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.xml",
+        "bytes": 42584,
+        "sha256": "f134b925e3595da5c38b94fe5206b816b1de5a8032ad5f264a5d22bd810b02d0",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.png",
+        "bytes": 51378,
+        "sha256": "4b6a29a74e0ef5645720b19811a4db27cdc89bcd1a94f3eadf15895214c84893",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "67a97878e4d9c37860966ca90f955c0a96e33b2551d6ecdf5414a7de4c86dfd4",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.xml",
+        "bytes": 39334,
+        "sha256": "ea85f51ceb02b344188868e85c404770a1210f18c6cc86e43223883475f705f1",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.png",
+        "bytes": 51319,
+        "sha256": "e42f78a0eb0a864d96bc37096fa9a74d7d28fa95c4806beca7f7cf4126d499a4",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "e058ca8541bca50f742ff570122415501267556ce1319aafdb52bcac989af318",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-full-details.xml",
+        "bytes": 23980,
+        "sha256": "6bd8ae81f48c505c5539289e051fbe5cbf360c1f29c67d4656990c2ab9e86ffa",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-full-details.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-full-details.png",
+        "bytes": 41561,
+        "sha256": "7b3a487c079d746403068444ad97b7074b76ce76555670513fc47fd6f1fae264",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-full-details.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "5a721187c67117373b301930305e2eb27a85b14062fd185fbbc4379c1192aa6c",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-message-actions.png",
+        "bytes": 55915,
+        "sha256": "e47418913c1adad1ff0f6b57a1ff7f468e7cc23bf069b3817b7473c8ebe2acc3",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-message-actions.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-history-with-ime.xml",
+        "bytes": 45077,
+        "sha256": "55464bf20b6826df028031197a2d60812014808d3a360bde81e857f3730058c2",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-history-with-ime.png",
+        "bytes": 42365,
+        "sha256": "018762b38f55ea6ff2c2ccfd19ea2389f7c7b21c009f7b5962bfc2153c1b13ba",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-320-font200-dark-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-polish-evidence/group-conversation-polish-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/group-conversation-polish-evidence/group-conversation-polish-evidence/group-conversation-polish-font-restored.json"
+      }
+    ]
+  },
+  "group-conversation-reading-evidence.tar": {
+    "sha256": "124e465dd469dcbc19e879709256814a9c4cce0ca7cf8ae1920c298296823281",
+    "bytes": 1757696,
+    "members": [
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-activity-lifecycle.jsonl",
+        "bytes": 2786,
+        "sha256": "f71fd9e96239655e3b9b64217ab609842629ea69a1c84a5e6e8c551c4331139e",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-font-scale.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-configuration.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.xml",
+        "bytes": 42653,
+        "sha256": "bddda08b79198ff146da6c0f537fb4abd6e78afc31c0ad4d83a3c1ad49b05e18",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.png",
+        "bytes": 43579,
+        "sha256": "bdcb449074343b0ebbebe6fcb65e418e90cd3f13e6ca3e748efe8689a26c2b46",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.json",
+        "bytes": 53,
+        "sha256": "7b47447b8933d709ae6cba1ad6e8bd82aac7b73673014537141b3f41173c9b09",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-opened.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.xml",
+        "bytes": 42649,
+        "sha256": "b989975ed46839b79d4464056b97dcd772f15f769d139ab13bc977034abe1494",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.png",
+        "bytes": 43892,
+        "sha256": "8d026cc07c0f10e5f1d5b00083ce05d19359341007da22bb0dae034b57c24bd4",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "8f66e25fa4d7e174cbc29e9013cd0518987ca26335628587508fe23164664714",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.xml",
+        "bytes": 42649,
+        "sha256": "b989975ed46839b79d4464056b97dcd772f15f769d139ab13bc977034abe1494",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.png",
+        "bytes": 43892,
+        "sha256": "8d026cc07c0f10e5f1d5b00083ce05d19359341007da22bb0dae034b57c24bd4",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "b629c138777bf2ca461b3692bf0df38ea3dfe71c9c864e4bbc411ed05724e897",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.xml",
+        "bytes": 42674,
+        "sha256": "2c6cdf9473e7020aa8dedbdb5ecc790eed98e1e27399af4e6a24791f8dbd5d11",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.png",
+        "bytes": 43494,
+        "sha256": "2e1514f2c5692b022702a7e7329fd58fb8912ef2a2c7db0241e18ca2d829a3e7",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.json",
+        "bytes": 68,
+        "sha256": "0c58e4ed88644c841a47066cc2cc5743c51968e83cb45fc68a2b81a695fac89b",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.xml",
+        "bytes": 43890,
+        "sha256": "685446066d3b2d9b9ad94f79f5e32b900bb943dd51b937fbb6c57fe569f52897",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.png",
+        "bytes": 44652,
+        "sha256": "61d098824b8199129e7fdac7c23935e453273140c37585abb334f49892d11874",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.json",
+        "bytes": 61,
+        "sha256": "c35957d363bf5339f6d172eb9afb60fcaccfe62037be04b4249eb1662bd381f6",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-older.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "e82ad5d12dc98bd8ecc4982eebc5fe94995619a2e2b186a64fa1a3eaeb9debbe",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.xml",
+        "bytes": 45113,
+        "sha256": "4f28cd8e5249f3dab121085f3605c2dfa8e09c3a86c9fb16a1bc727f0cc9486c",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.png",
+        "bytes": 46222,
+        "sha256": "b8d8367ce8d41d48905948169cd44c60658a6b469f9787bdc06064ba0e442a02",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "58479ea64c16067ded3f0657e8805a6038e1227c92a8e2f95703ef90b40f1edc",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.xml",
+        "bytes": 42716,
+        "sha256": "c53079f5c3ed33e9e4b3dbffc3f805fd45b596bccf5243a1d78e5518c6adaced",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.png",
+        "bytes": 46349,
+        "sha256": "37f2444d98158646db7a61681ca1ad1174fe69e325432714a7ae1f67fd700c43",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "f0350c3073ebdcc9bf0d83975bef5393dd988e238380716b98a264d6b1bff40b",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-full-details.xml",
+        "bytes": 28622,
+        "sha256": "34dd8f7ee7b9d3d0228c421103c448da5480ead4e7f39cacdad28385eb89a898",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-full-details.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-full-details.png",
+        "bytes": 38666,
+        "sha256": "d17a8ad352650ab6fe0248d617c12395f99941865ccb7a76e5f162910a63b9d6",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-full-details.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "f28844bf011b6c94ce8e2b80850fb0eb82d3e0513aac218d0adcd7d29ccb1b1a",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-message-actions.png",
+        "bytes": 46966,
+        "sha256": "c6c77bf8961394dbd8a40e448d62cddefff6827b48b1535fc4743a2bb9d6622a",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-message-actions.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-history-with-ime.xml",
+        "bytes": 45486,
+        "sha256": "aef0d2402d307df3f4d8339c13a6b63a1c2d006a5922819a3e1733bddb076b57",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-light-history-with-ime.png",
+        "bytes": 40886,
+        "sha256": "3f6895fdb620cd234d78b5b78763a22d34b6717687f9b85d9120e1b542f21806",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-light-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.xml",
+        "bytes": 42720,
+        "sha256": "eeb3c278b3a7767bb98bf10c90c392e9ecb90b5d5812d0fcc77260cba106257a",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.png",
+        "bytes": 46209,
+        "sha256": "bb30cc458eaf2fc5132b05a8f73b302442041f2d932e25bc12ee073cc7cee2e8",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.json",
+        "bytes": 53,
+        "sha256": "78045f31ea3acc4b433f68ec35ae99cfb231706df0f11201a1cc8e23550138c8",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-opened.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.xml",
+        "bytes": 42720,
+        "sha256": "eeb3c278b3a7767bb98bf10c90c392e9ecb90b5d5812d0fcc77260cba106257a",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.png",
+        "bytes": 46209,
+        "sha256": "bb30cc458eaf2fc5132b05a8f73b302442041f2d932e25bc12ee073cc7cee2e8",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "f4940d509970fa7e454a1a7e1627c7c2342885d36041ab548db79bff83ce2ea8",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-at-end.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.xml",
+        "bytes": 42716,
+        "sha256": "c53079f5c3ed33e9e4b3dbffc3f805fd45b596bccf5243a1d78e5518c6adaced",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.png",
+        "bytes": 46493,
+        "sha256": "9dab993c06a097bf156acbcb6e91a78bef23b214e60ccf6f185452c4174fa692",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "393b902963757268a20544cef25bb8265de1e9da620e44347290729b9074429b",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-received-while-at-end.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.xml",
+        "bytes": 42715,
+        "sha256": "55f987a34e6cb9530ac6a54922e5c9284f6afd99963e5723fece04fb17f72e6b",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.png",
+        "bytes": 45658,
+        "sha256": "90ab4069ac067c83d52077ae113abdaa0f4e62fcd73bf721c3e4820e555201ab",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.json",
+        "bytes": 68,
+        "sha256": "cb2643669fdfd5e5da68bcd3c3a5c227bfdc581016b5fc104358263def80a352",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-following-new-message.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.xml",
+        "bytes": 43890,
+        "sha256": "685446066d3b2d9b9ad94f79f5e32b900bb943dd51b937fbb6c57fe569f52897",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.png",
+        "bytes": 45060,
+        "sha256": "7b0a40cb98eeb37ea5fb21828fde074ec9735053e430fae3a73994e412819015",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.json",
+        "bytes": 61,
+        "sha256": "f6850de427c363d2dd8d589977d5c717a381353ef917e65d83441b558b99e4e0",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-older.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-anchor.json",
+        "bytes": 129,
+        "sha256": "e82ad5d12dc98bd8ecc4982eebc5fe94995619a2e2b186a64fa1a3eaeb9debbe",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-reading-anchor.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.xml",
+        "bytes": 45113,
+        "sha256": "4f28cd8e5249f3dab121085f3605c2dfa8e09c3a86c9fb16a1bc727f0cc9486c",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.png",
+        "bytes": 46773,
+        "sha256": "eaeba57b1f71bf8b1f82def191c78aa540bf0c58d72450a1f7f6e74eef60b124",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "ccb8a6179ddf41d526eba4b9355c7b9f34c53677a0f82b11f6e8a71fb08323db",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.xml",
+        "bytes": 42714,
+        "sha256": "205a2401ac7f9f4c76b199589101358534b0bdc29e2b1ae1ac51cdd34d967833",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-full-details.xml",
+        "bytes": 28622,
+        "sha256": "34dd8f7ee7b9d3d0228c421103c448da5480ead4e7f39cacdad28385eb89a898",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-full-details.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.png",
+        "bytes": 47035,
+        "sha256": "e7792d21b4375738ac1a4f63948164a3b35e076f81ea78291474cad7fa1eb2c2",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "5eece6b51a33d0f65d6bf81ba61a66ee63d0eab885eced13e3ce42083f2c30e3",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-full-details.png",
+        "bytes": 39097,
+        "sha256": "e63df98bbe93db82c8bd013c1ffff614d0f4a475cd88cee64dfcbe62be23cbce",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-full-details.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-message-actions.xml",
+        "bytes": 15934,
+        "sha256": "f28844bf011b6c94ce8e2b80850fb0eb82d3e0513aac218d0adcd7d29ccb1b1a",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-message-actions.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-message-actions.png",
+        "bytes": 47484,
+        "sha256": "c1b6b8005d81d72b09ec7030a76d1f0c26f233d825d38a2de2be98bdf2144d22",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-message-actions.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-history-with-ime.xml",
+        "bytes": 45485,
+        "sha256": "4a7a1a3c5bbae45b5c25111f8a4c4610efa3f66ada4a72a525da2f1da8b679bc",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-history-with-ime.xml"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-history-with-ime.png",
+        "bytes": 40698,
+        "sha256": "86e4806a2f33089edb15435e96d08cdd832177e200e4d0702fc6cc54393d079f",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-320-font130-dark-history-with-ime.png"
+      },
+      {
+        "name": "group-conversation-reading-evidence/group-conversation-reading-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/group-conversation-reading-evidence/group-conversation-reading-evidence/group-conversation-reading-font-restored.json"
+      }
+    ]
+  },
+  "private-conversation-reading-evidence.tar": {
+    "sha256": "319b8f32608d79125519f98056bce8bc49c28d89c296de59d51674527cbf30c4",
+    "bytes": 1339904,
+    "members": [
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-activity-lifecycle.jsonl",
+        "bytes": 2766,
+        "sha256": "da9ca1dcd3c154cf9f03c743b5a30475845d8c09da9c3bd6fd69481694a92901",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-font-scale.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-configuration.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.xml",
+        "bytes": 42218,
+        "sha256": "bf260be2aecdd5532a1c6874f8b69fdf9d281a7855b3092885f4b9dcac9a8f4f",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.png",
+        "bytes": 45996,
+        "sha256": "bb0267c94977648d3f42c7b928f5036e5140c7662113df9bc39af81c81c3b3a1",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.json",
+        "bytes": 53,
+        "sha256": "7b47447b8933d709ae6cba1ad6e8bd82aac7b73673014537141b3f41173c9b09",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-opened.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.xml",
+        "bytes": 42218,
+        "sha256": "bf260be2aecdd5532a1c6874f8b69fdf9d281a7855b3092885f4b9dcac9a8f4f",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.png",
+        "bytes": 45996,
+        "sha256": "bb0267c94977648d3f42c7b928f5036e5140c7662113df9bc39af81c81c3b3a1",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "8f66e25fa4d7e174cbc29e9013cd0518987ca26335628587508fe23164664714",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-at-end.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.xml",
+        "bytes": 42218,
+        "sha256": "bf260be2aecdd5532a1c6874f8b69fdf9d281a7855b3092885f4b9dcac9a8f4f",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.png",
+        "bytes": 45996,
+        "sha256": "bb0267c94977648d3f42c7b928f5036e5140c7662113df9bc39af81c81c3b3a1",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "b629c138777bf2ca461b3692bf0df38ea3dfe71c9c864e4bbc411ed05724e897",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-received-while-at-end.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.xml",
+        "bytes": 41826,
+        "sha256": "7e4b546a4c1a18c992d7e92e83e74011d12113831d283e488ae78cacab9123fa",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.png",
+        "bytes": 45260,
+        "sha256": "bdece5d586cda7166434eeba6493a2f3cede7783f1266bb812b64f077fbd0b9d",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.json",
+        "bytes": 68,
+        "sha256": "0c58e4ed88644c841a47066cc2cc5743c51968e83cb45fc68a2b81a695fac89b",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-following-new-message.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.xml",
+        "bytes": 43040,
+        "sha256": "303802024ad85367d91fabe593bdfdee606f12ee752db2f0dbb9364e81f497cb",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.png",
+        "bytes": 46613,
+        "sha256": "1d8bf119ae2a37bb33d9e9cef3ef16c3c5db09a5a134dc79bbcf072cd1533e32",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.json",
+        "bytes": 61,
+        "sha256": "c35957d363bf5339f6d172eb9afb60fcaccfe62037be04b4249eb1662bd381f6",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-older.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-anchor.json",
+        "bytes": 131,
+        "sha256": "0f7f95077072129350c30306882b3c7de355c276eadb2ae918c414c2d64826f6",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-reading-anchor.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.xml",
+        "bytes": 44263,
+        "sha256": "45d21e893c47d76c08c6878c9cd0e4d1191aa0716f97ca8e7e89792d0f1b9e40",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.png",
+        "bytes": 48036,
+        "sha256": "2230bb4ed37811d5ff74f6fe75a2d522a8262117e54d266788db75a20eb8204d",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "58479ea64c16067ded3f0657e8805a6038e1227c92a8e2f95703ef90b40f1edc",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.xml",
+        "bytes": 41870,
+        "sha256": "a3d1bb9124b129c7886142962a9530711637a49c725172195b1b99c6be689564",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.png",
+        "bytes": 47386,
+        "sha256": "610c57d69f1f539d5653604b25dbb3d6929a3c4da8518a315beefb78460940e7",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "f0350c3073ebdcc9bf0d83975bef5393dd988e238380716b98a264d6b1bff40b",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-light-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.xml",
+        "bytes": 42289,
+        "sha256": "55efc55a704c5a92eea8140e3df111b04907e7d4fbbdf640cad676c5404f0d50",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.png",
+        "bytes": 47204,
+        "sha256": "c19e98a8aed0c3f94d00305a45cc72af8158708193c537e359d693d3fd3e3bc9",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.json",
+        "bytes": 53,
+        "sha256": "78045f31ea3acc4b433f68ec35ae99cfb231706df0f11201a1cc8e23550138c8",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-opened.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.xml",
+        "bytes": 42289,
+        "sha256": "55efc55a704c5a92eea8140e3df111b04907e7d4fbbdf640cad676c5404f0d50",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.png",
+        "bytes": 47204,
+        "sha256": "c19e98a8aed0c3f94d00305a45cc72af8158708193c537e359d693d3fd3e3bc9",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.json",
+        "bytes": 61,
+        "sha256": "f4940d509970fa7e454a1a7e1627c7c2342885d36041ab548db79bff83ce2ea8",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-at-end.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.xml",
+        "bytes": 41870,
+        "sha256": "a3d1bb9124b129c7886142962a9530711637a49c725172195b1b99c6be689564",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.png",
+        "bytes": 47602,
+        "sha256": "ed084e90ecc4aa87fc0ca232f06303a84bbdc11f371bf5c2d41a79c1dc5321ba",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.json",
+        "bytes": 68,
+        "sha256": "393b902963757268a20544cef25bb8265de1e9da620e44347290729b9074429b",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-received-while-at-end.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.xml",
+        "bytes": 41869,
+        "sha256": "f3cb3a8e93973b0b7683b550d455586c5c3f4b417b07b7258c857fed2d52b927",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.png",
+        "bytes": 46705,
+        "sha256": "c3e3a21b9ade39bce160cede59d8412310ea5fb8446cc8a74ad7ca32a1541e0d",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.json",
+        "bytes": 68,
+        "sha256": "cb2643669fdfd5e5da68bcd3c3a5c227bfdc581016b5fc104358263def80a352",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-following-new-message.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.xml",
+        "bytes": 43040,
+        "sha256": "303802024ad85367d91fabe593bdfdee606f12ee752db2f0dbb9364e81f497cb",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.png",
+        "bytes": 46930,
+        "sha256": "2e444697d9eaa103856c0ae4f89d8462cacdfb8c26b64c328e2e902ae3ec1c72",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.json",
+        "bytes": 61,
+        "sha256": "f6850de427c363d2dd8d589977d5c717a381353ef917e65d83441b558b99e4e0",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-older.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-anchor.json",
+        "bytes": 131,
+        "sha256": "0f7f95077072129350c30306882b3c7de355c276eadb2ae918c414c2d64826f6",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-reading-anchor.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.xml",
+        "bytes": 44263,
+        "sha256": "45d21e893c47d76c08c6878c9cd0e4d1191aa0716f97ca8e7e89792d0f1b9e40",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.png",
+        "bytes": 48327,
+        "sha256": "1e011f2fe580a97f83147b97092dbcdf6d0aa6795eb3dbc870d4c5d63c40a97c",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.json",
+        "bytes": 86,
+        "sha256": "ccb8a6179ddf41d526eba4b9355c7b9f34c53677a0f82b11f6e8a71fb08323db",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-with-older-position.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.xml",
+        "bytes": 41868,
+        "sha256": "411b7f6406f9f555840e6756fb23e70c41bd6e615dc65eecf74134edddacf1f8",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.xml"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.png",
+        "bytes": 47979,
+        "sha256": "d0aa5f415c56dea8908e91cb5ec9e2463667c3ffd465f9cc3cc51f39dbcd59a9",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.png"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.json",
+        "bytes": 79,
+        "sha256": "5eece6b51a33d0f65d6bf81ba61a66ee63d0eab885eced13e3ce42083f2c30e3",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-320-font130-dark-new-message-action-opened-latest.json"
+      },
+      {
+        "name": "private-conversation-reading-evidence/private-conversation-reading-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/private-conversation-reading-evidence/private-conversation-reading-evidence/private-conversation-reading-font-restored.json"
+      }
+    ]
+  }
+}

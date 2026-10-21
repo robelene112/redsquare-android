@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 20:33 UTC:62 dense-composer readability regression being added; DO NOT PUBLISH61; public60.
+Updated 2026-10-21 21:16 UTC:62 correction107 under focused native verification; DO NOT PUBLISH61; public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,22 +46,75 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
-DO NOT PUBLISH61. Root visual inspection of complete17 originals reveals dense
-photo+long-reply+four-line editor at130%/IME leaves only24px private/31px group
-history. Existing fixture has no history, so particular obscured messages are
-not proved; quote clipping is intentionally scrolled-to-photo, not itself a bug.
-Both reviewers confirm the readable-history acceptance gap. Strengthen existing
-ChatKeyboard longReply cases with signed populated history and96dp visible
-history floor before changing production. Existing10methods/300s stay. Product
-fix must budget whole composer, preserve exact draft and reachable Send/photo/
-reply/status controls. Any product change requires fresh full10/17 and a NEW
-signed62, never rebuild/reuse61. Public60 remains live.
+Current product107dde881c29c8c9bd62945db79b210bb3157592 corrects two native663
+regressions without changing a test or bound. Conversation-only root-relative
+ReadingAnchor compensates for ancestor header movement through the budget container.
+Actual filtering originals show Loading disappears and message20 shifts31px.
+Private queued Cancel is pinned outside supplemental scroll; original action callback,
+guards/lock/store/draft restore are unchanged. Actual663 queue target clips to32px
+on BOTH SDKs. Both source reviews0/0; local canonical compile active.
 
-Full17run39662258345 is functionalSUCCESS: strict frozen collector512PASS,
-149normal/35interruptions/34continuity/109archives3437members, no identity deficit.
-This is PRE dense-composer correction, not final UI acceptance. Full10run39667308854
-still executes pre-correction6d. Retain both actual outcomes; never publish61
-merely because the old functional suite passes.
+Six fresh focused107 scopes: conversation-viewport, agreement, chat-keyboard on10/17.
+Dispatch record external conversation62-anchor-queue-focused-dispatch.json. Review
+originals and exact assertions; then run fresh complete10/17 at this corrected
+product. No accepted full663 result is possible:10 Chat+Wallet fail;17 Wallet fails.
+Observer26998 retains terminal whole runs and does not collect failed executions.
+Eight focused663 packets have final evidenceSpec0/Standards0/heuristic0: keyboard
+10methods94.247/141.925s,96px history inallfour dense cases; own-send bothPASS;
+queue13methods bothPASS (focusedqueue does NOT run process recovery); viewport17
+allfivePASS; viewport10fails older-anchor. No focused/pass-part assembly.
+
+
+DO NOT PUBLISH61. Actual populated-history RED at1ad6aae453271f676b125a55aa9ccdf64c4ac9d6
+confirms dense photo/long-reply/multiline editor consumes history. RED10run39671618022:
+10methods6PASS/4floorfail72.914s, history17/24px130%,47/54default. RED17run39671622040:
+6PASS/4fail127.392s, threefloorfail31pxgroup130%,54/61default; private130nativehistory
+lookup fails beforefloor (causeunproved). Both original300s bound; no goal weakened.
+Packets redSDK-populated-dense-history-1ad-RUN retain100originals each. Root viewed
+actual populated private130failure. Earlier unpopulated screenshots alone did not
+prove obscured messages; intentional quote-to-photo scrolling is not itself a bug.
+
+Production66380a52cfad873c899b23f373f84b90302cc694 adds shared ConversationLayout:
+budget whole composer after actualheader/status, reserve96dp history/48at200%
+with physical-shortage clamp; scroll supplementalstatus/quote/photo separately,
+bound the internallyscrolling editor, keep actualinput/Send row. Private queued
+preview stays bounded with outerstatusscroll; groupqueue unchanged. Reactionretry
+moves abovebody. All callbacks/draft/picker/identity/protocol guards preserved.
+Both source reviews0; canonical app/test compileSUCCESS3m37s/explicit0.
+Reviewed CIv3cache maintenance992857659dec5b6f3792e14597bb1e69b8ac5553 is included;
+only2cache steps differ, every gate/command/bound/matrix/pin/permission unchanged.
+
+These exact663 focused executions are now terminal (see current qualification above):
+- keyboard10run39674103550;17run39674107475 (original10methods/300s, stronger4cases)
+- viewport10run39674111384;17run39674114627 (originalfiveclasses/180each,100/130/200)
+- ownsend10run39674119293;17run39674123264
+- queue10run39674128079;17run39674131963 (originalmethods/process recovery)
+Observer /tmp/redsquare62-watch-dense-green-663.py downloads terminal originals to
+external conversation62-dense-green-SCOPE-663-RUN. Do not confuse with old814GREEN.
+
+FRESH COMPLETE source66310run39674331268 and17run39674334947 dispatched20:54UTC
+in parallel with focused proof. Observer26998 /tmp/redsquare62-watch-complete-663.py
+collects only wholeSUCCESS/3SUCCESSpartitions to external conversation62-fullSDK-663-RUN,
+then strict frozen collector into fullSDK-663-RUN. Config actualbindings updated;
+frozen814catalog511/512identities,148/149completions,35interruptions/34continuity/
+109archives and tooling unchanged. Stronger existingmethods add no newidentities.
+Preserve all publicread/update/final gates. Inspect actual rendered densecomposition
+alongside200%, viewport/queued/recovery evidence. Fix actual failures, never relax
+goals or build acceptance from old passing pieces.
+
+Both PREcorrection complete runs are functionalSUCCESS only:17at539run39662258345
+512PASS/149normal/109archives3437members, final evidence0/0;10at6drun39667308854
+510PASS+1approvedProfileassumption/148normal/109archives3414members, finalreview0/0.
+Each has35interruptions/34continuity and exactcatalog. They ran before the stronger
+readability predicates/product fix and do NOT complete UI acceptance. Never reuse
+these passing partitions for corrected663. Old observers20041/26623 completed.
+
+Held61 is built once at2d but PERMANENTLY WITHHELD for dense-layout defect, no rebuild/
+reuse. Newproduction needs NEW signed62 after focused/renderedproof, then complete
+proof/review/publication. Counter61/public60. Keep exact old artifact/provenance.
+No62build yet. New62 can update installed60 in place with same established cert.
+
+### Earlier attempts and cache context
 
 Full539 Wallet10run39662252940 has a terminal failed Wallet partition: original
 WalletImport7methods103.016seconds,5PASS/2initial Wallet clicks fail before import
@@ -89,11 +142,12 @@ SUCCESS: Admin92.119s/Group171.345s; corresponding green17packet139originals.
 Observer89749completed both downloads. Both evidence axes0/0 except stale status
 lines, now corrected. These focused results never replace complete gates.
 
-CI maintenance after62: current Gradle output v2cache is immutable by build-config
-key, seeded2026-10-20, so fixture-only changes repeatedly recompile unchanged main
-and release sources. Consider a production/build source fingerprint and separate
-complete/debug cache seeds, preserving source/core/release/lint and native gates.
-No workflow/cache change has been applied.
+CI maintenance at992857659dec5b6f3792e14597bb1e69b8ac5553: reviewed v3cache key includes production/build
+fingerprints and separate complete/debug seeds. Only2cache steps differ; YAML
+parses and every other workflow/job field/build/core/release/lint/native step is
+byte-equivalent after YAML parsing. Both source axes0. Included in pushed663; earlier1ad RED runs used originalv2.
+Measure actual cache hit/build behavior from terminal runs without changing any
+acceptance gate.
 
 IMPORTANT: ordinary61 has now been built ONCE at exact2d5a0c2fdb0a0c31dac7a6fe922ab40c9a412b25,
 SUCCESS4m14/explicit0. SHA256d228154e12bec42a1701d531fba2157081c505d1daa22ba562de440144f69694,
@@ -179,7 +233,7 @@ Ordinary61 is held unpublished (see IMPORTANT above), before-publicbookend PASS
 at /mnt/storage/redsquare-android-artifacts/conversation62-publication-61.
 Prepared source2d and final539 have14exact Release/build object bindings; metadata
 in signed61-prepared/source-equivalence.json, native acceptance still pending.
-No61rebuild. Public60live. After complete proof/review, publish held61 canonically,
+No61rebuild. Public60live. After corrected complete proof/review, prepare and publish NEW62 canonically; NEVER publish61,
 run exact public after-bookend and paired final publication review, close62 and
 continue63–69 then70 sequentially without routine final/end responses.
 

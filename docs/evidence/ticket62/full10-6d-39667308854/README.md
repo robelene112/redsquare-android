@@ -1,0 +1,9 @@
+# Complete Android10 functional regression before dense-composer correction
+
+Run39667308854 is terminal SUCCESS at exact6d3df7c9ccb7016e7e9812f325248be6041252ee. Chat, Social and Wallet all succeed in this single dispatch. Strict frozen814 collector exits0 before execution references move to corrected663:511 exact identities,510PASS and the one accepted API29 ProfilePublishing assumption,148 normal completions,35 deliberate interruptions,34 continuity records and109 archives/3414 original members. No missing/extra identity. No supplement or old-partition assembly. Five historical optional-observer gaps remain explicit; no additional visual evidence exclusion is accepted.
+
+The approved ProfilePublishingPreviewTest assumption is newerProfileStillBlocksOlderRetryAfterPublicCacheSavingFailsAndEditorNavigation, as in the frozen catalog. Full17 at539 independently passes512 identities without assumptions. Earlier539 Android10 failed Wallet-entry actions were corrected at6d; all seven original import methods and downstream recovery/public-read/update/final gates now succeed.
+
+This does NOT complete UI acceptance. The original functional keyboard cases had no populated message history. Later RED source1ad adds actual signed incoming messages and a96dp history floor, reproducing four dense-composer readability failures in Android10 default/130% with real IME. Root viewed its actual private130% failure. Quote clipping is intentionally scrolled-to-photo and is not itself a defect. Product correction663 requires fresh complete proof on both SDKs and a new signed build; held61 must not publish. Public60 remains live.
+
+External original root: `/mnt/storage/redsquare-android-artifacts/conversation62-full10-6d-39667308854`. Archive/direct-file byte bindings remain independently recorded. No physical Pixel, configured-provider, store or owner app-wide UI acceptance follows.

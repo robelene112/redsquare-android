@@ -18,7 +18,7 @@
     "scripts/review-build": "100755 blob 9bad6df4b328343652adc10d4ec21c85be9c3f29\tscripts/review-build",
     "scripts/signing-init": "100755 blob 12d9c137c3dee0ed6a616c60a9e70d6181355a9b\tscripts/signing-init"
   },
-  "nativeAcceptance": "pending",
+  "nativeAcceptance": "Permanently withheld from UI delivery: populated dense-composer history fails at later1ad. Old2d/6d source-equivalence remains true but corrected663 changes app/src/main and requires new signed62 plus fresh full proof.",
   "apkSha256": "d228154e12bec42a1701d531fba2157081c505d1daa22ba562de440144f69694",
   "limits": "Source equivalence only. Actual signed manifest and DEX checked separately. No native, physical or provider acceptance."
 }

@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Full17run39662258345 at539 is functionalSUCCESS512PASS with strict collector0, but root found a dense-composer visual/readability acceptance gap (only24/31px history in originally unpopulated longReply/photo130%+IME fixtures). Existing four longReply cases are being strengthened with populated signed history and96dp native minimum before product correction. Full10run39667308854 at6d remains PREcorrection, never final UI acceptance. Any product correction requires fresh full10/17 and NEW signed62; held61 must not publish. Public60live. Frozen identities/tooling/goals stay.",
+  "executingState": "663 complete pair now has terminal failed Chat/Wallet10 and Wallet17 partitions: filtering loses31px older anchor through nested budget container, and private publishing-queue Cancel clips to32px on bothSDKs. Whole runs finish for rejected provenance only; no passing pieces accepted. Corrective product107dde881c29c8c9bd62945db79b210bb3157592 has two-axis source0/0 and focused viewport/agreement/keyboard10/17 pending; fresh complete bothSDKs still needed. Frozen511/512 catalogs/bounds/goals/toolpins unchanged. Four keyboard populated-history96dp cases pass663 focused bothSDKs. Held61 permanently withheld; public60live.",
   "executingSources": {
-    "android10": "6d3df7c9ccb7016e7e9812f325248be6041252ee",
-    "android17": "539942ae8278fc070ca3c6d57d954a799f4b1c39"
+    "android10": "66380a52cfad873c899b23f373f84b90302cc694",
+    "android17": "66380a52cfad873c899b23f373f84b90302cc694"
   },
   "executingRuns": {
-    "android10": 39667308854,
-    "android17": 39662258345
+    "android10": 39674331268,
+    "android17": 39674334947
   },
   "rejectedExecutions": [
     {
@@ -175,7 +175,23 @@
       "run": 39662252940,
       "source": "539942ae8278fc070ca3c6d57d954a799f4b1c39",
       "conclusion": "cancelled",
-      "reason": "Wallet partition failed two initial merged Wallet entry actions before provider/import assertions (5PASS/2fail in original7method class). Root explicitly cancelled remaining Chat/Social partitions before fresh full10run39667308854. No passing partitions reused."
+      "reason": "Wallet partition failed two initial merged Wallet entry actions before provider/import assertions (5PASS/2fail in original7method class). Root explicitly cancelled remaining Chat/Social partitions after dispatching replacement full10run39667308854. No passing partitions reused."
+    }
+  ],
+  "preCorrectionExecutions": [
+    {
+      "sdk": "10",
+      "source": "6d3df7c9ccb7016e7e9812f325248be6041252ee",
+      "run": 39667308854,
+      "conclusion": "success",
+      "limit": "Functional511identities (510PASS+1approvedProfileassumption) before strengthened dense-composer history predicates/product correction; not final UI acceptance."
+    },
+    {
+      "sdk": "17",
+      "source": "539942ae8278fc070ca3c6d57d954a799f4b1c39",
+      "run": 39662258345,
+      "conclusion": "success",
+      "limit": "Functional512PASS before strengthened dense-composer history predicates/product correction; not final UI acceptance."
     }
   ]
 }

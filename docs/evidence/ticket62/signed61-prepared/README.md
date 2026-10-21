@@ -5,3 +5,9 @@ Built once at2d5a0c2fdb0a0c31dac7a6fe922ab40c9a412b25 using the canonical builde
 Actual signed manifest and APK DEX verify the ordinary package, version0.1.61, nondebuggable/nonprofileable/no backup, min29target36, REVIEW_BUILD=true and push/both GIF provider flags=false. No test-tool query appears in Release. These flags do not activate providers or establish phone/Play acceptance. Metadata/signature/package/manifest and observed boolean-only APK check are retained; private signing material stays outside Git.
 
 Immutable external artifact: `/mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/61/redsquare.apk`. Ordinary60 remains live. Complete native acceptance, source equivalence to the eventual verified harness, final reviews and public before/after checks are required before publication.
+
+Prepared61 is permanently withheld after the populated dense-composer regression
+at1ad reproduces insufficient readable history. Do not publish, rebuild or reuse61.
+The old2d/6d source-equivalence record remains a historical fact; corrected663
+changes production and needs a new signed62 with fresh complete proof. Public60
+remains live. The valid signing/package/manifest checks above are unchanged.
