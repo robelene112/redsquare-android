@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 after post-presentation60 native acceptance and beta59 publication.
+Updated 2026-10-21 after corrected composer61 focused acceptance and complete10/17 dispatches.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -44,22 +44,46 @@ https://davidengelen.nl/redsquare/. Final source/evidence record957331d234d6173d
 is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
 Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
 
-Use existing agreed native UI/controlled-peer/actual-IME/storage/process seams.
-First productd55225fdca4af90c62291c92adb167c961fb71ee has paired source0/0,
-local app/test compileSUCCESS4m14 and focused native10run39529341424/17run39529299756
-SUCCESS15.299s/28.71s. Both320dp/130%Light/Dark writingorder/realIME/48dpSend/
-exactdraftreturn/zeroTX/restorationgoals pass.31/33hashes,20originals each retained;
-final evidence review is pending. Root viewed Light writing/DarkIME on both.
-Old status row is partly clipped at current10Dark scroll position, explicitly
-remaining in61's upcoming truthful save/busy/delivery feedback slice. First61
-REDs atf40 are preserved on bothSDKs. No full61 acceptance or nextsignedbeta yet.
-Next verticalslice: native distinction between durably saved local draft and
-new unsaved edits, then truthful busy/outcome and attach/publish/queue/authorwork.
-Keep all original post/media/policy/author/process gates. Composer-focus keeps
-its own180second class bound in focused scopes and fullSocial.
-Then62–69 and70 sequentially without routine stops. Physical/provider/store36
-and owner app-wide55 remain open. Never rebuild/reuse59 or read/touch the
-protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
+Production61 and its corrected fixtures are implemented/reviewed. Current doc-only
+HEAD20cff8876 follows executing source061c6727e977bd1a845d0232c8fefe93c13803a3.
+Do not restart earlier RED/GREEN slices from historical notes below.
+
+- Corrected combined10run39539974168 at061 passes all8methods/six separately180s
+  classes and both320dp130%Light/Dark themes. Packet green10-composer-061-39539974168
+  retains178 hashes/four archives156 originals, with final paired0/0 review.
+  Includes911 reply/author form-bar and4c busy-priority refinements. Earlier
+ 17run39537697883 at4a20 passes all8 methods but predates those refinements.
+- Complete10run39540771845 and17run39540030117 execute EXACT061. All3partitions
+  remain mandatory in each dispatch. Both are currently active; no full61
+  acceptance. Full reference binds actual source/run IDs and frozen58e catalog.
+  Expected504/505 identities,142/143 normal completions,35 interruptions,
+  34 continuity and103 archives; all original assertions/deadlines/tool pins and
+  exact5 prior optional-observer gaps remain. Collector: full-collector.py under
+  docs/evidence/ticket61. Never assemble successful partitions from failed runs.
+- Full10jobs: Chat119027751479,Wallet119027751744,Social119027751752.
+  Full17jobs: Chat119025420940,Wallet119025420865,Social119025420656.
+- Failed4a20 stage-DESTROYED and8a25 mixed-layout observations are retained;
+  historical cause remains unproved. Current fixture requests real recreation
+  on current Activity and positively awaits replacement/focus/config/Home in15s.
+  Both bounds are read in one UI-thread action, retaining original acceptance.
+- Ordinary60 is built ONCE at4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c, HELD and
+  unpublished. APK8836fbbd123c70ef4832248ee6f158183fb3593914b9cf19884825fdd13ba7d0,
+  37,889,755bytes, established certificate. All11 production/build objects match
+  executing061; no binary reproducibility claim. Prepared8hash packet and actual
+  DEX/manifest/size/signature reviewed0/0. NEVER rebuild or reuse60 or59.
+  Artifact: /mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/60.
+- Public ordinary59 remains live. Public-before bookend for60 PASS under
+  /mnt/storage/redsquare-android-artifacts/composer61-publication-60. Checker
+  /tmp/redsquare-composer61-publication60-check.py; pass ordinary60 after and
+  candidate source4c after authorized final publish. Do not overwrite before.
+  Prepared checker /tmp/redsquare-composer61-prepare60.py.
+
+Finish both full outcomes and strict collection/original views/two-axis reviews,
+then publish the exact held60 APK with canonical review-publish, verify independent
+public bytes/manifest/signature and all protected old ordinary/performance
+bookends, close61/update55, then62–69 and70 sequentially without routine stops.
+Physical/provider/store36 and owner app-wide55 remain open. Never read/touch the
+protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md. Explicit staging.
 
 ## Historical60 implementation and verification notes
 
