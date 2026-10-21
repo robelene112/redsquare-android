@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Pending exact-source complete Android10/17 dispatch after focused UI/own-send proof. No complete62 run yet.",
+  "executingState": "Fresh complete primary SDK suites active at exact814271d4 after paired focused GREEN; no accepted full62 result yet.",
   "executingSources": {
-    "android10": null,
-    "android17": null
+    "android10": "814271d400e44dee39a82234b0eab6b70eee7160",
+    "android17": "814271d400e44dee39a82234b0eab6b70eee7160"
   },
   "executingRuns": {
-    "android10": null,
-    "android17": null
+    "android10": 39573030407,
+    "android17": 39573032280
   },
   "rejectedExecutions": []
 }
