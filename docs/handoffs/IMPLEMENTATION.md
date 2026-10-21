@@ -1144,3 +1144,32 @@ source; initial b062 runs predate it. Corrected proof follows.
 Initial queue10run39535394147 andauthor10run39535393987 atb062 SUCCESS, retained
 packets2archives11 originals /1archive17 originals. Original runtime/process
 inventory inspection and17outcomes follow; not complete61 acceptance.
+
+Disabled-selector8586841f has independent Spec0/documented Standards0/heuristic0,
+local app/test Kotlin compile SUCCESS2m. Corrected combined composer10run39536672425
+and17run39536671803 dispatch at exact858; includes new cleanup and work viewport
+methods. Initial71ad focused work10/17 runs remain pending. No GREEN is inferred.
+
+Original queue/author atb062 complete SUCCESS on both SDKs. Queue10/17:10methods
+65.078/77.89s plus original actual offline-queue process-death/one-candidate
+continuity. Author10/17:8methods52.989/100.285s plus original uncertain edit and
+delete process-death/exact candidate/manual recovery/no-rebroadcast protocols.
+New17packets retain28hashes2archives11 originals(queue) and37hashes1archive17
+originals(author);10packets26/35 hashes respectively. Root viewed10saved-author
+list,17deleteconfirmation and17queue-before-cancel originals. Captions identify
+actual screens; these default-theme captures do not establish the new130%Dark
+matrix. Scope/process proof is bounded and predates later test-only changes,
+while production presentation remains identical736. Complete61 remains pending.
+
+Draft complete61 collector/catalog copies strict accepted60 validation and pins
+its accepted496/497 identities, then adds eight literal native identities and six
+class completions/four archives. Expected full10/17:504/505 identities,142/143
+normal completions,35 deliberate interruptions,34 continuity,103 archives.
+All original tests, full partitions, public reads, optional-observer exclusions,
+profile assumption, class deadlines and TalkBack source/engine pins stay intact.
+Additional composer validation requires both130%theme configs, realIME/bounds,
+writing hierarchy, saved/edit/repair, post/reply/quote policy/submitted/available,
+list/cancel/editable originals and independent font restoration. PNG/XML are
+separate observations; no atomic agreement is required or claimed. Collector
+syntax parses. Catalog is a draft: independent review and stable focused proof
+precede the pre-execution freeze; no complete61 run is dispatched.

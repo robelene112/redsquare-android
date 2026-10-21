@@ -1,0 +1,134 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete60 exact4124 catalogs plus eight additive composer and saved-work methods. Every original identity, public read, recovery goal, class deadline, exclusion and tool pin remains mandatory. Historical failed focused and complete attempts cannot be assembled into acceptance.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket60/full10-4124-39522483659/identities.json",
+      "sha256": "ab71ccbb2d0fef827399ea1b368ea53b23992d1f1fba1ea0b26f5cb75ef24136",
+      "previousIdentities": 496,
+      "additional": [
+        {
+          "path": "composer-focus-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostComposerFocusPreviewTest",
+          "test": "writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-draft-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest",
+          "test": "savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-draft-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest",
+          "test": "unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-post-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerPostJourneyTest",
+          "test": "imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-reply-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerReplyJourneyTest",
+          "test": "imageReplyReturnsWithItsThreadAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-quote-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerQuoteJourneyTest",
+          "test": "imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-work-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingWorkViewportTest",
+          "test": "savedAuthorChangesOpenTheSameUnsentTextWithTheirOriginalNodeInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-work-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingWorkViewportTest",
+          "test": "policyPausedQueueShowsItsOriginAndCancelsIntoTheSameEditableDraftInBothThemes",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 142,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 103
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket60/full17-4124-39522662606/identities.json",
+      "sha256": "4f29f0fae19988a7b2742993fca187be8f60ddc387e444e0c8a698c441ec7420",
+      "previousIdentities": 497,
+      "additional": [
+        {
+          "path": "composer-focus-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PostComposerFocusPreviewTest",
+          "test": "writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-draft-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest",
+          "test": "savedDraftAndNewEditsHaveDistinctTruthfulLocalStatus",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-draft-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerDraftStatusPreviewTest",
+          "test": "unconfirmedImageRemovalDoesNotClaimSavedAndCanBeRetriedAfterStorageReturns",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-post-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerPostJourneyTest",
+          "test": "imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-reply-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerReplyJourneyTest",
+          "test": "imageReplyReturnsWithItsThreadAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-quote-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ComposerQuoteJourneyTest",
+          "test": "imageQuoteReturnsWithItsOriginalAndPublishesOnlyAfterDeliberateAgreement",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-work-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingWorkViewportTest",
+          "test": "savedAuthorChangesOpenTheSameUnsentTextWithTheirOriginalNodeInBothThemes",
+          "occurrences": 1
+        },
+        {
+          "path": "composer-work-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PublishingWorkViewportTest",
+          "test": "policyPausedQueueShowsItsOriginAndCancelsIntoTheSameEditableDraftInBothThemes",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 143,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 103
+    }
+  ],
+  "catalogFreezeCommit": "PENDING_PRE_EXECUTION_COMMIT",
+  "collectorSha256": "bbb552d57b0972a235b7e458ef32c8e33741001ed62a70ad99dc4581eb86c52f",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Not dispatched. Focused acceptance and independent catalog review remain pending."
+}
