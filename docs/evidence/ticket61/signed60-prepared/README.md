@@ -19,3 +19,6 @@ No version reuse or independent build-byte reproducibility is claimed.
 
 Eleven production/build Git objects match executing fixture source061c6727.
 This establishes source equivalence only. Runtime and complete61 remain pending.
+
+The same11 production/build objects also match corrected executing sourced434.
+Its corrected GIF scopes pass; both fresh complete runs remain pending.

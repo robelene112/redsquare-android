@@ -130,13 +130,35 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Complete Android17 and Android10 runs execute final061 source, with three partitions each. Corrected combined10focused run39539974168 passes all eight methods; prior17focused4a20 also passed all eight. Complete runs and final acceptance remain pending. Frozen catalog, identities, class deadlines, partitions, exclusions and tools are unchanged.",
+  "executingState": "Corrected GIF-focused scopes pass all9 original methods on both SDKs. Fresh three-partition full10/17 execute exactd434; all complete gates remain pending. Rejected061 executions remain separate; no successful partition is assembled. Frozen references/identities/deadlines/partitions/tools/exclusions are unchanged.",
   "executingSources": {
-    "android17": "061c6727e977bd1a845d0232c8fefe93c13803a3",
-    "android10": "061c6727e977bd1a845d0232c8fefe93c13803a3"
+    "android10": "d434d190aed906e26f2f326f7ce9c258020c4de3",
+    "android17": "d434d190aed906e26f2f326f7ce9c258020c4de3"
   },
   "executingRuns": {
-    "android17": 39540030117,
-    "android10": 39540771845
-  }
+    "android10": 39543807318,
+    "android17": 39543990339
+  },
+  "rejectedExecutions": [
+    {
+      "sdk": "10",
+      "run": 39540771845,
+      "source": "061c6727e977bd1a845d0232c8fefe93c13803a3",
+      "conclusion": "cancelled",
+      "social": "failure",
+      "wallet": "success",
+      "chat": "cancelled",
+      "metadata": "docs/evidence/ticket61/failed10-full-social-gif-picker-061-39540771845/final-run.json"
+    },
+    {
+      "sdk": "17",
+      "run": 39540030117,
+      "source": "061c6727e977bd1a845d0232c8fefe93c13803a3",
+      "conclusion": "failure",
+      "social": "failure",
+      "wallet": "success",
+      "chat": "success",
+      "metadata": "docs/evidence/ticket61/failed17-full-social-gif-picker-061-39540030117/final-run.json"
+    }
+  ]
 }

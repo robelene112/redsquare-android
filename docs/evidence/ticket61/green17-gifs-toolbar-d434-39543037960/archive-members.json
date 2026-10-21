@@ -1,0 +1,416 @@
+{
+  "giphy-evidence.tar": {
+    "sha256": "b450c6a8c8d730993b8468e5e4d2b9dd749b796fdca848688863433bd037c081",
+    "bytes": 766976,
+    "members": [
+      {
+        "name": "giphy-evidence/provider-failure.png",
+        "bytes": 15664,
+        "sha256": "e684065d3871ef48e6a4badb2f5b6f26047fb80ee1ce53e61d005483cb8ec42b",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/provider-failure.png"
+      },
+      {
+        "name": "giphy-evidence/provider-failure.xml",
+        "bytes": 21523,
+        "sha256": "ce68247b3be626b6c7d8d962ce8c64946fa267f5dd78657ea7265a88fa53a12d",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/provider-failure.xml"
+      },
+      {
+        "name": "giphy-evidence/restored-draft.png",
+        "bytes": 21075,
+        "sha256": "2dbc2c4b7256d8c27662209463c47d118c72235e0d1a93d2655ec0bc4294e4f3",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/restored-draft.png"
+      },
+      {
+        "name": "giphy-evidence/restored-draft.xml",
+        "bytes": 25776,
+        "sha256": "e2210a6bb587c9f25a092abf81f6bebbbfd52b527218d621790b0769b4b15133",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/restored-draft.xml"
+      },
+      {
+        "name": "giphy-evidence/search-preview-bounds.png",
+        "bytes": 20244,
+        "sha256": "e4cfde722f2e3fe5ed3adeb7d32f9f516429fadc6d7fe542c16d0dba1c24de68",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-preview-bounds.png"
+      },
+      {
+        "name": "giphy-evidence/search-preview-bounds.xml",
+        "bytes": 26348,
+        "sha256": "d3bcf6f3a7c7c4b526cb4c93cc55d87ebda5a9ab26de4b7addffac332d19f381",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-preview-bounds.xml"
+      },
+      {
+        "name": "giphy-evidence/search-preview-sample-positioning.json",
+        "bytes": 119,
+        "sha256": "160bba153627774a54db550335d8f667fe0871a19d00f3ee43a23a71ebba38a0",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-preview-sample-positioning.json"
+      },
+      {
+        "name": "giphy-evidence/search-preview.png",
+        "bytes": 20244,
+        "sha256": "e4cfde722f2e3fe5ed3adeb7d32f9f516429fadc6d7fe542c16d0dba1c24de68",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-preview.png"
+      },
+      {
+        "name": "giphy-evidence/search-preview.xml",
+        "bytes": 26348,
+        "sha256": "d3bcf6f3a7c7c4b526cb4c93cc55d87ebda5a9ab26de4b7addffac332d19f381",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-preview.xml"
+      },
+      {
+        "name": "giphy-evidence/selected-image-bounds.png",
+        "bytes": 23205,
+        "sha256": "b25770808cd1cebc8a3b19c29bb9ec7b2f61f02524eb68f05b672c757e5c661d",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/selected-image-bounds.png"
+      },
+      {
+        "name": "giphy-evidence/selected-image-bounds.xml",
+        "bytes": 30059,
+        "sha256": "0436ecb4641ee2238a32946720ac143f2421db0f1479b2ec8eabe9239e853e14",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/selected-image-bounds.xml"
+      },
+      {
+        "name": "giphy-evidence/selected-image-sample-positioning.json",
+        "bytes": 119,
+        "sha256": "7c37ba5a6b3df3eee4e2916f867b233c9f24f12cbaecdfbd856380e4dd824f34",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/selected-image-sample-positioning.json"
+      },
+      {
+        "name": "giphy-evidence/selected-credits.png",
+        "bytes": 22056,
+        "sha256": "20654336ac2ed9d925fc68ca4d163146575e39e9cb810108530ed0bb77bb22b1",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/selected-credits.png"
+      },
+      {
+        "name": "giphy-evidence/selected-credits.xml",
+        "bytes": 30481,
+        "sha256": "f64033a8ca14ad0dedad19fedb78b49a4523166076cc3e1a2cbf475ddf61d41a",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/selected-credits.xml"
+      },
+      {
+        "name": "giphy-evidence/restored-image-bounds.png",
+        "bytes": 23009,
+        "sha256": "0242de9f78cd72c7709c9461105c5d130f2298ed938842aac4a67f5ee28cf06d",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/restored-image-bounds.png"
+      },
+      {
+        "name": "giphy-evidence/restored-image-bounds.xml",
+        "bytes": 30059,
+        "sha256": "a8489c2ae2b83d05db3c5b142d735c831e9ddfb20d0ff657938c513f523e6900",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/restored-image-bounds.xml"
+      },
+      {
+        "name": "giphy-evidence/restored-image-sample-positioning.json",
+        "bytes": 119,
+        "sha256": "7c37ba5a6b3df3eee4e2916f867b233c9f24f12cbaecdfbd856380e4dd824f34",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/restored-image-sample-positioning.json"
+      },
+      {
+        "name": "giphy-evidence/animated-restored-draft.png",
+        "bytes": 23009,
+        "sha256": "0242de9f78cd72c7709c9461105c5d130f2298ed938842aac4a67f5ee28cf06d",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/animated-restored-draft.png"
+      },
+      {
+        "name": "giphy-evidence/animated-restored-draft.xml",
+        "bytes": 30059,
+        "sha256": "a8489c2ae2b83d05db3c5b142d735c831e9ddfb20d0ff657938c513f523e6900",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/animated-restored-draft.xml"
+      },
+      {
+        "name": "giphy-evidence/fresh-activity-credits.png",
+        "bytes": 21857,
+        "sha256": "0c77f17e320c3ce1e08aaa33fd4cc1f8b9c2ff9efe509a66af9c9a9ddb211f36",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/fresh-activity-credits.png"
+      },
+      {
+        "name": "giphy-evidence/fresh-activity-credits.xml",
+        "bytes": 30481,
+        "sha256": "9643e84a381a9532ddcaac5bdd94a5130889b3bbe2ae3d996de23f731becc9fe",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/fresh-activity-credits.xml"
+      },
+      {
+        "name": "giphy-evidence/search-rate-limit.png",
+        "bytes": 34968,
+        "sha256": "f8d908cc99d970d37571ec3b75e1203799b6464f494ed6aa1a0b4518be6a17e0",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-rate-limit.png"
+      },
+      {
+        "name": "giphy-evidence/search-rate-limit.xml",
+        "bytes": 92978,
+        "sha256": "1855955cde874f0fb3ddbf1de2712ce22c628775ba32ad0ae8caec9806faa008",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-rate-limit.xml"
+      },
+      {
+        "name": "giphy-evidence/search-newer-result.png",
+        "bytes": 32402,
+        "sha256": "4d327da2ea4d2a02748b89b8f8a34405fa4cc132b71e06677a504a66c23b8060",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-newer-result.png"
+      },
+      {
+        "name": "giphy-evidence/search-newer-result.xml",
+        "bytes": 95193,
+        "sha256": "a325b7c8f91f5d9b4d8bb1af75e7386626af29c2a71bb0c8b53a8cbe11a24c29",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-newer-result.xml"
+      },
+      {
+        "name": "giphy-evidence/search-retained-text.png",
+        "bytes": 21032,
+        "sha256": "97cc4df688991da11e9c7523ab242254118f817ab660d41ea78d99c464706f20",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-retained-text.png"
+      },
+      {
+        "name": "giphy-evidence/search-retained-text.xml",
+        "bytes": 25776,
+        "sha256": "ee4e527c830313e3f39d7c223aeaf0f965a63a41b656f463f5b8185053725bca",
+        "retainedPath": "originals/giphy-evidence/giphy-evidence/search-retained-text.xml"
+      }
+    ]
+  },
+  "giphy-posting-evidence.tar": {
+    "sha256": "54a11ea2035a94bcee95eda354f49f48068a36fb56a6a0bda87342e88ab636d1",
+    "bytes": 1003520,
+    "members": [
+      {
+        "name": "giphy-posting-evidence/owner-quote-frame.base64",
+        "bytes": 2744,
+        "sha256": "5b6bece73f2cc15502784c68aed5703cbeccfa6e104c5ddf9a1ec13b7f14dfd0",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-quote-source.txt",
+        "bytes": 68,
+        "sha256": "4ef912b0be6e025584d3a0b404603f048f6006df2492743dc2cc84cf8db7fb92",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-quote-available.png",
+        "bytes": 24763,
+        "sha256": "b506016bd5e2aa7fd5c7c170b3b4ac1d5e10dfe6fecfdf6976d829b7965a69f8",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-quote-available.xml",
+        "bytes": 29664,
+        "sha256": "ee87a9251cb579ae48b028ca6a911d1cad3a6fbbd5d4a75515cd729d8880bbbb",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-quote-indexed.png",
+        "bytes": 31112,
+        "sha256": "ee4d64eca52657f5938d1f1e9a030f16a0480a7578992fac9c40c94a2eddf90d",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-quote-indexed.xml",
+        "bytes": 47459,
+        "sha256": "b90b4f8fa19ee322185abb64508cff4343fcb4b4bd3b9aa9e6dc6a7050d08c06",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-quote-indexed.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-frame.base64",
+        "bytes": 1144,
+        "sha256": "9723ee1a07b44dce114551ec0d85f9f303dc8ceceecb4655ab4fae058ce3593a",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-source.txt",
+        "bytes": 68,
+        "sha256": "b45c1713bd09537bdb3f0b73e838de6fa4d7eaa75d9a5270026a63de0f16afb7",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-available.png",
+        "bytes": 24429,
+        "sha256": "bef788d66d30ecd2c55dac2489b51e92957515fd72b755ff97cbd0aa53075c0d",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-available.xml",
+        "bytes": 29663,
+        "sha256": "a0d729e2914bdcbfdc9e9b702b66d54ceec45e75d3cae3efe5b82cca9ec8d12f",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-indexed.png",
+        "bytes": 32525,
+        "sha256": "2257ca61b893c63dadb399f15d9026a61cdde4262787260c593cc4990106bfd3",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-reply-indexed.xml",
+        "bytes": 44539,
+        "sha256": "705b878f0b7f9df8038e8b27c6c95fc59ea6aa001f971094b51496aea9c8fb82",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-reply-indexed.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-frame.base64",
+        "bytes": 684,
+        "sha256": "f8e6759e70409d6ab41a7fb7e21b8ac3628310fed7bbf3f91f7528d50c46fe13",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-source.txt",
+        "bytes": 68,
+        "sha256": "4bf15c2581f87438076558094bcf72ad0e4f230450139f9b1f116e1dd29bc690",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-available.png",
+        "bytes": 22982,
+        "sha256": "a370fba95005a25429755054eb46194e72d179f3cec24b506a5250730de277fa",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-available.xml",
+        "bytes": 30070,
+        "sha256": "aa245522ca3811d977586d5c6d3dd70f1ffbbdfdce9707c9fc8a845ff57038e4",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-indexed.png",
+        "bytes": 31013,
+        "sha256": "e51c479a631c87352e6cd78c372cb9b4b2983383b42001f463dc0e974b68fa9e",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-indexed.xml",
+        "bytes": 51723,
+        "sha256": "5bf261769e6df3865adcb6ecf0c32dde065c151e7ab6360f35fde781541ad489",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-indexed.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-published-credits.png",
+        "bytes": 31013,
+        "sha256": "e51c479a631c87352e6cd78c372cb9b4b2983383b42001f463dc0e974b68fa9e",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-published-credits.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-published-credits.xml",
+        "bytes": 51723,
+        "sha256": "5bf261769e6df3865adcb6ecf0c32dde065c151e7ab6360f35fde781541ad489",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-published-credits.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-fresh-published-credits.png",
+        "bytes": 31013,
+        "sha256": "e51c479a631c87352e6cd78c372cb9b4b2983383b42001f463dc0e974b68fa9e",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-fresh-published-credits.png"
+      },
+      {
+        "name": "giphy-posting-evidence/owner-post-fresh-published-credits.xml",
+        "bytes": 51723,
+        "sha256": "5bf261769e6df3865adcb6ecf0c32dde065c151e7ab6360f35fde781541ad489",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/owner-post-fresh-published-credits.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-frame.base64",
+        "bytes": 2748,
+        "sha256": "cd9f3aacba8647f58eaf255e3698110dcac77741f88194d0fd936a002ed43cb4",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-source.txt",
+        "bytes": 68,
+        "sha256": "2402ba3c38735702261bb6664205639060198e625739fb201141768409406217",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-available.png",
+        "bytes": 24232,
+        "sha256": "0ac79a06a4ccfe713b4ce757e58eed4f76fcc3475efb74e65c257f4221201706",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-available.xml",
+        "bytes": 29653,
+        "sha256": "747cfe3308661096576c7448888abe5f580b52bec3e9e0f3793ae0a62fa9a5c3",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-indexed.png",
+        "bytes": 30578,
+        "sha256": "251a905eff89242e63fe04e10a38036c35e3e5b70e5500e36c6c90598fd0eb78",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-quote-indexed.xml",
+        "bytes": 47448,
+        "sha256": "9aaa35b2b1df8f5b93fee6c6c7b632c994448ce60cdd472d5fdbef3afa3d88ad",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-quote-indexed.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-frame.base64",
+        "bytes": 1148,
+        "sha256": "201a20bbfdddfd4d99c5fb05ff19f271021e553f1c69d6f63cd9d08637e97d94",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-source.txt",
+        "bytes": 68,
+        "sha256": "2cb6110cd4953de38995dc1d0eb1cd39bc928d531ebfef6bd579d1beab21c0d1",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-available.png",
+        "bytes": 23929,
+        "sha256": "8889f78191c713c3b0170c02467f0e9466bc954972c5aa5855d1349ae8c358ff",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-available.xml",
+        "bytes": 29652,
+        "sha256": "31023804e665b05960aa115c609cf33d529d4f333ecec8b7c163e48215d60d3b",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-indexed.png",
+        "bytes": 32056,
+        "sha256": "8ee873eb0a996f906c0ef03900eccebf85b39bd05d5f6c40d08dc3582ddb0cc9",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-reply-indexed.xml",
+        "bytes": 44528,
+        "sha256": "98046e0861dc585214a788d9e1891f36e10f241d963f79d3bccc03768f831e94",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-reply-indexed.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-frame.base64",
+        "bytes": 688,
+        "sha256": "8892d278691ba3e30e5f13305b8f5ce105c7a579f24e6cf8a5350b9f5eca7503",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-frame.base64"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-source.txt",
+        "bytes": 68,
+        "sha256": "b290fe170cb5d8e228207ebd272075730b3d62f4a7ca646859f1cdde06b01bf1",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-source.txt"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-available.png",
+        "bytes": 22451,
+        "sha256": "55442f53c815edec79cd87cea39aa0fd37078b754ff77753e7a80d73b7d27810",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-available.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-available.xml",
+        "bytes": 30059,
+        "sha256": "ffe1977541091210d74327cc290cb5de4b53cc1d86b9d807e6c49ef578be511f",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-available.xml"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-indexed.png",
+        "bytes": 30569,
+        "sha256": "92c06c466a9e91c73e11e5028929599d7fa2c5947445349546ac8eaf9b941bc9",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-indexed.png"
+      },
+      {
+        "name": "giphy-posting-evidence/official-post-indexed.xml",
+        "bytes": 51712,
+        "sha256": "180605b8e3ca91733b80ab3e1c0facac0bb7040f34fa2c47e9297f66aa393d66",
+        "retainedPath": "originals/giphy-posting-evidence/giphy-posting-evidence/official-post-indexed.xml"
+      }
+    ]
+  }
+}

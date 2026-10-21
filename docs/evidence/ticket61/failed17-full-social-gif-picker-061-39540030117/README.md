@@ -26,3 +26,9 @@ proof is pending. Prepared60 remains held; ordinary59 stays public.
 
 28 archives retain658 exact original members, with byte-bound raw logs and exact
 run/source metadata. Historical focused and full failures remain independent.
+
+Final metadata: whole run FAILURE with Social FAILURE and Wallet/Chat SUCCESS.
+Those successful partitions are not assembled into corrected acceptance; the
+new complete dispatch repeats all three.
+The original run.json remains the initial in-progress snapshot; final-run.json
+retains the separate actual terminal metadata.

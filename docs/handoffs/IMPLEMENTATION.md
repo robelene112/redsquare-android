@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 after corrected composer61 focused acceptance and complete10/17 dispatches.
+Updated 2026-10-21 04:32 UTC after corrected GIF61 acceptance and fresh complete10/17 dispatches.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -45,23 +45,34 @@ is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
 Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
 Reviewed progress: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6307693543.
 
-Production61 and its corrected fixtures are implemented/reviewed. Reviewed checkpoint20cff8876 follows executing source061c6727e977bd1a845d0232c8fefe93c13803a3.
-Do not restart earlier RED/GREEN slices from historical notes below.
+Production61 is implemented/reviewed and held as unpublished60 at4c9202c3.
+Latest GIF-entry operator correction: d434d190aed906e26f2f326f7ce9c258020c4de3.
+Focused GIF10run39543035131/17run39543037960 both PASS all9 original methods
+at exactd434. Packets green10-gifs-toolbar-d434-39543035131 (79 hashes) and
+green17-gifs-toolbar-d434-39543037960 (81 hashes) each retain2 archives/67
+original members, with paired Spec0/documented Standards0/heuristic0 review.
+Source reviews0/0 and app/test compile SUCCESS2m5. Do not restart historical RED/GREEN.
 
 - Corrected combined10run39539974168 at061 passes all8methods/six separately180s
   classes and both320dp130%Light/Dark themes. Packet green10-composer-061-39539974168
   retains178 hashes/four archives156 originals, with final paired0/0 review.
   Includes911 reply/author form-bar and4c busy-priority refinements. Earlier
  17run39537697883 at4a20 passes all8 methods but predates those refinements.
-- Complete10run39540771845 and17run39540030117 execute EXACT061. All3partitions
-  remain mandatory in each dispatch. Full17Social has FAILED at obsolete GIF scroll entry;10 remains active. No
-  full61 acceptance; corrected GIF-focused and complete dispatches must follow. Full reference binds actual source/run IDs and frozen58e catalog.
+- Fresh complete10run39543807318 and17run39543990339 execute EXACTd434; all6jobs
+  active at04:32 UTC. All3partitions remain mandatory in each dispatch. No full61
+  acceptance yet. Full reference binds actual source/run IDs and frozen58e catalog.
   Expected504/505 identities,142/143 normal completions,35 interruptions,
   34 continuity and103 archives; all original assertions/deadlines/tool pins and
   exact5 prior optional-observer gaps remain. Collector: full-collector.py under
   docs/evidence/ticket61. Never assemble successful partitions from failed runs.
-- Full10jobs: Chat119027751479,Wallet119027751744,Social119027751752.
-  Full17jobs: Chat119025420940,Wallet119025420865,Social119025420656.
+- Current full10jobs: Chat119037535573,Wallet119037535290,Social119037535678.
+  Current full17jobs: Chat119037897085,Wallet119037897147,Social119037896948.
+- Rejected061 attempts are retained separately:17run39540030117 terminalFAILURE
+  (SocialFAILURE,Wallet/ChatSUCCESS);10run39540771845 terminalCANCELLED
+  (SocialFAILURE,WalletSUCCESS,ChatCANCELLED on same-scope supersession).
+  Both failed Social packets retain757 hashes,28archives and original/log bindings.
+  Initial run.json snapshots remain intact; final-run.json records terminal states.
+  Both axes reviewed0/0. No old partition contributes to fresh full acceptance.
 - Failed4a20 stage-DESTROYED and8a25 mixed-layout observations are retained;
   historical cause remains unproved. Current fixture requests real recreation
   on current Activity and positively awaits replacement/focus/config/Home in15s.
@@ -69,7 +80,7 @@ Do not restart earlier RED/GREEN slices from historical notes below.
 - Ordinary60 is built ONCE at4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c, HELD and
   unpublished. APK8836fbbd123c70ef4832248ee6f158183fb3593914b9cf19884825fdd13ba7d0,
   37,889,755bytes, established certificate. All11 production/build objects match
-  executing061; no binary reproducibility claim. Prepared8hash packet and actual
+  executing061 andd434; no binary reproducibility claim. Prepared8hash packet and actual
   DEX/manifest/size/signature reviewed0/0. NEVER rebuild or reuse60 or59.
   Artifact: /mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/60.
 - Public ordinary59 remains live. Public-before bookend for60 PASS under
@@ -78,7 +89,9 @@ Do not restart earlier RED/GREEN slices from historical notes below.
   candidate source4c after authorized final publish. Do not overwrite before.
   Prepared checker /tmp/redsquare-composer61-prepare60.py.
 
-Finish both full outcomes and strict collection/original views/two-axis reviews,
+Fresh complete three-partition runs are dispatched on both SDKs at corrected d434;
+actual executing references/source-equivalence are updated without changing frozen catalogs.
+Finish both corrected full outcomes and strict collection/original views/two-axis reviews,
 then publish the exact held60 APK with canonical review-publish, verify independent
 public bytes/manifest/signature and all protected old ordinary/performance
 bookends, close61/update55, then62–69 and70 sequentially without routine stops.
@@ -1370,3 +1383,14 @@ cleanup/assertions/180s bounds stay. Compile79212 pending. Fresh gifs/gifs-andro
 then fresh complete three-partition runs on both SDKs remain required. Prepared60
 source/product unchanged and held. Preserve old attempt evidence; never combine
 its successful partitions with the corrected full dispatches.
+
+
+GIFoperator d434d190aed906e26f2f326f7ce9c258020c4de3 has source0/0 and local
+app/test compile SUCCESS2m5. Focused GIF10run39543035131 and17run39543037960 bind
+exactd434 and remain pending. Failed17Social packet756hashes/28archives658 exact
+originals/95rawlogs independently reviewed0/0. Eight-image bounded final visual
+reviews on both axes report0 material findings; no full/native publication claim.
+Old061 Wallet partitions bothSUCCESS; old17SocialFAILURE; remaining oldChat/10Social
+still active as of04:16. Preserve exact failed/cancelled provenance. Corrected
+complete gates must rerun all three partitions on both SDKs; never reuse the old
+successes. Product source still matches prepared60; no rebuild or reuse60/59.
