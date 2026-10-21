@@ -43,9 +43,9 @@ and actual signed ordinary59 publication. Public review page remains
 https://davidengelen.nl/redsquare/. Final source/evidence record957331d234d6173d9e80408eeb799e628b73973c
 is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
 Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
+Reviewed progress: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6307693543.
 
-Production61 and its corrected fixtures are implemented/reviewed. Current doc-only
-HEAD20cff8876 follows executing source061c6727e977bd1a845d0232c8fefe93c13803a3.
+Production61 and its corrected fixtures are implemented/reviewed. Reviewed checkpoint20cff8876 follows executing source061c6727e977bd1a845d0232c8fefe93c13803a3.
 Do not restart earlier RED/GREEN slices from historical notes below.
 
 - Corrected combined10run39539974168 at061 passes all8methods/six separately180s
