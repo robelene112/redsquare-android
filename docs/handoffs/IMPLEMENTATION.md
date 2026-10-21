@@ -763,3 +763,32 @@ collector pins remain unchanged. Both metadata reviews0. Require all three jobs
 and the complete496/497 union separately; do not mix rejected partial executions.
 Prepared59 remains90f source, production-equivalent through874/0052, held. Next
 complete collection/review/publication before60 closure and61–70 continuation.
+
+Complete17 run39518949305 at874 reaches ProfileEditPreviewTest then fails3of7,
+class44.264s. Original videos4 pass22.99s and all earlier media/post goals pass;
+ProfilePublishing5/ProfileMedia2/ProfileNewEdit2 also pass. Three same-author
+profile actions are present after valid retained video/feed history. Root viewed
+original long-bio-first-failure.png: cached Video reference plus the exact
+Native Red Square reference post. Two direct selectors fail ambiguity; the helper
+wait hides the same ambiguity behind15second timeout. No profile app defect is
+established. Fixture now binds the account action to the exact reference post
+ancestor, scrolls that actual header, and retains physical click/unique matching.
+Both duplicate callers share the helper; exact long-bio/history/cache assertions
+remain. A stale local matcher reference introduced during this edit failed the
+first local compile, was caught in review and fixed before commit. Final exact
+app/test Kotlin compile succeeds1m49s. Both final source reviews0. Focused profiles
+runs unchanged original videos first, then all four profile classes and actual
+process recovery. Full ordering/catalog/class deadlines remain unchanged.
+
+Complete10 run39519620295 at0052 has Chat failure in original private physical
+notification dismissal: chat-alerts11 has10PASS/1FAIL, fixtureline357 assertTrue(hidden).
+Read-only review retained exact official job118960085733 log/99artifact files
+externally. Diagnostic shows clearable/nonongoing flags24, bounds4,180,316,285,
+151ms right swipe, hiddenfalse and owned active true. Before/failure PNGs are
+byte-identical; two prior similar dismissal journeys pass. This proves physical
+dismissal failure; cause/app-vs-gesture remains unknown. Later no-redelivery goals
+are unreached. Existing focused reproduction39521239046 executesd8bb source with
+unchanged original assertion, no app/gesture fix or new acceptance yet.
+Both complete wallet jobs now SUCCESS, but neither complete run is accepted.
+Let remaining original jobs finish for independent failure observations; never
+assemble rejected partial partitions. Prepared59 held, public58 unchanged.

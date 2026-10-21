@@ -1088,8 +1088,10 @@ verify_profiles() {
     python3 "$repo_dir/scripts/profile-process-check" --evidence "$evidence/profile-process"
 }
 if [[ "${TEST_SCOPE:-full}" == profiles* ]]; then
+    # Preserve the preceding full-suite video cache when reproducing profile selection.
+    verify_videos
     verify_profiles
-    printf '%s\n' 'Focused profile editing check only; full acceptance not run.' > "$evidence/scope.txt"
+    printf '%s\n' 'Focused video precondition and profile editing check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
 verify_usernames() {

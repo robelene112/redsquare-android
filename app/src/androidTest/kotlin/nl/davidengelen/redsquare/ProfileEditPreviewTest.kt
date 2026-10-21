@@ -156,10 +156,7 @@ class ProfileEditPreviewTest {
                         ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
                         ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    val post = hasText("Native Red Square reference post")
-                    ui.onNode(hasScrollAction()).performScrollToNode(post)
-                    val identity = hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()
-                    ui.onNode(identity).assertIsDisplayed().performClick()
+                    openReferenceAuthor(author)
                     ui.waitUntil(20_000) { ui.onAllNodesWithText("Signed bio 🌱\nSecond line").fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Signed bio 🌱\nSecond line").assertIsDisplayed()
                     ui.onNodeWithContentDescription("Generated profile picture").assertIsDisplayed()
@@ -195,9 +192,7 @@ class ProfileEditPreviewTest {
                         ui.onAllNodesWithText(context.getString(R.string.feed_loading)).fetchSemanticsNodes().isEmpty() &&
                         ui.onAllNodes(hasText("New post") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
-                    val post = hasText("Native Red Square reference post")
-                    ui.onNode(hasScrollAction()).performScrollToNode(post)
-                    ui.onNode(hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()).performClick()
+                    openReferenceAuthor(author)
                     ui.waitUntil(20_000) { ui.onAllNodesWithText(bio).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText(bio).assertExists()
                     capture("long-bio-before-scroll.png")
@@ -206,7 +201,7 @@ class ProfileEditPreviewTest {
                     ui.onNodeWithText("Replies").assertIsDisplayed()
                     ui.onNodeWithText("Likes").assertIsDisplayed()
                     scrollUntilDisplayed("Native Red Square reference post")
-                    ui.onNode(post).assertIsDisplayed()
+                    ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     capture("long-bio-reachable-history.png")
                     assertTrue(peer.transactions.isEmpty())
                     peer.assertHealthy()
@@ -499,10 +494,11 @@ class ProfileEditPreviewTest {
     private fun openReferenceAuthor(author: String) {
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         val post = hasText("Native Red Square reference post")
-        val identity = hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction()
+        val identity = hasContentDescription("View profile for Anon-${author.take(6)}") and hasClickAction() and
+            hasAnyAncestor(post and hasClickAction())
         ui.waitUntil(15_000) {
             try {
-                if (!ui.onNode(post).isDisplayed()) ui.onNode(hasScrollAction()).performScrollToNode(post)
+                if (!ui.onNode(identity).isDisplayed()) ui.onNode(hasScrollAction()).performScrollToNode(identity)
                 ui.onNode(identity).assertIsDisplayed()
                 true
             } catch (_: AssertionError) { false }
