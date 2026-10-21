@@ -75,8 +75,9 @@ scrolling and public native scroll semantics at130% Light/Dark. It requires inco
 follow only at the end, a stable older text position within one pixel and a New
 messages action. New coherent class retains a separate180second bound alongside
 the unchanged first cached-opening class; full Chat retains both. App/test compile
-SUCCESS2m3. No incoming-follow product implementation yet. Source review and actual
-Android17 RED follow. Keep original test identity/assertions and180second bound. This is only first
+SUCCESS2m3. Standards review0/0; Spec identified overwritten per-stage JSON, now
+retained separately for every stage. No incoming-follow product implementation yet.
+Actual Android17 RED follows. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

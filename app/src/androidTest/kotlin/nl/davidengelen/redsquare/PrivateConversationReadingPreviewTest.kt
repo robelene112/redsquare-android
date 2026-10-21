@@ -75,7 +75,7 @@ class PrivateConversationReadingPreviewTest {
                         ui.waitUntil(15_000) { historyReads.get() > previousReads }
                         fun capture(stage: String) {
                             captureNativeScreen(File(folder, "$label-$stage.png"))
-                            File(folder, "$label-stage.json").writeText(JsonObject().apply {
+                            File(folder, "$label-$stage.json").writeText(JsonObject().apply {
                                 addProperty("stage", stage)
                                 addProperty("expectedMessages", expectedBodies.size)
                                 addProperty("atEnd", atEnd())
