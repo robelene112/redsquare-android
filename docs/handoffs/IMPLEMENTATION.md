@@ -1069,3 +1069,26 @@ native author/queue journeys gain only two explicitly named captures at actual
 list-open checkpoints; original assertions, identities and deadlines remain.
 No new layout-mirroring tests. Full native proof,130% attach/leave/return/publish
 journeys and final61 acceptance remain outstanding.
+
+Paired focused composer GREEN at exact1ff426712c484e2e341fad2e2a433118591f5411:
+10run39533617117 succeeds focus1method14.097s/draft2methods18.058s;
+17run39533617140 also SUCCESS, original method identities and180s bounds intact.
+Each saved-confirmation packet retains61 hashes/two archives48 originals. Root
+viewed Light unconfirmed media and Dark repaired media originals on both SDKs:
+Unsaved changes replaces the stale claim after storage error; Saved on this
+device returns after actual repaired removal with exact caption. Both methods
+complete both130%themes and original identity/node/zeroTX/restoration goals.
+This proves the387fd3e4 saved-claim fix plus earlier writing/IME work at1ff, not
+the subsequent52e/736 list/editor/status presentation. No complete61 claim.
+
+Presentation736d1a83 has independent Spec0/documented Standards0/heuristic0.
+Local app/test Kotlin compile SUCCESS3m53s. Subsequent publishing journey test
+source requires its own fresh compile. New native classes separately bounded180s
+exercise post/reply/quote at320dp130%Light/Dark: own media, explicit leave/return,
+actual IME/Send, Cancel/Accept without publication, deliberate Send, withheld
+readback Submitted+busy protection then exact candidate availability. Only the
+owned loopback peer accepts public synthetic publications. Declared files,
+agreement/fixture state and backend restore independently after Activity closure;
+complete wallet is retained. Original image/policy/queue/protocol tests stay.
+These are current presentation acceptance journeys, not a new RED-before-product
+claim for the already recorded visual layout defect. Runtime remains pending.
