@@ -120,12 +120,12 @@
   },
   "executingState": "Fresh complete replacement SDK suites active at exact675563729 after test-only legacy operator correction. All production and harness sources unchanged from814, frozen identities/goals/pins unchanged. Rejected814 dispatches remain failures; no accepted full62 result yet.",
   "executingSources": {
-    "android10": "675563729f5fa22303832efe6290838e58f525d2",
-    "android17": "675563729f5fa22303832efe6290838e58f525d2"
+    "10": "527dc9723cefccc4961400fd79d224e1c066bc52",
+    "17": "527dc9723cefccc4961400fd79d224e1c066bc52"
   },
   "executingRuns": {
-    "android10": 39641247652,
-    "android17": 39641251883
+    "10": 39645666425,
+    "17": 39645671283
   },
   "rejectedExecutions": [
     {
@@ -141,6 +141,20 @@
       "source": "814271d400e44dee39a82234b0eab6b70eee7160",
       "conclusion": "failure",
       "reason": "Chat three legacy inline-key operators; Wallet closed-menu Unlike capture. Social passes but is not assembled into later acceptance."
+    },
+    {
+      "sdk": "10",
+      "run": 39641247652,
+      "source": "675563729f5fa22303832efe6290838e58f525d2",
+      "conclusion": "chat-job-failure; whole run active at snapshot",
+      "reason": "Three original keyboard methods reach physical Send while Details remains open. Wallet succeeds; Social active at retained snapshot. Replacement repeats all partitions, without reusing successes."
+    },
+    {
+      "sdk": "17",
+      "run": 39641251883,
+      "source": "675563729f5fa22303832efe6290838e58f525d2",
+      "conclusion": "chat-job-failure; whole run active at snapshot",
+      "reason": "Three original keyboard methods reach physical Send while Details remains open. Wallet succeeds; Social active at retained snapshot. Replacement repeats all partitions, without reusing successes."
     }
   ]
 }

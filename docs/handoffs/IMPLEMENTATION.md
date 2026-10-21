@@ -39,6 +39,15 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active conversation62
 
+Fresh replacement complete10run39645666425 and17run39645671283 execute exact
+527dc9723cefccc4961400fd79d224e1c066bc52, dispatched17:43UTC. All three partitions
+must succeed together per SDK. Source and retained675 failure-packet reviews0/0;
+105 manifest hashes and92 exact original keyboard archive members per SDK.
+Root also viewed Android10 physical-send-closed capture. The older675 snapshots
+retain actual active Social state; replacement dispatch may cancel superseded
+work via existing workflow concurrency. No successful old partition is reused.
+Wait for complete terminal evidence before signed61. Continue63–69 then70.
+
 Current correction after675: both terminal Chat jobs fail3/10 original keyboard
 methods at physicalSend287. Native PNG/XML shows Details still open when physical
 Send is measured. Full-key assertions pass; Wallet succeeds on both SDKs; Social
