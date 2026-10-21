@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 21:51 UTC:62 six focused107SUCCESS; freshcomplete796pending after system/SDK failures; signed62HELD; NEVERPUBLISH61; public60.
+Updated 2026-10-21 22:45 UTC:62 complete17-796SUCCESS; complete10 rejected at TalkBack startup; bounded fixture readiness corrected/source0/0; signed62HELD; NEVERPUBLISH61; public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -56,14 +56,25 @@ matrix/exclusion/collector change. Bashsyntax and controlled SDK-boundary verifi
 PASS (transient secondattempt success; permanent3failures return17; arguments exact).
 Both source review axes0. Whole62 source review throughb99 also0/0.
 
-CURRENT COMPLETE10run39681561379 and17run39681571919 execute exact796. Observer60399
-/tmp/redsquare62-watch-complete-796.py downloads terminal whole originals to external
-conversation62-fullSDK-796-RUN, then invokes frozen collector ONLYwholeSUCCESS with
-all3partitionsSUCCESS. Bindings in full-identity-reference.json are current. Frozen814
-catalog511/512identities,148/149normalcompletions,35interruptions/34continuity and
-109archives perSDK remain mandatory; API29onlytheapprovedProfileassumption,17allPASS.
-No old passing-part assembly. Inspect actual terminal failures before any correction.
+Complete17run39681571919 at796 is wholeSUCCESS/all3SUCCESS. Frozen collector
+exits0:512PASS/0assumptions,149normal35interrupt34continuity109archives. Packet
+full17-796-39681571919 remains under paired evidence review. Observer60399 ended.
 
+Complete10run39681561379 at796 is wholeFAILURE: Social/WalletSUCCESS, ChatFAILURE
+at original TalkBackStatusPreviewTest line31 before outage. Packet
+failed10-talkback-startup-796-39681561379 retains452hashes,8exactarchiveoriginals,
+698allpartinventory and terminaljoblog; paired evidence reviews0/0. Actual initial
+TalkBack window handler selectsWallet18ms after deliberatepostfocus. Narrow fixture
+now positively waits5s for real initialWalletfocus before SINGLEpostfocus action,
+retaining original5s postfocus/quietbaseline/alloutage-recovery/engine/process/retry
+assertions. Startup speech retained beforelogclear. No productcode change or class
+retry. Paired source0/0; local app/test compileSUCCESS1m58s. Focused TalkBack10 and
+fresh complete10 remain required. Workflow permits retaining accepted17 after
+fixture-only10 correction, with unchanged14Release/buildobjects documented.
+
+Frozen814catalog511/512identities,148/149normalcompletions,35interruptions/34continuity
+and109archives perSDK stay mandatory; API29onlyapprovedProfileassumption,17allPASS.
+No old passing-partassembly. Signed62 remainsHELD/public60 remainslive.
 ALL SIX focused107 scopes SUCCESS: keyboard39677378247/39677390713,
 viewport39677328877/39677340642, agreement39677353128/39677365916. Six packets
  greenSDK-corrected-KIND-107-RUN retain1172exact archiveoriginals total:

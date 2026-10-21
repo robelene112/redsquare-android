@@ -1,0 +1,56 @@
+{
+  "chat/.scratch/device-evidence/api-29/status-talkback-evidence.tar": {
+    "bytes": 832000,
+    "sha256": "20adb8b81aa88da6dfc3add9bc61c77b83beb5399b0188c6e17ec990bf78cbc1",
+    "members": [
+      {
+        "name": "status-talkback-evidence/accessibility-before.txt",
+        "bytes": 1115,
+        "sha256": "9416e810b158df8ee176448620e6ba97dd68114f7bc8cd6f6460c018736f16c8",
+        "retainedPath": "originals/chat/status-talkback-evidence/accessibility-before.txt"
+      },
+      {
+        "name": "status-talkback-evidence/engine.json",
+        "bytes": 125,
+        "sha256": "7c2ff211c01adbcb06641417bdf82dd3da04f1f09fde152d8eb2dacb1e473bd4",
+        "retainedPath": "originals/chat/status-talkback-evidence/engine.json"
+      },
+      {
+        "name": "status-talkback-evidence/english-engine.wav",
+        "bytes": 78342,
+        "sha256": "8734b5c80a05d518af0fd15c03ccee73d7e53125bccdb81a6b25386593e223bc",
+        "retainedPath": "originals/chat/status-talkback-evidence/english-engine.wav"
+      },
+      {
+        "name": "status-talkback-evidence/talkback-outage-failure.xml",
+        "bytes": 58625,
+        "sha256": "af13daf7923c284d4c2621446be302360bcd3ce042d72dc2654f127f0f06fa74",
+        "retainedPath": "originals/chat/status-talkback-evidence/talkback-outage-failure.xml"
+      },
+      {
+        "name": "status-talkback-evidence/talkback-outage-failure.png",
+        "bytes": 43152,
+        "sha256": "a9ae1676f47ab1464a50954b128b67472a6e96da5fa1462ddc1f4b0acd120dc0",
+        "retainedPath": "originals/chat/status-talkback-evidence/talkback-outage-failure.png"
+      },
+      {
+        "name": "status-talkback-evidence/failure-speech.txt",
+        "bytes": 537863,
+        "sha256": "6a3700b6258d161bdd93975f8247044910640badb63584e3e8c4400b94444097",
+        "retainedPath": "originals/chat/status-talkback-evidence/failure-speech.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure-accessibility.txt",
+        "bytes": 1114,
+        "sha256": "0b6477443427ff6023a23d905e9b5838c34b9844f65e51647316aa5b769c6e75",
+        "retainedPath": "originals/chat/status-talkback-evidence/failure-accessibility.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure.png",
+        "bytes": 103046,
+        "sha256": "0e57b0c84074a4add989283c0a8e5cc68fd88da4c246a48ee99030b98acffe62",
+        "retainedPath": "originals/chat/status-talkback-evidence/failure.png"
+      }
+    ]
+  }
+}

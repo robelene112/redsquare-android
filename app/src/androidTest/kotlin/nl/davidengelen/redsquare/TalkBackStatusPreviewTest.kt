@@ -26,6 +26,10 @@ class TalkBackStatusPreviewTest {
                 click(automation, "Later")
                 check(device.wait(Until.gone(By.text("Back up your wallet")), 5_000))
                 device.waitForIdle(5_000)
+                // TalkBack handles initial window focus asynchronously after Android becomes idle.
+                // Observe its actual first header focus before making the single reader-focus action.
+                waitFor(5_000) { focusedText(automation) == "Wallet" }
+                File(folder, "startup-speech.txt").writeText(speechLog(device))
                 val post = node(automation, "Reference post 20")
                 assertTrue(post.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
                 waitFor(5_000) { focusedText(automation) == "Reference post 20" }
