@@ -155,9 +155,9 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 details = listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
                 announce = false)
             val deliveryStatus = when {
-                available -> R.string.post_available
                 preparingImages -> R.string.image_preparing
                 saving -> R.string.publishing_saving
+                available -> R.string.post_available
                 submitted -> R.string.post_submitted
                 queued && queueSaved -> R.string.post_queued
                 transaction != null -> R.string.post_pending
@@ -166,8 +166,8 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 else -> null
             }
             InlineStatus(deliveryStatus?.let { stringResource(it) }, when {
-                available -> StatusTone.SUCCESS
                 saving || sending || !ready -> StatusTone.WORKING
+                available -> StatusTone.SUCCESS
                 transaction != null && !queued && !submitted -> StatusTone.WARNING
                 else -> StatusTone.INFO
             }, details = buildList {

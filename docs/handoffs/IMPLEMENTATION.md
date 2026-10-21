@@ -1253,3 +1253,15 @@ configuration relaunch racing that snapshot is a supported hypothesis only.
 Diagnostic-only lifecycle callback/boundary JSONL is added without changing
 recreation, assertions, deadlines or cleanup goals. Fresh diagnostic10 follows
 compile/review; full61 remains undispatched. No failed-run acceptance/exclusion.
+
+
+Diagnostic/evidence8a25abc026729a139bc895179df5828a273f32c6 has independent
+Spec0/documented Standards0/heuristic0, local app/test compile SUCCESS1m53s.
+Diagnostic combined10run39539022271 executes exact8a25; pending. Native lifecycle
+steps and goals remain unchanged. Callback is best effort observation only.
+Cumulative Spec review957331d2..911883cc found one busy-priority presentation
+issue: closing an Available attempt starts fallible saving but SUCCESS hid
+progress. Current post/author display gives saving priority over Available and
+WORKING priority during active operations. Specific image-preparing summary
+retains priority over generic saving. Both narrow re-reviews report0 residual;
+all operations/guards/recovery unchanged. Fresh compile remains pending.

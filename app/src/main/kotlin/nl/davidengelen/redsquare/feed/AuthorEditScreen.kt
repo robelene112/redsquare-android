@@ -67,17 +67,17 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
                 }
             }
             val summary = when {
+                saving -> R.string.publishing_saving
                 available -> if (kind == AuthorActionKind.EDIT) R.string.author_edit_available else R.string.author_delete_available
                 conflict -> R.string.author_edit_conflict
-                saving -> R.string.publishing_saving
                 candidate != null -> if (kind == AuthorActionKind.EDIT) R.string.author_edit_pending else R.string.author_delete_pending
                 busy -> R.string.publishing_preparing
                 !ready && !error -> R.string.publishing_loading
                 else -> null
             }
             InlineStatus(summary?.let { stringResource(it) }, when {
-                available -> StatusTone.SUCCESS
                 busy || saving || !ready -> StatusTone.WORKING
+                available -> StatusTone.SUCCESS
                 conflict || candidate != null -> StatusTone.WARNING
                 else -> StatusTone.INFO
             }, details = buildList {
