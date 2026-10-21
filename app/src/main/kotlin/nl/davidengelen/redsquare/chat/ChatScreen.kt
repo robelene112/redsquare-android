@@ -1,29 +1,23 @@
 package nl.davidengelen.redsquare.chat
 
-import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
 import androidx.activity.compose.BackHandler
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -409,74 +403,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (!keyboardVisible && visible.isEmpty() && !loading && !failed) Text(stringResource(R.string.chat_no_messages))
             val replies = remember(wallet, backend, contact) { ChatReplyActions() }
             val reactions = requireNotNull(reactionState)
-            val messageList = rememberLazyListState()
-            var openedHistory by rememberSaveable(wallet.publicKey, backend, contact) { mutableStateOf(false) }
-            var newMessages by rememberSaveable(wallet.publicKey, backend, contact) { mutableStateOf(false) }
-            var knownMessages by remember(wallet.publicKey, backend, contact) { mutableStateOf(emptyList<String>()) }
-            var following by remember(wallet.publicKey, backend, contact) { mutableStateOf(true) }
-            var anchoring by remember(wallet.publicKey, backend, contact) { mutableStateOf(false) }
-            var latestRequest by remember(wallet.publicKey, backend, contact) { mutableIntStateOf(0) }
-            var handledRequest by remember(wallet.publicKey, backend, contact) { mutableIntStateOf(0) }
-            val messageIds = visible.map { it.id }
-            val historyHidden = personal?.ready == true && entries.isNotEmpty() && messageIds.isEmpty()
-            suspend fun showLatest() {
-                if (visible.isEmpty()) return
-                messageList.scrollToItem(visible.lastIndex)
-                // A last bubble can be taller than the viewport. Finish at its bottom.
-                val layout = messageList.layoutInfo
-                layout.visibleItemsInfo.firstOrNull { it.key == visible.last().id }?.let { last ->
-                    val overflow = last.offset + last.size - layout.viewportEndOffset
-                    if (overflow > 0) messageList.scrollBy(overflow.toFloat())
-                }
-            }
-            LaunchedEffect(messageList) {
-                snapshotFlow {
-                    val layout = messageList.layoutInfo
-                    // An appended layout must not redefine the reader's previous end position.
-                    if (anchoring || knownMessages.isEmpty() || layout.totalItemsCount != knownMessages.size ||
-                        layout.visibleItemsInfo.any { it.key !in knownMessages }) null
-                    else !messageList.canScrollForward
-                }.collect { atEnd ->
-                    if (atEnd != null) {
-                        following = atEnd
-                        if (atEnd) newMessages = false
-                    }
-                }
-            }
-            LaunchedEffect(wallet.publicKey, backend, contact, messageIds, latestRequest, historyHidden) {
-                if (messageIds.isEmpty()) {
-                    // A deliberate policy change can hide every known message. Initial
-                    // loading/restoration must keep its saved reading state until data arrives.
-                    if (knownMessages.isNotEmpty() && historyHidden) {
-                        knownMessages = emptyList()
-                        newMessages = false
-                        openedHistory = false
-                        following = true
-                        handledRequest = latestRequest
-                    }
-                    return@LaunchedEffect
-                }
-                val firstOpening = !openedHistory
-                val requested = latestRequest != handledRequest
-                val appended = knownMessages.isNotEmpty() && knownMessages.last() != messageIds.last()
-                val follow = firstOpening || requested || (appended && following && !messageList.isScrollInProgress)
-                openedHistory = true
-                handledRequest = latestRequest
-                anchoring = true
-                try {
-                    if (follow) {
-                        following = true
-                        showLatest()
-                        newMessages = false
-                    } else if (appended) newMessages = true
-                } finally {
-                    knownMessages = messageIds
-                    anchoring = false
-                }
-            }
-            val messagesLabel=stringResource(R.string.chat_messages)
-            Box(Modifier.weight(1f).preserveReadingAnchor(messageList, enabled = !following)) {
-            LazyColumn(Modifier.fillMaxSize().semantics{contentDescription=messagesLabel}, state = messageList) {
+            ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
+                stringResource(R.string.chat_messages), Modifier.weight(1f),
+                historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
                 items(visible, key = { it.id }) { message ->
                     val outgoing = message.author == wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical = 6.dp),
@@ -484,7 +413,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         var copyFailed by remember(message.id) { mutableStateOf(false) }
                         ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend) { reference ->
                             val index = visible.indexOfFirst { it.author + it.createdAt == reference }
-                            if (index >= 0) scope.launch { messageList.animateScrollToItem(index) }
+                            if (index >= 0) showMessage(index)
                         }
                         val replyPrefix = remember(message) { privateReplyPrefix(message) }
                         val likedBy = reactions.saved.likedBy(message)
@@ -504,12 +433,6 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                         if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                     }
                 }
-            }
-            if (newMessages && messageIds.isNotEmpty()) FilledTonalButton(onClick = { latestRequest++ },
-                modifier = Modifier.align(Alignment.BottomCenter).padding(8.dp)
-                    .semantics { liveRegion = LiveRegionMode.Polite }) {
-                Text(stringResource(R.string.chat_new_messages))
-            }
             }
             if (reactions.saved.status in listOf(ChatReactionStore.Status.UNKNOWN, ChatReactionStore.Status.SUBMITTED)) {
                 TextButton(enabled = personal?.ready == true && reactions.retryable, onClick = { reactions.retry(publishing::beforePublishing) }) {

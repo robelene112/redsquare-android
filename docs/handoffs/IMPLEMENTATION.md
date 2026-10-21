@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:47 UTC:62 shared reading fixture reviewed0/0; actual group RED running.
+Updated 2026-10-21 07:01 UTC:62 actual group opening RED retained; shared product viewport compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -142,8 +142,26 @@ Every prior goal, identity and deadline remains; added opening capture observes
 without scrolling before its latest-message assertion. App/test compile SUCCESS2m2 with explicit shell exit0; refactor reviews both
 Spec0/documented Standards0/heuristic0. Android17 group REDrun39557475694 at exact
 3be44ffd2 is running, preserving both private classes first and adding the group
-case as a separate180second class. No group product change. Await actual runtime
-result before changing group viewport; no native group defect claim yet. Existing private classes
+case as a separate180second class. Actual run completes FAILURE: private cached/live methods PASS57.495s/22.409s
+both130% themes. Group method9.663s fails helper line19 latest69 not displayed
+after positive first-or-last readiness and Group viewport. Opened JSON70/end=false;
+root viewed original group PNG showing00 and no69. Packet red17-group-reading-3be-39557475694
+retains84 hashes/three archives67 originals(9cached/49private/9group). Group
+archive-read/incoming/ACK/older/Newaction/Dark and later success goals unreached;
+independent Activity-before-state/font restoration remains. No group incoming
+frame was sent before failure. Actual initial group-opening defect is reproduced.
+
+After actual RED, current product extracts the reviewed private policy into
+ConversationMessageList for both real adapters. Public interface owns viewportKey
+(wallet/node/conversation), message keys, native label, actual hidden-history signal,
+layout arrangement, an explicit latest-request counter and quote-jump callback.
+Private item/actions remain unchanged. Group keys include the actual existing
+queued item; its old queued-ID effect increments the latest-request counter,
+preserving explicit queued exposure. Each caller keeps all signing/storage/actions.
+The shared module retains prior end-state guards, actual tail-bottom follow,
+older-reader compensation and overlay New messages, with keyed saved-state isolation.
+App/test compile pending. Paired source/RED reviews and unchanged focused10/17
+acceptance follow. No own-send/general compact header/details/action UI/full62 yet. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.

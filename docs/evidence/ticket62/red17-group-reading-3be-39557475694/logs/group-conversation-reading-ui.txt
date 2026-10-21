@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupConversationReadingPreviewTest:
+INSTRUMENTATION_STATUS: test=cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Cached group message 69. Keep my latest message visible.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NativeConversationReader.assertOpensAtNewest(NativeConversationReader.kt:19)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$0Q18MncKHmOOuef931AKSK2qQSs(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(nl.davidengelen.redsquare.GroupConversationReadingPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Cached group message 69. Keep my latest message visible.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NativeConversationReader.assertOpensAtNewest(NativeConversationReader.kt:19)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$0Q18MncKHmOOuef931AKSK2qQSs(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+INSTRUMENTATION_STATUS: test=cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.663
+There was 1 failure:
+1) cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(nl.davidengelen.redsquare.GroupConversationReadingPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Cached group message 69. Keep my latest message visible.' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NativeConversationReader.assertOpensAtNewest(NativeConversationReader.kt:19)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading$lambda$27$lambda$25$lambda$24(GroupConversationReadingPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.$r8$lambda$0Q18MncKHmOOuef931AKSK2qQSs(GroupConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest$$ExternalSyntheticLambda18.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.GroupConversationReadingPreviewTest.cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading(GroupConversationReadingPreviewTest.kt:69)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

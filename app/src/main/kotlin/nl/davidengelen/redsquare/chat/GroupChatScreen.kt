@@ -1,6 +1,5 @@
 package nl.davidengelen.redsquare.chat
 
-import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
@@ -13,7 +12,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -471,15 +469,18 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     }
                 })
             val messagesLabel=stringResource(R.string.group_messages)
-            val messageList=rememberLazyListState()
+            var latestRequest by remember(wallet.publicKey, backend, entry.group.id) { mutableIntStateOf(0) }
             val visible=entry.messages.filter{personal?.ready==true &&
                 (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))}
             val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&!navigation.transitioning&&
                 !entry.hasPendingAction&&entry.group.memberRoles[wallet.publicKey]?.active==true
             val attachmentPermitted=editable&&loaded&&!readFailed
             val permitted=attachmentPermitted&&!preparingPhoto
-            LazyColumn(Modifier.weight(1f).preserveReadingAnchor(messageList).semantics{contentDescription=messagesLabel},
-                state=messageList,verticalArrangement=Arrangement.spacedBy(8.dp)) {
+            val messageKeys = visible.map { it.id } + entry.queuedMessage?.let { listOf("queued:${it.candidate.id}") }.orEmpty()
+            ConversationMessageList(messageKeys, "${wallet.publicKey}:${backend.id}:group:${entry.group.id}",
+                messagesLabel, Modifier.weight(1f),
+                historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && messageKeys.isEmpty(),
+                requestLatest = latestRequest, verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
@@ -488,7 +489,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                         val replyPrefix=remember(item){chatReplyPrefix(item.author,item.createdAt,item.text)}
                         ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,backend=backend,selectable=true){reference->
                             val index=visible.indexOfFirst{it.author+it.createdAt==reference}
-                            if(index>=0)scope.launch{messageList.animateScrollToItem(index)}
+                            if(index>=0)showMessage(index)
                         }
                         val likedBy=entry.likedBy(item)
                         if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
@@ -514,7 +515,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 } }
             }
             LaunchedEffect(entry.group.id,entry.queuedMessage?.candidate?.id) {
-                if(entry.queuedMessage!=null)messageList.scrollToItem(visible.size)
+                if(entry.queuedMessage!=null)latestRequest++
             }
             if(entry.queuedMessage==null) {
                 val quote=remember(message){privateReply(message)}
