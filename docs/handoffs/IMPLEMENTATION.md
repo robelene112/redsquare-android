@@ -1006,3 +1006,20 @@ cancellation filename is historical: its actual PNG shows the feed after
 cancellation, not an opened draft or queue. It is not visual proof of retained
 draft contents or queue presentation. Those require their independent journey
 assertions and current61 rendered evidence.
+
+Before-caption correctiona427 has independent Spec0 residual; documented Standards0/
+heuristic0 for original beforepacket. Exact6405 native17run39532581166 is expected
+FAILURE: two methods63.569s, normal Save/reopen/edit/Back/reopen passes both130%
+themes; unavailable-media method reaches real image-removal storage error then
+fails at line48 because Saved on this device remains present. Root viewed the
+original Light unconfirmed-images PNG: retained caption/image, storage error
+and stale Saved claim coexist. Packet red17-media-unconfirmed-6405-39532581166
+retains one archive25 originals. Later repaired-removal/Dark/success-path fixture
+assertions in the failing method are unreached; independent ciphertext and
+platform/declared-state restoration runs. This early unavailable-storage fault
+does not reproduce late directory-sync failure. Minimal fix now invalidates
+confirmed metadata before each composer write and restores only on success.
+
+Corrected exact6405 images17run39532581101 completes SUCCESS. Packet
+green17-images-pinned-6405-39532581101 retains seven archives54 originals. Full
+old image assertion/process inventory inspection follows; no complete61 claim.
