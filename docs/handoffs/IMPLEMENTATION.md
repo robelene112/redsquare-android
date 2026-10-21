@@ -921,3 +921,10 @@ local/delivery-status slice must keep that feedback reachable and understandable
 This is focused writing/keyboard GREEN, not complete61 visual acceptance.
 Initial10 RED packet also has independent Spec0/documented Standards0/heuristic0
 review at9a95f356c. Final GREEN evidence review and remaining61 work follow.
+
+FirstpairedGREEN packetsat56fd8f0e haveSpec0/documentedStandards0/heuristic0.
+Next61TDDslice addsComposerDraftStatusPreviewTest, existingnativeUI/controlled
+readonly/storage-returnseam: Save/reopen→Savedonthisdevice→edit→Unsavedchanges→
+Back/reopenexacttext→Saved.130%LightDark;independentdeclaredrestoration/zeroTX.
+Separate180secondcomposer-draftscopes/fullSocial class; priorgates unchanged.
+No productionlocal-save metadatachange ornewREDyet.

@@ -171,6 +171,9 @@ complete first-release scope and the established production boundaries.
    writing hierarchy,130% Light/Dark system-IME and exact local-return journey.
    Its separate180second class bound also remains in full Social. Existing
    post/media/queue/policy/process assertions and deadlines are unchanged.
+   `composer-draft` and its Android17 variant isolate saved local draft versus
+   later unsaved edits and exact Back/Save return at130% in both themes. Full
+   Social also retains this separate180second class and the existing focus class.
    Focused success is not complete composer or full-app acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
