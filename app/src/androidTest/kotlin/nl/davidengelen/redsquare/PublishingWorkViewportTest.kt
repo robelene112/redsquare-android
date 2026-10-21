@@ -76,6 +76,14 @@ class PublishingWorkViewportTest {
                     ui.onNodeWithText("Later").performClick()
                     ui.withPostViewports(activity, folder, "queued-work", scales = listOf(1.3f)) { label, _ ->
                         val text = "My paused post for $label.\nKeep these exact words after cancellation."
+                        // A recreated Activity retains composer memory. Prepare the latest draft through its real editor.
+                        val editor = hasSetTextAction() and isEnabled()
+                        ui.onNode(hasText("New post") and hasClickAction()).performClick()
+                        ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
+                        ui.onNode(editor).performTextReplacement(text)
+                        androidx.test.espresso.Espresso.closeSoftKeyboard()
+                        ui.onNodeWithText("Save draft").performClick()
+                        ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                         val candidate = SaitoTransaction.create(wallet, RedSquarePosts.message(text), System.currentTimeMillis())
                         candidates.add(candidate.id)
                         PostDraftStore(context, wallet.publicKey, SaitoBackend.OWNER)
@@ -93,7 +101,6 @@ class PublishingWorkViewportTest {
                         ui.onNodeWithText("Back").performClick()
                         ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
                         ui.onNode(hasText("New post") and hasClickAction()).performClick()
-                        val editor = hasSetTextAction() and isEnabled()
                         ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }
                         ui.onNode(editor).assertTextEquals(text)
                         ui.onNodeWithText("Saved on this device").assertIsDisplayed()
