@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:37 UTC:62 private reading GREEN10/17 retained; group tracer compiling.
+Updated 2026-10-21 06:40 UTC:62 private GREEN reviews0/0; group tracer compiled for source review/RED.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -119,7 +119,8 @@ Root viewed10 older/last and17 follow/older original PNGs. Old dense layout stil
 clips long bubble portions and the pill overlaps older text; not full UI acceptance.
 These runs predate d935 source-review correction; d935 compileSUCCESS2m10 and
 paired source reviews0/0, no separate native blocked-hint journey claimed. Focused
-packet reviews follow. Current-source full acceptance remains pending.
+packet reviews both return Spec0/documented Standards0/heuristic0 at01126f4bf.
+Current-source full acceptance remains pending.
 
 Next coherent native GroupConversationReadingPreviewTest seeds70 actual signed
 group originals through two bounded50/20 protected available-history pages, with
@@ -129,7 +130,10 @@ older one-pixel/New messages policy is required at130% both themes, under its ow
 state restored independently. Actual group frame repeats every500ms until its
 matching positive ACK within the original15second request bound, accounting for
 the separate passive receiver socket; it never bypasses actual retention/UI goals.
-No group production change yet. App/test compile pending. Existing private classes
+No group production change yet. Initial app/test compile log SUCCESS2m8, Docker
+events independently record container exit0; the outer tool later reported143,
+with cause unproved. A justified repeat keeps all29 tasks UP-TO-DATE and SUCCESS31s,
+with explicit shellObservedExit0. Source review and actual group RED follow. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
