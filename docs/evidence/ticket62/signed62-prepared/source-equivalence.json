@@ -1,0 +1,32 @@
+{
+  "preparedSource": "b997f301c2c3830ce3767866ce296d2abf95c36f",
+  "focusedSource": "107dde881c29c8c9bd62945db79b210bb3157592",
+  "completeExecutingSources": {
+    "android10": "b997f301c2c3830ce3767866ce296d2abf95c36f",
+    "android17": "b997f301c2c3830ce3767866ce296d2abf95c36f"
+  },
+  "completeExecutingRuns": {
+    "android10": 39677570258,
+    "android17": 39678586516
+  },
+  "sameReleaseProductionAndBuildObjects": true,
+  "objects": {
+    "app/src/main": "040000 tree 0410c9f87fc3b9c37ef15293010d00dfc596a771\tapp/src/main",
+    "app/src/release": "absent in both commits",
+    "core/src/main": "040000 tree f482cdb7a81261d81509a34a296e734f8cba2bed\tcore/src/main",
+    "push-gateway/src/main": "040000 tree c54a4d37d5c2c994d774265594943a492fbc00d7\tpush-gateway/src/main",
+    "build-support": "040000 tree d4e9d93da0aa0ecff553a7562080b63521a8be34\tbuild-support",
+    "build.gradle.kts": "100644 blob f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8\tbuild.gradle.kts",
+    "app/build.gradle.kts": "100644 blob 75eb5a385fe22dfc6ef13898ab16088573a30ee8\tapp/build.gradle.kts",
+    "core/build.gradle.kts": "100644 blob ee89e44c57ab26d38036ab92575baa08c24d4df6\tcore/build.gradle.kts",
+    "push-gateway/build.gradle.kts": "100644 blob 517dcc470f27fb27f9bdfc758dfd81a473192f90\tpush-gateway/build.gradle.kts",
+    "settings.gradle.kts": "100644 blob 0095b7ade761bc539b703724c717ece3a9d1879b\tsettings.gradle.kts",
+    "gradle.properties": "100644 blob 412c76af0b073a46f92cae8d5a3fcc8202b9612c\tgradle.properties",
+    "gradle": "040000 tree 4167f4ea961fcf6b4ae64c287eee7d16241e967e\tgradle",
+    "scripts/review-build": "100755 blob 9bad6df4b328343652adc10d4ec21c85be9c3f29\tscripts/review-build",
+    "scripts/signing-init": "100755 blob 12d9c137c3dee0ed6a616c60a9e70d6181355a9b\tscripts/signing-init"
+  },
+  "apkSha256": "054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000",
+  "nativeAcceptance": "All six focused107 scopes SUCCESS and independently reviewed0/0; complete corrected pair remains pending. Signed62 remains unpublished until whole native acceptance and final/public reviews.",
+  "limits": "Source-object equivalence only. Actual signed manifest/DEX/certificate checked separately. No physical/provider/Play/owner visual acceptance."
+}
