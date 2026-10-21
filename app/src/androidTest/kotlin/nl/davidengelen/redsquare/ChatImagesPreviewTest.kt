@@ -177,7 +177,7 @@ class ChatImagesPreviewTest {
                                     .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)))
                                 val add = hasText("Add photo") and hasClickAction() and isEnabled()
                                 trace("picker-launch")
-                                ui.onNode(add).performClick()
+                                ui.withAttachmentAction { ui.onNode(add).performClick() }
                                 ui.waitUntil(20_000) { provider("status").getBoolean("opened") && displayed(hasText("Preparing images...")) }
                                 trace("provider-opened")
                                 ui.onNode(hasText("Send") and hasClickAction()).assertIsNotEnabled()
@@ -242,7 +242,9 @@ class ChatImagesPreviewTest {
                                         .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, Intent().setData(uri)
                                             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)))
                                     val add = hasText("Add photo") and hasClickAction() and isEnabled()
-                                    ui.waitUntil(20_000) { displayed(add) }; ui.onNode(add).performClick()
+                                    ui.withAttachmentAction {
+                                        ui.waitUntil(20_000) { displayed(add) }; ui.onNode(add).performClick()
+                                    }
                                     val attached = hasContentDescription("Image 1 of 1")
                                     fun assertPreparedPhoto() {
                                         ui.waitUntil(20_000) {

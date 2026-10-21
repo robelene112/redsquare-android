@@ -4,18 +4,21 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.isImeVisible
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
@@ -32,7 +35,8 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 @Composable
 internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBackend, enabled: Boolean,
     beforePicker: suspend () -> Boolean, onPreparing: (Boolean) -> Unit, onChange: (String) -> Unit, onSelectGif: (suspend (GiphyItem) -> Boolean)? = null, gifAttribution: GiphyAttribution? = null,
-    showPickerActions: Boolean = true) = key(session) {
+    showPickerActions: Boolean = true,
+    content: @Composable (preview: @Composable () -> Unit, actions: @Composable () -> Unit) -> Unit) = key(session) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var pickingFor by rememberSaveable(session) { mutableStateOf<String?>(null) }
@@ -62,37 +66,56 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
         catch (_: Exception) { failed = true }
         finally { selected = null; preparing = false; preparation(false) }
     }
-    Column {
-        photo?.let { attachment ->
-            PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) },
-                removalEnabled = enabled && !preparing && !selectingGif,
-                previewHeight = if (WindowInsets.isImeVisible) 72.dp else 100.dp,
-                gifAttributions = gifAttribution?.let { mapOf(attachment.source to it) }.orEmpty(),
-                onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
+    val preview: @Composable () -> Unit = {
+        Column {
+            photo?.let { attachment ->
+                PostImages(listOf(attachment.source), backend, onRemove = { change(attachment.text) },
+                    removalEnabled = enabled && !preparing && !selectingGif,
+                    previewHeight = if (WindowInsets.isImeVisible) 72.dp else 100.dp,
+                    gifAttributions = gifAttribution?.let { mapOf(attachment.source to it) }.orEmpty(),
+                    onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
+            }
+            if (preparing) Text(stringResource(R.string.image_preparing))
+            if (failed) Text(stringResource(R.string.image_prepare_failed))
         }
-        if (photo == null && showPickerActions) FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
-                scope.launch {
-                    try {
-                        if (beforePicker() && currentEnabled) {
-                            pickingFor = session
-                            preparation(true)
-                            picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                        }
-                    } catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
-                }
-            }) { Text(stringResource(R.string.chat_add_photo)) }
-            if (onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
-                onClick = {
+    }
+    val actions: @Composable () -> Unit = {
+        if (photo == null && showPickerActions) Box {
+            var expanded by remember { mutableStateOf(false) }
+            IconButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+                onClick = { expanded = true }) {
+                Icon(painterResource(R.drawable.ic_image), stringResource(R.string.chat_attach_media))
+            }
+            DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
+                DropdownMenuItem(text = { Text(stringResource(R.string.chat_add_photo)) },
+                    enabled = enabled && !preparing && pickingFor == null, onClick = {
+                    expanded = false
                     scope.launch {
-                        try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
-                        catch (cancelled: CancellationException) { throw cancelled }
-                        catch (_: Exception) { failed = true }
+                        try {
+                            if (beforePicker() && currentEnabled) {
+                                pickingFor = session
+                                preparation(true)
+                                picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                            }
+                        } catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
                     }
-                }) { Text(stringResource(R.string.giphy_add)) }
+                })
+                if (onSelectGif != null) DropdownMenuItem(text = { Text(stringResource(R.string.giphy_add)) },
+                    enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+                    onClick = {
+                        expanded = false
+                        scope.launch {
+                            try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
+                            catch (cancelled: CancellationException) { throw cancelled }
+                            catch (_: Exception) { failed = true }
+                        }
+                    })
+            }
         }
-        if (gifOpen) GiphyPicker(onClose = { if (!selectingGif) gifOpen = false },
+    }
+    content(preview, actions)
+    if (gifOpen) GiphyPicker(onClose = { if (!selectingGif) gifOpen = false },
             selectionEnabled = enabled && !selectingGif, selectionError = failed, onSelect = { item ->
                 if (!selectingGif && currentEnabled) {
                     selectingGif = true; preparation(true)
@@ -107,7 +130,4 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                     }
                 }
             })
-        if (preparing) Text(stringResource(R.string.image_preparing))
-        if (failed) Text(stringResource(R.string.image_prepare_failed))
-    }
 }

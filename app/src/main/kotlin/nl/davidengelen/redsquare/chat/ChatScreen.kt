@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
@@ -305,14 +306,14 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             Column(Modifier.weight(1f)) {
                 Text(counterparty?.let { registeredIdentity(it).name } ?: stringResource(R.string.chat_title),
                     style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Text(stringResource(R.string.chat_encrypted), style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (counterparty != null) Text(stringResource(R.string.chat_encrypted), style = MaterialTheme.typography.labelSmall,
+                    maxLines = 1, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             counterparty?.let { ConversationMuteButton(PrivateChat.conversationId(wallet.publicKey, it)) }
             val detailsLabel = stringResource(R.string.chat_conversation_details)
-            if (counterparty != null) TextButton(onClick = { details = true },
+            if (counterparty != null) IconButton(onClick = { details = true },
                 modifier = Modifier.semantics { contentDescription = detailsLabel }) {
-                Text(stringResource(R.string.status_details))
+                Icon(painterResource(R.drawable.ic_info), contentDescription = null)
             } else TextButton(onClick = { refresh++ }, enabled = !loading) { Text(stringResource(R.string.feed_refresh)) }
         }
         if (counterparty == null) Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,

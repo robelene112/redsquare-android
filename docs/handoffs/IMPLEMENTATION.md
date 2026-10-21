@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:34 UTC:62 compact UI native10/17 active; explicit own-send tracer reviewed.
+Updated 2026-10-21 07:51 UTC:62 actual large-text/own-group RED retained; corrected source reviewed.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -211,7 +211,38 @@ Symmetric conversation-send scopes keep only their SDK; full Chat adds the class
 without removing existing reading classes. Owned job discovery/cancellation and
 finished checks run independently before file/identity/preference restoration,
 preserving primary failures. Final source Spec0/documented Standards0/heuristic0.
-Tracer compile active; native RED dispatch follows. Existing private classes
+Tracer compile SUCCESS2m16 with explicit exit0. Actual fcbb own-send17run39562893671
+is FAILURE89.821s: group Light passes exact71/raw/identity/own-end/return; Dark
+second callback passes raw TX/Relay/body/author but10s own-body-and-end fails.
+Root viewed prior Light bubble/New messages pill/new bubble clipped at bottom.
+Private fails earlier at fixture line98 (application-object decode of encrypted
+payload); private viewport goal unexecuted, not private product RED. Packet
+red17-own-send-fcb-39562893671 retains38 hashes/one archive25 originals and final
+paired reviews0/0. Test-only decodePayload author correction committed
+eda4fd8c37888362af37df0041640fa1d9b9a9d3; corrected17REDrun39564501913 is active.
+
+Expanded UI exact1f2ef runs both FAILURE.10 cached-private six-cell matrix PASS
+46.049s and private live PASS17.419s; group four100/130 cells pass then200Light
+row readiness fails at78 after68.194s. PNG/XML shows squeezed175px Join group
+button and no displayed group row.17 first private FAIL69.169s in200Dark at
+history12dp versus original48dp requirement with actual IME and font-size banner.
+Later goals accurately unreached. Packets red10-compact-ui-1f2-39562116317 and
+red17-compact-ui-1f2-39562119555 retain243/70 hashes,228/57 byte-bound originals;
+final paired packet reviews0/0. Earlier c458 GREEN packets also final0/0.
+
+Correction uses48dp Details info icon, one-line concise privacy without redundant
+entry-list subtitle, whole-button Create/Join FlowRow and actual Add media menu
+inside the input/Send row. Session-keyed ChatPhotoAttachment retains original
+URI/picker/preparation/GIF/draft guards while exposing preview/actions layout
+slots. Bounded quote/photo previews stay, real media operators enter the popup
+with original assertions/deadlines. Unified UI compile SUCCESS3m39 explicit exit0,
+final source reviews0/0. New group-only explicit ConversationMessageRequest(key,
+attempt) remains pending until its exact history item renders and wins over queued
+tail; consumed after jump. Group emits after protected prepare. Private adapter
+still defaults null and has no own-send correction before its actual RED. Group
+request reviews0/0; combined app/test compile active, record
+conversation62-own-group-unified-compile.json. Corrected UI10/17 dispatch follows.
+No final62 acceptance or new beta yet. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.

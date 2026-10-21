@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -351,13 +352,15 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             Column(Modifier.weight(1f)) {
                 Text(entry?.group?.name ?: stringResource(R.string.group_title), style=MaterialTheme.typography.titleMedium,
                     maxLines=1,overflow=TextOverflow.Ellipsis)
-                Text(stringResource(R.string.group_unencrypted),style=MaterialTheme.typography.labelSmall,
-                    color=MaterialTheme.colorScheme.onSurfaceVariant)
+                if (entry != null) Text(stringResource(R.string.chat_unencrypted),style=MaterialTheme.typography.labelSmall,
+                    maxLines=1,color=MaterialTheme.colorScheme.onSurfaceVariant)
             }
             entry?.let { ConversationMuteButton(it.group.id) }
             val detailsLabel = stringResource(R.string.chat_conversation_details)
-            if (entry != null) TextButton(onClick = { details = true },
-                modifier = Modifier.semantics { contentDescription = detailsLabel }) { Text(stringResource(R.string.status_details)) }
+            if (entry != null) IconButton(onClick = { details = true },
+                modifier = Modifier.semantics { contentDescription = detailsLabel }) {
+                Icon(painterResource(R.drawable.ic_info), contentDescription = null)
+            }
             else TextButton(enabled=!busy&&!paging&&!navigation.transitioning,onClick={if(!navigation.transitioning)refresh++}) { Text(stringResource(R.string.feed_refresh)) }
         }
         if (entry == null) Text(stringResource(R.string.group_privacy),style=MaterialTheme.typography.bodySmall,
@@ -451,7 +454,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             Text(stringResource(R.string.chat_load_older))
         }
         if(entry==null) {
-            Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+            FlowRow(horizontalArrangement=Arrangement.spacedBy(8.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
                 Button(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)creating=true}) { Text(stringResource(R.string.group_create)) }
                 OutlinedButton(enabled=loaded&&!busy&&!navigation.transitioning,onClick={if(!navigation.transitioning)joining=true}) { Text(stringResource(R.string.group_join)) }
             }
@@ -498,6 +501,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                 })
             val messagesLabel=stringResource(R.string.group_messages)
             var latestRequest by remember(wallet.publicKey, backend, entry.group.id) { mutableIntStateOf(0) }
+            var outgoingRequest by remember(wallet.publicKey, backend, entry.group.id) {
+                mutableStateOf<ConversationMessageRequest?>(null)
+            }
             val visible=entry.messages.filter{personal?.ready==true &&
                 (it.author==wallet.publicKey || !personal.policy.hidesIncomingChat(it.author))}
             val editable=personal?.ready==true&&draftReady&&!busy&&!savingForNavigation&&!navigation.transitioning&&
@@ -508,7 +514,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             ConversationMessageList(messageKeys, "${wallet.publicKey}:${backend.id}:group:${entry.group.id}",
                 messagesLabel, Modifier.weight(1f),
                 historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && visible.isEmpty(),
-                requestLatest = latestRequest, historyMessageKeys = visible.map { it.id },
+                requestLatest = latestRequest, historyMessageKeys = visible.map { it.id }, requestMessage = outgoingRequest,
                 verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
@@ -554,62 +560,66 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                     val previewMaxHeight=maxHeight/3
                     val previewScroll=rememberScrollState()
                     val previewLabel=stringResource(R.string.chat_composition_preview)
-                    Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                        Column((if(quote!=null||photo!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
-                            .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                            if(quote!=null){
-                                Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
-                                TextButton(enabled=editable,onClick={if(!navigation.transitioning)changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
+                    ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
+                        beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
+                        onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)},
+                        gifAttribution=entry.gifAttribution,
+                        showPickerActions=!entry.hasPendingAction,
+                        onSelectGif={item->
+                            draftWrites.withLock {
+                                if(!attachmentPermitted||selected!=entry.group.id||navigation.transitioning)false
+                                else {
+                                    val next=composeChatGif(message,item.originalUrl)
+                                    if(next==null)false else {
+                                        withContext(NonCancellable){
+                                            withContext(Dispatchers.IO){store.assertSelected()}
+                                            publish{store.saveDraft(entry.group.id,next,item.attribution);store.entries()}
+                                            changeMessage(next)
+                                        }
+                                        draftFailed=false
+                                        true
+                                    }
+                                }
                             }
-                            ChatPhotoAttachment("group:${wallet.publicKey}:${backend.id}:${entry.group.id}",body,backend,attachmentPermitted,
-                                beforePicker={!navigation.transitioning&&persistDraft()&&!navigation.transitioning},onPreparing={preparingPhoto=it},
-                                onChange={if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+it)},
-                                gifAttribution=entry.gifAttribution,
-                                showPickerActions=!entry.hasPendingAction,
-                                onSelectGif={item->
-                                    draftWrites.withLock {
-                                        if(!attachmentPermitted||selected!=entry.group.id||navigation.transitioning)false
-                                        else {
-                                            val next=composeChatGif(message,item.originalUrl)
-                                            if(next==null)false else {
-                                                withContext(NonCancellable){
-                                                    withContext(Dispatchers.IO){store.assertSelected()}
-                                                    publish{store.saveDraft(entry.group.id,next,item.attribution);store.entries()}
-                                                    changeMessage(next)
-                                                }
-                                                draftFailed=false
-                                                true
+                        }) { preview, attachments ->
+                        Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                            Column((if(quote!=null||photo!=null)Modifier.heightIn(max=previewMaxHeight).verticalScroll(previewScroll) else Modifier)
+                                .semantics{contentDescription=previewLabel},verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                                if(quote!=null){
+                                    Text(quote.quote,style=MaterialTheme.typography.bodyMedium)
+                                    TextButton(enabled=editable,onClick={if(!navigation.transitioning)changeMessage(body)}){Text(stringResource(R.string.chat_remove_reply))}
+                                }
+                                preview()
+                            }
+                            Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
+                                attachments()
+                                OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
+                                    label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
+                                Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
+                                    focus.clearFocus()
+                                    keyboard?.hide()
+                                    act {
+                                        val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
+                                        val candidate=withContext(Dispatchers.IO){
+                                            entry.gifAttribution?.let{credit->
+                                                val source=chatPhoto(privateMessageBody(message))?.source
+                                                if(source!=null&&chatPhoto(privateMessageBody(entry.draft))?.source==source)
+                                                    requireNotNull(gifCredits).retain(mapOf(source to credit))
+                                            }
+                                            GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)
+                                        }
+                                        draftWrites.withLock {
+                                            withContext(NonCancellable){
+                                                publish{store.prepareMessage(candidate,queued=true);store.entries()}
+                                            outgoingRequest = ConversationMessageRequest(candidate.id, (outgoingRequest?.attempt ?: 0) + 1)
+                                                changeMessage("")
                                             }
                                         }
+                                        withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
+                                        publish{store.entries()}
                                     }
-                                })
-                        }
-                        Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(8.dp)){
-                            OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
-                                label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
-                            Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
-                                focus.clearFocus()
-                                keyboard?.hide()
-                                act {
-                                    val mentioned=quote?.author?.let{listOf(it)}.orEmpty()
-                                    val candidate=withContext(Dispatchers.IO){
-                                        entry.gifAttribution?.let{credit->
-                                            val source=chatPhoto(privateMessageBody(message))?.source
-                                            if(source!=null&&chatPhoto(privateMessageBody(entry.draft))?.source==source)
-                                                requireNotNull(gifCredits).retain(mapOf(source to credit))
-                                        }
-                                        GroupChat.message(wallet,entry.group,message,System.currentTimeMillis(),mentioned)
-                                    }
-                                    draftWrites.withLock {
-                                        withContext(NonCancellable){
-                                            publish{store.prepareMessage(candidate,queued=true);store.entries()}
-                                            changeMessage("")
-                                        }
-                                    }
-                                    withContext(Dispatchers.IO){submitGroupMessage(context,wallet,backend,endpoint,entry.group.id,candidate)}
-                                    publish{store.entries()}
-                                }
-                            }){Text(stringResource(R.string.chat_send))}
+                                }){Text(stringResource(R.string.chat_send))}
+                            }
                         }
                     }
                 }

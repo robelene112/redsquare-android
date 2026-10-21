@@ -45,6 +45,18 @@ internal fun ComposeTestRule.closeMessageActions() {
     }
 }
 
+internal fun ComposeTestRule.withAttachmentAction(action: () -> Unit) {
+    var primary: Throwable? = null
+    try {
+        val add = hasContentDescription("Add media") and hasClickAction() and isEnabled()
+        waitUntil(15_000) { onNode(add).isDisplayed() }
+        onNode(add).performClick()
+        waitUntil(5_000) { onNode(isPopup()).isDisplayed() }
+        action()
+    } catch (failure: Throwable) { primary = failure; throw failure }
+    finally { cleanupAfterTest(primary, { closeMessageActions() }) }
+}
+
 internal fun ComposeTestRule.withConversationDetails(action: () -> Unit) {
     val opener = hasContentDescription("Conversation details") and hasClickAction()
     val title = hasText("Conversation details") and hasAnyAncestor(isDialog())
@@ -100,7 +112,7 @@ internal fun ComposeTestRule.inspectConversationControls(activity: ActivityScena
     val scale = InstrumentationRegistry.getInstrumentation().targetContext.resources.configuration.fontScale
     onNodeWithContentDescription(if (group) "Group messages" else "Private messages")
         .assertHeightIsAtLeast(if (scale <= 1.3f) 96.dp else 48.dp)
-    onNodeWithText(if (group) "Unencrypted group" else "Encrypted").assertIsDisplayed()
+    onNodeWithText(if (group) "Unencrypted" else "Encrypted").assertIsDisplayed()
     onNodeWithText("Send").assertIsDisplayed()
     captureNativeScreen(File(folder, "$label-history-with-ime.png"))
     val reported = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()

@@ -21,11 +21,14 @@ import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 
+internal data class ConversationMessageRequest(val messageKey: String, val attempt: Int)
+
 /** Each wallet/node/conversation owns its saved viewport. Callers retain their message and action models. */
 @Composable
 internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: String, messagesLabel: String,
     modifier: Modifier = Modifier, historyHidden: Boolean = false, requestLatest: Int = 0,
     historyMessageKeys: List<String> = messageKeys,
+    requestMessage: ConversationMessageRequest? = null,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     content: LazyListScope.(showMessage: (Int) -> Unit) -> Unit) = key(viewportKey) {
     val scope = rememberCoroutineScope()
@@ -39,6 +42,7 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
     var latestRequest by remember { mutableIntStateOf(0) }
     var handledRequest by remember { mutableIntStateOf(0) }
     var handledExternalRequest by remember { mutableIntStateOf(0) }
+    var handledMessage by remember { mutableStateOf<ConversationMessageRequest?>(null) }
     suspend fun showLatest(target: String?) {
         val index = messageKeys.indexOf(target)
         if (index < 0) return
@@ -67,7 +71,7 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
             }
         }
     }
-    LaunchedEffect(messageKeys, historyMessageKeys, latestRequest, requestLatest, historyHidden) {
+    LaunchedEffect(messageKeys, historyMessageKeys, latestRequest, requestLatest, requestMessage, historyHidden) {
         if (historyHidden && historyMessageKeys.isEmpty()) newMessages = false
         if (messageKeys.isEmpty()) {
             // A deliberate policy change can hide every known message. Initial
@@ -86,9 +90,12 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
         val firstOpening = !openedHistory
         val requestedHistory = latestRequest != handledRequest
         val requestedTail = requestLatest != handledExternalRequest
+        // An explicit send can enter history after its queued preview disappears.
+        // Keep its exact request pending until that message is actually rendered.
+        val requestedMessage = requestMessage?.takeIf { it != handledMessage && it.messageKey in messageKeys }
         val appended = knownMessages.isNotEmpty() && historyMessageKeys.isNotEmpty() &&
             knownHistory.lastOrNull() != historyMessageKeys.last()
-        val requested = requestedHistory || requestedTail
+        val requested = requestedHistory || requestedTail || requestedMessage != null
         val follow = firstOpening || requested || (appended && following && !messageList.isScrollInProgress)
         openedHistory = true
         handledRequest = latestRequest
@@ -97,7 +104,9 @@ internal fun ConversationMessageList(messageKeys: List<String>, viewportKey: Str
         try {
             if (follow) {
                 following = true
-                showLatest(if (firstOpening || requestedTail) messageKeys.last() else historyMessageKeys.lastOrNull())
+                showLatest(requestedMessage?.messageKey ?:
+                    if (firstOpening || requestedTail) messageKeys.last() else historyMessageKeys.lastOrNull())
+                if (requestedMessage != null) handledMessage = requestedMessage
                 newMessages = false
             } else if (appended) newMessages = true
         } finally {

@@ -159,14 +159,15 @@ class ChatGiphyPreviewTest {
                             ui.onNode(hasSetTextAction() and isEnabled()).performTextReplacement(draft)
                             androidx.test.espresso.Espresso.closeSoftKeyboard()
                             assertEquals(0, provider.requestCount)
-                            val preview = hasContentDescription(context.getString(R.string.chat_composition_preview))
-                            val add = hasText("Add GIF") and hasClickAction() and isEnabled() and hasAnyAncestor(preview)
-                            if (flow == GifFlow.REPLY) captureLayout("$prefix-before-gif-scroll")
-                            if (!displayed(add)) ui.onNode(add).performScrollTo()
-                            ui.waitUntil(10_000) { displayed(add) }
-                            ui.onNode(add).assertIsDisplayed()
-                            if (flow == GifFlow.REPLY) captureLayout("$prefix-after-gif-scroll")
-                            ui.onNode(add).performClick()
+                            ui.withAttachmentAction {
+                                val add = hasText("Add GIF") and hasClickAction() and isEnabled() and hasAnyAncestor(isPopup())
+                                if (flow == GifFlow.REPLY) captureLayout("$prefix-before-gif-scroll")
+                                if (!displayed(add)) ui.onNode(add).performScrollTo()
+                                ui.waitUntil(10_000) { displayed(add) }
+                                ui.onNode(add).assertIsDisplayed()
+                                if (flow == GifFlow.REPLY) captureLayout("$prefix-after-gif-scroll")
+                                ui.onNode(add).performClick()
+                            }
                             if (selection) {
                                 val use = hasText("Use GIF") and hasClickAction() and isEnabled()
                                 ui.waitUntil(10_000) { ui.onAllNodes(use).fetchSemanticsNodes().size == 1 }

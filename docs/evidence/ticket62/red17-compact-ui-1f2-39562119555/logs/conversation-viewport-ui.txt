@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationViewportPreviewTest:
+INSTRUMENTATION_STATUS: test=openingACachedPrivateConversationExposesItsLatestMessage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Actual height is 12.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:102)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage$lambda$15$lambda$13$lambda$12(ConversationViewportPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.$r8$lambda$UHKej6WRb5qhpYzRF_MDEq8ew04(ConversationViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage(ConversationViewportPreviewTest.kt:50)
+
+INSTRUMENTATION_STATUS: stream=
+Error in openingACachedPrivateConversationExposesItsLatestMessage(nl.davidengelen.redsquare.ConversationViewportPreviewTest):
+java.lang.AssertionError: Actual height is 12.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:102)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage$lambda$15$lambda$13$lambda$12(ConversationViewportPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.$r8$lambda$UHKej6WRb5qhpYzRF_MDEq8ew04(ConversationViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage(ConversationViewportPreviewTest.kt:50)
+
+INSTRUMENTATION_STATUS: test=openingACachedPrivateConversationExposesItsLatestMessage
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 69.169
+There was 1 failure:
+1) openingACachedPrivateConversationExposesItsLatestMessage(nl.davidengelen.redsquare.ConversationViewportPreviewTest)
+java.lang.AssertionError: Actual height is 12.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:98)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$sDU3vqZpUV1x-ZA7RTCZXwXkwfY(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertHeightIsAtLeast-3ABfNKs(BoundsAssertions.kt:98)
+	at nl.davidengelen.redsquare.ConversationControlsKt.inspectConversationControls(ConversationControls.kt:102)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage$lambda$15$lambda$13$lambda$12(ConversationViewportPreviewTest.kt:65)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.$r8$lambda$UHKej6WRb5qhpYzRF_MDEq8ew04(ConversationViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationViewportPreviewTest.openingACachedPrivateConversationExposesItsLatestMessage(ConversationViewportPreviewTest.kt:50)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
