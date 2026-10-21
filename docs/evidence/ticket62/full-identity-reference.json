@@ -1,0 +1,119 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete61 exactd434 identity catalogs plus six additive conversation methods. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket61/full10-d434-39543807318/identities.json",
+      "sha256": "73b548066fb1197a08234dc112362dc8ff4fd75f241d9ccec42fe2102b5f0266",
+      "previousIdentities": 504,
+      "additional": [
+        {
+          "path": "conversation-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationViewportPreviewTest",
+          "test": "openingACachedPrivateConversationExposesItsLatestMessage",
+          "occurrences": 1
+        },
+        {
+          "path": "private-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest",
+          "test": "newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader",
+          "occurrences": 1
+        },
+        {
+          "path": "group-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationReadingPreviewTest",
+          "test": "cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading",
+          "occurrences": 1
+        },
+        {
+          "path": "conversation-send-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationSendPreviewTest",
+          "test": "sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory",
+          "occurrences": 1
+        },
+        {
+          "path": "conversation-send-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationSendPreviewTest",
+          "test": "sendingInAGroupExposesTheOutgoingMessageFromOlderHistory",
+          "occurrences": 1
+        },
+        {
+          "path": "group-conversation-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
+          "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 147,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 108
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket61/full17-d434-39543990339/identities.json",
+      "sha256": "effcb7964f7bdbdae411b86e89dc9435d6719654449981ffed5248fc8d13eece",
+      "previousIdentities": 505,
+      "additional": [
+        {
+          "path": "conversation-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationViewportPreviewTest",
+          "test": "openingACachedPrivateConversationExposesItsLatestMessage",
+          "occurrences": 1
+        },
+        {
+          "path": "private-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest",
+          "test": "newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader",
+          "occurrences": 1
+        },
+        {
+          "path": "group-conversation-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationReadingPreviewTest",
+          "test": "cachedGroupMessagesOpenAtTheEndAndPreserveLaterReading",
+          "occurrences": 1
+        },
+        {
+          "path": "conversation-send-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationSendPreviewTest",
+          "test": "sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory",
+          "occurrences": 1
+        },
+        {
+          "path": "conversation-send-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationSendPreviewTest",
+          "test": "sendingInAGroupExposesTheOutgoingMessageFromOlderHistory",
+          "occurrences": 1
+        },
+        {
+          "path": "group-conversation-polish-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
+          "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 148,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 108
+    }
+  ],
+  "catalogFreezeCommit": "pending pre-execution catalog commit",
+  "collectorSha256": "df983a3e27acf3c5c5cbfadd0ee5cc816888a233c15bc84673982ad0d3f1331a",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Pending exact-source complete Android10/17 dispatch after focused UI/own-send proof. No complete62 run yet.",
+  "executingSources": {
+    "android10": null,
+    "android17": null
+  },
+  "executingRuns": {
+    "android10": null,
+    "android17": null
+  },
+  "rejectedExecutions": []
+}
