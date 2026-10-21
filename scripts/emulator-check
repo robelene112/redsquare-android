@@ -330,6 +330,14 @@ verify_composer_publishing() {
     verify_group_chat_native ComposerReplyJourneyTest 180 composer-reply composer-publishing-evidence
     verify_group_chat_native ComposerQuoteJourneyTest 180 composer-quote composer-publishing-evidence
 }
+verify_composer_work() {
+    verify_group_chat_native PublishingWorkViewportTest 180 composer-work publishing-work-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == composer-work* ]]; then
+    verify_composer_work
+    printf '%s\n' 'Focused native saved-author and policy-paused queued-work viewports only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == composer-publishing* ]]; then
     verify_composer_publishing
     printf '%s\n' 'Focused native composer return, policy and publishing journeys only; full acceptance not run.' > "$evidence/scope.txt"
@@ -339,6 +347,7 @@ if [[ "${TEST_SCOPE:-full}" == composer || "${TEST_SCOPE:-full}" == composer-and
     verify_composer_focus
     verify_composer_draft_status
     verify_composer_publishing
+    verify_composer_work
     printf '%s\n' 'Focused native composer writing, IME, local storage and publishing journeys only; full app acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
@@ -1157,7 +1166,7 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_usernames; fi
+if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \

@@ -236,16 +236,21 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                 ownedCandidates.add(candidate.id)
             }
         }, {
-            val failures = mutableListOf<Throwable>()
-            for (id in ownedCandidates) try {
-                WorkManager.getInstance(context).cancelUniqueWork("post:$id").result.get(5, TimeUnit.SECONDS)
-            } catch (failure: Throwable) { failures.add(failure) }
-            if (failures.isNotEmpty()) {
-                failures.drop(1).forEach(failures.first()::addSuppressed)
-                throw failures.first()
-            }
+            cancelFixturePublishingJobs(context, ownedCandidates)
         }, { retained.restoreFiles() }, { retained.restorePreferences() },
             { backends.save(originalBackend); check(backends.load() == originalBackend) },
             { check(wallets.loadExisting().exportJson() == wallet.exportJson()) })
+    }
+}
+
+/** Await every verified fixture-owned job independently before restoring its saved records. */
+internal fun cancelFixturePublishingJobs(context: android.content.Context, candidates: Set<String>) {
+    val failures = mutableListOf<Throwable>()
+    for (id in candidates) try {
+        WorkManager.getInstance(context).cancelUniqueWork("post:$id").result.get(5, TimeUnit.SECONDS)
+    } catch (failure: Throwable) { failures.add(failure) }
+    if (failures.isNotEmpty()) {
+        failures.drop(1).forEach(failures.first()::addSuppressed)
+        throw failures.first()
     }
 }

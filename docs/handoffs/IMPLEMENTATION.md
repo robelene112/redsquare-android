@@ -1093,3 +1093,29 @@ agreement/fixture state and backend restore independently after Activity closure
 complete wallet is retained. Original image/policy/queue/protocol tests stay.
 These are current presentation acceptance journeys, not a new RED-before-product
 claim for the already recorded visual layout defect. Runtime remains pending.
+
+Publishing journeys15b2 compileSUCCESS2m16s; source-root selectorb062 compiles2m6s.
+Both new-test reviews initially find Spec0, Standards1: a failed-before-claim
+candidate can schedule fixture-owned WorkManager work beyond Activity closure.
+Source fix2cb7dad9 tracks verified own candidates and independently cancels/awaits
+all their unique jobs before restoring files. Both narrow re-reviews0 residual.
+Original1ff evidence review verifies124 hashes/96 retained members total.17Dark
+repaired XML is an independently stale observation; its PNG and passing Compose
+assertions show Saved/no image. Do not claim atomic PNG/XML agreement.
+
+Six focused initial runs execute exactb062 before the cleanup finding was fixed:
+composer10/17 39535394084/39535393979; queue10/17 39535394147/39535393942;
+author10/17 39535393987/39535394352. All pending and preserved separately; they
+cannot prove the later owned-worker cleanup. No complete61 acceptance.
+
+Additional native PublishingWorkViewportTest covers actual saved-author list ->
+reopen same unsent edit and policy-paused queue -> real cancel -> exact editable
+draft at320dp130%Light/Dark. Existing protected fixture seam supplies explicit
+queued migration intent; Required/unready policy blocks transmission. This is
+not actual offline delivery proof, which remains in original tests. Scoped own
+worker cancellation occurs after Activity closure and before frame restoration;
+prior policy restores independently. Shared cancellation helper extracts the
+reviewed cleanup contract. Original identity/node/zeroTX/restoration and original
+class deadlines remain, with one new separately180s class/two methods. Full and
+combined/narrow composer-work scopes are additive. Fresh compile/reviews/runtime
+remain pending. Native catalog freeze follows stable focused acceptance.
