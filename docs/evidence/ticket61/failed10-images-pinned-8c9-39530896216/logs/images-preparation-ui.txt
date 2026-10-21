@@ -1,0 +1,175 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImagePreparationTest:
+INSTRUMENTATION_STATUS: test=allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata$lambda$6(ImagePreparationTest.kt:60)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$EzZ-N9oYZNPJnL3YXx14TDNduKE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata(ImagePreparationTest.kt:58)
+
+INSTRUMENTATION_STATUS: stream=
+Error in allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata(nl.davidengelen.redsquare.ImagePreparationTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata$lambda$6(ImagePreparationTest.kt:60)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$EzZ-N9oYZNPJnL3YXx14TDNduKE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata(ImagePreparationTest.kt:58)
+
+INSTRUMENTATION_STATUS: test=allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches$lambda$22(ImagePreparationTest.kt:139)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$iGL_qQWRPNYw5S7M6pZrg9ijZAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:120)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(nl.davidengelen.redsquare.ImagePreparationTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches$lambda$22(ImagePreparationTest.kt:139)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$iGL_qQWRPNYw5S7M6pZrg9ijZAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:120)
+
+INSTRUMENTATION_STATUS: test=failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImagePreparationTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget$lambda$14(ImagePreparationTest.kt:98)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$HsWImQ3JEleQgwnzmoshYhKq4ck(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget(ImagePreparationTest.kt:95)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget(nl.davidengelen.redsquare.ImagePreparationTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget$lambda$14(ImagePreparationTest.kt:98)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$HsWImQ3JEleQgwnzmoshYhKq4ck(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget(ImagePreparationTest.kt:95)
+
+INSTRUMENTATION_STATUS: test=pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageLoadingTest:
+INSTRUMENTATION_STATUS: test=remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remoteFailuresKeepVerifiedTextReadableAndRetryCanRecoverOneImage
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageLoadingTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=5
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=leavingStalledDownloadsKeepsNavigationUsableAndReleasesImageCapacity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.086
+There were 3 failures:
+1) allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata(nl.davidengelen.redsquare.ImagePreparationTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata$lambda$6(ImagePreparationTest.kt:60)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$EzZ-N9oYZNPJnL3YXx14TDNduKE(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.allEightExifOrientationsBecomeUprightPixelsWithoutSourceMetadata(ImagePreparationTest.kt:58)
+2) failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(nl.davidengelen.redsquare.ImagePreparationTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches$lambda$22(ImagePreparationTest.kt:139)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$iGL_qQWRPNYw5S7M6pZrg9ijZAU(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.failedAndExcessSelectionsPreservePriorTextAndImagesWithoutPartialBatches(ImagePreparationTest.kt:120)
+3) pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget(nl.davidengelen.redsquare.ImagePreparationTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.ImagePreparationTest.select(ImagePreparationTest.kt:204)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget$lambda$14(ImagePreparationTest.kt:98)
+	at nl.davidengelen.redsquare.ImagePreparationTest.$r8$lambda$HsWImQ3JEleQgwnzmoshYhKq4ck(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ImagePreparationTest.withComposer(ImagePreparationTest.kt:179)
+	at nl.davidengelen.redsquare.ImagePreparationTest.pngAlphaWebpGifAndJpegAreFlattenedAndFittedWithinTheMessageBudget(ImagePreparationTest.kt:95)
+
+FAILURES!!!
+Tests run: 5,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

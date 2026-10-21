@@ -969,3 +969,23 @@ posting6PASS31.085s/lifecycle7PASS58.87s; noappdefectinferred.17same8c alsoFAILU
 rawpendinginspection. ReplaceoldselectorwithsharedclickImagePicker; allEXIF/
 image/count/limit/protocol/assertionsremain. Keeporiginalfailedruns. Corrected
 existingimagesandnewmedia-storageREDnativeproofnextbeforeSavedinvalidationfix.
+
+Both original focused image runs at8c9 are now terminal FAILURE, retained as
+failed10-images-pinned-8c9-39530896216 and failed17-images-pinned-8c9-39530898925.
+Each packet binds79 hashes/seven archives (57/55 original members). Both fail
+only three of five preparation methods at ImagePreparationTest.select:204:
+Semantic Node has no parent layout with a Scroll SemanticsAction. Root viewed
+the original preparation failure PNGs on both SDKs: Add images is already pinned
+and visible above the keyboard. Posting6/6 and lifecycle7/7 pass on both SDKs;
+preparation2/5 passes. Both original image-process and image-queue process-death
+protocols pass, preserving exact media/candidate and interruption goals. This
+is failed fixture navigation, not evidence of an application media defect or
+complete image acceptance. No assertion/deadline/exclusion is changed.
+
+Test-only6405e83ff81427272af7539e5aa661a85a7840f1 has independent Spec0/documented
+Standards0/heuristic0 and local app/test Kotlin compile SUCCESS2m4. It uses the
+existing visible/enabled physical picker helper for the remaining preparation
+operator and adds the early unavailable-storage Saved-status regression. The
+known f208 product Spec1 is deliberately still unfixed for its native RED.
+Dispatched exact6405: composer-draft17run39532581166, images10run39532580922 and
+images17run39532581101. Their actual metadata binds6405; outcomes pending.
