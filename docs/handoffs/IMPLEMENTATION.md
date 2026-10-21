@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 22:39 UTC:62 complete17-796SUCCESS; complete10 rejected at TalkBack startup; bounded fixture readiness corrected/source0/0; signed62HELD; NEVERPUBLISH61; public60.
+Updated 2026-10-21 23:11 UTC:62 complete17accepted;10-230rejected; TalkBackfocusedSUCCESS; groupreadiness/Walletfailureobservations source0/0 compileSUCCESS; sparseCI fullbuildPASS; signed62HELD/public60/withheld61.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,45 +46,54 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
-Accepted17 source796eb1fb60ce3e63bd0e603530d6620d82278d64. Product107/build inputs
-equal signed62 sourceb99. Current057 adds only bounded initialfocus fixture readiness;
-fresh full10 source230 is documentation-only after057.796 changes only CI:
-shared SDK install helper allows3 bounded180second attempts with bounded10second
-termination,2second gaps and finalnonzero preserved; both pinnedmanager/package
-callers use it. Original failed classes additionally retain a bounded10second actual
-Android crash buffer and stillFAIL. No application class retry, goal/deadline/toolpin/
-matrix/exclusion/collector change. Bashsyntax and controlled SDK-boundary verification
-PASS (transient secondattempt success; permanent3failures return17; arguments exact).
-Both source review axes0. Whole62 source review throughb99 also0/0.
+Accepted17 source796eb1fb60ce3e63bd0e603530d6620d82278d64; product107/14Release-build
+objects equal prepared signed62b99/current. Complete17run39681571919 whole/all3SUCCESS:
+512PASS0assumptions,149normal35interrupt34continuity109archives3444members. Packet
+full17-796-39681571919 final Spec0/documented Standards0/heuristic0,1607hashes. Root
+viewed130DarkprivatehistoryIME/200LightDetails/private+group130densereplyphotoIME.
 
-Complete17run39681571919 at796 is wholeSUCCESS/all3SUCCESS. Frozen collector
-exits0:512PASS/0assumptions,149normal35interrupt34continuity109archives. Packet
-full17-796-39681571919 has final Spec0/documented Standards0/heuristic0 review.
-1607hashes/3444originalmembers, fivehistoricalobservergaps unchanged. Root viewed
-130DarkprivatehistoryIME/200LightDetails andprivate+group130densereplyphotoIME.
-Observer60399 ended. Current observer23299 runs
-/tmp/redsquare62-watch-complete230-talkback057.py for complete10/focused10.
-Terminaldownload roots: conversation62-full10-230-39687987767 and
-conversation62-talkback10-057-39687841909. Strictcollector onlywholefullSUCCESS.
-Latest currentmetadata/preparedREADME binding reviews final0/0.
+FocusedTalkBack10run39687841909 at05770e59e68fdd473c718029661b78a0187ecee6 SUCCESS:
+originalstatus32.125s/post58.249s, actualinitialWalletfocus thenSINGLEpostfocus,
+original5s/quietbaseline/outage+recovery1fragment/realengine/completedaudio/samePID3570/
+exactpost20focus/twoactualretry goals. Packet green10-talkback-startup-057-RUN69hashes/
+43originals final0/0; rootviewedactualoutagegreenfocuspost20. Frozenpins unchanged.
 
-Complete10run39681561379 at796 is wholeFAILURE: Social/WalletSUCCESS, ChatFAILURE
-at original TalkBackStatusPreviewTest line31 before outage. Packet
-failed10-talkback-startup-796-39681561379 retains452hashes,8exactarchiveoriginals,
-698allpartinventory and terminaljoblog; paired evidence reviews0/0. Actual initial
-TalkBack window handler selectsWallet18ms after deliberatepostfocus. Narrow fixture
-now positively waits5s for real initialWalletfocus before SINGLEpostfocus action,
-retaining original5s postfocus/quietbaseline/alloutage-recovery/engine/process/retry
-assertions. Startup speech retained beforelogclear. No productcode change or class
-retry. Paired source0/0; local app/test compileSUCCESS1m58s. Focused TalkBack10run39687841909 executes05770e59e68fdd473c718029661b78a0187ecee6
-and remains pending. Fresh entire10run39687987767 executes2305c929c6321a7a38b987033ca9a3e06bba7008
-with all3partitions. It runs alongsidefocused10; finalacceptance stillrequires whole10
-SUCCESS/all3SUCCESS. Production/buildobjects matchprepared62/accepted17. Workflow permits retaining accepted17 after
-fixture-only10 correction, with unchanged14Release/buildobjects documented.
+Latest complete10run39687987767 at2305c929c6321a7a38b987033ca9a3e06bba7008 REJECTED:
+ChatFAILUREgroupDark ownsend triesdisabledMessage,1PASS1FAIL34.512s; WalletFAILURE6PASS/
+1FAIL200.858s, importedexactidentity succeeds thenDone leavesblankwindow andoriginal
+15s ownerheadergoal fails. ActualappComposeView/emptydescendants, nodeownerretained;
+Walletcauseunproved. SourceIMEdependentchrome+feedDisabled givespossibleemptycontent,
+competingwithlostcomposition/lifecycle. Rootrecordsbeforecancel2failed/Socialactive,
+thenexplicitlycancelsSocial; wholeCANCELLED. No passingassembly. Failedpacket
+failed10-group-editor-wallet-window-230-RUN265hashes/52originals/373rawrecords final0/0;
+rootviewedactualgroupDarkolder+disabled/Walletimported+blank originals. Observer23299
+ended with bothterminaldownloads. No activefull10. Rawcomplete rootconversation62-full10-230-RUN.
 
-Frozen814catalog511/512identities,148/149normalcompletions,35interruptions/34continuity
-and109archives perSDK stay mandatory; API29onlyapprovedProfileassumption,17allPASS.
-No old passing-partassembly. Signed62 remainsHELD/public60 remainslive.
+New source-only fixtures: ConversationSend original15s newestreadiness ALSO requires
+actualMessage displayed/enabled BEFOREoldscroll/send. All raw/Relay/outgoing/identity/
+anchor goals remain. Wallet ONLYAFTERFAILURE capturesmainstack, bounded2s actualresumed
+Activity/decor/focus/frame/IMEinsets andbounded3s ownPIDlogcat300lines. Original15sheader/
+PIN/identity/node/rollback/cleanup unchanged; no keyboarddismiss/recreate/retry workaround.
+Both source reviewaxes0. Main app/testcompile82441 completesSUCCESS/explicit0,2m2wall/Gradle1m59; logs/status
+prefix externalconversation62-group-wallet-observation-compile. No compileactive.
+NEXT: focused conversation-send10 and originalwholeimport10, inspectactualWalletdiagnostics
+beforeanyproductfix; thenfreshentire10. Ifproductchanges, retireheld62/newversionAND
+freshbothSDKfull; fixtureonlymayretainaccepted17 perworkflow. No ownerinputneeded.
+
+CI sparsecheckout onlychanges2checkoutinputs (5lines) with exactpinnedaction; patterns
+/* then !/docs/evidence/, noncone. Allotherparsedworkflowfieldsequal. Actualdetached450
+validation813includedGitblobs/8,926,540bytes exact/all110950evidencefilesabsent. Fullsame
+nine-tasksource/core/push/debug/androidtest/release/lint/performance/lint buildSUCCESS
+18m47/184tasks131executed53cached. Packet ci-sparse-checkout4hashes final0/0, no hosted
+speedclaimyet. Tempownedexternalworktreeremoved AFTERbuild0; sharedcachepreserved. Source
+review0/0. Original796 CIboundedSDKinstall/crashbuffer changes remainunchanged.
+
+Frozen814catalog511/512identities,148/149normalcompletions,35interruptions/34continuity,
+109archives perSDK staymandatory; API29onlyapprovedProfileassumption,17allPASS. Prepared62
+immutable38,008,595bytes/SHA054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000.
+Public60 stayslive,61permanentlywithheld. Freshwhole10/finalreview thenpublish EXACTheld62,
+publicaftercheck/review/OWNER_INPUTSupdate/close62; continuesequential63–69/70.
+
 ALL SIX focused107 scopes SUCCESS: keyboard39677378247/39677390713,
 viewport39677328877/39677340642, agreement39677353128/39677365916. Six packets
  greenSDK-corrected-KIND-107-RUN retain1172exact archiveoriginals total:

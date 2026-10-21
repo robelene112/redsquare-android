@@ -358,7 +358,10 @@ class WalletImportPreviewTest {
                     cleanupAfterTest(null,
                         { captureNativeScreen(File(evidence, "activation-first-failure.png")) },
                         { File(evidence.apply { mkdirs() }, "activation-failure-state.txt").writeText(
-                            "selectedBackend=${backends.load().id}\n") })
+                            "selectedBackend=${backends.load().id}\n") },
+                        { captureActivationWindow(evidence) },
+                        { File(evidence, "activation-app-logcat.txt").writeText(device.executeShellCommand(
+                            "timeout 3 logcat -d -v threadtime --pid=${android.os.Process.myPid()} -t 300")) })
                 }) {
                     openWallet("activation-entry")
                     val originalAddress = displayedWalletAddress(ui)
@@ -431,6 +434,37 @@ class WalletImportPreviewTest {
                     ui.waitUntil(10_000) { !keyguard.isDeviceSecure } },
                 { server.close() })
         }
+    }
+
+    /** Failure-only observation. Never refresh, recreate or dismiss the failed window. */
+    private fun captureActivationWindow(folder: File) {
+        val main = android.os.Looper.getMainLooper()
+        File(folder, "activation-main-thread.txt").writeText("state=${main.thread.state}\n" +
+            main.thread.stackTrace.joinToString("\n"))
+        val observation = java.util.concurrent.FutureTask {
+            val resumed = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED)
+            "uptime=${SystemClock.uptimeMillis()} resumedActivities=${resumed.size}\n" + resumed.joinToString("\n") { activity ->
+                val decor = activity.window.decorView
+                val frame = android.graphics.Rect().also { decor.getWindowVisibleDisplayFrame(it) }
+                val insets = androidx.core.view.ViewCompat.getRootWindowInsets(decor)
+                val ime = androidx.core.view.WindowInsetsCompat.Type.ime()
+                val bars = androidx.core.view.WindowInsetsCompat.Type.systemBars()
+                val content = activity.findViewById<android.view.ViewGroup>(android.R.id.content)
+                listOf("activity=${activity.javaClass.name}@${System.identityHashCode(activity)}",
+                    "changingConfigurations=${activity.isChangingConfigurations} finishing=${activity.isFinishing} destroyed=${activity.isDestroyed}",
+                    "windowFocus=${decor.hasWindowFocus()} attached=${decor.isAttachedToWindow} shown=${decor.isShown}",
+                    "decor=${decor.width}x${decor.height} visibleFrame=$frame contentChildren=${content?.childCount}",
+                    "focusedView=${activity.currentFocus?.javaClass?.name}",
+                    "imeVisible=${insets?.isVisible(ime)} imeInsets=${insets?.getInsets(ime)} systemBars=${insets?.getInsets(bars)}")
+                    .joinToString("\n")
+            }
+        }
+        android.os.Handler(main).post(observation)
+        val text = try { observation.get(2, java.util.concurrent.TimeUnit.SECONDS) }
+            catch (failure: Exception) { "Window observation unavailable: ${failure.javaClass.simpleName}" }
+            finally { observation.cancel(false) }
+        File(folder, "activation-window-state.txt").writeText(text)
     }
 
     private fun selectImportRoot(device: UiDevice) {

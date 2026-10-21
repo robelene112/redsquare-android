@@ -1,0 +1,151 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationSendPreviewTest:
+INSTRUMENTATION_STATUS: test=sendingInAGroupExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #1222 at (l=64.0, t=481.0, r=215.0, b=555.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1ce022f'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (Text + InputText + EditableText contains 'Message' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:125)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18$lambda$13(ConversationSendPreviewTest.kt:86)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$Tg0yj2POrlJnbH_-2_xSuiHJ3fA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:67)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInAGroupExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sendingInAGroupExposesTheOutgoingMessageFromOlderHistory(nl.davidengelen.redsquare.ConversationSendPreviewTest):
+java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #1222 at (l=64.0, t=481.0, r=215.0, b=555.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1ce022f'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (Text + InputText + EditableText contains 'Message' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:125)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18$lambda$13(ConversationSendPreviewTest.kt:86)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$Tg0yj2POrlJnbH_-2_xSuiHJ3fA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:67)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInAGroupExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=sendingInAGroupExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 34.512
+There was 1 failure:
+1) sendingInAGroupExposesTheOutgoingMessageFromOlderHistory(nl.davidengelen.redsquare.ConversationSendPreviewTest)
+java.lang.AssertionError: Failed to perform text input.
+Failed to assert the following: (is enabled)
+Semantics of the node:
+Node #1222 at (l=64.0, t=481.0, r=215.0, b=555.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@1ce022f'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'false'
+Text = '[Message]'
+TextSelectionRange = 'TextRange(0, 0)'
+[Disabled]
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, OnFillData, OnLongClick, PerformImeAction, SetSelection, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 16 siblings
+Selector used: (Text + InputText + EditableText contains 'Message' (ignoreCase: false))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:125)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18$lambda$13(ConversationSendPreviewTest.kt:86)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$Tg0yj2POrlJnbH_-2_xSuiHJ3fA(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:67)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInAGroupExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:20)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

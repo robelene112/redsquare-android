@@ -1,0 +1,18 @@
+{
+  "command": [
+    "scripts/android-build",
+    ":core:test",
+    ":push-gateway:test",
+    ":core:writeHostPeerClasspath",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest",
+    ":app:assembleRelease",
+    ":app:lintDebug",
+    ":app:assemblePerformance",
+    ":app:lintPerformance"
+  ],
+  "workingDirectory": "/mnt/storage/redsquare-android-artifacts/conversation62-sparse-checkout",
+  "startedAt": "2026-10-21T22:49:09.234958+00:00",
+  "exitCode": 0,
+  "completedAt": "2026-10-21T23:07:56.151616+00:00"
+}

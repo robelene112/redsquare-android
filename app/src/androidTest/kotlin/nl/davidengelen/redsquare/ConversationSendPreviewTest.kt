@@ -80,7 +80,10 @@ class ConversationSendPreviewTest {
                         ui.waitUntil(15_000) { ui.onNode(row, useUnmergedTree = true).isDisplayed() }
                         ui.onNode(row, useUnmergedTree = true).performClick()
                         val reader = NativeConversationReader(ui, folder, label, if (group) "Group messages" else "Private messages") { expected.size }
-                        ui.waitUntil(15_000) { ui.onNodeWithText(newest).isDisplayed() }
+                        val editor = hasText("Message") and isEnabled()
+                        ui.waitUntil(15_000) {
+                            ui.onNodeWithText(newest).isDisplayed() && ui.onNode(editor).isDisplayed()
+                        }
                         val body = "My deliberate message ($label)."
                         reader.sendWhileReadingOlder(bodies[20], body) {
                             ui.onNodeWithText("Message").performTextInput(body)

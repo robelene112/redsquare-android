@@ -1,0 +1,16 @@
+{
+  "source": "45075eb99459afb258d24ff107199418bdd914ad",
+  "checkoutAction": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+  "patterns": [
+    "/*",
+    "!/docs/evidence/"
+  ],
+  "includedFiles": 813,
+  "includedBytes": 8926540,
+  "excludedEvidenceFiles": 110950,
+  "allIncludedGitBlobHashesMatch": true,
+  "allExcludedEvidenceAbsent": true,
+  "localMaterializationAndVerificationSeconds": 2.566,
+  "limits": "Local same-repository sparse materialization; not a measured hosted network-speed claim. No test/class/goal/deadline/matrix/tool input change.",
+  "allOtherParsedWorkflowFieldsIdentical": true
+}
