@@ -1,6 +1,6 @@
 # Composer61 verification
 
-## Current checkpoint, 2026-10-21 05:06 UTC
+## Current checkpoint, 2026-10-21 05:14 UTC
 
 Issue61 remains open. Final production is4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c;
 executing fixture sourced434d190aed906e26f2f326f7ce9c258020c4de3 includes later
@@ -47,14 +47,18 @@ editor, comparing the initial writing/IME and old recovered-draft captures.
 The independent visual reviews found no material finding in their bounded views.
 These observations do not establish physical Pixel timing or owner app-wide acceptance.
 
-### Complete regression and publication remain pending
+### Complete native regression passed; publication remains pending
 
 Fresh full10 run39543807318 and full17 run39543990339 both execute exactd434.
 All three partitions in each dispatch are required. Full10 SUCCESS passes strict
 collection:503 PASS plus the one accepted API29 Profile assumption,504 exact
 identities,142 normal completions,35 interruptions,34 continuity records and103
-archives. The identity difference is empty in both directions. Android17 Wallet
-has succeeded; its Social and Chat partitions remain active at this checkpoint. Frozen58e catalog and collector
+archives. The identity difference is empty in both directions. Full17 also completes
+SUCCESS:505 exact identities, all PASS,143 normal completions,35 interruptions,
+34 continuity records and103 archives, with no assumptions or identity difference.
+See [complete10](full10-d434-39543807318/README.md) and
+[complete17](full17-d434-39543990339/README.md). Complete10 has paired Spec0/
+documented Standards0/heuristic0 review. Complete17 final review remains pending. Frozen58e catalog and collector
 require504/505 identities,142/143 normal completions,35 interruptions,34 continuity
 records and103 archives per SDK, preserving the old API29 Profile assumption and
 exact five optional-observer gaps. See [frozen execution reference](full-identity-reference.json).
