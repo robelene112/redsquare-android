@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:25 UTC:62 actual incoming/end RED retained; private correction compiling.
+Updated 2026-10-21 06:37 UTC:62 private reading GREEN10/17 retained; group tracer compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -110,8 +110,27 @@ clears known/pending opening state only when prior known nonempty data is hidden
 by a ready personal policy, keeping transient loading/restoration pending state.
 The button also requires a nonempty rendered target. Same-source intermediate
 focused10run39555428454(job119073982227) and17run39555430072(job119073985466)
-execute exact7dfef983240ddd81af179ed6b4d46c4b5b23e6fd, results pending. They
-predate this source-review correction and are not final current-source acceptance. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
+execute exact7dfef983240ddd81af179ed6b4d46c4b5b23e6fd, both SUCCESS.
+10 cached/live methods12.731s/19.152s;17 methods41.21s/17.707s. Both themes130%,
+actual ACK/retention, end-follow, older20before/after347.0px, New messages jump to
+actual end and disappear, exact74originals/wallet/node/zero-send/Back/Home/health/
+restoration all pass. Packets retain66/68 hashes, each two archives52 original members.
+Root viewed10 older/last and17 follow/older original PNGs. Old dense layout still
+clips long bubble portions and the pill overlaps older text; not full UI acceptance.
+These runs predate d935 source-review correction; d935 compileSUCCESS2m10 and
+paired source reviews0/0, no separate native blocked-hint journey claimed. Focused
+packet reviews follow. Current-source full acceptance remains pending.
+
+Next coherent native GroupConversationReadingPreviewTest seeds70 actual signed
+group originals through two bounded50/20 protected available-history pages, with
+signed creation and exact envelope retention. The same actual UI/socket/ACK/end/
+older one-pixel/New messages policy is required at130% both themes, under its own
+180second class bound. Only the declared synthetic group is muted and personal
+state restored independently. Actual group frame repeats every500ms until its
+matching positive ACK within the original15second request bound, accounting for
+the separate passive receiver socket; it never bypasses actual retention/UI goals.
+No group production change yet. App/test compile pending. Existing private classes
+and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
