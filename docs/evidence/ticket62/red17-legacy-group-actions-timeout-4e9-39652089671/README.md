@@ -1,0 +1,9 @@
+# Interrupted legacy group actions, Android17
+
+Exact4e9a274f04f0bc8ebbfc02b1e9861f7eb5b832ba, focused group-ui run39652089671, terminal FAILURE. Original GroupChatActionsPreviewTest has one method started, host exit124 at its unchanged60second bound, no JUnit completion. Later mixed/group/process gates are unreached.
+
+Original progress spans fixture-start68739 to source-visible90345, first-original-verified115578, cached-copy-verified119255, second-original-forwarded123836, cleanup-start124964 and cleanup-complete125336. Total fixture-to-cleanup56.597s, including original readiness and protocol work. Last self-reply hierarchy contains the correct body but its PNG is absent. Original failure hierarchy is empty; later host timeout image/hierarchy shows launcher/Bard, not the app. This does not establish a primary screenshot stall, app crash, assertion failure or completed cleanup acceptance for every goal. Root inspected the original timeout PNG and relevant original hierarchies/progress.
+
+Accepted61 full17 same-class timing was13.22s, under different layout/operators and runtime history. That is a historical comparison, not controlled proof of an application performance regression. Ranked leads are repeated menu lifetimes for readiness/scroll/click, native idle/Back overhead and interrupted capture. No cause is claimed. Timing-only probes separate those actual boundaries without changing waits, assertions, scopes or deadlines. Probe source reviews0/0 and app/test compile SUCCESS2m1 explicit0. Fresh focused diagnosis is pending, alongside the unchanged-source complete4e9 runs. No full acceptance or signed61.
+
+All five original archive members, original timeout capture/platform/log records and archive/member hashes are retained byte-for-byte. External originals: /mnt/storage/redsquare-android-artifacts/conversation62-tail17-group-ui-4e9-39652089671/android-native-proof.
