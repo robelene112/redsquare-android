@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete b99 pair executes production107 ancestor-anchor/queuedCancel corrections, unchanged source since focused107; only retained evidence/docs differ. Local canonical compileSUCCESS3m43s/exit0; two-axis source0/0. Six focused viewport/agreement/keyboard107 runs active. Every frozen511/512 identity, originaldeadline/recovery/publicread/update/final gate remains required. Old663 known failed partitions are rejected and remaining work observed CANCELLED following replacement dispatch; no passing pieces reused. Signed61 permanentlywithheld/public60live. New62build not yet prepared.",
+  "executingState": "Fresh complete b99 pair10run39677570258/17run39678586516 executes production107 unchanged since focused107; only retained evidence/docs differ. Original17run39677581200 rejected after Chat SDK-package ZIP extraction failure before app/build; its remaining work replaced with fresh whole17same-source execution.10run unchanged. SourcecompileSUCCESS3m43s/exit0 and two-axis source0/0. All six focused107 scopes SUCCESS: viewport/agreement/keyboard on bothSDKs, exact originals retained. Corrected10 filtering reproduces Loading disappearance in both themes with four259-to259 anchors; full48dp privatequeuedCancel passes bothSDKs. Every frozen511/512 identity, originaldeadline/recovery/publicread/update/final gate remains required. No passing-piece assembly. Signed61 permanentlywithheld/public60live;New signed62 building once from clean b99; publication withheld pending whole complete proof and final review.",
   "executingSources": {
     "android10": "b997f301c2c3830ce3767866ce296d2abf95c36f",
     "android17": "b997f301c2c3830ce3767866ce296d2abf95c36f"
   },
   "executingRuns": {
     "android10": 39677570258,
-    "android17": 39677581200
+    "android17": 39678586516
   },
   "rejectedExecutions": [
     {
@@ -190,6 +190,13 @@
       "source": "66380a52cfad873c899b23f373f84b90302cc694",
       "conclusion": "cancelled",
       "reason": "Before replacement dispatch, original Wallet partition terminalFAILURE on bothSDKs: private publishing-terms queued Cancel clips to32px. Android10 Chat also terminalFAILURE on31px older-anchor shift. Following corrected complete b99 replacement dispatches, remaining old partitions conclude CANCELLED. Subsequent explicit cancellation requests report the runs already completed. Preserve actual whole terminal conclusion from run metadata; no passing pieces reused."
+    },
+    {
+      "sdk": "17",
+      "run": 39677581200,
+      "source": "b997f301c2c3830ce3767866ce296d2abf95c36f",
+      "conclusion": "cancelled",
+      "reason": "Chat job terminalFAILURE before build/emulator/app execution: SDK manager Android Emulator ZIP extraction fails with Error reading Zip content from a SeekableByteChannel. Exact completed-job119491996478 log retained; cause of invalid ZIP unproved. Remaining Wallet/Social CANCELLED following fresh whole17same-source replacement39678586516. No passing pieces accepted."
     }
   ],
   "preCorrectionExecutions": [

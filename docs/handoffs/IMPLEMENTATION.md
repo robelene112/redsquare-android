@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 21:16 UTC:62 correction107 under focused native verification; DO NOT PUBLISH61; public60.
+Updated 2026-10-21 21:31 UTC:62 all six focused107SUCCESS; complete b99 pair pending; signed62buildactive; NEVER PUBLISH61; public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,6 +46,29 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
+ALL SIX corrected107 focused scopes SUCCESS. Packets greenSDK-corrected-KIND-107-RUN
+retain1172exact archiveoriginals total: keyboard116each, viewport311each,
+agreement159each. Actual10 filtering Loading disappears in both themes while
+allfour older20 anchors stay259→259. Private terms/offline queued48dpCancel
+passes bothSDKs; actual publishing-process recovery alsoPASS. Root inspected
+corrected10anchor/queue and17denseprivate/group130%, queue130%, group200% images.
+Intentional preview scroll offsets can clip quote/photo; signed full draft remains
+exact. Known200% bottom-navigation wrapping remains70, not accepted app-widepolish.
+
+Current COMPLETE10run39677570258 and17replacement39678586516 both atb99 production
+107. Firstb99 17run39677581200 rejected: ChatSDKsetup cannot unzip downloaded
+emulator package, beforebuild/app/native; Wallet/SocialCANCELLED after replacement,
+wholeCANCELLED. Exact completed-joblog/beforemetadata/54rawinventory retained in
+failed17-sdk-zip-b99-39677581200; ZIP corruption cause unproved. No product/test/
+deadline/tool change or passing-piece assembly. Oldobserver89904 handles10+old17;
+newobserver20274 handlesreplacement17. Strictcollector onlywholeSUCCESS/3SUCCESS.
+
+Signed62buildONCE active sourceb99 in clean externalreviewworktree. Its held61APK
+hash verified unchanged across checkout. Do not rebuild/reuse61 or62. New62only
+publishes after completeproof, actualmanifest/DEX/certchecks and pairedfinalreview.
+The stable public version remains60. No ownerinput is needed; continue63–69/70.
+
+
 Current product107dde881c29c8c9bd62945db79b210bb3157592 corrects two native663
 regressions without changing a test or bound. Conversation-only root-relative
 ReadingAnchor compensates for ancestor header movement through the budget container.
@@ -56,12 +79,13 @@ on BOTH SDKs. Both source reviews0/0; local canonical compileSUCCESS3m43s/explic
 
 Six fresh focused107 scopes: conversation-viewport, agreement, chat-keyboard on10/17.
 Dispatch record external conversation62-anchor-queue-focused-dispatch.json. Review
-originals and exact assertions. Fresh complete b99 runs39677570258/39677581200
-execute unchanged107production plus evidence/docs. No accepted full663 result is
+originals and exact assertions. Fresh complete b99 pair currently39677570258/39678586516
+executes unchanged107production plus evidence/docs. No accepted full663 result is
 possible:10 Chat+Wallet fail;17 Wallet fails. Remaining663partitions conclude CANCELLED following replacement dispatch; later
 explicit cancellation requests report already-completed runs. Preserve terminal
 whole CANCELLED and failed-partition conclusions.
-Observer26998 retains terminal whole runs and does not collect failed executions.
+Restarted observer21878 finished both cancelled663 downloads without invoking the
+strict collector. New whole-run observers are identified above.
 Eight focused663 packets have final evidenceSpec0/Standards0/heuristic0: keyboard
 10methods94.247/141.925s,96px history inallfour dense cases; own-send bothPASS;
 queue13methods bothPASS (focusedqueue does NOT run process recovery); viewport17
@@ -91,14 +115,14 @@ These exact663 focused executions are now terminal (see current qualification ab
 - keyboard10run39674103550;17run39674107475 (original10methods/300s, stronger4cases)
 - viewport10run39674111384;17run39674114627 (originalfiveclasses/180each,100/130/200)
 - ownsend10run39674119293;17run39674123264
-- queue10run39674128079;17run39674131963 (originalmethods/process recovery)
+- queue10run39674128079;17run39674131963 (original13methods only; no focusedprocess recovery)
 Observer /tmp/redsquare62-watch-dense-green-663.py downloads terminal originals to
 external conversation62-dense-green-SCOPE-663-RUN. Do not confuse with old814GREEN.
 
-FRESH COMPLETE source66310run39674331268 and17run39674334947 dispatched20:54UTC
-in parallel with focused proof. Observer26998 /tmp/redsquare62-watch-complete-663.py
-collects only wholeSUCCESS/3SUCCESSpartitions to external conversation62-fullSDK-663-RUN,
-then strict frozen collector into fullSDK-663-RUN. Config actualbindings updated;
+Superseded COMPLETE source66310run39674331268 and17run39674334947 dispatched20:54UTC
+in parallel with focused proof. Both wholeCANCELLED with failedpartitions retained
+in failed10-anchor-queue-663-RUN/failed17-queue-663-RUN. External originals retained
+in conversation62-fullSDK-663-RUN. Collector was not invoked on failed executions;
 frozen814catalog511/512identities,148/149completions,35interruptions/34continuity/
 109archives and tooling unchanged. Stronger existingmethods add no newidentities.
 Preserve all publicread/update/final gates. Inspect actual rendered densecomposition
@@ -114,8 +138,8 @@ these passing partitions for corrected663. Old observers20041/26623 completed.
 
 Held61 is built once at2d but PERMANENTLY WITHHELD for dense-layout defect, no rebuild/
 reuse. Newproduction needs NEW signed62 after focused/renderedproof, then complete
-proof/review/publication. Counter61/public60. Keep exact old artifact/provenance.
-No62build yet. New62 can update installed60 in place with same established cert.
+proof/review/publication. Counter62 now reserved/public60. Keep exact old61artifact/
+provenance. New62buildactiveb99 and can update installed60 with same establishedcert.
 
 ### Earlier attempts and cache context
 
