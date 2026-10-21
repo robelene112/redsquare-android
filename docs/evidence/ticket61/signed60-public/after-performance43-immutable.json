@@ -1,0 +1,11 @@
+{
+  "versionCode": 43,
+  "versionName": "0.1.43",
+  "applicationId": "nl.davidengelen.redsquare.performance",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "dc409cfed811829738d7dbafc041a074c77574a576936187cf75d3042f260e91",
+  "commit": "b5a1569de7a906786fb7518c09595a14eaa0816d",
+  "variant": "performance",
+  "apkUrl": "https://davidengelen.nl/redsquare/performance/releases/43/redsquare.apk",
+  "notes": "Matches beta42 app code. Separate timing app with its own wallet and storage for Pixel 7 cached and fresh launch checks. Keep your ordinary Red Square installation and wallet. Push and GIF services are unconfigured. No physical timing result is claimed by this publication."
+}

@@ -1,13 +1,14 @@
 # Composer61 verification
 
-## Current checkpoint, 2026-10-21 05:14 UTC
+## Current checkpoint, 2026-10-21 05:17 UTC
 
-Issue61 remains open. Final production is4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c;
+Native61 and public delivery are complete; final publication review remains.
+Final production is4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c;
 executing fixture sourced434d190aed906e26f2f326f7ce9c258020c4de3 includes later
 test and evidence corrections without changing the11 production/build Git objects.
 Review base is957331d234d6173d9e80408eeb799e628b73973c.
 Paired cumulative and correction reviews have no outstanding Spec or documented/
-heuristic Standards findings. Ordinary59 is still public; prepared60 is held.
+heuristic Standards findings. [Ordinary60 is public](signed60-public/README.md).
 
 ### Delivered behavior in the candidate
 
@@ -47,7 +48,7 @@ editor, comparing the initial writing/IME and old recovered-draft captures.
 The independent visual reviews found no material finding in their bounded views.
 These observations do not establish physical Pixel timing or owner app-wide acceptance.
 
-### Complete native regression passed; publication remains pending
+### Complete native regression and signed public delivery
 
 Fresh full10 run39543807318 and full17 run39543990339 both execute exactd434.
 All three partitions in each dispatch are required. Full10 SUCCESS passes strict
@@ -58,7 +59,7 @@ SUCCESS:505 exact identities, all PASS,143 normal completions,35 interruptions,
 34 continuity records and103 archives, with no assumptions or identity difference.
 See [complete10](full10-d434-39543807318/README.md) and
 [complete17](full17-d434-39543990339/README.md). Complete10 has paired Spec0/
-documented Standards0/heuristic0 review. Complete17 final review remains pending. Frozen58e catalog and collector
+documented Standards0/heuristic0 review. Complete17 final review is also Spec0/documented Standards0/heuristic0. Frozen58e catalog and collector
 require504/505 identities,142/143 normal completions,35 interruptions,34 continuity
 records and103 archives per SDK, preserving the old API29 Profile assumption and
 exact five optional-observer gaps. See [frozen execution reference](full-identity-reference.json).
@@ -70,12 +71,13 @@ Wallet success and superseded Chat cancellation. Both failed Social packets keep
 into replacement acceptance. Their obsolete unconditional GIF scroll operator
 failed before provider interaction; the corrected focused scopes above pass.
 
-[Prepared60](signed60-prepared/README.md) was built once at4c and remains
-unpublished. Eleven production/build Git objects match both061 andd434; this is
-source equivalence, not independently reproduced APK bytes. Publish only the
-exact held APK after both complete runs and final original-evidence reviews,
-then verify public bytes/signature/manifest and protected release bookends.
-Never rebuild or reuse60. Provider, physical and store requirements stay with36;
+[Prepared60](signed60-prepared/README.md) was built once at4c. Eleven production/
+build Git objects match both061 andd434; source equivalence, not independently
+reproduced APK bytes. Canonical publication and independent public after check
+both exit0. Public bytes/signature/manifest match the exact held APK; protected
+ordinary59/58/50/49/45 and the whole performance43 channel are unchanged. See
+[public proof](signed60-public/README.md). Never rebuild or reuse60. Final public
+packet review follows. Provider, physical and store requirements stay with36;
 55 remains open through owner final app-wide UI review.
 
 ## Historical checkpoints

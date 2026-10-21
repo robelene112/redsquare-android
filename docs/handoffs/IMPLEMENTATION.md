@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 05:14 UTC after corrected complete10/17 strict collection; final17 review pending.
+Updated 2026-10-21 05:18 UTC after complete paired61 acceptance and signed60 publication.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -36,72 +36,54 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Active composer61
+## Composer61 delivered, final public review pending
 
-60 is CLOSED after complete paired native acceptance, independent0/0 review
-and actual signed ordinary59 publication. Public review page remains
-https://davidengelen.nl/redsquare/. Final source/evidence record957331d234d6173d9e80408eeb799e628b73973c
-is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
-Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
-Reviewed progress: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6307693543.
+61 production, complete native acceptance and ordinary60 public delivery are
+complete. Both native evidence reviews return Spec0/documented Standards0/
+heuristic0. Final public-packet review is pending; then close61/update55 and start
+62–69 then70 sequentially, without a routine final/stop.55 owner final UI and36
+actual provider/physical/store requirements remain open.
 
-Production61 is implemented/reviewed and held as unpublished60 at4c9202c3.
-Latest GIF-entry operator correction: d434d190aed906e26f2f326f7ce9c258020c4de3.
-Focused GIF10run39543035131/17run39543037960 both PASS all9 original methods
-at exactd434. Packets green10-gifs-toolbar-d434-39543035131 (79 hashes) and
-green17-gifs-toolbar-d434-39543037960 (81 hashes) each retain2 archives/67
-original members, with paired Spec0/documented Standards0/heuristic0 review.
-Source reviews0/0 and app/test compile SUCCESS2m5. Do not restart historical RED/GREEN.
+Public https://davidengelen.nl/redsquare/ serves ordinary60, code60/name0.1.60,
+package nl.davidengelen.redsquare, SHA
+8836fbbd123c70ef4832248ee6f158183fb3593914b9cf19884825fdd13ba7d0,
+37,889,755bytes, established certificate. Built ONCE at4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c,
+never rebuilt/reused. Actual public APK matches held APK, source and manifest.
+Public before/after checker and canonical publisher exit0. Protected immutable
+ordinary59/58/50/49/45 and whole separate performance43 channel are unchanged.
+Packet docs/evidence/ticket61/signed60-public retains28 hashes. Exact raw APK and
+before/after files: /mnt/storage/redsquare-android-artifacts/composer61-publication-60.
+Held original: /mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/60.
+NEVER rebuild/reuse60 or any earlier version.
 
-- Corrected combined10run39539974168 at061 passes all8methods/six separately180s
-  classes and both320dp130%Light/Dark themes. Packet green10-composer-061-39539974168
-  retains178 hashes/four archives156 originals, with final paired0/0 review.
-  Includes911 reply/author form-bar and4c busy-priority refinements. Earlier
- 17run39537697883 at4a20 passes all8 methods but predates those refinements.
-- Fresh complete10run39543807318 and17run39543990339 execute EXACTd434; all6jobs
-  bound to the same source. Full10 SUCCESS passes strict collection:503 PASS plus
-  one prior API29 Profile assumption;504 exact identities,142 normal completions,
- 35 interruptions,34 continuity records and103 archives. Full17 SUCCESS passes
-  strict collection:505 exact identities/all PASS,143 completions,35 interruptions,
- 34 continuity records and103 archives. No missing/extra identities on either SDK.
-  Complete10 paired reviews0/0; complete17 final reviews pending.60 held unpublished.
-  Full reference binds actual source/run IDs and frozen58e catalog.
-  Expected504/505 identities,142/143 normal completions,35 interruptions,
-  34 continuity and103 archives; all original assertions/deadlines/tool pins and
-  exact5 prior optional-observer gaps remain. Collector: full-collector.py under
-  docs/evidence/ticket61. Never assemble successful partitions from failed runs.
-- Current full10jobs: Chat119037535573,Wallet119037535290,Social119037535678.
-  Current full17jobs: Chat119037897085,Wallet119037897147,Social119037896948.
-- Rejected061 attempts are retained separately:17run39540030117 terminalFAILURE
-  (SocialFAILURE,Wallet/ChatSUCCESS);10run39540771845 terminalCANCELLED
-  (SocialFAILURE,WalletSUCCESS,ChatCANCELLED on same-scope supersession).
-  Both failed Social packets retain757 hashes,28archives and original/log bindings.
-  Initial run.json snapshots remain intact; final-run.json records terminal states.
-  Both axes reviewed0/0. No old partition contributes to fresh full acceptance.
-- Failed4a20 stage-DESTROYED and8a25 mixed-layout observations are retained;
-  historical cause remains unproved. Current fixture requests real recreation
-  on current Activity and positively awaits replacement/focus/config/Home in15s.
-  Both bounds are read in one UI-thread action, retaining original acceptance.
-- Ordinary60 is built ONCE at4c9202c3c99a6465fc2261cd9fd1182ebe4d6e3c, HELD and
-  unpublished. APK8836fbbd123c70ef4832248ee6f158183fb3593914b9cf19884825fdd13ba7d0,
-  37,889,755bytes, established certificate. All11 production/build objects match
-  executing061 andd434; no binary reproducibility claim. Prepared8hash packet and actual
-  DEX/manifest/size/signature reviewed0/0. NEVER rebuild or reuse60 or59.
-  Artifact: /mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/60.
-- Public ordinary59 remains live. Public-before bookend for60 PASS under
-  /mnt/storage/redsquare-android-artifacts/composer61-publication-60. Checker
-  /tmp/redsquare-composer61-publication60-check.py; pass ordinary60 after and
-  candidate source4c after authorized final publish. Do not overwrite before.
-  Prepared checker /tmp/redsquare-composer61-prepare60.py.
+Complete native source is EXACTd434d190aed906e26f2f326f7ce9c258020c4de3; all11
+production/build objects match candidate4c. Full10run39543807318 and full17run39543990339
+both SUCCESS with all3partitions in each same-source dispatch. Frozen58e catalog,
+collector and tools remain unchanged. Full10:1219hashes,103archives3048 originals,
+504 exact identities/503 PASS plus one prior API29 Profile assumption,142 normal
+completions,35 interruptions,34 continuity records. Full17:1236hashes,103archives3064
+originals,505 exact identities/all PASS,143 normal completions,35 interruptions,
+34 continuity records. Neither has missing/extra identities. Only exact five prior
+optional-observer gaps recur. Both original-evidence reviews0/0. No old partition
+or supplemental assembly. See docs/evidence/ticket61/README.md for actual source,
+RED/GREEN, operator/lifecycle correction history, limits and selected originals.
+Rejected061 full attempts stay rejected; separate terminal metadata records their
+failure/cancellation. Their successful parts do not contribute to accepted runs.
 
-Fresh complete three-partition runs are dispatched on both SDKs at corrected d434;
-actual executing references/source-equivalence are updated without changing frozen catalogs.
-Finish both corrected full outcomes and strict collection/original views/two-axis reviews,
-then publish the exact held60 APK with canonical review-publish, verify independent
-public bytes/manifest/signature and all protected old ordinary/performance
-bookends, close61/update55, then62–69 and70 sequentially without routine stops.
-Physical/provider/store36 and owner app-wide55 remain open. Never read/touch the
-protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md. Explicit staging.
+Final61 review base957331d234d6173d9e80408eeb799e628b73973c. Complete10 evidence
+commit814d3bb31f8aa629c62be98e2ade3b410037a726; complete17 evidence commit4bde5aa099d969d08039273fd469c3fe197f424b.
+Native/public proof never establishes real configured services, phone timing or
+owner app-wide polish. OWNER_INPUTS points to actual beta60; performance43 remains
+an older isolated checkpoint. Preserve protected untracked research UNREAD.
+
+62 has read-only preflight at /tmp/redsquare62-preflight.md, not claimed/implemented.
+Actual old130% chat IME originals viewed under /tmp/redsquare62-baseline-preview.
+First proposed tracer: real cached multi-page private conversation opens with
+latest visible without a scrolling operator. Follow real RED/GREEN, then group,
+incoming/older-reader/own-send and contextual actions. Do not bulk-write imagined
+tests. Existing native UI/controlled-peer/protected-state seams remain agreed.
+Read62 and project implement/TDD dependencies before starting; preserve all40/41
+keyboard/cancellation/queue/process/membership/mute and identity/node goals.
 
 ## Historical60 implementation and verification notes
 

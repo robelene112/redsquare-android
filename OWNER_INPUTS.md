@@ -58,10 +58,11 @@ De concepten zijn geen al vastgestelde toezeggingen van het bedrijf.
 
 ## Controle op je Pixel 7
 
-De gewone [beta59](https://davidengelen.nl/redsquare/) staat online. Deze update
+De gewone [beta60](https://davidengelen.nl/redsquare/) staat online. Deze update
 bevat het compactere appframe, de Node-benaming, gedeelde statusmeldingen,
-consistente postkaarten en herhaald liken met een limiet van twee nieuwe likes
-per seconde per wallet. De verdere UI-verbeteringen zijn nog in uitvoering
+consistente postkaarten, een gerichte schrijfinterface met duidelijkere
+opgeslagen en wachtende posts en herhaald liken met een limiet van twee nieuwe
+likes per seconde per wallet. De verdere UI-verbeteringen zijn nog in uitvoering
 onder #55. Download, versie en ondertekening zijn gecontroleerd.
 
 [Timingbuild43](https://davidengelen.nl/redsquare/performance/) is een ouder
@@ -69,7 +70,7 @@ checkpoint en bevat nog niet de nieuwe Node-tekst of het huidige appframe. Gebru
 niet als definitieve meting van de actuele app. De eerdere geslaagde Android10/17
 installatieproef gebruikte gewone referentie35 en timing43: gescheiden wallets en
 opslag, met behoud van de gewone testidentiteit. Dat bewijst geen fysieke update
-naar beta59. Voor de definitieve metingen levert de agent een passende timingbuild.
+naar beta60. Voor de definitieve metingen levert de agent een passende timingbuild.
 
 De Pixel-controles blijven open onder #36 (PIXEL_CONTINUITY, PIXEL_CACHED en
 PIXEL_FRESH). #35 bewaart het afgeronde ontwikkelcheckpoint. De precieze meetwijze
