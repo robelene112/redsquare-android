@@ -515,7 +515,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             ConversationMessageList(messageKeys, "${wallet.publicKey}:${backend.id}:group:${entry.group.id}",
                 messagesLabel, Modifier.weight(1f),
                 historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && visible.isEmpty(),
-                requestLatest = latestRequest, historyMessageKeys = visible.map { it.id }, requestMessage = outgoingRequest,
+                requestLatest = latestRequest, historyMessageKeys = entry.messages.map { it.id }, requestMessage = outgoingRequest,
                 verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
@@ -595,7 +595,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                             Row(verticalAlignment=Alignment.CenterVertically){
                                 attachments()
                                 OutlinedTextField(typed,{value->if(!navigation.transitioning)changeMessage((quote?.prefix ?: "")+(photo?.let{composeChatPhoto(it.source,value)} ?: value))},Modifier.weight(1f),
-                                    label={Text(stringResource(R.string.chat_message))},enabled=editable,maxLines=4)
+                                    label={Text(stringResource(R.string.chat_message),maxLines=1,overflow=TextOverflow.Ellipsis)},enabled=editable,maxLines=4)
                                 Button(enabled=permitted&&(typed.isNotBlank()||photo!=null),onClick={
                                     focus.clearFocus()
                                     keyboard?.hide()

@@ -428,7 +428,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             }
             ConversationMessageList(visible.map { it.id }, "${wallet.publicKey}:${backend.id}:private:$contact",
                 stringResource(R.string.chat_messages), Modifier.weight(1f),
-                requestMessage = outgoingRequest,
+                requestMessage = outgoingRequest, historyMessageKeys = entries.map { it.message.id },
                 historyHidden = personal?.ready == true && entries.isNotEmpty() && visible.isEmpty()) { showMessage ->
                 items(visible, key = { it.id }) { message ->
                     val outgoing = message.author == wallet.publicKey

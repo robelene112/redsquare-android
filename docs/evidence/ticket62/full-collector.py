@@ -247,7 +247,7 @@ def validate_composer_evidence(target):
 
 def validate_conversation_evidence(target):
  chat=target/'chat';originals=chat/'status-originals'
- for prefix,count in [('conversation-viewport',1),('private-conversation-reading',1),('group-conversation-reading',1),('group-conversation-polish',1),('conversation-send',2)]:
+ for prefix,count in [('conversation-viewport',1),('private-conversation-reading',1),('group-conversation-reading',1),('group-conversation-polish',1),('conversation-send',2),('conversation-filtering',1)]:
   text=(chat/(prefix+'-ui.txt')).read_text()
   assert f'OK ({count} test'+('s)' if count!=1 else ')') in text
   assert text.count('INSTRUMENTATION_CODE: -1')==1
@@ -300,6 +300,16 @@ def validate_conversation_evidence(target):
    assert older['atEnd'] is False and older['expectedMessages']==count-1
    assert last['atEnd'] is True and last['expectedMessages']==count
   restoration(folder,prefix)
+ prefix='conversation-filtering';folder=prefix+'-evidence'
+ for theme in ['light','dark']:
+  label=f'{prefix}-320-font130-{theme}'
+  configuration(folder,label,130,theme)
+  capture(folder,label+'-older-before-filtering')
+  for stage in ['blocked','revealed']:
+   capture(folder,label+'-'+stage+'-without-arrival')
+   anchor=json.loads((originals/folder/(label+'-'+stage+'-anchor.json')).read_text())
+   assert anchor['newMessagesVisible'] is False and abs(anchor['beforeTop']-anchor['afterTop'])<=1
+ restoration(folder,prefix)
  capture('conversation-viewport-evidence','conversation-private-latest-320-font100-light-opened')
 
 actual=Counter();parts={};archive_inventory={};direct_inventory={}
@@ -331,7 +341,7 @@ for part in ['chat','social','wallet']:
    for member in t.getmembers():
     if not member.isfile():continue
     b=t.extractfile(member).read();entry={'name':member.name,'bytes':len(b),'sha256':sha(b)};record['members'].append(entry)
-    if p.name in {'status-recovery-evidence.tar', 'status-motion-evidence.tar', 'status-talkback-evidence.tar', 'app-frame-reading-evidence.tar', 'post-talkback-evidence.tar', 'post-presentation-evidence.tar', 'post-viewport-evidence.tar', 'post-content-evidence.tar', 'post-content-contexts-evidence.tar', 'post-status-evidence.tar', 'post-pending-evidence.tar', 'composer-focus-evidence.tar', 'composer-draft-evidence.tar', 'composer-publishing-evidence.tar', 'publishing-work-evidence.tar', 'author-post-evidence.tar', 'post-queue-evidence.tar', 'posting-evidence.tar', 'conversation-viewport-evidence.tar', 'private-conversation-reading-evidence.tar', 'group-conversation-reading-evidence.tar', 'conversation-send-evidence.tar', 'group-conversation-polish-evidence.tar'}:
+    if p.name in {'status-recovery-evidence.tar', 'status-motion-evidence.tar', 'status-talkback-evidence.tar', 'app-frame-reading-evidence.tar', 'post-talkback-evidence.tar', 'post-presentation-evidence.tar', 'post-viewport-evidence.tar', 'post-content-evidence.tar', 'post-content-contexts-evidence.tar', 'post-status-evidence.tar', 'post-pending-evidence.tar', 'composer-focus-evidence.tar', 'composer-draft-evidence.tar', 'composer-publishing-evidence.tar', 'publishing-work-evidence.tar', 'author-post-evidence.tar', 'post-queue-evidence.tar', 'posting-evidence.tar', 'conversation-viewport-evidence.tar', 'private-conversation-reading-evidence.tar', 'group-conversation-reading-evidence.tar', 'conversation-send-evidence.tar', 'group-conversation-polish-evidence.tar', 'conversation-filtering-evidence.tar'}:
      name=Path(member.name)
      assert not name.is_absolute() and '..' not in name.parts
      out=dest/'status-originals'/name;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(b)

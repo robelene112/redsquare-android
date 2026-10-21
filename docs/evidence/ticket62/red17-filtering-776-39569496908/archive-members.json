@@ -1,0 +1,80 @@
+{
+  "conversation-filtering-evidence.tar": {
+    "sha256": "c337cc8e55e1ddd029824984563809da9e603693e0b3191e5857a7dbcce0742f",
+    "bytes": 393216,
+    "members": [
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl",
+        "bytes": 2769,
+        "sha256": "3b640f03969ba9e9bd6d4c7f242a784d226b536067e3f06d9727760bee8d578d",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-font-scale.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-configuration.json"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml",
+        "bytes": 44909,
+        "sha256": "2ac843d8e603b005a2fea6f88d1ba02617ccb4a12bc93888bb5644d85c30a2c6",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png",
+        "bytes": 47321,
+        "sha256": "6f8d84f221d76c54686d956146fec265ff718efbf6826e4dc1ac76d764d26786",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-opened.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml",
+        "bytes": 46619,
+        "sha256": "cfc8234553b49159cfb4adcf4d65a89b7db13d85ba1890b01d7e106439ff4699",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png",
+        "bytes": 46369,
+        "sha256": "d8b293acb308d38760b2c5a1386c3d4e6263c307960af4576e9114b7819c0009",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-older-before-filtering.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml",
+        "bytes": 47887,
+        "sha256": "edb690ead6e7ef5f36e65c5c9235f37cd67b81fc68beb1ded9f34137921f5ccc",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png",
+        "bytes": 49069,
+        "sha256": "6ca1b884262d966bf3a1191227a530e33f5ae0a2275925043113768fb366ff48",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-blocked-without-arrival.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.xml",
+        "bytes": 47887,
+        "sha256": "edb690ead6e7ef5f36e65c5c9235f37cd67b81fc68beb1ded9f34137921f5ccc",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.xml"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.png",
+        "bytes": 49069,
+        "sha256": "6ca1b884262d966bf3a1191227a530e33f5ae0a2275925043113768fb366ff48",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-320-font130-light-failure.png"
+      },
+      {
+        "name": "conversation-filtering-evidence/conversation-filtering-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/conversation-filtering-evidence/conversation-filtering-evidence/conversation-filtering-font-restored.json"
+      }
+    ]
+  }
+}

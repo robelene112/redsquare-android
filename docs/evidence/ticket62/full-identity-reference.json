@@ -1,6 +1,6 @@
 {
   "recordedBeforeFullExecution": true,
-  "basis": "Accepted complete61 exactd434 identity catalogs plus six additive conversation methods. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
+  "basis": "Accepted complete61 exactd434 identity catalogs plus seven additive conversation methods. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
   "references": [
     {
       "sdk": "10",
@@ -43,12 +43,18 @@
           "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
           "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
           "occurrences": 1
+        },
+        {
+          "path": "conversation-filtering-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationFilteringPreviewTest",
+          "test": "blockingAndRevealingCachedMessagesDoNotSignalNewArrivals",
+          "occurrences": 1
         }
       ],
-      "expectedNormalCompletions": 147,
+      "expectedNormalCompletions": 148,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 108
+      "expectedArchives": 109
     },
     {
       "sdk": "17",
@@ -91,16 +97,22 @@
           "testClass": "nl.davidengelen.redsquare.GroupConversationPolishPreviewTest",
           "test": "groupDetailsAndMessageControlsRemainReachableWithNormalAndLargeText",
           "occurrences": 1
+        },
+        {
+          "path": "conversation-filtering-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ConversationFilteringPreviewTest",
+          "test": "blockingAndRevealingCachedMessagesDoNotSignalNewArrivals",
+          "occurrences": 1
         }
       ],
-      "expectedNormalCompletions": 148,
+      "expectedNormalCompletions": 149,
       "expectedDeliberateInterruptions": 35,
       "expectedContinuityRecords": 34,
-      "expectedArchives": 108
+      "expectedArchives": 109
     }
   ],
-  "catalogFreezeCommit": "40df7030a3f1a29b81ec17c276d24518654270c3",
-  "collectorSha256": "df983a3e27acf3c5c5cbfadd0ee5cc816888a233c15bc84673982ad0d3f1331a",
+  "catalogFreezeCommit": "pending revised pre-execution catalog commit",
+  "collectorSha256": "1efc414cb9374e47529d8e134bd2bcdae72ace360375a2a1a6559acb14ccc220",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",

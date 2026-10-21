@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 08:18 UTC:62 private-send and group200% corrections reviewed; fresh native proof next.
+Updated 2026-10-21 08:44 UTC:62 actual filtering/private-end RED retained; corrected raw-history/reflow source reviewed.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,34 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active conversation62
+
+Latest resume state:8e8 compact viewport10/17 runs39568091455/39568095212 are
+SUCCESS, all four classes and100/130/200% Details/actions/real-IME matrices.
+Packets green10/17-compact-ui-8e8 retain304/306 hashes,4archives286 originals each;
+root viewed current10/17 critical captures, final packet reviews0/0. They do not
+establish own-send/filtering/full acceptance. Actual776a filterRED17run39569496908
+FAILS47.561s after realBlock at no-New-messages assertion125;25 hashes/12 originals.
+Own-diagnostic17run39569499059 FAILS74.684s: group passes both themes, privateLight
+outgoingDisplayed=true but native scroll34582.0/max34682.0.40 hashes/27 originals.
+Both actualRED packet reviews0/0; font restoration retained, later private/filter
+goals unreached. No causal proof beyond these native observations.
+
+Current correction separates retained unfiltered history from rendered/queued
+keys. New arrivals are admitted keys in the raw appended suffix, excluding older
+pages and cached hide/reveal. Pending unread IDs preserve another unseen visible
+arrival when the newest author is blocked. Deliberate hidden states advance raw
+baseline; transient unreadiness, including queued-only display, preserves unread/
+raw/follow state and guards the end observer. Explicit queue exposure remains
+possible without consuming an own-message request. Passive viewport-height
+changes realign only a previously following reader; older readers retain anchors.
+Single-line input labels avoid actual200% closed-keyboard wrapping. Source reviews
+0/0. App/test compile SUCCESS3m44 explicit0 before the final narrow hidden-state
+guard; exact-source CI must compile that guard and prove corrected behavior.
+Revised catalog adds real filtering:511/512 identities,148/149 normal completions,
+109 archives, unchanged35 deliberate interruptions/34 continuity and original pins.
+Both draft reviews0/0. Supersedes old40df catalog before any complete62 execution.
+Corrected own-send/viewport SDK pairs dispatch next; full acceptance/signed61 pending.
+
 
 61 is CLOSED and55 updated after final public reviews0/0.62 is assigned and
 unblocked;58/59 are closed. Review base72f43fa7462fe6af9eff85c48613dc793771cd50.

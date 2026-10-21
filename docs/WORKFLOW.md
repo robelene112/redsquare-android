@@ -174,8 +174,11 @@ complete first-release scope and the established production boundaries.
    reading goals. Private opening covers100/130/200%. All include actual
    Details/menu/IME checks in both themes. `conversation-send` and
    its Android17 variant isolate explicit own sends from older history in a new
-   separate180second class; full Chat retains it alongside all four reading
-   classes. Original methods, protocol/cache/identity goals and request bounds
+   separate180second class; full Chat retains it alongside all five reading
+   classes. The additive filtering class uses actual Settings/personal Block and
+   Unblock actions on mixed-author protected history, preserving an older anchor
+   without inventing New messages. Symmetric `conversation-filtering` scopes
+   isolate that class with its own180second bound. Original methods, protocol/cache/identity goals and request bounds
    remain. Actual menus/Details replace former inline control operators; negative
    menu assertions require a positively opened popup. Owned queue jobs are stopped
    before fixture restoration. Focused successes do not establish full acceptance.

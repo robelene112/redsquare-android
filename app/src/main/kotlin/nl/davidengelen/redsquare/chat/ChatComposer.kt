@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -235,7 +236,7 @@ internal fun ChatComposer(wallet: SaitoWallet, backend: SaitoBackend, endpoint: 
                             OutlinedTextField(value = typed, onValueChange = { value ->
                                 if (!navigation.transitioning)
                                     changeText((quote?.prefix ?: "") + (photo?.let { composeChatPhoto(it.source, value) } ?: value))
-                            }, label = { Text(stringResource(R.string.chat_message)) },
+                            }, label = { Text(stringResource(R.string.chat_message), maxLines = 1, overflow = TextOverflow.Ellipsis) },
                                 modifier = Modifier.weight(1f), enabled = editable, maxLines = 4)
                             Button(enabled = permitted && ready && !sending && !preparingPhoto && !navigation.transitioning && saved.status!=ChatWorkStore.Status.QUEUED && (retrying || typed.isNotBlank() || photo != null),
                                 onClick = send@ {
