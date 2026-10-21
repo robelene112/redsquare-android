@@ -4,6 +4,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.runner.lifecycle.ActivityLifecycleCallback
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
 import java.io.File
@@ -23,13 +25,39 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
     val densityOverride = Regex("Override density: ([0-9]+)").find(originalDensity)?.groupValues?.get(1)
     val appearance = context.getSharedPreferences("appearance", 0)
     val originalAppearance = appearance.getString("mode", null)
+    // Observe configuration-driven Activity replacement without changing the test's lifecycle or verdict.
+    val instrumentation = InstrumentationRegistry.getInstrumentation()
+    fun recordLifecycle(event: String, changed: MainActivity? = null) {
+        runCatching {
+            folder.mkdirs()
+            File(folder, "$prefix-activity-lifecycle.jsonl").appendText(JsonObject().apply {
+                addProperty("event", event)
+                addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                if (changed == null) addProperty("scenarioState", activity.state.name)
+                addProperty("widthDp", context.resources.configuration.screenWidthDp)
+                addProperty("fontScale", context.resources.configuration.fontScale)
+                changed?.let {
+                    addProperty("activity", System.identityHashCode(it))
+                    addProperty("finishing", it.isFinishing)
+                    addProperty("changingConfigurations", it.isChangingConfigurations)
+                }
+            }.toString() + "\n")
+        }
+    }
+    val lifecycle = ActivityLifecycleCallback { changed, stage ->
+        if (changed is MainActivity) recordLifecycle(stage.name, changed)
+    }
+    instrumentation.runOnMainSync { ActivityLifecycleMonitorRegistry.getInstance().addLifecycleCallback(lifecycle) }
     var primary: Throwable? = null
     try {
+        recordLifecycle("before-display-configuration")
         device.executeShellCommand("wm density 160")
         device.executeShellCommand("wm size 320x640")
         for (scale in scales) {
             font.apply(scale)
+            recordLifecycle("before-explicit-recreation")
             activity.recreate()
+            recordLifecycle("after-explicit-recreation")
             waitUntil(15_000) { device.displayWidth == 320 && onNode(hasText("Home") and isSelected()).isDisplayed() }
             for (theme in listOf("Light", "Dark")) {
                 val label = "$prefix-320-font${(scale * 100).toInt()}-${theme.lowercase()}"
@@ -56,7 +84,9 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
         }
     } catch (failure: Throwable) { primary = failure; throw failure }
     finally {
-        cleanupAfterTest(primary, { activity.close() }, { font.restore() },
+        cleanupAfterTest(primary, { activity.close() },
+            { instrumentation.runOnMainSync { ActivityLifecycleMonitorRegistry.getInstance().removeLifecycleCallback(lifecycle) } },
+            { font.restore() },
             { device.executeShellCommand("wm size ${sizeOverride ?: "reset"}")
                 check(device.executeShellCommand("wm size").trim() == originalSize.trim()) },
             { device.executeShellCommand("wm density ${densityOverride ?: "reset"}")

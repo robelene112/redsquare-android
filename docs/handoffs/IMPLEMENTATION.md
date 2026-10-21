@@ -1231,3 +1231,25 @@ only for a mounted Conversation reply guard or an Author route. Back/Done and
 all existing save/navigation/identity/node guards remain. Ordinary conversation,
 Chat and profile forms retain their existing route policy. No new behavioral
 state, transaction, storage or catalog goal changes. Source/native proof follows.
+
+
+Current911883cc reply/author bar refinement has independent Spec0/documented
+Standards0/heuristic0 and local app/test Kotlin compile SUCCESS2m6s. Cumulative
+source/harness Standards review957331d2..911883cc also reports0/0.
+Combined17run39537697883 at exact4a20 completes all eight methods in six180second
+classes: focus47.72s/draft24.121s/post25.316s/reply26.839s/quote26.144s/work24.77s.
+Packet green17-composer-4a20-39537697883 retains172 hashes/four archives148 originals.
+Root viewed Dark quote return with actual IME and Light quote Submitted. All
+130%themes and original policy/candidate/cleanup goals pass. This predates911 bar.
+
+Same-source10run39537697930 FAILS second draft method during explicit
+ActivityScenario.recreate: captured Activity stage DESTROYED, before first theme
+cell. Focus1(16.721s) and first media-storage draft method PASS; publishing/work
+are unreached. Packet failed10-composer-activity-stage-4a20-39537697930 retains49
+hashes/two archives36 originals. Outer launcher failure capture occurs after
+viewport finally closed Activity/restored platform and cannot identify live cause.
+Pinned AndroidX core1.7.0 source snapshots Activity before moveToState/check;
+configuration relaunch racing that snapshot is a supported hypothesis only.
+Diagnostic-only lifecycle callback/boundary JSONL is added without changing
+recreation, assertions, deadlines or cleanup goals. Fresh diagnostic10 follows
+compile/review; full61 remains undispatched. No failed-run acceptance/exclusion.
