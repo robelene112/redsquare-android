@@ -478,6 +478,15 @@ if [[ "$full_chat" == true ]]; then
     verify_social_push social-push
     verify_social_push social-push-process
 fi
+verify_conversation_viewport() {
+    verify_group_chat_native ConversationViewportPreviewTest 180 conversation-viewport conversation-viewport-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == conversation-viewport* ]]; then
+    verify_conversation_viewport
+    printf '%s\n' 'Focused native conversation reading viewport only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "$full_chat" == true ]]; then verify_conversation_viewport; fi
 if [[ "${TEST_SCOPE:-full}" == chat-viewport* ]]; then
     verify_group_chat_native 'ChatQueuePreviewTest#anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending,nl.davidengelen.redsquare.ChatQueuePreviewTest#anOfflinePrivateMessageRemainsCancellableAfterReopening' 180 chat-viewport chat-queue-evidence
     printf '%s\n' 'Focused physical Chat viewport cancellation cases only; full acceptance not run.' > "$evidence/scope.txt"

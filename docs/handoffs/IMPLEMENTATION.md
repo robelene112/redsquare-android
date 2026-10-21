@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 05:18 UTC after complete paired61 acceptance and signed60 publication.
+Updated 2026-10-21 05:23 UTC:61 CLOSED/signed60 live;62 assigned and first tracer in progress.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -37,12 +37,30 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
-## Composer61 delivered; resume with62
+## Active conversation62
+
+61 is CLOSED and55 updated after final public reviews0/0.62 is assigned and
+unblocked;58/59 are closed. Review base72f43fa7462fe6af9eff85c48613dc793771cd50.
+Start: https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6308708872.
+Continue62–69 then70 sequentially without routine stops. Public ordinary60 stays
+live; do not rebuild/reuse it. Provider/physical/store36 and owner final55 stay open.
+
+First vertical test ConversationViewportPreviewTest seeds70 real protected private
+originals, opens through the native UI and requires latest visible without a
+scroll operator. Both320dp130% themes are planned, but RED may stop at the first
+Light assertion. New focused conversation-viewport scopes retain180second bound;
+full Chat adds this class without removing any original goal. No production62
+change yet. App/test Kotlin compile SUCCESS2m3; source review precedes native RED.
+Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
+controlled peer/protected cache, with independent Activity-before-state restoration.
+Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.
+
+## Composer61 delivered
 
 61 production, complete native acceptance and ordinary60 public delivery are
 complete. Both native evidence reviews return Spec0/documented Standards0/
-heuristic0. Final public-packet reviews are also0/0. Close61/update55 and start
-62–69 then70 sequentially, without a routine final/stop.55 owner final UI and36
+heuristic0. Final public-packet reviews are also0/0.61 is CLOSED and55 updated.
+Continue62–69 then70 sequentially, without a routine final/stop.55 owner final UI and36
 actual provider/physical/store requirements remain open.
 
 Public https://davidengelen.nl/redsquare/ serves ordinary60, code60/name0.1.60,
@@ -77,7 +95,8 @@ Native/public proof never establishes real configured services, phone timing or
 owner app-wide polish. OWNER_INPUTS points to actual beta60; performance43 remains
 an older isolated checkpoint. Preserve protected untracked research UNREAD.
 
-62 has read-only preflight at /tmp/redsquare62-preflight.md, not claimed/implemented.
+62 read-only preflight is at /tmp/redsquare62-preflight.md; the current active
+section above supersedes its original unclaimed checkpoint.
 Actual old130% chat IME originals viewed under /tmp/redsquare62-baseline-preview.
 First proposed tracer: real cached multi-page private conversation opens with
 latest visible without a scrolling operator. Follow real RED/GREEN, then group,
