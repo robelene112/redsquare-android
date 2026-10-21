@@ -204,6 +204,11 @@
     <string name="post_draft_local">Drafts stay with this wallet and node on this device. They remain unsent until you press Send.</string>
     <string name="post_saved_device">Saved on this device</string>
     <string name="post_unsaved_changes">Unsaved changes</string>
+    <string name="publishing_loading">Loading saved work</string>
+    <string name="publishing_saving">Saving on this device</string>
+    <string name="publishing_preparing">Preparing this attempt</string>
+    <string name="publishing_busy_detail">Wait while this operation finishes. Editing and navigation are paused to keep your work together.</string>
+    <string name="publishing_original_attempt">Retry checks the original attempt on this node before sending it again. Confirmation here does not confirm availability on other nodes.</string>
     <string name="post_unsaved_detail">Choose Save draft or Back to keep your latest changes with this wallet and node on this device. Nothing is sent until you choose Send.</string>
     <string name="post_draft_error">Could not load or confirm the saved draft. Your current text remains here. Try again.</string>
     <string name="follow_account">Follow</string>

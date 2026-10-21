@@ -282,6 +282,8 @@ class PostQueuePreviewTest {
             ui.waitUntil(10_000) { ui.onAllNodes(hasText("Manage this queued work from the feed")).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Queued").assertExists()
             ui.onNodeWithText("saito.davidengelen.nl").assertExists()
+            captureNativeScreen(java.io.File(context.cacheDir,
+                "post-queue-evidence/feed-queued-work-before-cancellation.png"), "Cancel queued post")
             ui.onNodeWithText("Cancel queued post").performClick()
             ui.waitUntil(10_000) { ui.onAllNodes(hasText("No queued posts")).fetchSemanticsNodes().isNotEmpty() }
             ui.onNodeWithText("Back").performClick()

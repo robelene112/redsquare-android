@@ -170,6 +170,8 @@ class AuthorPostPreviewTest {
                     ui.onNodeWithText("Saved post changes").performClick()
                     waitFor("Delete post")
                     assertEquals(3, peer.transactions.size)
+                    captureNativeScreen(java.io.File(context.cacheDir,
+                        "author-post-evidence/${if (withImage) "image" else "native"}-saved-author-changes.png"), "Delete post")
                     ui.onNodeWithText("Delete post").performClick()
                     ui.waitUntil(20_000) {
                         ui.onAllNodes(hasText("Retry") and isEnabled()).fetchSemanticsNodes().isNotEmpty()

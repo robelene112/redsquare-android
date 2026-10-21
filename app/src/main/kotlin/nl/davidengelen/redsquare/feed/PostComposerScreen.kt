@@ -19,7 +19,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
@@ -147,7 +146,7 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                     Text(stringResource(if (available) R.string.done else if (transaction == null) R.string.post_send else R.string.retry))
                 }
             }
-            val localStatus = if (transaction != null || !ready || error) null else when {
+            val localStatus = if (transaction != null || !ready || error || saving || sending) null else when {
                 text.isEmpty() && images.isEmpty() -> R.string.status_unsent_draft
                 locallySaved -> R.string.post_saved_device
                 else -> R.string.post_unsaved_changes
@@ -155,38 +154,44 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
             InlineStatus(localStatus?.let { stringResource(it) },
                 details = listOf(stringResource(if (locallySaved) R.string.post_draft_local else R.string.post_unsaved_detail)),
                 announce = false)
+            val deliveryStatus = when {
+                available -> R.string.post_available
+                preparingImages -> R.string.image_preparing
+                saving -> R.string.publishing_saving
+                submitted -> R.string.post_submitted
+                queued && queueSaved -> R.string.post_queued
+                transaction != null -> R.string.post_pending
+                sending -> R.string.publishing_preparing
+                !ready && !error -> R.string.publishing_loading
+                else -> null
+            }
+            InlineStatus(deliveryStatus?.let { stringResource(it) }, when {
+                available -> StatusTone.SUCCESS
+                saving || sending || !ready -> StatusTone.WORKING
+                transaction != null && !queued && !submitted -> StatusTone.WARNING
+                else -> StatusTone.INFO
+            }, details = buildList {
+                if (saving || sending) add(stringResource(R.string.publishing_busy_detail))
+                if (transaction != null) {
+                    add(stringResource(R.string.status_origin_node, backend.domain))
+                    add(stringResource(R.string.publishing_original_attempt))
+                }
+            })
             Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
+                InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
+                InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
+                InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
                 parent?.let { Text(stringResource(R.string.post_reply_to, registeredIdentity(it.author).name),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 quote?.let { Text(stringResource(R.string.post_quoting, registeredIdentity(it.author).name),
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                TextField(value = text, onValueChange = ::edit, enabled = ready && !saving && !sending && transaction == null,
-                    placeholder = { Text(stringResource(R.string.post_write)) },
-                    textStyle = MaterialTheme.typography.bodyLarge,
-                    colors = TextFieldDefaults.colors(focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                        disabledContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                        disabledTextColor = MaterialTheme.colorScheme.onSurface,
-                        focusedIndicatorColor = Color.Transparent, unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent),
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(AppSpacing.gap),
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
+                PublishingEditor(text, ::edit, ready && !saving && !sending && transaction == null)
                 PostImages(images, backend, onRemove = if (transaction == null) ::removeImage else null, removalEnabled = !saving && !sending,
                     previewHeight = 120.dp, gifAttributions = gifAttributions, onOpenSource = ::openMediaSource)
                 quote?.let { QuotedPost(it, backend) }
-                val deliveryStatus = when {
-                    available -> R.string.post_available
-                    queued && queueSaved -> R.string.post_queued
-                    submitted -> R.string.post_submitted
-                    transaction != null -> R.string.post_pending
-                    else -> null
-                }
-                InlineStatus(deliveryStatus?.let { stringResource(it) }, when (deliveryStatus) {
-                    R.string.post_available -> StatusTone.SUCCESS
-                    R.string.post_pending -> StatusTone.WARNING
-                    else -> StatusTone.INFO
-                })
                 if (transaction != null && !available)
                     nl.davidengelen.redsquare.policy.QueuedPublishingAgreement(!saving && !sending)
                 if (queued && queueSaved) TextButton(enabled = !saving && !sending, onClick = ::cancelQueued) {
@@ -194,12 +199,6 @@ internal fun PostComposerScreen(wallet: SaitoWallet, endpoint: String, backend: 
                 }
                 if (transaction != null && !available && !queued) TextButton(enabled = !saving && !sending,
                     onClick = { confirmClear = true }) { Text(stringResource(R.string.post_start_another)) }
-                InlineStatus(if (networkError) stringResource(R.string.post_network_error) else null, StatusTone.ERROR)
-                InlineStatus(if (validationError) stringResource(R.string.post_invalid_text) else null, StatusTone.ERROR)
-                InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
-                if (error && !ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-                InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
-                InlineStatus(if (preparingImages) stringResource(R.string.image_preparing) else null, StatusTone.WORKING)
             }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             Row(Modifier.fillMaxWidth().padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {

@@ -4,14 +4,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
 internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBackend, post: FeedPost,
@@ -47,39 +54,56 @@ internal fun AuthorEditScreen(wallet: SaitoWallet, endpoint: String, backend: Sa
     BackHandler { state.close(onClose) }
     with(state) {
         Column(modifier.imePadding()) {
-            Row {
-                TextButton(enabled = !busy && !saving, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
-                Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_title else R.string.author_delete_title), Modifier.weight(1f).padding(vertical = 12.dp),
-                    style = MaterialTheme.typography.titleLarge)
-                TextButton(enabled = ready && !busy && !saving && !available && !conflict &&
-                    (kind == AuthorActionKind.DELETE || text.isNotBlank()), onClick = { send(publishing::beforePublishing) }) {
-                    Text(stringResource(if (candidate != null) R.string.retry else
+            Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
+                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !busy && !saving) { close(onClose) }
+                Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_title else R.string.author_delete_title),
+                    Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                Button(modifier = Modifier.heightIn(min = 48.dp), enabled = ready && !busy && !saving &&
+                    (available || (!conflict && (kind == AuthorActionKind.DELETE || text.isNotBlank()))), onClick = {
+                    if (available) close(onClose) else send(publishing::beforePublishing)
+                }) {
+                    Text(stringResource(if (available) R.string.done else if (candidate != null) R.string.retry else
                         if (kind == AuthorActionKind.EDIT) R.string.author_edit_save else R.string.author_delete_confirm))
                 }
             }
-            if (available) Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_available else R.string.author_delete_available))
-            else if (conflict) Text(stringResource(R.string.author_edit_conflict))
-            else if (candidate != null) Text(stringResource(if (kind == AuthorActionKind.EDIT) R.string.author_edit_pending else R.string.author_delete_pending))
-            if (conflict) {
-                Text(stringResource(R.string.author_edit_conflict_resolution))
-                Row {
-                    TextButton(enabled = !busy && !saving, onClick = { resolveConflict(false) }) {
+            val summary = when {
+                available -> if (kind == AuthorActionKind.EDIT) R.string.author_edit_available else R.string.author_delete_available
+                conflict -> R.string.author_edit_conflict
+                saving -> R.string.publishing_saving
+                candidate != null -> if (kind == AuthorActionKind.EDIT) R.string.author_edit_pending else R.string.author_delete_pending
+                busy -> R.string.publishing_preparing
+                !ready && !error -> R.string.publishing_loading
+                else -> null
+            }
+            InlineStatus(summary?.let { stringResource(it) }, when {
+                available -> StatusTone.SUCCESS
+                busy || saving || !ready -> StatusTone.WORKING
+                conflict || candidate != null -> StatusTone.WARNING
+                else -> StatusTone.INFO
+            }, details = buildList {
+                add(stringResource(R.string.status_origin_node, backend.domain))
+                if (busy || saving) add(stringResource(R.string.publishing_busy_detail))
+            })
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                InlineStatus(if (networkError) stringResource(R.string.author_action_network_error) else null, StatusTone.ERROR)
+                InlineStatus(if (error) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR)
+                if (!ready && error) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
+                if (kind == AuthorActionKind.EDIT) {
+                    PublishingEditor(text, ::edit, ready && !busy && !saving && candidate == null)
+                } else {
+                    Text(stringResource(R.string.author_delete_explanation), style = MaterialTheme.typography.bodyLarge)
+                    PublishingWorkItem(backend.domain) { Text(post.text, style = MaterialTheme.typography.bodyLarge) }
+                }
+                if (conflict) {
+                    Text(stringResource(R.string.author_edit_conflict_resolution), style = MaterialTheme.typography.bodyMedium)
+                    OutlinedButton(enabled = !busy && !saving, onClick = { resolveConflict(false) }) {
                         Text(stringResource(R.string.author_edit_keep_text))
                     }
-                    TextButton(enabled = !busy && !saving, onClick = { resolveConflict(true) }) {
+                    OutlinedButton(enabled = !busy && !saving, onClick = { resolveConflict(true) }) {
                         Text(stringResource(R.string.author_edit_use_latest))
                     }
                 }
-            }
-            if (networkError) Text(stringResource(R.string.author_action_network_error))
-            if (error) Text(stringResource(R.string.post_draft_error))
-            if (!ready && error) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-            if (kind == AuthorActionKind.EDIT) {
-                OutlinedTextField(value = text, onValueChange = ::edit,
-                    enabled = ready && !busy && !saving && candidate == null, modifier = Modifier.fillMaxWidth().weight(1f))
-            } else {
-                Text(stringResource(R.string.author_delete_explanation))
-                Text(post.text, Modifier.padding(vertical = 16.dp))
             }
         }
     }
