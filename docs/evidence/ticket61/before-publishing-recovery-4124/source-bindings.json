@@ -1,0 +1,132 @@
+[
+  {
+    "sdk": "10",
+    "run": "39522483659",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/posting-evidence.tar",
+    "archiveSha256": "62846873343f83cafa76a60d0374a20daaa967c20c3fe73e27e0904531b5e1ba",
+    "member": {
+      "name": "posting-evidence/recovered-unsent-draft.png",
+      "bytes": 19452,
+      "sha256": "44fdfa2c57d74e5eb7bd4525fadd734a81221abee14e94ea9f57ed44e143753a"
+    },
+    "retainedPath": "android10/recovered-unsent-draft.png"
+  },
+  {
+    "sdk": "10",
+    "run": "39522483659",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/posting-evidence.tar",
+    "archiveSha256": "62846873343f83cafa76a60d0374a20daaa967c20c3fe73e27e0904531b5e1ba",
+    "member": {
+      "name": "posting-evidence/submitted-awaiting-server.png",
+      "bytes": 21642,
+      "sha256": "397f95a2e6c76bf058afea0559c1d7b4b120c5c75277bee46f6da7e0dd4757f7"
+    },
+    "retainedPath": "android10/submitted-awaiting-server.png"
+  },
+  {
+    "sdk": "10",
+    "run": "39522483659",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/post-queue-evidence.tar",
+    "archiveSha256": "fb9d14f05d9167b7b3cbc55de2eed5b6f3d5fa4388a95b949a2ead6debc1187e",
+    "member": {
+      "name": "post-queue-evidence/cancelled-queued-post-remains-draft.png",
+      "bytes": 41189,
+      "sha256": "f5a5b4936e34c0be40ae46b245659fca31d8cd86855c926e1c01250ac8bac0b3"
+    },
+    "retainedPath": "android10/cancelled-queued-post-remains-draft.png"
+  },
+  {
+    "sdk": "10",
+    "run": "39522483659",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/author-post-evidence.tar",
+    "archiveSha256": "ef3ad6b94c45510686fa27167e0945a6b46b6a93f81753fa70337880bf0191e8",
+    "member": {
+      "name": "author-post-evidence/native-delete-confirmation-ready.png",
+      "bytes": 28472,
+      "sha256": "d8204e3101da891c1fc543fcbb12bf381e2bdd7c5fde6e631a9deca648a545de"
+    },
+    "retainedPath": "android10/native-delete-confirmation-ready.png"
+  },
+  {
+    "sdk": "10",
+    "run": "39522483659",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "wallet/agreement-author-evidence.tar",
+    "archiveSha256": "7dae233797af4bd648870dd4f300a2d1e505c803e20b36a7fbc99293f10ec872",
+    "member": {
+      "name": "agreement-author-evidence/author-cancel-keeps-editable-text.png",
+      "bytes": 23632,
+      "sha256": "d8f4aa89e870b1bb68b91a3e5fc3b7fe26b045a05a6a33e8b5d2f52422232177"
+    },
+    "retainedPath": "android10/author-cancel-keeps-editable-text.png"
+  },
+  {
+    "sdk": "17",
+    "run": "39522662606",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/posting-evidence.tar",
+    "archiveSha256": "e56f47182e8cc6d059526a0cfd6a3813bb58b9ab863335c75c948db0a7590e2d",
+    "member": {
+      "name": "posting-evidence/recovered-unsent-draft.png",
+      "bytes": 20055,
+      "sha256": "fa2a1aed3d7c256bf527dae3dc07672fc4f8e10dc940564186559daea10d105f"
+    },
+    "retainedPath": "android17/recovered-unsent-draft.png"
+  },
+  {
+    "sdk": "17",
+    "run": "39522662606",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/posting-evidence.tar",
+    "archiveSha256": "e56f47182e8cc6d059526a0cfd6a3813bb58b9ab863335c75c948db0a7590e2d",
+    "member": {
+      "name": "posting-evidence/submitted-awaiting-server.png",
+      "bytes": 22128,
+      "sha256": "50c449f1a699f60b5f5c8a0f0a2927204dfe48eebb7130f7d67dac185aa0ee25"
+    },
+    "retainedPath": "android17/submitted-awaiting-server.png"
+  },
+  {
+    "sdk": "17",
+    "run": "39522662606",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/post-queue-evidence.tar",
+    "archiveSha256": "fb04027a6dd4cd8c460f05ea2d0a9c0aa07178856dde30f45b727126e46f4f99",
+    "member": {
+      "name": "post-queue-evidence/cancelled-queued-post-remains-draft.png",
+      "bytes": 44872,
+      "sha256": "42f5c7822f5c57733adfdf0a14e7686fc6f3b4d19964a74177bed8409b1c40bb"
+    },
+    "retainedPath": "android17/cancelled-queued-post-remains-draft.png"
+  },
+  {
+    "sdk": "17",
+    "run": "39522662606",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "social/author-post-evidence.tar",
+    "archiveSha256": "74e1cc3253bbf862c37451d2a4a0c9b614a2418575ef65829ec3f013493b07d6",
+    "member": {
+      "name": "author-post-evidence/native-delete-confirmation-ready.png",
+      "bytes": 28931,
+      "sha256": "9adc1c3e6cc45f43f108f23fff4f62cbec26a52e262327a8e815fbae281bb8d2"
+    },
+    "retainedPath": "android17/native-delete-confirmation-ready.png"
+  },
+  {
+    "sdk": "17",
+    "run": "39522662606",
+    "source": "4124c149a9cd331a59dbc016dde86ee0924f6b2d",
+    "archive": "wallet/agreement-author-evidence.tar",
+    "archiveSha256": "6c56e42d6d8cc77cc8e518df797bb1f243bc9e2bc8949e4a631e908a766bf89b",
+    "member": {
+      "name": "agreement-author-evidence/author-cancel-keeps-editable-text.png",
+      "bytes": 23892,
+      "sha256": "7ce78e6b100b9a74f6f803e468356e38b7f1f585a868ce551fcc7e440479d161"
+    },
+    "retainedPath": "android17/author-cancel-keeps-editable-text.png"
+  }
+]

@@ -989,3 +989,14 @@ operator and adds the early unavailable-storage Saved-status regression. The
 known f208 product Spec1 is deliberately still unfixed for its native RED.
 Dispatched exact6405: composer-draft17run39532581166, images10run39532580922 and
 images17run39532581101. Their actual metadata binds6405; outcomes pending.
+
+Failed-images evidence48e69be2 has independent Spec0/documented Standards0/
+heuristic0. Before-publishing-recovery-4124 retains ten byte-original native PNGs
+from the accepted full60 Android10/17 runs39522483659/39522662606: unsent composer,
+submitted intermediate composer, cancelled queued draft, delete confirmation and
+policy-cancelled author editor. Every selected member and source archive hash is
+checked against retained full60 inventory; bindings identify4124 exactly. Root
+viewed17submitted/10delete/10cancelledqueue/17authorcancel. These historical
+captures are only before evidence, not current61 acceptance or a permanent
+submitted-state defect. Their existing themes/widths are not relabelled as a
+new complete Light/Dark or130% matrix.
