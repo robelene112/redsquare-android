@@ -884,3 +884,20 @@ backend/zeroTX/health/independentrestorationgoals pass. Packet32hashes/onearchiv
 20originals retained. RootviewedLight/Darkwriting+DarkIME; Darkwritingalready
 hasIMEopen, notclaimedclosed. Initial10run39528225948 stillSDKsetup. Begin
 firstproductcomposerhierarchyslice, preservingstate/storage/send/policyguards.
+
+Android10 initial run39528225948 at exactf40e also completes expected FAILURE:
+one method15.515s reaches the final writing-order assertion and names BOTH
+130%Light/Dark cells. Packet red10-writing-hierarchy-f40-39528225948 retains
+30hashes/one archive20 originals. Real clickable48dp/IME, exact local return,
+wallet/node/zero sends/health/restoration goals precede the final failure. Root
+viewed Light/Dark writing and Light IME originals. Writing captures can include
+an open or transitioning keyboard; their names do not establish a closed IME.
+Initial17 packet has independent Spec0/documented Standards0/heuristic0 review.
+
+First product source d55225fdca4af90c62291c92adb167c961fb71ee moves writing first,
+uses a vector Back and one primary Send/Retry (Done after actual availability),
+anchors compact labeled Image/GIF/Save controls and keeps120dp previews plus
+original quote below writing. Existing state/store/policy/picker/navigation and
+signed recovery guards are unchanged. Both partial source reviews0. Local
+compile and focused GREEN17run39529299756/GREEN10run39529341424 remain pending;
+both dispatches bind exactd552. No GREEN or complete61 acceptance is claimed.
