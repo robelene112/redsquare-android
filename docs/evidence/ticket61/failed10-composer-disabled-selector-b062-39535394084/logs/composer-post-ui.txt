@@ -1,0 +1,89 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerPostJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ComposerPostJourneyTest:
+INSTRUMENTATION_STATUS: test=imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ComposerPostJourneyTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (SetText is defined)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:197)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$rroWovXB0X416d6r0H1yoFLVPcM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:116)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerPostJourneyTest.imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerPostJourneyTest):
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (SetText is defined)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:197)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$rroWovXB0X416d6r0H1yoFLVPcM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:116)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerPostJourneyTest.imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.853
+There was 1 failure:
+1) imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement(nl.davidengelen.redsquare.ComposerPostJourneyTest)
+java.lang.AssertionError: Failed to assert the following: (is not enabled)
+Reason: Expected exactly '1' node but could not find any node that satisfies: (SetText is defined)
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertIsNotEnabled(Assertions.kt:67)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney$lambda$23$lambda$22$lambda$21(ComposerPublishingJourneyTest.kt:197)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.$r8$lambda$rroWovXB0X416d6r0H1yoFLVPcM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$6(PostViewportFixture.kt:53)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$9jeyn4ELgGwqSNHrkwAMG0efEM8(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:36)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:116)
+	at nl.davidengelen.redsquare.ComposerPublishingJourneyTestKt.access$runComposerPublishingJourney(ComposerPublishingJourneyTest.kt:1)
+	at nl.davidengelen.redsquare.ComposerPostJourneyTest.imageDraftReturnsAndPublishesOnlyAfterDeliberateAgreement(ComposerPublishingJourneyTest.kt:29)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

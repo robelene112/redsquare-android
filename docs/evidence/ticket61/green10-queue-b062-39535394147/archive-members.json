@@ -1,0 +1,80 @@
+{
+  "post-queue-evidence.tar": {
+    "sha256": "a0a2b0d0036ac7bbb1ee1e88d0ffe9a533f2e07f693f284a08cacf524d92207c",
+    "bytes": 307712,
+    "members": [
+      {
+        "name": "post-queue-evidence/cancelled-queued-post-remains-draft.png",
+        "bytes": 41472,
+        "sha256": "b499248ac8cfa5c1056748182489ea8272fc56bd79e518c0b6d8f6e9f0ccf4aa",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/cancelled-queued-post-remains-draft.png"
+      },
+      {
+        "name": "post-queue-evidence/failed-save-repaired-without-losing-work.png",
+        "bytes": 19714,
+        "sha256": "64285132b17035040306f5a096d54b9f52524fd508f7f1397aae86d14ee238e9",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/failed-save-repaired-without-losing-work.png"
+      },
+      {
+        "name": "post-queue-evidence/background-resumption-confirmed.png",
+        "bytes": 24848,
+        "sha256": "f42859af144e96ec0e616fc48d6a2ea3f44c5c2cbbe74075ed2b8cff285f936d",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/background-resumption-confirmed.png"
+      },
+      {
+        "name": "post-queue-evidence/uncertain-queue-reconciled-without-rebroadcast.png",
+        "bytes": 26475,
+        "sha256": "7bedba47fc6b20b599ed86aadd01ddc97d8a8877e7b21085655ec9c28d6c518c",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/uncertain-queue-reconciled-without-rebroadcast.png"
+      },
+      {
+        "name": "post-queue-evidence/original-backend-resumed-post.png",
+        "bytes": 32933,
+        "sha256": "9d1055ef54b6010a50dc2faebf0a8efb5f74d99b641ebcf5b3c207f9455bc08a",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/original-backend-resumed-post.png"
+      },
+      {
+        "name": "post-queue-evidence/feed-queued-work-before-cancellation.xml",
+        "bytes": 23009,
+        "sha256": "71fbfe07c2d6d02306defb45e7be757be569a00681d59db15578445ac03155f0",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/feed-queued-work-before-cancellation.xml"
+      },
+      {
+        "name": "post-queue-evidence/feed-queued-work-before-cancellation.png",
+        "bytes": 21586,
+        "sha256": "0a9bce8f0b1242ad254fce0e327690292274f4ca7a46cb1ff1ec8ef9ce9039a1",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/feed-queued-work-before-cancellation.png"
+      },
+      {
+        "name": "post-queue-evidence/feed-managed-cancellation-retains-draft.png",
+        "bytes": 41652,
+        "sha256": "8c5004f709c6e9faaff3611a9fbcfb8c909603971431339d6e965bfbbdc9dd21",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/feed-managed-cancellation-retains-draft.png"
+      },
+      {
+        "name": "post-queue-evidence/replacement-wallet-has-no-outgoing-queue.png",
+        "bytes": 33677,
+        "sha256": "fe71a6587b80afb369878ab1fcbe857c00c2b554dc673015ea6306470dd0700a",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/replacement-wallet-has-no-outgoing-queue.png"
+      },
+      {
+        "name": "post-queue-evidence/restored-wallet-resumes-original-queue.png",
+        "bytes": 33476,
+        "sha256": "4500ff9dae922b77f488c022a0114248cab1b9e83a439e543045d32ea14e1321",
+        "retainedPath": "originals/post-queue-evidence/post-queue-evidence/restored-wallet-resumes-original-queue.png"
+      }
+    ]
+  },
+  "post-queue-process/process-evidence.tar": {
+    "sha256": "e0b3cf458a8e89129dd173965be19e39edb97f6f8abade37d1b5cfc6ae3266a3",
+    "bytes": 36352,
+    "members": [
+      {
+        "name": "post-queue-process-evidence/cold-delivery.png",
+        "bytes": 34122,
+        "sha256": "1ef785e6389b2b2040a055541c835872427ad3a80b3bcea5be52e7325a651dec",
+        "retainedPath": "originals/post-queue-process/process-evidence/post-queue-process-evidence/cold-delivery.png"
+      }
+    ]
+  }
+}

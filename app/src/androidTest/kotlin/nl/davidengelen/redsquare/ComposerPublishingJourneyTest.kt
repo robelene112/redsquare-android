@@ -200,7 +200,8 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                     assertEquals(before + 1, peer.transactions.size)
                     val candidate = postingTransaction(peer.transactions.last()).id
                     ui.onNode(hasText("Retry") and hasClickAction()).assertIsNotEnabled()
-                    ui.onNode(hasSetTextAction()).assertIsNotEnabled().assertTextEquals(text)
+                    ui.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.EditableText))
+                        .assertIsNotEnabled().assertTextEquals(text)
                     ui.onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.ProgressBarRangeInfo,
                         ProgressBarRangeInfo.Indeterminate)).assertCountEquals(1)
                     captureNativeScreen(File(folder, "$label-submitted.png"))

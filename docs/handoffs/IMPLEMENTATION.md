@@ -1119,3 +1119,28 @@ reviewed cleanup contract. Original identity/node/zeroTX/restoration and origina
 class deadlines remain, with one new separately180s class/two methods. Full and
 combined/narrow composer-work scopes are additive. Fresh compile/reviews/runtime
 remain pending. Native catalog freeze follows stable focused acceptance.
+
+Workviewportadef source reviewSpec0/Standards1: direct Dark migration input can
+conflict with retained Light composer memory. Fix71adcdd2 first types/saves each
+unique theme draft through the real editor before matching migration input.
+Both narrow reviews0 residual; no app defect inferred. Prior compileadef1m54
+completed across the edit, so a fresh compile is required for final input.
+Focused composer-work10run39536249965/17run39536250379 dispatch exact71ad; pending.
+
+Initial broad composer b06210run39535394084 and17run39535393979 FAIL only the new
+post-Light disabled-editor lookup at line197: disabled TextField correctly
+removes SetText action, while matcher requires it. Focus1/draft2 PASS on both
+new736 UI; first post attach/return/IME/Cancel/Accept/deliberateSend/Submitted and
+Retry-disabled precede this operator failure. Native original failure XML on
+both SDKs independently shows EditText with exact caption and enabled=false;
+root viewed17 failure PNG with pinned Submitted, retained text/image and disabled
+actions. This is a test lookup mismatch, not evidence editable content leaked.
+Later progress/availability/Dark/reply/quote/work goals are unreached. Failure
+packets each retain3archives59 originals; no exclusion or acceptance inflation.
+Operator now selects EditableText property independently of SetText capability,
+retaining exact-text and disabled assertions. Cleanup2cb remains in corrected
+source; initial b062 runs predate it. Corrected proof follows.
+
+Initial queue10run39535394147 andauthor10run39535393987 atb062 SUCCESS, retained
+packets2archives11 originals /1archive17 originals. Original runtime/process
+inventory inspection and17outcomes follow; not complete61 acceptance.
