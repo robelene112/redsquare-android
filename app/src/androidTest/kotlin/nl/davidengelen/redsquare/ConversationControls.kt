@@ -12,22 +12,6 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import java.io.File
 
-/** Temporary, best-effort timing at real operator boundaries; never record message or identity values. */
-internal fun traceConversationOperator(stage: String) {
-    runCatching {
-        val active = InstrumentationRegistry.getArguments().getString("class").orEmpty()
-        val folder = when {
-            active.contains("GroupChatActionsPreviewTest") -> "group-chat-actions-evidence"
-            active.contains("GroupChatPreviewTest") -> "group-chat-evidence"
-            active.contains("PrivateChatPreviewTest") -> "private-chat-evidence"
-            else -> return
-        }
-        val file = File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "$folder/operator-timing.txt")
-        file.parentFile!!.mkdirs()
-        file.appendText("${android.os.SystemClock.elapsedRealtime()} CONVERSATION62_TIMING $stage\n")
-    }
-}
-
 /** Actual user navigation around conversation controls, without changing fixture assertions. */
 internal fun ComposeTestRule.withMessageAction(text: String, action: SemanticsNodeInteraction.() -> Unit) {
     withMessageAction(text, false, action)
@@ -45,30 +29,22 @@ private fun ComposeTestRule.withMessageAction(text: String, last: Boolean, actio
 }
 
 internal fun ComposeTestRule.openMessageActions(last: Boolean = false) {
-    traceConversationOperator("menu-open-enter")
     if (onAllNodes(isPopup()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) return
     val buttons = onAllNodesWithContentDescription("Message actions")
     waitUntil(15_000) { buttons.fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     val visible = buttons.fetchSemanticsNodes().indices.filter { buttons[it].isDisplayed() }
     val button = buttons[(if (last) visible.lastOrNull() else visible.firstOrNull()) ?: 0]
     button.performScrollTo().assertIsDisplayed().performClick()
-    traceConversationOperator("menu-open-clicked")
     waitUntil(5_000) { onNode(isPopup()).isDisplayed() }
-    traceConversationOperator("menu-open-ready")
 }
 
 internal fun ComposeTestRule.closeMessageActions() {
-    traceConversationOperator("menu-close-enter")
     waitForIdle()
-    traceConversationOperator("menu-compose-idle")
     if (onAllNodes(isPopup()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
-        traceConversationOperator("menu-back-enter")
         val reported = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
-        traceConversationOperator("menu-back-done")
         println("Back injection reported $reported; observing message-menu dismissal")
         waitUntil(5_000) { onAllNodes(isPopup()).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
     }
-    traceConversationOperator("menu-close-exit")
 }
 
 internal fun ComposeTestRule.withAttachmentAction(action: () -> Unit) {
@@ -84,33 +60,26 @@ internal fun ComposeTestRule.withAttachmentAction(action: () -> Unit) {
 }
 
 internal fun ComposeTestRule.withConversationDetails(action: () -> Unit) {
-    traceConversationOperator("details-enter")
     val opener = hasContentDescription("Conversation details") and hasClickAction()
     val title = hasText("Conversation details") and hasAnyAncestor(isDialog())
     val alreadyOpen = onNode(title).isDisplayed()
     val opened = alreadyOpen || onNode(opener).isDisplayed()
     if (opened && !alreadyOpen) onNode(opener).performClick()
-    traceConversationOperator("details-content")
     var primary: Throwable? = null
-    try { action(); traceConversationOperator("details-content-complete") }
+    try { action() }
     catch (failure: Throwable) { primary = failure; throw failure }
     finally {
         cleanupAfterTest(primary, {
             if (opened && !alreadyOpen) {
-                traceConversationOperator("details-dismiss-begin")
                 if (onAllNodes(title).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
                     onNode(hasText("Done") and hasClickAction() and hasAnyAncestor(isDialog())).performClick()
-                traceConversationOperator("details-done-clicked")
                 waitUntil(5_000) { onAllNodes(title).fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
-                traceConversationOperator("details-compose-gone")
                 // Native measurements must observe the window closing as well as Compose dismissal.
                 val instrumentation = InstrumentationRegistry.getInstrumentation()
                 check(UiDevice.getInstance(instrumentation).wait(Until.gone(
                     By.pkg(instrumentation.targetContext.packageName).text("Conversation details")), 5_000))
-                traceConversationOperator("details-native-gone")
             }
         })
-        traceConversationOperator("details-exit")
     }
 }
 

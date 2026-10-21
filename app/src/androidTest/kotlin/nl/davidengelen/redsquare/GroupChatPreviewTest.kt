@@ -13,14 +13,6 @@ import java.io.File
 
 class GroupChatPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
-    @get:Rule val operatorTiming = object : org.junit.rules.TestWatcher() {
-        override fun starting(description: org.junit.runner.Description) {
-            traceConversationOperator("case-start:${description.methodName}")
-        }
-        override fun finished(description: org.junit.runner.Description) {
-            traceConversationOperator("case-finished:${description.methodName}")
-        }
-    }
 
     @Test fun relayMembershipIsReadAfterSubmissionBeforeBuildingTheOutgoingRelay() {
         val context=InstrumentationRegistry.getInstrumentation().targetContext
