@@ -64,7 +64,11 @@ guard; exact-source CI must compile that guard and prove corrected behavior.
 Revised catalog adds real filtering:511/512 identities,148/149 normal completions,
 109 archives, unchanged35 deliberate interruptions/34 continuity and original pins.
 Both draft reviews0/0. Supersedes old40df catalog before any complete62 execution.
-Corrected own-send/viewport SDK pairs dispatch next; full acceptance/signed61 pending.
+Corrected own-send10/17 runs39571556632/39571558481 and viewport10/17 runs
+39571560504/39571563244 execute exact814271d400e44dee39a82234b0eab6b70eee7160,
+active. Viewport now includes additive filtering in its own180second class.
+Revised catalog frozen814271d400e44dee39a82234b0eab6b70eee7160 before complete
+execution. No complete62 dispatch or signed61 yet.
 
 
 61 is CLOSED and55 updated after final public reviews0/0.62 is assigned and
