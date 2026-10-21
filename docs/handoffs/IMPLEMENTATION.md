@@ -953,3 +953,19 @@ Image picker operator8c9cd69509fa64e91adee7527685a89c470b278c has paired source0
 and localcompileSUCCESS1m51. Existing focused images10run39530896216 and17run39530898925
 execute exact8c9; outcomes pending. Source-only scroll adaptation was not a
 previously observed native failure. Both retain original media/process goals.
+
+No2productf20840986bc8f3014a0ee0af2bdb29e4b6dc872a compilesSUCCESS3m58. Standards0,
+Spec1: failedmediawritecanretainoldSavedclaimbecauseonlyimageErrorisset and
+oldconfirmedcontentsmatchUI. No invalidationfixyet. Newnative regressionmethod
+inComposerDraftStatusPreviewTest firstsavestext/image, temporarilymakesitsowned
+draftrecordunavailable, clicksrealRemoveimageandrequiresnoconfirmedSavedclaim;
+thenindependentlyrestoresexactciphertextandretriesrealremoval. Both130themes,
+existing180secondclassboundunchanged. This ordinarylocalstorage-failurejourney
+doesnotclaimlatecommit/directory-syncfailure reproduction. No2normalcase remains.
+
+Existingimages10run39530896216 at8c FAILS only3of5preparation cases atold direct
+ImagePreparationTest.select unconditionalscroll onnowpinnedAddimages. Original
+posting6PASS31.085s/lifecycle7PASS58.87s; noappdefectinferred.17same8c alsoFAILURE,
+rawpendinginspection. ReplaceoldselectorwithsharedclickImagePicker; allEXIF/
+image/count/limit/protocol/assertionsremain. Keeporiginalfailedruns. Corrected
+existingimagesandnewmedia-storageREDnativeproofnextbeforeSavedinvalidationfix.

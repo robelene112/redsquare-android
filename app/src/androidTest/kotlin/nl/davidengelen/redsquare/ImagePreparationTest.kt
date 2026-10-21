@@ -201,7 +201,7 @@ class ImagePreparationTest {
                 hasAction("android.provider.action.PICK_IMAGES"), hasAction("androidx.activity.result.contract.action.PICK_IMAGES"),
                 hasAction("com.google.android.gms.provider.action.PICK_IMAGES")))
                 .respondWith(Instrumentation.ActivityResult(Activity.RESULT_OK, result))
-            ui.onNodeWithText("Add images").performScrollTo().performClick()
+            ui.clickImagePicker()
             ui.waitForIdle()
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Add images") and isEnabled()).fetchSemanticsNodes().isNotEmpty() ||
                 ui.onAllNodes(hasText("Remove image 4") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
