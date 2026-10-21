@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:08 UTC:62 group opening RED retained; shared viewport source reviews resolved.
+Updated 2026-10-21 07:22 UTC:62 shared viewport native10/17 GREEN; compact UI/matrix under review.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -167,8 +167,30 @@ while rendered keys retain layout guards and explicit queued exposure. A reader
 following the rendered end or fully visible newest real message can follow receipt.
 Deliberately hidden history clears/hides the hint even if a queued item remains.
 Final correction reviews return Spec0/documented Standards0/heuristic0. Correction
-compile and unchanged focused10/17 native acceptance remain pending. No queued-tail
-runtime journey or own-send/general compact header/details/action UI/full62 yet. Existing private classes
+app/test compile completes SUCCESS with explicit exit0. Exact c458d26bd19c45ee0374cd1c2e488ca2ff154737
+native10run39559884166 and17run39559886824 both SUCCESS. Original cached/private-live/
+group-live methods pass16.307/23.055/38.769s and55.727/22.271/29.136s, respectively,
+both130% themes, each retaining its own180second class bound. Actual receipt/ACK,
+exact74 originals, identity/node/zero-send/Back/Home/health/restoration all pass.
+Private older top347.0 and group331.0 remain unchanged before/after in both themes.
+Packets green10-shared-reading-c458-39559884166 and green17-shared-reading-c458-39559886824
+retain123/125 hashes, each three archives107 byte-bound originals. Root viewed10
+Light opening/17 Dark New messages result. Old dense layout still clips portions;
+this is reading proof, not finished visual acceptance. Packet review pending.
+
+Next bounded UI source uses contextual Like/Reply/Copy in the bubble's More menu,
+compact identity+concise privacy headers, full address/privacy/history/Refresh in
+scrollable Details, and group management there. Direct mute and urgent recovery/
+retry/cancel remain main. Initial source reviews both0/0 and app/test compile
+SUCCESS3m40 with explicit exit0; later native operator/matrix additions still
+compiling and under review. Actual menu/Details operators retain original assertion
+chains and state/raw/recovery goals; physical queued Members now goes through
+Details and still measures/clicks its48dp target and verifies exact pending state.
+Existing cached-private and group-reading methods add100/130/200% Light/Dark,
+full Details/context menu and actual system IME history-height checks (96dp at
+normal/130,48dp200). Original method IDs/class180 bounds remain. Added group cells
+repeat real signed receipt/ACK/reading, with monotonically advancing timestamps.
+No expanded UI native run, queued-tail runtime journey, own-send or full62 yet. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
