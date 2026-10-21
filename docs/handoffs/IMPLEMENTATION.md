@@ -77,7 +77,13 @@ messages action. New coherent class retains a separate180second bound alongside
 the unchanged first cached-opening class; full Chat retains both. App/test compile
 SUCCESS2m3. Standards review0/0; Spec identified overwritten per-stage JSON, now
 retained separately for every stage. No incoming-follow product implementation yet.
-Actual Android17 RED follows. Keep original test identity/assertions and180second bound. This is only first
+The fixture also declares a protected, synthetic muted-conversation baseline:
+actual receipt otherwise could create API29 Android alerts/channels outside file
+restoration. Only this fixture conversation is muted before Activity launch, with
+exact save/readback; the captured personal prefix restores afterward. No global
+notifications or existing channels are touched. Both prior c577/da24 native dispatches
+were cancelled during preparation before any device acceptance claim. Corrected
+Android17 RED follows. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

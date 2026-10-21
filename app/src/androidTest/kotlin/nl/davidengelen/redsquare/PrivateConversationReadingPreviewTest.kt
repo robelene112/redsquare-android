@@ -50,6 +50,12 @@ class PrivateConversationReadingPreviewTest {
         var primary: Throwable? = null
         try {
             retained.prepare()
+            // Synthetic reading fixture: silence only its alerts before channel creation.
+            // Incoming receipt, ACK, protected history and rendering remain unchanged.
+            val controls = nl.davidengelen.redsquare.moderation.AndroidPersonalControls(context, wallet.publicKey)
+            val policy = controls.load()
+            val quiet = policy.copy(mutedConversations = policy.mutedConversations + conversation)
+            check(controls.save(policy, quiet) == quiet && controls.load() == quiet)
             wallets.replace(originalWallet, wallet)
             backends.save(SaitoBackend.OWNER)
             val cache = ChatHistoryStore(context, wallet, SaitoBackend.OWNER, contact.publicKey)
