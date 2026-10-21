@@ -701,3 +701,14 @@ recipients/cleanup and180second class bound remain. Both source reviews0;
 local app/test Kotlin compile succeeds1m46s. Corrected native image proof pending.
 Public-feed correction10 run39517873786 at48fc completes SUCCESS;17 still pending.
 Full60/reviews/publication59 remain required; prepared59 held, public58 unchanged.
+
+Both public-feed corrections at48fc succeed:10 run39517873786 has9controlled
+methods29.441s plus actualowner14.703s/official16.972s;17 run39517876435 has9
+methods46.104s plus actualowner12.923s/official10.015s. Root viewed both selected
+feeds and unfunded wallet dialogs. Retained focused proof never replaces full60.
+
+Remaining media-helper audit adapts one GiphyPostingTest reply call to the same
+existing physical unmerged-body helper already used by ImagePosting. It avoids
+using a merged media card center to enter a thread. Conversation/Reply readiness,
+GIF/signing/provider/attribution/origin/recovery goals remain. Both source reviews0.
+No native GIF failure is inferred; focused10/17 verification remains required.
