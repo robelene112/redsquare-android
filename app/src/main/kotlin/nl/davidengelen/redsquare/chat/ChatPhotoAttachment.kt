@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
@@ -68,26 +70,28 @@ internal fun ChatPhotoAttachment(session: String, body: String, backend: SaitoBa
                 gifAttributions = gifAttribution?.let { mapOf(attachment.source to it) }.orEmpty(),
                 onOpenSource = { open -> scope.launch { if (beforePicker() && currentEnabled) open() } })
         }
-        if (photo == null && showPickerActions) TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
-            scope.launch {
-                try {
-                    if (beforePicker() && currentEnabled) {
-                        pickingFor = session
-                        preparation(true)
-                        picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                    }
-                } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
-            }
-        }) { Text(stringResource(R.string.chat_add_photo)) }
-        if (photo == null && showPickerActions && onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
-            onClick = {
+        if (photo == null && showPickerActions) FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            TextButton(enabled = enabled && !preparing && pickingFor == null, onClick = {
                 scope.launch {
-                    try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
-                    catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { failed = true }
+                    try {
+                        if (beforePicker() && currentEnabled) {
+                            pickingFor = session
+                            preparation(true)
+                            picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                        }
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { pickingFor = null; preparation(false); failed = true }
                 }
-            }) { Text(stringResource(R.string.giphy_add)) }
+            }) { Text(stringResource(R.string.chat_add_photo)) }
+            if (onSelectGif != null) TextButton(enabled = enabled && !preparing && pickingFor == null && !selectingGif,
+                onClick = {
+                    scope.launch {
+                        try { if (beforePicker() && currentEnabled) { failed = false; gifOpen = true } }
+                        catch (cancelled: CancellationException) { throw cancelled }
+                        catch (_: Exception) { failed = true }
+                    }
+                }) { Text(stringResource(R.string.giphy_add)) }
+        }
         if (gifOpen) GiphyPicker(onClose = { if (!selectingGif) gifOpen = false },
             selectionEnabled = enabled && !selectingGif, selectionError = failed, onSelect = { item ->
                 if (!selectingGif && currentEnabled) {

@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:04 UTC:62 cached-opening GREEN reviewed0/0; live-reading tracer compiles.
+Updated 2026-10-21 06:16 UTC:62 live-reading RED running at e92; compact attachment row compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -82,8 +82,16 @@ actual receipt otherwise could create API29 Android alerts/channels outside file
 restoration. Only this fixture conversation is muted before Activity launch, with
 exact save/readback; the captured personal prefix restores afterward. No global
 notifications or existing channels are touched. Both prior c577/da24 native dispatches
-were cancelled during preparation before any device acceptance claim. Corrected
-Android17 RED follows. Keep original test identity/assertions and180second bound. This is only first
+were cancelled during preparation before any device acceptance claim. Corrected Android17 RED run39553894579 executes exact
+e92a0f488c2868a09f019da5afeb4644b3462d0f, job119069067826. Scoped isolated
+app/test compile SUCCESS2m; final paired source reviews0/0. Current dispatch is
+still in preparation/build, no native result yet.
+
+Independent low-impact presentation change makes Photo/GIF one wrapping FlowRow
+inside the existing attachment area. All picker/session/URI/draft/GIF guards and
+callbacks remain intact. No new layout-mirroring test. App/test compile pending;
+existing native media/IME cases and final real rendered inspection remain required.
+This does not implement incoming following; do not label it such. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/
