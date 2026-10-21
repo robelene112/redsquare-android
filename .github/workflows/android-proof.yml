@@ -71,7 +71,18 @@ jobs:
             gradle/wrapper/gradle-wrapper.properties
       - name: Locate dependency cache
         id: cache-path
-        run: echo "home=$HOME" >> "$GITHUB_OUTPUT"
+        env:
+          TASK_PROOF_SCOPE: ${{ inputs.scope || 'source' }}
+          TASK_BUILD_KEY: ${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/**') }}
+          TASK_PRODUCTION_KEY: ${{ hashFiles('app/src/main/**', 'app/src/debug/**', 'app/src/release/**', 'app/src/performance/**', 'core/src/main/**', 'push-gateway/src/main/**', 'build-support/**', 'app/*.pro') }}
+        run: |
+          echo "home=$HOME" >> "$GITHUB_OUTPUT"
+          printf 'task-version-key=%s-%s\n' "$RUNNER_OS" "$TASK_BUILD_KEY" >> "$GITHUB_OUTPUT"
+          printf 'task-production=%s\n' "$TASK_PRODUCTION_KEY" >> "$GITHUB_OUTPUT"
+          case "$TASK_PROOF_SCOPE" in
+            full*|source|release-tail*) echo 'task-kind=complete' >> "$GITHUB_OUTPUT" ;;
+            *) echo 'task-kind=debug' >> "$GITHUB_OUTPUT" ;;
+          esac
       - name: Restore dependencies from the earlier proof cache
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
@@ -93,10 +104,16 @@ jobs:
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: ${{ steps.cache-path.outputs.home }}/.gradle/caches/build-cache-1
-          # Gradle checks each task's inputs. Reuse one seed per build configuration
-          # instead of storing another multi-GB snapshot for every source commit.
-          key: redsquare-gradle-tasks-v2-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
+          # Seed current production outputs once, then reuse them for fixture-only
+          # changes. Separate complete/debug keys prevent a focused run from fixing
+          # an incomplete seed for release/lint. Gradle still checks all task inputs.
+          key: redsquare-gradle-tasks-v3-${{ steps.cache-path.outputs.task-version-key }}-${{ steps.cache-path.outputs.task-kind }}-${{ steps.cache-path.outputs.task-production }}
           restore-keys: |
+            redsquare-gradle-tasks-v3-${{ steps.cache-path.outputs.task-version-key }}-complete-${{ steps.cache-path.outputs.task-production }}
+            redsquare-gradle-tasks-v3-${{ steps.cache-path.outputs.task-version-key }}-debug-${{ steps.cache-path.outputs.task-production }}
+            redsquare-gradle-tasks-v3-${{ steps.cache-path.outputs.task-version-key }}-complete-
+            redsquare-gradle-tasks-v3-${{ steps.cache-path.outputs.task-version-key }}-debug-
+            redsquare-gradle-tasks-v2-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}
             redsquare-gradle-tasks-v1-${{ runner.os }}-${{ hashFiles('gradle.properties', 'settings.gradle.kts', 'build.gradle.kts', 'core/build.gradle.kts', 'app/build.gradle.kts', 'push-gateway/build.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties') }}-
       - name: Check runner SDK and acceleration
         run: |
