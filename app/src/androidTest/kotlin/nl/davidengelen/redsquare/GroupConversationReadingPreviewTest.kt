@@ -2,10 +2,6 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
-import com.google.gson.JsonObject
-import org.junit.Assert.assertTrue
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -85,17 +81,9 @@ class GroupConversationReadingPreviewTest {
                         ui.waitUntil(15_000) {
                             ui.onNodeWithText(bodies.first()).isDisplayed() || ui.onNodeWithText(newestBeforeOpening).isDisplayed()
                         }
-                        ui.onNodeWithContentDescription("Group messages").assertIsDisplayed()
-                        ui.onNodeWithText(newestBeforeOpening).assertIsDisplayed()
+                        val reader = NativeConversationReader(ui, folder, label, "Group messages") { expectedBodies.size }
+                        reader.assertOpensAtNewest(newestBeforeOpening)
                         ui.waitUntil(15_000) { historyReads.get() > previousReads }
-                        fun capture(stage: String) {
-                            captureNativeScreen(File(folder, "$label-$stage.png"))
-                            File(folder, "$label-$stage.json").writeText(JsonObject().apply {
-                                addProperty("stage", stage)
-                                addProperty("expectedMessages", expectedBodies.size)
-                                addProperty("atEnd", atEnd())
-                            }.toString())
-                        }
                         fun deliver(body: String, timestamp: Long, requestId: Int) {
                             val transaction = GroupChat.message(contact, group, body, timestamp)
                             val bytes = transaction.applicationRequest(1).drop(5).toByteArray()
@@ -115,44 +103,13 @@ class GroupConversationReadingPreviewTest {
                             expectedBodies += body
                             expectedEnvelopes += transaction.envelope()
                         }
-                        // Physically finish reading the current last bubble before reception.
-                        repeat(6) {
-                            if (!atEnd()) ui.onNodeWithContentDescription("Group messages")
-                                .performTouchInput { swipeUp() }
-                        }
-                        ui.waitUntil(5_000) { atEnd() }
-                        capture("reading-at-end")
                         val offset = if (label.endsWith("light")) 0 else 100
                         val followed = "Incoming group message at the end ($label)."
-                        deliver(followed, 1700000223400L + offset, 1001 + offset)
-                        capture("received-while-at-end")
-                        ui.waitUntil(10_000) { ui.onNodeWithText(followed).isDisplayed() && atEnd() }
-                        capture("following-new-message")
-
-                        val older = bodies[20]
-                        ui.onNodeWithContentDescription("Group messages").performScrollToNode(hasText(older))
-                        ui.onNodeWithText(older).performScrollTo().assertIsDisplayed()
-                        assertTrue("The reader deliberately moved away from the conversation end", !atEnd())
-                        val before = ui.onNodeWithText(older).getUnclippedBoundsInRoot().top.value
-                        capture("reading-older")
+                        reader.followIncoming(followed) { deliver(followed, 1700000223400L + offset, 1001 + offset) }
                         val waiting = "Incoming group message while reading older history ($label)."
-                        deliver(waiting, 1700000223401L + offset, 1002 + offset)
-                        val newMessages = hasText("New messages") and hasClickAction() and isEnabled()
-                        ui.waitUntil(10_000) { ui.onNode(newMessages).isDisplayed() }
-                        ui.onNodeWithText(older).assertIsDisplayed()
-                        val after = ui.onNodeWithText(older).getUnclippedBoundsInRoot().top.value
-                        assertTrue("Incoming messages preserve the older text position within one pixel",
-                            kotlin.math.abs(after - before) <= 1f)
-                        File(folder, "$label-reading-anchor.json").writeText(JsonObject().apply {
-                            addProperty("text", older); addProperty("beforeTop", before); addProperty("afterTop", after)
-                            addProperty("oneDpEqualsOnePixel", context.resources.displayMetrics.density == 1f)
-                        }.toString())
-                        check(context.resources.displayMetrics.density == 1f)
-                        capture("new-message-action-with-older-position")
-                        ui.onNode(newMessages).performClick()
-                        ui.waitUntil(10_000) { ui.onNodeWithText(waiting).isDisplayed() && atEnd() }
-                        ui.onNode(newMessages).assertDoesNotExist()
-                        capture("new-message-action-opened-latest")
+                        reader.receiveWhileReadingOlder(bodies[20], waiting) {
+                            deliver(waiting, 1700000223401L + offset, 1002 + offset)
+                        }
                         val retainedGroup = requireNotNull(cache.load(groupId))
                         check(retainedGroup.originals == expectedEnvelopes && retainedGroup.group.creationEnvelope == creation.envelope())
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
@@ -179,13 +136,6 @@ class GroupConversationReadingPreviewTest {
                 { backends.save(originalBackend) }, { retained.restorePreferences() },
                 { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) })
         }
-    }
-
-    private fun atEnd(): Boolean {
-        val axis = ui.onNodeWithContentDescription("Group messages").fetchSemanticsNode()
-            .config.getOrNull(SemanticsProperties.VerticalScrollAxisRange) ?: return false
-        val observation = ui.runOnIdle { axis.value() to axis.maxValue() }
-        return observation.first == observation.second
     }
 
 }

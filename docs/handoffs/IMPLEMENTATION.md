@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:40 UTC:62 private GREEN reviews0/0; group tracer compiled for source review/RED.
+Updated 2026-10-21 06:43 UTC:62 group tracer review refactor compiling; group product still unchanged.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -133,7 +133,14 @@ the separate passive receiver socket; it never bypasses actual retention/UI goal
 No group production change yet. Initial app/test compile log SUCCESS2m8, Docker
 events independently record container exit0; the outer tool later reported143,
 with cause unproved. A justified repeat keeps all29 tasks UP-TO-DATE and SUCCESS31s,
-with explicit shellObservedExit0. Source review and actual group RED follow. Existing private classes
+with explicit shellObservedExit0. Spec review0; Standards documented0/heuristic1
+identified duplicated native observations. Review-stage extraction now shares only
+actual UI end/opening/follow/older/New messages and per-stage capture/atEnd goals
+in NativeConversationReader. Both protocol fixtures retain their own actual signed
+delivery/ACK/exact protected retention, initial setup and independent restoration.
+Every prior goal, identity and deadline remains; added opening capture observes
+without scrolling before its latest-message assertion. App/test compile pending,
+focused refactor reviews and actual group RED follow. No group product change. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.

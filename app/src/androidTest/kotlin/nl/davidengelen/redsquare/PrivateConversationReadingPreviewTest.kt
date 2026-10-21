@@ -2,10 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
 import com.google.gson.JsonObject
-import org.junit.Assert.assertTrue
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -76,17 +73,9 @@ class PrivateConversationReadingPreviewTest {
                         ui.waitUntil(15_000) {
                             ui.onNodeWithText(bodies.first()).isDisplayed() || ui.onNodeWithText(newestBeforeOpening).isDisplayed()
                         }
-                        ui.onNodeWithContentDescription("Private messages").assertIsDisplayed()
-                        ui.onNodeWithText(newestBeforeOpening).assertIsDisplayed()
+                        val reader = NativeConversationReader(ui, folder, label, "Private messages") { expectedBodies.size }
+                        reader.assertOpensAtNewest(newestBeforeOpening)
                         ui.waitUntil(15_000) { historyReads.get() > previousReads }
-                        fun capture(stage: String) {
-                            captureNativeScreen(File(folder, "$label-$stage.png"))
-                            File(folder, "$label-$stage.json").writeText(JsonObject().apply {
-                                addProperty("stage", stage)
-                                addProperty("expectedMessages", expectedBodies.size)
-                                addProperty("atEnd", atEnd())
-                            }.toString())
-                        }
                         fun deliver(body: String, timestamp: Long, requestId: Int) {
                             val transaction = PrivateChat.create(contact, wallet.publicKey, body, timestamp)
                             val relay = JsonObject().apply {
@@ -104,44 +93,13 @@ class PrivateConversationReadingPreviewTest {
                             expectedBodies += body
                             expectedEnvelopes += transaction.envelope()
                         }
-                        // Physically finish reading the current last bubble before reception.
-                        repeat(6) {
-                            if (!atEnd()) ui.onNodeWithContentDescription("Private messages")
-                                .performTouchInput { swipeUp() }
-                        }
-                        ui.waitUntil(5_000) { atEnd() }
-                        capture("reading-at-end")
                         val offset = if (label.endsWith("light")) 0 else 100
                         val followed = "Incoming private message at the end ($label)."
-                        deliver(followed, 1700000223400L + offset, 801 + offset)
-                        capture("received-while-at-end")
-                        ui.waitUntil(10_000) { ui.onNodeWithText(followed).isDisplayed() && atEnd() }
-                        capture("following-new-message")
-
-                        val older = bodies[20]
-                        ui.onNodeWithContentDescription("Private messages").performScrollToNode(hasText(older))
-                        ui.onNodeWithText(older).performScrollTo().assertIsDisplayed()
-                        assertTrue("The reader deliberately moved away from the conversation end", !atEnd())
-                        val before = ui.onNodeWithText(older).getUnclippedBoundsInRoot().top.value
-                        capture("reading-older")
+                        reader.followIncoming(followed) { deliver(followed, 1700000223400L + offset, 801 + offset) }
                         val waiting = "Incoming private message while reading older history ($label)."
-                        deliver(waiting, 1700000223401L + offset, 802 + offset)
-                        val newMessages = hasText("New messages") and hasClickAction() and isEnabled()
-                        ui.waitUntil(10_000) { ui.onNode(newMessages).isDisplayed() }
-                        ui.onNodeWithText(older).assertIsDisplayed()
-                        val after = ui.onNodeWithText(older).getUnclippedBoundsInRoot().top.value
-                        assertTrue("Incoming messages preserve the older text position within one pixel",
-                            kotlin.math.abs(after - before) <= 1f)
-                        File(folder, "$label-reading-anchor.json").writeText(JsonObject().apply {
-                            addProperty("text", older); addProperty("beforeTop", before); addProperty("afterTop", after)
-                            addProperty("oneDpEqualsOnePixel", context.resources.displayMetrics.density == 1f)
-                        }.toString())
-                        check(context.resources.displayMetrics.density == 1f)
-                        capture("new-message-action-with-older-position")
-                        ui.onNode(newMessages).performClick()
-                        ui.waitUntil(10_000) { ui.onNodeWithText(waiting).isDisplayed() && atEnd() }
-                        ui.onNode(newMessages).assertDoesNotExist()
-                        capture("new-message-action-opened-latest")
+                        reader.receiveWhileReadingOlder(bodies[20], waiting) {
+                            deliver(waiting, 1700000223401L + offset, 802 + offset)
+                        }
                         check(cache.load().entries.map { it.envelope } == expectedEnvelopes)
                         check(wallets.loadExisting().exportJson() == wallet.exportJson() && backends.load() == SaitoBackend.OWNER)
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
@@ -161,13 +119,6 @@ class PrivateConversationReadingPreviewTest {
                 { backends.save(originalBackend) }, { retained.restorePreferences() },
                 { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) })
         }
-    }
-
-    private fun atEnd(): Boolean {
-        val axis = ui.onNodeWithContentDescription("Private messages").fetchSemanticsNode()
-            .config.getOrNull(SemanticsProperties.VerticalScrollAxisRange) ?: return false
-        val observation = ui.runOnIdle { axis.value() to axis.maxValue() }
-        return observation.first == observation.second
     }
 
 }
