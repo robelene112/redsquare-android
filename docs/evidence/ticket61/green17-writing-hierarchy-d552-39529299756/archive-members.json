@@ -1,0 +1,128 @@
+{
+  "composer-focus-evidence.tar": {
+    "sha256": "4dcee7018a5c8161c201403220c68ac24521e1c341409714ba8fcce200533c88",
+    "bytes": 631296,
+    "members": [
+      {
+        "name": "composer-focus-evidence/composer-focus-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-font-scale.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-writing.xml",
+        "bytes": 25861,
+        "sha256": "1bcd464c7024115788953758ed2026e37037f7f607cfc210d913aa7e18671c34",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-writing.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-writing.png",
+        "bytes": 33043,
+        "sha256": "93bfb09ee68b530cea78155b85a092e35d1f99e786b0595c89c49b328d7fa5ee",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-writing.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-hierarchy.json",
+        "bytes": 98,
+        "sha256": "db77d3d73d97bedcf65468d523f53bc3760665d2442050c2145f69c12002b704",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-hierarchy.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.xml",
+        "bytes": 94710,
+        "sha256": "3bf7b821de8664d9984f8e119426c08eb70d8bc1e7d023dd90971baf46c1bc72",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.png",
+        "bytes": 53153,
+        "sha256": "d66711841c706602075fe8e942d2d9e9f62bb88bc92f497121111e6a2fe2098d",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.json",
+        "bytes": 108,
+        "sha256": "df3dfd115198bc67958b8435834fc90e3d927808db43432ba69ef77cf5fc122a",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-returned-draft.xml",
+        "bytes": 25862,
+        "sha256": "f23c7f648a28ffd820d4562abd78de01c5fa07596ab1f28b718a523553a9deb2",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-returned-draft.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-returned-draft.png",
+        "bytes": 33048,
+        "sha256": "ada102636ffcfae2715fdd9cf80b6a44602a2065f0cf2d2f4963625dfe689864",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-returned-draft.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-writing.xml",
+        "bytes": 95178,
+        "sha256": "7da41a43d7b92b4514ea352fe5e6c3912c416f6d1a209e88a28baaf53486444b",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-writing.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-writing.png",
+        "bytes": 48562,
+        "sha256": "1f5d200f969b95e2edfa8926b8daf055aed3ff775c1974f8e6f463e84c0e64c5",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-writing.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-hierarchy.json",
+        "bytes": 97,
+        "sha256": "33e1f318a4adb5e7ac51ad2c65e8f92de479f2d38cc5bff143c3dd48ba2b728a",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-hierarchy.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.xml",
+        "bytes": 94578,
+        "sha256": "5f744b4876e582217d8ac36ed2d5cfb78df2a0a1ef978e1e23a82066f9bb408a",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.png",
+        "bytes": 49859,
+        "sha256": "87790f6332a59b4741b88df18633896b6db22b7a6d0cd08f3e70c38c6af25785",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.json",
+        "bytes": 108,
+        "sha256": "99a2cde050f957732401c810bef17a290a5139ee9699f24a7af50da45ca01907",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.xml",
+        "bytes": 25861,
+        "sha256": "c8ea2336faee4dfb42592e5f9bc1cff355bf85a09f75620dd19ff0ef568674ea",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.png",
+        "bytes": 33619,
+        "sha256": "d7ca939a811978d6313e559dcea9675767298fe4660fc4263e4c64623fb19e7d",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-font-restored.json"
+      }
+    ]
+  }
+}

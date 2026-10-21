@@ -45,13 +45,18 @@ is61's review base. All native dependencies58/59/60 are closed;61 is assigned.
 Starting comment: https://github.com/robelene112/redsquare-android/issues/61#issuecomment-6305769677.
 
 Use existing agreed native UI/controlled-peer/actual-IME/storage/process seams.
-First tracer observes writing before optional attachments, full Send target above
-actual IME at320dp/130% Light/Dark, and exact draft after leave/return, with zero
-transactions and independently restored declared state. New focused composer-focus
-scope and full Social retain a separate180second class bound. No production61
-change or RED/GREEN yet. Preserve all original posting/media/queue/policy/author
-and process acceptance. Complete61 includes focused post/reply/quote publishing,
-truthful durable-save/busy/outcome copy and coherent queued/saved author work.
+First productd55225fdca4af90c62291c92adb167c961fb71ee has paired source0/0,
+local app/test compileSUCCESS4m14 and focused native10run39529341424/17run39529299756
+SUCCESS15.299s/28.71s. Both320dp/130%Light/Dark writingorder/realIME/48dpSend/
+exactdraftreturn/zeroTX/restorationgoals pass.31/33hashes,20originals each retained;
+final evidence review is pending. Root viewed Light writing/DarkIME on both.
+Old status row is partly clipped at current10Dark scroll position, explicitly
+remaining in61's upcoming truthful save/busy/delivery feedback slice. First61
+REDs atf40 are preserved on bothSDKs. No full61 acceptance or nextsignedbeta yet.
+Next verticalslice: native distinction between durably saved local draft and
+new unsaved edits, then truthful busy/outcome and attach/publish/queue/authorwork.
+Keep all original post/media/policy/author/process gates. Composer-focus keeps
+its own180second class bound in focused scopes and fullSocial.
 Then62–69 and70 sequentially without routine stops. Physical/provider/store36
 and owner app-wide55 remain open. Never rebuild/reuse59 or read/touch the
 protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md.
@@ -901,3 +906,18 @@ original quote below writing. Existing state/store/policy/picker/navigation and
 signed recovery guards are unchanged. Both partial source reviews0. Local
 compile and focused GREEN17run39529299756/GREEN10run39529341424 remain pending;
 both dispatches bind exactd552. No GREEN or complete61 acceptance is claimed.
+
+First UI productd552 compiles app/test Kotlin successfully4m14s. Corrected
+focused10 run39529341424 and17 run39529299756 execute exactd552 and both SUCCESS:
+one method15.299s/28.71s. Packets green10-writing-hierarchy-d552-39529341424 and
+green17-writing-hierarchy-d552-39529299756 retain31/33 hashes, one archive and20
+original members per SDK. Both130%Light/Dark cells now put writing before the
+optional controls and retain actual enabled48dp Send above the real IME, exact
+draft return, wallet/node/zero sends/health and independent restoration.
+Root viewed both SDK Light writing and Dark IME originals. These names do not
+claim the writing capture has a closed IME. Current10 Dark IME capture shows
+the old status row partially clipped at its scroll position; the upcoming61
+local/delivery-status slice must keep that feedback reachable and understandable.
+This is focused writing/keyboard GREEN, not complete61 visual acceptance.
+Initial10 RED packet also has independent Spec0/documented Standards0/heuristic0
+review at9a95f356c. Final GREEN evidence review and remaining61 work follow.
