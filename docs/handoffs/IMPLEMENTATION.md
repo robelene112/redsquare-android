@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 07:01 UTC:62 actual group opening RED retained; shared product viewport compiling.
+Updated 2026-10-21 07:08 UTC:62 group opening RED retained; shared viewport source reviews resolved.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -160,8 +160,15 @@ queued item; its old queued-ID effect increments the latest-request counter,
 preserving explicit queued exposure. Each caller keeps all signing/storage/actions.
 The shared module retains prior end-state guards, actual tail-bottom follow,
 older-reader compensation and overlay New messages, with keyed saved-state isolation.
-App/test compile pending. Paired source/RED reviews and unchanged focused10/17
-acceptance follow. No own-send/general compact header/details/action UI/full62 yet. Existing private classes
+Shared app/test compile completed SUCCESS with explicit exit0. Spec identified
+persistent queued display tails masking real incoming arrivals. The correction
+uses separate real-history keys for incoming detection and New messages targets,
+while rendered keys retain layout guards and explicit queued exposure. A reader
+following the rendered end or fully visible newest real message can follow receipt.
+Deliberately hidden history clears/hides the hint even if a queued item remains.
+Final correction reviews return Spec0/documented Standards0/heuristic0. Correction
+compile and unchanged focused10/17 native acceptance remain pending. No queued-tail
+runtime journey or own-send/general compact header/details/action UI/full62 yet. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.

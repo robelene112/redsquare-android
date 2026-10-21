@@ -479,8 +479,9 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
             val messageKeys = visible.map { it.id } + entry.queuedMessage?.let { listOf("queued:${it.candidate.id}") }.orEmpty()
             ConversationMessageList(messageKeys, "${wallet.publicKey}:${backend.id}:group:${entry.group.id}",
                 messagesLabel, Modifier.weight(1f),
-                historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && messageKeys.isEmpty(),
-                requestLatest = latestRequest, verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
+                historyHidden = personal?.ready == true && entry.messages.isNotEmpty() && visible.isEmpty(),
+                requestLatest = latestRequest, historyMessageKeys = visible.map { it.id },
+                verticalArrangement = Arrangement.spacedBy(8.dp)) { showMessage ->
                 items(visible,key={it.id}){item->
                     val outgoing=item.author==wallet.publicKey
                     Column(Modifier.fillMaxWidth().padding(vertical=6.dp),
