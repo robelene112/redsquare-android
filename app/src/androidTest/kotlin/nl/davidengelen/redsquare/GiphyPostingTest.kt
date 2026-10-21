@@ -129,7 +129,7 @@ class GiphyPostingTest {
                         }
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement(text)
-                        ui.onNodeWithText("Add GIF").performScrollTo().performClick()
+                        ui.clickGifPicker()
                         waitFor("Owned posting GIF")
                         ui.onNodeWithText("Use GIF").performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onAllNodes(hasText("Remove image 1") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }

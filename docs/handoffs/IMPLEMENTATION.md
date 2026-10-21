@@ -54,8 +54,8 @@ Do not restart earlier RED/GREEN slices from historical notes below.
   Includes911 reply/author form-bar and4c busy-priority refinements. Earlier
  17run39537697883 at4a20 passes all8 methods but predates those refinements.
 - Complete10run39540771845 and17run39540030117 execute EXACT061. All3partitions
-  remain mandatory in each dispatch. Both are currently active; no full61
-  acceptance. Full reference binds actual source/run IDs and frozen58e catalog.
+  remain mandatory in each dispatch. Full17Social has FAILED at obsolete GIF scroll entry;10 remains active. No
+  full61 acceptance; corrected GIF-focused and complete dispatches must follow. Full reference binds actual source/run IDs and frozen58e catalog.
   Expected504/505 identities,142/143 normal completions,35 interruptions,
   34 continuity and103 archives; all original assertions/deadlines/tool pins and
   exact5 prior optional-observer gaps remain. Collector: full-collector.py under
@@ -1352,3 +1352,21 @@ metadata bindings independently reviewed Spec0/documented Standards0/heuristic0.
 Both complete dispatches remain active at061; no complete acceptance or beta60
 publication. Keep the prepared60 immutable artifact and public59 unchanged until
 complete original gates/evidence review. Continue61, then62 through69 and70.
+
+
+Additional bounded visual review opens8 current061 PNGs per axis across post/
+reply/quote IME/status and saved/queued work: Spec0/documented Standards0/heuristic0.
+Full17Social119025420656 at061 FAILS three GiphyPreviewTest methods at obsolete
+unconditional performScrollTo AddGIF outside any scroll ancestor. All8 newcomposer
+methods PASS first; later GIF/provider/publish/laterSocial goals remain unreached.
+Root viewed actual failurePNG with retained text and visible GIF toolbar/IME.
+Failed Social packet failed17-full-social-gif-picker-061-39540030117 retains28
+archives658 originals; its run.json is explicitly a still-running whole snapshot.
+Other old17/10parts continue. Do not count any such subset as complete acceptance.
+Current test-only correction shares the existing bounded image-picker operator
+with GIF entry, changes3preview calls and1six-case publication helper call. Both
+narrow source reviews0 residual, original provider/pixel/credit/persistence/txn/
+cleanup/assertions/180s bounds stay. Compile79212 pending. Fresh gifs/gifs-android17,
+then fresh complete three-partition runs on both SDKs remain required. Prepared60
+source/product unchanged and held. Preserve old attempt evidence; never combine
+its successful partitions with the corrected full dispatches.

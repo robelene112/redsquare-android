@@ -61,7 +61,7 @@ class GiphyPreviewTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("My authored work survives GIF search")
                         assertEquals(0, provider.requestCount)
-                        ui.onNodeWithText("Add GIF").performScrollTo().assertIsDisplayed().performClick()
+                        ui.clickGifPicker()
                         ui.waitUntil(10_000) { provider.requestCount == 1 &&
                             ui.onAllNodesWithText("GIF search is unavailable. Try again.").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Powered by GIPHY").assertIsDisplayed()
@@ -148,7 +148,7 @@ class GiphyPreviewTest {
                             ui.onNodeWithText("New post").performClick()
                             ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction()).performTextReplacement("My text survives changing GIF searches")
-                            ui.onNodeWithText("Add GIF").performScrollTo().performClick()
+                            ui.clickGifPicker()
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("No GIFs found.").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNode(hasSetTextAction() and hasText("Search GIFs")).performTextReplacement(query)
                             ui.waitUntil(10_000) { ui.onAllNodesWithText("GIF search is busy. Try again later.").fetchSemanticsNodes().isNotEmpty() }
@@ -247,7 +247,7 @@ class GiphyPreviewTest {
                         ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(hasSetTextAction()).performTextReplacement("My animated GIF draft")
                         assertEquals(0, provider.requestCount)
-                        ui.onNodeWithText("Add GIF").performScrollTo().performClick()
+                        ui.clickGifPicker()
                         ui.waitUntil(10_000) { ui.onAllNodesWithText("Owned two-frame GIF").fetchSemanticsNodes().isNotEmpty() }
                         ui.onNodeWithText("Powered by GIPHY").assertIsDisplayed()
                         ui.onNodeWithText("By Owned fixture artist").assertIsDisplayed()

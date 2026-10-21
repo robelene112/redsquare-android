@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GiphyPreviewTest:
+INSTRUMENTATION_STATUS: test=providerFailureCanRetryAndCloseWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.providerFailureCanRetryAndCloseWithoutLosingTheDraft(GiphyPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: stream=
+Error in providerFailureCanRetryAndCloseWithoutLosingTheDraft(nl.davidengelen.redsquare.GiphyPreviewTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.providerFailureCanRetryAndCloseWithoutLosingTheDraft(GiphyPreviewTest.kt:64)
+
+INSTRUMENTATION_STATUS: test=providerFailureCanRetryAndCloseWithoutLosingTheDraft
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=selectedAnimatedGifSurvivesSavedDraftAndFreshActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.selectedAnimatedGifSurvivesSavedDraftAndFreshActivity(GiphyPreviewTest.kt:250)
+
+INSTRUMENTATION_STATUS: stream=
+Error in selectedAnimatedGifSurvivesSavedDraftAndFreshActivity(nl.davidengelen.redsquare.GiphyPreviewTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.selectedAnimatedGifSurvivesSavedDraftAndFreshActivity(GiphyPreviewTest.kt:250)
+
+INSTRUMENTATION_STATUS: test=selectedAnimatedGifSurvivesSavedDraftAndFreshActivity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GiphyPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+INSTRUMENTATION_STATUS: stream=
+Error in searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(nl.davidengelen.redsquare.GiphyPreviewTest):
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+INSTRUMENTATION_STATUS: test=searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.344
+There were 3 failures:
+1) providerFailureCanRetryAndCloseWithoutLosingTheDraft(nl.davidengelen.redsquare.GiphyPreviewTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.providerFailureCanRetryAndCloseWithoutLosingTheDraft(GiphyPreviewTest.kt:64)
+2) selectedAnimatedGifSurvivesSavedDraftAndFreshActivity(nl.davidengelen.redsquare.GiphyPreviewTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.selectedAnimatedGifSurvivesSavedDraftAndFreshActivity(GiphyPreviewTest.kt:250)
+3) searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(nl.davidengelen.redsquare.GiphyPreviewTest)
+java.lang.AssertionError: Semantic Node has no parent layout with a Scroll SemanticsAction
+	at androidx.compose.ui.test.ActionsKt.scrollToNode(Actions.kt:96)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at nl.davidengelen.redsquare.GiphyPreviewTest.searchCanRetryAndReplaceAnOlderRequestWithoutLosingAuthoredWork(GiphyPreviewTest.kt:151)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

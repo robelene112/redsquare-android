@@ -48,16 +48,24 @@ internal fun ComposeTestRule.attachSyntheticImage() {
 
 /** Dismiss the IME and require the attachment control in the actual viewport. */
 internal fun ComposeTestRule.clickImagePicker() {
+    clickPostAttachmentPicker("Add images")
+}
+
+internal fun ComposeTestRule.clickGifPicker() {
+    clickPostAttachmentPicker("Add GIF")
+}
+
+private fun ComposeTestRule.clickPostAttachmentPicker(label: String) {
     androidx.test.espresso.Espresso.closeSoftKeyboard()
     waitUntil(10_000) {
         try {
-            val action = onNodeWithText("Add images")
+            val action = onNodeWithText(label)
             if (!action.isDisplayed()) action.performScrollTo()
             action.isDisplayed()
         }
         catch (_: AssertionError) { false }
     }
-    onNodeWithText("Add images").assertIsDisplayed().assertIsEnabled().performClick()
+    onNodeWithText(label).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 internal fun ComposeTestRule.assertSyntheticRedImage(postText: String? = null) {
