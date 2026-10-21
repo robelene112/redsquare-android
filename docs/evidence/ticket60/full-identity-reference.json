@@ -1,6 +1,6 @@
 {
   "recordedBeforeFullExecution": true,
-  "basis": "Accepted complete59 catalogs plus ten additive post and real TalkBack methods. All original identities, recovery, public reads, class deadlines, exclusions and tool pins remain mandatory. No full execution yet.",
+  "basis": "Accepted complete59 catalogs plus ten additive post and real TalkBack methods. All original identities, recovery, public reads, class deadlines, exclusions and tool pins remain mandatory. Rejected complete attempts are recorded separately.",
   "references": [
     {
       "sdk": "10",
@@ -155,14 +155,14 @@
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
   "executingSources": {
-    "android10": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
-    "android17": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4"
+    "android10": "874adf442901395e922eb81c921b3a961794b7d2",
+    "android17": "874adf442901395e922eb81c921b3a961794b7d2"
   },
   "executingRuns": {
-    "android10": 39515617424,
-    "android17": 39515760750
+    "android10": 39518944622,
+    "android17": 39518949305
   },
-  "executingState": "Replacement complete runs dispatched after paired17-case browse/post reproduction passed; no complete acceptance yet.",
+  "executingState": "Fresh complete paired execution after reviewed physical-tap and contextual-author fixture corrections. Corrected focused image/GIF scopes still pending at dispatch; no complete acceptance yet.",
   "rejectedExecutions": [
     {
       "source": "90f94ffa1178e0f68839155fe55d302d7a036e3b",
@@ -174,6 +174,18 @@
       "socialConclusion": "failure",
       "otherPartitions": "cancelled",
       "reason": "Original browse leaves valid thread replies; undeclared conversation cache makes the first shared-post thread identity assertion ambiguous. No native live-region or complete acceptance."
+    },
+    {
+      "source": "ce480df16d2fbc81d0f2ca2070bf5c59edc181e4",
+      "runs": {
+        "android10": 39515617424,
+        "android17": 39515760750
+      },
+      "conclusion": "cancelled",
+      "socialConclusion": "failure",
+      "walletConclusion": "failure",
+      "chatConclusion": "cancelled",
+      "reason": "Browse8 and post9 pass. Later images quote shows pre-helper Quote/FAB overlap and enters New post; interception remains a supported hypothesis rather than an atomic hit-test observation. Old public-feed full-key text predicate misses the intended contextual alias header. Android10 also records no picker intent at its immediate assertion; an asynchronous persistence/launch observation race remains a hypothesis. Later goals remain unaccepted."
     }
   ],
   "signedCandidateSource": "90f94ffa1178e0f68839155fe55d302d7a036e3b",

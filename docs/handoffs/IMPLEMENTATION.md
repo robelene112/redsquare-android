@@ -712,3 +712,15 @@ existing physical unmerged-body helper already used by ImagePosting. It avoids
 using a merged media card center to enter a thread. Conversation/Reply readiness,
 GIF/signing/provider/attribution/origin/recovery goals remain. Both source reviews0.
 No native GIF failure is inferred; focused10/17 verification remains required.
+
+Fresh complete10 run39518944622 and17 run39518949305 execute exact874adf442901395e922eb81c921b3a961794b7d2.
+They start while corrected focused images240a(39518507809/39518510478) and GIFsfbb69
+(39518711797/39518714954) are still pending. Every full partition and the frozen
+496/497-identity catalog remains mandatory. No acceptance inferred at dispatch.
+Configuration preserves both rejected attempts' actual conclusions; causal
+interception and picker timing explanations remain qualified hypotheses. All11
+production/build input objects90f→874match. Prepared59 remains held, unchanged;
+source equivalence does not claim identical APK bytes. Both metadata reviews0.
+Both17diagnostic and pairedactualpublic-feed retained packets also reviewed0/0.
+Next collect focused outcomes and complete raw partitions, inspect/review full
+results, publish prepared59 only after acceptance, then finish60 and continue61–70.
