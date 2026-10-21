@@ -12,5 +12,5 @@ installed_tools="$ANDROID_HOME/cmdline-tools/redsquare-15859902"
 mkdir -p "$ANDROID_HOME/cmdline-tools"
 mv "$tools_dir/cmdline-tools" "$installed_tools"
 printf '%s\n' "$installed_tools/bin" >> "$GITHUB_PATH"
-"$installed_tools/bin/sdkmanager" --sdk_root="$ANDROID_HOME" \
+"$repo_dir/scripts/ci-sdk-install" "$installed_tools/bin/sdkmanager" \
     'platforms;android-36' 'build-tools;35.0.0' 'emulator'

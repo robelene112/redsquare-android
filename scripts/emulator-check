@@ -104,7 +104,13 @@ verify_group_chat_native() {
     fi
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - "$capture" \
         > "$evidence/$capture.tar" || true
-    [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"
+    if [[ "$native_exit" == 0 ]] && grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/$prefix-ui.txt"; then
+        return 0
+    fi
+    # Instrumentation can abort when Android itself reports a system crash.
+    # Retain the real crash buffer without retrying or accepting the failed class.
+    timeout 10 adb logcat -d -b crash -v threadtime > "$evidence/$prefix-failure-crash.txt" 2>&1 || true
+    return 1
 }
 verify_status_talkback() (
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'Disposable emulator required' >&2; exit 2; }

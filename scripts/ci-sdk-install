@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Hosted SDK provisioning only; every application test retains its own deadline.
+set -euo pipefail
+[[ $# -ge 2 ]] || { echo 'Usage: ci-sdk-install SDKMANAGER PACKAGE...' >&2; exit 2; }
+sdk_manager=$1
+shift
+: "${ANDROID_HOME:?An explicit hosted SDK root is required}"
+for attempt in 1 2 3; do
+    if timeout --kill-after=10s 180s "$sdk_manager" --sdk_root="$ANDROID_HOME" "$@"; then
+        exit 0
+    else
+        install_status=$?
+    fi
+    printf 'SDK installation attempt %s/3 failed with exit %s.\n' "$attempt" "$install_status" >&2
+    if [[ "$attempt" != 3 ]]; then sleep 2; fi
+done
+exit "$install_status"

@@ -15,7 +15,7 @@ case "$1" in
         ;;
     *) echo 'Supported diagnostic targets: 29 or 37.0' >&2; exit 2 ;;
 esac
-sdkmanager --sdk_root="$ANDROID_HOME" "$system_image"
+"$repo_dir/scripts/ci-sdk-install" sdkmanager "$system_image"
 export TEST_DEVICE_API="$1" TEST_SYSTEM_IMAGE="$system_image" TEST_PAGE_SIZE="$page_size"
 device_directory="api-$1"
 if [[ "$page_size" == 16384 ]]; then device_directory+="-16kb"; fi
