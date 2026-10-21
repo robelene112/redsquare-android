@@ -1,0 +1,292 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatQueuePreviewTest:
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageResumesOnItsOriginalSignatureWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedGroupQueueSavingKeepsTheDraftAndNeverSendsAfterRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageResumesItsOriginalWhileBackgrounded
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedGroupOriginalWaitsForItsIdentityAndSelectedBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.scrollChatRegionToEnd(ChatQueuePreviewTest.kt:355)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.scrollChatRegionToEnd(ChatQueuePreviewTest.kt:355)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+
+INSTRUMENTATION_STATUS: test=anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116$open$91(ChatQueuePreviewTest.kt:434)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116(ChatQueuePreviewTest.kt:489)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$9eXFNxAjSFTNNC73vcAroOkKM2Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:426)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116$open$91(ChatQueuePreviewTest.kt:434)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116(ChatQueuePreviewTest.kt:489)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$9eXFNxAjSFTNNC73vcAroOkKM2Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:426)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: test=anOfflinePrivateMessageRemainsCancellableAfterReopening
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aWrongArchivedOriginalIsRefusedAndACompletedRetryClearsItsOldError
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedGroupMessageCannotSendAfterItsAuthorIsRemovedAndCanStillBeCancelled
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anArchivedQueuedOriginalReconcilesWithoutAnotherBroadcastOrClaimedDelivery
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aQueuedPrivateMessageWaitsForItsOriginalBackendWithoutRerouting
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:627)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:289)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay(ChatQueuePreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay(nl.davidengelen.redsquare.ChatQueuePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:627)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:289)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay(ChatQueuePreviewTest.kt:39)
+
+INSTRUMENTATION_STATUS: test=anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=failedQueueSavingKeepsTheDraftAndNeverBecomesAutomaticAfterRepair
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatQueuePreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=13
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replacingTheWalletPausesItsQueuedMessageUntilTheOriginalIdentityReturns
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 279.786
+There were 3 failures:
+1) anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.scrollChatRegionToEnd(ChatQueuePreviewTest.kt:355)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:185)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflineGroupMessageCanBeCancelledAfterReopeningWithoutEnteringHistoryOrSending(ChatQueuePreviewTest.kt:33)
+2) anOfflinePrivateMessageRemainsCancellableAfterReopening(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116$open$91(ChatQueuePreviewTest.kt:434)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue$lambda$118$lambda$117$lambda$116(ChatQueuePreviewTest.kt:489)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$9eXFNxAjSFTNNC73vcAroOkKM2Q(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda24.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exercisePrivateQueue(ChatQueuePreviewTest.kt:426)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anOfflinePrivateMessageRemainsCancellableAfterReopening(ChatQueuePreviewTest.kt:19)
+3) anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay(nl.davidengelen.redsquare.ChatQueuePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 20000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.waitFor(ChatQueuePreviewTest.kt:627)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue$lambda$57$lambda$56$lambda$55(ChatQueuePreviewTest.kt:289)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.$r8$lambda$GWIjUGpTiPRomVVXNfaS73Z_ftk(Unknown Source:0)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest$$ExternalSyntheticLambda39.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.exerciseGroupQueue(ChatQueuePreviewTest.kt:115)
+	at nl.davidengelen.redsquare.ChatQueuePreviewTest.anArchivedGroupOriginalReconcilesWithoutAnotherRawOrRelay(ChatQueuePreviewTest.kt:39)
+
+FAILURES!!!
+Tests run: 13,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

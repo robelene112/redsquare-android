@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 18:09 UTC:62 complete527 replacement suites active; Wallet succeeds on both SDKs.
+Updated 2026-10-21 18:21 UTC:62 rejected527 complete suites retained; queue-only correction compiled/reviewed; replacement pair next.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,16 +46,23 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
-Fresh complete10run39645666425 and17run39645671283 execute exact
-527dc9723cefccc4961400fd79d224e1c066bc52, dispatched2026-10-21T17:39Z.
-All three partitions must succeed together per SDK. Wallet now succeeds on both;
-Chat and Social are still active at18:07UTC. No complete62 acceptance or signed61
-yet. Ordinary60 remains live. Never reuse passing partitions from rejected runs.
+Complete10run39645666425 and17run39645671283 at exact
+527dc9723cefccc4961400fd79d224e1c066bc52 are terminal FAILURE. Social and Wallet
+succeed on both; Chat queue has3/13 failures279.786s/289.22s,480second bound.
+Earlier conversation/Keyboard/media/mute/alert/process gates pass; later gates
+remain unreached. New queue-only correction preserves positive finite scroll on
+actual bounded warning region before Details, full private identity through
+Details and full group AVAILABLE through Details/shared20seconds before/after
+recreation. All original methods, physical48dp targets, raw/state/restore goals
+and deadlines remain. Source reviews0/0; compile SUCCESS2m3 explicit0.
+Selected failed10/17-queue-operators-527 packets retain218/222 hashes,89 originals
+each and full raw inventories518/528 files. Root viewed the three10 failure PNGs,
+17 archived-group failure and corrected17 native physical Send after Details.
+Packet reviews active. Fresh complete pair next. Ordinary60 live; no signed61.
 
-External completion observer /tmp/redsquare62-watch-complete.py (owned shell
-session31604) checks exact source, downloads each terminal complete run to
+Completed observer /tmp/redsquare62-watch-complete.py downloaded both complete527 runs to
 /mnt/storage/redsquare-android-artifacts/conversation62-fullSDK-527-RUN and invokes
-the frozen collector only for whole-run SUCCESS. It does not publish or commit.
+the frozen collector only for whole-run SUCCESS. Neither rejected run was collected as acceptance. It does not publish or commit.
 If inspecting a failed terminal job before its whole run finishes, use a separate
 partial-artifact directory so the observer's original destination stays absent.
 

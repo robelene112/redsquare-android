@@ -179,10 +179,11 @@ class ChatQueuePreviewTest {
                             ui.onNode(warning).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"chat-queue-evidence/group-cancel-warning-$name.png"))
                         }
+                        // The original bounded warning region still scrolls; management now has its own destination.
+                        scrollChatRegionToEnd("Group status and actions","group-cancel-status-scroll.json")
                         ui.onNode(hasContentDescription("Conversation details") and hasClickAction()).performClick()
                         ui.onNodeWithContentDescription("Conversation information and controls")
                             .performScrollToNode(hasText("Members") and hasClickAction())
-                        scrollChatRegionToEnd("Conversation information and controls","group-cancel-status-scroll.json")
                         val members=physicalChatAction(scenario,"members-action",action="Members")
                         val device=androidx.test.uiautomator.UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
                         check(device.click(members.centerX(),members.centerY()))
@@ -286,11 +287,11 @@ class ChatQueuePreviewTest {
                                 check(peer.transactions.size==1){"Group archived original was broadcast again"}
                                 store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.AVAILABLE
                             }
-                            waitFor("Available on this node. Delivery is not confirmed.")
+                            observeAvailableGroupStatus("reconciled")
                             val saved=requireNotNull(store.load(key.publicKey))
                             check(saved.candidate?.envelope()==queued.envelope()&&saved.messages.single().id==queued.id)
                             check(saved.creationKey?.exportJson()==key.exportJson()&&archiveChecks.get()>0&&peer.relayedMessages.isEmpty())
-                            scenario.recreate();open();waitFor("Available on this node. Delivery is not confirmed.")
+                            scenario.recreate();open();observeAvailableGroupStatus("recreated")
                             check(peer.transactions.size==1&&peer.relayedMessages.isEmpty())
                         } else {
                             ui.waitUntil(60_000){peer.relayedMessages.isNotEmpty()&&store.load(key.publicKey)?.status==nl.davidengelen.redsquare.chat.GroupChatStore.Status.FORWARDED}
@@ -344,6 +345,21 @@ class ChatQueuePreviewTest {
             "Full Chat action target must stay inside the usable screen: $bounds, minimum=$minimumHeight, bars=$top/$bottom"
         }
         return bounds
+    }
+
+    private fun observeAvailableGroupStatus(stage:String) {
+        val text="Available on this node. Delivery is not confirmed."
+        val readyBy=android.os.SystemClock.elapsedRealtime()+20_000
+        ui.withConversationDetails {
+            val remaining=readyBy-android.os.SystemClock.elapsedRealtime()
+            check(remaining>0) { "Available group status must be visible within 20 seconds" }
+            ui.waitUntil(remaining) { ui.onAllNodesWithText(text)
+                .fetchSemanticsNodes(atLeastOneRootRequired=false).isNotEmpty() }
+            ui.onNodeWithText(text).performScrollTo().assertIsDisplayed()
+            check(android.os.SystemClock.elapsedRealtime()<=readyBy)
+            captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
+                "chat-queue-evidence/group-archived-$stage-details.png"),text)
+        }
     }
 
     private fun scrollChatRegionToEnd(label:String,checkpoint:String) {
@@ -431,7 +447,7 @@ Line 12 stays in the saved message.""" else "Keep my offline private message ðŸ˜
                         waitFor("Groups")
                         clickWhenReady(contact)
                         if(cancel&&queued) {
-                            ui.onNodeWithText(contact).assertIsDisplayed()
+                            ui.withConversationControl(contact) { assertIsDisplayed() }
                             ui.waitUntil(20_000){
                                 val retained=nl.davidengelen.redsquare.chat.ChatWorkStore(context,wallet,SaitoBackend.OWNER,contact).load()
                                 retained.status==nl.davidengelen.redsquare.chat.ChatWorkStore.Status.QUEUED&&

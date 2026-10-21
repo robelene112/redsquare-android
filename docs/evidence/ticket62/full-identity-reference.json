@@ -118,7 +118,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete527 replacement SDK suites active after test-only actual-control/dismissal corrections. All production/harness sources unchanged from814; frozen identities/goals/pins unchanged. Rejected675 Chat failures retained; older Social jobs cancelled by workflow replacement. No accepted full62 result yet.",
+  "executingState": "Complete527 SDK runs are terminal FAILURE at three legacy queue operators. Social and Wallet succeed on both SDKs, without reuse. Test-only queue correction reviewed/compiled; fresh complete pair next. Frozen identities/goals/pins unchanged.",
   "executingSources": {
     "android10": "527dc9723cefccc4961400fd79d224e1c066bc52",
     "android17": "527dc9723cefccc4961400fd79d224e1c066bc52"
@@ -155,6 +155,20 @@
       "source": "675563729f5fa22303832efe6290838e58f525d2",
       "conclusion": "cancelled",
       "reason": "Terminal Chat FAILURE3/10 keyboard methods while Details remains open; Wallet SUCCESS; Social cancelled by replacement workflow concurrency. Retained pre-replacement snapshot accurately shows Social active. No passing partition reused."
+    },
+    {
+      "sdk": "10",
+      "run": 39645666425,
+      "source": "527dc9723cefccc4961400fd79d224e1c066bc52",
+      "conclusion": "failure",
+      "reason": "Chat queue3/13 failures: positive overflow incorrectly sought in larger Details destination; private full key inline; group AVAILABLE summary inline. Social/Wallet succeed, without reuse."
+    },
+    {
+      "sdk": "17",
+      "run": 39645671283,
+      "source": "527dc9723cefccc4961400fd79d224e1c066bc52",
+      "conclusion": "failure",
+      "reason": "Chat queue3/13 failures: positive overflow incorrectly sought in larger Details destination; private full key inline; group AVAILABLE summary inline. Social/Wallet succeed, without reuse."
     }
   ]
 }
