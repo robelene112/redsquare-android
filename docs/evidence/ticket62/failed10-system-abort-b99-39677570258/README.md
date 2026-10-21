@@ -1,0 +1,11 @@
+# Rejected complete Android10: system abort
+
+[Run39677570258](https://github.com/robelene112/redsquare-android/actions/runs/39677570258) at exact`b997f301c2c3830ce3767866ce296d2abf95c36f` concludes CANCELLED. Terminal partitions: native-proof (chat)=failure; native-proof (social)=cancelled; native-proof (wallet)=success. Before-replacement metadata and exact terminal failure-job log are retained; cancelled/unreached goals are not accepted.
+
+The combined original chat-alerts command records10PASS of11 test identities, then final PrivatePushWork method aRetainedOfficialWakeChecksCurrentIdentityThenUsesTheChosenPreviewAndOpensItsExactConversation starts before `INSTRUMENTATION_ABORTED: System has crashed`. Shell exit0 is not a completed successful class: final OK/class result is absent. Earlier reached native classes, including all10 populated keyboard methods and allfive viewport/reading classes, pass. The crash cause is unproved; no Android crash-buffer capture existed at this source. Selected103 chat-alert originals are retained context, not proof of the final crashed window. No native goal is waived.
+
+Retains all available native goal/process/restoration text and metadata from all three parts, an exact inventory of481 raw files, and1 selected archives/103 exact originals. External complete originals: `/mnt/storage/redsquare-android-artifacts/conversation62-full10-b99-39677570258`. No passing-part assembly; strict full collector is not invoked.
+
+Fresh complete79610run39681561379/17run39681571919 repeats both whole SDKs. Application/test/build inputs and every original goal/class deadline/tool pin remain unchanged. CI-only maintenance bounds SDK installation to3 attempts of180seconds (with bounded10second termination), retains the final failure, and captures a real crash buffer only after an already failed application class. Application classes are never retried. Both source review axes report0 findings; shell syntax and controlled SDK behavior checks pass.
+
+Prepared62 remains the same heldb99 APK, with14 identical Release/build objects at796. No rebuild or publication occurs. Signed61 stays permanently withheld and ordinary60 remains public. No physical/provider/store/owner visual acceptance follows.

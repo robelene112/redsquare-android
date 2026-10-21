@@ -118,14 +118,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh complete b99 pair10run39677570258/17run39678586516 executes production107 unchanged since focused107; only retained evidence/docs differ. Original17run39677581200 rejected after Chat SDK-package ZIP extraction failure before app/build; its remaining work replaced with fresh whole17same-source execution.10run unchanged. SourcecompileSUCCESS3m43s/exit0 and two-axis source0/0. All six focused107 scopes SUCCESS: viewport/agreement/keyboard on bothSDKs, exact originals retained. Corrected10 filtering reproduces Loading disappearance in both themes with four259-to259 anchors; full48dp privatequeuedCancel passes bothSDKs. Every frozen511/512 identity, originaldeadline/recovery/publicread/update/final gate remains required. No passing-piece assembly. Signed61 permanentlywithheld/public60live;New signed62 prepared once at cleanb99:38,008,595bytes, SHA256054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000; actualDEX/manifest/cert/publicbeforePASS and14production/buildobjects equal107/b99/current. Publication withheld pending bothwholecomplete proof/finalreview; publicaftercheck required following publication.",
+  "executingState": "Fresh complete79610run39681561379/17run39681571919. Product/test/buildconfig unchanged from focused107 and signed62b99; only CI SDK installation3bounded180s attempts and real10s crash-buffer capture after failed originalclasses. No class retry, goal/deadline/toolpin/matrix/collector/exclusion change. Shell syntax and SDK externalboundary checks PASS; two-axis source0/0. Originalfullb9910Systemhascrashed/classincomplete and17SDKimageZIPfailures stay rejected, no passingassembly. All6focused107SUCCESS; prepared62unpublished:38,008,595bytes/SHA054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000, actualmanifest/DEX/cert/publicbefore14objectsPASS. Frozen511/512fullgoals stillmandatory; public60/withheld61.",
   "executingSources": {
-    "android10": "b997f301c2c3830ce3767866ce296d2abf95c36f",
-    "android17": "b997f301c2c3830ce3767866ce296d2abf95c36f"
+    "android10": "796eb1fb60ce3e63bd0e603530d6620d82278d64",
+    "android17": "796eb1fb60ce3e63bd0e603530d6620d82278d64"
   },
   "executingRuns": {
-    "android10": 39677570258,
-    "android17": 39678586516
+    "android10": 39681561379,
+    "android17": 39681571919
   },
   "rejectedExecutions": [
     {
@@ -197,6 +197,20 @@
       "source": "b997f301c2c3830ce3767866ce296d2abf95c36f",
       "conclusion": "cancelled",
       "reason": "Chat job terminalFAILURE before build/emulator/app execution: SDK manager Android Emulator ZIP extraction fails with Error reading Zip content from a SeekableByteChannel. Exact completed-job119491996478 log retained; cause of invalid ZIP unproved. Remaining Wallet/Social CANCELLED following fresh whole17same-source replacement39678586516. No passing pieces accepted."
+    },
+    {
+      "sdk": "10",
+      "run": 39677570258,
+      "source": "b997f301c2c3830ce3767866ce296d2abf95c36f",
+      "conclusion": "cancelled",
+      "reason": "Wallet partition SUCCESS; Chat fails because combined chat-alerts command has10PASS of11 identities and final PrivatePushWork method starts before INSTRUMENTATION_ABORTED: System has crashed. Native shell exit0 does not establish classPASS: no finalOK/class completion. System-crash cause unproved; no crash-buffer capture existed. Remaining work replaced by fresh whole10source796, no passing-piece reuse."
+    },
+    {
+      "sdk": "17",
+      "run": 39678586516,
+      "source": "b997f301c2c3830ce3767866ce296d2abf95c36f",
+      "conclusion": "cancelled",
+      "reason": "Wallet fails before emulator/app: SDK systemimage ZIP download stalls then extraction reports Error reading Zip content from a SeekableByteChannel. Source/core/release/lint buildSUCCESS36s/94tasksFROM-CACHE, not native acceptance. Fresh whole17source796 adds bounded SDK install retry and post-failure crash evidence only; no app/test/deadline/pin changes or passing-piece reuse."
     }
   ],
   "preCorrectionExecutions": [

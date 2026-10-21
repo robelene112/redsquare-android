@@ -1,0 +1,626 @@
+{
+  "chat/.scratch/device-evidence/api-29/chat-alert-evidence.tar": {
+    "bytes": 4146688,
+    "sha256": "2d39a5b825c1039412519fd35b6aa5674da67f709fb4ed1bbb1dbb3f770ee7a9",
+    "members": [
+      {
+        "name": "chat-alert-evidence/private-warm-alert.xml",
+        "bytes": 42052,
+        "sha256": "ac7bed38a5d316dd616fa071aea9a8c3d1df45515766cc7bb7b91948c45d1627",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-alert.png",
+        "bytes": 28867,
+        "sha256": "e8b6ecf3d680fa7fcb2a5b135fc6c7a6bc3b6847725cf476aa30dabaa3bc0553",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-opened-details.xml",
+        "bytes": 22727,
+        "sha256": "ff4ed3b8dbaf467d1236a47882261bf18e0ef079bbe393d16b2607ed51dfeb1f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-opened-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-opened-details.png",
+        "bytes": 35140,
+        "sha256": "c7f8b408caa82023dab300e3b29439d6d12d26371d78c50588eb9f4667a10cad",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-opened-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-opened.xml",
+        "bytes": 40021,
+        "sha256": "54d87d4ccfc12ca924ebd2f63c326ad84e23ed602dfb231d373b3d7fe5557af5",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-opened.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-opened.png",
+        "bytes": 27252,
+        "sha256": "a5f150f1d8d0d72cbed29a70c8dbde36807454c189d1845ad5b6e2e7fc0319d0",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-opened.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-draft-restored.xml",
+        "bytes": 39674,
+        "sha256": "4dbe06dc5959b9d1e59cd85bc2b741eba38fe53964fe06ed4670c92a11cc55fe",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-draft-restored.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-warm-draft-restored.png",
+        "bytes": 31136,
+        "sha256": "707bda3427cea0ade720c00be40c17e3038e2c090caa309c5bff09add2fd3069",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-warm-draft-restored.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-alert.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-alert.png",
+        "bytes": 58839,
+        "sha256": "acf3726004aa75ec9e5f51558203c9edc6fb4f0f4e897f9e4226a864ccc69d6d",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-opened-details.xml",
+        "bytes": 31623,
+        "sha256": "a5b24031c831675a2b51955952f328e04834851c2917685369fb1b9e9ad45283",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-opened-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-opened-details.png",
+        "bytes": 35922,
+        "sha256": "01ed7b9c74744c6d438e0a96eb19675c5301d219963c0f292432380c727d9a13",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-opened-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-opened.xml",
+        "bytes": 44300,
+        "sha256": "7e8ed6300daf2fa571523cf42549e26c96f5352f07e2bbd78cb8b73e83ac61f9",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-opened.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-opened.png",
+        "bytes": 34383,
+        "sha256": "3799ab2f08beb7610fcc3b984e942a350d411e3071a71885f5fe9ace85bd62fa",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-opened.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-recreated-details.xml",
+        "bytes": 31623,
+        "sha256": "a5b24031c831675a2b51955952f328e04834851c2917685369fb1b9e9ad45283",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-recreated-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-recreated-details.png",
+        "bytes": 35922,
+        "sha256": "01ed7b9c74744c6d438e0a96eb19675c5301d219963c0f292432380c727d9a13",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-recreated-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-recreated.xml",
+        "bytes": 44300,
+        "sha256": "7e8ed6300daf2fa571523cf42549e26c96f5352f07e2bbd78cb8b73e83ac61f9",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-recreated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-recreated.png",
+        "bytes": 34383,
+        "sha256": "3799ab2f08beb7610fcc3b984e942a350d411e3071a71885f5fe9ace85bd62fa",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-recreated.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-draft-restored.xml",
+        "bytes": 41373,
+        "sha256": "7ca54b029b7aa067bc56039f9be0e1471a46e508a955e1e2ca22f21bb747a08a",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-draft-restored.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-draft-restored.png",
+        "bytes": 32558,
+        "sha256": "f701d993c1808bebb24418e97a08dad61254bc7b5d5bb96cbcbebb52b1200589",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-draft-restored.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-before-removal.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-before-removal.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-before-removal.png",
+        "bytes": 31150,
+        "sha256": "63dda5f728bfa7b90ef6cab27c601578f8b3bd9c1cf50e1612a1adbffbdbe0ff",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-before-removal.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-membership-refused.xml",
+        "bytes": 44342,
+        "sha256": "36e60571de3c9798e782b185efe44f2684833f80b0f91257c9e015e9cb7aa5c4",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-membership-refused.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-membership-refused.png",
+        "bytes": 40222,
+        "sha256": "df19020912658a97f7adb1e5cc378366e00cb4c90db715148b3fac556c9ded0d",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-membership-refused.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-work-retained.xml",
+        "bytes": 41373,
+        "sha256": "7ca54b029b7aa067bc56039f9be0e1471a46e508a955e1e2ca22f21bb747a08a",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-work-retained.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-work-retained.png",
+        "bytes": 32558,
+        "sha256": "f701d993c1808bebb24418e97a08dad61254bc7b5d5bb96cbcbebb52b1200589",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-work-retained.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-consumed.xml",
+        "bytes": 44629,
+        "sha256": "8707d0a8ed8b267ba1678d46d6bd3af62e286102e446d46318b5243a4519694b",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-consumed.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-cold-official-consumed.png",
+        "bytes": 36873,
+        "sha256": "01c986aed4aa9dfc0f57aef5c8ca2117cf8770ddbe63dbb57de20aef7c3c89d9",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-cold-official-consumed.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-alert.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-alert.png",
+        "bytes": 28979,
+        "sha256": "d6bc3512b93efe6a66370644b6c9a246c7071656afb6692b38fad381426097c8",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-opened-details.xml",
+        "bytes": 28159,
+        "sha256": "4e24ecc382a1002fd7d100ce4179e718bf40761d0e99ee05a6cd5ef539bd0d1c",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-opened-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-opened-details.png",
+        "bytes": 35683,
+        "sha256": "365768561d4d88fe714d70809c4970b8992bad990fd6e991c8f060362e81e145",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-opened-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-opened.xml",
+        "bytes": 40454,
+        "sha256": "e5da77989d7e4ad6ee003dc29c7ec9926c5a47a7d2c6f4f38561122a208604d6",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-opened.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-opened.png",
+        "bytes": 27566,
+        "sha256": "8a211c804532cb95aadbae2ecee4f750cad4d167355abd7c0cef60ae6d803292",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-opened.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-draft-restored.xml",
+        "bytes": 39698,
+        "sha256": "82b4744347ad2b3040155a0224f9fbbf26dd248bf45458eb29de66d2e8dbb03c",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-draft-restored.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-draft-restored.png",
+        "bytes": 32980,
+        "sha256": "8c579b9e7220e196ec48d58f77fdba4f62f1237aca950f356f3e1654f86a658d",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-draft-restored.png"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-normal-list.xml",
+        "bytes": 40942,
+        "sha256": "55b914298f4bbc5dcfd21f3931c6188aa42f27c532e862e34f823161f88663d2",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-normal-list.xml"
+      },
+      {
+        "name": "chat-alert-evidence/group-warm-normal-list.png",
+        "bytes": 30473,
+        "sha256": "102f8c02fbbdef20ece1ccdd8f7c068d989b00cfe179fa10366d79dc839ec4a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/group-warm-normal-list.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-default-alert.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-default-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-default-alert.png",
+        "bytes": 28979,
+        "sha256": "d6bc3512b93efe6a66370644b6c9a246c7071656afb6692b38fad381426097c8",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-default-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-enabled.xml",
+        "bytes": 29127,
+        "sha256": "d86281d21661f6775c509eb74cce071ee7f515271663b2f37434737aa478d932",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-enabled.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-enabled.png",
+        "bytes": 36606,
+        "sha256": "691b89b5794304af5a94454ab743590300f34080718abebdb68bec49711cef05",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-enabled.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-reopened.xml",
+        "bytes": 29127,
+        "sha256": "d86281d21661f6775c509eb74cce071ee7f515271663b2f37434737aa478d932",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-reopened.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-reopened.png",
+        "bytes": 36606,
+        "sha256": "691b89b5794304af5a94454ab743590300f34080718abebdb68bec49711cef05",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-reopened.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-text-alert.xml",
+        "bytes": 42067,
+        "sha256": "70ba1bdad8f7edc7ead4cefe24af5207c64eef6298593c9edde114eece2afe31",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-text-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-text-alert.png",
+        "bytes": 32534,
+        "sha256": "101835ca3e1e3d90e9bc43b5fc180e5f995bf386418be6b1fa53ed1795d743b8",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-text-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-caption-alert.xml",
+        "bytes": 47234,
+        "sha256": "72b8185ab1302300e68134cc001b02cea7a87e717054f8ef315e8a03cc21ea0f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-caption-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-caption-alert.png",
+        "bytes": 30481,
+        "sha256": "6a8f5756b54dd22ee2c0ac60e33d2200a6fed4ae7e9f91e5eb9bcc5631dae1e8",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-caption-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-unsupported-generic.xml",
+        "bytes": 52382,
+        "sha256": "40eeb1da7e144c31d58f23db3bc9e0a107b4463aa4bd6b17e787b87b5d46568f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-unsupported-generic.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-unsupported-generic.png",
+        "bytes": 31800,
+        "sha256": "f5edc4c7172b22d58ba7b3c012fdebd7fa92079de4be18311672428fc52dc95f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-unsupported-generic.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-disabled.xml",
+        "bytes": 29128,
+        "sha256": "b5295f5a506d27d7e0b90cf0d7895ea1585d0a0a77c25f5fc4eece160ad203ff",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-disabled.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-disabled.png",
+        "bytes": 36628,
+        "sha256": "84eb5c542b85389322acc19a849f41715adb457f94b662ea55b3bced66fc7415",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-disabled.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-disabled-generic.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-disabled-generic.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-previews-disabled-generic.png",
+        "bytes": 31961,
+        "sha256": "ab843df59edbf374bb92517313405306c32415fbfd981927ee83573de61ad9b9",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-previews-disabled-generic.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-alert.xml",
+        "bytes": 42052,
+        "sha256": "36ba225e84467a010e0a503e1e31341d41f64dc87a475fff01fca271ac2727a3",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-alert.png",
+        "bytes": 58839,
+        "sha256": "acf3726004aa75ec9e5f51558203c9edc6fb4f0f4e897f9e4226a864ccc69d6d",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-opened-details.xml",
+        "bytes": 22727,
+        "sha256": "ff4ed3b8dbaf467d1236a47882261bf18e0ef079bbe393d16b2607ed51dfeb1f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-opened-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-opened-details.png",
+        "bytes": 34734,
+        "sha256": "5cb8e93ba5f02c628e387ffc066d82f067e626cc0ba48721e6c11e2161be66f0",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-opened-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-opened.xml",
+        "bytes": 40007,
+        "sha256": "61a9961e9b626748d30a7b3a8eda8df35c8d1d9c7cedc60f2f51115006b46723",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-opened.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-opened.png",
+        "bytes": 26696,
+        "sha256": "acb528ce0822d769dfc77766628e21074674b8e284b1915fdde6b5dfc6c8b37b",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-opened.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-recreated-details.xml",
+        "bytes": 22727,
+        "sha256": "ff4ed3b8dbaf467d1236a47882261bf18e0ef079bbe393d16b2607ed51dfeb1f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-recreated-details.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-recreated-details.png",
+        "bytes": 34734,
+        "sha256": "5cb8e93ba5f02c628e387ffc066d82f067e626cc0ba48721e6c11e2161be66f0",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-recreated-details.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-recreated.xml",
+        "bytes": 40007,
+        "sha256": "61a9961e9b626748d30a7b3a8eda8df35c8d1d9c7cedc60f2f51115006b46723",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-recreated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-recreated.png",
+        "bytes": 26696,
+        "sha256": "acb528ce0822d769dfc77766628e21074674b8e284b1915fdde6b5dfc6c8b37b",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-recreated.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-draft-restored.xml",
+        "bytes": 39660,
+        "sha256": "2725e2db993ea88a779cfbdcdbf03f318e67a2de43886bbab7afeba2551c3c3a",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-draft-restored.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-draft-restored.png",
+        "bytes": 30585,
+        "sha256": "d1eab5526a6c2e4dd1be14bf5afce019403ee1a301e0d92b2a329fa3e65d52da",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-draft-restored.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-consumed.xml",
+        "bytes": 40449,
+        "sha256": "bcf25882846bd4d59b50860873ac836250dd19c9a563ed9d21da183df6183d6b",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-consumed.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-cold-official-consumed.png",
+        "bytes": 26338,
+        "sha256": "f2499551a4b3473bccfa5a3a4ae3a409ee1b4a1171603d610b8a2ecd38ae4acf",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-cold-official-consumed.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-initial-social-availability.xml",
+        "bytes": 29129,
+        "sha256": "90283d2b33db5d34a9389e25d012829a0d36c99136c03e857fc1f3f381def19c",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-initial-social-availability.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-initial-social-availability.png",
+        "bytes": 36350,
+        "sha256": "30d009e764cc7003d7e2b45dfa9a6cbd3f19c10fa67caa93c1bfddb20bd258fd",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-initial-social-availability.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-initial-chat-availability.xml",
+        "bytes": 29129,
+        "sha256": "90283d2b33db5d34a9389e25d012829a0d36c99136c03e857fc1f3f381def19c",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-initial-chat-availability.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-initial-chat-availability.png",
+        "bytes": 36350,
+        "sha256": "30d009e764cc7003d7e2b45dfa9a6cbd3f19c10fa67caa93c1bfddb20bd258fd",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-initial-chat-availability.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-reopened-social-availability.xml",
+        "bytes": 29128,
+        "sha256": "7a54c909778fbcbc6f319179a2dade8c9241861b608e334f3a46acba739aeda3",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-reopened-social-availability.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-reopened-social-availability.png",
+        "bytes": 36267,
+        "sha256": "328be0d1c306c6e4e30fe592cff1c4c2a620eea269163872b271db7beaa3fe29",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-reopened-social-availability.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-reopened-chat-availability.xml",
+        "bytes": 29128,
+        "sha256": "7a54c909778fbcbc6f319179a2dade8c9241861b608e334f3a46acba739aeda3",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-reopened-chat-availability.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent-reopened-chat-availability.png",
+        "bytes": 36267,
+        "sha256": "328be0d1c306c6e4e30fe592cff1c4c2a620eea269163872b271db7beaa3fe29",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent-reopened-chat-availability.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent.xml",
+        "bytes": 29128,
+        "sha256": "49ffb390ba25cf9cd3d196a2c870b6c4cbf5934b7143ef2c939b623733312291",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-background-consent.png",
+        "bytes": 36070,
+        "sha256": "f457a7d9cac71fbd2795bc79e05deb5a51d51d9888caa59d42ed8a0e34e8720a",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-background-consent.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-retained-before-recovery.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-retained-before-recovery.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-retained-before-recovery.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-retained-before-recovery.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-generic-alert.xml",
+        "bytes": 42052,
+        "sha256": "0053a4e08d6912756e4263a02e37852bf6e4a6b8aa6ee66df5f423608e381f8a",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-generic-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-generic-alert.png",
+        "bytes": 58631,
+        "sha256": "f1ac39fbd3ab1334045b7352874cd50f920223f577d8d7071fa892d7fa0500b9",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-generic-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-dismissal.json",
+        "bytes": 191,
+        "sha256": "822d05a88e2705ebb9209a23a8b610e21db57a0c63f03c73b9571f8734255851",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-dismissal.json"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-deduplicated.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-deduplicated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-receipt-storage-deduplicated.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-receipt-storage-deduplicated.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-ordinary-first-generic-alert.xml",
+        "bytes": 42052,
+        "sha256": "0053a4e08d6912756e4263a02e37852bf6e4a6b8aa6ee66df5f423608e381f8a",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-ordinary-first-generic-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-ordinary-first-generic-alert.png",
+        "bytes": 58631,
+        "sha256": "f1ac39fbd3ab1334045b7352874cd50f920223f577d8d7071fa892d7fa0500b9",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-ordinary-first-generic-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-ordinary-first-dismissal.json",
+        "bytes": 191,
+        "sha256": "3afd048331b5973855a56d58d6e1ce7904b04e5927c7c91ac22ec05a450d986c",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-ordinary-first-dismissal.json"
+      },
+      {
+        "name": "chat-alert-evidence/private-ordinary-first-deduplicated.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-ordinary-first-deduplicated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-ordinary-first-deduplicated.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-ordinary-first-deduplicated.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-blocked-pending-retained-before-recovery.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-blocked-pending-retained-before-recovery.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-blocked-pending-retained-before-recovery.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-blocked-pending-retained-before-recovery.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-blocked-pending-unblocked-still-silent.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-blocked-pending-unblocked-still-silent.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-blocked-pending-unblocked-still-silent.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-blocked-pending-unblocked-still-silent.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-generic-alert.xml",
+        "bytes": 42052,
+        "sha256": "0053a4e08d6912756e4263a02e37852bf6e4a6b8aa6ee66df5f423608e381f8a",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-worker-generic-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-generic-alert.png",
+        "bytes": 58631,
+        "sha256": "f1ac39fbd3ab1334045b7352874cd50f920223f577d8d7071fa892d7fa0500b9",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-worker-generic-alert.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-dismissal.json",
+        "bytes": 191,
+        "sha256": "73ab17be98cf7000b0a17cf08df2f4aa42fc9d979287992c81c9f0e74ddb30fe",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-worker-dismissal.json"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-deduplicated.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-worker-deduplicated.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-worker-deduplicated.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-worker-deduplicated.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-scoped-preview-inactive-scopes-silent.xml",
+        "bytes": 22523,
+        "sha256": "7ffd5b230bbc28480d824d23340cce31b8b1eda2770fe241c3ab18da9d45c54f",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-scoped-preview-inactive-scopes-silent.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-scoped-preview-inactive-scopes-silent.png",
+        "bytes": 102747,
+        "sha256": "307020d825a16dd649de484ac3284863277d2a2199f92fd4dd5724e409a6b707",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-scoped-preview-inactive-scopes-silent.png"
+      },
+      {
+        "name": "chat-alert-evidence/private-scoped-preview-preview-alert.xml",
+        "bytes": 42087,
+        "sha256": "e5850b76d3ba05048cf49d752dff3a5c4ecf43b1a7d01b64dd73b54f125ecb39",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-scoped-preview-preview-alert.xml"
+      },
+      {
+        "name": "chat-alert-evidence/private-scoped-preview-preview-alert.png",
+        "bytes": 60024,
+        "sha256": "75ebcf469714bac86d1b5acb6adc05c1f3801eca0d558cd85fa4f0bdb364f0ff",
+        "retainedPath": "originals/chat/chat-alert-evidence/private-scoped-preview-preview-alert.png"
+      }
+    ]
+  }
+}

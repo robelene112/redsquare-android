@@ -1,0 +1,20 @@
+{
+  "startedAt": "2026-10-21T21:45:07.561073+00:00",
+  "cases": {
+    "transient": {
+      "exitCode": 0,
+      "actualCalls": 2,
+      "packageArgumentsPreserved": true
+    },
+    "permanent": {
+      "exitCode": 17,
+      "actualCalls": 3,
+      "packageArgumentsPreserved": true
+    },
+    "missingArguments": {
+      "exitCode": 2
+    }
+  },
+  "completedAt": "2026-10-21T21:45:13.763710+00:00",
+  "result": "PASS"
+}

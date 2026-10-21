@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 21:40 UTC:62 all six focused107SUCCESS; complete b99 pair pending; signed62PREPAREDunpublished; NEVER PUBLISH61; public60.
+Updated 2026-10-21 21:51 UTC:62 six focused107SUCCESS; freshcomplete796pending after system/SDK failures; signed62HELD; NEVERPUBLISH61; public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,104 +46,86 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
-ALL SIX corrected107 focused scopes SUCCESS. Packets greenSDK-corrected-KIND-107-RUN
-retain1172exact archiveoriginals total: keyboard116each, viewport311each,
-agreement159each. Actual10 filtering Loading disappears in both themes while
-allfour older20 anchors stay259→259. Private terms/offline queued48dpCancel
-passes bothSDKs; actual publishing-process recovery alsoPASS. Root inspected
-corrected10anchor/queue and17denseprivate/group130%, queue130%, group200% images.
-Intentional preview scroll offsets can clip quote/photo; signed full draft remains
-exact. Known200% bottom-navigation wrapping remains70, not accepted app-widepolish.
+Current source796eb1fb60ce3e63bd0e603530d6620d82278d64. Product107 and all application
+fixtures/build inputs remain unchanged from signed62 sourceb99.796 changes only CI:
+shared SDK install helper allows3 bounded180second attempts with bounded10second
+termination,2second gaps and finalnonzero preserved; both pinnedmanager/package
+callers use it. Original failed classes additionally retain a bounded10second actual
+Android crash buffer and stillFAIL. No application class retry, goal/deadline/toolpin/
+matrix/exclusion/collector change. Bashsyntax and controlled SDK-boundary verification
+PASS (transient secondattempt success; permanent3failures return17; arguments exact).
+Both source review axes0. Whole62 source review throughb99 also0/0.
 
-Current COMPLETE10run39677570258 and17replacement39678586516 both atb99 production
-107. Firstb99 17run39677581200 rejected: ChatSDKsetup cannot unzip downloaded
-emulator package, beforebuild/app/native; Wallet/SocialCANCELLED after replacement,
-wholeCANCELLED. Exact completed-joblog/beforemetadata/54rawinventory retained in
-failed17-sdk-zip-b99-39677581200; ZIP corruption cause unproved. No product/test/
-deadline/tool change or passing-piece assembly. Oldobserver89904 handles10+old17;
-newobserver20274 handlesreplacement17.10Walletpartition nowSUCCESS;10Chat/Social
-and all17parts stillactive. Strictcollector onlywholeSUCCESS/3SUCCESS.
+CURRENT COMPLETE10run39681561379 and17run39681571919 execute exact796. Observer60399
+/tmp/redsquare62-watch-complete-796.py downloads terminal whole originals to external
+conversation62-fullSDK-796-RUN, then invokes frozen collector ONLYwholeSUCCESS with
+all3partitionsSUCCESS. Bindings in full-identity-reference.json are current. Frozen814
+catalog511/512identities,148/149normalcompletions,35interruptions/34continuity and
+109archives perSDK remain mandatory; API29onlytheapprovedProfileassumption,17allPASS.
+No old passing-part assembly. Inspect actual terminal failures before any correction.
 
-Signed62builtONCE sourceb99 in clean externalreviewworktree, SUCCESS4m52s/exit0
-(Gradle4m36s).38,008,595bytes, SHA256054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000.
-ActualDEX/manifest/cert/publicbeforePASS;14objects equal107/b99/current. Its held61APK
-hash verified unchanged across checkout. Never publish/rebuild/reuse61; never rebuild62
-or reuseitsversion for differentbytes. Publishheld62only after completeproof and
-pairedfinalreview, then publicaftercheck. Preparedpacket finalreview0/0.
-The stable public version remains60. No ownerinput is needed; continue63–69/70.
+ALL SIX focused107 scopes SUCCESS: keyboard39677378247/39677390713,
+viewport39677328877/39677340642, agreement39677353128/39677365916. Six packets
+ greenSDK-corrected-KIND-107-RUN retain1172exact archiveoriginals total:
+keyboard116each, viewport311each, agreement159each. Final evidence0/0. Actual10
+filtering reproduces Loading disappearing in BOTHthemes, with four older20anchors
+259-to259 rather than31px drift. BothSDKs pass original48dp privatequeuedCancel at
+130%/offline/policywarning and actual publishing-process recovery. Original10keyboard
+methods/300s retain96dp populatedhistory inallfour dense longreply/photo cases,
+exact signed full drafts/Relay and Back/Send safeguards. Root inspected corrected
+10anchor/queue and17private/group130%, queue130%, group200% originals. Intentional
+preview scrolling can clip quote/photo at the captured offset; no draft truncation.
+Known200% navigation wordwrapping remains70; app-wide owner acceptance stays55.
 
+Latest rejected whole executions, with all original conclusions preserved:
+- b9910run39677570258: ChatFAILURE, WalletSUCCESS, SocialCANCELLED. Combined original
+  chat-alerts command has10PASS of11identities; final PrivatePushWork method starts
+  then INSTRUMENTATION_ABORTED:Systemhascrashed. Shell exit0 is not final classPASS.
+  Cause unproved; no crashbuffer existed. Packet failed10-system-abort-b99-RUN retains
+ 103chat-alert originals/allparttext/481rawinventory and exactterminaljoblog.
+- b9917run39678586516: WalletFAILURE beforeemulator/app. SystemimageZIP download
+  stalls~11min then extraction fails. BuildSUCCESS36s/94tasksFROM-CACHE verifies
+  taskcache reuse, not native acceptance. Chat/SocialCANCELLED after replacement.
+  Packet failed17-sdk-image-b99-RUN retains119contextoriginals/allparttext/337rawfiles,
+  completedWalletjoblog and controlledSDKcheck. ZIP corruption cause unproved.
+- Firstb9917run39677581200: Chat SDKemulatorZIP extractionFAILURE beforebuild/app;
+  siblingsCANCELLED; packet failed17-sdk-zip-b99-RUN (54rawinventory, noChatartifact).
+- Both663complete runs39674331268/39674334947 wholeCANCELLED after replaced failed
+  anchor/privatequeued32px goals. Their focused keyboard/send/queue succeed bothSDKs;
+  viewport17passes,10failsanchor. Eight focused packets reviewed0/0; focusedqueue13
+  methods doNOT execute process recovery or publishingtermsqueue.
+Old89904/20274 observers finished b99retention; no rejected collector invoked. Fresh
+796pair repeats BOTH entireSDKs, with unchangedapplication/test/build objects.
+Latest two failure packets/current mutable metadata have finalpairedreview0/0.
 
-Current product107dde881c29c8c9bd62945db79b210bb3157592 corrects two native663
-regressions without changing a test or bound. Conversation-only root-relative
-ReadingAnchor compensates for ancestor header movement through the budget container.
-Actual filtering originals show Loading disappears and message20 shifts31px.
-Private queued Cancel is pinned outside supplemental scroll; original action callback,
-guards/lock/store/draft restore are unchanged. Actual663 queue target clips to32px
-on BOTH SDKs. Both source reviews0/0; local canonical compileSUCCESS3m43s/explicit0.
+Signed62 PREPAREDONCE, heldunpublished at cleanb997f301c2c3830ce3767866ce296d2abf95c36f.
+Canonical buildSUCCESS4m52s/explicit0 (Gradle4m36s);38,008,595bytes,
+SHA256054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000. Actual APK
+manifest/DEX/certificate/publicbefore PASS;14Release/buildobjects equal107/b99/796/
+current. Same establishedpackage/cert; nondebug/nonprofile/noBackup/min29target36;
+REVIEWtrue, push/bothGIFproviderflagsfalse. Preparedpacket/current796source-equivalence andlimits have finalpairedreview0/0. No physical/provider/Play
+acceptance. Counter62 reserved/public60. Never rebuild62 or reuse its version for
+other bytes. Main OWNER_INPUTS stays60 until actualpublication.
 
-Six fresh focused107 scopes: conversation-viewport, agreement, chat-keyboard on10/17.
-Dispatch record external conversation62-anchor-queue-focused-dispatch.json. Review
-originals and exact assertions. Fresh complete b99 pair currently39677570258/39678586516
-executes unchanged107production plus evidence/docs. No accepted full663 result is
-possible:10 Chat+Wallet fail;17 Wallet fails. Remaining663partitions conclude CANCELLED following replacement dispatch; later
-explicit cancellation requests report already-completed runs. Preserve terminal
-whole CANCELLED and failed-partition conclusions.
-Restarted observer21878 finished both cancelled663 downloads without invoking the
-strict collector. New whole-run observers are identified above.
-Eight focused663 packets have final evidenceSpec0/Standards0/heuristic0: keyboard
-10methods94.247/141.925s,96px history inallfour dense cases; own-send bothPASS;
-queue13methods bothPASS (focusedqueue does NOT run process recovery); viewport17
-allfivePASS; viewport10fails older-anchor. No focused/pass-part assembly.
+After BOTH freshcomplete proofs and final pairedreview, publish EXACT held62 from
+clean externalreviewworktree (stilldetachedb99), using canonical
+scripts/review-publish .scratch/review-builds/62 --notes with structuredargv. Then
+/tmp/redsquare-conversation62-publication62-check.py ordinary 62 after SOURCEb99,
+retain/review publicproof and close62. BeforecheckalreadyPASS at external
+conversation62-publication-62; preserve immutable ordinary60/59/58/50/49/45 and
+performance43channel. Do not useold61helpers. Continue63–69 then70 without routine
+stops or ownerquestions.55 remainsopen for owner app-wide review;36 externalgatesparked.
 
-
-DO NOT PUBLISH61. Actual populated-history RED at1ad6aae453271f676b125a55aa9ccdf64c4ac9d6
-confirms dense photo/long-reply/multiline editor consumes history. RED10run39671618022:
-10methods6PASS/4floorfail72.914s, history17/24px130%,47/54default. RED17run39671622040:
-6PASS/4fail127.392s, threefloorfail31pxgroup130%,54/61default; private130nativehistory
-lookup fails beforefloor (causeunproved). Both original300s bound; no goal weakened.
-Packets redSDK-populated-dense-history-1ad-RUN retain100originals each. Root viewed
-actual populated private130failure. Earlier unpopulated screenshots alone did not
-prove obscured messages; intentional quote-to-photo scrolling is not itself a bug.
-
-Production66380a52cfad873c899b23f373f84b90302cc694 adds shared ConversationLayout:
-budget whole composer after actualheader/status, reserve96dp history/48at200%
-with physical-shortage clamp; scroll supplementalstatus/quote/photo separately,
-bound the internallyscrolling editor, keep actualinput/Send row. Private queued
-preview stays bounded with outerstatusscroll; groupqueue unchanged. Reactionretry
-moves abovebody. All callbacks/draft/picker/identity/protocol guards preserved.
-Both source reviews0; canonical app/test compileSUCCESS3m37s/explicit0.
-Reviewed CIv3cache maintenance992857659dec5b6f3792e14597bb1e69b8ac5553 is included;
-only2cache steps differ, every gate/command/bound/matrix/pin/permission unchanged.
-
-These exact663 focused executions are now terminal (see current qualification above):
-- keyboard10run39674103550;17run39674107475 (original10methods/300s, stronger4cases)
-- viewport10run39674111384;17run39674114627 (originalfiveclasses/180each,100/130/200)
-- ownsend10run39674119293;17run39674123264
-- queue10run39674128079;17run39674131963 (original13methods only; no focusedprocess recovery)
-Observer /tmp/redsquare62-watch-dense-green-663.py downloads terminal originals to
-external conversation62-dense-green-SCOPE-663-RUN. Do not confuse with old814GREEN.
-
-Superseded COMPLETE source66310run39674331268 and17run39674334947 dispatched20:54UTC
-in parallel with focused proof. Both wholeCANCELLED with failedpartitions retained
-in failed10-anchor-queue-663-RUN/failed17-queue-663-RUN. External originals retained
-in conversation62-fullSDK-663-RUN. Collector was not invoked on failed executions;
-frozen814catalog511/512identities,148/149completions,35interruptions/34continuity/
-109archives and tooling unchanged. Stronger existingmethods add no newidentities.
-Preserve all publicread/update/final gates. Inspect actual rendered densecomposition
-alongside200%, viewport/queued/recovery evidence. Fix actual failures, never relax
-goals or build acceptance from old passing pieces.
-
-Both PREcorrection complete runs are functionalSUCCESS only:17at539run39662258345
-512PASS/149normal/109archives3437members, final evidence0/0;10at6drun39667308854
-510PASS+1approvedProfileassumption/148normal/109archives3414members, finalreview0/0.
-Each has35interruptions/34continuity and exactcatalog. They ran before the stronger
-readability predicates/product fix and do NOT complete UI acceptance. Never reuse
-these passing partitions for corrected663. Old observers20041/26623 completed.
-
-Held61 is built once at2d but PERMANENTLY WITHHELD for dense-layout defect, no rebuild/
-reuse. Newproduction needs NEW signed62 after focused/renderedproof, then complete
-proof/review/publication. Counter62 now reserved/public60. Keep exact old61artifact/
-provenance. New62preparedb99 and can update installed60 with same establishedcert.
+NEVERPUBLISH61. It was builtONCE at2d but is permanentlywithheld after actual
+populated-history RED at1ad:10run39671618022 original10methods6PASS/4floorfail,
+17run39671622040 6PASS/4fail (threefloorfail, private130nativehistorylookupcauseunproved).
+Both original300s bounds. REDpackets100originals each reviewed0/0. Root viewed actual
+populated history collapse. New whole-composer budget663 reserves96dp history/48at200
+with physicalshortageclamp; sharedscroller/editor and107ancestoranchor/pinnedCancel
+fixes preserve callbacks/guards. Source663compile3m37,107compile3m43/explicit0.
+Old functional full17at539run39662258345 (512PASS) and10at6drun39667308854
+(510PASS+approvedassumption) are reviewed pre-correction history, not UI acceptance.
+Held61artifact/provenance remain unchanged in signed61-prepared; never rebuild/reuse61.
 
 ### Earlier attempts and cache context
 
