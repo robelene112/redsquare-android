@@ -12,6 +12,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import nl.davidengelen.redsquare.chat.composeChatPhoto
+import nl.davidengelen.redsquare.chat.ChatHistoryStore
 import nl.davidengelen.redsquare.chat.ChatWorkStore
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.*
@@ -85,6 +86,7 @@ class ChatKeyboardPreviewTest {
                 parsed.reference==contact.publicKey+"1700000123400"&&parsed.quote.lines().size==12&&
                 parsed.quote.endsWith("Recovered quote line12."))
         }
+        val historyText = "Earlier message stays readable."
         val folder = File(context.cacheDir, "chat-keyboard-evidence")
         var primary: Throwable? = null
         try {
@@ -108,6 +110,16 @@ class ChatKeyboardPreviewTest {
             backends.save(SaitoBackend.OWNER)
             if (group) GroupChatStore(context, wallet, SaitoBackend.OWNER).receive(
                 GroupChat.create(contact, groupId, groupName, listOf(wallet.publicKey), 1700000123400).envelope())
+            if (longReply) {
+                if (group) {
+                    val store = GroupChatStore(context, wallet, SaitoBackend.OWNER)
+                    val state = requireNotNull(store.load(groupId)).group
+                    store.receive(GroupChat.message(contact, state, historyText, 1700000123410).envelope())
+                } else {
+                    ChatHistoryStore(context, wallet, SaitoBackend.OWNER, contact.publicKey).save(listOf(
+                        PrivateChat.create(contact, wallet.publicKey, historyText, 1700000123410).envelope()))
+                }
+            }
             // Seed a recovered attachment through the protected draft API. Real picker
             // selection/preparation is covered by ChatImagesPreviewTest, not bypassed here.
             if (photo||largeFont) {
@@ -179,6 +191,16 @@ class ChatKeyboardPreviewTest {
                                 context.getString(if (group) R.string.chat_unencrypted else R.string.chat_encrypted)))).visibleBounds
                             check(privacy.height() > 0 && privacy.top >= statusTop.get()) {
                                 "Chat privacy indication must remain below the status bar: $privacy"
+                            }
+                            if (longReply) {
+                                val historyLabel = context.getString(if (group) R.string.group_messages else R.string.chat_messages)
+                                val history = requireNotNull(device.findObject(androidx.test.uiautomator.By.desc(historyLabel))).visibleBounds
+                                val minimum = kotlin.math.ceil(96 * context.resources.displayMetrics.density).toInt()
+                                check(history.height() >= minimum) {
+                                    "Populated history must retain96dp beside a photo, long reply and multiline editor with IME: $history, minimum=$minimum"
+                                }
+                                ui.waitUntil(10_000) { displayed(hasText(historyText)) }
+                                ui.onNodeWithText(historyText).assertIsDisplayed()
                             }
                             return bounds
                         }

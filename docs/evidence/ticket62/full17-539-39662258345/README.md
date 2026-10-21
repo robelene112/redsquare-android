@@ -1,0 +1,9 @@
+# Complete Android17 functional regression before dense-composer correction
+
+Run39662258345 is terminal SUCCESS at exact539942ae8278fc070ca3c6d57d954a799f4b1c39. Chat, Social and Wallet all succeed in this single dispatch. Strict frozen814 collector exits0:512 exact identities, allPASS;149 normal completions,35 deliberate interruptions,34 continuity records and109 archives/3437 original members. No missing/extra identity or assumption. No supplement or old-partition assembly. The five historical optional-observer gaps remain explicit in summary.json; no new evidence exclusion is accepted.
+
+This does NOT complete UI acceptance. Root inspected actual private/group long-reply+photo130%/IME screenshots from chat-keyboard-evidence.tar and found history regions only24/31pixels high. Both independent reviewers confirmed the source-supported readability gap. This fixture originally seeded only a recovered draft, not populated history, so particular obscured messages are not proved. Quote clipping is expected because the test intentionally scrolls its quotation preview to the photo. Four existing longReply cases are being strengthened with signed populated history and a96dp native history minimum before a whole-composer correction. All original identities, class/request bounds, draft/send/photo/privacy/protocol/recovery assertions remain.
+
+Any production correction requires fresh complete Android10/17 proof and a new signed version. Held61 must not be published merely because this earlier functional suite is green. Public60 remains live. No physical Pixel, configured-provider, store or owner app-wide UI acceptance follows.
+
+External original root: `/mnt/storage/redsquare-android-artifacts/conversation62-full17-539-39662258345`. Selected keyboard originals were extracted byte-exactly to external conversation62-full17-selected-observations for direct viewing. PNG/XML are separate observations, not atomic pairs.

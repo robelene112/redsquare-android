@@ -1,0 +1,88 @@
+{
+  "source": "539942ae8278fc070ca3c6d57d954a799f4b1c39",
+  "tallyBasis": "Complete primary partitioned execution, including every public read and additive status, post, composer and conversation journeys. No supplemental or tail assembly.",
+  "sdk": "17",
+  "partitions": {
+    "chat": {
+      "identities": 203,
+      "normalCompletions": 60,
+      "deliberateInterruptions": 15,
+      "continuityRecords": 13,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 827,
+      "xml": 689,
+      "visualErrors": [
+        {
+          "path": "chat/chat-image-history-evidence.tar",
+          "error": "unavailable archive"
+        }
+      ],
+      "files": 170
+    },
+    "social": {
+      "identities": 233,
+      "normalCompletions": 55,
+      "deliberateInterruptions": 17,
+      "continuityRecords": 15,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 592,
+      "xml": 485,
+      "visualErrors": [],
+      "files": 131
+    },
+    "wallet": {
+      "identities": 76,
+      "normalCompletions": 34,
+      "deliberateInterruptions": 3,
+      "continuityRecords": 6,
+      "nonzeroExits": [],
+      "failureStatuses": [],
+      "png": 167,
+      "xml": 118,
+      "visualErrors": [
+        {
+          "path": "wallet/live-official/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-official/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.png",
+          "error": "PNG signature",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.png: No such file or directory\n"
+        },
+        {
+          "path": "wallet/live-owner/wallet-first-failure.xml",
+          "error": "syntax error: line 1, column 0",
+          "prefix": "cat: cache/live-feed-evidence/wallet-first-failure.xml: No such file or directory\n"
+        }
+      ],
+      "files": 89
+    }
+  },
+  "identityComparison": {
+    "expected": 512,
+    "actual": 512,
+    "missing": [],
+    "extra": []
+  },
+  "totals": {
+    "identities": 512,
+    "normalCompletions": 149,
+    "deliberateInterruptions": 35,
+    "continuityRecords": 34,
+    "png": 1586,
+    "xml": 1292
+  },
+  "rawArtifactDirectory": "/mnt/storage/redsquare-android-artifacts/conversation62-full17-539-39662258345",
+  "limits": "Original external tar member hashes/structural validation are observations; selected originals are inspected separately. No physical/configured-provider/store acceptance.",
+  "passed": 512,
+  "assumptions": 0,
+  "assumptionIdentities": []
+}

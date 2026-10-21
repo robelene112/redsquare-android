@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 20:17 UTC:62 focused Wallet10/17GREEN, full17at539/full10at6d active; signed61 held, public60.
+Updated 2026-10-21 20:33 UTC:62 dense-composer readability regression being added; DO NOT PUBLISH61; public60.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -46,6 +46,23 @@ https://github.com/robelene112/redsquare-android/issues/62#issuecomment-63229228
 
 ### Current execution and next action
 
+DO NOT PUBLISH61. Root visual inspection of complete17 originals reveals dense
+photo+long-reply+four-line editor at130%/IME leaves only24px private/31px group
+history. Existing fixture has no history, so particular obscured messages are
+not proved; quote clipping is intentionally scrolled-to-photo, not itself a bug.
+Both reviewers confirm the readable-history acceptance gap. Strengthen existing
+ChatKeyboard longReply cases with signed populated history and96dp visible
+history floor before changing production. Existing10methods/300s stay. Product
+fix must budget whole composer, preserve exact draft and reachable Send/photo/
+reply/status controls. Any product change requires fresh full10/17 and a NEW
+signed62, never rebuild/reuse61. Public60 remains live.
+
+Full17run39662258345 is functionalSUCCESS: strict frozen collector512PASS,
+149normal/35interruptions/34continuity/109archives3437members, no identity deficit.
+This is PRE dense-composer correction, not final UI acceptance. Full10run39667308854
+still executes pre-correction6d. Retain both actual outcomes; never publish61
+merely because the old functional suite passes.
+
 Full539 Wallet10run39662252940 has a terminal failed Wallet partition: original
 WalletImport7methods103.016seconds,5PASS/2initial Wallet clicks fail before import
 assertions (replacement-backup and stalled-provider). Root explicitly cancelled the other two partitions after dispatching replacement full10;
@@ -62,14 +79,15 @@ at539. All acceptance goals must still finish. Prior full10remaining partitions
 were explicitly cancelled after the replacement dispatch; no passing pieces reused.
 
 Temporary diagnostic branch diagnose/group62-prefix-539 at3ffe6785f72a81e1f968b841f04a556f4eced9a9
-lives in external conversation62-warm-prefix-worktree. It changes only harness
+is preserved on the pushed diagnostic branch; its clean temporary worktree was
+removed after reviewed retention. It changes only harness
 group-admin routing to original Admin12/process protocols then GroupPreview22,
 matching the full prefix; never merge or publish from it. Diagnostic10run39665051021
 succeeds: Admin56.302s/GroupPreview171.552s, original180s limits; packet
 green10-group-prefix-3ff-39665051021 retains139originals.17run39665055842also
 SUCCESS: Admin92.119s/Group171.345s; corresponding green17packet139originals.
 Observer89749completed both downloads. Both evidence axes0/0 except stale status
-lines, now corrected. Remove own temporary worktree after retention. These focused results never replace complete gates.
+lines, now corrected. These focused results never replace complete gates.
 
 CI maintenance after62: current Gradle output v2cache is immutable by build-config
 key, seeded2026-10-20, so fixture-only changes repeatedly recompile unchanged main
