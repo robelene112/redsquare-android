@@ -143,7 +143,7 @@ class WalletImportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
-                ui.onNodeWithText("Wallet").performClick()
+                openWallet("valid-backup-entry")
                 val address = displayedWalletAddress(ui)
                 val original = "same-import-${UUID.randomUUID()}.json"
                 ui.onNodeWithText("Export wallet").performClick()
@@ -193,7 +193,7 @@ class WalletImportPreviewTest {
             ui.waitUntil(10_000) { keyguard.isDeviceSecure }
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
-                ui.onNodeWithText("Wallet").performClick()
+                openWallet("replacement-backup")
                 val address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Export wallet").performClick()
                 chooseTestBackup(device, oldBackup)
@@ -261,7 +261,7 @@ class WalletImportPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedDisabled", true)
                 .putExtra("balanceApiUrl", "http://127.0.0.1:${server.port}/balance/")).use {
-                ui.onNodeWithText("Wallet").performClick()
+                openWallet("balance-cases-entry")
                 val address = displayedWalletAddress(ui)
                 val cases = listOf(
                     Triple("positive", "Your current wallet has SAITO", false),
@@ -300,7 +300,7 @@ class WalletImportPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
             .putExtra("feedDisabled", true).putExtra("balanceApiUrl", "http://127.0.0.1:1/balance/")).use {
-            ui.onNodeWithText("Wallet").performClick()
+            openWallet("stalled-provider")
             val address = displayedWalletAddress(ui)
             ui.onNodeWithText("Import wallet").performClick()
             selectImportRoot(device)
@@ -360,7 +360,7 @@ class WalletImportPreviewTest {
                         { File(evidence.apply { mkdirs() }, "activation-failure-state.txt").writeText(
                             "selectedBackend=${backends.load().id}\n") })
                 }) {
-                    ui.onNodeWithText("Wallet").performClick()
+                    openWallet("activation-entry")
                     val originalAddress = displayedWalletAddress(ui)
                     originalWallet = wallets.loadExisting()
                     ui.onNodeWithText("Export wallet").performClick()
