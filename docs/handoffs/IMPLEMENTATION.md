@@ -1197,3 +1197,19 @@ policy/declaredstate restoration goal. Packet green17-work-viewports-71ad-395362
 retains41 hashes/one archive28 originals. Root viewed actual DarkSavedlist and
 Lightreopenededitable originals. This pairs focused work UI on both SDKs; complete
 8-method composer runs and full frozen504/505 acceptance still remain pending.
+
+Work17evidence5869aa5e has independent Spec0/documented Standards0/heuristic0.
+Corrected broad composer10run39536672425 at8586841ff71d74ba51e42dfdd49025a1bfa26ab4
+still FAILS, now first quote-Light open operator: Quote text and OnClick are
+separate unmerged nodes, so oldcombinedpredicate cannot match. Focus1method13.324s,
+draft2methods17.896s, full post1method20.746s and reply1method21.48s all PASS,
+including both130%themes and actual media/return/policy/Submitted/busy/exactcandidate/
+availability/ownedjobcleanup/restoration goals. Quote itself has not opened;
+its later goals and composer-work group are unreached, not accepted.
+Packet failed10-composer-quote-selector-858-39536672425 retains3archives101 originals.
+Root viewed actual quote-failure Conversation PNG; separate nativeXML places
+original body as a direct clickable post child and Quote TextView under its
+clickable button, both visible. Operator now selects that clickable button by
+its Quote-text descendant plus the same original-body ancestor, and explicitly
+requires enabled state before physical tap. No app/assertion/timeout waiver.
+17at858 remains pending; later corrected paired composer proof follows.

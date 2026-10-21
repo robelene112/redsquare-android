@@ -142,9 +142,9 @@ private fun runComposerPublishingJourney(ui: ComposeTestRule, kind: ComposerJour
                             if (kind == ComposerJourneyKind.REPLY) ui.onNodeWithText("Reply").performClick()
                             else {
                                 val referenceCard = hasClickAction() and hasAnyChild(hasText(referenceText))
-                                val quote = hasText("Quote") and hasClickAction() and hasAnyAncestor(referenceCard)
+                                val quote = hasClickAction() and hasAnyDescendant(hasText("Quote")) and hasAnyAncestor(referenceCard)
                                 ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(quote)
-                                ui.onNode(quote, useUnmergedTree = true).assertIsDisplayed().performClick()
+                                ui.onNode(quote, useUnmergedTree = true).assertIsDisplayed().assertIsEnabled().performClick()
                             }
                         }
                         ui.waitUntil(10_000) { ui.onNode(editor).isDisplayed() }

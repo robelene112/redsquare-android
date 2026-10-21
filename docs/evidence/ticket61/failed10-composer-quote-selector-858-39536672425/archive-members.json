@@ -1,0 +1,626 @@
+{
+  "composer-draft-evidence.tar": {
+    "sha256": "a35abf035c102c3db5d30d64f3cc38f564d867938ce864fdf913f002af8246d6",
+    "bytes": 603136,
+    "members": [
+      {
+        "name": "composer-draft-evidence/composer-media-storage-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-font-scale.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-light-unconfirmed-images.xml",
+        "bytes": 27116,
+        "sha256": "62f8fb7be4616d73144649cbb0c5eca148a3091ccdb519a7818bb3f2bb1ac7c1",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-light-unconfirmed-images.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-light-unconfirmed-images.png",
+        "bytes": 33117,
+        "sha256": "bd9577d4618a70e632b057a1b2d6b6fdd773d9a58e0de58334cd06d99d7e9848",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-light-unconfirmed-images.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-light-repaired-images.xml",
+        "bytes": 23784,
+        "sha256": "35fdec47b048121fefa9adc70bfb71b62294dca867b9de76dc66aac7291d60a7",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-light-repaired-images.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-light-repaired-images.png",
+        "bytes": 27836,
+        "sha256": "48044df452e7f0dd803e12ba05f5e366f70bc60515b4a9052697812e2015ad89",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-light-repaired-images.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-dark-unconfirmed-images.xml",
+        "bytes": 27115,
+        "sha256": "940c9df076ab31eed8cc6d6d8874ed8ea7c0b1bc59fe2cac307b9b094b8eead2",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-dark-unconfirmed-images.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-dark-unconfirmed-images.png",
+        "bytes": 33461,
+        "sha256": "2861d48cfd67b6fcc460e6b89b0dff02db05c9f5be8e7551972ccfe3194ab4bd",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-dark-unconfirmed-images.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-dark-repaired-images.xml",
+        "bytes": 23783,
+        "sha256": "cccbd69b847d1c4b12bec18cf3fdcf08fbbc2573514623cd6cafa2b2367b21c4",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-dark-repaired-images.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-320-font130-dark-repaired-images.png",
+        "bytes": 28079,
+        "sha256": "3c784e1f8aee8a3c58976c1654d286ee45fc09971f6ebc553af1f0287b2b6557",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-320-font130-dark-repaired-images.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-media-storage-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-media-storage-font-restored.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-font-scale.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-saved.xml",
+        "bytes": 23776,
+        "sha256": "48f0a1efd3e0b971a6c9e7bbc468f130576d3e77a9dcee90da13a92c9871816a",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-saved.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-saved.png",
+        "bytes": 26502,
+        "sha256": "331c605e6ca6b66d431216fae4db391c94ab658c48f9bd39daaf8541235509a6",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-saved.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-edited.xml",
+        "bytes": 41767,
+        "sha256": "fa07458785d9e65fdef43e17de79c341e4ad600df4d05fffee62fca9f15747be",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-edited.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-edited.png",
+        "bytes": 34772,
+        "sha256": "d54460d675d37b20a5b2fa8a0e00286386d2c50a417dcc5b3fc201e159b7d50e",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-edited.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-returned.xml",
+        "bytes": 23774,
+        "sha256": "54cbcb81531b62c5ea95a1660768229956d5cb48ce363ebc47a020158eb8746e",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-returned.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-light-returned.png",
+        "bytes": 26166,
+        "sha256": "5b9d4e27cd68c80788417e34a3d1fbbd37cba1ec3c93ca0dabfe2c6cfb77ada2",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-light-returned.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-saved.xml",
+        "bytes": 23775,
+        "sha256": "156f8f6dcfe9ac0e067e6091f8770ce01d6fb1c7f445d026a49679971111fddd",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-saved.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-saved.png",
+        "bytes": 26847,
+        "sha256": "79c6410909244e098abe94ea67bd70d8562f3fbf29645dcc6daab951577bb464",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-saved.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-edited.xml",
+        "bytes": 41766,
+        "sha256": "24e312b1ee1478f212ba5045bad4cd5ff098446e762621e7bbe3014f5802e1d8",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-edited.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-edited.png",
+        "bytes": 35229,
+        "sha256": "258a5c0c040902dbd5ebd7fb1b0438f806028773abd73754c175554e0a4d78e1",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-edited.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-returned.xml",
+        "bytes": 23773,
+        "sha256": "7f1dbf913e2e75e3ceec183ef1ca11103f1f971ec8f2e1d96c68b6d34c8c07e0",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-returned.xml"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-320-font130-dark-returned.png",
+        "bytes": 26566,
+        "sha256": "3627558b83f77917aa5497b119d628b8985f05f1bde6350d9d0ed2a13f0429e2",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-320-font130-dark-returned.png"
+      },
+      {
+        "name": "composer-draft-evidence/composer-draft-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-draft-evidence/composer-draft-evidence/composer-draft-font-restored.json"
+      }
+    ]
+  },
+  "composer-focus-evidence.tar": {
+    "sha256": "c9f2844694dafeb2ff2448e27fc846e9862951ac166128a8198fb7aaf4d26fac",
+    "bytes": 465920,
+    "members": [
+      {
+        "name": "composer-focus-evidence/composer-focus-font-scale.json",
+        "bytes": 99,
+        "sha256": "8576612a58a4134fb7e7bc685456d63ba16af0c0389d2a13b4e7a61a042beee2",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-font-scale.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-writing.xml",
+        "bytes": 42487,
+        "sha256": "0faa23671e07a734b4c5baabbaf212641e2121464a609d02271f98ebf453aa8b",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-writing.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-writing.png",
+        "bytes": 42508,
+        "sha256": "8ae99f0896a82d848ad61f0413fceed43e82e1acabb3c955165b9284285cc5f3",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-writing.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-hierarchy.json",
+        "bytes": 98,
+        "sha256": "f63d81fe460a07fe32c220d2c78120a63791f70ef494689923ef73a010e675e4",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-hierarchy.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.xml",
+        "bytes": 42032,
+        "sha256": "bdf0ae27847d1394d56659ea8dba8c63b05e193dd366295136e7963f0c93a589",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.png",
+        "bytes": 41916,
+        "sha256": "774619085480415a5eb04c4490ff0361072b1b8cf7a3a39b81bc04992530c5cb",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-ime.json",
+        "bytes": 108,
+        "sha256": "32872e8f57272b2ed09c89ec9f32579c5b8d62eb538c7e34fa1726a647030821",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-ime.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-returned-draft.xml",
+        "bytes": 22456,
+        "sha256": "fd4b272c9f327015d11cde2ea475b0fd42840cddc7b1a1aeeda60ca970c3c680",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-returned-draft.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-light-returned-draft.png",
+        "bytes": 33127,
+        "sha256": "f74b4dc71adf11b02a98aa853f35f6bf0fd2680397aa563ab9ca04b8ed21f76f",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-light-returned-draft.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-writing.xml",
+        "bytes": 40447,
+        "sha256": "6793b2848253f58ad50bc588d673dc263e6aff1588aa2217f2d85b4a897b31ef",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-writing.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-writing.png",
+        "bytes": 42090,
+        "sha256": "fed86a7da14255e2a59211ad2cd399cb020a4ccb8fb09da120b2e66ff4b8ad77",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-writing.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-hierarchy.json",
+        "bytes": 98,
+        "sha256": "f1c5812e56f7bc70b982b88c43dda57d66e6d27335bd282281dcf4bf4059e038",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-hierarchy.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.xml",
+        "bytes": 42031,
+        "sha256": "117d40194755cadac34df21942eda6ef0b8563d5b8c306d3d6e35422ca46d444",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.png",
+        "bytes": 42382,
+        "sha256": "e1319b5a81324e995b7ba5fcf5e1665fb7698eadf11b675e357a79647da34687",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-ime.json",
+        "bytes": 108,
+        "sha256": "32872e8f57272b2ed09c89ec9f32579c5b8d62eb538c7e34fa1726a647030821",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-ime.json"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.xml",
+        "bytes": 22455,
+        "sha256": "81d7ee2790bd817f40e981e4386356dfe89693c181d3b71bc1ff67da6b3d9aad",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.xml"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.png",
+        "bytes": 33573,
+        "sha256": "7b53087824417aa993f29fa3406ba545b732cee4b1fb3778f74f3e894ff0ad01",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-320-font130-dark-returned-draft.png"
+      },
+      {
+        "name": "composer-focus-evidence/composer-focus-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/composer-focus-evidence/composer-focus-evidence/composer-focus-font-restored.json"
+      }
+    ]
+  },
+  "composer-publishing-evidence.tar": {
+    "sha256": "a0db89be8708c4a63f051eb91ccc31a2b06301f5aac134d1ba429bc470dbbf29",
+    "bytes": 1527296,
+    "members": [
+      {
+        "name": "composer-publishing-evidence/composer-post-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-font-scale.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-attached.xml",
+        "bytes": 25453,
+        "sha256": "00de0f413c96e58ea676fca3b856774846550b502918e4d3661ea556beaa6094",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-attached.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-attached.png",
+        "bytes": 33608,
+        "sha256": "dd1b9bcaa3e2a8f336dfa3aa2d552e1e9a2c1e475afa9d67fc9416a100d85a7a",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-attached.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-returned-ime.xml",
+        "bytes": 43808,
+        "sha256": "6163208876d065258a247e9b2ae658ce6a472c5ca5381a7c309228b66a514fa6",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-returned-ime.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-returned-ime.png",
+        "bytes": 41061,
+        "sha256": "808f474af537b4d0a7f20765894c92d36a05fc2b8eb03a5ac63b9e523ed61d11",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-returned-ime.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-policy.xml",
+        "bytes": 20814,
+        "sha256": "7d1cfd971e33c9dcf75334c87f871e6d5b3a183d928659c0657cb52c9101241c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-policy.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-policy.png",
+        "bytes": 38991,
+        "sha256": "61878a16e0708a2eee7d6eac98184ac4f57840834790c084400847b26af5ad7c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-policy.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-submitted.xml",
+        "bytes": 25509,
+        "sha256": "8bc0d59cffe5728237d47e7dff28e72bb9417910b68ed0eaa050bc8f7c30f75c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-submitted.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-submitted.png",
+        "bytes": 34678,
+        "sha256": "ac537195151c3e365e0750670a1273fabe018458c528524b99b4a2778c71d369",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-submitted.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-available.xml",
+        "bytes": 24234,
+        "sha256": "82eb8f9ce633f351f9502c2af242c2fca1f8064c7dddf0652c3143293a7a2bca",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-available.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-light-available.png",
+        "bytes": 31365,
+        "sha256": "8c32a80e81e0f5520c02d235947911b7502aed76b95de1ed4f34d2a94819779e",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-light-available.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-attached.xml",
+        "bytes": 25452,
+        "sha256": "baa63e6a26c3bc688428d3764d09e705e0fa93eb189e77ce53025b4fb307f531",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-attached.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-attached.png",
+        "bytes": 33985,
+        "sha256": "05449fee23d64228a2828db5b90b1523d268608dca656a99a0a9906062e69e7c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-attached.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-returned-ime.xml",
+        "bytes": 43807,
+        "sha256": "d5026a232efb88dc37b32f820c9be95a274f07d48173d8376975cb460f707e58",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-returned-ime.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-returned-ime.png",
+        "bytes": 41131,
+        "sha256": "c5977baf72d4b1d862215d292260995babedd9ad8048618854cc0b01e441af78",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-returned-ime.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-policy.xml",
+        "bytes": 20814,
+        "sha256": "7d1cfd971e33c9dcf75334c87f871e6d5b3a183d928659c0657cb52c9101241c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-policy.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-policy.png",
+        "bytes": 39620,
+        "sha256": "43dd88223c69140c35bfdfbab8dd5f56a501c083f17705c238225beff0b5b7d1",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-policy.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-submitted.xml",
+        "bytes": 25508,
+        "sha256": "6ff747297fdbabd034b73af01a3afec1a2df5509d93864010ff2a7a8eb21729d",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-submitted.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-submitted.png",
+        "bytes": 34863,
+        "sha256": "5bbd9e227f51b67113a535cdd4fa39bf402b2995090168355b35a6f7ff949802",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-submitted.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-available.xml",
+        "bytes": 24233,
+        "sha256": "7c8a04989a39ae27356ad636e551500ebce1fb02e8ebcf6edaf62778d08c5347",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-available.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-320-font130-dark-available.png",
+        "bytes": 31477,
+        "sha256": "15e4f88fe6e1fd0b20fe80e98973d909e4590680d47293a94c391feaada33d1a",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-320-font130-dark-available.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-post-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-post-font-restored.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-font-scale.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-attached.xml",
+        "bytes": 37713,
+        "sha256": "4fb687df2cfcecbe8df8c084912d37f876220a5417cbb93f91c934b91d37c6d2",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-attached.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-attached.png",
+        "bytes": 36225,
+        "sha256": "4dec526a7a48c340eded65c55e94f359f46885a79d4fa0662e2953a65d649812",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-attached.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-returned-ime.xml",
+        "bytes": 43807,
+        "sha256": "1d714f1692c01c7be8c29618cc88a5ebd9463709a3e580199e63329829c9ab9d",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-returned-ime.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-returned-ime.png",
+        "bytes": 40576,
+        "sha256": "57be5c77b5cebb58f515483f7be3ed34e4b6cea10fc8103375be65f2b1fc43cc",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-returned-ime.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-policy.xml",
+        "bytes": 20814,
+        "sha256": "7d1cfd971e33c9dcf75334c87f871e6d5b3a183d928659c0657cb52c9101241c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-policy.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-policy.png",
+        "bytes": 41211,
+        "sha256": "86f19788bf3a1e4fd3fa62d2bff179904031d0d490e17fa47fea0df97e2de741",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-policy.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-submitted.xml",
+        "bytes": 38185,
+        "sha256": "9fffbb160504b4bda5a89e6aaf41069cab541fffa78d2c3c76c764b2b7115e62",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-submitted.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-submitted.png",
+        "bytes": 40133,
+        "sha256": "be822c3588b9de40713b89cd5f0dd5275e3a4baf9348c787e61ba3582809581e",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-submitted.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-available.xml",
+        "bytes": 38148,
+        "sha256": "6191062d0b5ed79a6728f705b4604b9b96667fd80b00bd8412c67ae4dce52136",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-available.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-light-available.png",
+        "bytes": 38911,
+        "sha256": "3900afa8bf175681df0b678b511e09f18657a3b92bc89929fce54302038f4857",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-light-available.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-attached.xml",
+        "bytes": 37712,
+        "sha256": "f371bb5bd0b75de52f6bb7035f1fb6570b98ce235cab1abb3bddadddd31142d7",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-attached.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-attached.png",
+        "bytes": 36619,
+        "sha256": "905f539cb23a01880f5a5131dc0c79fe797a04d6e9c90e3c37e8b4444bd60167",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-attached.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-returned-ime.xml",
+        "bytes": 43806,
+        "sha256": "3bc86821fe881d0be24eb22d2873110d13faa9e49cbcf0aa06b28630ce6037aa",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-returned-ime.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-returned-ime.png",
+        "bytes": 40710,
+        "sha256": "e65e025683c7f5abc0850d65ed3eb65476834d84f5593f49169eb87dd7ded0ec",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-returned-ime.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-policy.xml",
+        "bytes": 20814,
+        "sha256": "7d1cfd971e33c9dcf75334c87f871e6d5b3a183d928659c0657cb52c9101241c",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-policy.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-policy.png",
+        "bytes": 41857,
+        "sha256": "73b237743b267552f0f37d1bfe29654522592a6faf14fa0760a37d97d0b032c7",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-policy.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-submitted.xml",
+        "bytes": 38184,
+        "sha256": "a667f8d3fdccb065f84c618977605a1d6be2964b13c1feccbe8f1fcdda9b01c0",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-submitted.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-submitted.png",
+        "bytes": 40655,
+        "sha256": "c237c68900fbc44db30fb711c68ef71278a775528f3e0afd8eab7e8831bad7a4",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-submitted.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-available.xml",
+        "bytes": 38147,
+        "sha256": "ce2ef7d77e76ab493a66d1e6db375ba04db49729493d3e53aecf90994854bdcf",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-available.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-320-font130-dark-available.png",
+        "bytes": 39447,
+        "sha256": "98bc55b7e85a0c2fffd8ccb1e6b69e3dd29b9d0af5ae7e4c4c28b4b8c4343e96",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-320-font130-dark-available.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-reply-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-reply-font-restored.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-quote-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-quote-font-scale.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-quote-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-quote-320-font130-light-configuration.json"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-quote-320-font130-light-failure.xml",
+        "bytes": 44718,
+        "sha256": "737d2eea1e33e43a80453c820136dc82d051ce45dc73c2ff5270d19ebd1c65c2",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-quote-320-font130-light-failure.xml"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-quote-320-font130-light-failure.png",
+        "bytes": 43726,
+        "sha256": "305599b90431541d4aeb8eb681646792b0af8840feda816632dce536112f2925",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-quote-320-font130-light-failure.png"
+      },
+      {
+        "name": "composer-publishing-evidence/composer-quote-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/composer-publishing-evidence/composer-publishing-evidence/composer-quote-font-restored.json"
+      }
+    ]
+  }
+}
