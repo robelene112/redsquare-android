@@ -1023,3 +1023,16 @@ confirmed metadata before each composer write and restores only on success.
 Corrected exact6405 images17run39532581101 completes SUCCESS. Packet
 green17-images-pinned-6405-39532581101 retains seven archives54 originals. Full
 old image assertion/process inventory inspection follows; no complete61 claim.
+
+Exact6405 corrected images10run39532580922 also completes SUCCESS; packet
+green10-images-pinned-6405-39532580922 binds79 hashes/seven archives56 originals.
+Both SDKs preserve posting6/6, preparation5/5, lifecycle7/7 and both original
+image-process/image-queue actual interruption/continuity protocols.10class times
+29.341/21.025/56.256s;17times40.27/16.384/53.692s. Original18 normal methods and
+all process/pixel/protocol goals remain, no timeout or exclusion adjustment.
+Root viewed10saved-image-draft and17published-quote originals.17quote has its
+available status below the current viewport; this focused functional success is
+not final61 delivery-status visibility acceptance. Upcoming slice pins outcomes.
+Current387fd3e4 invalidates confirmed saved metadata before every composer write;
+source/evidence Standards0, Spec review and local compile pending. Combined
+composer10/17 native GREEN follows after those checks.
