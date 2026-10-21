@@ -1072,8 +1072,9 @@ journeys and final61 acceptance remain outstanding.
 
 Paired focused composer GREEN at exact1ff426712c484e2e341fad2e2a433118591f5411:
 10run39533617117 succeeds focus1method14.097s/draft2methods18.058s;
-17run39533617140 also SUCCESS, original method identities and180s bounds intact.
-Each saved-confirmation packet retains61 hashes/two archives48 originals. Root
+17run39533617140 succeeds focus1method47.232s/draft2methods23.868s.
+Original method identities and180s bounds remain intact. Saved-confirmation
+packets retain61/63 hashes respectively, two archives48 originals on each SDK. Root
 viewed Light unconfirmed media and Dark repaired media originals on both SDKs:
 Unsaved changes replaces the stale claim after storage error; Saved on this
 device returns after actual repaired removal with exact caption. Both methods
