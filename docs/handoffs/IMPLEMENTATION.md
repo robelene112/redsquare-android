@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 05:39 UTC:62 cached-opening native RED retained; minimal fix compiling.
+Updated 2026-10-21 05:56 UTC:62 first cached-opening GREEN on10/17 retained; review pending.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -57,9 +57,18 @@ success-path cache/wallet/node/zeroTX/return/health assertions unreached. Indepe
 cleanup closes Activity before restoration; font record1.0->1.0 retained.
 
 Minimal production patch now anchors first nonempty private history at its last
-item, retaining the initialized flag with restored list state. No layout/media/
-protocol/store change. App/test compile is active; source and RED evidence review
-follow. Same original test then needs focused GREEN on10/17. This is only first
+item, retaining the initialized flag with restored list state and explicit wallet/
+backend/contact effect keys. No layout/media/protocol/store change. Final scoped
+app/test compile SUCCESS1m59 and source/RED packet reviews0/0. Same original test
+executes exact34b021964c5df57f110ce3b63fc6a47445e79002:10run39551269289
+(job119060780530) and17run39551271684(job119060787855); both SUCCESS,
+one unchanged method15.956s/56.562s, both320dp130% themes. One archive9 originals
+per SDK; packets green10-private-latest-34b-39551269289 and
+green17-private-latest-34b-39551271684. Root viewed10 Light/Dark and17 Dark opened
+originals.69 visible, but old layout still clips its lower text/actions. This is
+only cached-opening GREEN, not full62 polish. Final focused evidence review follows.
+Next vertical case: incoming follows only at end, preserves older reading and
+offers New messages. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

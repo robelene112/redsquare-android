@@ -1,0 +1,62 @@
+{
+  "conversation-viewport-evidence.tar": {
+    "sha256": "bf1b3cb616c8e28bb19013fac46d86883f8b54a16635979c237d9d9090d605d8",
+    "bytes": 209408,
+    "members": [
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-activity-lifecycle.jsonl",
+        "bytes": 2769,
+        "sha256": "11d6e7889cc1b97a5c889d3aae5a544c2a1c01ba788b8be76cf34ef41b297a3c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-font-scale.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.xml",
+        "bytes": 48813,
+        "sha256": "e7d381bdedb072e3733793a2af6b1673e4167815f9d65c1b8da2ee65bfa6aa9c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.png",
+        "bytes": 49187,
+        "sha256": "b876b8907ec030aad45e39668c7d611aaf647661bb9f9ecb5b20242de8d16f8c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-light-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.xml",
+        "bytes": 48813,
+        "sha256": "e7d381bdedb072e3733793a2af6b1673e4167815f9d65c1b8da2ee65bfa6aa9c",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.xml"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.png",
+        "bytes": 49786,
+        "sha256": "fd95835a67216109dd655e20afcae87727b69932cb097639afc0256d8957dbdd",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-320-font130-dark-opened.png"
+      },
+      {
+        "name": "conversation-viewport-evidence/conversation-private-latest-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/conversation-viewport-evidence/conversation-viewport-evidence/conversation-private-latest-font-restored.json"
+      }
+    ]
+  }
+}
