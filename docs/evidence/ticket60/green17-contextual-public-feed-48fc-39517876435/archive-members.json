@@ -1,0 +1,80 @@
+{
+  "backend-ui-evidence.tar": {
+    "sha256": "aa1c8fffe0dd6977cc3e3522edf3473241516171b67b77b0deb1105d738d4eb8",
+    "bytes": 180224,
+    "members": [
+      {
+        "name": "backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png",
+        "bytes": 33964,
+        "sha256": "854a53a62095d6ba23ddf8d1a401daf49c0d241d3b27dfeeffa40b612ac39667",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/unreadableSelectionRequiresAnExplicitChoiceBeforeConnecting.png"
+      },
+      {
+        "name": "backend-ui-evidence/screen.png",
+        "bytes": 35775,
+        "sha256": "6c68fe19218c298446787e0ff0baf5698df3cb192f558990dc52fa0ddc2a41a3",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/screen.png"
+      },
+      {
+        "name": "backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png",
+        "bytes": 35775,
+        "sha256": "6c68fe19218c298446787e0ff0baf5698df3cb192f558990dc52fa0ddc2a41a3",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/uncertainSelectionCommitStopsConnectionsUntilExplicitRecoveryAfterRestart.png"
+      },
+      {
+        "name": "backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png",
+        "bytes": 33964,
+        "sha256": "854a53a62095d6ba23ddf8d1a401daf49c0d241d3b27dfeeffa40b612ac39667",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/failedSelectionSaveKeepsTheCurrentServerAndCanBeRetried.png"
+      },
+      {
+        "name": "backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png",
+        "bytes": 35685,
+        "sha256": "7cef99a3305e1675d3e12117171497226ff709dbb8a029fb37acacbea49dfc67",
+        "retainedPath": "originals/backend-ui-evidence/backend-ui-evidence/switchingServersKeepsIdentityAndRestoresSeparateCachesThroughOutage.png"
+      }
+    ]
+  },
+  "feed-readiness-evidence.tar": {
+    "sha256": "a0cd36f7f685ed5e5bcc2fbb40bb2565ee5cc70e3b07e4bdbc78a517d8a4ff8e",
+    "bytes": 199680,
+    "members": [
+      {
+        "name": "feed-readiness-evidence/muted.xml",
+        "bytes": 37515,
+        "sha256": "0e3db28183b516acbe5d62a0caa718f4842f14f7d5145c87536c506977bf0f24",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/muted.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/muted.png",
+        "bytes": 19377,
+        "sha256": "3d761c33714263bf6c401c34bac30baa457b163f317bf55fca6c42aed7cfdaa5",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/muted.png"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.xml",
+        "bytes": 20628,
+        "sha256": "3d409b3df13edb03daf6c0e5aded26613c01e2a1db87f613c01523953951cc5d",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/ready-behind-dialog.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/ready-behind-dialog.png",
+        "bytes": 37427,
+        "sha256": "74d547bc722f4b8dd42594d238677e7f05483b6df798e2d0c8df43a8c829c344",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/ready-behind-dialog.png"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.xml",
+        "bytes": 47838,
+        "sha256": "e103d479a1c53abf2b86491e1dff7a9cd61b10abc927c39c65580f75e41e890a",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/interactive.xml"
+      },
+      {
+        "name": "feed-readiness-evidence/interactive.png",
+        "bytes": 30380,
+        "sha256": "0a172bd53e1e8278ed7721e6479438eb7e043ecd63aae7fd823ded405bd4ec73",
+        "retainedPath": "originals/feed-readiness-evidence/feed-readiness-evidence/interactive.png"
+      }
+    ]
+  }
+}
