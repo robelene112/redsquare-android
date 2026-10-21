@@ -1036,3 +1036,18 @@ not final61 delivery-status visibility acceptance. Upcoming slice pins outcomes.
 Current387fd3e4 invalidates confirmed saved metadata before every composer write;
 source/evidence Standards0, Spec review and local compile pending. Combined
 composer10/17 native GREEN follows after those checks.
+
+Saved-claim product387fd3e4 has independent Spec0/documented Standards0/heuristic0;
+local app/test Kotlin compile SUCCESS3m35s (completed before later list styling).
+Combined composer10run39533617117 and17run39533617140 dispatch at exact1ff426712c484e2e341fad2e2a433118591f5411;
+metadata binding/outcomes remain pending. Each retains original180s bounds for
+focus and draft classes. No corrected native GREEN is claimed yet.
+
+Next reversible61 layout slice styles queued work and saved-author lists through
+a shared PublishingWorkItem surface with visible original-node caption, readable
+content and compact120dp image previews. Vector Back, distinct outlined contextual
+actions and shared status/details replace plain stacked text. Existing loaders,
+selection, cancellation, origin binding and storage/publication guards remain.
+A list-level Saved claim requires successful loading and nonempty records; failure
+never produces it. Existing native queue/author recovery acceptance remains
+mandatory; no new implementation-mirroring layout tests are introduced.

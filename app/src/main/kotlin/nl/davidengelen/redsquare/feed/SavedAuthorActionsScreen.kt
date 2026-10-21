@@ -7,14 +7,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 private data class SavedAuthorRow(val work: PostDraftStore.AuthorWork, val original: FeedPost)
 
@@ -50,26 +54,31 @@ internal fun SavedAuthorActionsScreen(wallet: SaitoWallet, endpoint: String, bac
     }
     BackHandler(onBack = onBack)
     Column(modifier) {
-        Row {
-            TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.author_saved_changes), Modifier.padding(vertical = 12.dp),
-                style = MaterialTheme.typography.titleLarge)
+        Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
+            Text(stringResource(R.string.author_saved_changes), Modifier.weight(1f),
+                style = MaterialTheme.typography.titleMedium)
         }
-        Text(backend.domain, style = MaterialTheme.typography.labelMedium)
-        Text(stringResource(R.string.author_saved_manual))
-        if (failed) {
-            Text(stringResource(R.string.post_draft_error))
-            TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-        }
-        if (ready && rows.isEmpty()) Text(stringResource(R.string.author_saved_empty))
-        LazyColumn {
+        InlineStatus(if (ready && !failed && rows.isNotEmpty()) stringResource(R.string.post_saved_device) else null,
+            details = listOf(stringResource(R.string.author_saved_manual), stringResource(R.string.status_origin_node, backend.domain)),
+            announce = false)
+        InlineStatus(if (failed) stringResource(R.string.post_draft_error) else null, StatusTone.ERROR,
+            actionLabel = stringResource(R.string.retry), onAction = { reload++ })
+        if (ready && rows.isEmpty()) Text(stringResource(R.string.author_saved_empty),
+            Modifier.padding(vertical = AppSpacing.gap), style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small),
+            contentPadding = PaddingValues(bottom = AppSpacing.gap)) {
             items(rows, key = { "${it.work.kind.storageId}:${it.work.target}" }) { row ->
-                Column(Modifier.padding(vertical = 12.dp)) {
-                    Text(if (row.work.kind == AuthorActionKind.EDIT) row.work.saved.text else row.original.text)
-                    TextButton(onClick = { selected = row }) {
+                PublishingWorkItem(backend.domain) {
+                    Text(if (row.work.kind == AuthorActionKind.EDIT) row.work.saved.text else row.original.text,
+                        style = MaterialTheme.typography.bodyLarge)
+                    if (row.work.saved.transaction != null) InlineStatus(stringResource(
+                        if (row.work.kind == AuthorActionKind.EDIT) R.string.author_edit_pending else R.string.author_delete_pending),
+                        StatusTone.WARNING)
+                    OutlinedButton(onClick = { selected = row }) {
                         Text(stringResource(if (row.work.kind == AuthorActionKind.EDIT) R.string.author_edit_title else R.string.author_delete_title))
                     }
-                    HorizontalDivider()
                 }
             }
         }

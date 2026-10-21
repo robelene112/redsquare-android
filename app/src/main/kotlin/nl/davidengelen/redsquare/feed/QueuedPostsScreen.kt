@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -16,6 +17,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 private data class QueuedPostRow(val backend: SaitoBackend, val store: PostDraftStore, val saved: PostDraftStore.Saved)
 
@@ -44,25 +49,27 @@ internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: 
     }
     BackHandler(enabled = saving == null, onBack = onBack)
     Column(modifier) {
-        Row {
-            TextButton(enabled = saving == null, onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.post_queue_title), Modifier.padding(vertical = 12.dp), style = MaterialTheme.typography.titleLarge)
+        Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), saving == null, onBack)
+            Text(stringResource(R.string.post_queue_title), Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
         }
-        if (error) {
-            Text(stringResource(R.string.post_queue_storage_error))
-            TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-        }
-        if (ready && rows.isEmpty()) Text(stringResource(R.string.post_queue_empty))
-        LazyColumn {
+        InlineStatus(if (error) stringResource(R.string.post_queue_storage_error) else null, StatusTone.ERROR,
+            actionLabel = stringResource(R.string.retry), onAction = { reload++ })
+        if (ready && rows.isEmpty()) Text(stringResource(R.string.post_queue_empty),
+            Modifier.padding(vertical = AppSpacing.gap), style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small),
+            contentPadding = PaddingValues(bottom = AppSpacing.gap)) {
             items(rows, key = { requireNotNull(it.saved.transaction).id }) { row ->
                 val id = requireNotNull(row.saved.transaction).id
-                Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
-                    Text(row.backend.domain, style = MaterialTheme.typography.labelMedium)
-                    Text(row.saved.text, Modifier.padding(vertical = 8.dp))
-                    PostImages(row.saved.images, row.backend, gifAttributions = row.saved.gifAttributions)
-                    Text(stringResource(if (row.saved.queued) R.string.post_queued else R.string.post_pending))
-                    if (row.backend != selected) Text(stringResource(R.string.post_queue_paused))
-                    if (row.saved.queued) TextButton(enabled = saving == null, onClick = {
+                PublishingWorkItem(row.backend.domain) {
+                    if (row.saved.text.isNotEmpty()) Text(row.saved.text, style = MaterialTheme.typography.bodyLarge)
+                    PostImages(row.saved.images, row.backend, gifAttributions = row.saved.gifAttributions, previewHeight = 120.dp)
+                    InlineStatus(stringResource(if (row.saved.queued) R.string.post_queued else R.string.post_pending),
+                        if (row.saved.queued) StatusTone.INFO else StatusTone.WARNING,
+                        details = listOf(stringResource(R.string.status_origin_node, row.backend.domain)))
+                    InlineStatus(if (row.backend != selected) stringResource(R.string.post_queue_paused) else null, StatusTone.WARNING)
+                    if (row.saved.queued) OutlinedButton(enabled = saving == null, onClick = {
                         saving = id
                         scope.launch {
                             try {
@@ -72,7 +79,6 @@ internal fun QueuedPostsScreen(owner: String, selected: SaitoBackend, modifier: 
                             finally { saving = null }
                         }
                     }) { Text(stringResource(R.string.post_cancel_queued)) }
-                    HorizontalDivider()
                 }
             }
         }
