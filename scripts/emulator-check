@@ -693,11 +693,6 @@ if [[ "${TEST_SCOPE:-full}" == group-admin* ]]; then
     printf '%s\n' 'Focused native group administrator flow only; complete acceptance and live writes not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "${TEST_SCOPE:-full}" == group-ui-history* ]]; then
-    verify_group_chat_native GroupChatPreviewTest 180 group-chat group-chat-evidence
-    printf '%s\n' 'Focused complete22-method group history class only; actions, process recovery and full acceptance not run.' > "$evidence/scope.txt"
-    exit 0
-fi
 if [[ "${TEST_SCOPE:-full}" == group-ui* ]]; then
     verify_group_chat_native GroupChatActionsPreviewTest 60 group-chat-actions group-chat-actions-evidence
     verify_group_chat_native ChatMixedReceptionPreviewTest 60 chat-mixed chat-mixed-evidence

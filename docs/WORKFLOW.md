@@ -167,12 +167,6 @@ complete first-release scope and the established production boundaries.
    bound. Best-effort flags/bounds/gesture observations and an unmodified in-scope
    failure capture distinguish actual clearability from gesture or shade state;
    a focused pass is not complete acceptance.
-   `group-ui-history` and its Android17 variant isolate the entire existing
-   22-method GroupChatPreviewTest under its original180second bound. This lets
-   timing diagnosis reach that class when an earlier cold group-action fixture
-   stops the broader focused scope. No method is split or removed. Ordinary
-   group-ui and complete full scopes retain their original class order, action
-   and process checks; focused class success is not complete acceptance.
    For conversation62, `conversation-viewport` and its Android17 variant retain
    cached private opening, real private receipt/reading and group receipt/reading
    as separate180second classes. The original group reading method retains130%;

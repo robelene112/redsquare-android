@@ -810,9 +810,9 @@ class GroupChatPreviewTest {
                             ui.withMessageAction("Like") {
                                 assertIsDisplayed()
                                 ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1}
+                                captureGroupViewport("reaction-after-action-scroll")
+                                assertIsDisplayed().performClick()
                             }
-                            captureGroupViewport("reaction-after-action-scroll")
-                            ui.withMessageAction("Like") { assertIsDisplayed().performClick() }
                             waitFor("1 like")
                             ui.withMessageAction("Unlike") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Unlike") and isEnabled()).fetchSemanticsNodes().size==1} }
                             waitFor("Forwarded. Delivery is not confirmed.")
@@ -823,11 +823,13 @@ class GroupChatPreviewTest {
                             deliver(first) // An echoed original must not toggle its own like a second time.
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,"group-chat-evidence/reaction-liked.png"),"1 like")
-                            ui.withMessageAction("Unlike") { assertIsDisplayed().assertIsEnabled() }
-                            captureGroupViewport("reaction-unlike-ready")
-                            check(peer.transactions.size==1&&peer.relayedMessages.size==1)
-                            check(saved().candidate?.envelope()==first.envelope())
-                            ui.withMessageAction("Unlike") { assertIsDisplayed().assertIsEnabled().performClick() }
+                            ui.withMessageAction("Unlike") {
+                                assertIsDisplayed().assertIsEnabled()
+                                captureGroupViewport("reaction-unlike-ready")
+                                check(peer.transactions.size==1&&peer.relayedMessages.size==1)
+                                check(saved().candidate?.envelope()==first.envelope())
+                                assertIsDisplayed().assertIsEnabled().performClick()
+                            }
                             ui.withMessageAction("Like") { ui.waitUntil(15_000){ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().size==1} }
                             ui.onNodeWithText("1 like").assertDoesNotExist()
                             val second=requireNotNull(saved().candidate)
