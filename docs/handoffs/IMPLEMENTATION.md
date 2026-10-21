@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:43 UTC:62 group tracer review refactor compiling; group product still unchanged.
+Updated 2026-10-21 06:47 UTC:62 shared reading fixture reviewed0/0; actual group RED running.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -139,8 +139,11 @@ actual UI end/opening/follow/older/New messages and per-stage capture/atEnd goal
 in NativeConversationReader. Both protocol fixtures retain their own actual signed
 delivery/ACK/exact protected retention, initial setup and independent restoration.
 Every prior goal, identity and deadline remains; added opening capture observes
-without scrolling before its latest-message assertion. App/test compile pending,
-focused refactor reviews and actual group RED follow. No group product change. Existing private classes
+without scrolling before its latest-message assertion. App/test compile SUCCESS2m2 with explicit shell exit0; refactor reviews both
+Spec0/documented Standards0/heuristic0. Android17 group REDrun39557475694 at exact
+3be44ffd2 is running, preserving both private classes first and adding the group
+case as a separate180second class. No group product change. Await actual runtime
+result before changing group viewport; no native group defect claim yet. Existing private classes
 and bounds remain in focused/full Chat scopes; group class is additive. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
