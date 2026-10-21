@@ -1,0 +1,41 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostComposerFocusPreviewTest:
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostComposerFocusPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Writing must precede optional attachment actions: [composer-focus-320-font130-light, composer-focus-320-font130-dark]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:95)
+
+INSTRUMENTATION_STATUS: stream=
+Error in writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest):
+java.lang.AssertionError: Writing must precede optional attachment actions: [composer-focus-320-font130-light, composer-focus-320-font130-dark]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:95)
+
+INSTRUMENTATION_STATUS: test=writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 37.26
+There was 1 failure:
+1) writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(nl.davidengelen.redsquare.PostComposerFocusPreviewTest)
+java.lang.AssertionError: Writing must precede optional attachment actions: [composer-focus-320-font130-light, composer-focus-320-font130-dark]
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at nl.davidengelen.redsquare.PostComposerFocusPreviewTest.writingPrecedesOptionalAttachmentsAndSendRemainsReachableWithLargerTextAndKeyboard(PostComposerFocusPreviewTest.kt:95)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
