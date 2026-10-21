@@ -11,7 +11,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 
 /** Compensate for header growth only while a scrolled reader is idle, never during their gesture. */
-internal fun Modifier.preserveReadingAnchor(state: LazyListState): Modifier = composed {
+internal fun Modifier.preserveReadingAnchor(state: LazyListState, enabled: Boolean = true): Modifier = composed {
+    val compensationEnabled by rememberUpdatedState(enabled)
     // The list's restored offset already includes header compensation. Retain
     // its parent-relative baseline and any unapplied delta through recreation.
     var previousTop by rememberSaveable(state) { mutableStateOf<Float?>(null) }
@@ -19,7 +20,7 @@ internal fun Modifier.preserveReadingAnchor(state: LazyListState): Modifier = co
     LaunchedEffect(state) {
         snapshotFlow { pending }.filter { it != 0f }.collect { delta ->
             pending -= delta
-            if (!state.isScrollInProgress && (state.firstVisibleItemIndex > 0 || state.firstVisibleItemScrollOffset > 0))
+            if (compensationEnabled && !state.isScrollInProgress && (state.firstVisibleItemIndex > 0 || state.firstVisibleItemScrollOffset > 0))
                 state.scrollBy(delta)
         }
     }
@@ -27,7 +28,7 @@ internal fun Modifier.preserveReadingAnchor(state: LazyListState): Modifier = co
         val top = coordinates.positionInParent().y
         val old = previousTop
         previousTop = top
-        if (old != null && top != old && !state.isScrollInProgress &&
+        if (compensationEnabled && old != null && top != old && !state.isScrollInProgress &&
             (state.firstVisibleItemIndex > 0 || state.firstVisibleItemScrollOffset > 0)) pending += top - old
     }
 }

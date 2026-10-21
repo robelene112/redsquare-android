@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-21 06:16 UTC:62 live-reading RED running at e92; compact attachment row compiling.
+Updated 2026-10-21 06:25 UTC:62 actual incoming/end RED retained; private correction compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -84,14 +84,28 @@ exact save/readback; the captured personal prefix restores afterward. No global
 notifications or existing channels are touched. Both prior c577/da24 native dispatches
 were cancelled during preparation before any device acceptance claim. Corrected Android17 RED run39553894579 executes exact
 e92a0f488c2868a09f019da5afeb4644b3462d0f, job119069067826. Scoped isolated
-app/test compile SUCCESS2m; final paired source reviews0/0. Current dispatch is
-still in preparation/build, no native result yet.
+app/test compile SUCCESS2m; final paired source reviews0/0. Run completes FAILURE: cached-opening method PASS60.697s both themes; live
+case20.152s fails line118 after real incoming ACK/protected retention and positive
+old atEnd=true, new atEnd=false. Packet red17-private-reading-e92-39553894579
+retains36 hashes/two archives21 originals. Root viewed before/after PNGs:69 stays,
+new body absent; initial loading notice disappears between captures, cause not
+claimed. Older-reader/New messages/Dark live cell and later success goals unreached.
 
 Independent low-impact presentation change makes Photo/GIF one wrapping FlowRow
 inside the existing attachment area. All picker/session/URI/draft/GIF guards and
-callbacks remain intact. No new layout-mirroring test. App/test compile pending;
-existing native media/IME cases and final real rendered inspection remain required.
-This does not implement incoming following; do not label it such. Keep original test identity/assertions and180second bound. This is only first
+callbacks remain intact. No new layout-mirroring test. App/test compile SUCCESS3m44 and paired source reviews0/0.
+Existing native media/IME cases and final rendered inspection remain required.
+This row does not implement incoming following.
+
+After actual RED, current private correction tracks prior known message IDs/end
+state, ignoring layout changes for an appended dataset until its follow decision.
+It opens/follows at the actual last bubble bottom, preserves an older reader and
+overlays an accessible New messages button without changing message viewport height.
+A requested latest jump shares the keyed anchoring effect. Header compensation
+remains active for older readers; a following reader avoids compensation pulling
+them away from the end. ReadingAnchor's default remains unchanged elsewhere.
+App/test compile pending; source review and unchanged original focused10/17 checks
+follow. No group/own-send/compact-details/full62 acceptance yet. Keep original test identity/assertions and180second bound. This is only first
 vertical cached-opening behavior, not all62. New focused conversation-viewport
 scopes keep180second class bound; full Chat adds class without removing old goals.
 Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native UI/

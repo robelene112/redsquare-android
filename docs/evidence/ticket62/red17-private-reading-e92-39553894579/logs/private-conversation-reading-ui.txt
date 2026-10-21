@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest:
+INSTRUMENTATION_STATUS: test=newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader$lambda$28$lambda$26$lambda$25(PrivateConversationReadingPreviewTest.kt:118)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.$r8$lambda$GqX3V0lDD-Y72Z_NPR-BPsHwIFQ(PrivateConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader(PrivateConversationReadingPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: stream=
+Error in newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader(nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader$lambda$28$lambda$26$lambda$25(PrivateConversationReadingPreviewTest.kt:118)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.$r8$lambda$GqX3V0lDD-Y72Z_NPR-BPsHwIFQ(PrivateConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader(PrivateConversationReadingPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: test=newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.152
+There was 1 failure:
+1) newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader(nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader$lambda$28$lambda$26$lambda$25(PrivateConversationReadingPreviewTest.kt:118)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.$r8$lambda$GqX3V0lDD-Y72Z_NPR-BPsHwIFQ(PrivateConversationReadingPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PrivateConversationReadingPreviewTest.newPrivateMessagesFollowAtTheEndAndPreserveAnOlderReader(PrivateConversationReadingPreviewTest.kt:67)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
