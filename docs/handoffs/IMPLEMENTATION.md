@@ -1173,3 +1173,19 @@ list/cancel/editable originals and independent font restoration. PNG/XML are
 separate observations; no atomic agreement is required or claimed. Collector
 syntax parses. Catalog is a draft: independent review and stable focused proof
 precede the pre-execution freeze; no complete61 run is dispatched.
+
+Complete61 draft catalog/collector at58e3b13f5353ea913ea5c927cdc1822a2f32065e
+has independent Spec0/documented Standards0/heuristic0. Reference now binds that
+pre-execution commit as its freeze, preserving exact reviewed references,
+collector SHA and tool pins. No full run dispatched; corrected focused acceptance
+must still complete. Original all-partition/public-read/504/505 identity gate
+cannot be replaced by assembled focused successes.
+
+Focusedwork10run39536249965 at exact71adcdd2a31c9258878e1de8c2af102bc5b38776
+completes SUCCESS: both methods18.62s, both320dp130%themes, actualSavedlist/reopen
+and Required-policy-paused queue/cancel/empty/editabledraft. Originalwallet/node/
+zeroTX/health and independent ownworker/policy/files/preferences/platform restore
+goals pass. Packet green10-work-viewports-71ad-39536249965 retains39 hashes/one
+archive28 originals. Root viewed actual LightSavedlist/DarkQueuedlist/Darkeditable
+captures. Protectedmigration input is not a UI send or offline-delivery proof.
+17focusedwork and corrected combined8-method composer10/17 remain pending.
