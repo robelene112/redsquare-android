@@ -272,6 +272,27 @@ Read-only preflight: /tmp/redsquare62-preflight.md. Agreed seam remains native U
 controlled peer/protected cache, with independent Activity-before-state restoration.
 Protected unrelated untracked research remains UNREAD/UNTOUCHED. Explicit staging.
 
+Current8e8 own-send10/17 runs39568087351/39568089064 terminate FAILURE39.207s/
+52.169s: group passes both themes and every exact protocol/history/own-end/return
+goal; private Light fails joint body/end10s after protocol checks, later private
+steps unreached. Root viewed both original PNGs, body/timestamp visible near status;
+no independent failed-conjunct or causal observation. Packets red10/17-own-send-8e8
+retain26 originals each. Passive viewport resizing remains a hypothesis.
+Viewport10run39568091455 is SUCCESS;17 still active. No complete62 proof yet.
+
+Cumulative paired source review found one partial-filtering bug: removing a latest
+author with other visible messages changes the tail and invents New messages.
+Product correction pending actual native RED. New ConversationFilteringPreviewTest
+reuses the cached-private setup, signs68 own/two incoming originals and uses real
+Settings/personal Block/unblock at130% both themes. It requires no invented hint,
+one-pixel older anchor, all exact originals/identity/node/zeroTX/return/restoration.
+Original cached-opening path/method/goals unchanged. Separate180class is additive
+in viewport/full; focusedfiltering scopes are SDK-symmetric. Native operators use
+actual dialog scroll. Final source reviews0/0; tracer compile explicit0 before the
+small scroll-operator adjustment. Existing frozen catalog40df will be superseded
+before complete execution to include this additive identity/archive; never use it
+for incomplete coverage. No complete62 dispatch has occurred.
+
 ## Composer61 delivered
 
 61 production, complete native acceptance and ordinary60 public delivery are

@@ -1,0 +1,85 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ConversationSendPreviewTest:
+INSTRUMENTATION_STATUS: test=sendingInAGroupExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=sendingInAGroupExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ConversationSendPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:68)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory(nl.davidengelen.redsquare.ConversationSendPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:68)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:19)
+
+INSTRUMENTATION_STATUS: test=sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 39.207
+There was 1 failure:
+1) sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory(nl.davidengelen.redsquare.ConversationSendPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.NativeConversationReader.sendWhileReadingOlder(NativeConversationReader.kt:68)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise$lambda$21$lambda$19$lambda$18(ConversationSendPreviewTest.kt:85)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.$r8$lambda$rWO2pqlfnB6zlMugNilFRIoMWkg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.exercise(ConversationSendPreviewTest.kt:74)
+	at nl.davidengelen.redsquare.ConversationSendPreviewTest.sendingInPrivateChatExposesTheOutgoingMessageFromOlderHistory(ConversationSendPreviewTest.kt:19)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

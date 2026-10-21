@@ -483,10 +483,16 @@ verify_conversation_viewport() {
     verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-conversation-reading-evidence
     verify_group_chat_native GroupConversationReadingPreviewTest 180 group-conversation-reading group-conversation-reading-evidence
     verify_group_chat_native GroupConversationPolishPreviewTest 180 group-conversation-polish group-conversation-polish-evidence
+    verify_group_chat_native ConversationFilteringPreviewTest 180 conversation-filtering conversation-filtering-evidence
 }
 verify_conversation_send() {
     verify_group_chat_native ConversationSendPreviewTest 180 conversation-send conversation-send-evidence
 }
+if [[ "${TEST_SCOPE:-full}" == conversation-filtering* ]]; then
+    verify_group_chat_native ConversationFilteringPreviewTest 180 conversation-filtering conversation-filtering-evidence
+    printf '%s\n' 'Focused native conversation filtering only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == conversation-send* ]]; then
     verify_conversation_send
     printf '%s\n' 'Focused explicit own-send viewport only; full acceptance not run.' > "$evidence/scope.txt"
