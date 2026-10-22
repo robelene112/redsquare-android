@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 00:18 UTC:62 CLOSED/beta62PUBLIC/final0.63 CLAIMED; first native Chat entry RED slice being prepared.
+Updated 2026-10-22 00:30 UTC:62 CLOSED/beta62PUBLIC/final0.63 first Chat entry RED observed; initial production implementation ready for compile/review.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -49,9 +49,18 @@ ChatEntryPreviewTest one method, original180second new-class bound, default/130/
 both themes, known local contact, full identity in Details, invalid/self/valid pasted
 key and actual focused-dialog IME/48dp Open chat target, zero public writes and
 independent captured-state restoration. New focused chat-entry/Android17 scopes
-and full Chat inclusion preserve all existing classes/goals/deadlines. No app
-production change yet: compile then run RED against existing interface before
-implementing contact-first entry. Later slices group individual selection/add/remove,
+and full Chat inclusion preserve all existing classes/goals/deadlines. RED10run39699178086 at96e terminalFAILURE1method20.499s, original15s New chat
+readiness missing in actual first320/100/Light screen. Packet red10-local-contact-96e-RUN
+18hashes/1archive6members; root viewed actual old raw-key UI. Extraction initially
+used wrong artifact folder; corrected retention uses actual android-native-proof,
+no native rerun. Local corrected compileSUCCESS2m2/0; first fixture/scopes source
+paired0/0. Initial production now uses contact-first cards/New chat and full-window
+key dialog with off-main key validation, focused-dialog keyboard handling, personal
+control readiness and preserved metadata path. Shared proven dialog window helper
+moved unchanged frompolicy into ui/AppDialogWindow; all original callers migrated.
+Existing private-entry/list UI operators migrated to actual New chat route while
+preserving all original identities/assertions/deadlines. Compile/source review/native
+GREEN pending; no next slice implemented. Later slices group individual selection/add/remove,
 exact existing invitation copy/share and deliberate unavailable-group Join recovery.
 Do not implement another ticket in parallel. Never touch protected research file.
 

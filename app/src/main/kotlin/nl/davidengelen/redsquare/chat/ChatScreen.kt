@@ -8,14 +8,14 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
@@ -37,7 +37,6 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
-import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
 import nl.davidengelen.redsquare.saito.*
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
@@ -65,12 +64,29 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     val publishing = nl.davidengelen.redsquare.policy.LocalPublishingAgreement.current
     val scope = rememberCoroutineScope()
     val navigation = requireNotNull(nl.davidengelen.redsquare.feed.LocalPostNavigation.current)
-    var newContact by remember(wallet.publicKey) { mutableStateOf("") }
+    var addingContact by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
     var savingContact by remember(wallet.publicKey) { mutableStateOf(false) }
     var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
     var contacts by remember(wallet, backend) { mutableStateOf<List<String>>(emptyList()) }
     var contactsFailed by remember(wallet) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    fun openContact(address: String) {
+        if (savingContact || personal?.ready != true || navigation.transitioning) return
+        savingContact = true
+        contactFailed = false
+        scope.launch {
+            try {
+                val updated = withContext(Dispatchers.IO) {
+                    if (address in wallet.chatContacts()) null else wallet.withChatContact(address)
+                }
+                if (updated != null) onWalletMetadata(wallet, updated)
+                counterparty = address
+                addingContact = false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { contactFailed = true }
+            finally { savingContact = false }
+        }
+    }
     var entries by remember(wallet.publicKey, backend, counterparty) { mutableStateOf<List<ChatHistoryStore.Entry>>(emptyList()) }
     var loading by remember(counterparty) { mutableStateOf(false) }
     var failed by remember(counterparty) { mutableStateOf(false) }
@@ -357,59 +373,32 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             statusContent(true)
         }
         if (contact == null) {
-            TextButton(onClick={reviewingGroups=true}) { Text(stringResource(R.string.group_title)) }
-            Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                OutlinedTextField(value = newContact, onValueChange = { newContact = it; contactFailed = false },
-                    label = { Text(stringResource(R.string.chat_public_key)) }, singleLine = true,
-                    enabled = !savingContact, modifier = Modifier.weight(1f))
-                TextButton(enabled = !savingContact && personal?.ready == true && newContact.isNotBlank(),
-                    onClick = {
-                        val address = newContact.trim()
-                        savingContact = true
-                        contactFailed = false
-                        scope.launch {
-                            try {
-                                val updated = withContext(Dispatchers.IO) { wallet.withChatContact(address) }
-                                onWalletMetadata(wallet, updated)
-                                counterparty = address
-                                newContact = ""
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { contactFailed = true }
-                            finally { savingContact = false }
-                        }
-                    }) { Text(stringResource(R.string.chat_open)) }
+            FlowRow(Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilledTonalButton(enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
+                    onClick = { contactFailed = false; addingContact = true }) {
+                    Icon(painterResource(R.drawable.ic_compose), contentDescription = null, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.chat_new))
+                }
+                OutlinedButton(enabled = !savingContact && !navigation.transitioning, onClick = { reviewingGroups = true }) {
+                    Text(stringResource(R.string.group_title))
+                }
             }
-            if (contactFailed) Text(stringResource(R.string.chat_contact_error))
+            if (!addingContact) InlineStatus(if (contactFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
             if (contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
-            LazyColumn(Modifier.weight(1f)) {
+            if (contacts.isNotEmpty()) Text(stringResource(R.string.chat_known_contacts),
+                Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+            LazyColumn(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(contacts, key = { it }) { key ->
-                    TextButton(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(vertical = 12.dp), onClick = {
-                        savingContact = true
-                        contactFailed = false
-                        scope.launch {
-                            try {
-                                if (key !in wallet.chatContacts()) {
-                                    val updated = withContext(Dispatchers.IO) { wallet.withChatContact(key) }
-                                    onWalletMetadata(wallet, updated)
-                                }
-                                counterparty = key
-                            } catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { contactFailed = true }
-                            finally { savingContact = false }
-                        }
-                    }, enabled = !savingContact && personal?.ready == true) {
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically) {
-                            GeneratedProfilePicture(key, Modifier.size(48.dp).clip(CircleShape))
-                            Column(Modifier.weight(1f)) {
-                                Text(registeredIdentity(key).name, style = MaterialTheme.typography.titleMedium,
-                                    color = MaterialTheme.colorScheme.onSurface)
-                                Text(key, style = MaterialTheme.typography.labelSmall, maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            }
+                    Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
+                        enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
+                        shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                        Box(Modifier.padding(12.dp)) {
+                            ChatIdentityRow(key, registeredIdentity(key).name, key)
                         }
                     }
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 }
             }
         } else {
@@ -470,6 +459,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
     }
     }
+    if (addingContact && counterparty == null) NewPrivateChatDialog(wallet.publicKey, savingContact, contactFailed,
+        onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onOpen = ::openContact)
 }
 
 private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,

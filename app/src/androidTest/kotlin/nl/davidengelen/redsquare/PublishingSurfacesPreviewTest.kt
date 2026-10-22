@@ -92,6 +92,8 @@ class PublishingSurfacesPreviewTest {
                         waitForEnabled("Chat")
                         if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
                         ui.onNodeWithText("Chat").performClick()
+                        waitForEnabled("New chat")
+                        ui.onNodeWithText("New chat").performClick()
                         waitFor("Public key")
                         ui.onNodeWithText("Public key").performTextReplacement(recipient.publicKey)
                         androidx.test.espresso.Espresso.closeSoftKeyboard()

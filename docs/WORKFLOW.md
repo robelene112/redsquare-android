@@ -117,6 +117,8 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   `chat-entry` and `chat-entry-android17` run the native local-contact/key-entry
+   journey with its180second class bound. Complete Chat scopes also retain it.
    `publisher-routes` and `publisher-routes-android17` isolate the native publisher
    route classes and existing offline policy reader, each with its own180second
    class bound. Full scopes retain both. Controlled Android intent interception

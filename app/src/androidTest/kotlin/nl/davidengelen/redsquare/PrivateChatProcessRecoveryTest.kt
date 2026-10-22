@@ -99,7 +99,7 @@ class PrivateChatProcessRecoveryTest {
                 waitForEnabled(context.getString(R.string.chat_reaction_retry))
                 ui.withMessageAction("Unlike") { assertIsNotEnabled() }
                 capture("unknown-reaction-before-death.png", context.getString(R.string.chat_reaction_unknown))
-                ui.onNodeWithText("Back").performClick(); waitFor("Public key")
+                ui.onNodeWithText("Back").performClick(); waitFor("New chat")
                 openContact(pendingContact)
                 waitFor(context.getString(R.string.chat_send_unknown))
                 waitForEnabled("Retry")
@@ -125,7 +125,7 @@ class PrivateChatProcessRecoveryTest {
                 waitFor(context.getString(R.string.chat_send_unknown)); waitForEnabled("Retry")
                 showMessage(pendingText)
                 capture("unknown-cold-recovered.png", pendingText)
-                ui.onNodeWithText("Back").performClick(); waitFor("Public key")
+                ui.onNodeWithText("Back").performClick(); waitFor("New chat")
                 openContact(contact); waitFor(context.getString(R.string.chat_load_error))
                 waitForEnabled("Send")
                 ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
@@ -206,7 +206,7 @@ class PrivateChatProcessRecoveryTest {
             withFailureCapture({ capture("first-failure.png") }, journey)
         }
     }
-    private fun openChat() { waitForEnabled("Refresh"); ui.onNodeWithText("Chat").performClick(); waitFor("Public key") }
+    private fun openChat() { waitForEnabled("Refresh"); ui.onNodeWithText("Chat").performClick(); waitFor("New chat") }
     private fun openContact(key: String) { waitFor(key); ui.onNodeWithText(key).performClick(); waitFor("Message") }
     private fun capture(name: String, text: String? = null) = captureNativeScreen(File(context.cacheDir,
         "private-chat-process-evidence/$name"), text)

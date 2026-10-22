@@ -448,6 +448,13 @@
     <string name="chat_available_history">Only available history is shown. Older messages may be unavailable.</string>
     <string name="chat_empty">No saved private chats.</string>
     <string name="chat_public_key">Public key</string>
+    <string name="chat_new">New chat</string>
+    <string name="chat_new_private">New private chat</string>
+    <string name="chat_known_contacts">Known contacts</string>
+    <string name="chat_key_invalid">Enter a valid public key.</string>
+    <string name="chat_key_self">Choose another person\'s public key.</string>
+    <string name="chat_contact_save_error">Could not open this chat. Your saved contacts are kept. Try again.</string>
+    <string name="chat_opening">Opening chat...</string>
     <string name="chat_load_older">Load older messages</string>
     <string name="chat_open">Open chat</string>
     <string name="chat_contact_error">Could not open this chat. Check the public key and try again.</string>

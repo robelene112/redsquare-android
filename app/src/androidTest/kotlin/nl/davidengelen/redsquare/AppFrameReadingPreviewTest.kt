@@ -24,7 +24,7 @@ class AppFrameReadingPreviewTest {
             val before = ui.onNodeWithText("Reference post 05").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top
             capture("scrolled-feed-before-chat.png")
             ui.onNode(hasText("Chat") and hasClickAction()).performClick()
-            ui.waitUntil(10_000) { ui.onNodeWithText("Public key").isDisplayed() }
+            ui.waitUntil(10_000) { ui.onNodeWithText("New chat").isDisplayed() }
             ui.onNode(hasText("Chat") and isSelected()).assertIsDisplayed()
             ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
             ui.onNode(hasText("Home") and hasClickAction()).performClick()

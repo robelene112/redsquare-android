@@ -49,7 +49,7 @@ class AppFramePreviewTest {
         ui.onNodeWithText("Back").performClick()
         ui.waitUntil(10_000) { ui.onNodeWithText("Conversation").isDisplayed() }
         ui.onNode(hasText("Chat") and hasClickAction()).performClick()
-        ui.waitUntil(10_000) { ui.onNodeWithText("Public key").isDisplayed() }
+        ui.waitUntil(10_000) { ui.onNodeWithText("New chat").isDisplayed() }
         ui.onNode(hasText("Chat") and isSelected()).assertIsDisplayed()
         ui.onNodeWithText("Back up your wallet").assertDoesNotExist()
         capture("chat-keeps-frame-without-backup-chrome.png")

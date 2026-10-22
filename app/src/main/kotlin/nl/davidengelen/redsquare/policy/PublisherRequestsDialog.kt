@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.ui.AppDialogWindow
 
 /** Opening a configured page never submits a request or mutates local/account data. */
 @Composable
@@ -30,7 +31,7 @@ internal fun PublisherRequestsDialog(onClose: () -> Unit) {
     if (url == null) {
         AlertDialog(onDismissRequest = onClose,
             title = { Text(stringResource(R.string.publisher_requests)) },
-            text = { PublisherDialogWindow()
+            text = { AppDialogWindow()
                 Text(stringResource(R.string.publisher_requests_unavailable)) },
             confirmButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.publisher_done)) } })
         return
@@ -40,7 +41,7 @@ internal fun PublisherRequestsDialog(onClose: () -> Unit) {
     AlertDialog(onDismissRequest = onClose,
         title = { Text(stringResource(R.string.publisher_requests)) },
         text = {
-            PublisherDialogWindow()
+            AppDialogWindow()
             Column(Modifier.heightIn(max = 360.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(16.dp)) {

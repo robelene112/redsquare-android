@@ -268,6 +268,8 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         waitForEnabled("Chat")
                         ui.onNodeWithText("Chat").assertIsDisplayed().assertIsEnabled().performClick()
                         if (newContact) {
+                            waitForEnabled("New chat")
+                            ui.onNodeWithText("New chat").performClick()
                             waitFor("Public key")
                             ui.onNodeWithText("Public key").performTextInput(counterpart)
                             clickAfterTyping("Open chat")
@@ -275,7 +277,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(AndroidWalletStore(context).loadOrCreate().chatContacts().contains(counterpart))
                         } else {
                             if (listLive) {
-                                waitFor("Public key")
+                                waitFor("New chat")
                                 ui.withConversationControl("Refresh") { assertIsEnabled() }
                                 var offeredAt = 0L
                                 ui.waitUntil(15_000) {
@@ -430,7 +432,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/private-reaction-original-wallet.png"), text)
                             fun returnToFeed() {
                                 ui.onNodeWithText("Back").performClick()
-                                waitFor("Public key")
+                                waitFor("New chat")
                                 ui.onNodeWithText("Back").performClick()
                                 waitForEnabled("Chat")
                             }
@@ -486,7 +488,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             val expected = requireNotNull(likeReference).getAsJsonArray("vectors")[0].asJsonObject
                             fun chooseBackend(backend: SaitoBackend) {
                                 ui.onNodeWithText("Back").performClick()
-                                waitFor("Public key")
+                                waitFor("New chat")
                                 ui.onNodeWithText("Back").performClick()
                                 waitFor("Settings")
                                 ui.onNodeWithText("Settings").performClick()
@@ -759,7 +761,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText("Send").assertIsNotEnabled()
                             ui.onNodeWithText("Message").performTextInput(body)
                             clickAfterTyping("Back")
-                            waitFor("Public key")
+                            waitFor("New chat")
                             ui.onNodeWithText(counterpart).performClick()
                             waitForEnabled("Message")
                             ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(
@@ -904,7 +906,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             waitForEnabled("Message")
                             ui.onNodeWithText("Message").performTextInput(draft)
                             clickAfterTyping("Back")
-                            waitFor("Public key")
+                            waitFor("New chat")
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
                             waitForEnabled("Message")
@@ -913,7 +915,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             captureNativeScreen(File(context.cacheDir, "private-chat-evidence/unsent-private-draft-reopened.png"), draft)
                             ui.onNode(hasSetTextAction()).performTextClearance()
                             ui.onNodeWithText("Back").performClick()
-                            waitFor("Public key")
+                            waitFor("New chat")
                             waitFor(counterpart)
                             ui.onNodeWithText(counterpart).performClick()
                             waitForEnabled("Message")

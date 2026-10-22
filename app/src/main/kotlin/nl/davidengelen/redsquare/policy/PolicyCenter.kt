@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.ui.AppDialogWindow
 
 private data class PolicySection(@StringRes val title: Int, @StringRes val text: Int)
 
@@ -64,7 +65,7 @@ internal fun PolicyCenter(onClose: () -> Unit) {
     fun back() { if (selected != null) selectedName = null else onClose() }
     Dialog(onDismissRequest = ::back, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
-        PublisherDialogWindow(styleSystemBars = true)
+        AppDialogWindow(styleSystemBars = true)
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                 Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 8.dp),

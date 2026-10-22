@@ -1,4 +1,4 @@
-package nl.davidengelen.redsquare.policy
+package nl.davidengelen.redsquare.ui
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -10,7 +10,7 @@ import androidx.core.view.WindowCompat
 
 /** Call inside the dialog content so these settings belong to its actual window. */
 @Composable
-internal fun PublisherDialogWindow(styleSystemBars: Boolean = false) {
+internal fun AppDialogWindow(styleSystemBars: Boolean = false) {
     val view = LocalView.current
     val window = (view.parent as DialogWindowProvider).window
     val lightBars = MaterialTheme.colorScheme.surface.luminance() > 0.5f

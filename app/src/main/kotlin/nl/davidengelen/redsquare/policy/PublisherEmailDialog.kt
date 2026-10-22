@@ -23,6 +23,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import nl.davidengelen.redsquare.BuildConfig
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.ui.AppDialogWindow
 
 @Composable
 internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: PublisherUserReport? = null,
@@ -37,7 +38,7 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
     if (email == null) {
         AlertDialog(onDismissRequest = onClose,
             title = { Text(title) },
-            text = { PublisherDialogWindow()
+            text = { AppDialogWindow()
                 Column(Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(if (report != null) R.string.publisher_user_report_unavailable else purpose.unavailable))
@@ -62,7 +63,7 @@ internal fun PublisherEmailDialog(purpose: PublisherContactPurpose, report: Publ
     Dialog(onDismissRequest = onClose, properties = DialogProperties(
         usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         val keyboard = LocalSoftwareKeyboardController.current
-        PublisherDialogWindow(styleSystemBars = true)
+        AppDialogWindow(styleSystemBars = true)
         Surface(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                 Text(title,

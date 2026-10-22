@@ -1,0 +1,44 @@
+{
+  "chat-entry-evidence.tar": {
+    "sha256": "cb5cbe1fcc3822b440c92f267694e034f5be756559714b1a3e97c7b13db9af8c",
+    "bytes": 83456,
+    "members": [
+      {
+        "name": "chat-entry-evidence/chat-entry-activity-lifecycle.jsonl",
+        "bytes": 1772,
+        "sha256": "f21907bba633dc0aeb8db1cac86d93a9a42bea912a76e36985f7128dd974ed2f",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-font-scale.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-failure.xml",
+        "bytes": 43020,
+        "sha256": "178942f56cdfe8d233ed08a4299520640846149bd42e73f57edcf06ec8a5e215",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-failure.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-failure.png",
+        "bytes": 31317,
+        "sha256": "ab82cea7f697a3d60b4a99d98fa377b0ae3f21d4da9c25f695eab6f7761ca5fd",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-failure.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-font-restored.json"
+      }
+    ]
+  }
+}

@@ -90,7 +90,7 @@ class ChatMixedReceptionPreviewTest {
                     }
                     val oldConnections=peer.authenticatedConnectionIds
                     ui.onNodeWithText("Back").performClick();wait("Create group")
-                    ui.onNodeWithText("Back").performClick();wait("Public key")
+                    ui.onNodeWithText("Back").performClick();wait("New chat")
                     ui.waitUntil(15_000){val current=peer.authenticatedConnectionIds
                         current.intersect(oldConnections).isEmpty()&&current.any{it !in oldConnections}}
                     val unfinished=File(context.noBackupFilesDir,"${bases[1]}.new")
