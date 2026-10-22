@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.ui.semantics.Role
@@ -37,49 +38,55 @@ class ProfileHierarchyPreviewTest {
                 "[$profile]"
             }) { activity ->
             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val originalClipboard = clipboard.primaryClip
-            try {
-                ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
-                ui.onNodeWithText("Later").performClick()
-                ui.withPostViewports(activity, folder, "profile-hierarchy") { label, _ ->
-                    ui.clickVisiblePostProfile("Anon-${author.take(6)}")
-                    waitFor("Signed bio 🌱\nSecond line")
-                    capture(folder, "$label-default.png")
-                    val posts = tab("Posts")
-                    ui.onNode(posts).performScrollTo().assertIsSelected()
-                    for (name in listOf("Replies", "Likes", "Posts")) {
-                        val selected = tab(name)
-                        ui.onNode(selected).performScrollTo().assertIsDisplayed().performClick()
-                        ui.onNode(selected).assertIsSelected()
-                        listOf("Posts", "Replies", "Likes").filter { it != name }.forEach {
-                            ui.onNode(tab(it)).assertIsNotSelected()
-                        }
-                        capture(folder, "$label-${name.lowercase()}-selected.png")
+            ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            ui.withPostViewports(activity, folder, "profile-hierarchy") { label, _ ->
+                ui.clickVisiblePostProfile("Anon-${author.take(6)}")
+                waitFor("Signed bio 🌱\nSecond line")
+                capture(folder, "$label-default.png")
+                val posts = tab("Posts")
+                ui.onNode(posts).performScrollTo().assertIsSelected()
+                for (name in listOf("Replies", "Likes", "Posts")) {
+                    val selected = tab(name)
+                    ui.onNode(selected).performScrollTo().assertIsDisplayed().performClick()
+                    ui.onNode(selected).assertIsSelected()
+                    listOf("Posts", "Replies", "Likes").filter { it != name }.forEach {
+                        ui.onNode(tab(it)).assertIsNotSelected()
                     }
-                    ui.onNodeWithText("Identity details").performScrollTo().assertIsDisplayed().performClick()
-                    ui.onNodeWithText(author).performScrollTo().assertIsDisplayed()
-                    capture(folder, "$label-full-identity.png")
-                    ui.onNodeWithText("Copy public key").assertIsEnabled().performClick()
-                    assertEquals(author, clipboard.primaryClip?.getItemAt(0)?.text?.toString())
-                    ui.onNodeWithText("Done").performClick()
-                    ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
-                    waitFor("Mute account")
-                    ui.onNodeWithText("Mute account").performClick()
-                    waitFor(context.getString(R.string.personal_mute_detail))
-                    capture(folder, "$label-mute-confirmation.png")
-                    ui.onNodeWithText("Cancel").performClick()
-                    waitFor("Mute account")
-                    ui.onNodeWithText("Block account").assertIsDisplayed()
-                    ui.onNodeWithText("Report user to publisher").assertIsDisplayed()
-                    ui.onNodeWithText("Done").performClick()
-                    ui.onNode(hasText("Refresh") and hasClickAction()).performClick()
-                    waitFor("Signed bio 🌱\nSecond line")
-                    ui.onNode(hasText("Back") and hasClickAction()).performClick()
-                    ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                    capture(folder, "$label-${name.lowercase()}-selected.png")
                 }
-            } finally {
-                if (originalClipboard == null) clipboard.clearPrimaryClip()
-                else clipboard.setPrimaryClip(originalClipboard)
+                // The header menu inspects identity without moving the history viewport.
+                ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
+                ui.onNodeWithText("Public identity").assertIsDisplayed().performClick()
+                ui.onNodeWithText(author).performScrollTo().assertIsDisplayed()
+                capture(folder, "$label-full-identity.png")
+                var originalClipboard: ClipData? = null
+                ui.runOnIdle { originalClipboard = clipboard.primaryClip }
+                var copyFailure: Throwable? = null
+                try {
+                    ui.onNodeWithText("Copy public key").assertIsEnabled().performClick()
+                    waitFor("Public key copied.")
+                    ui.runOnIdle { assertEquals(author, clipboard.primaryClip?.getItemAt(0)?.text?.toString()) }
+                } catch (failure: Throwable) { copyFailure = failure; throw failure }
+                finally { cleanupAfterTest(copyFailure, { ui.runOnIdle {
+                    originalClipboard?.let(clipboard::setPrimaryClip) ?: clipboard.clearPrimaryClip()
+                } }) }
+                ui.onNodeWithText("Done").performClick()
+                ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
+                waitFor("Mute account")
+                ui.onNodeWithText("Mute account").performClick()
+                waitFor(context.getString(R.string.personal_mute_detail))
+                capture(folder, "$label-mute-confirmation.png")
+                ui.onNodeWithText("Cancel").performClick()
+                waitFor("Mute account")
+                ui.onNodeWithText("Block account").assertIsDisplayed()
+                ui.onNodeWithText("Report user to publisher").assertIsDisplayed()
+                ui.onNodeWithText("Done").performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed() }
+                ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).performClick()
+                waitFor("Signed bio 🌱\nSecond line")
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
             }
         }
     }

@@ -634,4 +634,9 @@
     <string name="post_delete_for">Delete post by %1$s</string>
     <string name="post_report_for">Report post by %1$s</string>
     <string name="post_retry_action">Retry: %1$s</string>
+    <string name="profile_identity_details">Identity details</string>
+    <string name="profile_identity_copy">Copy public key</string>
+    <string name="profile_identity_copied">Public key copied.</string>
+    <string name="profile_identity_copy_failed">The public key could not be copied. You can select the full key above.</string>
+    <string name="profile_actions">Profile actions</string>
 </resources>

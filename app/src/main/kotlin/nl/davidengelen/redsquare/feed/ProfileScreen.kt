@@ -10,12 +10,15 @@ import nl.davidengelen.redsquare.policy.PublisherEmailDialog
 import nl.davidengelen.redsquare.policy.PublisherUserReport
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -28,7 +31,8 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
-import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.saito.*
 
 internal enum class ProfileTab(val label: Int) {
@@ -45,6 +49,7 @@ internal class ProfileViewState {
 private data class ProfileHistoryPage(val posts: List<FeedPost>, val likes: List<ProfileLike>, val unreadable: Boolean,
     val oldestCreatedAt: Long?, val rowCount: Int)
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, author: String,
     view: ProfileViewState, following: FollowingState?, modifier: Modifier, onBack: () -> Unit, onPost: (FeedPost) -> Unit,
@@ -201,63 +206,46 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         return
     }
     val visiblePosts = posts.filter { personal?.hidesPosts(it.author) == false }
-    Column(modifier) {
-        Row {
-            TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.profile_title), Modifier.weight(1f).padding(vertical = 12.dp),
-                style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = following?.ready == true && !following.saving,
-                onClick = { following?.toggle(author) }) {
-                Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
-            }
-            TextButton(enabled = wallet != null && !loading,
-                onClick = { requestedBefore = System.currentTimeMillis() + 1; refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
+    var actionsOpen by remember(author) { mutableStateOf(false) }
+    var identityOpen by rememberSaveable(author) { mutableStateOf(false) }
+    val own = wallet?.publicKey == author
+    val follow: @Composable () -> Unit = {
+        OutlinedButton(enabled = following?.ready == true && !following.saving,
+            onClick = { following?.toggle(author) }, modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(stringResource(if (author in following?.accounts.orEmpty()) R.string.unfollow_account else R.string.follow_account))
         }
-        LazyColumn(Modifier.weight(1f).fillMaxWidth()) {
+    }
+    Column(modifier) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
+            Text(stringResource(R.string.profile_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.feed_refresh), wallet != null && !loading) {
+                requestedBefore = System.currentTimeMillis() + 1; refresh++
+            }
+            FrameIconButton(R.drawable.ic_more, stringResource(R.string.profile_actions)) { actionsOpen = true }
+        }
+        LazyColumn(Modifier.weight(1f).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             item(key = "profile-details") {
-                Column {
-                    profile?.banner?.let { source ->
-                        ProfileImage(source, ProfileImageKind.BANNER, author, backend, Modifier.fillMaxWidth().aspectRatio(3f))
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        ProfileImage(profile?.image, ProfileImageKind.PICTURE, author, backend, Modifier.size(48.dp))
-                        Column(Modifier.weight(1f)) {
-                            val identity = registeredIdentity(author)
-                            Text(identity.name, style = MaterialTheme.typography.titleMedium)
-                            if (identity.saveError) Text(stringResource(R.string.identity_name_save_error),
-                                style = MaterialTheme.typography.bodySmall)
-                            Text(author, style = MaterialTheme.typography.labelSmall)
-                        }
-                    }
-                    profile?.description?.takeIf { it.isNotEmpty() }?.let {
-                        Text(it, Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.bodyMedium)
-                    }
-                    if (wallet?.publicKey == author) TextButton(onClick = { view.editing = true }) {
-                        Text(stringResource(R.string.profile_edit))
+                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    ProfileIdentityHeader(author, backend, ProfileAppearance(profile?.image, profile?.banner, profile?.description.orEmpty()),
+                        onDetails = { identityOpen = true }) {
+                        if (own) Button(onClick = { view.editing = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                            Text(stringResource(R.string.profile_edit))
+                        } else follow()
                     }
                     InlineStatus(if (profileLoading) stringResource(R.string.profile_details_loading) else null, StatusTone.WORKING)
                     InlineStatus(if (profileFailed) stringResource(R.string.profile_details_error) else null, StatusTone.ERROR)
                     InlineStatus(if (profileUnreadable) stringResource(R.string.profile_unreadable) else null, StatusTone.WARNING)
                     InlineStatus(if (profileCacheWarning) stringResource(R.string.profile_details_cache_warning) else null, StatusTone.WARNING)
                     FollowingStatus(following)
-                    AccountControls(author)
-                    if (wallet != null && wallet.publicKey != author) TextButton(onClick = {
-                        view.publisherReport = PublisherUserReport(author, backend)
-                    }) { Text(stringResource(R.string.publisher_report_user_action)) }
-                    Row {
-                        ProfileTab.entries.forEach { item ->
-                            TextButton(onClick = { view.tab = item }, modifier = Modifier.weight(1f),
-                                contentPadding = PaddingValues(horizontal = 8.dp)) {
-                                Text(stringResource(item.label), maxLines = 1,
-                                    color = if (item == tab) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
-                            }
-                        }
-                        TextButton(enabled = wallet != null && !loading && nextBefore != null,
-                            onClick = { nextBefore?.let { requestedBefore = it; refresh++ } },
-                            contentPadding = PaddingValues(horizontal = 8.dp)) {
-                            Text(stringResource(R.string.profile_load_older), maxLines = 1)
-                        }
-                    }
+                }
+            }
+            stickyHeader(key = "profile-history-tabs") { ProfileHistoryTabs(tab) { view.tab = it } }
+            item(key = "profile-history-status") {
+                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    if (nextBefore != null) TextButton(enabled = wallet != null && !loading,
+                        onClick = { nextBefore?.let { requestedBefore = it; refresh++ } },
+                        modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.profile_load_older)) }
                     if (personal?.ready == true && visiblePosts.size < posts.size)
                         Text(stringResource(R.string.personal_posts_hidden), style = MaterialTheme.typography.bodySmall)
                     InlineStatus(stringResource(R.string.status_available_history),
@@ -268,7 +256,9 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
                     InlineStatus(if (unavailableLikes) stringResource(R.string.profile_likes_unavailable) else null, StatusTone.WARNING)
                     InlineStatus(if (cacheWarning) stringResource(R.string.feed_cache_warning) else null, StatusTone.WARNING)
                     InlineStatus(if (pagingUnavailable) stringResource(R.string.profile_paging_unavailable) else null, StatusTone.WARNING)
-                    if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty))
+                    if (!loading && !failed && posts.isEmpty()) Text(stringResource(R.string.profile_empty),
+                        Modifier.fillMaxWidth().padding(vertical = 24.dp), style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
             items(visiblePosts, key = { it.id }) { post ->
@@ -277,6 +267,26 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
             }
         }
     }
+    // This dialog stays composed while a mute/block confirmation is open.
+    // Selecting a confirmation must never dispose the state that owns it.
+    if (actionsOpen) AlertDialog(onDismissRequest = { actionsOpen = false },
+        title = { Text(stringResource(R.string.profile_actions)) },
+        text = { Column(Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+            TextButton(onClick = { actionsOpen = false; identityOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.post_public_identity))
+            }
+            if (own) follow()
+            AccountControls(author)
+            if (wallet != null && !own) TextButton(onClick = {
+                actionsOpen = false
+                view.publisherReport = PublisherUserReport(author, backend)
+            }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.publisher_report_user_action)) }
+        } },
+        confirmButton = { TextButton(onClick = { actionsOpen = false }, modifier = Modifier.heightIn(min = 48.dp)) {
+            Text(stringResource(R.string.done))
+        } })
+    if (identityOpen) ProfileIdentityDialog(author) { identityOpen = false }
     view.publisherReport?.let { report ->
         PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
     }

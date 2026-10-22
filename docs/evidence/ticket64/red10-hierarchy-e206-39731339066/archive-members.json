@@ -1,0 +1,68 @@
+{
+  "profile-hierarchy-evidence.tar": {
+    "sha256": "21b9488afb1a98f55a9c06d58461cf12dbcbd11d4c535456492ef7db54b2e59b",
+    "bytes": 324608,
+    "members": [
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-activity-lifecycle.jsonl",
+        "bytes": 1768,
+        "sha256": "77a3ab2f16bc457a2f75ad4ccdb3563210a0d6df5d06f6b7e5c38f9c778abfaf",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-font-scale.json"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-configuration.json"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-default.xml",
+        "bytes": 49508,
+        "sha256": "cab761cdd1474de5a31eee7ffeeac63e4ccbc0dcd97d61cfa20ae323090adaa7",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-default.xml"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-default.png",
+        "bytes": 39803,
+        "sha256": "9da7bd7a51e5a2d9484aac4b13a2da59ee92ecf8021ab98f6481872bcbc1753f",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-default.png"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-failure.xml",
+        "bytes": 55277,
+        "sha256": "d203c7b7d53ef2b5cf9d7310a8c1107d477877ac23c64d9e0e7cf30c63b135e4",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-failure.xml"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-320-font100-light-failure.png",
+        "bytes": 43296,
+        "sha256": "ebd4eb54d3cdf30e5c994ffc3fbb2965fc30a0670543b107b12454fc21a3d5e6",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-320-font100-light-failure.png"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-font-restored.json"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-failure.xml",
+        "bytes": 21609,
+        "sha256": "e57686c2cd3a2c3309b554b891dbfcfc22eefdc3d7e8e2f28fcc9952194a7940",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-failure.xml"
+      },
+      {
+        "name": "profile-hierarchy-evidence/profile-hierarchy-failure.png",
+        "bytes": 103504,
+        "sha256": "72a0d10c6f12f4f63ca657caffff82b850e344fac8bbedf91179f84edcc62625",
+        "retainedPath": "originals/profile-hierarchy-evidence/profile-hierarchy-evidence/profile-hierarchy-failure.png"
+      }
+    ]
+  }
+}

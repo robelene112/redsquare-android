@@ -8,14 +8,27 @@ Issue63 is closed. Issue64 is claimed; its review base is
 
 ## Resume here
 
-1. Continue [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64)
-   is now claimed, with native dependencies58/60 closed. First tracer test covers
-   profile selected tabs, exact identity inspection/copy, secondary management
-   confirmations and themes/text scales through the native app/controlled peer.
-   No production64 change yet. Local compile runs under external
-   `profile64-tracer-compile.{json,log}`; inspect its explicit exitCode.
-   New focused scope `profile-hierarchy` and its Android17 variant use one180s
-   class and remain additive to complete Social. Preserve every prior goal.
+1. Continue [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64),
+   claimed/unblocked, review basea010a79fd4669892d3828eab3e93a2397f033a03.
+   First tracer RED10run39731339066 at e206bdb26eb41d00f94e7c6ed6ffffb6a1525110
+   is retained: signed profile renders, Posts has no Role.Tab,7.481s/180.
+   Packet `ticket64/red10-hierarchy-e206-39731339066`; root viewed actual frame.
+   Local tracer compile0/2m47s Gradle. First working profile presentation compile0/
+   4m28s Gradle, external `profile64-read-green-compile.{json,log}`. It precedes
+   the final menu identity path and adaptive identity-row adjustments.
+   Current production changes: shared ProfilePresentation (banner/avatar/name/bio,
+   compact key and exact selectable/copyable identity dialog), sticky real selected
+   history tabs,200% horizontal tab scrolling, primary Follow/Edit and secondary
+   administration dialog preserving confirmations. Async profile/cache/signing
+   logic is unchanged. FlowRow personal-control buttons fit larger text.
+   Tracer now inspects identity through fixed header Profile actions/Public identity
+   without changing history position, and restores clipboard while foreground.
+   No editor, TalkBack or physical D-pad implementation/proof yet. Existing raw-key
+   and account-control fixtures will need explicit UI navigation while preserving
+   their original identity/confirmation/restore assertions and deadlines.
+   First GREEN focused runs are next. Scope `profile-hierarchy` and Android17
+   variant use one180s class, additive complete Social inclusion. Preserve all
+   original goals. Public63 remains accepted; no64 beta is prepared.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
    independent read-only paired reviews remain allowed.

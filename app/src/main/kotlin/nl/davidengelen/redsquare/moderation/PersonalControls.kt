@@ -4,7 +4,11 @@ import android.content.Context
 import android.system.Os
 import java.io.FileDescriptor
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -147,6 +151,7 @@ private enum class Control(val activeLabel: Int, val inactiveLabel: Int, val det
     BLOCK(R.string.personal_unblock_account, R.string.personal_block_account, R.string.personal_block_detail, R.string.personal_block)
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AccountControlButtons(controls: PersonalControls, author: String) {
     var confirming by remember(author) { mutableStateOf<Control?>(null) }
@@ -156,10 +161,10 @@ private fun AccountControlButtons(controls: PersonalControls, author: String) {
             Control.BLOCK -> controls.setBlocked(author, enabled)
         }
     }
-    Row {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Control.entries.forEach { control ->
             val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
-            TextButton(enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
+            TextButton(modifier = Modifier.heightIn(min = 48.dp), enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
                 if (selected) change(control, false) else confirming = control
             }) { Text(stringResource(if (selected) control.activeLabel else control.inactiveLabel)) }
         }
