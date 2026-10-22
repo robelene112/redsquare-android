@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 02:29 UTC:62 CLOSED/beta62PUBLIC.63 private-entry and group-setup focused GREEN on both SDKs; bounded group typography polish compiling. Whole63 remains open.
+Updated 2026-10-22 02:33 UTC:62 CLOSED/beta62PUBLIC.63 first private/group focused GREEN; reviewed group typography polish now executing both SDKs. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -53,11 +53,25 @@ terminalSUCCESS and retained with the same exact-source helper. No native retry.
 Current bounded visual polish adds8dp checkbox/avatar gap and one-line ellipsized
 names ONLY within group-selection identities. Existing full name/key Details remain
 available; shared other callers retain their original unrestricted title lines.
-Compile3606 ACTIVE: group63-contact-typography-compile.log/json externally. NEXT
-paired source/GREEN evidence review, compile, then fresh complete group-setup10/17
-and actual selected-name/default/error/large-text/keyboard image review. Do not
+Compile3606 SUCCESS3m22wall/Gradle3m20/explicit0:
+group63-contact-typography-compile.log/json externally. Paired source/GREEN evidence
+review1eec783c9 Spec0/documentedStandards0/heuristic0. Fresh complete group-setup
+10run39711898801 and17run39711906716 execute exact1eec783c903a93a57240bab39e79498cdcc89341.
+NEXT inspect both full focused outcomes and actual selected-name/default/error/large-
+text/keyboard images. No background observer currently active; download terminal originals
+with /tmp/redsquare63-retain-native.py and exact1eec source before acceptance. Do not
 start invitation production until this slice is GREEN and polished. No full63 or
 signed delivery acceptance; public62 unchanged. Protected research UNREAD/UNTOUCHED.
+
+Next invitation Copy/Share tracer is fixture-only while typography runs: new
+GroupInvitationSharePreviewTest180 uses original pinned creation/invitation asset,
+actual clipboard and intercepted ACTION_CHOOSER/SEND exact text/plain link across
+all six scales/themes, full-key roles/wallet/node/no-write assertions, independent
+clipboard restoration while focused plus post-Activity file/wallet/backend cleanup.
+Additive group-invitation-share/Android17 scopes and fullChat inclusion. No invitation
+production changed. Compile68400 ACTIVE, group63-invitation-share-red-compile.log/json.
+NEXT source review and expected native RED only after group polish outcome/image
+inspection. This preparation does not claim invitation functionality.
 
 Earlier rejected c20 native10run39709006478 and17run39709009138 both FAIL at200Light
 original pasted-key isDisplayed after generic descendant performScrollTo. Packets

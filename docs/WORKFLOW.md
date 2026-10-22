@@ -117,6 +117,9 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   `group-invitation-share` / its Android17 variant cover the real device clipboard
+   and intercepted Android share chooser with the original compatible invitation,
+   one180second class and full Chat inclusion. No external delivery is claimed.
    `group-setup` / `group-setup-android17` cover individually selected/validated
    group members at the existing native UI and controlled-peer boundaries, with
    their180second class bound and complete Chat inclusion.

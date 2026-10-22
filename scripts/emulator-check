@@ -484,6 +484,15 @@ if [[ "$full_chat" == true ]]; then
     verify_social_push social-push
     verify_social_push social-push-process
 fi
+verify_group_invitation_share() {
+    verify_group_chat_native GroupInvitationSharePreviewTest 180 group-invitation-share group-invitation-share-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == group-invitation-share* ]]; then
+    verify_group_invitation_share
+    printf '%s\n' 'Focused invitation clipboard and intercepted Android chooser only; no external delivery or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "$full_chat" == true ]]; then verify_group_invitation_share; fi
 verify_group_setup() {
     verify_group_chat_native GroupSetupPreviewTest 180 group-setup group-setup-evidence
 }
