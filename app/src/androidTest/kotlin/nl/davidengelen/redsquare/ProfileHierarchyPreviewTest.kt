@@ -1,0 +1,93 @@
+package nl.davidengelen.redsquare
+
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.gson.JsonParser
+import java.io.File
+import org.junit.Assert.*
+import org.junit.Rule
+import org.junit.Test
+
+/** Real profile identity, selected history and confirmation journeys through the native app. */
+class ProfileHierarchyPreviewTest {
+    @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        check(context.packageName == "nl.davidengelen.redsquare.dev" &&
+            android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
+        val feed = instrumentation.context.assets.open("native-feed-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow")
+        }
+        val profile = instrumentation.context.assets.open("native-profile-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("snapshot")
+        }
+        val author = profile.get("field2").asString
+        assertEquals(author, feed.get("field2").asString)
+        val folder = File(context.cacheDir, "profile-hierarchy-evidence").apply { mkdirs() }
+        withAppFrameFixture("profile-hierarchy", "profile-hierarchy-evidence", "[$feed]",
+            profileArchiveResponse = { criteria ->
+                assertEquals(author, criteria.get("field2").asString)
+                "[$profile]"
+            }) { activity ->
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val originalClipboard = clipboard.primaryClip
+            try {
+                ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
+                ui.onNodeWithText("Later").performClick()
+                ui.withPostViewports(activity, folder, "profile-hierarchy") { label, _ ->
+                    ui.clickVisiblePostProfile("Anon-${author.take(6)}")
+                    waitFor("Signed bio 🌱\nSecond line")
+                    capture(folder, "$label-default.png")
+                    val posts = tab("Posts")
+                    ui.onNode(posts).performScrollTo().assertIsSelected()
+                    for (name in listOf("Replies", "Likes", "Posts")) {
+                        val selected = tab(name)
+                        ui.onNode(selected).performScrollTo().assertIsDisplayed().performClick()
+                        ui.onNode(selected).assertIsSelected()
+                        listOf("Posts", "Replies", "Likes").filter { it != name }.forEach {
+                            ui.onNode(tab(it)).assertIsNotSelected()
+                        }
+                        capture(folder, "$label-${name.lowercase()}-selected.png")
+                    }
+                    ui.onNodeWithText("Identity details").performScrollTo().assertIsDisplayed().performClick()
+                    ui.onNodeWithText(author).performScrollTo().assertIsDisplayed()
+                    capture(folder, "$label-full-identity.png")
+                    ui.onNodeWithText("Copy public key").assertIsEnabled().performClick()
+                    assertEquals(author, clipboard.primaryClip?.getItemAt(0)?.text?.toString())
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasText("Profile actions") and hasClickAction()).performClick()
+                    waitFor("Mute account")
+                    ui.onNodeWithText("Mute account").performClick()
+                    waitFor(context.getString(R.string.personal_mute_detail))
+                    capture(folder, "$label-mute-confirmation.png")
+                    ui.onNodeWithText("Cancel").performClick()
+                    waitFor("Mute account")
+                    ui.onNodeWithText("Block account").assertIsDisplayed()
+                    ui.onNodeWithText("Report user to publisher").assertIsDisplayed()
+                    ui.onNodeWithText("Done").performClick()
+                    ui.onNode(hasText("Refresh") and hasClickAction()).performClick()
+                    waitFor("Signed bio 🌱\nSecond line")
+                    ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                    ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                }
+            } finally {
+                if (originalClipboard == null) clipboard.clearPrimaryClip()
+                else clipboard.setPrimaryClip(originalClipboard)
+            }
+        }
+    }
+
+    private fun tab(name: String) = hasText(name) and hasClickAction() and
+        SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
+
+    private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onNodeWithText(text).isDisplayed() }
+
+    private fun capture(folder: File, name: String) = captureNativeScreen(File(folder, name))
+}

@@ -3,14 +3,19 @@
 Updated2026-10-22 at05:58UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
-Next implementation is64, then65through69 and70, sequentially.
+Issue63 is closed. Issue64 is claimed; its review base is
+`a010a79fd4669892d3828eab3e93a2397f033a03`. Continue65through69 then70.
 
 ## Resume here
 
 1. Continue [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64)
-   after recording63 closure and claiming64. Native dependencies58/60 are closed.
-   Read current issue and relevant code before implementation. No64 code/test
-   change has been made yet; only read-only orientation and original-before images.
+   is now claimed, with native dependencies58/60 closed. First tracer test covers
+   profile selected tabs, exact identity inspection/copy, secondary management
+   confirmations and themes/text scales through the native app/controlled peer.
+   No production64 change yet. Local compile runs under external
+   `profile64-tracer-compile.{json,log}`; inspect its explicit exitCode.
+   New focused scope `profile-hierarchy` and its Android17 variant use one180s
+   class and remain additive to complete Social. Preserve every prior goal.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
    independent read-only paired reviews remain allowed.
@@ -25,7 +30,7 @@ Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 no restricted cybersecurity work, production node/provider/store changes or
 old-host writers. Authored copy has no em dashes; communicate concisely in Dutch.
 
-## Active63 and exact current executions
+## Completed63 and exact accepted executions
 
 Review base: `baede8527d38dea6cf0afd280d29eb88d1b1cb95`.
 Product source at441 and subsequent fixture/evidence changes have final

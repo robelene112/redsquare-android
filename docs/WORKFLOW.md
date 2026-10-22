@@ -117,6 +117,9 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   `profile-hierarchy` / its Android17 variant cover native profile identity,
+   selected history and secondary confirmations at the existing controlled-peer
+   seam, one180second class and additive complete Social inclusion.
    `group-invitation-recovery` / its Android17 variant cover imported-ID recovery,
    explicit clipboard paste, invalid/mismatched links, trust/current-node preview,
    cancellation and deliberate signed Join at the existing native/controlled-peer

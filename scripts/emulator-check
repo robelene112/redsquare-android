@@ -301,6 +301,14 @@ verify_browse() {
         return 1
     fi
 }
+verify_profile_hierarchy() {
+    verify_group_chat_native ProfileHierarchyPreviewTest 180 profile-hierarchy profile-hierarchy-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == profile-hierarchy* ]]; then
+    verify_profile_hierarchy
+    printf '%s\n' 'Focused native profile identity/history/administration only; controlled peer reads, no public writes or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 verify_post_presentation() {
     verify_group_chat_native PostPresentationPreviewTest 180 post-presentation post-presentation-evidence
     verify_group_chat_native PostPresentationViewportTest 180 post-viewport post-viewport-evidence
@@ -1237,7 +1245,7 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_usernames; fi
+if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_profile_hierarchy; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \
