@@ -39,7 +39,8 @@ some node/key text after copying. Full semantic exact identities and scrolling
 pass; this is not proof every character or post-Copy Done target is physically
 unobscured during that overlay. Physical Share proof precedes Copy; copied
 feedback stays readable. Known200% primary navigation wrapping remains70.
-Independent final native/visual evidence review is pending.
+Independent final native/visual evidence reviews report Spec0, documented
+Standards0 and heuristic0, including the stated clipboard-overlay limits.
 
 Executing source is identical to the immutable held signed63 source. No
 production-equivalence exception or independently rebuilt binary claim is needed.

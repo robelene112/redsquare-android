@@ -1,8 +1,8 @@
 # Current implementation handoff
 
-Updated2026-10-22 at05:35UTC. Issue63 is active. Its product, focused evidence and
-held beta63 have paired reviews with no residual findings. Complete Android17 is SUCCESS with collector0; Android10 remains in progress
-at the same final source. Public beta62 is unchanged.
+Updated2026-10-22 at05:55UTC. Issue63 is active. Its product, focused evidence and
+held beta63 have paired reviews with no residual findings. Both complete Android10/17 runs are SUCCESS with collector0 at the same final source.
+Android17 final evidence reviews are0/0; Android10 final review is pending. Public beta62 is unchanged.
 
 ## Resume here
 
@@ -35,14 +35,14 @@ contain evidence/docs only. The protected untracked research is not task work.
 
 | Gate | Run | Exact source | State |
 | --- | --- | --- | --- |
-| Complete Android10 |39725660757|44601552d50de619def7c5b90de27af985a9cb66|Wallet/Social SUCCESS, Chat active|
+| Complete Android10 |39725660757|44601552d50de619def7c5b90de27af985a9cb66|Whole/all3 SUCCESS, collector0|
 | Complete Android17 |39723682236|44601552d50de619def7c5b90de27af985a9cb66|Whole/all3 SUCCESS, collector0|
 | Source/core/release/lint |39723214278|44601552d50de619def7c5b90de27af985a9cb66|SUCCESS,9tasks|
 | Original frame viewport10 |39723214114|44601552d50de619def7c5b90de27af985a9cb66|SUCCESS,27.885s/180|
 
 Both complete dispatches include Chat/Social/Wallet and explicit public reads.
 Current10/17 source/build stages passed. New10 repeats the full gates after the
-preceding same446 Wallet/public-read failure described below. Android17 has complete native/evidence acceptance with paired0/0 reviews; Android10 acceptance remains.
+preceding same446 Wallet/public-read failure described below. Android17 has complete native/evidence acceptance with paired0/0 reviews; Android10 final evidence review remains.
 Latest tracker update:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6332881529
 
@@ -57,7 +57,7 @@ Packet targets: `docs/evidence/ticket63/full10-446-39725660757` and
 `full17-446-39723682236`. Inspect actual outcomes and collector output; exit0
 is evidence validation, not automatic UI acceptance or publication. The observer
 never retries native jobs or combines failed partitions. No local compiler,
-signing job is active. New10 observer PID3163066,
+signing job is active. New10 observer PID3163066 (ended normally),
 `/tmp/redsquare63-watch-full10-repeat-446.py`, logs
 `/mnt/storage/redsquare-android-artifacts/group63-full10-repeat-446-observer.log`.
 The original combined observer retained rejected10 and complete17, then ended.
@@ -73,8 +73,20 @@ current originals across the four new journeys, real IME and200% both themes.
 Original GroupChat22 methods172.245s/180, Admin12 methods54.621s/180 all pass.
 SystemUI clipboard preview still temporarily occludes some Share/Done/node/key
 areas; no all-glyph/post-Copy-Done physical claim. Existing nav wrapping remains70.
-Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 requires its own complete success;
+Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 complete success is retained and final review remains;
 public62/held63 unchanged. No supplemental or failed-run assembly.
+
+### Latest complete10 proof
+
+Run39725660757 at exact446 is whole/all3SUCCESS, frozen collector0:515identities,
+514PASS plus the sole approved API29 Profile assumption,152normal completions,
+35interruptions,34continuity,113archives/3682members,1850filehashes. Root verified
+all hashes and12 ready Preview geometries, and inspected nine current originals
+across all four new journeys, including real IME and200% Light/Dark. Original
+GroupChat22 pass168.946s/180 and Admin12 pass53.063s/180. Packet
+`full10-446-39725660757`; same-named external raw directory with `group63-` prefix.
+No failed-piece assembly or source-equivalence exception. Final paired evidence
+review is pending; signed63 stays held/public62 unchanged until it clears.
 
 ### Frozen complete acceptance
 
@@ -141,7 +153,7 @@ hashes and inventory of425 external raw files, all original artifacts external.
 No service/CDN/route root cause or product-fix claim; no source/test change.
 Native compatibility/update/final tail after this failure is not accepted.
 Manual fresh complete10run39725660757 at SAME446 includes every original gate;
-no failed pieces are reused. Android17 whole/all3 SUCCESS; Android10 Wallet/Social SUCCESS, Chat active. Held63
+no failed pieces are reused. Android17 and current Android10 whole/all3 SUCCESS with collector0. Held63
 unchanged. Latest source/frame/prepared/docs reviews through0861 are0/0; this
 new failed packet and actual-run rebinding have final Spec0/documented
 Standards0/heuristic0 review at a0d100d76. Latest tracker update:
