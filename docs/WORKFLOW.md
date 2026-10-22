@@ -117,6 +117,9 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   `profile-editor` / its Android17 variant cover an unsent profile preview,
+   actual keyboard and physical local Save draft/recovery, one180second class
+   at the existing native/controlled-peer seam and additive complete Social.
    `profile-hierarchy` / its Android17 variant cover native profile identity,
    selected history and secondary confirmations at the existing controlled-peer
    seam, one180second class and additive complete Social inclusion.
