@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 04:34 UTC:63 full10 at78bd rejected: AppFrame viewport recreation throws DESTROYED after six cells. Root cancelled remaining partitions; actual whole CANCELLED/Chat FAILURE, retained separately. Full17 remains active. Fixture-only current-instance recreation correction pending review/compile/native.62 remains PUBLIC.
+Updated 2026-10-22 04:41 UTC:63 corrected frame10 GREEN27.885s; source446SUCCESS; fresh full10run39723679811/full17run39723682236 execute SAME446 finalfixture. Earlier78 runs rejected/superseded, never accepted. Signed63 preparation active/held; public62 unchanged.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,30 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+CURRENT446 FULLS: exact44601552d50de619def7c5b90de27af985a9cb66 has final source
+Spec0/documentedStandards0/heuristic0 after shared recreation extraction. Local
+sharedfixturecompilePID3145106 SUCCESS explicit0/2m0.085wall/Gradle1m59. Focused
+original frame10run39723214114 SUCCESS27.885s/180, all8cells/oldtargets/cleanup;
+packet green10-frame-current-446-39723214114 has138originals/149hashes. Root viewed
+320/font130/Light,412/font200/Dark/fullbackup. Existing200%Following wordwrap
+remains70; no appwidevisualacceptance. Source446run39723214278 SUCCESS9tasks,
+packetgreen-source-frame-current-446-RUN2hashes/264originalstagelines. Newpacket
+review pending. Focus/source observer3146064 ended normally afterretention.
+Fresh full10run39723679811/full17run39723682236 dispatched04:40UTC atSAME446
+with publicreads/all3partitions. Mutablebindings updated, independent068catalog
+515/516 +152/153normal +35/34 +113archives untouched. No fullacceptance yet.
+Root superseded oldfull17run39721357702 after WalletSUCCESS/ChatSocialactive to
+run finalfixture BOTH SDKs; no known17goal failure atcancellation, no oldsubsets
+accepted. Precancellation metadata external group63-full17-78b-superseded-RUN;
+oldobserver3135239 retains terminalraw only. Originalfull10wholeCANCELLED/ChatFAILURE.
+Canonical signed63 RESERVED ONCE in externalreviewworktree at446, builderPID3146730
+active. Log/status group63-signed63-preparation.{log,json}. NEVER rebuild/reuse63;
+if laterproductchanges require freshreservedcode. Preparedartifact must remain
+HELD until complete finalgates+packetreviews+publicbookends. Public62 unchanged.
+Prepared checker/tmp/redsquare-chat-entry63-prepare63.py and publicobserver
+/tmp/redsquare-chat-entry63-publication63-check.py adapted but NOTEXECUTED yet.
+
 
 Current recreation correction16a source/packet Spec0/documentedStandards0; one
 possible duplicated fixture operator was extracted into recreateHomeViewport in

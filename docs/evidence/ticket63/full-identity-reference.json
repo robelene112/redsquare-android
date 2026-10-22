@@ -82,13 +82,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Android10 run39721355158 at78bd is rejected: Chat FAILURE, then root cancelled remaining Social/Wallet; actual whole CANCELLED, Social CANCELLED and Wallet CANCELLED. No partial acceptance. Android17 run39721357702 remains active at78bd. Fixture-only current-instance frame recreation correction16a089d55 is pending native verification. Independently frozen expected references/collector/tool pins remain unchanged.",
+  "executingState": "Fresh complete Android10 run39723679811 and Android17 run39723682236 execute the same44601552d final fixture source after focused frame GREEN and source SUCCESS. Both include all three partitions and public reads. Earlier78bd full10 is rejected wholeCANCELLED after ChatFAILURE; earlier78bd full17 is superseded by root and no subset is accepted. Independent frozen references/collector/pins remain unchanged. No complete63 acceptance or publication yet.",
   "executingSources": {
-    "android10": "78bd176cd0aacffc4011fdaffdbf7276f3356e3c",
-    "android17": "78bd176cd0aacffc4011fdaffdbf7276f3356e3c"
+    "android10": "44601552d50de619def7c5b90de27af985a9cb66",
+    "android17": "44601552d50de619def7c5b90de27af985a9cb66"
   },
   "executingRuns": {
-    "android10": 39721355158,
-    "android17": 39721357702
+    "android10": 39723679811,
+    "android17": 39723682236
   }
 }
