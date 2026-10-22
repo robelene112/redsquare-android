@@ -69,7 +69,7 @@ class PostPresentationPreviewTest {
             ui.onNodeWithContentDescription("Search history").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() &&
                 ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Quote") and hasClickAction())
             assertPostPresentation("search")
         }
 
@@ -138,7 +138,7 @@ class PostPresentationPreviewTest {
             ui.onNodeWithContentDescription("Search history").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() &&
                 ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
             assertOwnPostActions(author, "search")
         }
     }
