@@ -48,7 +48,17 @@ independent restoration goals all PASS. Both200 themes on bothSDKs measure28px
 full/visible and87px target. Root viewed actual200 main, error+real tallIME and full
 key Details. Keyboard-font banner retained; error readable/fixedOpen reachable.
 Packets greenSDK-initial-anchor-4d5-RUN retain63 originals each. Observer96993 ended0.
-NEXT paired native-evidence review, then group selection/add/remove vertical slice.
+Private GREEN evidence25fd20ea reviewed Spec0/documentedStandards0/heuristic0.
+Next group selection/add/remove vertical slice is now fixture-only: GroupSetupPreviewTest
+one new180s method, six themes/scales, portable known and authenticated cached contact,
+select/remove, invalid/self/duplicate/trimmed pasted member with real IME/physical48dp Add,
+remove/re-add and explicit signed creation with exact roles/raw+Relay original and no
+premature writes; independent wallet/node/cache/preferences restoration. Additive
+group-setup scopes/fullChat inclusion; production remains unchanged4d5. Initial fixture
+compile SUCCESS2m11wall/Gradle2m9/explicit0. Final fixture refinement avoids ambiguous
+Create group title and uses truthful future-admin copy. Corrected compile starting
+(group63-setup-red-corrected-compile.log/json); NEXT source fixture review/compile then
+RED10 before implementing group form. No production group changes yet.
 No whole63/full-suite/signed delivery acceptance; public62 unchanged. Navigation200
 wrap remains70. No new signed version reserved. Protected research remains UNREAD.
 
