@@ -97,6 +97,14 @@ max102 is existing input scroll. Packet failed17-invitation-recovery-441-RUN ret
 source39717147364 stillactive; correctioncompile72611 stillactive. No source edits
 until compiler ends. Both original failure conclusions stay unchanged.
 
+Correctioncompile72611 nowSUCCESS3m30wall/Gradle3m29/explicit0 at03:40:06UTC,
+app and test Kotlin compilation, externalreceipt above. No active localcompiler.
+Correction+failedpacket Standards atc264:documented0/heuristic0; actualmanifest
+counts31/55 hashes,20/42originals. Spec re-review pending. Fresh bothSDK runs
+follow final0/0. Source441 gate39717147364 stillactive at03:40UTC; a later corrected
+push may cancel this superseded source job through normal workflow concurrency.
+Never count it as SUCCESS or use it as the corrected-source gate.
+
 Historical slice checkpoints follow; the current paragraph above supersedes
 older NEXT/active-build/generator-not-applied notes.
 
