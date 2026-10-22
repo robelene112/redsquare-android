@@ -173,6 +173,7 @@ class ProfilePublishingPreviewTest {
                             ui.onNodeWithText("Retry profile").assertIsNotEnabled()
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(bio)))
                                 .performScrollTo().assertIsDisplayed().assertIsNotEnabled()
+                            ui.onNodeWithText(supersededStatus).performScrollTo().assertIsDisplayed()
                             capture("superseded-cache-failure-after-navigation.png", supersededStatus)
                             assertEquals(1, peer.transactions.size)
                         }
