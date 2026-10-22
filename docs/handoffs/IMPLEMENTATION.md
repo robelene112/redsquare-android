@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at14:58UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at15:25UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -79,7 +79,8 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Actual selected Posts/Replies/Likes utterances30/33/36 PID16511 complete
    with START/positive AUDIO/DONE and noSTOPERROR; settings byte-exact restored.
    Five optional diagnostic artifacts match the frozen baseline, no new exclusions.
-   Independent full evidence review pending. Observer3474519 ended; whole raw
+   Independent full evidence reviews have Spec0/documentedStandards0/heuristic0
+   through594c1ae4dcbd38b0bbc09b230f16e88adc4c369a. Observer3474519 ended; whole raw
    external `profile64-full17-056-39792064782`. Verification ref
    `verify/profile64-counts-05680ceac` remains at exact056. No signed64.
 
@@ -111,6 +112,20 @@ Issue63 is closed. Issue64 is claimed; its review base is
    corrected fixture-only complete10 alongside successful production-equivalent
    complete17. Both whole/all3 SUCCESS, frozen collector and reviewed original
    evidence remain required. Failed partitions are never assembled.
+
+   At15:25, original full10run39799164441 Social is SUCCESS, Chat running,
+   Wallet still in hosted SDK/acceleration preparation since14:51:11. The job
+   logs are unavailable before completion. This is not an application failure
+   diagnosis. After more than30minutes in preparation, an independent full10
+   run39804393637 was started at the same exact89c source, same full/public-read
+   inputs, on `verify/profile64-runner-89cb35a7a`. No existing job was cancelled.
+   Observer3514739 `/tmp/redsquare64-watch-full10-runner-89c.py`, external
+   profile64-full10-runner-89c-observer.log, raw
+   `profile64-full10-runner-89c-39804393637`. It retains terminal originals and
+   only invokes the collector if its run is the configured complete binding.
+   Current binding remains39799164441. Accept only an entire whole/all3 SUCCESS
+   dispatch, updating the binding if the independent attempt supplies it.
+   Do not combine jobs from the two runs or describe pending setup as passing.
 
    Review worktree is clean at056; move to exact accepted source before signing.
    Counter remains63, no64 reservation/build. Prepared/publication helpers
