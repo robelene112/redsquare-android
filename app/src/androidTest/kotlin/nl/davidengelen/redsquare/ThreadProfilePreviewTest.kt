@@ -103,7 +103,7 @@ class ThreadProfilePreviewTest {
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply"))
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(replyAuthor)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.inspectProfileIdentity(replyAuthor)
                     ui.onNodeWithText("Profile").assertIsDisplayed()
                     ui.onNodeWithText("Back").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Conversation")).fetchSemanticsNodes().isNotEmpty() }
@@ -114,9 +114,9 @@ class ThreadProfilePreviewTest {
                     ui.onNodeWithText("Likes").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Anon-${replyAuthor.take(6)}").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(replyAuthor)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.inspectProfileIdentity(replyAuthor)
                     ui.onNodeWithText("Back").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText(author)).fetchSemanticsNodes().isNotEmpty() }
+                    ui.inspectProfileIdentity(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Profile").assertIsDisplayed()
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()

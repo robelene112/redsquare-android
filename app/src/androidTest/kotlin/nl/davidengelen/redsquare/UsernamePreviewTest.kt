@@ -71,8 +71,10 @@ class UsernamePreviewTest {
                     capture("username-shared-feed.png", "NativeCase7@saito")
                     ui.onNode(targetAuthor).performClick()
                     waitForText("Profile")
-                    ui.onNodeWithText(author).assertIsDisplayed()
-                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(author)), useUnmergedTree = true).assertIsDisplayed()
+                    ui.inspectProfileIdentity(author) {
+                        onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(author)),
+                            useUnmergedTree = true).assertIsDisplayed()
+                    }
                     ui.onNodeWithText("Back").performClick()
                     waitForText(text)
                     ui.clickVisiblePostContent(text)
@@ -289,8 +291,10 @@ class UsernamePreviewTest {
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
-                    ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                    ui.inspectProfileIdentity(fixture.publicKey) {
+                        onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
+                            useUnmergedTree = true).assertIsDisplayed()
+                    }
                     assertTrue("Discovery must observe a key-map hint", peer.registryQueries.any { it.get("request").asString == "registry query" && it.getAsJsonArray("keys").any { key -> key.asString == fixture.publicKey } })
                     assertTrue("A hint alone is insufficient: verify its signed ownership", peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
                     assertTrue("Discovering an existing name must never register it again", peer.transactions.isEmpty())
@@ -335,9 +339,11 @@ class UsernamePreviewTest {
                         waitForText("NativeCase7@saito")
                         val warning = "Name verified, but could not be saved on this device."
                         waitForText(warning)
-                        ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
+                        ui.inspectProfileIdentity(fixture.publicKey) {
+                            onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
+                                useUnmergedTree = true).assertIsDisplayed()
+                        }
                         ui.onNodeWithText(warning).assertIsDisplayed()
-                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
                         capture("username-name-save-error.png", warning)
                         check(obstruction.delete())
@@ -351,14 +357,17 @@ class UsernamePreviewTest {
                         }
                         // A shared label retains its previous warning until the fresh proof/save settles.
                         ui.waitUntil(20_000) { ui.onAllNodesWithText(warning).fetchSemanticsNodes().isEmpty() }
-                        ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
+                        ui.inspectProfileIdentity(fixture.publicKey) {
+                            onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
+                                useUnmergedTree = true).assertIsDisplayed()
+                        }
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-recovered.png", "NativeCase7@saito")
                         response.set("{\"err\":\"no response\"}")
                         scenario.recreate()
                         waitForText("Profile") // The selected public profile survives Activity recreation.
                         waitForText("NativeCase7@saito")
-                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        ui.inspectProfileIdentity(fixture.publicKey)
                         ui.onAllNodesWithText(warning).assertCountEquals(0)
                         capture("username-name-save-cached.png", "NativeCase7@saito")
                         assertTrue(peer.clientKeys.all { it == fixture.publicKey })
@@ -636,9 +645,11 @@ class UsernamePreviewTest {
                     ui.onNodeWithText("Back").performClick()
                     waitForEnabled("Your profile")
                     ui.onNodeWithText("Your profile").performClick()
-                    waitForText(fixture.publicKey)
-                    ui.onNode(hasText("Anon-${fixture.publicKey.take(6)}") and hasAnySibling(hasText(fixture.publicKey)),
-                        useUnmergedTree = true).assertIsDisplayed()
+                    waitForText("Profile")
+                    ui.inspectProfileIdentity(fixture.publicKey) {
+                        onNode(hasText("Anon-${fixture.publicKey.take(6)}") and hasAnySibling(hasText(fixture.publicKey)),
+                            useUnmergedTree = true).assertIsDisplayed()
+                    }
                     ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
                     assertEquals(1, peer.transactions.size)
                     assertTrue(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == fixture.publicKey })
@@ -835,8 +846,10 @@ class UsernamePreviewTest {
                     waitForEnabled("Your profile")
                     ui.onNodeWithText("Your profile").performClick()
                     waitForText("NativeCase7@saito")
-                    ui.onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)), useUnmergedTree = true).assertIsDisplayed()
-                    ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                    ui.inspectProfileIdentity(fixture.publicKey) {
+                        onNode(hasText("NativeCase7@saito") and hasAnySibling(hasText(fixture.publicKey)),
+                            useUnmergedTree = true).assertIsDisplayed()
+                    }
                     ui.onAllNodesWithText("Anon-${fixture.publicKey.take(6)}").assertCountEquals(0)
                     capture("username-profile.png", "NativeCase7@saito")
                     assertEquals(1, peer.transactions.size)
@@ -899,7 +912,7 @@ class UsernamePreviewTest {
                         waitForEnabled("New post")
                         ui.onNodeWithText("Your profile").performClick()
                         waitForText("NativeCase7@saito")
-                        ui.onNodeWithText(fixture.publicKey).assertIsDisplayed()
+                        ui.inspectProfileIdentity(fixture.publicKey)
                         fun incomingLookups() = peer.registryQueries.count {
                             it.get("request").asString == "registry query" &&
                                 it.getAsJsonArray("keys").any { key -> key.asString == incoming.publicKey }
@@ -918,11 +931,14 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Done").performClick()
                         waitForEnabled("Your profile")
                         ui.onNodeWithText("Your profile").performClick()
-                        waitForText(incoming.publicKey)
-                        ui.onNode(hasText("Anon-${incoming.publicKey.take(6)}") and hasAnySibling(hasText(incoming.publicKey)),
-                            useUnmergedTree = true).assertIsDisplayed()
+                        waitForText("Profile")
+                        ui.inspectProfileIdentity(incoming.publicKey) {
+                            onNode(hasText("Anon-${incoming.publicKey.take(6)}") and hasAnySibling(hasText(incoming.publicKey)),
+                                useUnmergedTree = true).assertIsDisplayed()
+                            onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
+                            capture("username-import-replaced-profile.png", incoming.publicKey)
+                        }
                         ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)
-                        capture("username-import-replaced-profile.png", incoming.publicKey)
                         ui.onNodeWithText("Back").performClick()
                         openUsername()
                         ui.onAllNodesWithText("NativeCase7@saito").assertCountEquals(0)

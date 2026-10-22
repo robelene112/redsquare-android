@@ -93,11 +93,12 @@ class PublisherUserReportPreviewTest {
                                 }
                             }
                             fun openReport() {
+                                ui.openProfileActions()
                                 ui.waitUntil(20_000) {
                                     ui.onAllNodes(hasText("Report user to publisher") and hasClickAction() and isEnabled())
                                         .fetchSemanticsNodes().isNotEmpty()
                                 }
-                                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Report user to publisher"))
+                                ui.onNodeWithText("Report user to publisher").performScrollTo()
                                 ui.onNodeWithText("Report user to publisher").assertIsDisplayed().performClick()
                                 shownContext()
                                 if (ready) {
