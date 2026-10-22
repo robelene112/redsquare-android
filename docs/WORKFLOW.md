@@ -117,6 +117,11 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   Search65 adds SearchEntryPreviewTest to the existing `search` and Android17
+   scopes, with its own180second class bound after the unchanged original Search
+   class. Complete Social retains both. The existing native UI/controlled-peer
+   seam exercises real keyboard visibility, explicit IME submission and clearing
+   without new history reads. It does not establish physical-phone performance.
    `profile-editor` / its Android17 variant cover an unsent profile preview,
    actual keyboard and physical local Save draft/recovery, one180second class
    at the existing native/controlled-peer seam and additive complete Social.

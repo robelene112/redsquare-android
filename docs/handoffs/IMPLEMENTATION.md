@@ -4,7 +4,8 @@ Updated2026-10-22 at16:15UTC. Public beta64 is published and independently
 verified. Issue64 implementation, complete Android10/17 and prepared signed64
 have paired Spec0/documented Standards0/heuristic0 reviews. Final public delivery
 through e7c7b3f51a664c24340a3f6a014b222dab02fd53 has paired0/0. Issue64 is
-CLOSED and55 updated. Claim65 next. Continue65through69 then70, without routine stops.
+CLOSED and55 updated. Issue65 is assigned and in progress. Continue65through69
+then70, without routine stops.
 
 ## Resume here
 
@@ -61,8 +62,12 @@ CLOSED and55 updated. Claim65 next. Continue65through69 then70, without routine 
    `profile64-full17-056-39792064782`. Verification refs remain at056 and89c:
    `verify/profile64-counts-05680ceac`, `verify/profile64-runner-89cb35a7a`.
    No active compiler, signing process or native verification run.
-2. Claim65 next, recording this closure commit as its review base.
-   No65 code has been written or claimed.
+2. Search65 is assigned, with review base
+   `6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4`. All blockers are closed.
+   The first native tracer SearchEntryPreviewTest covers actual IME visibility,
+   explicit search, clearing without reads and recreation. Existing search/full
+   Social scopes run it after the unchanged original class, each180seconds.
+   Test compilation is underway. No native red or product change yet.
    Read-only planning found Search query/results are retained in wallet/backend
    FeedNavigationMemory, but its local rememberLazyListState loses position on
    profile/thread navigation. Preserve that position in the same retained scope.
@@ -72,7 +77,7 @@ CLOSED and55 updated. Claim65 next. Continue65through69 then70, without routine 
    tests plus PostPresentationPreviewTest, PostContentContextsTest,
    PersonalControlsPreviewTest and StatusMotionPreviewTest exercise its old UI.
    Adapt actual visible controls and scoped scrolling, preserving assertions and
-   original bounds; do not add invisible aliases. No implementation yet.
+   original bounds; do not add invisible aliases. No product implementation yet.
 3. Continue66through69 then70, one ticket at a time. Keep55 open for owner final
    visual acceptance and1/36 for actual release requirements. OWNER_INPUTS.md
    identifies parked publisher/provider/physical/store work; placeholders never
