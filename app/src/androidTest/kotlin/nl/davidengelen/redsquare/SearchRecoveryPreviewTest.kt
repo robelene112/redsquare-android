@@ -28,9 +28,10 @@ class SearchRecoveryPreviewTest {
             try { started.complete(Unit); awaitCancellation() }
             finally { withContext(NonCancellable) { release.await() } }
         }
-        runBlocking { withTimeout(5_000) { started.await() } }
         view.activeLookup = lookup
+        var primary: Throwable? = null
         try {
+            runBlocking { withTimeout(5_000) { started.await() } }
             view.pause()
             assertTrue(lookup.isCancelled)
             assertFalse("Cancellation cleanup is deliberately still pending", lookup.isCompleted)
@@ -42,10 +43,11 @@ class SearchRecoveryPreviewTest {
             view.retry()
             assertFalse(view.paused)
             assertNotEquals(view.request, view.completed)
-        } finally {
-            release.complete(Unit)
-            runBlocking { withTimeout(5_000) { child.join() } }
-            lookup.complete()
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary,
+                { lookup.cancel(); release.complete(Unit) },
+                { runBlocking { withTimeout(5_000) { child.join() } } })
         }
     }
 
