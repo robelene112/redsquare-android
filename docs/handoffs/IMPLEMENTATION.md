@@ -73,7 +73,9 @@ actual native visibleBounds containment/minimum and physical taps now supplement
 all original layout assertions. Share precedes Copy to avoid the OS clipboard overlay
 covering Share. No acceptance goal/deadline change; narrow re-review follows.
 Additive group-invitation-share/Android17 scopes and fullChat inclusion. No invitation
-production changed. Compile68400 ACTIVE, group63-invitation-share-red-compile.log/json.
+production changed. Initial compile68400 SUCCESS1m55wall/Gradle1m54/explicit0,
+group63-invitation-share-red-compile.log/json. Fresh final-fixture compile88645 ACTIVE,
+group63-invitation-share-reviewed-compile.log/json.
 NEXT source review and expected native RED only after group polish outcome/image
 inspection. This preparation does not claim invitation functionality.
 
