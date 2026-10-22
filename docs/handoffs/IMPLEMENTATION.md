@@ -44,9 +44,15 @@ scrolling and two equal fully contained geometry observations within the origina
 Invitation10run39841530083 exactc060fc999 is whole SUCCESS. All12 final target
 geometry records independently checked: full button inside list before one tap.
 Original transaction/node/identity/cancellation goals pass. Source reviews0/0.
-Active complete10run39842447826 and17run39842451879 at
-250f91a8dda5f02fea8d1f5d48fba580e38e2ac2 against unchanged frozen catalog.
-No mixed acceptance. Production/build equivalence with held signed65 checked.
+Complete250 runs39842447826/39842451879 both FAILED in StatusMotionPreviewTest
+line112: Search history is a nonclickable child icon of the enabled48px button.
+Original native failure packets retained (motion archive/logs); whole raw runs
+outside Git. Wallet/Social passed but are NOT complete acceptance. Fixture
+bba6d556d selects the clickable parent, preserving original5s deadline and every
+motion/loading/result assertion. Paired source0/0. Focused motion10run39849745277
+and17run39849748958 pending. Active fresh complete10run39849988178 and
+17run39849992819 exactbba6d556d5afdd3d3613eb27a96377132cc6b339. Frozen catalog
+unchanged, production/build equivalence with held signed65 independently checked.
 Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and

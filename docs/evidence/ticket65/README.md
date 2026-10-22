@@ -41,9 +41,15 @@ stable full target containment within its original readiness bound. Corrected
 focused post-presentation10, Search17 including maximum-length names, and
 invitation recovery10 all pass. Original failed and corrected evidence remains.
 
-Fresh full Android10run39842447826 and Android17run39842451879 execute exact
-250f91a8dda5f02fea8d1f5d48fba580e38e2ac2 against the unchanged frozen catalog.
-Production/build equivalence with the held signed65 source is checked.
+The250 full runs39842447826/39842451879 FAILED in both status-motion methods:
+the native description belongs to the nonclickable Search icon, while the actual
+48px parent carries the click action. Original failure packets are retained.
+Fixture bba6d556d targets the enabled clickable parent within the unchanged
+five-second wait, with original motion/loading/result assertions preserved.
+Paired source reviews report0/0. Focused motion10run39849745277 and
+17run39849748958 are pending. Fresh complete10run39849988178 and
+17run39849992819 execute exactbba6d556d5afdd3d3613eb27a96377132cc6b339.
+The frozen catalog is unchanged; held signed65 production/build equivalence passes.
 Complete acceptance and signed delivery
 are pending. Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is
