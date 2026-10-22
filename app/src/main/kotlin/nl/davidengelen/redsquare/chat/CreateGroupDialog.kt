@@ -129,6 +129,7 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
                                 }
                             }.semantics { contentDescription = selectLabel }, verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(selectedContact, onCheckedChange = null, enabled = !busy && personal?.ready == true)
+                            Spacer(Modifier.width(AppSpacing.small))
                             GroupContactIdentity(key, Modifier.weight(1f)) { finishTyping(); inspecting = key }
                         }
                     }
@@ -189,7 +190,7 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
 @Composable
 private fun GroupContactIdentity(key: String, modifier: Modifier = Modifier, onInspect: () -> Unit) {
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Box(Modifier.weight(1f)) { ChatIdentityRow(key, registeredIdentity(key).name, key) }
+        Box(Modifier.weight(1f)) { ChatIdentityRow(key, registeredIdentity(key).name, key, titleMaxLines = 1) }
         IconButton(onClick = onInspect) {
             Icon(painterResource(R.drawable.ic_info), stringResource(R.string.group_member_identity, key))
         }

@@ -82,12 +82,12 @@ internal fun ConversationDetails(onDismiss: () -> Unit, content: @Composable Col
 }
 
 @Composable
-internal fun ChatIdentityRow(key: String, title: String, subtitle: String) {
+internal fun ChatIdentityRow(key: String, title: String, subtitle: String, titleMaxLines: Int = Int.MAX_VALUE) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically) {
         GeneratedProfilePicture(key, Modifier.size(40.dp).clip(CircleShape))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium,
+            Text(title, style = MaterialTheme.typography.titleMedium, maxLines = titleMaxLines, overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurface)
             Text(subtitle, style = MaterialTheme.typography.bodySmall, maxLines = 1,
                 overflow = TextOverflow.Ellipsis, color = MaterialTheme.colorScheme.onSurfaceVariant)

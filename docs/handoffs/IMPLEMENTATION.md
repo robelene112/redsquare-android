@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 01:56 UTC:62 CLOSED/beta62PUBLIC.63 private-entry GREEN; group setup RED confirmed and first production compiling/review next. Whole63 remains open.
+Updated 2026-10-22 02:29 UTC:62 CLOSED/beta62PUBLIC.63 private-entry and group-setup focused GREEN on both SDKs; bounded group typography polish compiling. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,23 +39,32 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
-LATEST GROUP: first native10run39709006478 and17run39709009138 exactc20 both REJECTED:
-original method79.403s/112.350s, original180s class intact. Both stop at200Light
-line120 pasted member public-key isDisplayed after generic descendant performScrollTo.
-Root viewed both actual Members PNGs/XML/semantics: admin/known member visible, pasted
-row only prefetched/unplaced-looking in tree, outside native viewport. Original signed
-role/wire goals precede this failure. Packets failedSDK-group-members-c20-RUN retain59
-originals each; observer64004 ended0. Final-source CI compilation passed before both
-runtime executions. No passing assembly/group acceptance.
+LATEST GROUP: corrected complete executions at exact6aab2fafe076c01ce15b5b952e4f4769d2c33f15
+both SUCCESS:10run39710787661 original88.343s/180 and17run39710795734 original119.398s/180.
+All six320dp default/130/200 Light/Dark cells pass original selection/key/realIME/
+physical48dp Add/exact signed roles/raw+Relay/member inspection/cache/node/restoration
+goals. Actual dialog collection scrolling fixes the previously invisible prefetched
+third key, retaining every original assertion. No production difference fromc20.
+Root viewed actual200Dark Members on BOTH SDKs; full third key is now visible.
+Packets greenSDK-group-members-6aa-RUN retain69 exact original members each.
+Observer74187 ended143 after retaining10;17 was independently downloaded ONLY after
+terminalSUCCESS and retained with the same exact-source helper. No native retry.
 
-Only fixture operator now changes: actual dialog scroll collection performScrollToNode
-for each original exact key, then same isDisplayed assertions. No app/core changes,
-retry, goal/class/deadline change. Compile14991 ACTIVE, external
-group63-member-list-operator-compile.log/json. NEXT paired fixture/evidence review,
-compile then complete group-setup10/17 again. Root also viewed new default/invalidIME/
-ready200 frames. Selected name wraps to isolated Q at200; fix that bounded typography
-and checkbox/avatar spacing after operator proof, before visual group acceptance.
-Do not start invitation production until this slice is GREEN and polished.
+Current bounded visual polish adds8dp checkbox/avatar gap and one-line ellipsized
+names ONLY within group-selection identities. Existing full name/key Details remain
+available; shared other callers retain their original unrestricted title lines.
+Compile3606 ACTIVE: group63-contact-typography-compile.log/json externally. NEXT
+paired source/GREEN evidence review, compile, then fresh complete group-setup10/17
+and actual selected-name/default/error/large-text/keyboard image review. Do not
+start invitation production until this slice is GREEN and polished. No full63 or
+signed delivery acceptance; public62 unchanged. Protected research UNREAD/UNTOUCHED.
+
+Earlier rejected c20 native10run39709006478 and17run39709009138 both FAIL at200Light
+original pasted-key isDisplayed after generic descendant performScrollTo. Packets
+failedSDK-group-members-c20-RUN retain59 originals each and paired0/0. Operator
+correction6aa plus those packets had Spec0/documentedStandards0/heuristic0 and
+compile14991 SUCCESS3m33wall/Gradle3m31/explicit0. The historical unrecorded event
+order remains unproved; the correction is supported by the two complete new runs.
 
 Earlier group source and execution history follow.
 
