@@ -540,20 +540,23 @@ class SearchPreviewTest {
                     waitForEnabled("Search history")
                     ui.onNodeWithContentDescription("Search history").performClick()
                     waitForEnabled("Search history")
-                    ui.onNodeWithText(person).assertIsDisplayed()
+                    ui.onNode(searchPersonResult(person)).assertIsDisplayed()
+                    ui.onNodeWithContentDescription("Identity details for $name").performClick()
+                    ui.onNodeWithText(person).performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithText("Done").performClick()
                     assertTrue("Exact lookup must use a registrar-signed namecheck", peer.registryQueries.any {
                         it.get("request").asString == "registry namecheck" && it.get("identifier").asString == name
                     })
-                    ui.onNodeWithText(person).performClick()
+                    ui.onNode(searchPersonResult(person)).performClick()
                     waitForText("Profile")
                     ui.inspectProfileIdentity(person)
                     ui.onNode(hasText("Back") or hasContentDescription("Back")).performClick()
                     ui.onNode(hasSetTextAction()).assertTextContains(name)
-                    ui.onNodeWithText(person).assertIsDisplayed()
+                    ui.onNode(searchPersonResult(person)).assertIsDisplayed()
                     scenario.recreate()
-                    waitForText(person)
+                    waitForText(compactSearchKey(person))
                     ui.onNode(hasSetTextAction()).assertTextContains(name)
-                    ui.onNodeWithText(person).assertIsDisplayed()
+                    ui.onNode(searchPersonResult(person)).assertIsDisplayed()
                     captureNativeScreen(File(context.cacheDir, "search-evidence/people-name-recreated.png"), compactSearchKey(person))
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(owner, displayedWalletAddress(ui))
@@ -853,7 +856,11 @@ class SearchPreviewTest {
     }
 
     private fun waitForEnabled(text: String) {
+        val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
         if (text == "Load more") ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
-        ui.waitUntil(20_000) { ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        val remaining = deadline - android.os.SystemClock.elapsedRealtime()
+        assertTrue("Scroll and readiness share the original 20 second bound", remaining > 0)
+        ui.waitUntil(remaining) { ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+        assertTrue("Readiness must complete within the original bound", android.os.SystemClock.elapsedRealtime() <= deadline)
     }
 }
