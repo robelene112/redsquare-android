@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at15:43UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at16:09UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -122,22 +122,27 @@ Issue63 is closed. Issue64 is claimed; its review base is
    available original archives external `profile64-full10-89c-39799164441`.
    Observer3497616 ended normally.
 
-   Independent complete10run39804393637 at exact89c with identical full/public
-   inputs is now the configured binding. All setup/build stages pass; native
-   checks running. Ref `verify/profile64-runner-89cb35a7a`, observer3514739
-   `/tmp/redsquare64-watch-full10-runner-89c.py`, log external
-   profile64-full10-runner-89c-observer.log, raw
-   `profile64-full10-runner-89c-39804393637`, packet
-   `full10-runner-89c-39804393637`. Observer now invokes the frozen collector
-   only on whole success. Require all3 and inspect native evidence; never mix
-   passing jobs from cancelled/failed dispatches.
+   Independent complete10run39804393637 exact89c is whole/all3 SUCCESS.
+   Frozen collector exits0:519 exact identities,156 normal,35 interruptions,
+   34 continuity,117 archives,518 PASS plus the sole frozen API29 assumption.
+   Root checked2014 retained-file hashes and native130Light/Dark media retry,
+   200Dark recovered editor, keyboard and TalkBack selected Likes focus.
+   Social hierarchy/editor/keyboard39.193/42.315/7.898s, each180s bound.
+   Status/Post/Profile TalkBack28.465/60.194/16.554s. Selected speech PID16447,
+   utterances41/44/47 have START/positive AUDIO/DONE, noSTOPERROR and byte-exact
+   settings restoration. Five optional diagnostic exceptions match frozen baseline.
+   Full packet `full10-runner-89c-39804393637` retained; final paired review pending.
+   Observer3514739 ended normally; whole raw external
+   `profile64-full10-runner-89c-39804393637`. Ref remains
+   `verify/profile64-runner-89cb35a7a`. Preinspection Social originals from this
+   same run were hash-compared to the complete packet, not another dispatch.
 
    Review worktree moved cleanly to exact89c. Canonical signed64 build passed,
    counter64 reserved once, APK38209467bytes SHA256
    4cc9965af797037155ed76a8a8913f7b045958291e9fc9dbeb9289ad8552cd0e.
    Actual package/signature/manifest/DEX verification passes; established cert,
-   REVIEW true/PUSH+bothGIF false. Candidate is HELD unpublished pending whole10
-   and final reviews. Packet `signed64-prepared` includes build receipt and
+   REVIEW true/PUSH+bothGIF false. Candidate is HELD unpublished pending final complete10
+   evidence reviews. Packet `signed64-prepared` includes build receipt and
    independent public BEFORE result:20 historical resources preserved,61 stays
    404, latest63. External `profile64-signed-build.log`,
    `profile64-signed-build-result.json`, `profile64-publication-64`.
@@ -145,7 +150,7 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Do not rerun BEFORE over retained files or reserve/rebuild64 again.
    Signed preparation/docs through286f2aa70 have paired
    Spec0/documentedStandards0/heuristic0 reviews. Cancellation/binding follow-up
-   evidence review pending.
+   throughd909bff02 also has paired0/0. Complete10 evidence review pending.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
@@ -153,9 +158,9 @@ Issue63 is closed. Issue64 is claimed; its review base is
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
    Original validators, tool pins and sole API29 assumption stay fixed. Current
    bindings identify full10at89c/full17at056; earlier failures remain rejected.
-   Signed64 held. Await current full10, bind exact run,
-   require whole/all3 SUCCESS and collector evidence, inspect native originals,
-   paired review, then publish the held immutable signed64 through existing route.
+   Signed64 held. Both complete runs and collector/native inspection now pass.
+   Finish paired complete10 evidence review, then publish the held immutable
+   signed64 through existing route and verify independent public AFTER results.
    Never combine focused/failed pieces or rebuild version63. Public63 current.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
