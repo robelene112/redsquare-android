@@ -63,7 +63,7 @@ class QuotePreviewTest {
                     captureQuoteEvidence("quote-evidence/current-commentary-retweet.png")
                     ui.clickVisiblePostProfile("Anon-${current.get("field2").asString.take(6)}")
                     waitFor("Profile")
-                    waitFor("Current commentary retweet")
+                    ui.revealProfileHistoryItem("Current commentary retweet", timeoutMillis = 20_000)
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(embeddedOriginal)
                     ui.onNode(embeddedOriginal, useUnmergedTree = true).assertIsDisplayed()
                     assertTrue(peer.transactions.isEmpty())

@@ -81,7 +81,7 @@ class SocialPreviewTest {
                     waitFor("New post")
                     ui.clickVisiblePostProfile("Anon-${root.get("field2").asString.take(6)}")
                     waitFor("Profile")
-                    waitFor("Liked")
+                    ui.revealProfileHistoryItem("Liked", timeoutMillis = 20_000)
                     assertVisibleProfileLike("5 likes")
                     assertEquals(1, peer.transactions.size)
                     served.set(countedRoot(9))

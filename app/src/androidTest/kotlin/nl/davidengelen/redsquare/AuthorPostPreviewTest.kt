@@ -131,7 +131,7 @@ class AuthorPostPreviewTest {
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native author's edited post"))
                     ui.clickVisiblePostProfile("Anon-${own.get()!!.get("field2").asString.take(6)}")
                     waitFor("Profile")
-                    waitFor("Native author's edited post")
+                    ui.revealProfileHistoryItem("Native author's edited post", timeoutMillis = 20_000)
                     if (withImage) ui.assertSyntheticRedImage(postText = "Native author's edited post")
                     assertEquals(2, peer.transactions.size)
                     peer.assertHealthy()

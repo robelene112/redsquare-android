@@ -92,7 +92,7 @@ class NotificationProcessRecoveryTest {
                 capture("read-cold-recovered.png", "No unread activity")
                 ui.onNodeWithText(actor.publicKey).performClick()
                 waitFor("Profile")
-                ui.onNodeWithText(actor.publicKey).assertIsDisplayed()
+                ui.inspectProfileIdentity(actor.publicKey)
                 ui.onNodeWithText("Back").performClick()
                 waitFor("No unread activity")
                 assertIdentity(owner, backend, peer)
