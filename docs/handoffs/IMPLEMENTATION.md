@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 00:30 UTC:62 CLOSED/beta62PUBLIC/final0.63 first Chat entry RED observed; initial production implementation ready for compile/review.
+Updated 2026-10-22 00:58 UTC:62 CLOSED/beta62PUBLIC.63 first10 functionalPASS but actual200 contact clipping;17FAIL error visibility. Stronger native RED fixture compiling.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,6 +39,34 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
+LATEST63: first focused10run39700917505 at exacta8d SUCCESS1method47.185s/180,
+33 originals, packet green10-local-contact-a8d-RUN45hashes. NOT visual acceptance:
+root actual200Light screenshot/XML shows public-key native TextView only2px high
+(536..538), card/name partly clipped by nav. Prior semantic click accepted a partial
+row.130Dark capture also occurred before known contacts loaded, so shows false empty
+copy; readiness later passes. First17run39700920266 at exacta8d FAILS1method87.999s,
+line71 original15s invalid-key error visibility in final200Dark; keyboard font-size
+banner reduces body, enabledOpenchat and invalid field visible but no error text.
+Packet failed17-local-contact-a8d-RUN47hashes/33 originals. Root viewed both. No whole63
+acceptance; no source correction aftera8d yet. Observer5124 ended0/retained both.
+
+Ranked17 causes: feedback outside reduced viewport, tap during keyboard resize,
+validation not applied. Pixel border differs from primary and is consistent with
+error state, but no Compose failure tree/event order was captured; preserve limits.
+Do not hide IME/banner, weaken original15s goal or call cause proven without evidence.
+Main-list clipping is independently confirmed in actual native geometry.
+New ChatEntry fixture moves known capture AFTER contact readiness, checks actual
+native visible identity height against full unclipped semantic text height, then
+physically taps a >=48dp contact target; adds real known/pasted Details PNG/XML.
+All original methods/assertions/180s/IME/Open remain. First compile failed unsupported
+DpRect.height access; corrected to bottom.value-top.value with positive-height guard.
+Corrected compile starting, pending. NEXT source review/compile then RED10 of stronger
+fixture against UNCHANGEDa8d production, then implement layout/feedback refinement.
+Candidate layout: compact private privacy heading, normal available-history guidance
+at list footer while preserving real error status, and reveal active form feedback
+within its scroll viewport. Group/invitation work still not started.
+
+
 Issue63 assigned/unblocked after58/62. Review base
 baede8527d38dea6cf0afd280d29eb88d1b1cb95. Start:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6329480651
@@ -60,7 +88,24 @@ control readiness and preserved metadata path. Shared proven dialog window helpe
 moved unchanged frompolicy into ui/AppDialogWindow; all original callers migrated.
 Existing private-entry/list UI operators migrated to actual New chat route while
 preserving all original identities/assertions/deadlines. Compile/source review/native
-GREEN pending; no next slice implemented. Later slices group individual selection/add/remove,
+GREEN pending; no next slice implemented.
+
+First productionc7a51d004155647630c1b7c23f02c4a2bbb4d9cf app/testcompileSUCCESS3m57/0
+and paired source/RED-evidence Spec0/documentedStandards0/heuristic0. Proactive
+validation refinementa8ddfddb90ce8cdd76615ff336ec24259c4cd10e keeps input enabled during
+checking (saving still disables it), reads fresh validation guard, rejects a stale
+result if edited and disables autocorrect. No reproduced keyboard-defect claim.
+Narrow paired reviews0/0; final-source compileSUCCESS3m44wall/Gradle3m42/explicit0,
+external chatentry63-stable-validation-compile.json/log. No local build active.
+Both focused native runs execute exacta8d: Android10run39700917505 and17run39700920266.
+Observer5124 /tmp/redsquare63-watch-green-entry.py waits terminal then downloads;
+actual artifact directory is discovered rather than assuming suffix-all. Raw roots
+chatentry63-SDK-a8d-RUN under external artifacts; labels green-or-failedSDK-local-contact-a8d-RUN.
+Inspect actual method/logs/originals before claiming GREEN. Default/130/200 both
+Themes include real focused-dialog IME/physical48dp Open chat; main contact viewport
+at200 is an inspection target, not yet an observed defect. No group/invitation code
+or tests yet. Continue vertical slices only after first private-entry GREEN.
+Public62 unchanged; reserve no new signed version until later63 acceptance. Later slices group individual selection/add/remove,
 exact existing invitation copy/share and deliberate unavailable-group Join recovery.
 Do not implement another ticket in parallel. Never touch protected research file.
 

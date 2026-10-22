@@ -55,12 +55,12 @@ class ChatEntryPreviewTest {
                     ui.withPostViewports(activity, folder, "chat-entry") { label, _ ->
                         click("Chat")
                         waitFor("New chat")
-                        captureNativeScreen(File(folder, "$label-known-contacts.png"))
                         val known = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact.publicKey))
                         ui.waitUntil(15_000) { ui.onNode(known, useUnmergedTree = true).isDisplayed() }
-                        ui.onNode(known, useUnmergedTree = true).performClick()
+                        captureNativeScreen(File(folder, "$label-known-contacts.png"))
+                        physicalContact(contact.publicKey, File(folder, "$label-contact-target.json"))
                         waitFor(body)
-                        inspectIdentity(contact.publicKey)
+                        inspectIdentity(contact.publicKey, File(folder, "$label-known-identity.png"))
                         click("Back")
                         click("New chat")
                         waitFor("New private chat")
@@ -79,7 +79,7 @@ class ChatEntryPreviewTest {
                         ui.onNodeWithText("Public key").performTextReplacement("  $pasted  ")
                         physicalOpen()
                         ui.waitUntil(15_000) { ui.onNode(hasText("Message") and isEnabled()).isDisplayed() }
-                        inspectIdentity(pasted)
+                        inspectIdentity(pasted, File(folder, "$label-pasted-identity.png"))
                         click("Back")
                         waitFor("New chat")
                         check(wallets.loadExisting().exportJson() == wallet.withChatContact(pasted).exportJson())
@@ -102,10 +102,35 @@ class ChatEntryPreviewTest {
         }
     }
 
-    private fun inspectIdentity(key: String) {
+    private fun inspectIdentity(key: String, image: File) {
         ui.onNodeWithContentDescription("Conversation details").performClick()
         ui.onNodeWithText(key).performScrollTo().assertIsDisplayed()
+        captureNativeScreen(image)
         click("Done")
+    }
+
+    private fun physicalContact(key: String, evidence: File) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val density = context.resources.displayMetrics.density
+        val unclipped = ui.onNodeWithText(key, useUnmergedTree = true).getUnclippedBoundsInRoot()
+        val fullHeight = (unclipped.bottom.value - unclipped.top.value) * density
+        val identity = requireNotNull(device.findObject(By.text(key)))
+        val visible = identity.visibleBounds
+        var target = identity
+        while (!target.isClickable) target = requireNotNull(target.parent)
+        val bounds = target.visibleBounds
+        evidence.writeText(com.google.gson.JsonObject().apply {
+            addProperty("fontScale", context.resources.configuration.fontScale)
+            addProperty("unclippedIdentityHeight", fullHeight)
+            addProperty("visibleIdentityHeight", visible.height())
+            addProperty("identityVisibleBounds", visible.toShortString())
+            addProperty("contactTargetBounds", bounds.toShortString())
+        }.toString())
+        check(fullHeight > 0 && visible.height() >= fullHeight - 1) { "The complete contact identity line stays visible before opening" }
+        val minimum = kotlin.math.round(48 * density).toInt()
+        check(bounds.width() >= minimum && bounds.height() >= minimum)
+        check(device.click(bounds.centerX(), bounds.centerY()))
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onNodeWithText(text).isDisplayed() }
