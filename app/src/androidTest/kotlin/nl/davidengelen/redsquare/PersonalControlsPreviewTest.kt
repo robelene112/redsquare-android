@@ -347,6 +347,7 @@ class PersonalControlsPreviewTest {
                 ui.openProfileActions()
                 waitFor("Mute account")
                 muteAccount()
+                ui.onNodeWithText("Unmute account").assertIsDisplayed()
                 ui.closeProfileActions()
                 assertPostAbsent("Native Red Square reference post", "Posts from muted or blocked accounts are hidden.")
                 waitFor("Posts from muted or blocked accounts are hidden.")

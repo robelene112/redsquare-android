@@ -93,8 +93,11 @@ class PublisherUserReportPreviewTest {
                                 }
                             }
                             fun openReport() {
-                                ui.openProfileActions()
-                                ui.waitUntil(20_000) {
+                                val deadline = android.os.SystemClock.elapsedRealtime() + 20_000
+                                ui.openProfileActions(20_000)
+                                val remaining = deadline - android.os.SystemClock.elapsedRealtime()
+                                check(remaining > 0) { "Publisher action exceeded its original readiness deadline" }
+                                ui.waitUntil(remaining) {
                                     ui.onAllNodes(hasText("Report user to publisher") and hasClickAction() and isEnabled())
                                         .fetchSemanticsNodes().isNotEmpty()
                                 }
