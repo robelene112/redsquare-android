@@ -1,0 +1,56 @@
+{
+  "status-talkback-evidence.tar": {
+    "sha256": "688a050de5b282ca39827753678a453f99b16e4045923ef05f9059946d503cde",
+    "bytes": 959488,
+    "members": [
+      {
+        "name": "status-talkback-evidence/accessibility-before.txt",
+        "bytes": 5160,
+        "sha256": "4881a587f36f0c35892ac1e807c42dbfb35c13f7e14cd08f0df77b7d7477478f",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/accessibility-before.txt"
+      },
+      {
+        "name": "status-talkback-evidence/engine.json",
+        "bytes": 149,
+        "sha256": "8244b4ee0b73eb2c242a6aaf11e1ee8d32dd723d778a4cda30f2202c338c880b",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/engine.json"
+      },
+      {
+        "name": "status-talkback-evidence/english-engine.wav",
+        "bytes": 78342,
+        "sha256": "8734b5c80a05d518af0fd15c03ccee73d7e53125bccdb81a6b25386593e223bc",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/english-engine.wav"
+      },
+      {
+        "name": "status-talkback-evidence/talkback-outage-failure.xml",
+        "bytes": 51561,
+        "sha256": "111cced99bac42a8b2117f103dcc651532365f0ceba358433994cb9330989c96",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/talkback-outage-failure.xml"
+      },
+      {
+        "name": "status-talkback-evidence/talkback-outage-failure.png",
+        "bytes": 44754,
+        "sha256": "c5fc2910752a0cd13c7ee9ab40735c8f3e82223881470b45cad78acc8f983fe1",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/talkback-outage-failure.png"
+      },
+      {
+        "name": "status-talkback-evidence/failure-speech.txt",
+        "bytes": 583142,
+        "sha256": "24f292fd9c6cb67a0c1df5fc2933b7caa92073f5ab1a7ebb3173e75a663e5e49",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure-speech.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure-accessibility.txt",
+        "bytes": 5261,
+        "sha256": "22b32981eb645f254d0bc1c062146b2d877842f77e026f2d5d2a63ab44daaf08",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure-accessibility.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure.png",
+        "bytes": 183033,
+        "sha256": "e87e68d2bb45332caca2092d52077e8ec1353453be50b34f7ea64dd100fdbf1d",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure.png"
+      }
+    ]
+  }
+}

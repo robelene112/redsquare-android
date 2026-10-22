@@ -431,7 +431,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/older-activity.png"), "3 unread")
             ui.onNodeWithText(olderActor).performClick()
             waitFor("Profile")
-            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            ui.inspectProfileIdentity(olderActor)
             ui.onNodeWithText("Back").performClick()
             waitFor("3 unread")
             responses.change()
@@ -773,7 +773,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/stream-retry-late.png"), "3 unread")
             ui.onNodeWithText(lateActor).performClick()
             waitFor("Profile")
-            ui.onNodeWithText(lateActor).assertIsDisplayed()
+            ui.inspectProfileIdentity(lateActor)
         }
     }
 

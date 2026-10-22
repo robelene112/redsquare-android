@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare
 
 import android.os.SystemClock
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.junit4.ComposeTestRule
 
 private class ProfileNavigationDeadline(timeoutMillis: Long) {
@@ -44,7 +46,18 @@ internal fun ComposeTestRule.revealProfileHistoryItem(text: String, timeoutMilli
     waitUntil(deadline.remaining()) {
         onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed()
     }
-    onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
+    val history = onNode(hasScrollToIndexAction())
+    history.performScrollToNode(hasText(text))
+    // Lazy scrolling can place the target behind the pinned history tabs.
+    // Reveal its actual hit area before the caller clicks, not just its semantics.
+    val tabs = onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab))
+        .fetchSemanticsNodes()
+    val tabBottom = tabs.maxOf { it.boundsInRoot.bottom }
+    val targetTop = onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top
+    if (targetTop < tabBottom) history.performScrollBy(y = targetTop - tabBottom)
     onNodeWithText(text).assertIsDisplayed()
+    check(onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top >= tabBottom) {
+        "Profile history target is covered by the pinned tabs"
+    }
     deadline.remaining()
 }
