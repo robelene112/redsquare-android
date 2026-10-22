@@ -98,8 +98,8 @@ no failureobserverinvocation/newIMEdata/diagnosedcause/fixclaim. Observer64232en
 SourceCI39691836518 atd354SUCCESS. No activecompile.
 
 FreshENTIRE10run39692824874 executesexactd354/all3parts. Accepted17stays796 perfixtureonly
-rule; all14Release/buildobjectsmatch107/b99/796/d354. Referencebindsactualrun/source. Observer19313 runs
-/tmp/redsquare62-watch-complete-d354.py; terminalrawrootconversation62-full10-d354-RUN,
+rule; all14Release/buildobjectsmatch107/b99/796/d354. Referencebindsactualrun/source. Observer19313 completed exit0;
+/tmp/redsquare62-watch-complete-d354.py retained terminalrawrootconversation62-full10-d354-RUN,
 strictcollectorlabel full10-d354-RUN exited0 afterwholeSUCCESS.
 Terminalfull10 originals inspected and collector passedwholeSUCCESS/all3SUCCESS. Native
 Walletfailure-onlyobservationsstayactive; ifblankrecurs, inspectbeforeproductchange.
