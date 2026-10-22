@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at05:58UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at06:24UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -34,9 +34,16 @@ Issue63 is closed. Issue64 is claimed; its review base is
    retains62 members; root inspected four originals. Tabs are a separate lazy
    item below the tall header; fixture now scrolls to its exact same matcher
    before lookup, retaining Role.Tab/selected/assertions/sixcells/180s. No app
-   defect is proved. Android17run39732748146 at1db remains active, observer
-   PID3203445 `/tmp/redsquare64-watch-hierarchy.py`, external log
-   `profile64-hierarchy-1db-observer.log`, terminal-only raw retention.
+   defect is proved. Android17run39732748146 at1db also fails at that first200%
+   lookup,57.842s/180, packet `failed17-hierarchy-1db-39732748146`,62members.
+   Root viewed current failure/full identity originals; OS overlay qualified.
+   Old observer3203445 ended after both terminal outcomes were retained.
+   The10 failure packet and scroll correction are reviewed0/0 at a869.
+   CURRENT10run39733389664 and17run39733646265 execute exacta869, pending.
+   Observer PID3207761 `/tmp/redsquare64-watch-hierarchy-a86.py`, external
+   `profile64-hierarchy-a86-observer.log`, terminal-only raw targets
+   `profile64-hierarchy-SDK-a86-RUN`. Do not assemble rejected cells or treat
+   extraction PASS as native PASS. No local compiler is active.
    Scope `profile-hierarchy` and Android17
    variant use one180s class, additive complete Social inclusion. Preserve all
    original goals. Public63 remains accepted; no64 beta is prepared.
@@ -59,8 +66,9 @@ old-host writers. Authored copy has no em dashes; communicate concisely in Dutch
 Review base: `baede8527d38dea6cf0afd280d29eb88d1b1cb95`.
 Product source at441 and subsequent fixture/evidence changes have final
 Spec0, documented Standards0 and heuristic0 reviews through `db50f703e`.
-Remote/main is `44601552d50de619def7c5b90de27af985a9cb66`; local commits after446
-contain evidence/docs only. The protected untracked research is not task work.
+At63 acceptance, both complete gates and the signed artifact used
+`44601552d50de619def7c5b90de27af985a9cb66`; the pre-closure local commits after446
+contained evidence/docs only. Current64 source/run bindings are above. The protected untracked research is not task work.
 
 | Gate | Run | Exact source | State |
 | --- | --- | --- | --- |
