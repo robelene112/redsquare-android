@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 04:16 UTC:63 focused/source evidence final0/0; fresh complete full10/full17 execute SAME78bd source with all3partitions/publicreads. Full acceptance and signed delivery pending.62 remains PUBLIC.
+Updated 2026-10-22 04:34 UTC:63 full10 at78bd rejected: AppFrame viewport recreation throws DESTROYED after six cells. Root cancelled remaining partitions; actual whole CANCELLED/Chat FAILURE, retained separately. Full17 remains active. Fixture-only current-instance recreation correction pending review/compile/native.62 remains PUBLIC.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,42 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+LATEST FULL10 REJECTION: run39721355158 at78bd wholeCANCELLED by root after Chat
+job119635319551 FAILURE in AppFramePreviewTest's unchanged larger-text method.
+Original31.662s class output: first-use/profile-retention/home-return PASS; viewport
+FAILS with InstrumentationActivityInvoker stage DESTROYED. Six completed layout
+cells retained through412/font130/Dark; next412/font200 not reached. No proven app
+crash (crash log empty); final failure PNG is launcher after fixture cleanup, not
+in-scope proof of an app crash. Source78run39721355235 SUCCESS9tasks separately.
+Raw allthree named artifacts downloaded only after terminal completion; failed
+Chat packet failed10-full-frame-recreation-78b-39721355158 has2archives/141originals.
+Pre-cancel and terminal metadata retained externally in
+ group63-full10-78b-completed-chat-failure-39721355158. No passed pieces accepted.
+Current fixture-only correction applies the already-used PostViewportFixture
+main-thread current-instance recreation plus replacement/focus/width/font positive
+readiness, preserving the original15s and180s bounds, all8cells and native targets.
+No product/build/catalog changes. Full17run39721357702 still active and not accepted.
+Fresh focused original frame viewport10, then complete SDK verification required.
+
+
+FULL OBSERVER now detachedPID3135239 /tmp/redsquare63-watch-full-78b.py, log
+/mnt/storage/redsquare-android-artifacts/group63-full-78b-observer.log. Exact78bd
+full10run39721355158/full17run39721357702 each currently3jobsactive. Execution
+bookkeeping318af6cbf8bc19e2073466590dcbb11c51a2ccf5 final Spec0/documentedStandards0/
+heuristic0; local318 is ahead of remote78bd, no app/test changes. Observer records
+terminalmetadata, downloads every named artifact only after wholecompletion to
+ group63-fullSDK-78b-RUN, then ONLY ifwholeSUCCESS invokes frozenfull-collector.py
+with targetfullSDK-78b-RUN and records actualexit/output. Collector exit0 is evidence
+validation, not automatic UI acceptance/issueclosure/publication. It never reruns
+nativejobs or combines failedpieces. Terminal failures/collector errors require
+rootdiagnosis; partialdownload output remains external. No private in-progress
+runnerlogs. No localcompiler and no signedversionreservation. Last source-only
+39721355235 active at04:18UTC. Issue progress comment:
+https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6332572214
+Productionhostname verified v2202609429510531338/netcup and migrationstate confirms
+liveapps/DNS/oldwritersstopped; no migration/node changes performed. Public62 unchanged.
+
 
 CURRENT COMPLETE DISPATCHES: final focused/source evidence78bd reviewed Spec0/
 documentedStandards0/heuristic0. Pushed EXACT78bd176cd0aacffc4011fdaffdbf7276f3356e3c

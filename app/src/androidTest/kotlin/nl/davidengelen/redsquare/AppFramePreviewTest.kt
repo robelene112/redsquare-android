@@ -104,9 +104,23 @@ class AppFramePreviewTest {
                 device.executeShellCommand("wm size $size")
                 for (scale in listOf(1.3f, 2f)) {
                     font.apply(scale)
-                    activity.recreate()
-                    ui.waitUntil(15_000) { device.displayWidth == width &&
-                        ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                    // A display/font change can relaunch the Activity before Scenario.recreate()
+                    // resumes its saved instance. Request recreation on the current main-thread
+                    // instance, then positively require its replacement and the actual configuration.
+                    var previous: MainActivity? = null
+                    activity.onActivity { current -> previous = current; current.recreate() }
+                    ui.waitUntil(15_000) {
+                        var replaced = false
+                        if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
+                            replaced = current !== previous && !current.isChangingConfigurations &&
+                                current.window.decorView.hasWindowFocus() &&
+                                current.resources.configuration.screenWidthDp == width &&
+                                kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
+                        }
+                        replaced && device.displayWidth == width &&
+                            ui.onNode(hasText("Home") and isSelected()).isDisplayed()
+                    }
+                    previous = null
                     for (theme in listOf("Light", "Dark")) {
                         ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
