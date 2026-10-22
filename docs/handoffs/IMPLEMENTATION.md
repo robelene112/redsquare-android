@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 04:05 UTC:63 recovery focused17GREEN at a760;10 fails nominal-IME-window readiness before first tap. Fixture now clips nominal keyboard frame to actual screen and compiles successfully; focused10 rerun next. Full catalog frozen/reviewed.62 remains PUBLIC; whole63 open.
+Updated 2026-10-22 04:14 UTC:63 all four UI slices focusedGREEN on both SDKs. Recovery10 e3c54.671s,17 a76081.952s; no product changes between sources. Sourcee3cSUCCESS. Final focused evidence review, then complete same-source full10/full17 next.62 remains PUBLIC.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,41 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+LATEST RECOVERY GREEN: exact e3c Android10run39720565982 whole/jobSUCCESS54.671s/180,
+all6cells/all12native48dp+actualIME/singletaps/invalid+mismatch/Paste/trustOWNERnode/
+Cancel/exactsignedJoin/roles/wallet/independentrestore. Packet green10-invitation-recovery-visible-ime-e3c-RUN
+81originals/92hashes. Rootviewed100Darkentry,200LighterrorrealIME,200Darkpreview/fullkeys:
+completeerrorreadable, fixedactions, trust/node/privacy beforefullselectablekeys.
+Raw nominalIME740 is clippedto640 whiletop394/insets246/nativeComposeboundsagree.
+Original10/15/180bounds+allgoals preserved, no tapretry. ObserverPID3129761 ended
+terminalretention. Requiredsourcee3c39720566256 alsoSUCCESS; packetgreen-source-visible-ime-e3c-RUN
+2hashes/264completeoriginalstagelines. Rootgitdiff a760..e3c app/core/push main+
+Gradle/buildinputs empty:17focused a760 remains bounded identicalproductionproof,
+not final full17. All four slices now have complete focused SDK journeys, historical
+failures remainunchanged. No localcompiler/observer remains. NEXT paired current
+GREEN10/source packet review, then finalfull10/full17 SAME source/newfixture with
+frozen515/516 catalog, alloldroles/admin/mute/leave/recovery/publicreadgoals. No
+fullsource/runbindingsconfigured or signedcandidate reserved yet. Public62 unchanged.
+
+
+ACTIVE exacte3c612ae268266d3f01182ba25d1b0af65624781: source+all3a760 packet reviews
+Spec0/documentedStandards0/heuristic0. Visible-IME compilePID3127010 SUCCESS1m49.939s/
+Gradle1m49/explicit0. Pushed e3c; fresh recovery10run39720565982 and requiredsource
+39720566256 active. No focused17 rerun: its preceding a760 all6cells pass is bounded
+proof with identical app production and ready regions unchanged by clipping. It
+never replaces final full17 at the SAME finalsource/newfixture as full10.
+Detached observerPID3129761 /tmp/redsquare63-watch-join-visible-ime.py; log
+/mnt/storage/redsquare-android-artifacts/group63-recovery-visible-ime-e3c-observer.log.
+Rawtarget group63-10-recovery-visible-ime-e3c-RUN, packet green/failed10-invitation-recovery-visible-ime-e3c-RUN.
+Retain only terminal originals; inspect actual clipping/IME/native target geometry,
+original goal results and real default/error/200% screenshots. No original deadline,
+class identity, test goal or protocol/pin removed. No localcompiler active. If focused10
+is GREEN: pair-review evidence, then configure/fresh-dispatch full10/full17 all3
+partitions using independently frozen63catalog. Neither full63 nor signedcandidate
+is reserved/accepted yet. Public62 remains unchanged. Finish63 then64–69 and70;
+55 stays open for owner final visualreview and36 for owner/provider/physical/Play.
+
 
 LATEST RESULTS: recovery17run39719615280 at EXACTa760 SUCCESS81.952s/180, all6cells,
 all12 physical Preview calls/newgeometry/invalid+mismatch/explicitPaste/trust/node/
