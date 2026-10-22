@@ -74,9 +74,10 @@ Read-only AOSP Intent.java android-10.0.0_r47 confirms framework may mirror
 EXTRA_TEXT into ClipData before chooser interception. Fixture now allows ONLY an
 absent clip or one exact matching text/plain item with no URI/HTML/Intent, while
 keeping exact EXTRA_TEXT-only extras/no data. This preserves the no-broadened-payload
-goal across actual Android platform transport. No app change; current63a RED still
-stops at the earlier missing Copy action. Narrow source review/compile follows.
-No background observers/builds active at this checkpoint. Protected research remains
+goal across actual Android platform transport. No app change; the first expected RED remains
+the earlier missing Copy action, but the actual terminal outcome is still pending.
+Narrow source review follows. Platform fixture compile59250 ACTIVE, external
+group63-invitation-share-platform-compile.log/json. No background native observer active. Protected research remains
 UNREAD/UNTOUCHED. Remaining Join recovery slice still pending after Copy/Share.
 
 Previous complete operator6aa executions bothSUCCESS:10run39710787661 88.343s/180;
