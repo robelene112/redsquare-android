@@ -17,7 +17,7 @@ Root viewed actual100% Dark default and200% Light copied captures. The URL is
 selectable within its scrollable surface; the large fixed actions and copied
 feedback stay readable. Android17's standard post-copy clipboard preview temporarily
 covers part of the lower Share/Done area; this is not a claim that those controls
-are unobscured during that OS overlay. Their actual physical-target/tap proof
+are unobscured during that OS overlay. Share’s actual physical-target/tap proof
 precedes Copy, and the copied feedback remains visible. This is bounded Copy/Share
 proof, not Join recovery,
 complete native, whole63 or signed delivery acceptance. Public beta62 is unchanged.
