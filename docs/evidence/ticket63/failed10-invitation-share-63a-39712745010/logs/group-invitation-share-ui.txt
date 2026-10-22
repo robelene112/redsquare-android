@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupInvitationSharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupInvitationSharePreviewTest:
+INSTRUMENTATION_STATUS: test=aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupInvitationSharePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.waitFor(GroupInvitationSharePreviewTest.kt:159)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16$lambda$15(GroupInvitationSharePreviewTest.kt:81)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$bREx55jakYmo8IDZC1AJ_uMa1ns(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16(GroupInvitationSharePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$e3nAip7q3zTCg1BASRq13y6F7lE(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize(GroupInvitationSharePreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize(nl.davidengelen.redsquare.GroupInvitationSharePreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.waitFor(GroupInvitationSharePreviewTest.kt:159)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16$lambda$15(GroupInvitationSharePreviewTest.kt:81)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$bREx55jakYmo8IDZC1AJ_uMa1ns(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16(GroupInvitationSharePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$e3nAip7q3zTCg1BASRq13y6F7lE(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize(GroupInvitationSharePreviewTest.kt:72)
+
+INSTRUMENTATION_STATUS: test=aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.627
+There was 1 failure:
+1) aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize(nl.davidengelen.redsquare.GroupInvitationSharePreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.waitFor(GroupInvitationSharePreviewTest.kt:159)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16$lambda$15(GroupInvitationSharePreviewTest.kt:81)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$bREx55jakYmo8IDZC1AJ_uMa1ns(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize$lambda$20$lambda$17$lambda$16(GroupInvitationSharePreviewTest.kt:73)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.$r8$lambda$e3nAip7q3zTCg1BASRq13y6F7lE(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest$$ExternalSyntheticLambda16.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationSharePreviewTest.aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize(GroupInvitationSharePreviewTest.kt:72)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

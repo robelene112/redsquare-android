@@ -1,0 +1,50 @@
+{
+  "group-invitation-share-evidence.tar": {
+    "sha256": "8a7bc7f2970cea7f1f61c8e88c74055a0d3f56bbb738b49c7269059f32d338d8",
+    "bytes": 83968,
+    "members": [
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-activity-lifecycle.jsonl",
+        "bytes": 1768,
+        "sha256": "58330decdb8aab9a69400d6ecea1e90f4f8e6db21740b4fe958662cd1139ef6e",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-font-scale.json"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-320-font100-light-configuration.json"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.semantics.txt",
+        "bytes": 14314,
+        "sha256": "cf2fbf801245412dfefa4fcd5939a6a30994d592e5b34b2546db34b23d1fc532",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.semantics.txt"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.xml",
+        "bytes": 17529,
+        "sha256": "17a0a73a1207fda091ce2c3211b96e2be8f5e20bcf510462e8c47f43c7d95f41",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.xml"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.png",
+        "bytes": 42788,
+        "sha256": "8dd60483b33c8356cb18ffd46d4309d8e0cd0f560cdeb2131ca0b8be89e399f7",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-320-font100-light-failure.png"
+      },
+      {
+        "name": "group-invitation-share-evidence/group-invitation-share-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/group-invitation-share-evidence/group-invitation-share-evidence/group-invitation-share-font-restored.json"
+      }
+    ]
+  }
+}

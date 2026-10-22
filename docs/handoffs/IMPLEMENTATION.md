@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 02:42 UTC:62 CLOSED/beta62PUBLIC.63 private/group focused GREEN including group typography; Copy/Share fixture now executing expected RED10. Whole63 remains open.
+Updated 2026-10-22 02:48 UTC:62 CLOSED/beta62PUBLIC.63 private/group GREEN; invitation RED confirmed and first Copy/Share production compiling. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -64,21 +64,32 @@ Final source e477 reviewed Spec0/documentedStandards0/heuristic0; metadata63a fi
 Standards0/0. Initial68400 compileSUCCESS1m55wall/Gradle1m54/0; final88645 compile
 SUCCESS1m51wall/Gradle1m50/0. External group63-invitation-share-{red,reviewed}-compile.log/json.
 
-Expected RED10run39712745010 executes exact63a81369e562f3e6ebad1e99a64bf99cc78ec634
-against unchanged1ee production. NO invitation production implemented yet. NEXT
-inspect terminal original outcome/capture, retain with /tmp/redsquare63-retain-native.py
-API29/exact63a; raw external group63-10-invitation-share-red-63a-RUN, packet
-failed10-invitation-share-63a-RUN. Then implement bounded Copy/Android Share using
-unchanged GroupInvitation.link and existing active-member/admin availability.
-Read-only AOSP Intent.java android-10.0.0_r47 confirms framework may mirror
-EXTRA_TEXT into ClipData before chooser interception. Fixture now allows ONLY an
-absent clip or one exact matching text/plain item with no URI/HTML/Intent, while
-keeping exact EXTRA_TEXT-only extras/no data. This preserves the no-broadened-payload
-goal across actual Android platform transport. No app change; the first expected RED remains
-the earlier missing Copy action, but the actual terminal outcome is still pending.
-Narrow source review follows. Platform fixture compile59250 ACTIVE, external
-group63-invitation-share-platform-compile.log/json. No background native observer active. Protected research remains
-UNREAD/UNTOUCHED. Remaining Join recovery slice still pending after Copy/Share.
+Expected RED10run39712745010 exact63a81369e562f3e6ebad1e99a64bf99cc78ec634 completed
+FAILURE20.627s/180, original15s Copy invitation readiness, first100Light. Root viewed
+actual PNG/XML/semantics: old link+Done-only dialog, noCopy/Share. Packet
+failed10-invitation-share-63a-39712745010 retains7 originals, raw externally at
+group63-10-invitation-share-red-63a-39712745010. No invitation production existed
+before this RED; no later cell/assertion accepted. Original Copy goal unchanged
+by later platform-only fixture correction. No historical run relabel/retry.
+
+Fixturefcfd allows absentClipData OR exactly one matching plain-text link/noURI/
+HTML/Intent, while keeping EXTRA_TEXT-only extras/no data. AOSP API29
+Intent.migrateExtraStreamToClipData supports this ordinary framework mirror.
+Final narrow source reviews Spec0/documentedStandards0/heuristic0; platform compile
+59250 SUCCESS1m51wall/Gradle1m50/explicit0, group63-invitation-share-platform-compile.log/json.
+
+First Copy/Share production now uses separate full-window GroupInvitationDialog,
+scrollable selectable unchanged link/privacy and fixed48dp Copy/Android Share/Done,
+consistent vector icons, readable copied/failure live feedback. ActualActivity
+starts text/plain ACTION_SEND chooser with only the exact original link. No claim
+of external sending; Clipboard only writes on explicit Copy. Existing GroupChatScreen
+active-member/admin availability and GroupInvitation.fromGroup(...).link(backend)
+remain unchanged. Roles, protocol, Join and node paths untouched. Compile67147 ACTIVE,
+group63-invitation-first-production-compile.log/json externally. NEXT paired production/
+RED review, compile, then complete group-invitation-share10/17 and actual default/
+200% frames. No background native observer active. Protected research UNREAD/UNTOUCHED.
+Remaining deliberate Join recovery slice still pending after Copy/Share; no whole63,
+full SDK or new signed acceptance. Public62 unchanged.
 
 Previous complete operator6aa executions bothSUCCESS:10run39710787661 88.343s/180;
 17run39710795734 119.398s/180. Original six cells and all assertions intact. Packets

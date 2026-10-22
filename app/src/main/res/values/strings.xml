@@ -508,6 +508,13 @@
     <string name="group_invite">Invite</string>
     <string name="group_done">Done</string>
     <string name="group_invitation_link">Invitation link</string>
+    <string name="group_invitation_accessibility">Group invitation link</string>
+    <string name="group_invitation_hint">Copy this link or share it with the people you want to invite.</string>
+    <string name="group_invitation_copy">Copy invitation</string>
+    <string name="group_invitation_share">Share invitation</string>
+    <string name="group_invitation_copied">Invitation copied.</string>
+    <string name="group_invitation_copy_error">Could not copy the invitation. Try again.</string>
+    <string name="group_invitation_share_error">No sharing app could be opened. Copy the invitation instead.</string>
     <string name="group_error">Group information could not be read or saved, or the action could not be completed. Your existing records are kept.</string>
     <string name="group_unknown">Status unknown. Your signed action is saved on this device.</string>
     <string name="group_submitted">Submitted. Delivery is not confirmed.</string>
