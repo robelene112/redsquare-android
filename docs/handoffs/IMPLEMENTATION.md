@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 01:23 UTC:62 CLOSED/beta62PUBLIC.63 refined native runs reveal initial contact-list anchoring deficit; bounded correction compiling. No63 acceptance.
+Updated 2026-10-22 01:32 UTC:62 CLOSED/beta62PUBLIC.63 private-entry focused10/17 GREEN and root visuals checked. Next group-member setup slice; whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,6 +39,27 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
+LATEST63: first private-entry slice now focused GREEN on BOTH SDKs at exact4d532c2d.
+Android10run39705562540 whole/jobSUCCESS1method56.821s/180;17run39705566867
+whole/jobSUCCESS1method67.096s/180. Original six320dp default/130/200 Light/Dark cells,
+full native key height/physical>=48dp known target, cached body/full Details, actual
+IME/physicalOpen invalid/self/trimmed valid key, wallet/cache/node/zero-write and
+independent restoration goals all PASS. Both200 themes on bothSDKs measure28px
+full/visible and87px target. Root viewed actual200 main, error+real tallIME and full
+key Details. Keyboard-font banner retained; error readable/fixedOpen reachable.
+Packets greenSDK-initial-anchor-4d5-RUN retain63 originals each. Observer96993 ended0.
+NEXT paired native-evidence review, then group selection/add/remove vertical slice.
+No whole63/full-suite/signed delivery acceptance; public62 unchanged. Navigation200
+wrap remains70. No new signed version reserved. Protected research remains UNREAD.
+
+Prior initial-anchor correction4d532c2d and rejected ca5 packets had paired
+Spec0/documentedStandards0/heuristic0 review. Local app/test compile17520 SUCCESS
+3m39wall/Gradle3m37/explicit0. Populated list now starts with a real contact, separate
+from empty/loading guidance. No forced scroll or weakened predicate/deadline.
+Original failing-run event ordering remains unrecorded; leading anchor explanation
+is supported by this bounded correction, not claimed as a captured trace.
+
+Historical first-slice rejected executions and diagnoses:
 LATEST63: refined private-entry runs at exactca5 both REJECTED. Android10run39704224856
 FAIL1method52.644s, original15s known-contact readiness at200Light; requested first
 contact offscreen, later pasted contact/history guidance visible. Android17run39704227191
@@ -54,9 +75,12 @@ refinement now separates empty loading/guidance Column from the populated lazy l
 so its first item is a real contact. Guidance remains footer when populated. Adds ONLY
 failure semantics capture at the original cell scope, preserving original test method,
 all assertions,15s goals,180s class bound and actual keyboard handling.
-Compile17520 ACTIVE, external chatentry63-initial-contact-anchor-compile.log/json.
-NEXT paired source/evidence review, compile and repeat unchanged complete method on
-both SDKs. Group/invitation slice still not started. Do not dismiss IME/banner,
+Correction4d532c2d paired Spec0/documentedStandards0/heuristic0, both failed packets
+reviewed0/0. Compile17520 SUCCESS3m39wall/Gradle3m37/explicit0; external
+chatentry63-initial-contact-anchor-compile.log/json. Both new complete executions at
+exact4d5 now running:10run39705562540 and17run39705566867. Observer script
+/tmp/redsquare63-watch-initial-anchor.py retains terminal originals externally.
+NEXT inspect full outcomes and actual200% views; do not change original goals. Group/invitation slice still not started. Do not dismiss IME/banner,
 weaken any goal or assemble acceptance from rejected partial executions.
 
 Earlier stronger native RED10run39703341485 exacta0c FAIL38.452s/180 at200Light native2px
