@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at14:42UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at14:53UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -65,50 +65,61 @@ Issue63 is closed. Issue64 is claimed; its review base is
    alongside history failure, and all hashes verified. Green056 packets retained,
    paired evidence0/0 throughb172. No production change since4d.
 
-   New complete10run39791789368 and17run39792064782 both execute exact056,
-   public reads enabled, via `verify/profile64-counts-05680ceac`. This temporary
-   verification ref lets the older Chat jobs finish independently. All three
-   jobs are not yet all terminal. Both Wallet jobs and Social17 pass. Social10
-   fails at ProfileEditorPresentationTest line43: pressBack returned false
-   although original failure PNG shows keyboard closed and exact bio intact.
-   Both current Chat jobs remain active at14:42; no acceptance or signed64. Observers:
-   PID3470409 `/tmp/redsquare64-watch-full10-056.py`, PID3474519
-   `/tmp/redsquare64-watch-full17-056.py`; external logs
-   `profile64-full10-056-observer.log` / `profile64-full17-056-observer.log`.
-   Raw `profile64-fullSDK-056-RUN`, packet `fullSDK-056-RUN`; frozen collector
-   executes only after whole/all3 SUCCESS, never autoaccepts or publishes.
-   Review worktree is clean at056, must move to accepted source before signing.
-   Counter remains63, no64 reservation/build. Prepared/publication check helpers
-   `/tmp/redsquare-profile64-prepare64.py` and
-   `/tmp/redsquare-profile64-publication64-check.py` are ready but unexecuted.
+   Third complete10run39791789368 at056 is terminal FAILURE: Wallet SUCCESS,
+   Social fails editor pressBack event receipt despite original PNG showing
+   closed IME/intact bio, Chat repeats the unsupported API29 reader prerequisite.
+   Both failed goal packets are retained under ticket64; whole raw external
+   `profile64-full10-056-39791789368`. Its observer ended, no acceptance.
+
+   Complete17run39792064782 at exact056 has all three jobs SUCCESS, but whole
+   status still in_progress at14:53. Observer3474519
+   `/tmp/redsquare64-watch-full17-056.py`, external
+   `profile64-full17-056-observer.log`; raw/packet `full17-056-39792064782`.
+   It downloads only after whole completion and runs the frozen collector only
+   on SUCCESS. No complete17 evidence acceptance yet. Temporary verification
+   ref `verify/profile64-counts-05680ceac` remains at exact056.
 
    Fixture correctionec3ed80d6d3f0fbed5416bdbe7a63bb73eea9181 uses checked
-   physical KEYCODE_BACK injection plus the unchanged10s actual IME closure.
-   UiAutomator2.4 pressBack also requires TYPE_WINDOW_CONTENT_CHANGED; the
-   failure originals show dismissal without that receipt. Exact source focused
-   editor10run39797506863 and17run39797511037 are pending, observer3491206
-   `/tmp/redsquare64-watch-editor-ec3.py`, external profile64-editor-ec3-observer.log.
+   physical KEYCODE_BACK plus unchanged10s actual IME closure. UiAutomator2.4
+   pressBack also requires TYPE_WINDOW_CONTENT_CHANGED, absent despite actual
+   dismissal in the failure. Corrected focused editor10run39797506863 SUCCESS
+   41.579s/180,17run39797511037 SUCCESS68.909s/180, six cells each. Both green
+   packets retained, root hashes/native recovered previews inspected. Observer
+   `/tmp/redsquare64-watch-editor-ec3.py` ended. All original assertions remain.
 
    Fixture correction23221010213dac92863f1de2bd03c40c4e353e88 qualifies only
-   serviceHandlesDoubleTap readiness to API30+, where that framework flag exists.
-   Failed10 a87 dump has actual bound/enabled TalkBack and touchExplorationtrue
-   but no such API29 attribute. Bound/enabled/touch exploration, original15s,
-   actual speech/focus and cleanup remain required on both SDKs. Focused10
-   run39797817691 pending, observer3492461 `/tmp/redsquare64-watch-talkback-232.py`,
-   external profile64-talkback-232-observer.log. Both narrow source corrections
-   have paired Spec0/documentedStandards0/heuristic0. Production/build/harness
-   unchanged from056. Fresh complete10 is required after focused corrections;
-   if complete17 succeeds, workflow permits retaining that full production-
-   equivalent proof alongside a corrected fixture-only complete10. Do not
-   assemble failed partitions. Source/evidence review does not mean acceptance.
+   serviceHandlesDoubleTap readiness to API30+, where the flag exists. Actual
+   enabled/bound service, touch exploration, original15s and real speech/focus
+   remain required on both SDKs. Focused10run39797817691 SUCCESS:
+   Status30.643/Post55.179/Profile17.683s, each180s. Root verified selected
+   Posts/Replies/Likes utterances40/43/46 in PID3534 with START/positive AUDIO/
+   DONE/noSTOPERROR and exact settings restoration; native Likes focus viewed.
+   Green packet retained. Observer `/tmp/redsquare64-watch-talkback-232.py` ended.
+   Source corrections and faileda87 packets have paired Spec0/documented
+   Standards0/heuristic0 through89cb35a7a2d2633cab53497aced64bbcaff83381.
+
+   Fresh complete10run39799164441 executes exact89cb35a7a2d2633cab53497aced64bbcaff83381
+   on main with public reads enabled. Observer3497616
+   `/tmp/redsquare64-watch-full10-89c.py`, external profile64-full10-89c-observer.log,
+   raw `profile64-full10-89c-39799164441`, packet `full10-89c-39799164441`.
+   Production/build/harness are unchanged from complete17 source056; only the
+   two reviewed test fixtures and evidence/docs differ. Workflow permits a
+   corrected fixture-only complete10 alongside successful production-equivalent
+   complete17. Both whole/all3 SUCCESS, frozen collector and reviewed original
+   evidence remain required. Failed partitions are never assembled.
+
+   Review worktree is clean at056; move to exact accepted source before signing.
+   Counter remains63, no64 reservation/build. Prepared/publication helpers
+   `/tmp/redsquare-profile64-prepare64.py` and
+   `/tmp/redsquare-profile64-publication64-check.py` remain unexecuted.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
    `full-collector.py`: literal63 identities plus4 additive methods, expected
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
    Original validators, tool pins and sole API29 assumption stay fixed. Current
-   bindings identify current full056 attempts; earlier failures remain rejected. No signed64.
-   After corrected focused paths, dispatch fresh full10/17, bind exact runs,
+   bindings identify full10at89c/full17at056; earlier failures remain rejected.
+   No signed64. Await current full10/17, bind exact runs,
    require whole/all3 SUCCESS and collector evidence, inspect native originals,
    paired review, then prepare/publish immutable signed64 through existing route.
    Never combine focused/failed pieces or rebuild version63. Public63 current.

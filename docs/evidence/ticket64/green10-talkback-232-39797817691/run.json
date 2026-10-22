@@ -1,0 +1,19 @@
+{
+  "conclusion": "success",
+  "databaseId": 39797817691,
+  "headSha": "23221010213dac92863f1de2bd03c40c4e353e88",
+  "jobs": [
+    {
+      "completedAt": "0001-01-01T00:00:00Z",
+      "conclusion": "",
+      "databaseId": 119889681455,
+      "name": "native-proof (all)",
+      "startedAt": "2026-10-22T14:41:06Z",
+      "status": "queued",
+      "steps": [],
+      "url": "https://github.com/robelene112/redsquare-android/actions/runs/39797817691/job/119889681455"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/robelene112/redsquare-android/actions/runs/39797817691"
+}
