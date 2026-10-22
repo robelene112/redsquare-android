@@ -484,6 +484,15 @@ if [[ "$full_chat" == true ]]; then
     verify_social_push social-push
     verify_social_push social-push-process
 fi
+verify_chat_entry() {
+    verify_group_chat_native ChatEntryPreviewTest 180 chat-entry chat-entry-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == chat-entry* ]]; then
+    verify_chat_entry
+    printf '%s\n' 'Focused local Chat entry only; no public writes or full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
+if [[ "$full_chat" == true ]]; then verify_chat_entry; fi
 verify_conversation_viewport() {
     verify_group_chat_native ConversationViewportPreviewTest 180 conversation-viewport conversation-viewport-evidence
     verify_group_chat_native PrivateConversationReadingPreviewTest 180 private-conversation-reading private-conversation-reading-evidence

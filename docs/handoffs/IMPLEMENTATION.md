@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 00:21 UTC:62 native/source/publication all final0; exactbeta62PUBLIC. Close62 then sequential63–69/70.61withheld.
+Updated 2026-10-22 00:18 UTC:62 CLOSED/beta62PUBLIC/final0.63 CLAIMED; first native Chat entry RED slice being prepared.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -36,6 +36,24 @@ One implementation writer; independent read-only two-axis reviews remain allowed
 Preserve unrelated untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
+
+## Active Chat entry and invitation63
+
+Issue63 assigned/unblocked after58/62. Review base
+baede8527d38dea6cf0afd280d29eb88d1b1cb95. Start:
+https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6329480651
+62 closure https://github.com/robelene112/redsquare-android/issues/62#issuecomment-6329475937
+
+First vertical slice at agreed native UI/controlled-peer/cache seams: additive
+ChatEntryPreviewTest one method, original180second new-class bound, default/130/200
+both themes, known local contact, full identity in Details, invalid/self/valid pasted
+key and actual focused-dialog IME/48dp Open chat target, zero public writes and
+independent captured-state restoration. New focused chat-entry/Android17 scopes
+and full Chat inclusion preserve all existing classes/goals/deadlines. No app
+production change yet: compile then run RED against existing interface before
+implementing contact-first entry. Later slices group individual selection/add/remove,
+exact existing invitation copy/share and deliberate unavailable-group Join recovery.
+Do not implement another ticket in parallel. Never touch protected research file.
 
 ## Completed conversation62 delivery
 
