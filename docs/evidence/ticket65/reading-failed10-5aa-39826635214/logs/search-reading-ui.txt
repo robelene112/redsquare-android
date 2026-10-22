@@ -1,0 +1,74 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchReadingPreviewTest:
+INSTRUMENTATION_STATUS: test=threadProfileAndRecreationKeepTheSameSearchReadingPosition
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchReadingPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Returning does not repeat the post search expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10$assertPosition(SearchReadingPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10(SearchReadingPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.$r8$lambda$0zXYpPNIikRi5h_BHm3EE4sMzvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition(SearchReadingPreviewTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in threadProfileAndRecreationKeepTheSameSearchReadingPosition(nl.davidengelen.redsquare.SearchReadingPreviewTest):
+java.lang.AssertionError: Returning does not repeat the post search expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10$assertPosition(SearchReadingPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10(SearchReadingPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.$r8$lambda$0zXYpPNIikRi5h_BHm3EE4sMzvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition(SearchReadingPreviewTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=threadProfileAndRecreationKeepTheSameSearchReadingPosition
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.953
+There was 1 failure:
+1) threadProfileAndRecreationKeepTheSameSearchReadingPosition(nl.davidengelen.redsquare.SearchReadingPreviewTest)
+java.lang.AssertionError: Returning does not repeat the post search expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10$assertPosition(SearchReadingPreviewTest.kt:50)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition$lambda$10(SearchReadingPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.$r8$lambda$0zXYpPNIikRi5h_BHm3EE4sMzvk(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchReadingPreviewTest.threadProfileAndRecreationKeepTheSameSearchReadingPosition(SearchReadingPreviewTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

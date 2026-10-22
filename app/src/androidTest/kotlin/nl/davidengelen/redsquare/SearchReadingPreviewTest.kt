@@ -24,11 +24,11 @@ class SearchReadingPreviewTest {
         val quotes = AtomicInteger()
         withAppFrameFixture("search-reading", "search-reading-evidence", "[]",
             archiveResponse = { criteria ->
-                if (criteria.get("limit").asInt == 100 && !criteria.has("field4") && !criteria.has("field2")) {
+                if (criteria.get("limit").asInt == 100 && !criteria.has("field4") && !criteria.has("field2") && !criteria.has("field5")) {
                     searches.incrementAndGet(); rows
                 } else "[]"
             }, quoteArchiveResponse = { criteria ->
-                if (criteria.get("limit").asInt == 100 && !criteria.has("field4") && !criteria.has("field2")) quotes.incrementAndGet()
+                if (criteria.get("limit").asInt == 100 && !criteria.has("field4") && !criteria.has("field2") && !criteria.has("field5")) quotes.incrementAndGet()
                 "[]"
             }) { activity ->
             ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
