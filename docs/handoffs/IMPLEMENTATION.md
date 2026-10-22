@@ -1,28 +1,26 @@
 # Current implementation handoff
 
-## Owner pause and revised execution limit
+## Current authorization and Search65
 
-The owner explicitly paused development on2026-10-22 because of token usage.
-Wait for an explicit resume signal. On resumption, finish only ONE issue and
-then stop. This supersedes the earlier instruction to continue through all issues
-without stopping. Resume the already active #65; do not start #66 after closing it.
+The owner resumed only #65 on2026-10-22. Finish this issue and STOP. Do not claim
+or implement66. The one-issue limit supersedes historical churn instructions.
+Review base remains6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4.
 
-Current implementation HEAD: `4ee3121a3c22272af7cb483426b9fcca3f361002`.
-The first Search slice and cancellation/fixture corrections are committed and
-pushed. Paired corrective reviews report Spec0/documented Standards0/heuristic0.
-Fresh focused runs were already dispatched at that exact source before the pause:
-Android10 `39816865609`; Android17 `39817090310`. Their final outcomes have NOT
-been inspected. Let existing remote tests finish; inspect their evidence only
-on resumption. Do not dispatch new work during the pause. No APK for65 has been
-published. Beta64 remains the current public preview.
+Both focused4ee runs39816865609(Android10) and39817090310(Android17) failed the
+pre-submit native capture because the real input was not exposed yet. All9 old
+Search methods and the delayed-response cancellation case passed on both SDKs.
+Added an explicit Compose query assertion before crossing to the native capture,
+retaining the original10second capture bound. No production change in this slice.
+Raw artifacts: external search65-entry10-4ee-39816865609 and
+search65-entry17-4ee-39817090310. Original failures remain failures.
 
-#65 remains incomplete: verify the current slice, then implement grouped results,
-identity access, retained position and remaining acceptance, followed by complete
-verification/reviews/signed delivery. No later ticket has been claimed.
-The local cancellation compile passed; the later quote-fixture correction is
-covered by the pending remote builds. Preserve the unrelated untracked research
-file unread and untouched. Older continuation instructions below are historical
-where they conflict with this owner pause and one-issue limit.
+The next SearchPresentationPreviewTest uses the same controlled native seam and
+signed public fixtures to require independent People/Posts sections, friendly
+identity with separate48dp exact-key access, mixed/post-only/empty results.
+It is additive to Search and complete Social with a separate180second bound.
+This new tracer has not executed. Grouping/position/accessibility/visual work,
+complete verification, paired review and signed65 delivery remain outstanding.
+Public beta64 is unchanged. Protected untracked research stays unread/untouched.
 
 
 Updated2026-10-22 at16:15UTC. Public beta64 is published and independently

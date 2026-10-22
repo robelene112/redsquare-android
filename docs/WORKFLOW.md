@@ -11,8 +11,8 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 ## Current owner execution limit
 
-On2026-10-22 the owner paused development to limit token usage. Wait for an
-explicit resume signal. Each subsequent authorization covers ONE issue only:
+On2026-10-22 the owner paused development to limit token usage and then
+explicitly resumed #65. Each authorization now covers ONE issue only:
 finish that issue and stop before starting the next. Resume the active #65 first.
 This supersedes the earlier authorization to churn the entire backlog unattended.
 

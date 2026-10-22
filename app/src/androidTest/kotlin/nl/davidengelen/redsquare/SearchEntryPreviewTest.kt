@@ -45,6 +45,7 @@ class SearchEntryPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(editor).isDisplayed() }
             ui.onNode(editor).performClick().performTextInput("reference post")
             ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
+            ui.onNode(editor).assertTextContains("reference post")
             captureNativeScreen(File(folder, "keyboard-before-submit.png"), "reference post")
             assertEquals("Typing must not search posts", 0, searches.get())
             assertEquals("Typing must not search quotes", 0, quoteSearches.get())
