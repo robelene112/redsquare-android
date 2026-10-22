@@ -77,7 +77,11 @@ class SearchRecoveryPreviewTest {
             ui.onNode(hasSetTextAction()).performTextInput("NativeCase7@saito")
             ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
             ui.onNode(hasSetTextAction()).performImeAction()
-            ui.waitUntil(15_000) { ui.onNodeWithText("Usernames could not be checked.").isDisplayed() }
+            ui.waitUntil(15_000) {
+                ui.onNodeWithText("Usernames could not be checked.").isDisplayed() &&
+                    ui.onNode(hasText("Retry search") and isEnabled()).isDisplayed() &&
+                    posts.get() == 1 && quotes.get() == 1
+            }
             ui.onNodeWithText("Retry search").assertIsEnabled()
             assertEquals(1, names.get()); assertEquals(1, posts.get()); assertEquals(1, quotes.get())
             available.set(true)

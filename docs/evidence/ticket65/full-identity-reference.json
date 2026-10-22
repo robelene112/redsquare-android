@@ -1,0 +1,136 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete64 literal identity catalogs plus eight additive search methods in five classes. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket64/full10-runner-89c-39804393637/identities.json",
+      "sha256": "e4fb9b33cb3296b925ae72526f62b65cf96a67b677724b9de20d084d4b1d6808",
+      "previousIdentities": 519,
+      "additional": [
+        {
+          "path": "search-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchEntryPreviewTest",
+          "test": "keyboardSearchAndClearKeepUserInControlOfSearchRequests",
+          "occurrences": 1
+        },
+        {
+          "path": "search-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchEntryPreviewTest",
+          "test": "clearingAnUnfinishedSearchDiscardsItsLateResultsAndDoesNotContinuePaging",
+          "occurrences": 1
+        },
+        {
+          "path": "search-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchPresentationPreviewTest",
+          "test": "peopleAndPostsHaveIndependentResultsWithReadableExactIdentity",
+          "occurrences": 1
+        },
+        {
+          "path": "search-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchReadingPreviewTest",
+          "test": "threadProfileAndRecreationKeepTheSameSearchReadingPosition",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "disposalPausesBeforeCancelledLookupFinishesUnwinding",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "retryingAUsernameFailureDoesNotRepeatCompletedPostStreams",
+          "occurrences": 1
+        },
+        {
+          "path": "search-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchViewportPreviewTest",
+          "test": "invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 161,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 122
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket64/full17-056-39792064782/identities.json",
+      "sha256": "e48b29cbb5da8e4e3aebb7dace00b970b00a9a4782f55d8140111cdca11ce5bd",
+      "previousIdentities": 520,
+      "additional": [
+        {
+          "path": "search-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchEntryPreviewTest",
+          "test": "keyboardSearchAndClearKeepUserInControlOfSearchRequests",
+          "occurrences": 1
+        },
+        {
+          "path": "search-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchEntryPreviewTest",
+          "test": "clearingAnUnfinishedSearchDiscardsItsLateResultsAndDoesNotContinuePaging",
+          "occurrences": 1
+        },
+        {
+          "path": "search-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchPresentationPreviewTest",
+          "test": "peopleAndPostsHaveIndependentResultsWithReadableExactIdentity",
+          "occurrences": 1
+        },
+        {
+          "path": "search-reading-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchReadingPreviewTest",
+          "test": "threadProfileAndRecreationKeepTheSameSearchReadingPosition",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "disposalPausesBeforeCancelledLookupFinishesUnwinding",
+          "occurrences": 1
+        },
+        {
+          "path": "search-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchRecoveryPreviewTest",
+          "test": "retryingAUsernameFailureDoesNotRepeatCompletedPostStreams",
+          "occurrences": 1
+        },
+        {
+          "path": "search-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.SearchViewportPreviewTest",
+          "test": "invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 162,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 122
+    }
+  ],
+  "catalogFreezeCommit": "PENDING",
+  "collectorSha256": "3b7659f611d2f698bc54ce2c780b9138a5ed5a70ac715fdf0ba91d352d1327fa",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Not dispatched. Focused checks and independent review pending.",
+  "executingSources": {},
+  "executingRuns": {}
+}

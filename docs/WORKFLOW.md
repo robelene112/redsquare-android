@@ -130,12 +130,12 @@ complete first-release scope and the established production boundaries.
    seam exercises real keyboard visibility, explicit IME submission and clearing
    without new history reads. SearchPresentationPreviewTest and
    SearchReadingPreviewTest add independent sections/exact identity and retained
-   visible position through thread/profile/recreation at that same seam, each
+   visible position through thread/profile/recreation at that same seam.
    SearchRecoveryPreviewTest verifies explicit continuation, synchronous disposal
    before IO cleanup and username-only retry. SearchViewportPreviewTest checks
    invalid-input feedback, real IME and 48dp actions across light/dark 100/130/200%
    text sizes using the existing reversible viewport fixture.
-   with its own180second bound. They remain in full Social. Existing protocol,
+   Each class has its own180second bound and remains in full Social. Existing protocol,
    cache, identity and deadline goals are unchanged. These checks do not establish
    physical-phone performance.
    `profile-editor` / its Android17 variant cover an unsent profile preview,
