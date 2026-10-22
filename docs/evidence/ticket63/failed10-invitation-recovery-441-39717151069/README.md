@@ -10,7 +10,8 @@ and its exact protocol, roles, wallet and node assertions. This partial progress
 is not accepted complete proof. No later matrix cell or whole63 acceptance follows.
 
 Root viewed actual100% Dark failure PNG, XML and all-root Compose semantics. The
-field contains the invalid fixture text and its error styling; Preview is enabled.
+field contains the invalid fixture text and a focused accent border; Preview is enabled.
+That color alone does not prove validation ran.
 The explanatory text and notice node are absent, with scroll range0. This is not
 proof of an explanation placed below the viewport. The exact internal animation
 state and event ordering were not traced, so an animation cause remains unproved.
@@ -23,3 +24,10 @@ All20 original archive members and terminal logs remain retained. Archive/member
 hashes and SHA256SUMS bind original contents. README is intentionally excluded.
 Full download: /mnt/storage/redsquare-android-artifacts/group63-10-recovery-first-441-39717151069.
 Public beta62 is unchanged; no full or signed63 delivery is claimed.
+
+Later correction of the initial visual interpretation: an accent-colored focused
+border is not itself proof of error state. The direct-text experimentee97579ff
+also fails the same original goal and is reverted. No historical tap coordinates
+or internal animation/validation state was traced. The original failure remains
+FAILURE; the next geometry/readiness probe is a fixture change, not a proven app
+animation fix. All raw evidence above remains unchanged.

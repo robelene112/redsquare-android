@@ -10,7 +10,7 @@ the exact protocol, roles, wallet and node assertions. Partial progress does not
 establish a complete matrix pass;200% cells and later assertions are unaccepted.
 
 Root viewed actual130% Dark failure PNG, XML and all-root Compose semantics. The
-invalid field is red, the actual tall keyboard is visible, and fixed48dp Preview
+invalid field has a focused accent border, the actual tall keyboard is visible, and fixed48dp Preview
 remains above it. No explanation/notice node appears in the dialog's complete
 semantics. Scroll value86/max102 reflects the existing input scroll, not proof of
 an explanation below it. Exact animation state/event order was not traced; no
@@ -23,3 +23,10 @@ All42 original archive members and terminal logs are retained, bound by archive/
 member hashes and SHA256SUMS. README is excluded. Full download:
 /mnt/storage/redsquare-android-artifacts/group63-17-recovery-first-441-39717153436.
 Public beta62 is unchanged. No complete native, whole63 or signed delivery claim.
+
+Later correction of the initial visual interpretation: an accent-colored focused
+border is not itself proof of error state. The direct-text experimentee97579ff
+also fails the same original goal and is reverted. No historical tap coordinates
+or internal animation/validation state was traced. The original failure remains
+FAILURE; the next geometry/readiness probe is a fixture change, not a proven app
+animation fix. All raw evidence above remains unchanged.

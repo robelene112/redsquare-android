@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
+import android.view.accessibility.AccessibilityWindowInfo
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
@@ -13,6 +15,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonObject
+import com.google.gson.JsonArray
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Rule
@@ -85,12 +88,12 @@ class GroupInvitationRecoveryPreviewTest {
                             recover(id, ids.size)
                             captureNativeScreen(File(folder, "$label-entry.png"))
                             ui.onNodeWithText("Invitation link").performClick().performTextReplacement("not-an-invitation")
-                            physicalPreview()
+                            physicalPreview(File(folder, "$label-invalid-preview-tap.json"))
                             waitFor("This invitation could not be read. Check the link and try again.")
                             captureNativeScreen(File(folder, "$label-invalid-with-ime.png"))
                             assertUnchanged()
                             ui.onNodeWithText("Invitation link").performTextReplacement(invitation(ids[(index + 1) % ids.size], "Wrong group"))
-                            physicalPreview()
+                            physicalPreview(File(folder, "$label-different-group-preview-tap.json"))
                             waitFor("This invitation is for a different group. Use a link for the group you selected.")
                             assertUnchanged()
                             var previousClip: ClipData? = null
@@ -184,19 +187,69 @@ class GroupInvitationRecoveryPreviewTest {
     private fun previewText(text: String) = ui.onNode(hasText(text) and hasAnyAncestor(
         isDialog() and hasAnyDescendant(hasText("Claimed admin"))))
 
-    private fun physicalPreview() {
-        ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
+    private fun physicalPreview(evidence: File) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val device = UiDevice.getInstance(instrumentation)
-        var target = requireNotNull(device.findObject(By.text("Preview")))
-        while (!target.isClickable) target = requireNotNull(target.parent)
-        val bounds = target.visibleBounds
-        val minimum = kotlin.math.round(48 * instrumentation.targetContext.resources.displayMetrics.density).toInt()
-        check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.left >= 0 && bounds.top >= 0 &&
-            bounds.right <= device.displayWidth && bounds.bottom <= device.displayHeight - focusedWindowImeBottom()) {
-            "The complete Preview target stays above the real keyboard with at least 48dp visible"
+        val density = instrumentation.targetContext.resources.displayMetrics.density
+        val minimum = kotlin.math.round(48 * density).toInt()
+        var previous: String? = null
+        var readyBounds: Rect? = null
+        var lastRecorded: String? = null
+        val observations = JsonArray()
+        fun retain() { evidence.writeText(observations.toString()) }
+        withFailureCapture(::retain) {
+            // IME visibility starts before its resize finishes. Match the real keyboard,
+            // focused-window insets and Compose/native button geometry before one tap.
+            ui.waitUntil(10_000) {
+                val ime = focusedWindowImeBottom()
+                val keyboard = instrumentation.uiAutomation.windows.mapNotNull { window ->
+                    if (window.type != AccessibilityWindowInfo.TYPE_INPUT_METHOD) null
+                    else Rect().also(window::getBoundsInScreen).takeIf { it.height() > 0 }
+                }.maxByOrNull { it.height() }
+                var target = device.findObject(By.text("Preview"))
+                while (target != null && !target.isClickable) target = target.parent
+                val native = target?.visibleBounds
+                val compose = runCatching {
+                    ui.onNode(hasText("Preview") and hasClickAction() and isEnabled()).getUnclippedBoundsInRoot()
+                }.getOrNull()?.let { bounds -> Rect(
+                    kotlin.math.round(bounds.left.value * density).toInt(),
+                    kotlin.math.round(bounds.top.value * density).toInt(),
+                    kotlin.math.round(bounds.right.value * density).toInt(),
+                    kotlin.math.round(bounds.bottom.value * density).toInt()) }
+                val valid = ime > 0 && keyboard != null && native != null && compose != null &&
+                    keyboard.bottom == device.displayHeight && keyboard.top == device.displayHeight - ime &&
+                    native.width() >= minimum && native.height() >= minimum && native.left >= 0 && native.top >= 0 &&
+                    native.right <= device.displayWidth && native.bottom <= keyboard.top &&
+                    kotlin.math.abs(native.left - compose.left) <= 1 && kotlin.math.abs(native.top - compose.top) <= 1 &&
+                    kotlin.math.abs(native.right - compose.right) <= 1 && kotlin.math.abs(native.bottom - compose.bottom) <= 1
+                val observation = JsonObject().apply {
+                    addProperty("focusedWindowImeBottom", ime)
+                    addProperty("keyboardBounds", keyboard?.toShortString())
+                    addProperty("nativePreviewBounds", native?.toShortString())
+                    addProperty("composePreviewBounds", compose?.toShortString())
+                    addProperty("minimumTargetPixels", minimum)
+                    addProperty("ready", valid)
+                }
+                val geometry = observation.toString()
+                if (geometry != lastRecorded && observations.size() < 64) {
+                    observations.add(observation.deepCopy().apply {
+                        addProperty("elapsedMillis", android.os.SystemClock.elapsedRealtime())
+                    })
+                    lastRecorded = geometry
+                }
+                val stable = valid && geometry == previous
+                previous = if (valid) geometry else null
+                if (stable) readyBounds = Rect(requireNotNull(native))
+                stable
+            }
+            retain()
+            val bounds = requireNotNull(readyBounds)
+            check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.left >= 0 && bounds.top >= 0 &&
+                bounds.right <= device.displayWidth && bounds.bottom <= device.displayHeight - focusedWindowImeBottom()) {
+                "The complete Preview target stays above the real keyboard with at least 48dp visible"
+            }
+            check(device.click(bounds.centerX(), bounds.centerY()))
         }
-        check(device.click(bounds.centerX(), bounds.centerY()))
     }
     private fun waitFor(text: String) = ui.waitUntil(15_000) { ui.onNodeWithText(text).isDisplayed() }
     private fun click(text: String) {

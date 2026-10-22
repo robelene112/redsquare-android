@@ -21,8 +21,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -42,6 +40,8 @@ import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.ui.AppDialogWindow
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 /** Clipboard input and unsigned claims never choose a node or trigger membership by themselves. */
 @Composable
@@ -140,10 +140,8 @@ internal fun JoinGroupDialog(backend: SaitoBackend, busy: Boolean, knownGroups: 
                             isError = validationError != 0,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri, autoCorrectEnabled = false,
                                 imeAction = ImeAction.Done), keyboardActions = KeyboardActions(onDone = { requestPreview() }))
-                        if (feedback != null) Text(feedback, color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodySmall, modifier = Modifier.fillMaxWidth()
-                                .bringIntoViewRequester(feedbackView).onSizeChanged { feedbackHeight = it.height }
-                                .semantics { liveRegion = LiveRegionMode.Polite })
+                        InlineStatus(feedback, StatusTone.ERROR, modifier = Modifier.bringIntoViewRequester(feedbackView)
+                            .onSizeChanged { feedbackHeight = it.height })
                     } else {
                         Text(preview.name, style = MaterialTheme.typography.titleMedium)
                         Text(stringResource(if (savedDetails) R.string.group_invitation_saved else R.string.group_invitation_trust),

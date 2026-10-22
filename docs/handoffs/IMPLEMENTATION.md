@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 03:42 UTC:62 CLOSED/beta62PUBLIC.63 private/group/CopyShare focused GREEN; first Join native runs rejected for missing error text. Join-only correction compiles and reviews0/0; fresh bothSDK/source gates next. Independent full catalog frozen/reviewed. Whole63 remains open.
+Updated 2026-10-22 03:53 UTC:63 recovery direct-text experiment also rejected on both SDKs. Original Join UI restored; bounded physical Preview geometry readiness/diagnostics compiles. Private/group/CopyShare focused GREEN; full catalog frozen/reviewed.62 remains PUBLIC; whole63 open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,30 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+LATEST: Direct Text experimentee97579ff failed unchanged15s invalid-feedback goal
+on both SDKs:10run39718231910 32.495s/180;17run39718234170 48.655s/180, second100Dark.
+Packets failedSDK-invitation-recovery-ee9-RUN retain20 originals each,31/33hashes.
+Root viewed both failures: focused accent border, enabledPreview, no explanation/
+Error semantics. Border alone NEVER proved validation ran; older READMEs now
+qualify that initial interpretation. Historical pre-tap/event state unrecorded;
+no proven animation cause. Rejected Text experiment reverted EXACTLY to original
+JoinGroupDialog at441. No app behavior fix is claimed from that experiment.
+Fixture-only candidate now matches actual accessibility TYPE_INPUT_METHOD bounds,
+focused-window IME insets and native/Compose Preview geometry over two consecutive
+observations before ONE physical tap. Records bounded geometry-only JSON per
+invalid/mismatched Preview. Original10s IME readiness/48dp+displaytarget/15s feedback/
+180s class and all original matrix/protocol/restoration goals remain, no tapretry.
+Compile63362 ACTIVE, external group63-invitation-preview-ime-geometry-compile.log/json.
+No source edits while compiler active. Observer1002 ended0 after retaining both
+terminal failures. Sourceee gate39718224989 stillactive at03:51UTC. Source packet441
+and compile receipts final paired0/0 atee. NEXT terminalcompile, candidate+failed
+packet paired review, then fresh both SDK focused runs. Independentfullcatalog
+068freeze/88reference alreadypaired0/0; nofull63configured orsignedbuildreserved.
+Counter62/clean externalreview-worktree atb997 verified. New publication63 observer
+prepared only /tmp/redsquare-chat-entry63-publication63-check.py, NOT EXECUTED;
+protects18 historical resources incl62 and permanent61 404. Public62 unchanged.
+
 
 LATEST: Join-only correction c2647ae630942bda8ee7ba6e15d899fb60dfa7f1 now reviewed
 Spec0/documentedStandards0/heuristic0 with both rejected first-native packets.
