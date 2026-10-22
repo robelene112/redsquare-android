@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 02:48 UTC:62 CLOSED/beta62PUBLIC.63 private/group GREEN; invitation RED confirmed and first Copy/Share production compiling. Whole63 remains open.
+Updated 2026-10-22 03:01 UTC:62 CLOSED/beta62PUBLIC.63 private/group and Copy/Share focused GREEN on both SDKs; deliberate Join recovery next. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -78,16 +78,19 @@ Intent.migrateExtraStreamToClipData supports this ordinary framework mirror.
 Final narrow source reviews Spec0/documentedStandards0/heuristic0; platform compile
 59250 SUCCESS1m51wall/Gradle1m50/explicit0, group63-invitation-share-platform-compile.log/json.
 
-First Copy/Share production now uses separate full-window GroupInvitationDialog,
-scrollable selectable unchanged link/privacy and fixed48dp Copy/Android Share/Done,
-consistent vector icons, readable copied/failure live feedback. ActualActivity
-starts text/plain ACTION_SEND chooser with only the exact original link. No claim
-of external sending; Clipboard only writes on explicit Copy. Existing GroupChatScreen
-active-member/admin availability and GroupInvitation.fromGroup(...).link(backend)
-remain unchanged. Roles, protocol, Join and node paths untouched. Compile67147 ACTIVE,
-group63-invitation-first-production-compile.log/json externally. NEXT paired production/
-RED review, compile, then complete group-invitation-share10/17 and actual default/
-200% frames. No background native observer active. Protected research UNREAD/UNTOUCHED.
+First Copy/Share production568d1feae now complete focused GREEN:10run39713641960
+SUCCESS34.961s/180;17run39713677034 SUCCESS65.859s/180, all six320dp default/130/200
+Light/Dark cells, native48dp/display-contained target+physical taps, exact published
+clipboard/chooser plain-text link/no broadened payload, group roles/envelope/wallet/
+node/zero-write and independent restoration. Root viewed10 100Lightdefault/200Darkcopied
+and17 100Darkdefault/200Lightcopied: scrollable URL and readable fixed actions/feedback.
+Android17 standard post-copy clipboard preview temporarily covers lower Share/Done;
+actual physical Share proof precedes Copy, copied feedback stays visible. No claim
+of unobscured lower controls during the OS overlay. Packets greenSDK-invitation-share-568-RUN
+retain45 originals each. No external app delivery is claimed. Compile67147SUCCESS
+3m49wall/Gradle3m48/0; production+RED reviews568 Spec0/documentedStandards0/heuristic0.
+NEXT paired current GREEN evidence review, then deliberate Join recovery tracer.
+No builds/native observer currently active. Protected research UNREAD/UNTOUCHED.
 Remaining deliberate Join recovery slice still pending after Copy/Share; no whole63,
 full SDK or new signed acceptance. Public62 unchanged.
 
