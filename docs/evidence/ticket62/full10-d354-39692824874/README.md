@@ -36,3 +36,10 @@ Complete originals:
 `/mnt/storage/redsquare-android-artifacts/conversation62-full10-d354-39692824874`.
 Additional selected byte-exact originals:
 `/mnt/storage/redsquare-android-artifacts/conversation62-full10-d354-selected`.
+
+Terminal delivery checkpoint2026-10-22: both complete SDK packets and final source/
+evidence review report Spec0/documented Standards0/heuristic0 atf2fa095f8. The exact
+held62 is now published and its public-after check exits0. See ../signed62-public
+for current delivery metadata; earlier pending/held wording above describes the
+pre-publication checkpoint. Public packet review remains pending. No APK rebuild,
+Wallet-cause proof or physical/provider/store/owner visual acceptance follows.

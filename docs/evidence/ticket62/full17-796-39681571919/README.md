@@ -37,3 +37,10 @@ External complete originals:
 Selected byte-exact keyboard images for direct viewing:
 `/mnt/storage/redsquare-android-artifacts/conversation62-full17-796-selected`.
 PNG/XML are separate native observations, not atomic pairs.
+
+Terminal delivery checkpoint2026-10-22: both complete SDK packets and final source/
+evidence review report Spec0/documented Standards0/heuristic0 atf2fa095f8. The exact
+held62 is now published and its public-after check exits0. See ../signed62-public
+for current delivery metadata; earlier pending/held wording above describes the
+pre-publication checkpoint. Public packet review remains pending. No APK rebuild,
+Wallet-cause proof or physical/provider/store/owner visual acceptance follows.

@@ -27,3 +27,10 @@ after-check before claiming delivery. Public before-check passes; ordinary60 sta
 live and prior immutable ordinary releases/performance43 are preserved.
 
 Immutable local APK: `/mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/62/redsquare.apk`. Public bookend originals: `/mnt/storage/redsquare-android-artifacts/conversation62-publication-62`. This candidate can preserve the established in-place signing path; physical Pixel acceptance remains under36.
+
+Terminal delivery checkpoint2026-10-22: both complete SDK packets and final source/
+evidence review report Spec0/documented Standards0/heuristic0 atf2fa095f8. The exact
+held62 is now published and its public-after check exits0. See ../signed62-public
+for current delivery metadata; earlier pending/held wording above describes the
+pre-publication checkpoint. Public packet review remains pending. No APK rebuild,
+Wallet-cause proof or physical/provider/store/owner visual acceptance follows.
