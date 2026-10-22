@@ -521,6 +521,16 @@
     <string name="group_forwarded">Forwarded. Delivery is not confirmed.</string>
     <string name="group_cancel">Cancel</string>
     <string name="group_join">Join group</string>
+    <string name="group_join_content">Group invitation</string>
+    <string name="group_recovery_action">Use invitation</string>
+    <string name="group_recovery_action_accessibility">Use invitation for %1$s</string>
+    <string name="group_recovery_hint">Use an invitation for this saved group ID. Review the link before you join.</string>
+    <string name="group_invitation_paste">Paste invitation</string>
+    <string name="group_invitation_paste_error">The clipboard has no readable invitation link. Paste or type a link and try again.</string>
+    <string name="group_invitation_different_group">This invitation is for a different group. Use a link for the group you selected.</string>
+    <string name="group_invitation_edit">Edit invitation</string>
+    <string name="group_invitation_reading">Reading...</string>
+    <string name="group_joining">Joining...</string>
     <string name="group_join_confirm">Join</string>
     <string name="group_preview">Preview</string>
     <string name="group_invitation_trust">Invitation details are provided by the sender.</string>

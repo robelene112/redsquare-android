@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 03:09 UTC:62 CLOSED/beta62PUBLIC.63 private/group/CopyShare focused GREEN; corrected source/lint plus expected Join recovery RED10 now running. Whole63 remains open.
+Updated 2026-10-22 03:29 UTC:62 CLOSED/beta62PUBLIC.63 private/group/CopyShare focused GREEN; source gate passed and imported-group recovery expected RED retained. First Join production compiles; fresh paired review and both SDK executions next. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,29 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+Current Join recovery production follows the correctly failing original tracer:
+39715205301 at d457 fails only at the first missing Use invitation action, after
+six imported IDs are visible. Source gate39715187196 at d457 is SUCCESS; both
+retained packets reviewed at b2af Spec0/documentedStandards0/heuristic0.
+Local compile+debug/performance lint42134 ended SUCCESS12m58wall/Gradle12m56/0.
+Only after it ended, the temporary Join generator was applied ONCE. Do not rerun
+it: it is not idempotent. Earlier NOT APPLIED/pending-build notes below are history.
+New JoinGroupDialog uses a full-window, scrollable input/preview with fixed48dp
+Cancel/Preview/Join actions, explicit clipboard Paste, invalid/wrong-ID feedback
+above the actual dialog IME, and current-node/trust/privacy before full selectable
+claimed identities. Imported unavailable-ID rows offer Use invitation constrained
+to that ID. Preview and Cancel cause no membership or backend effects. Existing
+GroupChat.join/prepareInvitation/send and fresh stored-authority checks remain.
+Compile80024 SUCCESS4m20wall/Gradle4m19/explicit0, external
+ group63-invitation-recovery-first-production-compile.log/json. A trailing blank
+line was removed afterward, no behavior change. NEXT paired narrow production
+review against b2af6dd07c67b078a8d930dbbe97934ca09f6a6d, then push and fresh focused
+recovery runs on both SDKs plus the push source gate. No active compiler/observer.
+No current native Join GREEN, full63 or new signed acceptance. Public62 unchanged.
+
+Historical slice checkpoints follow; the current paragraph above supersedes
+older NEXT/active-build/generator-not-applied notes.
 
 LATEST63: group setup and bounded typography now complete focused GREEN at exact
 1eec783c903a93a57240bab39e79498cdcc89341.10run39711898801 SUCCESS88.366s/180;
