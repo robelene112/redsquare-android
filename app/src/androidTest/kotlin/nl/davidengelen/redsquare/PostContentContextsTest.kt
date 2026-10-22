@@ -53,14 +53,14 @@ class PostContentContextsTest {
     private fun home(profile: SemanticsMatcher) {
         ui.onNode(hasText("Home") and hasClickAction()).performClick()
         ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
-        ui.onNode(hasScrollAction()).performScrollToNode(profile)
+        ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(profile)
         ui.onNode(profile).assertIsDisplayed()
     }
 
     private fun assertContent(reference: PostContentFixture, label: String, inProfile: Boolean = false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val profile = hasContentDescription("View profile for ${reference.authorName}") and hasClickAction()
-        ui.onNode(hasScrollAction()).performScrollToNode(profile)
+        ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(profile)
         if (inProfile) ui.revealProfileHistoryItem("Media and quote viewport preview")
         ui.onNode(profile).assertIsDisplayed()
         ui.onNodeWithText("Media and quote viewport preview", useUnmergedTree = true).assertIsDisplayed()
@@ -69,15 +69,15 @@ class PostContentContextsTest {
         val actions = listOf("Like", "Repost", "Quote").map {
             hasContentDescription("$it post by ${reference.authorName}") and hasClickAction()
         }
-        ui.onNode(hasScrollAction()).performScrollToNode(actions.last())
+        ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(actions.last())
         val composer = hasText("New post") and hasClickAction()
         if (ui.onAllNodes(composer).fetchSemanticsNodes().isNotEmpty()) {
-            ui.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+            ui.onNode(hasScrollAction() and !hasSetTextAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                 check(scroll(0f, 88 * context.resources.displayMetrics.density))
             }
             ui.waitForIdle()
         }
-        val viewport = ui.onNode(hasScrollAction()).fetchSemanticsNode().boundsInRoot
+        val viewport = ui.onNode(hasScrollAction() and !hasSetTextAction()).fetchSemanticsNode().boundsInRoot
         val minimum = 48 * context.resources.displayMetrics.density - 1
         val countPattern = Regex("[0-9]+ (?:likes?|reposts?)")
         val bounds = actions.map { target ->

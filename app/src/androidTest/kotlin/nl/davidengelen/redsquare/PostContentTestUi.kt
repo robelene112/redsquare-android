@@ -13,7 +13,7 @@ internal fun ComposeTestRule.assertPostMediaContent(reference: PostContentFixtur
     for ((index, expected) in listOf(0xffdc1e28.toInt(), 0xff143cdc.toInt()).withIndex()) {
         val image = hasContentDescription("Image ${index + 1} of 2")
         waitUntil(15_000) { onAllNodes(image).fetchSemanticsNodes().isNotEmpty() }
-        onNode(hasScrollAction()).performScrollToNode(image)
+        onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(image)
         val bitmap = onNode(image).assertIsDisplayed().captureToImage().asAndroidBitmap()
         try { assertEquals("Signed image order and actual decoded color must remain intact", expected,
             bitmap.getPixel(bitmap.width / 2, bitmap.height / 2)) }
@@ -22,10 +22,10 @@ internal fun ComposeTestRule.assertPostMediaContent(reference: PostContentFixtur
     }
     val quoted = hasAnyAncestor(hasContentDescription("Quoted original"))
     val originalText = hasText("Quoted viewport original") and quoted
-    onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(originalText)
+    onNode(hasScrollAction() and !hasSetTextAction(), useUnmergedTree = true).performScrollToNode(originalText)
     if (quoteScrollDp != 0f) {
         val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
-        onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+        onNode(hasScrollAction() and !hasSetTextAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
             check(scroll(0f, quoteScrollDp * density))
         }
         waitForIdle()

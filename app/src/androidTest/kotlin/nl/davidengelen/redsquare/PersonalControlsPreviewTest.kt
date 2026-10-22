@@ -867,13 +867,13 @@ class PersonalControlsPreviewTest {
     }
 
     private fun showPost(text: String) {
-        ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+        ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction() and !hasSetTextAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+        ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(hasText(text))
         ui.onNodeWithText(text).assertIsDisplayed()
     }
 
     private fun assertPostAbsent(text: String, returnTo: String) {
-        val list = ui.onNode(hasScrollAction())
+        val list = ui.onNode(hasScrollAction() and !hasSetTextAction())
         val failure = assertThrows(AssertionError::class.java) { list.performScrollToNode(hasText(text)) }
         assertTrue("The complete list must be searched", failure.message?.contains("No node found that matches") == true)
         list.performScrollToNode(hasText(returnTo))
