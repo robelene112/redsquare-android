@@ -30,4 +30,4 @@ This signed beta delivers scoped Chat entry/group setup/Copy/Share/deliberate
 invitation recovery under63. Existing very-large-text Following/navigation
 wrapping remains70; wallet/profile/other UI work remains in its open tickets.
 Physical Pixel timing/continuity, configured providers, Play and final owner
-app-wide UI acceptance remain under36/55. Final public packet review is pending.
+app-wide UI acceptance remain under36/55. Final public packet reviews report Spec0, documented Standards0 and heuristic0.
