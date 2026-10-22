@@ -342,6 +342,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             }
         }
         PersonalControlsStatus(personal)
+        // During recreation the personal policy initially hides all posts. Do not
+        // measure that temporary empty list and clamp the retained reading position.
+        if (personal?.ready != true) return@Column
         InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
             item(key = "feedback") {
