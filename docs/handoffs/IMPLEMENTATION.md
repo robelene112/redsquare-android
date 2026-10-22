@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at13:27UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at13:39UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -28,25 +28,38 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Original profiles/controls, editor/keyboard/reading focused successes remain
    under ticket64; they precede final source and never replace complete proof.
 
-   Full Android10run39785005613 and17run39785009945 were dispatched at exact3c,
-   public reads enabled. Both Social/Chat jobs have failed; Wallet jobs still
-   running at13:27. No complete acceptance. Observer PID3445214,
-   `/tmp/redsquare64-watch-full-3c71.py`, external
-   `profile64-full-3c71-observer.log`, retains whole terminal artifacts only.
-   Partial terminal-job diagnostic downloads are external
-   `profile64-partial10-social-3c71` and `profile64-partial17-chat-3c71`.
-   Social10 PostContentContexts fails because its author-only scroll leaves
-   body below viewport; Chat17 AppFrame fails because restored biography field
-   is below the new preview. Original failure screenshots inspected: preserved
-   draft appears in preview, no evidence of data loss. Adapt visible navigation
-   while retaining original content/draft goals and deadlines, then rerun.
+   First full10run39785005613 and17run39785009945 at3c are both FAILURE:
+   Wallet SUCCESS, Social/Chat FAILURE. Original PostContentContexts body was
+   offscreen after author-only reveal; AppFrame waited for restored editor
+   without scrolling below the retained preview. Root failure originals show
+   retained draft, not data loss. All four failed partition packets retained;
+   complete raw runs external `profile64-full{10,17}-3c71-RUN`. Old observer ended.
+
+   Fixture-only correctiona87a4a942b3ca09de0178bd841657b5c719cbbf6 has paired0/0.
+   Adds profile body reveal and actual restored-field scrolling while retaining
+   original assertions, identities and absolute10s editor bound. Corrected
+   focused post suites10run39786731270 and17run39786735078 both SUCCESS;
+   contexts20.054/22.394s. Frame10run39786738823 and17run39786743320 SUCCESS,
+   original4methods39.145/72.455s plus reading/motion. Four greena87 packets
+   retained, root hashes checked and exact restored-editor images inspected.
+   Source/core/release/lint39786615298 SUCCESS. Evidence-only follow-up review
+   remains required; production unchanged since4d.
+
+   Fresh complete10run39788101082 and17run39788441182 execute exacta87 with
+   public reads. Both pending, no acceptance. Independent observers:
+   PID3456807 `/tmp/redsquare64-watch-full10-a87.py` and PID3457980
+   `/tmp/redsquare64-watch-full17-a87.py`, external
+   `profile64-full10-a87-observer.log` / `profile64-full17-a87-observer.log`.
+   They retain terminal whole artifacts and run frozen collector only on whole
+   SUCCESS; no auto retry/acceptance/publish. Raw `profile64-fullSDK-a87-RUN`,
+   packet `fullSDK-a87-RUN`. Focused observer3451788 ended after all four passed.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
    `full-collector.py`: literal63 identities plus4 additive methods, expected
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
    Original validators, tool pins and sole API29 assumption stay fixed. Current
-   bindings identify the first full3c attempts; retain their failures. No signed64.
+   bindings identify current fulla87 attempts; first3c failures retained. No signed64.
    After corrected focused paths, dispatch fresh full10/17, bind exact runs,
    require whole/all3 SUCCESS and collector evidence, inspect native originals,
    paired review, then prepare/publish immutable signed64 through existing route.

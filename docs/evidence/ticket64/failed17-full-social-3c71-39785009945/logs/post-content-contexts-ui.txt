@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentContextsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostContentContextsTest:
+INSTRUMENTATION_STATUS: test=sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentContextsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Media and quote viewport preview' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:65)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:37)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(nl.davidengelen.redsquare.PostContentContextsTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Media and quote viewport preview' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:65)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:37)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 10.896
+There was 1 failure:
+1) sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(nl.davidengelen.redsquare.PostContentContextsTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Media and quote viewport preview' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:65)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:37)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(PostContentContextsTest.kt:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

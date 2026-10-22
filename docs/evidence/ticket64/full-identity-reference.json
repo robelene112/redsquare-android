@@ -82,13 +82,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh full Android10/17 dispatches at exact3c7118af4, after corrected focused paths and independent source reviews. Whole/all3 outcomes, frozen collector validation, original native visual review and signed64 delivery remain pending. No focused or failed-run assembly.",
+  "executingState": "Fresh full Android10/17 dispatches at exacta87a4a942 after both corrected original frame/post suites passed on both SDKs. Initial3c runs39785005613/39785009945 remain FAILURE with successful Wallet and failed Social/Chat. Whole/all3 outcomes, frozen collector validation, original native visual review and signed64 delivery remain pending. No focused or failed-run assembly.",
   "executingSources": {
-    "android10": "3c7118af4cbca2d0e2415fb72638df568424e71b",
-    "android17": "3c7118af4cbca2d0e2415fb72638df568424e71b"
+    "android10": "a87a4a942b3ca09de0178bd841657b5c719cbbf6",
+    "android17": "a87a4a942b3ca09de0178bd841657b5c719cbbf6"
   },
   "executingRuns": {
-    "android10": 39785005613,
-    "android17": 39785009945
+    "android10": 39788101082,
+    "android17": 39788441182
   }
 }
