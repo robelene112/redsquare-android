@@ -35,11 +35,15 @@ accepted64 identities plus eight methods in five classes:527/528 identities,
 122 archives. Original tool pins and exclusions remain unchanged. All six
 maximum-length name configurations and their exact-key captures are mandatory.
 
-The ca678 and52ef full attempts were cancelled and remain rejected. Shared
-content scrolling required the same explicit exclusion of the editable query.
-A separate Chat invitation-recovery failure at200% Dark has retained original
-frames showing the nested action outside its list viewport; a bounded fixture
-correction and focused proof are in progress. No active full acceptance yet.
+The ca678 and52ef full attempts were cancelled and remain rejected. Content
+scrolling now excludes the editable query, and invitation recovery requires
+stable full target containment within its original readiness bound. Corrected
+focused post-presentation10, Search17 including maximum-length names, and
+invitation recovery10 all pass. Original failed and corrected evidence remains.
+
+Fresh full Android10run39842447826 and Android17run39842451879 execute exact
+250f91a8dda5f02fea8d1f5d48fba580e38e2ac2 against the unchanged frozen catalog.
+Production/build equivalence with the held signed65 source is checked.
 Complete acceptance and signed delivery
 are pending. Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is

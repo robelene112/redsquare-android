@@ -130,7 +130,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "No active full dispatch. ca678 and52ef full attempts are rejected/cancelled with Social and Chat diagnostics retained. Focused corrected content/search/invitation checks pending before fresh full execution. Frozen catalog and production unchanged.",
-  "executingSources": {},
-  "executingRuns": {}
+  "executingState": "Fresh complete Android10/17 active at250f91a8d after corrected content, maximum-name and invitation focused proofs passed. Earlier ca/52ef attempts rejected. No mixed acceptance. Production and build match held signed65 sourceca678e521.",
+  "executingSources": {
+    "android10": "250f91a8dda5f02fea8d1f5d48fba580e38e2ac2",
+    "android17": "250f91a8dda5f02fea8d1f5d48fba580e38e2ac2"
+  },
+  "executingRuns": {
+    "android10": 39842447826,
+    "android17": 39842451879
+  }
 }
