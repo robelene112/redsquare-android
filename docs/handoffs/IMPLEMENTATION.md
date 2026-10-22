@@ -1,173 +1,81 @@
 # Current implementation handoff
 
-Updated2026-10-22 at16:09UTC. Issue63 implementation, complete Android10/17,
-prepared/public signed63 and final delivery evidence all have paired Spec0,
-documented Standards0 and heuristic0 reviews. Public beta63 is verified.
-Issue63 is closed. Issue64 is claimed; its review base is
-`a010a79fd4669892d3828eab3e93a2397f033a03`. Continue65through69 then70.
+Updated2026-10-22 at16:12UTC. Public beta64 is published and independently
+verified. Issue64 implementation, complete Android10/17 and prepared signed64
+have paired Spec0/documented Standards0/heuristic0 reviews. Final public delivery
+packet review is pending; issue64 remains open until it completes. Then close64,
+update55 and claim65. Continue65through69 then70, without routine stops.
 
 ## Resume here
 
-1. Continue [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64),
-   claimed/unblocked, review basea010a79fd4669892d3828eab3e93a2397f033a03.
-   Production: shared identity/header, selected sticky history tabs, secondary
-   actions, coherent unsent editor preview/fixed controls and automatically
-   revealed changed result feedback. Failed banner media now separates its
-   explanation and48dp retry icon. Signing/cache/state/recovery remain intact.
-   Latest production correction4dabe3124 gives avatar/banner retries an opaque
-   tonal surface. Source/evidence through3c7118af4cbca2d0e2415fb72638df568424e71b
-   has paired Spec0/documentedStandards0/heuristic0 reviews.
+1. Finish [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64)
+   public delivery review. Review basea010a79fd4669892d3828eab3e93a2397f033a03.
+   Latest source/evidence reviews through9856534608186358e143f055c87ff8a5150780df
+   are paired0/0. Production unchanged since4dabe3124. Shared profile/header,
+   compact exact-key details, selected accessible history tabs, secondary actions,
+   coherent editor preview/fixed controls, saved-draft recovery and tonal media
+   retry contrast preserve identity/signing/cache/publishing behavior.
 
-   Focused exact3c successes: hierarchy17run39783200933 (77.532s/180, six
-   standard cells plus actual unavailable media at130% Light/Dark, root viewed),
-   TalkBack17run39783196659 (Status39.530/Post50.918/Profile15.301, selected
-   speech/completed audio and restored settings verified), notifications10
-   run39783191785 (32methods144.767s/240, allowed alerts and cold recovery),
-   Search10run39783204818 (nine methods61.898s). Four green3c packets retained,
-   hashes checked. Earlier browse10run39781995893 at6c succeeds8methods29.81s.
-   Original profiles/controls, editor/keyboard/reading focused successes remain
-   under ticket64; they precede final source and never replace complete proof.
+   Complete Android10run39804393637 exact89cb35a7a2d2633cab53497aced64bbcaff83381:
+   whole/all3 SUCCESS, frozen collector0,519 exact identities,156 normal,
+   35 interruptions,34 continuity,117 archives,518PASS plus sole frozen API29
+   Profile assumption. Root2014 hashes checked, native130Light/Dark retry,
+   200Dark recovered editor, keyboard and TalkBack Likes focus viewed. Selected
+   speech PID16447 utterances41/44/47 has START/positiveAUDIO/DONE/noSTOPERROR;
+   original/restored settings byte-identical. Packet
+   `docs/evidence/ticket64/full10-runner-89c-39804393637` has paired0/0.
 
-   First full10run39785005613 and17run39785009945 at3c are both FAILURE:
-   Wallet SUCCESS, Social/Chat FAILURE. Original PostContentContexts body was
-   offscreen after author-only reveal; AppFrame waited for restored editor
-   without scrolling below the retained preview. Root failure originals show
-   retained draft, not data loss. All four failed partition packets retained;
-   complete raw runs external `profile64-full{10,17}-3c71-RUN`. Old observer ended.
+   Complete Android17run39792064782 exact05680ceac13a1fb39fa5344b076ce25ea61da62f:
+   whole/all3 SUCCESS, frozen collector0,520 IDs/157normal/35interruptions/
+   34continuity/117archives/no assumptions. Root2058 hashes/native originals,
+   selectedspeech PID16511 utterances30/33/36 and settings restoration checked.
+   Packet `full17-056-39792064782` has paired0/0. Production/build/harness/workflow
+   match89c; only reviewed physical Back injection/API29 TalkBack prerequisite
+   fixtures and evidence/docs differ. Workflow explicitly permits this pair.
 
-   Fixture-only correctiona87a4a942b3ca09de0178bd841657b5c719cbbf6 has paired0/0.
-   Adds profile body reveal and actual restored-field scrolling while retaining
-   original assertions, identities and absolute10s editor bound. Corrected
-   focused post suites10run39786731270 and17run39786735078 both SUCCESS;
-   contexts20.054/22.394s. Frame10run39786738823 and17run39786743320 SUCCESS,
-   original4methods39.145/72.455s plus reading/motion. Four greena87 packets
-   retained, root hashes checked and exact restored-editor images inspected.
-   Source/core/release/lint39786615298 SUCCESS. Evidence-only follow-up reviews
-   have paired0/0; production unchanged since4d.
+   Both complete proofs include public reads. Frozen catalog/collector commit
+   1c5e024d773b3169c2e63eda6402e97c181ec5e3 and collector SHA
+   ce04dc5a8ff4884466ed9eadec91cbed5914eb88aa0f804ae79a28e71417f156 remain fixed.
+   Five optional diagnostic exceptions match the accepted baseline. Original
+   3c/a87/056 failures stay rejected and retained; corrected focused proofs are
+   diagnostic only. Original89c run39799164441 was CANCELLED after50minutes
+   silent Wallet SDK setup before app build. Its available Social/Chat results
+   are never combined with accepted runs. All observers ended normally.
 
-   Second complete10run39788101082 and17run39788441182 at exacta87 both
-   fail Social: QuotePreviewTest expected9likes before revealing the lazy row
-   (seven methods, six pass;37.503s10/35.316s17). Both Wallet partitions pass;
-   Chat17 SUCCESS; Chat10 FAILURE in the new unsupported double-tap readiness
-   check described below. Both whole runs are terminal and rejected. Independent
-   observers3456807/3457980, `/tmp/redsquare64-watch-full{10,17}-a87.py`, log
-   external `profile64-full{10,17}-a87-observer.log`, retain terminal artifacts.
-   Failure diagnostics downloaded externally `profile64-partial{10,17}-social-a87`.
-   Failed Quote packets and failed10 TalkBack prerequisite/tool originals are
-   retained under ticket64. These passing pieces never constitute acceptance.
+   Canonical signed64 at exact89c was reserved once, prepared and published.
+   APK38209467bytes SHA256
+   4cc9965af797037155ed76a8a8913f7b045958291e9fc9dbeb9289ad8552cd0e;
+   established certificate6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2.
+   Ordinary nl.davidengelen.redsquare0.1.64, min29/target36, nondebug/nonprofile/
+   noBackup; actual DEX REVIEW true/PUSH+bothGIF false. Public APK matches held
+   bytes and latest equals immutable manifest. Independent AFTER confirms20
+   historical resources unchanged,61 remains404, performance43 unchanged.
+   Packet `signed64-prepared` paired0/0; `signed64-public` final review pending.
+   Public https://davidengelen.nl/redsquare/ . Never rebuild/reuse64.
 
-   Fixture-only correction05680ceac13a1fb39fa5344b076ce25ea61da62f has paired0/0:
-   replaces original20s existence wait with shared20s actual history reveal,
-   retains exact9/zero transactions/healthy peer, adds native success/failure
-   captures inside Activity lifetime. Quote-focused10run39790796343 SUCCESS
-   seven methods22.500s;17run39790800531 SUCCESS seven methods55.235s. Both
-   original process-recovery gates pass. Root original screenshots confirm9likes
-   alongside history failure, and all hashes verified. Green056 packets retained,
-   paired evidence0/0 throughb172. No production change since4d.
-
-   Third complete10run39791789368 at056 is terminal FAILURE: Wallet SUCCESS,
-   Social fails editor pressBack event receipt despite original PNG showing
-   closed IME/intact bio, Chat repeats the unsupported API29 reader prerequisite.
-   Both failed goal packets are retained under ticket64; whole raw external
-   `profile64-full10-056-39791789368`. Its observer ended, no acceptance.
-
-   Complete17run39792064782 at exact056 is whole/all3 SUCCESS. Frozen collector
-   exits0:520 exact identities,157 normal,35 interruptions,34 continuity,
-   117 archives,zero assumptions. Full packet `full17-056-39792064782` retained.
-   Root checked2058 file hashes, actual130Light/Dark failed-media retry contrast,
-   200Dark read/recovered-editor, physical keyboard and TalkBack Likes focus.
-   Actual selected Posts/Replies/Likes utterances30/33/36 PID16511 complete
-   with START/positive AUDIO/DONE and noSTOPERROR; settings byte-exact restored.
-   Five optional diagnostic artifacts match the frozen baseline, no new exclusions.
-   Independent full evidence reviews have Spec0/documentedStandards0/heuristic0
-   through594c1ae4dcbd38b0bbc09b230f16e88adc4c369a. Observer3474519 ended; whole raw
-   external `profile64-full17-056-39792064782`. Verification ref
-   `verify/profile64-counts-05680ceac` remains at exact056. No signed64.
-
-   Fixture correctionec3ed80d6d3f0fbed5416bdbe7a63bb73eea9181 uses checked
-   physical KEYCODE_BACK plus unchanged10s actual IME closure. UiAutomator2.4
-   pressBack also requires TYPE_WINDOW_CONTENT_CHANGED, absent despite actual
-   dismissal in the failure. Corrected focused editor10run39797506863 SUCCESS
-   41.579s/180,17run39797511037 SUCCESS68.909s/180, six cells each. Both green
-   packets retained, root hashes/native recovered previews inspected. Observer
-   `/tmp/redsquare64-watch-editor-ec3.py` ended. All original assertions remain.
-
-   Fixture correction23221010213dac92863f1de2bd03c40c4e353e88 qualifies only
-   serviceHandlesDoubleTap readiness to API30+, where the flag exists. Actual
-   enabled/bound service, touch exploration, original15s and real speech/focus
-   remain required on both SDKs. Focused10run39797817691 SUCCESS:
-   Status30.643/Post55.179/Profile17.683s, each180s. Root verified selected
-   Posts/Replies/Likes utterances40/43/46 in PID3534 with START/positive AUDIO/
-   DONE/noSTOPERROR and exact settings restoration; native Likes focus viewed.
-   Green packet retained. Observer `/tmp/redsquare64-watch-talkback-232.py` ended.
-   Source corrections and faileda87 packets have paired Spec0/documented
-   Standards0/heuristic0 throughd4ead79e8 (including corrected focused and rejected056 packets).
-
-   Fresh complete10run39799164441 executes exact89cb35a7a2d2633cab53497aced64bbcaff83381
-   on main with public reads enabled. Observer3497616
-   `/tmp/redsquare64-watch-full10-89c.py`, external profile64-full10-89c-observer.log,
-   raw `profile64-full10-89c-39799164441`, packet `full10-89c-39799164441`.
-   Production/build/harness are unchanged from complete17 source056; only the
-   two reviewed test fixtures and evidence/docs differ. Workflow permits a
-   corrected fixture-only complete10 alongside successful production-equivalent
-   complete17. Both whole/all3 SUCCESS, frozen collector and reviewed original
-   evidence remain required. Failed partitions are never assembled.
-
-   Original full10run39799164441 was explicitly CANCELLED after Wallet stayed
-   in SDK preparation from14:51:11 to15:41:39, before any app build/test. The
-   retained setup log has no output identifying which silent command stalled.
-   Social SUCCESS; Chat runtime/artifact/cleanup steps SUCCESS but its job
-   metadata lagged at cancellation. Whole attempt is rejected, never acceptance.
-   Packet `cancelled10-runner-89c-39799164441` retains terminal metadata/setup;
-   available original archives external `profile64-full10-89c-39799164441`.
-   Observer3497616 ended normally.
-
-   Independent complete10run39804393637 exact89c is whole/all3 SUCCESS.
-   Frozen collector exits0:519 exact identities,156 normal,35 interruptions,
-   34 continuity,117 archives,518 PASS plus the sole frozen API29 assumption.
-   Root checked2014 retained-file hashes and native130Light/Dark media retry,
-   200Dark recovered editor, keyboard and TalkBack selected Likes focus.
-   Social hierarchy/editor/keyboard39.193/42.315/7.898s, each180s bound.
-   Status/Post/Profile TalkBack28.465/60.194/16.554s. Selected speech PID16447,
-   utterances41/44/47 have START/positive AUDIO/DONE, noSTOPERROR and byte-exact
-   settings restoration. Five optional diagnostic exceptions match frozen baseline.
-   Full packet `full10-runner-89c-39804393637` retained; final paired review pending.
-   Observer3514739 ended normally; whole raw external
-   `profile64-full10-runner-89c-39804393637`. Ref remains
-   `verify/profile64-runner-89cb35a7a`. Preinspection Social originals from this
-   same run were hash-compared to the complete packet, not another dispatch.
-
-   Review worktree moved cleanly to exact89c. Canonical signed64 build passed,
-   counter64 reserved once, APK38209467bytes SHA256
-   4cc9965af797037155ed76a8a8913f7b045958291e9fc9dbeb9289ad8552cd0e.
-   Actual package/signature/manifest/DEX verification passes; established cert,
-   REVIEW true/PUSH+bothGIF false. Candidate is HELD unpublished pending final complete10
-   evidence reviews. Packet `signed64-prepared` includes build receipt and
-   independent public BEFORE result:20 historical resources preserved,61 stays
-   404, latest63. External `profile64-signed-build.log`,
-   `profile64-signed-build-result.json`, `profile64-publication-64`.
-   Preparation helper executed successfully; publication helper BEFORE done.
-   Do not rerun BEFORE over retained files or reserve/rebuild64 again.
-   Signed preparation/docs through286f2aa70 have paired
-   Spec0/documentedStandards0/heuristic0 reviews. Cancellation/binding follow-up
-   throughd909bff02 also has paired0/0. Complete10 evidence review pending.
-
-   Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
-   paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
-   `full-collector.py`: literal63 identities plus4 additive methods, expected
-   519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
-   Original validators, tool pins and sole API29 assumption stay fixed. Current
-   bindings identify full10at89c/full17at056; earlier failures remain rejected.
-   Signed64 held. Both complete runs and collector/native inspection now pass.
-   Finish paired complete10 evidence review, then publish the held immutable
-   signed64 through existing route and verify independent public AFTER results.
-   Never combine focused/failed pieces or rebuild version63. Public63 current.
-2. Continue65through69, then70. The owner authorized the whole backlog without
-   routine stops, including at pending/failed CI. One implementation at a time;
-   independent read-only paired reviews remain allowed.
-3. Keep55 open for owner final app-wide visual acceptance and1/36 for actual
-   release requirements. Placeholders and controlled tests never satisfy real
-   provider, physical or store requirements.
+   External review worktree is clean at89c. Build log/receipt:
+   `/mnt/storage/redsquare-android-artifacts/profile64-signed-build.log` and
+   `profile64-signed-build-result.json`; raw publication `profile64-publication-64`.
+   Complete raws `profile64-full10-runner-89c-39804393637` and
+   `profile64-full17-056-39792064782`. Verification refs remain at056 and89c:
+   `verify/profile64-counts-05680ceac`, `verify/profile64-runner-89cb35a7a`.
+   No active compiler, signing process or native verification run.
+2. After final delivery review, close64/update55 then claim65, recording the
+   closure commit as its review base. No65 code has been written or claimed.
+   Read-only planning found Search query/results are retained in wallet/backend
+   FeedNavigationMemory, but its local rememberLazyListState loses position on
+   profile/thread navigation. Preserve that position in the same retained scope.
+   Clear must reset visible query/results and cancel pending work without starting
+   network reads or clearing verified cache. Preserve exact name qualifications,
+   completed-stream retry bounds and personal-control/node scope. Existing9 Search
+   tests plus PostPresentationPreviewTest, PostContentContextsTest,
+   PersonalControlsPreviewTest and StatusMotionPreviewTest exercise its old UI.
+   Adapt actual visible controls and scoped scrolling, preserving assertions and
+   original bounds; do not add invisible aliases. No implementation yet.
+3. Continue66through69 then70, one ticket at a time. Keep55 open for owner final
+   visual acceptance and1/36 for actual release requirements. OWNER_INPUTS.md
+   identifies parked publisher/provider/physical/store work; placeholders never
+   satisfy operational acceptance. No owner input blocks native UI work.
 
 Read [context](../PROJECT_CONTEXT.md), [workflow](../WORKFLOW.md),
 [operations](../OPERATIONS.md) and [owner prerequisites](../../OWNER_INPUTS.md).

@@ -1,0 +1,11 @@
+{
+  "versionCode": 64,
+  "versionName": "0.1.64",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "4cc9965af797037155ed76a8a8913f7b045958291e9fc9dbeb9289ad8552cd0e",
+  "commit": "89cb35a7a2d2633cab53497aced64bbcaff83381",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/64/redsquare.apk",
+  "notes": "Profiles now have a cleaner identity header, clear history tabs and accessible identity details. Profile editing previews your changes, keeps draft controls visible above the keyboard, and restores saved work. Improved image retry contrast and keyboard and screen-reader navigation."
+}
