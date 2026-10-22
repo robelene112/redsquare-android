@@ -1,0 +1,10 @@
+{
+  "command": [
+    "scripts/android-build",
+    ":app:compileDebugAndroidTestKotlin"
+  ],
+  "workingDirectory": "/home/david/projects/redsquare-android",
+  "startedAt": "2026-10-22T12:38:32.768507+00:00",
+  "exitCode": 0,
+  "completedAt": "2026-10-22T12:44:11.718099+00:00"
+}

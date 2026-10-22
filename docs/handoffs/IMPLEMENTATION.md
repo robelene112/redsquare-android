@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at12:39UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at12:48UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -49,12 +49,24 @@ Issue63 is closed. Issue64 is claimed; its review base is
    keeping unchanged wait/assertions/pins. Three original rejection packets
    retained/reviewed in cd06, not accepted execution.
 
-   Current focused reruns at exactcd06a1fa80dae36bb12d4e670b8a6fb04ecf7755:
-   browse10run39779361041, notifications10run39779372323,
-   status-talkback17run39779383033. Observer PID3420962,
-   `/tmp/redsquare64-watch-cd06.py`; external `profile64-cd06-observer.log`.
-   Terminal-only download to `profile64-SCOPE-cd06-RUN`, inspect outcomes.
-   All earlier observers ended. No local compilation/signing active.
+   cd06 focused runs39779361041/39779372323/39779383033 all failed at
+   compilation, before native execution: unavailable performScrollBy. Packet
+   `compile-507` retains all three rejected log/metadata pairs. Corrected to
+   established SemanticsActions.ScrollBy at507, same offset/assertions/budget.
+   Additional error130 Light/Dark journey now follows the existing6cells in
+   the same180s hierarchy method: signed withMedia, real loader failure,
+   explanation/retry nonoverlap,48dp targets, originals and independent restore.
+   Source/evidence through507d35d8192c2d8cd536010be79c06d2a0295e3a has paired0/0.
+   Exact-source local compile0/5m35s Gradle, `profile64-error-compile.{json,log}`;
+   no tracked source changed during compilation. Compiler ended; no signing.
+
+   Current focused runs at exact507d35d8192c2d8cd536010be79c06d2a0295e3a:
+   browse10run39780906790, notifications10run39780917627,
+   status-talkback17run39780928973, hierarchy10run39781058607,
+   hierarchy17run39781062035. Observer PID3429269,
+   `/tmp/redsquare64-watch-507.py`; external `profile64-507-observer.log`.
+   Terminal-only download to `profile64-SCOPE-507-RUN`, inspect actual outcomes.
+   All earlier observers ended. Automatic source run39780434350 uses507.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
