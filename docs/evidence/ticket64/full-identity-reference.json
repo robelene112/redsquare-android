@@ -75,14 +75,14 @@
       "expectedArchives": 117
     }
   ],
-  "catalogFreezeCommit": null,
+  "catalogFreezeCommit": "1c5e024d773b3169c2e63eda6402e97c181ec5e3",
   "collectorSha256": "ce04dc5a8ff4884466ed9eadec91cbed5914eb88aa0f804ae79a28e71417f156",
   "toolSource": {
     "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Independent references and collector prepared before complete64 execution; freeze pointer and actual executing source/run bindings pending. No complete64 acceptance.",
+  "executingState": "References, collector and tool pins independently frozen at1c5e024 before complete64 execution, paired Spec0/documentedStandards0/heuristic0. Actual complete executing sources/runs remain pending; focused runs never form accepted complete partitions.",
   "executingSources": {
     "android10": null,
     "android17": null

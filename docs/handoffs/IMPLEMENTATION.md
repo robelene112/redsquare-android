@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at06:47UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at06:51UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -359,6 +359,28 @@ Navigation uses real secondary sheet/identity dialog with positive dismissal;
 review fixes final Spec0/documentedStandards0/heuristic0. Additive keyboard
 and actual selected-tab speech tracers at a6 each retain180s. Source Spec0;
 Standards found substring speech predicates could accept unselected/embedded
-label, now corrected to bounded words in working tree, awaiting review.
+label, corrected to bounded words ata018; final paired0/0.
+Editor scroll/display must complete inside the absolute original15s at505,
+final paired0/0.
 All original identities/assertions/pins remain required. Local compile3218757
-`profile64-accessibility-compile.{json,log}` remains active. Public63 unchanged.
+`profile64-accessibility-compile.{json,log}` exits0/4m31s Gradle. Its working
+snapshot includes later fixture edits, so final executing-source proof is remote. Public63 unchanged.
+
+Corrected focused editor sourcea0181eb175ecd132f45b9dc91e9e6c8653d1c0dd:
+Android10run39736046494,17run39736049716, both pending. Observer3222803,
+`/tmp/redsquare64-watch-editor-a018.py`, external
+`profile64-editor-a018-observer.log`, terminal-only raw targets
+`profile64-editor-SDK-a018-RUN`. The later505 deadline qualification must also
+pass complete final-source verification. Do not assemble failed cells.
+
+### Frozen complete64 acceptance
+
+`docs/evidence/ticket64/full-identity-reference.json` and `full-collector.py`
+are independently frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3 before
+complete execution; both prepared references/collector have final paired0/0.
+They preserve every literal accepted63 identity and all previous validators,
+tool pins, assertions/deadlines and the sole exact API29 Profile assumption.
+Four additive methods require519/520 identities,156/157 normal completions,
+35 deliberate interruptions,34 continuity records and117 archives. Full
+execution/source/run bindings remain pending. All three partitions in each
+complete run must succeed. No focused/failure assembly is authorized.
