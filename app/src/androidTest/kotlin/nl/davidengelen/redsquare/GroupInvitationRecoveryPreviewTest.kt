@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Rect
 import android.view.accessibility.AccessibilityWindowInfo
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -85,7 +86,7 @@ class GroupInvitationRecoveryPreviewTest {
                             }
                             click("Chat")
                             click("Groups")
-                            recover(id, ids.size)
+                            recover(id, ids.size, File(folder, "$label-recovery-initial-target.json"))
                             captureNativeScreen(File(folder, "$label-entry.png"))
                             ui.onNodeWithText("Invitation link").performClick().performTextReplacement("not-an-invitation")
                             physicalPreview(File(folder, "$label-invalid-preview-tap.json"))
@@ -106,7 +107,7 @@ class GroupInvitationRecoveryPreviewTest {
                                 assertUnchanged()
                                 click("Cancel")
                                 assertUnchanged()
-                                recover(id, ids.size)
+                                recover(id, ids.size, File(folder, "$label-recovery-after-cancel-target.json"))
                                 pasteAndPreview(link)
                                 waitFor(name)
                                 assertUnchanged()
@@ -153,7 +154,7 @@ class GroupInvitationRecoveryPreviewTest {
             { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) }) }
     }
 
-    private fun recover(id: String, groupCount: Int) {
+    private fun recover(id: String, groupCount: Int, evidence: File) {
         ui.waitUntil(15_000) {
             ui.onAllNodes(hasScrollToIndexAction()).fetchSemanticsNodes().singleOrNull()
                 ?.config?.getOrNull(SemanticsProperties.CollectionInfo)?.rowCount == groupCount
@@ -161,16 +162,42 @@ class GroupInvitationRecoveryPreviewTest {
         val list = ui.onNode(hasScrollToIndexAction())
         list.performScrollToNode(hasText(id))
         val action = hasContentDescription("Use invitation for $id") and hasClickAction() and isEnabled()
-        ui.waitUntil(15_000) { ui.onAllNodes(action).fetchSemanticsNodes().isNotEmpty() }
-        list.performScrollToNode(action)
-        // The matching row can exceed the small200% viewport. Bring its nested
-        // button fully into view before using its physical click target.
-        val button = ui.onNode(action).performScrollTo().assertIsDisplayed()
-        val bounds = button.getUnclippedBoundsInRoot()
-        val viewport = list.getUnclippedBoundsInRoot()
-        check(bounds.left >= viewport.left && bounds.right <= viewport.right &&
-            bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
-        button.performClick()
+        val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
+        val observations = JsonArray()
+        var previous: String? = null
+        withFailureCapture({ evidence.writeText(observations.toString()) }) {
+            // A row can exceed the viewport while status text changes its height.
+            // Scroll the remaining overflow and require a stable, fully visible
+            // nested target within the original15second action-readiness bound.
+            ui.waitUntil(15_000) {
+                if (ui.onAllNodes(action).fetchSemanticsNodes().isEmpty()) return@waitUntil false
+                val bounds = ui.onNode(action).getUnclippedBoundsInRoot()
+                val viewport = list.getUnclippedBoundsInRoot()
+                val observation = JsonObject().apply {
+                    addProperty("button", bounds.toString()); addProperty("viewport", viewport.toString())
+                }.toString()
+                if (observation != previous) observations.add(JsonObject().apply {
+                    addProperty("button", bounds.toString()); addProperty("viewport", viewport.toString())
+                })
+                val delta = when {
+                    bounds.bottom > viewport.bottom -> (bounds.bottom - viewport.bottom).value * density
+                    bounds.top < viewport.top -> (bounds.top - viewport.top).value * density
+                    else -> 0f
+                }
+                if (delta != 0f) {
+                    list.performSemanticsAction(SemanticsActions.ScrollBy) { scroll -> scroll(0f, delta) }
+                    previous = null
+                    false
+                } else {
+                    val ready = bounds.left >= viewport.left && bounds.right <= viewport.right &&
+                        bounds.top >= viewport.top && bounds.bottom <= viewport.bottom && previous == observation
+                    previous = observation
+                    ready
+                }
+            }
+            evidence.writeText(observations.toString())
+            ui.onNode(action).assertIsDisplayed().performClick()
+        }
         waitFor("Paste invitation")
         ui.onNodeWithText("Untrusted saved name").assertDoesNotExist()
     }
