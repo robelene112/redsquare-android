@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import android.view.KeyEvent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -40,7 +41,9 @@ class ProfileEditorPresentationTest {
                     openEditor()
                     writeBio(bio)
                     captureNativeScreen(File(folder, "$label-writing-ime.png"))
-                    check(device.pressBack())
+                    // pressBack() also requires a content-change event, which IME dismissal need not emit.
+                    // Verify physical key injection, then observe the actual keyboard state below.
+                    check(device.pressKeyCode(KeyEvent.KEYCODE_BACK))
                     ui.waitUntil(10_000) { focusedWindowImeBottom() == 0 }
                     // The biography must appear in the profile, independently of its editable field.
                     val previewBio = hasText(bio) and !hasSetTextAction()
