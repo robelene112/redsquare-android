@@ -16,5 +16,9 @@
     ".github/workflows"
   ],
   "fixtureOnlyChange": "Search/content scrollers exclude editable input; invitation recovery waits for stable fully visible targets within its original deadline; status motion taps the actual native Search button and reveals its result body within the original absolute10s deadline. All original assertions and catalog identities remain.",
-  "fullVerification": "pending"
+  "fullVerification": {
+    "android10": 39852319358,
+    "android17": 39852323349,
+    "status": "Both whole runs and frozen collectors pass; final paired evidence review pending."
+  }
 }

@@ -57,8 +57,13 @@ records elapsed time. Paired final source0/0. Focused8d motion runs39851252148/
 result frames viewed. Active complete10run39852319358 and17run39852323349 at
 exact509fc99673f04ee9c5e2f99ec8e23e64c12446e6 exercise the final guards.
 Frozen catalog unchanged; held signed65 production/build inputs match.
-Complete acceptance and signed delivery
-are pending. Signed beta 65 is prepared from exact ca678e521 and remains
+Both whole exact509 runs and all six partitions are SUCCESS. Frozen collectors
+pass527/528 exact identities,161/162 normal completions,35 interruptions,
+34 continuity records and122 archives per platform. Android10 retains only the
+sole frozen Profile assumption; Android17 has none.2189/2217 retained file hashes,
+actual200% Search originals, motion-result elapsed times and real selected-tab
+speech were independently checked. Final paired evidence review is pending.
+Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is
 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc (38250427 bytes).
 The established certificate, release package, min29/target36, nondebuggable and

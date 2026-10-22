@@ -1,0 +1,578 @@
+--------- beginning of main
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213224. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213290. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_40 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_40 bytes=5040
+D/talkback: A11yEventProcessor(18044): Processor idle state.
+V/talkback: Mappers(18044):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(18044):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(18044): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(18044): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(18044): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213357. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213422. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213488. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213554. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_40 bytes=6702
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213620. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213686. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213752. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213818. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213884. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705213950. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214016. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214082. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214148. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214214. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214280. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214346. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214412. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214478. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214544. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_DONE utteranceId=talkback_40
+V/talkback: SpeechControllerImpl(18044): No next item, stopping speech queue
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214610. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214676. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214742. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214808. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214874. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705214940. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215006. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215072. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215138. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215204. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215270. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215336. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215402. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215468. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215534. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215600. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215666. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215732. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215798. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215864. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705215930. 
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216018. 
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: AccessibilityNodeInfoUtils(18044): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(18044): Does have actionable speaking children (child 0, Node(id=39888 class=android.view.View))
+V/talkback: AccessibilityNodeInfoUtils(18044): Speaking, has non-actionable speaking children
+V/talkback: AccessibilityNodeInfoUtils(18044): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 event=EventType: TYPE_VIEW_SELECTED; EventTime: 2635289; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: [Replies]; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=InputFocus{  node= androidx.core.view.accessibility.AccessibilityNodeInfoCompat@9bd0; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(114, 398 - 207, 446); boundsInWindow: Rect(114, 398 - 207, 446); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: true; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_ACCESSIBILITY_FOCUS]  }   eventSourceNode=null
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289, failovers=[Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    focusActionInfo= FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    focusActionInfo= FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289, failovers=[Part= nodeAction= target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: NodeActionPerformer(18044): perform Action, nodeAction = target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    actionId=ACTION_ACCESSIBILITY_FOCUS  
+D/talkback: PerformActionUtils(18044): perform action=64=ACTION_ACCESSIBILITY_FOCUS returns true with args=null on node=AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible       for event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289
+V/talkback: Pipeline(18044): execute() success=true for part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: FocusManagerInternal(18044): Set accessibility focus:result=true
+D/talkback: FocusManagerInternal(18044): Node:AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible      
+D/talkback: FocusManagerInternal(18044): FocusActionInfo:FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=39888  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  selected  visible    focusActionInfo= FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+V/talkback: SelectionInterpreter(18044): TYPE_VIEW_SELECTED time=2635461 and TYPE_WINDOWS_CHANGED time=2629653
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 event=EventType: TYPE_VIEW_SELECTED; EventTime: 2635289; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: [Replies]; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=CompositorID{  value=4  }   eventSourceNode=null
+V/talkback: Mappers(18044):    compositorEventID=4
+V/talkback: Compositor(18044): eventInterpretation= TYPE_VIEW_SELECTED  
+V/talkback: EventTypeViewSelectedFeedbackRule(18044): computeTtsOutput(): role= 0, ttsOutput= eventDescription
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_VIEW_SELECTED:  ttsOutput= Replies    ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  haptic=2130903107  earcon=2131820557  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289, failovers=[Part= speech= action=SPEAK  text="Replies"  options= earcons=[2131820557]  haptics=[2130903107]  queueMode=INTERRUPT  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 part=Part= speech= action=SPEAK  text="Replies"  options= earcons=[2131820557]  haptics=[2130903107]  queueMode=INTERRUPT  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(18044): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator(18044): next --currentFeedbackFragment text = Replies.
+V/talkback: FeedbackController(18044): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289
+V/talkback: SpeechControllerImpl(18044): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18044): Speaking fragment text="Replies", utteranceId=talkback_41, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech done
+D/talkback: SpeechCacheManager(18044): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_41, text=Replies, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(18044): tts.speak, utteranceId =talkback_41
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_START utteranceId=talkback_41
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_41 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_41 bytes=5040
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_41 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_41 bytes=5040
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_41 bytes=510
+D/talkback: FailoverTextToSpeech(18044): Speak call for talkback_41 returned 0
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=SPEAK  text="Replies"  options= earcons=[2131820557]  haptics=[2130903107]  queueMode=INTERRUPT  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_SELECTED displayId:0 time:2635289 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216149. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216149. 
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635318  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635318 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635318; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635318  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635318 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635318; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+I/talkback: ScrollEventInterpreter(18044): Manual scrolling
+D/talkback: ScrollEventInterpreter(18044): interpret ScrollEventInterpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1}
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635319  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635319 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635319; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635320  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635320 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635320; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635321  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635321 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635321; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635288  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=null  contentChangeType=null, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (39795) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_VIEW_SELECTED  time=2635289  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  text="text=[Replies]"  enabled  scrollDelta=-1,-1      
+D/talkback: EventFilter(18044): Do not handle TYPE_VIEW_SELECTED by ProcessEventQueue. Handled in SelectionEventInterpreter.
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635289  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=null  contentChangeType=null, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (38896) , ttsOutput= {}, eventSrcRole=ROLE_BUTTON, nodeRole=ROLE_BUTTON, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635318  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635318  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635319  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (39020) , ttsOutput= {}, eventSrcRole=ROLE_LIST, nodeRole=ROLE_LIST, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635320  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635321  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216226. 
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635369; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=HintableEvent{  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(18044):    toFeedback()()
+V/talkback: Mappers(18044):      eventType=32768
+V/talkback: Mappers(18044):      forceFeedbackEvenIfAudioPlaybackActive=true
+V/talkback: Mappers(18044):      forceFeedbackEvenIfMicrophoneActive=true
+D/talkback: AccessibilityFocusMonitor(18044): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(18044): Failed to get the editing node.
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39919  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Replies"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39950  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935268816  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: SpannableUtils(18044): text(Replies) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+V/talkback: AccessibilityFocusHint(18044):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(18044):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(18044):     nodeRoleHint={}
+V/talkback: AccessibilityFocusHint(18044):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(18044):     isLongClickable: false
+V/talkback: HintFeedbackRule(18044):   speakHintText: (39888) , hint={}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(18044):  EVENT_SPEAK_HINT:  ttsOutput=     queueMode=0  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635369; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(18044):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(18044): Event listeners: UiChangeEventInterpreter,Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 event=null interpretation=UiChange{sourceBoundsInScreen=Rect(114, 398 - 207, 446), uiChangeType=VIEW_CLICKED} eventSourceNode=null
+V/talkback: Mappers(18044):    sourceBoundsInScreen=Rect(114, 398 - 207, 446)
+V/talkback: Mappers(18044):    uiChangeType=VIEW_CLICKED
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241, failovers=[Part= uiChange= UiChange{action=CLEAR_CACHE_FOR_VIEW, sourceBoundsInScreen=Rect(114, 398 - 207, 446)}  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 part=Part= uiChange= UiChange{action=CLEAR_CACHE_FOR_VIEW, sourceBoundsInScreen=Rect(114, 398 - 207, 446)}  
+V/talkback: Pipeline(18044): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_CACHE_FOR_VIEW, sourceBoundsInScreen=Rect(114, 398 - 207, 446)}  
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 event=EventType: TYPE_VIEW_CLICKED; EventTime: 2635241; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(18044):    toFeedback()()
+V/talkback: Mappers(18044):      eventType=1
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+V/talkback: SelectionInterpreter(18044): Skip ROLE_CHECK_BOX for de-selection
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+I/talkback: ScrollEventInterpreter(18044): Manual scrolling
+D/talkback: ScrollEventInterpreter(18044): interpret ScrollEventInterpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1}
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635427  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635427 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635427; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216263. 
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635428  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635428 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635428; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+V/talkback: A11yEventProcessor(18044): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635525; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=HintableEvent{  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(18044):    toFeedback()()
+V/talkback: Mappers(18044):      eventType=32768
+V/talkback: Mappers(18044):      forceFeedbackEvenIfAudioPlaybackActive=true
+V/talkback: Mappers(18044):      forceFeedbackEvenIfMicrophoneActive=true
+D/talkback: AccessibilityFocusMonitor(18044): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(18044): Failed to get the editing node.
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39919  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Replies"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39950  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935268816  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: SpannableUtils(18044): text(Replies) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableUtils(18044): text(null) isEmptyOrNotSpannableStringType
+V/talkback: AccessibilityFocusHint(18044):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(18044):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(18044):     nodeRoleHint={}
+V/talkback: AccessibilityFocusHint(18044):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(18044):     isLongClickable: false
+V/talkback: HintFeedbackRule(18044):   speakHintText: (39888) , hint={}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(18044):  EVENT_SPEAK_HINT:  ttsOutput=     queueMode=0  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635525; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(18044):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18044): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(18044): Event listeners: Pipeline,ProcessorEventQueue
+I/talkback: ScrollEventInterpreter(18044): Manual scrolling
+D/talkback: ScrollEventInterpreter(18044): interpret ScrollEventInterpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1}
+D/talkback: AutoScrollInterpreter(18044): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635531  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635531 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2635531; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=true, isDuplicateEvent=true, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(18044):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(18044):    isFromScrollable=false
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635348  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2635369  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=null, failovers=[Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=null part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635369; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=AccessibilityFocused{  focusActionInfo==FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@9bd0; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(114, 398 - 207, 446); boundsInWindow: Rect(114, 398 - 207, 446); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: true; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_CLEAR_ACCESSIBILITY_FOCUS]
+V/talkback: Mappers(18044):    needsCaption=false
+V/talkback: Compositor(18044): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39919  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Replies"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39950  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935268816  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39919), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39919)    accessibilityNodeError=""  , treeDescription={Replies} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39950), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39950)    accessibilityNodeError=""  , treeDescription={} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (935268816), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (935268816)    accessibilityNodeError=""  , treeDescription={Tab} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39888), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18044):         childNode:(39919), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {Replies}
+V/talkback: TreeNodesDescription(18044):         childNode:(39950), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {}
+V/talkback: TreeNodesDescription(18044):         childNode:(935268816), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {Tab}
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39888)    accessibilityNodeError=""  , treeDescription={Replies, Tab} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):   treeDescriptionWithLabel: , appendedTreeDescription={Replies, Tab}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18044): aggregateNodeTreeDescription:  (39888), treeDescriptionWithLabel={Replies, Tab}, disabledStateOrReadOnlyState=, selectedState=selected, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     nodeTreeDescription={selected, Replies, Tab}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     collectionItemTransition={2 of 3}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):  viewAccessibilityFocused: (39888) , ttsOutput={selected, Replies, Tab, 2 of 3}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= selected, Replies, Tab, 2 of 3    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369, failovers=[Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369 part=Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from current chunk= sourceTextBegin=10  sourceTextEnd=17  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: FeedbackFragmentsIterator(18044): next --currentFeedbackFragment text = selected, Replies, Tab, 2 of 3.
+V/talkback: FeedbackController(18044): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369
+V/talkback: SpeechControllerImpl(18044): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18044): Speaking fragment text="selected, Replies, Tab, 2 of 3", utteranceId=talkback_42, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635369
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech done
+D/talkback: SpeechCacheManager(18044): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_42, text=selected, Replies, Tab, 2 of 3, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(18044): tts.speak, utteranceId =talkback_42
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=5040
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=5040
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_STOP utteranceId=talkback_41 interrupted=true
+W/talkback: FeedbackFragmentsIterator(18044): onFragmentCompleted -- utteranceId = talkback_41,feedBackItemUtteranceId =  talkback_42
+V/talkback: SpeechControllerImpl(18044): Interrupted 41 with talkback_42
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_START utteranceId=talkback_42
+D/talkback: FailoverTextToSpeech(18044): Speak call for talkback_42 returned 0
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2635369  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2635369  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_VIEW_CLICKED  time=2635241  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_VIEW_CLICKED  
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=182
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_42 bytes=5040
+V/talkback: EventTypeViewClickedFeedbackRule(18044): srcIsSelected  
+V/talkback: EventTypeViewClickedFeedbackRule(18044):  ttsOutputRule= selectedState
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_VIEW_CLICKED:  ttsOutput= selected    queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  haptic=2130903106  earcon=2131820567  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241, failovers=[Part= speech= action=SPEAK  text="selected"  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_SKIP_DUPLICATE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2635241 part=Part= speech= action=SPEAK  text="selected"  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_SKIP_DUPLICATE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(18044): Queued speech item, waiting for "talkback_42"
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=SPEAK  text="selected"  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_SKIP_DUPLICATE  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635402  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635404  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635405  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(18044):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635406  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=null  contentChangeType=null, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (38896) , ttsOutput= {}, eventSrcRole=ROLE_BUTTON, nodeRole=ROLE_BUTTON, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  time=2635407  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=null  contentChangeType=null, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (38896) , ttsOutput= {}, eventSrcRole=ROLE_BUTTON, nodeRole=ROLE_BUTTON, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635427  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (39020) , ttsOutput= {}, eventSrcRole=ROLE_LIST, nodeRole=ROLE_LIST, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635428  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (41004) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2635525  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=null, failovers=[Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=null part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2635525; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=AccessibilityFocused{  focusActionInfo==FocusActionInfo{  sourceAction=FOCUS_SYNCHRONIZATION  initialFocusType=UNDEFINED  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@9bd0; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(114, 398 - 207, 446); boundsInWindow: Rect(114, 398 - 207, 446); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: true; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_CLEAR_ACCESSIBILITY_FOCUS]
+V/talkback: Mappers(18044):    needsCaption=false
+V/talkback: Compositor(18044): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39919  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Replies"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39950  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(18044): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(18044): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935268816  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39919), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39919)    accessibilityNodeError=""  , treeDescription={Replies} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39950), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39950)    accessibilityNodeError=""  , treeDescription={} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18044):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (935268816), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (935268816)    accessibilityNodeError=""  , treeDescription={Tab} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):       treeNodesDescription:   (39888), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18044):         childNode:(39919), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {Replies}
+V/talkback: TreeNodesDescription(18044):         childNode:(39950), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {}
+V/talkback: TreeNodesDescription(18044):         childNode:(935268816), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(18044):         > appendChildNodeDescription= {Tab}
+V/talkback: TreeNodesDescription(18044):     getAppendedTreeDescription: (39888)    accessibilityNodeError=""  , treeDescription={Replies, Tab} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18044):   treeDescriptionWithLabel: , appendedTreeDescription={Replies, Tab}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18044): aggregateNodeTreeDescription:  (39888), treeDescriptionWithLabel={Replies, Tab}, disabledStateOrReadOnlyState=, selectedState=selected, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     nodeTreeDescription={selected, Replies, Tab}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):     collectionItemTransition={2 of 3}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18044):  viewAccessibilityFocused: (39888) , ttsOutput={selected, Replies, Tab, 2 of 3}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= selected, Replies, Tab, 2 of 3    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525, failovers=[Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525 part=Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18044): TextFormattingInfo from current chunk= sourceTextBegin=10  sourceTextEnd=17  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: FeedbackFragmentsIterator(18044): next --currentFeedbackFragment text = selected, Replies, Tab, 2 of 3.
+V/talkback: FeedbackController(18044): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525
+V/talkback: SpeechControllerImpl(18044): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18044): Speaking fragment text="selected, Replies, Tab, 2 of 3", utteranceId=talkback_43, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2635525
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(18044): stopSpeech done
+D/talkback: SpeechCacheManager(18044): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_43, text=selected, Replies, Tab, 2 of 3, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(18044): tts.speak, utteranceId =talkback_43
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_STOP utteranceId=talkback_42 interrupted=true
+W/talkback: FeedbackFragmentsIterator(18044): onFragmentCompleted -- utteranceId = talkback_42,feedBackItemUtteranceId =  talkback_43
+V/talkback: SpeechControllerImpl(18044): Interrupted 42 with talkback_43
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_START utteranceId=talkback_43
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+D/talkback: FailoverTextToSpeech(18044): Speak call for talkback_43 returned 0
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: Pipeline(18044): execute() success=true for part=Part= speech= action=SPEAK  text="selected, Replies, Tab, 2 of 3"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2635528  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2635528  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18044): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2635531  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Compositor(18044): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(18044): windowContentChanged: (39020) , ttsOutput= {}, eventSrcRole=ROLE_LIST, nodeRole=ROLE_LIST, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(18044):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216337. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=194
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+W/AudioTrack(18044): createTrack_l(44): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 22463
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216392. 
+V/talkback: Mappers(18044):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635531 event=null interpretation=SUBTREE_CHANGED eventSourceNode=null
+V/talkback: Mappers(18044):    interpretationID=SUBTREE_CHANGED
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635531, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(18044): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2635531 part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(18044): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(18044): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216459. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216524. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216590. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216656. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216722. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=7038
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216788. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216854. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216920. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705216986. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217052. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217118. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217184. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217250. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217316. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217382. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=2648
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217448. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217514. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217580. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217646. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217712. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217778. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217844. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=8192
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217910. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705217977. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=5040
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218042. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218108. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218174. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_43 bytes=3330
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218240. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218306. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218372. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218438. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218504. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218570. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218636. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218702. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218768. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218834. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218900. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705218966. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219032. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219098. 
+I/talkback: FailoverTextToSpeech(18044): REDSQUARE_ENGINE_DONE utteranceId=talkback_43
+V/talkback: SpeechControllerImpl(18044): No next item, stopping speech queue
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219164. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219230. 
+D/talkback: A11yEventProcessor(18044): Processor idle state.
+V/talkback: Mappers(18044):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(18044):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(18044): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(18044): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(18044): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(18044): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219296. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219363. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219428. 
+V/talkback: ProximitySensor(18044): Processing onSensorChanged event at 1792705219494. 

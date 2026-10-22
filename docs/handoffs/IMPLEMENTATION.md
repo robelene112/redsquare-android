@@ -2,6 +2,16 @@
 
 ## Active authorization: finish issue65 only, then stop
 
+Current checkpoint: BOTH complete exact509 runs39852319358/39852323349 are whole
+SUCCESS; all six partitions and unchanged frozen collectors pass. Packets
+full10-509-39852319358 and full17-509-39852323349. Counts527/528,161/162normal,
+35interruptions,34continuity,122archives each. Sole frozen API29 Profile assumption;
+no17 assumptions.2189/2217 hashes checked; original native200% Search/motion and
+selected Likes captures viewed. Real selected speech and settings restoration
+checked. Deadline elapsed10:64/1528ms,17:38/1413ms. Final paired evidence review
+and publication of held signed65 remain. STOP after65. Earlier pending statuses
+below are historical checkpoints.
+
 Owner resumed65 after pausing for token usage. Do not start66 without a new sign.
 Review base6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4. Public beta64 unchanged.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays unread and
