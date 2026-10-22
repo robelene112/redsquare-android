@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +55,7 @@ internal fun ProfileImage(source: String?, kind: ProfileImageKind, author: Strin
 /** A full-size retry control never paints over the unavailable-banner explanation. */
 @Composable
 private fun ProfileImageRetry(kind: ProfileImageKind, onRetry: () -> Unit) {
-    IconButton(onClick = onRetry, modifier = Modifier.size(48.dp)) {
+    FilledTonalIconButton(onClick = onRetry, modifier = Modifier.size(48.dp)) {
         Icon(painterResource(R.drawable.ic_refresh),
             contentDescription = stringResource(if (kind == ProfileImageKind.PICTURE)
                 R.string.profile_picture_retry else R.string.profile_banner_retry))
