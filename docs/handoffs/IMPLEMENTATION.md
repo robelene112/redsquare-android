@@ -56,9 +56,13 @@ remove/re-add and explicit signed creation with exact roles/raw+Relay original a
 premature writes; independent wallet/node/cache/preferences restoration. Additive
 group-setup scopes/fullChat inclusion; production remains unchanged4d5. Initial fixture
 compile SUCCESS2m11wall/Gradle2m9/explicit0. Final fixture refinement avoids ambiguous
-Create group title and uses truthful future-admin copy. Corrected compile starting
-(group63-setup-red-corrected-compile.log/json); NEXT source fixture review/compile then
-RED10 before implementing group form. No production group changes yet.
+Create group title and uses truthful future-admin copy. Corrected compileSUCCESS1m55wall/Gradle1m54/0. Spec review found missing positive
+child-dismissal readiness after the second valid Add; now both additions await it
+within15s. Standards documented0, nonblocking duplicate IME heuristic addressed by
+moving identical focused-window observation to shared FocusedWindowIme.kt; original
+private entry and group action assertions/deadlines remain unchanged. Narrow source
+re-review and final compile starting (group63-setup-red-reviewed-compile.log/json).
+NEXT RED10 before implementing group form. No production group changes yet.
 No whole63/full-suite/signed delivery acceptance; public62 unchanged. Navigation200
 wrap remains70. No new signed version reserved. Protected research remains UNREAD.
 

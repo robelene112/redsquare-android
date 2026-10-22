@@ -1,11 +1,8 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.view.inspector.WindowInspector
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -100,6 +97,7 @@ class GroupSetupPreviewTest {
                             waitFor("Add group member")
                             ui.onNodeWithText("Public key").performClick().performTextReplacement(pasted)
                             physicalAdd()
+                            ui.waitUntil(15_000) { ui.onAllNodesWithText("Add group member").fetchSemanticsNodes().isEmpty() }
                             memberAction("Remove member $pasted").assertIsDisplayed()
                             memberAction("Remove member ${known.publicKey}").assertIsDisplayed()
                             check(wallets.loadExisting().exportJson() == before)
@@ -171,20 +169,10 @@ class GroupSetupPreviewTest {
         target.assertIsDisplayed().performClick()
     }
 
-    private fun keyboardBottom(): Int {
-        var result = 0
-        InstrumentationRegistry.getInstrumentation().runOnMainSync {
-            val root = WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
-            val insets = root?.let { ViewCompat.getRootWindowInsets(it) }
-            if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
-                result = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-        }
-        return result
-    }
 
     private fun physicalAdd() {
         waitFor("Add member")
-        ui.waitUntil(10_000) { keyboardBottom() > 0 }
+        ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         var target = requireNotNull(device.findObject(By.text("Add member")))
         while (!target.isClickable) target = requireNotNull(target.parent)
@@ -192,7 +180,7 @@ class GroupSetupPreviewTest {
         val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
         val minimum = kotlin.math.round(48 * density).toInt()
         check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.top >= 0 &&
-            bounds.bottom <= device.displayHeight - keyboardBottom()) { "The complete Add member target stays above the real keyboard" }
+            bounds.bottom <= device.displayHeight - focusedWindowImeBottom()) { "The complete Add member target stays above the real keyboard" }
         check(device.click(bounds.centerX(), bounds.centerY()))
     }
 }

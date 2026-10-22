@@ -1,11 +1,8 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.view.inspector.WindowInspector
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -147,18 +144,8 @@ class ChatEntryPreviewTest {
         target.assertIsDisplayed().performClick()
     }
 
-    private fun keyboardBottom(): Int {
-        var result = 0
-        InstrumentationRegistry.getInstrumentation().runOnMainSync {
-            val root = WindowInspector.getGlobalWindowViews().singleOrNull { it.isShown && it.hasWindowFocus() }
-            val insets = root?.let { ViewCompat.getRootWindowInsets(it) }
-            if (insets?.isVisible(WindowInsetsCompat.Type.ime()) == true)
-                result = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-        }
-        return result
-    }
 
-    private fun waitForIme() = ui.waitUntil(10_000) { keyboardBottom() > 0 }
+    private fun waitForIme() = ui.waitUntil(10_000) { focusedWindowImeBottom() > 0 }
 
     private fun physicalOpen() {
         waitFor("Open chat")
@@ -170,7 +157,7 @@ class ChatEntryPreviewTest {
         val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
         val minimum = kotlin.math.round(48 * density).toInt()
         check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.top >= 0 &&
-            bounds.bottom <= device.displayHeight - keyboardBottom()) { "The complete Open chat target stays above the real keyboard" }
+            bounds.bottom <= device.displayHeight - focusedWindowImeBottom()) { "The complete Open chat target stays above the real keyboard" }
         check(device.click(bounds.centerX(), bounds.centerY()))
     }
 }
