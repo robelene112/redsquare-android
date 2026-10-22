@@ -70,6 +70,12 @@ inspect terminal original outcome/capture, retain with /tmp/redsquare63-retain-n
 API29/exact63a; raw external group63-10-invitation-share-red-63a-RUN, packet
 failed10-invitation-share-63a-RUN. Then implement bounded Copy/Android Share using
 unchanged GroupInvitation.link and existing active-member/admin availability.
+Read-only AOSP Intent.java android-10.0.0_r47 confirms framework may mirror
+EXTRA_TEXT into ClipData before chooser interception. Fixture now allows ONLY an
+absent clip or one exact matching text/plain item with no URI/HTML/Intent, while
+keeping exact EXTRA_TEXT-only extras/no data. This preserves the no-broadened-payload
+goal across actual Android platform transport. No app change; current63a RED still
+stops at the earlier missing Copy action. Narrow source review/compile follows.
 No background observers/builds active at this checkpoint. Protected research remains
 UNREAD/UNTOUCHED. Remaining Join recovery slice still pending after Copy/Share.
 

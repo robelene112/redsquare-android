@@ -94,7 +94,16 @@ class GroupInvitationSharePreviewTest {
                                 val shared = requireNotNull(chooser.getParcelableExtra<Intent>(Intent.EXTRA_INTENT))
                                 check(shared.action == Intent.ACTION_SEND && shared.type == "text/plain")
                                 check(shared.getStringExtra(Intent.EXTRA_TEXT) == expectedLink)
-                                check(shared.extras?.keySet() == setOf(Intent.EXTRA_TEXT) && shared.data == null && shared.clipData == null)
+                                check(shared.extras?.keySet() == setOf(Intent.EXTRA_TEXT) && shared.data == null)
+                                // Android may mirror EXTRA_TEXT into ClipData before chooser interception.
+                                // Intent.migrateExtraStreamToClipData, AOSP android-10.0.0_r47 (and later).
+                                shared.clipData?.let { clip ->
+                                    check(clip.itemCount == 1 && clip.description.mimeTypeCount == 1 &&
+                                        clip.description.getMimeType(0) == "text/plain")
+                                    val item = clip.getItemAt(0)
+                                    check(item.text?.toString() == expectedLink && item.htmlText == null &&
+                                        item.uri == null && item.intent == null)
+                                }
                                 waitFor("Share invitation")
                                 captureNativeScreen(File(folder, "$label-share-return.png"))
                                 // Copy follows sharing so Android's clipboard overlay cannot cover the Share target.
