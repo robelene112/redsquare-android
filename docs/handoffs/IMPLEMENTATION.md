@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at13:39UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at14:10UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -45,21 +45,45 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Source/core/release/lint39786615298 SUCCESS. Evidence-only follow-up review
    remains required; production unchanged since4d.
 
-   Fresh complete10run39788101082 and17run39788441182 execute exacta87 with
-   public reads. Both pending, no acceptance. Independent observers:
-   PID3456807 `/tmp/redsquare64-watch-full10-a87.py` and PID3457980
-   `/tmp/redsquare64-watch-full17-a87.py`, external
-   `profile64-full10-a87-observer.log` / `profile64-full17-a87-observer.log`.
-   They retain terminal whole artifacts and run frozen collector only on whole
-   SUCCESS; no auto retry/acceptance/publish. Raw `profile64-fullSDK-a87-RUN`,
-   packet `fullSDK-a87-RUN`. Focused observer3451788 ended after all four passed.
+   Second complete10run39788101082 and17run39788441182 at exacta87 both
+   fail Social: QuotePreviewTest expected9likes before revealing the lazy row
+   (seven methods, six pass;37.503s10/35.316s17). Both Wallet partitions pass;
+   Chat partitions still running at14:10. Whole runs are rejected. Independent
+   observers3456807/3457980, `/tmp/redsquare64-watch-full{10,17}-a87.py`, log
+   external `profile64-full{10,17}-a87-observer.log`, retain terminal artifacts.
+   Failure diagnostics downloaded externally `profile64-partial{10,17}-social-a87`.
+   Retain those failed quote logs/metadata once whole runs terminal; do not
+   assemble their passing pieces into acceptance.
+
+   Fixture-only correction05680ceac13a1fb39fa5344b076ce25ea61da62f has paired0/0:
+   replaces original20s existence wait with shared20s actual history reveal,
+   retains exact9/zero transactions/healthy peer, adds native success/failure
+   captures inside Activity lifetime. Quote-focused10run39790796343 SUCCESS
+   seven methods22.500s;17run39790800531 SUCCESS seven methods55.235s. Both
+   original process-recovery gates pass. Root original screenshots confirm9likes
+   alongside history failure, and all hashes verified. Green056 packets retained,
+   pending evidence review. No production change since4d.
+
+   New complete10run39791789368 and17run39792064782 both execute exact056,
+   public reads enabled, via `verify/profile64-counts-05680ceac`. This temporary
+   verification ref lets the older Chat jobs finish independently. All three
+   jobs per current run are still active, no acceptance or signed64. Observers:
+   PID3470409 `/tmp/redsquare64-watch-full10-056.py`, PID3474519
+   `/tmp/redsquare64-watch-full17-056.py`; external logs
+   `profile64-full10-056-observer.log` / `profile64-full17-056-observer.log`.
+   Raw `profile64-fullSDK-056-RUN`, packet `fullSDK-056-RUN`; frozen collector
+   executes only after whole/all3 SUCCESS, never autoaccepts or publishes.
+   Review worktree is clean at a87, must move to accepted source before signing.
+   Counter remains63, no64 reservation/build. Prepared/publication check helpers
+   `/tmp/redsquare-profile64-prepare64.py` and
+   `/tmp/redsquare-profile64-publication64-check.py` are ready but unexecuted.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
    `full-collector.py`: literal63 identities plus4 additive methods, expected
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
    Original validators, tool pins and sole API29 assumption stay fixed. Current
-   bindings identify current fulla87 attempts; first3c failures retained. No signed64.
+   bindings identify current full056 attempts; earlier failures remain rejected. No signed64.
    After corrected focused paths, dispatch fresh full10/17, bind exact runs,
    require whole/all3 SUCCESS and collector evidence, inspect native originals,
    paired review, then prepare/publish immutable signed64 through existing route.
