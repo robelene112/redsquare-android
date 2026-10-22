@@ -82,5 +82,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Frozen independently before final full63 execution; no accepted full63 dispatch yet."
+  "executingState": "Fresh complete full10/full17 dispatches at the same final production/test source78bd. Both have all three partitions and explicit public-feed opt-in. Active; no full63 acceptance. Expected references/collector/tool pins were independently frozen before either execution and remain unchanged.",
+  "executingSources": {
+    "android10": "78bd176cd0aacffc4011fdaffdbf7276f3356e3c",
+    "android17": "78bd176cd0aacffc4011fdaffdbf7276f3356e3c"
+  },
+  "executingRuns": {
+    "android10": 39721355158,
+    "android17": 39721357702
+  }
 }
