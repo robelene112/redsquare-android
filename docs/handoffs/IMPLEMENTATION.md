@@ -57,10 +57,13 @@ and39849992819 were cancelled and rejected. Fixture8d009995a captures the top
 results, scrolls the native content list once if needed, and keeps the exact body
 assertion. Final509fc9967 enforces the original absolute10s deadline before/after
 observation and records elapsed time. Paired final source0/0. Focused8d motion
-10run39851252148 and17run39851255977 pending; they exercise the gesture only.
-No active full run. After focused passes, dispatch complete exact509 to exercise
-the stronger guards and update execution metadata/equivalence. Frozen collector,
-catalog, pins, assertions and production/build inputs remain unchanged.
+10run39851252148 and17run39851255977 are whole SUCCESS, both original methods.
+Original packets retained; actual200% Dark top/after-scroll native frames viewed.
+They exercise the gesture but predate the final absolute-deadline guards.
+Active complete exact509fc99673f04ee9c5e2f99ec8e23e64c12446e6:
+Android10run39852319358 and Android17run39852323349, verification ref
+verify/search65-motion-509fc9967. Frozen collector/catalog/pins/assertions unchanged;
+production/build equivalence with the held signed65 artifact passes.
 Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and

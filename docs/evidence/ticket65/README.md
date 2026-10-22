@@ -53,7 +53,10 @@ runs39849988178/39849992819 were cancelled and rejected. Original focused failur
 packets are retained. Fixture8d009995a scrolls the content list once when needed;
 509fc9967 enforces the original absolute10s bound before/after observation and
 records elapsed time. Paired final source0/0. Focused8d motion runs39851252148/
-39851255977 are pending; complete exact509 proof must still exercise the guards.
+39851255977 are whole SUCCESS for both original methods. Actual native200% Dark
+result frames viewed. Active complete10run39852319358 and17run39852323349 at
+exact509fc99673f04ee9c5e2f99ec8e23e64c12446e6 exercise the final guards.
+Frozen catalog unchanged; held signed65 production/build inputs match.
 Complete acceptance and signed delivery
 are pending. Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is
