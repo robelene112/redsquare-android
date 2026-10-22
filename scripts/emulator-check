@@ -1279,6 +1279,7 @@ verify_search() {
     verify_group_chat_native SearchPresentationPreviewTest 180 search-presentation search-presentation-evidence
     verify_group_chat_native SearchReadingPreviewTest 180 search-reading search-reading-evidence
     verify_group_chat_native SearchRecoveryPreviewTest 180 search-recovery search-recovery-evidence
+    verify_group_chat_native SearchViewportPreviewTest 180 search-viewport search-viewport-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == search* ]]; then
     verify_search
