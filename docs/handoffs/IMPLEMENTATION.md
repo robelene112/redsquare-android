@@ -1,96 +1,41 @@
 # Implementation handoff
 
-## Active authorization: finish issue65 only, then stop
+## Issue65 delivered, final closure pending; STOP afterward
 
-Current checkpoint: BOTH complete exact509 runs39852319358/39852323349 are whole
-SUCCESS; all six partitions and unchanged frozen collectors pass. Packets
-full10-509-39852319358 and full17-509-39852323349. Counts527/528,161/162normal,
-35interruptions,34continuity,122archives each. Sole frozen API29 Profile assumption;
-no17 assumptions.2189/2217 hashes checked; original native200% Search/motion and
-selected Likes captures viewed. Real selected speech and settings restoration
-checked. Deadline elapsed10:64/1528ms,17:38/1413ms. Final paired evidence review
-and publication of held signed65 remain. STOP after65. Earlier pending statuses
-below are historical checkpoints.
+Owner authorization covers issue65 only. Do not start66 without a new sign.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains unread
+and untouched. Earlier churn instructions below are superseded.
 
-Owner resumed65 after pausing for token usage. Do not start66 without a new sign.
-Review base6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4. Public beta64 unchanged.
-Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays unread and
-untouched. Earlier churn instructions below are superseded by this limit.
+Both complete exact509fc99673f04ee9c5e2f99ec8e23e64c12446e6 runs are whole SUCCESS:
+Android10run39852319358 and Android17run39852323349. Frozen collector/catalog
+6391367bc211a63cb1e12cc3678a53ef80f17f47 unchanged. Counts527/528 identities,
+161/162normal,35interruptions,34continuity,122archives each. Sole frozen API29
+Profile assumption; none17. Root2189/2217 hashes and actual native Search/motion/
+selected-tab speech/settings checks pass. Motion result deadline observations
+10:64/1528ms,17:38/1413ms. Paired source/evidence reviews throughf0bed239d:0/0.
+All failed/cancelled predecessors remain rejected. Details:docs/evidence/ticket65.
 
-Focused Android10 run39834168015 exact81ba1d0f2 and Android17 run39834572483
-exactbdbb6db36 are whole SUCCESS: original9+Entry2+Presentation1+Reading1+
-Recovery3+Viewport1. Original packets green10-81b-39834168015 and
-green17-bdb-39834572483; real native frames viewed, including200% identity,
-IME/input and actions. Production unchanged since81b. Later fixture corrections
-preserve readiness deadline/primary cleanup failures. Maximum-length signed
-visual-name coverage added across all six cells throughcabd1065a; later focused
-Android17 proof below passes every cell.
+Signed beta65 has been published by canonical review-publish and independently
+verified over HTTPS. Sourceca678e521f63ed04d54cb0da4197443b8cc7c7e1, production/build
+identical to verified509. SHA256b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
+38250427bytes, established certificate, version0.1.65. All22 historical resources
+unchanged, withheld61 remains404. Packets signed65-prepared and signed65-public;
+raw /mnt/storage/redsquare-android-artifacts/search65-publication-65. Public
+https://davidengelen.nl/redsquare/ . Never rebuild or reuse65.
 
-Whole source review6a..bdb and long-name delta throughcabd: paired Spec0,
-documented Standards0/heuristic0. Full65 catalog/collector freeze6391367bc211a63cb1e12cc3678a53ef80f17f47:
-expected527/528 identities,161/162 normal completions,35 deliberate interruptions,
-34 continuity records,122 archives. Inherited pins/exclusions unchanged.
+Final public delivery review, closing65 and checking its child entry on55 remain.
+Then STOP. No more native test runs or build work is required unless review finds
+a defect. Physical/provider/store work remains parked under36/OWNER_INPUTS.md;
+owner-wide visual acceptance55 remains open. No other issue has been started.
 
-Earlier52ef complete runs were cancelled. Current full dispatches are listed
-below. Social10 failed
-in shared media scrolling because editable query and content list both expose
-ScrollBy; fixture-only531fb7105 excludes editable input from the relevant content
-helpers, preserving assertions/deadlines, paired0/0. Chat10 independently failed
-on200% Dark invitation recovery; final native button outside list viewport.
-Fixture783031166 brings its nested button fully into view and asserts full
-containment before the original tap. Exact pre-click timing is not proven.
-Original social-rejected10-52e, chat-rejected10-52e and social-cancelled17-52e
-packets retained. The earlier ca attempts are also rejected.
-
-Corrected post-presentation10 run39840058490 and Search17 run39840062179 at
-531fb7105457dfd44988c2c7ae8b959cb41cbba6 are whole SUCCESS. Max-name six-cell
-Search proof and actual200% full-name/key dialog viewed; media/own-actions Search
-originals viewed. Packets posts-green10-531 and long-green17-531 retained.
-Invitation10run39840580338 at783 failed its new pre-tap containment check:
-130% Dark button531..579/list360..555. Original packet retained and rejected.
-Fixturec060fc9995a1351cb87f9d22b8b2c24451773676 now includes measured residual
-scrolling and two equal fully contained geometry observations within the original
-15s action-readiness wait, then one unchanged click. Paired source0/0.
-Invitation10run39841530083 exactc060fc999 is whole SUCCESS. All12 final target
-geometry records independently checked: full button inside list before one tap.
-Original transaction/node/identity/cancellation goals pass. Source reviews0/0.
-Complete250 runs39842447826/39842451879 both FAILED in StatusMotionPreviewTest
-line112: Search history is a nonclickable child icon of the enabled48px button.
-Original native failure packets retained (motion archive/logs); whole raw runs
-outside Git. Wallet/Social passed but are NOT complete acceptance. Fixture
-bba6d556d selects the clickable parent, preserving original5s deadline and every
-motion/loading/result assertion. Paired source0/0. Focused motion10run39849745277
-and17run39849748958 atbba both failed the200% Dark body visibility check;
-130% Light passes. Native hierarchy shows the returned post identity with its
-body below People/Posts. Original packets retained. Complete bba runs39849988178
-and39849992819 were cancelled and rejected. Fixture8d009995a captures the top
-results, scrolls the native content list once if needed, and keeps the exact body
-assertion. Final509fc9967 enforces the original absolute10s deadline before/after
-observation and records elapsed time. Paired final source0/0. Focused8d motion
-10run39851252148 and17run39851255977 are whole SUCCESS, both original methods.
-Original packets retained; actual200% Dark top/after-scroll native frames viewed.
-They exercise the gesture but predate the final absolute-deadline guards.
-Active complete exact509fc99673f04ee9c5e2f99ec8e23e64c12446e6:
-Android10run39852319358 and Android17run39852323349, verification ref
-verify/search65-motion-509fc9967. Frozen collector/catalog/pins/assertions unchanged;
-production/build equivalence with the held signed65 artifact passes.
-Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
-APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
-38250427 bytes, established certificate, release package/min29/target36 and
-actual DEX options verified. Packet signed65-prepared. Candidate unpublished;
-version 65 is reserved and must never be reused. Public before-check passed:22 historical resources unchanged, current beta64,
-withheld61 still404. Observer /tmp/redsquare-search65-publication65-check.py,
-raw /mnt/storage/redsquare-android-artifacts/search65-publication-65.
- Preserve original assertions/deadlines/pins and
-exclusions. Close65 and STOP. Never combine failed runs as acceptance.
+## Historical checkpoints
 
 
 Updated2026-10-22 at16:15UTC. Public beta64 is published and independently
 verified. Issue64 implementation, complete Android10/17 and prepared signed64
 have paired Spec0/documented Standards0/heuristic0 reviews. Final public delivery
 through e7c7b3f51a664c24340a3f6a014b222dab02fd53 has paired0/0. Issue64 is
-CLOSED and55 updated. Issue65 is assigned and in progress. Continue65through69
-then70, without routine stops.
+CLOSED and55 updated. Issue65 is assigned and in progress. That earlier churn authorization is superseded by the current one-issue limit.
 
 ## Resume here
 

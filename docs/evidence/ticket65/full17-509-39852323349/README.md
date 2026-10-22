@@ -15,8 +15,8 @@ Original/restored accessibility settings are byte-identical. Final motion guards
 executed: search result observation38ms at130% Light and1413ms at200% Dark,
 both within the original absolute10000ms bound, including capture and gesture.
 
-Both complete Android10/17 proofs pass. Final paired evidence review remains pending.
-Held signed65 production/build inputs are identical; delivery is still pending.
+Both complete Android10/17 proofs pass. Final paired evidence review throughf0bed239d reports Spec0/documented Standards0/heuristic0.
+Held signed65 production/build inputs are identical; signed65 has been published; final public delivery review is pending.
 Physical Pixel timing/installation, provider and store acceptance remain outside
 this emulator proof. Raw artifacts are at
 /mnt/storage/redsquare-android-artifacts/search65-full17-509-39852323349.

@@ -62,12 +62,13 @@ pass527/528 exact identities,161/162 normal completions,35 interruptions,
 34 continuity records and122 archives per platform. Android10 retains only the
 sole frozen Profile assumption; Android17 has none.2189/2217 retained file hashes,
 actual200% Search originals, motion-result elapsed times and real selected-tab
-speech were independently checked. Final paired evidence review is pending.
-Signed beta 65 is prepared from exact ca678e521 and remains
-withheld until complete acceptance. Its APK SHA256 is
-b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc (38250427 bytes).
-The established certificate, release package, min29/target36, nondebuggable and
-nonprofileable flags, no automatic backup and actual DEX options were checked.
-Review mode is enabled; push and both GIF options remain unconfigured. Beta64 remains current. No Pixel performance, physical update,
-provider/store or final owner visual acceptance is claimed. Finish65 only,
-then stop until the owner resumes another issue.
+speech were independently checked. Paired final evidence reviews throughf0bed239d report Spec0/documented Standards0/
+heuristic0. Signed beta65 from exactca678e521 is now published and independently
+verified over HTTPS. Public https://davidengelen.nl/redsquare/ . APK SHA256
+b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc (38250427bytes).
+The established certificate, package/min29/target36, release flags and actual DEX
+options match the held artifact. All22 historical resources are byte-identical;
+withheld61 remains404. Final public delivery review remains pending.
+
+No physical Pixel performance/update, provider/store or final owner visual
+acceptance is claimed. Finish65 only, then stop pending the next owner sign.
