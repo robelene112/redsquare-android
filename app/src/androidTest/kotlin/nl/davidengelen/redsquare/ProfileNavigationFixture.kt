@@ -4,6 +4,7 @@ import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.junit4.ComposeTestRule
 
 private class ProfileNavigationDeadline(timeoutMillis: Long) {
@@ -54,7 +55,9 @@ internal fun ComposeTestRule.revealProfileHistoryItem(text: String, timeoutMilli
         .fetchSemanticsNodes()
     val tabBottom = tabs.maxOf { it.boundsInRoot.bottom }
     val targetTop = onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top
-    if (targetTop < tabBottom) history.performScrollBy(y = targetTop - tabBottom)
+    if (targetTop < tabBottom) history.performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
+        check(scroll(0f, targetTop - tabBottom))
+    }
     onNodeWithText(text).assertIsDisplayed()
     check(onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top >= tabBottom) {
         "Profile history target is covered by the pinned tabs"
