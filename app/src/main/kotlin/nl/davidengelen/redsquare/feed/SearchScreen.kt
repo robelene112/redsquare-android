@@ -9,7 +9,7 @@ import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
@@ -46,6 +46,7 @@ import nl.davidengelen.redsquare.saito.*
 
 /** Retained by the wallet/backend navigation memory, never by an old coroutine scope. */
 internal class SearchViewState {
+    val resultsPosition = LazyListState()
     var query by mutableStateOf("")
     var searchedQuery by mutableStateOf("")
     var submitted by mutableStateOf(false)
@@ -273,7 +274,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 knownNames[key]?.name?.startsWith(view.searchedQuery, ignoreCase = true) == true)
         }.sorted()).distinct()
     }
-    val resultsPosition = rememberLazyListState()
+    val resultsPosition = view.resultsPosition
     val canSearch = wallet != null && cacheReady && !loading && view.query.isNotBlank()
     val submit = {
         if (canSearch) {

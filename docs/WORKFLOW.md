@@ -128,7 +128,12 @@ complete first-release scope and the established production boundaries.
    scopes, with its own180second class bound after the unchanged original Search
    class. Complete Social retains both. The existing native UI/controlled-peer
    seam exercises real keyboard visibility, explicit IME submission and clearing
-   without new history reads. It does not establish physical-phone performance.
+   without new history reads. SearchPresentationPreviewTest and
+   SearchReadingPreviewTest add independent sections/exact identity and retained
+   visible position through thread/profile/recreation at that same seam, each
+   with its own180second bound. They remain in full Social. Existing protocol,
+   cache, identity and deadline goals are unchanged. These checks do not establish
+   physical-phone performance.
    `profile-editor` / its Android17 variant cover an unsent profile preview,
    actual keyboard and physical local Save draft/recovery, one180second class
    at the existing native/controlled-peer seam and additive complete Social.
