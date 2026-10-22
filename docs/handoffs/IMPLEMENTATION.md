@@ -73,6 +73,30 @@ catalog review and original full runs still required; no observed full result
 was used to derive expected identities/totals. Temporary generator preparation
 lives outside checkout, not a second tracker.
 
+Current recovery correction: exact441 Android10run39717151069 terminalFAILURE
+29.256s/180, original15s invalid-error visibility line89 second100Dark. First100Light
+fully reaches exactsignedJoin, but partial progress is not acceptance. Root PNG/XML/
+all-root semantics show red invalid field/enabledPreview but NO explanation node,
+scrollrange0. Exact animation cause unproved. Packet failed10-invitation-recovery-441-RUN
+retains20 originals.17run39717153436 and requiredsource39717147364 stillactive.
+Join-only correction now uses direct Material error Text/liveRegion Polite plus
+same measured bring-into-view rather than conditional animated InlineStatus; no
+other UI/protocol/testgoal/deadline changes. Local compile72611 ACTIVE, external
+ group63-invitation-recovery-validation-text-compile.log/json. Do not edit app
+source while it compiles. After terminal compile and both retained outcomes,
+commit/review correction+failure packets, then fresh bothSDK focused runs.
+Independent full catalog88c0fdb7d reviewed Spec0/documentedStandards0/heuristic0;
+cumulative production441 source review likewise0/0. Full63 still pending.
+
+Both first recovery runs are now terminal rejected:17run39717153436 FAILURE83.947s/
+180 at SAME original15s invalid-error visibility goal, fourth130Dark; three prior
+cells complete, no full acceptance. Root viewed actual failure PNG/XML/semantics:
+red input, real tallIME, fixedPreview visible, explanation node absent; scroll86/
+max102 is existing input scroll. Packet failed17-invitation-recovery-441-RUN retains
+42 originals. Observer52769 ended0 after both terminaldownloads/retention. Required
+source39717147364 stillactive; correctioncompile72611 stillactive. No source edits
+until compiler ends. Both original failure conclusions stay unchanged.
+
 Historical slice checkpoints follow; the current paragraph above supersedes
 older NEXT/active-build/generator-not-applied notes.
 

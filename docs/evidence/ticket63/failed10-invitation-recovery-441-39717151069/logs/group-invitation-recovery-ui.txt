@@ -1,0 +1,83 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.waitFor(GroupInvitationRecoveryPreviewTest.kt:201)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14$lambda$13(GroupInvitationRecoveryPreviewTest.kt:89)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$37XbKo1Vjn3UEjkZvXZj1pYmhRs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14(GroupInvitationRecoveryPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$dBFCd7wmTD9ekeDufcQIirvqsnc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode(GroupInvitationRecoveryPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: stream=
+Error in unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode(nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.waitFor(GroupInvitationRecoveryPreviewTest.kt:201)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14$lambda$13(GroupInvitationRecoveryPreviewTest.kt:89)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$37XbKo1Vjn3UEjkZvXZj1pYmhRs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14(GroupInvitationRecoveryPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$dBFCd7wmTD9ekeDufcQIirvqsnc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode(GroupInvitationRecoveryPreviewTest.kt:67)
+
+INSTRUMENTATION_STATUS: test=unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 29.256
+There was 1 failure:
+1) unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode(nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.waitFor(GroupInvitationRecoveryPreviewTest.kt:201)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14$lambda$13(GroupInvitationRecoveryPreviewTest.kt:89)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$37XbKo1Vjn3UEjkZvXZj1pYmhRs(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda19.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode$lambda$17$lambda$15$lambda$14(GroupInvitationRecoveryPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.$r8$lambda$dBFCd7wmTD9ekeDufcQIirvqsnc(Unknown Source:0)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest.unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode(GroupInvitationRecoveryPreviewTest.kt:67)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
