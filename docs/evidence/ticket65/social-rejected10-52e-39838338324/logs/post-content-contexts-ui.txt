@@ -1,0 +1,176 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentContextsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostContentContextsTest:
+INSTRUMENTATION_STATUS: test=sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostContentContextsTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: performScrollToNode((ContentDescription = 'View profile for Anon-sN3mzN' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #721 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Media and quote viewport'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@fd56ae2'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Media and quote viewport'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(24, 24)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #734 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@21a7f61'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent$default(PostContentContextsTest.kt:60)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:47)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(nl.davidengelen.redsquare.PostContentContextsTest):
+java.lang.AssertionError: Failed: performScrollToNode((ContentDescription = 'View profile for Anon-sN3mzN' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #721 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Media and quote viewport'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@fd56ae2'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Media and quote viewport'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(24, 24)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #734 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@21a7f61'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent$default(PostContentContextsTest.kt:60)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:47)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 12.327
+There was 1 failure:
+1) sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(nl.davidengelen.redsquare.PostContentContextsTest)
+java.lang.AssertionError: Failed: performScrollToNode((ContentDescription = 'View profile for Anon-sN3mzN' (ignoreCase: false)) && (OnClick is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #721 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Media and quote viewport'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@fd56ae2'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Media and quote viewport'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(24, 24)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #734 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@21a7f61'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 4 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent(PostContentContextsTest.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.assertContent$default(PostContentContextsTest.kt:60)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7$lambda$6(PostContentContextsTest.kt:47)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$8Ol6lHZSpjLtdaAhQrrfmwpA21w(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes$lambda$7(PostContentContextsTest.kt:27)
+	at nl.davidengelen.redsquare.PostContentContextsTest.$r8$lambda$lN-fFM1aqBirogA4M8bm7ND39AM(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostContentContextsTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostContentContextsTest.sameMediaAndQuoteRemainRecognizableInFeedThreadProfileAndSearchInBothThemes(PostContentContextsTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
