@@ -1,0 +1,177 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ThreadProfilePreviewTest:
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=openingAFeedPostShowsAvailableVerifiedConversationReplies
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=fetchedProfilePostsRemainVisibleAfterCacheWriteFailureAndOfflineRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableConversationRemainsReadableAfterRestartWithoutItsServer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Profile newer post 20' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.olderProfileRepliesAndLikesRemainReachablePastANewerFullPage(ThreadProfilePreviewTest.kt:179)
+
+INSTRUMENTATION_STATUS: stream=
+Error in olderProfileRepliesAndLikesRemainReachablePastANewerFullPage(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Profile newer post 20' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.olderProfileRepliesAndLikesRemainReachablePastANewerFullPage(ThreadProfilePreviewTest.kt:179)
+
+INSTRUMENTATION_STATUS: test=olderProfileRepliesAndLikesRemainReachablePastANewerFullPage
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=replyAndLikedPostAuthorsOpenProfilesAndBackReturnsToTheOrigin
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts(ThreadProfilePreviewTest.kt:381)
+
+INSTRUMENTATION_STATUS: stream=
+Error in openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts(ThreadProfilePreviewTest.kt:381)
+
+INSTRUMENTATION_STATUS: test=openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Profile history target is covered by the pinned tabs
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:62)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:282)
+
+INSTRUMENTATION_STATUS: stream=
+Error in profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest):
+java.lang.IllegalStateException: Profile history target is covered by the pinned tabs
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:62)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:282)
+
+INSTRUMENTATION_STATUS: test=profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ThreadProfilePreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=8
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=malformedSignedThreadIsRejectedWithoutHidingAnAuthenticConversation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.074
+There were 3 failures:
+1) olderProfileRepliesAndLikesRemainReachablePastANewerFullPage(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Profile newer post 20' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.olderProfileRepliesAndLikesRemainReachablePastANewerFullPage(ThreadProfilePreviewTest.kt:179)
+2) openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Native Red Square reference post' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:61)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.openingAnIdentityShowsItsSignedPostsRepliesAndAvailableLikedPosts(ThreadProfilePreviewTest.kt:381)
+3) profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(nl.davidengelen.redsquare.ThreadProfilePreviewTest)
+java.lang.IllegalStateException: Profile history target is covered by the pinned tabs
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem(ProfileNavigationFixture.kt:62)
+	at nl.davidengelen.redsquare.ProfileNavigationFixtureKt.revealProfileHistoryItem$default(ProfileNavigationFixture.kt:45)
+	at nl.davidengelen.redsquare.ThreadProfilePreviewTest.profilePostsRepliesAndLikesRemainReadableAfterRestartWithoutTheirServer(ThreadProfilePreviewTest.kt:282)
+
+FAILURES!!!
+Tests run: 8,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

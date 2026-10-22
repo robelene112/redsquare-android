@@ -1,0 +1,68 @@
+{
+  "browse-evidence.tar": {
+    "sha256": "9e13d998b4ba8e4e69ed47a3e1f1db5be72e6dbf0673e5158abf6d3e5fb0f2ac",
+    "bytes": 454144,
+    "members": [
+      {
+        "name": "browse-evidence/verified-conversation.png",
+        "bytes": 40979,
+        "sha256": "e5659bca9f3de55d4eaef334e6a7214f4d9c6dc1acfc595c56e09e66c8d86cc4",
+        "retainedPath": "originals/browse-evidence/browse-evidence/verified-conversation.png"
+      },
+      {
+        "name": "browse-evidence/profile-memory-after-write-failure.xml",
+        "bytes": 54194,
+        "sha256": "d542e92de816610bdab4c47b497c9691972f6b048e6c71f3f83b5d2145e9e763",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-memory-after-write-failure.xml"
+      },
+      {
+        "name": "browse-evidence/profile-memory-after-write-failure.png",
+        "bytes": 39421,
+        "sha256": "1d110f419c02381cd0b39a3576bb954d3f58438a4851fc17019f912fec943048",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-memory-after-write-failure.png"
+      },
+      {
+        "name": "browse-evidence/cached-conversation-after-restart.png",
+        "bytes": 42198,
+        "sha256": "2018fbcf9d74356cd31137572b8ab45d94169aaa6ad0c26aeecdddbbb5b7410b",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-conversation-after-restart.png"
+      },
+      {
+        "name": "browse-evidence/profile-paging-first-failure.png",
+        "bytes": 32412,
+        "sha256": "7650d167a94210b0b689c04fe57109952db7812ecff57a0e12c8f426d6695e7d",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-paging-first-failure.png"
+      },
+      {
+        "name": "browse-evidence/profile-origin-restored.png",
+        "bytes": 33642,
+        "sha256": "5aacc854a69d3f66b36847b50fae6fac8f406c110fb6ab3e4cc796fa709f95ab",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-origin-restored.png"
+      },
+      {
+        "name": "browse-evidence/profile-first-failure.png",
+        "bytes": 34464,
+        "sha256": "58aa932d3bb80f2f3f0c72d62acd750c37fa602c3bf21ff21522b61ab1fbdb0e",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-first-failure.png"
+      },
+      {
+        "name": "browse-evidence/cached-profile-first-failure.xml",
+        "bytes": 22994,
+        "sha256": "a6440454801debf2bf33f10f459ce51904675c88c1bc205f4264a682a9dcebab",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-first-failure.xml"
+      },
+      {
+        "name": "browse-evidence/cached-profile-first-failure.png",
+        "bytes": 103725,
+        "sha256": "11b44a3d5f1e4c0ba2e0265a7429c259b39c4f459c93bc2eeb3175ccc27cfe9d",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-first-failure.png"
+      },
+      {
+        "name": "browse-evidence/malformed-thread-rejected.png",
+        "bytes": 41065,
+        "sha256": "128998be3e4d08fa8b87fc67a2d89c990511e85b4d94f7b06f07029711e482b9",
+        "retainedPath": "originals/browse-evidence/browse-evidence/malformed-thread-rejected.png"
+      }
+    ]
+  }
+}

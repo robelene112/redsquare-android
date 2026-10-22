@@ -51,13 +51,16 @@ internal fun ComposeTestRule.revealProfileHistoryItem(text: String, timeoutMilli
     history.performScrollToNode(hasText(text))
     // Lazy scrolling can place the target behind the pinned history tabs.
     // Reveal its actual hit area before the caller clicks, not just its semantics.
-    val tabs = onAllNodes(SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab))
-        .fetchSemanticsNodes()
+    val historyTab = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab) and
+        (hasText("Posts") or hasText("Replies") or hasText("Likes"))
+    val tabs = onAllNodes(historyTab).fetchSemanticsNodes()
+    check(tabs.size == 3) { "Require the three profile history tabs" }
     val tabBottom = tabs.maxOf { it.boundsInRoot.bottom }
     val targetTop = onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top
     if (targetTop < tabBottom) history.performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
         check(scroll(0f, targetTop - tabBottom))
     }
+    waitForIdle()
     onNodeWithText(text).assertIsDisplayed()
     check(onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top >= tabBottom) {
         "Profile history target is covered by the pinned tabs"
