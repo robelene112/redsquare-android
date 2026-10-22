@@ -50,9 +50,17 @@ Original native failure packets retained (motion archive/logs); whole raw runs
 outside Git. Wallet/Social passed but are NOT complete acceptance. Fixture
 bba6d556d selects the clickable parent, preserving original5s deadline and every
 motion/loading/result assertion. Paired source0/0. Focused motion10run39849745277
-and17run39849748958 pending. Active fresh complete10run39849988178 and
-17run39849992819 exactbba6d556d5afdd3d3613eb27a96377132cc6b339. Frozen catalog
-unchanged, production/build equivalence with held signed65 independently checked.
+and17run39849748958 atbba both failed the200% Dark body visibility check;
+130% Light passes. Native hierarchy shows the returned post identity with its
+body below People/Posts. Original packets retained. Complete bba runs39849988178
+and39849992819 were cancelled and rejected. Fixture8d009995a captures the top
+results, scrolls the native content list once if needed, and keeps the exact body
+assertion. Final509fc9967 enforces the original absolute10s deadline before/after
+observation and records elapsed time. Paired final source0/0. Focused8d motion
+10run39851252148 and17run39851255977 pending; they exercise the gesture only.
+No active full run. After focused passes, dispatch complete exact509 to exercise
+the stronger guards and update execution metadata/equivalence. Frozen collector,
+catalog, pins, assertions and production/build inputs remain unchanged.
 Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and

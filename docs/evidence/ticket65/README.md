@@ -46,10 +46,14 @@ the native description belongs to the nonclickable Search icon, while the actual
 48px parent carries the click action. Original failure packets are retained.
 Fixture bba6d556d targets the enabled clickable parent within the unchanged
 five-second wait, with original motion/loading/result assertions preserved.
-Paired source reviews report0/0. Focused motion10run39849745277 and
-17run39849748958 are pending. Fresh complete10run39849988178 and
-17run39849992819 execute exactbba6d556d5afdd3d3613eb27a96377132cc6b339.
-The frozen catalog is unchanged; held signed65 production/build equivalence passes.
+Paired source reviews report0/0. Focused bba motion10run39849745277 and
+17run39849748958 then fail200% Dark result-body visibility: People and Posts
+leave the returned post body below the viewport.130% Light passes. Complete bba
+runs39849988178/39849992819 were cancelled and rejected. Original focused failure
+packets are retained. Fixture8d009995a scrolls the content list once when needed;
+509fc9967 enforces the original absolute10s bound before/after observation and
+records elapsed time. Paired final source0/0. Focused8d motion runs39851252148/
+39851255977 are pending; complete exact509 proof must still exercise the guards.
 Complete acceptance and signed delivery
 are pending. Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is
