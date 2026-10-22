@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at06:51UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at12:39UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -10,72 +10,63 @@ Issue63 is closed. Issue64 is claimed; its review base is
 
 1. Continue [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64),
    claimed/unblocked, review basea010a79fd4669892d3828eab3e93a2397f033a03.
-   First tracer RED10run39731339066 at e206bdb26eb41d00f94e7c6ed6ffffb6a1525110
-   is retained: signed profile renders, Posts has no Role.Tab,7.481s/180.
-   Packet `ticket64/red10-hierarchy-e206-39731339066`; root viewed actual frame.
-   Local tracer compile0/2m47s Gradle. First working profile presentation compile0/
-   4m28s Gradle, external `profile64-read-green-compile.{json,log}`. It precedes
-   the final menu identity path and adaptive identity-row adjustments.
-   Current production changes: shared ProfilePresentation (banner/avatar/name/bio,
-   compact key and exact selectable/copyable identity dialog), sticky real selected
-   history tabs,200% horizontal tab scrolling, primary Follow/Edit and secondary
-   administration dialog preserving confirmations. Async profile/cache/signing
-   logic is unchanged. FlowRow personal-control buttons fit larger text.
-   Tracer now inspects identity through fixed header Profile actions/Public identity
-   without changing history position, and restores clipboard while foreground.
-   No editor GREEN, TalkBack or physical D-pad proof yet. Existing raw-key
-   and account-control fixtures will need explicit UI navigation while preserving
-   their original identity/confirmation/restore assertions and deadlines.
-   First reading slice source reviews at1db are Spec0/documented Standards0/
-   heuristic0. Final-menu compile exits0/4m4s Gradle, external
-   `profile64-identity-menu-compile.{json,log}`. Android10 first GREEN attempt
-   run39732748220 at1db failed25.456s at the first200% Light tab lookup after
-   four prior cells completed. Packet `failed10-hierarchy-1db-39732748220`
-   retains62 members; root inspected four originals. Tabs are a separate lazy
-   item below the tall header; fixture now scrolls to its exact same matcher
-   before lookup, retaining Role.Tab/selected/assertions/sixcells/180s. No app
-   defect is proved. Android17run39732748146 at1db also fails at that first200%
-   lookup,57.842s/180, packet `failed17-hierarchy-1db-39732748146`,62members.
-   Root viewed current failure/full identity originals; OS overlay qualified.
-   Old observer3203445 ended after both terminal outcomes were retained.
-   The10 failure packet and scroll correction are reviewed0/0 at a869.
-   CURRENT10run39733389664 at exacta869 is SUCCESS,44.874s/180, all6cells.
-   Packet `green10-hierarchy-a86-39733389664`:92hashes/81members; root verified
-   hashes and six configurations, viewed200% selected tabs/full key/confirmation.
-   Effective font1.0 restored; absent font setting becomes explicit1.0. Its final paired evidence review is0/0 at14da.
-   Current17run39733646265 at exacta869 is SUCCESS,70.151s/180, all6cells.
-   Packet `green17-hierarchy-a86-39733646265`:94hashes/81members; root verified
-   hashes/configurations and viewed200% tabs/full key/confirmation originals.
-   Captured explicit1.0 font setting is restored. Its final paired evidence review is0/0 atcfeb.
-   Observer PID3207761 (ended normally) `/tmp/redsquare64-watch-hierarchy-a86.py`, external
-   `profile64-hierarchy-a86-observer.log`, terminal-only raw targets
-   `profile64-hierarchy-SDK-a86-RUN`. Do not assemble rejected cells or treat
-   extraction PASS as native PASS. No local compiler is active.
-   Scope `profile-hierarchy` and Android17
-   variant use one180s class, additive complete Social inclusion. Preserve all
-   original goals. Public63 remains accepted; no64 beta is prepared.
-   Next tracer `ProfileEditorPresentationTest` now specifies visible non-editable
-   unsent bio preview, real IME, physical48dp Save draft and round-trip without
-   publication across six cells, one180s class. New `profile-editor` scopes and
-   additive complete Social inclusion are test/harness only; actual RED at14da fails7.868s/180 for the absent separate preview, as intended.
-   Packet `red10-editor-14d-39734373868`,11members; root viewed original.
-   Working editor now reuses the public identity preview, groups media choices,
-   and fixes Save draft/Save profile above IME while preserving all state logic.
-   Initial editor source681 local compile0/4m14s Gradle (working snapshot;
-   later fixture files were edited during that invocation, not exact-source proof).
-   Bounded source/RED reviews: Spec0, Standards found hidden result feedback;
-   fixefc reveals changed feedback with shared180ms scroll, final paired0/0.
-   Native681 first attempts10run39735235405 and17run39735238355 FAIL at reopened
-   field-display readiness in first cell,26.961s/31.581s. Exact unsent preview,
-   realIME and physical48dp Save draft passed before reopening. Root viewed
-   both originals and retained14members each. Same enabled bio field is below
-   taller recovered preview; fixture now explicitly scrolls before display
-   assertion with all goals/deadlines unchanged. No product loss is proved.
-   All read-slice source/failure/correction metadata and green10 evidence through14da
-   have paired0/0. Editor RED10run39734373868 at exact14da is expected terminal FAILURE;
-   the actual missing-preview assertion is retained and diagnosed. Raw observer3214020
-   `/tmp/redsquare64-watch-editor-red.py`, external
-   `profile64-editor-red10-observer.log`; no acceptance or automatic retry.
+   Production: shared identity/header, selected sticky history tabs, secondary
+   actions, coherent unsent editor preview/fixed controls and automatically
+   revealed changed result feedback. Failed banner media now separates its
+   explanation and48dp retry icon. Signing/cache/state/recovery remain intact.
+   All source/evidence throughcd06a1fa80dae36bb12d4e670b8a6fb04ecf7755 has paired
+   Spec0/documentedStandards0/heuristic0. Later evidence-only packets in this
+   handoff commit still require their bounded review.
+
+   Reading six-cell320dp default/130/200 Light/Dark passes10run39733389664
+   (44.874s) and17run39733646265 (70.151s), exacta869. Editor six-cell passes
+   10run39736046494 (40.7s) and17run39736049716 (73.409s), exacta018. Those
+   predate later stronger absolute editor readiness and shared media renderer;
+   final-source complete proof remains mandatory. Actual keyboard passes10
+   run39736627115 (7.859s exactd507) and17run39737640172 (12.952s exacta123).
+   Actual TalkBack10run39736630025 succeeds: Status29.433s/Post54.82s/Profile
+   16.752s, actual selected words and completed engine audio. Earliera6 speech
+   was cancelled, never accepted. Every class keeps its original180s bound.
+
+   Original regressions atb4: profiles10run39737285226 SUCCESS, including
+   original Edit/Publishing/Media/NewEdit and cold recovery; controls10
+   run39737287918 SUCCESS including cold recovery. Existing usernames and
+   publisher-routes ata6 also succeeded (raw external). New retained green
+   profiles/controls/keyboard17 packets here have root original/hash checks.
+   Profile unavailable-image rendering at130% still needs positive captures.
+
+   Latest rejected browse12fcrun39738084102 failed49.968s with7/8 methods
+   passing: older Likes lookup timed out, screenshot shows Posts selected.
+   Sticky tabs can intercept input after lazy scrolling. Shared reveal helper
+   now scrolls target below actual tab bounds and asserts no overlap within
+   original15s; original older-content assertions/search/180s remain.
+   Rejected notificationsb4run39737290830 failed124.535s/240 with30/32 passing:
+   olderActor and lateActor still expected full key on main profile; corrected
+   both to existing exact identity-dialog inspection. Rejected TalkBack17a123
+   run39737642835 failed13.65s before profile class at original5s initial Wallet
+   focus. Logs show failed service focus action; cause remains uncertain.
+   Added failure-only focused-text/window diagnostic before Activity teardown,
+   keeping unchanged wait/assertions/pins. Three original rejection packets
+   retained/reviewed in cd06, not accepted execution.
+
+   Current focused reruns at exactcd06a1fa80dae36bb12d4e670b8a6fb04ecf7755:
+   browse10run39779361041, notifications10run39779372323,
+   status-talkback17run39779383033. Observer PID3420962,
+   `/tmp/redsquare64-watch-cd06.py`; external `profile64-cd06-observer.log`.
+   Terminal-only download to `profile64-SCOPE-cd06-RUN`, inspect outcomes.
+   All earlier observers ended. No local compilation/signing active.
+
+   Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
+   paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
+   `full-collector.py`: literal63 identities plus4 additive methods, expected
+   519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
+   Original validators, tool pins and sole API29 assumption stay fixed. Actual
+   complete sources/runs still null. No complete64 dispatch or signed64 yet.
+   Once corrected focused paths succeed, dispatch fresh full10/17 at stable
+   source with public reads, bind exact runs, retain whole/all3 SUCCESS and
+   collector evidence, root inspect native originals, paired review, then
+   prepare/publish immutable signed64 through existing safe route. Do not
+   combine focused/failed pieces or rebuild version63. Public63 remains current.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
    independent read-only paired reviews remain allowed.
