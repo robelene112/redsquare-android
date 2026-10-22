@@ -163,7 +163,14 @@ class GroupInvitationRecoveryPreviewTest {
         val action = hasContentDescription("Use invitation for $id") and hasClickAction() and isEnabled()
         ui.waitUntil(15_000) { ui.onAllNodes(action).fetchSemanticsNodes().isNotEmpty() }
         list.performScrollToNode(action)
-        ui.onNode(action).assertIsDisplayed().performClick()
+        // The matching row can exceed the small200% viewport. Bring its nested
+        // button fully into view before using its physical click target.
+        val button = ui.onNode(action).performScrollTo().assertIsDisplayed()
+        val bounds = button.getUnclippedBoundsInRoot()
+        val viewport = list.getUnclippedBoundsInRoot()
+        check(bounds.left >= viewport.left && bounds.right <= viewport.right &&
+            bounds.top >= viewport.top && bounds.bottom <= viewport.bottom)
+        button.performClick()
         waitFor("Paste invitation")
         ui.onNodeWithText("Untrusted saved name").assertDoesNotExist()
     }
