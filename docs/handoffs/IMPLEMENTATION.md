@@ -60,7 +60,8 @@ native visible identity height against full unclipped semantic text height, then
 physically taps a >=48dp contact target; adds real known/pasted Details PNG/XML.
 All original methods/assertions/180s/IME/Open remain. First compile failed unsupported
 DpRect.height access; corrected to bottom.value-top.value with positive-height guard.
-Corrected compile starting, pending. NEXT source review/compile then RED10 of stronger
+Corrected compileSUCCESS1m59/explicit0. Source predicate/evidence reviews Spec0 and
+Standards0 apart from the now-corrected stale observer/inspection metadata. NEXT RED10 of stronger
 fixture against UNCHANGEDa8d production, then implement layout/feedback refinement.
 Candidate layout: compact private privacy heading, normal available-history guidance
 at list footer while preserving real error status, and reveal active form feedback
@@ -98,12 +99,12 @@ result if edited and disables autocorrect. No reproduced keyboard-defect claim.
 Narrow paired reviews0/0; final-source compileSUCCESS3m44wall/Gradle3m42/explicit0,
 external chatentry63-stable-validation-compile.json/log. No local build active.
 Both focused native runs execute exacta8d: Android10run39700917505 and17run39700920266.
-Observer5124 /tmp/redsquare63-watch-green-entry.py waits terminal then downloads;
+Observer5124 /tmp/redsquare63-watch-green-entry.py completed0 and retained both terminal runs;
 actual artifact directory is discovered rather than assuming suffix-all. Raw roots
 chatentry63-SDK-a8d-RUN under external artifacts; labels green-or-failedSDK-local-contact-a8d-RUN.
 Inspect actual method/logs/originals before claiming GREEN. Default/130/200 both
 Themes include real focused-dialog IME/physical48dp Open chat; main contact viewport
-at200 is an inspection target, not yet an observed defect. No group/invitation code
+at200 is now a confirmed clipping defect, as documented in LATEST63 above. No group/invitation code
 or tests yet. Continue vertical slices only after first private-entry GREEN.
 Public62 unchanged; reserve no new signed version until later63 acceptance. Later slices group individual selection/add/remove,
 exact existing invitation copy/share and deliberate unavailable-group Join recovery.
