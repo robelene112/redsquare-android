@@ -32,10 +32,21 @@ class SearchViewportPreviewTest {
         val row = postingArchiveRow(SaitoTransaction.create(author, RedSquarePosts.message(longPost), 1_700_000_000_000))
         val person = "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR"
         val name = "NativeCase7@saito"
+        val longName = "LongSearchIdentity".repeat(3).take(45) + "@saito"
+        // Published unsafe registrar scalar2, only for this local visual fixture.
+        // The original cross-implementation signed reference above stays unchanged.
+        val longRow = JsonParser.parseString(registry).asJsonArray[0].asJsonObject.deepCopy().apply {
+            addProperty("identifier", longName)
+            val message = longName + get("publickey").asString + get("bid").asString + get("bsh").asString
+            addProperty("sig", SaitoWallet.fromPrivateKey("0".repeat(63) + "2").sign(message.toByteArray(Charsets.UTF_8)))
+        }
         val posts = AtomicInteger()
         val quotes = AtomicInteger()
         withAppFrameFixture("search-viewport", "search-viewport-evidence", "[]",
-            registryResponse = { if (it.get("request").asString == "registry namecheck") registry else "{}" },
+            registryResponse = {
+                if (it.get("request").asString != "registry namecheck") "{}"
+                else if (it.get("identifier").asString == longName) "[$longRow]" else registry
+            },
             archiveResponse = { criteria ->
                 if (criteria.get("limit").asInt == 100 && !criteria.has("field4")) {
                     posts.incrementAndGet(); "[$row]"
@@ -98,6 +109,20 @@ class SearchViewportPreviewTest {
                 details.performClick()
                 ui.onNodeWithText(person).performScrollTo().assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-exact-identity.png"), person)
+                ui.onNodeWithText("Done").performClick()
+
+                ui.onNode(editor).performTextReplacement(longName)
+                ui.onNode(editor).performImeAction()
+                val longProfile = ui.onNodeWithContentDescription("View profile for $longName")
+                val longDetails = ui.onNodeWithContentDescription("Identity details for $longName")
+                ui.waitUntil(15_000) { longDetails.isDisplayed() && ui.onNode(search and isEnabled()).isDisplayed() }
+                longProfile.assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+                longDetails.assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+                assertTrue(longProfile.getUnclippedBoundsInRoot().right <= longDetails.getUnclippedBoundsInRoot().left)
+                captureNativeScreen(File(folder, "$label-long-name.png"), longName)
+                longDetails.performClick()
+                ui.onNodeWithText(person).performScrollTo().assertIsDisplayed()
+                captureNativeScreen(File(folder, "$label-long-name-identity.png"), person)
                 ui.onNodeWithText("Done").performClick()
 
                 ui.onNode(editor).performTextReplacement("search preview")

@@ -431,7 +431,7 @@ def validate_search_evidence(target):
    data=json.loads((folder/(label+'-configuration.json')).read_text())
    assert data['widthDp']==320 and data['widthPixels']==320
    assert abs(data['fontScale']-scale/100)<0.01 and data['selectedAppearance'].lower()==theme
-   captures('search-viewport-evidence',[label+'-'+state for state in ['invalid-query','real-keyboard','people','exact-identity','long-post','post-actions']])
+   captures('search-viewport-evidence',[label+'-'+state for state in ['invalid-query','real-keyboard','people','exact-identity','long-name','long-name-identity','long-post','post-actions']])
  restored=json.loads((folder/'search-font-restored.json').read_text())
  assert abs(restored['expected']-restored['observed'])<0.01 and restored['expected']==restored['originalScale']
 
