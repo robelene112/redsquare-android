@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 02:33 UTC:62 CLOSED/beta62PUBLIC.63 first private/group focused GREEN; reviewed group typography polish now executing both SDKs. Whole63 remains open.
+Updated 2026-10-22 02:42 UTC:62 CLOSED/beta62PUBLIC.63 private/group focused GREEN including group typography; Copy/Share fixture now executing expected RED10. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,45 +39,46 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
-LATEST GROUP: corrected complete executions at exact6aab2fafe076c01ce15b5b952e4f4769d2c33f15
-both SUCCESS:10run39710787661 original88.343s/180 and17run39710795734 original119.398s/180.
-All six320dp default/130/200 Light/Dark cells pass original selection/key/realIME/
-physical48dp Add/exact signed roles/raw+Relay/member inspection/cache/node/restoration
-goals. Actual dialog collection scrolling fixes the previously invisible prefetched
-third key, retaining every original assertion. No production difference fromc20.
-Root viewed actual200Dark Members on BOTH SDKs; full third key is now visible.
-Packets greenSDK-group-members-6aa-RUN retain69 exact original members each.
-Observer74187 ended143 after retaining10;17 was independently downloaded ONLY after
-terminalSUCCESS and retained with the same exact-source helper. No native retry.
+LATEST63: group setup and bounded typography now complete focused GREEN at exact
+1eec783c903a93a57240bab39e79498cdcc89341.10run39711898801 SUCCESS88.366s/180;
+17run39711906716 SUCCESS106.694s/180, each original six320dp default/130/200 Light/Dark
+cells, all selection/key/error/realIME/physical48dp Add/exact signed roles/raw+Relay/
+full member-key/cache/wallet/node/independent restoration goals. Root viewed10
+200Lightready+100Darkdefault and17 200Darkready/actualIMEerror+100Lightdefault:
+selected names stay one line with ellipsis, checkbox/avatar gap is clear, controls
+and error remain readable. Existing full-name/key Details are unchanged. Packets
+greenSDK-group-typography-1ee-RUN retain69 originals each. Compile3606 SUCCESS
+3m22wall/Gradle3m20/0; product source and earlier GREEN packets reviewed at1ee0/0.
+NEXT paired current GREEN evidence review. This bounded group slice does not
+establish invitation/full63/app-wide visual/signed acceptance; public62 unchanged.
 
-Current bounded visual polish adds8dp checkbox/avatar gap and one-line ellipsized
-names ONLY within group-selection identities. Existing full name/key Details remain
-available; shared other callers retain their original unrestricted title lines.
-Compile3606 SUCCESS3m22wall/Gradle3m20/explicit0:
-group63-contact-typography-compile.log/json externally. Paired source/GREEN evidence
-review1eec783c9 Spec0/documentedStandards0/heuristic0. Fresh complete group-setup
-10run39711898801 and17run39711906716 execute exact1eec783c903a93a57240bab39e79498cdcc89341.
-NEXT inspect both full focused outcomes and actual selected-name/default/error/large-
-text/keyboard images. No background observer currently active; download terminal originals
-with /tmp/redsquare63-retain-native.py and exact1eec source before acceptance. Do not
-start invitation production until this slice is GREEN and polished. No full63 or
-signed delivery acceptance; public62 unchanged. Protected research UNREAD/UNTOUCHED.
+Next Copy/Share tracer is fixture-only: GroupInvitationSharePreviewTest180, exact
+original pinned creation/invitation asset, actual device clipboard and intercepted
+ACTION_CHOOSER/SEND exact text/plain link, all six scales/themes, unchanged roles/
+wallet/node/no writes and independent clipboard restoration while focused plus
+post-Activity files/wallet/backend/preferences cleanup. Additive focused scopes/full
+Chat inclusion. Spec388 found unclipped layout size insufficient: final e477 adds
+native visibleBounds>=48dp/display containment plus physical taps while retaining
+layout assertions. Share precedes Copy to avoid OS clipboard overlay interference.
+Final source e477 reviewed Spec0/documentedStandards0/heuristic0; metadata63a fix
+Standards0/0. Initial68400 compileSUCCESS1m55wall/Gradle1m54/0; final88645 compile
+SUCCESS1m51wall/Gradle1m50/0. External group63-invitation-share-{red,reviewed}-compile.log/json.
 
-Next invitation Copy/Share tracer is fixture-only while typography runs: new
-GroupInvitationSharePreviewTest180 uses original pinned creation/invitation asset,
-actual clipboard and intercepted ACTION_CHOOSER/SEND exact text/plain link across
-all six scales/themes, full-key roles/wallet/node/no-write assertions, independent
-clipboard restoration while focused plus post-Activity file/wallet/backend cleanup.
-Spec review388 found unclipped layout size alone insufficient for visible48dp proof;
-actual native visibleBounds containment/minimum and physical taps now supplement
-all original layout assertions. Share precedes Copy to avoid the OS clipboard overlay
-covering Share. No acceptance goal/deadline change; narrow re-review follows.
-Additive group-invitation-share/Android17 scopes and fullChat inclusion. No invitation
-production changed. Initial compile68400 SUCCESS1m55wall/Gradle1m54/explicit0,
-group63-invitation-share-red-compile.log/json. Fresh final-fixture compile88645 ACTIVE,
-group63-invitation-share-reviewed-compile.log/json.
-NEXT source review and expected native RED only after group polish outcome/image
-inspection. This preparation does not claim invitation functionality.
+Expected RED10run39712745010 executes exact63a81369e562f3e6ebad1e99a64bf99cc78ec634
+against unchanged1ee production. NO invitation production implemented yet. NEXT
+inspect terminal original outcome/capture, retain with /tmp/redsquare63-retain-native.py
+API29/exact63a; raw external group63-10-invitation-share-red-63a-RUN, packet
+failed10-invitation-share-63a-RUN. Then implement bounded Copy/Android Share using
+unchanged GroupInvitation.link and existing active-member/admin availability.
+No background observers/builds active at this checkpoint. Protected research remains
+UNREAD/UNTOUCHED. Remaining Join recovery slice still pending after Copy/Share.
+
+Previous complete operator6aa executions bothSUCCESS:10run39710787661 88.343s/180;
+17run39710795734 119.398s/180. Original six cells and all assertions intact. Packets
+greenSDK-group-members-6aa-RUN69 originals each, finalpaired0/0. Root viewed200Dark
+Members on both with full third key now visible after actual collection scrolling.
+Observer74187 ended143 after10retention;17 separately downloaded terminalSUCCESS
+with same helper, no native retry. This preceded the typography1ee refinement.
 
 Earlier rejected c20 native10run39709006478 and17run39709009138 both FAIL at200Light
 original pasted-key isDisplayed after generic descendant performScrollTo. Packets
