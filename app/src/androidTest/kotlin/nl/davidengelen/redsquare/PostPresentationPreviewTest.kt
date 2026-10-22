@@ -65,10 +65,10 @@ class PostPresentationPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Search") and hasClickAction()).performClick()
             ui.onNode(hasSetTextAction()).performTextInput("reference")
-            ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
-            ui.onNodeWithText("Search history").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
+            ui.onNodeWithContentDescription("Search history").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Native Red Square reference post").isDisplayed() &&
-                ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+                ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasText("Quote") and hasClickAction())
             assertPostPresentation("search")
         }
@@ -134,10 +134,10 @@ class PostPresentationPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Search") and hasClickAction()).performClick()
             ui.onNode(hasSetTextAction()).performTextInput("Own post action preview")
-            ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
-            ui.onNodeWithText("Search history").performClick()
+            ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
+            ui.onNodeWithContentDescription("Search history").performClick()
             ui.waitUntil(15_000) { ui.onNode(hasText("Own post action preview") and hasClickAction() and !hasSetTextAction()).isDisplayed() &&
-                ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+                ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
             ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription("Post actions for $author"))
             assertOwnPostActions(author, "search")
         }

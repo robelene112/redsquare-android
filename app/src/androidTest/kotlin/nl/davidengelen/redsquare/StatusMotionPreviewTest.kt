@@ -110,7 +110,7 @@ class StatusMotionPreviewTest {
                     val editor = requireNotNull(device.wait(Until.findObject(By.clazz("android.widget.EditText")), 5_000))
                     editor.text = "reference post"
                     val search = requireNotNull(device.wait(Until.findObject(
-                        By.clickable(true).enabled(true).hasDescendant(By.text("Search history"))), 5_000))
+                        By.desc("Search history").clickable(true).enabled(true)), 5_000))
                     captureNativeScreen(File(folder, "$name-search-before.png"))
                     val searchMovie = File(folder, "$name-search.mp4")
                     val searchRecording = recordNativeTransition(searchMovie, recordingSeconds = 5) {

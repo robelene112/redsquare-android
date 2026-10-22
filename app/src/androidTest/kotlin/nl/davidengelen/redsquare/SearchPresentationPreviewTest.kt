@@ -34,9 +34,9 @@ class SearchPresentationPreviewTest {
             val editor = hasSetTextAction() and isEnabled()
             fun search(query: String) {
                 ui.onNode(editor).performTextReplacement(query)
-                ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
                 ui.onNode(editor).performImeAction()
-                ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+                ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
             }
             search(name)
             ui.onNodeWithText("People").assertIsDisplayed()
@@ -58,7 +58,7 @@ class SearchPresentationPreviewTest {
 
             search("Native")
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("People"))
-            ui.onNodeWithContentDescription("View profile for $name").assertIsDisplayed()
+            ui.onNodeWithContentDescription("Identity details for $name").assertIsDisplayed()
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             captureNativeScreen(File(folder, "mixed-results.png"), "Native Red Square reference post")

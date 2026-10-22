@@ -368,22 +368,22 @@ class PersonalControlsPreviewTest {
                 ui.onNodeWithText("Search").performClick()
                 ui.onNode(hasSetTextAction()).performTextInput("reference")
                 waitForEnabled("Search history")
-                ui.onNodeWithText("Search history").performClick()
+                ui.onNodeWithContentDescription("Search history").performClick()
                 waitForEnabled("Search history")
                 showPost("Another account reference post")
                 assertPostAbsent("Native Red Square reference post", "Another account reference post")
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/search-personal-filter.png"), "Another account reference post")
                 ui.onNode(hasSetTextAction()).performTextReplacement("commentary")
-                ui.onNodeWithText("Search history").performClick()
+                ui.onNodeWithContentDescription("Search history").performClick()
                 waitForEnabled("Search history")
                 showPost("Embedded quote commentary")
                 waitFor("Quoted original hidden by your personal controls.")
                 assertPostAbsent("Native Red Square reference post", "Embedded quote commentary")
                 ui.onNode(hasSetTextAction()).performTextReplacement(author)
-                ui.onNodeWithText("Search history").performClick()
+                ui.onNodeWithContentDescription("Search history").performClick()
                 waitForEnabled("Search history")
                 // A matching editable query alone is not a discovered person.
-                val person = hasText(author) and !hasSetTextAction()
+                val person = searchPersonResult(author)
                 ui.onNode(hasScrollAction() and !hasSetTextAction()).performScrollToNode(person)
                 ui.onNode(person).assertIsDisplayed().performClick()
                 waitFor("Profile")
@@ -862,7 +862,7 @@ class PersonalControlsPreviewTest {
 
     private fun waitForEnabled(text: String) {
         ui.waitUntil(15_000) {
-            ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 

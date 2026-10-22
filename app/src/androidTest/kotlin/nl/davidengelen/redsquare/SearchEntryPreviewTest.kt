@@ -116,7 +116,7 @@ class SearchEntryPreviewTest {
                     val editor = hasSetTextAction() and isEnabled()
                     ui.waitUntil(15_000) { ui.onNode(editor).isDisplayed() }
                     ui.onNode(editor).performTextInput("reference post")
-                    ui.waitUntil(15_000) { ui.onNode(hasText("Search history") and isEnabled()).isDisplayed() }
+                    ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
                     ui.onNode(editor).performImeAction()
                     ui.waitUntil(5_000) { requested.count == 0L }
                     ui.onNodeWithContentDescription("Clear search").assertIsDisplayed().performClick()
@@ -127,7 +127,7 @@ class SearchEntryPreviewTest {
                     ui.onNode(editor).assert(hasText(""))
                     ui.onAllNodesWithText("Native Red Square reference post").assertCountEquals(0)
                     ui.onAllNodesWithText("Searching available history…").assertCountEquals(0)
-                    ui.onAllNodesWithText(context.getString(R.string.search_error)).assertCountEquals(0)
+                    ui.onAllNodesWithText(context.getString(R.string.search_partial_summary)).assertCountEquals(0)
                     assertEquals(1, searches.get())
                     assertEquals("A cleared lookup must not advance to the quote stream", 0, quotes.get())
                     captureNativeScreen(File(folder, "cleared-unfinished-search.png"))

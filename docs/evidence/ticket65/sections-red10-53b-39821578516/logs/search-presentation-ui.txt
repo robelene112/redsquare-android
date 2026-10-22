@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=peopleAndPostsHaveIndependentResultsWithReadableExactIdentity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'People' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: stream=
+Error in peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(nl.davidengelen.redsquare.SearchPresentationPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'People' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+INSTRUMENTATION_STATUS: test=peopleAndPostsHaveIndependentResultsWithReadableExactIdentity
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.642
+There was 1 failure:
+1) peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(nl.davidengelen.redsquare.SearchPresentationPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'People' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity$lambda$9(SearchPresentationPreviewTest.kt:42)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.$r8$lambda$g7lYww0zzzaDNrnyBpBzdf7amtI(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchPresentationPreviewTest.peopleAndPostsHaveIndependentResultsWithReadableExactIdentity(SearchPresentationPreviewTest.kt:28)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

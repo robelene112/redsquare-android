@@ -297,6 +297,17 @@
     <string name="search_title">Search</string>
     <string name="search_query">Posts and people</string>
     <string name="search_clear">Clear search</string>
+    <string name="search_available_history">Available history</string>
+    <string name="search_intro">Search available posts, usernames or public keys.</string>
+    <string name="search_people">People</string>
+    <string name="search_posts">Posts</string>
+    <string name="search_people_empty">No matching people in known accounts.</string>
+    <string name="search_cached_empty">No matching posts are available on this phone.</string>
+    <string name="search_identity_details">Identity details for %1$s</string>
+    <string name="search_partial_summary">Some history is unavailable.</string>
+    <string name="search_names_summary">Usernames could not be checked.</string>
+    <string name="search_save_summary">Some results could not be saved.</string>
+    <string name="search_results_notice">Some results need your attention.</string>
     <string name="search_history">Search history</string>
     <string name="search_coverage">Only available history is searched. Older posts and people may be missing.</string>
     <string name="search_people_coverage">Partial names and keys search known accounts only.</string>

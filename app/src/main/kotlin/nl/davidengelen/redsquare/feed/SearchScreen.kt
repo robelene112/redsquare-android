@@ -16,12 +16,15 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextOverflow
+import nl.davidengelen.redsquare.ui.AppSpacing
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
@@ -103,6 +106,12 @@ internal class SearchViewState {
         pagingUnavailable = false
         limitReached = false
         saveError = false
+    }
+
+    fun retry() {
+        usernamePending = usernameFailed
+        usernameFailed = false
+        request++
     }
 
     fun loadMore() {
@@ -271,67 +280,106 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             keyboard?.hide()
             loading = true
             view.search()
+            resultsPosition.requestScrollToItem(0)
         }
     }
-    Column(modifier) {
-        Row {
-            TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.search_title), Modifier.padding(vertical = 12.dp), style = MaterialTheme.typography.titleLarge)
+    var identityDetails by remember { mutableStateOf<String?>(null) }
+    var coverageDetails by remember { mutableStateOf(false) }
+    val resultWarnings = buildList {
+        if (view.submitted) {
+            if (view.failed) add(stringResource(R.string.search_error))
+            if (view.usernameFailed) add(stringResource(R.string.search_username_error))
+            if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
+                add(stringResource(R.string.search_save_error))
+            if (view.unreadable) add(stringResource(R.string.search_unreadable))
+            if (view.pagingUnavailable) add(stringResource(R.string.search_paging_unavailable))
+            if (view.limitReached) add(stringResource(R.string.search_limit))
         }
-        OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
-            label = { Text(stringResource(R.string.search_query)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions(onSearch = { submit() }),
-            trailingIcon = {
-                if (view.query.isNotEmpty() || view.submitted) IconButton(onClick = {
-                    view.clear()
-                    loading = false
-                }, modifier = Modifier.size(48.dp)) {
-                    Icon(painterResource(R.drawable.ic_close), stringResource(R.string.search_clear))
-                }
-            })
-        Row {
-            TextButton(modifier = Modifier.weight(1f), enabled = canSearch, onClick = submit) {
-                Text(stringResource(R.string.search_history))
+    }
+    val warningSummary = when {
+        resultWarnings.isEmpty() -> null
+        view.failed -> stringResource(R.string.search_partial_summary)
+        view.usernameFailed -> stringResource(R.string.search_names_summary)
+        view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true } ->
+            stringResource(R.string.search_save_summary)
+        else -> stringResource(R.string.search_results_notice)
+    }
+    Column(modifier) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = onBack, modifier = Modifier.size(48.dp)) {
+                Icon(painterResource(R.drawable.ic_back), stringResource(R.string.browse_back))
             }
-            if (view.failed) {
-                TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.pending.isNotEmpty(),
-                    onClick = { loading = true; view.request++ }) { Text(stringResource(R.string.search_retry)) }
-            } else {
-                TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.cursors.values.any { it != null },
-                    onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }
+            Column(Modifier.weight(1f)) {
+                Text(stringResource(R.string.search_title), style = MaterialTheme.typography.titleLarge,
+                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(stringResource(R.string.search_available_history), style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            IconButton(onClick = { coverageDetails = true }, modifier = Modifier.size(48.dp)) {
+                Icon(painterResource(R.drawable.ic_info), stringResource(R.string.status_details_for,
+                    stringResource(R.string.status_search_coverage)))
+            }
+        }
+        Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
+            OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
+                label = { Text(stringResource(R.string.search_query), maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                singleLine = true, modifier = Modifier.weight(1f),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = { submit() }),
+                trailingIcon = if (view.query.isNotEmpty() || view.submitted) ({
+                    IconButton(onClick = {
+                        view.clear()
+                        loading = false
+                        resultsPosition.requestScrollToItem(0)
+                    }, modifier = Modifier.size(48.dp)) {
+                        Icon(painterResource(R.drawable.ic_close), stringResource(R.string.search_clear))
+                    }
+                }) else null)
+            FilledIconButton(onClick = submit, enabled = canSearch, modifier = Modifier.size(48.dp)) {
+                Icon(painterResource(R.drawable.ic_search), stringResource(R.string.search_history))
             }
         }
         PersonalControlsStatus(personal)
-        InlineStatus(stringResource(R.string.status_search_coverage), details = listOf(
-            stringResource(R.string.search_coverage), stringResource(R.string.search_people_coverage)), announce = false)
         InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
-        InlineStatus(if (view.failed) stringResource(R.string.search_error) else null, StatusTone.ERROR)
-        InlineStatus(if (view.usernameFailed) stringResource(R.string.search_username_error) else null, StatusTone.WARNING)
-        InlineStatus(if (view.submitted && view.unreadable) stringResource(R.string.search_unreadable) else null, StatusTone.WARNING)
-        InlineStatus(if (view.pagingUnavailable) stringResource(R.string.search_paging_unavailable) else null, StatusTone.WARNING)
-        InlineStatus(if (view.limitReached) stringResource(R.string.search_limit) else null, StatusTone.INFO)
-        InlineStatus(if (view.submitted && (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true }))
-            stringResource(R.string.search_save_error) else null, StatusTone.WARNING)
-        if (view.submitted && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
+            item(key = "feedback") {
+                InlineStatus(warningSummary, if (view.failed) StatusTone.ERROR else StatusTone.WARNING,
+                    details = resultWarnings,
+                    actionLabel = if (view.failed || view.usernameFailed) stringResource(R.string.search_retry) else null,
+                    actionEnabled = wallet != null && !loading && (view.pending.isNotEmpty() || view.usernameFailed),
+                    onAction = { loading = true; view.retry() })
+            }
             if (view.submitted) {
+                item(key = "people-heading") { SearchSectionTitle(stringResource(R.string.search_people)) }
+                if (people.isEmpty() && !loading) item(key = "people-empty") {
+                    SearchEmptyResult(stringResource(R.string.search_people_empty))
+                }
                 items(people, key = { "person:$it" }) { personKey ->
                     val label = exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name
                     val confirmed = view.usernameConfirmed && exactName?.publicKey == personKey
-                    Column(Modifier.fillMaxWidth().clickable { onIdentity(personKey) }.padding(vertical = 12.dp)) {
-                        Text(label, style = MaterialTheme.typography.titleMedium)
-                        if (!confirmed && label.equals(view.searchedQuery, ignoreCase = true))
-                            Text(stringResource(R.string.search_cached_name), style = MaterialTheme.typography.bodySmall)
-                        Text(personKey, style = MaterialTheme.typography.bodySmall)
-                    }
+                    SearchPersonResult(personKey, label,
+                        cachedName = !confirmed && label.equals(view.searchedQuery, ignoreCase = true),
+                        onProfile = { onIdentity(personKey) }, onDetails = { identityDetails = personKey })
+                }
+                item(key = "posts-heading") { SearchSectionTitle(stringResource(R.string.search_posts)) }
+                if (matches.isEmpty() && !loading) item(key = "posts-empty") {
+                    SearchEmptyResult(stringResource(if (view.failed) R.string.search_cached_empty else R.string.search_empty))
+                }
+                items(matches, key = { it.id }) { post ->
+                    PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                     HorizontalDivider()
                 }
-            }
-            if (view.submitted) items(matches, key = { it.id }) { post ->
-                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
-                HorizontalDivider()
+                item(key = "more") {
+                    TextButton(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                        enabled = wallet != null && !loading && !view.failed && view.cursors.values.any { it != null },
+                        onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }
+                }
+            } else item(key = "intro") {
+                SearchEmptyResult(stringResource(R.string.search_intro))
             }
         }
     }
+    identityDetails?.let { ProfileIdentityDialog(it) { identityDetails = null } }
+    if (coverageDetails) SearchCoverageDialog { coverageDetails = false }
 }

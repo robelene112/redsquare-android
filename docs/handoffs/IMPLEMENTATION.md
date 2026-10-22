@@ -18,8 +18,15 @@ The next SearchPresentationPreviewTest uses the same controlled native seam and
 signed public fixtures to require independent People/Posts sections, friendly
 identity with separate48dp exact-key access, mixed/post-only/empty results.
 It is additive to Search and complete Social with a separate180second bound.
-This new tracer has not executed. Grouping/position/accessibility/visual work,
-complete verification, paired review and signed65 delivery remain outstanding.
+Run39821578516 at53b passed9 original Search methods and both entry/cancellation
+methods, then failed the expected People-section assertion. Retained packet
+sections-red10-53b-39821578516. Grouping is now implemented: compact search bar,
+independent sections, friendly person rows and separate full identity dialog,
+concise status with original explanations in Details, explicit failed-stream retry
+and footer paging. UI operators now use actual icon descriptions/compact rows;
+original protocol/cache assertions and deadlines remain. Compilation passed4m51.
+Fresh native verification is next. Position/validation/viewport work and complete
+verification, paired review and signed65 delivery remain outstanding.
 Public beta64 is unchanged. Protected untracked research stays unread/untouched.
 
 

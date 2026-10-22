@@ -1,0 +1,79 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchEntryPreviewTest:
+INSTRUMENTATION_STATUS: test=clearingAnUnfinishedSearchDiscardsItsLateResultsAndDoesNotContinuePaging
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=clearingAnUnfinishedSearchDiscardsItsLateResultsAndDoesNotContinuePaging
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=keyboardSearchAndClearKeepUserInControlOfSearchRequests
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$14(SearchEntryPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$eAIE4vWZT2FcERknhqPzBKzB0og(SearchEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in keyboardSearchAndClearKeepUserInControlOfSearchRequests(nl.davidengelen.redsquare.SearchEntryPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$14(SearchEntryPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$eAIE4vWZT2FcERknhqPzBKzB0og(SearchEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=keyboardSearchAndClearKeepUserInControlOfSearchRequests
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.083
+There was 1 failure:
+1) keyboardSearchAndClearKeepUserInControlOfSearchRequests(nl.davidengelen.redsquare.SearchEntryPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$14(SearchEntryPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$eAIE4vWZT2FcERknhqPzBKzB0og(SearchEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda13.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:29)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
