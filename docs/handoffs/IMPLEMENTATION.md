@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at06:38UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at06:47UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -61,7 +61,16 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Packet `red10-editor-14d-39734373868`,11members; root viewed original.
    Working editor now reuses the public identity preview, groups media choices,
    and fixes Save draft/Save profile above IME while preserving all state logic.
-   Compile/native GREEN and reviews remain pending.
+   Initial editor source681 local compile0/4m14s Gradle (working snapshot;
+   later fixture files were edited during that invocation, not exact-source proof).
+   Bounded source/RED reviews: Spec0, Standards found hidden result feedback;
+   fixefc reveals changed feedback with shared180ms scroll, final paired0/0.
+   Native681 first attempts10run39735235405 and17run39735238355 FAIL at reopened
+   field-display readiness in first cell,26.961s/31.581s. Exact unsent preview,
+   realIME and physical48dp Save draft passed before reopening. Root viewed
+   both originals and retained14members each. Same enabled bio field is below
+   taller recovered preview; fixture now explicitly scrolls before display
+   assertion with all goals/deadlines unchanged. No product loss is proved.
    All read-slice source/failure/correction metadata and green10 evidence through14da
    have paired0/0. Editor RED10run39734373868 at exact14da is expected terminal FAILURE;
    the actual missing-preview assertion is retained and diagnosed. Raw observer3214020
@@ -331,3 +340,25 @@ Superseded execution narrative remains in Git at `db50f703e` and prior commits;
 canonical source/receipts/original captures remain in `docs/evidence/ticketN` and
 tracker comments. Those records preserve historical failures and causal limits.
 They do not replace the current run bindings, scope or next actions above.
+
+## Active64 focused regression executions
+
+Exacta6c6d40b1f80189bfac6031e32c0d87ba6ab6b16:
+keyboard10run39735804256, actual pinned TalkBack10run39735806952,
+original browse10run39735809739, profiles10run39735812210,
+usernames10run39735815251, controls10run39735817877,
+publisher-routes10run39735820655. All were dispatched with public readsfalse
+and remain pending. Observer3220136 `/tmp/redsquare64-watch-regressions-a6.py`,
+external `profile64-regressions-a6-observer.log`, terminal-only raw targets
+`profile64-SCOPE-29-a6-RUN`. It does not retry or accept results automatically.
+Editor681 observer3219671 ended normally after both failures were retained.
+
+Original fixture adaptationsac363/c1d preserve exact-key/name-sibling assertions,
+full-list absence, displayed Unmute, reporting context and original deadlines.
+Navigation uses real secondary sheet/identity dialog with positive dismissal;
+review fixes final Spec0/documentedStandards0/heuristic0. Additive keyboard
+and actual selected-tab speech tracers at a6 each retain180s. Source Spec0;
+Standards found substring speech predicates could accept unselected/embedded
+label, now corrected to bounded words in working tree, awaiting review.
+All original identities/assertions/pins remain required. Local compile3218757
+`profile64-accessibility-compile.{json,log}` remains active. Public63 unchanged.

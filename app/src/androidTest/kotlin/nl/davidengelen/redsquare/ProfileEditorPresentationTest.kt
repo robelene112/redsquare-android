@@ -69,7 +69,10 @@ class ProfileEditorPresentationTest {
         val edit = hasText("Edit profile") and hasClickAction() and isEnabled()
         ui.waitUntil(15_000) { ui.onNode(edit).isDisplayed() }
         ui.onNode(edit).performClick()
-        ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+        val editor = hasSetTextAction() and isEnabled()
+        ui.waitUntil(15_000) { ui.onAllNodes(editor).fetchSemanticsNodes().isNotEmpty() }
+        // A recovered biography grows the real preview; bring its field into view deliberately.
+        ui.onNode(editor).performScrollTo().assertIsDisplayed()
     }
 
     private fun writeBio(bio: String) {

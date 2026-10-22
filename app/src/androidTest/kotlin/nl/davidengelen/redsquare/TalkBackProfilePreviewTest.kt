@@ -40,7 +40,9 @@ class TalkBackProfilePreviewTest {
                     var completions = emptySet<String>()
                     waitFor(10_000) {
                         val selectedIds = fragments(device, label).filter {
-                            it.contains("selected", ignoreCase = true) && !it.contains("not selected", ignoreCase = true)
+                            Regex("\\b${Regex.escape(label)}\\b", RegexOption.IGNORE_CASE).containsMatchIn(it) &&
+                                Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(it) &&
+                                !Regex("\\bnot\\s+selected\\b", RegexOption.IGNORE_CASE).containsMatchIn(it)
                         }.mapNotNull { Regex("utteranceId=([^,\\s]+)").find(it)?.groupValues?.get(1) }.toSet()
                         completions = selectedIds.intersect(completedFragments(device, label).toSet())
                         completions.isNotEmpty()

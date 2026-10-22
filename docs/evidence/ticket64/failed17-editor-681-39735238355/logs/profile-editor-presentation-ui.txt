@@ -1,0 +1,110 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditorPresentationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditorPresentationTest:
+INSTRUMENTATION_STATUS: test=editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditorPresentationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.openEditor(ProfileEditorPresentationTest.kt:72)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:55)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(nl.davidengelen.redsquare.ProfileEditorPresentationTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.openEditor(ProfileEditorPresentationTest.kt:72)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:55)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.581
+There was 1 failure:
+1) editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(nl.davidengelen.redsquare.ProfileEditorPresentationTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.openEditor(ProfileEditorPresentationTest.kt:72)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:55)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(ProfileEditorPresentationTest.kt:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
