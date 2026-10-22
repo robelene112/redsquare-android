@@ -7,24 +7,23 @@ Review base6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4. Public beta64 unchanged.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays unread and
 untouched. Earlier churn instructions below are superseded by this limit.
 
-At75b57f03d, focused Android10 run39832573055 FAILED overall: original9,
-Entry2, Presentation1, Reading1 and Recovery1 pass. Viewport1 is expected RED:
-257-character input is silently rejected. Original packet
-viewport-red10-75b-39832573055 retained. Reading now survives thread, profile and
-recreation with exact position/no new search reads. Personal-policy readiness
-prevents temporary empty-list measurement; compact feedback above the list keeps
-People/retry visible. Incomplete lookups pause and require explicit continuation.
+Focused Android10 run39834168015 exact81ba1d0f2 and Android17 run39834572483
+exactbdbb6db36 are whole SUCCESS: original9+Entry2+Presentation1+Reading1+
+Recovery3+Viewport1. Original packets green10-81b-39834168015 and
+green17-bdb-39834572483; real native frames viewed, including200% identity,
+IME/input and actions. Production unchanged since81b. Later fixture corrections
+preserve readiness deadline/primary cleanup failures. Maximum-length signed
+visual-name coverage added across all six cells throughcabd1065a, pending runtime.
 
-Current continuation adds visible invalid-input feedback and synchronous disposal
-pause after independent spec review found a rapid-return cancellation race.
-Recovery regressions cover unfinished cleanup and username-only retry without
-repeating completed post streams. Standards review through75b:0/0; spec race
-requires re-review. No complete65 acceptance or signed65 reservation/build yet.
+Whole source review6a..bdb and long-name delta throughcabd: paired Spec0,
+documented Standards0/heuristic0. Full65 catalog/collector freeze6391367bc211a63cb1e12cc3678a53ef80f17f47:
+expected527/528 identities,161/162 normal completions,35 deliberate interruptions,
+34 continuity records,122 archives. Inherited pins/exclusions unchanged.
 
-Remaining: focused Search10/17, inspect actual light/dark larger-text/IME frames,
-paired final review, independently frozen65 catalog, complete Android10/17 and
-signed in-place delivery. Preserve original identities/assertions/deadlines/pins
-and exclusions. Close65 and STOP. Never combine failed runs as acceptance.
+Next: complete Android10/17 at final source, inspect frozen actuals and new
+long-name originals, paired evidence review, signed in-place delivery. No65
+version reservation/build yet. Preserve original assertions/deadlines/pins and
+exclusions. Close65 and STOP. Never combine failed runs as acceptance.
 
 
 Updated2026-10-22 at16:15UTC. Public beta64 is published and independently
