@@ -1,0 +1,92 @@
+{
+  "browse-evidence.tar": {
+    "sha256": "d775664a1d6c2cc76392cf2e0e85844ef3de2390264c4c066a6e9733e1f41295",
+    "bytes": 568832,
+    "members": [
+      {
+        "name": "browse-evidence/verified-conversation.png",
+        "bytes": 40845,
+        "sha256": "f2a9c5cdcd555bf9c764243a5ae524f0d28de594ed18cfd626a0e644d0d2fd33",
+        "retainedPath": "originals/browse-evidence/browse-evidence/verified-conversation.png"
+      },
+      {
+        "name": "browse-evidence/profile-memory-after-write-failure.xml",
+        "bytes": 54192,
+        "sha256": "3edc967592979b2ea93c3bff767e2bc0ee417183deb93d2dbd18c6e4da1b3ec5",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-memory-after-write-failure.xml"
+      },
+      {
+        "name": "browse-evidence/profile-memory-after-write-failure.png",
+        "bytes": 39265,
+        "sha256": "24a2143e33ee2ea8bfc863663fa0244cbac6fe91942bc2b89886ad5e744d6833",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-memory-after-write-failure.png"
+      },
+      {
+        "name": "browse-evidence/cached-conversation-after-restart.png",
+        "bytes": 42062,
+        "sha256": "736270705ead97f8c429569e81f255f4dcf990cc6366c502c1163dac3221e2c9",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-conversation-after-restart.png"
+      },
+      {
+        "name": "browse-evidence/profile-paging-first-failure.png",
+        "bytes": 34720,
+        "sha256": "06809d93ba219dd63eaf59f0bb67c5c83cefd288827ef512887401999f02e6c6",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-paging-first-failure.png"
+      },
+      {
+        "name": "browse-evidence/profile-origin-restored.png",
+        "bytes": 33638,
+        "sha256": "3bfb6a8631161ef913ad0c10f331a970b52ee278598d9cf46d4e63fd1b9ff70e",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-origin-restored.png"
+      },
+      {
+        "name": "browse-evidence/profile-available-likes.png",
+        "bytes": 36289,
+        "sha256": "163bcba7523ac604b46153e17af50b0114e848ac70ceffc2623c540393fbb125",
+        "retainedPath": "originals/browse-evidence/browse-evidence/profile-available-likes.png"
+      },
+      {
+        "name": "browse-evidence/cached-profile-posts-after-restart.xml",
+        "bytes": 55522,
+        "sha256": "585dd2e1f15186c0f2d12da69214778b7ac5f219ee74999c4a7f77a5c36eb7f5",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-posts-after-restart.xml"
+      },
+      {
+        "name": "browse-evidence/cached-profile-posts-after-restart.png",
+        "bytes": 39715,
+        "sha256": "5ff6670b3465022b0b9a321d8d7a0e9893aaeea73ef68f64b10780a305439cdd",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-posts-after-restart.png"
+      },
+      {
+        "name": "browse-evidence/cached-profile-likes-after-restart.xml",
+        "bytes": 54272,
+        "sha256": "ef8c628c150a18bc4dd49e724545c33ee004247ce9bd0104e585b396dccf4770",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-likes-after-restart.xml"
+      },
+      {
+        "name": "browse-evidence/cached-profile-likes-after-restart.png",
+        "bytes": 36659,
+        "sha256": "7615ee35f7fdf9f6ea89dee031789aee998a1f85ca8ee1c09259d3faaa9b015f",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-likes-after-restart.png"
+      },
+      {
+        "name": "browse-evidence/cached-profile-history-warning-after-restart.xml",
+        "bytes": 17299,
+        "sha256": "d0efe75a9b51da5ea9b24074c85d63a5c6eb2b753e7cf59e402bcf06d4d55545",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-history-warning-after-restart.xml"
+      },
+      {
+        "name": "browse-evidence/cached-profile-history-warning-after-restart.png",
+        "bytes": 31912,
+        "sha256": "7333841e98416e3c9443f25ec6800e6d1c75bc543a0bbcff89e14376ce974305",
+        "retainedPath": "originals/browse-evidence/browse-evidence/cached-profile-history-warning-after-restart.png"
+      },
+      {
+        "name": "browse-evidence/malformed-thread-rejected.png",
+        "bytes": 40986,
+        "sha256": "1927e8edf411223eec4875e4d4ee189346abb882ab5c1a49d90348d0b2a1fd3f",
+        "retainedPath": "originals/browse-evidence/browse-evidence/malformed-thread-rejected.png"
+      }
+    ]
+  }
+}

@@ -180,18 +180,14 @@ class ThreadProfilePreviewTest {
                     scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.waitUntil(15_000) {
-                        ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
-                    }
+                    ui.revealProfileHistoryItem("Load older")
                     ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.revealProfileHistoryItem("Nested Saito reply")
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
                     scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
                     ui.revealProfileHistoryItem("Profile newer post 20")
-                    ui.waitUntil(15_000) {
-                        ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
-                    }
+                    ui.revealProfileHistoryItem("Load older")
                     ui.onNodeWithText("Load older").assertIsEnabled().performClick()
                     ui.waitUntil(15_000) {
                         runCatching { ui.onNode(hasScrollAction()).performScrollToNode(hasText("Independent Saito reply")) }.isSuccess
