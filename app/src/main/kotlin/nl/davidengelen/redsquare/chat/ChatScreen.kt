@@ -67,8 +67,9 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var addingContact by rememberSaveable(wallet.publicKey, backend) { mutableStateOf(false) }
     var savingContact by remember(wallet.publicKey) { mutableStateOf(false) }
     var contactFailed by remember(wallet.publicKey) { mutableStateOf(false) }
-    var contacts by remember(wallet, backend) { mutableStateOf<List<String>>(emptyList()) }
-    var contactsFailed by remember(wallet) { mutableStateOf(false) }
+    var contacts by remember(wallet.publicKey, backend) { mutableStateOf<List<String>>(emptyList()) }
+    var contactsFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
+    var contactsReady by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
     fun openContact(address: String) {
         if (savingContact || personal?.ready != true || navigation.transitioning) return
@@ -164,6 +165,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (retained.unreadable) incomplete = true
             val portable = withContext(Dispatchers.IO) { wallet.chatContacts() }
             contacts = (contacts + portable + retained.accounts).distinct()
+            contactsReady = true
             val known = portable.map { PrivateChat.conversationId(wallet.publicKey, it) }.toSet()
             val missing = withContext(Dispatchers.IO) { wallet.chatHistoryIds().filter { it !in known } }
             if (missing.isNotEmpty()) {
@@ -191,7 +193,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             if (counterparty == null) reactionHistoryFailed = reactionRetentionFailed
         }
         catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { contactsFailed = true }
+        catch (_: Exception) { contactsFailed = true; contactsReady = true }
     }
     LaunchedEffect(wallet, backend, endpoint, counterparty, refresh) {
         if (counterparty != null) return@LaunchedEffect
@@ -356,7 +358,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
             InlineStatus(if (groupReceiveFailed) stringResource(R.string.chat_group_receive_error) else null, StatusTone.WARNING)
             InlineStatus(if (reactionHistoryFailed) stringResource(R.string.chat_reaction_cache_error) else null, StatusTone.WARNING)
             InlineStatus(if (incomplete) stringResource(R.string.chat_incomplete) else null, StatusTone.WARNING)
-            InlineStatus(if (expanded || counterparty == null && !keyboardVisible) stringResource(R.string.status_available_history) else null,
+            InlineStatus(if (expanded) stringResource(R.string.status_available_history) else null,
                 details = listOf(stringResource(R.string.chat_available_history)), announce = false)
             }
         }
@@ -386,11 +388,11 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
             if (!addingContact) InlineStatus(if (contactFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
-            if (contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
-            if (contacts.isNotEmpty()) Text(stringResource(R.string.chat_known_contacts),
-                Modifier.padding(vertical = 8.dp), style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
-            LazyColumn(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (!contactsReady) Text(stringResource(R.string.chat_contacts_loading))
+            if (contactsReady && contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
+            val contactsLabel = stringResource(R.string.chat_known_contacts)
+            LazyColumn(Modifier.weight(1f).semantics { contentDescription = contactsLabel },
+                verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(contacts, key = { it }) { key ->
                     Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
                         enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
@@ -399,6 +401,10 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                             ChatIdentityRow(key, registeredIdentity(key).name, key)
                         }
                     }
+                }
+                if (!keyboardVisible) item(key = "available-history-guidance") {
+                    InlineStatus(stringResource(R.string.status_available_history),
+                        details = listOf(stringResource(R.string.chat_available_history)), announce = false)
                 }
             }
         } else {

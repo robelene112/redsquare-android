@@ -39,34 +39,26 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
-LATEST63: first focused10run39700917505 at exacta8d SUCCESS1method47.185s/180,
-33 originals, packet green10-local-contact-a8d-RUN45hashes. NOT visual acceptance:
-root actual200Light screenshot/XML shows public-key native TextView only2px high
-(536..538), card/name partly clipped by nav. Prior semantic click accepted a partial
-row.130Dark capture also occurred before known contacts loaded, so shows false empty
-copy; readiness later passes. First17run39700920266 at exacta8d FAILS1method87.999s,
-line71 original15s invalid-key error visibility in final200Dark; keyboard font-size
-banner reduces body, enabledOpenchat and invalid field visible but no error text.
-Packet failed17-local-contact-a8d-RUN47hashes/33 originals. Root viewed both. No whole63
-acceptance; no source correction aftera8d yet. Observer5124 ended0/retained both.
+LATEST63: stronger native10run39703341485 exacta0c completedFAILURE1method38.452s/180.
+Original complete-visible-contact assertion fails at200Light: native2px versus full28px.
+Root inspected actual PNG/XML/target JSON. Packet failed10-physical-contact-a0c-RUN
+retains49 original archive members and terminal logs. Observer44042 ended0. Production
+was unchangeda8d. Earlier first10 functionalPASS47.185s remains NOT visual acceptance;
+first17run39700920266 fails invalid-key error visibility at200Dark/87.999s. Both earlier
+packets have paired0/0 review; stronger predicate/source and corrected metadata0/0.
 
-Ranked17 causes: feedback outside reduced viewport, tap during keyboard resize,
-validation not applied. Pixel border differs from primary and is consistent with
-error state, but no Compose failure tree/event order was captured; preserve limits.
-Do not hide IME/banner, weaken original15s goal or call cause proven without evidence.
-Main-list clipping is independently confirmed in actual native geometry.
-New ChatEntry fixture moves known capture AFTER contact readiness, checks actual
-native visible identity height against full unclipped semantic text height, then
-physically taps a >=48dp contact target; adds real known/pasted Details PNG/XML.
-All original methods/assertions/180s/IME/Open remain. First compile failed unsupported
-DpRect.height access; corrected to bottom.value-top.value with positive-height guard.
-Corrected compileSUCCESS1m59/explicit0. Source predicate/evidence reviews Spec0 and
-Standards0 apart from the now-corrected stale observer/inspection metadata. NEXT RED10 of stronger
-fixture against UNCHANGEDa8d production, then implement layout/feedback refinement.
-Candidate layout: compact private privacy heading, normal available-history guidance
-at list footer while preserving real error status, and reveal active form feedback
-within its scroll viewport. Group/invitation work still not started.
-
+Production refinement now moves normal available-history guidance into the contact
+list footer, removes its redundant visible section heading, preserves privacy and
+real recovery errors, retains known contacts across wallet metadata refresh and
+avoids claiming empty before local discovery. Full-window key fallback has compact
+heading and reveals active feedback during notice expansion/real IME resize, keeping
+actual keyboard and fixed48dp Open action. Input validation, wallet and protocol
+paths unchanged. Local compile82474 ACTIVE (chatentry63-layout-feedback-compile.log/json).
+No native GREEN yet. NEXT source/RED-evidence paired review, compile then unchanged
+complete chat-entry method on bothSDKs. No new signed version reserved; public62 unchanged.
+Group/invitation slice still not started. First17 exact tap/validation event ordering
+remains unproved; no keyboard cause claim. Do not dismiss IME/banner, weaken original
+goals/deadlines or assemble acceptance from rejected partial executions.
 
 Issue63 assigned/unblocked after58/62. Review base
 baede8527d38dea6cf0afd280d29eb88d1b1cb95. Start:

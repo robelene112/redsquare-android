@@ -1,0 +1,302 @@
+{
+  "chat-entry-evidence.tar": {
+    "sha256": "bb32a355e8e865c57d9b35bc225858af89b7ff4302f25170879d6dce93c793a1",
+    "bytes": 1357824,
+    "members": [
+      {
+        "name": "chat-entry-evidence/chat-entry-activity-lifecycle.jsonl",
+        "bytes": 6223,
+        "sha256": "9e6304339836057f4bdc71f55321f45eecf7cfb001b67d1fc4147c0af4c58c78",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-font-scale.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-known-contacts.xml",
+        "bytes": 40033,
+        "sha256": "878f571809ecb6bef1fc95daafa96c37e9005d640eca5feff2eee1b7d8214eae",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-known-contacts.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-known-contacts.png",
+        "bytes": 32922,
+        "sha256": "47693981fd11e7c09e80c6383c4cbe4457b0e355eceaa0e484b904fd85aa93c3",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-known-contacts.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-contact-target.json",
+        "bytes": 161,
+        "sha256": "8b970b0d7f1e4393acf9cb8b7d9a49fa79f5dfa7be428d7773adc72b54539ef2",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-contact-target.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-known-identity.xml",
+        "bytes": 21813,
+        "sha256": "ef6ecfeab3997938600d9920427b56cba5a58327548773bd1ed26f0377c591ac",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-known-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-known-identity.png",
+        "bytes": 35192,
+        "sha256": "6b0d9aae7873d9f854dde25d523784f8187a3ddeba894dbbf7cf5d577575a6e6",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-known-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-invalid-key-with-ime.xml",
+        "bytes": 39932,
+        "sha256": "5acc6da166b4648bace8ebc5f7d6f76c78a4f1832493f194d245ef2740cdcb4f",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-invalid-key-with-ime.png",
+        "bytes": 31287,
+        "sha256": "88a8ff00417f12ee3e55d4483a42f977f628d2c3be4f15e7d04cbe66b019376c",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-invalid-key-with-ime.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-pasted-identity.xml",
+        "bytes": 21813,
+        "sha256": "45333f9c88269f8229409911fb83aa95afe78d9ce6a3778595dd12399974f766",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-pasted-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-light-pasted-identity.png",
+        "bytes": 35349,
+        "sha256": "b4b804b575f4f42bdf70148e090a58798cdda7cf7ca7fd26e6791693c3e1e940",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-light-pasted-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-known-contacts.xml",
+        "bytes": 41727,
+        "sha256": "84cd31a97eb879b325943219f345ad20b8aa5e93b51ea09592c53c55f6e3bf85",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-known-contacts.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-known-contacts.png",
+        "bytes": 41214,
+        "sha256": "46b86cba0fa3f498fcb73123d4f50a2e4b4716aee81278af464200b5301bd7ed",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-known-contacts.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-contact-target.json",
+        "bytes": 161,
+        "sha256": "8b970b0d7f1e4393acf9cb8b7d9a49fa79f5dfa7be428d7773adc72b54539ef2",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-contact-target.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-known-identity.xml",
+        "bytes": 21813,
+        "sha256": "ef6ecfeab3997938600d9920427b56cba5a58327548773bd1ed26f0377c591ac",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-known-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-known-identity.png",
+        "bytes": 35605,
+        "sha256": "687af3f69f6fc13b04ac9169869b7ba9bb830ed2489f101ab7b0d5e0f32673f7",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-known-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-invalid-key-with-ime.xml",
+        "bytes": 39938,
+        "sha256": "d8b173588a94b85186af1aac6af8b88715aa2f1949526cb90b213191ca4ec71f",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-invalid-key-with-ime.png",
+        "bytes": 31731,
+        "sha256": "bd505b84aa42ea913198e0816701f334c11e4b99e8f46f7c306a49ff14e91134",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-invalid-key-with-ime.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-pasted-identity.xml",
+        "bytes": 23196,
+        "sha256": "87041cfdf5ba0f2fad5d11c075dfc15357249c87f59de1d5e4e8cb8738f7ad0e",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-pasted-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font100-dark-pasted-identity.png",
+        "bytes": 35914,
+        "sha256": "bc59824787e914efcfed16506e84c9186812d9eb03146fa595bf2267eff70532",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font100-dark-pasted-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-known-contacts.xml",
+        "bytes": 43110,
+        "sha256": "158fa42273893c55e69b47e3f8eb2c5d485ecfcd36c8976a54b69ccb421d983c",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-known-contacts.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-known-contacts.png",
+        "bytes": 48759,
+        "sha256": "076d980522a3eb7094962537df4f01973d4579d6422aaa719bb69fbda52f04fd",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-known-contacts.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-contact-target.json",
+        "bytes": 161,
+        "sha256": "7b135969a069c338994676c0594afd16ac8ed1c0989bc06762ee3ded8711eb12",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-contact-target.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-known-identity.xml",
+        "bytes": 23198,
+        "sha256": "d2a69873b509617469a9d3d66c0e1b86e2472dbdde153b98b0874c5e835b5c01",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-known-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-known-identity.png",
+        "bytes": 40407,
+        "sha256": "4492dfb72c277ae19b43979e38e5edbb52ab2d6166e453e333ddee9aab35630c",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-known-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-invalid-key-with-ime.xml",
+        "bytes": 41316,
+        "sha256": "9d66429dcb6436d0c4336057cf83c8548a62789609d7e3acd07e06d3271c505a",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-invalid-key-with-ime.png",
+        "bytes": 35281,
+        "sha256": "7f0c0df48531647652e7ff8ee56b9874f32aecd575aa5cd5710043a1aa7da7d7",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-invalid-key-with-ime.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-pasted-identity.xml",
+        "bytes": 23198,
+        "sha256": "a1e4c167b15d16072e9b7498169eb841eb1213118056a66184289e68b864be04",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-pasted-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-light-pasted-identity.png",
+        "bytes": 41230,
+        "sha256": "331c6b0169132ed8085244e1b8b11b9e3ebb42f6c266768ab0293a20d7f06981",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-light-pasted-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-known-contacts.xml",
+        "bytes": 43110,
+        "sha256": "158fa42273893c55e69b47e3f8eb2c5d485ecfcd36c8976a54b69ccb421d983c",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-known-contacts.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-known-contacts.png",
+        "bytes": 50097,
+        "sha256": "fa943d68600ca15bdc1b1a30dfeba7baa9f3ed613ad08256e20a526bbc3f9e5c",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-known-contacts.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-contact-target.json",
+        "bytes": 161,
+        "sha256": "7b135969a069c338994676c0594afd16ac8ed1c0989bc06762ee3ded8711eb12",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-contact-target.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-known-identity.xml",
+        "bytes": 23198,
+        "sha256": "d2a69873b509617469a9d3d66c0e1b86e2472dbdde153b98b0874c5e835b5c01",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-known-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-known-identity.png",
+        "bytes": 40535,
+        "sha256": "0190d7dbf31f03c155199ecc59c158186e4433b43700a3e1cc0b94fdafff5d02",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-known-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-invalid-key-with-ime.xml",
+        "bytes": 41316,
+        "sha256": "9d66429dcb6436d0c4336057cf83c8548a62789609d7e3acd07e06d3271c505a",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-invalid-key-with-ime.png",
+        "bytes": 35856,
+        "sha256": "6f2c9ecea2d99ffa5fe32babcba43cc43b82c3e1d0f6d2257657986bb3688cb1",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-invalid-key-with-ime.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-pasted-identity.xml",
+        "bytes": 23198,
+        "sha256": "a1e4c167b15d16072e9b7498169eb841eb1213118056a66184289e68b864be04",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-pasted-identity.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font130-dark-pasted-identity.png",
+        "bytes": 41583,
+        "sha256": "7e1d3dd93b3d4177d8cd5ca23d2705c0e8db89dd1c496bdd78cb82729bb581b0",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font130-dark-pasted-identity.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-configuration.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-known-contacts.xml",
+        "bytes": 41411,
+        "sha256": "93499c7cbbbe2348e1948cc49705271efded1c7407e3b34b4966d668b2d58969",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-known-contacts.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-known-contacts.png",
+        "bytes": 50390,
+        "sha256": "e825827382ccb6c281c2c509b16496800a106479b3d3009c717fe036836edbb2",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-known-contacts.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-contact-target.json",
+        "bytes": 160,
+        "sha256": "63cc29aea9f2945ca7cd1c06fc725da0f4a04c77c7ab96e92e9d79557d82611b",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-contact-target.json"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-failure.xml",
+        "bytes": 41411,
+        "sha256": "93499c7cbbbe2348e1948cc49705271efded1c7407e3b34b4966d668b2d58969",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-failure.xml"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-320-font200-light-failure.png",
+        "bytes": 50390,
+        "sha256": "e825827382ccb6c281c2c509b16496800a106479b3d3009c717fe036836edbb2",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-320-font200-light-failure.png"
+      },
+      {
+        "name": "chat-entry-evidence/chat-entry-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/chat-entry-evidence/chat-entry-evidence/chat-entry-font-restored.json"
+      }
+    ]
+  }
+}
