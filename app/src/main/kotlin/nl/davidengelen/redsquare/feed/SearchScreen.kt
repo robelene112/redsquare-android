@@ -26,10 +26,12 @@ import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
@@ -46,6 +48,7 @@ internal class SearchViewState {
     var submitted by mutableStateOf(false)
     var request by mutableIntStateOf(0)
     var completed = 0
+    var activeLookup: Job? = null
     var posts by mutableStateOf<List<FeedPost>>(emptyList())
     var failed by mutableStateOf(false)
     var unreadable by mutableStateOf(false)
@@ -79,6 +82,10 @@ internal class SearchViewState {
     }
 
     fun clear() {
+        // Cancel synchronously so queued coroutine resumptions cannot publish old state
+        // while Compose is still scheduling disposal of the previous effect.
+        activeLookup?.cancel()
+        activeLookup = null
         query = ""
         searchedQuery = ""
         submitted = false
@@ -145,6 +152,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     LaunchedEffect(wallet, endpoint, view.request, cacheReady) {
         if (wallet == null || !cacheReady || view.request == 0 || view.completed == view.request) return@LaunchedEffect
         val request = view.request
+        val lookup = currentCoroutineContext().job
+        view.activeLookup = lookup
         val pages = view.pending.mapNotNull { stream -> view.cursors[stream]?.let { stream to it } }
         loading = true
         view.failed = false
@@ -229,6 +238,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { view.failed = true }
         finally {
+            if (view.activeLookup === lookup) view.activeLookup = null
             if (currentCoroutineContext().isActive && view.request == request) {
                 view.completed = request
                 loading = false

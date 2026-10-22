@@ -1,0 +1,119 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchEntryPreviewTest:
+INSTRUMENTATION_STATUS: test=keyboardSearchAndClearKeepUserInControlOfSearchRequests
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to perform IME action.
+Failed to assert the following: (NOT (ImeAction = 'Default'))
+Semantics of the node:
+Node #115 at (l=16.0, t=76.0, r=304.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'reference post'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4071ba7'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'reference post'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.performImeAction(TextActions.kt:100)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$13(SearchEntryPreviewTest.kt:47)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$Odp5I1Rd1WvkUNOvqXLxovhF8s8(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: stream=
+Error in keyboardSearchAndClearKeepUserInControlOfSearchRequests(nl.davidengelen.redsquare.SearchEntryPreviewTest):
+java.lang.AssertionError: Failed to perform IME action.
+Failed to assert the following: (NOT (ImeAction = 'Default'))
+Semantics of the node:
+Node #115 at (l=16.0, t=76.0, r=304.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'reference post'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4071ba7'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'reference post'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.performImeAction(TextActions.kt:100)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$13(SearchEntryPreviewTest.kt:47)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$Odp5I1Rd1WvkUNOvqXLxovhF8s8(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:27)
+
+INSTRUMENTATION_STATUS: test=keyboardSearchAndClearKeepUserInControlOfSearchRequests
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 4.624
+There was 1 failure:
+1) keyboardSearchAndClearKeepUserInControlOfSearchRequests(nl.davidengelen.redsquare.SearchEntryPreviewTest)
+java.lang.AssertionError: Failed to perform IME action.
+Failed to assert the following: (NOT (ImeAction = 'Default'))
+Semantics of the node:
+Node #115 at (l=16.0, t=76.0, r=304.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'reference post'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@4071ba7'
+Focused = 'true'
+ImeAction = 'Default'
+InputText = 'reference post'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(14, 14)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.TextActionsKt.performImeAction(TextActions.kt:100)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests$lambda$13(SearchEntryPreviewTest.kt:47)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.$r8$lambda$Odp5I1Rd1WvkUNOvqXLxovhF8s8(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchEntryPreviewTest.keyboardSearchAndClearKeepUserInControlOfSearchRequests(SearchEntryPreviewTest.kt:27)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

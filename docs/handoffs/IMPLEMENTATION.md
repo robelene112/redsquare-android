@@ -81,6 +81,24 @@ then70, without routine stops.
    invalidates the pending request, resets visible search state and preserves
    verified local cache. First green verification is next; hierarchy/position
    and the remaining ticket requirements are still outstanding.
+   Paired reviews found a cancellation gap before effect disposal. Clear now
+   synchronously cancels the active lookup Job, with identity-checked cleanup.
+   An additive delayed-response journey clears in flight, releases the response,
+   recreates and checks empty state with no continued quote read. Preliminary
+   Spec review accepts the correction; committed paired review/native proof
+   remain pending. Actual input/result captures now wait for their visible text.
+   First-green run39815531436 atcc0ca38e4 FAILED: original9PASS, new tracer
+   timed out on the quote counter despite the actual result visible. The fixture
+   routes quotes separately, bypassing the ordinary callback where it was counted.
+   Added an optional quoteArchiveResponse to withAppFrameFixture (null default
+   preserves all existing uses) and attached both counters to their actual routes.
+   Original assertions/deadlines retained. Raw/retained packetfailed10-cc0-39815531436.
+   Local compile of cancellation code/tests PASSED in4m25; quote-routing correction
+   is subsequent and awaits compilation/native execution. Logsearch65-cancel-compile.log.
+   GitHub's active incidentwq8305lppdc2 includes degraded Actions orchestration:
+   https://www.githubstatus.com/incidents/wq8305lppdc2 . At16:43UTC red run39814099427
+   reported in_progress despite every job step completed, then finalized FAILURE.
+   Red packetred10-ee4-39814099427 is retained. Never accept an incomplete run.
    Read-only planning found Search query/results are retained in wallet/backend
    FeedNavigationMemory, but its local rememberLazyListState loses position on
    profile/thread navigation. Preserve that position in the same retained scope.
