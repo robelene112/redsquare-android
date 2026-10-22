@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at15:25UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at15:40UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -127,10 +127,19 @@ Issue63 is closed. Issue64 is claimed; its review base is
    dispatch, updating the binding if the independent attempt supplies it.
    Do not combine jobs from the two runs or describe pending setup as passing.
 
-   Review worktree is clean at056; move to exact accepted source before signing.
-   Counter remains63, no64 reservation/build. Prepared/publication helpers
-   `/tmp/redsquare-profile64-prepare64.py` and
-   `/tmp/redsquare-profile64-publication64-check.py` remain unexecuted.
+   Review worktree moved cleanly to exact89c. Canonical signed64 build passed,
+   counter64 reserved once, APK38209467bytes SHA256
+   4cc9965af797037155ed76a8a8913f7b045958291e9fc9dbeb9289ad8552cd0e.
+   Actual package/signature/manifest/DEX verification passes; established cert,
+   REVIEW true/PUSH+bothGIF false. Candidate is HELD unpublished pending whole10
+   and final reviews. Packet `signed64-prepared` includes build receipt and
+   independent public BEFORE result:20 historical resources preserved,61 stays
+   404, latest63. External `profile64-signed-build.log`,
+   `profile64-signed-build-result.json`, `profile64-publication-64`.
+   Preparation helper executed successfully; publication helper BEFORE done.
+   Do not rerun BEFORE over retained files or reserve/rebuild64 again.
+   Latest docs throughc9a457565 have paired Spec0/Standards0/heuristic0 reviews;
+   signed preparation packet review pending.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
@@ -138,9 +147,9 @@ Issue63 is closed. Issue64 is claimed; its review base is
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
    Original validators, tool pins and sole API29 assumption stay fixed. Current
    bindings identify full10at89c/full17at056; earlier failures remain rejected.
-   No signed64. Await current full10/17, bind exact runs,
+   Signed64 held. Await current full10, bind exact run,
    require whole/all3 SUCCESS and collector evidence, inspect native originals,
-   paired review, then prepare/publish immutable signed64 through existing route.
+   paired review, then publish the held immutable signed64 through existing route.
    Never combine focused/failed pieces or rebuild version63. Public63 current.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
