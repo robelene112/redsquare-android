@@ -1,15 +1,16 @@
 # Current implementation handoff
 
-Updated2026-10-22 at16:12UTC. Public beta64 is published and independently
+Updated2026-10-22 at16:15UTC. Public beta64 is published and independently
 verified. Issue64 implementation, complete Android10/17 and prepared signed64
 have paired Spec0/documented Standards0/heuristic0 reviews. Final public delivery
-packet review is pending; issue64 remains open until it completes. Then close64,
-update55 and claim65. Continue65through69 then70, without routine stops.
+through e7c7b3f51a664c24340a3f6a014b222dab02fd53 has paired0/0. Issue64 is
+CLOSED and55 updated. Claim65 next. Continue65through69 then70, without routine stops.
 
 ## Resume here
 
-1. Finish [profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64)
-   public delivery review. Review basea010a79fd4669892d3828eab3e93a2397f033a03.
+1. [Profile hierarchy/editing64](https://github.com/robelene112/redsquare-android/issues/64)
+   is CLOSED after final delivery reviews0/0. Completion comment:
+   https://github.com/robelene112/redsquare-android/issues/64#issuecomment-6345553015 . Review basea010a79fd4669892d3828eab3e93a2397f033a03.
    Latest source/evidence reviews through9856534608186358e143f055c87ff8a5150780df
    are paired0/0. Production unchanged since4dabe3124. Shared profile/header,
    compact exact-key details, selected accessible history tabs, secondary actions,
@@ -50,7 +51,7 @@ update55 and claim65. Continue65through69 then70, without routine stops.
    noBackup; actual DEX REVIEW true/PUSH+bothGIF false. Public APK matches held
    bytes and latest equals immutable manifest. Independent AFTER confirms20
    historical resources unchanged,61 remains404, performance43 unchanged.
-   Packet `signed64-prepared` paired0/0; `signed64-public` final review pending.
+   Packets `signed64-prepared` and `signed64-public` both paired0/0.
    Public https://davidengelen.nl/redsquare/ . Never rebuild/reuse64.
 
    External review worktree is clean at89c. Build log/receipt:
@@ -60,8 +61,8 @@ update55 and claim65. Continue65through69 then70, without routine stops.
    `profile64-full17-056-39792064782`. Verification refs remain at056 and89c:
    `verify/profile64-counts-05680ceac`, `verify/profile64-runner-89cb35a7a`.
    No active compiler, signing process or native verification run.
-2. After final delivery review, close64/update55 then claim65, recording the
-   closure commit as its review base. No65 code has been written or claimed.
+2. Claim65 next, recording this closure commit as its review base.
+   No65 code has been written or claimed.
    Read-only planning found Search query/results are retained in wallet/backend
    FeedNavigationMemory, but its local rememberLazyListState loses position on
    profile/thread navigation. Preserve that position in the same retained scope.

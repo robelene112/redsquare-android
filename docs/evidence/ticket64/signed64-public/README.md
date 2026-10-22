@@ -28,7 +28,8 @@ Accepted complete17run39792064782 at production-equivalent056:520 identities,
 157 normal,35 interruptions,34 continuity,117 archives,zero assumptions.
 No focused, failed or cancelled dispatches were combined. Native/source/evidence
 and prepared artifact reviews through985653460 have paired0/0. This public
-delivery packet awaits its own final review. Issue64 remains open until then.
+delivery packet has final paired Spec0/documentedStandards0/heuristic0 reviews
+through e7c7b3f51a664c24340a3f6a014b222dab02fd53. Issue64 is closed,55 updated.
 
 This is a development preview, not final app-wide UI or Play acceptance. Physical
 Pixel installation/timing, real providers, publisher identity and store work stay
