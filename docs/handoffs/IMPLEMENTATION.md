@@ -20,7 +20,8 @@ documented Standards0/heuristic0. Full65 catalog/collector freeze6391367bc211a63
 expected527/528 identities,161/162 normal completions,35 deliberate interruptions,
 34 continuity records,122 archives. Inherited pins/exclusions unchanged.
 
-Next: complete Android10/17 at final source, inspect frozen actuals and new
+Full Android10run39836060803 and Android17run39836064155 are active at
+exactca678e521f63ed04d54cb0da4197443b8cc7c7e1. Next: inspect frozen actuals and new
 long-name originals, paired evidence review, signed in-place delivery. No65
 version reservation/build yet. Preserve original assertions/deadlines/pins and
 exclusions. Close65 and STOP. Never combine failed runs as acceptance.

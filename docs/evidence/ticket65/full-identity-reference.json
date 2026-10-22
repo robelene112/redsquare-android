@@ -130,7 +130,13 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Not dispatched. Focused checks and independent review pending.",
-  "executingSources": {},
-  "executingRuns": {}
+  "executingState": "Full Android10/17 dispatched at exact ca678e521f63ed04d54cb0da4197443b8cc7c7e1. No full acceptance yet.",
+  "executingSources": {
+    "android10": "ca678e521f63ed04d54cb0da4197443b8cc7c7e1",
+    "android17": "ca678e521f63ed04d54cb0da4197443b8cc7c7e1"
+  },
+  "executingRuns": {
+    "android10": 39836060803,
+    "android17": 39836064155
+  }
 }
