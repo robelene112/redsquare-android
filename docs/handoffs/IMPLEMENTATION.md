@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at12:48UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at13:27UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -14,71 +14,43 @@ Issue63 is closed. Issue64 is claimed; its review base is
    actions, coherent unsent editor preview/fixed controls and automatically
    revealed changed result feedback. Failed banner media now separates its
    explanation and48dp retry icon. Signing/cache/state/recovery remain intact.
-   All source/evidence throughcd06a1fa80dae36bb12d4e670b8a6fb04ecf7755 has paired
-   Spec0/documentedStandards0/heuristic0. Later evidence-only packets in this
-   handoff commit still require their bounded review.
+   Latest production correction4dabe3124 gives avatar/banner retries an opaque
+   tonal surface. Source/evidence through3c7118af4cbca2d0e2415fb72638df568424e71b
+   has paired Spec0/documentedStandards0/heuristic0 reviews.
 
-   Reading six-cell320dp default/130/200 Light/Dark passes10run39733389664
-   (44.874s) and17run39733646265 (70.151s), exacta869. Editor six-cell passes
-   10run39736046494 (40.7s) and17run39736049716 (73.409s), exacta018. Those
-   predate later stronger absolute editor readiness and shared media renderer;
-   final-source complete proof remains mandatory. Actual keyboard passes10
-   run39736627115 (7.859s exactd507) and17run39737640172 (12.952s exacta123).
-   Actual TalkBack10run39736630025 succeeds: Status29.433s/Post54.82s/Profile
-   16.752s, actual selected words and completed engine audio. Earliera6 speech
-   was cancelled, never accepted. Every class keeps its original180s bound.
+   Focused exact3c successes: hierarchy17run39783200933 (77.532s/180, six
+   standard cells plus actual unavailable media at130% Light/Dark, root viewed),
+   TalkBack17run39783196659 (Status39.530/Post50.918/Profile15.301, selected
+   speech/completed audio and restored settings verified), notifications10
+   run39783191785 (32methods144.767s/240, allowed alerts and cold recovery),
+   Search10run39783204818 (nine methods61.898s). Four green3c packets retained,
+   hashes checked. Earlier browse10run39781995893 at6c succeeds8methods29.81s.
+   Original profiles/controls, editor/keyboard/reading focused successes remain
+   under ticket64; they precede final source and never replace complete proof.
 
-   Original regressions atb4: profiles10run39737285226 SUCCESS, including
-   original Edit/Publishing/Media/NewEdit and cold recovery; controls10
-   run39737287918 SUCCESS including cold recovery. Existing usernames and
-   publisher-routes ata6 also succeeded (raw external). New retained green
-   profiles/controls/keyboard17 packets here have root original/hash checks.
-   Profile unavailable-image rendering at130% still needs positive captures.
-
-   Latest rejected browse12fcrun39738084102 failed49.968s with7/8 methods
-   passing: older Likes lookup timed out, screenshot shows Posts selected.
-   Sticky tabs can intercept input after lazy scrolling. Shared reveal helper
-   now scrolls target below actual tab bounds and asserts no overlap within
-   original15s; original older-content assertions/search/180s remain.
-   Rejected notificationsb4run39737290830 failed124.535s/240 with30/32 passing:
-   olderActor and lateActor still expected full key on main profile; corrected
-   both to existing exact identity-dialog inspection. Rejected TalkBack17a123
-   run39737642835 failed13.65s before profile class at original5s initial Wallet
-   focus. Logs show failed service focus action; cause remains uncertain.
-   Added failure-only focused-text/window diagnostic before Activity teardown,
-   keeping unchanged wait/assertions/pins. Three original rejection packets
-   retained/reviewed in cd06, not accepted execution.
-
-   cd06 focused runs39779361041/39779372323/39779383033 all failed at
-   compilation, before native execution: unavailable performScrollBy. Packet
-   `compile-507` retains all three rejected log/metadata pairs. Corrected to
-   established SemanticsActions.ScrollBy at507, same offset/assertions/budget.
-   Additional error130 Light/Dark journey now follows the existing6cells in
-   the same180s hierarchy method: signed withMedia, real loader failure,
-   explanation/retry nonoverlap,48dp targets, originals and independent restore.
-   Source/evidence through507d35d8192c2d8cd536010be79c06d2a0295e3a has paired0/0.
-   Exact-source local compile0/5m35s Gradle, `profile64-error-compile.{json,log}`;
-   no tracked source changed during compilation. Compiler ended; no signing.
-
-   Current focused runs at exact507d35d8192c2d8cd536010be79c06d2a0295e3a:
-   browse10run39780906790, notifications10run39780917627,
-   status-talkback17run39780928973, hierarchy10run39781058607,
-   hierarchy17run39781062035. Observer PID3429269,
-   `/tmp/redsquare64-watch-507.py`; external `profile64-507-observer.log`.
-   Terminal-only download to `profile64-SCOPE-507-RUN`, inspect actual outcomes.
-   All earlier observers ended. Automatic source run39780434350 uses507.
+   Full Android10run39785005613 and17run39785009945 were dispatched at exact3c,
+   public reads enabled. Both Social/Chat jobs have failed; Wallet jobs still
+   running at13:27. No complete acceptance. Observer PID3445214,
+   `/tmp/redsquare64-watch-full-3c71.py`, external
+   `profile64-full-3c71-observer.log`, retains whole terminal artifacts only.
+   Partial terminal-job diagnostic downloads are external
+   `profile64-partial10-social-3c71` and `profile64-partial17-chat-3c71`.
+   Social10 PostContentContexts fails because its author-only scroll leaves
+   body below viewport; Chat17 AppFrame fails because restored biography field
+   is below the new preview. Original failure screenshots inspected: preserved
+   draft appears in preview, no evidence of data loss. Adapt visible navigation
+   while retaining original content/draft goals and deadlines, then rerun.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
    `full-collector.py`: literal63 identities plus4 additive methods, expected
    519/520 identities,156/157 normal,35 interruptions,34 continuity,117 archives.
-   Original validators, tool pins and sole API29 assumption stay fixed. Actual
-   complete sources/runs still null. No complete64 dispatch or signed64 yet.
-   Once corrected focused paths succeed, dispatch fresh full10/17 at stable
-   source with public reads, bind exact runs, retain whole/all3 SUCCESS and
-   collector evidence, root inspect native originals, paired review, then
-   prepare/publish immutable signed64 through existing safe route. Do not
-   combine focused/failed pieces or rebuild version63. Public63 remains current.
+   Original validators, tool pins and sole API29 assumption stay fixed. Current
+   bindings identify the first full3c attempts; retain their failures. No signed64.
+   After corrected focused paths, dispatch fresh full10/17, bind exact runs,
+   require whole/all3 SUCCESS and collector evidence, inspect native originals,
+   paired review, then prepare/publish immutable signed64 through existing route.
+   Never combine focused/failed pieces or rebuild version63. Public63 current.
 2. Continue65through69, then70. The owner authorized the whole backlog without
    routine stops, including at pending/failed CI. One implementation at a time;
    independent read-only paired reviews remain allowed.

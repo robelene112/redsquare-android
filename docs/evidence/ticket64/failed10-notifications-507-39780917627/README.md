@@ -7,7 +7,8 @@ because it still asserts the full actor key directly on the profile main
 screen. Root viewed the original failure showing the matching compact identity
 and Identity details control. The correction uses the same full-key dialog
 inspection as the regular routes, preserving actor identity, read state and
-recovery assertions. Subsequent permission cases were not executed.
+recovery assertions. Cold recovery is the failed final gate. The Android33+ denial case is excluded
+on API29 by the existing harness.
 
 Source inspection also found four identical old raw-key assumptions in Search
 profile routes and three old existence waits for lazy profile posts in Quote,
