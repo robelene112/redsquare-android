@@ -68,7 +68,7 @@ accepted complete62 identity files plus exactly four literal new methods:515/516
 identities,152/153 normal completions,35 interruptions/34 continuity,113 archives.
 All original collector validators and tool pins retained; four added UI matrix
 validators/extraction paths. Catalog commit is frozen BEFORE any full63 dispatch.
-Freeze self-reference remains PENDING until the committed hash exists. Paired
+Freeze commit 068972a427e2b3b412f67002963dd9bf30f98791 is now recorded. Paired
 catalog review and original full runs still required; no observed full result
 was used to derive expected identities/totals. Temporary generator preparation
 lives outside checkout, not a second tracker.
