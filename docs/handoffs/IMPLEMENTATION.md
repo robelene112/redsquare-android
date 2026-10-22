@@ -42,7 +42,7 @@ contain evidence/docs only. The protected untracked research is not task work.
 
 Both complete dispatches include Chat/Social/Wallet and explicit public reads.
 Current10/17 source/build stages passed. New10 repeats the full gates after the
-preceding same446 Wallet/public-read failure described below. Android17 has complete structural proof; final evidence review and10 acceptance remain.
+preceding same446 Wallet/public-read failure described below. Android17 has complete native/evidence acceptance with paired0/0 reviews; Android10 acceptance remains.
 Latest tracker update:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6332881529
 
@@ -73,7 +73,7 @@ current originals across the four new journeys, real IME and200% both themes.
 Original GroupChat22 methods172.245s/180, Admin12 methods54.621s/180 all pass.
 SystemUI clipboard preview still temporarily occludes some Share/Done/node/key
 areas; no all-glyph/post-Copy-Done physical claim. Existing nav wrapping remains70.
-Full17 evidence review pending. Current10 requires its own complete success;
+Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 requires its own complete success;
 public62/held63 unchanged. No supplemental or failed-run assembly.
 
 ### Frozen complete acceptance
@@ -141,7 +141,7 @@ hashes and inventory of425 external raw files, all original artifacts external.
 No service/CDN/route root cause or product-fix claim; no source/test change.
 Native compatibility/update/final tail after this failure is not accepted.
 Manual fresh complete10run39725660757 at SAME446 includes every original gate;
-no failed pieces are reused. Current10/17 Wallet SUCCESS, other2active per SDK. Held63
+no failed pieces are reused. Android17 whole/all3 SUCCESS; Android10 Wallet/Social SUCCESS, Chat active. Held63
 unchanged. Latest source/frame/prepared/docs reviews through0861 are0/0; this
 new failed packet and actual-run rebinding have final Spec0/documented
 Standards0/heuristic0 review at a0d100d76. Latest tracker update:
