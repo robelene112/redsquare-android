@@ -8,6 +8,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import android.content.ContentResolver
 import android.net.Uri
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -379,6 +380,14 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
         }
         choose
     }
+    val editorScroll = rememberScrollState()
+    // Publishing and media preparation can finish while their status is above the edited field.
+    // Reveal the result without changing input or accessibility focus.
+    LaunchedEffect(state.error, state.networkError, state.imageError, state.preparingImage,
+        state.candidate?.id, state.available, state.superseded) {
+        if (state.error || state.networkError || state.imageError || state.preparingImage || state.candidate != null)
+            editorScroll.animateScrollTo(0, tween(AppSpacing.transitionMillis))
+    }
     val navigation = requireNotNull(LocalPostNavigation.current)
     LaunchedEffect(state, state.reload) { state.load() }
     LaunchedEffect(state.ready, selected) {
@@ -427,7 +436,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
             }
             if (!previewReady) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
-            } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+            } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(editorScroll),
                 verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
                 Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
