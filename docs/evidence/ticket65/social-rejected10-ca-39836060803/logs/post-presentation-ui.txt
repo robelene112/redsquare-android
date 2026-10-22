@@ -1,0 +1,188 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PostPresentationPreviewTest:
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=socialActionsAssociateNodeCountsWithContextAndKeepCompactTargets
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=postActionsKeepReportSecondaryAndFullIdentityReachable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: performScrollToNode(ContentDescription = 'Post actions for Anon-kQmyoM' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #1867 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Own post action preview'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@2e3e44e'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Own post action preview'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(23, 23)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #1880 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@1401817'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 5 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:141)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+INSTRUMENTATION_STATUS: stream=
+Error in ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(nl.davidengelen.redsquare.PostPresentationPreviewTest):
+java.lang.AssertionError: Failed: performScrollToNode(ContentDescription = 'Post actions for Anon-kQmyoM' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #1867 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Own post action preview'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@2e3e44e'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Own post action preview'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(23, 23)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #1880 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@1401817'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 5 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:141)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+INSTRUMENTATION_STATUS: test=ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PostPresentationPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=samePostKeepsIdentityTimeAndSecondaryActionsAcrossAllBrowseSurfaces
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 23.78
+There was 1 failure:
+1) ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(nl.davidengelen.redsquare.PostPresentationPreviewTest)
+java.lang.AssertionError: Failed: performScrollToNode(ContentDescription = 'Post actions for Anon-kQmyoM' (ignoreCase: false))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (ScrollBy is defined)
+Nodes found:
+1) Node #1867 at (l=16.0, t=149.0, r=248.0, b=214.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = 'Own post action preview'
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@2e3e44e'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = 'Own post action preview'
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(23, 23)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, ScrollBy, ScrollByOffset, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 12 siblings
+2) Node #1880 at (l=16.0, t=222.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=5, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@1401817'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 5 children, 12 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.scrollToMatchingDescendantOrReturnScrollable(Actions.kt:276)
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:235)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing$lambda$26(PostPresentationPreviewTest.kt:141)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.$r8$lambda$LkuPd7P-PsqpoHJtoH5QkRj7GYk(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest$$ExternalSyntheticLambda17.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.PostPresentationPreviewTest.ownPostActionsOpenFromEveryBrowseSurfaceWithoutPublishing(PostPresentationPreviewTest.kt:118)
+
+FAILURES!!!
+Tests run: 4,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

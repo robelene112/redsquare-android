@@ -1,0 +1,20 @@
+{
+  "preparedSource": "ca678e521f63ed04d54cb0da4197443b8cc7c7e1",
+  "executingSource": "52ef65072d1adfe9cfba198266851cd83e3a6902",
+  "identicalPaths": [
+    "app/src/main",
+    "app/src/release",
+    "app/src/debug",
+    "core/src/main",
+    "scripts",
+    "build-support",
+    "app/build.gradle.kts",
+    "core/build.gradle.kts",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    ".github/workflows"
+  ],
+  "fixtureOnlyChange": "Two Search-route PostPresentationPreviewTest scroll operators select the indexed results list; original goals unchanged.",
+  "fullVerification": "pending"
+}

@@ -35,8 +35,11 @@ accepted64 identities plus eight methods in five classes:527/528 identities,
 122 archives. Original tool pins and exclusions remain unchanged. All six
 maximum-length name configurations and their exact-key captures are mandatory.
 
-Full Android10run39836060803 and Android17run39836064155 are running at
-ca678e521f63ed04d54cb0da4197443b8cc7c7e1. Complete acceptance and signed delivery
+Full Android10run39838338324 and Android17run39838342247 are running at
+52ef65072d1adfe9cfba198266851cd83e3a6902. Earlier ca dispatches were cancelled
+after a Social fixture matched two scrollable nodes. The two Search-route
+operators now explicitly select the results list. Paired review0/0; production
+and build inputs match the held signed65 source, recorded separately. Complete acceptance and signed delivery
 are pending. Signed beta 65 is prepared from exact ca678e521 and remains
 withheld until complete acceptance. Its APK SHA256 is
 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc (38250427 bytes).

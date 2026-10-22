@@ -20,14 +20,17 @@ documented Standards0/heuristic0. Full65 catalog/collector freeze6391367bc211a63
 expected527/528 identities,161/162 normal completions,35 deliberate interruptions,
 34 continuity records,122 archives. Inherited pins/exclusions unchanged.
 
-Full Android10run39836060803 and Android17run39836064155 are active at
-exactca678e521f63ed04d54cb0da4197443b8cc7c7e1. Next: inspect frozen actuals and new
+Full Android10run39838338324 and Android17run39838342247 are active at
+exact52ef65072d1adfe9cfba198266851cd83e3a6902. Earlier ca runs were cancelled
+after Social failed on an ambiguous scroll operator; original Social evidence
+retained. Fixture-only correction has paired0/0, production/build unchanged. Next: inspect frozen actuals and new
 long-name originals, paired evidence review, signed in-place delivery. Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and
 actual DEX options verified. Packet signed65-prepared. Candidate unpublished;
-version 65 is reserved and must never be reused. Public before-check observer
-/tmp/redsquare-search65-publication65-check.py is running in exec session 36465.
+version 65 is reserved and must never be reused. Public before-check passed:22 historical resources unchanged, current beta64,
+withheld61 still404. Observer /tmp/redsquare-search65-publication65-check.py,
+raw /mnt/storage/redsquare-android-artifacts/search65-publication-65.
  Preserve original assertions/deadlines/pins and
 exclusions. Close65 and STOP. Never combine failed runs as acceptance.
 
