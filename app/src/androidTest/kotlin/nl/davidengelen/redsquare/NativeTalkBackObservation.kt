@@ -57,7 +57,9 @@ internal class NativeTalkBackObservation(private val folder: File) {
                     dump.substringAfter("Enabled services:", "").contains(service.flattenToString()) &&
                     // Binding precedes TalkBack's asynchronous reader initialization. Start the
                     // app only after its touch-exploration/input flags are actually configured.
-                    dump.contains("touchExplorationEnabled=true") && dump.contains("serviceHandlesDoubleTap=true")
+                    dump.contains("touchExplorationEnabled=true") &&
+                    // The framework handles double taps before API30; this service flag does not exist there.
+                    (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || dump.contains("serviceHandlesDoubleTap=true"))
             }
             File(folder, "accessibility-before.txt").writeText(device.executeShellCommand("dumpsys accessibility"))
             serviceProcess = talkbackProcess(device)
