@@ -388,23 +388,33 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                 }
             }
             if (!addingContact) InlineStatus(if (contactFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
-            if (!contactsReady) Text(stringResource(R.string.chat_contacts_loading))
-            if (contactsReady && contacts.isEmpty() && !contactsFailed) Text(stringResource(R.string.chat_empty))
-            val contactsLabel = stringResource(R.string.chat_known_contacts)
-            LazyColumn(Modifier.weight(1f).semantics { contentDescription = contactsLabel },
-                verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(contacts, key = { it }) { key ->
-                    Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
-                        enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
-                        shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        Box(Modifier.padding(12.dp)) {
-                            ChatIdentityRow(key, registeredIdentity(key).name, key)
+            val availableHistory: @Composable () -> Unit = {
+                InlineStatus(stringResource(R.string.status_available_history),
+                    details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+            }
+            if (contacts.isEmpty()) {
+                Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (!contactsReady) Text(stringResource(R.string.chat_contacts_loading))
+                    else if (!contactsFailed) Text(stringResource(R.string.chat_empty))
+                    if (contactsReady && !keyboardVisible) availableHistory()
+                }
+            } else {
+                // Create the contact list with its first contact, so a temporary guidance-only
+                // item cannot become a retained scroll anchor above newly loaded identities.
+                val contactsLabel = stringResource(R.string.chat_known_contacts)
+                LazyColumn(Modifier.weight(1f).semantics { contentDescription = contactsLabel },
+                    verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    items(contacts, key = { it }) { key ->
+                        Surface(onClick = { openContact(key) }, modifier = Modifier.fillMaxWidth(),
+                            enabled = !savingContact && personal?.ready == true && !navigation.transitioning,
+                            shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                            Box(Modifier.padding(12.dp)) {
+                                ChatIdentityRow(key, registeredIdentity(key).name, key)
+                            }
                         }
                     }
-                }
-                if (!keyboardVisible) item(key = "available-history-guidance") {
-                    InlineStatus(stringResource(R.string.status_available_history),
-                        details = listOf(stringResource(R.string.chat_available_history)), announce = false)
+                    if (!keyboardVisible) item(key = "available-history-guidance") { availableHistory() }
                 }
             }
         } else {

@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ChatEntryPreviewTest:
+INSTRUMENTATION_STATUS: test=knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ChatEntryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: The complete contact identity line stays visible before opening
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.physicalContact(ChatEntryPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$10$lambda$8$lambda$7(ChatEntryPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$ggLEH6x2Zbg3h41UwTdehg0D48E(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: stream=
+Error in knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(nl.davidengelen.redsquare.ChatEntryPreviewTest):
+java.lang.IllegalStateException: The complete contact identity line stays visible before opening
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.physicalContact(ChatEntryPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$10$lambda$8$lambda$7(ChatEntryPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$ggLEH6x2Zbg3h41UwTdehg0D48E(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:55)
+
+INSTRUMENTATION_STATUS: test=knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 63.973
+There was 1 failure:
+1) knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(nl.davidengelen.redsquare.ChatEntryPreviewTest)
+java.lang.IllegalStateException: The complete contact identity line stays visible before opening
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.physicalContact(ChatEntryPreviewTest.kt:130)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard$lambda$10$lambda$8$lambda$7(ChatEntryPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.$r8$lambda$ggLEH6x2Zbg3h41UwTdehg0D48E(ChatEntryPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ChatEntryPreviewTest.knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard(ChatEntryPreviewTest.kt:55)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

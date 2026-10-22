@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 01:11 UTC:62 CLOSED/beta62PUBLIC.63 stronger native clipping RED confirmed; contact/feedback refinement source-reviewed and compiled. Focused GREEN next.
+Updated 2026-10-22 01:23 UTC:62 CLOSED/beta62PUBLIC.63 refined native runs reveal initial contact-list anchoring deficit; bounded correction compiling. No63 acceptance.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,27 +39,36 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
-LATEST63: stronger native10run39703341485 exacta0c completedFAILURE1method38.452s/180.
-Original complete-visible-contact assertion fails at200Light: native2px versus full28px.
-Root inspected actual PNG/XML/target JSON. Packet failed10-physical-contact-a0c-RUN
-retains49 original archive members and terminal logs. Observer44042 ended0. Production
-was unchangeda8d. Earlier first10 functionalPASS47.185s remains NOT visual acceptance;
-first17run39700920266 fails invalid-key error visibility at200Dark/87.999s. Both earlier
-packets have paired0/0 review; stronger predicate/source and corrected metadata0/0.
+LATEST63: refined private-entry runs at exactca5 both REJECTED. Android10run39704224856
+FAIL1method52.644s, original15s known-contact readiness at200Light; requested first
+contact offscreen, later pasted contact/history guidance visible. Android17run39704227191
+FAIL1method63.973s,200Light first key28px full versus12px visible at TOP and target24px.
+Root inspected actual PNG/XML/geometry. Packets failedSDK-contact-feedback-ca5-RUN
+retain46/49 archive members respectively. Observer71561 ended0. No partial assembly,
+no200% feedback acceptance, no new signed version; public62 unchanged.
 
-Production refinement now moves normal available-history guidance into the contact
-list footer, removes its redundant visible section heading, preserves privacy and
-real recovery errors, retains known contacts across wallet metadata refresh and
-avoids claiming empty before local discovery. Full-window key fallback has compact
-heading and reveals active feedback during notice expansion/real IME resize, keeping
-actual keyboard and fixed48dp Open action. Input validation, wallet and protocol
-paths unchanged. Local compile82474 completedSUCCESS/explicit0 (chatentry63-layout-feedback-compile.log/json).
-Refinement940db48b and61-hash RED packet paired Spec0/documentedStandards0/heuristic0.
-No native GREEN yet. NEXT unchanged
-complete chat-entry method on bothSDKs. No new signed version reserved; public62 unchanged.
-Group/invitation slice still not started. First17 exact tap/validation event ordering
-remains unproved; no keyboard cause claim. Do not dismiss IME/banner, weaken original
-goals/deadlines or assemble acceptance from rejected partial executions.
+Leading source-supported hypothesis: guidance-only stable lazy item becomes initial
+retained scroll anchor when contacts are prepended. Restored list position and focus
+relocation are alternatives; original ordering not captured, cause unproved. Bounded
+refinement now separates empty loading/guidance Column from the populated lazy list,
+so its first item is a real contact. Guidance remains footer when populated. Adds ONLY
+failure semantics capture at the original cell scope, preserving original test method,
+all assertions,15s goals,180s class bound and actual keyboard handling.
+Compile17520 ACTIVE, external chatentry63-initial-contact-anchor-compile.log/json.
+NEXT paired source/evidence review, compile and repeat unchanged complete method on
+both SDKs. Group/invitation slice still not started. Do not dismiss IME/banner,
+weaken any goal or assemble acceptance from rejected partial executions.
+
+Earlier stronger native RED10run39703341485 exacta0c FAIL38.452s/180 at200Light native2px
+versus full28px, packet61hashes/49 originals, paired0/0. First layout/feedback refinement
+940db48b paired Spec0/documentedStandards0/heuristic0 and app/test compileSUCCESS3m36/0.
+It preserves privacy/recovery errors, moves normal guidance below contacts, keeps
+identity/backend contact state and truthful local loading; compact key dialog reveals
+feedback with measured notice/IME resizing, retaining keyboard and fixed48dp action.
+Firsta8d10 functionalPASS47.185s was NOT visual acceptance; firsta8d17 FAIL87.999s at
+200Dark invalid-error visibility. Both packets/source strengthened predicate reviewed0/0.
+First17 tap/validation event order remains unproved; current200% paths stop earlier.
+
 
 Issue63 assigned/unblocked after58/62. Review base
 baede8527d38dea6cf0afd280d29eb88d1b1cb95. Start:

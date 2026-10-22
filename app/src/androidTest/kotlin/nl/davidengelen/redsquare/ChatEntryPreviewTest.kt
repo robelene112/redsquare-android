@@ -53,6 +53,10 @@ class ChatEntryPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use { activity ->
                     ui.withPostViewports(activity, folder, "chat-entry") { label, _ ->
+                        withFailureCapture({
+                            File(folder, "$label-failure.semantics.txt").writeText(
+                                ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+                        }) {
                         click("Chat")
                         waitFor("New chat")
                         val known = hasClickAction() and isEnabled() and hasAnyDescendant(hasText(contact.publicKey))
@@ -88,6 +92,7 @@ class ChatEntryPreviewTest {
                         check(peer.transactions.isEmpty() && peer.relayedMessages.isEmpty() && peer.reports.isEmpty())
                         click("Back")
                         ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                        }
                     }
                 }
                 check(peer.clientKeys.isNotEmpty() && peer.clientKeys.all { it == wallet.publicKey })
