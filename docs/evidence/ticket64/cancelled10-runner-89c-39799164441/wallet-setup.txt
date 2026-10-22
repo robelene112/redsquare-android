@@ -1,0 +1,17 @@
+native-proof (wallet)	Check runner SDK and acceleration	﻿2026-10-22T14:51:11.5438096Z ##[group]Run test -c /dev/kvm
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5438468Z ^[[36;1mtest -c /dev/kvm^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5438744Z ^[[36;1msudo chmod a+rw /dev/kvm^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5439169Z ^[[36;1m# This Kotlin/JVM proof does not use the runner's large native SDKs.^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5439635Z ^[[36;1msudo rm -rf /usr/local/lib/android/sdk/ndk^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5439975Z ^[[36;1msudo apt-get update -qq^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5440863Z ^[[36;1msudo apt-get install -y --no-install-recommends libpulse0 libgl1 libnss3 libasound2t64 libx11-6 libxcb1 libxkbcommon0 libxcomposite1 libxcursor1 libxi6 libxrandr2 libxtst6 libxdamage1 libglib2.0-0t64^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5441762Z ^[[36;1mscripts/ci-android-setup^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5442053Z ^[[36;1mjava -version^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5442347Z ^[[36;1m"$ANDROID_HOME/emulator/emulator" -version^[[0m
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5496807Z shell: /usr/bin/bash -e {0}
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5497095Z env:
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5497436Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5498021Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5498436Z   MAVEN_ARGS: -ntp
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T14:51:11.5498670Z ##[endgroup]
+native-proof (wallet)	Check runner SDK and acceleration	2026-10-22T15:41:39.0472358Z ##[error]The operation was canceled.

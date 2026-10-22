@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at15:40UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at15:43UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -113,19 +113,24 @@ Issue63 is closed. Issue64 is claimed; its review base is
    complete17. Both whole/all3 SUCCESS, frozen collector and reviewed original
    evidence remain required. Failed partitions are never assembled.
 
-   At15:25, original full10run39799164441 Social is SUCCESS, Chat running,
-   Wallet still in hosted SDK/acceleration preparation since14:51:11. The job
-   logs are unavailable before completion. This is not an application failure
-   diagnosis. After more than30minutes in preparation, an independent full10
-   run39804393637 was started at the same exact89c source, same full/public-read
-   inputs, on `verify/profile64-runner-89cb35a7a`. No existing job was cancelled.
-   Observer3514739 `/tmp/redsquare64-watch-full10-runner-89c.py`, external
+   Original full10run39799164441 was explicitly CANCELLED after Wallet stayed
+   in SDK preparation from14:51:11 to15:41:39, before any app build/test. The
+   retained setup log has no output identifying which silent command stalled.
+   Social SUCCESS; Chat runtime/artifact/cleanup steps SUCCESS but its job
+   metadata lagged at cancellation. Whole attempt is rejected, never acceptance.
+   Packet `cancelled10-runner-89c-39799164441` retains terminal metadata/setup;
+   available original archives external `profile64-full10-89c-39799164441`.
+   Observer3497616 ended normally.
+
+   Independent complete10run39804393637 at exact89c with identical full/public
+   inputs is now the configured binding. All setup/build stages pass; native
+   checks running. Ref `verify/profile64-runner-89cb35a7a`, observer3514739
+   `/tmp/redsquare64-watch-full10-runner-89c.py`, log external
    profile64-full10-runner-89c-observer.log, raw
-   `profile64-full10-runner-89c-39804393637`. It retains terminal originals and
-   only invokes the collector if its run is the configured complete binding.
-   Current binding remains39799164441. Accept only an entire whole/all3 SUCCESS
-   dispatch, updating the binding if the independent attempt supplies it.
-   Do not combine jobs from the two runs or describe pending setup as passing.
+   `profile64-full10-runner-89c-39804393637`, packet
+   `full10-runner-89c-39804393637`. Observer now invokes the frozen collector
+   only on whole success. Require all3 and inspect native evidence; never mix
+   passing jobs from cancelled/failed dispatches.
 
    Review worktree moved cleanly to exact89c. Canonical signed64 build passed,
    counter64 reserved once, APK38209467bytes SHA256
@@ -138,8 +143,9 @@ Issue63 is closed. Issue64 is claimed; its review base is
    `profile64-signed-build-result.json`, `profile64-publication-64`.
    Preparation helper executed successfully; publication helper BEFORE done.
    Do not rerun BEFORE over retained files or reserve/rebuild64 again.
-   Latest docs throughc9a457565 have paired Spec0/Standards0/heuristic0 reviews;
-   signed preparation packet review pending.
+   Signed preparation/docs through286f2aa70 have paired
+   Spec0/documentedStandards0/heuristic0 reviews. Cancellation/binding follow-up
+   evidence review pending.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and
