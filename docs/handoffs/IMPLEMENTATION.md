@@ -74,7 +74,7 @@ Original GroupChat22 methods172.245s/180, Admin12 methods54.621s/180 all pass.
 SystemUI clipboard preview still temporarily occludes some Share/Done/node/key
 areas; no all-glyph/post-Copy-Done physical claim. Existing nav wrapping remains70.
 Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 complete success and final0/0 review are retained;
-public62/held63 unchanged. No supplemental or failed-run assembly.
+Public63 is now verified; final delivery packet review remains. No supplemental or failed-run assembly.
 
 ### Latest complete10 proof
 
@@ -154,8 +154,7 @@ hashes and inventory of425 external raw files, all original artifacts external.
 No service/CDN/route root cause or product-fix claim; no source/test change.
 Native compatibility/update/final tail after this failure is not accepted.
 Manual fresh complete10run39725660757 at SAME446 includes every original gate;
-no failed pieces are reused. Android17 and current Android10 whole/all3 SUCCESS with collector0. Held63
-unchanged. Latest source/frame/prepared/docs reviews through0861 are0/0; this
+no failed pieces are reused. Android17 and current Android10 whole/all3 SUCCESS with collector0. Prepared63 source stays unchanged; publication is recorded below. Latest source/frame/prepared/docs reviews through0861 are0/0; this
 new failed packet and actual-run rebinding have final Spec0/documented
 Standards0/heuristic0 review at a0d100d76. Latest tracker update:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6333160425
@@ -225,14 +224,14 @@ BEFORE check already passes: publiclatest62,18 historical resources protected,
 both permanently withheld61 URLs404. Original downloads remain external
 `/mnt/storage/redsquare-android-artifacts/chat-entry63-publication-63`.
 
-Prepared tools, not a publication authorization by themselves:
-`/tmp/redsquare-chat-entry63-publication63-check.py` (ordinary63 before/after),
-`/tmp/redsquare63-retain-public.py` (requires both complete SUCCESS packets and
-after PASS), and `/tmp/redsquare63-release-notes.txt`. Use canonical
-`scripts/review-publish` only after gates and reviews, then run the after observer
-and retain/review its exact evidence. Preserve all old releases and the entire
-separate performance43 channel. Static APK publication is authorized; changes
-to ingress, nodes, signing identity or provider configuration are not implied.
+Completed tools: canonical `scripts/review-publish`, independent
+`/tmp/redsquare-chat-entry63-publication63-check.py` ordinary63 before/after,
+and `/tmp/redsquare63-retain-public.py`. The public packet retains34hashes,
+actual command receipt/log, before/after observations, public manifest/package/
+signature and the checker source. Original downloads remain external. Both
+complete packets are required by the retainer. No APK is added to Git.
+Old releases and separate performance43 are unchanged. Static APK publication
+is authorized; ingress, node, signing or provider changes are not implied.
 
 Historical beta62 remains accepted and immutable:
 38,008,595bytes, SHA256
