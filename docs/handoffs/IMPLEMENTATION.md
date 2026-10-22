@@ -22,8 +22,13 @@ expected527/528 identities,161/162 normal completions,35 deliberate interruption
 
 Full Android10run39836060803 and Android17run39836064155 are active at
 exactca678e521f63ed04d54cb0da4197443b8cc7c7e1. Next: inspect frozen actuals and new
-long-name originals, paired evidence review, signed in-place delivery. No65
-version reservation/build yet. Preserve original assertions/deadlines/pins and
+long-name originals, paired evidence review, signed in-place delivery. Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
+APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
+38250427 bytes, established certificate, release package/min29/target36 and
+actual DEX options verified. Packet signed65-prepared. Candidate unpublished;
+version 65 is reserved and must never be reused. Public before-check observer
+/tmp/redsquare-search65-publication65-check.py is running in exec session 36465.
+ Preserve original assertions/deadlines/pins and
 exclusions. Close65 and STOP. Never combine failed runs as acceptance.
 
 
