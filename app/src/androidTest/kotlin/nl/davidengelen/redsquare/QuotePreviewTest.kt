@@ -296,14 +296,19 @@ class QuotePreviewTest {
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                waitFor("4 likes")
-                count.set(9)
-                ui.clickVisiblePostProfile("Anon-${original.get("field2").asString.take(6)}")
-                waitFor("Profile history could not be refreshed. Available posts remain visible.")
-                waitFor("9 likes")
-                ui.onNodeWithText("9 likes").assertIsDisplayed()
-                assertTrue(peer.transactions.isEmpty())
-                peer.assertHealthy()
+                withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir,
+                    "quote-evidence/profile-refresh-counts-failure.png")) }) {
+                    waitFor("4 likes")
+                    count.set(9)
+                    ui.clickVisiblePostProfile("Anon-${original.get("field2").asString.take(6)}")
+                    waitFor("Profile history could not be refreshed. Available posts remain visible.")
+                    ui.revealProfileHistoryItem("9 likes", timeoutMillis = 20_000)
+                    ui.onNodeWithText("9 likes").assertIsDisplayed()
+                    assertTrue(peer.transactions.isEmpty())
+                    peer.assertHealthy()
+                    captureNativeScreen(java.io.File(context.cacheDir,
+                        "quote-evidence/profile-refresh-counts.png"))
+                }
             }
         }
     }
