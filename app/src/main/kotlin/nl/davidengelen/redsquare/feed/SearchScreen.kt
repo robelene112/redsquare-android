@@ -346,14 +346,12 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         // measure that temporary empty list and clamp the retained reading position.
         if (personal?.ready != true) return@Column
         InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
+        InlineStatus(warningSummary, if (view.failed) StatusTone.ERROR else StatusTone.WARNING,
+            details = resultWarnings,
+            actionLabel = if (view.failed || view.usernameFailed) stringResource(R.string.search_retry) else null,
+            actionEnabled = wallet != null && !loading && (view.pending.isNotEmpty() || view.usernameFailed),
+            onAction = { loading = true; view.retry() })
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
-            item(key = "feedback") {
-                InlineStatus(warningSummary, if (view.failed) StatusTone.ERROR else StatusTone.WARNING,
-                    details = resultWarnings,
-                    actionLabel = if (view.failed || view.usernameFailed) stringResource(R.string.search_retry) else null,
-                    actionEnabled = wallet != null && !loading && (view.pending.isNotEmpty() || view.usernameFailed),
-                    onAction = { loading = true; view.retry() })
-            }
             if (view.submitted) {
                 item(key = "people-heading") { SearchSectionTitle(stringResource(R.string.search_people)) }
                 if (people.isEmpty() && !loading) item(key = "people-empty") {
