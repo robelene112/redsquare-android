@@ -38,7 +38,7 @@ class ProfileEditPreviewTest {
             it.config.getOrNull(SemanticsProperties.EditableText)?.text == text
         }
         ui.waitUntil(10_000) { ui.onAllNodes(exactBio).fetchSemanticsNodes().isNotEmpty() }
-        ui.onNode(exactBio).assertIsDisplayed().assertIsEnabled()
+        ui.onNode(exactBio).performScrollTo().assertIsDisplayed().assertIsEnabled()
     }
 
     @Before fun prepare() {
@@ -243,6 +243,7 @@ class ProfileEditPreviewTest {
                         ui.onAllNodesWithText(context.getString(R.string.profile_loading)).fetchSemanticsNodes().isEmpty() }
                     ui.onNodeWithText(bio).assertIsDisplayed()
                     ui.onNodeWithText("Refresh").assertIsEnabled()
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     peer.assertHealthy()
                     assertTrue(peer.transactions.isEmpty())

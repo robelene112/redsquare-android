@@ -123,7 +123,7 @@ class ProfileNewEditPreviewTest {
                         ui.onNodeWithText("Discard and start").performClick()
                         val editable = SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(newerBio)) and isEnabled()
                         ui.waitUntil(20_000) { ui.onAllNodes(editable).fetchSemanticsNodes().isNotEmpty() }
-                        ui.onNode(editable).assertIsDisplayed()
+                        ui.onNode(editable).performScrollTo().assertIsDisplayed()
                         ui.onAllNodesWithText(status).assertCountEquals(0)
                         ui.onAllNodesWithText("Retry profile").assertCountEquals(0)
                         ui.onNodeWithText("Save profile").assertIsNotEnabled()

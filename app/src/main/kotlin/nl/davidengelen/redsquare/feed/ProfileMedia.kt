@@ -5,7 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +14,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CancellationException
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -39,10 +42,22 @@ internal fun ProfileImage(source: String?, kind: ProfileImageKind, author: Strin
         val ready = image
         if (ready != null) Image(ready, stringResource(kind.label), Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
         else if (kind == ProfileImageKind.PICTURE) GeneratedProfilePicture(author, Modifier.fillMaxSize())
-        else if (source != null) Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant),
-            contentAlignment = Alignment.Center) {
-            Text(stringResource(if (failed) R.string.image_unavailable else R.string.image_loading))
+        else if (source != null) Row(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(stringResource(if (failed) R.string.image_unavailable else R.string.image_loading),
+                Modifier.weight(1f), style = MaterialTheme.typography.labelSmall)
+            if (failed) ProfileImageRetry(kind) { retry++ }
         }
-        if (failed) TextButton(onClick = { retry++ }) { Text(stringResource(R.string.retry)) }
+        if (failed && kind == ProfileImageKind.PICTURE) ProfileImageRetry(kind) { retry++ }
+    }
+}
+
+/** A full-size retry control never paints over the unavailable-banner explanation. */
+@Composable
+private fun ProfileImageRetry(kind: ProfileImageKind, onRetry: () -> Unit) {
+    IconButton(onClick = onRetry, modifier = Modifier.size(48.dp)) {
+        Icon(painterResource(R.drawable.ic_refresh),
+            contentDescription = stringResource(if (kind == ProfileImageKind.PICTURE)
+                R.string.profile_picture_retry else R.string.profile_banner_retry))
     }
 }

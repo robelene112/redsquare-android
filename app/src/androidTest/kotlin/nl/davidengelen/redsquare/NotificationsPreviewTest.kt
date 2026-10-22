@@ -31,7 +31,7 @@ class NotificationsPreviewTest {
             waitFor("Liked your post")
             ui.onNodeWithText(actor).performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -52,7 +52,7 @@ class NotificationsPreviewTest {
             // The quote sorts first, then this reply, then the like; all have the same signer.
             ui.onAllNodesWithText(actor).assertCountEquals(3)[1].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -79,7 +79,7 @@ class NotificationsPreviewTest {
             waitFor("Mentioned you")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -97,7 +97,7 @@ class NotificationsPreviewTest {
             waitFor("Mentioned you")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -114,7 +114,7 @@ class NotificationsPreviewTest {
             waitFor("Reposted your post")
             ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -139,7 +139,7 @@ class NotificationsPreviewTest {
             }
             ui.onAllNodesWithText(actor).assertCountEquals(3)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -174,7 +174,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -197,7 +197,7 @@ class NotificationsPreviewTest {
             ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.").assertCountEquals(0)
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -216,7 +216,7 @@ class NotificationsPreviewTest {
             waitFor("Replied to your post")
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -238,7 +238,7 @@ class NotificationsPreviewTest {
             waitFor("Some activity could not be verified.")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -260,7 +260,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/null-repost-history.png"), "Reposted your post")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -282,7 +282,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/read-history-recreated.png"), "No unread activity")
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -309,7 +309,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/read-save-recovered.png"), "No unread activity")
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -333,7 +333,7 @@ class NotificationsPreviewTest {
             waitFor("Replied to a post")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -357,7 +357,7 @@ class NotificationsPreviewTest {
             waitFor("Quoted a post")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -473,7 +473,7 @@ class NotificationsPreviewTest {
             waitFor("Posted")
             ui.onNodeWithText(actor).assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -488,12 +488,17 @@ class NotificationsPreviewTest {
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText(actor).assertIsDisplayed().performClick()
                 waitFor("Profile")
-                ui.waitUntil(15_000) { ui.onAllNodes(hasText(control) and isEnabled())
+                val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
+                ui.openProfileActions()
+                val remaining = deadline - android.os.SystemClock.elapsedRealtime()
+                check(remaining > 0)
+                ui.waitUntil(remaining) { ui.onAllNodes(hasText(control) and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 ui.onNodeWithText(control).performClick()
                 waitFor(confirmation)
                 ui.onNodeWithText(confirmation, substring = false).performClick()
                 waitFor(removal)
+                ui.closeProfileActions()
                 ui.onNodeWithText("Back").performClick()
                 waitFor("No unread activity")
                 ui.onAllNodesWithText("Liked your post").assertCountEquals(0)
@@ -604,7 +609,7 @@ class NotificationsPreviewTest {
             waitFor("Replied to your post")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -631,7 +636,7 @@ class NotificationsPreviewTest {
             waitFor("Replied to your post")
             ui.onAllNodesWithText(actor).assertCountEquals(2)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 
@@ -849,7 +854,7 @@ class NotificationsPreviewTest {
             waitFor(caption)
             ui.onAllNodesWithText(actor).assertCountEquals(actorRows)[0].assertIsDisplayed().performClick()
             waitFor("Profile")
-            ui.onNodeWithText(actor).assertIsDisplayed()
+            ui.inspectProfileIdentity(actor)
         }
     }
 

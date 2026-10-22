@@ -1,0 +1,67 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileNewEditPreviewTest:
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with (EditableText = 'Newer verified profile to edit') && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:126)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:106)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(nl.davidengelen.redsquare.ProfileNewEditPreviewTest):
+java.lang.AssertionError: Assert failed: The component with (EditableText = 'Newer verified profile to edit') && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:126)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:106)
+
+INSTRUMENTATION_STATUS: test=aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileNewEditPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aColdPendingBioUpdateShowsItsSignedMediaOmissionsInsteadOfStalePublicImages
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.253
+There was 1 failure:
+1) aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(nl.davidengelen.redsquare.ProfileNewEditPreviewTest)
+java.lang.AssertionError: Assert failed: The component with (EditableText = 'Newer verified profile to edit') && (is enabled) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt$lambda$17$lambda$13$lambda$12(ProfileNewEditPreviewTest.kt:126)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.$r8$lambda$V75YTLneZ4tmY5uBqJtAh0_m9nI(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.captureFailure(ProfileNewEditPreviewTest.kt:315)
+	at nl.davidengelen.redsquare.ProfileNewEditPreviewTest.aSupersededUpdateCanBeRetiredForANewDurableEditWithoutResendingIt(ProfileNewEditPreviewTest.kt:106)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

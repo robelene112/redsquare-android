@@ -176,17 +176,19 @@ class ThreadProfilePreviewTest {
                 try {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Profile newer post 20")
+                    scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.waitUntil(15_000) {
                         ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                     }
                     ui.onNodeWithText("Load older").assertIsEnabled().performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Nested Saito reply")
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
+                    scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Profile newer post 20")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Profile newer post 20")
                     ui.waitUntil(15_000) {
                         ui.onAllNodes(hasText("Load older") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
                     }
@@ -281,13 +283,13 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes().isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Native Red Square reference post")
                     scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Nested Saito reply")
                     scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Independent Saito reply")
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     peer.assertHealthy()
                     server.close()
@@ -380,17 +382,19 @@ class ThreadProfilePreviewTest {
                     ui.waitUntil(15_000) { ui.onAllNodes(hasContentDescription("View profile for Anon-${author.take(6)}")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     openProfileFromList(author)
                     ui.waitUntil(15_000) { ui.onAllNodes(hasText("Posts")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Native Red Square reference post")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Native Red Square reference post")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.onNodeWithText("Independent Saito reply").assertDoesNotExist()
                     ui.onNodeWithText("Nested Saito reply").assertDoesNotExist()
+                    scrollProfileTo("Replies")
                     ui.onNodeWithText("Replies").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Nested Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Nested Saito reply")
                     ui.onNodeWithText("Nested Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Independent Saito reply").assertDoesNotExist()
                     ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
+                    scrollProfileTo("Likes")
                     ui.onNodeWithText("Likes").performClick()
-                    ui.waitUntil(15_000) { ui.onAllNodes(hasText("Independent Saito reply")).fetchSemanticsNodes().isNotEmpty() }
+                    ui.revealProfileHistoryItem("Independent Saito reply")
                     ui.onNodeWithText("Independent Saito reply").assertIsDisplayed()
                     ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
                     ui.onNodeWithText("Forged reply").assertDoesNotExist()

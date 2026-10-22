@@ -37,3 +37,14 @@ internal fun ComposeTestRule.inspectProfileIdentity(author: String, inspect: Com
     onNode(hasText("Done") and hasClickAction()).performClick()
     waitUntil(deadline.remaining()) { onAllNodes(isDialog()).fetchSemanticsNodes().isEmpty() }
 }
+
+/** Reveal actual lazy history, sharing the original observation budget with loading and scrolling. */
+internal fun ComposeTestRule.revealProfileHistoryItem(text: String, timeoutMillis: Long = 15_000) {
+    val deadline = ProfileNavigationDeadline(timeoutMillis)
+    waitUntil(deadline.remaining()) {
+        onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed()
+    }
+    onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
+    onNodeWithText(text).assertIsDisplayed()
+    deadline.remaining()
+}

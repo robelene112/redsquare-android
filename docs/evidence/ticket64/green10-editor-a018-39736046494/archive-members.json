@@ -1,0 +1,314 @@
+{
+  "profile-editor-presentation-evidence.tar": {
+    "sha256": "9e0900aea8ac713a4c14316eee2ef1ba99a40b5558b3792e6574c050fb51c7b0",
+    "bytes": 1487360,
+    "members": [
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-activity-lifecycle.jsonl",
+        "bytes": 6226,
+        "sha256": "4058ad70d0cc0d0445082cb871c6e8322b69f8b658e3e474ad983cb2cad2a4f0",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-font-scale.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-writing-ime.xml",
+        "bytes": 40449,
+        "sha256": "20ce9b46ec647037b39b7dc4644481d97fb7205494edce75c16371b16d784bf5",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-writing-ime.png",
+        "bytes": 36896,
+        "sha256": "0282b7ca0e330a567950cd05ce847251d108620e574f00fa4d0fb82035a94231",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-unsent-preview.xml",
+        "bytes": 37215,
+        "sha256": "d71d4b979d4a9b4ca3caf4c4c3404440de715d69e9ef376bce6f862656a7016f",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-unsent-preview.png",
+        "bytes": 37720,
+        "sha256": "98e04331a90998a43740095a136be6fc45fba981068e4e71354fb7aaed3a96c3",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-save-draft-target.json",
+        "bytes": 109,
+        "sha256": "69c161ab06169afd294a3202a40d1fe01caa5958916a8cd1ba894a351739b03b",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-recovered-preview.xml",
+        "bytes": 37216,
+        "sha256": "c1fb822ee167a7cc707686cf300a0133b23aa0b6dd5d66516fa8bb921089c313",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-light-recovered-preview.png",
+        "bytes": 37652,
+        "sha256": "23b3c291e5c965696b82b7f918577bb5f11a0fdf0e38916e417fd81befdbfd0e",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-light-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-writing-ime.xml",
+        "bytes": 40471,
+        "sha256": "14b86b148b0f7b89ff0df70aa1adcd6033f0e6aa11db7874ef39dba15b29babb",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-writing-ime.png",
+        "bytes": 38558,
+        "sha256": "aa941a775738779b3b62485afc467c2d6c8f3cf8d3db8d4fc31a5b0a6120e4b7",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-unsent-preview.xml",
+        "bytes": 38024,
+        "sha256": "ec3057c44cd3b0dc91429e467c463b80968341190ca43dd06622ec93b30b2cea",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-unsent-preview.png",
+        "bytes": 39779,
+        "sha256": "36b2d5e7a524cdf454203ba26057550bc97109f21dd89ed1cecd7c1273c91be3",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-save-draft-target.json",
+        "bytes": 109,
+        "sha256": "69c161ab06169afd294a3202a40d1fe01caa5958916a8cd1ba894a351739b03b",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-recovered-preview.xml",
+        "bytes": 37220,
+        "sha256": "04c0d6fdd005eab96924d071486dc967e28afe368ae4ab1eca73999acf6c594e",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font100-dark-recovered-preview.png",
+        "bytes": 39034,
+        "sha256": "9f87a37476905261ac85916f381afe6c939860d07ebc6cc12fb852ddbca502ad",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font100-dark-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-writing-ime.xml",
+        "bytes": 40187,
+        "sha256": "1fc98093f884249489eeb69c82fcc59611c93d1fb8d980c8d01ce46af60c8501",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-writing-ime.png",
+        "bytes": 38484,
+        "sha256": "15a42d771172ec76d846c3643be9bea9a0897b4ef6cb28bdaa020de71cc4d1a8",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-unsent-preview.xml",
+        "bytes": 36504,
+        "sha256": "5ac4ae1eed7af59c7936e9551007059eb446ed7ab36862340b38e7166e1093ed",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-unsent-preview.png",
+        "bytes": 41128,
+        "sha256": "5b491ca42bb171d9630db1ffe34543a6eb98b1af63358bd92c880d201246a4c2",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-save-draft-target.json",
+        "bytes": 109,
+        "sha256": "345decbe0c691849a6aaefa59f4fae4b6948d82037cfd03002532242fdb12202",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-recovered-preview.xml",
+        "bytes": 36912,
+        "sha256": "84c5e3092d730b12c2e62fbce5677d579a3eacc1f3864cf0aa792835fdb73261",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-light-recovered-preview.png",
+        "bytes": 41574,
+        "sha256": "ae79aa007fdd6b97e9e7af740bf3fb9dad2f2e1f450446a0654a9099c192781b",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-light-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-writing-ime.xml",
+        "bytes": 40185,
+        "sha256": "136e04e40e0dd2c2dae20c19a7f91752d21e90f740381201e6ed69a0487bae41",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-writing-ime.png",
+        "bytes": 38786,
+        "sha256": "3b92d80cf6d104e1a3a1ff3b7e2d52d759e3273f048b66c1b575c6a92440834f",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-unsent-preview.xml",
+        "bytes": 36502,
+        "sha256": "aaede78c33e48bfb6c2ca6084a488b56ceafa893ac713b332628c2d02ab365b3",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-unsent-preview.png",
+        "bytes": 41610,
+        "sha256": "154398b38704feddb0d32e9199badb49f955ae0e2d527faa1b8ce6f6ff65714e",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-save-draft-target.json",
+        "bytes": 109,
+        "sha256": "345decbe0c691849a6aaefa59f4fae4b6948d82037cfd03002532242fdb12202",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-recovered-preview.xml",
+        "bytes": 36910,
+        "sha256": "47255ddabeec2b802047f877a4fb8cd1ba79f191ca34a4ab759989fdd9f0403a",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font130-dark-recovered-preview.png",
+        "bytes": 41933,
+        "sha256": "ce190f4e8696076033af287502da18afe2e648a1546d6b7c9d4af468a5fc3f88",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font130-dark-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-writing-ime.xml",
+        "bytes": 39311,
+        "sha256": "6c236fa3b7a8cde4a79f1f4d8a4a0e0f15773a02f8b43836072aa1b56739c90d",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-writing-ime.png",
+        "bytes": 40601,
+        "sha256": "b444f98a908b76526f30613e7a2599ea01d105a0a47e4a9e80f69a5c3e978fb0",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-unsent-preview.xml",
+        "bytes": 35669,
+        "sha256": "b4303398248598112651ff1afc62728cb061f4eedc804da9928c0df9ffdbe02f",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-unsent-preview.png",
+        "bytes": 49931,
+        "sha256": "e8ba2f94306ca28ad2b4f17e2c578e16213bb864f9b9d5ac9d30d8674371531f",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-save-draft-target.json",
+        "bytes": 110,
+        "sha256": "3bf69dc87b1aba5a9850457ace24b0c6b95ecbf8806f4b0bbc9f1fa135ece791",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-recovered-preview.xml",
+        "bytes": 35670,
+        "sha256": "c111f533ec996159926b7dffbc59b61af7eaf9be1a79357af57eabfd0fc3fc49",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-light-recovered-preview.png",
+        "bytes": 49955,
+        "sha256": "79d89485c15f8de8eea1ab2e1f27f00f54ce27beb735c5fb3c3532dae8f957ad",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-light-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-writing-ime.xml",
+        "bytes": 39310,
+        "sha256": "9fdbe2d37a10e8f7f6c1d241df786756f3051a8d8605b2ce7b5aeeb8ba6178b8",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-writing-ime.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-writing-ime.png",
+        "bytes": 41445,
+        "sha256": "a60dbfd5c29e60225f152861e4d286550925cdb34e1889792558fa6d24171c5d",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-writing-ime.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-unsent-preview.xml",
+        "bytes": 35667,
+        "sha256": "300c908a1e9abbb7d8d2ccbfb8c7e58b126c3754f7dbd7922e3446b20ce68977",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-unsent-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-unsent-preview.png",
+        "bytes": 50926,
+        "sha256": "7ebe75af6dc19bf882d7d7cfe74ec9b93b20adcc0e8051af4289c715bc353a1d",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-unsent-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-save-draft-target.json",
+        "bytes": 110,
+        "sha256": "3bf69dc87b1aba5a9850457ace24b0c6b95ecbf8806f4b0bbc9f1fa135ece791",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-save-draft-target.json"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-recovered-preview.xml",
+        "bytes": 35668,
+        "sha256": "d72845952f2fe7427b992c8193d63269a349a4cd2bbf2236b126f4151073aab1",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-recovered-preview.xml"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-320-font200-dark-recovered-preview.png",
+        "bytes": 50944,
+        "sha256": "5fa812b65987d97ebdb884b125c34e61f45e0d715ece905597d8866e82cc2408",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-320-font200-dark-recovered-preview.png"
+      },
+      {
+        "name": "profile-editor-presentation-evidence/profile-editor-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/profile-editor-presentation-evidence/profile-editor-presentation-evidence/profile-editor-font-restored.json"
+      }
+    ]
+  }
+}
