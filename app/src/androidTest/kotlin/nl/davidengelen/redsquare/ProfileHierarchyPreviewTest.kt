@@ -96,6 +96,39 @@ class ProfileHierarchyPreviewTest {
                 }
             }
         }
+        // The signed reference has intentionally unavailable image URLs. Exercise the real
+        // loader fallback at larger text as well as the absent-media hierarchy above.
+        val unavailableMedia = instrumentation.context.assets.open("native-profile-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.getAsJsonObject("withMedia")
+        }
+        withAppFrameFixture("profile-media-error", "profile-hierarchy-evidence", "[$feed]",
+            profileArchiveResponse = { criteria ->
+                assertEquals(author, criteria.get("field2").asString)
+                "[$unavailableMedia]"
+            }) { activity ->
+            ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            ui.withPostViewports(activity, folder, "profile-media-error", scales = listOf(1.3f)) { label, _ ->
+                ui.clickVisiblePostProfile("Anon-${author.take(6)}")
+                ui.waitUntil(15_000) {
+                    ui.onNodeWithContentDescription("Retry profile banner").isDisplayed() &&
+                        ui.onNodeWithContentDescription("Retry profile picture").isDisplayed()
+                }
+                val explanation = ui.onNodeWithText("Image unavailable").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val bannerRetry = ui.onNodeWithContentDescription("Retry profile banner")
+                    .assertHasClickAction().assertIsEnabled().fetchSemanticsNode().boundsInRoot
+                assertTrue("Banner error and retry must not overlap", explanation.right <= bannerRetry.left)
+                assertTrue("Banner retry remains at least48dp", bannerRetry.width >= 48f && bannerRetry.height >= 48f)
+                val pictureRetry = ui.onNodeWithContentDescription("Retry profile picture")
+                    .assertHasClickAction().assertIsEnabled().fetchSemanticsNode().boundsInRoot
+                assertTrue("Picture retry remains at least48dp", pictureRetry.width >= 48f && pictureRetry.height >= 48f)
+                capture(folder, "$label-unavailable.png")
+                ui.onNodeWithContentDescription("Retry profile banner").performClick()
+                ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Retry profile banner").isDisplayed() }
+                ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+            }
+        }
     }
 
     private fun tab(name: String) = hasText(name) and hasClickAction() and
