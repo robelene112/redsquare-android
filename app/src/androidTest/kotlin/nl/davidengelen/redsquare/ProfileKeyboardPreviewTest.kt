@@ -22,13 +22,24 @@ class ProfileKeyboardPreviewTest {
         val device = UiDevice.getInstance(instrumentation)
         val order = mutableListOf<String>()
         withAppFrameFixture("profile-keyboard", "profile-keyboard-evidence", "[]",
-            profileArchiveResponse = { "[]" }) {
+            profileArchiveResponse = { "[]" }) { activity ->
             ui.waitUntil(15_000) { ui.onNodeWithText("Later").isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
             val tab = SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
-            ui.waitUntil(15_000) { ui.onNode(hasText("Posts") and tab).isDisplayed() }
+            ui.waitUntil(15_000) {
+                ui.onNode(hasText("Posts") and tab).isDisplayed() &&
+                    ui.onNode(hasText("Refresh") and hasClickAction() and isEnabled()).isDisplayed()
+            }
             val back = hasText("Back") and hasClickAction()
+            // Enter keyboard mode through actual input before establishing the declared start.
+            // A touch-mode initial-focus rejection must not stand in for physical-keyboard proof.
+            check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
+            ui.waitUntil(10_000) {
+                var keyboardMode = false
+                activity.onActivity { keyboardMode = !it.window.decorView.isInTouchMode }
+                keyboardMode
+            }
             ui.onNode(back).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
             fun focused(label: String) {
                 ui.waitUntil(10_000) { ui.onNode(hasText(label) and isFocused()).isDisplayed() }
