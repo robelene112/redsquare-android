@@ -56,20 +56,7 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
         for (scale in scales) {
             font.apply(scale)
             recordLifecycle("before-explicit-recreation")
-            // Request recreation on the current instance on the main thread. Scenario.recreate()
-            // snapshots an instance before resuming it, which can race a platform configuration relaunch.
-            var previous: MainActivity? = null
-            activity.onActivity { current -> previous = current; current.recreate() }
-            waitUntil(15_000) {
-                var replaced = false
-                if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
-                    replaced = current !== previous && !current.isChangingConfigurations &&
-                        current.window.decorView.hasWindowFocus() && current.resources.configuration.screenWidthDp == 320 &&
-                        kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
-                }
-                replaced && device.displayWidth == 320 && onNode(hasText("Home") and isSelected()).isDisplayed()
-            }
-            previous = null
+            recreateHomeViewport(activity, 320, scale)
             recordLifecycle("after-explicit-recreation")
             for (theme in listOf("Light", "Dark")) {
                 val label = "$prefix-320-font${(scale * 100).toInt()}-${theme.lowercase()}"
@@ -105,5 +92,23 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
                 check(device.executeShellCommand("wm density").trim() == originalDensity.trim()) },
             { check(appearance.edit().apply { if (originalAppearance == null) remove("mode")
                 else putString("mode", originalAppearance) }.commit()) })
+    }
+}
+
+/** Recreate the current instance after platform display/font changes, within the original15s bound. */
+internal fun ComposeTestRule.recreateHomeViewport(activity: ActivityScenario<MainActivity>, widthDp: Int, scale: Float) {
+    val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    // Scenario.recreate() snapshots an instance before resuming it, which can race a
+    // configuration relaunch. Request recreation on the current main-thread instance.
+    var previous: MainActivity? = null
+    activity.onActivity { current -> previous = current; current.recreate() }
+    waitUntil(15_000) {
+        var replaced = false
+        if (activity.state == androidx.lifecycle.Lifecycle.State.RESUMED) activity.onActivity { current ->
+            replaced = current !== previous && !current.isChangingConfigurations &&
+                current.window.decorView.hasWindowFocus() && current.resources.configuration.screenWidthDp == widthDp &&
+                kotlin.math.abs(current.resources.configuration.fontScale - scale) < 0.01f
+        }
+        replaced && device.displayWidth == widthDp && onNode(hasText("Home") and isSelected()).isDisplayed()
     }
 }

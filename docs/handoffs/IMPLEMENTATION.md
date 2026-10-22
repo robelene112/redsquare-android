@@ -39,6 +39,13 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
+Current recreation correction16a source/packet Spec0/documentedStandards0; one
+possible duplicated fixture operator was extracted into recreateHomeViewport in
+PostViewportFixture, shared by existing post and frame callers. Same actual
+recreation/replacement/15s goals; no product/catalog change. Initial16a local
+compile explicit0 in2m4s wall/Gradle2m3. Extracted fixture freshcompile pending.
+Metadata correction6bb Spec0; original failed/sourcepacket hashes159/2 verified.
+
 LATEST FULL10 REJECTION: run39721355158 at78bd wholeCANCELLED by root after Chat
 job119635319551 FAILURE in AppFramePreviewTest's unchanged larger-text method.
 Original31.662s class output: first-use/profile-retention/home-return PASS; viewport
