@@ -4,7 +4,7 @@
 executes44601552d50de619def7c5b90de27af985a9cb66 and completes SUCCESS. The original source
 stage executes core/push-gateway tests, host peer classpath, Debug/app-test/Release/
 Performance assemblies and both debug/performance lint gates. It skips native
-checks. Source gate only; focused frame and complete native acceptance are separate and remain pending.
+checks. Source gate only. The separate focused frame run39723214114 is SUCCESS; complete native acceptance remains pending.
 No whole63, signed, provider, physical or store acceptance is claimed.
 
 Terminalmetadata and complete selected original source-stage bytes are retained

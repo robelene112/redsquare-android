@@ -1,0 +1,22 @@
+{
+  "version": 63,
+  "source": "44601552d50de619def7c5b90de27af985a9cb66",
+  "sha256": "0b992e57431c6c8f26d017205612b43a53a54a9ef4486ead79d8a5a19e398b1d",
+  "bytes": 38139779,
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "actualDex": {
+    "DEBUG": false,
+    "PUSH_CONFIGURED": false,
+    "REVIEW_BUILD": true,
+    "GIPHY_POSTS_API_KEY": false,
+    "GIPHY_CHAT_API_KEY": false
+  },
+  "debuggable": false,
+  "profileable": false,
+  "allowBackup": false,
+  "minSdk": 29,
+  "targetSdk": 36,
+  "testToolQueryInRelease": false,
+  "published": false,
+  "physicalDeviceAcceptance": false
+}

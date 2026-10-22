@@ -19,3 +19,6 @@ restoration/terminal metadata,149 hashes. Native functional reachability does
 not establish final app-wide visual acceptance: the existing Following word wrap
 at200% is still visible and remains open under70. Wallet layout polish is67.
 Full current Android10/17 and final signed publication remain pending.
+
+External complete original artifact root:
+`/mnt/storage/redsquare-android-artifacts/group63-frame10-446-39723214114`.
