@@ -30,10 +30,17 @@ containment before the original tap. Exact pre-click timing is not proven.
 Original social-rejected10-52e, chat-rejected10-52e and social-cancelled17-52e
 packets retained. The earlier ca attempts are also rejected.
 
-Active focused runs: post-presentation10run39840058490 and Search17run39840062179
-exact531fb7105457dfd44988c2c7ae8b959cb41cbba6; invitation-recovery10run39840580338
-exact783031166d18e37ee3daefe638fd9cf1ef218a57. Finish focused checks/review,
-then fresh complete10/17 against unchanged frozen catalog. No mixed acceptance.
+Corrected post-presentation10 run39840058490 and Search17 run39840062179 at
+531fb7105457dfd44988c2c7ae8b959cb41cbba6 are whole SUCCESS. Max-name six-cell
+Search proof and actual200% full-name/key dialog viewed; media/own-actions Search
+originals viewed. Packets posts-green10-531 and long-green17-531 retained.
+Invitation10run39840580338 at783 failed its new pre-tap containment check:
+130% Dark button531..579/list360..555. Original packet retained and rejected.
+Fixturec060fc9995a1351cb87f9d22b8b2c24451773676 now includes measured residual
+scrolling and two equal fully contained geometry observations within the original
+15s action-readiness wait, then one unchanged click. Paired source0/0.
+Active invitation10run39841530083 exactc060fc999. Finish focused check, then
+fresh complete10/17 against unchanged frozen catalog. No mixed acceptance.
 Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and
