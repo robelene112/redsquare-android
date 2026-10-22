@@ -1,0 +1,71 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchRecoveryPreviewTest:
+INSTRUMENTATION_STATUS: test=leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchRecoveryPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11$assertPaused(SearchRecoveryPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11(SearchRecoveryPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.$r8$lambda$nTCd5In7TwxhZjwkCAGSgk6wvTo(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation(SearchRecoveryPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: stream=
+Error in leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation(nl.davidengelen.redsquare.SearchRecoveryPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11$assertPaused(SearchRecoveryPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11(SearchRecoveryPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.$r8$lambda$nTCd5In7TwxhZjwkCAGSgk6wvTo(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation(SearchRecoveryPreviewTest.kt:29)
+
+INSTRUMENTATION_STATUS: test=leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.564
+There was 1 failure:
+1) leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation(nl.davidengelen.redsquare.SearchRecoveryPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11$assertPaused(SearchRecoveryPreviewTest.kt:56)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation$lambda$11(SearchRecoveryPreviewTest.kt:63)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.$r8$lambda$nTCd5In7TwxhZjwkCAGSgk6wvTo(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchRecoveryPreviewTest.leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation(SearchRecoveryPreviewTest.kt:29)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

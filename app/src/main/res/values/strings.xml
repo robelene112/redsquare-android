@@ -317,6 +317,9 @@
     <string name="search_empty">No matching posts in the history searched so far.</string>
     <string name="search_unreadable">Some records could not be verified and were skipped.</string>
     <string name="search_retry">Retry search</string>
+    <string name="search_paused">Search paused.</string>
+    <string name="search_paused_detail">Your available results are kept. Continue to check the remaining history.</string>
+    <string name="search_continue">Continue search</string>
     <string name="search_more">Load more</string>
     <string name="search_paging_unavailable">This history page has no usable older timestamp. Other available results are still shown.</string>
     <string name="search_limit">Search reached the local history limit. Only retained results are shown.</string>

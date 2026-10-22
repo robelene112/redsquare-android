@@ -55,6 +55,7 @@ internal class SearchViewState {
     var activeLookup: Job? = null
     var posts by mutableStateOf<List<FeedPost>>(emptyList())
     var failed by mutableStateOf(false)
+    var paused by mutableStateOf(false)
     var unreadable by mutableStateOf(false)
     var cursors by mutableStateOf<Map<String, Long?>>(emptyMap())
     var pending by mutableStateOf<List<String>>(emptyList())
@@ -68,6 +69,7 @@ internal class SearchViewState {
     var usernamePending = false
 
     fun search() {
+        paused = false
         submitted = true
         searchedQuery = query.trim()
         if (exactPerson?.identifier != searchedQuery) {
@@ -93,6 +95,7 @@ internal class SearchViewState {
         query = ""
         searchedQuery = ""
         submitted = false
+        paused = false
         // Invalidate an unfinished lookup without scheduling another one.
         request++
         completed = request
@@ -110,12 +113,14 @@ internal class SearchViewState {
     }
 
     fun retry() {
-        usernamePending = usernameFailed
+        paused = false
+        usernamePending = usernamePending || usernameFailed
         usernameFailed = false
         request++
     }
 
     fun loadMore() {
+        paused = false
         pending = cursors.filterValues { it != null }.keys.toList()
         request++
     }
@@ -248,11 +253,15 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { view.failed = true }
         finally {
-            if (view.activeLookup === lookup) view.activeLookup = null
-            if (currentCoroutineContext().isActive && view.request == request) {
-                view.completed = request
-                loading = false
+            if (view.activeLookup === lookup) {
+                view.activeLookup = null
+                if (view.request == request) {
+                    view.completed = request
+                    if (!currentCoroutineContext().isActive)
+                        view.paused = view.pending.isNotEmpty() || view.usernamePending
+                }
             }
+            if (currentCoroutineContext().isActive && view.request == request) loading = false
         }
     }
     val matches = view.posts.filter { personal?.hidesPosts(it.author) == false &&
@@ -288,6 +297,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     var coverageDetails by remember { mutableStateOf(false) }
     val resultWarnings = buildList {
         if (view.submitted) {
+            if (view.paused) add(stringResource(R.string.search_paused_detail))
             if (view.failed) add(stringResource(R.string.search_error))
             if (view.usernameFailed) add(stringResource(R.string.search_username_error))
             if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
@@ -299,6 +309,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     }
     val warningSummary = when {
         resultWarnings.isEmpty() -> null
+        view.paused -> stringResource(R.string.search_paused)
         view.failed -> stringResource(R.string.search_partial_summary)
         view.usernameFailed -> stringResource(R.string.search_names_summary)
         view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true } ->
@@ -346,10 +357,18 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         // measure that temporary empty list and clamp the retained reading position.
         if (personal?.ready != true) return@Column
         InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
-        InlineStatus(warningSummary, if (view.failed) StatusTone.ERROR else StatusTone.WARNING,
-            details = resultWarnings,
-            actionLabel = if (view.failed || view.usernameFailed) stringResource(R.string.search_retry) else null,
-            actionEnabled = wallet != null && !loading && (view.pending.isNotEmpty() || view.usernameFailed),
+        InlineStatus(warningSummary, when {
+            view.paused -> StatusTone.INFO
+            view.failed -> StatusTone.ERROR
+            else -> StatusTone.WARNING
+        }, details = resultWarnings,
+            actionLabel = when {
+                view.paused -> stringResource(R.string.search_continue)
+                view.failed || view.usernameFailed -> stringResource(R.string.search_retry)
+                else -> null
+            },
+            actionEnabled = wallet != null && !loading &&
+                (view.pending.isNotEmpty() || view.usernamePending || view.usernameFailed),
             onAction = { loading = true; view.retry() })
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
             if (view.submitted) {
@@ -374,7 +393,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 }
                 item(key = "more") {
                     TextButton(modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
-                        enabled = wallet != null && !loading && !view.failed && view.cursors.values.any { it != null },
+                        enabled = wallet != null && !loading && !view.failed && !view.paused && view.cursors.values.any { it != null },
                         onClick = { loading = true; view.loadMore() }) { Text(stringResource(R.string.search_more)) }
                 }
             } else item(key = "intro") {
