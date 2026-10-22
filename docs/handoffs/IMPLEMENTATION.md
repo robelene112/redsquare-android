@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at14:10UTC. Issue63 implementation, complete Android10/17,
+Updated2026-10-22 at14:42UTC. Issue63 implementation, complete Android10/17,
 prepared/public signed63 and final delivery evidence all have paired Spec0,
 documented Standards0 and heuristic0 reviews. Public beta63 is verified.
 Issue63 is closed. Issue64 is claimed; its review base is
@@ -42,18 +42,19 @@ Issue63 is closed. Issue64 is claimed; its review base is
    contexts20.054/22.394s. Frame10run39786738823 and17run39786743320 SUCCESS,
    original4methods39.145/72.455s plus reading/motion. Four greena87 packets
    retained, root hashes checked and exact restored-editor images inspected.
-   Source/core/release/lint39786615298 SUCCESS. Evidence-only follow-up review
-   remains required; production unchanged since4d.
+   Source/core/release/lint39786615298 SUCCESS. Evidence-only follow-up reviews
+   have paired0/0; production unchanged since4d.
 
    Second complete10run39788101082 and17run39788441182 at exacta87 both
    fail Social: QuotePreviewTest expected9likes before revealing the lazy row
    (seven methods, six pass;37.503s10/35.316s17). Both Wallet partitions pass;
-   Chat partitions still running at14:10. Whole runs are rejected. Independent
+   Chat17 SUCCESS; Chat10 FAILURE in the new unsupported double-tap readiness
+   check described below. Both whole runs are terminal and rejected. Independent
    observers3456807/3457980, `/tmp/redsquare64-watch-full{10,17}-a87.py`, log
    external `profile64-full{10,17}-a87-observer.log`, retain terminal artifacts.
    Failure diagnostics downloaded externally `profile64-partial{10,17}-social-a87`.
-   Retain those failed quote logs/metadata once whole runs terminal; do not
-   assemble their passing pieces into acceptance.
+   Failed Quote packets and failed10 TalkBack prerequisite/tool originals are
+   retained under ticket64. These passing pieces never constitute acceptance.
 
    Fixture-only correction05680ceac13a1fb39fa5344b076ce25ea61da62f has paired0/0:
    replaces original20s existence wait with shared20s actual history reveal,
@@ -62,21 +63,44 @@ Issue63 is closed. Issue64 is claimed; its review base is
    seven methods22.500s;17run39790800531 SUCCESS seven methods55.235s. Both
    original process-recovery gates pass. Root original screenshots confirm9likes
    alongside history failure, and all hashes verified. Green056 packets retained,
-   pending evidence review. No production change since4d.
+   paired evidence0/0 throughb172. No production change since4d.
 
    New complete10run39791789368 and17run39792064782 both execute exact056,
    public reads enabled, via `verify/profile64-counts-05680ceac`. This temporary
    verification ref lets the older Chat jobs finish independently. All three
-   jobs per current run are still active, no acceptance or signed64. Observers:
+   jobs are not yet all terminal. Both Wallet jobs and Social17 pass. Social10
+   fails at ProfileEditorPresentationTest line43: pressBack returned false
+   although original failure PNG shows keyboard closed and exact bio intact.
+   Both current Chat jobs remain active at14:42; no acceptance or signed64. Observers:
    PID3470409 `/tmp/redsquare64-watch-full10-056.py`, PID3474519
    `/tmp/redsquare64-watch-full17-056.py`; external logs
    `profile64-full10-056-observer.log` / `profile64-full17-056-observer.log`.
    Raw `profile64-fullSDK-056-RUN`, packet `fullSDK-056-RUN`; frozen collector
    executes only after whole/all3 SUCCESS, never autoaccepts or publishes.
-   Review worktree is clean at a87, must move to accepted source before signing.
+   Review worktree is clean at056, must move to accepted source before signing.
    Counter remains63, no64 reservation/build. Prepared/publication check helpers
    `/tmp/redsquare-profile64-prepare64.py` and
    `/tmp/redsquare-profile64-publication64-check.py` are ready but unexecuted.
+
+   Fixture correctionec3ed80d6d3f0fbed5416bdbe7a63bb73eea9181 uses checked
+   physical KEYCODE_BACK injection plus the unchanged10s actual IME closure.
+   UiAutomator2.4 pressBack also requires TYPE_WINDOW_CONTENT_CHANGED; the
+   failure originals show dismissal without that receipt. Exact source focused
+   editor10run39797506863 and17run39797511037 are pending, observer3491206
+   `/tmp/redsquare64-watch-editor-ec3.py`, external profile64-editor-ec3-observer.log.
+
+   Fixture correction23221010213dac92863f1de2bd03c40c4e353e88 qualifies only
+   serviceHandlesDoubleTap readiness to API30+, where that framework flag exists.
+   Failed10 a87 dump has actual bound/enabled TalkBack and touchExplorationtrue
+   but no such API29 attribute. Bound/enabled/touch exploration, original15s,
+   actual speech/focus and cleanup remain required on both SDKs. Focused10
+   run39797817691 pending, observer3492461 `/tmp/redsquare64-watch-talkback-232.py`,
+   external profile64-talkback-232-observer.log. Both narrow source corrections
+   have paired Spec0/documentedStandards0/heuristic0. Production/build/harness
+   unchanged from056. Fresh complete10 is required after focused corrections;
+   if complete17 succeeds, workflow permits retaining that full production-
+   equivalent proof alongside a corrected fixture-only complete10. Do not
+   assemble failed partitions. Source/evidence review does not mean acceptance.
 
    Complete64 catalog/collector frozen at1c5e024d773b3169c2e63eda6402e97c181ec5e3,
    paired0/0. `docs/evidence/ticket64/full-identity-reference.json` and

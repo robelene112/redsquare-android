@@ -1,0 +1,26 @@
+{
+  "status-talkback-evidence.tar": {
+    "sha256": "03bde67c7ba21b723945ce4e65738b836d01b0c9c4b5e8bbca876c14aa44255b",
+    "bytes": 283136,
+    "members": [
+      {
+        "name": "status-talkback-evidence/failure-speech.txt",
+        "bytes": 175355,
+        "sha256": "1af970258a8f4bf22b57f08a776952578992ac5d57c609a96900efcbfb790034",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure-speech.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure-accessibility.txt",
+        "bytes": 1114,
+        "sha256": "92b1430990327ac1d4e8545b0069ea03b9c70640947236e76038c4ff7d471dc7",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure-accessibility.txt"
+      },
+      {
+        "name": "status-talkback-evidence/failure.png",
+        "bytes": 102764,
+        "sha256": "ddb26dcdb4d60242e0f945b105349398281f441f2605665115f37296ff7af2be",
+        "retainedPath": "originals/status-talkback-evidence/status-talkback-evidence/failure.png"
+      }
+    ]
+  }
+}

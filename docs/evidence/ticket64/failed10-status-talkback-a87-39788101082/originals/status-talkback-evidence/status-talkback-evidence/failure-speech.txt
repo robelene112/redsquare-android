@@ -1,0 +1,1573 @@
+--------- beginning of main
+I/ndroid.talkbac(18762): Late-enabling -Xcheck:jni
+E/ndroid.talkbac(18762): Unknown bits set in runtime_flags: 0x8000
+W/ndroid.talkbac(18762): Unexpected CPU variant for X86 using defaults: x86_64
+W/ndroid.talkbac(18762): Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (greylist, reflection, allowed)
+I/TextToSpeech(18762): Sucessfully bound to com.reecedunn.espeak
+W/GooglePlayServicesUtil(18762): com.android.talkback requires the Google Play Store, but it is missing.
+E/BluetoothAdapter(18762): Bluetooth binder is null
+I/TalkBackService(18762): resumeInfrastructure() android Build.VERSION.SDK_INT=29 talkback getVersionName=TfPu_release_16_2-2026_10_22_0648 LogUtils.getLogLevel=2 System preload=False utils.BuildConfig.DEBUG=true
+I/talkback: TalkBackService(18762): System preload=False
+V/talkback: TalkBackService(18762): Accessibility Service flag set: 0x4F5
+W/talkback: CallStateMonitor(18762): Fail to start monitoring phone state: READ_PHONE_STATE permission is not granted.
+V/talkback: CustomLabelManager(18762): Task com.google.android.accessibility.talkback.labeling.DataConsistencyCheckRequest@de93e49 starting.
+D/talkback: LabelProviderClient(18762): Querying all labels.
+V/talkback: TalkBackService(18762): TalkBackService.reloadPreferences() diagnostic mode=false, key=null
+V/talkback: LabelProviderClient(18762): Query result: [].
+V/talkback: ProximitySensor(18762): Proximity sensor registered at 1792678965306.
+D/talkback: RingerModeAndScreenMon(18762): enabledTellingTime=true
+D/talkback: TalkBackService(18762): enableCacheTextEntryKeyIfNeeded enabled=false
+V/talkback: InputFocusInterpreter(18762): initLastEditableFocusForGlobalVariables() : currentInputFocus: null
+D/talkback: BrailleDisplay(18762): BrailleDisplay: start
+D/talkback: BrailleDisplay(18762): Connectioneer: serviceEnabled: true, userSettingEnabled: false
+D/talkback: BrailleDisplay(18762): BtConnectManager: stopScan STOP_STOPPED
+D/talkback: BrailleDisplay(18762): BtConnectManager: disconnect
+D/talkback: TalkBackUpdateManager(18762): current version name: TfPu_release_16_2-2026_10_22_0648
+D/talkback: TalkBackUpdateManager(18762): previous version name: null
+D/talkback: TalkBackUpdateManager(18762): current version: Version(major=-1, minor=-1, build=-1)
+D/talkback: TalkBackUpdateManager(18762): previous version: Version(major=0, minor=0, build=0)
+E/talkback: TalkBackUpdateManager(18762): Failed to perform update tasks. currentVersionName=TfPu_release_16_2-2026_10_22_0648, previousVersionName=null
+D/talkback: GestureShortcutMapping(18762): loadActionToGestureIdMap - isMultiFingerOn : false isFingerprintOn : false
+D/talkback: TalkBackService(18762): A shared preference changed: app_version
+V/talkback: TalkBackService(18762): TalkBackService.reloadPreferences() diagnostic mode=false, key=app_version
+D/talkback: RingerModeAndScreenMon(18762): enabledTellingTime=true
+D/talkback: GestureShortcutMapping(18762): loadActionToGestureIdMap - isMultiFingerOn : false isFingerprintOn : false
+D/talkback: TalkBackService(18762): A shared preference changed: app_prev_version_name
+V/talkback: TalkBackService(18762): TalkBackService.reloadPreferences() diagnostic mode=false, key=app_prev_version_name
+D/talkback: RingerModeAndScreenMon(18762): enabledTellingTime=true
+V/talkback: TalkBackFeedbackProvider(18762):  EVENT_SPOKEN_FEEDBACK_ON:  ttsOutput= TalkBack on    queueMode=2  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_TALKBACK_HINT subtype:HINT_SUB_TYPE_TALKBACK_ON displayId:0 time:2405919, failovers=[Part= speech= action=SPEAK  text="TalkBack on"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_TALKBACK_HINT subtype:HINT_SUB_TYPE_TALKBACK_ON displayId:0 time:2405919 part=Part= speech= action=SPEAK  text="TalkBack on"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+E/talkback: SpeechControllerImpl(18762): TTS is not ready. Attempted to speak before TTS was initialized. Item: {utteranceId:"", fragments:[{text:TalkBack on, earcons:[], haptics:[], speechParams:Bundle[{pitch=1.0}]nonSpeechParams:Bundle[{}]fragmentStartIndex:0}], uninterruptible:true, isGloballyUninterruptible:false, mCanIgnoreInterrupts:false, flushGlobalTtsQueue:false, flags:62, creationTime:1792678965371}
+V/talkback: Pipeline(18762): execute() success=true for part=Part= speech= action=SPEAK  text="TalkBack on"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_SSB_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE  speechParams=Bundle[{pitch=1.0}]    hint= null  hintSpeakOptions= null    
+W/Settings(18762): Setting device_provisioned has moved from android.provider.Settings.Secure to android.provider.Settings.Global.
+D/talkback: GestureShortcutMapping(18762): loadActionToGestureIdMap - isMultiFingerOn : false isFingerprintOn : false
+D/talkback: TalkBackService(18762): A shared preference changed: talkback_enabled_count
+V/talkback: ProximitySensor(18762): Processing onAccuracyChanged event at 1792678965380.
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965380.
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965381.
+I/chatty  (18762): uid=10118(com.android.talkback) identical 2 lines
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965381.
+V/talkback: A11yEventProcessor(18762): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter(18762): START interpret() event type=TYPE_WINDOWS_CHANGED time=2405901 allowEvent=true
+V/talkback: WindowEventInterpreter(18762):  interpret() windowRoles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:-1:null
+V/talkback: WindowEventInterpreter(18762):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={}
+V/talkback: WindowEventInterpreter(18762):      windowId=1709 { title="Quickstep"  titleFromWindowChange="Quickstep"  eventSourceRole="ROLE_NONE"  }
+V/talkback: WindowEventInterpreter(18762):    updateWindowTitles() windowIdToData={1709={ title="Quickstep"  titleFromWindowChange="Quickstep"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1711  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= 
+V/talkback: WindowEventInterpreter(18762):   WindowA= 
+V/talkback: WindowEventInterpreter(18762):   WindowB= 
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter(18762):   PicInPic= 
+V/talkback: WindowEventInterpreter(18762):   inputMethod= 
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1711, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1711:null
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762):  interpret() delayMs=200, interpretation=WindowIdFromEvent=1711  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1711  TitleForFeedback="System UI"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(18762):    sourceBoundsInScreen=null
+V/talkback: Mappers(18762):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(18762): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965404.
+V/talkback: A11yEventProcessor(18762): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter(18762): START interpret() event type=TYPE_WINDOWS_CHANGED time=2405901 allowEvent=true
+V/talkback: WindowEventInterpreter(18762):  interpret() windowRoles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:-1:null
+V/talkback: WindowEventInterpreter(18762):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={1709={ title="Quickstep"  titleFromWindowChange="Quickstep"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(18762):      windowId=1709 { title="Quickstep"  titleFromWindowChange="Quickstep"  eventSourceRole="ROLE_NONE"  }
+V/talkback: WindowEventInterpreter(18762):    updateWindowTitles() windowIdToData={1709={ title="Quickstep"  titleFromWindowChange="Quickstep"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= 
+V/talkback: WindowEventInterpreter(18762):   WindowA= 
+V/talkback: WindowEventInterpreter(18762):   WindowB= 
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter(18762):   PicInPic= 
+V/talkback: WindowEventInterpreter(18762):   inputMethod= 
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762):  interpret() delayMs=200, interpretation=WindowIdFromEvent=1709  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(18762):    sourceBoundsInScreen=null
+V/talkback: Mappers(18762):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(18762): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+I/TextToSpeech(18762): Connected to ComponentInfo{com.reecedunn.espeak/com.reecedunn.espeak.TtsService}
+V/talkback: CustomLabelManager(18762): Task com.google.android.accessibility.talkback.labeling.LabelsFetchRequest@3ec8d1a ending.
+V/talkback: CustomLabelManager(18762): Task com.google.android.accessibility.talkback.labeling.DataConsistencyCheckRequest@de93e49 ending.
+I/TextToSpeech(18762): Set up connection to ComponentInfo{com.reecedunn.espeak/com.reecedunn.espeak.TtsService}
+D/talkback: ProcessorEventQueue(18762): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ADDED  time=2405901  scrollDelta=-1,-1      
+V/talkback: Compositor(18762): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18762): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ADDED  time=2405901  scrollDelta=-1,-1      
+V/talkback: Compositor(18762): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: FailoverTextToSpeech(18762): set ttsLocale: en_US with status 2
+I/talkback: FailoverTextToSpeech(18762): Restored TTS locale to en_US
+I/talkback: FailoverTextToSpeech(18762): Switched to TTS engine: com.reecedunn.espeak
+V/talkback: SpeechControllerImpl(18762): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator(18762): next --currentFeedbackFragment text = TalkBack on.
+V/talkback: SpeechControllerImpl(18762): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18762): Speaking fragment text="TalkBack on", utteranceId=talkback_0, TtsSpan=null, locale=null, event=type:EVENT_TYPE_TALKBACK_HINT subtype:HINT_SUB_TYPE_TALKBACK_ON displayId:0 time:2405919
+D/talkback: FailoverTextToSpeech(18762): tts.speak, utteranceId =talkback_0
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_START utteranceId=talkback_0
+D/talkback: FailoverTextToSpeech(18762): Speak call for talkback_0 returned 0
+D/talkback: SpeechCacheController(18762): onTtsInitialized new Engine=com.reecedunn.espeak
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965528.
+I/chatty  (18762): uid=10118(com.android.talkback) identical 4 lines
+V/talkback: ProximitySensor(18762): Dropping onSensorChanged event at 1792678965528.
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Stopped filtering proximity events at 1792678965531.
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=5040
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965539. 
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=5040
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=5040
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_0 bytes=694
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965558. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965578. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965598. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965618. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965638. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965658. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965678. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965698. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965720. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965738. 
+V/talkback: WindowEventInterpreter(18762):  delayedInterpret()
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=200  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() fromWindow : id=1709, 
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(18762):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(18762):    detectWindowChanges()=true roles=a:1709:Quickstep b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1709:Quickstep
+V/talkback: WindowEventInterpreter(18762):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(18762): END delayedInterpret() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=200  
+V/talkback: WindowEventInterpreter(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: WindowEventInterpreter(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(18762):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(18762):   
+V/talkback: WindowEventInterpreter(18762):  Assumes windows are stable, delay=200
+V/talkback: ScreenFeedbackManager(18762): composeFeedback() interpretation=WindowIdFromEvent=1709  MainWindowsChanged  WindowsStable  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2405901  maxDelayMs=200  totalDelayMs=200  
+V/talkback: ScreenFeedbackManager(18762):   eventSourceWindow= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: ScreenFeedbackManager(18762):   WindowA= ID=1709  Title="Quickstep"  TitleForFeedback="Quickstep"  
+V/talkback: ScreenFeedbackManager(18762):   WindowB= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(18762):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(18762):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(18762):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(18762):   AnchorNodeRole= 0
+V/talkback: ScreenFeedbackManager(18762):   
+V/talkback: ScreenFeedbackManager(18762): composeFeedback() single window mode
+V/talkback: ScreenFeedbackManager(18762): feedback=["Quickstep"  forceFeedbackEvenIfAudioPlaybackActive   forceFeedbackEvenIfMicrophoneActive  ] 
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= speech= action=SPEAK  text="Quickstep"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= speech= action=SPEAK  text="Quickstep"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(18762): Queued speech item, waiting for "talkback_0"
+V/talkback: FeedbackController(18762): playAuditory() resId=2131820575 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901
+V/talkback: Pipeline(18762): execute() success=true for part=Part= speech= action=SPEAK  text="Quickstep"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  
+I/OMXClient(18762): IOmx service obtained
+D/talkback: FocusProcessor-ScreenStateChange(18762): Screen state changed : Duration=1046, From: activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901  
+W/talkback: FocusProcessor-ScreenStateChange(18762): hasValidAccessibilityFocusInWindow: window 1709 not accessibilityFocused
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 event=null interpretation=WindowChange{forceRestoreFocus=false, screenState=activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901  } eventSourceNode=null
+V/talkback: Mappers(18762):    mapWindowChangeToFocusAction()
+V/talkback: Mappers(18762):      screenState=activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901  
+V/talkback: Mappers(18762):      forceRestoreFocus=false
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= focus= action=INITIAL_FOCUS_RESTORE  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    , Part= focus= action=INITIAL_FOCUS_FOLLOW_INPUT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    , Part= focus= action=INITIAL_FOCUS_FIRST_CONTENT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= focus= action=INITIAL_FOCUS_RESTORE  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+V/talkback: Pipeline(18762): execute() success=false for part=Part= focus= action=INITIAL_FOCUS_RESTORE  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= focus= action=INITIAL_FOCUS_FOLLOW_INPUT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+V/talkback: Pipeline(18762): execute() success=false for part=Part= focus= action=INITIAL_FOCUS_FOLLOW_INPUT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= focus= action=INITIAL_FOCUS_FIRST_CONTENT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=2674219  class="android.view.View"  package="com.android.launcher3"  viewIdResName="com.android.launcher3:id/scrim_view"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2674281  class="android.view.View"  package="com.android.launcher3"  content="Apps list"  enabled  focusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2693439  class="android.widget.TextView"  package="com.android.launcher3"  text="WebView Browser Tester"  content="WebView Browser Tester"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2692478  class="android.widget.TextView"  package="com.android.launcher3"  text="Messaging"  content="Messaging"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2691517  class="android.widget.TextView"  package="com.android.launcher3"  text="Phone"  content="Phone"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=2646350  class="android.widget.ScrollView"  package="com.android.launcher3"  viewIdResName="com.android.launcher3:id/workspace"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2695361  class="android.widget.TextView"  package="com.android.launcher3"  text="Email"  content="Email"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2696322  class="android.widget.TextView"  package="com.android.launcher3"  text="Gallery"  content="Gallery"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654038  class="android.widget.ImageView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_icon"  enabled  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654999  class="android.widget.TextView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_widget_text"  enabled  focusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=2674219  class="android.view.View"  package="com.android.launcher3"  viewIdResName="com.android.launcher3:id/scrim_view"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2674281  class="android.view.View"  package="com.android.launcher3"  content="Apps list"  enabled  focusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2693439  class="android.widget.TextView"  package="com.android.launcher3"  text="WebView Browser Tester"  content="WebView Browser Tester"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2692478  class="android.widget.TextView"  package="com.android.launcher3"  text="Messaging"  content="Messaging"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2691517  class="android.widget.TextView"  package="com.android.launcher3"  text="Phone"  content="Phone"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=2646350  class="android.widget.ScrollView"  package="com.android.launcher3"  viewIdResName="com.android.launcher3:id/workspace"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2695361  class="android.widget.TextView"  package="com.android.launcher3"  text="Email"  content="Email"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2696322  class="android.widget.TextView"  package="com.android.launcher3"  text="Gallery"  content="Gallery"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654038  class="android.widget.ImageView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_icon"  enabled  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654999  class="android.widget.TextView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_widget_text"  enabled  focusable  clickable  visible      
+D/talkback: ClassLoadingCache(18762): Failed to load class: TalkbackEditTextOverlay
+D/talkback: ClassLoadingCache(18762): Failed to load class: android.support.v4.view.ViewPager
+D/talkback: ClassLoadingCache(18762): Failed to load class: androidx.core.view.ViewPager
+D/talkback: ClassLoadingCache(18762): Failed to load class: com.google.android.material.snackbar.SnackBar
+D/talkback: ClassLoadingCache(18762): Failed to load class: androidx.media3.ui.SubtitleView
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=-2147454101  class="android.widget.FrameLayout"  package="com.android.launcher3"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2695361  class="android.widget.TextView"  package="com.android.launcher3"  text="Email"  content="Email"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2696322  class="android.widget.TextView"  package="com.android.launcher3"  text="Gallery"  content="Gallery"  enabled  focusable  clickable  longClickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654038  class="android.widget.ImageView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_icon"  enabled  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=2654999  class="android.widget.TextView"  package="com.android.quicksearchbox"  viewIdResName="com.android.quicksearchbox:id/search_widget_text"  enabled  focusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=2646350  class="android.widget.ScrollView"  package="com.android.launcher3"  viewIdResName="com.android.launcher3:id/workspace"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(18762): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible      
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= nodeAction= target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: NodeActionPerformer(18762): perform Action, nodeAction = target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS  
+D/talkback: PerformActionUtils(18762): perform action=64=ACTION_ACCESSIBILITY_FOCUS returns true with args=null on node=AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible       for event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901
+V/talkback: Pipeline(18762): execute() success=true for part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: FocusManagerInternal(18762): Set accessibility focus:result=true
+D/talkback: FocusManagerInternal(18762): Node:AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible      
+D/talkback: FocusManagerInternal(18762): FocusActionInfo:FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=2651155  class="android.appwidget.AppWidgetHostView"  package="com.android.launcher3"  content="Search"  viewIdResName="com.android.launcher3:id/qsb_widget"  enabled  focusable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+V/talkback: Pipeline(18762): execute() success=true for part=Part= focus= action=INITIAL_FOCUS_FIRST_CONTENT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=Quickstep, id=1709, type=TYPE_APPLICATION, layer=0, bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2405901    stealNextWindowTarget= null    
+D/talkback: FocusProcessor-ScreenStateChange(18762): Screen state changed with result=SUCCESS
+V/talkback: InputFocusInterpreter(18762): initLastEditableFocusForGlobalVariables() : currentInputFocus: null
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(18762):    sourceBoundsInScreen=null
+V/talkback: Mappers(18762):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(18762): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965820. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965820. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965821. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965821. 
+V/talkback: A11yEventProcessor(18762): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2406996; PackageName: com.android.launcher3; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: Search; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=HintableEvent{  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(18762):    toFeedback()()
+V/talkback: Mappers(18762):      eventType=32768
+V/talkback: Mappers(18762):      forceFeedbackEvenIfAudioPlaybackActive=true
+V/talkback: Mappers(18762):      forceFeedbackEvenIfMicrophoneActive=true
+D/talkback: AccessibilityFocusMonitor(18762): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(18762): Failed to get the editing node.
+V/talkback: SpannableUtils(18762): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableTraversalUtils(18762): Root has content description, skipping searching the children nodes.
+V/talkback: AccessibilityFocusHint(18762):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(18762):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(18762):     nodeRoleHint={}
+V/talkback: AccessibilityFocusHint(18762):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(18762):     isLongClickable: false
+V/talkback: HintFeedbackRule(18762):   speakHintText: (2651155) , hint={}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(18762):  EVENT_SPEAK_HINT:  ttsOutput=     queueMode=0  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2406996; PackageName: com.android.launcher3; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: Search; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(18762):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(18762): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965843. 
+V/talkback: A11yEventProcessor(18762): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(18762): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue(18762): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2406996  class="android.widget.FrameLayout"  package="com.android.launcher3"  description="Search"  enabled  scrollDelta=-1,-1      
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=null, failovers=[Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18762): act() eventId=null part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Pipeline(18762): execute() success=true for part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Mappers(18762):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2406996; PackageName: com.android.launcher3; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: Search; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=AccessibilityFocused{  focusActionInfo==FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@287413; boundsInParent: Rect(0, 0 - 292, 114); boundsInScreen: Rect(14, 32 - 306, 146); boundsInWindow: Rect(14, 32 - 306, 146); packageName: com.android.launcher3; className: android.appwidget.AppWidgetHostView; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: Search; supplementalDescription: null; tooltipText: null; viewIdResName: com.android.launcher3:id/qsb_widget; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_SELECT, ACTION_CLEAR_SELECTION, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_NEXT_AT_MOVEMENT_GRANULARITY, ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, ACTION_SET_SELECTION, ACTION_SHOW_ON_SCREEN]
+V/talkback: Mappers(18762):    needsCaption=false
+V/talkback: Compositor(18762): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+V/talkback: AccessibilityNodeFeedbackUtils(18762):  getUnlabelledNodeDescription,   role="ROLE_VIEW_GROUP"  
+V/talkback: TreeNodesDescription(18762):       nodeStatusDescription: role=ROLE_VIEW_GROUP, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(18762):  getUnlabelledNodeDescription,   role="ROLE_VIEW_GROUP"  
+V/talkback: TreeNodesDescription(18762):       treeNodesDescription:   (2651155), role=ROLE_VIEW_GROUP, isContentDescriptionEmpty=false, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18762):     getAppendedTreeDescription: (2651155)    accessibilityNodeError=""  , treeDescription={Search} ,  tooltip=""  
+V/talkback: TreeNodesDescription(18762):   treeDescriptionWithLabel: , appendedTreeDescription={Search}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(18762): aggregateNodeTreeDescription:  (2651155), treeDescriptionWithLabel={Search}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762): windowTransitionState: isWindowIdChanged=true, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762):     nodeTreeDescription={Search}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(18762):  viewAccessibilityFocused: (2651155) , ttsOutput={Search}, isInitialFocus=true, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(18762):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Search    queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996, failovers=[Part= speech= action=SPEAK  text="Search"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(18762): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996 part=Part= speech= action=SPEAK  text="Search"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(18762): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(18762): Queued speech item, waiting for "talkback_0"
+V/talkback: Pipeline(18762): execute() success=true for part=Part= speech= action=SPEAK  text="Search"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(18762): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2406996  scrollDelta=-1,-1      
+V/talkback: Compositor(18762): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(18762): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2406996  scrollDelta=-1,-1      
+V/talkback: Compositor(18762): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965909. 
+I/chatty  (18762): uid=10118(com.android.talkback) identical 1 line
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965909. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965919. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965939. 
+W/AudioTrack(18762): createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 27781
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965959. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678965998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966019. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966139. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966199. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966518. 
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_DONE utteranceId=talkback_0
+V/talkback: FeedbackFragmentsIterator(18762): next --currentFeedbackFragment text = Quickstep.
+V/talkback: SpeechControllerImpl(18762): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18762): Speaking fragment text="Quickstep", utteranceId=talkback_1, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2405901
+D/talkback: FailoverTextToSpeech(18762): tts.speak, utteranceId =talkback_1
+D/talkback: FailoverTextToSpeech(18762): Speak call for talkback_1 returned 0
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_1 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_1 bytes=5040
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_1 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_1 bytes=5040
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_1 bytes=3674
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_START utteranceId=talkback_1
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966799. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966919. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966959. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678966998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967218. 
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_DONE utteranceId=talkback_1
+V/talkback: FeedbackFragmentsIterator(18762): next --currentFeedbackFragment text = Search.
+V/talkback: FeedbackController(18762): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996
+V/talkback: SpeechControllerImpl(18762): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(18762): Speaking fragment text="Search", utteranceId=talkback_2, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2406996
+D/talkback: FailoverTextToSpeech(18762): tts.speak, utteranceId =talkback_2
+D/talkback: FailoverTextToSpeech(18762): Speak call for talkback_2 returned 0
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_2 bytes=8192
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_2 bytes=5040
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_2 bytes=5404
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_START utteranceId=talkback_2
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967238. 
+I/OMXClient(18762): IOmx service obtained
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967318. 
+W/AudioTrack(18762): createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 22463
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967399. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967419. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967459. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967499. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967659. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967679. 
+I/talkback: FailoverTextToSpeech(18762): REDSQUARE_ENGINE_DONE utteranceId=talkback_2
+V/talkback: SpeechControllerImpl(18762): No next item, stopping speech queue
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967799. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967819. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967919. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678967999. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968019. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968039. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968119. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968219. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968239. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968339. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968459. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968678. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968799. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968838. 
+D/talkback: A11yEventProcessor(18762): Processor idle state.
+V/talkback: Mappers(18762):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(18762):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(18762): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(18762): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(18762): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(18762): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968899. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678968998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969219. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969819. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969859. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678969998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970099. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970138. 
+D/ProfileInstaller(18762): Installing profile for com.android.talkback
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970399. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970599. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970678. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970799. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678970998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971239. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971339. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971419. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971459. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971799. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971859. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971899. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678971999. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972019. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972099. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972119. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972179. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972219. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972339. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972399. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972419. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972459. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972499. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972599. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972659. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972819. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972859. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972959. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678972998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973039. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973179. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973199. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973538. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973659. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973819. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973919. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678973998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974039. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974139. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974239. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974419. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974538. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974859. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974899. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678974998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975099. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975219. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975499. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975678. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678975998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976080. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976179. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976239. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976318. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976399. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976439. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976499. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976538. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976599. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976659. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976678. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976919. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976939. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976959. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678976998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977058. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977139. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977158. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977178. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977199. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977239. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977339. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977378. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977459. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977559. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977598. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977619. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977718. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977759. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977859. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977879. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977958. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977979. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678977999. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978079. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978099. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978138. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978179. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978199. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978258. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978278. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978299. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978358. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978399. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978419. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978479. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978499. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978519. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978539. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978579. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978599. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978639. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978678. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978698. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978739. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978778. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978818. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978838. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978898. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978918. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978938. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978959. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978978. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678978998. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979018. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979038. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979059. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979078. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979098. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979118. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979139. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979159. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979179. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979198. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979218. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979238. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979259. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979279. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979298. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979319. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979338. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979359. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979379. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979398. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979418. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979438. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979458. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979478. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979498. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979518. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979538. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979558. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979578. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979599. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979618. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979638. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979658. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979679. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979699. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979719. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979738. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979758. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979779. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979798. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979819. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979839. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979858. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979878. 
+V/talkback: ProximitySensor(18762): Processing onSensorChanged event at 1792678979898. 

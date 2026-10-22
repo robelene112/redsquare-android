@@ -82,7 +82,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Fresh full10run39791789368 and full17run39792064782 at exact05680ceac after corrected Quote suites SUCCESS on both SDKs. Prior a87 full runs39788101082/39788441182 fail Social at offscreen9likes; both Wallet jobs pass and Chat is finishing. All failed executions remain rejected. Current full runs and signed64 delivery remain pending; no failed-run assembly.",
+  "executingState": "Current full10run39791789368 fails Social at checked pressBack event receipt despite visible IME closure; Chat pending. Current full17run39792064782 has Social/Wallet SUCCESS and Chat pending. Both execute exact056. Earlier a87 runs are rejected: both Social quote observation failures and Android10 unsupported TalkBack readiness. Narrow fixture corrections ec3/232 have paired0/0; focused proof pending before fresh complete10. No failed-run assembly or signed64 delivery.",
   "executingSources": {
     "android10": "05680ceac13a1fb39fa5344b076ce25ea61da62f",
     "android17": "05680ceac13a1fb39fa5344b076ce25ea61da62f"
