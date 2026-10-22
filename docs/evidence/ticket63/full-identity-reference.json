@@ -1,0 +1,86 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete62 literal identity catalogs plus four additive Chat entry/group setup/invitation methods. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket62/full10-d354-39692824874/identities.json",
+      "sha256": "d91d019d716083b01ae60f61dc07377192309f4d5e4c59f95e89f1677df72634",
+      "previousIdentities": 511,
+      "additional": [
+        {
+          "path": "chat-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ChatEntryPreviewTest",
+          "test": "knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "group-setup-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupSetupPreviewTest",
+          "test": "aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "group-invitation-share-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupInvitationSharePreviewTest",
+          "test": "aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize",
+          "occurrences": 1
+        },
+        {
+          "path": "group-invitation-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest",
+          "test": "unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 152,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 113
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket62/full17-796-39681571919/identities.json",
+      "sha256": "e6882bd716354f46febb504221b0fdc6b6dc0ed436ae29db586437fd2caa4491",
+      "previousIdentities": 512,
+      "additional": [
+        {
+          "path": "chat-entry-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ChatEntryPreviewTest",
+          "test": "knownContactsAndValidatedKeyEntryKeepExactIdentitiesAccessibleWithLargeTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "group-setup-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupSetupPreviewTest",
+          "test": "aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard",
+          "occurrences": 1
+        },
+        {
+          "path": "group-invitation-share-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupInvitationSharePreviewTest",
+          "test": "aGroupMemberCanCopyAndShareTheExactCompatibleInvitationAtEveryTextSize",
+          "occurrences": 1
+        },
+        {
+          "path": "group-invitation-recovery-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.GroupInvitationRecoveryPreviewTest",
+          "test": "unavailableGroupsUsePastedInvitationsWithErrorsCancelAndExplicitJoinWithoutChangingNode",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 153,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 113
+    }
+  ],
+  "catalogFreezeCommit": "PENDING_COMMIT_BEFORE_FULL_EXECUTION",
+  "collectorSha256": "bbbb9cd7af62a32d94b865bdc0f6378e70e9b86ba29ea43c9247a7dced2fb115",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Frozen independently before final full63 execution; no accepted full63 dispatch yet."
+}

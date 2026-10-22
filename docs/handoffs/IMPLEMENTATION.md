@@ -59,6 +59,20 @@ review against b2af6dd07c67b078a8d930dbbe97934ca09f6a6d, then push and fresh foc
 recovery runs on both SDKs plus the push source gate. No active compiler/observer.
 No current native Join GREEN, full63 or new signed acceptance. Public62 unchanged.
 
+Narrow production441 reviews Spec0/documentedStandards0/heuristic0. Cumulative
+Spec source review also0; cumulative Standards pending. Exact441 recovery10run
+39717151069 and17run39717153436 now active, plus required source39717147364.
+Observer52769 /tmp/redsquare63-watch-join-first.py retains only terminal originals.
+No native recovery acceptance yet. Independent full63 catalog now prepared from
+accepted complete62 identity files plus exactly four literal new methods:515/516
+identities,152/153 normal completions,35 interruptions/34 continuity,113 archives.
+All original collector validators and tool pins retained; four added UI matrix
+validators/extraction paths. Catalog commit is frozen BEFORE any full63 dispatch.
+Freeze self-reference remains PENDING until the committed hash exists. Paired
+catalog review and original full runs still required; no observed full result
+was used to derive expected identities/totals. Temporary generator preparation
+lives outside checkout, not a second tracker.
+
 Historical slice checkpoints follow; the current paragraph above supersedes
 older NEXT/active-build/generator-not-applied notes.
 
