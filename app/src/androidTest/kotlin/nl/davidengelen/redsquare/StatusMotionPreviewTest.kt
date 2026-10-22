@@ -131,8 +131,12 @@ class StatusMotionPreviewTest {
                         requireNotNull(device.findObject(By.scrollable(true).clazz("android.view.View")))
                             .scroll(Direction.DOWN, 0.5f)
                     }
-                    check(device.wait(Until.hasObject(postBody),
-                        (resultDeadline - SystemClock.uptimeMillis()).coerceAtLeast(0)))
+                    val remainingResultTime = resultDeadline - SystemClock.uptimeMillis()
+                    check(remainingResultTime > 0) { "Search result interaction exceeded its original deadline" }
+                    check(device.wait(Until.hasObject(postBody), remainingResultTime))
+                    val resultObservedAt = SystemClock.uptimeMillis()
+                    check(resultObservedAt <= resultDeadline) { "Search result observation exceeded its original deadline" }
+                    observed.addProperty("searchResultElapsedMillis", resultObservedAt - resultDeadline + 10_000)
                     captureNativeScreen(File(folder, "$name-search-after.png"))
                     val searchObserved = retainNativeMotionFrames(searchMovie)
                     searchObserved.add("recording", searchRecording)
