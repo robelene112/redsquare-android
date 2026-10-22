@@ -67,7 +67,12 @@ then70, without routine stops.
    The first native tracer SearchEntryPreviewTest covers actual IME visibility,
    explicit search, clearing without reads and recreation. Existing search/full
    Social scopes run it after the unchanged original class, each180seconds.
-   Test compilation is underway. No native red or product change yet.
+   Initial02edf4157 run39813595141 failed test compilation before native execution:
+   performTextInput returns Unit, so the subsequent IME action needs a separate
+   node interaction. Corrected that call. Paired review found no standards breach
+   and one Spec coverage gap: count both Archive streams, with an explicit zero
+   before submission and no username checks for this text query. Tracer updated;
+   replacement red execution pending. No native red or product change yet.
    Read-only planning found Search query/results are retained in wallet/backend
    FeedNavigationMemory, but its local rememberLazyListState loses position on
    profile/thread navigation. Preserve that position in the same retained scope.
