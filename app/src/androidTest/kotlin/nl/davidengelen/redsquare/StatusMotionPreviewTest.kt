@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.os.Build
+import android.os.SystemClock
 import android.provider.Settings
 import android.view.ViewGroup
 import androidx.compose.runtime.Recomposer
@@ -8,6 +9,7 @@ import androidx.compose.ui.MotionDurationScale
 import androidx.compose.ui.platform.findViewTreeCompositionContext
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import com.google.gson.JsonObject
@@ -121,7 +123,16 @@ class StatusMotionPreviewTest {
                         releaseSearch.countDown()
                         check(device.wait(Until.gone(By.text("Searching available history…")), 5_000))
                     }
-                    check(device.wait(Until.hasObject(By.text("Native Red Square reference post")), 10_000))
+                    val resultDeadline = SystemClock.uptimeMillis() + 10_000
+                    captureNativeScreen(File(folder, "$name-search-results-top.png"))
+                    val postBody = By.text("Native Red Square reference post")
+                    if (!device.hasObject(postBody)) {
+                        // At large text sizes People can occupy the viewport above the post body.
+                        requireNotNull(device.findObject(By.scrollable(true).clazz("android.view.View")))
+                            .scroll(Direction.DOWN, 0.5f)
+                    }
+                    check(device.wait(Until.hasObject(postBody),
+                        (resultDeadline - SystemClock.uptimeMillis()).coerceAtLeast(0)))
                     captureNativeScreen(File(folder, "$name-search-after.png"))
                     val searchObserved = retainNativeMotionFrames(searchMovie)
                     searchObserved.add("recording", searchRecording)
