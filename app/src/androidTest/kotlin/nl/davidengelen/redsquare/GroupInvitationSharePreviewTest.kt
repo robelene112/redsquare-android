@@ -13,6 +13,8 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.UiDevice
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.chat.GroupChatStore
 import nl.davidengelen.redsquare.saito.*
@@ -83,14 +85,8 @@ class GroupInvitationSharePreviewTest {
                             var copyFailure: Throwable? = null
                             try {
                                 val copies = Intents.getIntents().count { it.action == Intent.ACTION_CHOOSER }
-                                action("Copy invitation").assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp).performClick()
-                                waitFor("Invitation copied.")
-                                ui.runOnIdle {
-                                    val copied = requireNotNull(clipboard.primaryClip)
-                                    check(copied.itemCount == 1 && copied.getItemAt(0).text.toString() == expectedLink)
-                                }
-                                captureNativeScreen(File(folder, "$label-copied.png"))
-                                action("Share invitation").assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp).performClick()
+                                action("Share invitation").assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
+                                physicalAction("Share invitation")
                                 ui.waitUntil(15_000) {
                                     Intents.getIntents().count { it.action == Intent.ACTION_CHOOSER } == copies + 1
                                 }
@@ -101,6 +97,15 @@ class GroupInvitationSharePreviewTest {
                                 check(shared.extras?.keySet() == setOf(Intent.EXTRA_TEXT) && shared.data == null && shared.clipData == null)
                                 waitFor("Share invitation")
                                 captureNativeScreen(File(folder, "$label-share-return.png"))
+                                // Copy follows sharing so Android's clipboard overlay cannot cover the Share target.
+                                action("Copy invitation").assertHeightIsAtLeast(48.dp).assertWidthIsAtLeast(48.dp)
+                                physicalAction("Copy invitation")
+                                waitFor("Invitation copied.")
+                                ui.runOnIdle {
+                                    val copied = requireNotNull(clipboard.primaryClip)
+                                    check(copied.itemCount == 1 && copied.getItemAt(0).text.toString() == expectedLink)
+                                }
+                                captureNativeScreen(File(folder, "$label-copied.png"))
                             } catch (failure: Throwable) { copyFailure = failure; throw failure }
                             finally {
                                 cleanupAfterTest(copyFailure, { ui.runOnIdle {
@@ -133,6 +138,21 @@ class GroupInvitationSharePreviewTest {
                 { retained.restorePreferences() },
                 { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) })
         }
+    }
+
+    private fun physicalAction(text: String) {
+        ui.waitUntil(15_000) { action(text).isDisplayed() }
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val device = UiDevice.getInstance(instrumentation)
+        var target = requireNotNull(device.findObject(By.text(text)))
+        while (!target.isClickable) target = requireNotNull(target.parent)
+        val bounds = target.visibleBounds
+        val minimum = kotlin.math.round(48 * instrumentation.targetContext.resources.displayMetrics.density).toInt()
+        check(bounds.width() >= minimum && bounds.height() >= minimum && bounds.left >= 0 && bounds.top >= 0 &&
+            bounds.right <= device.displayWidth && bounds.bottom <= device.displayHeight) {
+            "The complete invitation action has a visible48dp native target"
+        }
+        check(device.click(bounds.centerX(), bounds.centerY()))
     }
 
     private fun action(text: String) = ui.onNode(hasText(text) and hasClickAction() and isEnabled())

@@ -68,6 +68,10 @@ GroupInvitationSharePreviewTest180 uses original pinned creation/invitation asse
 actual clipboard and intercepted ACTION_CHOOSER/SEND exact text/plain link across
 all six scales/themes, full-key roles/wallet/node/no-write assertions, independent
 clipboard restoration while focused plus post-Activity file/wallet/backend cleanup.
+Spec review388 found unclipped layout size alone insufficient for visible48dp proof;
+actual native visibleBounds containment/minimum and physical taps now supplement
+all original layout assertions. Share precedes Copy to avoid the OS clipboard overlay
+covering Share. No acceptance goal/deadline change; narrow re-review follows.
 Additive group-invitation-share/Android17 scopes and fullChat inclusion. No invitation
 production changed. Compile68400 ACTIVE, group63-invitation-share-red-compile.log/json.
 NEXT source review and expected native RED only after group polish outcome/image
