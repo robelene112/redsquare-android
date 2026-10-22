@@ -1,0 +1,94 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete63 literal identity catalogs plus four additive profile reading, unsent editor, physical keyboard/D-pad and actual selected-tab speech methods. Every original identity, public read, recovery goal, class/request deadline, exclusion and tool pin remains mandatory. Focused or failed dispatches never form accepted full partitions.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket63/full10-446-39725660757/identities.json",
+      "sha256": "fe0ce2dd54ab1cb6ff775a5d56379a61918b07f47e5d58b70a2bc9a5813595c6",
+      "previousIdentities": 515,
+      "additional": [
+        {
+          "path": "profile-hierarchy-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileHierarchyPreviewTest",
+          "test": "identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-editor-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileEditorPresentationTest",
+          "test": "editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-keyboard-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileKeyboardPreviewTest",
+          "test": "profileActionsFollowVisibleKeyboardOrderAndDpadSelectsHistoryTabs",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackProfilePreviewTest",
+          "test": "selectedProfileHistoryTabsSpeakTheirLabelAndSelectedState",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 156,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 117
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket63/full17-446-39723682236/identities.json",
+      "sha256": "ff70df4f5dceea15e4794385da7983fd19645126b79e55f9eece84c384359c2d",
+      "previousIdentities": 516,
+      "additional": [
+        {
+          "path": "profile-hierarchy-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileHierarchyPreviewTest",
+          "test": "identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-editor-presentation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileEditorPresentationTest",
+          "test": "editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-keyboard-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ProfileKeyboardPreviewTest",
+          "test": "profileActionsFollowVisibleKeyboardOrderAndDpadSelectsHistoryTabs",
+          "occurrences": 1
+        },
+        {
+          "path": "profile-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackProfilePreviewTest",
+          "test": "selectedProfileHistoryTabsSpeakTheirLabelAndSelectedState",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 157,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 117
+    }
+  ],
+  "catalogFreezeCommit": null,
+  "collectorSha256": "ce04dc5a8ff4884466ed9eadec91cbed5914eb88aa0f804ae79a28e71417f156",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Independent references and collector prepared before complete64 execution; freeze pointer and actual executing source/run bindings pending. No complete64 acceptance.",
+  "executingSources": {
+    "android10": null,
+    "android17": null
+  },
+  "executingRuns": {
+    "android10": null,
+    "android17": null
+  }
+}
