@@ -364,3 +364,12 @@ to this repository unless the owner explicitly broadens their scope.
 Skills in this repo are available for discovery on the next session/turn. If an
 agent does not surface project-local skills automatically, `AGENTS.md` provides
 the file-reading fallback.
+
+Issue64 extends the same controlled native UI seam with `profile-keyboard`
+(and Android17 variant), one180s class exercising physical Tab/D-pad input,
+focus order and history selection. Real selected-tab speech is additive to the
+existing pinned `status-talkback` journey through TalkBackProfilePreviewTest,
+also180s. It requires completed English engine synthesis and native focus,
+not a semantics-only or physical-audibility claim. Complete Social includes
+keyboard testing; complete Chat retains the actual TalkBack group. Existing
+classes, identities, assertions, deadlines and tool/engine pins remain required.

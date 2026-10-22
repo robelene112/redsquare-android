@@ -204,6 +204,7 @@ PREFS
         exit 1
     fi
     verify_group_chat_native TalkBackPostPreviewTest 180 post-talkback post-talkback-evidence
+    verify_group_chat_native TalkBackProfilePreviewTest 180 profile-talkback profile-talkback-evidence
 )
 verify_status_ui() {
     local kind=$1 class_name bound status_exit=0
@@ -301,6 +302,14 @@ verify_browse() {
         return 1
     fi
 }
+verify_profile_keyboard() {
+    verify_group_chat_native ProfileKeyboardPreviewTest 180 profile-keyboard profile-keyboard-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == profile-keyboard* ]]; then
+    verify_profile_keyboard
+    printf '%s\n' 'Focused native keyboard/D-pad profile order only; no public writes or full acceptance.' > "$evidence/scope.txt"
+    exit
+fi
 verify_profile_editor_presentation() {
     verify_group_chat_native ProfileEditorPresentationTest 180 profile-editor-presentation profile-editor-presentation-evidence
 }
@@ -1253,7 +1262,7 @@ if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
     printf '%s\n' 'Focused username check only; full acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_profile_hierarchy; verify_profile_editor_presentation; verify_usernames; fi
+if [[ "$full_social" == true ]]; then verify_browse; verify_post_presentation; verify_composer_focus; verify_composer_draft_status; verify_composer_publishing; verify_composer_work; verify_following; verify_posting; verify_post_queue; verify_social; verify_quotes; verify_author_posts; verify_images; verify_gifs; verify_videos; verify_profiles; verify_profile_hierarchy; verify_profile_keyboard; verify_profile_editor_presentation; verify_usernames; fi
 verify_search() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     timeout 180 adb shell am instrument -w -r \
