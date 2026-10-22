@@ -1,5 +1,30 @@
 # Current implementation handoff
 
+## Owner pause and revised execution limit
+
+The owner explicitly paused development on2026-10-22 because of token usage.
+Wait for an explicit resume signal. On resumption, finish only ONE issue and
+then stop. This supersedes the earlier instruction to continue through all issues
+without stopping. Resume the already active #65; do not start #66 after closing it.
+
+Current implementation HEAD: `4ee3121a3c22272af7cb483426b9fcca3f361002`.
+The first Search slice and cancellation/fixture corrections are committed and
+pushed. Paired corrective reviews report Spec0/documented Standards0/heuristic0.
+Fresh focused runs were already dispatched at that exact source before the pause:
+Android10 `39816865609`; Android17 `39817090310`. Their final outcomes have NOT
+been inspected. Let existing remote tests finish; inspect their evidence only
+on resumption. Do not dispatch new work during the pause. No APK for65 has been
+published. Beta64 remains the current public preview.
+
+#65 remains incomplete: verify the current slice, then implement grouped results,
+identity access, retained position and remaining acceptance, followed by complete
+verification/reviews/signed delivery. No later ticket has been claimed.
+The local cancellation compile passed; the later quote-fixture correction is
+covered by the pending remote builds. Preserve the unrelated untracked research
+file unread and untouched. Older continuation instructions below are historical
+where they conflict with this owner pause and one-issue limit.
+
+
 Updated2026-10-22 at16:15UTC. Public beta64 is published and independently
 verified. Issue64 implementation, complete Android10/17 and prepared signed64
 have paired Spec0/documented Standards0/heuristic0 reviews. Final public delivery

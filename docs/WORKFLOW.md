@@ -9,6 +9,13 @@ requested, carry its code, verification, review, fixes and commit to completion.
 Work through tickets sequentially; a request to implement a sequence authorizes
 that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
+## Current owner execution limit
+
+On2026-10-22 the owner paused development to limit token usage. Wait for an
+explicit resume signal. Each subsequent authorization covers ONE issue only:
+finish that issue and stop before starting the next. Resume the active #65 first.
+This supersedes the earlier authorization to churn the entire backlog unattended.
+
 ## Load the real skills
 
 Read `.agents/skills/<name>/SKILL.md` before a phase and follow its referenced
