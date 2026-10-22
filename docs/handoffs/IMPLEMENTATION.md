@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated2026-10-22 at04:56UTC. Issue63 is active. Its product, focused evidence and
+Updated2026-10-22 at05:02UTC. Issue63 is active. Its product, focused evidence and
 held beta63 have paired reviews with no residual findings. Complete Android10/17
 runs at the same final source are still in progress. Public beta62 is unchanged.
 
@@ -35,28 +35,32 @@ contain evidence/docs only. The protected untracked research is not task work.
 
 | Gate | Run | Exact source | State |
 | --- | --- | --- | --- |
-| Complete Android10 |39723679811|44601552d50de619def7c5b90de27af985a9cb66|All3 jobs in native runtime|
-| Complete Android17 |39723682236|44601552d50de619def7c5b90de27af985a9cb66|All3 jobs in native runtime|
+| Complete Android10 |39725660757|44601552d50de619def7c5b90de27af985a9cb66|Fresh unchanged repeat, all3 partitions|
+| Complete Android17 |39723682236|44601552d50de619def7c5b90de27af985a9cb66|Wallet SUCCESS, Chat/Social active|
 | Source/core/release/lint |39723214278|44601552d50de619def7c5b90de27af985a9cb66|SUCCESS,9tasks|
 | Original frame viewport10 |39723214114|44601552d50de619def7c5b90de27af985a9cb66|SUCCESS,27.885s/180|
 
 Both complete dispatches include Chat/Social/Wallet and explicit public reads.
-All six source/build stages passed. No complete63 acceptance is claimed yet.
+The current17 source/build stages passed. New10 repeats the full gates after the
+preceding same446 Wallet/public-read failure described below. No full acceptance.
 Latest tracker update:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6332881529
 
-Current detached observer: PID3149293,
+Current17 detached observer: PID3149293,
 `/tmp/redsquare63-watch-full-446.py`; log:
 `/mnt/storage/redsquare-android-artifacts/group63-full-446-observer.log`.
 It checks metadata every45s, downloads all named artifacts only after the whole
 run is terminal, and invokes the frozen collector only on whole SUCCESS.
-Raw targets: `group63-full10-446-39723679811` and
+Current raw targets: `group63-full10-446-39725660757` and
 `group63-full17-446-39723682236` under the external artifact root.
-Packet targets: `docs/evidence/ticket63/full10-446-39723679811` and
+Packet targets: `docs/evidence/ticket63/full10-446-39725660757` and
 `full17-446-39723682236`. Inspect actual outcomes and collector output; exit0
 is evidence validation, not automatic UI acceptance or publication. The observer
 never retries native jobs or combines failed partitions. No local compiler,
-signing job or other observer is active.
+signing job is active. New10 observer PID3163066,
+`/tmp/redsquare63-watch-full10-repeat-446.py`, logs
+`/mnt/storage/redsquare-android-artifacts/group63-full10-repeat-446-observer.log`.
+The original combined observer has retained rejected10 and now watches17 only.
 
 ### Frozen complete acceptance
 
@@ -111,6 +115,22 @@ The original shared InlineStatus production feedback is retained; a direct-text
 experiment did not solve the historical test failure and was reverted.
 
 ## Rejected attempts and latest fixture correction
+
+Latest446 full10run39723679811 is rejected: Wallet job119642660437 fails official
+OwnerLiveFeedTest in16.252s with Peer disconnected and WebSocket upgrade HTTP502.
+Root cancelled remaining Chat/Social; whole CANCELLED, Wallet FAILURE, others
+CANCELLED. Original official feed was already visibly correct; separate direct
+RPC connection failed before wallet balance/funding UI. Missing-file diagnostics
+named PNG/XML/JSON are not actual images/responses or a blank-window defect.
+Bounded failed packet `failed10-full-public-websocket-446-39723679811` retains32
+hashes and inventory of425 external raw files, all original artifacts external.
+No service/CDN/route root cause or product-fix claim; no source/test change.
+Native compatibility/update/final tail after this failure is not accepted.
+Manual fresh complete10run39725660757 at SAME446 includes every original gate;
+no failed pieces are reused. Current17 Wallet SUCCESS, other2active. Held63
+unchanged. Latest source/frame/prepared/docs reviews through0861 are0/0; this
+new failed packet and actual-run rebinding still require review.
+
 
 Original full10run39721355158 at78bd is rejected. Chat job119635319551 failed
 AppFramePreviewTest's original larger-text method with an
