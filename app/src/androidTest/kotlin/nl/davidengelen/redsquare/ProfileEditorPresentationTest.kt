@@ -70,9 +70,13 @@ class ProfileEditorPresentationTest {
         ui.waitUntil(15_000) { ui.onNode(edit).isDisplayed() }
         ui.onNode(edit).performClick()
         val editor = hasSetTextAction() and isEnabled()
+        val deadline = android.os.SystemClock.elapsedRealtime() + 15_000
         ui.waitUntil(15_000) { ui.onAllNodes(editor).fetchSemanticsNodes().isNotEmpty() }
         // A recovered biography grows the real preview; bring its field into view deliberately.
         ui.onNode(editor).performScrollTo().assertIsDisplayed()
+        check(android.os.SystemClock.elapsedRealtime() <= deadline) {
+            "Opening and revealing the editor must meet its existing15s observation deadline"
+        }
     }
 
     private fun writeBio(bio: String) {
