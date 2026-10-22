@@ -8,16 +8,17 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import android.content.ContentResolver
 import android.net.Uri
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.JsonArray
@@ -27,6 +28,10 @@ import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 internal class ProfileDraftMemory : ViewModel() {
     var changes: JsonObject? = null
@@ -325,6 +330,7 @@ private suspend fun SaitoPeer.profile(author: String, id: String? = null): Saito
     return SaitoProfiles.readArchive(request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8), author)
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, endpoint: String, profile: SaitoProfile?,
     modifier: Modifier, onClose: () -> Unit) {
@@ -355,6 +361,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
     val previewReady = if (frozen) preview != null else privateProfile == null || profile == null || preview != null
     val session = "$owner:${backend.id}:$endpoint"
     var confirmingNewEdit by remember(session) { mutableStateOf(false) }
+    var identityOpen by rememberSaveable(session) { mutableStateOf(false) }
     var picking by rememberSaveable(session) { mutableStateOf<String?>(null) }
     var selected by remember(session) { mutableStateOf<Pair<ProfileImageKind, Uri>?>(null) }
     val chooseImage: (ProfileImageKind) -> Unit = key(session) {
@@ -407,53 +414,83 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 confirmingNewEdit = false; startNew(profile)
             }) { Text(stringResource(R.string.profile_discard_start)) } }
         )
-        Column(modifier.imePadding()) {
-            Row {
-                TextButton(enabled = !busy, onClick = { close(onClose) }) { Text(stringResource(R.string.browse_back)) }
-                Text(stringResource(R.string.profile_edit), Modifier.weight(1f).padding(vertical = 12.dp),
-                    style = MaterialTheme.typography.titleLarge)
-                TextButton(enabled = ready && !busy, onClick = { close(onClose) }) { Text(stringResource(R.string.post_save_draft)) }
+        if (identityOpen) ProfileIdentityDialog(owner) { identityOpen = false }
+        Column(modifier.imePadding(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !busy) { close(onClose) }
+                Text(stringResource(R.string.profile_edit), Modifier.weight(1f),
+                    style = MaterialTheme.typography.titleMedium)
+                TextButton(enabled = ready && !busy, onClick = { close(onClose) },
+                    modifier = Modifier.widthIn(min = 48.dp, max = 128.dp).heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.post_save_draft))
+                }
             }
-            Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall)
+            if (!previewReady) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
+                Text(stringResource(R.string.profile_draft_local), style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+                InlineStatus(if (candidate == null) null else stringResource(when {
+                    superseded -> R.string.profile_superseded
+                    available -> R.string.profile_available
+                    previouslyAvailable -> R.string.profile_previous_available
+                    else -> R.string.profile_pending
+                }), when {
+                    superseded -> StatusTone.WARNING
+                    available -> StatusTone.SUCCESS
+                    else -> StatusTone.INFO
+                })
+                if (candidate != null) TextButton(enabled = ready && !busy,
+                    modifier = Modifier.heightIn(min = 48.dp),
+                    onClick = { confirmingNewEdit = true }) { Text(stringResource(R.string.profile_new_edit)) }
+                InlineStatus(if (networkError) stringResource(R.string.profile_publish_error) else null, StatusTone.WARNING)
+                InlineStatus(if (error) stringResource(R.string.profile_draft_error) else null, StatusTone.ERROR)
+                if (error && !ready) TextButton(onClick = { reload++ }, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.retry))
+                }
+                InlineStatus(if (imageError) stringResource(R.string.image_prepare_failed) else null, StatusTone.ERROR)
+                InlineStatus(if (preparingImage) stringResource(R.string.image_preparing) else null, StatusTone.WORKING)
+                OutlinedCard(shape = RoundedCornerShape(16.dp)) {
+                    Column(Modifier.padding(AppSpacing.gap), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                        Text(stringResource(R.string.profile_preview), style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        ProfileIdentityHeader(owner, backend,
+                            ProfileAppearance(image(ProfileImageKind.PICTURE, preview),
+                                image(ProfileImageKind.BANNER, preview), bio(preview)),
+                            onDetails = { identityOpen = true })
+                    }
+                }
+                OutlinedTextField(value = bio(preview),
+                    onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
+                    label = { Text(stringResource(R.string.profile_bio)) },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 128.dp, max = 280.dp))
+                for (kind in ProfileImageKind.entries) {
+                    OutlinedCard(Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp)) {
+                        Column(Modifier.padding(AppSpacing.small)) {
+                            Text(stringResource(kind.label), Modifier.padding(AppSpacing.small),
+                                style = MaterialTheme.typography.titleSmall)
+                            FlowRow(horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                                TextButton(enabled = ready && !busy && candidate == null && picking == null,
+                                    modifier = Modifier.heightIn(min = 48.dp),
+                                    onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
+                                if (image(kind, preview) != null) TextButton(
+                                    enabled = ready && !busy && candidate == null && picking == null,
+                                    modifier = Modifier.heightIn(min = 48.dp),
+                                    onClick = { removeImage(kind) }) { Text(stringResource(kind.removeLabel)) }
+                            }
+                        }
+                    }
+                }
+            }
             Button(enabled = ready && previewReady && !busy && !available && !superseded && changes.size() > 0,
-                onClick = { send(profile, publishing::beforePublishing) }, modifier = Modifier.fillMaxWidth()) {
+                onClick = { send(profile, publishing::beforePublishing) },
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                 Text(stringResource(when {
                     candidate == null -> R.string.profile_save
                     previouslyAvailable -> R.string.profile_check
                     else -> R.string.profile_retry
                 }))
-            }
-            if (candidate != null) Text(stringResource(when {
-                superseded -> R.string.profile_superseded
-                available -> R.string.profile_available
-                previouslyAvailable -> R.string.profile_previous_available
-                else -> R.string.profile_pending
-            }), Modifier.zIndex(1f))
-            if (candidate != null) TextButton(enabled = ready && !busy,
-                onClick = { confirmingNewEdit = true }) { Text(stringResource(R.string.profile_new_edit)) }
-            if (networkError) Text(stringResource(R.string.profile_publish_error))
-            if (error) {
-                Text(stringResource(R.string.profile_draft_error))
-                if (!ready) TextButton(onClick = { reload++ }) { Text(stringResource(R.string.retry)) }
-            }
-            if (!previewReady) Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = androidx.compose.ui.Alignment.Center) {
-                CircularProgressIndicator()
-            } else Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState())) {
-                if (imageError) Text(stringResource(R.string.image_prepare_failed))
-                if (preparingImage) Text(stringResource(R.string.image_preparing))
-                OutlinedTextField(value = bio(preview),
-                    onValueChange = ::editBio, enabled = ready && !busy && candidate == null,
-                    label = { Text(stringResource(R.string.profile_bio)) },
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 160.dp, max = 280.dp))
-                for (kind in ProfileImageKind.entries) {
-                    TextButton(enabled = ready && !busy && candidate == null && picking == null,
-                        onClick = { chooseImage(kind) }) { Text(stringResource(kind.changeLabel)) }
-                    val source = image(kind, preview)
-                    if (source != null) TextButton(enabled = ready && !busy && candidate == null && picking == null,
-                        onClick = { removeImage(kind) }) { Text(stringResource(kind.removeLabel)) }
-                    if (kind == ProfileImageKind.PICTURE) ProfileImage(source, kind, owner, backend, Modifier.size(96.dp))
-                    else if (source != null) ProfileImage(source, kind, owner, backend, Modifier.fillMaxWidth().aspectRatio(3f))
-                }
             }
         }
     }

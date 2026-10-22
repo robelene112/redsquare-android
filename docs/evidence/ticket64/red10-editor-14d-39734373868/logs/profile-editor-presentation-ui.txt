@@ -1,0 +1,119 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditorPresentationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileEditorPresentationTest:
+INSTRUMENTATION_STATUS: test=editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileEditorPresentationTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'My locally edited biography for profile-editor-320-font100-light' (ignoreCase: false)) && (NOT (SetText is defined)))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:47)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+INSTRUMENTATION_STATUS: stream=
+Error in editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(nl.davidengelen.redsquare.ProfileEditorPresentationTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'My locally edited biography for profile-editor-320-font100-light' (ignoreCase: false)) && (NOT (SetText is defined)))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:47)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+INSTRUMENTATION_STATUS: test=editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 7.868
+There was 1 failure:
+1) editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(nl.davidengelen.redsquare.ProfileEditorPresentationTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: ((Text + InputText + EditableText contains 'My locally edited biography for profile-editor-320-font100-light' (ignoreCase: false)) && (NOT (SetText is defined)))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9$lambda$8(ProfileEditorPresentationTest.kt:47)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$KAdu1o_WGiVmpSfPVzAylKcyp9c(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10$lambda$9(ProfileEditorPresentationTest.kt:34)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$dQr-z6QeJ4i-BwHDi9aInO6vaXg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes$lambda$10(ProfileEditorPresentationTest.kt:33)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.$r8$lambda$7exNvtDft2gwjc1k0d2s2FuxB2I(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileEditorPresentationTest.editedBioHasAVisibleProfilePreviewAndDraftRecoveryWithoutPublishingAcrossTextSizes(ProfileEditorPresentationTest.kt:26)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

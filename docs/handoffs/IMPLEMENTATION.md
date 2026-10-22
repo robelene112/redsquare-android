@@ -23,7 +23,7 @@ Issue63 is closed. Issue64 is claimed; its review base is
    logic is unchanged. FlowRow personal-control buttons fit larger text.
    Tracer now inspects identity through fixed header Profile actions/Public identity
    without changing history position, and restores clipboard while foreground.
-   No editor, TalkBack or physical D-pad implementation/proof yet. Existing raw-key
+   No editor GREEN, TalkBack or physical D-pad proof yet. Existing raw-key
    and account-control fixtures will need explicit UI navigation while preserving
    their original identity/confirmation/restore assertions and deadlines.
    First reading slice source reviews at1db are Spec0/documented Standards0/
@@ -46,7 +46,7 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Current17run39733646265 at exacta869 is SUCCESS,70.151s/180, all6cells.
    Packet `green17-hierarchy-a86-39733646265`:94hashes/81members; root verified
    hashes/configurations and viewed200% tabs/full key/confirmation originals.
-   Captured explicit1.0 font setting is restored. Its bounded review is pending.
+   Captured explicit1.0 font setting is restored. Its final paired evidence review is0/0 atcfeb.
    Observer PID3207761 (ended normally) `/tmp/redsquare64-watch-hierarchy-a86.py`, external
    `profile64-hierarchy-a86-observer.log`, terminal-only raw targets
    `profile64-hierarchy-SDK-a86-RUN`. Do not assemble rejected cells or treat
@@ -57,11 +57,14 @@ Issue63 is closed. Issue64 is claimed; its review base is
    Next tracer `ProfileEditorPresentationTest` now specifies visible non-editable
    unsent bio preview, real IME, physical48dp Save draft and round-trip without
    publication across six cells, one180s class. New `profile-editor` scopes and
-   additive complete Social inclusion are test/harness only; production editor
-   is unchanged until its actual RED is inspected. Do not claim a preview exists.
+   additive complete Social inclusion are test/harness only; actual RED at14da fails7.868s/180 for the absent separate preview, as intended.
+   Packet `red10-editor-14d-39734373868`,11members; root viewed original.
+   Working editor now reuses the public identity preview, groups media choices,
+   and fixes Save draft/Save profile above IME while preserving all state logic.
+   Compile/native GREEN and reviews remain pending.
    All read-slice source/failure/correction metadata and green10 evidence through14da
-   have paired0/0. Editor RED10run39734373868 at exact14da is terminal FAILURE;
-   retain and diagnose actual failure before implementing. Raw observer3214020
+   have paired0/0. Editor RED10run39734373868 at exact14da is expected terminal FAILURE;
+   the actual missing-preview assertion is retained and diagnosed. Raw observer3214020
    `/tmp/redsquare64-watch-editor-red.py`, external
    `profile64-editor-red10-observer.log`; no acceptance or automatic retry.
 2. Continue65through69, then70. The owner authorized the whole backlog without
