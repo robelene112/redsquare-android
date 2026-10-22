@@ -1,0 +1,11 @@
+{
+  "versionCode": 50,
+  "versionName": "0.1.50",
+  "applicationId": "nl.davidengelen.redsquare",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "sha256": "58f50ecfd835732a1f86918cc72617da299d548e9ef46186c1f1b9b62f4285da",
+  "commit": "285d84bacef662ea357612fc2b256b8e9b93c8f4",
+  "variant": "release",
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/50/redsquare.apk",
+  "notes": "Post likes can be sent again, up to two new likes per second per wallet in this app. Pending likes retry the original transaction. Wallet import warns about pending likes. UI refinements continue."
+}

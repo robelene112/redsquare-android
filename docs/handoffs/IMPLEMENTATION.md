@@ -1,15 +1,15 @@
 # Current implementation handoff
 
-Updated2026-10-22 at05:55UTC. Issue63 is active. Its product, focused evidence and
+Updated2026-10-22 at05:56UTC. Issue63 is active. Its product, focused evidence and
 held beta63 have paired reviews with no residual findings. Both complete Android10/17 runs are SUCCESS with collector0 at the same final source.
-Android17 final evidence reviews are0/0; Android10 final review is pending. Public beta62 is unchanged.
+Both final evidence reviews are0/0. Signed beta63 is published and the independent
+public-after check passes; final delivery packet review is pending.
 
 ## Resume here
 
 1. Finish [Chat entry/invitations63](https://github.com/robelene112/redsquare-android/issues/63):
-   inspect both complete outcomes below, preserve any failure, review current
-   native/visual evidence, publish the exact held beta63, verify public after
-   observations, review publication evidence and close63/update55.
+   review the retained publication evidence, record final0/0 delivery reviews
+   and close63/update55. Both complete outcomes and public-after checks pass.
 2. Continue64 through69, then70, sequentially. The owner authorized completing
    the whole backlog without routine stops, including at pending or failed CI.
    One ticket implementation at a time; independent read-only paired reviews
@@ -42,7 +42,7 @@ contain evidence/docs only. The protected untracked research is not task work.
 
 Both complete dispatches include Chat/Social/Wallet and explicit public reads.
 Current10/17 source/build stages passed. New10 repeats the full gates after the
-preceding same446 Wallet/public-read failure described below. Android17 has complete native/evidence acceptance with paired0/0 reviews; Android10 final evidence review remains.
+preceding same446 Wallet/public-read failure described below. Android17 has complete native/evidence acceptance with paired0/0 reviews; Android10 final evidence review is0/0.
 Latest tracker update:
 https://github.com/robelene112/redsquare-android/issues/63#issuecomment-6332881529
 
@@ -73,7 +73,7 @@ current originals across the four new journeys, real IME and200% both themes.
 Original GroupChat22 methods172.245s/180, Admin12 methods54.621s/180 all pass.
 SystemUI clipboard preview still temporarily occludes some Share/Done/node/key
 areas; no all-glyph/post-Copy-Done physical claim. Existing nav wrapping remains70.
-Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 complete success is retained and final review remains;
+Full17 final evidence reviews report Spec0/documented Standards0/heuristic0. Current10 complete success and final0/0 review are retained;
 public62/held63 unchanged. No supplemental or failed-run assembly.
 
 ### Latest complete10 proof
@@ -86,7 +86,8 @@ across all four new journeys, including real IME and200% Light/Dark. Original
 GroupChat22 pass168.946s/180 and Admin12 pass53.063s/180. Packet
 `full10-446-39725660757`; same-named external raw directory with `group63-` prefix.
 No failed-piece assembly or source-equivalence exception. Final paired evidence
-review is pending; signed63 stays held/public62 unchanged until it clears.
+reviews report Spec0/documented Standards0/heuristic0. Signed63 is now published
+with public-after PASS; final publication packet review remains.
 
 ### Frozen complete acceptance
 
@@ -215,8 +216,11 @@ Built ONCE by canonical review-build at exact446, reserved code63. Explicit0,
 - [signed63-prepared](../evidence/ticket63/signed63-prepared):6 hashes, final0/0 review atdb50.
 - Original command receipt/log: external `group63-signed63-preparation.{json,log}`.
 
-Candidate remains **HELD**. Complete native/visual acceptance, final evidence
-reviews, publication and public after-check are required. Independent public
+Candidate was published exactly once after both complete native/evidence reviews
+reported0/0. Canonical publisher and independent public-after checker exit0.
+Actual public63 matches the exact held artifact;18 historical resources remain
+byte-identical and both withheld61 URLs404. Final delivery packet review remains.
+See `docs/evidence/ticket63/signed63-public` and external original receipts. Independent public
 BEFORE check already passes: publiclatest62,18 historical resources protected,
 both permanently withheld61 URLs404. Original downloads remain external
 `/mnt/storage/redsquare-android-artifacts/chat-entry63-publication-63`.
@@ -230,7 +234,7 @@ and retain/review its exact evidence. Preserve all old releases and the entire
 separate performance43 channel. Static APK publication is authorized; changes
 to ingress, nodes, signing identity or provider configuration are not implied.
 
-Public [beta62](https://davidengelen.nl/redsquare/) remains accepted and immutable:
+Historical beta62 remains accepted and immutable:
 38,008,595bytes, SHA256
 `054bcf3fec36c45172cb740298cfca7670912444c63467557adcffa61f597000`,
 source `b997f301c2c3830ce3767866ce296d2abf95c36f`, same established certificate.

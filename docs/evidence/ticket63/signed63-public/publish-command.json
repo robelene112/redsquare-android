@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/home/david/projects/redsquare-android/scripts/review-publish",
+    "/mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/63",
+    "--notes",
+    "Start chats from known contacts, choose group members individually, and copy or share group invitations. Paste invitations to recover imported groups with a clear preview before joining."
+  ],
+  "startedAt": "2026-10-22T05:55:03.422713+00:00",
+  "completedAt": "2026-10-22T05:55:05.787148+00:00",
+  "exitCode": 0,
+  "artifact": "/mnt/storage/redsquare-android-artifacts/review-worktree/.scratch/review-builds/63",
+  "reviewedCompletePackets": [
+    "full10-446-39725660757",
+    "full17-446-39723682236"
+  ],
+  "pairedNativeResiduals": {
+    "spec": 0,
+    "documentedStandards": 0,
+    "heuristics": 0
+  }
+}
