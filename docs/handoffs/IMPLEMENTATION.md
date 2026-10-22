@@ -13,14 +13,16 @@ Recovery3+Viewport1. Original packets green10-81b-39834168015 and
 green17-bdb-39834572483; real native frames viewed, including200% identity,
 IME/input and actions. Production unchanged since81b. Later fixture corrections
 preserve readiness deadline/primary cleanup failures. Maximum-length signed
-visual-name coverage added across all six cells throughcabd1065a, pending runtime.
+visual-name coverage added across all six cells throughcabd1065a; later focused
+Android17 proof below passes every cell.
 
 Whole source review6a..bdb and long-name delta throughcabd: paired Spec0,
 documented Standards0/heuristic0. Full65 catalog/collector freeze6391367bc211a63cb1e12cc3678a53ef80f17f47:
 expected527/528 identities,161/162 normal completions,35 deliberate interruptions,
 34 continuity records,122 archives. Inherited pins/exclusions unchanged.
 
-No active full dispatch. Both52ef complete runs were cancelled. Social10 failed
+Earlier52ef complete runs were cancelled. Current full dispatches are listed
+below. Social10 failed
 in shared media scrolling because editable query and content list both expose
 ScrollBy; fixture-only531fb7105 excludes editable input from the relevant content
 helpers, preserving assertions/deadlines, paired0/0. Chat10 independently failed
