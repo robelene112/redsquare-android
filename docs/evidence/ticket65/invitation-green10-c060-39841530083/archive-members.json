@@ -1,0 +1,566 @@
+{
+  "group-invitation-recovery-evidence.tar": {
+    "sha256": "c6dbc4cfe0c7beae6951b22bc697b88a030479216096381e0602b5adf28a7b1f",
+    "bytes": 2166784,
+    "members": [
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-activity-lifecycle.jsonl",
+        "bytes": 6223,
+        "sha256": "7c91d7295e0ab28101ab0182763cebda840fdd8411df17288a01f6260eaad71a",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-font-scale.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-recovery-initial-target.json",
+        "bytes": 325,
+        "sha256": "b4b31ed9b9c7a9b1d02391c664982d99782d07595e84cbf2230eff47e6adc4d0",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-entry.xml",
+        "bytes": 21665,
+        "sha256": "f72ce35db828da3f53fa98297c61fff821e9d6b1a1d58008badb261c4da2acf4",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-entry.png",
+        "bytes": 20505,
+        "sha256": "ddad3dc6adbd68d016b5830827211bacddb6a9bac1b00f03f3406034f3e18bbd",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-preview-tap.json",
+        "bytes": 480,
+        "sha256": "7bad4beb80af43c8a4d06af806f5f3d8598d9cda1a7f2c076743b21d1ecbe70b",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-with-ime.xml",
+        "bytes": 42957,
+        "sha256": "1a98fb46be629aee59d3725ffb4dbd3a5d25cc16230cc5de173fb0fc907e9fd5",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-with-ime.png",
+        "bytes": 36298,
+        "sha256": "1a66c9617cfdb8037fc3cee8aac9e81b4a13068021c77779efb89411cffe78e9",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-different-group-preview-tap.json",
+        "bytes": 255,
+        "sha256": "81d0537434601aa9dedc2683df10c94afe96f846dfee4b3af22987370c100293",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview.xml",
+        "bytes": 24246,
+        "sha256": "51633b60141c1c9dbbcb75b63459e0d547e90c2e5e6d85cfb06c9885064dc958",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview.png",
+        "bytes": 33358,
+        "sha256": "5b0a67d932a3d2f396cac49f2eaf481c996b2f3ed4fc123370f3ab718fdc7458",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview-identities.xml",
+        "bytes": 24246,
+        "sha256": "51633b60141c1c9dbbcb75b63459e0d547e90c2e5e6d85cfb06c9885064dc958",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview-identities.png",
+        "bytes": 33358,
+        "sha256": "5b0a67d932a3d2f396cac49f2eaf481c996b2f3ed4fc123370f3ab718fdc7458",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-recovery-after-cancel-target.json",
+        "bytes": 163,
+        "sha256": "31316efd5091f62ceb7a3764ed68372ff3dc0be26e41a854978cd532b5db6acd",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-joined.xml",
+        "bytes": 38307,
+        "sha256": "17e8302aa4b505836f10a348a23c58f3afe2864b02be12ac82455efc09cf89af",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-joined.png",
+        "bytes": 24420,
+        "sha256": "28f308a1a892b3fb66ecd21349dba4e97d020e0d22b385942306181bf702dc62",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-light-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-recovery-initial-target.json",
+        "bytes": 325,
+        "sha256": "f99631c027855d817e47a9e5e2706c3fb258154eb1d1b8eaaad2c09048fb0015",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-entry.xml",
+        "bytes": 21671,
+        "sha256": "9dd31870169bbd1cf6c83846be1a45670b3831c887c34008c2b5f0ac88b47cc4",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-entry.png",
+        "bytes": 20687,
+        "sha256": "3030102add415e87ae4911a7bb1c4ff474757fb4f5311e58d7ab46960e81e4a5",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-preview-tap.json",
+        "bytes": 255,
+        "sha256": "6f21cf90ac8b439a325d2b4c70f9eca6c9f85b3512259075712a770543400acf",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-with-ime.xml",
+        "bytes": 42963,
+        "sha256": "bd90a449126ba09d10a35b2f7fa3cd9aa6ba51c099ae27fe62e0852cec30faa1",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-with-ime.png",
+        "bytes": 36488,
+        "sha256": "b1b4ac8870aa70782f35dcacddf618d0b703639ba7a483405ef98155f28a55c2",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-different-group-preview-tap.json",
+        "bytes": 255,
+        "sha256": "9bd4197a318d236844d0b89472b895bf2d0e250111093bab9422f2aec59efbee",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview.xml",
+        "bytes": 25621,
+        "sha256": "7bbc8824cbffd15f75ccd21f4f5c564bc7ebf94d22d02bbeeb8c8e14a93bb62b",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview.png",
+        "bytes": 34179,
+        "sha256": "561dcda2d5ae5bffa2db39b30935e4cd34ef91f55b2e8eda7735d3554a6ee8b8",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview-identities.xml",
+        "bytes": 25621,
+        "sha256": "7bbc8824cbffd15f75ccd21f4f5c564bc7ebf94d22d02bbeeb8c8e14a93bb62b",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview-identities.png",
+        "bytes": 34179,
+        "sha256": "561dcda2d5ae5bffa2db39b30935e4cd34ef91f55b2e8eda7735d3554a6ee8b8",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-recovery-after-cancel-target.json",
+        "bytes": 163,
+        "sha256": "d3e56b336ebebe33bbcb1363c240906d9f2137a966438e875ffa46238a01584a",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-joined.xml",
+        "bytes": 39682,
+        "sha256": "aae007aa0731b4bebddb8f8a12f5059edb8d22d3d498754401b819a0e4b77c5e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-joined.png",
+        "bytes": 25135,
+        "sha256": "78e3c814ca4190111bbd8113291e871dde15946cf7295ef582a01d9ed2befdc4",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font100-dark-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-recovery-initial-target.json",
+        "bytes": 325,
+        "sha256": "b38a19a98c460dbd7a95be188c087f2a14c375375d9ad126a87713feff157d8d",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-entry.xml",
+        "bytes": 23043,
+        "sha256": "cb71bbdbe58ad6f293e3e4aecfd5b34e1680495cd3e827d48c29cc52d7d2324e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-entry.png",
+        "bytes": 25822,
+        "sha256": "5b3687b5aa445ec88fc3a07ac7bd82e9e84a28ad71f34511100064f2e272f7fa",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-preview-tap.json",
+        "bytes": 257,
+        "sha256": "c8438af84525d70d6e6912119eed86a08430c7e92d88e9115c470d4e8d4a1ed5",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-with-ime.xml",
+        "bytes": 43858,
+        "sha256": "fb3c2b03742af038945814591e7fefbcd17cd9d750ca647c4a6677f5698e7a40",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-with-ime.png",
+        "bytes": 39100,
+        "sha256": "ee20e5f58bfd35f11feb3693fc041427a9869a98e8d2029693cc0bf429821d3e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-different-group-preview-tap.json",
+        "bytes": 257,
+        "sha256": "26f900e1fcebdda51c4c42f87530de6750ac956a88a52bc6528f4d46dda74bbd",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview.xml",
+        "bytes": 25623,
+        "sha256": "9a05abec5d4c06bcdcf334f047fdb398c550285306e8934788fdf77d9062b6ca",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview.png",
+        "bytes": 45351,
+        "sha256": "795d351de20652da4c5aa6ad71e8de8d79ffbf48456b01f094950c9f724b3d2e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview-identities.xml",
+        "bytes": 25623,
+        "sha256": "9a05abec5d4c06bcdcf334f047fdb398c550285306e8934788fdf77d9062b6ca",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview-identities.png",
+        "bytes": 45351,
+        "sha256": "795d351de20652da4c5aa6ad71e8de8d79ffbf48456b01f094950c9f724b3d2e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-recovery-after-cancel-target.json",
+        "bytes": 163,
+        "sha256": "eaf2eff1a0bfbb3612b4292b8399f54a222ac6579ffe958f836d6aae33bdea85",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-joined.xml",
+        "bytes": 39682,
+        "sha256": "6281911d4cf2edb77eaae36fe036d98c38dc5b0aba8b7f0fe97fd84c77bdcdad",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-joined.png",
+        "bytes": 29215,
+        "sha256": "6fe47c0334401b15948e84c077e55dca13f57fcc96574bbc82bbf1d816c81a3d",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-light-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-recovery-initial-target.json",
+        "bytes": 649,
+        "sha256": "c96f00830494463696e18b8d1766bb58a4e405fdf640c3d004fa3790b81dda01",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-entry.xml",
+        "bytes": 23042,
+        "sha256": "f38d0536cd0a86521228ae37f1553f49c5573ded2ee5f8ab8e5d69f190b02687",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-entry.png",
+        "bytes": 26754,
+        "sha256": "0e041bf39125a5ffda3caebaec124e963caedae2c006f50e66d2c6d73c372a34",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-preview-tap.json",
+        "bytes": 257,
+        "sha256": "97e4ccedc4bfdadbf1a4583aebf3a71efc5bc12c71644922c2ceac0e5ed6e9f7",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-with-ime.xml",
+        "bytes": 43857,
+        "sha256": "84cbbe2af4a1baced1d9f458ca7c8ae232266f5b16d814ced473cbf783e429cb",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-with-ime.png",
+        "bytes": 39601,
+        "sha256": "f5a8d6b85c271b3e79c2e7c2079c2f2e8675ba5f7e9251968ac4398411cb5533",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-different-group-preview-tap.json",
+        "bytes": 257,
+        "sha256": "739344468d243d95abc9a506b1d9103851effc5a13dc59a1c7653312b5f9e0f1",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview.xml",
+        "bytes": 25622,
+        "sha256": "2dacff4660f4d90d38adf5b135c34b93b64f099593ae14358837e76e825d2d17",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview.png",
+        "bytes": 46135,
+        "sha256": "598c2e1460eb7ef71a6f0e5e1d0114a8d84e7b600e365f82c01333fdd34d47cb",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview-identities.xml",
+        "bytes": 25622,
+        "sha256": "2dacff4660f4d90d38adf5b135c34b93b64f099593ae14358837e76e825d2d17",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview-identities.png",
+        "bytes": 46135,
+        "sha256": "598c2e1460eb7ef71a6f0e5e1d0114a8d84e7b600e365f82c01333fdd34d47cb",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-recovery-after-cancel-target.json",
+        "bytes": 163,
+        "sha256": "921d95dbc556d39d803ec338b2473e95375058e250af8cc4212fb9de722237a2",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-joined.xml",
+        "bytes": 39682,
+        "sha256": "f1162bcbdc8d87c1113eefee979a4384cfdf81b565ef9e705d2144e62a45e496",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-joined.png",
+        "bytes": 29933,
+        "sha256": "22b546b6a2966a72adf16cd6e535ebd2b54c17b2af75f4061f44d02a51a7e3f2",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font130-dark-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-recovery-initial-target.json",
+        "bytes": 325,
+        "sha256": "468373c8c707f858c484e96d07b744e9f85c589a138948a84ac94e8987adf6ef",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-entry.xml",
+        "bytes": 23045,
+        "sha256": "6e858185cf3729a4cdb03d1f3618bb4c35ab1e751f0844adb1fda6bb0511f98f",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-entry.png",
+        "bytes": 39789,
+        "sha256": "b263e69aab5f23dd6b0c2c5909889a924e41de1f868186ef9f874868022de8c1",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-preview-tap.json",
+        "bytes": 257,
+        "sha256": "c214f59e9dde9ce4786dcb93bdba742deb3936e901dde627f3b731001a51c57a",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-with-ime.xml",
+        "bytes": 42989,
+        "sha256": "04834a2cdd55db3ddf6ad0a7c549ca54186089f169f6670a53745d25839b0d7c",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-with-ime.png",
+        "bytes": 35715,
+        "sha256": "2ee85b2e61364480573c822d45d0f357c73891e65972a2bebeed5197aab85a67",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-different-group-preview-tap.json",
+        "bytes": 257,
+        "sha256": "2b94bc6e4e06f2367a88e5928a2802ab2da579f9c729d9671594a18f19190236",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview.xml",
+        "bytes": 23107,
+        "sha256": "8a3eb12b8e7a2cd2586f64b367ffdcb43176516a8d4f1c4615b1ca76919b0e74",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview.png",
+        "bytes": 50706,
+        "sha256": "5fcbb88ee632013aacd0f7572e615f34978252b7f5e5cf04a7b67cbc07ea662e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview-identities.xml",
+        "bytes": 23088,
+        "sha256": "bec055353f6c2c1800c79d77f811e99189fd1aeee3da8ec5f68b81ffcd08bf66",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview-identities.png",
+        "bytes": 54192,
+        "sha256": "c3a894354d385fbe018bcd19da6fae3e57f5d5f6a3fbdd99fad571cedc4b3e8c",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-recovery-after-cancel-target.json",
+        "bytes": 325,
+        "sha256": "1a726e79e70bf389442fcfae89bb5aa3c6071f9ed02c50213e949be6211bdd08",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-joined.xml",
+        "bytes": 39682,
+        "sha256": "5567da1112c3e2ce5fcd040245ee6763d64487684d26346eef4896ef724bec0f",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-joined.png",
+        "bytes": 38870,
+        "sha256": "03ccba0db955511b23c0a178f90440ae3d3f292a7939acd13caed5f3633836f2",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-light-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-recovery-initial-target.json",
+        "bytes": 325,
+        "sha256": "468373c8c707f858c484e96d07b744e9f85c589a138948a84ac94e8987adf6ef",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-recovery-initial-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-entry.xml",
+        "bytes": 23046,
+        "sha256": "23ed0913d0ee4ab055cff349e9ed15e5ed8638a22319aaaa5287ff08b0420e55",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-entry.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-entry.png",
+        "bytes": 42236,
+        "sha256": "89634001e2f64794e56fa66d391646c0d8252fdc45c454d9645262280d82b7e1",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-entry.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-preview-tap.json",
+        "bytes": 257,
+        "sha256": "d0c5b170e7a3e413355f78c24488e4818a4a6ab5b585d46cf1bc53127d2c2565",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-with-ime.xml",
+        "bytes": 42989,
+        "sha256": "04834a2cdd55db3ddf6ad0a7c549ca54186089f169f6670a53745d25839b0d7c",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-with-ime.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-with-ime.png",
+        "bytes": 36292,
+        "sha256": "9a110ae03503fc5673613c1af9b171aff3b7b1eb5b0ef316cf366d671225949e",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-invalid-with-ime.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-different-group-preview-tap.json",
+        "bytes": 257,
+        "sha256": "2042647fb0c745cbe39257d5c94fb1bff36d18a39c0193e0cc1cb43b5f67a9d4",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-different-group-preview-tap.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview.xml",
+        "bytes": 23107,
+        "sha256": "a415ff0aacf8744968bad3c1626ae15705cf09ba15b3ef0ad5ceae5cf5cb57f5",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview.png",
+        "bytes": 51975,
+        "sha256": "0148a2ad346a56524a44c12c7264050f9e6ca13a30dcc39f81130f3ce3a1f56a",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview-identities.xml",
+        "bytes": 23089,
+        "sha256": "1748cb1f9d51cb1f555b0870026f11f42cae3d51771573ee08400465ecf93308",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview-identities.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview-identities.png",
+        "bytes": 56868,
+        "sha256": "a41ac1487fc736c358ef2938ea41efbebc1812c618bcad5609b662b128e85056",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-preview-identities.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-recovery-after-cancel-target.json",
+        "bytes": 325,
+        "sha256": "468373c8c707f858c484e96d07b744e9f85c589a138948a84ac94e8987adf6ef",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-recovery-after-cancel-target.json"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-joined.xml",
+        "bytes": 39682,
+        "sha256": "1ef6236995de883b929a0533ae4db2ac3d39998d9a82ae6ca0b7aefa8e1453cc",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-joined.xml"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-joined.png",
+        "bytes": 39495,
+        "sha256": "eae03416c34458dc0f6d7469ca155faaf1434d1e03f42e02cd33732d8d7b6536",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-320-font200-dark-joined.png"
+      },
+      {
+        "name": "group-invitation-recovery-evidence/group-invitation-recovery-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/group-invitation-recovery-evidence/group-invitation-recovery-evidence/group-invitation-recovery-font-restored.json"
+      }
+    ]
+  }
+}

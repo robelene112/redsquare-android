@@ -39,8 +39,10 @@ Invitation10run39840580338 at783 failed its new pre-tap containment check:
 Fixturec060fc9995a1351cb87f9d22b8b2c24451773676 now includes measured residual
 scrolling and two equal fully contained geometry observations within the original
 15s action-readiness wait, then one unchanged click. Paired source0/0.
-Active invitation10run39841530083 exactc060fc999. Finish focused check, then
-fresh complete10/17 against unchanged frozen catalog. No mixed acceptance.
+Invitation10run39841530083 exactc060fc999 is whole SUCCESS. All12 final target
+geometry records independently checked: full button inside list before one tap.
+Original transaction/node/identity/cancellation goals pass. Source reviews0/0.
+Ready for fresh complete10/17 against unchanged frozen catalog. No mixed acceptance.
 Signed beta 65 is prepared from exact ca678e521 in the canonical review-worktree.
 APK SHA256 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc,
 38250427 bytes, established certificate, release package/min29/target36 and
