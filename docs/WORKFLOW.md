@@ -206,6 +206,10 @@ complete first-release scope and the established production boundaries.
    Focused success is not complete composer or full-app acceptance.
    For frame58, `app-frame-viewport` and its Android17 variant isolate the larger-
    text matrix; complete frame/full scopes retain the entire existing frame class.
+   Display/font matrices that explicitly recreate the Home Activity use
+   `recreateHomeViewport` in `PostViewportFixture.kt`: it requests recreation on
+   the current main-thread instance and requires a focused replacement with the
+   expected width/font/Home state inside the original15second readiness bound.
    `app-frame-motion` and its Android17 variant run a separate plain native class
    with its own180second bound and no Compose rule. It exercises real platform
    animator scale1/0, reminder persistence and navigation, retaining original
