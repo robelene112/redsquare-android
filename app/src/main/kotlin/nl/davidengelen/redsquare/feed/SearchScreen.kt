@@ -12,12 +12,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
@@ -39,6 +43,7 @@ import nl.davidengelen.redsquare.saito.*
 internal class SearchViewState {
     var query by mutableStateOf("")
     var searchedQuery by mutableStateOf("")
+    var submitted by mutableStateOf(false)
     var request by mutableIntStateOf(0)
     var completed = 0
     var posts by mutableStateOf<List<FeedPost>>(emptyList())
@@ -56,6 +61,7 @@ internal class SearchViewState {
     var usernamePending = false
 
     fun search() {
+        submitted = true
         searchedQuery = query.trim()
         if (exactPerson?.identifier != searchedQuery) {
             exactPerson = null
@@ -70,6 +76,26 @@ internal class SearchViewState {
         pagingUnavailable = false
         limitReached = false
         request++
+    }
+
+    fun clear() {
+        query = ""
+        searchedQuery = ""
+        submitted = false
+        // Invalidate an unfinished lookup without scheduling another one.
+        request++
+        completed = request
+        pending = emptyList()
+        cursors = emptyMap()
+        exactPerson = null
+        usernamePending = false
+        usernameFailed = false
+        usernameConfirmed = false
+        usernameSaveError = false
+        failed = false
+        pagingUnavailable = false
+        limitReached = false
+        saveError = false
     }
 
     fun loadMore() {
@@ -203,7 +229,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { view.failed = true }
         finally {
-            if (currentCoroutineContext().isActive) { view.completed = request; loading = false }
+            if (currentCoroutineContext().isActive && view.request == request) {
+                view.completed = request
+                loading = false
+            }
         }
     }
     val matches = view.posts.filter { personal?.hidesPosts(it.author) == false &&
@@ -226,19 +255,35 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }.sorted()).distinct()
     }
     val resultsPosition = rememberLazyListState()
+    val canSearch = wallet != null && cacheReady && !loading && view.query.isNotBlank()
+    val submit = {
+        if (canSearch) {
+            keyboard?.hide()
+            loading = true
+            view.search()
+        }
+    }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.search_title), Modifier.padding(vertical = 12.dp), style = MaterialTheme.typography.titleLarge)
         }
         OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
-            label = { Text(stringResource(R.string.search_query)) }, singleLine = true, modifier = Modifier.fillMaxWidth())
+            label = { Text(stringResource(R.string.search_query)) }, singleLine = true, modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { submit() }),
+            trailingIcon = {
+                if (view.query.isNotEmpty() || view.submitted) IconButton(onClick = {
+                    view.clear()
+                    loading = false
+                }, modifier = Modifier.size(48.dp)) {
+                    Icon(painterResource(R.drawable.ic_close), stringResource(R.string.search_clear))
+                }
+            })
         Row {
-            TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && cacheReady && !loading && view.query.isNotBlank(), onClick = {
-                keyboard?.hide()
-                loading = true
-                view.search()
-            }) { Text(stringResource(R.string.search_history)) }
+            TextButton(modifier = Modifier.weight(1f), enabled = canSearch, onClick = submit) {
+                Text(stringResource(R.string.search_history))
+            }
             if (view.failed) {
                 TextButton(modifier = Modifier.weight(1f), enabled = wallet != null && !loading && view.pending.isNotEmpty(),
                     onClick = { loading = true; view.request++ }) { Text(stringResource(R.string.search_retry)) }
@@ -253,14 +298,14 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         InlineStatus(if (loading) stringResource(R.string.search_loading) else null, StatusTone.WORKING)
         InlineStatus(if (view.failed) stringResource(R.string.search_error) else null, StatusTone.ERROR)
         InlineStatus(if (view.usernameFailed) stringResource(R.string.search_username_error) else null, StatusTone.WARNING)
-        InlineStatus(if (view.unreadable) stringResource(R.string.search_unreadable) else null, StatusTone.WARNING)
+        InlineStatus(if (view.submitted && view.unreadable) stringResource(R.string.search_unreadable) else null, StatusTone.WARNING)
         InlineStatus(if (view.pagingUnavailable) stringResource(R.string.search_paging_unavailable) else null, StatusTone.WARNING)
         InlineStatus(if (view.limitReached) stringResource(R.string.search_limit) else null, StatusTone.INFO)
-        InlineStatus(if (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true })
+        InlineStatus(if (view.submitted && (view.saveError || view.usernameSaveError || people.any { knownNames[it]?.saveError == true }))
             stringResource(R.string.search_save_error) else null, StatusTone.WARNING)
-        if (view.request > 0 && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
+        if (view.submitted && !loading && !view.failed && !view.limitReached && matches.isEmpty()) Text(stringResource(R.string.search_empty))
         LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(resultsPosition), state = resultsPosition) {
-            if (view.request > 0) {
+            if (view.submitted) {
                 items(people, key = { "person:$it" }) { personKey ->
                     val label = exactName?.takeIf { it.publicKey == personKey }?.identifier ?: registeredIdentity(personKey).name
                     val confirmed = view.usernameConfirmed && exactName?.publicKey == personKey
@@ -273,7 +318,7 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                     HorizontalDivider()
                 }
             }
-            if (view.request > 0) items(matches, key = { it.id }) { post ->
+            if (view.submitted) items(matches, key = { it.id }) { post ->
                 PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
                 HorizontalDivider()
             }

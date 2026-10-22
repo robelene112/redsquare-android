@@ -72,7 +72,15 @@ then70, without routine stops.
    node interaction. Corrected that call. Paired review found no standards breach
    and one Spec coverage gap: count both Archive streams, with an explicit zero
    before submission and no username checks for this text query. Tracer updated;
-   replacement red execution pending. No native red or product change yet.
+   corrected tracer has Spec0. Replacement run39814099427 at
+   ee4708716505468571a88920ffc93f4964c5ed48 passed all9 original Search methods
+   and failed the new tracer at actual IME submission: ImeAction was Default.
+   Native log/artifacts downloaded to external search65-red10-ee4-39814099427;
+   whole-run finalization remains pending. This is RED, not acceptance.
+   Added Search IME submission and a48dp vector Clear search control. Clearing
+   invalidates the pending request, resets visible search state and preserves
+   verified local cache. First green verification is next; hierarchy/position
+   and the remaining ticket requirements are still outstanding.
    Read-only planning found Search query/results are retained in wallet/backend
    FeedNavigationMemory, but its local rememberLazyListState loses position on
    profile/thread navigation. Preserve that position in the same retained scope.
@@ -82,7 +90,7 @@ then70, without routine stops.
    tests plus PostPresentationPreviewTest, PostContentContextsTest,
    PersonalControlsPreviewTest and StatusMotionPreviewTest exercise its old UI.
    Adapt actual visible controls and scoped scrolling, preserving assertions and
-   original bounds; do not add invisible aliases. No product implementation yet.
+   original bounds; do not add invisible aliases.
 3. Continue66through69 then70, one ticket at a time. Keep55 open for owner final
    visual acceptance and1/36 for actual release requirements. OWNER_INPUTS.md
    identifies parked publisher/provider/physical/store work; placeholders never
