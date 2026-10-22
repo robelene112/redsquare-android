@@ -510,7 +510,7 @@ class GroupChatPreviewTest {
                         }
                         ui.onNodeWithText("Create group").assertIsDisplayed().performClick()
                         ui.onNodeWithText("Group name").performTextInput("Beta crew")
-                        ui.onNodeWithText("Invitees (optional)").performTextInput(member)
+                        ui.addGroupMemberByKey(member)
                         ui.onNodeWithText("Create").assertIsEnabled().performClick()
                         waitFor("Beta crew")
                         waitFor("Forwarded. Delivery is not confirmed.")

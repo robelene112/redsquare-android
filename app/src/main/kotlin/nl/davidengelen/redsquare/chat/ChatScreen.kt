@@ -475,8 +475,8 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
         }
     }
     }
-    if (addingContact && counterparty == null) NewPrivateChatDialog(wallet.publicKey, savingContact, contactFailed,
-        onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onOpen = ::openContact)
+    if (addingContact && counterparty == null) ChatPublicKeyDialog(wallet.publicKey, ChatKeyPurpose.PRIVATE, savingContact, contactFailed,
+        onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onConfirm = ::openContact)
 }
 
 private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,

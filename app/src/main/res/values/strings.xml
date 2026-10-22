@@ -470,6 +470,24 @@
     <string name="group_create_confirm">Create</string>
     <string name="group_name">Group name</string>
     <string name="group_invitees">Invitees (optional)</string>
+    <string name="group_add_by_key">Add by public key</string>
+    <string name="group_add_member_title">Add group member</string>
+    <string name="group_add_member">Add member</string>
+    <string name="group_checking_key">Checking key...</string>
+    <string name="group_owner_included">You will be the group admin.</string>
+    <string name="group_member_duplicate">This member is already selected.</string>
+    <string name="group_member_limit">Select up to 254 people.</string>
+    <string name="group_selected_people">Selected people</string>
+    <string name="group_contacts_empty">No saved contacts yet. Add someone by public key.</string>
+    <string name="group_contacts_error">Saved contacts could not be loaded. You can still add someone by public key.</string>
+    <string name="group_setup_content">Group setup</string>
+    <string name="group_select_member">Select member %1$s</string>
+    <string name="group_member_identity">Identity details for %1$s</string>
+    <string name="group_identity_details">Member identity</string>
+    <plurals name="group_selected_count">
+        <item quantity="one">%d selected</item>
+        <item quantity="other">%d selected</item>
+    </plurals>
     <string name="group_invalid_invitees">Enter valid Saito public keys separated by spaces or commas.</string>
     <string name="group_members">Members</string>
     <string name="group_promote">Promote</string>

@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 01:32 UTC:62 CLOSED/beta62PUBLIC.63 private-entry focused10/17 GREEN and root visuals checked. Next group-member setup slice; whole63 remains open.
+Updated 2026-10-22 01:56 UTC:62 CLOSED/beta62PUBLIC.63 private-entry GREEN; group setup RED confirmed and first production compiling/review next. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -39,6 +39,28 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
+CURRENT GROUP SLICE: RED10run39707436129 exact20390970 whole/jobFAIL20.587s/180,
+original15s Add by public key missing in old100Light Create group dialog. Root viewed
+PNG/XML/semantics. Packet failed10-group-setup-203-RUN retains7 originals; observer83079
+ended0. Fixture final source reviews Spec0/documentedStandards0/heuristic0 and compile
+SUCCESS1m51/0. No production was changed before this RED.
+
+Group production now uses full-window CreateGroupDialog: local portable+authenticated
+cached contacts, checked known rows, separate removable selections/full identity Details,
+selected count and fixed Create action, no delimiter field. Add-by-key uses proven
+private key form shared as ChatPublicKeyDialog with concrete PRIVATE/GROUP_MEMBER
+purposes, fresh duplicate/254-limit checks, self-admin guidance, actual dialog focus/IME
+and feedback reveal. Footer vertical spacing uses8dp to preserve tall-keyboard space;
+private default labels/validation/metadata paths unchanged. Original GroupChatPreview
+and PublishingGroup operators navigate actual Add route; cancelled publishing verifies
+preserved/editable selected members by remove/re-add, all original protocol/assertions/
+class deadlines remain. No group protocol or role/invitation management changes.
+Local app/test compile1247 ACTIVE: group63-setup-first-production-compile.log/json.
+NEXT paired source/RED review, compile and focused complete group setup on10/17.
+Invitation slice not yet implemented; no whole63/full/signed delivery acceptance.
+
+Earlier private-entry acceptance and execution history follow.
+
 LATEST63: first private-entry slice now focused GREEN on BOTH SDKs at exact4d532c2d.
 Android10run39705562540 whole/jobSUCCESS1method56.821s/180;17run39705566867
 whole/jobSUCCESS1method67.096s/180. Original six320dp default/130/200 Light/Dark cells,
@@ -60,9 +82,11 @@ Create group title and uses truthful future-admin copy. Corrected compileSUCCESS
 child-dismissal readiness after the second valid Add; now both additions await it
 within15s. Standards documented0, nonblocking duplicate IME heuristic addressed by
 moving identical focused-window observation to shared FocusedWindowIme.kt; original
-private entry and group action assertions/deadlines remain unchanged. Narrow source
-re-review and final compile starting (group63-setup-red-reviewed-compile.log/json).
-NEXT RED10 before implementing group form. No production group changes yet.
+private entry and group action assertions/deadlines remain unchanged. Narrow source re-review Spec0/documentedStandards0/heuristic0; final compile87386
+SUCCESS1m51wall/Gradle1m50/explicit0 (group63-setup-red-reviewed-compile.log/json).
+RED10run39707436129 at exact20390970 now running against unchanged production.
+/tmp/redsquare63-watch-group-red.py retains terminal originals externally under
+group63-10-red-203-RUN. NEXT inspect RED before implementing group form. No production group changes yet.
 No whole63/full-suite/signed delivery acceptance; public62 unchanged. Navigation200
 wrap remains70. No new signed version reserved. Protected research remains UNREAD.
 

@@ -36,13 +36,20 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
+/** The two deliberate key-entry actions share validation, keyboard and feedback behavior. */
+internal enum class ChatKeyPurpose(val title: Int, val action: Int, val working: Int, val privacy: Int, val selfError: Int) {
+    PRIVATE(R.string.chat_new_private, R.string.chat_open, R.string.chat_opening, R.string.chat_private, R.string.chat_key_self),
+    GROUP_MEMBER(R.string.group_add_member_title, R.string.group_add_member, R.string.group_checking_key,
+        R.string.group_privacy, R.string.group_owner_included)
+}
+
 /** A deliberate key fallback leaves the main Chat destination free for known contacts. */
 @Composable
-internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Boolean,
-    onDismiss: () -> Unit, onOpen: (String) -> Unit) {
-    var publicKey by rememberSaveable(owner) { mutableStateOf("") }
-    var validationError by rememberSaveable(owner) { mutableIntStateOf(0) }
-    var validating by remember(owner) { mutableStateOf(false) }
+internal fun ChatPublicKeyDialog(owner: String, purpose: ChatKeyPurpose, busy: Boolean, saveFailed: Boolean = false,
+    selectionError: (String) -> Int = { 0 }, onDismiss: () -> Unit, onConfirm: (String) -> Unit) {
+    var publicKey by rememberSaveable(owner, purpose) { mutableStateOf("") }
+    var validationError by rememberSaveable(owner, purpose) { mutableIntStateOf(0) }
+    var validating by remember(owner, purpose) { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val personal = LocalPersonalControls.current
     val working = busy || validating
@@ -71,16 +78,16 @@ internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Bool
                     val error = withContext(Dispatchers.Default) {
                         when {
                             !SaitoWallet.isPublicKey(address) -> R.string.chat_key_invalid
-                            address == owner -> R.string.chat_key_self
+                            address == owner -> purpose.selfError
                             else -> 0
                         }
                     }
                     if (publicKey.trim() != address) return@launch
-                    validationError = error
+                    validationError = if (error != 0) error else selectionError(address)
                     if (validationError == 0) {
                         focus.clearFocus()
                         keyboard?.hide()
-                        onOpen(address)
+                        onConfirm(address)
                     }
                 } finally { validating = false }
             }
@@ -93,7 +100,7 @@ internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Bool
                     IconButton(enabled = !working, onClick = onDismiss) {
                         Icon(painterResource(R.drawable.ic_close), stringResource(R.string.group_cancel))
                     }
-                    Text(stringResource(R.string.chat_new_private), Modifier.weight(1f).padding(start = AppSpacing.small)
+                    Text(stringResource(purpose.title), Modifier.weight(1f).padding(start = AppSpacing.small)
                         .semantics { heading() }, style = MaterialTheme.typography.titleMedium)
                 }
                 HorizontalDivider()
@@ -109,12 +116,12 @@ internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Bool
                         keyboardActions = KeyboardActions(onDone = { open() }))
                     InlineStatus(feedback, StatusTone.ERROR, modifier = Modifier.bringIntoViewRequester(feedbackView)
                         .onSizeChanged { feedbackHeight = it.height })
-                    Text(stringResource(R.string.chat_private), style = MaterialTheme.typography.bodySmall,
+                    Text(stringResource(purpose.privacy), style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 Button(onClick = ::open, enabled = !working && personal?.ready == true && publicKey.isNotBlank(),
-                    modifier = Modifier.fillMaxWidth().padding(AppSpacing.screen).heightIn(min = 48.dp)) {
-                    Text(stringResource(if (working) R.string.chat_opening else R.string.chat_open))
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = AppSpacing.screen, vertical = AppSpacing.small).heightIn(min = 48.dp)) {
+                    Text(stringResource(if (working) purpose.working else purpose.action))
                 }
             }
         }

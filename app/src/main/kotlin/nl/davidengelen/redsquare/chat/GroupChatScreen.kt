@@ -627,7 +627,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         }
     }
     }
-    if(creating) CreateGroupDialog(busy,onDismiss={if(!busy)creating=false}) { name,invitees ->
+    if(creating) CreateGroupDialog(wallet,backend,busy,onDismiss={if(!busy)creating=false}) { name,invitees ->
         act {
             val groupKey=withContext(Dispatchers.IO){SaitoWallet.create()}
             val candidate=withContext(Dispatchers.IO){GroupChat.create(wallet,groupKey.publicKey,name,invitees,System.currentTimeMillis())}
@@ -743,22 +743,6 @@ private fun MemberManagementDialog(member:String,title:Int,notice:Int,confirm:In
             InlineStatus(if (failed) stringResource(R.string.group_error) else null, StatusTone.ERROR)
         }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
         confirmButton={TextButton(enabled=enabled&&permitted,onClick=onConfirm){Text(stringResource(confirm))}})
-}
-
-@Composable
-private fun CreateGroupDialog(busy:Boolean,onDismiss:()->Unit,onCreate:(String,List<String>)->Unit) {
-    var name by remember { mutableStateOf("") }
-    var invitees by remember { mutableStateOf("") }
-    var invalid by remember { mutableStateOf(false) }
-    AlertDialog(onDismissRequest=onDismiss,title={Text(stringResource(R.string.group_create))},text={Column {
-        OutlinedTextField(name,{name=it;invalid=false},label={Text(stringResource(R.string.group_name))},enabled=!busy)
-        OutlinedTextField(invitees,{invitees=it;invalid=false},label={Text(stringResource(R.string.group_invitees))},enabled=!busy)
-        if(invalid)Text(stringResource(R.string.group_invalid_invitees))
-    }},dismissButton={TextButton(enabled=!busy,onClick=onDismiss){Text(stringResource(R.string.group_cancel))}},
-        confirmButton={TextButton(enabled=!busy&&name.isNotBlank(),onClick={
-            val keys=invitees.split(Regex("[\\s,;]+")).filter(String::isNotBlank).distinct()
-            if(keys.size>254 || keys.any{!SaitoWallet.isPublicKey(it)}) invalid=true else onCreate(name.trim(),keys)
-        }){Text(stringResource(R.string.group_create_confirm))}})
 }
 
 @Composable

@@ -1,0 +1,50 @@
+{
+  "group-setup-evidence.tar": {
+    "sha256": "7432dde491a46864a9bc4924a77ce45c9b2a87446eecb5d009423db61828b9d3",
+    "bytes": 73216,
+    "members": [
+      {
+        "name": "group-setup-evidence/group-setup-activity-lifecycle.jsonl",
+        "bytes": 1775,
+        "sha256": "ed194b2760aeb4bf03336bc87ae63b5238a23c0262f3c740ab44778a1bad3e04",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-font-scale.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-failure.semantics.txt",
+        "bytes": 16283,
+        "sha256": "9ead71883e45286c46af42ea1e6c6961967e5d990383b268c6c38fc0e9b8e7c7",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-failure.semantics.txt"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-failure.xml",
+        "bytes": 20906,
+        "sha256": "364bca2fc39141f2675326969e8166af355cfb0df0a40f90f26d34af9a7a5617",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-failure.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-failure.png",
+        "bytes": 26838,
+        "sha256": "804c51e626468461681d21be6e51c7a3008fcfe4614900ee71b8001ff1f0f88b",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-failure.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-font-restored.json"
+      }
+    ]
+  }
+}

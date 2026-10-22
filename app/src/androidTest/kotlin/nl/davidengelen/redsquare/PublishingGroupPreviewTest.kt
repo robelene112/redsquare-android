@@ -125,7 +125,7 @@ class PublishingGroupPreviewTest {
                             Action.CREATE -> {
                                 click("Create group")
                                 ui.onNodeWithText("Group name").performTextReplacement(name)
-                                ui.onNodeWithText("Invitees (optional)").performTextReplacement(member.publicKey)
+                                ui.addGroupMemberByKey(member.publicKey)
                                 androidx.test.espresso.Espresso.closeSoftKeyboard()
                             }
                             Action.JOIN -> {
@@ -168,7 +168,7 @@ class PublishingGroupPreviewTest {
                                     when (action) {
                                         Action.CREATE -> {
                                             assertEditable("Group name", name)
-                                            assertEditable("Invitees (optional)", member.publicKey)
+                                            ui.assertEditableGroupMember(member.publicKey)
                                         }
                                         Action.JOIN -> ui.onNodeWithText("Join").assertIsEnabled()
                                         Action.MESSAGE -> assertEditable("Message", message)
