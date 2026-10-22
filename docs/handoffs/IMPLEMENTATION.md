@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 03:55 UTC:63 original Join UI restored after rejected Text experiment. Stronger physical Preview geometry fixture now compiles successfully; final metadata review/fresh bothSDK checks next. Independent full catalog frozen/reviewed.62 remains PUBLIC; whole63 open.
+Updated 2026-10-22 04:05 UTC:63 recovery focused17GREEN at a760;10 fails nominal-IME-window readiness before first tap. Fixture now clips nominal keyboard frame to actual screen and compiles successfully; focused10 rerun next. Full catalog frozen/reviewed.62 remains PUBLIC; whole63 open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -38,6 +38,50 @@ UNREAD and UNTOUCHED. Use explicit path staging. Ordinary app development only;
 provider safeguards and production boundaries in AGENTS/skills remain applicable.
 
 ## Active Chat entry and invitation63
+
+LATEST RESULTS: recovery17run39719615280 at EXACTa760 SUCCESS81.952s/180, all6cells,
+all12 physical Preview calls/newgeometry/invalid+mismatch/explicitPaste/trust/node/
+Cancel/exactsignedJoin/roles/wallet/independentrestore. Packet green17-invitation-recovery-geometry-a76-RUN
+81originals/94hashes. Root viewed100Lightentry,200DarkerroractualIME,200Lightpreview,
+200Darkidentities: fullerrorreadable/fixedbuttons; trust/node/privacy beforekeys.
+Temporary SystemUI minimizedclipboardpreview overlaps some identityarea; XMLnames
+com.android.systemui:id/minimized_preview. Do not claim all nativekeycharacters
+unobscured during OSoverlay. Fullsemanticexactkeys/scroll inspection does pass.
+Android10run39719612989 terminalFAILURE17.020s/180 first100Light, ORIGINAL10s
+readiness before FIRST physicaltap. RawJSONproves IME246; native+ComposePreview
+[92,338][304,386]; actualIMEwindow[0,394][320,740] extends BELOW320x640 display.
+Nominalbottom==640 condition was false. RootfailurePNG/XML/JSONviewed; no product
+or historical animation/tap cause proved. Packetfailed10-invitation-recovery-geometry-a76-RUN
+10originals/21hashes. ObserverPID3123654 finished after both terminalretentions.
+Bounded fixture-only correction now intersects nominalIMEwindow with display,
+records nominal+visible rectangles, SAME alloriginal10s/48dp/singletap/15s/180s goals.
+Production unchanged (Join EXACT441). CompilePID3127010 completedSUCCESS explicit0,1m49.939s wall/Gradle1m49; external
+ group63-invitation-preview-visible-ime-compile.json/log (04:03:09.691774 to04:04:59.630333UTC). No active compiler.
+Next source+bothpacket pairedreview, then fresh focusedAndroid10.
+Existing17focused pass is bounded oldfixtureproof; finalfull10/full17 BOTHmust
+execute same finalsource/newfixture, no whole63acceptance yet. Independent full
+catalog unchanged515/516 IDs152/153normal35interrupt34continuity113archives.
+Requiredsource39719613469 at a760 SUCCESS; packetgreen-source-preview-geometry-a76-RUN
+retaining original stage/metadata, no native10acceptance override. Public62 unchanged.
+
+
+ACTIVE EXACT SNAPSHOT a760034905163b69d3f49cfd20e57341bdbae5e8: final metadata/sourceee
+packet re-reviews0/0, prior sole headline finding cleared by terminalcompile0.
+Pushed a760 and dispatched recovery10run39719612989/recovery17run39719615280 plus
+requiredsource39719613469. Both focused runs are active, no results claimed.
+Detached observerPID3123654 runs /tmp/redsquare63-watch-join-geometry.py; log
+/mnt/storage/redsquare-android-artifacts/group63-recovery-geometry-a76-observer.log.
+It retains only TERMINAL originals with exactsource assertion and no nativeretry.
+Expected packet labels green/failedSDK-invitation-recovery-geometry-a76-RUN; raw
+ group63-SDK-recovery-geometry-a76-RUN. Inspect both actual completed outcomes and
+pre-tap geometry JSON before attributing a cause or accepting candidate. Do not
+read private in-progress runner logs or modify original assertions/deadlines.
+No localcompiler remains. No full63dispatch, signed reservation/build/publication.
+Public62 remains unchanged. Next only after focused/visual acceptance: final
+fullcatalog execution bindings, fresh full10/full17 all3partitions with every
+original goal, reviewed complete evidence, immutable signed candidate and public
+bookends; close63 only after whole acceptance. Then64–69 and70, keep55 ownerreview.
+
 
 CURRENT TERMINAL BUILD: unchanged-source fresh detached compilePID3122233 ended
 SUCCESS with explicit wrapper exit0,18.665s wall/Gradle17s, all29 tasks up-to-date.

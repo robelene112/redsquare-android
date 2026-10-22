@@ -1,0 +1,171 @@
+Printing with useUnmergedTree = 'true'
+1) Node #13 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+ |-Node #14 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+   IsContainer = 'true'
+   Shape = 'RectangleShape'
+    |-Node #222 at (l=16.0, t=32.0, r=74.0, b=72.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #224 at (l=30.0, t=42.0, r=61.0, b=62.0)px
+    |    Text = '[Back]'
+    |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #226 at (l=74.0, t=43.0, r=126.0, b=62.0)px
+    | Text = '[Groups]'
+    | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #227 at (l=230.0, t=32.0, r=304.0, b=72.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #229 at (l=242.0, t=42.0, r=292.0, b=62.0)px
+    |    Text = '[Refresh]'
+    |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #230 at (l=16.0, t=84.0, r=200.0, b=98.0)px
+    | Text = '[Group messages are unencrypted.]'
+    | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #231 at (l=16.0, t=106.0, r=16.0, b=106.0)px
+    | ContentDescription = '[Group status and actions]'
+    | IsTraversalGroup = 'true'
+    | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ef765fc'
+    | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+    | Actions = [ScrollBy, ScrollByOffset]
+    |-Node #244 at (l=16.0, t=118.0, r=147.0, b=158.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #246 at (l=40.0, t=128.0, r=123.0, b=148.0)px
+    |    Text = '[Create group]'
+    |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #247 at (l=155.0, t=118.0, r=271.0, b=158.0)px
+    | Focused = 'false'
+    | Role = 'Button'
+    | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+    | Actions = [OnClick, RequestFocus]
+    | MergeDescendants = 'true'
+    |  |-Node #249 at (l=179.0, t=128.0, r=247.0, b=148.0)px
+    |    Text = '[Join group]'
+    |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+    |-Node #250 at (l=16.0, t=170.0, r=304.0, b=390.0)px
+      CollectionInfo = 'CollectionInfo(rowCount=6, columnCount=1)'
+      IsTraversalGroup = 'true'
+      Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ef765fc'
+      VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=100.0, reverseScrolling=false)'
+      Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+       |-Node #253 at (l=16.0, t=178.0, r=304.0, b=210.0)px
+       | Text = '[tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #254 at (l=16.0, t=210.0, r=304.0, b=242.0)px
+       | Text = '[Group information is unavailable on this node. Use an invitation link to rejoin.]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #255 at (l=16.0, t=242.0, r=128.0, b=290.0)px
+       | ContentDescription = '[Use invitation for tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx]'
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #257 at (l=28.0, t=256.0, r=116.0, b=276.0)px
+       |    Text = '[Use invitation]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #311 at (l=16.0, t=307.0, r=304.0, b=339.0)px
+       | Text = '[efEbzdcptLEBH4aEdjyo98APGrVS1z4ao6Ggb1Swj5yM]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #312 at (l=16.0, t=339.0, r=304.0, b=371.0)px
+       | Text = '[Group information is unavailable on this node. Use an invitation link to rejoin.]'
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #313 at (l=16.0, t=371.0, r=128.0, b=419.0)px
+         ContentDescription = '[Use invitation for efEbzdcptLEBH4aEdjyo98APGrVS1z4ao6Ggb1Swj5yM]'
+         Focused = 'false'
+         Role = 'Button'
+         Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+         Actions = [OnClick, RequestFocus]
+         MergeDescendants = 'true'
+          |-Node #315 at (l=28.0, t=385.0, r=116.0, b=405.0)px
+            Text = '[Use invitation]'
+            Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+2) Node #275 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+ |-Node #276 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+   [IsDialog]
+    |-Node #277 at (l=0.0, t=0.0, r=320.0, b=640.0)px
+      IsContainer = 'true'
+      Shape = 'RectangleShape'
+       |-Node #280 at (l=12.0, t=32.0, r=52.0, b=72.0)px
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #281 at (l=20.0, t=40.0, r=44.0, b=64.0)px
+       |    ContentDescription = '[Cancel]'
+       |    Role = 'Image'
+       |-Node #282 at (l=64.0, t=43.0, r=312.0, b=62.0)px
+       | Text = '[Join group]'
+       | [Heading]
+       | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #284 at (l=0.0, t=81.0, r=320.0, b=329.0)px
+       | ContentDescription = '[Group invitation]'
+       | IsTraversalGroup = 'true'
+       | Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@ef765fc'
+       | VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+       | Actions = [ScrollBy, ScrollByOffset]
+       |  |-Node #285 at (l=16.0, t=97.0, r=304.0, b=129.0)px
+       |  | Text = '[Use an invitation for this saved group ID. Review the link before you join.]'
+       |  | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |  |-Node #286 at (l=16.0, t=141.0, r=304.0, b=173.0)px
+       |  | Focused = 'false'
+       |  | Actions = [RequestFocus]
+       |  |  |-Node #288 at (l=16.0, t=141.0, r=304.0, b=173.0)px
+       |  |    Text = '[tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx]'
+       |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |  |-Node #289 at (l=16.0, t=185.0, r=165.0, b=233.0)px
+       |  | Focused = 'false'
+       |  | Role = 'Button'
+       |  | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       |  | Actions = [OnClick, RequestFocus]
+       |  | MergeDescendants = 'true'
+       |  |  |-Node #291 at (l=40.0, t=199.0, r=141.0, b=219.0)px
+       |  |    Text = '[Paste invitation]'
+       |  |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |  |-Node #292 at (l=16.0, t=245.0, r=304.0, b=310.0)px
+       |    ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+       |    EditableText = 'not-an-invitation'
+       |    FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@8ba461d'
+       |    Focused = 'true'
+       |    ImeAction = 'Done'
+       |    InputText = 'not-an-invitation'
+       |    IsEditable = 'true'
+       |    TextSelectionRange = 'TextRange(17, 17)'
+       |    Actions = [GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText]
+       |    MergeDescendants = 'true'
+       |     |-Node #296 at (l=16.0, t=254.0, r=304.0, b=310.0)px
+       |     | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 4.0.dp), topEnd = CornerSize(size = 4.0.dp), bottomEnd = CornerSize(size = 4.0.dp), bottomStart = CornerSize(size = 4.0.dp))'
+       |     |-Node #301 at (l=32.0, t=245.0, r=105.0, b=263.0)px
+       |     | Text = '[Invitation link]'
+       |     | Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |     |-Node #298 at (l=32.0, t=270.0, r=288.0, b=294.0)px
+       |       Shape = 'RectangleShape'
+       |       Actions = [MagnifierPositionInRoot]
+       |-Node #304 at (l=16.0, t=338.0, r=84.0, b=386.0)px
+       | Focused = 'false'
+       | Role = 'Button'
+       | Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+       | Actions = [OnClick, RequestFocus]
+       | MergeDescendants = 'true'
+       |  |-Node #306 at (l=28.0, t=352.0, r=72.0, b=372.0)px
+       |    Text = '[Cancel]'
+       |    Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+       |-Node #307 at (l=92.0, t=338.0, r=304.0, b=386.0)px
+         Focused = 'false'
+         Role = 'Button'
+         Shape = 'RoundedCornerShape(topStart = CornerSize(size = 50.0%), topEnd = CornerSize(size = 50.0%), bottomEnd = CornerSize(size = 50.0%), bottomStart = CornerSize(size = 50.0%))'
+         Actions = [OnClick, RequestFocus]
+         MergeDescendants = 'true'
+          |-Node #309 at (l=173.0, t=352.0, r=224.0, b=372.0)px
+            Text = '[Preview]'
+            Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]

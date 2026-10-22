@@ -202,10 +202,15 @@ class GroupInvitationRecoveryPreviewTest {
             // focused-window insets and Compose/native button geometry before one tap.
             ui.waitUntil(10_000) {
                 val ime = focusedWindowImeBottom()
-                val keyboard = instrumentation.uiAutomation.windows.mapNotNull { window ->
+                val keyboardWindow = instrumentation.uiAutomation.windows.mapNotNull { window ->
                     if (window.type != AccessibilityWindowInfo.TYPE_INPUT_METHOD) null
                     else Rect().also(window::getBoundsInScreen).takeIf { it.height() > 0 }
                 }.maxByOrNull { it.height() }
+                // A nominal IME window can extend below a wm-size override. Its visible
+                // screen intersection is the region that can cover the actual target.
+                val keyboard = keyboardWindow?.let { window -> Rect(window).takeIf {
+                    it.intersect(0, 0, device.displayWidth, device.displayHeight)
+                } }
                 var target = device.findObject(By.text("Preview"))
                 while (target != null && !target.isClickable) target = target.parent
                 val native = target?.visibleBounds
@@ -224,6 +229,7 @@ class GroupInvitationRecoveryPreviewTest {
                     kotlin.math.abs(native.right - compose.right) <= 1 && kotlin.math.abs(native.bottom - compose.bottom) <= 1
                 val observation = JsonObject().apply {
                     addProperty("focusedWindowImeBottom", ime)
+                    addProperty("keyboardWindowBounds", keyboardWindow?.toShortString())
                     addProperty("keyboardBounds", keyboard?.toShortString())
                     addProperty("nativePreviewBounds", native?.toShortString())
                     addProperty("composePreviewBounds", compose?.toShortString())
