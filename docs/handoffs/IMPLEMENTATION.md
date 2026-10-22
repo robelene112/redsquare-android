@@ -1,6 +1,6 @@
 # Current implementation handoff
 
-Updated 2026-10-22 03:01 UTC:62 CLOSED/beta62PUBLIC.63 private/group and Copy/Share focused GREEN on both SDKs; deliberate Join recovery next. Whole63 remains open.
+Updated 2026-10-22 03:04 UTC:62 CLOSED/beta62PUBLIC.63 private/group/CopyShare GREEN; Join recovery next tracer fixture-only, corrected compile/review pending. Whole63 remains open.
 The owner authorizes finishing the entire backlog without routine stops, with
 sequential implementation, review, commits and signed in-place beta delivery.
 
@@ -91,6 +91,20 @@ retain45 originals each. No external app delivery is claimed. Compile67147SUCCES
 3m49wall/Gradle3m48/0; production+RED reviews568 Spec0/documentedStandards0/heuristic0.
 NEXT paired current GREEN evidence review, then deliberate Join recovery tracer.
 No builds/native observer currently active. Protected research UNREAD/UNTOUCHED.
+Copy/Share final GREEN evidence88316 reviewed; both axes found README17 ambiguous
+pronoun could imply physicalDone proof.6e5 correction names only Share; final Spec0/
+documentedStandards0/heuristic0. Done remains later semantic navigation, no physicalclaim.
+
+Current next tracer is fixture-only GroupInvitationRecoveryPreviewTest180: six imported
+IDs across six320dp default/130/200 Light/Dark cells; invalid and mismatched typed links,
+realIME/native48dp Preview, explicit clipboardPaste, trust/current OWNER node and full
+claimed identities, Cancel/no effects, explicit Join with exact signed body/recipients/
+Relay/roles/metadata and unchangednode. Official-host link must not selectOFFICIAL.
+One new class/additive focused scopes/fullChat inclusion, no production change.
+Initial compile78146 FAILED1m25Gradle due missing getOrNull import. Added that import
+and scoped preview text assertions to actual claimed-admin dialog (privacy text also
+exists on background group screen). Corrected compile/review follow; no nativeRED yet.
+
 Remaining deliberate Join recovery slice still pending after Copy/Share; no whole63,
 full SDK or new signed acceptance. Public62 unchanged.
 
