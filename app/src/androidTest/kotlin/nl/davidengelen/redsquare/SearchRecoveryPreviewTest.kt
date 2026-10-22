@@ -8,12 +8,88 @@ import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.*
+import nl.davidengelen.redsquare.feed.SearchViewState
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
 class SearchRecoveryPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
+
+    @Test fun disposalPausesBeforeCancelledLookupFinishesUnwinding() {
+        val view = SearchViewState().apply { query = "reference post"; search() }
+        val lookup = Job()
+        // A cancelled job remains incomplete until its still-unwinding child finishes.
+        val started = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val child = CoroutineScope(Dispatchers.Default + lookup).launch {
+            try { started.complete(Unit); awaitCancellation() }
+            finally { withContext(NonCancellable) { release.await() } }
+        }
+        runBlocking { withTimeout(5_000) { started.await() } }
+        view.activeLookup = lookup
+        try {
+            view.pause()
+            assertTrue(lookup.isCancelled)
+            assertFalse("Cancellation cleanup is deliberately still pending", lookup.isCompleted)
+            assertTrue(view.paused)
+            assertEquals(view.request, view.completed)
+            assertNull(view.activeLookup)
+            assertEquals(listOf("RedSquare", "RedSquareRetweet"), view.pending)
+            assertEquals("reference post", view.searchedQuery)
+            view.retry()
+            assertFalse(view.paused)
+            assertNotEquals(view.request, view.completed)
+        } finally {
+            release.complete(Unit)
+            runBlocking { withTimeout(5_000) { child.join() } }
+            lookup.complete()
+        }
+    }
+
+    @Test fun retryingAUsernameFailureDoesNotRepeatCompletedPostStreams() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val rows = instrumentation.context.assets.open("native-registry-reference.json").reader().use {
+            JsonParser.parseReader(it).asJsonObject.get("rows").toString()
+        }
+        val available = AtomicBoolean(false)
+        val names = AtomicInteger()
+        val posts = AtomicInteger()
+        val quotes = AtomicInteger()
+        withAppFrameFixture("username-retry", "search-recovery-evidence", "[]",
+            registryResponse = { criteria ->
+                if (criteria.get("request").asString == "registry namecheck") {
+                    names.incrementAndGet()
+                    if (available.get()) rows else "unavailable"
+                } else "{}"
+            }, archiveResponse = { criteria ->
+                if (criteria.get("limit").asInt == 100 && !criteria.has("field4")) posts.incrementAndGet()
+                "[]"
+            }, quoteArchiveResponse = { criteria ->
+                if (criteria.get("limit").asInt == 100 && !criteria.has("field4")) quotes.incrementAndGet()
+                "[]"
+            }) { _ ->
+            ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
+            ui.onNodeWithText("Later").performClick()
+            ui.onNode(hasText("Search") and hasClickAction()).performClick()
+            ui.onNode(hasSetTextAction()).performTextInput("NativeCase7@saito")
+            ui.waitUntil(15_000) { ui.onNode(hasContentDescription("Search history") and isEnabled()).isDisplayed() }
+            ui.onNode(hasSetTextAction()).performImeAction()
+            ui.waitUntil(15_000) { ui.onNodeWithText("Usernames could not be checked.").isDisplayed() }
+            ui.onNodeWithText("Retry search").assertIsEnabled()
+            assertEquals(1, names.get()); assertEquals(1, posts.get()); assertEquals(1, quotes.get())
+            available.set(true)
+            ui.onNodeWithText("Retry search").performClick()
+            ui.waitUntil(15_000) { ui.onNodeWithContentDescription("Identity details for NativeCase7@saito").isDisplayed() }
+            ui.onNodeWithContentDescription("Identity details for NativeCase7@saito").performClick()
+            ui.onNodeWithText("jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR").assertIsDisplayed()
+            assertEquals(2, names.get()); assertEquals(1, posts.get()); assertEquals(1, quotes.get())
+            captureNativeScreen(File(instrumentation.targetContext.cacheDir,
+                "search-recovery-evidence/username-retried.png"), "jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR")
+        }
+    }
 
     @Test fun leavingAnUnfinishedSearchRetainsResultsAndRequiresExplicitContinuation() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()

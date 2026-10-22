@@ -7,26 +7,24 @@ Review base6a386c372a1b3627cdd59e6ce9a6e8a9eaf57ed4. Public beta64 unchanged.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md stays unread and
 untouched. Earlier churn instructions below are superseded by this limit.
 
-At5aafb737f: independent People/Posts sections, compact identity with full-key
-Details, clearable IME search, deliberate retry and retained result list state.
-Complete65 is NOT accepted; signed65 has not been reserved or built.
+At75b57f03d, focused Android10 run39832573055 FAILED overall: original9,
+Entry2, Presentation1, Reading1 and Recovery1 pass. Viewport1 is expected RED:
+257-character input is silently rejected. Original packet
+viewport-red10-75b-39832573055 retained. Reading now survives thread, profile and
+recreation with exact position/no new search reads. Personal-policy readiness
+prevents temporary empty-list measurement; compact feedback above the list keeps
+People/retry visible. Incomplete lookups pause and require explicit continuation.
 
-Focused Android10 run39825082304 atdadfd30dc090e0acf127848ffefab3abd2df79ce:
-whole FAILED; original9 Search, Entry2 and Presentation1 passed. New Reading1
-failed after Conversation return, with the newest post instead of anchor050.
-Original packet reading-red10-dad-39825082304. Minimal position fix retains the
-LazyListState in wallet/node-scoped SearchViewState. Focused39826635214 at5aafb
-is running. Native3db failure is retained separately:7/9 passed, stale exact-key
-and footer operators fixed. Paired reviews53b..dad: Spec0, Standards0/heuristic0.
+Current continuation adds visible invalid-input feedback and synchronous disposal
+pause after independent spec review found a rapid-return cancellation race.
+Recovery regressions cover unfinished cleanup and username-only retry without
+repeating completed post streams. Standards review through75b:0/0; spec race
+requires re-review. No complete65 acceptance or signed65 reservation/build yet.
 
-Remaining: finish reading-position proof; invalid-query feedback and actual
-light/dark larger-text/IME walkthrough, explicit failed-name retry proof if needed.
-Inspect the People-only native screenshot: People heading can leave view after
-loading ends, despite earlier Compose assertion. Root cause not yet proven;
-observe settled native heading in the next presentation check. Preserve all
-existing identities/assertions/deadlines/pins/exclusions. Then paired final review,
-independently frozen65 catalog, complete Android10/17 and signed in-place delivery.
-Close65 and STOP. Do not combine failed runs or count focused checks as acceptance.
+Remaining: focused Search10/17, inspect actual light/dark larger-text/IME frames,
+paired final review, independently frozen65 catalog, complete Android10/17 and
+signed in-place delivery. Preserve original identities/assertions/deadlines/pins
+and exclusions. Close65 and STOP. Never combine failed runs as acceptance.
 
 
 Updated2026-10-22 at16:15UTC. Public beta64 is published and independently

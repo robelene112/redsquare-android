@@ -1,0 +1,482 @@
+{
+  "search-entry-evidence.tar": {
+    "sha256": "54679bad9db4c9266ad11453022b77eb381d423a1cb847222399273c595ef4a6",
+    "bytes": 381952,
+    "members": [
+      {
+        "name": "search-entry-evidence/cleared-unfinished-search.xml",
+        "bytes": 36397,
+        "sha256": "d1ce459795f10fdf3877c3310ac8feb900a7634959809a583166b5aa4fa05889",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/cleared-unfinished-search.xml"
+      },
+      {
+        "name": "search-entry-evidence/cleared-unfinished-search.png",
+        "bytes": 24402,
+        "sha256": "262a1fc357cab77bd0baeafd1ff951b87d3ece622346fead917abc05fbbe3b85",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/cleared-unfinished-search.png"
+      },
+      {
+        "name": "search-entry-evidence/keyboard-before-submit.xml",
+        "bytes": 43680,
+        "sha256": "0573ed1c3917765e2ff864eeb89a819f84d4890288638c55233c22a6e003a618",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/keyboard-before-submit.xml"
+      },
+      {
+        "name": "search-entry-evidence/keyboard-before-submit.png",
+        "bytes": 31447,
+        "sha256": "2d59d77fa38f96987096d28ea07beb7b8baa73899ba29ab57daf11814ae9fd0c",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/keyboard-before-submit.png"
+      },
+      {
+        "name": "search-entry-evidence/keyboard-search-result.xml",
+        "bytes": 49604,
+        "sha256": "6239e060738805d242b0e7cd867869b2a688b73e28872e07decba82090a54cca",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/keyboard-search-result.xml"
+      },
+      {
+        "name": "search-entry-evidence/keyboard-search-result.png",
+        "bytes": 38902,
+        "sha256": "c1c20dde9418e9b228f90d733bca133b63f07fda205ea9cc11876689ac3438c3",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/keyboard-search-result.png"
+      },
+      {
+        "name": "search-entry-evidence/cleared-search.xml",
+        "bytes": 36396,
+        "sha256": "c12a548873efb9c0a1f557abef58a5448ffe7f1e331b9e48aed7b0af5f0ff851",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/cleared-search.xml"
+      },
+      {
+        "name": "search-entry-evidence/cleared-search.png",
+        "bytes": 23864,
+        "sha256": "6947b3f5cd0e38a0a9e9bb82029ed7ee13101607468c8510efe4c8091041b0a2",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/cleared-search.png"
+      },
+      {
+        "name": "search-entry-evidence/deliberate-search-after-clear.xml",
+        "bytes": 49604,
+        "sha256": "6239e060738805d242b0e7cd867869b2a688b73e28872e07decba82090a54cca",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/deliberate-search-after-clear.xml"
+      },
+      {
+        "name": "search-entry-evidence/deliberate-search-after-clear.png",
+        "bytes": 38902,
+        "sha256": "c1c20dde9418e9b228f90d733bca133b63f07fda205ea9cc11876689ac3438c3",
+        "retainedPath": "originals/search-entry-evidence/search-entry-evidence/deliberate-search-after-clear.png"
+      }
+    ]
+  },
+  "search-evidence.tar": {
+    "sha256": "8d4f9c4dd66a1788bc6eced2a0f07d0b598d861398828b3f312354cbb99bacc2",
+    "bytes": 1371648,
+    "members": [
+      {
+        "name": "search-evidence/people-author-prefix.xml",
+        "bytes": 43372,
+        "sha256": "4a4bfacfc71f2b8d19a337c2e7f8a070fff1c19f0ab96504f98b63d3c7e0909b",
+        "retainedPath": "originals/search-evidence/search-evidence/people-author-prefix.xml"
+      },
+      {
+        "name": "search-evidence/people-author-prefix.png",
+        "bytes": 32985,
+        "sha256": "8258a51313daa7ba0c01f94a216e472a333a4c110149261542f06257cc3311c6",
+        "retainedPath": "originals/search-evidence/search-evidence/people-author-prefix.png"
+      },
+      {
+        "name": "search-evidence/people-offline-name-prefix.xml",
+        "bytes": 47965,
+        "sha256": "aa719e38726935f7245643905cae5ec95cc459b0ac5ed265542b9840be3a47c7",
+        "retainedPath": "originals/search-evidence/search-evidence/people-offline-name-prefix.xml"
+      },
+      {
+        "name": "search-evidence/people-offline-name-prefix.png",
+        "bytes": 38654,
+        "sha256": "9ddcebfce3b0ea772e667513f7458ae992309d38d8b69b0c43a55c63b9000ed8",
+        "retainedPath": "originals/search-evidence/search-evidence/people-offline-name-prefix.png"
+      },
+      {
+        "name": "search-evidence/people-key-recreated.xml",
+        "bytes": 43417,
+        "sha256": "2dc6255a7e659ca4a3d05157babfd116dea3b982c7d02092e0a8689b3a003b3f",
+        "retainedPath": "originals/search-evidence/search-evidence/people-key-recreated.xml"
+      },
+      {
+        "name": "search-evidence/people-key-recreated.png",
+        "bytes": 35442,
+        "sha256": "e2be7a216c5379549984fdd0172f77491ee8b383810075063835d4b8c036f363",
+        "retainedPath": "originals/search-evidence/search-evidence/people-key-recreated.png"
+      },
+      {
+        "name": "search-evidence/people-invalid-key.xml",
+        "bytes": 40141,
+        "sha256": "6e8a6a93ad10a1c59371b121a47e96e7a4f36aff17d1fb7fe1b455058462cf91",
+        "retainedPath": "originals/search-evidence/search-evidence/people-invalid-key.xml"
+      },
+      {
+        "name": "search-evidence/people-invalid-key.png",
+        "bytes": 32755,
+        "sha256": "f058b514df48522f8fad93296d32734bd307f4b23587115d659730ca506ce645",
+        "retainedPath": "originals/search-evidence/search-evidence/people-invalid-key.png"
+      },
+      {
+        "name": "search-evidence/cache-offline-retained.xml",
+        "bytes": 52923,
+        "sha256": "67c6112e7320298316add1ad46336785dd284f8f61c6eb740cc4f706f831cdf0",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-offline-retained.xml"
+      },
+      {
+        "name": "search-evidence/cache-offline-retained.png",
+        "bytes": 39537,
+        "sha256": "416aab185e579e55416c53a996884ee23f5066cb247106037e46cf21b25eb24a",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-offline-retained.png"
+      },
+      {
+        "name": "search-evidence/cache-official-isolated.xml",
+        "bytes": 40094,
+        "sha256": "4011c0cf16d17bf1234e63024403e6f8a4041e81ddac2af0d1623f3db9a14151",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-official-isolated.xml"
+      },
+      {
+        "name": "search-evidence/cache-official-isolated.png",
+        "bytes": 30600,
+        "sha256": "6afeb0a14c4dc551b30ff970a6f2d1a0903f12d9f7154d570b6e3d809a518be6",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-official-isolated.png"
+      },
+      {
+        "name": "search-evidence/partial-history-retained.xml",
+        "bytes": 54593,
+        "sha256": "1791a058fdaf087cfb3844b6580b667f85647d9f68d0f6d93d2bfd64f6ca95f8",
+        "retainedPath": "originals/search-evidence/search-evidence/partial-history-retained.xml"
+      },
+      {
+        "name": "search-evidence/partial-history-retained.png",
+        "bytes": 39785,
+        "sha256": "414a720308c2d1a306293fc752270962a15d82f84ea8427050f60f9599b3cd5f",
+        "retainedPath": "originals/search-evidence/search-evidence/partial-history-retained.png"
+      },
+      {
+        "name": "search-evidence/older-history-result.xml",
+        "bytes": 56639,
+        "sha256": "9fc956f5f1a575d750acf6a743a848c971f85fae147df71490fe2e3095bfee92",
+        "retainedPath": "originals/search-evidence/search-evidence/older-history-result.xml"
+      },
+      {
+        "name": "search-evidence/older-history-result.png",
+        "bytes": 42107,
+        "sha256": "01655395aec1237e629f8b02f06e8ed47ea074da1d93c515ae4157c3dd977f28",
+        "retainedPath": "originals/search-evidence/search-evidence/older-history-result.png"
+      },
+      {
+        "name": "search-evidence/reply-search-recreated.xml",
+        "bytes": 48770,
+        "sha256": "d25021486a7309e55393f31ab088b94b9cc5d3f5fd75e2d10d65f359270c29ed",
+        "retainedPath": "originals/search-evidence/search-evidence/reply-search-recreated.xml"
+      },
+      {
+        "name": "search-evidence/reply-search-recreated.png",
+        "bytes": 36096,
+        "sha256": "9827aeeae0c9534a8b3bac59fca0ab00af8095aaa09203470d5751c62f7d09b8",
+        "retainedPath": "originals/search-evidence/search-evidence/reply-search-recreated.png"
+      },
+      {
+        "name": "search-evidence/people-name-recreated.xml",
+        "bytes": 43408,
+        "sha256": "01564f9ec6a4294abc439d11ae5a4aec3f233c4a3eda205696bf3870afe4d401",
+        "retainedPath": "originals/search-evidence/search-evidence/people-name-recreated.xml"
+      },
+      {
+        "name": "search-evidence/people-name-recreated.png",
+        "bytes": 35610,
+        "sha256": "47796560bfbc12b258d6e89dad01f4eed3fcf656597144a3130cfa9b4cbe994d",
+        "retainedPath": "originals/search-evidence/search-evidence/people-name-recreated.png"
+      },
+      {
+        "name": "search-evidence/cache-save-warning.xml",
+        "bytes": 51691,
+        "sha256": "8ba38bd34059bc9dfbf869094996bc88d5ae988db8faaab050ba943036480041",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-save-warning.xml"
+      },
+      {
+        "name": "search-evidence/cache-save-warning.png",
+        "bytes": 38576,
+        "sha256": "588bc5243556198d7936af9e96db86a8073cb140ddbeafa45d6e9ce4c14d88ca",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-save-warning.png"
+      },
+      {
+        "name": "search-evidence/cache-save-repaired-offline.xml",
+        "bytes": 52923,
+        "sha256": "29e1b7e242d4c39a1789ace9fa35c9d1d2a35c0c676ca9cafd621290cada956c",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-save-repaired-offline.xml"
+      },
+      {
+        "name": "search-evidence/cache-save-repaired-offline.png",
+        "bytes": 39406,
+        "sha256": "f281cfbaaa533d80830611f5a0e8f7af44ff99ba0fc50d5a877c314c35387422",
+        "retainedPath": "originals/search-evidence/search-evidence/cache-save-repaired-offline.png"
+      },
+      {
+        "name": "search-evidence/cached-check-before-refresh.xml",
+        "bytes": 43408,
+        "sha256": "01564f9ec6a4294abc439d11ae5a4aec3f233c4a3eda205696bf3870afe4d401",
+        "retainedPath": "originals/search-evidence/search-evidence/cached-check-before-refresh.xml"
+      },
+      {
+        "name": "search-evidence/cached-check-before-refresh.png",
+        "bytes": 35610,
+        "sha256": "47796560bfbc12b258d6e89dad01f4eed3fcf656597144a3130cfa9b4cbe994d",
+        "retainedPath": "originals/search-evidence/search-evidence/cached-check-before-refresh.png"
+      },
+      {
+        "name": "search-evidence/people-cached-check.xml",
+        "bytes": 48454,
+        "sha256": "1aa11823ea07a2bcf3bcc51ceac388aa0265bb342f724fcd9078fe6c1ff1969e",
+        "retainedPath": "originals/search-evidence/search-evidence/people-cached-check.xml"
+      },
+      {
+        "name": "search-evidence/people-cached-check.png",
+        "bytes": 43607,
+        "sha256": "e415bda38d609137cd016d993beb89d2c6f81cfb54c30729f8d700173cc5373a",
+        "retainedPath": "originals/search-evidence/search-evidence/people-cached-check.png"
+      },
+      {
+        "name": "search-evidence/author-edit-stale-reopen.xml",
+        "bytes": 49605,
+        "sha256": "18fabe6f2f66a793779d2faf1fa9d60a85667a8a888efea470f0c38fc668c9fc",
+        "retainedPath": "originals/search-evidence/search-evidence/author-edit-stale-reopen.xml"
+      },
+      {
+        "name": "search-evidence/author-edit-stale-reopen.png",
+        "bytes": 37737,
+        "sha256": "1dbe12193d2d4849b8e630dac66a4df6225105ec3d3c1d70a17df3b2ea61fcf3",
+        "retainedPath": "originals/search-evidence/search-evidence/author-edit-stale-reopen.png"
+      },
+      {
+        "name": "search-evidence/author-delete-stale-reopen.xml",
+        "bytes": 40099,
+        "sha256": "5a7f541cfd393288bf91125c17f409e8a74197fff4cc7e449e5de1079babf2d0",
+        "retainedPath": "originals/search-evidence/search-evidence/author-delete-stale-reopen.xml"
+      },
+      {
+        "name": "search-evidence/author-delete-stale-reopen.png",
+        "bytes": 30296,
+        "sha256": "db7fbe19052cf4dbd7d205e9e7321345da48f3db548739c67134edf8679d1d5a",
+        "retainedPath": "originals/search-evidence/search-evidence/author-delete-stale-reopen.png"
+      }
+    ]
+  },
+  "search-presentation-evidence.tar": {
+    "sha256": "23d3374efd9b29cdcb57d701e1b655d701efec66aa6183fe722485bdfb12f7f5",
+    "bytes": 399360,
+    "members": [
+      {
+        "name": "search-presentation-evidence/people-only.xml",
+        "bytes": 43407,
+        "sha256": "500e5acfa5d744e86851d2be1bf8ed94cf3c1a5a804117870663263c67496a36",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/people-only.xml"
+      },
+      {
+        "name": "search-presentation-evidence/people-only.png",
+        "bytes": 35524,
+        "sha256": "dc8e3fdb6363af271c5e939f39bfbb5d3bdec0d766a1e0259b2ec6fd441b8031",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/people-only.png"
+      },
+      {
+        "name": "search-presentation-evidence/exact-identity.xml",
+        "bytes": 19362,
+        "sha256": "976e97dadb227fcd497a02b306f4b784b65fc94963c67adf3b46cdd4e4859f57",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/exact-identity.xml"
+      },
+      {
+        "name": "search-presentation-evidence/exact-identity.png",
+        "bytes": 35616,
+        "sha256": "332b4c6e761c24f97a23e45853a8edfd1332eef85420c5d8605e16d295535a51",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/exact-identity.png"
+      },
+      {
+        "name": "search-presentation-evidence/mixed-results.xml",
+        "bytes": 52924,
+        "sha256": "6a620e8eb81c41f569bb8a846205eb8810ee3c02a4f9d5de2146d89829468730",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/mixed-results.xml"
+      },
+      {
+        "name": "search-presentation-evidence/mixed-results.png",
+        "bytes": 42089,
+        "sha256": "0a767ee921654e2f031c45719dceee439ba7af24e36711c654dbc72bda317293",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/mixed-results.png"
+      },
+      {
+        "name": "search-presentation-evidence/posts-only.xml",
+        "bytes": 49640,
+        "sha256": "5e93dca2ae9e75a5fdac7a8a208eaef1f240184754e1b51ccf9edbe477a59be7",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/posts-only.xml"
+      },
+      {
+        "name": "search-presentation-evidence/posts-only.png",
+        "bytes": 39774,
+        "sha256": "74d33478e4af7944e4f551ceb8af31f6b03a31e0b43f80bf51fb116b84ad2179",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/posts-only.png"
+      },
+      {
+        "name": "search-presentation-evidence/no-results.xml",
+        "bytes": 40115,
+        "sha256": "b83b42cf99e8a25f89068f118ca9ddf49adf584adbea6e3141a5d5a34d5ad2ab",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/no-results.xml"
+      },
+      {
+        "name": "search-presentation-evidence/no-results.png",
+        "bytes": 31849,
+        "sha256": "7cea265954136ea612bfbb9adbecaf67071b9098b6f615dd017c80d1db4e4018",
+        "retainedPath": "originals/search-presentation-evidence/search-presentation-evidence/no-results.png"
+      }
+    ]
+  },
+  "search-reading-evidence.tar": {
+    "sha256": "e497c4556184015e22f854c455f8bd40183eff9f6e9a427b6be48152976697c3",
+    "bytes": 409088,
+    "members": [
+      {
+        "name": "search-reading-evidence/before-opening-result.xml",
+        "bytes": 59949,
+        "sha256": "1ded78d0f7cb8bcb7a4dc595a6bfb4306924f1b929bc9ae6433052f626d4c7ad",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/before-opening-result.xml"
+      },
+      {
+        "name": "search-reading-evidence/before-opening-result.png",
+        "bytes": 40284,
+        "sha256": "673fa245ae337e062131f0fa78dc9048fd9ff82a5121aebe8ba5c65e50e5df94",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/before-opening-result.png"
+      },
+      {
+        "name": "search-reading-evidence/after-thread.xml",
+        "bytes": 59952,
+        "sha256": "863fdc14b218d3d6b21ea1c3360660a8df534c1c2873679d987a26b5a44fd204",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-thread.xml"
+      },
+      {
+        "name": "search-reading-evidence/after-thread.png",
+        "bytes": 39984,
+        "sha256": "68caac832bdf905e37c9ed7c31345bd036b439e996139d01288a7ef5f3697dae",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-thread.png"
+      },
+      {
+        "name": "search-reading-evidence/after-profile.xml",
+        "bytes": 59952,
+        "sha256": "863fdc14b218d3d6b21ea1c3360660a8df534c1c2873679d987a26b5a44fd204",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-profile.xml"
+      },
+      {
+        "name": "search-reading-evidence/after-profile.png",
+        "bytes": 39984,
+        "sha256": "68caac832bdf905e37c9ed7c31345bd036b439e996139d01288a7ef5f3697dae",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-profile.png"
+      },
+      {
+        "name": "search-reading-evidence/after-recreation.xml",
+        "bytes": 59952,
+        "sha256": "863fdc14b218d3d6b21ea1c3360660a8df534c1c2873679d987a26b5a44fd204",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-recreation.xml"
+      },
+      {
+        "name": "search-reading-evidence/after-recreation.png",
+        "bytes": 39984,
+        "sha256": "68caac832bdf905e37c9ed7c31345bd036b439e996139d01288a7ef5f3697dae",
+        "retainedPath": "originals/search-reading-evidence/search-reading-evidence/after-recreation.png"
+      }
+    ]
+  },
+  "search-recovery-evidence.tar": {
+    "sha256": "808acd69442d746fbbed264197257e3e83a35f08b73d14b8c0efc391302d0b5f",
+    "bytes": 286208,
+    "members": [
+      {
+        "name": "search-recovery-evidence/paused-after-return.xml",
+        "bytes": 53734,
+        "sha256": "371c0c322ad38fdf550fdbd49768061f9f984349207f627766683e14b45751a1",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/paused-after-return.xml"
+      },
+      {
+        "name": "search-recovery-evidence/paused-after-return.png",
+        "bytes": 42090,
+        "sha256": "eaed2d9177901092e56de18d98bce21ef758e6728cb79e100a2e66b10b55224b",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/paused-after-return.png"
+      },
+      {
+        "name": "search-recovery-evidence/paused-after-recreation.xml",
+        "bytes": 53734,
+        "sha256": "371c0c322ad38fdf550fdbd49768061f9f984349207f627766683e14b45751a1",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/paused-after-recreation.xml"
+      },
+      {
+        "name": "search-recovery-evidence/paused-after-recreation.png",
+        "bytes": 42090,
+        "sha256": "eaed2d9177901092e56de18d98bce21ef758e6728cb79e100a2e66b10b55224b",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/paused-after-recreation.png"
+      },
+      {
+        "name": "search-recovery-evidence/continued-explicitly.xml",
+        "bytes": 49605,
+        "sha256": "4586b5f3e4dc2c1d827181e232102018877e260c341ab677e7ba8d8fea1b9668",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/continued-explicitly.xml"
+      },
+      {
+        "name": "search-recovery-evidence/continued-explicitly.png",
+        "bytes": 39040,
+        "sha256": "cbf19d04dcefecf541796877238a12224335bd0bb1f0958853911b51e078696d",
+        "retainedPath": "originals/search-recovery-evidence/search-recovery-evidence/continued-explicitly.png"
+      }
+    ]
+  },
+  "search-viewport-evidence.tar": {
+    "sha256": "86df405565448167ee04eed7e031c1c3a26fdbd04e006b837be92a94ba5f2647",
+    "bytes": 208896,
+    "members": [
+      {
+        "name": "search-viewport-evidence/search-activity-lifecycle.jsonl",
+        "bytes": 1788,
+        "sha256": "6d0b38178ac9e2ced19d38f2e197cc7febec4103488cd5bb508dd65670fd3033",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "search-viewport-evidence/search-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-font-scale.json"
+      },
+      {
+        "name": "search-viewport-evidence/search-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-320-font100-light-configuration.json"
+      },
+      {
+        "name": "search-viewport-evidence/search-320-font100-light-failure.xml",
+        "bytes": 42127,
+        "sha256": "ed9e1da2d293fca304df5eb4358e68ba1784f63384e69887bcddd194ae3b8bb2",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-320-font100-light-failure.xml"
+      },
+      {
+        "name": "search-viewport-evidence/search-320-font100-light-failure.png",
+        "bytes": 29835,
+        "sha256": "b454dbe02f175db07bb65a8d182413a12301f7512483945adcee64b084da1c93",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-320-font100-light-failure.png"
+      },
+      {
+        "name": "search-viewport-evidence/search-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-font-restored.json"
+      },
+      {
+        "name": "search-viewport-evidence/search-viewport-failure.xml",
+        "bytes": 22992,
+        "sha256": "e0ef174f86474daa080b0a1ca6f3f2c70678d5cc24eefe6aa114189e5687ca39",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-viewport-failure.xml"
+      },
+      {
+        "name": "search-viewport-evidence/search-viewport-failure.png",
+        "bytes": 103621,
+        "sha256": "38a4d5ea2a9b247d9b3d880caeb3f7698fc634cb808b6fac5037dd8aea5fc6fb",
+        "retainedPath": "originals/search-viewport-evidence/search-viewport-evidence/search-viewport-failure.png"
+      }
+    ]
+  }
+}

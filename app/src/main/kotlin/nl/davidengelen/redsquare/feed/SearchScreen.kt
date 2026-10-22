@@ -22,6 +22,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.error
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import nl.davidengelen.redsquare.ui.AppSpacing
@@ -119,6 +121,17 @@ internal class SearchViewState {
         request++
     }
 
+    fun pause() {
+        if (completed != request) {
+            completed = request
+            paused = pending.isNotEmpty() || usernamePending
+        }
+        // Disposal must stop this generation before a replacement screen attaches.
+        // IO cancellation can finish later, after navigation has already returned.
+        activeLookup?.cancel()
+        activeLookup = null
+    }
+
     fun loadMore() {
         paused = false
         pending = cursors.filterValues { it != null }.keys.toList()
@@ -140,6 +153,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
     var loading by remember(view) { mutableStateOf(false) }
     var cacheReady by remember(view) { mutableStateOf(false) }
     BackHandler(onBack = onBack)
+    DisposableEffect(view) {
+        onDispose { view.pause() }
+    }
     LaunchedEffect(view, cache) {
         val saved = withContext(Dispatchers.IO) { cache.load() }
         // A retained view or newer proof can change while disk validation is suspended.
@@ -284,7 +300,8 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }.sorted()).distinct()
     }
     val resultsPosition = view.resultsPosition
-    val canSearch = wallet != null && cacheReady && !loading && view.query.isNotBlank()
+    val queryError = if (view.query.length > 256) stringResource(R.string.search_query_too_long) else null
+    val canSearch = wallet != null && cacheReady && !loading && view.query.isNotBlank() && queryError == null
     val submit = {
         if (canSearch) {
             keyboard?.hide()
@@ -334,9 +351,10 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
         }
         Row(Modifier.fillMaxWidth().padding(bottom = AppSpacing.small),
             horizontalArrangement = Arrangement.spacedBy(AppSpacing.small), verticalAlignment = Alignment.CenterVertically) {
-            OutlinedTextField(value = view.query, onValueChange = { if (it.length <= 256) view.query = it },
+            OutlinedTextField(value = view.query, onValueChange = { view.query = it },
                 label = { Text(stringResource(R.string.search_query), maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                singleLine = true, modifier = Modifier.weight(1f),
+                singleLine = true, isError = queryError != null,
+                modifier = Modifier.weight(1f).semantics { queryError?.let { error(it) } },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { submit() }),
                 trailingIcon = if (view.query.isNotEmpty() || view.submitted) ({
@@ -352,6 +370,9 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
                 Icon(painterResource(R.drawable.ic_search), stringResource(R.string.search_history))
             }
         }
+        if (queryError != null) Text(queryError, color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = AppSpacing.small))
         PersonalControlsStatus(personal)
         // During recreation the personal policy initially hides all posts. Do not
         // measure that temporary empty list and clamp the retained reading position.

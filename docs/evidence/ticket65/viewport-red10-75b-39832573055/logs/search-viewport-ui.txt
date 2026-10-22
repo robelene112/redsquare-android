@@ -1,0 +1,149 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.SearchViewportPreviewTest:
+INSTRUMENTATION_STATUS: test=invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.SearchViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' (ignoreCase: false))
+Semantics of the node:
+Node #287 at (l=16.0, t=76.0, r=248.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = '   '
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6474f66'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = '   '
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(3, 3)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:208)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15$lambda$14(SearchViewportPreviewTest.kt:60)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$G0E8nhvF2yHy4n44EFyVhO4fRqU(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15(SearchViewportPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$yv2Wm5kCDMejaodo8iOmSGaOhps(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes(SearchViewportPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: stream=
+Error in invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.SearchViewportPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' (ignoreCase: false))
+Semantics of the node:
+Node #287 at (l=16.0, t=76.0, r=248.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = '   '
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6474f66'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = '   '
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(3, 3)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:208)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15$lambda$14(SearchViewportPreviewTest.kt:60)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$G0E8nhvF2yHy4n44EFyVhO4fRqU(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15(SearchViewportPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$yv2Wm5kCDMejaodo8iOmSGaOhps(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes(SearchViewportPreviewTest.kt:37)
+
+INSTRUMENTATION_STATUS: test=invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 6.171
+There was 1 failure:
+1) invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.SearchViewportPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' (ignoreCase: false))
+Semantics of the node:
+Node #287 at (l=16.0, t=76.0, r=248.0, b=141.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = '   '
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@6474f66'
+Focused = 'true'
+ImeAction = 'Search'
+InputText = '   '
+IsEditable = 'true'
+Text = '[Posts and people]'
+TextSelectionRange = 'TextRange(3, 3)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, MagnifierPositionInRoot, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 1 child, 6 siblings
+Selector used: ((SetText is defined) && (is enabled))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:208)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:204)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15$lambda$14(SearchViewportPreviewTest.kt:60)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$G0E8nhvF2yHy4n44EFyVhO4fRqU(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes$lambda$15(SearchViewportPreviewTest.kt:49)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.$r8$lambda$yv2Wm5kCDMejaodo8iOmSGaOhps(Unknown Source:0)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.SearchViewportPreviewTest.invalidInputAndKeyboardSearchRemainReadableAcrossThemesAndTextSizes(SearchViewportPreviewTest.kt:37)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
