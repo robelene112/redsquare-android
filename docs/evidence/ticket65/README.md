@@ -68,7 +68,8 @@ verified over HTTPS. Public https://davidengelen.nl/redsquare/ . APK SHA256
 b877f406c6c7bce1edc4f2b07cd54279b889753a51a377848fb06ecbb1ddadfc (38250427bytes).
 The established certificate, package/min29/target36, release flags and actual DEX
 options match the held artifact. All22 historical resources are byte-identical;
-withheld61 remains404. Final public delivery review remains pending.
+withheld61 remains404. Final public delivery review throughd93ec88ab reports0/0. Issue65 is CLOSED;
+its child entry on55 is checked.
 
 No physical Pixel performance/update, provider/store or final owner visual
-acceptance is claimed. Finish65 only, then stop pending the next owner sign.
+acceptance is claimed. Issue65 is complete. Stop pending the next owner sign.

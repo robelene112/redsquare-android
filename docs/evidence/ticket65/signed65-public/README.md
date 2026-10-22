@@ -27,9 +27,9 @@ Accepted complete10run39852319358:527 identities,161 normal,35 interruptions,
 Accepted complete17run39852323349:528 identities,162 normal,35 interruptions,
 34 continuity,122 archives,zero assumptions. Both use exact509fc9967; its listed
 production/build paths match preparedca678e521. No failed or focused runs mixed.
-Final public delivery review is pending.
+Final public delivery review throughd93ec88ab reports Spec0/documented Standards0/heuristic0. Issue65 is CLOSED; its child entry on55 is checked.
 
 Development preview only. Physical Pixel installation/timing, real providers,
 publisher identity and store work stay under36 and OWNER_INPUTS.md. Remaining
 UI66through70 and owner visual55 remain open. No private owner wallet was used.
-Finish65 only and stop. SHA256SUMS excludes this README.
+Issue65 is complete. Stop until the owner authorizes another issue. SHA256SUMS excludes this README.

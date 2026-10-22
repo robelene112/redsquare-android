@@ -1,6 +1,6 @@
 # Implementation handoff
 
-## Issue65 delivered, final closure pending; STOP afterward
+## Issue65 complete; STOP until the owner resumes another issue
 
 Owner authorization covers issue65 only. Do not start66 without a new sign.
 Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains unread
@@ -23,9 +23,11 @@ unchanged, withheld61 remains404. Packets signed65-prepared and signed65-public;
 raw /mnt/storage/redsquare-android-artifacts/search65-publication-65. Public
 https://davidengelen.nl/redsquare/ . Never rebuild or reuse65.
 
-Final public delivery review, closing65 and checking its child entry on55 remain.
-Then STOP. No more native test runs or build work is required unless review finds
-a defect. Physical/provider/store work remains parked under36/OWNER_INPUTS.md;
+Final public delivery review throughd93ec88ab reports Spec0/documented Standards0/
+heuristic0. Issue65 is CLOSED and its child entry on55 is checked. Completion:
+https://github.com/robelene112/redsquare-android/issues/65#issuecomment-6352032887 .
+STOP. No further implementation, test runs or builds are authorized until a new
+owner instruction. Physical/provider/store work remains parked under36/OWNER_INPUTS.md;
 owner-wide visual acceptance55 remains open. No other issue has been started.
 
 ## Historical checkpoints
