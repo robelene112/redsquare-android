@@ -34,7 +34,7 @@ class PostContentContextsTest {
                 ui.clickVisiblePostProfile(reference.authorName)
                 ui.waitUntil(15_000) { ui.onNode(hasText("Profile") and !hasClickAction()).isDisplayed() &&
                     ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
-                assertContent(reference, "$label-profile")
+                assertContent(reference, "$label-profile", inProfile = true)
                 home(profile)
                 ui.onNode(hasText("Search") and hasClickAction()).performClick()
                 ui.onNode(hasSetTextAction()).performTextReplacement("Media and quote viewport")
@@ -57,10 +57,11 @@ class PostContentContextsTest {
         ui.onNode(profile).assertIsDisplayed()
     }
 
-    private fun assertContent(reference: PostContentFixture, label: String) {
+    private fun assertContent(reference: PostContentFixture, label: String, inProfile: Boolean = false) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val profile = hasContentDescription("View profile for ${reference.authorName}") and hasClickAction()
         ui.onNode(hasScrollAction()).performScrollToNode(profile)
+        if (inProfile) ui.revealProfileHistoryItem("Media and quote viewport preview")
         ui.onNode(profile).assertIsDisplayed()
         ui.onNodeWithText("Media and quote viewport preview", useUnmergedTree = true).assertIsDisplayed()
         capture("$label-identity-body.png")

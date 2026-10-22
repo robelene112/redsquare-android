@@ -79,7 +79,14 @@ class AppFramePreviewTest {
         ui.waitUntil(10_000) { ui.onNode(hasText("New post") and hasClickAction()).isDisplayed() }
         ui.onNodeWithText("Back up your wallet").assertIsDisplayed()
         ui.onNode(hasText("Your profile") and hasClickAction()).performClick()
-        ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
+        val deadline = android.os.SystemClock.elapsedRealtime() + 10_000
+        val restoredEditor = hasSetTextAction() and hasText(draft)
+        ui.waitUntil(10_000) { ui.onAllNodes(restoredEditor).fetchSemanticsNodes().isNotEmpty() }
+        // The retained biography also grows the preview above its editable field.
+        ui.onNode(restoredEditor).performScrollTo().assertIsDisplayed()
+        check(android.os.SystemClock.elapsedRealtime() <= deadline) {
+            "Revealing the restored editor must meet its existing10s observation deadline"
+        }
         ui.onNode(hasSetTextAction()).assertTextContains(draft)
         capture("profile-edit-retained-after-home.png")
     }
