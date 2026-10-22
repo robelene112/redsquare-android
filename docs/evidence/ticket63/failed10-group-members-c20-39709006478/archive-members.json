@@ -1,0 +1,362 @@
+{
+  "group-setup-evidence.tar": {
+    "sha256": "3e350dfd47a688bf42715e151615042f972157cbdf70fd8c08f2046d1eccd523",
+    "bytes": 1927680,
+    "members": [
+      {
+        "name": "group-setup-evidence/group-setup-activity-lifecycle.jsonl",
+        "bytes": 6212,
+        "sha256": "fbcaa09daf227684eeeb86b32443ad500bc9c41f66cbada6a4a36bbc4aaf2e4b",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-font-scale.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-default.xml",
+        "bytes": 29431,
+        "sha256": "ccb3dcd76da5ca003756e7649477c1145266cafbcf7fe64bf1b21bb05fdc436b",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-default.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-default.png",
+        "bytes": 29760,
+        "sha256": "db930e357fe83768f89949a75b3dff586a36882ba9293b2594e8209e19bc1698",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-default.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-known-selection.xml",
+        "bytes": 34569,
+        "sha256": "dda3be6efc7ee063dfcb195d5a12ab1dbbf6db9fa812be35d9fe2c4c1c0ec2d9",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-known-selection.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-known-selection.png",
+        "bytes": 42159,
+        "sha256": "3289746e59253e2212aebc8a529fb1c6e98707958e2c36746d6b9a4d6ae0bee7",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-known-selection.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-invalid-key-with-ime.xml",
+        "bytes": 41310,
+        "sha256": "fa6b5ff2ad65752352dc150b4b94d14fb1b267063af624fbe59528ee5c56ba1f",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-invalid-key-with-ime.png",
+        "bytes": 30859,
+        "sha256": "92e90cb36954edaea7642c52bb790a0da7feac02e20bc1b28f61e0b850f62702",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-invalid-key-with-ime.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-ready-to-create.xml",
+        "bytes": 37608,
+        "sha256": "e3f9889e7fc6a46be097a75bab68b3aec795b491f21c25f6446ec013493c829a",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-ready-to-create.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-ready-to-create.png",
+        "bytes": 43750,
+        "sha256": "0df7ea2a91249602bb86d3a1a51aec83538a8594c8b467916b8e14af95c6539e",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-ready-to-create.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-created-members.xml",
+        "bytes": 24867,
+        "sha256": "fba122069afb85f9d0f05106ae06754c0e0c6fc39dfddd4c24ce412ed296faaa",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-created-members.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-light-created-members.png",
+        "bytes": 35858,
+        "sha256": "9874bb2b7d4707bed3ce11c3d2b48c2ac845767668fcc30b415f51baffc32eba",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-light-created-members.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-default.xml",
+        "bytes": 29437,
+        "sha256": "533c0dcd9d5948f4aa73ddc1eebc93c03ebfb62ff1fb3241fb3482b8262dfc5f",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-default.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-default.png",
+        "bytes": 30742,
+        "sha256": "9e02802cbf1b6859ab315ed3c8e31b319bfe673687ecbc2424ef2515123b658f",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-default.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-known-selection.xml",
+        "bytes": 34574,
+        "sha256": "8d19bb013d15dc3220d6b51baa2a599998da599e9cf404cecd102394350308b3",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-known-selection.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-known-selection.png",
+        "bytes": 43366,
+        "sha256": "bc043bd76b3e4ce963e3458485fe396fa471b694294d28f52f7f1e05ab44f46d",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-known-selection.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-invalid-key-with-ime.xml",
+        "bytes": 41316,
+        "sha256": "a64131c39c43a0a22d64c719045054334756ae0d9b538365bea709a65d18945a",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-invalid-key-with-ime.png",
+        "bytes": 31434,
+        "sha256": "80740946c4e9e091a9d277c3d034a97ee173824c6e8d5f9447bab1ab2920515c",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-invalid-key-with-ime.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-ready-to-create.xml",
+        "bytes": 37608,
+        "sha256": "e3f9889e7fc6a46be097a75bab68b3aec795b491f21c25f6446ec013493c829a",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-ready-to-create.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-ready-to-create.png",
+        "bytes": 45070,
+        "sha256": "c6ecb6a67d2129b670397a0adefcc6ea3516c3b7a47ef82b8f2e9bb6bbc043af",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-ready-to-create.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-created-members.xml",
+        "bytes": 24867,
+        "sha256": "fba122069afb85f9d0f05106ae06754c0e0c6fc39dfddd4c24ce412ed296faaa",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-created-members.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font100-dark-created-members.png",
+        "bytes": 36263,
+        "sha256": "93f2259d496cfd9fd360436f4b0c96df60f2fc088dde2eeb3c7209dd863391f0",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font100-dark-created-members.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-default.xml",
+        "bytes": 29437,
+        "sha256": "a5fef662068a5c59cef9e29656babf4855de9b1f785daaae846d770720346df1",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-default.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-default.png",
+        "bytes": 35461,
+        "sha256": "1dfd1b2561ec554110750726ed62d8786f3ca7cc88333e335bd8170af3794d43",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-default.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-known-selection.xml",
+        "bytes": 34574,
+        "sha256": "766b323e67ebee4345a3c4e857be8cabc1aa16a9276b4d6654b8efcac68394e5",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-known-selection.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-known-selection.png",
+        "bytes": 49411,
+        "sha256": "1e8eee65dbfc3d6ae5486d0e42e8a2b57c4faa15c810bdfcdd442ac9f34a9055",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-known-selection.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-invalid-key-with-ime.xml",
+        "bytes": 41317,
+        "sha256": "5b443affa156f1f7014cc5fb02f8e19b351497414b79572885b2df08d9c6a270",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-invalid-key-with-ime.png",
+        "bytes": 34756,
+        "sha256": "22f0dcd80b56c797370f77c0c38acab9785d0fbe5dca3ca5b50b0b5426fc5262",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-invalid-key-with-ime.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-ready-to-create.xml",
+        "bytes": 37176,
+        "sha256": "0d4ccfdf573d6f9d292b4d97cab11a77e4a912b6b27be380fe3c84181d577fdb",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-ready-to-create.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-ready-to-create.png",
+        "bytes": 50021,
+        "sha256": "a1e03d0a206c278e362c5db64b25b4c6765365529364b299deb09aabe40756b2",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-ready-to-create.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-created-members.xml",
+        "bytes": 24034,
+        "sha256": "40188bb787ea3a65bf76dc86552d316232981ca4df60a112218d4145e4f596ec",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-created-members.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-light-created-members.png",
+        "bytes": 40124,
+        "sha256": "3d8832bc1fe1726b2f4440f612e0bdc81b470c46a0f738d019a6be4ca58d8017",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-light-created-members.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-default.xml",
+        "bytes": 29437,
+        "sha256": "decddc36963cccb4b67dc1446967bab74e0e4ce685226d26e53ba0b234203a21",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-default.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-default.png",
+        "bytes": 36036,
+        "sha256": "522a9a8fae90b7d673a23e1d451b6ffe847b817dd0eb3ed05cf11090a3112251",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-default.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-known-selection.xml",
+        "bytes": 34573,
+        "sha256": "2898b62f11b9c38a80c2d8a79aadb8a6beb3ccabb6618670f13108eac14b0948",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-known-selection.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-known-selection.png",
+        "bytes": 50379,
+        "sha256": "4b08e51131d014408066475fbe19b6f6fbd52754ba6b931b322c2d96451221be",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-known-selection.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-invalid-key-with-ime.xml",
+        "bytes": 41317,
+        "sha256": "c157603b9b6aa9abc3cb932ee00448172175c19c4db9b3c881509a3f2375991d",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-invalid-key-with-ime.png",
+        "bytes": 35176,
+        "sha256": "4a0a562202deb3fddcbce623688a6f35c86819817cd0f861ce36369989178863",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-invalid-key-with-ime.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-ready-to-create.xml",
+        "bytes": 37176,
+        "sha256": "911766f8c57b3bb608811f3c57af340fe555b003105fc9b76ed55d16d664b126",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-ready-to-create.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-ready-to-create.png",
+        "bytes": 50878,
+        "sha256": "3579e57b5944d272aae92455d35b96f73e100cb8918943d4dd362a1941f5d6b7",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-ready-to-create.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-created-members.xml",
+        "bytes": 24034,
+        "sha256": "40188bb787ea3a65bf76dc86552d316232981ca4df60a112218d4145e4f596ec",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-created-members.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font130-dark-created-members.png",
+        "bytes": 40514,
+        "sha256": "3f855722131d08453d8cfd05a3cef5f5947df7d23add321ecf0dac114fc0dce3",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font130-dark-created-members.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-configuration.json"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-default.xml",
+        "bytes": 29437,
+        "sha256": "4721182779f0ec48096fc09ba2c252b16e625658475ca9457afdce4f59c2ed6c",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-default.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-default.png",
+        "bytes": 44510,
+        "sha256": "63f960f20dc8f45f9faf31d2d578205748113c5e281ce7d6c9e28c0c3d305065",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-default.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-known-selection.xml",
+        "bytes": 32912,
+        "sha256": "1a66971260489bcc25d90e8d1bf0d85e035bdf7a95205c1afd108a5f6b49ecd0",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-known-selection.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-known-selection.png",
+        "bytes": 50217,
+        "sha256": "477be23652bd81171f39b63af069e50e95139daf6e1257798ff1789cf2571596",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-known-selection.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.xml",
+        "bytes": 41316,
+        "sha256": "20c6d1d6ce691baff366d7092abc72a84ab61080e64a23a8facb07dea8905cdc",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.png",
+        "bytes": 40461,
+        "sha256": "474835c59defaed70b4a1c75735adf97d94fd0880e8b1ae7d827b20b6a87f808",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-invalid-key-with-ime.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-ready-to-create.xml",
+        "bytes": 35513,
+        "sha256": "4fb960a259cfcda9059f92dc94bdbde187488289f3fae994c74f4732550303ab",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-ready-to-create.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-ready-to-create.png",
+        "bytes": 50031,
+        "sha256": "0c72c033d1e1e3fded54b304c3b4645e6e88c285e56e92d5660155c2502a5dcf",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-ready-to-create.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-failure.semantics.txt",
+        "bytes": 20914,
+        "sha256": "2272a17640a47799c9857db25fd809775fa37165c35f7330513336a775394ec5",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-failure.semantics.txt"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-failure.xml",
+        "bytes": 20187,
+        "sha256": "72f61e5db517abf63efc549acae5afd5440fdcb4a72aa47c07606c79a4a10dce",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-failure.xml"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-320-font200-light-failure.png",
+        "bytes": 46197,
+        "sha256": "8cfa722a6a5af23d5acd4648b2b82e3168b75704956f0c654822bc98ba70bca1",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-320-font200-light-failure.png"
+      },
+      {
+        "name": "group-setup-evidence/group-setup-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/group-setup-evidence/group-setup-evidence/group-setup-font-restored.json"
+      }
+    ]
+  }
+}

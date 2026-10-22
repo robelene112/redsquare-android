@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupSetupPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.GroupSetupPreviewTest:
+INSTRUMENTATION_STATUS: test=aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.GroupSetupPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11$lambda$10(GroupSetupPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$zhMwELp6EdOexpKvVm2mWlK6vLM(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11(GroupSetupPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$792DkE7ZM0HVwgWfLyZ6jmfFOj0(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard(GroupSetupPreviewTest.kt:52)
+
+INSTRUMENTATION_STATUS: stream=
+Error in aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard(nl.davidengelen.redsquare.GroupSetupPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11$lambda$10(GroupSetupPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$zhMwELp6EdOexpKvVm2mWlK6vLM(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11(GroupSetupPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$792DkE7ZM0HVwgWfLyZ6jmfFOj0(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard(GroupSetupPreviewTest.kt:52)
+
+INSTRUMENTATION_STATUS: test=aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 112.35
+There was 1 failure:
+1) aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard(nl.davidengelen.redsquare.GroupSetupPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11$lambda$10(GroupSetupPreviewTest.kt:120)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$zhMwELp6EdOexpKvVm2mWlK6vLM(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard$lambda$14$lambda$12$lambda$11(GroupSetupPreviewTest.kt:53)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.$r8$lambda$792DkE7ZM0HVwgWfLyZ6jmfFOj0(GroupSetupPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest$$ExternalSyntheticLambda11.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$13(PostViewportFixture.kt:93)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$O2X8LhpFGHdJqTryAJDUeZCLK20(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:76)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.GroupSetupPreviewTest.aNamedGroupUsesKnownAndIndividuallyValidatedRemovableMembersWithLargeTextAndKeyboard(GroupSetupPreviewTest.kt:52)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

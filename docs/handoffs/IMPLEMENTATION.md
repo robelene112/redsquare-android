@@ -39,6 +39,26 @@ provider safeguards and production boundaries in AGENTS/skills remain applicable
 
 ## Active Chat entry and invitation63
 
+LATEST GROUP: first native10run39709006478 and17run39709009138 exactc20 both REJECTED:
+original method79.403s/112.350s, original180s class intact. Both stop at200Light
+line120 pasted member public-key isDisplayed after generic descendant performScrollTo.
+Root viewed both actual Members PNGs/XML/semantics: admin/known member visible, pasted
+row only prefetched/unplaced-looking in tree, outside native viewport. Original signed
+role/wire goals precede this failure. Packets failedSDK-group-members-c20-RUN retain59
+originals each; observer64004 ended0. Final-source CI compilation passed before both
+runtime executions. No passing assembly/group acceptance.
+
+Only fixture operator now changes: actual dialog scroll collection performScrollToNode
+for each original exact key, then same isDisplayed assertions. No app/core changes,
+retry, goal/class/deadline change. Compile14991 ACTIVE, external
+group63-member-list-operator-compile.log/json. NEXT paired fixture/evidence review,
+compile then complete group-setup10/17 again. Root also viewed new default/invalidIME/
+ready200 frames. Selected name wraps to isolated Q at200; fix that bounded typography
+and checkbox/avatar spacing after operator proof, before visual group acceptance.
+Do not start invitation production until this slice is GREEN and polished.
+
+Earlier group source and execution history follow.
+
 CURRENT GROUP SLICE: RED10run39707436129 exact20390970 whole/jobFAIL20.587s/180,
 original15s Add by public key missing in old100Light Create group dialog. Root viewed
 PNG/XML/semantics. Packet failed10-group-setup-203-RUN retains7 originals; observer83079
@@ -59,9 +79,11 @@ First production4988fbd0 app/test compile1247 SUCCESS3m58wall/Gradle3m56/0,
 group63-setup-first-production-compile.log/json. Standards source/RED review documented0/
 heuristic0; Spec found ignored retained.unreadable contact-load flag. Narrow Boolean
 OR correction now includes unreadable as well as unavailable, preserving usable known
-contacts plus truthful feedback. Narrow re-review pending; final-source compilation
-will also run in native CI before execution. NEXT complete group setup10/17 after
-source residual cleared. No changed deadline, goal or protocol fixture.
+contacts plus truthful feedback. Narrow re-reviewc20b9ad6 cleared Spec0/documentedStandards0/heuristic0. Both
+final-source builds/native executions now running exactc20: Android10run39709006478
+and17run39709009138. /tmp/redsquare63-watch-group-first.py retains terminal originals
+under external group63-SDK-first-c20-RUN. NEXT inspect original complete outcomes
+and actual default/200% group captures before any next invitation slice. No changed deadline, goal or protocol fixture.
 Invitation slice not yet implemented; no whole63/full/signed delivery acceptance.
 
 Earlier private-entry acceptance and execution history follow.
