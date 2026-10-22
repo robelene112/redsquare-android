@@ -103,7 +103,20 @@ Relay/roles/metadata and unchangednode. Official-host link must not selectOFFICI
 One new class/additive focused scopes/fullChat inclusion, no production change.
 Initial compile78146 FAILED1m25Gradle due missing getOrNull import. Added that import
 and scoped preview text assertions to actual claimed-admin dialog (privacy text also
-exists on background group screen). Corrected compile/review follow; no nativeRED yet.
+exists on background group screen). Corrected compile69477 SUCCESS1m54Gradle/explicit0 (group63-invitation-recovery-corrected-compile.log/json).
+Spec source1b30555a003eea382f148d3d18037a43a25945d3 reports0; Standards documented0,
+nonblocking DataClumps8-argument assertion helper now replaced with a cell-local
+closure binding before/count/id/stores. Original assertion goals unchanged. No nativeRED yet.
+
+Additional required source gate39713601042 exact568 FAILED in lintDebug,2 errors:
+first logs LocalContextGetResourceValueCall atCopy label. Focused native passes
+remain historical bounded proof, not lint/full-source acceptance. Packet
+failed-source-invitation-labels-568-RUN binds exact terminal metadata/log. Both
+callback labels now come from composition stringResource, no suppression/baseline/
+payload change. Native Copy/Share interface unchanged. Corrected app/test compile
+plus debug/performance lint42134 ACTIVE, external
+group63-invitation-labels-and-recovery-lint.log/json. NEXT paired narrow source/failure
+review and required corrected source/lint success, then expected recovery RED10.
 
 Remaining deliberate Join recovery slice still pending after Copy/Share; no whole63,
 full SDK or new signed acceptance. Public62 unchanged.

@@ -33,6 +33,8 @@ import nl.davidengelen.redsquare.ui.StatusTone
 internal fun GroupInvitationDialog(invitation: String, onDismiss: () -> Unit) {
     val context = LocalContext.current
     val activity = requireNotNull(LocalActivity.current)
+    val invitationLabel = stringResource(R.string.group_invitation_link)
+    val shareLabel = stringResource(R.string.group_invitation_share)
     var feedback by remember(invitation) { mutableIntStateOf(0) }
     val copied = feedback == R.string.group_invitation_copied
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(
@@ -71,11 +73,11 @@ internal fun GroupInvitationDialog(invitation: String, onDismiss: () -> Unit) {
                     Button(onClick = {
                         feedback = try {
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            clipboard.setPrimaryClip(ClipData.newPlainText(context.getString(R.string.group_invitation_link), invitation))
+                            clipboard.setPrimaryClip(ClipData.newPlainText(invitationLabel, invitation))
                             R.string.group_invitation_copied
                         } catch (_: Exception) { R.string.group_invitation_copy_error }
                     }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                        Icon(painterResource(R.drawable.ic_copy), contentDescription = null, Modifier.size(20.dp))
+                        Icon(painterResource(R.drawable.ic_copy), contentDescription = null, modifier = Modifier.size(20.dp))
                         Spacer(Modifier.width(AppSpacing.small))
                         Text(stringResource(R.string.group_invitation_copy))
                     }
@@ -85,11 +87,11 @@ internal fun GroupInvitationDialog(invitation: String, onDismiss: () -> Unit) {
                                 type = "text/plain"
                                 putExtra(Intent.EXTRA_TEXT, invitation)
                             }
-                            activity.startActivity(Intent.createChooser(send, context.getString(R.string.group_invitation_share)))
+                            activity.startActivity(Intent.createChooser(send, shareLabel))
                             0
                         } catch (_: Exception) { R.string.group_invitation_share_error }
                     }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                        Icon(painterResource(R.drawable.ic_share), contentDescription = null, Modifier.size(20.dp))
+                        Icon(painterResource(R.drawable.ic_share), contentDescription = null, modifier = Modifier.size(20.dp))
                         Spacer(Modifier.width(AppSpacing.small))
                         Text(stringResource(R.string.group_invitation_share))
                     }

@@ -76,6 +76,10 @@ class GroupInvitationRecoveryPreviewTest {
                             val before = wallets.loadExisting()
                             val count = peer.transactions.size
                             check(peer.relayedMessages.size == count && groups.load(id) == null)
+                            fun assertUnchanged() {
+                                check(wallets.loadExisting().exportJson() == before.exportJson() && backends.load() == SaitoBackend.OWNER)
+                                check(peer.transactions.size == count && peer.relayedMessages.size == count && groups.load(id) == null)
+                            }
                             click("Chat")
                             click("Groups")
                             recover(id, ids.size)
@@ -84,11 +88,11 @@ class GroupInvitationRecoveryPreviewTest {
                             physicalPreview()
                             waitFor("This invitation could not be read. Check the link and try again.")
                             captureNativeScreen(File(folder, "$label-invalid-with-ime.png"))
-                            assertUnchanged(before, count, peer, groups, id, wallets, backends)
+                            assertUnchanged()
                             ui.onNodeWithText("Invitation link").performTextReplacement(invitation(ids[(index + 1) % ids.size], "Wrong group"))
                             physicalPreview()
                             waitFor("This invitation is for a different group. Use a link for the group you selected.")
-                            assertUnchanged(before, count, peer, groups, id, wallets, backends)
+                            assertUnchanged()
                             var previousClip: ClipData? = null
                             ui.runOnIdle { previousClip = clipboard.primaryClip }
                             var clipFailure: Throwable? = null
@@ -96,13 +100,13 @@ class GroupInvitationRecoveryPreviewTest {
                                 ui.runOnIdle { clipboard.setPrimaryClip(ClipData.newPlainText("Fixture invitation", link)) }
                                 pasteAndPreview(link)
                                 inspectPreview(folder, label, name, admin, sender, id)
-                                assertUnchanged(before, count, peer, groups, id, wallets, backends)
+                                assertUnchanged()
                                 click("Cancel")
-                                assertUnchanged(before, count, peer, groups, id, wallets, backends)
+                                assertUnchanged()
                                 recover(id, ids.size)
                                 pasteAndPreview(link)
                                 waitFor(name)
-                                assertUnchanged(before, count, peer, groups, id, wallets, backends)
+                                assertUnchanged()
                                 click("Join")
                                 ui.waitForGroupStatus("Forwarded. Delivery is not confirmed.")
                                 ui.waitUntil(15_000) { peer.transactions.size == count + 1 && peer.relayedMessages.size == count + 1 }
@@ -144,12 +148,6 @@ class GroupInvitationRecoveryPreviewTest {
             { wallets.replace(wallets.loadOrCreate(), originalWallet) }, { backends.save(originalBackend) },
             { retained.restorePreferences() },
             { check(wallets.loadExisting().exportJson() == originalWallet.exportJson() && backends.load() == originalBackend) }) }
-    }
-
-    private fun assertUnchanged(before: SaitoWallet, count: Int, peer: ControlledFeedPeer, groups: GroupChatStore,
-        id: String, wallets: AndroidWalletStore, backends: AndroidBackendStore) {
-        check(wallets.loadExisting().exportJson() == before.exportJson() && backends.load() == SaitoBackend.OWNER)
-        check(peer.transactions.size == count && peer.relayedMessages.size == count && groups.load(id) == null)
     }
 
     private fun recover(id: String, groupCount: Int) {
