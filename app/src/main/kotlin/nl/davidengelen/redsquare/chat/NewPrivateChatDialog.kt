@@ -48,18 +48,20 @@ internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Bool
         val focus = LocalFocusManager.current
         val keyboard = LocalSoftwareKeyboardController.current
         fun open() {
-            if (working || personal?.ready != true || publicKey.isBlank()) return
+            if (busy || validating || personal?.ready != true || publicKey.isBlank()) return
             val address = publicKey.trim()
             validating = true
             scope.launch {
                 try {
-                    validationError = withContext(Dispatchers.Default) {
+                    val error = withContext(Dispatchers.Default) {
                         when {
                             !SaitoWallet.isPublicKey(address) -> R.string.chat_key_invalid
                             address == owner -> R.string.chat_key_self
                             else -> 0
                         }
                     }
+                    if (publicKey.trim() != address) return@launch
+                    validationError = error
                     if (validationError == 0) {
                         focus.clearFocus()
                         keyboard?.hide()
@@ -85,8 +87,9 @@ internal fun NewPrivateChatDialog(owner: String, busy: Boolean, saveFailed: Bool
                     PersonalControlsStatus(personal)
                     OutlinedTextField(publicKey, onValueChange = { publicKey = it; validationError = 0 },
                         label = { Text(stringResource(R.string.chat_public_key)) }, singleLine = true,
-                        enabled = !working, isError = validationError != 0, modifier = Modifier.fillMaxWidth(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                        enabled = !busy, isError = validationError != 0, modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii, autoCorrectEnabled = false,
+                            imeAction = ImeAction.Done),
                         keyboardActions = KeyboardActions(onDone = { open() }))
                     InlineStatus(if (validationError != 0) stringResource(validationError) else null, StatusTone.ERROR)
                     InlineStatus(if (saveFailed) stringResource(R.string.chat_contact_save_error) else null, StatusTone.ERROR)
