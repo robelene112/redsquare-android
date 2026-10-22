@@ -26,7 +26,18 @@ Issue63 is closed. Issue64 is claimed; its review base is
    No editor, TalkBack or physical D-pad implementation/proof yet. Existing raw-key
    and account-control fixtures will need explicit UI navigation while preserving
    their original identity/confirmation/restore assertions and deadlines.
-   First GREEN focused runs are next. Scope `profile-hierarchy` and Android17
+   First reading slice source reviews at1db are Spec0/documented Standards0/
+   heuristic0. Final-menu compile exits0/4m4s Gradle, external
+   `profile64-identity-menu-compile.{json,log}`. Android10 first GREEN attempt
+   run39732748220 at1db failed25.456s at the first200% Light tab lookup after
+   four prior cells completed. Packet `failed10-hierarchy-1db-39732748220`
+   retains62 members; root inspected four originals. Tabs are a separate lazy
+   item below the tall header; fixture now scrolls to its exact same matcher
+   before lookup, retaining Role.Tab/selected/assertions/sixcells/180s. No app
+   defect is proved. Android17run39732748146 at1db remains active, observer
+   PID3203445 `/tmp/redsquare64-watch-hierarchy.py`, external log
+   `profile64-hierarchy-1db-observer.log`, terminal-only raw retention.
+   Scope `profile-hierarchy` and Android17
    variant use one180s class, additive complete Social inclusion. Preserve all
    original goals. Public63 remains accepted; no64 beta is prepared.
 2. Continue65through69, then70. The owner authorized the whole backlog without

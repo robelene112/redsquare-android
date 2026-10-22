@@ -41,10 +41,16 @@ class ProfileHierarchyPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("Later") and hasClickAction()).isDisplayed() }
             ui.onNodeWithText("Later").performClick()
             ui.withPostViewports(activity, folder, "profile-hierarchy") { label, _ ->
+                withFailureCapture({
+                    File(folder, "$label-failure.semantics.txt").writeText(
+                        ui.onAllNodes(isRoot(), useUnmergedTree = true).printToString(maxDepth = Int.MAX_VALUE))
+                }) {
                 ui.clickVisiblePostProfile("Anon-${author.take(6)}")
                 waitFor("Signed bio 🌱\nSecond line")
                 capture(folder, "$label-default.png")
                 val posts = tab("Posts")
+                // At200% this lazy item is below the identity header and not composed yet.
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(posts)
                 ui.onNode(posts).performScrollTo().assertIsSelected()
                 for (name in listOf("Replies", "Likes", "Posts")) {
                     val selected = tab(name)
@@ -87,6 +93,7 @@ class ProfileHierarchyPreviewTest {
                 waitFor("Signed bio 🌱\nSecond line")
                 ui.onNode(hasText("Back") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
+                }
             }
         }
     }

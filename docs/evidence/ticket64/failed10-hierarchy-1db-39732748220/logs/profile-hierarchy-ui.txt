@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileHierarchyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ProfileHierarchyPreviewTest:
+INSTRUMENTATION_STATUS: test=identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ProfileHierarchyPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (((Text + InputText + EditableText contains 'Posts' (ignoreCase: false)) && (OnClick is defined)) && (Role = 'Tab'))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14$lambda$13(ProfileHierarchyPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QLq6sjJ1I_B1JWom1AcC9Awn0rg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$9c3OmVGaxqYe47EKpxDDPG7h71k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: stream=
+Error in identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ProfileHierarchyPreviewTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (((Text + InputText + EditableText contains 'Posts' (ignoreCase: false)) && (OnClick is defined)) && (Role = 'Tab'))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14$lambda$13(ProfileHierarchyPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QLq6sjJ1I_B1JWom1AcC9Awn0rg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$9c3OmVGaxqYe47EKpxDDPG7h71k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+INSTRUMENTATION_STATUS: test=identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 25.456
+There was 1 failure:
+1) identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ProfileHierarchyPreviewTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (((Text + InputText + EditableText contains 'Posts' (ignoreCase: false)) && (OnClick is defined)) && (Role = 'Tab'))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:80)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14$lambda$13(ProfileHierarchyPreviewTest.kt:48)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$QLq6sjJ1I_B1JWom1AcC9Awn0rg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes$lambda$14(ProfileHierarchyPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.$r8$lambda$9c3OmVGaxqYe47EKpxDDPG7h71k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest$$ExternalSyntheticLambda10.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:44)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ProfileHierarchyPreviewTest.identityDetailsHistoryAndSecondaryActionsStayReadableAcrossThemesAndTextSizes(ProfileHierarchyPreviewTest.kt:35)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
