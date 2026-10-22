@@ -60,7 +60,7 @@ internal fun CreateGroupDialog(wallet: SaitoWallet, backend: SaitoBackend, busy:
         try {
             val found = withContext(Dispatchers.IO) {
                 val retained = ChatHistoryStore.contacts(context, wallet, backend)
-                (wallet.chatContacts() + retained.accounts).distinct().filter { it != owner } to retained.unavailable
+                (wallet.chatContacts() + retained.accounts).distinct().filter { it != owner } to (retained.unavailable || retained.unreadable)
             }
             contacts = found.first
             contactsFailed = found.second

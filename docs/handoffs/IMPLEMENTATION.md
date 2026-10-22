@@ -55,8 +55,13 @@ private default labels/validation/metadata paths unchanged. Original GroupChatPr
 and PublishingGroup operators navigate actual Add route; cancelled publishing verifies
 preserved/editable selected members by remove/re-add, all original protocol/assertions/
 class deadlines remain. No group protocol or role/invitation management changes.
-Local app/test compile1247 ACTIVE: group63-setup-first-production-compile.log/json.
-NEXT paired source/RED review, compile and focused complete group setup on10/17.
+First production4988fbd0 app/test compile1247 SUCCESS3m58wall/Gradle3m56/0,
+group63-setup-first-production-compile.log/json. Standards source/RED review documented0/
+heuristic0; Spec found ignored retained.unreadable contact-load flag. Narrow Boolean
+OR correction now includes unreadable as well as unavailable, preserving usable known
+contacts plus truthful feedback. Narrow re-review pending; final-source compilation
+will also run in native CI before execution. NEXT complete group setup10/17 after
+source residual cleared. No changed deadline, goal or protocol fixture.
 Invitation slice not yet implemented; no whole63/full/signed delivery acceptance.
 
 Earlier private-entry acceptance and execution history follow.
