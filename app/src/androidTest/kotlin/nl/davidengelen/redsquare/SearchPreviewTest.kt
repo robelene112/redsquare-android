@@ -720,6 +720,7 @@ class SearchPreviewTest {
                     assertEquals(2, quoteReads.get())
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText("Available newest result"))
                     ui.onNodeWithText("Available newest result").assertIsDisplayed()
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Load more"))
                     ui.onNodeWithText("Load more").performClick()
                     ui.waitUntil(20_000) {
                         postReads.get() == 2 && ui.onAllNodes(hasContentDescription("Search history") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
@@ -728,6 +729,7 @@ class SearchPreviewTest {
                     ui.onNodeWithText("Available older result").assertIsDisplayed()
                     assertEquals(2, postReads.get())
                     assertEquals("An exhausted quote stream must not be loaded again", 2, quoteReads.get())
+                    ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Load more"))
                     ui.onNodeWithText("Load more").assertIsNotEnabled()
                     ui.onNode(hasScrollAction(), useUnmergedTree = true).performScrollToNode(hasText("Available newest result"))
                     ui.onNodeWithText("Available newest result").assertIsDisplayed()
