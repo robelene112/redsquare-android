@@ -15,12 +15,14 @@ readiness retains the existing15second bound; Wallet failure-only observations
 preserve its original header goal and15second bound. Wallet blank cause unproved.
 Focused Send10run39691847550 and Import10run39691847795 atd354 both succeed.
 Wallet blank is not reproduced and no cause/fix is proved. Fresh entire10run39692824874
-executesd354 with all3partitions and the unchanged original goals; it remains pending. Under the maintained
+executesd354 with all3partitions and the unchanged original goals; it is whole/all3SUCCESS.
+Frozen collector exits0:510PASS plus the sole approved API29 Profile assumption.
+The complete Wallet import sequence also passes; historical blank cause stays unproved. Under the maintained
 fixture-only exception, accepted17 can be retained with equivalent production/build
 objects. CI sparse checkout excludes only retained docs/evidence; all remaining813
 Git blobs and the unchanged full nine-task build pass with final review0/0. No
 class retry, goal, deadline or toolpin change. Signed62 remains held. Publish only
-after fresh whole10 SUCCESS and complete final review; then verify the public
+after complete final evidence review; then verify the public
 after-check before claiming delivery. Public before-check passes; ordinary60 stays
 live and prior immutable ordinary releases/performance43 are preserved.
 
