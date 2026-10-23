@@ -1,0 +1,62 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationProcessRecoveryTest:
+INSTRUMENTATION_STATUS: test=terminateAfterActivityAndReadStatusAreCommitted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationProcessRecoveryTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted$lambda$12$lambda$11(NotificationProcessRecoveryTest.kt:58)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$S0Cj6vlfvo4TQK-yjb6GqOaLxhw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch$lambda$20$lambda$19(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$_1nbg2_ilj7bsFCcl5LhDIOKt1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted(NotificationProcessRecoveryTest.kt:54)
+
+INSTRUMENTATION_STATUS: stream=
+Error in terminateAfterActivityAndReadStatusAreCommitted(nl.davidengelen.redsquare.NotificationProcessRecoveryTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted$lambda$12$lambda$11(NotificationProcessRecoveryTest.kt:58)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$S0Cj6vlfvo4TQK-yjb6GqOaLxhw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch$lambda$20$lambda$19(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$_1nbg2_ilj7bsFCcl5LhDIOKt1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted(NotificationProcessRecoveryTest.kt:54)
+
+INSTRUMENTATION_STATUS: test=terminateAfterActivityAndReadStatusAreCommitted
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.858
+There was 1 failure:
+1) terminateAfterActivityAndReadStatusAreCommitted(nl.davidengelen.redsquare.NotificationProcessRecoveryTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted$lambda$12$lambda$11(NotificationProcessRecoveryTest.kt:58)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$S0Cj6vlfvo4TQK-yjb6GqOaLxhw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda2.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch$lambda$20$lambda$19(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.$r8$lambda$_1nbg2_ilj7bsFCcl5LhDIOKt1g(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.launch(NotificationProcessRecoveryTest.kt:116)
+	at nl.davidengelen.redsquare.NotificationProcessRecoveryTest.terminateAfterActivityAndReadStatusAreCommitted(NotificationProcessRecoveryTest.kt:54)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

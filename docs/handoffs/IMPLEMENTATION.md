@@ -22,9 +22,13 @@ First production slice4ac34066f adds ActivityRow with distinct48dp author/event
 controls, avatar/time/read labels and an individual Mark as read menu sharing
 the existing verified read-store commit. Existing notification test actors use
 the new profile action label, with original counts/destinations/deadlines intact.
-Local bounded Docker Kotlin/app-test compilation passes. Active Android10 runs:
-40004234833 activity-inbox and40004239606 notifications. Do not count pending runs
-as acceptance. Remaining: available previews/type hierarchy/compact header and
+Local bounded Docker Kotlin/app-test compilation passes. Android10 run40005627650 at6ce7402e3 passes original32, new individual-read1
+and API29 permission1. The whole run is rejected because process preparation still
+used the old full-key row selector. f8e14b28a corrects only those three process
+operators. Earlier4ac focused failures remain retained/rejected. New viewport
+class180s covers six mixed events, maximum signed name and six theme/font cells.
+Current active run40006643366 atf8e14b28a is the preview RED attempt, before any
+preview or compact-header production change. Do not count pending runs as acceptance. Remaining: available previews/type hierarchy/compact header and
 status controls, mixed-history/theme/font/empty/offline/long-name evidence,
 actual TalkBack speech, final whole Android10/17, paired review and signed update.
 Current public beta65 remains unchanged. Stop after66.

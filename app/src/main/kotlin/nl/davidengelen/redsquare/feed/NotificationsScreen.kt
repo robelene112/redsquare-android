@@ -6,7 +6,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,6 +24,10 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import nl.davidengelen.redsquare.notifications.SocialNotificationPermissionPrompt
+import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
@@ -245,19 +252,16 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         }
     }
     Column(modifier) {
-        Row {
-            TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
-            Text(stringResource(R.string.notifications_title), Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null && !loading && !markingRead, onClick = {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
+            Text(stringResource(R.string.notifications_title), Modifier.weight(1f).semantics { heading() },
+                style = MaterialTheme.typography.titleLarge)
+            FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.feed_refresh),
+                enabled = wallet != null && !loading && !markingRead) {
                 if (!loading && !markingRead) { pending = emptyMap(); pagingWarning = false; refresh++ }
-            }) { Text(stringResource(R.string.feed_refresh)) }
+            }
         }
         PersonalControlsStatus(personal)
-        if (loading) Text(stringResource(R.string.notifications_loading))
-        if (failed) Text(stringResource(R.string.notifications_read_error))
-        if (cacheWarning) Text(stringResource(R.string.notifications_cache_warning))
-        if (readWarning) Text(stringResource(R.string.notifications_read_status_warning))
-        if (ignored > 0) Text(stringResource(R.string.notifications_unverified))
         val repostRows = reposts.mapNotNull { event ->
             val target = knownPosts.firstOrNull { it.id == event.target }
             referenceCaption(wallet?.publicKey, target, event.recipients,
@@ -294,22 +298,53 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             .distinctBy { it.id }
         val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
         val unread = visible.count { it.id !in readIds }
-        Row {
-            if (readReady) Text(if (unread == 0) stringResource(R.string.notifications_read_none)
-                else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f))
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            if (readReady && (visible.isNotEmpty() || !loading)) Text(
+                if (unread == 0) stringResource(R.string.notifications_read_none)
+                else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f),
+                style = MaterialTheme.typography.labelLarge)
+            else Spacer(Modifier.weight(1f))
             TextButton(enabled = readReady && !markingRead && unread > 0, onClick = {
                 markObserved(visible.map { it.id })
-            }) { Text(stringResource(R.string.notifications_mark_read)) }
+            }, modifier = Modifier.heightIn(min = 48.dp)) {
+                Text(stringResource(R.string.notifications_mark_read), style = MaterialTheme.typography.labelMedium)
+            }
         }
         val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
-        if (pagingWarning) Text(stringResource(R.string.notifications_paging_warning))
-        if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) Text(stringResource(R.string.notifications_history_limit))
+        val notices = buildList {
+            if (readWarning) add(stringResource(R.string.notifications_read_status_warning))
+            if (failed) add(stringResource(R.string.notifications_read_error))
+            if (cacheWarning) add(stringResource(R.string.notifications_cache_warning))
+            if (ignored > 0) add(stringResource(R.string.notifications_unverified))
+            if (pagingWarning) add(stringResource(R.string.notifications_paging_warning))
+            if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) add(stringResource(R.string.notifications_history_limit))
+        }
+        InlineStatus(notices.firstOrNull(), StatusTone.WARNING, details = notices.drop(1))
+        InlineStatus(when {
+            markingRead -> stringResource(R.string.activity_saving_read)
+            loading -> stringResource(R.string.notifications_loading)
+            else -> null
+        }, StatusTone.WORKING)
         val eligibleStreams = notificationStreams(followed, ownPosts)
         val undiscovered = eligibleStreams.filter { it !in cursors }.take(20)
         val older = if (retainedCount < NotificationHistoryStore.MAX_EVENTS)
             cursors.filter { (stream, before) -> stream in eligibleStreams && before != null }
                 .mapValues { requireNotNull(it.value) } else emptyMap()
+        LazyColumn(Modifier.weight(1f)) {
+            if (visible.isEmpty() && !loading) item(key = "empty-activity") {
+                Text(stringResource(R.string.activity_empty), Modifier.fillMaxWidth().padding(vertical = AppSpacing.gap),
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            items(visible, key = { it.id }) { event ->
+                ActivityRow(event.author, event.createdAt, event.caption, event.post,
+                    unread = if (readReady) event.id !in readIds else null,
+                    canMark = readReady && !markingRead && event.id !in readIds,
+                    onMark = { markObserved(listOf(event.id)) },
+                    onIdentity = { onIdentity(event.author) },
+                    onOpen = { event.post?.let(onPost) ?: onReference(event.target) })
+            }
+        }
         TextButton(enabled = wallet != null && !loading && !markingRead &&
             (undiscovered.isNotEmpty() || older.isNotEmpty()), onClick = {
             if (!loading && !markingRead) {
@@ -320,16 +355,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 cursors = cursors + undiscovered.associateWith { before }
                 if (pending.isNotEmpty()) refresh++
             }
-        }) { Text(stringResource(R.string.notifications_more)) }
-        LazyColumn(Modifier.weight(1f)) {
-            items(visible, key = { it.id }) { event ->
-                ActivityRow(event.author, event.createdAt, stringResource(event.caption),
-                    unread = if (readReady) event.id !in readIds else null,
-                    canMark = readReady && !markingRead && event.id !in readIds,
-                    onMark = { markObserved(listOf(event.id)) },
-                    onIdentity = { onIdentity(event.author) },
-                    onOpen = { event.post?.let(onPost) ?: onReference(event.target) })
-            }
+        }, modifier = Modifier.heightIn(min = 48.dp).align(Alignment.CenterHorizontally)) {
+            Text(stringResource(R.string.notifications_more), style = MaterialTheme.typography.labelMedium)
         }
     }
     wallet?.publicKey?.let { SocialNotificationPermissionPrompt(it) }

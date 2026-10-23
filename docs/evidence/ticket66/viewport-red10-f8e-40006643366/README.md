@@ -1,0 +1,1 @@
+Run40006643366 passes the individual-read journey, then fails the new mixed viewport journey at its first signed quote preview assertion. Long-name discovery, following the actor and six-event loading reach the first Light100% cell. The old row lacks Quote notification reference. No preview production code was present. This is preview RED only, not acceptance.

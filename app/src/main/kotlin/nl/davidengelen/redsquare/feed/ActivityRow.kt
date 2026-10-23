@@ -14,11 +14,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.saito.FeedPost
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -26,7 +28,7 @@ import java.util.Locale
 /** Distinct author and event targets; read feedback only follows a verified local save. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun ActivityRow(author: String, createdAt: Long, caption: String, unread: Boolean?,
+internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: FeedPost?, unread: Boolean?,
     canMark: Boolean, onMark: () -> Unit, onIdentity: () -> Unit, onOpen: () -> Unit) {
     val name = registeredIdentity(author).name
     val timestamp = remember(createdAt) {
@@ -40,6 +42,23 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: String, unrea
         false -> R.string.activity_read
         null -> R.string.activity_read_unknown
     })
+    val preview = post?.text?.trim()?.takeIf { it.isNotEmpty() }?.let { text ->
+        val end = text.offsetByCodePoints(0, minOf(160, text.codePointCount(0, text.length)))
+        text.substring(0, end).replace(Regex("\\s+"), " ") + if (end < text.length) "…" else ""
+    } ?: stringResource(when {
+        post == null -> R.string.activity_preview_unavailable
+        post.images.isNotEmpty() -> R.string.activity_photo_post
+        post.link.isNotEmpty() -> R.string.activity_link_post
+        else -> R.string.activity_no_text
+    })
+    val icon = when (caption) {
+        R.string.notifications_like, R.string.notifications_like_own -> R.drawable.ic_like
+        R.string.notifications_reply, R.string.notifications_reply_own -> R.drawable.ic_chat
+        R.string.notifications_repost, R.string.notifications_repost_own -> R.drawable.ic_repost
+        R.string.notifications_quote, R.string.notifications_quote_own -> R.drawable.ic_quote
+        R.string.notifications_mention -> R.drawable.ic_notifications
+        else -> R.drawable.ic_compose
+    }
     var options by remember { mutableStateOf(false) }
     var identity by rememberSaveable(author, createdAt) { mutableStateOf(false) }
     val background by animateColorAsState(if (unread == true) MaterialTheme.colorScheme.surfaceContainerLow
@@ -71,12 +90,23 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: String, unrea
             }
             Column(Modifier.fillMaxWidth().heightIn(min = 48.dp)
                 .clickable(role = Role.Button, onClickLabel = openLabel, onClick = onOpen)
+                .semantics { contentDescription = openLabel }
                 .padding(bottom = AppSpacing.small)) {
-                Text(caption, style = MaterialTheme.typography.bodyMedium)
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                    Icon(painterResource(icon), contentDescription = null, Modifier.size(18.dp),
+                        tint = MaterialTheme.colorScheme.primary)
+                    Text(stringResource(caption), style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = if (unread == true) FontWeight.SemiBold else FontWeight.Normal)
+                }
+                Text(preview, Modifier.padding(vertical = 4.dp), maxLines = 2,
+                    overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
                     Text(timestamp, style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text(readLabel, style = MaterialTheme.typography.labelSmall)
+                    Text(readLabel, style = MaterialTheme.typography.labelSmall,
+                        fontWeight = if (unread == true) FontWeight.Bold else FontWeight.Normal)
                 }
             }
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
