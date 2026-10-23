@@ -1411,6 +1411,7 @@ verify_notification_permission() {
 }
 verify_activity_inbox() {
     verify_group_chat_native ActivityInboxPreviewTest 180 activity-inbox activity-inbox-evidence
+    verify_group_chat_native ActivityInboxViewportTest 180 activity-inbox-viewport activity-inbox-viewport-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == activity-inbox* ]]; then
     verify_activity_inbox

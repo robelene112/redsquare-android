@@ -1,0 +1,86 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityInboxPreviewTest:
+INSTRUMENTATION_STATUS: test=anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(nl.davidengelen.redsquare.ActivityInboxPreviewTest):
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.288
+There was 1 failure:
+1) anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(nl.davidengelen.redsquare.ActivityInboxPreviewTest)
+java.lang.AssertionError: Failed to inject touch input.
+Reason: Expected exactly '1' node but could not find any node that satisfies: (ContentDescription = 'View profile for Anon-pncSjs' (ignoreCase: false))
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performTouchInput(Actions.kt:401)
+	at androidx.compose.ui.test.AndroidActions.performClickImpl(Actions.android.kt:23)
+	at androidx.compose.ui.test.ActionsKt.performClick(Actions.kt:59)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:44)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
