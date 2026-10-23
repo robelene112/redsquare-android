@@ -66,3 +66,12 @@ source/image revision7 focused publisher run40018747907 then passed all cases.
 Cause remains unproven; no test, assertion or deadline was changed. Failed17 was
 cancelled and replacement full17run40019858105 executes identicale5b. Full10
 40016684972 continues independently. No failed partitions contribute to acceptance.
+
+Full10run40016684972 is rejected: the final new Activity read-event observation
+used10s, while its correct full utterance naturally took10.62–10.66s. Engine
+START/positiveAUDIO/DONE and noSTOP/ERROR are retained. Only new event/read-event
+completion observations now use15s; all accepted65 callers remain10s, focus5s
+and class180s remain. Paired timing review0/0; prospective timing record frozen
+at918a4868f4fbb711582791f70b4ee93434758860 before corrected full execution.
+The original literal catalog/collector remains unchanged. Corrected focused
+TalkBack40023104801 is pending; full17 still executes the stricter originale5b.

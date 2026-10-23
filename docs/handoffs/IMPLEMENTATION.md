@@ -60,6 +60,19 @@ at identicale5b is pending. Full10run40016684972 continues (WalletSUCCESS).
 Observer /tmp/redsquare66-watch-full17-repeat-e5b.py tracks new17;77941 retains
 old17 and current10. Never assemble partitions from rejected runs.
 Other full parts continue; a failed full run cannot be accepted or assembled.
+Full10run40016684972 is now wholeFAILURE: all old classes and Wallet/Social
+passed; last new Activity read-event speech exceeded its new10s completion window.
+Retained failed-full10-speech-e5b. Actual PID14826 utterance55 has correct full
+row+Read, positiveAUDIO, START/DONE/noSTOPERROR; adjacent wall timestamps place
+natural playback at10.62–10.66s. At3c406765f only new Activity event/read-event
+completion windows are15s; all old callers remain10s, focus5s/class180s/pins and
+assertions unchanged. Paired timing review0/0. Prospective timing clarification
+refrozen918a4868f4fbb711582791f70b4ee93434758860 in activity-speech-timing.json.
+Original literal catalog/collector07200af remains unchanged. Corrected focused
+TalkBack10run40023104801 pending. Wait for success, then dispatch fresh whole10.
+Full17run40019858105 still runs at stricter originale5b; if it passes, preserve
+that independently complete result. If it fails new speech timing, repeat full17
+with corrected new-case bound. No failed partitions may be assembled.
 Frozen catalog unchanged.
 Observer /tmp/redsquare66-watch-full-e5b.py downloads terminal artifacts; prior
 observer98062 still retains cancelled82a terminal evidence. No failed/cancelled

@@ -94,7 +94,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Unchanged focused publisher17 repeat passed; complete10 continues, complete17 repeated at identical source. Acceptance pending.",
+  "executingState": "Full10 rejected at newly added speech window; additive timing prospectively clarified, focused corrected run pending. Original catalog/collector unchanged.",
   "executingSources": {
     "android10": "e5b469b9e038a70d1b545953f928bb9677b472a0",
     "android17": "e5b469b9e038a70d1b545953f928bb9677b472a0"
@@ -114,6 +114,19 @@
     },
     {
       "android17": 40016688573
+    },
+    {
+      "android10": 40016684972
     }
-  ]
+  ],
+  "activitySpeechTiming": {
+    "path": "docs/evidence/ticket66/activity-speech-timing.json",
+    "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
+    "freezeCommit": "918a4868f4fbb711582791f70b4ee93434758860",
+    "existingTestsCompletionMillis": 10000,
+    "newActivityEventCompletionMillis": {
+      "android10": 15000,
+      "android17": 10000
+    }
+  }
 }
