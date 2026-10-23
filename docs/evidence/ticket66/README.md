@@ -75,3 +75,8 @@ and class180s remain. Paired timing review0/0; prospective timing record frozen
 at918a4868f4fbb711582791f70b4ee93434758860 before corrected full execution.
 The original literal catalog/collector remains unchanged. Corrected focused
 TalkBack40023104801 is pending; full17 still executes the stricter originale5b.
+
+Corrected focused speech40023104801 at3c is whole SUCCESS, retaining all four
+TalkBack classes and actual completion. Fresh complete10run40024098277 now runs
+atbaa1b07c351ecc96858268b6cd0157309aa49053, after timing clarification918a.
+Full17run40019858105 continues at strictere5b. Neither is accepted yet.

@@ -69,7 +69,10 @@ completion windows are15s; all old callers remain10s, focus5s/class180s/pins and
 assertions unchanged. Paired timing review0/0. Prospective timing clarification
 refrozen918a4868f4fbb711582791f70b4ee93434758860 in activity-speech-timing.json.
 Original literal catalog/collector07200af remains unchanged. Corrected focused
-TalkBack10run40023104801 pending. Wait for success, then dispatch fresh whole10.
+TalkBack10run40023104801 at3c is wholeSUCCESS, retained speech-green10-3c4.
+Fresh full10run40024098277 executes exactbaa1b07c351ecc96858268b6cd0157309aa49053
+after the timing clarification freeze. Observer /tmp/redsquare66-watch-full10-baa.py
+downloads terminal evidence;17 observer70569 still tracks40019858105 at strictere5b.
 Full17run40019858105 still runs at stricter originale5b; if it passes, preserve
 that independently complete result. If it fails new speech timing, repeat full17
 with corrected new-case bound. No failed partitions may be assembled.
