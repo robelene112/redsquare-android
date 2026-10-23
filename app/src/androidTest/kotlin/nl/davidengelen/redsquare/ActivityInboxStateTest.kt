@@ -4,6 +4,10 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.compose.ui.unit.dp
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.UiDevice
+import org.junit.Assert.assertTrue
 import java.io.File
 import org.junit.Rule
 import org.junit.Test
@@ -43,7 +47,12 @@ class ActivityInboxStateTest {
                 captureNativeScreen(File(folder, "$label-offline-details.png"))
                 ui.onNodeWithText("Done").performClick()
                 ui.onNode(hasText("Refresh") and hasClickAction()).assertIsDisplayed()
-                    .assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+                // Material's40dp painted icon is inside a48dp native touch/accessibility target.
+                val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+                val refresh = requireNotNull(device.wait(Until.findObject(By.text("Refresh")), 5_000))
+                val minimum = 48 * context.resources.displayMetrics.density
+                assertTrue(refresh.isClickable && refresh.visibleBounds.width() >= minimum &&
+                    refresh.visibleBounds.height() >= minimum)
                 peer.rejectNewConnections = false
                 ui.onNodeWithText("Refresh").performClick()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() &&

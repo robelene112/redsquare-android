@@ -299,6 +299,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             mentions.map { mention -> NotificationRow(mention.id, mention.author, mention.createdAt, mention, R.string.notifications_mention) } + contactRows)
             .distinctBy { it.id }
         val visible = rows.filter { personal?.hidesPosts(it.author) == false }.sortedByDescending { it.createdAt }
+        val previews = rememberActivityPreviews(visible.mapNotNull { it.post }.distinctBy { it.id }, backend)
         val unread = visible.count { it.id !in readIds }
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (readReady && (visible.isNotEmpty() || !loading)) Text(
@@ -314,7 +315,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val notices = buildList {
             if (readWarning) add(R.string.notifications_read_status_warning to R.string.notifications_read_status_warning_detail)
             if (failed) add(R.string.notifications_read_error to R.string.notifications_read_error_detail)
-            if (cacheWarning) add(R.string.notifications_cache_warning to R.string.notifications_cache_warning_detail)
+            if (cacheWarning || previews.unreadable) add(R.string.notifications_cache_warning to R.string.notifications_cache_warning_detail)
             if (ignored > 0) add(R.string.notifications_unverified to R.string.notifications_unverified)
             if (pagingWarning) add(R.string.notifications_paging_warning to R.string.notifications_paging_warning_detail)
             if (retainedCount >= NotificationHistoryStore.MAX_EVENTS)
@@ -343,12 +344,13 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             items(visible, key = { it.id }) { event ->
-                ActivityRow(event.author, event.createdAt, event.caption, event.post,
+                val available = event.post?.id?.let(previews.posts::get)
+                ActivityRow(event.author, event.createdAt, event.caption, available, previewLoading = previews.loading,
                     unread = if (readReady) event.id !in readIds else null,
                     canMark = readReady && !markingRead && event.id !in readIds,
                     onMark = { markObserved(listOf(event.id)) },
                     onIdentity = { onIdentity(event.author) },
-                    onOpen = { event.post?.let(onPost) ?: onReference(event.target) })
+                    onOpen = { available?.let(onPost) ?: onReference(event.target) })
             }
         }
         TextButton(enabled = wallet != null && !loading && !markingRead &&

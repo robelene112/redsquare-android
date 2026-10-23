@@ -1,0 +1,68 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxRevisionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityInboxRevisionTest:
+INSTRUMENTATION_STATUS: test=retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxRevisionTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation$lambda$11(ActivityInboxRevisionTest.kt:47)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.$r8$lambda$KILlR32wY-vDnDJGgFNFqpMbF7k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation(ActivityInboxRevisionTest.kt:41)
+
+INSTRUMENTATION_STATUS: stream=
+Error in retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation(nl.davidengelen.redsquare.ActivityInboxRevisionTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation$lambda$11(ActivityInboxRevisionTest.kt:47)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.$r8$lambda$KILlR32wY-vDnDJGgFNFqpMbF7k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation(ActivityInboxRevisionTest.kt:41)
+
+INSTRUMENTATION_STATUS: test=retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.924
+There was 1 failure:
+1) retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation(nl.davidengelen.redsquare.ActivityInboxRevisionTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation$lambda$11(ActivityInboxRevisionTest.kt:47)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.$r8$lambda$KILlR32wY-vDnDJGgFNFqpMbF7k(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxRevisionTest.retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation(ActivityInboxRevisionTest.kt:41)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

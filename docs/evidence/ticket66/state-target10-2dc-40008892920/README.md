@@ -1,0 +1,2 @@
+Rejected state run: native loading and empty/offline details reach Light200%. The new size assertion incorrectly measured Material icon painted bounds (40dp). Original Android XML gives the clickable Refresh button [256,132][304,180],48px at160dpi. The corrected operator checks the actual native touch/accessibility target with the same48dp threshold, rather than weakening it. Remaining state cells were not reached.
+This packet is not ticket or full-suite acceptance.

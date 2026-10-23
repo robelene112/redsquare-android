@@ -41,6 +41,8 @@ class TalkBackActivityPreviewTest {
                 assertTrue(actionNode(options).performAction(AccessibilityNodeInfo.ACTION_CLICK))
                 click(automation, "Mark as read")
                 check(device.wait(Until.hasObject(By.text("No unread activity")), 15_000))
+                check(device.wait(Until.gone(By.text("Mark as read")), 5_000))
+                device.waitForIdle(5_000)
                 focusAndHear("read-event", event, folder, clickLabel = true)
                 assertTrue("Committed read speech completes", completedFragments(device, "Read").isNotEmpty())
                 assertTrue("Committed read state is spoken", fragments(device, "Read").any {

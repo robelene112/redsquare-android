@@ -28,7 +28,7 @@ import java.util.Locale
 /** Distinct author and event targets; read feedback only follows a verified local save. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: FeedPost?, unread: Boolean?,
+internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: FeedPost?, previewLoading: Boolean, unread: Boolean?,
     canMark: Boolean, onMark: () -> Unit, onIdentity: () -> Unit, onOpen: () -> Unit) {
     val name = registeredIdentity(author).name
     val timestamp = remember(createdAt) {
@@ -46,6 +46,7 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
         val end = text.offsetByCodePoints(0, minOf(160, text.codePointCount(0, text.length)))
         text.substring(0, end).replace(Regex("\\s+"), " ") + if (end < text.length) "…" else ""
     } ?: stringResource(when {
+        previewLoading -> R.string.activity_preview_loading
         post == null -> R.string.activity_preview_unavailable
         post.images.isNotEmpty() -> R.string.activity_photo_post
         post.link.isNotEmpty() -> R.string.activity_link_post
