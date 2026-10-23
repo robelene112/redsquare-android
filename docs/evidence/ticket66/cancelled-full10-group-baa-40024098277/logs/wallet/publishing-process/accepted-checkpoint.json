@@ -1,0 +1,26 @@
+{
+  "phase": "accepted",
+  "owner": "p6s7H4SN9UwQtL3bLXRix1Q6kc4uQxN1MLfeeLVmap5b",
+  "originalBackend": "owner",
+  "backend": "owner",
+  "walletDigest": "c2636d4096a15f04c1e8c1d5febd341a5d754acffae2a0881c464fbaf12a2945",
+  "pid": 9650,
+  "revision": "owned-process-8a8fa976-e496-4519-9f6a-7bf76585ee86",
+  "text": "Keep this unsent draft after actual process death \ud83d\ude00 51e87178-0255-495d-bb05-57a0543c12ce",
+  "savedFiles": [
+    "feed.owner.v1",
+    "publishing-agreement.v1",
+    "backend.v1"
+  ],
+  "preferences": [
+    {
+      "name": "notification-permission",
+      "key": "offered"
+    },
+    {
+      "name": "wallet-backup-reminders",
+      "key": "hidden:p6s7H4SN9UwQtL3bLXRix1Q6kc4uQxN1MLfeeLVmap5b",
+      "value": true
+    }
+  ]
+}
