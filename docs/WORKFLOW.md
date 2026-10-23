@@ -13,8 +13,8 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 
 On2026-10-22 the owner paused development to limit token usage and then
 explicitly resumed #65. Each authorization now covers ONE issue only:
-finish that issue and stop before starting the next. #65 is now completed and
-delivered as beta65. Wait for a new owner instruction before starting another issue.
+finish that issue and stop before starting the next. #65 is completed and delivered as beta65. On2026-10-23 the owner authorized
+choosing and completing exactly one more issue. #66 is selected; finish it and stop.
 This supersedes the earlier authorization to churn the entire backlog unattended.
 
 ## Load the real skills

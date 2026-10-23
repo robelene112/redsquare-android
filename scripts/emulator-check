@@ -1409,8 +1409,16 @@ verify_notification_permission() {
         grep -q 'OK (1 test)' "$evidence/notification-permission-$notification_choice.txt" || return 1
     done
 }
+verify_activity_inbox() {
+    verify_group_chat_native ActivityInboxPreviewTest 180 activity-inbox activity-inbox-evidence
+}
+if [[ "${TEST_SCOPE:-full}" == activity-inbox* ]]; then
+    verify_activity_inbox
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == notifications* ]]; then
     verify_notifications
+    verify_activity_inbox
     verify_notification_permission
     python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
     printf '%s\n' 'Focused in-app notifications check only; full acceptance and closed-app pushes not run.' > "$evidence/scope.txt"
@@ -1418,6 +1426,7 @@ if [[ "${TEST_SCOPE:-full}" == notifications* ]]; then
 fi
 if [[ "$full_social" == true ]]; then
     verify_notifications
+    verify_activity_inbox
     verify_notification_permission
     python3 "$repo_dir/scripts/notification-process-check" --evidence "$evidence/notification-process"
 fi

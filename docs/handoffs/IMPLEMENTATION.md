@@ -1,5 +1,24 @@
 # Implementation handoff
 
+## Active: issue66 only, then STOP
+
+Owner on2026-10-23 authorized choosing and completing exactly one ready issue.
+Selected66, activity inbox hierarchy/accessibility. Blockers58/59/60 are closed.
+Review base29253a28b (the issue65 closure commit). No other issue
+is authorized. Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
+remains unread and untouched. Current public beta65 stays available.
+
+Use the existing native UI/controlled signed-peer seam. First additive180s class
+ActivityInboxPreviewTest verifies independent48dp author/event targets and per-event
+read feedback/recreation. Shared fixture preserves wallet/backend/files/preferences.
+Focused activity-inbox/Android17 scopes and complete Social inclusion are additive;
+all existing notification/process/push goals and deadlines remain unchanged.
+First red proof is pending. No production changes yet. Later add rendered mixed
+history/font/theme/error coverage and actual TalkBack names, then final complete
+Android10/17 verification, paired review and monotonic signed delivery. Stop after66.
+
+## Prior completed delivery
+
 ## Issue65 complete; STOP until the owner resumes another issue
 
 Owner authorization covers issue65 only. Do not start66 without a new sign.
