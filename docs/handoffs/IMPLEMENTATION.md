@@ -41,8 +41,10 @@ Initial complete10run40012884531/17run40012888385 atcdd were cancelled after
 focused40012779269 again failed missing target. ControlledFeedPeer routes exact
 RedSquareRetweet sig reads through archiveResponse, not quoteArchiveResponse.
 At82a6d39ee that fixture handler now supports exact quote lookup. No production
-change. Focused state40013822813 runs at82a; wait for its result before replacement
-complete runs. Cancelled initial runs never count as acceptance.
+change. Focused state40013822813 at82a is wholeSUCCESS, retained state-green10-82a.
+Replacement complete10run40014676230 and17run40014680274 at exact
+82a6d39ee6e475b55eef874a3b0ba315f5aa9a59 now run; acceptance pending.
+Cancelled initial runs never count as acceptance.
 Four additive180s Social classes: ActivityInboxPreviewTest, ActivityInboxViewportTest,
 ActivityInboxStateTest, ActivityInboxRevisionTest. Actual TalkBackActivityPreviewTest
 is additive180s Chat. Existing identities/deadlines/tool pins retained.
@@ -66,8 +68,8 @@ failed runs' partitions into completion. External review worktree is at exactcdd
 completed scripts/review-build successfully, reserving66 once. Log activity66-signed-build.log and
 receipt activity66-signed-build-result.json under external artifacts. Prepared66 verification passed with established certificate,38291443bytes,
 SHA256af1adb0b746f502b2ec4c06b9e507e80630ed5d7d9cae5e380951268e4e2c01f.
-Never rebuild/reuse66; tests/docs-only follow-up leaves production identical. Observer18705 /tmp/redsquare66-watch-full.py
-tracks both complete runs and downloads terminal artifacts, without acceptance.
+Never rebuild/reuse66; tests/docs-only follow-up leaves production identical. Initial observer18705 finished, cancelled packets retained. Replacement observer
+/tmp/redsquare66-watch-full-82a.py tracks both complete runs/downloads originals.
 Public65 is unchanged;66 must wait for accepted verification/public receipts.
 
 ## Prior completed delivery

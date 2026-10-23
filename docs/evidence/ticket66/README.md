@@ -45,3 +45,10 @@ before execution, after paired prefreeze0/0 review. It preserves accepted65 plus
 five native methods:532/533 identities,166/167 normal completions,35 intentional
 interruptions,34 continuity records and127 archives. Public beta65 is unchanged.
 No ticket closure, physical performance or complete UI acceptance is claimed.
+
+Focused state40013822813 at82a is whole SUCCESS: empty/loading/offline and
+unavailable/cached/target states at200% in both themes, with settings restored.
+Replacement complete10run40014676230 and17run40014680274 now execute at exact
+82a6d39ee6e475b55eef874a3b0ba315f5aa9a59. Frozen catalog remains unchanged.
+Signed66 sourcecdd has identical production/build/harness/workflow; only the
+controlled fixture route and evidence/docs differ. Full acceptance pending.

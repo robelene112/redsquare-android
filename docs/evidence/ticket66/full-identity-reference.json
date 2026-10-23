@@ -94,12 +94,16 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Initial cdd complete runs cancelled after focused fixture defect; neither is acceptance. Replacement execution pending.",
+  "executingState": "Corrected focused state wholeSUCCESS; replacement complete runs dispatched, acceptance pending.",
   "executingSources": {
-    "android10": "cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82",
-    "android17": "cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82"
+    "android10": "82a6d39ee6e475b55eef874a3b0ba315f5aa9a59",
+    "android17": "82a6d39ee6e475b55eef874a3b0ba315f5aa9a59"
   },
   "executingRuns": {
+    "android10": 40014676230,
+    "android17": 40014680274
+  },
+  "rejectedPredecessors": {
     "android10": 40012884531,
     "android17": 40012888385
   }
