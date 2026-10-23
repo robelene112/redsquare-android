@@ -1,0 +1,56 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.PublisherViewportPreviewTest:
+INSTRUMENTATION_STATUS: test=largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.PublisherViewportPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12$openSupport(PublisherViewportPreviewTest.kt:103)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12(PublisherViewportPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.$r8$lambda$ra1LrhHgNkUq-0DlazE7EqRhV7Y(PublisherViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat(PublisherViewportPreviewTest.kt:73)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat(nl.davidengelen.redsquare.PublisherViewportPreviewTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12$openSupport(PublisherViewportPreviewTest.kt:103)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12(PublisherViewportPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.$r8$lambda$ra1LrhHgNkUq-0DlazE7EqRhV7Y(PublisherViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat(PublisherViewportPreviewTest.kt:73)
+
+INSTRUMENTATION_STATUS: test=largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 20.503
+There was 1 failure:
+1) largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat(nl.davidengelen.redsquare.PublisherViewportPreviewTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12$openSupport(PublisherViewportPreviewTest.kt:103)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat$lambda$14$lambda$13$lambda$12(PublisherViewportPreviewTest.kt:114)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.$r8$lambda$ra1LrhHgNkUq-0DlazE7EqRhV7Y(PublisherViewportPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PublisherViewportPreviewTest.largerTextKeepsPublisherActionsReachableWithTheKeyboardAndPreservesUnsentChat(PublisherViewportPreviewTest.kt:73)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

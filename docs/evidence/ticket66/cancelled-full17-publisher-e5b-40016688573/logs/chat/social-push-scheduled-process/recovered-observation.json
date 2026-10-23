@@ -1,0 +1,18 @@
+{
+  "oldPid": 6481,
+  "recoveredPids": [
+    6656
+  ],
+  "peerBefore": {
+    "requests": 1,
+    "availableReads": 0,
+    "authenticatedConnections": 1,
+    "outgoingWrites": 0
+  },
+  "peerAfter": {
+    "requests": 3,
+    "availableReads": 2,
+    "authenticatedConnections": 2,
+    "outgoingWrites": 0
+  }
+}

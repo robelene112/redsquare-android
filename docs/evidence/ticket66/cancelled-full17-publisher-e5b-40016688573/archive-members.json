@@ -1,0 +1,44 @@
+{
+  "wallet/publisher-viewport-evidence.tar": {
+    "bytes": 226816,
+    "sha256": "f4949ba7a841d8f53e14474e4eddffece86cb509b7fe8fe43c4400114faa18ec",
+    "members": [
+      {
+        "name": "publisher-viewport-evidence/publisher-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font-scale.json"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml",
+        "bytes": 96791,
+        "sha256": "232d550896ce76520ea0186a4891562354b77f978a6692ccef9070e4561b61d1",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.png",
+        "bytes": 53182,
+        "sha256": "a22a7f2e731a6fbebdd4eccb92aa3780abe0e389ab023b2fdc8f448051d75ba4",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font130-real-ime-cancel.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-first-failure.xml",
+        "bytes": 25594,
+        "sha256": "cb57e75cf61424fc283dd8bf1f1a9a8b06ee69c0c4af7468da89144a5dd2fe9b",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font130-first-failure.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-first-failure.png",
+        "bytes": 44801,
+        "sha256": "e1f6618e017d0afa9ade320c60678582d3990b8cd433e59713c1aeaf8c317117",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font130-first-failure.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/wallet/publisher-viewport-evidence/publisher-font-restored.json"
+      }
+    ]
+  }
+}
