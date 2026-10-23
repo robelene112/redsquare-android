@@ -49,7 +49,13 @@ unchanged. Exactly two stale nonclickable heading selectors (that helper and
 NotificationsPreviewTest backend return) now use Activity ate5b469b9e. Other
 Notifications selectors target the navigation action and remain unchanged.
 Current complete10run40016684972 and17run40016688573 at exact
-e5b469b9e038a70d1b545953f928bb9677b472a0 are pending. Frozen catalog unchanged.
+e5b469b9e038a70d1b545953f928bb9677b472a0 are active. Full17 Wallet failed the
+unchanged PublisherViewportPreviewTest at line103, second openSupport IME10s.
+Actual field is focused with no visible keyboard. Same Google image revision7
+as accepted65. No cause is proven and no app/test/deadline change was made.
+Focused publisher-routes-android17 run40018747907 at the samee5b is pending.
+Other full parts continue; a failed full run cannot be accepted or assembled.
+Frozen catalog unchanged.
 Observer /tmp/redsquare66-watch-full-e5b.py downloads terminal artifacts; prior
 observer98062 still retains cancelled82a terminal evidence. No failed/cancelled
 partition contributes to acceptance. Signed66 remains held with identical
