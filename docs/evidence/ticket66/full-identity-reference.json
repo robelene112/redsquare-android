@@ -1,0 +1,100 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete65 literal catalogs plus five additive native activity methods. Original identities, deadlines, recovery/public-read goals, exclusions and tool pins remain mandatory.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket65/full10-509-39852319358/identities.json",
+      "sha256": "4492dc3971324179d9eff7542696939859bb3cede2c2e169fea0fff790238e15",
+      "previousIdentities": 527,
+      "additional": [
+        {
+          "path": "activity-inbox-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxPreviewTest",
+          "test": "anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-inbox-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxViewportTest",
+          "test": "mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-state-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxStateTest",
+          "test": "emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-revisions-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxRevisionTest",
+          "test": "retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackActivityPreviewTest",
+          "test": "activityAuthorEventAndOptionsSpeakTheirContextAndCommittedReadState",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 166,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 127
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket65/full17-509-39852323349/identities.json",
+      "sha256": "3839a1f1dfae0b7e074f2a483534264715a0a1904efaa42bbb3d47390e20ac49",
+      "previousIdentities": 528,
+      "additional": [
+        {
+          "path": "activity-inbox-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxPreviewTest",
+          "test": "anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-inbox-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxViewportTest",
+          "test": "mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-state-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxStateTest",
+          "test": "emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-revisions-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ActivityInboxRevisionTest",
+          "test": "retainedMentionPreviewFollowsLearnedEditAndDeletionThroughOfflineRecreation",
+          "occurrences": 1
+        },
+        {
+          "path": "activity-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackActivityPreviewTest",
+          "test": "activityAuthorEventAndOptionsSpeakTheirContextAndCommittedReadState",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 167,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 127
+    }
+  ],
+  "catalogFreezeCommit": "PENDING",
+  "collectorSha256": "a753f083b289e146ea36c5ffc882f1ecd5a6b0d1d16e5ad44890757f0814ce00",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Catalog frozen before complete execution; focused checks still pending. No complete acceptance claimed.",
+  "executingSources": {},
+  "executingRuns": {}
+}
