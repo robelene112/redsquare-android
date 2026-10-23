@@ -92,3 +92,9 @@ Producer audit found missing XML beside completed-control PNGs; the unchanged
 frozen collector correctly rejects those incomplete artifacts. c5b44e1d7 adds
 native hierarchy dumps without weakening checks. Early10repeat40025793736 was
 cancelled for this gap. Focused40026242121 and then fresh complete10+17 are required.
+
+Focused40026242121 atc5 is whole SUCCESS with native hierarchy XML beside every
+completed control speech PNG. The frozen activity validator was exercised as a
+development check on prior real Social captures plus this real focused Chat
+packet: it rejected the old missing XML and passes the corrected producer. That
+mixed-input check is explicitly NOT full acceptance. Fresh complete10/17 follow.

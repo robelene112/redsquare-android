@@ -9,12 +9,13 @@ adds native XML beside each control speech PNG, as required by the unchanged
 frozen collector. Previous producer was PNG-only, confirmed by a deliberately
 non-acceptance validator dry-run. Earlier10repeat40025793736 was cancelled before
 native execution for this known artifact gap, retained cancelled-full10-hierarchy.
-Focused40026242121 atc5 is pending. After it passes, run /tmp/redsquare66-check-activity-validator.py
-against prior successful Social raw plus new focused Chat raw to validate the
-collector itself (NOT full acceptance). Then fresh whole10+17 at corrected source.
+Focused40026242121 atc5 is wholeSUCCESS, retained speech-hierarchy-green10-c5b.
+/tmp/redsquare66-check-activity-validator.py correctly rejected prior missing XML
+and passes the corrected real captures. This mixed-input development check is
+NOT full acceptance. Fresh whole10+17 will now run at corrected source.
 Both now use the prospective15s new Activity speech bound frozen918a; old callers
 remain10s. All observer sessions for old complete runs have ended. Signed66 still
-held; app/build are unchanged. Current pending tools: focused40026242121 only.
+held; app/build are unchanged. No earlier complete observers remain. Corrected complete run IDs will follow.
 
 
 Owner on2026-10-23 authorized choosing/completing exactly one ready issue.
