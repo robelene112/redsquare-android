@@ -25,7 +25,7 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
     val backends = AndroidBackendStore(context)
     val priorBackend = backends.load()
     val retained = ChatFixtureState(context, listOf("feed.", "conversation.", "profile.", "profilemeta.",
-        "namemap.", "notifications.", "notificationread.", "following.", "personal."), wallet.publicKey)
+        "namemap.", "authorposts.", "quoteoriginal.", "notifications.", "notificationread.", "following.", "personal."), wallet.publicKey)
     val reference = instrumentation.context.assets.open("native-notification-reference.json").reader().use {
         JsonParser.parseReader(it).asJsonObject
     }
