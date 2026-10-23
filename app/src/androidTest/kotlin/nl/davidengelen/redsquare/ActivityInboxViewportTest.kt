@@ -32,7 +32,11 @@ class ActivityInboxViewportTest {
             ui.onNode(hasText("Home") and hasClickAction()).performClick()
             ui.withPostViewports(activity, folder, "activity") { label, _ ->
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
-                ui.waitUntil(15_000) { ui.onNodeWithText("6 unread").isDisplayed() }
+                ui.waitUntil(15_000) {
+                    ui.onNodeWithText("6 unread").isDisplayed() && ui.onAllNodes(
+                        hasText("Quoted your post") and hasText("Quote notification reference") and hasClickAction())
+                        .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                }
                 for ((index, pair) in listOf(
                     "Quoted your post" to "Quote notification reference",
                     "Reposted your post" to "Native Red Square reference post",
