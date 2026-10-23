@@ -1,0 +1,518 @@
+{
+  "chat/social-push-evidence.tar": {
+    "bytes": 3883520,
+    "sha256": "8d44a0a354f4fb148f6f0491000e0a270737d5a55f69dada47706362d1afd179",
+    "members": [
+      {
+        "name": "social-push-evidence/dismissed-reply.xml",
+        "bytes": 62793,
+        "sha256": "a3867663301c162d50e54cc0ba91eee8de1b6c1896ae067bfae2bc50a219d0bb",
+        "retainedPath": "originals/chat/social-push-evidence/dismissed-reply.xml"
+      },
+      {
+        "name": "social-push-evidence/dismissed-reply.png",
+        "bytes": 72119,
+        "sha256": "81f57283e94f60d71e3651a9a0603219679fc2c5b70f7df2a38fc6306e65bceb",
+        "retainedPath": "originals/chat/social-push-evidence/dismissed-reply.png"
+      },
+      {
+        "name": "social-push-evidence/dismissal-observation.json",
+        "bytes": 192,
+        "sha256": "867ed16eef16e4455d0c20f47eea7d7f91f8dfb1b70c91213f6000d61ad100ac",
+        "retainedPath": "originals/chat/social-push-evidence/dismissal-observation.json"
+      },
+      {
+        "name": "social-push-evidence/dismissed-reply-stays-dismissed.xml",
+        "bytes": 52491,
+        "sha256": "79272756ce87d6fbee9f653f8d7e79a32316db92222aa79fbe2dfed56716fa06",
+        "retainedPath": "originals/chat/social-push-evidence/dismissed-reply-stays-dismissed.xml"
+      },
+      {
+        "name": "social-push-evidence/dismissed-reply-stays-dismissed.png",
+        "bytes": 63960,
+        "sha256": "29ae9364575e11f9249e9574d916154fddd77a2d9c48d8a5f0c6e4c8eb6de338",
+        "retainedPath": "originals/chat/social-push-evidence/dismissed-reply-stays-dismissed.png"
+      },
+      {
+        "name": "social-push-evidence/reply-alert.xml",
+        "bytes": 62793,
+        "sha256": "c78b58290fb0dad87dedeb348382ec6ef4e7670232e22c1b8130442bccfe458a",
+        "retainedPath": "originals/chat/social-push-evidence/reply-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/reply-alert.png",
+        "bytes": 72120,
+        "sha256": "f35d2d573623a93f04a265f9bc0cfbd35a5698b11aeb3f65368189535b9f5ead",
+        "retainedPath": "originals/chat/social-push-evidence/reply-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-post-alert.xml",
+        "bytes": 62346,
+        "sha256": "94908bd7b3cdb1a1d802f3e04e8d3514db1b44d167e12bd82a193770faf124f4",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-post-alert.png",
+        "bytes": 54539,
+        "sha256": "364c8453e5d97a9a8c8ae6eb1cfe0d66b6c2758e232cdf7410d9d75868592474",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-post-conversation.xml",
+        "bytes": 56941,
+        "sha256": "77841b7b1038348f3e37240b7649710d582164e7ad150ac9c07a6f58f1476a24",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-post-conversation.png",
+        "bytes": 42213,
+        "sha256": "802f227f40a3de9a6f84b9616dc34084c72fe2d696dc0758d8f5826e1c85de33",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-post-draft-restored.xml",
+        "bytes": 27934,
+        "sha256": "2967210a0a42f80c21d6fa468a291a3f704115ca80e77229751b77706d78b10d",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-post-draft-restored.png",
+        "bytes": 22904,
+        "sha256": "6e357d84ba4ab2e0234a24a6abe281194346af38a4db99b47fd1159717703d33",
+        "retainedPath": "originals/chat/social-push-evidence/tap-post-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-initial.xml",
+        "bytes": 32238,
+        "sha256": "baff904c0767d0f09f3a16fb59e866c16fe3a2c2b171d00de0f8d41aeb4ae2c8",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-initial.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-initial.png",
+        "bytes": 36614,
+        "sha256": "88d454da1ff302169b2ac49e4f85d908743a0e5d6e42eb52e5d4b3f2efd68e60",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-initial.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-enabled.xml",
+        "bytes": 32237,
+        "sha256": "91d457a5f80e0ff0516ba73373360d206b2fe25e7785a93668d2267f0572f19e",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-enabled.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-enabled.png",
+        "bytes": 36496,
+        "sha256": "fdc905a1109bf39823ba18cf547b0a14c5f5c63f8c7d901509e3f936d4bed3e9",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-enabled.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-alert.xml",
+        "bytes": 62791,
+        "sha256": "3ff520b27aa531bccad0c0600f1a13bfbf47ce0963681127f26d0df3cd802247",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-alert.png",
+        "bytes": 54837,
+        "sha256": "3e90bba1d9eee2833d09d124fb3946667d17c1898ba829408a31a55c45b8a336",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-conversation.xml",
+        "bytes": 56941,
+        "sha256": "77841b7b1038348f3e37240b7649710d582164e7ad150ac9c07a6f58f1476a24",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-conversation.png",
+        "bytes": 42213,
+        "sha256": "802f227f40a3de9a6f84b9616dc34084c72fe2d696dc0758d8f5826e1c85de33",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-draft-restored.xml",
+        "bytes": 27934,
+        "sha256": "2967210a0a42f80c21d6fa468a291a3f704115ca80e77229751b77706d78b10d",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-draft-restored.png",
+        "bytes": 22904,
+        "sha256": "6e357d84ba4ab2e0234a24a6abe281194346af38a4db99b47fd1159717703d33",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-disabled.xml",
+        "bytes": 32238,
+        "sha256": "baff904c0767d0f09f3a16fb59e866c16fe3a2c2b171d00de0f8d41aeb4ae2c8",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-disabled.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-settings-disabled.png",
+        "bytes": 36614,
+        "sha256": "88d454da1ff302169b2ac49e4f85d908743a0e5d6e42eb52e5d4b3f2efd68e60",
+        "retainedPath": "originals/chat/social-push-evidence/tap-settings-disabled.png"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-alert.xml",
+        "bytes": 62791,
+        "sha256": "a292fe3546eb6aa53aaea83250da14e5d40e8947eae97c875889d9169597758b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-alert.png",
+        "bytes": 72129,
+        "sha256": "b9f4637b56a1544583bc06b280771de88d4c9f665c6e1534bc4999df64423fdd",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-conversation.xml",
+        "bytes": 56940,
+        "sha256": "4c9f472eb15cd64c36948bf91e1a452d27ff370ee6161d76a87339e8c1671c4b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-conversation.png",
+        "bytes": 42210,
+        "sha256": "98c491bf7fbf979611114b616136c35403706bedf7e109bdf9f9d228a9160115",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-recreated.xml",
+        "bytes": 56940,
+        "sha256": "4c9f472eb15cd64c36948bf91e1a452d27ff370ee6161d76a87339e8c1671c4b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-recreated.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-recreated.png",
+        "bytes": 42210,
+        "sha256": "98c491bf7fbf979611114b616136c35403706bedf7e109bdf9f9d228a9160115",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-recreated.png"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-consumed.xml",
+        "bytes": 48262,
+        "sha256": "8f1e80516fea4355a695e36f05dbca06e16b4f80b1e445e215eb79d7151e5827",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-consumed.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-consumed.png",
+        "bytes": 30514,
+        "sha256": "b299e5898e7d970c23572246b493ed8e454118442e75dd0258ba12497f21ef6b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-consumed.png"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-draft-restored.xml",
+        "bytes": 27885,
+        "sha256": "b05fedc1dbf1de955f704dec32394a7ebd0d91738b94ec5dc3b2fe4fbe18ed78",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-cold-draft-restored.png",
+        "bytes": 20265,
+        "sha256": "38899d938570e05f57a65d43ebca25bf9b1f4e6f2aefd08123007b134d9a1175",
+        "retainedPath": "originals/chat/social-push-evidence/tap-cold-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-group-edited.xml",
+        "bytes": 94547,
+        "sha256": "bcf08e77814477294c639f960d453395b1a969177006c1ccebfd8c839d2d3cdf",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-edited.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-group-edited.png",
+        "bytes": 33313,
+        "sha256": "26dd8044331e4c71d364797679a3ab0480aa72616e7a8a049635f10b4c397540",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-edited.png"
+      },
+      {
+        "name": "social-push-evidence/tap-group-alert.xml",
+        "bytes": 62790,
+        "sha256": "63fe09af3b43b5608ee994ad06202989f4a7de0f25c4611ccce736e742a49303",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-group-alert.png",
+        "bytes": 56544,
+        "sha256": "9490937cc537c90b76bc9a546a1de4a4ec046301675a76725e868b8d627cc69e",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-group-conversation.xml",
+        "bytes": 56940,
+        "sha256": "4c9f472eb15cd64c36948bf91e1a452d27ff370ee6161d76a87339e8c1671c4b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-group-conversation.png",
+        "bytes": 42210,
+        "sha256": "98c491bf7fbf979611114b616136c35403706bedf7e109bdf9f9d228a9160115",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-group-draft-restored.xml",
+        "bytes": 41493,
+        "sha256": "a17eafbb3e28a8e2d3eba1820260192adb3436741c1c6a5d75e3847d56ea1f8c",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-group-draft-restored.png",
+        "bytes": 28346,
+        "sha256": "1c70fce55671a326218891b553e53abfae422218e41fdc250639a74196b42539",
+        "retainedPath": "originals/chat/social-push-evidence/tap-group-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-alert.xml",
+        "bytes": 62783,
+        "sha256": "f333723f1106f7bc12db6fa26d998542511d2f5af4f7d83679a82b219e0a27d2",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-alert.png",
+        "bytes": 71852,
+        "sha256": "f97ee292728d1ec79109a348d01d928120629a14343789421b48839d26bfdaf6",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-conversation.xml",
+        "bytes": 47139,
+        "sha256": "118012dc8abade8de370faad94bd125697ba1423371de8e8121e42b4a922273c",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-conversation.png",
+        "bytes": 41921,
+        "sha256": "8468e2ad51ad91fa612fce74c0e3b8eec8f9883d3130885c7267921e6c70df88",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-recreated.xml",
+        "bytes": 47139,
+        "sha256": "118012dc8abade8de370faad94bd125697ba1423371de8e8121e42b4a922273c",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-recreated.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-recreated.png",
+        "bytes": 41921,
+        "sha256": "8468e2ad51ad91fa612fce74c0e3b8eec8f9883d3130885c7267921e6c70df88",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-recreated.png"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-consumed.xml",
+        "bytes": 48262,
+        "sha256": "8f1e80516fea4355a695e36f05dbca06e16b4f80b1e445e215eb79d7151e5827",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-consumed.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-consumed.png",
+        "bytes": 30514,
+        "sha256": "b299e5898e7d970c23572246b493ed8e454118442e75dd0258ba12497f21ef6b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-consumed.png"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-draft-restored.xml",
+        "bytes": 27885,
+        "sha256": "b05fedc1dbf1de955f704dec32394a7ebd0d91738b94ec5dc3b2fe4fbe18ed78",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-mention-draft-restored.png",
+        "bytes": 20265,
+        "sha256": "38899d938570e05f57a65d43ebca25bf9b1f4e6f2aefd08123007b134d9a1175",
+        "retainedPath": "originals/chat/social-push-evidence/tap-mention-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-private-edited.xml",
+        "bytes": 94534,
+        "sha256": "bc267cfd1a9217aaa43c053f80968582445a7b63a73e72357b17e6066947e39a",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-edited.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-private-edited.png",
+        "bytes": 33192,
+        "sha256": "d2886f2c039252731fbdb1a66744cc2531841a07b2e731fd457e2e7a72b93929",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-edited.png"
+      },
+      {
+        "name": "social-push-evidence/tap-private-alert.xml",
+        "bytes": 62790,
+        "sha256": "63fe09af3b43b5608ee994ad06202989f4a7de0f25c4611ccce736e742a49303",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-private-alert.png",
+        "bytes": 56875,
+        "sha256": "f729e638e328863700f754ec52d93b5c7e0be618e6af14630e88ab8bc9f58b4f",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-private-conversation.xml",
+        "bytes": 56940,
+        "sha256": "4c9f472eb15cd64c36948bf91e1a452d27ff370ee6161d76a87339e8c1671c4b",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-private-conversation.png",
+        "bytes": 42210,
+        "sha256": "98c491bf7fbf979611114b616136c35403706bedf7e109bdf9f9d228a9160115",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-private-draft-restored.xml",
+        "bytes": 43224,
+        "sha256": "04b5351b22be8436973a66b14a55965eafd1c4e0c5f66901ebc916201b1403b2",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-private-draft-restored.png",
+        "bytes": 32364,
+        "sha256": "795ff722d974b606cfe72b2924b792bd05e68f3c56b03fe936151c65dd5ebee8",
+        "retainedPath": "originals/chat/social-push-evidence/tap-private-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-replies.xml",
+        "bytes": 40658,
+        "sha256": "4699d50422f8c7748f746f05e84a57ae8dbb584f7fb03ab8c98804a1a7806732",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-replies.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-replies.png",
+        "bytes": 32060,
+        "sha256": "6f8767d60a44dab4e29279ff2b1812abf1beb22807829728ada833f3de021d1a",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-replies.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-mentions.xml",
+        "bytes": 40658,
+        "sha256": "4699d50422f8c7748f746f05e84a57ae8dbb584f7fb03ab8c98804a1a7806732",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-mentions.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-mentions.png",
+        "bytes": 32060,
+        "sha256": "6f8767d60a44dab4e29279ff2b1812abf1beb22807829728ada833f3de021d1a",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-mentions.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-returned.xml",
+        "bytes": 27937,
+        "sha256": "b0d29b8e52bfadfccbfeddc9765085775b7e31d8580a64c4fd1ffb21a9b84592",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-returned.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-returned.png",
+        "bytes": 22933,
+        "sha256": "459f9364881ce44d7ac33a9787805b9c9c3144f2797ae70d4141bcb06f095170",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-returned.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-alert.xml",
+        "bytes": 62794,
+        "sha256": "14b09e050865a7955f69872031a61be9056ddc44061e88658a2d98f7985f9cfb",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-alert.png",
+        "bytes": 57556,
+        "sha256": "20631c4936e991800af7fbe0ff6627bd535e906138f43d0f6ac6b9415bf6ac00",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-conversation.xml",
+        "bytes": 56944,
+        "sha256": "e8a797d2b5357606a45eedd9ceb96567ea99b88750dcd73c693cf139eb258858",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-conversation.png",
+        "bytes": 42235,
+        "sha256": "8123343e2442c4420d7ec6a281037534f92c3466ff921a5c39653c3397b0c673",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-android-draft-restored.xml",
+        "bytes": 27937,
+        "sha256": "b0d29b8e52bfadfccbfeddc9765085775b7e31d8580a64c4fd1ffb21a9b84592",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-android-draft-restored.png",
+        "bytes": 22933,
+        "sha256": "459f9364881ce44d7ac33a9787805b9c9c3144f2797ae70d4141bcb06f095170",
+        "retainedPath": "originals/chat/social-push-evidence/tap-android-draft-restored.png"
+      },
+      {
+        "name": "social-push-evidence/tap-onboarding-failure.xml",
+        "bytes": 20410,
+        "sha256": "27a707cc4781c413d204cdd0c34c2677db11a1a0bb2d17535005c507c16217c5",
+        "retainedPath": "originals/chat/social-push-evidence/tap-onboarding-failure.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-onboarding-failure.png",
+        "bytes": 31901,
+        "sha256": "490ea8231246b1dd42c07ca65f94ee4e86e91cee5ec8bd5a9e57beb286a74051",
+        "retainedPath": "originals/chat/social-push-evidence/tap-onboarding-failure.png"
+      },
+      {
+        "name": "social-push-evidence/tap-username-alert.xml",
+        "bytes": 62787,
+        "sha256": "3f9c5eed75e7bc2f72838924ab6ada98399066e7f275ca22a81c2ccb8d655669",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-alert.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-username-alert.png",
+        "bytes": 71880,
+        "sha256": "38f0829349dcc218412a5cf267df80ea6adb08a9733f6d83d6618f3885f43836",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-alert.png"
+      },
+      {
+        "name": "social-push-evidence/tap-username-conversation.xml",
+        "bytes": 47125,
+        "sha256": "da692932d107575f8d8d6f2ff1c44b66bddeb63f28de449d5ffac21dfa2a4733",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-conversation.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-username-conversation.png",
+        "bytes": 37395,
+        "sha256": "23bf7a0b7cbfb875958afefc3f3459969e39072cce5422a238b710e8d1980092",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-conversation.png"
+      },
+      {
+        "name": "social-push-evidence/tap-username-recreated.xml",
+        "bytes": 47125,
+        "sha256": "da692932d107575f8d8d6f2ff1c44b66bddeb63f28de449d5ffac21dfa2a4733",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-recreated.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-username-recreated.png",
+        "bytes": 37395,
+        "sha256": "23bf7a0b7cbfb875958afefc3f3459969e39072cce5422a238b710e8d1980092",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-recreated.png"
+      },
+      {
+        "name": "social-push-evidence/tap-username-consumed.xml",
+        "bytes": 48302,
+        "sha256": "307a7e10e36de940bb6a841c4018e422e09fad4179aac8c35ea09c1074f515b9",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-consumed.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-username-consumed.png",
+        "bytes": 31463,
+        "sha256": "e1ab6162f2f56eed12c81a1cd62490dc664500f50e9dfd72c5151fc49442f07a",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-consumed.png"
+      },
+      {
+        "name": "social-push-evidence/tap-username-draft-restored.xml",
+        "bytes": 27889,
+        "sha256": "ff86bf53c976f31810204521917018831806d89cfdcc1ddf593dc8b94a2ac47d",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-draft-restored.xml"
+      },
+      {
+        "name": "social-push-evidence/tap-username-draft-restored.png",
+        "bytes": 20296,
+        "sha256": "b836db78ed492daf9aff5f89aaedf4d578b83a0ff3f525dac8c6dafe117d382c",
+        "retainedPath": "originals/chat/social-push-evidence/tap-username-draft-restored.png"
+      }
+    ]
+  }
+}

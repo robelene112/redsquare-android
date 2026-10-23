@@ -52,3 +52,10 @@ Replacement complete10run40014676230 and17run40014680274 now execute at exact
 82a6d39ee6e475b55eef874a3b0ba315f5aa9a59. Frozen catalog remains unchanged.
 Signed66 sourcecdd has identical production/build/harness/workflow; only the
 controlled fixture route and evidence/docs differ. Full acceptance pending.
+
+Complete82a predecessors were cancelled after both Chat partitions failed the
+original alert-onboarding test at its obsolete Notifications heading selector.
+Failure packets retain original logs/captures and cancelled whole-run conclusions.
+Two nonclickable heading selectors now match Activity, preserving their existing
+assertions/deadlines. Replacement10run40016684972 and17run40016688573 execute at
+e5b469b9e038a70d1b545953f928bb9677b472a0; acceptance remains pending.

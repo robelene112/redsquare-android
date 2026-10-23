@@ -1,0 +1,300 @@
+{
+  "chat": {
+    "app-frame-evidence.tar": {
+      "bytes": 2152448,
+      "sha256": "e726d9d83eace26b07e36b4e6dcab5436349d2ebe848e5893dd0567155f5de15"
+    },
+    "app-frame-motion-evidence.tar": {
+      "bytes": 3073024,
+      "sha256": "7cb8313b37729ef7677b06ccee7df28fe1d693a3afe3999ae29144ec0aaa3db4"
+    },
+    "app-frame-motion-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "app-frame-motion-ui.txt": {
+      "bytes": 1542,
+      "sha256": "49c071d30af7dd7957777cd54faec12788989ed0f414ff7cd01dde3cfe5c7d93"
+    },
+    "app-frame-reading-evidence.tar": {
+      "bytes": 585216,
+      "sha256": "bebdeff15808ddab707e180590538571dac201b2b82ec074c64f6167a5535570"
+    },
+    "app-frame-reading-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "app-frame-reading-ui.txt": {
+      "bytes": 835,
+      "sha256": "e14f4f12c0b8366c06c84bb11f780321858f9c127ac89d854f755a9fd130285c"
+    },
+    "app-frame-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "app-frame-ui.txt": {
+      "bytes": 2936,
+      "sha256": "2cd69a985816db4664e986374f96c06c7b0c9dfe1a27c2cf08218ae665c198b7"
+    },
+    "appearance-evidence.tar": {
+      "bytes": 913408,
+      "sha256": "a530cc85284cce17e690f15088621b75f50e060d3be348069da317702a7c58fa"
+    },
+    "appearance-fresh-install.txt": {
+      "bytes": 8,
+      "sha256": "7fc0023a6402c7bd7abd98bb3e580968de4833eed07d88d1cc8d70819d69c7a0"
+    },
+    "appearance-original-setup.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "appearance-system-before.txt": {
+      "bytes": 530,
+      "sha256": "4de5828391b064d0dd27b624885b0e2e923736d14600848743e4ba84079f0b4d"
+    },
+    "appearance-system-log.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "appearance-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "appearance-ui.txt": {
+      "bytes": 858,
+      "sha256": "b5a90c15a9c526ab2bc8b1864702385887f1a479fb7c44a9a38670e7e1e0ac4d"
+    },
+    "device-abi.txt": {
+      "bytes": 7,
+      "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+    },
+    "page-size.txt": {
+      "bytes": 5,
+      "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+    },
+    "partition.txt": {
+      "bytes": 5,
+      "sha256": "d03a7ba834457c81580617b90aac6f6505232f556952fcb7fabb3a740b1c2170"
+    },
+    "push-binding-evidence.tar": {
+      "bytes": 2560,
+      "sha256": "c05f326d82c2fa60d33c9ee993dcae06dee53d28335b4b270af67871598859d7"
+    },
+    "push-binding-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "push-binding-ui.txt": {
+      "bytes": 864,
+      "sha256": "a1054c498a1a1a318b77c9b9c50ad2e8b42f5fa9e294efd9afc14f75fdae697b"
+    },
+    "requested-page-size.txt": {
+      "bytes": 8,
+      "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+    },
+    "social-push-evidence.tar": {
+      "bytes": 3883520,
+      "sha256": "8d44a0a354f4fb148f6f0491000e0a270737d5a55f69dada47706362d1afd179"
+    },
+    "social-push-failure-crash.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "social-push-permission-before.txt": {
+      "bytes": 9264,
+      "sha256": "7e331613207a5ed661b5e95b7bb26de2ffbd2b9334db75f26dd36b02a5a5eee3"
+    },
+    "social-push-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "social-push-ui.txt": {
+      "bytes": 12045,
+      "sha256": "3ae4f4c266cdf2d00b7e7051428ef9e12fbceab0135a63ab4dae9e1ff09e7c41"
+    },
+    "system-build.txt": {
+      "bytes": 85,
+      "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+    },
+    "system-image.properties": {
+      "bytes": 359,
+      "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+    },
+    "system-image.txt": {
+      "bytes": 46,
+      "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+    },
+    "wellbeing-disable.txt": {
+      "bytes": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    "wellbeing-disabled-package.txt": {
+      "bytes": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  },
+  "social": {
+    "browse-evidence.tar": {
+      "bytes": 596480,
+      "sha256": "68e60198c6714467952de5dc18d23f600dc6a09cd4f287e872e03bd625421c47"
+    },
+    "browse-ui.txt": {
+      "bytes": 5803,
+      "sha256": "70d386edb02671d8c191e0b8aac8c91677dbb10aa7940e0e58be83fb8a3fcfb0"
+    },
+    "device-abi.txt": {
+      "bytes": 7,
+      "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+    },
+    "page-size.txt": {
+      "bytes": 5,
+      "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+    },
+    "partition.txt": {
+      "bytes": 7,
+      "sha256": "5021d7f6fe23ffa5e2d230ffc2edf4e3dd9c49839f7877009d6d629bcfc92864"
+    },
+    "post-content-contexts-evidence.tar": {
+      "bytes": 2935296,
+      "sha256": "12bb8e64673b73eb11ea6655eb014ca1a9bcee606aa0ee8d61334fdc0c29e325"
+    },
+    "post-content-contexts-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "post-content-contexts-ui.txt": {
+      "bytes": 864,
+      "sha256": "8d747167a5244ba291a0debf867d24c9cf01a176ce59642f82efa03e1ea40204"
+    },
+    "post-content-evidence.tar": {
+      "bytes": 2263552,
+      "sha256": "280e95a8dda23fe53eb6ff5fd6b6f0ad003d85538f37c231c8796271646c7709"
+    },
+    "post-content-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "post-content-ui.txt": {
+      "bytes": 890,
+      "sha256": "4cac1d65e0b5db6bdc9d9be001e2af1f9759fee5d03e34bff7eaf20b44d5086b"
+    },
+    "post-pending-ui.txt": {
+      "bytes": 415,
+      "sha256": "73d01539cf6e3b6a8dd6737765599ce0474d23dd43448a2e66dbf880547189b3"
+    },
+    "post-presentation-evidence.tar": {
+      "bytes": 1047040,
+      "sha256": "49bd3c14f2b9a02729c3889360b35246d1d862e00d53605f0bbd183531350207"
+    },
+    "post-presentation-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "post-presentation-ui.txt": {
+      "bytes": 2966,
+      "sha256": "c032c8e459bff51ba4b3d6409264f40f6a6b46e66b18b43c11780164e8670de0"
+    },
+    "post-status-evidence.tar": {
+      "bytes": 1438720,
+      "sha256": "eed978998512a6643a54fed8f8dcd49ca0d650b3af7334c24458070b330a85a5"
+    },
+    "post-status-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "post-status-ui.txt": {
+      "bytes": 849,
+      "sha256": "42cd2a78ea004f88f369df0d50308970150f071f1d55f2760fa28dc5f41cd998"
+    },
+    "post-viewport-evidence.tar": {
+      "bytes": 1631744,
+      "sha256": "3bd4c6389502e3a8f1e91c109f721f02aa2280fbaf920d8110c30ad94c2996b3"
+    },
+    "post-viewport-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "post-viewport-ui.txt": {
+      "bytes": 875,
+      "sha256": "985ac700801eed8f41d5c4ba92e92042faeea9b94c386579b96fe630ad42d83b"
+    },
+    "requested-page-size.txt": {
+      "bytes": 8,
+      "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+    },
+    "system-build.txt": {
+      "bytes": 85,
+      "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+    },
+    "system-image.properties": {
+      "bytes": 359,
+      "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+    },
+    "system-image.txt": {
+      "bytes": 46,
+      "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+    },
+    "wellbeing-disable.txt": {
+      "bytes": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    "wellbeing-disabled-package.txt": {
+      "bytes": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  },
+  "wallet": {
+    "agreement-evidence.tar": {
+      "bytes": 443904,
+      "sha256": "17d5dab3591135af6fcd85d845f5396c9de64dce5270442426fe19548e26dc98"
+    },
+    "agreement-surfaces-ui.txt": {
+      "bytes": 1132,
+      "sha256": "9833b44d53c2df5a2994de3ce51fe002913ba2a69da8c04de11ad7158120cd3e"
+    },
+    "agreement-ui-exit.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "agreement-ui.txt": {
+      "bytes": 2346,
+      "sha256": "bf114fb81a65555c6318e34b8322ea9341b496ab541412478a0023bd7dee2edb"
+    },
+    "device-abi.txt": {
+      "bytes": 7,
+      "sha256": "aaf631698ae5160ceb04a97681a14887fdcab47cd6e0f163c87485b3b1340b62"
+    },
+    "page-size.txt": {
+      "bytes": 5,
+      "sha256": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+    },
+    "partition.txt": {
+      "bytes": 7,
+      "sha256": "81a68eea27825db26d65554f24266efc93d1bcbd05ec298664daf2cc1ad27022"
+    },
+    "requested-page-size.txt": {
+      "bytes": 8,
+      "sha256": "01666ec060466c14b9fa06c613fbac449163f2a2017558fe16526209ab78c6b0"
+    },
+    "system-build.txt": {
+      "bytes": 85,
+      "sha256": "c48dc581bd2abfaa3f122516d4d554c23b64a2ae633ecdde68fc16be6b7b7afd"
+    },
+    "system-image.properties": {
+      "bytes": 359,
+      "sha256": "1f50787fdc2c40508ba14e4bfb1e402c8a71bf435a59f9301e0f841807a07f8e"
+    },
+    "system-image.txt": {
+      "bytes": 46,
+      "sha256": "231d972159c152f948d0e10e3cad625ab7d85f059628f387fabf9abda1f50d6b"
+    },
+    "wellbeing-disable.txt": {
+      "bytes": 67,
+      "sha256": "13eb7e37363f85a2f7a712763719d8a18efe405e251f7bb61a8104342498485b"
+    },
+    "wellbeing-disabled-package.txt": {
+      "bytes": 42,
+      "sha256": "b941b666f999ed1e31d250d6b78f14f076a754b5fb1b15b01074a014a674686e"
+    }
+  }
+}
