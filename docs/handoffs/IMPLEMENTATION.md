@@ -42,9 +42,18 @@ focused40012779269 again failed missing target. ControlledFeedPeer routes exact
 RedSquareRetweet sig reads through archiveResponse, not quoteArchiveResponse.
 At82a6d39ee that fixture handler now supports exact quote lookup. No production
 change. Focused state40013822813 at82a is wholeSUCCESS, retained state-green10-82a.
-Replacement complete10run40014676230 and17run40014680274 at exact
-82a6d39ee6e475b55eef874a3b0ba315f5aa9a59 now run; acceptance pending.
-Cancelled initial runs never count as acceptance.
+Complete82a runs40014676230/40014680274 are rejected/cancelled after Chat10's
+original SocialPushTapPreviewTest onboarding case waited for the old Notifications
+heading. Actual failure capture shows the ordinary alert prompt; retained goal is
+unchanged. Exactly two stale nonclickable heading selectors (that helper and
+NotificationsPreviewTest backend return) now use Activity ate5b469b9e. Other
+Notifications selectors target the navigation action and remain unchanged.
+Current complete10run40016684972 and17run40016688573 at exact
+e5b469b9e038a70d1b545953f928bb9677b472a0 are pending. Frozen catalog unchanged.
+Observer /tmp/redsquare66-watch-full-e5b.py downloads terminal artifacts; prior
+observer98062 still retains cancelled82a terminal evidence. No failed/cancelled
+partition contributes to acceptance. Signed66 remains held with identical
+production/build/workflow/harness; only tests/docs differ from signedcdd.
 Four additive180s Social classes: ActivityInboxPreviewTest, ActivityInboxViewportTest,
 ActivityInboxStateTest, ActivityInboxRevisionTest. Actual TalkBackActivityPreviewTest
 is additive180s Chat. Existing identities/deadlines/tool pins retained.
