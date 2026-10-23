@@ -45,7 +45,7 @@ class NotificationsPreviewTest {
             waitFor("Reply notification reference")
             ui.onNodeWithText("Reply notification reference").assertIsDisplayed()
             waitFor("Native Red Square reference post")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
@@ -129,10 +129,10 @@ class NotificationsPreviewTest {
                 ui.onAllNodesWithText("Quoted your post")[index].assertIsDisplayed().performClick()
                 waitFor("Conversation")
                 waitFor(text)
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(text))
                 ui.onNodeWithText(text).assertIsDisplayed()
                 waitFor("Native Red Square reference post")
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
                 waitFor("Quoted your post")
@@ -166,7 +166,7 @@ class NotificationsPreviewTest {
             waitFor("Liked your post")
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/cached-history-recreated.png"), "Notifications")
             waitFor("Liked your post")
@@ -194,7 +194,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/pruned-history-recreated.png"), "Notifications")
             waitFor("Liked your post")
             ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
-            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.").assertCountEquals(0)
+            ui.onAllNodesWithText("Could not refresh activity.").assertCountEquals(0)
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed().performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(actor)
@@ -203,7 +203,7 @@ class NotificationsPreviewTest {
 
     @Test fun healthyRepliesRemainAvailableWhenTheLikesArchiveFails() {
         withNotifications("partial-history", Mode.PARTIAL) { actor, _, _ ->
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             waitFor("Replied to your post")
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
@@ -227,7 +227,7 @@ class NotificationsPreviewTest {
             waitFor("Liked your post")
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
             ui.onAllNodesWithText("Liked your post").assertCountEquals(1)
-            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.").assertCountEquals(0)
+            ui.onAllNodesWithText("Could not refresh activity.").assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/rejected-history.png"), "Some activity could not be verified.")
             ui.onNodeWithText("Replied to your post").assertIsDisplayed().performClick()
@@ -247,14 +247,14 @@ class NotificationsPreviewTest {
             waitFor("Reposted your post")
             ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            ui.onAllNodesWithText("Local activity history is incomplete.")
                 .assertCountEquals(0)
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             waitFor("Reposted your post")
             ui.onAllNodesWithText("Reposted your post").assertCountEquals(1)
-            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            ui.onAllNodesWithText("Local activity history is incomplete.")
                 .assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/null-repost-history.png"), "Reposted your post")
@@ -274,7 +274,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             waitFor("Liked your post")
             waitFor("No unread activity")
             ui.onAllNodesWithText("1 unread").assertCountEquals(0)
@@ -293,7 +293,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             control.blockReadSaving()
             ui.onNodeWithText("Mark all as read").assertIsDisplayed().assertIsEnabled().performClick()
-            waitFor("Read status could not be read or saved. Available notifications still appear here.")
+            waitFor("Read status is unavailable.")
             ui.onNodeWithText("1 unread").assertIsDisplayed()
             ui.onAllNodesWithText("No unread activity").assertCountEquals(0)
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
@@ -304,7 +304,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Mark all as read").performClick()
             waitFor("No unread activity")
-            ui.onAllNodesWithText("Read status could not be read or saved. Available notifications still appear here.").assertCountEquals(0)
+            ui.onAllNodesWithText("Read status is unavailable.").assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/read-save-recovered.png"), "No unread activity")
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed().performClick()
@@ -326,7 +326,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/missing-reply-parent.png"), "The parent post is not available here. Try Refresh.")
             ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
             waitFor("Original recovered after retry")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original recovered after retry"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Original recovered after retry"))
             ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
             ui.onAllNodesWithText("The parent post is not available here. Try Refresh.").assertCountEquals(0)
             ui.onNodeWithText("Back").performClick()
@@ -350,7 +350,7 @@ class NotificationsPreviewTest {
                 "notification-evidence/missing-quote-original.png"), "Original unavailable. Commentary is still available.")
             ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
             waitFor("Original recovered after retry")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Original recovered after retry"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Original recovered after retry"))
             ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()
             ui.onAllNodesWithText("Original unavailable. Commentary is still available.").assertCountEquals(0)
             ui.onNodeWithText("Back").performClick()
@@ -425,7 +425,7 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsNotEnabled()
             assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
             ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/older-activity.png"), "3 unread")
@@ -436,12 +436,12 @@ class NotificationsPreviewTest {
             waitFor("3 unread")
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             ui.waitUntil(15_000) { responses.ownerReads.get() > 0 &&
                 ui.onAllNodes(hasText("Refresh") and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             waitFor("3 unread")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
             ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/older-activity-recreated.png"), "3 unread")
@@ -507,7 +507,7 @@ class NotificationsPreviewTest {
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 responses.change()
                 scenario.recreate()
-                waitFor("Could not load notifications. Check your connection and try Refresh.")
+                waitFor("Could not refresh activity.")
                 ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 waitFor("No unread activity")
@@ -561,7 +561,7 @@ class NotificationsPreviewTest {
             ui.onAllNodesWithContentDescription(actorLabel(officialActor)).assertCountEquals(0)
             responses.change()
             ui.onNodeWithText("Refresh").performClick()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Node: saito.davidengelen.nl").assertIsDisplayed()
@@ -603,7 +603,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Replied to your post").assertIsDisplayed().performClick()
             waitFor("Conversation")
             waitFor("Reply indexed by its own-post parent")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
             ui.onNodeWithText("Reply indexed by its own-post parent").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
@@ -630,7 +630,7 @@ class NotificationsPreviewTest {
             ui.onNodeWithText("Replied to your post").performClick()
             waitFor("Conversation")
             waitFor("Reply indexed by its own-post parent")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Reply indexed by its own-post parent"))
             ui.onNodeWithText("Reply indexed by its own-post parent").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
             waitFor("Replied to your post")
@@ -668,7 +668,7 @@ class NotificationsPreviewTest {
 
     @Test fun unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh() {
         withNotifications("history-load-fault", Mode.HISTORY_LOAD_FAULT) { actor, scenario, responses ->
-            waitFor("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            waitFor("Local activity history is incomplete.")
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -680,20 +680,20 @@ class NotificationsPreviewTest {
             ui.waitUntil(15_000) {
                 ui.onAllNodes(hasText("Refresh") and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() &&
-                    ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+                    ui.onAllNodesWithText("Local activity history is incomplete.")
                         .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty()
             }
-            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            ui.onAllNodesWithText("Local activity history is incomplete.")
                 .assertCountEquals(0)
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("1 unread").assertIsDisplayed()
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
             ui.onNodeWithContentDescription(actorLabel(actor)).assertIsDisplayed()
-            ui.onAllNodesWithText("Some notification history could not be read or saved on this phone. Available activity still appears here.")
+            ui.onAllNodesWithText("Local activity history is incomplete.")
                 .assertCountEquals(0)
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/history-load-recovered.png"), "1 unread")
@@ -702,7 +702,7 @@ class NotificationsPreviewTest {
 
     @Test fun unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark() {
         withNotifications("read-load-fault", Mode.READ_LOAD_FAULT) { actor, scenario, responses ->
-            waitFor("Read status could not be read or saved. Available notifications still appear here.")
+            waitFor("Read status is unavailable.")
             waitFor("Liked your post")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
@@ -717,13 +717,13 @@ class NotificationsPreviewTest {
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onAllNodesWithText("Read status could not be read or saved. Available notifications still appear here.")
+            ui.onAllNodesWithText("Read status is unavailable.")
                 .assertCountEquals(0)
             ui.onNodeWithText("Mark all as read").assertIsEnabled().performClick()
             waitFor("No unread activity")
             responses.change()
             scenario.recreate()
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("No unread activity").assertIsDisplayed()
@@ -740,7 +740,7 @@ class NotificationsPreviewTest {
                 JsonParser.parseReader(it).asJsonObject.getAsJsonObject("boundaryIncomingLike").get("field2").asString
             }
         withNotifications("stream-retry", Mode.RETRY) { _, _, responses ->
-            waitFor("Could not load notifications. Check your connection and try Refresh.")
+            waitFor("Could not refresh activity.")
             waitFor("Replied to your post")
             waitFor("1 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
@@ -752,7 +752,7 @@ class NotificationsPreviewTest {
             waitFor("2 unread")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-            ui.onAllNodesWithText("Could not load notifications. Check your connection and try Refresh.")
+            ui.onAllNodesWithText("Could not refresh activity.")
                 .assertCountEquals(0)
             ui.onNodeWithText("Replied to your post").assertIsDisplayed()
             ui.onNodeWithText("Liked your post").assertIsDisplayed()
@@ -767,7 +767,7 @@ class NotificationsPreviewTest {
             assertTrue("Fresh Refresh must check healthy streams again", responses.healthyReplyReads.get() > healthyReads)
             ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(lateActor)))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasContentDescription(actorLabel(lateActor)))
             ui.onNodeWithContentDescription(actorLabel(lateActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/stream-retry-late.png"), "3 unread")
@@ -843,11 +843,11 @@ class NotificationsPreviewTest {
             waitFor("This post is unavailable on this node. You can retry or return to notifications.")
             ui.onNodeWithText("Retry").assertIsDisplayed().performClick()
             waitFor(recoveryText)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText(recoveryText))
+            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText(recoveryText))
             ui.onNodeWithText(recoveryText).assertIsDisplayed()
             if (mode == Mode.MISSING_QUOTE_LIKE) {
                 waitFor("Native Red Square reference post")
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                 ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             }
             ui.onNodeWithText("Back").performClick()
@@ -1171,15 +1171,15 @@ class NotificationsPreviewTest {
                         "notification-evidence/$evidenceName-first-failure.png")) }) {
                         if (mode == Mode.WALLET) {
                             waitFor("Shared mention for wallet isolation")
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                         }
                         if (mode == Mode.PARENT_CONTINUATION) {
                             waitFor("Newer own post 10 for parent discovery")
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                         }
                         if (mode == Mode.FEED_MENTION) {
                             waitFor("An addressed post without a mention")
-                            ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
+                            ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Native Red Square reference post"))
                         }
                         waitFor("Native Red Square reference post")
                         ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())

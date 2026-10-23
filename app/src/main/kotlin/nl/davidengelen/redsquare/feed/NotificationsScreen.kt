@@ -2,6 +2,8 @@ package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -313,14 +315,21 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
         val notices = buildList {
-            if (readWarning) add(stringResource(R.string.notifications_read_status_warning))
-            if (failed) add(stringResource(R.string.notifications_read_error))
-            if (cacheWarning) add(stringResource(R.string.notifications_cache_warning))
-            if (ignored > 0) add(stringResource(R.string.notifications_unverified))
-            if (pagingWarning) add(stringResource(R.string.notifications_paging_warning))
-            if (retainedCount >= NotificationHistoryStore.MAX_EVENTS) add(stringResource(R.string.notifications_history_limit))
+            if (readWarning) add(R.string.notifications_read_status_warning to R.string.notifications_read_status_warning_detail)
+            if (failed) add(R.string.notifications_read_error to R.string.notifications_read_error_detail)
+            if (cacheWarning) add(R.string.notifications_cache_warning to R.string.notifications_cache_warning_detail)
+            if (ignored > 0) add(R.string.notifications_unverified to R.string.notifications_unverified)
+            if (pagingWarning) add(R.string.notifications_paging_warning to R.string.notifications_paging_warning_detail)
+            if (retainedCount >= NotificationHistoryStore.MAX_EVENTS)
+                add(R.string.notifications_history_limit to R.string.notifications_history_limit_detail)
         }
-        InlineStatus(notices.firstOrNull(), StatusTone.WARNING, details = notices.drop(1))
+        // Several independent warnings remain individually discoverable without consuming the entire inbox.
+        if (notices.isNotEmpty()) Column(Modifier.heightIn(max = 120.dp).verticalScroll(rememberScrollState())) {
+            notices.forEach { (summary, detail) ->
+                InlineStatus(stringResource(summary), StatusTone.WARNING,
+                    details = if (summary == detail) emptyList() else listOf(stringResource(detail)))
+            }
+        }
         InlineStatus(when {
             markingRead -> stringResource(R.string.activity_saving_read)
             loading -> stringResource(R.string.notifications_loading)
