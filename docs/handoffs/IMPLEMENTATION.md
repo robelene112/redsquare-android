@@ -37,8 +37,12 @@ Revision40011720847 at8dc wholeSUCCESS, retained. Inbox40011716035: individual
 and all six viewport cells pass; state failed because exact original lookup
 returned unrelated root. Fixture atc469 filters signatures; replacement40012779269
 pending. Atcdd viewport readiness also awaits enabled Refresh inside original15s.
-Complete10run40012884531 and17run40012888385 at exact
-cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82 now dispatched; acceptance pending.
+Initial complete10run40012884531/17run40012888385 atcdd were cancelled after
+focused40012779269 again failed missing target. ControlledFeedPeer routes exact
+RedSquareRetweet sig reads through archiveResponse, not quoteArchiveResponse.
+At82a6d39ee that fixture handler now supports exact quote lookup. No production
+change. Focused state40013822813 runs at82a; wait for its result before replacement
+complete runs. Cancelled initial runs never count as acceptance.
 Four additive180s Social classes: ActivityInboxPreviewTest, ActivityInboxViewportTest,
 ActivityInboxStateTest, ActivityInboxRevisionTest. Actual TalkBackActivityPreviewTest
 is additive180s Chat. Existing identities/deadlines/tool pins retained.
@@ -59,9 +63,10 @@ final source/evidence review; canonical signed in-place beta66 and independent
 public receipt; close66/check parent55 then STOP. No Ralph/parallel implementation.
 Physical/provider/store gates stay parked under36/OWNER_INPUTS.md. Never combine
 failed runs' partitions into completion. External review worktree is at exactcdd; canonical signed build session83924
-runs scripts/review-build, reserving66 once. Log activity66-signed-build.log and
-receipt activity66-signed-build-result.json under external artifacts. Do not
-start a second signing build. Observer18705 /tmp/redsquare66-watch-full.py
+completed scripts/review-build successfully, reserving66 once. Log activity66-signed-build.log and
+receipt activity66-signed-build-result.json under external artifacts. Prepared66 verification passed with established certificate,38291443bytes,
+SHA256af1adb0b746f502b2ec4c06b9e507e80630ed5d7d9cae5e380951268e4e2c01f.
+Never rebuild/reuse66; tests/docs-only follow-up leaves production identical. Observer18705 /tmp/redsquare66-watch-full.py
 tracks both complete runs and downloads terminal artifacts, without acceptance.
 Public65 is unchanged;66 must wait for accepted verification/public receipts.
 
