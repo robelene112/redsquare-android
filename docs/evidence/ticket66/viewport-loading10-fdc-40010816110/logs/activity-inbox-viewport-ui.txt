@@ -1,0 +1,125 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityInboxViewportTest:
+INSTRUMENTATION_STATUS: test=mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Quote notification reference' (ignoreCase: false))
+Semantics of the node:
+Node #549 at (l=24.0, t=283.0, r=296.0, b=346.0)px
+ContentDescription = '[Open activity from LongActivityIdentityLongActivityIdentityLongA@saito]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Quoted your post, Loading preview..., 11/14/23 10:13 PM, Unread]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: ((Text + InputText + EditableText contains 'Quoted your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7$lambda$6(ActivityInboxViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$O4odsio_6W-S4gw1gjEA9hakFkw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7(ActivityInboxViewportTest.kt:33)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$QD4cwDzbt0EPf75WazJyVqS6KIY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes(ActivityInboxViewportTest.kt:21)
+
+INSTRUMENTATION_STATUS: stream=
+Error in mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ActivityInboxViewportTest):
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Quote notification reference' (ignoreCase: false))
+Semantics of the node:
+Node #549 at (l=24.0, t=283.0, r=296.0, b=346.0)px
+ContentDescription = '[Open activity from LongActivityIdentityLongActivityIdentityLongA@saito]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Quoted your post, Loading preview..., 11/14/23 10:13 PM, Unread]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: ((Text + InputText + EditableText contains 'Quoted your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7$lambda$6(ActivityInboxViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$O4odsio_6W-S4gw1gjEA9hakFkw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7(ActivityInboxViewportTest.kt:33)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$QD4cwDzbt0EPf75WazJyVqS6KIY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes(ActivityInboxViewportTest.kt:21)
+
+INSTRUMENTATION_STATUS: test=mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 9.027
+There was 1 failure:
+1) mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes(nl.davidengelen.redsquare.ActivityInboxViewportTest)
+java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains 'Quote notification reference' (ignoreCase: false))
+Semantics of the node:
+Node #549 at (l=24.0, t=283.0, r=296.0, b=346.0)px
+ContentDescription = '[Open activity from LongActivityIdentityLongActivityIdentityLongA@saito]'
+Focused = 'false'
+Role = 'Button'
+Text = '[Quoted your post, Loading preview..., 11/14/23 10:13 PM, Unread]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: ((Text + InputText + EditableText contains 'Quoted your post' (ignoreCase: false)) && (OnClick is defined))
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:264)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7$lambda$6(ActivityInboxViewportTest.kt:46)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$O4odsio_6W-S4gw1gjEA9hakFkw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes$lambda$7(ActivityInboxViewportTest.kt:33)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.$r8$lambda$QD4cwDzbt0EPf75WazJyVqS6KIY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxViewportTest.mixedActivityPreviewsAndExactIdentityRemainReadableAcrossThemesAndTextSizes(ActivityInboxViewportTest.kt:21)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

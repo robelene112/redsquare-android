@@ -2,36 +2,59 @@
 
 ## Active: issue66 only, then STOP
 
-Owner on2026-10-23 authorized choosing and completing exactly one ready issue.
-Selected66, activity inbox hierarchy/accessibility. Blockers58/59/60 are closed.
-Review base29253a28b (the issue65 closure commit). No other issue
-is authorized. Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
-remains unread and untouched. Current public beta65 stays available.
+Owner on2026-10-23 authorized choosing/completing exactly one ready issue.
+Selected66 activity inbox; blockers58/59/60 are closed. Review base
+29253a28bc5433a460201eaf6e4997c400cbbe55. No other issue is authorized.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains unread
+and untouched. Public beta65 remains unchanged and must not be rebuilt/reused.
 
-Use the existing native UI/controlled signed-peer seam. First additive180s class
-ActivityInboxPreviewTest verifies independent48dp author/event targets and per-event
-read feedback/recreation. Shared fixture preserves wallet/backend/files/preferences.
-Focused activity-inbox/Android17 scopes and complete Social inclusion are additive;
-all existing notification/process/push goals and deadlines remain unchanged.
-First native RED40003144882 at38f54317f reaches the signed like and fails the
-missing individual Unread state. Earlier40001450770 is compile-only failure;
-40002339707 is a corrected controlled-peer root-filter mistake, neither is RED.
-Original packets retained underdocs/evidence/ticket66.
+Current implemented source fdcddb2269ca06d407dfb8d0f2f4689a40bc219d:
+- ActivityRow avatar/name, event icon/caption, bounded verified preview, time,
+  explicit read state; disjoint48dp author/event/menu controls and exact identity.
+- Per-event Mark as read shares existing verified all-read persistence.
+- Compact Activity heading/mark-all icon, history loading below the list,
+  separate bounded warning summaries with Details and scrollable empty content.
+- ActivityPreviews applies learned author edits/deletions on IO, observes revision
+  generations and withholds mismatched previews. Retains unavailable event rows.
 
-First production slice4ac34066f adds ActivityRow with distinct48dp author/event
-controls, avatar/time/read labels and an individual Mark as read menu sharing
-the existing verified read-store commit. Existing notification test actors use
-the new profile action label, with original counts/destinations/deadlines intact.
-Local bounded Docker Kotlin/app-test compilation passes. Android10 run40005627650 at6ce7402e3 passes original32, new individual-read1
-and API29 permission1. The whole run is rejected because process preparation still
-used the old full-key row selector. f8e14b28a corrects only those three process
-operators. Earlier4ac focused failures remain retained/rejected. New viewport
-class180s covers six mixed events, maximum signed name and six theme/font cells.
-Current active run40006643366 atf8e14b28a is the preview RED attempt, before any
-preview or compact-header production change. Do not count pending runs as acceptance. Remaining: available previews/type hierarchy/compact header and
-status controls, mixed-history/theme/font/empty/offline/long-name evidence,
-actual TalkBack speech, final whole Android10/17, paired review and signed update.
-Current public beta65 remains unchanged. Stop after66.
+Focused notifications10run40007964716 at e440831d4 is whole SUCCESS: original32,
+individual-read1, mixed viewport1, permission1 and actual process recovery.
+Activity-only40007959383 also passes at e440. Actual100/130/200 Light/Dark
+renders inspected.200% title wrap motivated later compact heading/mark-all icon.
+These runs predate later warnings/state/TalkBack/revision fixes and are not final.
+Original failed packets underdocs/evidence/ticket66 remain rejected, including
+state40008892920 (painted40dp vs actual native48dp measurement), TalkBack40008459077
+(returned-popup speech deadline) and revision RED40009487018 (learned edit absent).
+State operator now measures native clickable48dp; TalkBack waits popup gone/idle,
+without changing focus/speech/class bounds. Revision regression now has source fix.
+
+Focused40010821073 atfdc is whole SUCCESS: all four actual TalkBack classes.
+Retained under ticket66/talkback-green10-fdc-40010821073.40010816110 failed
+viewport readiness while the safe preview still said Loading preview; retained
+as rejected viewport-loading10-fdc-40010816110. Operators at8dc/14d await
+resolved quote/unavailable previews within the original15s readiness bounds.
+Active8dc runs:40011716035 activity-inbox,40011720847 activity-revisions.
+Four additive180s Social classes: ActivityInboxPreviewTest, ActivityInboxViewportTest,
+ActivityInboxStateTest, ActivityInboxRevisionTest. Actual TalkBackActivityPreviewTest
+is additive180s Chat. Existing identities/deadlines/tool pins retained.
+Local Docker revision build log /mnt/storage/redsquare-android-artifacts/activity66-revision-build.log;
+session34237 completed SUCCESS,4m51s. No local compiler remains running.
+
+Paired source reviews throughfdc: Spec0 (prior safe-preview finding resolved),
+documented Standards0/heuristic0. Reviewer agents activity66_spec_review and
+activity66_standards_review available for final follow-up. No tests dispatched by them.
+Draft UNTRACKED full-collector.py/full-identity-reference.json underticket66 are
+not frozen or acceptance. They inherit complete65+5 cases:532/533 identities,
+166/167normal,35interruptions,34continuity,127archives, unchanged tool pins/exclusions.
+Reviewer caught whitespace in joined completion IDs; draft now strips values.
+
+Remaining: inspect focused results/fix only observed gaps; retain final native
+renders/speech; review/freeze catalog before final whole Android10+17 runs; paired
+final source/evidence review; canonical signed in-place beta66 and independent
+public receipt; close66/check parent55 then STOP. No Ralph/parallel implementation.
+Physical/provider/store gates stay parked under36/OWNER_INPUTS.md. Never combine
+failed runs' partitions into completion. Current external review worktree is
+still at signed65 sourceca678e521f63ed04d54cb0da4197443b8cc7c7e1.
 
 ## Prior completed delivery
 

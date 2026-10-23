@@ -1,0 +1,86 @@
+{
+  "activity-inbox-evidence.tar": {
+    "sha256": "da44db9b55981b4ca84dbd2947674d3975366220458fadd708c1e29f1f8114d4",
+    "bytes": 137728,
+    "members": [
+      {
+        "name": "activity-inbox-evidence/unread-activity.xml",
+        "bytes": 38943,
+        "sha256": "4a6e098dc9f935c33571156f9c441aa749636510701050226b510a1cc403f3e1",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/unread-activity.xml"
+      },
+      {
+        "name": "activity-inbox-evidence/unread-activity.png",
+        "bytes": 26886,
+        "sha256": "8dae19375bb242c151fa8d8d11324444e7e5138bdcd363379a2c74a7be0dc8f2",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/unread-activity.png"
+      },
+      {
+        "name": "activity-inbox-evidence/activity-marked-read.xml",
+        "bytes": 38953,
+        "sha256": "a54fb9ca6d116cbf815431a5e588f4d4690ed1cc333a69e8d8cd12d414c267e2",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/activity-marked-read.xml"
+      },
+      {
+        "name": "activity-inbox-evidence/activity-marked-read.png",
+        "bytes": 27970,
+        "sha256": "3d47a5d683b4bba4b9ca8e86b5ba9ea44dc50eadd595d7d4abbd0f3d42b8a388",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/activity-marked-read.png"
+      }
+    ]
+  },
+  "activity-inbox-viewport-evidence.tar": {
+    "sha256": "21eb22914e4df6a4d23f66f00f5da2ae2347d5d9ccb8fcf64fa5eff1bc47d4d5",
+    "bytes": 230912,
+    "members": [
+      {
+        "name": "activity-inbox-viewport-evidence/activity-activity-lifecycle.jsonl",
+        "bytes": 1768,
+        "sha256": "7bc62705fa04cb8acdaa7b395f795caed7e459a2810958aa09bd427ccc332662",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-font-scale.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-font-scale.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-failure.xml",
+        "bytes": 50172,
+        "sha256": "5592e5352527ca5d2dc71d299854e19120cebe0397b92a22680caba1feac778d",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-failure.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-failure.png",
+        "bytes": 44594,
+        "sha256": "d502077bf7a692e8c3ab58138a8ee60dfdb59c455990f1b0643b37140e5ee383",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-failure.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-font-restored.json",
+        "bytes": 100,
+        "sha256": "e8a7fbc942effff12611a717f99370d1d7eae969c349dd3f9e701e0183a5c675",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-font-restored.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/mixed-viewport-failure.xml",
+        "bytes": 22992,
+        "sha256": "d82a1a89efed4b22df49c5cee44907d376446f8bf7bc6c22544ae22cd215ff8c",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/mixed-viewport-failure.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/mixed-viewport-failure.png",
+        "bytes": 103399,
+        "sha256": "e4d3df8267856be31b051dfbbc68da1a40571e7db65922e487429fea3c7f3fa3",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/mixed-viewport-failure.png"
+      }
+    ]
+  }
+}
