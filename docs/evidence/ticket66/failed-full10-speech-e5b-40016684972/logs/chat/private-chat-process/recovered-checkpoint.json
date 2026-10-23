@@ -1,0 +1,28 @@
+{
+  "phase": "recovered",
+  "owner": "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU",
+  "backend": "owner",
+  "originalOwner": "yyMcXHzhd9FLHEKVwcX2EoKpVzioLLXF18My4drcGwwh",
+  "originalWalletDigest": "4bc65433b36d92efdeb328739fbccf13437e4e87f76482c4b1326c302ae28344",
+  "walletDigest": "28ecd66d38a5c7a3707b48139a63f388e91adbb3ecb42f6bce1aa4eee80b37ec",
+  "pid": 11833,
+  "savedFiles": [
+    "wallet.v1"
+  ],
+  "preferences": [
+    {
+      "name": "notification-permission",
+      "key": "offered"
+    },
+    {
+      "name": "wallet-backup-reminders",
+      "key": "hidden:pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
+    }
+  ],
+  "incomingDigest": "cda4e4d167bf24e2af1455ee9a77ac0894888298bd6e9488f3770f49db8704f7",
+  "candidate": "feb2744359740c2e616e2fa5e649262daf940b007f36fa13437552618d6f9d7e4bdaa64174c5f0de76f6ae31e51187aeb6597a2f23ff26ac5461765a7bcb56fd",
+  "candidateDigest": "3285731c15c8b6198945844d16e08c3b451437ca0016bd0cb1b891c1b79eab50",
+  "reaction": "d601d1192c58966db60bb2d1097bf2b4aa4f399b2dc15c32d0663adbae7b29f10ca58727c1c34b5a900a8779c4c859d931c0cafb9f9ad34715337ccbb3b70061",
+  "reactionDigest": "ac031ff325c8a68e02a917bf18c9cf37d0c1eba353f0d428fe93aa4ac1beab84",
+  "recoveredPid": 12193
+}

@@ -1,0 +1,44 @@
+{
+  "recordedBeforeCorrectedFullExecution": true,
+  "accepted65TimingChanged": false,
+  "focusMillis": 5000,
+  "classSeconds": 180,
+  "existingCompletionMillis": 10000,
+  "newActivityCompletionMillis": 15000,
+  "onlyAdjustedObservations": [
+    "TalkBackActivityPreviewTest:event",
+    "TalkBackActivityPreviewTest:read-event"
+  ],
+  "reason": "The new full activity row, including read state and TalkBack list context, naturally exceeds10 seconds. Require real completed speech without changing engine or app content.",
+  "evidence": {
+    "rejectedRun": 40016684972,
+    "source": "e5b469b9e038a70d1b545953f928bb9677b472a0",
+    "path": "docs/evidence/ticket66/failed-full10-speech-e5b-40016684972/originals/chat/activity-talkback-evidence/failure-speech.txt",
+    "serviceProcess": 14826,
+    "utterance": "talkback_55",
+    "startAdjacentWallMillis": [
+      1792788796007,
+      1792788796027
+    ],
+    "doneAdjacentWallMillis": [
+      1792788806647,
+      1792788806668
+    ],
+    "minObservedPlaybackMillis": 10620,
+    "maxObservedPlaybackMillis": 10661,
+    "stoppedOrErrored": false
+  },
+  "operatorCommit": "3c406765ff974bd95c26ae1fd3d545440b2021f0",
+  "unchanged": [
+    "application sources",
+    "literal accepted65 identities",
+    "speech assertions",
+    "service and engine checks",
+    "tool pins",
+    "five-second focus bound",
+    "180-second class bound",
+    "existing callers ten-second completion bound"
+  ],
+  "catalogFreezeCommit": "07200af2bc3d35e3401c4435bfd6013267712a07",
+  "notes": "Original identity catalog and collector stay frozen. This separate prospective timing clarification applies only to new Activity observations in corrected execution. Earlier failures remain rejected; an earlier full SDK success under the stricter10s window remains valid."
+}
