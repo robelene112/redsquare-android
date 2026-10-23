@@ -1,0 +1,44 @@
+{
+  "activity-revision-evidence.tar": {
+    "sha256": "2d1beda345384878d92e61625e2476324bff1c5a89e214c11bc0f47a13f0cca1",
+    "bytes": 208384,
+    "members": [
+      {
+        "name": "activity-revision-evidence/learned-edit.xml",
+        "bytes": 38933,
+        "sha256": "780640c0f5d605707a68afd9958865d00ed75d43b884ab6a53745d561220886c",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/learned-edit.xml"
+      },
+      {
+        "name": "activity-revision-evidence/learned-edit.png",
+        "bytes": 25989,
+        "sha256": "7ade69c81e76bb7ebc0e88683d0ead9bfa483fb3f66a6b5ef609b126f9183ffe",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/learned-edit.png"
+      },
+      {
+        "name": "activity-revision-evidence/learned-deletion.xml",
+        "bytes": 38933,
+        "sha256": "c0a5202c2084bd361922f73dcd2c8ed91703b403899018911579f948a5f869b6",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/learned-deletion.xml"
+      },
+      {
+        "name": "activity-revision-evidence/learned-deletion.png",
+        "bytes": 26031,
+        "sha256": "086973ecea904a7b847db182f67501ba27c13c8f23f676782c45977d17c0ac69",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/learned-deletion.png"
+      },
+      {
+        "name": "activity-revision-evidence/deleted-offline-recreated.xml",
+        "bytes": 42699,
+        "sha256": "0742d8269fc19813bd9f5ba6e574a9f86766aafe05d56e79750bf78cbd4be307",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/deleted-offline-recreated.xml"
+      },
+      {
+        "name": "activity-revision-evidence/deleted-offline-recreated.png",
+        "bytes": 29324,
+        "sha256": "e135198f6a2e2abae2782cfe6a6311f33c22c4efeb4410779e467d41963c93a5",
+        "retainedPath": "originals/activity-revision-evidence/activity-revision-evidence/deleted-offline-recreated.png"
+      }
+    ]
+  }
+}

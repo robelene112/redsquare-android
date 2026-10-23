@@ -33,7 +33,12 @@ Retained under ticket66/talkback-green10-fdc-40010821073.40010816110 failed
 viewport readiness while the safe preview still said Loading preview; retained
 as rejected viewport-loading10-fdc-40010816110. Operators at8dc/14d await
 resolved quote/unavailable previews within the original15s readiness bounds.
-Active8dc runs:40011716035 activity-inbox,40011720847 activity-revisions.
+Revision40011720847 at8dc wholeSUCCESS, retained. Inbox40011716035: individual
+and all six viewport cells pass; state failed because exact original lookup
+returned unrelated root. Fixture atc469 filters signatures; replacement40012779269
+pending. Atcdd viewport readiness also awaits enabled Refresh inside original15s.
+Complete10run40012884531 and17run40012888385 at exact
+cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82 now dispatched; acceptance pending.
 Four additive180s Social classes: ActivityInboxPreviewTest, ActivityInboxViewportTest,
 ActivityInboxStateTest, ActivityInboxRevisionTest. Actual TalkBackActivityPreviewTest
 is additive180s Chat. Existing identities/deadlines/tool pins retained.

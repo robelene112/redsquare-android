@@ -27,7 +27,15 @@ engine START/positiveAUDIO/DONE; native targets are disjoint and at least48dp.
 Viewport40010816110 remains rejected: its first assertion observed Loading
 preview. Readiness now awaits resolved content inside the same original15s.
 
-Remaining focused checks and complete Android10/17 verification remain pending.
+Revision40011720847 at8dc is whole SUCCESS: learned edit/deletion, retained event
+and offline recreation. Inbox40011716035 passes individual read and all six
+viewport cells but rejects the missing-target fixture: exact signature lookup
+incorrectly returned the root. Fixture now filters exact signatures; replacement
+focused40012779269 atc469 remains pending. Viewport readiness atcdd additionally
+requires enabled Refresh within the original15s, so final renders show settled UI.
+
+Complete Android10run40012884531 and Android17run40012888385 are dispatched at
+exactcddf67fc5bb43e2479dcf0d864dee3c5e2f36f82. Acceptance remains pending.
 The complete catalog/collector was frozen at07200af2bc3d35e3401c4435bfd6013267712a07
 before execution, after paired prefreeze0/0 review. It preserves accepted65 plus
 five native methods:532/533 identities,166/167 normal completions,35 intentional
