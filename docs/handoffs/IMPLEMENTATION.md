@@ -2,6 +2,21 @@
 
 ## Active: issue66 only, then STOP
 
+Latest checkpoint: complete17run40019858105 finishedFAILURE on the same new
+read-event10s speech window; all preceding original checks passed. Retained
+failed-full17-speech-e5b. No complete run accepted. New capture producer c5b44e1d7
+adds native XML beside each control speech PNG, as required by the unchanged
+frozen collector. Previous producer was PNG-only, confirmed by a deliberately
+non-acceptance validator dry-run. Earlier10repeat40025793736 was cancelled before
+native execution for this known artifact gap, retained cancelled-full10-hierarchy.
+Focused40026242121 atc5 is pending. After it passes, run /tmp/redsquare66-check-activity-validator.py
+against prior successful Social raw plus new focused Chat raw to validate the
+collector itself (NOT full acceptance). Then fresh whole10+17 at corrected source.
+Both now use the prospective15s new Activity speech bound frozen918a; old callers
+remain10s. All observer sessions for old complete runs have ended. Signed66 still
+held; app/build are unchanged. Current pending tools: focused40026242121 only.
+
+
 Owner on2026-10-23 authorized choosing/completing exactly one ready issue.
 Selected66 activity inbox; blockers58/59/60 are closed. Review base
 29253a28bc5433a460201eaf6e4997c400cbbe55. No other issue is authorized.

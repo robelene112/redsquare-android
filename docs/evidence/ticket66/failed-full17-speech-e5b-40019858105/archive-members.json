@@ -1,0 +1,110 @@
+{
+  "chat/activity-talkback-evidence.tar": {
+    "bytes": 586752,
+    "sha256": "d7de61865a9bec9131f54c52e32e4a3840df7b842fee35c0d6e037eb48238085",
+    "members": [
+      {
+        "name": "activity-talkback-evidence/accessibility-before.txt",
+        "bytes": 5561,
+        "sha256": "09725ab3d2f7ac0a9005f5e1025cecaf79c7e88fcd0ac91bbef7de0818f43726",
+        "retainedPath": "originals/chat/activity-talkback-evidence/accessibility-before.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/engine.json",
+        "bytes": 149,
+        "sha256": "8244b4ee0b73eb2c242a6aaf11e1ee8d32dd723d778a4cda30f2202c338c880b",
+        "retainedPath": "originals/chat/activity-talkback-evidence/engine.json"
+      },
+      {
+        "name": "activity-talkback-evidence/english-engine.wav",
+        "bytes": 77956,
+        "sha256": "5b30634cff500ee8bfd366cffd785cbfd28a53e65641005dc6e23652e89ae561",
+        "retainedPath": "originals/chat/activity-talkback-evidence/english-engine.wav"
+      },
+      {
+        "name": "activity-talkback-evidence/author-speech.txt",
+        "bytes": 26419,
+        "sha256": "f2a04a6c5ea69f67ee4f3d738da4550c4a777f03f16fc69769fbe2f1a32cd2b5",
+        "retainedPath": "originals/chat/activity-talkback-evidence/author-speech.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/author-result.json",
+        "bytes": 168,
+        "sha256": "e173f9a5168db4e3a38fdb08953e084c5bddc5e330d3641aa86cf8c0f11acd40",
+        "retainedPath": "originals/chat/activity-talkback-evidence/author-result.json"
+      },
+      {
+        "name": "activity-talkback-evidence/author.png",
+        "bytes": 27993,
+        "sha256": "367f24427d6ab538c8e98cf4c28513a774b8ad16f6677923bcbfed4daf409005",
+        "retainedPath": "originals/chat/activity-talkback-evidence/author.png"
+      },
+      {
+        "name": "activity-talkback-evidence/event-speech.txt",
+        "bytes": 35881,
+        "sha256": "989f2da373d7d3bae896e2e5323cd929a81a639c91ed02abb8269d3893bbda8a",
+        "retainedPath": "originals/chat/activity-talkback-evidence/event-speech.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/event-result.json",
+        "bytes": 170,
+        "sha256": "a8e5a3184dd91b994d6ffdee10acdb9c00aa501377b710e605a359ff0b087021",
+        "retainedPath": "originals/chat/activity-talkback-evidence/event-result.json"
+      },
+      {
+        "name": "activity-talkback-evidence/event.png",
+        "bytes": 28040,
+        "sha256": "e5bcb2225be970e3b00b97565d0e0eb1f10792974f591f9cc5862463c3908b50",
+        "retainedPath": "originals/chat/activity-talkback-evidence/event.png"
+      },
+      {
+        "name": "activity-talkback-evidence/options-speech.txt",
+        "bytes": 17996,
+        "sha256": "f0745f58b2d308a7e10548dcc25b022dfcca32f24e635ad42d0ace47d249f8b4",
+        "retainedPath": "originals/chat/activity-talkback-evidence/options-speech.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/options-result.json",
+        "bytes": 172,
+        "sha256": "6055d27cd6e719da0486a89dfe49a767a8ff81fc26a9e1dd470a493f64859477",
+        "retainedPath": "originals/chat/activity-talkback-evidence/options-result.json"
+      },
+      {
+        "name": "activity-talkback-evidence/options.png",
+        "bytes": 27983,
+        "sha256": "0990cd37cbcaaf5912117bf1dd8030de856b8cb9f644993ac4fd822edb8e6dea",
+        "retainedPath": "originals/chat/activity-talkback-evidence/options.png"
+      },
+      {
+        "name": "activity-talkback-evidence/talkback-failure.xml",
+        "bytes": 30695,
+        "sha256": "5309248b274d39be19d8bb290ce6c72064d1870ce6ec4c36ceb74befca383f23",
+        "retainedPath": "originals/chat/activity-talkback-evidence/talkback-failure.xml"
+      },
+      {
+        "name": "activity-talkback-evidence/talkback-failure.png",
+        "bytes": 29085,
+        "sha256": "ff1a588c6e58a0439932099f318adca4659eb3943486e81c80b20b8b012f032e",
+        "retainedPath": "originals/chat/activity-talkback-evidence/talkback-failure.png"
+      },
+      {
+        "name": "activity-talkback-evidence/failure-speech.txt",
+        "bytes": 75605,
+        "sha256": "cd29be8cf1caf9d3f89dd49c482e249b899c1c693343020b425dd0abb973985d",
+        "retainedPath": "originals/chat/activity-talkback-evidence/failure-speech.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/failure-accessibility.txt",
+        "bytes": 5592,
+        "sha256": "1d69db034bcb38bec23215c81a75ec2c1495c7dc91b363571a4527c1d0fa617f",
+        "retainedPath": "originals/chat/activity-talkback-evidence/failure-accessibility.txt"
+      },
+      {
+        "name": "activity-talkback-evidence/failure.png",
+        "bytes": 183074,
+        "sha256": "7eabacbdf0708607a68d73cd71661a6b1d403dd66fb1845e5b71057f92e68fa3",
+        "retainedPath": "originals/chat/activity-talkback-evidence/failure.png"
+      }
+    ]
+  }
+}

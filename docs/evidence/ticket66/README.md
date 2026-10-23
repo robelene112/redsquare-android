@@ -86,3 +86,9 @@ invitation recovery case failed its200% dark opening interaction. The target had
 been measured inside the viewport; final capture remained the group list. Cause
 unproven. This same original case passed in preceding full10e5b, and no app/test/
 deadline change was made. Whole10run40025793736 repeats exactbaa independently.
+
+Full17run40019858105 is also rejected at the new read-event10s speech window.
+Producer audit found missing XML beside completed-control PNGs; the unchanged
+frozen collector correctly rejects those incomplete artifacts. c5b44e1d7 adds
+native hierarchy dumps without weakening checks. Early10repeat40025793736 was
+cancelled for this gap. Focused40026242121 and then fresh complete10+17 are required.

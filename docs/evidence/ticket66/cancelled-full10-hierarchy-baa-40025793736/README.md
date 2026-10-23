@@ -1,0 +1,1 @@
+Cancelled before native execution after discovering that the shared control speech capture produced PNG without the native XML required by the frozen collector. Producer corrected atc5b44e1d7; original requirements retained. This run provides no acceptance. Original artifacts remain at /mnt/storage/redsquare-android-artifacts/activity66-full10-baa-40025793736.

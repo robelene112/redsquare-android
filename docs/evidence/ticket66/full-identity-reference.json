@@ -94,15 +94,9 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Unchanged full10 repeated after existing GroupInvitationRecovery200% interaction failed. No further test changes. Strict full17 still pending.",
-  "executingSources": {
-    "android10": "baa1b07c351ecc96858268b6cd0157309aa49053",
-    "android17": "e5b469b9e038a70d1b545953f928bb9677b472a0"
-  },
-  "executingRuns": {
-    "android10": 40025793736,
-    "android17": 40019858105
-  },
+  "executingState": "Previous runs rejected. Focused corrected speech plus required XML producer pending; both complete SDK runs must use corrected producer. Original catalog unchanged.",
+  "executingSources": {},
+  "executingRuns": {},
   "rejectedPredecessors": [
     {
       "android10": 40012884531,
@@ -120,6 +114,12 @@
     },
     {
       "android10": 40024098277
+    },
+    {
+      "android10": 40025793736
+    },
+    {
+      "android17": 40019858105
     }
   ],
   "activitySpeechTiming": {
@@ -129,7 +129,7 @@
     "existingTestsCompletionMillis": 10000,
     "newActivityEventCompletionMillis": {
       "android10": 15000,
-      "android17": 10000
+      "android17": 15000
     }
   }
 }
