@@ -1,0 +1,92 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityInboxStateTest:
+INSTRUMENTATION_STATUS: test=emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxStateTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16$lambda$15(ActivityInboxStateTest.kt:81)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$x8JVHShbyzID8No8fZkyzg4hNJY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16(ActivityInboxStateTest.kt:66)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$KhcnUT0Gv94tGLAXHW5JiFjG-HY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText(ActivityInboxStateTest.kt:64)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText(nl.davidengelen.redsquare.ActivityInboxStateTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16$lambda$15(ActivityInboxStateTest.kt:81)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$x8JVHShbyzID8No8fZkyzg4hNJY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16(ActivityInboxStateTest.kt:66)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$KhcnUT0Gv94tGLAXHW5JiFjG-HY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText(ActivityInboxStateTest.kt:64)
+
+INSTRUMENTATION_STATUS: test=emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 32.292
+There was 1 failure:
+1) emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText(nl.davidengelen.redsquare.ActivityInboxStateTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:887)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:482)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16$lambda$15(ActivityInboxStateTest.kt:81)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$x8JVHShbyzID8No8fZkyzg4hNJY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText$lambda$16(ActivityInboxStateTest.kt:66)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.$r8$lambda$KhcnUT0Gv94tGLAXHW5JiFjG-HY(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$12$lambda$11$lambda$10(ActivityInboxFixture.kt:79)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$iP4rFLUuznROD6fAeUjNs_kLftM(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:78)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxStateTest.emptyAndUnavailableActivityKeepRecoveryReachableWithLargeText(ActivityInboxStateTest.kt:64)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

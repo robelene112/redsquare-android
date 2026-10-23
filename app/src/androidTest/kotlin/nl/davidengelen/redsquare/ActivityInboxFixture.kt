@@ -32,6 +32,9 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
     val root = reference.get("root")
     val events = eventNames.map { reference.getAsJsonObject(it) }
     fun rows(kind: String) = events.filter { it.get("field1").asString == kind }.joinToString(",", "[", "]")
+    fun original(kind: String, target: String) = (listOf(root.asJsonObject) + events)
+        .filter { it.get("field1").asString == kind && it.get("sig").asString == target }
+        .joinToString(",", "[", "]")
     val actor = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
     val nameProof = actorName?.let { name ->
         instrumentation.context.assets.open("native-registry-reference.json").reader().use {
@@ -52,11 +55,16 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
             else -> error("Unexpected activity registry request")
         }
     }, quoteArchiveResponse = { criteria ->
-        if (criteria.has("field3")) rows("RedSquareRetweet") else "[]"
+        when {
+            criteria.has("sig") -> original("RedSquareRetweet", criteria.get("sig").asString)
+            criteria.has("field3") -> rows("RedSquareRetweet")
+            else -> "[]"
+        }
     }, archiveResponse = { criteria ->
         when (criteria.get("field1").asString) {
             "RedSquareLike" -> if (criteria.has("field3")) rows("RedSquareLike") else "[]"
             "RedSquare" -> when {
+                criteria.has("sig") -> original("RedSquare", criteria.get("sig").asString)
                 criteria.get("field3")?.asString == wallet.publicKey ||
                     !criteria.get("field4")?.asString.isNullOrEmpty() || criteria.get("field2")?.asString == actor -> rows("RedSquare")
                 else -> "[$root]"
