@@ -256,7 +256,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
     Column(modifier) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), onClick = onBack)
-            Text(stringResource(R.string.notifications_title), Modifier.weight(1f).semantics { heading() },
+            Text(stringResource(R.string.navigation_activity), Modifier.weight(1f).semantics { heading() },
                 style = MaterialTheme.typography.titleLarge)
             FrameIconButton(R.drawable.ic_refresh, stringResource(R.string.feed_refresh),
                 enabled = wallet != null && !loading && !markingRead) {
@@ -306,11 +306,8 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
                 else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f),
                 style = MaterialTheme.typography.labelLarge)
             else Spacer(Modifier.weight(1f))
-            TextButton(enabled = readReady && !markingRead && unread > 0, onClick = {
-                markObserved(visible.map { it.id })
-            }, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.notifications_mark_read), style = MaterialTheme.typography.labelMedium)
-            }
+            FrameIconButton(R.drawable.ic_read_all, stringResource(R.string.notifications_mark_read),
+                enabled = readReady && !markingRead && unread > 0) { markObserved(visible.map { it.id }) }
         }
         val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
             reposts.map { it.id } + quotes.map { it.id } + contacts.map { it.id }).distinct().size
