@@ -40,7 +40,10 @@ class ActivityInboxPreviewTest {
             ui.waitUntil(15_000) { ui.onNodeWithText("Conversation").isDisplayed() }
             ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
             ui.onNodeWithText("Back").performClick()
-            ui.waitUntil(15_000) { ui.onNodeWithText("No unread activity").isDisplayed() }
+            ui.waitUntil(15_000) {
+                ui.onNodeWithText("No unread activity").isDisplayed() &&
+                    ui.onNodeWithContentDescription("View profile for Anon-pncSjs").isDisplayed()
+            }
             ui.onNodeWithContentDescription("View profile for Anon-pncSjs").performClick()
             ui.waitUntil(15_000) { ui.onNodeWithText("Profile").isDisplayed() }
             ui.inspectProfileIdentity("pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU")

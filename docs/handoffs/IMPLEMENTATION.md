@@ -13,9 +13,21 @@ ActivityInboxPreviewTest verifies independent48dp author/event targets and per-e
 read feedback/recreation. Shared fixture preserves wallet/backend/files/preferences.
 Focused activity-inbox/Android17 scopes and complete Social inclusion are additive;
 all existing notification/process/push goals and deadlines remain unchanged.
-First red proof is pending. No production changes yet. Later add rendered mixed
-history/font/theme/error coverage and actual TalkBack names, then final complete
-Android10/17 verification, paired review and monotonic signed delivery. Stop after66.
+First native RED40003144882 at38f54317f reaches the signed like and fails the
+missing individual Unread state. Earlier40001450770 is compile-only failure;
+40002339707 is a corrected controlled-peer root-filter mistake, neither is RED.
+Original packets retained underdocs/evidence/ticket66.
+
+First production slice4ac34066f adds ActivityRow with distinct48dp author/event
+controls, avatar/time/read labels and an individual Mark as read menu sharing
+the existing verified read-store commit. Existing notification test actors use
+the new profile action label, with original counts/destinations/deadlines intact.
+Local bounded Docker Kotlin/app-test compilation passes. Active Android10 runs:
+40004234833 activity-inbox and40004239606 notifications. Do not count pending runs
+as acceptance. Remaining: available previews/type hierarchy/compact header and
+status controls, mixed-history/theme/font/empty/offline/long-name evidence,
+actual TalkBack speech, final whole Android10/17, paired review and signed update.
+Current public beta65 remains unchanged. Stop after66.
 
 ## Prior completed delivery
 

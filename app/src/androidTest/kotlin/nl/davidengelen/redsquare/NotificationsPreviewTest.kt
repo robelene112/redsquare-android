@@ -425,11 +425,11 @@ class NotificationsPreviewTest {
                 .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             ui.onNodeWithText("Load more activity").assertIsNotEnabled()
             assertTrue("Older history must overlap the timestamp boundary", responses.olderReads.get() > 0)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText(olderActor))
-            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
+            ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/older-activity.png"), "3 unread")
-            ui.onNodeWithText(olderActor).performClick()
+            ui.onNodeWithContentDescription(actorLabel(olderActor)).performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(olderActor)
             ui.onNodeWithText("Back").performClick()
@@ -441,8 +441,8 @@ class NotificationsPreviewTest {
                 ui.onAllNodes(hasText("Refresh") and isEnabled())
                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
             waitFor("3 unread")
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText(olderActor))
-            ui.onNodeWithText(olderActor).assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(olderActor)))
+            ui.onNodeWithContentDescription(actorLabel(olderActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/older-activity-recreated.png"), "3 unread")
         }
@@ -767,11 +767,11 @@ class NotificationsPreviewTest {
             assertTrue("Fresh Refresh must check healthy streams again", responses.healthyReplyReads.get() > healthyReads)
             ui.onAllNodesWithText("Liked your post").assertCountEquals(2)
             ui.onAllNodesWithText("Replied to your post").assertCountEquals(1)
-            ui.onNode(hasScrollAction()).performScrollToNode(hasText(lateActor))
-            ui.onNodeWithText(lateActor).assertIsDisplayed()
+            ui.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(actorLabel(lateActor)))
+            ui.onNodeWithContentDescription(actorLabel(lateActor)).assertIsDisplayed()
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/stream-retry-late.png"), "3 unread")
-            ui.onNodeWithText(lateActor).performClick()
+            ui.onNodeWithContentDescription(actorLabel(lateActor)).performClick()
             waitFor("Profile")
             ui.inspectProfileIdentity(lateActor)
         }

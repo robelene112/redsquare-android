@@ -1,0 +1,593 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NotificationsPreviewTest:
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anOrdinaryRepostWithNullCommentaryIsSavedAndRecoveredWithoutACacheWarning
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedMentionOpensItsPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=rejectedActivityRemainsExplainedWhileVerifiedDuplicatesAppearOnlyOnce
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=remainingFollowedAccountsAreDiscoveredAfterTheFirstBatchIsExhausted
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedLikeOpensItsOriginalPostAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aLikeOfACurrentQuoteRecoversFromItsRetweetArchiveOnExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followedCurrentQuotesAreDiscoveredInTheirOwnArchiveNamespace
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedReplyOpensItsConversationAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=savedActivityRemainsAvailableWhenTheServerNoLongerReturnsIt
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=incomingCurrentAndLegacyQuotesOpenTheirCommentaryOriginalAndActor
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingSignedRepostOpensItsOriginalAndVerifiedActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anIncomingVerifiedUsernameMentionOpensItsPostAndActorProfile
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableHistoryPreservesIncomingActivityAndRecoversOnExplicitRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #6983 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents$lambda$61(NotificationsPreviewTest.kt:770)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$AGdO6cPB91r52PQ8FjdDm28x0EQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda92.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents(NotificationsPreviewTest.kt:742)
+
+INSTRUMENTATION_STATUS: stream=
+Error in failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #6983 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents$lambda$61(NotificationsPreviewTest.kt:770)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$AGdO6cPB91r52PQ8FjdDm28x0EQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda92.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents(NotificationsPreviewTest.kt:742)
+
+INSTRUMENTATION_STATUS: test=failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=backendSwitchesKeepActivityAndReadMarkersSeparateThroughFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingRepostOriginalSurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedReplyKeepsItsOwnContentWhenItsParentIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=unavailableReadStatusKeepsActivityWithoutConfirmingUnreadOrAllowingAMark
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=moreActivityDiscoversRepliesToTheEleventhKnownOwnPost
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=moreActivityDiscoversRepliesToTheEleventhKnownOwnPost
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=importingAnotherWalletSeparatesSharedMentionReadStatusAndRestoringItsOwnerRecoversActivity
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=repliesToKnownOwnPostsAreFoundWhenTheRecipientIndexBelongsToAnotherAccount
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #11478 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh$lambda$26(NotificationsPreviewTest.kt:428)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bz2F2DLujfThmdIq23kUNqgkZyU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda66.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh(NotificationsPreviewTest.kt:417)
+
+INSTRUMENTATION_STATUS: stream=
+Error in olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh(nl.davidengelen.redsquare.NotificationsPreviewTest):
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #11478 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh$lambda$26(NotificationsPreviewTest.kt:428)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bz2F2DLujfThmdIq23kUNqgkZyU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda66.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh(NotificationsPreviewTest.kt:417)
+
+INSTRUMENTATION_STATUS: test=olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=readActivityKeepsItsReadStatusWhenRecreatedUnderFailingServerReads
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=availableNotificationsSurviveRecreationWhenTheSelectedServerCannotRefresh
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=followingAnAccountDiscoversItsAvailablePostsButVisitingDoesNot
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=muteAndBlockHideActivityAndUnreadCountsThroughOutagesUntilExplicitRemoval
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=aFailedReadStatusSaveKeepsActivityUnreadUntilTheUserRetries
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=healthyRepliesRemainAvailableWhenTheLikesArchiveFails
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=retainedHistoryBeyondOneArchivePageKeepsItsUnreadCountThroughRecreation
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAvailableFeedMentionAppearsWithoutAnOwnerRecipientIndex
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=missingOriginalActivitySurvivesUnavailableLookupAndExplicitRetry
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NotificationsPreviewTest
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=32
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=anAddressedQuoteKeepsItsCommentaryWhenItsOriginalIsUnavailable
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 128.389
+There were 2 failures:
+1) failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'rquTtzeyx74W6qFvtGTNpQGND4WqMGR7UTLdEKq4QjsG' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #6983 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents$lambda$61(NotificationsPreviewTest.kt:770)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$AGdO6cPB91r52PQ8FjdDm28x0EQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda92.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.failedStreamsRetryWithoutDroppingHealthyActivityAndRefreshFindsLateEvents(NotificationsPreviewTest.kt:742)
+2) olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh(nl.davidengelen.redsquare.NotificationsPreviewTest)
+java.lang.AssertionError: No node found that matches Text + InputText + EditableText contains 'tENBoQttzyKaCW6d61tQjceaVA3GsZ2WrBLngrYHcXEx' (ignoreCase: false) in scrollable container
+Semantics of the node:
+Node #11478 at (l=16.0, t=245.0, r=304.0, b=555.0)px
+CollectionInfo = 'CollectionInfo(rowCount=3, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@275b7e2'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 3 children, 12 siblings
+Selector used: (ScrollBy is defined)
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:256)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh$lambda$26(NotificationsPreviewTest.kt:428)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$bz2F2DLujfThmdIq23kUNqgkZyU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda66.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications$lambda$97$lambda$96$lambda$95$lambda$94(NotificationsPreviewTest.kt:1200)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.$r8$lambda$APONLhgHiUdbw4okGsiMbIpiLpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest$$ExternalSyntheticLambda46.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.withNotifications(NotificationsPreviewTest.kt:1170)
+	at nl.davidengelen.redsquare.NotificationsPreviewTest.olderActivityOverlapsBoundariesWithoutDuplicatesAndSurvivesFailedRefresh(NotificationsPreviewTest.kt:417)
+
+FAILURES!!!
+Tests run: 32,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
