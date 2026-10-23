@@ -58,8 +58,12 @@ renders/speech; review/freeze catalog before final whole Android10+17 runs; pair
 final source/evidence review; canonical signed in-place beta66 and independent
 public receipt; close66/check parent55 then STOP. No Ralph/parallel implementation.
 Physical/provider/store gates stay parked under36/OWNER_INPUTS.md. Never combine
-failed runs' partitions into completion. Current external review worktree is
-still at signed65 sourceca678e521f63ed04d54cb0da4197443b8cc7c7e1.
+failed runs' partitions into completion. External review worktree is at exactcdd; canonical signed build session83924
+runs scripts/review-build, reserving66 once. Log activity66-signed-build.log and
+receipt activity66-signed-build-result.json under external artifacts. Do not
+start a second signing build. Observer18705 /tmp/redsquare66-watch-full.py
+tracks both complete runs and downloads terminal artifacts, without acceptance.
+Public65 is unchanged;66 must wait for accepted verification/public receipts.
 
 ## Prior completed delivery
 
