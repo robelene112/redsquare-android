@@ -34,7 +34,9 @@ class TalkBackActivityPreviewTest {
                 assertFalse(Rect.intersects(authorBounds, optionsBounds))
                 assertFalse(Rect.intersects(eventBounds, optionsBounds))
                 focusAndHear("author", author, folder)
-                focusAndHear("event", event, folder, clickLabel = true)
+                // This new row speaks author/type/preview/date/read state. Measured pinned-engine
+                // playback can exceed10s; retain real completion within this180s class.
+                focusAndHear("event", event, folder, clickLabel = true, completionTimeoutMillis = 15_000)
                 assertTrue("Actual event speech includes the event type", completedFragments(device, "Liked your post").isNotEmpty())
                 assertTrue("Actual event speech includes unread state", completedFragments(device, "Unread").isNotEmpty())
                 focusAndHear("options", options, folder)
@@ -43,7 +45,7 @@ class TalkBackActivityPreviewTest {
                 check(device.wait(Until.hasObject(By.text("No unread activity")), 15_000))
                 check(device.wait(Until.gone(By.text("Mark as read")), 5_000))
                 device.waitForIdle(5_000)
-                focusAndHear("read-event", event, folder, clickLabel = true)
+                focusAndHear("read-event", event, folder, clickLabel = true, completionTimeoutMillis = 15_000)
                 assertTrue("Committed read speech completes", completedFragments(device, "Read").isNotEmpty())
                 assertTrue("Committed read state is spoken", fragments(device, "Read").any {
                     Regex("\\bRead\\b").containsMatchIn(it)

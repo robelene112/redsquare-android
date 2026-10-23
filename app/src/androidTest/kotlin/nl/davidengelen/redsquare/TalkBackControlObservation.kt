@@ -7,7 +7,7 @@ import org.junit.Assert.*
 
 /** Shared actual focus and completed contextual speech observation for native controls. */
 internal fun NativeTalkBackObservation.focusAndHear(label: String, description: String,
-    folder: File, clickLabel: Boolean = false) {
+    folder: File, clickLabel: Boolean = false, completionTimeoutMillis: Long = 10_000) {
     val target = actionNode(description, clickLabel)
     target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
     device.executeShellCommand("logcat -c")
@@ -16,7 +16,7 @@ internal fun NativeTalkBackObservation.focusAndHear(label: String, description: 
     waitFor(5_000) {
         appRoots(automation).any { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == target }
     }
-    waitFor(10_000) { completedFragments(device, description).isNotEmpty() }
+    waitFor(completionTimeoutMillis) { completedFragments(device, description).isNotEmpty() }
     assertEquals("The same real service must produce contextual speech", serviceProcess, talkbackProcess(device))
     File(folder, "$label-speech.txt").writeText(speechLog(device))
     File(folder, "$label-result.json").writeText(JsonObject().apply {
