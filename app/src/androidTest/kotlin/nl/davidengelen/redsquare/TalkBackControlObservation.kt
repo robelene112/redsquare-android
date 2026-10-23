@@ -27,6 +27,7 @@ internal fun NativeTalkBackObservation.focusAndHear(label: String, description: 
         addProperty("physicalAudibility", false)
     }.toString())
     capture(automation, File(folder, "$label.png"))
+    device.dumpWindowHierarchy(File(folder, "$label.xml"))
 }
 
 internal fun NativeTalkBackObservation.actionNode(description: String,
