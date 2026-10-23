@@ -1,0 +1,860 @@
+{
+  "activity-inbox-evidence.tar": {
+    "sha256": "93ff424d09dc90fb2c3940c56539ef8fb274d1cd27d5fac2fd7577fc822f3c10",
+    "bytes": 137216,
+    "members": [
+      {
+        "name": "activity-inbox-evidence/unread-activity.xml",
+        "bytes": 39224,
+        "sha256": "001786c6031d1d0773659e9a676f64510fccf86d3391028703399188993efb29",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/unread-activity.xml"
+      },
+      {
+        "name": "activity-inbox-evidence/unread-activity.png",
+        "bytes": 27672,
+        "sha256": "ebbbd411919fa1cc35069090e0aea7126572585ed56e20d9c4bab8cf1c5fb9b1",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/unread-activity.png"
+      },
+      {
+        "name": "activity-inbox-evidence/activity-marked-read.xml",
+        "bytes": 37584,
+        "sha256": "ccd47aa05e56dd008a6a8b2b4487f6bc11db097531ba43aef570d833f63f44df",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/activity-marked-read.xml"
+      },
+      {
+        "name": "activity-inbox-evidence/activity-marked-read.png",
+        "bytes": 27839,
+        "sha256": "5f4eaf70844a598622ab7aae67505f30d2c323bdc27cbe58a94ddff87a71cb20",
+        "retainedPath": "originals/activity-inbox-evidence/activity-inbox-evidence/activity-marked-read.png"
+      }
+    ]
+  },
+  "activity-inbox-viewport-evidence.tar": {
+    "sha256": "cf28adbb294848b1ae52cf544a134eb6faf5012a6f488d6c5df42b15db921bda",
+    "bytes": 4669952,
+    "members": [
+      {
+        "name": "activity-inbox-viewport-evidence/activity-activity-lifecycle.jsonl",
+        "bytes": 6205,
+        "sha256": "9e5e5965e225d2f38915584a9b0f45b0b4f51b6c1ab0e6114e5518d50ac26483",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-font-scale.json",
+        "bytes": 99,
+        "sha256": "6d261cd538fe0feaf9a75cbaf75eb879404308bbba2830ef296b0387dd09e554",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-font-scale.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-configuration.json",
+        "bytes": 78,
+        "sha256": "174e52fc939dde020abdfdd864d0221145a60b1ab2eb4dbbed1b4bf518b2e013",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event0.xml",
+        "bytes": 48949,
+        "sha256": "c41f1743a19c60b55505ec88048abcf77e5a84ad52614462260440e834e2dd24",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event0.png",
+        "bytes": 45885,
+        "sha256": "25d453d638701b84ff75acb9db77871d010ebe1da10434651c4d50f7bdb2cb2a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event1.xml",
+        "bytes": 48949,
+        "sha256": "c41f1743a19c60b55505ec88048abcf77e5a84ad52614462260440e834e2dd24",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event1.png",
+        "bytes": 45885,
+        "sha256": "25d453d638701b84ff75acb9db77871d010ebe1da10434651c4d50f7bdb2cb2a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event2.xml",
+        "bytes": 48097,
+        "sha256": "5dd822f9299b3b073e99866dcf22bc4465ebc0c65bcb8f8245714c85c6a69c35",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event2.png",
+        "bytes": 47673,
+        "sha256": "17a253a16f3bbd4d189c3b83323f43a2d81fd582f4118cd4a062d10aa5263385",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event3.xml",
+        "bytes": 49782,
+        "sha256": "2f84f9daac0948d028633c80f35b85ec2cb13b62420ee499ff419a2f24347757",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event3.png",
+        "bytes": 50000,
+        "sha256": "3260ac0e080e1cfd934a29839462162476f84b0b0179342c3a5b985cdf382b02",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event4.xml",
+        "bytes": 49782,
+        "sha256": "2f84f9daac0948d028633c80f35b85ec2cb13b62420ee499ff419a2f24347757",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event4.png",
+        "bytes": 50000,
+        "sha256": "3260ac0e080e1cfd934a29839462162476f84b0b0179342c3a5b985cdf382b02",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event5.xml",
+        "bytes": 49735,
+        "sha256": "f853cf9a0cac2f9bdc4becf0f907c3f54191f4fcf51f6bd0a917e6c400bfc7eb",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-event5.png",
+        "bytes": 47727,
+        "sha256": "ea5d9369f58bd6306ab5aef1d03361b11ea4aada3a2e5b256b337bae58e4e729",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-long-name.xml",
+        "bytes": 48949,
+        "sha256": "c41f1743a19c60b55505ec88048abcf77e5a84ad52614462260440e834e2dd24",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-long-name.png",
+        "bytes": 45885,
+        "sha256": "25d453d638701b84ff75acb9db77871d010ebe1da10434651c4d50f7bdb2cb2a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-exact-identity.xml",
+        "bytes": 19396,
+        "sha256": "215c578b210830e2003386bef5ff5c9d30f5540c736937ec2fa2989eac4aa3af",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-light-exact-identity.png",
+        "bytes": 34945,
+        "sha256": "576fe90499b85d7b72b2c9802dd82cd60495b7e85b0463c48765750fa67a893d",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-light-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "e4e4fe164f49f0c179adbddf3590332e8ac68cbdca2c825b60de3629facb0616",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event0.xml",
+        "bytes": 50196,
+        "sha256": "b2b1cb297fc853094593dffb26315e4b1daf9f95c3a71b44af61161295fd2611",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event0.png",
+        "bytes": 46091,
+        "sha256": "0b52591f0bb27ead973d6ce257a7ffd45af6ba1178ecd866b5648618d6175769",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event1.xml",
+        "bytes": 48532,
+        "sha256": "47ac9e4210f4cb7d2dbb9200c1b912fa16c9213e97fc2677a75439be863bd988",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event1.png",
+        "bytes": 46377,
+        "sha256": "9a0e1fe080780ff410fa8b1b65787496f12870d54ef4b2378b6e086277c62eba",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event2.xml",
+        "bytes": 50298,
+        "sha256": "f3c33572c709fbaf5d54d30fe8cc8a5c4dbd0cae3dc1ed03f5fffc5750f7a74f",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event2.png",
+        "bytes": 48597,
+        "sha256": "649b3e7ea6c26eed55d4dd345f02d8ae65421fa092c136e3be354492de5588f9",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event3.xml",
+        "bytes": 51151,
+        "sha256": "aac6dad39eda19b9a4848fa86619f4e9bdb6f48faf36980e9b6335ec637d9e74",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event3.png",
+        "bytes": 50494,
+        "sha256": "d9b3f4ee3c615cc6fbe7d091d106f592247fd3b572e5d4ca13c76215c5555930",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event4.xml",
+        "bytes": 51151,
+        "sha256": "aac6dad39eda19b9a4848fa86619f4e9bdb6f48faf36980e9b6335ec637d9e74",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event4.png",
+        "bytes": 50494,
+        "sha256": "d9b3f4ee3c615cc6fbe7d091d106f592247fd3b572e5d4ca13c76215c5555930",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event5.xml",
+        "bytes": 51104,
+        "sha256": "bb14341fc660c3874a538c28415aeced25cc24f498d88bf9a74b8008858ccf84",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-event5.png",
+        "bytes": 48606,
+        "sha256": "49ba253094b0d871d4209985575b938770885d7b91e0ad2bd3c393088f7564d6",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-long-name.xml",
+        "bytes": 50318,
+        "sha256": "7319d5ce88b2808ba1ac72cfd4cd0f3d5b17387e391f3926cefbd6fadfd88085",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-long-name.png",
+        "bytes": 46377,
+        "sha256": "9a0e1fe080780ff410fa8b1b65787496f12870d54ef4b2378b6e086277c62eba",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-exact-identity.xml",
+        "bytes": 19396,
+        "sha256": "215c578b210830e2003386bef5ff5c9d30f5540c736937ec2fa2989eac4aa3af",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font100-dark-exact-identity.png",
+        "bytes": 35101,
+        "sha256": "b042f858f2d5c1f2c35edc626fadaf100e3e6efddff9ab706d4f1a4990b8072f",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font100-dark-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-configuration.json",
+        "bytes": 78,
+        "sha256": "56a41f0d07da62275e0f846e28df089bc7cc4d5ad2da8c89442acc9d9c479eaf",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event0.xml",
+        "bytes": 49801,
+        "sha256": "9e7f2fe3a859f02eaab82a658f9872d8bc72d078154427cf3c4514304523f416",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event0.png",
+        "bytes": 54398,
+        "sha256": "ef3d300f87fcfdd993412efc1a5a6f46a8cdaaaa01b7429b84a4cc03bd61bb4e",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event1.xml",
+        "bytes": 49843,
+        "sha256": "03cd2f3be0533ef4d8dda11181fc56c5015e2c73e5e50ce4a4c831079e2e8aaf",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event1.png",
+        "bytes": 54534,
+        "sha256": "ab86506a340bdc6f98eb15300eb8db843ce7fe825cadf7a84c6534b762598420",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event2.xml",
+        "bytes": 47213,
+        "sha256": "3f9bcd76b87cf8a8fd7572107b78e7c23690fe6ccccb405ac9f39563a15e3e59",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event2.png",
+        "bytes": 54759,
+        "sha256": "3842c1a5349f849ba26609cd4988bb52b44e3363c2e930eb1e806809bf3f412d",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event3.xml",
+        "bytes": 47708,
+        "sha256": "86da2c32f7700be9d28149a6ac0fe564c87cc7077bd9bf7e2d617f6f2e146ef1",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event3.png",
+        "bytes": 54357,
+        "sha256": "d4bac59e12ca1543f33d09b0d6186c705b1e4d87df92bf26a612cbb74985de7e",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event4.xml",
+        "bytes": 48123,
+        "sha256": "0eff6749fc84fa52d7975ab0b527c83629230094b5d29d1bb0d2e6e0d0b9eb74",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event4.png",
+        "bytes": 57076,
+        "sha256": "fa93c4559c0c61941982659620b45689fcf08d8d6c95a587fd7f90ec05f9cda2",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event5.xml",
+        "bytes": 48070,
+        "sha256": "c233ed1676250b4f85b1df84e184b953d1643aa6798772d1b4c0e9679134acca",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-event5.png",
+        "bytes": 54295,
+        "sha256": "5cd2e074e11025dde8cac951249a73e473e71c49aa48847467ebe22f23176a0a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-long-name.xml",
+        "bytes": 49843,
+        "sha256": "edb35b77dd29c8316438627a9f5592302e1fccb6cc64edf14a3e5ab1b60119a0",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-long-name.png",
+        "bytes": 54534,
+        "sha256": "ab86506a340bdc6f98eb15300eb8db843ce7fe825cadf7a84c6534b762598420",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-exact-identity.xml",
+        "bytes": 19395,
+        "sha256": "150d4fc10a5032cbb850a385fc1c81ff0b919f94a09b77958cbbc98e65f8c168",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-light-exact-identity.png",
+        "bytes": 42295,
+        "sha256": "61464cc1f04ee4ca5b8f21ad7368ab15e1537a35563abc6663621a9315189811",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-light-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "c5f49323c6461988b01650a4c4ffaa7c8633658bb3af48cd4457836c7aab01d0",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event0.xml",
+        "bytes": 49801,
+        "sha256": "9e7f2fe3a859f02eaab82a658f9872d8bc72d078154427cf3c4514304523f416",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event0.png",
+        "bytes": 54742,
+        "sha256": "10f60f4b6f41f6210a86b6174f53f42bb1a855fab10f864144f96dd872ccf149",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event1.xml",
+        "bytes": 49801,
+        "sha256": "9e7f2fe3a859f02eaab82a658f9872d8bc72d078154427cf3c4514304523f416",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event1.png",
+        "bytes": 54742,
+        "sha256": "10f60f4b6f41f6210a86b6174f53f42bb1a855fab10f864144f96dd872ccf149",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event2.xml",
+        "bytes": 48176,
+        "sha256": "847b1bd1ce95a5458529ec1e891191bff54490bbe864cd63983fd9c67b8388de",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event2.png",
+        "bytes": 56336,
+        "sha256": "d47876453ad0fa10eab3fdd2797a126900df15621e0949c814f743cb95988153",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event3.xml",
+        "bytes": 47685,
+        "sha256": "f5eecd5996b570384626cdfbf4c75d6b7ac55a2dd0a9752f44365b42f3e11a58",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event3.png",
+        "bytes": 53510,
+        "sha256": "3abdbc5f9fa2796fcc952d4c80eaf41e644ed16b452d4a61da8550c850d45d1a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event4.xml",
+        "bytes": 48123,
+        "sha256": "df68bd6f9681502ff3ccbde9f6f5f5760610adff5d90aea0232f26268f1fed4b",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event4.png",
+        "bytes": 57801,
+        "sha256": "b30738a3f9d5a4c5494c1d7531b3a339df491a75d162d9e43996c80dc3a81eaa",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event5.xml",
+        "bytes": 48070,
+        "sha256": "c233ed1676250b4f85b1df84e184b953d1643aa6798772d1b4c0e9679134acca",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-event5.png",
+        "bytes": 54796,
+        "sha256": "3ea1a6b2531597c0f7b3f245b397b6b77359a52550a7ecc2812de656495d32a0",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-long-name.xml",
+        "bytes": 49843,
+        "sha256": "edb35b77dd29c8316438627a9f5592302e1fccb6cc64edf14a3e5ab1b60119a0",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-long-name.png",
+        "bytes": 55126,
+        "sha256": "078fef7c8537ad60de8651f79fa5eb969d31c4f4ae139e1fbe3365d5c52f0844",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-exact-identity.xml",
+        "bytes": 19395,
+        "sha256": "150d4fc10a5032cbb850a385fc1c81ff0b919f94a09b77958cbbc98e65f8c168",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font130-dark-exact-identity.png",
+        "bytes": 42575,
+        "sha256": "64ed320a855d343df2806f087afc20cf265158e314804d65147f0483348c48d8",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font130-dark-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event0.xml",
+        "bytes": 40768,
+        "sha256": "f441f9fc654a5298aa6b03ac3c2bbaaeb2a1656f6d3318f9cd9e92e990b4ef41",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event0.png",
+        "bytes": 52538,
+        "sha256": "2ebca8b4acf705e940453561fefc8df40119a8d4e9c63694f6cad61853dcff77",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event1.xml",
+        "bytes": 43843,
+        "sha256": "f4a84c2a9b4211088ec25124917ea107f2912629b0cd081aafcc9f3a38ec67b6",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event1.png",
+        "bytes": 58369,
+        "sha256": "3f8b3d2841396d1df709c00326e9d7b7ebf19cb05bdc2f82c36ede14deaf2031",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event2.xml",
+        "bytes": 42117,
+        "sha256": "6a90fce57f5505cf2c8b757b9fa3aabd2dff7cd567eac45f2e9a842890b69491",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event2.png",
+        "bytes": 56880,
+        "sha256": "977460049f13440de0d91130fc19948a4226723600beb830abe502ff15566909",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event3.xml",
+        "bytes": 44750,
+        "sha256": "a3d33c6df88408e7946432796c01a4b23f2d88f86ea10dfbc1a66298cb7c358b",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event3.png",
+        "bytes": 59481,
+        "sha256": "f77f0bf6898e6db391682d3276d86f30a7ef6d01745333e3a324454f27cc645a",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event4.xml",
+        "bytes": 42077,
+        "sha256": "da23edd2254b3f0ff8600bf428f162877d5689d9783ea8c0496469aa24ac13af",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event4.png",
+        "bytes": 55578,
+        "sha256": "211f02d062ceb3bbfd88c7aae89ddad7cf8df4d512d2807d65555521cac97ddd",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event5.xml",
+        "bytes": 42071,
+        "sha256": "dd3d4558acb19b965af68e0877cb24d492bb4af4d15a3412271b6c286b2fc0e7",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-event5.png",
+        "bytes": 55406,
+        "sha256": "99f94199e6b9fcf51a4b6fe77809013ec599fcbe69e27df0d693dd944f78c821",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-long-name.xml",
+        "bytes": 43842,
+        "sha256": "55d5c9b15cec1cf167f6d48e6095784ebc08e7aca6d1639043c6c9c1e18b5f3c",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-long-name.png",
+        "bytes": 56218,
+        "sha256": "c53fcd3ec75d57124f54198c04148b7fd09913322ab96f8ec20b43afdc18d456",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-exact-identity.xml",
+        "bytes": 19387,
+        "sha256": "8108025137a7484cd3c43e4e3b035bead648cca375e4e26e8edbea65e14f6787",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-light-exact-identity.png",
+        "bytes": 49244,
+        "sha256": "b67504ffa3fa432d415350b0801a2d040717645a010cdbde81927f174174c9e9",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-light-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event0.xml",
+        "bytes": 40768,
+        "sha256": "f441f9fc654a5298aa6b03ac3c2bbaaeb2a1656f6d3318f9cd9e92e990b4ef41",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event0.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event0.png",
+        "bytes": 53251,
+        "sha256": "225d735e5ec9ea986306802e1e841d1b75cbdb8618a561efd6873ab8a423c173",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event0.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event1.xml",
+        "bytes": 42080,
+        "sha256": "ddc58aeadbb46554a0ad340452f9cce92e6352768c309776a762de3206326c63",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event1.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event1.png",
+        "bytes": 56482,
+        "sha256": "a9acfc4cb0f1ac9dc31272bf7213fe6276eb449a796b5dc66b88008e6c1f51c3",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event1.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event2.xml",
+        "bytes": 42117,
+        "sha256": "6a90fce57f5505cf2c8b757b9fa3aabd2dff7cd567eac45f2e9a842890b69491",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event2.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event2.png",
+        "bytes": 57589,
+        "sha256": "6fe38bf072660f2fb392953b4a11a3a24c43aad8161b7fc53242b0211c24cb87",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event2.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event3.xml",
+        "bytes": 44750,
+        "sha256": "a3d33c6df88408e7946432796c01a4b23f2d88f86ea10dfbc1a66298cb7c358b",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event3.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event3.png",
+        "bytes": 59959,
+        "sha256": "c32ce46ceab7b9527e0300e54f77f9ba29a1f2ff0fcf63482aa2913bf30a90c5",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event3.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event4.xml",
+        "bytes": 42077,
+        "sha256": "da23edd2254b3f0ff8600bf428f162877d5689d9783ea8c0496469aa24ac13af",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event4.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event4.png",
+        "bytes": 56193,
+        "sha256": "5080a24d261d59a8c25d46e424d6c09344a06ac8a1b1490afff180a9d221fed7",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event4.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event5.xml",
+        "bytes": 42071,
+        "sha256": "dd3d4558acb19b965af68e0877cb24d492bb4af4d15a3412271b6c286b2fc0e7",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event5.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-event5.png",
+        "bytes": 56189,
+        "sha256": "a8ae5d441cc3e6e0c924d9593fc49f8826f12091c909c4890c66983e2ffcc32d",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-event5.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-long-name.xml",
+        "bytes": 43842,
+        "sha256": "55d5c9b15cec1cf167f6d48e6095784ebc08e7aca6d1639043c6c9c1e18b5f3c",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-long-name.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-long-name.png",
+        "bytes": 56856,
+        "sha256": "16a1b7f885dec63f7173dd732aaa8a4b78af2862f1929df62310565bc24d60aa",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-long-name.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-exact-identity.xml",
+        "bytes": 19387,
+        "sha256": "8108025137a7484cd3c43e4e3b035bead648cca375e4e26e8edbea65e14f6787",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-exact-identity.xml"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-320-font200-dark-exact-identity.png",
+        "bytes": 49485,
+        "sha256": "c71b1c4605620947b201f8b5e41604fc99db54ae6662d51ddcd6e9ec862689d3",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-320-font200-dark-exact-identity.png"
+      },
+      {
+        "name": "activity-inbox-viewport-evidence/activity-font-restored.json",
+        "bytes": 99,
+        "sha256": "e58bc82263ce7bd4fb8ae51d6bd11f9644c2b622aae980af47ad0287f1a07e74",
+        "retainedPath": "originals/activity-inbox-viewport-evidence/activity-inbox-viewport-evidence/activity-font-restored.json"
+      }
+    ]
+  },
+  "activity-state-evidence.tar": {
+    "sha256": "b8440715955b0b438300417f2b76b210a0d474ac4520a3485f10a5381b3ff074",
+    "bytes": 882688,
+    "members": [
+      {
+        "name": "activity-state-evidence/loading.xml",
+        "bytes": 33949,
+        "sha256": "9dff173abdb71ac601d425f349e90dc1108772b414901166ad0635fabf658f41",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/loading.xml"
+      },
+      {
+        "name": "activity-state-evidence/loading.png",
+        "bytes": 19080,
+        "sha256": "ccd0dbe7d46b50cb38d816e5be524864a101a610ab67eaec583ce55f868a1652",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/loading.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-activity-lifecycle.jsonl",
+        "bytes": 2770,
+        "sha256": "38a9d39a0960d29259d5d90baf0ab8498b1073b6e8be1838ec8e8791ccac6b01",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-font-scale.json",
+        "bytes": 98,
+        "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-font-scale.json"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-configuration.json"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-empty.xml",
+        "bytes": 33602,
+        "sha256": "8a10711cd4d84709815b54266f670cb9830d8e09a225dd0ae020f8f034757907",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-empty.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-empty.png",
+        "bytes": 43773,
+        "sha256": "946ff64290ff51727cad8080e5654869d0d0ed2b275cfc533afd5d6887cc37c6",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-empty.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-offline-details.xml",
+        "bytes": 17307,
+        "sha256": "12bcb96944813893575532ded992444abeb903629c94b5255bbe54851b6f5411",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-offline-details.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-offline-details.png",
+        "bytes": 41578,
+        "sha256": "e464d4792ad399099e04ce65aacff88190964d3d6ccf85d3b2d42e9b1f476417",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-offline-details.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-recovered.xml",
+        "bytes": 33602,
+        "sha256": "8a10711cd4d84709815b54266f670cb9830d8e09a225dd0ae020f8f034757907",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-recovered.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-light-recovered.png",
+        "bytes": 43773,
+        "sha256": "946ff64290ff51727cad8080e5654869d0d0ed2b275cfc533afd5d6887cc37c6",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-light-recovered.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-configuration.json",
+        "bytes": 77,
+        "sha256": "f974db7ce7c2ccd69a0b9d447d6f556a8805619c4a33592849476906f574584e",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-configuration.json"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-empty.xml",
+        "bytes": 33602,
+        "sha256": "8a10711cd4d84709815b54266f670cb9830d8e09a225dd0ae020f8f034757907",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-empty.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-empty.png",
+        "bytes": 44612,
+        "sha256": "bffb1d77835415219977c18e53d05c6695aa24d072d7f6dc23472929c6806f5f",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-empty.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-offline-details.xml",
+        "bytes": 17307,
+        "sha256": "12bcb96944813893575532ded992444abeb903629c94b5255bbe54851b6f5411",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-offline-details.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-offline-details.png",
+        "bytes": 41594,
+        "sha256": "421be6b4b5dab0283fe4799d2107da41863262855c074ae62ef204b3a10cbce1",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-offline-details.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-recovered.xml",
+        "bytes": 33602,
+        "sha256": "8a10711cd4d84709815b54266f670cb9830d8e09a225dd0ae020f8f034757907",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-recovered.xml"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-320-font200-dark-recovered.png",
+        "bytes": 44612,
+        "sha256": "bffb1d77835415219977c18e53d05c6695aa24d072d7f6dc23472929c6806f5f",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-320-font200-dark-recovered.png"
+      },
+      {
+        "name": "activity-state-evidence/empty-activity-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/empty-activity-font-restored.json"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-activity-lifecycle.jsonl",
+        "bytes": 2756,
+        "sha256": "20f8db802caf5562a8692d5c2fbb0052a23e59204f2739602f2a82dc458b74b7",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-activity-lifecycle.jsonl"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-font-scale.json",
+        "bytes": 98,
+        "sha256": "1b8b0bf06be349d9661a322ba13522cf4ca19ff89d796ee3cb94a42573c3fd46",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-font-scale.json"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-configuration.json",
+        "bytes": 78,
+        "sha256": "03fa592508ae904868a6dd99bf089d67c59d1b52833620d4e12d570403f100be",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-configuration.json"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-missing-preview.xml",
+        "bytes": 38937,
+        "sha256": "78ddafdad247dda5a7ea2dc8c2a9f3e58a0b13703264a63f25feedec70c91727",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-missing-preview.xml"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-missing-preview.png",
+        "bytes": 45263,
+        "sha256": "1d8ab55bfcc6680541e7411bacf771073e5a8a8069af8c7cecda394181e2c48f",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-missing-preview.png"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-cached-offline.xml",
+        "bytes": 42701,
+        "sha256": "40f80f45c762a5bde9eb7121a5f72784952edffd5c46e6a4aaab2ed3ed0ee214",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-cached-offline.xml"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-cached-offline.png",
+        "bytes": 50482,
+        "sha256": "0ff4db63d7d41c1d0862a344c8b1a88850e8f65f2eb6a1b1c13e5f530adf7b04",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-cached-offline.png"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-failure.xml",
+        "bytes": 32686,
+        "sha256": "29b8abe86dead27d9b85f3963fc54d94f4591c1b778dafddca6e629fe75e4228",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-failure.xml"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-320-font200-light-failure.png",
+        "bytes": 30748,
+        "sha256": "5af63e468fe465292850a86f8f2f1cf5544aa8c9e692af662cf649558f569e80",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-320-font200-light-failure.png"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-activity-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-activity-font-restored.json"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-failure.xml",
+        "bytes": 22992,
+        "sha256": "5f8be21e5d940c8bd510c27271b1e361255c3cb8f9318d6db5c9eeb4a24fb571",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-failure.xml"
+      },
+      {
+        "name": "activity-state-evidence/unavailable-failure.png",
+        "bytes": 103520,
+        "sha256": "d885fddde6a0db37405c8f060526ce7d0653445a47744b0d30dc117532040526",
+        "retainedPath": "originals/activity-state-evidence/activity-state-evidence/unavailable-failure.png"
+      }
+    ]
+  }
+}

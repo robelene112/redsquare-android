@@ -55,13 +55,11 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
             else -> error("Unexpected activity registry request")
         }
     }, quoteArchiveResponse = { criteria ->
-        when {
-            criteria.has("sig") -> original("RedSquareRetweet", criteria.get("sig").asString)
-            criteria.has("field3") -> rows("RedSquareRetweet")
-            else -> "[]"
-        }
+        if (criteria.has("field3")) rows("RedSquareRetweet") else "[]"
     }, archiveResponse = { criteria ->
         when (criteria.get("field1").asString) {
+            // ControlledFeedPeer routes exact quote lookups through archiveResponse too.
+            "RedSquareRetweet" -> original("RedSquareRetweet", criteria.get("sig").asString)
             "RedSquareLike" -> if (criteria.has("field3")) rows("RedSquareLike") else "[]"
             "RedSquare" -> when {
                 criteria.has("sig") -> original("RedSquare", criteria.get("sig").asString)
