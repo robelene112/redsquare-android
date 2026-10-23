@@ -413,7 +413,7 @@ class SocialPushTapPreviewTest {
     private fun alertChoice() = hasText("Replies and mentions") and isToggleable()
 
     private fun waitForNotificationsScreen() {
-        val heading = hasText("Notifications") and !hasClickAction()
+        val heading = hasText("Activity") and !hasClickAction()
         waitFor(heading)
         ui.waitUntil(15_000) { ui.onNode(heading).isDisplayed() }
     }

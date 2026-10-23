@@ -582,7 +582,7 @@ class NotificationsPreviewTest {
         if (returningToNotifications) {
             waitFor("No unread activity")
             ui.onNodeWithText("Back").assertIsDisplayed()
-            ui.onNode(hasText("Notifications") and !hasClickAction()).assertIsDisplayed()
+            ui.onNode(hasText("Activity") and !hasClickAction()).assertIsDisplayed()
         } else {
             waitFor("Native Red Square reference post")
             ui.waitUntil(15_000) { ui.onAllNodes(hasText("Refresh") and isEnabled())
