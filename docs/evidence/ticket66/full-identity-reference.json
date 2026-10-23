@@ -94,14 +94,14 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Updated two obsolete heading selectors; replacement complete runs dispatched, acceptance pending.",
+  "executingState": "Unchanged focused publisher17 repeat passed; complete10 continues, complete17 repeated at identical source. Acceptance pending.",
   "executingSources": {
     "android10": "e5b469b9e038a70d1b545953f928bb9677b472a0",
     "android17": "e5b469b9e038a70d1b545953f928bb9677b472a0"
   },
   "executingRuns": {
     "android10": 40016684972,
-    "android17": 40016688573
+    "android17": 40019858105
   },
   "rejectedPredecessors": [
     {
@@ -111,6 +111,9 @@
     {
       "android10": 40014676230,
       "android17": 40014680274
+    },
+    {
+      "android17": 40016688573
     }
   ]
 }

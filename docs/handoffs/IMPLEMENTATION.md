@@ -53,7 +53,12 @@ e5b469b9e038a70d1b545953f928bb9677b472a0 are active. Full17 Wallet failed the
 unchanged PublisherViewportPreviewTest at line103, second openSupport IME10s.
 Actual field is focused with no visible keyboard. Same Google image revision7
 as accepted65. No cause is proven and no app/test/deadline change was made.
-Focused publisher-routes-android17 run40018747907 at the samee5b is pending.
+Focused publisher-routes-android17 run40018747907 at the samee5b is wholeSUCCESS,
+retained publisher-repeat-green17-e5b. No test or production change was made.
+Failed17run40016688573 cancellation requested; replacement full17run40019858105
+at identicale5b is pending. Full10run40016684972 continues (WalletSUCCESS).
+Observer /tmp/redsquare66-watch-full17-repeat-e5b.py tracks new17;77941 retains
+old17 and current10. Never assemble partitions from rejected runs.
 Other full parts continue; a failed full run cannot be accepted or assembled.
 Frozen catalog unchanged.
 Observer /tmp/redsquare66-watch-full-e5b.py downloads terminal artifacts; prior

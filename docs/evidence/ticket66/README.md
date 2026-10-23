@@ -59,3 +59,10 @@ Failure packets retain original logs/captures and cancelled whole-run conclusion
 Two nonclickable heading selectors now match Activity, preserving their existing
 assertions/deadlines. Replacement10run40016684972 and17run40016688573 execute at
 e5b469b9e038a70d1b545953f928bb9677b472a0; acceptance remains pending.
+
+Full17e5b Wallet failed the unchanged publisher viewport case on second dialog
+opening: focused input, no visible keyboard within its original10s. Exact same
+source/image revision7 focused publisher run40018747907 then passed all cases.
+Cause remains unproven; no test, assertion or deadline was changed. Failed17 was
+cancelled and replacement full17run40019858105 executes identicale5b. Full10
+40016684972 continues independently. No failed partitions contribute to acceptance.

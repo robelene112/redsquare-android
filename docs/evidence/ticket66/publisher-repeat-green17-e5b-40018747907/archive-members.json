@@ -1,0 +1,518 @@
+{
+  "policy-evidence.tar": {
+    "sha256": "748b269c640f5dc97e8113ce7e353d9c010b8ea0014fae23963562f3482e6bcd",
+    "bytes": 1132032,
+    "members": [
+      {
+        "name": "policy-evidence/light-overview.xml",
+        "bytes": 24966,
+        "sha256": "46f48151864fb1ef8ba341a8cf82adeedfd5df81d5c8d6d4646e781ac847e1d6",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-overview.xml"
+      },
+      {
+        "name": "policy-evidence/light-overview.png",
+        "bytes": 37662,
+        "sha256": "1c38c538bddba55cf3a626a7a75824c17868b42921f52384b83c2663b9a5b0dd",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-overview.png"
+      },
+      {
+        "name": "policy-evidence/light-terms-of-use.xml",
+        "bytes": 24134,
+        "sha256": "9e6cd9bf51074bffdc411ee5b1903123a72ac3cd75758b6e82209dd1c6362809",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-terms-of-use.xml"
+      },
+      {
+        "name": "policy-evidence/light-terms-of-use.png",
+        "bytes": 41198,
+        "sha256": "d38bbf7df996f29274eb722ee5f8b38e48bc90365b24cb73d9817a7c8f7cfb98",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-terms-of-use.png"
+      },
+      {
+        "name": "policy-evidence/light-privacy-notice.xml",
+        "bytes": 24134,
+        "sha256": "9e6cd9bf51074bffdc411ee5b1903123a72ac3cd75758b6e82209dd1c6362809",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-privacy-notice.xml"
+      },
+      {
+        "name": "policy-evidence/light-privacy-notice.png",
+        "bytes": 43000,
+        "sha256": "394e27c1377fc7d4314c8227b5524508774af01a72bbdb6591d7bc755f713dce",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-privacy-notice.png"
+      },
+      {
+        "name": "policy-evidence/light-community-guidelines.xml",
+        "bytes": 23467,
+        "sha256": "bf2e8ba972f476e22032427280312ed546112e8e49ed383817a793cac236bd07",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-community-guidelines.xml"
+      },
+      {
+        "name": "policy-evidence/light-community-guidelines.png",
+        "bytes": 43129,
+        "sha256": "cd3342f3c456faa03b8e5a229ea51b9ced8c7ee738e57862903e45855d7d255b",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-community-guidelines.png"
+      },
+      {
+        "name": "policy-evidence/light-child-safety.xml",
+        "bytes": 23467,
+        "sha256": "bf2e8ba972f476e22032427280312ed546112e8e49ed383817a793cac236bd07",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-child-safety.xml"
+      },
+      {
+        "name": "policy-evidence/light-child-safety.png",
+        "bytes": 41983,
+        "sha256": "b5483f41afb74b0f138d5a4f65eecb768c4ce6da83b6313e2e0ab5b85dfb43aa",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-child-safety.png"
+      },
+      {
+        "name": "policy-evidence/light-data-and-deletion.xml",
+        "bytes": 23488,
+        "sha256": "08513919d31c0de98eb65060c29e606043b9d2a242d57fd23e04dbe5d35e16f3",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-data-and-deletion.xml"
+      },
+      {
+        "name": "policy-evidence/light-data-and-deletion.png",
+        "bytes": 39909,
+        "sha256": "5444d6dc2d7c83b89cf4630123f521ce03315adeeb36c4b66316dbf48d22eee5",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-data-and-deletion.png"
+      },
+      {
+        "name": "policy-evidence/light-deletion-restored.xml",
+        "bytes": 23488,
+        "sha256": "08513919d31c0de98eb65060c29e606043b9d2a242d57fd23e04dbe5d35e16f3",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-deletion-restored.xml"
+      },
+      {
+        "name": "policy-evidence/light-deletion-restored.png",
+        "bytes": 39909,
+        "sha256": "5444d6dc2d7c83b89cf4630123f521ce03315adeeb36c4b66316dbf48d22eee5",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-deletion-restored.png"
+      },
+      {
+        "name": "policy-evidence/light-contact-and-support.xml",
+        "bytes": 23987,
+        "sha256": "6e5299c34f0c3796dcd6e6f6776722fe2e94ba4eab5bcbe826a8fcf6c4eda39b",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-contact-and-support.xml"
+      },
+      {
+        "name": "policy-evidence/light-contact-and-support.png",
+        "bytes": 45136,
+        "sha256": "18773bb8f99b877961dd60510a01a280bc3fc3d9436c643be2a84e94cb1f7e65",
+        "retainedPath": "originals/policy-evidence/policy-evidence/light-contact-and-support.png"
+      },
+      {
+        "name": "policy-evidence/dark-overview.xml",
+        "bytes": 24966,
+        "sha256": "46f48151864fb1ef8ba341a8cf82adeedfd5df81d5c8d6d4646e781ac847e1d6",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-overview.xml"
+      },
+      {
+        "name": "policy-evidence/dark-overview.png",
+        "bytes": 39682,
+        "sha256": "6b1e8337823b574c897a169cd89999d5dd3adba8d6051e21a845d4129f816fe1",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-overview.png"
+      },
+      {
+        "name": "policy-evidence/dark-terms-of-use.xml",
+        "bytes": 24134,
+        "sha256": "9e6cd9bf51074bffdc411ee5b1903123a72ac3cd75758b6e82209dd1c6362809",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-terms-of-use.xml"
+      },
+      {
+        "name": "policy-evidence/dark-terms-of-use.png",
+        "bytes": 43537,
+        "sha256": "e3bda5bd7a72017242addafc8d634b8ce9a294bad77686baa62d8cd16f3666a7",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-terms-of-use.png"
+      },
+      {
+        "name": "policy-evidence/dark-privacy-notice.xml",
+        "bytes": 23148,
+        "sha256": "4a75f0ed5a986b6c851b462b5f1d658c7bdbde8dcf9ca2ce9eb7772e96cd3c3c",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-privacy-notice.xml"
+      },
+      {
+        "name": "policy-evidence/dark-privacy-notice.png",
+        "bytes": 45103,
+        "sha256": "2d0f60ad5d0eeb4df4a096deffb3ab49e49ef6401a7bc39877ce3b0768bfc23e",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-privacy-notice.png"
+      },
+      {
+        "name": "policy-evidence/dark-community-guidelines.xml",
+        "bytes": 23467,
+        "sha256": "bf2e8ba972f476e22032427280312ed546112e8e49ed383817a793cac236bd07",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-community-guidelines.xml"
+      },
+      {
+        "name": "policy-evidence/dark-community-guidelines.png",
+        "bytes": 43950,
+        "sha256": "86b1b20a5b8ee6493775cee65e419ccc17cde382079ab13c8dc6104af1ee5b5d",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-community-guidelines.png"
+      },
+      {
+        "name": "policy-evidence/dark-child-safety.xml",
+        "bytes": 23467,
+        "sha256": "bf2e8ba972f476e22032427280312ed546112e8e49ed383817a793cac236bd07",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-child-safety.xml"
+      },
+      {
+        "name": "policy-evidence/dark-child-safety.png",
+        "bytes": 44096,
+        "sha256": "cf1e40785a2974cbef58521088682d80919474dbb6bc7a8e15670dc1ca9c4e9a",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-child-safety.png"
+      },
+      {
+        "name": "policy-evidence/dark-data-and-deletion.xml",
+        "bytes": 23467,
+        "sha256": "bf2e8ba972f476e22032427280312ed546112e8e49ed383817a793cac236bd07",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-data-and-deletion.xml"
+      },
+      {
+        "name": "policy-evidence/dark-data-and-deletion.png",
+        "bytes": 41426,
+        "sha256": "f8bff372c0fcc1e515851976ef6a1a284dd212e3a22659491ff7f058900eb324",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-data-and-deletion.png"
+      },
+      {
+        "name": "policy-evidence/dark-deletion-restored.xml",
+        "bytes": 23488,
+        "sha256": "08513919d31c0de98eb65060c29e606043b9d2a242d57fd23e04dbe5d35e16f3",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-deletion-restored.xml"
+      },
+      {
+        "name": "policy-evidence/dark-deletion-restored.png",
+        "bytes": 41426,
+        "sha256": "f8bff372c0fcc1e515851976ef6a1a284dd212e3a22659491ff7f058900eb324",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-deletion-restored.png"
+      },
+      {
+        "name": "policy-evidence/dark-contact-and-support.xml",
+        "bytes": 23987,
+        "sha256": "6e5299c34f0c3796dcd6e6f6776722fe2e94ba4eab5bcbe826a8fcf6c4eda39b",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-contact-and-support.xml"
+      },
+      {
+        "name": "policy-evidence/dark-contact-and-support.png",
+        "bytes": 47320,
+        "sha256": "e88080871fdca779b775b7407d5bb6d5586684d90911788c5276aa74dcf12491",
+        "retainedPath": "originals/policy-evidence/policy-evidence/dark-contact-and-support.png"
+      },
+      {
+        "name": "policy-evidence/saved-draft-restored.xml",
+        "bytes": 25773,
+        "sha256": "0bf561b484541f5fee04b290e0c999d97918c7533a8d7d0411adcf23cf4e9250",
+        "retainedPath": "originals/policy-evidence/policy-evidence/saved-draft-restored.xml"
+      },
+      {
+        "name": "policy-evidence/saved-draft-restored.png",
+        "bytes": 20558,
+        "sha256": "e7b51efdadf310c4776b12437e4e8ac02254e48b9a1bccb1f9088f6715b0e96e",
+        "retainedPath": "originals/policy-evidence/policy-evidence/saved-draft-restored.png"
+      }
+    ]
+  },
+  "publisher-availability-evidence.tar": {
+    "sha256": "f04c5987af5811ab1b10b1067a236dc6ad8e45bdae5c297eead55e000350c9a3",
+    "bytes": 283136,
+    "members": [
+      {
+        "name": "publisher-availability-evidence/absent-request-unavailable.xml",
+        "bytes": 18689,
+        "sha256": "5fe0982502df5839892f7cfea44099a47bb8e86dd8e807c9b6d87646bda5ef07",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/absent-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/absent-request-unavailable.png",
+        "bytes": 35919,
+        "sha256": "3c30682ac142714fe9c2c8a9965af881230bd0a03fa4fbb1b3773c0cd31df3f2",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/absent-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/unready-request-unavailable.xml",
+        "bytes": 18689,
+        "sha256": "5fe0982502df5839892f7cfea44099a47bb8e86dd8e807c9b6d87646bda5ef07",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/unready-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/unready-request-unavailable.png",
+        "bytes": 35919,
+        "sha256": "3c30682ac142714fe9c2c8a9965af881230bd0a03fa4fbb1b3773c0cd31df3f2",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/unready-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/missing-destinations-request-unavailable.xml",
+        "bytes": 18693,
+        "sha256": "1d3af27fbd8062820d5ae9d4f5fd0a65418de58539a2da35b6af2228b30c6468",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/missing-destinations-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/missing-destinations-request-unavailable.png",
+        "bytes": 35932,
+        "sha256": "ebea708324bb522929fa4f1005efc47f92b3bdc80256c6614bfac96f1b3c9c5c",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/missing-destinations-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-destinations-request-unavailable.xml",
+        "bytes": 18693,
+        "sha256": "1d3af27fbd8062820d5ae9d4f5fd0a65418de58539a2da35b6af2228b30c6468",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-destinations-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-destinations-request-unavailable.png",
+        "bytes": 35932,
+        "sha256": "ebea708324bb522929fa4f1005efc47f92b3bdc80256c6614bfac96f1b3c9c5c",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-destinations-request-unavailable.png"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-readiness-request-unavailable.xml",
+        "bytes": 18693,
+        "sha256": "1d3af27fbd8062820d5ae9d4f5fd0a65418de58539a2da35b6af2228b30c6468",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-readiness-request-unavailable.xml"
+      },
+      {
+        "name": "publisher-availability-evidence/invalid-readiness-request-unavailable.png",
+        "bytes": 35932,
+        "sha256": "ebea708324bb522929fa4f1005efc47f92b3bdc80256c6614bfac96f1b3c9c5c",
+        "retainedPath": "originals/publisher-availability-evidence/publisher-availability-evidence/invalid-readiness-request-unavailable.png"
+      }
+    ]
+  },
+  "publisher-requests-evidence.tar": {
+    "sha256": "6cb4ebf979f711ab549da32d0478548680c975ac5d8203a7deda0a4c1b167579",
+    "bytes": 183296,
+    "members": [
+      {
+        "name": "publisher-requests-evidence/request-page-explicit-open.xml",
+        "bytes": 22359,
+        "sha256": "439e6a32f164e51c533285452415cfbcf280cbb6f951d4fdad06431628c258e7",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-explicit-open.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-explicit-open.png",
+        "bytes": 42472,
+        "sha256": "ae6720cabca422df8bf1a7df49eccbb20396e4b2df49f796b8db82e3071591c3",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-explicit-open.png"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-no-browser.xml",
+        "bytes": 22350,
+        "sha256": "2eb06dc9ea2ff13f412fe799b8b979800179f820d2c5b1aeb8ef555b68b20d21",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-no-browser.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-no-browser.png",
+        "bytes": 42991,
+        "sha256": "cab64019e88346681b9ba841f282c67ee0249519e8d57b4d1a4116da4a20ff83",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-no-browser.png"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-keeps-unsent-draft.xml",
+        "bytes": 25800,
+        "sha256": "faa1ae3c8e8bdf2c53d396f1aac796d3faab8a252fbfb0b669c4393db6336a3c",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-keeps-unsent-draft.xml"
+      },
+      {
+        "name": "publisher-requests-evidence/request-page-keeps-unsent-draft.png",
+        "bytes": 21955,
+        "sha256": "469149c0fdaac3b696d8974b6ef232ffd6ef6a3d3e6f21ac8e16796a68f78a3f",
+        "retainedPath": "originals/publisher-requests-evidence/publisher-requests-evidence/request-page-keeps-unsent-draft.png"
+      }
+    ]
+  },
+  "publisher-routes-evidence.tar": {
+    "sha256": "8b958b8492e994e94455d3016071a3b59a2e63a004958574c967c35779e927d0",
+    "bytes": 351232,
+    "members": [
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-unavailable.xml",
+        "bytes": 19102,
+        "sha256": "49339da9451bd982c59374d9ac0f56b86c27ae7f49be56da250c4a1f77fc3e70",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-unavailable.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-unavailable.png",
+        "bytes": 33938,
+        "sha256": "25a499396473ee09d858335bb66ff4f1d7f88e6755d0f9e5d68b07e7f7a72671",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-unavailable.png"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-keeps-draft.xml",
+        "bytes": 25806,
+        "sha256": "1ed0e26672fb2f344e06ad0fa1aae1e96031e463bf412887b577bc6979b5cb99",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-keeps-draft.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/unconfigured-support-keeps-draft.png",
+        "bytes": 21996,
+        "sha256": "f54f7cab9d76e6cfabadcdf954e67b44b823da7886413776601c5a6bdf031b2e",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/unconfigured-support-keeps-draft.png"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-draft-requested.xml",
+        "bytes": 24090,
+        "sha256": "e62949ea370eb214b1f008f639d164b336e00f2142978d1bdb1ab7564be7ccd8",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-draft-requested.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-draft-requested.png",
+        "bytes": 36759,
+        "sha256": "03e688d3ebdadc519f7c366b6f7bd8a7750360b9ce6cf452b3d0942314bc9948",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-draft-requested.png"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-no-email-app.xml",
+        "bytes": 24071,
+        "sha256": "02b98ff2e092a70b9dc30690fbca2fc7b482035ab72d2a0b5f9ea678e23aed22",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-no-email-app.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/ready-support-no-email-app.png",
+        "bytes": 34714,
+        "sha256": "93cff860bfd08e6072e4738224029e0f17983ad2c7f21b91a8e7814ac29caa12",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/ready-support-no-email-app.png"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-0.xml",
+        "bytes": 24054,
+        "sha256": "75a72acbadd3fd079ca6c4cf3df0d4096935d111e46f1f7987c56ef9bd04634d",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-0.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-0.png",
+        "bytes": 35633,
+        "sha256": "cfcfd75eca14c661e4c968e6b4de3682e396421c491f97a3884dc12399994c46",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-0.png"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-1.xml",
+        "bytes": 24058,
+        "sha256": "7c7113855ed29e20e2c4e5bd9cb18d6660586146b4551fbcf1c69d582b0ba73f",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-1.xml"
+      },
+      {
+        "name": "publisher-routes-evidence/purpose-contact-1.png",
+        "bytes": 36800,
+        "sha256": "85c00d6a374e2dbdb2e907f07e7db91cc9eb17faf28a069b2855ea0225de29f6",
+        "retainedPath": "originals/publisher-routes-evidence/publisher-routes-evidence/purpose-contact-1.png"
+      }
+    ]
+  },
+  "publisher-user-report-evidence.tar": {
+    "sha256": "199367e1dabbb93b49d9e707ecff1c02fea0474229bf2737a5ab6c138f9c3ca1",
+    "bytes": 259072,
+    "members": [
+      {
+        "name": "publisher-user-report-evidence/owner-exact-report-context.xml",
+        "bytes": 24265,
+        "sha256": "fd1c129cd8d923cab8334b2e4061e3fd0d760ed5cc55882820029e9ad467e850",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-exact-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-exact-report-context.png",
+        "bytes": 44463,
+        "sha256": "538c1dc6c495990eb3362e209982b9d66774a5e8aefe4471879c77381b3abe9e",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-exact-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-exact-report-context.xml",
+        "bytes": 24239,
+        "sha256": "b67d83b6956da818a171b9f6395fa01111ac6c6a265250b2203855e20f00d3f5",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-exact-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-exact-report-context.png",
+        "bytes": 44139,
+        "sha256": "85569dd59e8fbfce0a9d5fc46c7a6688382b8001215725f96f869fd6ba9b5f1e",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-exact-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-unconfigured-report-context.xml",
+        "bytes": 20952,
+        "sha256": "4ac56057a739787fdb4377da10daeee2e2e017c5e9bd1510232b1c3cafd61329",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-unconfigured-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/owner-unconfigured-report-context.png",
+        "bytes": 36735,
+        "sha256": "b4b94b6bde0f71c475ffd1ee8a23eebfedad0655125d6573018804dbfe8bb43d",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/owner-unconfigured-report-context.png"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-unconfigured-report-context.xml",
+        "bytes": 20939,
+        "sha256": "9009483222b36aadb9863013868ee179dfacaa92c841a63c43758f27d99d0eb7",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-unconfigured-report-context.xml"
+      },
+      {
+        "name": "publisher-user-report-evidence/official-unconfigured-report-context.png",
+        "bytes": 35938,
+        "sha256": "a9131707b9ea273255a34d5b2dc6787f3d626d5431bc8a88e19d544280a40eb6",
+        "retainedPath": "originals/publisher-user-report-evidence/publisher-user-report-evidence/official-unconfigured-report-context.png"
+      }
+    ]
+  },
+  "publisher-viewport-evidence.tar": {
+    "sha256": "f85b983eef58f0b261e5f2cad8a44bee92ad498534a1ceb4b2b65ba5dce430c9",
+    "bytes": 438272,
+    "members": [
+      {
+        "name": "publisher-viewport-evidence/publisher-font-scale.json",
+        "bytes": 98,
+        "sha256": "ccb349788904f2d7012ccf7ebacd57e348cc9fe1335cc7148ed7262adf0a8f9d",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font-scale.json"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml",
+        "bytes": 96369,
+        "sha256": "93c022461376983b323e0f941feff2e8600f3b1b98a8708d76cacd07553a2a74",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-cancel.png",
+        "bytes": 52799,
+        "sha256": "c18bdf819c2cb77f4bd33d2cf4fa8d1e210db1e7e3b57f55d4103a720dc4367b",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-cancel.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-compose.xml",
+        "bytes": 94618,
+        "sha256": "8d315a774f631847db5d18fdb03f6ecdbbd454e4eab92da3282a859c0853d99a",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-real-ime-compose.png",
+        "bytes": 47069,
+        "sha256": "e0ed8b115058c488d4334689adfd87651468ddee1051cde4cb60eaa9dd6d6288",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-real-ime-compose.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-long-request-page.xml",
+        "bytes": 22122,
+        "sha256": "89b7be23746f88eb69d8988beeb5c9a0f199f0ddb062ddfe07ef0a1e66f73c7c",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-long-request-page.png",
+        "bytes": 31971,
+        "sha256": "008bd46891e978ed018b1da3dff299297211c3cc859e095ff81bc06db1a0c17b",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-long-request-page.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml",
+        "bytes": 42804,
+        "sha256": "060e30a82785345e0c9942059a7f1309e33cd4b200fd8becca5b436e6311ddc9",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.xml"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png",
+        "bytes": 40951,
+        "sha256": "19c3be2100c6f198ff108e923be80e6286d08ce7885373eb159dc06515bd8ce6",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font130-keeps-unsent-chat.png"
+      },
+      {
+        "name": "publisher-viewport-evidence/publisher-font-restored.json",
+        "bytes": 98,
+        "sha256": "abdd4b95fa0b5f9c8e54d80c748e68ebc8963c429c60063fc0e201ae01d0cc1b",
+        "retainedPath": "originals/publisher-viewport-evidence/publisher-viewport-evidence/publisher-font-restored.json"
+      }
+    ]
+  }
+}
