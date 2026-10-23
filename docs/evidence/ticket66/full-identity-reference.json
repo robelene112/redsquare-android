@@ -94,9 +94,15 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Previous runs rejected. Focused corrected speech plus required XML producer pending; both complete SDK runs must use corrected producer. Original catalog unchanged.",
-  "executingSources": {},
-  "executingRuns": {},
+  "executingState": "Corrected producer focused wholeSUCCESS and frozen activity-validator diagnostic passed. Both complete runs dispatched; acceptance pending.",
+  "executingSources": {
+    "android10": "c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d",
+    "android17": "c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d"
+  },
+  "executingRuns": {
+    "android10": 40027263194,
+    "android17": 40027266851
+  },
   "rejectedPredecessors": [
     {
       "android10": 40012884531,

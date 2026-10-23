@@ -2,6 +2,25 @@
 
 ## Active: issue66 only, then STOP
 
+CURRENT EXECUTION: full10run40027263194 and full17run40027266851 at exact
+c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d. All earlier runs below are historical
+and unaccepted. /tmp/redsquare66-watch-full-c26.py downloads terminal complete
+artifacts to activity66-fullSDK-c26-RUN outside Git. Original frozen collector/
+catalog07200af unchanged; separate prospective new Activity speech timing918a
+applies to bothSDKs (15s event/read-event, old callers10s, focus5s/class180s).
+Corrected c5 producer now retains required XML, focused run40026242121 wholePASS.
+Frozen activity validator diagnostic passes the actual captures; not acceptance.
+After both whole3-partition successes: run frozen full-collector.py for each,
+inspect actual renders/speech, paired evidence review; publish held signed66
+from external review-worktree using canonical review-publish, independent public
+AFTER checker and /tmp/redsquare66-retain-public.py; close66/check55 then STOP.
+Signed66 sourcecdd is production/build/harness/workflow-identical to currentc26;
+all follow-up changes are tests/docs. Never rebuild or reuse66. Original public
+BEFORE receipt alreadyPASS,24 protected resources, withheld61 URLs404. Helpers
+/tmp/redsquare-activity66-publication66-check.py and /tmp/redsquare66-retain-public.py
+are prepared. Public65 remains unchanged. No other ticket authorized.
+
+
 Latest checkpoint: complete17run40019858105 finishedFAILURE on the same new
 read-event10s speech window; all preceding original checks passed. Retained
 failed-full17-speech-e5b. No complete run accepted. New capture producer c5b44e1d7
