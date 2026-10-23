@@ -36,7 +36,7 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
     }, archiveResponse = { criteria ->
         when (criteria.get("field1").asString) {
             "RedSquareLike" -> if (criteria.has("field3")) rows("RedSquareLike") else "[]"
-            "RedSquare" -> if (criteria.has("field3") || criteria.has("field4")) rows("RedSquare") else "[$root]"
+            "RedSquare" -> if (criteria.get("field3")?.asString == wallet.publicKey || !criteria.get("field4")?.asString.isNullOrEmpty()) rows("RedSquare") else "[$root]"
             else -> error("Unexpected activity fixture read")
         }
     })
