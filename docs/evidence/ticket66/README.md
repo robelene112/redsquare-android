@@ -1,5 +1,37 @@
 # Activity inbox66
 
+## Final complete verification
+
+Both complete runs at `c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d` are successful:
+
+| SDK | Run | Passed | Inherited assumptions | Exact identities | Normal completions |
+| --- | --- | --- | --- | --- | --- |
+| Android10 | [40027263194](https://github.com/robelene112/redsquare-android/actions/runs/40027263194) | 531 | 1 | 532 | 166 |
+| Android17 | [40027266851](https://github.com/robelene112/redsquare-android/actions/runs/40027266851) | 533 | 0 | 533 | 167 |
+
+Each contains35 deliberate process interruptions,34 continuity records and127
+archive inventories. Both unchanged frozen collectors pass; all2384/2393 packet
+hashes independently match. Packets: `full10-c26-40027263194` and
+`full17-c26-40027266851`. Original optional diagnostic exceptions and the single
+API29 Profile assumption remain explicit in each summary. No missing/extra
+identities or failed-partition assembly is accepted.
+
+Actual native captures show readable settled Activity rows at320dp/200% dark,
+recoverable unavailable targets and committed read state. Actual pinned TalkBack
+speech has completed engine output with native XML/PNG and disjoint48dp targets;
+settings are restored. The original catalog/collector freeze07200af is unchanged;
+prospective new Activity speech timing918a applies, original callers remain10s.
+The global bottom navigation wrapping at200% is outside this issue, tracked in70.
+
+Prepared signed66 is production-equivalent to these tested sources. Publication
+and final paired review receipts will be recorded here before issue closure.
+Physical-device, configured-provider and store acceptance are not claimed.
+
+## Historical development evidence
+
+The checkpoints below preserve failed and superseded attempts. Their pending
+statements describe that time only; the final verification above supersedes them.
+
 Issue66 gives available activity a readable identity/event/time hierarchy and
 separate profile/event targets. Individual read state uses the existing verified
 wallet/node-scoped store. Previews follow learned author edits/deletions and

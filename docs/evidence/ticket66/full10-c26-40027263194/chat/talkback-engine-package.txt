@@ -1,0 +1,104 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.speech.tts.engine.INSTALL_TTS_DATA:
+        2c2e8aa com.reecedunn.espeak/.DownloadVoiceData filter ec97c9d
+          Action: "android.speech.tts.engine.INSTALL_TTS_DATA"
+          Category: "android.intent.category.DEFAULT"
+      android.intent.action.MAIN:
+        d5d0c9b com.reecedunn.espeak/.eSpeakActivity filter 8464599
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+      android.speech.tts.engine.CONFIGURE_ENGINE:
+        557c838 com.reecedunn.espeak/.TtsSettingsActivity filter ba58ee0
+          Action: "android.speech.tts.engine.CONFIGURE_ENGINE"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.tts.engine.CHECK_TTS_DATA:
+        8b18011 com.reecedunn.espeak/.CheckVoiceData filter e301512
+          Action: "android.speech.tts.engine.CHECK_TTS_DATA"
+          Category: "android.intent.category.DEFAULT"
+      android.speech.tts.engine.GET_SAMPLE_TEXT:
+        6bee576 com.reecedunn.espeak/.GetSampleText filter ed0a4e3
+          Action: "android.speech.tts.engine.GET_SAMPLE_TEXT"
+          Category: "android.intent.category.DEFAULT"
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.intent.action.TTS_SERVICE:
+        875d777 com.reecedunn.espeak/.TtsService filter c76705e
+          Action: "android.intent.action.TTS_SERVICE"
+          Category: "android.intent.category.DEFAULT"
+
+Key Set Manager:
+  [com.reecedunn.espeak]
+      Signing KeySets: 8
+
+Packages:
+  Package [com.reecedunn.espeak] (edd2fe4):
+    userId=10119
+    pkg=Package{71d0c4d com.reecedunn.espeak}
+    codePath=/data/app/com.reecedunn.espeak-M3o6OTVkOR00AbMAZTmBIg==
+    resourcePath=/data/app/com.reecedunn.espeak-M3o6OTVkOR00AbMAZTmBIg==
+    legacyNativeLibraryDir=/data/app/com.reecedunn.espeak-M3o6OTVkOR00AbMAZTmBIg==/lib
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    versionCode=22 minSdk=21 targetSdk=33
+    versionName=1.52.0
+    splits=[base]
+    apkSigningVersion=3
+    applicationInfo=ApplicationInfo{1abe302 com.reecedunn.espeak}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PARTIALLY_DIRECT_BOOT_AWARE ]
+    dataDir=/data/user/0/com.reecedunn.espeak
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-23 22:18:31
+    firstInstallTime=2026-10-23 22:18:31
+    lastUpdateTime=2026-10-23 22:18:31
+    signatures=PackageSignatures{ae67413 version:3, signatures:[a70c221c], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0: ceDataInode=131962 installed=true hidden=false suspended=false stopped=true notLaunched=true enabled=0 instant=false virtual=false
+      runtime permissions:
+
+Package Changes:
+  Sequence number=127
+  User 0:
+    seq=0, package=com.android.permissioncontroller
+    seq=1, package=com.android.systemui
+    seq=3, package=com.android.sdksetup
+    seq=4, package=com.android.provision
+    seq=10, package=com.android.messaging
+    seq=11, package=nl.davidengelen.redsquare.dev.test
+    seq=13, package=com.android.calendar
+    seq=14, package=com.android.camera2
+    seq=23, package=com.android.email
+    seq=24, package=com.android.gallery3d
+    seq=25, package=com.android.inputmethod.latin
+    seq=26, package=com.android.nfc
+    seq=28, package=com.android.traceur
+    seq=29, package=com.android.stk
+    seq=38, package=com.android.settings
+    seq=124, package=nl.davidengelen.redsquare.dev
+    seq=125, package=com.android.talkback
+    seq=126, package=com.reecedunn.espeak
+
+
+Dexopt state:
+  [com.reecedunn.espeak]
+    path: /data/app/com.reecedunn.espeak-M3o6OTVkOR00AbMAZTmBIg==/base.apk
+      x86_64: [status=speed-profile] [reason=install]
+
+
+Compiler stats:
+  [com.reecedunn.espeak]
+     base.apk - 121
+
+Active APEX packages:
+
+
+Inactive APEX packages:
+
+
+Factory APEX packages:
+
+
+  APEX session state:

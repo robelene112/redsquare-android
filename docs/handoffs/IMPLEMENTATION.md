@@ -1,25 +1,35 @@
 # Implementation handoff
 
-## Active: issue66 only, then STOP
+## Issue66 final delivery, then STOP
 
-CURRENT EXECUTION: full10run40027263194 and full17run40027266851 at exact
-c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d. All earlier runs below are historical
-and unaccepted. /tmp/redsquare66-watch-full-c26.py downloads terminal complete
-artifacts to activity66-fullSDK-c26-RUN outside Git. Original frozen collector/
-catalog07200af unchanged; separate prospective new Activity speech timing918a
-applies to bothSDKs (15s event/read-event, old callers10s, focus5s/class180s).
-Corrected c5 producer now retains required XML, focused run40026242121 wholePASS.
-Frozen activity validator diagnostic passes the actual captures; not acceptance.
-After both whole3-partition successes: run frozen full-collector.py for each,
-inspect actual renders/speech, paired evidence review; publish held signed66
-from external review-worktree using canonical review-publish, independent public
-AFTER checker and /tmp/redsquare66-retain-public.py; close66/check55 then STOP.
-Signed66 sourcecdd is production/build/harness/workflow-identical to currentc26;
-all follow-up changes are tests/docs. Never rebuild or reuse66. Original public
-BEFORE receipt alreadyPASS,24 protected resources, withheld61 URLs404. Helpers
-/tmp/redsquare-activity66-publication66-check.py and /tmp/redsquare66-retain-public.py
-are prepared. Public65 remains unchanged. No other ticket authorized.
+The owner authorized exactly one issue. Issue66 implementation is complete; final
+paired evidence review and publication are the only remaining steps. Do not start
+another issue. Protected untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
+remains unread and untouched.
 
+Both complete runs at `c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d` succeeded:
+- Android10:40027263194,531 passes plus the sole inherited API29 Profile assumption,
+  532 exact identities,166 normal completions,35 deliberate interruptions,
+  34 continuity records. Packet `docs/evidence/ticket66/full10-c26-40027263194`.
+- Android17:40027266851,533 passes with no assumptions,533 exact identities,
+  167 normal completions,35 deliberate interruptions,34 continuity records.
+  Packet `docs/evidence/ticket66/full17-c26-40027266851`.
+
+Both unchanged frozen collectors pass. All2384/2393 packet hashes verified.
+These are whole successful executions, not an assembly of earlier attempts.
+Original catalog/collector freeze07200af is unchanged; prospective new Activity
+speech timing918a applies, with original callers/deadlines preserved. Native
+large-text and actual TalkBack read-state captures inspected on both SDKs.
+Global navigation wrapping at200% remains separate issue70.
+
+Signed beta66 is prepared at `cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82`,
+production/build/harness/workflow-identical to testedc26. Do not rebuild/reuse66.
+Pending canonical publication from external review-worktree and independent
+public AFTER check, then close66/check child66 on55 and STOP. Public65 remains
+unchanged until that publication. Owner/provider/store prerequisites remain
+tracked separately; they are not acceptance claims for this native UI issue.
+
+## Historical issue66 checkpoints (superseded by the status above)
 
 Latest checkpoint: complete17run40019858105 finishedFAILURE on the same new
 read-event10s speech window; all preceding original checks passed. Retained

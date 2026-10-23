@@ -1,0 +1,345 @@
+--------- beginning of main
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957309. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957374. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957441. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957506. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957573. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957639. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=6996
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957704. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957776. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957836. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957903. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793957969. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958035. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958101. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_11 bytes=4706
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958166. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958233. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958299. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958365. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958431. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958496. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958563. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958628. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958695. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958761. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958826. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958892. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793958958. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959024. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959091. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959156. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_DONE utteranceId=talkback_11
+V/talkback: SpeechControllerImpl(17912): No next item, stopping speech queue
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=null, failovers=[Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Double-tap to View profile for Anon-jesTu2"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY    hint= null  hintSpeakOptions= null    ]}
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959222. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959288. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959354. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959420. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959486. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959552. 
+D/talkback: Actors(17912): act() eventId=null part=Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Double-tap to View profile for Anon-jesTu2"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(17912): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator(17912): next --currentFeedbackFragment text = Double-tap to View profile for Anon-jesTu2.
+V/talkback: SpeechControllerImpl(17912): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17912): Speaking fragment text="Double-tap to View profile for Anon-jesTu2", utteranceId=talkback_12, TtsSpan=null, locale=null, event=null
+D/talkback: FailoverTextToSpeech(17912): tts.speak, utteranceId =talkback_12
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_START utteranceId=talkback_12
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+D/talkback: FailoverTextToSpeech(17912): Speak call for talkback_12 returned 0
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959618. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959684. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959751. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959816. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959882. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793959948. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960014. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960080. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960146. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960213. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960278. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+V/talkback: A11yEventProcessor(17912): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+W/talkback: DirectionNavigationInterpreter(17912): Accessibility focus is not assigned by TalkBack. Unable to find source action info for event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2626655  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+V/talkback: Mappers(17912):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2626655; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(17912):    toFeedback()()
+V/talkback: Mappers(17912):      eventType=32768
+V/talkback: Mappers(17912):      forceFeedbackEvenIfAudioPlaybackActive=false
+V/talkback: Mappers(17912):      forceFeedbackEvenIfMicrophoneActive=false
+V/talkback: ClickableHint(17912):  actionClickHint={Double-tap to Open thread by Anon-jesTu2}
+D/talkback: AccessibilityFocusMonitor(17912): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(17912): Failed to get the editing node.
+V/talkback: SpannableUtils(17912): text(null) isEmptyOrNotSpannableStringType
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(17912): Does have actionable speaking children (child 0, Node(id=38794 class=android.view.View))
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has non-actionable speaking children
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=38794  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=38980  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  content="Post actions for Anon-jesTu2"  enabled  focusable  screenReaderFocusable  clickable  visible      
+D/talkback: AccessibilityNodeInfoUtils(17912): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17912): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39042  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Native Red Square reference post"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has state description
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39166  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  state="2 likes"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has state description
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39414  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  state="1 repost"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(17912): Does have actionable speaking children (child 0, Node(id=39662 class=android.view.View))
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has non-actionable speaking children
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39662  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  clickable  visible      
+D/talkback: AccessibilityNodeInfoUtils(17912): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17912): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935267660  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: SpannableUtils(17912): text(Native Red Square reference post) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(17912): text(null) isEmptyOrNotSpannableStringType
+V/talkback: AccessibilityFocusHint(17912):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(17912):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(17912):     nodeRoleHint={Double-tap to Open thread by Anon-jesTu2}
+V/talkback: AccessibilityFocusHint(17912):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(17912):     isLongClickable: false
+V/talkback: HintFeedbackRule(17912):   speakHintText: (38732) , hint={Double-tap to Open thread by Anon-jesTu2}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(17912):  EVENT_SPEAK_HINT:  ttsOutput= Double-tap to Open thread by Anon-jesTu2    queueMode=0  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655, failovers=[Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open thread by Anon-jesTu2  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      ]}
+D/talkback: Actors(17912): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open thread by Anon-jesTu2  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Pipeline(17912): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open thread by Anon-jesTu2  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Mappers(17912):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2626655; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(17912):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(17912): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(17912): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17912): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17912): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: A11yEventProcessor(17912): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(17912): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue(17912): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2626655  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  scrollDelta=-1,-1      
+W/talkback: SelectorController(17912): newItemFocused Return. FocusActionInfo is null
+V/talkback: Mappers(17912):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2626655; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: -1; ScrollY: -1; MaxScrollX: -1; MaxScrollY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null ]; recordCount: 0 interpretation=AccessibilityFocused{  }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@974c; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(16, 149 - 304, 304); boundsInWindow: Rect(16, 149 - 304, 304); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_CLICK]
+V/talkback: Mappers(17912):    needsCaption=false
+V/talkback: Compositor(17912): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+W/talkback: AccessibilityInterpretationUtils(17912): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: AccessibilityNodeFeedbackUtils(17912):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17912):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17912):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(17912): Does have actionable speaking children (child 0, Node(id=38794 class=android.view.View))
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has non-actionable speaking children
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=38794  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and cannot keep search children:  AccessibilityNodeInfoCompat  id=38980  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  content="Post actions for Anon-jesTu2"  enabled  focusable  screenReaderFocusable  clickable  visible      
+D/talkback: AccessibilityNodeInfoUtils(17912): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17912): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=39042  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Native Red Square reference post"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has state description
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39166  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  state="2 likes"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has state description
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39414  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  state="1 repost"  enabled  focusable  screenReaderFocusable  clickable  visible      
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has text
+V/talkback: AccessibilityNodeInfoUtils(17912): Does have actionable speaking children (child 0, Node(id=39662 class=android.view.View))
+V/talkback: AccessibilityNodeInfoUtils(17912): Speaking, has non-actionable speaking children
+V/talkback: AccessibilityNodeInfoUtils(17912): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=39662  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  focusable  screenReaderFocusable  clickable  visible      
+D/talkback: AccessibilityNodeInfoUtils(17912): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17912): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935267660  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: TreeNodesDescription(17912):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17912):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17912):       treeNodesDescription:   (39042), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17912):     getAppendedTreeDescription: (39042)    accessibilityNodeError=""  , treeDescription={Native Red Square reference post} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17912):       nodeStatusDescription: role=ROLE_BUTTON, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17912):  getUnlabelledNodeDescription,   role="ROLE_BUTTON"  
+V/talkback: TreeNodesDescription(17912):       treeNodesDescription:   (935267660), role=ROLE_BUTTON, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17912):     getAppendedTreeDescription: (935267660)    accessibilityNodeError=""  , treeDescription={Button} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17912):       treeNodesDescription:   (38732), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17912):         childNode:(38794), isVisible=true, isAccessibilityFocusable=true
+V/talkback: TreeNodesDescription(17912):         childNode:(38980), isVisible=true, isAccessibilityFocusable=true
+V/talkback: TreeNodesDescription(17912):         childNode:(39042), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17912):         > appendChildNodeDescription= {Native Red Square reference post}
+V/talkback: TreeNodesDescription(17912):         childNode:(39166), isVisible=true, isAccessibilityFocusable=true
+V/talkback: TreeNodesDescription(17912):         childNode:(39414), isVisible=true, isAccessibilityFocusable=true
+V/talkback: TreeNodesDescription(17912):         childNode:(39662), isVisible=true, isAccessibilityFocusable=true
+V/talkback: TreeNodesDescription(17912):         childNode:(935267660), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17912):         > appendChildNodeDescription= {Button}
+V/talkback: TreeNodesDescription(17912):     getAppendedTreeDescription: (38732)    accessibilityNodeError=""  , treeDescription={Native Red Square reference post, Button} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17912):   treeDescriptionWithLabel: , appendedTreeDescription={Native Red Square reference post, Button}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17912): aggregateNodeTreeDescription:  (38732), treeDescriptionWithLabel={Native Red Square reference post, Button}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912):     nodeTreeDescription={Native Red Square reference post, Button}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17912):  viewAccessibilityFocused: (38732) , ttsOutput={Native Red Square reference post, Button}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(17912):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Native Red Square reference post, Button    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655, failovers=[Part= speech= action=SPEAK  text="Native Red Square reference post, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(17912): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655 part=Part= speech= action=SPEAK  text="Native Red Square reference post, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from current chunk= sourceTextBegin=0  sourceTextEnd=32  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: FeedbackFragmentsIterator(17912): next --currentFeedbackFragment text = Native Red Square reference post, Button.
+V/talkback: FeedbackController(17912): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655
+V/talkback: SpeechControllerImpl(17912): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17912): Speaking fragment text="Native Red Square reference post, Button", utteranceId=talkback_13, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2626655
+D/talkback: AudioTrackSpeechCachePlayer(17912): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(17912): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(17912): stopSpeech done
+D/talkback: SpeechCacheManager(17912): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_13, text=Native Red Square reference post, Button, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(17912): tts.speak, utteranceId =talkback_13
+D/talkback: FailoverTextToSpeech(17912): Speak call for talkback_13 returned 0
+V/talkback: Pipeline(17912): execute() success=true for part=Part= speech= action=SPEAK  text="Native Red Square reference post, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(17912): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2626658  scrollDelta=-1,-1      
+V/talkback: Compositor(17912): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(17912): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2626658  scrollDelta=-1,-1      
+V/talkback: Compositor(17912): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960348. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_STOP utteranceId=talkback_12 interrupted=true
+W/talkback: FeedbackFragmentsIterator(17912): onFragmentCompleted -- utteranceId = talkback_12,feedBackItemUtteranceId =  talkback_13
+V/talkback: SpeechControllerImpl(17912): Interrupted 12 with talkback_13
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_START utteranceId=talkback_13
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960410. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960477. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960542. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960609. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960674. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960740. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960806. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960873. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793960939. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961004. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961071. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961136. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961202. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=4952
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961269. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961334. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961401. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961466. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961533. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961598. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=4696
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961664. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961730. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961796. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961863. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961928. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793961995. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962060. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962126. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962193. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962258. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962325. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962390. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962457. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962523. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962588. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962655. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_DONE utteranceId=talkback_13
+V/talkback: SpeechControllerImpl(17912): No next item, stopping speech queue
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=null, failovers=[Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Double-tap to Open thread by Anon-jesTu2"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY    hint= null  hintSpeakOptions= null    ]}
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962720. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962786. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962852. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962918. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793962985. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963051. 
+D/talkback: Actors(17912): act() eventId=null part=Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Double-tap to Open thread by Anon-jesTu2"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17912): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(17912): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator(17912): next --currentFeedbackFragment text = Double-tap to Open thread by Anon-jesTu2.
+V/talkback: SpeechControllerImpl(17912): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17912): Speaking fragment text="Double-tap to Open thread by Anon-jesTu2", utteranceId=talkback_14, TtsSpan=null, locale=null, event=null
+D/talkback: FailoverTextToSpeech(17912): tts.speak, utteranceId =talkback_14
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_START utteranceId=talkback_14
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+D/talkback: FailoverTextToSpeech(17912): Speak call for talkback_14 returned 0
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963117. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963183. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963248. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963314. 
+D/talkback: A11yEventProcessor(17912): Processor idle state.
+V/talkback: Mappers(17912):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(17912):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(17912): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(17912): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(17912): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(17912): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963380. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963446. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963512. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963578. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963645. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963710. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963776. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963843. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963908. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793963975. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964040. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964106. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964173. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964239. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964304. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964371. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964436. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964503. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964568. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=3956
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964635. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964701. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964766. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964833. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964898. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793964965. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965031. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965096. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965163. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965229. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965295. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965361. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965427. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965493. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965559. 
+I/talkback: FailoverTextToSpeech(17912): REDSQUARE_ENGINE_DONE utteranceId=talkback_14
+V/talkback: SpeechControllerImpl(17912): No next item, stopping speech queue
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965624. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965691. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965756. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965822. 
+V/talkback: ProximitySensor(17912): Processing onSensorChanged event at 1792793965888. 
