@@ -66,7 +66,8 @@ class ActivityInboxStateTest {
             ui.withPostViewports(activity, folder, "unavailable-activity", scales = listOf(2f)) { label, _ ->
                 ui.onNode(hasText("Notifications") and hasClickAction()).performClick()
                 ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() &&
-                    ui.onNodeWithText("Liked a post").isDisplayed() }
+                    ui.onNodeWithText("Liked a post").isDisplayed() &&
+                    ui.onNodeWithText("Post preview unavailable").isDisplayed() }
                 ui.onNodeWithText("Post preview unavailable").assertIsDisplayed()
                 captureNativeScreen(File(folder, "$label-missing-preview.png"), "Liked a post")
                 peer.rejectNewConnections = true
