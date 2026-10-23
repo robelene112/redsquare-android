@@ -1,0 +1,10 @@
+{
+  "exit": 0,
+  "command": [
+    "scripts/review-publish",
+    ".scratch/review-builds/66",
+    "--notes",
+    "A clearer activity inbox with avatars, event previews, timestamps, individual read controls and improved screen reader support."
+  ],
+  "utc": "2026-10-23T22:26:38.887296+00:00"
+}

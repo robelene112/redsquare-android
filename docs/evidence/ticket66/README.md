@@ -23,8 +23,19 @@ settings are restored. The original catalog/collector freeze07200af is unchanged
 prospective new Activity speech timing918a applies, original callers remain10s.
 The global bottom navigation wrapping at200% is outside this issue, tracked in70.
 
-Prepared signed66 is production-equivalent to these tested sources. Publication
-and final paired review receipts will be recorded here before issue closure.
+Final paired review reports Spec0, documented Standards0 and heuristic0.
+Both reviewers verified whole-run completeness, frozen identity/timing/tool
+contracts, all eight Activity speech XML captures, restored settings and held
+signed66 production equivalence. Evidence commit: `86b8bf056`.
+
+Signed66 is production-equivalent to these tested sources. Public delivery
+receipts are retained in `signed66-public`, preparation in `signed66-prepared`.
+Source: `cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82`; APK SHA256:
+`af1adb0b746f502b2ec4c06b9e507e80630ed5d7d9cae5e380951268e4e2c01f`.
+The established signing identity allows an in-place update. No APK is in Git.
+Final publication review: Spec0, documented Standards0, heuristic0; all40
+receipt hashes match, latest/immutable manifests agree,24 historical resources
+remain unchanged and both withheld61 URLs remain404.
 Physical-device, configured-provider and store acceptance are not claimed.
 
 ## Historical development evidence

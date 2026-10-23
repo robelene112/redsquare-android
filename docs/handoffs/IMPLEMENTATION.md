@@ -1,10 +1,10 @@
 # Implementation handoff
 
-## Issue66 final delivery, then STOP
+## Issue66 delivered: STOP until a new owner request
 
-The owner authorized exactly one issue. Issue66 implementation is complete; final
-paired evidence review and publication are the only remaining steps. Do not start
-another issue. Protected untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
+The owner authorized exactly one issue. Issue66 is complete and beta66 is
+published. Paired final review: Spec0, documented Standards0, heuristic0.
+Do not start another issue. Protected untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
 remains unread and untouched.
 
 Both complete runs at `c26fd3cce8c27a1e575b7311455c3a3c70aa2d9d` succeeded:
@@ -24,10 +24,14 @@ Global navigation wrapping at200% remains separate issue70.
 
 Signed beta66 is prepared at `cddf67fc5bb43e2479dcf0d864dee3c5e2f36f82`,
 production/build/harness/workflow-identical to testedc26. Do not rebuild/reuse66.
-Pending canonical publication from external review-worktree and independent
-public AFTER check, then close66/check child66 on55 and STOP. Public65 remains
-unchanged until that publication. Owner/provider/store prerequisites remain
-tracked separately; they are not acceptance claims for this native UI issue.
+Canonical publication from external review-worktree succeeded. Delivery receipts
+are in `docs/evidence/ticket66/signed66-public`; preparation in `signed66-prepared`.
+Review page: https://davidengelen.nl/redsquare/ (in-place update, no uninstall).
+APK SHA256: af1adb0b746f502b2ec4c06b9e507e80630ed5d7d9cae5e380951268e4e2c01f.
+Historical beta65 and earlier releases remain preserved. Owner/provider/store
+prerequisites remain tracked separately; they are not acceptance claims for this
+native UI issue. Issue66 is closed and child66 on55 is checked. STOP.
+Issues67-70 remain open. Final publication review: Spec0/Standards0/heuristic0.
 
 ## Historical issue66 checkpoints (superseded by the status above)
 
