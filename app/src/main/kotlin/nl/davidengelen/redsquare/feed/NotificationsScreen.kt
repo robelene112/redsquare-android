@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,7 +24,6 @@ import nl.davidengelen.redsquare.notifications.SocialNotificationPermissionPromp
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
-import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.registry.LocalRegistryAuthority
 import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.saito.*
@@ -234,6 +232,18 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         catch (_: Exception) { failed = true }
         finally { if (generation == loadGeneration) loading = false }
     }
+    fun markObserved(observed: List<String>) {
+        if (!readReady || markingRead) return
+        markingRead = true
+        scope.launch {
+            try {
+                readIds = withContext(Dispatchers.IO) { readStore!!.mark(observed) }
+                readWarning = false
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { readWarning = true }
+            finally { markingRead = false }
+        }
+    }
     Column(modifier) {
         Row {
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
@@ -288,17 +298,7 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
             if (readReady) Text(if (unread == 0) stringResource(R.string.notifications_read_none)
                 else stringResource(R.string.notifications_unread_count, unread), Modifier.weight(1f))
             TextButton(enabled = readReady && !markingRead && unread > 0, onClick = {
-                if (!readReady || markingRead) return@TextButton
-                val observed = visible.map { it.id }
-                markingRead = true
-                scope.launch {
-                    try {
-                        readIds = withContext(Dispatchers.IO) { readStore!!.mark(observed) }
-                        readWarning = false
-                    } catch (cancelled: CancellationException) { throw cancelled }
-                    catch (_: Exception) { readWarning = true }
-                    finally { markingRead = false }
-                }
+                markObserved(visible.map { it.id })
             }) { Text(stringResource(R.string.notifications_mark_read)) }
         }
         val retainedCount = (events.map { it.id } + replies.map { it.id } + mentions.map { it.id } +
@@ -323,13 +323,12 @@ internal fun NotificationsScreen(wallet: SaitoWallet?, endpoint: String, backend
         }) { Text(stringResource(R.string.notifications_more)) }
         LazyColumn(Modifier.weight(1f)) {
             items(visible, key = { it.id }) { event ->
-                Column(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
-                    Text(registeredIdentity(event.author).name, Modifier.clickable { onIdentity(event.author) })
-                    Text(event.author, Modifier.clickable { onIdentity(event.author) }, style = MaterialTheme.typography.labelSmall)
-                    Text(stringResource(event.caption), Modifier.clickable { event.post?.let(onPost) ?: onReference(event.target) }
-                        .padding(vertical = 8.dp))
-                    HorizontalDivider()
-                }
+                ActivityRow(event.author, event.createdAt, stringResource(event.caption),
+                    unread = if (readReady) event.id !in readIds else null,
+                    canMark = readReady && !markingRead && event.id !in readIds,
+                    onMark = { markObserved(listOf(event.id)) },
+                    onIdentity = { onIdentity(event.author) },
+                    onOpen = { event.post?.let(onPost) ?: onReference(event.target) })
             }
         }
     }

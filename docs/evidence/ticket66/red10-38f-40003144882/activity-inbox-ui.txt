@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ActivityInboxPreviewTest:
+INSTRUMENTATION_STATUS: test=anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ActivityInboxPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unread' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: stream=
+Error in anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(nl.davidengelen.redsquare.ActivityInboxPreviewTest):
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unread' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+INSTRUMENTATION_STATUS: test=anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 3.726
+There was 1 failure:
+1) anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(nl.davidengelen.redsquare.ActivityInboxPreviewTest)
+java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Unread' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback$lambda$8(ActivityInboxPreviewTest.kt:21)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.$r8$lambda$KX-98EN4z1GzrfTT8Vh4x8WtTpw(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$lambda$8$lambda$7$lambda$6(ActivityInboxFixture.kt:54)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.$r8$lambda$RFiRAovk0BXrw8to8i6eYjSXHAg(Unknown Source:0)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox(ActivityInboxFixture.kt:53)
+	at nl.davidengelen.redsquare.ActivityInboxFixtureKt.withActivityInbox$default(ActivityInboxFixture.kt:15)
+	at nl.davidengelen.redsquare.ActivityInboxPreviewTest.anActivityHasDistinctAuthorAndEventTargetsAndDurableIndividualReadFeedback(ActivityInboxPreviewTest.kt:17)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
