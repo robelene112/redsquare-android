@@ -70,7 +70,15 @@ assertions unchanged. Paired timing review0/0. Prospective timing clarification
 refrozen918a4868f4fbb711582791f70b4ee93434758860 in activity-speech-timing.json.
 Original literal catalog/collector07200af remains unchanged. Corrected focused
 TalkBack10run40023104801 at3c is wholeSUCCESS, retained speech-green10-3c4.
-Fresh full10run40024098277 executes exactbaa1b07c351ecc96858268b6cd0157309aa49053
+First corrected full10run40024098277 failed the unchanged GroupInvitationRecovery
+viewport case at200% dark, recover() then missing Paste invitation. Captured target
+had been within viewport but the final screen remained the group list. Its exact
+cause is unproven; no app/test/deadline change was made. This original class passed
+in preceding full10e5b. Failed run cancelled; observer10732 retains its originals.
+Fresh same-source full10run40025793736 now executes
+baa1b07c351ecc96858268b6cd0157309aa49053; observer
+/tmp/redsquare66-watch-full10-repeat-baa.py tracks it. No partial assembly.
+The source is
 after the timing clarification freeze. Observer /tmp/redsquare66-watch-full10-baa.py
 downloads terminal evidence;17 observer70569 still tracks40019858105 at strictere5b.
 Full17run40019858105 still runs at stricter originale5b; if it passes, preserve

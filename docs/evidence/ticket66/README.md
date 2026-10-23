@@ -80,3 +80,9 @@ Corrected focused speech40023104801 at3c is whole SUCCESS, retaining all four
 TalkBack classes and actual completion. Fresh complete10run40024098277 now runs
 atbaa1b07c351ecc96858268b6cd0157309aa49053, after timing clarification918a.
 Full17run40019858105 continues at strictere5b. Neither is accepted yet.
+
+First corrected full10run40024098277 was cancelled after the unchanged group
+invitation recovery case failed its200% dark opening interaction. The target had
+been measured inside the viewport; final capture remained the group list. Cause
+unproven. This same original case passed in preceding full10e5b, and no app/test/
+deadline change was made. Whole10run40025793736 repeats exactbaa independently.
