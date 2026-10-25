@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.graphics.Rect
-import android.view.KeyEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -28,12 +27,23 @@ class TalkBackImageViewerPreviewTest {
                 // attachment with the pinned service's actual Alt+Right navigation.
                 waitFor(10_000) { focusedText(automation) == "Wallet" && completedFragments(device, "Wallet").isNotEmpty() }
                 device.executeShellCommand("logcat -c")
+                // UiAutomation key injection skips Android's accessibility input filter.
+                // Feed the disposable emulator's real virtual keyboard instead; the
+                // observation guard excludes physical devices and the ordinary app.
+                val inputDevices = device.executeShellCommand("su 0 getevent -lp")
+                File(folder, "keyboard-devices.txt").writeText(inputDevices)
+                val keyboard = inputDevices.split(Regex("(?=add device )")).first {
+                    it.contains("KEY_RIGHT") && it.contains("KEY_LEFTALT")
+                }.let { requireNotNull(Regex("add device [0-9]+: (/dev/input/event[0-9]+)").find(it)).groupValues[1] }
+                val next = listOf("1 56 1", "0 0 0", "1 106 1", "0 0 0", "1 106 0", "0 0 0", "1 56 0", "0 0 0")
+                    .joinToString(" && ") { "sendevent $keyboard $it" }
                 var reachedOrigin = false
                 for (step in 0 until 16) {
                     val previous = appRoots(automation).firstNotNullOfOrNull {
                         it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)
                     }
-                    check(device.pressKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_ALT_ON))
+                    val release = "sendevent $keyboard 1 106 0; sendevent $keyboard 1 56 0; sendevent $keyboard 0 0 0"
+                    check(device.executeShellCommand("su 0 sh -c 'trap \"$release\" EXIT; $next && echo sent'").trim() == "sent")
                     waitFor(5_000) {
                         appRoots(automation).any { root ->
                             root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.let { it != previous } == true

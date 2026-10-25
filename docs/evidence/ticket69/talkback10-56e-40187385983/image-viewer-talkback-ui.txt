@@ -1,0 +1,77 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest:
+INSTRUMENTATION_STATUS: test=imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:183)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13$lambda$12(TalkBackImageViewerPreviewTest.kt:37)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$lYQk_CpLn8Yz8XdeK8NWPZ2-TOs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13(TalkBackImageViewerPreviewTest.kt:23)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$Yw9R_5LX9oyWLKhyts6nt-AGz7g(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus(TalkBackImageViewerPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: stream=
+Error in imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus(nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest):
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:183)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13$lambda$12(TalkBackImageViewerPreviewTest.kt:37)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$lYQk_CpLn8Yz8XdeK8NWPZ2-TOs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13(TalkBackImageViewerPreviewTest.kt:23)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$Yw9R_5LX9oyWLKhyts6nt-AGz7g(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus(TalkBackImageViewerPreviewTest.kt:22)
+
+INSTRUMENTATION_STATUS: test=imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 11.642
+There was 1 failure:
+1) imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus(nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest)
+java.lang.IllegalStateException: Accessibility condition did not complete
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.waitFor(NativeTalkBackObservation.kt:183)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13$lambda$12(TalkBackImageViewerPreviewTest.kt:37)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$lYQk_CpLn8Yz8XdeK8NWPZ2-TOs(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus$lambda$13(TalkBackImageViewerPreviewTest.kt:23)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.$r8$lambda$Yw9R_5LX9oyWLKhyts6nt-AGz7g(Unknown Source:0)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeTalkBackObservation.observe(NativeTalkBackObservation.kt:67)
+	at nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest.imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus(TalkBackImageViewerPreviewTest.kt:22)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -30,6 +30,14 @@ automatic image focus transition. No production workaround or tool change added.
 Raw downloads are `/mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN`;
 require observer-result downloadExitCode0 before collection. Retain with
 `/tmp/redsquare69-retain-focused.py RUN LABEL` (refuses overwriting packets).
+Both56e TalkBack probes40187385983/40187388479 failed before opening the
+viewer: standard UiAutomation key injection skips Android's accessibility input
+filter (explicit AOSP UiAutomation documentation). API29 lacks the newer filter
+TestApi. The next test-only correction uses the guarded disposable emulator's
+virtual keyboard, selected by actual KEY_RIGHT/KEY_LEFTALT capabilities, via
+sendevent. An EXIT trap releases both keys even on failure. Native service focus,
+completed speech and exact return-focus assertions remain required.
+
 No full execution has been dispatched; no signed version has been reserved.
 
 Issue69 source includes compact zoom/reset/movement controls, bounded transforms,
