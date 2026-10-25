@@ -24,3 +24,10 @@ Source review found missing gallery replacement motion and duplicated movement
 definitions. Both are corrected; actual native normal/zero motion recordings,
 real pinch and menu pan are additive at the existing native seam. Final acceptance
 remains pending.
+
+Both09a keyboard runs completed every application assertion, including actual
+modal keyboard confinement and return to the origin, then rejected a diagnostic
+capture predicate: it looked for image-position text instead of the attachment's
+content description. The capture now verifies that native description; no
+application assertion or deadline changes. The three new viewer classes retain
+independent results even if one fails; any failure still rejects the whole run.

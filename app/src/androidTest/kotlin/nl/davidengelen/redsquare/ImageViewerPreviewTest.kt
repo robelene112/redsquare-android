@@ -65,7 +65,8 @@ class ImageViewerPreviewTest {
             check(device.pressDPadCenter())
             ui.waitUntil(10_000) { ui.onAllNodesWithText("Close image").fetchSemanticsNodes().isEmpty() }
             ui.onNode(attachment).assertIsFocused().assertIsDisplayed()
-            captureNativeScreen(File(folder, "keyboard-return.png"), "Image 1 of 2")
+            org.junit.Assert.assertTrue(device.hasObject(androidx.test.uiautomator.By.desc("Image 1 of 2")))
+            captureNativeScreen(File(folder, "keyboard-return.png"))
         }
     }
 }

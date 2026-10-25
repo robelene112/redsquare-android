@@ -4,10 +4,45 @@
 
 Owner authorized one more issue on2026-10-25. Selected69, accessible fullscreen
 images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
-Use existing native UI/controlled media and actual TalkBack seams. Preserve all
-existing accepted identities, recovery and timing. Protected research file stays
-unread/untouched. Public beta66 stays unchanged until reviewed delivery.
+No other issue is authorized. Protected untracked research file remains unread
+and untouched. Public beta66 is unchanged; signed candidate has not been built.
 
+Source09a2ebf8f535a091290926b0126bb511400c7222 adds coherent zoom/reset/movement,
+image position, bounded transforms, keyboard return focus, inset-aware responsive
+chrome, 160ms image/credit fade and preserved media/GIF pipeline. Paired source
+review0/0 after fixing absent replacement motion and duplicated movement data.
+
+Focused replacements at09a are running:
+- Android10 viewer40185016086
+- Android17 viewer40185017930
+- Actual pinned TalkBack1040185020237
+Watcher session73150 runs `/tmp/redsquare69-watch.py`, downloads each terminal
+run to `/mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN` and records
+downloadExitCode. Retain with `/tmp/redsquare69-retain-focused.py RUN LABEL`.
+Labels: focused10-09a, focused17-09a, talkback10-09a. Review original artifacts.
+
+Native RED40183253293 proved missing Zoom out. Prior2e4 focused10/17 failed a
+new global Compose focus uniqueness assertion, which counted the inactive parent
+thumbnail as well as the modal control. The replacement requires exactlyone
+focused Dialog node and actual parent window without keyboard focus. Prior2e4
+TalkBack completed labels/48dp bounds but targeted the fake descriptive child
+below the SeekBar; the new non-clickable path now selects the native focusable
+parent while preserving every original caller's defaults. Failure packets retained.
+No full execution accepted or dispatched yet.
+
+Four additive native methods are in the draft ticket69 catalog: expected536/537
+identities,170/171 completions,131 archives, unchanged35 interruptions and34
+continuity records. Collector and viewer-check preserve all accepted66 gates.
+Both reviewers approved the draft, but catalogFreezeCommit remains PENDING.
+After focused evidence inspection: freeze catalog/validators prospectively, then
+run complete Android10/17, validate both whole executions and inspect originals.
+
+Finish with paired source/native review, canonical signed in-place beta67 (next
+version counter currently66) and public verification; close69/check child69 on55,
+commit/push final handoff and STOP. External review-worktree is clean atoldcdd.
+Helpers prepared `/tmp/redsquare69-prepare67.py`, `/tmp/redsquare69-public-check.py`
+and `/tmp/redsquare69-retain-public.py`; no release code reserved yet. Verify actual
+version/source before use. They preserve26 previous resources and withheld61.
 
 ## Issue66 delivered: STOP until a new owner request
 

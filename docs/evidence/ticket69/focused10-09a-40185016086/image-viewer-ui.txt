@@ -1,0 +1,65 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageViewerPreviewTest:
+INSTRUMENTATION_STATUS: test=keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$15(ImageViewerPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$tB7pZ_pOH_b1gIVz7D1l0ACtTW0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(nl.davidengelen.redsquare.ImageViewerPreviewTest):
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$15(ImageViewerPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$tB7pZ_pOH_b1gIVz7D1l0ACtTW0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 22.344
+There was 1 failure:
+1) keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(nl.davidengelen.redsquare.ImageViewerPreviewTest)
+java.lang.IllegalStateException: Check failed.
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.captureNativeScreen(NativeScreenEvidence.kt:12)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$15(ImageViewerPreviewTest.kt:68)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$tB7pZ_pOH_b1gIVz7D1l0ACtTW0(Unknown Source:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
