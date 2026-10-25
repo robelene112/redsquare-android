@@ -35,7 +35,11 @@ viewer: standard UiAutomation key injection skips Android's accessibility input
 filter (explicit AOSP UiAutomation documentation). API29 lacks the newer filter
 TestApi. The next test-only correction uses the guarded disposable emulator's
 virtual keyboard, selected by actual KEY_RIGHT/KEY_LEFTALT capabilities, via
-sendevent. An EXIT trap releases both keys even on failure. Native service focus,
+sendevent. An EXIT trap releases both keys even on failure.
+The47e probes40187963272/40187965283 discovered the keyboard correctly but
+failed at command dispatch: UiAutomation uses Runtime.exec and does not parse
+shell quotes. The corrected test writes an owned script (the same established
+seam as NativeMotionEvidence), retains each command output and runs it directly. Native service focus,
 completed speech and exact return-focus assertions remain required.
 
 No full execution has been dispatched; no signed version has been reserved.

@@ -37,13 +37,19 @@ class TalkBackImageViewerPreviewTest {
                 }.let { requireNotNull(Regex("add device [0-9]+: (/dev/input/event[0-9]+)").find(it)).groupValues[1] }
                 val next = listOf("1 56 1", "0 0 0", "1 106 1", "0 0 0", "1 106 0", "0 0 0", "1 56 0", "0 0 0")
                     .joinToString(" && ") { "sendevent $keyboard $it" }
+                val release = "sendevent $keyboard 1 106 0; sendevent $keyboard 1 56 0; sendevent $keyboard 0 0 0"
+                val script = File(folder, "keyboard-next.sh").apply {
+                    // UiAutomation starts a process directly; it does not parse shell quotes.
+                    writeText("exec 2>&1\ntrap '$release' EXIT\n$next && echo sent\n")
+                }
                 var reachedOrigin = false
                 for (step in 0 until 16) {
                     val previous = appRoots(automation).firstNotNullOfOrNull {
                         it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)
                     }
-                    val release = "sendevent $keyboard 1 106 0; sendevent $keyboard 1 56 0; sendevent $keyboard 0 0 0"
-                    check(device.executeShellCommand("su 0 sh -c 'trap \"$release\" EXIT; $next && echo sent'").trim() == "sent")
+                    val output = device.executeShellCommand("su 0 sh ${script.absolutePath}")
+                    File(folder, "keyboard-step-$step.txt").writeText(output)
+                    check(output.trim() == "sent")
                     waitFor(5_000) {
                         appRoots(automation).any { root ->
                             root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.let { it != previous } == true
