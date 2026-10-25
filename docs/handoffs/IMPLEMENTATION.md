@@ -55,7 +55,17 @@ and scoped native originals retained as full17-57a-40189991513, not accepted.
 The log was cleared after automatic image2 speech had started, leaving AUDIO/DONE
 without its request/START. New test-only correction clears before Next and captures
 fresh automatic speech when the exact native control is already focused; otherwise
-it retains explicit focusAndHear. Same15s/zoom/return assertions. Full10 pending.
+it retains explicit focusAndHear. Same15s/zoom/return assertions. Full10 completed SUCCESS40189989884 at57a, all3 partitions. Frozen collection
+is running. WORKFLOW.md:307 explicitly permits fixture-only correction to rerun
+only the outstanding SDK when production is unchanged. Reviewers agree; recorded
+source equivalence proves only test/docs differ, preserving immutable signed67.
+New focused runs40193626428/40193627883 at8ae47328ad92a499a99b1af44d46cbe150e1becc
+both completed SUCCESS, retained packets and actual completed speech preserved.
+Full17 replacement40194163662 now runs at8ae (watcher88660). Full10 frozen collector passed535+1,536 identities,170 normal
+completions,35 interruptions,34 continuity records,131 archives. All2538 packet
+hashes checked; independent Spec review0 findings. Prepared67/public BEFORE pass.
+No further implementation changes are pending; await full17 then collect/review,
+publish held beta67, verify public preservation, close69/check only69 on55 and STOP.
 Next: focused confirmation, then fresh complete runs at the same corrected source.
 Frozen collector/catalog unchanged. Prepared67 app/build inputs are unchanged;
 paired review is assessing retention through explicit source-tree equivalence.

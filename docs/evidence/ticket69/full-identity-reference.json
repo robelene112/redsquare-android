@@ -82,7 +82,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Initial full17 failed in the new second-image TalkBack observer; not accepted. Full10 pending. Catalog remains frozen; test-only observation correction pending.",
+  "executingState": "Android10 complete and validated. Fresh full17 pending after fixture-only observer correction; production/build input equivalence recorded. Initial full17 failure remains retained, not accepted.",
   "activitySpeechTiming": {
     "path": "docs/evidence/ticket66/activity-speech-timing.json",
     "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
@@ -100,9 +100,17 @@
     "focusMillis": 5000,
     "classSeconds": 180
   },
-  "executingSource": "57a6a27bfab543a26cb53cf563a28ee1536353a2",
   "executingRuns": {
     "android10": 40189989884,
-    "android17": 40189991513
+    "android17": 40194163662
+  },
+  "executingSources": {
+    "android10": "57a6a27bfab543a26cb53cf563a28ee1536353a2",
+    "android17": "8ae47328ad92a499a99b1af44d46cbe150e1becc"
+  },
+  "supersededFullRuns": {
+    "android17": [
+      40189991513
+    ]
   }
 }
