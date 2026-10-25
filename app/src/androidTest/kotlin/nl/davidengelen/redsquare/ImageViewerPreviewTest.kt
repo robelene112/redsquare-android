@@ -34,7 +34,7 @@ class ImageViewerPreviewTest {
             }
             ui.onNode(attachment).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
             check(device.pressDPadCenter())
-            ui.waitUntil(10_000) { ui.onNodeWithText("Close image").isDisplayed() }
+            ui.waitUntil(10_000) { ui.onNode(hasText("Close image") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Previous image") and hasClickAction()).assertIsNotEnabled()
             ui.onNode(hasText("Zoom out") and hasClickAction()).assertIsNotEnabled()
             ui.onNode(hasText("Reset zoom") and hasClickAction()).assertIsNotEnabled()
@@ -46,19 +46,20 @@ class ImageViewerPreviewTest {
             repeat(7) { ui.onNode(zoom).performClick() }
             ui.onNodeWithText("500%").assertIsDisplayed()
             ui.onNode(zoom).assertIsNotEnabled()
-            ui.onNodeWithText("Reset zoom").performClick()
+            ui.onNode(hasText("Reset zoom") and hasClickAction()).performClick()
             ui.onNodeWithText("100%").assertIsDisplayed()
-            ui.onNodeWithText("Next image").performClick()
+            ui.onNode(hasText("Next image") and hasClickAction()).performClick()
             ui.onNodeWithText("Image 2 of 2").assertIsDisplayed()
-            ui.onNodeWithText("Next image").assertIsNotEnabled()
+            ui.onNode(hasText("Next image") and hasClickAction()).assertIsNotEnabled()
             ui.onNodeWithText("100%").assertIsDisplayed()
-            ui.onNodeWithText("Previous image").performClick()
+            ui.onNode(hasText("Previous image") and hasClickAction()).performClick()
             val close = hasText("Close image") and hasClickAction()
             ui.onNode(close).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
             // Cycling actual Tab input stays in the modal window.
             repeat(10) {
                 check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
-                ui.onNode(isFocused()).assert(hasAnyAncestor(isDialog()))
+                ui.onAllNodes(isFocused() and hasAnyAncestor(isDialog())).assertCountEquals(1)
+                activity.onActivity { org.junit.Assert.assertFalse("The parent window must not receive keyboard input", it.window.decorView.hasWindowFocus()) }
             }
             ui.onNode(close).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
             check(device.pressDPadCenter())

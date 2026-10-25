@@ -66,16 +66,16 @@ class ImageViewerViewportTest {
         ui.waitUntil(15_000) { ui.onNode(hasText("Refresh") and isEnabled()).isDisplayed() }
         ui.onNode(hasScrollToIndexAction()).performScrollToNode(attachment)
         ui.onNode(attachment).performClick()
-        ui.waitUntil(10_000) { ui.onNodeWithText("Close image").isDisplayed() }
+        ui.waitUntil(10_000) { ui.onNode(hasText("Close image") and hasClickAction()).isDisplayed() }
         for (name in listOf("Close image", "Previous image", "Next image", "Zoom in", "Zoom out", "Reset zoom")) {
             ui.onNode(hasText(name) and hasClickAction()).assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
         }
         ui.onNodeWithContentDescription("Full screen image 1 of 2").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
         captureNativeScreen(File(folder, "$label-fit.png"), "Image 1 of 2")
-        ui.onNodeWithText("Zoom in").performClick()
+        ui.onNode(hasText("Zoom in") and hasClickAction()).performClick()
         ui.onNodeWithText("150%").assertIsDisplayed()
         captureNativeScreen(File(folder, "$label-zoom.png"), "150%")
-        ui.onNodeWithText("Close image").performClick()
+        ui.onNode(hasText("Close image") and hasClickAction()).performClick()
         ui.waitUntil(10_000) { ui.onAllNodesWithText("Close image").fetchSemanticsNodes().isEmpty() }
         ui.onNode(attachment).assertIsDisplayed()
     }

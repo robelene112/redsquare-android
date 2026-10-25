@@ -1,0 +1,143 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageViewerPreviewTest:
+INSTRUMENTATION_STATUS: test=keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed to assert the following: (hasAnyAncestorThat(IsDialog is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Focused = 'true')
+Nodes found:
+1) Node #150 at (l=16.0, t=244.0, r=304.0, b=424.0)px
+ContentDescription = '[Image 1 of 2]'
+Focused = 'true'
+Role = 'Image'
+Shape = 'RectangleShape'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #250 at (l=0.0, t=72.0, r=320.0, b=543.0)px
+ContentDescription = '[Full screen image 1 of 2]'
+CustomActions = '[CustomAccessibilityAction(label=Zoom in, action=nl.davidengelen.redsquare.feed.ImageViewerKt$ImageViewer$1$1$1$$ExternalSyntheticLambda11@5d48759)]'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=1.0, range=1.0..5.0, steps=7)'
+Role = 'Image'
+Shape = 'RectangleShape'
+StateDescription = 'Zoom 100 percent'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 10 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$14(ImageViewerPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$hO5yaz0xCc-z3h2rHgp5Bw-OlM4(ImageViewerPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(nl.davidengelen.redsquare.ImageViewerPreviewTest):
+java.lang.AssertionError: Failed to assert the following: (hasAnyAncestorThat(IsDialog is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Focused = 'true')
+Nodes found:
+1) Node #150 at (l=16.0, t=244.0, r=304.0, b=424.0)px
+ContentDescription = '[Image 1 of 2]'
+Focused = 'true'
+Role = 'Image'
+Shape = 'RectangleShape'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #250 at (l=0.0, t=72.0, r=320.0, b=543.0)px
+ContentDescription = '[Full screen image 1 of 2]'
+CustomActions = '[CustomAccessibilityAction(label=Zoom in, action=nl.davidengelen.redsquare.feed.ImageViewerKt$ImageViewer$1$1$1$$ExternalSyntheticLambda11@5d48759)]'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=1.0, range=1.0..5.0, steps=7)'
+Role = 'Image'
+Shape = 'RectangleShape'
+StateDescription = 'Zoom 100 percent'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 10 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$14(ImageViewerPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$hO5yaz0xCc-z3h2rHgp5Bw-OlM4(ImageViewerPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 18.746
+There was 1 failure:
+1) keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(nl.davidengelen.redsquare.ImageViewerPreviewTest)
+java.lang.AssertionError: Failed to assert the following: (hasAnyAncestorThat(IsDialog is defined))
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (Focused = 'true')
+Nodes found:
+1) Node #150 at (l=16.0, t=244.0, r=304.0, b=424.0)px
+ContentDescription = '[Image 1 of 2]'
+Focused = 'true'
+Role = 'Image'
+Shape = 'RectangleShape'
+Actions = [OnClick, RequestFocus]
+MergeDescendants = 'true'
+Has 6 siblings
+2) Node #250 at (l=0.0, t=72.0, r=320.0, b=543.0)px
+ContentDescription = '[Full screen image 1 of 2]'
+CustomActions = '[CustomAccessibilityAction(label=Zoom in, action=nl.davidengelen.redsquare.feed.ImageViewerKt$ImageViewer$1$1$1$$ExternalSyntheticLambda11@5d48759)]'
+Focused = 'true'
+ProgressBarRangeInfo = 'ProgressBarRangeInfo(current=1.0, range=1.0..5.0, steps=7)'
+Role = 'Image'
+Shape = 'RectangleShape'
+StateDescription = 'Zoom 100 percent'
+Actions = [RequestFocus, SetProgress]
+MergeDescendants = 'true'
+Has 10 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:262)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:254)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment$lambda$14(ImageViewerPreviewTest.kt:61)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.$r8$lambda$hO5yaz0xCc-z3h2rHgp5Bw-OlM4(ImageViewerPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest$$ExternalSyntheticLambda1.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerPreviewTest.keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment(ImageViewerPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,103 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete66 literal catalogs plus four additive native viewer methods. All existing identities, timings, recovery/public reads and tool pins remain mandatory.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket66/full10-c26-40027263194/identities.json",
+      "sha256": "88952473aa602c8e1a7605427ebcf5495ac5addd69126407b712570617eaded0",
+      "previousIdentities": 532,
+      "additional": [
+        {
+          "path": "image-viewer-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerPreviewTest",
+          "test": "keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerViewportTest",
+          "test": "viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerMotionTest",
+          "test": "imageChangesRespectSystemMotionAndPinchRemainsAvailable",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest",
+          "test": "imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 170,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 131
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket66/full17-c26-40027266851/identities.json",
+      "sha256": "a4178715bacbeddea293790e3d76e9f868cf186c4a3b7c9bfeae280848b1e261",
+      "previousIdentities": 533,
+      "additional": [
+        {
+          "path": "image-viewer-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerPreviewTest",
+          "test": "keyboardZoomNavigationAndCloseReturnToTheOriginalAttachment",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-viewport-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerViewportTest",
+          "test": "viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.ImageViewerMotionTest",
+          "test": "imageChangesRespectSystemMotionAndPinchRemainsAvailable",
+          "occurrences": 1
+        },
+        {
+          "path": "image-viewer-talkback-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.TalkBackImageViewerPreviewTest",
+          "test": "imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 171,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 131
+    }
+  ],
+  "catalogFreezeCommit": "PENDING",
+  "collectorSha256": "db3c709321dbf7225514d0c89ae0676b8fa8821febf817659ffbdf8c812e3768",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "executingState": "Draft collector/catalog, no full execution dispatched.",
+  "activitySpeechTiming": {
+    "path": "docs/evidence/ticket66/activity-speech-timing.json",
+    "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
+    "freezeCommit": "918a4868f4fbb711582791f70b4ee93434758860",
+    "existingTestsCompletionMillis": 10000,
+    "newActivityEventCompletionMillis": {
+      "android10": 15000,
+      "android17": 15000
+    }
+  },
+  "viewerCheckSha256": "1d6373e639677e7d70ed0245f8a27ff011872ddef5c02e9e6c7785236966888b",
+  "viewerSpeechTiming": {
+    "imageContextCompletionMillis": 15000,
+    "existingCallersCompletionMillis": 10000,
+    "focusMillis": 5000,
+    "classSeconds": 180
+  }
+}

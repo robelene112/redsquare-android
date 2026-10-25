@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.feed
 
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
@@ -29,8 +30,8 @@ import androidx.compose.ui.window.DialogProperties
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.media.GiphyAttribution
 import nl.davidengelen.redsquare.saito.SaitoBackend
-import nl.davidengelen.redsquare.ui.AppDialogWindow
 import nl.davidengelen.redsquare.ui.FrameIconButton
+import nl.davidengelen.redsquare.ui.AppDialogWindow
 import kotlin.math.roundToInt
 
 /** One modal focus context with the same image pipeline as its originating attachment. */
@@ -54,6 +55,8 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                         ViewerControl(R.drawable.ic_close, R.string.image_close, onClick = onClose)
                     }
                     key(index) {
+                        val appearance = remember { Animatable(0f) }
+                        LaunchedEffect(Unit) { appearance.animateTo(1f, tween(160)) }
                         var scale by rememberSaveable { mutableFloatStateOf(1f) }
                         var offset by remember { mutableStateOf(Offset.Zero) }
                         var size by remember { mutableStateOf(IntSize.Zero) }
@@ -84,6 +87,8 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                         val right = stringResource(R.string.image_move_right)
                         val up = stringResource(R.string.image_move_up)
                         val down = stringResource(R.string.image_move_down)
+                        val movements = listOf(left to Offset(size.width / 4f, 0f), right to Offset(-size.width / 4f, 0f),
+                            up to Offset(0f, size.height / 4f), down to Offset(0f, -size.height / 4f))
                         Box(Modifier.weight(1f).fillMaxWidth().clipToBounds()
                             .onSizeChanged { size = it; move(Offset.Zero) }
                             .then(if (focused) Modifier.border(2.dp, MaterialTheme.colorScheme.primary) else Modifier)
@@ -98,19 +103,19 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                                     if (scale > 1f) {
                                         add(CustomAccessibilityAction(zoomOut) { zoom(scale - .5f); true })
                                         add(CustomAccessibilityAction(resetLabel) { reset(); true })
-                                        add(CustomAccessibilityAction(left) { move(Offset(size.width / 4f, 0f)); true })
-                                        add(CustomAccessibilityAction(right) { move(Offset(-size.width / 4f, 0f)); true })
-                                        add(CustomAccessibilityAction(up) { move(Offset(0f, size.height / 4f)); true })
-                                        add(CustomAccessibilityAction(down) { move(Offset(0f, -size.height / 4f)); true })
+                                        movements.forEach { (label, delta) ->
+                                            add(CustomAccessibilityAction(label) { move(delta); true })
+                                        }
                                     }
                                 }
                             }
                             .onFocusChanged { focused = it.isFocused }.focusable().transformable(transform)) {
                             PostImage(images[index], backend, null, Modifier.fillMaxSize().graphicsLayer {
+                                alpha = appearance.value
                                 scaleX = shownScale; scaleY = shownScale; translationX = shownX; translationY = shownY
                             }, androidx.compose.ui.layout.ContentScale.Fit)
                         }
-                        Column(Modifier.fillMaxWidth().heightIn(max = 80.dp).verticalScroll(rememberScrollState())
+                        Column(Modifier.graphicsLayer { alpha = appearance.value }.fillMaxWidth().heightIn(max = 80.dp).verticalScroll(rememberScrollState())
                             .padding(horizontal = 16.dp)) {
                             GifCredits(images[index], credits[images[index]], onOpenSource)
                         }
@@ -127,9 +132,7 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                             Box {
                                 ViewerControl(R.drawable.ic_more, R.string.image_move, scale > 1f) { moveMenu = true }
                                 DropdownMenu(expanded = moveMenu, onDismissRequest = { moveMenu = false }) {
-                                    for ((label, delta) in listOf(left to Offset(size.width / 4f, 0f),
-                                        right to Offset(-size.width / 4f, 0f), up to Offset(0f, size.height / 4f),
-                                        down to Offset(0f, -size.height / 4f))) {
+                                    for ((label, delta) in movements) {
                                         DropdownMenuItem(text = { Text(label) }, onClick = { move(delta); moveMenu = false })
                                     }
                                 }

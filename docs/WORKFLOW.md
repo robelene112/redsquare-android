@@ -131,7 +131,9 @@ complete first-release scope and the established production boundaries.
    `image-viewer`/Android17 focused scopes and full Social, each with its own180s
    class bound. The existing native UI/controlled signed-media seam exercises
    physical keyboard focus, zoom/navigation/reset, themes/large text/landscape
-   and focus return. TalkBackImageViewerPreviewTest extends pinned actual speech
+   and focus return. ImageViewerMotionTest adds real pinch/menu movement and
+   actual display recordings under normal/zero motion, also180s in full Social.
+   TalkBackImageViewerPreviewTest extends pinned actual speech
    observation in Chat with its own180s bound; new long image descriptions allow
    15s completed speech, while prior callers retain their original bounds.
    Search65 adds SearchEntryPreviewTest to the existing `search` and Android17

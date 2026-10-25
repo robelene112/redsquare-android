@@ -1111,6 +1111,7 @@ fi
 verify_image_viewer() {
     verify_group_chat_native ImageViewerPreviewTest 180 image-viewer image-viewer-evidence
     verify_group_chat_native ImageViewerViewportTest 180 image-viewer-viewport image-viewer-viewport-evidence
+    verify_group_chat_native ImageViewerMotionTest 180 image-viewer-motion image-viewer-motion-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == image-viewer* ]]; then
     verify_image_viewer
