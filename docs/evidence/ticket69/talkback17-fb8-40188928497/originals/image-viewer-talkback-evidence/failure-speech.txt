@@ -1,0 +1,731 @@
+--------- beginning of main
+W/talkback: AccessibilityFocusActionHistory( 3459): node matches but timeDiff=2019 not matches
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=66550  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: Actors( 3459): act() eventId=null part=Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Press Action + SPACE to activate"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo( 3459): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= InlineFormattingHistory{LastSourceText:null}
+V/talkback: TextFormattingInfo( 3459): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl( 3459): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator( 3459): next --currentFeedbackFragment text = Press Action + SPACE to activate.
+V/talkback: SpeechControllerImpl( 3459): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl( 3459): Speaking fragment text="Press Action + SPACE to activate", utteranceId=talkback_14, TtsSpan=null, locale=null, event=null
+D/talkback: FailoverTextToSpeech( 3459): tts.speak, utteranceId =talkback_14
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_START utteranceId=talkback_14
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+D/talkback: FailoverTextToSpeech( 3459): Speak call for talkback_14 returned 0
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=5040
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=8192
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_14 bytes=4388
+D/AidlBufferPool( 3459): bufferpool2 0x75182da4fca8 : 0(0 size) total buffers - 0(0 size) used buffers - 2/7 (recycle/alloc) - 5/108 (fetch/transfer)
+D/AidlBufferPoolAcc( 3459): evictor expired: 1, evicted: 1
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  time=68390  class="android.widget.FrameLayout"  package="com.android.systemui"  description="T-Mobile, two bars."  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  contentChangeType=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459): windowContentChanged: (460291) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3459):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsClearQueueGroup=5  ttsSkipDuplicate  
+I/talkback: FailoverTextToSpeech( 3459): REDSQUARE_ENGINE_DONE utteranceId=talkback_14
+V/talkback: SpeechControllerImpl( 3459): No next item, stopping speech queue
+D/AidlBufferPool( 3459): bufferpool2 0x75182da66568 : 0(0 size) total buffers - 0(0 size) used buffers - 2/7 (recycle/alloc) - 5/12 (fetch/transfer)
+D/AidlBufferPoolAcc( 3459): evictor expired: 3, evicted: 1
+D/talkback: A11yEventProcessor( 3459): Processor idle state.
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers( 3459):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors( 3459): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal( 3459): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline( 3459): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3459): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=76737  class="android.view.ViewGroup"  package="com.android.systemui"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:76737 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 76737; PackageName: com.android.systemui; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.ViewGroup; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 1 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3459):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3459):    isFromScrollable=false
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=76737  class="android.view.ViewGroup"  package="com.android.systemui"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459): windowContentChanged: (78774) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3459):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter( 3459): START interpret() event type=TYPE_WINDOWS_CHANGED time=76858 allowEvent=true
+V/talkback: WindowEventInterpreter( 3459):  interpret() windowRoles=a:8:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:Red Square
+V/talkback: WindowEventInterpreter( 3459):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={8={ title="Red Square"  titleFromWindowChange="Red Square"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter( 3459):    updateWindowTitles() windowIdToData={}
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= 
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459):  interpret() delayMs=200, interpretation=WindowIdFromEvent=8  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:76858 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3459):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3459):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:76858, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:76858 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3459): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:76858, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:76858 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3459): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_REMOVED  time=76858  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_LAYER  time=76858  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:76737 event=null interpretation=SUBTREE_CHANGED eventSourceNode=null
+V/talkback: Mappers( 3459):    interpretationID=SUBTREE_CHANGED
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:76737, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:76737 part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal( 3459): EnsureOnScreen: Return, windows are not stable yet.
+V/talkback: Pipeline( 3459): execute() success=false for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3459): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=77197  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:77197 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 77197; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3459):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3459):    isFromScrollable=false
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=77197  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459): windowContentChanged: (-2147455810) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3459):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3459): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=77300  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:77300 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 77300; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3459):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3459):    isFromScrollable=false
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=8, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:null
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=8  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=8  TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3459): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter( 3459): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=76864 allowEvent=true
+V/talkback: WindowEventInterpreter( 3459):  interpret() windowRoles=a:8:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:Red Square
+V/talkback: WindowEventInterpreter( 3459):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={}
+V/talkback: WindowEventInterpreter( 3459):      windowId=9 { title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }
+V/talkback: WindowEventInterpreter( 3459):    updateWindowTitles() windowIdToData={9={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }}
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=9  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= 
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:Application icon
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459):  interpret() delayMs=200, interpretation=WindowIdFromEvent=9  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: Mappers( 3459):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3459):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3459):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3459): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:76864 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3459): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=77300  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3459): windowContentChanged: (-2147455810) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3459):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue( 3459): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=76864  class="android.widget.FrameLayout"  package="nl.davidengelen.redsquare.dev.test"  text="text=[Application icon]"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3459): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule( 3459):  ttsOutputRule= windowStateChangedState,   role="ROLE_NONE"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils( 3459): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider( 3459):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:Application icon
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:Application icon
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3459):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3459):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:Application icon
+V/talkback: WindowEventInterpreter( 3459):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3459): END delayedInterpret() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=76858  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3459):   eventSourceWindow= ID=9  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowA= TitleForFeedback="untitled"  OldID=8  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter( 3459):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3459):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3459):   
+E/AccessibilityService( 3459): bindInput must be paired with unbindInput.
+V/talkback: A11yEventProcessor( 3459): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3459): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:77198, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3459): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:77198 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3459): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter( 3459): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=77198 allowEvent=true
+V/talkback: WindowEventInterpreter( 3459):  interpret() windowRoles=a:8:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:8:Red Square

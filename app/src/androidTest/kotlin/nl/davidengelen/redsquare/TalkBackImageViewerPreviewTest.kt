@@ -65,7 +65,7 @@ class TalkBackImageViewerPreviewTest {
                 assertTrue("TalkBack navigation reaches the original attachment", reachedOrigin)
                 waitFor(10_000) { completedFragments(device, "Image 1 of 2").isNotEmpty() }
                 File(folder, "origin-navigation-speech.txt").writeText(speechLog(device))
-                focusAndHear("origin", "Image 1 of 2", folder)
+                captureFocusedSpeech("origin", "Image 1 of 2", folder, actionNode("Image 1 of 2"))
                 assertTrue(actionNode("Image 1 of 2").performAction(AccessibilityNodeInfo.ACTION_CLICK))
                 check(device.wait(Until.hasObject(By.text("Close image")), 10_000))
                 val bounds = JsonObject()

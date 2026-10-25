@@ -48,6 +48,14 @@ Pinned FeatureFlagReader.enableNewKeymap is true and NewKeyComboModel uses Meta,
 not the legacy DefaultKeyComboModel's Alt. The observer now sends Meta+Right and
 retains actual public tool preferences. No service configuration or source changed.
 
+Thefb8 probe10 reached the exact attachment through service-owned logical
+navigation and completed its spoken label. A redundant direct focusAndHear then
+requested the same label again; the service suppressed duplicate feedback. The
+shared observer now exposes its existing focus/speech/capture half separately,
+so origin observation records actual already-completed navigation speech without
+artificial refocus. Existing focusAndHear callers delegate with identical waits,
+assertions and evidence output. Exact close-return acceptance is unchanged.
+
 No full execution has been dispatched; no signed version has been reserved.
 
 Issue69 source includes compact zoom/reset/movement controls, bounded transforms,

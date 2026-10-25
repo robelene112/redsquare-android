@@ -13,6 +13,12 @@ internal fun NativeTalkBackObservation.focusAndHear(label: String, description: 
     device.executeShellCommand("logcat -c")
     assertTrue("Actual focus action for $description",
         target.performAction(AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+    captureFocusedSpeech(label, description, folder, target, completionTimeoutMillis)
+}
+
+/** Observe service-owned navigation without requesting duplicate focus or speech. */
+internal fun NativeTalkBackObservation.captureFocusedSpeech(label: String, description: String,
+    folder: File, target: AccessibilityNodeInfo, completionTimeoutMillis: Long = 10_000) {
     waitFor(5_000) {
         appRoots(automation).any { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == target }
     }
