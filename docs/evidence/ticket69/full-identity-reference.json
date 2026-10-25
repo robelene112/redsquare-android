@@ -82,7 +82,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Prospectively frozen catalog and collectors; full execution not yet dispatched.",
+  "executingState": "Initial full17 failed in the new second-image TalkBack observer; not accepted. Full10 pending. Catalog remains frozen; test-only observation correction pending.",
   "activitySpeechTiming": {
     "path": "docs/evidence/ticket66/activity-speech-timing.json",
     "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
@@ -99,5 +99,10 @@
     "existingCallersCompletionMillis": 10000,
     "focusMillis": 5000,
     "classSeconds": 180
+  },
+  "executingSource": "57a6a27bfab543a26cb53cf563a28ee1536353a2",
+  "executingRuns": {
+    "android10": 40189989884,
+    "android17": 40189991513
   }
 }

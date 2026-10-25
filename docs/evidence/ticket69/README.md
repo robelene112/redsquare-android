@@ -1,54 +1,74 @@
 # Accessible fullscreen images69
 
-Review base: b7ec3c979e4187b7ab3a690a64962c9a0d7fa222. This issue uses the
-existing native UI/controlled signed media and actual TalkBack seams. No new
-provider or live publishing is involved. Complete acceptance and signed delivery
-remain pending.
+Review base: b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
+Full executing source:57a6a27bfab543a26cb53cf563a28ee1536353a2.
+Complete regression and signed delivery are pending. Public beta66 is unchanged.
 
-Native RED: run40183253293 at90b7fc6802b420baa01c55bc0ad6a33d51ac0522 opens
-the original viewer with a physical keyboard and fails on the missing Zoom out
-control. Original log and native failure captures are in `red-keyboard-40183253293`.
-This is an expected failing specification, not accepted runtime proof.
+The viewer adds zoom in/out/reset and a movement menu, semantic adjustment
+and pan actions, meaningful image-position/zoom context, responsive themed chrome
+and inset handling. Pinch/pan, decoding/retry and GIF attribution remain. Image
+changes reset transforms and respect system motion settings. Keyboard input stays
+inside the dialog and closing returns to the original attachment.
 
-Focused2e4 runs40184158249/40184160059 reached the new keyboard focus loop but
-failed its incorrect global uniqueness assertion: the inactive parent Compose
-root retains its thumbnail focus. The revised check requires exactly one focused
-node inside the Dialog and proves the actual parent window has no keyboard focus.
-Native TalkBack40184161840 completed contextual control speech and passed48dp
-bounds, then focused Compose's text-only descriptive child below the adjustable
-SeekBar. The new non-clickable observation now selects the native focusable
-control, retaining the requirement for completed image position and zoom speech.
-All three failures are retained with their original outcomes.
+## Focused observations
 
-Source review found missing gallery replacement motion and duplicated movement
-definitions. Both are corrected; actual native normal/zero motion recordings,
-real pinch and menu pan are additive at the existing native seam. Final acceptance
-remains pending.
+- Android10 keyboard/viewport/motion:40186130296 at711d02c4a.
+- Android17 keyboard/viewport/motion:40186131893 at711d02c4a.
+- Android10 TalkBack:40189402929 at7a2f213c9.
+- Android17 TalkBack:40189404755 at7a2f213c9.
 
-Both09a keyboard runs completed every application assertion, including actual
-modal keyboard confinement and return to the origin, then rejected a diagnostic
-capture predicate: it looked for image-position text instead of the attachment's
-content description. The capture now verifies that native description; no
-application assertion or deadline changes. The three new viewer classes retain
-independent results even if one fails; any failure still rejects the whole run.
+All four whole focused runs succeeded; original packets and independently checked
+hashes are retained. Viewport observations cover320dp portrait light/dark at
+100/130/200% text, plus actual landscape200% in both themes. Seven native targets
+are disjoint and at least48dp. Selected original renders show readable controls,
+contrasting system bars and usable image areas. Normal image replacement has
+intermediate fade frames; zero system motion has none. Actual pinch/menu movement,
+zoom bounds, reset, navigation, modal keyboard confinement and original return pass.
 
-TalkBack09a exposed a genuine native naming split: the adjustable parent spoke
-only "Zoom 150 percent, Slider", while Compose exposed the image position as a
-separate descriptive child. The viewer now uses one unmerged semantic control
-for image context, zoom state and actions. The actual completed-speech requirement
-still demands both position and zoom. Returning zoom to1 also resets offset
-exactly to zero. Neither correction changes network/media decoding behavior.
+Pinned TalkBack produces completed English engine speech for every control and
+for image context with150% and100% zoom. It returns to the exact original thumbnail
+on both SDKs; native captures show its focus outline. This is engine synthesis and
+native focus evidence, not a claim of physical audibility or Pixel performance.
 
-Focused10 run40185580828 passes keyboard behavior and actual native motion/pinch.
-Its viewport case rejects the painted40dp icon bounds; the actual native TalkBack
-bounds are48dp. The viewport observer now checks all seven native clickable
-rectangles for48dp minimum, disjointness and display reachability, retaining the
-original threshold. Native motion recorded22 normal frames with3 intermediate
-blue fade frames, and6 zero-motion frames with no intermediate fade. The whole
-run remains failed and is retained as such; it is not complete acceptance.
+## Diagnosis and retained failures
 
-TalkBackde6 run40185754450 completes the full image-position/zoom utterances,
-reset and navigation, then exposes incorrect return focus: the service selects
-Wallet instead of the originating attachment. The return now waits for the real
-parent window to regain focus and permits the attachment to receive programmatic
-focus in touch exploration. The existing exact return-target assertion remains.
+The native RED40183253293 proves the original viewer lacks Zoom out. Early
+implementation review found missing replacement motion and duplicate pan logic;
+both were corrected. Native speech then exposed a real Compose naming split:
+merged semantics put image position on a descriptive child while the adjustable
+parent spoke only zoom. One unmerged control now exposes both context and state.
+
+Other failures were observer defects: counting retained input focus across both
+windows, seeking text instead of an attachment description, and measuring the40dp
+painted icon instead of its48dp native target. Corrected checks retain their
+original behavioral requirements and add actual window and target observations.
+
+The apparent TalkBack return to Wallet was reproduced with external focus requests.
+Pinned TalkBack restores its own action history; direct test focus requests do
+not establish that history. Android's ordinary UiAutomation input injection also
+[skips the accessibility input filter](https://android.googlesource.com/platform/frameworks/base/+/HEAD/core/java/android/app/UiAutomation.java).
+The corrected viewer test uses the disposable emulator's actual virtual keyboard,
+with independent key-release cleanup. The pinned enhanced keymap uses Meta+Right.
+It records service-owned navigation and completed speech before opening the viewer,
+without requesting duplicate speech that TalkBack suppresses. Existing shared
+focus/speech callers retain their actions, assertions and deadlines. The actual
+close-return assertion is unchanged; no tool patch or provider setting changed.
+
+Every failed probe remains retained with its true outcome. Focused packets from
+different sources are never assembled into complete acceptance.
+
+## Full regression gate
+
+The independent catalog and collectors were frozen prospectively in
+39aa5793ecdaaa29059e9aed4f340ffac89926ed. Expected identities:536 on Android10,
+537 on17; normal completions170/171,131 archives,35 intentional interruptions,
+34 continuity records, and only the inherited Android10 Profile assumption.
+All accepted66 identities, public reads, recovery checks and tool pins remain.
+The viewer validator additionally checks service-owned origin navigation and
+completed speech. It was exercised against focused captures before full dispatch.
+
+Complete runs40189989884/40189991513 are pending at the same57a source. All three
+partitions on each SDK must succeed before full acceptance. Signed67 is building
+at that exact source and must pass release/public preservation checks before use.
+Owner prerequisites remain parked in issue36 and OWNER_INPUTS.md; this delivery
+does not claim provider configuration, store acceptance or physical-device proof.

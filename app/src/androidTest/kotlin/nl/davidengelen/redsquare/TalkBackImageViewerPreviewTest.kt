@@ -84,13 +84,20 @@ class TalkBackImageViewerPreviewTest {
                 focusAndHear("reset", "Reset zoom", folder, textLabel = true)
                 click(automation, "Reset zoom")
                 check(device.wait(Until.hasObject(By.text("100%")), 5_000))
+                device.executeShellCommand("logcat -c")
                 click(automation, "Next image")
                 check(device.wait(Until.hasObject(By.text("Image 2 of 2")), 5_000))
-                // Let the platform finish its automatic focus transfer before an explicit
-                // focus-and-speech observation of the newly created image control.
+                // The service can focus and speak the replacement automatically. Keep
+                // those fresh events instead of clearing them and forcing duplicate speech.
                 device.waitForIdle(5_000)
-                focusAndHear("second-image", "Full screen image 2 of 2", folder,
-                    completionTimeoutMillis = 15_000, requireClickAction = false)
+                val second = actionNode("Full screen image 2 of 2", requireClickAction = false)
+                if (appRoots(automation).any { it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == second }) {
+                    captureFocusedSpeech("second-image", "Full screen image 2 of 2", folder, second,
+                        completionTimeoutMillis = 15_000)
+                } else {
+                    focusAndHear("second-image", "Full screen image 2 of 2", folder,
+                        completionTimeoutMillis = 15_000, requireClickAction = false)
+                }
                 assertTrue(completedFragments(device, "Zoom 100 percent").isNotEmpty())
                 click(automation, "Close image")
                 check(device.wait(Until.gone(By.text("Close image")), 10_000))

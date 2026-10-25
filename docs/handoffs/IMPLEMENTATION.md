@@ -5,7 +5,7 @@
 Owner authorized one further issue on2026-10-25. Selected69, accessible fullscreen
 images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
 No other issue is authorized. Protected untracked research file remains unread
-and untouched. Public beta66 is unchanged; signed67 has not been reserved/built.
+and untouched. Public beta66 is unchanged; signed67 is built and verified at exact57a full source; not published.
 
 Production: zoom/reset/pan alternatives, single/multiple image context, inset-aware
 responsive chrome,160ms image/credit fades respecting zero motion, original
@@ -46,10 +46,29 @@ these differing focused sources do not constitute complete acceptance.
 
 Paired pre-freeze review: Spec0, Standards0. Catalog/collectors frozen in
 39aa5793ecdaaa29059e9aed4f340ffac89926ed before full execution.
-Next: dispatch complete Android10/17 at the same final source.
-No full execution dispatched yet. Collect only whole successful3-partition runs
+Full source57a6a27bfab543a26cb53cf563a28ee1536353a2:
+- Android10 run40189989884, label full10-57a.
+- Android17 run40189991513, label full17-57a.
+Watcher session83459 retains each whole terminal download. Android17 failed
+only in new second-image TalkBack observation; social/wallet passed. Raw full run
+and scoped native originals retained as full17-57a-40189991513, not accepted.
+The log was cleared after automatic image2 speech had started, leaving AUDIO/DONE
+without its request/START. New test-only correction clears before Next and captures
+fresh automatic speech when the exact native control is already focused; otherwise
+it retains explicit focusAndHear. Same15s/zoom/return assertions. Full10 pending.
+Next: focused confirmation, then fresh complete runs at the same corrected source.
+Frozen collector/catalog unchanged. Prepared67 app/build inputs are unchanged;
+paired review is assessing retention through explicit source-tree equivalence.
+Signed67 built successfully in4m45s in clean review-worktree at57a, log
+/mnt/storage/redsquare-android-artifacts/viewer69-signed67-build.log.
+Prepared APK checks pass: version67,38332627 bytes,
+SHA25664f2b6d1934e5cc8c8c9b59423a5a6933ee4980171846da402346c0ef3ad0d7c,
+established certificate, min29/target36, nondebug/nonprofile, backup disabled.
+Review=true; provider flags remain unconfigured. Public BEFORE check passed
+(session71489), immutable version67 reserved. Do not rebuild it or publish until
+whole full acceptance and paired review. Collect only whole successful3-partition runs
 with frozen full-collector.py. Inspect original renders and finish paired reviews.
-Then canonical signed in-place beta67 (counter66), public preservation checks,
+Then verify/publish canonical signed in-place beta67, public preservation checks,
 close69/check only69 on55 and STOP. No other issue or owner/provider/store work.
 
 Raw downloads: /mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN.
@@ -57,7 +76,7 @@ Helpers /tmp/redsquare69-watch.py and /tmp/redsquare69-retain-focused.py retain
 terminal whole artifacts and refuse overwrite. Publication helpers:
 /tmp/redsquare69-prepare67.py, /tmp/redsquare69-public-check.py,
 /tmp/redsquare69-retain-public.py. Verify source/version before use. Preserve26
-historical public resources and withheld61 URLs. review-worktree is clean, counter66.
+historical public resources and withheld61 URLs. review-worktree is detached at57a;67 is reserved, never reuse or rebuild that version.
 
 ## Issue66 delivered: STOP until a new owner request
 
