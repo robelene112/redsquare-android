@@ -1,0 +1,113 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.ImageViewerViewportTest:
+INSTRUMENTATION_STATUS: test=viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.ImageViewerViewportTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Actual width is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:86)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$cgvqaRpJ7xpvqBAVX5Gx6ZfTQKM(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast-3ABfNKs(BoundsAssertions.kt:86)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:71)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:36)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+INSTRUMENTATION_STATUS: stream=
+Error in viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(nl.davidengelen.redsquare.ImageViewerViewportTest):
+java.lang.AssertionError: Actual width is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:86)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$cgvqaRpJ7xpvqBAVX5Gx6ZfTQKM(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast-3ABfNKs(BoundsAssertions.kt:86)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:71)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:36)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+INSTRUMENTATION_STATUS: test=viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 8.628
+There was 1 failure:
+1) viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(nl.davidengelen.redsquare.ImageViewerViewportTest)
+java.lang.AssertionError: Actual width is 40.0.dp, expected at least 48.0.dp (tolerance: 0.5.dp)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU(BoundsAssertions.kt:342)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertIsAtLeast-cWfXhoU$default(BoundsAssertions.kt:339)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast_3ABfNKs$lambda$0(BoundsAssertions.kt:86)
+	at androidx.compose.ui.test.BoundsAssertionsKt.$r8$lambda$cgvqaRpJ7xpvqBAVX5Gx6ZfTQKM(BoundsAssertions.kt:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at androidx.compose.ui.test.BoundsAssertionsKt.withUnclippedBoundsInRoot(BoundsAssertions.kt:266)
+	at androidx.compose.ui.test.BoundsAssertionsKt.assertWidthIsAtLeast-3ABfNKs(BoundsAssertions.kt:86)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.exercise(ImageViewerViewportTest.kt:71)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6$lambda$5(ImageViewerViewportTest.kt:36)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$ISH0k8M0xUV--zO-uqltmNZ3qmI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda8.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$2VzsF2mRJTeUIoAF_pBnHpGirHE(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape$lambda$6(ImageViewerViewportTest.kt:35)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.$r8$lambda$tsjcM1u6fgjEccjJjcagQDTdsKI(ImageViewerViewportTest.kt:0)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest$$ExternalSyntheticLambda0.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.ImageViewerViewportTest.viewerChromeAndImageRemainReachableAcrossThemesTextSizesAndLandscape(ImageViewerViewportTest.kt:32)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

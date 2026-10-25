@@ -1,0 +1,753 @@
+--------- beginning of main
+V/talkback: AccessibilityNodeInfoUtils( 3421): Don't focus, bounds are same as window root node bounds, node has children and is neither actionable nor focusable:  AccessibilityNodeInfoCompat  id=44184  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: AccessibilityNodeInfoUtils( 3421): Focus, is focusable and has something to speak:  AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible      
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:99232, failovers=[Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:99232 part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:99232, failovers=[Part= nodeAction= target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:99232 part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: NodeActionPerformer( 3421): perform Action, nodeAction = target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS  
+D/talkback: PerformActionUtils( 3421): perform action=64=ACTION_ACCESSIBILITY_FOCUS returns true with args=null on node=AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible       for event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:99232
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= nodeAction= target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    actionId=ACTION_ACCESSIBILITY_FOCUS    
+D/talkback: FocusManagerInternal( 3421): Set accessibility focus:result=true
+D/talkback: FocusManagerInternal( 3421): Node:AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible      
+D/talkback: FocusManagerInternal( 3421): FocusActionInfo:FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= focus= action=FOCUS  start= null  target= AccessibilityNodeInfoCompat  id=45765  class="android.widget.SeekBar"  package="nl.davidengelen.redsquare.dev"  state="Zoom 100 percent"  content="Full screen image 2 of 2"  enabled  focusable  scrollable  visible    focusActionInfo= FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    stealNextWindowTarget= null    
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= focus= action=INITIAL_FOCUS_FIRST_CONTENT  start= null  target= null  screenState= activeWindow= AccessibilityWindowInfo[title=, displayId=0, id=9, taskId=10, type=TYPE_APPLICATION, layer=0, region=SkRegion((0,0,320,640)), bounds=Rect(0, 0 - 320, 640), focused=true, active=true, pictureInPicture=false, transitionTime=83137, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=82996    stealNextWindowTarget= null    
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+V/talkback: A11yEventProcessor( 3421): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 99806; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=HintableEvent{  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints( 3421):    toFeedback()()
+V/talkback: Mappers( 3421):      eventType=32768
+V/talkback: Mappers( 3421):      forceFeedbackEvenIfAudioPlaybackActive=true
+V/talkback: Mappers( 3421):      forceFeedbackEvenIfMicrophoneActive=true
+D/talkback: AccessibilityFocusMonitor( 3421): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor( 3421): Failed to get the editing node.
+V/talkback: SpannableUtils( 3421): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableTraversalUtils( 3421): Root has content description, skipping searching the children nodes.
+V/talkback: AccessibilityFocusHint( 3421):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint( 3421):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint( 3421):     nodeRoleHint={"Swipe up" or "Swipe down" to adjust}
+V/talkback: AccessibilityFocusHint( 3421):     nodeActionsHintHighVerbosity={Actions available, use Tap with 3 fingers to view}
+V/talkback: AccessibilityFocusHint( 3421):     isLongClickable: false
+V/talkback: HintFeedbackRule( 3421):   speakHintText: (45765) , hint={"Swipe up" or "Swipe down" to adjust, Actions available, use Tap with 3 fingers to view}, hintType=1,
+V/talkback: TalkBackFeedbackProvider( 3421):  EVENT_SPEAK_HINT:  ttsOutput= "Swipe up" or "Swipe down" to adjust, Actions available, use Tap with 3 fingers to view    queueMode=0  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806, failovers=[Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= "Swipe up" or "Swipe down" to adjust, Actions available, use Tap with 3 fingers to view  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE      ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= "Swipe up" or "Swipe down" to adjust, Actions available, use Tap with 3 fingers to view  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE      
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= "Swipe up" or "Swipe down" to adjust, Actions available, use Tap with 3 fingers to view  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE      
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 99806; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers( 3421):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=99806  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=null, failovers=[Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors( 3421): act() eventId=null part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= speech= action=RESET_FORMATTING_HISTORY  hint= null  hintSpeakOptions= null    
+D/talkback: GestureShortcutMapping( 3421): loadActionToGestureIdMap - isMultiFingerOn : true isFingerprintOn : true
+D/talkback: TalkBackService( 3421): A shared preference changed: pref_current_selector_setting_key
+V/talkback: TalkBackService( 3421): TalkBackService.reloadPreferences() diagnostic mode=false, key=pref_current_selector_setting_key
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=null, failovers=[Part= passThroughMode= PassThroughMode{action=DISABLE_PASSTHROUGH, region=SkRegion()}  ]}
+D/talkback: Actors( 3421): act() eventId=null part=Part= passThroughMode= PassThroughMode{action=DISABLE_PASSTHROUGH, region=SkRegion()}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= passThroughMode= PassThroughMode{action=DISABLE_PASSTHROUGH, region=SkRegion()}  
+D/talkback: RingerModeAndScreenMon( 3421): enabledTellingTime=true
+D/talkback: TouchInteractionMonitor( 3421): setSupportLiftToType/focused on Lift-to-type node:FALSE
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 99806; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=AccessibilityFocused{  focusActionInfo==FocusActionInfo{  sourceAction=SCREEN_STATE_CHANGE  initialFocusType=FIRST_FOCUSABLE_NODE  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  focusedLinkIndex=-1  }    }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@b2c5; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(0, 72 - 320, 543); boundsInWindow: Rect(0, 0 - 0, 0); packageName: nl.davidengelen.redsquare.dev; className: android.widget.SeekBar; text: null; error: null; maxTextLength: -1; stateDescription: Zoom 100 percent; contentDescription: Full screen image 2 of 2; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_NEXT_AT_MOVEMENT_GRANULARITY, ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_SET_SELECTION, ACTION_SCROLL_FORWARD, ACTION_SET_PROGRESS, Zoom in]
+V/talkback: Mappers( 3421):    needsCaption=false
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+V/talkback: AccessibilityNodeFeedbackUtils( 3421):  getUnlabelledNodeDescription,   role="ROLE_SEEK_CONTROL"  
+V/talkback: TreeNodesDescription( 3421):       nodeStatusDescription: role=ROLE_SEEK_CONTROL, collapsedOrExpandedState=, stateDescriptionIsEmpty=false, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils( 3421):  getUnlabelledNodeDescription,   role="ROLE_SEEK_CONTROL"  
+V/talkback: SeekBarDescription( 3421):     shouldIgnoreDescription: (45765)  , isAccessibilityFocused=true, nodeLiveRegion=0
+V/talkback: TreeNodesDescription( 3421):       treeNodesDescription:   (45765), role=ROLE_SEEK_CONTROL, isContentDescriptionEmpty=false, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription( 3421):     getAppendedTreeDescription: (45765)    accessibilityNodeError=""  , treeDescription={Zoom 100 percent, Full screen image 2 of 2, Slider} ,  tooltip=""  
+V/talkback: TreeNodesDescription( 3421):   treeDescriptionWithLabel: , appendedTreeDescription={Zoom 100 percent, Full screen image 2 of 2, Slider}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription( 3421): aggregateNodeTreeDescription:  (45765), treeDescriptionWithLabel={Zoom 100 percent, Full screen image 2 of 2, Slider}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421):     nodeTreeDescription={Zoom 100 percent, Full screen image 2 of 2, Slider}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule( 3421):  viewAccessibilityFocused: (45765) , ttsOutput={Zoom 100 percent, Full screen image 2 of 2, Slider}, isInitialFocus=true, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Zoom 100 percent, Full screen image 2 of 2, Slider    queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820548  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806, failovers=[Part= speech= action=SPEAK  text="Zoom 100 percent, Full screen image 2 of 2, Slider"  options= earcons=[2131820548]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806 part=Part= speech= action=SPEAK  text="Zoom 100 percent, Full screen image 2 of 2, Slider"  options= earcons=[2131820548]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo( 3421): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo( 3421): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl( 3421): Queued speech item, waiting for "talkback_12"
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= speech= action=SPEAK  text="Zoom 100 percent, Full screen image 2 of 2, Slider"  options= earcons=[2131820548]  haptics=[2130903105]  queueMode=QUEUE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5040
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter( 3421): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=100531 allowEvent=true
+V/talkback: WindowEventInterpreter( 3421):  interpret() windowRoles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:
+V/talkback: WindowEventInterpreter( 3421):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={}
+V/talkback: WindowEventInterpreter( 3421):      windowId=10 { title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }
+V/talkback: WindowEventInterpreter( 3421):    updateWindowTitles() windowIdToData={10={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=10  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= 
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_12 bytes=5082
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=10, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=false roles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:10:Application icon
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421):  interpret() delayMs=0, interpretation=WindowIdFromEvent=10  WindowsStable  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=10  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=9  Title=""  TitleForFeedback="untitled"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421): END interpret()
+V/talkback: ScreenFeedbackManager( 3421): composeFeedback() interpretation=WindowIdFromEvent=10  WindowsStable  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=100531  
+V/talkback: ScreenFeedbackManager( 3421):   eventSourceWindow= ID=10  Title="Application icon"  titleFromStateChange="Application icon"  TitleForFeedback="Application icon"  OldID=9  OldTitle=""  
+V/talkback: ScreenFeedbackManager( 3421):   WindowA= ID=9  Title=""  TitleForFeedback="untitled"  OldID=9  OldTitle=""  
+V/talkback: ScreenFeedbackManager( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager( 3421):   AnchorNodeRole= 0
+V/talkback: ScreenFeedbackManager( 3421):   
+V/talkback: ScreenFeedbackManager( 3421): composeFeedback() Event source window
+V/talkback: ScreenFeedbackManager( 3421): feedback=
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3421):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3421):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3421): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:100531 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=100531  class="android.widget.FrameLayout"  package="nl.davidengelen.redsquare.dev.test"  text="text=[Application icon]"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule( 3421):  ttsOutputRule= windowStateChangedState,   role="ROLE_NONE"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils( 3421): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter( 3421): START interpret() event type=TYPE_WINDOWS_CHANGED time=101569 allowEvent=true
+V/talkback: WindowEventInterpreter( 3421):  interpret() windowRoles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:10:Application icon
+V/talkback: WindowEventInterpreter( 3421):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={10={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowTitles() windowIdToData={}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=9  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= 
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=0
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() Zero application windows case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:-1:null b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:null
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421):  interpret() delayMs=200, interpretation=WindowIdFromEvent=9  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=9  TitleForFeedback="untitled"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= TitleForFeedback="untitled"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101569 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3421):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3421):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101569, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101569 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3421): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101569, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101569 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_REMOVED  time=101569  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_LAYER  time=101570  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue
+E/AccessibilityService( 3421): bindInput must be paired with unbindInput.
+D/talkback: AutoScrollInterpreter( 3421): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101590  class="androidx.viewpager.widget.ViewPager"  package="com.google.android.apps.nexuslauncher"  description="At a glance"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:101590 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 101590; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: androidx.viewpager.widget.ViewPager; Text: []; ContentDescription: At a glance; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3421):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3421):    isFromScrollable=false
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=9  TitleForFeedback="untitled"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= TitleForFeedback="untitled"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=9, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:9:null
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=9  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=9  TitleForFeedback="untitled"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/A11yInputMethod( 3421): startInput(): editor=android.view.inputmethod.EditorInfo@892c4ef
+V/A11yInputMethod( 3421): CALL: doFinishInput
+V/A11yInputMethod( 3421): CALL: onFinishInput
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3421): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101652  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:101652 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 101652; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3421):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3421):    isFromScrollable=false
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter( 3421): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=101653 allowEvent=true
+V/talkback: WindowEventInterpreter( 3421):  interpret() windowRoles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:10:Application icon
+V/talkback: WindowEventInterpreter( 3421):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={}
+D/talkback: ClassLoadingCache( 3421): Failed to load class: com.google.android.apps.nexuslauncher.NexusLauncherActivity
+V/talkback: WindowEventInterpreter( 3421):      windowId=2 { title="Home screen 1 of 1"  titleFromWindowChange="Home screen 1 of 1"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }
+V/talkback: WindowEventInterpreter( 3421):    updateWindowTitles() windowIdToData={2={ title="Home screen 1 of 1"  titleFromWindowChange="Home screen 1 of 1"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=2  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=550  sourceBoundsInScreen= Rect(0, 0 - 320, 640)  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= 
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=2, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:2:Home
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421):  interpret() delayMs=200, interpretation=WindowIdFromEvent=2  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=200  sourceBoundsInScreen= Rect(0, 0 - 320, 640)  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=2  Title="Home"  titleFromStateChange="Home screen 1 of 1"  TitleForFeedback="Home"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  titleFromStateChange="Home screen 1 of 1"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3421):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3421):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3421): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101653 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101492, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101492 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: WindowEventInterpreter( 3421): Dropping window state changed event EventType: TYPE_WINDOW_STATE_CHANGED; EventTime: 101492; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: com.google.android.apps.nexuslauncher.NexusLauncherActivity; Text: [Home screen 1 of 1]; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: true; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 if the windowIdToData was handled before.
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter( 3421): START interpret() event type=TYPE_WINDOWS_CHANGED time=101704 allowEvent=true
+V/talkback: WindowEventInterpreter( 3421):  interpret() windowRoles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:10:Application icon
+V/talkback: WindowEventInterpreter( 3421):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={2={ title="Home screen 1 of 1"  titleFromWindowChange="Home screen 1 of 1"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }}
+V/talkback: WindowEventInterpreter( 3421):      windowId=2 { title="Home"  titleFromWindowChange="Home"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }
+V/talkback: WindowEventInterpreter( 3421):    updateWindowTitles() windowIdToData={2={ title="Home"  titleFromWindowChange="Home"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=2  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= 
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=2, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:2:Home
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421):  interpret() delayMs=200, interpretation=WindowIdFromEvent=2  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101704 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3421):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3421):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101704, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101704 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3421): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101704, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:101704 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101590  class="androidx.viewpager.widget.ViewPager"  package="com.google.android.apps.nexuslauncher"  description="At a glance"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421): windowContentChanged: (230611) , ttsOutput= {}, eventSrcRole=ROLE_PAGER, nodeRole=ROLE_PAGER, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101652  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421): windowContentChanged: (-2147455808) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=101653  class="com.google.android.apps.nexuslauncher.NexusLauncherActivity"  package="com.google.android.apps.nexuslauncher"  text="text=[Home screen 1 of 1]"  enabled  fullScreen  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule( 3421):  ttsOutputRule= windowStateChangedState,   role="ROLE_VIEW_GROUP"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils( 3421): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=101492  class="com.google.android.apps.nexuslauncher.NexusLauncherActivity"  package="com.google.android.apps.nexuslauncher"  text="text=[Home screen 1 of 1]"  enabled  fullScreen  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule( 3421):  ttsOutputRule= windowStateChangedState,   role="ROLE_VIEW_GROUP"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils( 3421): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_LAYER  time=101704  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ADDED  time=101704  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter( 3421): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=101351 allowEvent=true
+V/talkback: WindowEventInterpreter( 3421):  interpret() windowRoles=a:9: b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:10:Application icon
+V/talkback: WindowEventInterpreter( 3421):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={2={ title="Home"  titleFromWindowChange="Home"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }}
+D/talkback: ClassLoadingCache( 3421): Failed to load class: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):      windowId=11 { title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromWindowChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }
+V/talkback: WindowEventInterpreter( 3421):    updateWindowTitles() windowIdToData={2={ title="Home"  titleFromWindowChange="Home"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="com.google.android.apps.nexuslauncher"  }, 11={ title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromWindowChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev.test"  }}
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= 
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= 
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= 
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421):  interpret() delayMs=200, interpretation=WindowIdFromEvent=11  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers( 3421):    sourceBoundsInScreen=null
+V/talkback: Mappers( 3421):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline( 3421): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline( 3421): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors( 3421): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:101351 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline( 3421): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3421): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101966  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:101966 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 101966; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3421):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3421):    isFromScrollable=false
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=101351  class="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  package="nl.davidengelen.redsquare.dev.test"  text="text=[androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity]"  enabled  fullScreen  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule( 3421):  ttsOutputRule= windowStateChangedState,   role="ROLE_NONE"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils( 3421): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=101966  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421): windowContentChanged: (-2147455808) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: A11yEventProcessor( 3421): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter( 3421): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=102070  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers( 3421):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:102070 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 102070; PackageName: com.google.android.apps.nexuslauncher; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.widget.FrameLayout; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers( 3421):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers( 3421):    isFromScrollable=false
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+D/talkback: ProcessorEventQueue( 3421): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=102070  class="android.widget.FrameLayout"  package="com.google.android.apps.nexuslauncher"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3421): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3421): windowContentChanged: (-2147455808) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3421):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_DONE utteranceId=talkback_12
+V/talkback: FeedbackFragmentsIterator( 3421): next --currentFeedbackFragment text = Zoom 100 percent, Full screen image 2 of 2, Slider.
+V/talkback: FeedbackController( 3421): playAuditory() resId=2131820548 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806
+V/talkback: FeedbackController( 3421): playHaptic() resId=2130903105 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: SpeechControllerImpl( 3421): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl( 3421): Speaking fragment text="Zoom 100 percent, Full screen image 2 of 2, Slider", utteranceId=talkback_13, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:99806
+D/talkback: FailoverTextToSpeech( 3421): tts.speak, utteranceId =talkback_13
+D/talkback: FailoverTextToSpeech( 3421): Speak call for talkback_13 returned 0
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_START utteranceId=talkback_13
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=8192
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+I/talkback: FailoverTextToSpeech( 3421): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_13 bytes=5040
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() fromWindow : id=11, 
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter( 3421):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter( 3421):    detectWindowChanges()=true roles=a:2:Home b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:11:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity
+V/talkback: WindowEventInterpreter( 3421):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter( 3421): END delayedInterpret() interpretation=WindowIdFromEvent=11  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  eventStartTime=101569  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter( 3421):   eventSourceWindow= ID=11  Title="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  titleFromStateChange="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  TitleForFeedback="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"  OldID=10  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter( 3421):   WindowA= ID=2  Title="Home"  TitleForFeedback="Home"  OldID=9  OldTitle=""  
+V/talkback: WindowEventInterpreter( 3421):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter( 3421):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter( 3421):   
+V/talkback: WindowEventInterpreter( 3421):  delayedInterpret()

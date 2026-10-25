@@ -46,3 +46,9 @@ rectangles for48dp minimum, disjointness and display reachability, retaining the
 original threshold. Native motion recorded22 normal frames with3 intermediate
 blue fade frames, and6 zero-motion frames with no intermediate fade. The whole
 run remains failed and is retained as such; it is not complete acceptance.
+
+TalkBackde6 run40185754450 completes the full image-position/zoom utterances,
+reset and navigation, then exposes incorrect return focus: the service selects
+Wallet instead of the originating attachment. The return now waits for the real
+parent window to regain focus and permits the attachment to receive programmatic
+focus in touch exploration. The existing exact return-target assertion remains.

@@ -11,6 +11,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.platform.LocalWindowInfo
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,10 +42,11 @@ internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: (
     var selected by rememberSaveable(images) { mutableStateOf<Int?>(null) }
     val focus = remember(images) { images.map { FocusRequester() } }
     val scope = rememberCoroutineScope()
+    val window = LocalWindowInfo.current
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         images.forEachIndexed { index, source ->
             PostImage(source, backend, stringResource(R.string.image_position, index + 1, images.size),
-                Modifier.fillMaxWidth().height(previewHeight).focusRequester(focus[index]).clickable { selected = index })
+                Modifier.fillMaxWidth().height(previewHeight).focusRequester(focus[index]).focusProperties { canFocus = true }.clickable { selected = index })
             GifCredits(source, credits[source], onOpenSource)
             if (onRemove != null) TextButton(enabled = removalEnabled, onClick = { onRemove(index) }) {
                 Text(stringResource(R.string.image_remove, index + 1))
@@ -54,6 +58,7 @@ internal fun PostImages(images: List<String>, backend: SaitoBackend, onRemove: (
             selected = null
             scope.launch {
                 withFrameNanos { }
+                snapshotFlow { window.isWindowFocused }.first { it }
                 focus[index].requestFocus()
             }
         }
