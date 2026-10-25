@@ -57,6 +57,14 @@ def validate_viewer_evidence(target, validate_png):
     assert result['returnedToOrigin'] is True and result['physicalAudibility'] is False
     pid = str(result['serviceProcess'])
     assert pid.isdigit() and int(pid) > 0
+    navigation = (folder / 'origin-navigation-speech.txt').read_text()
+    assert completed(navigation, 'Image 1 of 2', pid)
+    assert any('content="Image 1 of 2"' in line and 'sourceAction=LOGICAL_NAVIGATION' in line
+               and 'inputMode=INPUT_MODE_KEYBOARD' in line for line in navigation.splitlines())
+    keyboard_steps = list(folder.glob('keyboard-step-*.txt'))
+    assert 1 <= len(keyboard_steps) <= 16
+    assert all(step.read_text().strip() == 'sent' for step in keyboard_steps)
+    assert ET.fromstring((folder / 'keyboard-tool-preferences.xml').read_bytes()).tag == 'map'
     for label in labels:
         data = json.loads((folder / (label + '-result.json')).read_text())
         assert data['actualAccessibilityFocus'] is True and str(data['serviceProcess']) == pid

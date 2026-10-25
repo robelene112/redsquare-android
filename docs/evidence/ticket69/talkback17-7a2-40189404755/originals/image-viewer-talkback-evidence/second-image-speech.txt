@@ -1,0 +1,79 @@
+--------- beginning of main
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+W/talkback: AccessibilityFocusActionHistory( 3166): node matches but timeDiff=630 not matches
+V/talkback: A11yEventProcessor( 3166): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+D/talkback: ProcessorEventQueue( 3166): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=125736  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3166): eventInterpretation= EVENT_UNKNOWN  
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_24 bytes=1190
+V/talkback: A11yEventProcessor( 3166): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: ProcessorEventQueue( 3166): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  time=128401  class="android.widget.FrameLayout"  package="com.android.systemui"  description="T-Mobile, signal full."  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3166): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  contentChangeType=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166): windowContentChanged: (443957) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3166):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsClearQueueGroup=5  ttsSkipDuplicate  
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_DONE utteranceId=talkback_24
+V/talkback: FeedbackFragmentsIterator( 3166): next --currentFeedbackFragment text = Zoom 100 percent, Full screen image 2 of 2, Slider.
+V/talkback: FeedbackController( 3166): playAuditory() resId=2131820548 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:125125
+V/talkback: FeedbackController( 3166): playHaptic() resId=2130903105 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:125125
+V/talkback: SpeechControllerImpl( 3166): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl( 3166): Speaking fragment text="Zoom 100 percent, Full screen image 2 of 2, Slider", utteranceId=talkback_25, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:125125
+D/talkback: FailoverTextToSpeech( 3166): tts.speak, utteranceId =talkback_25
+D/talkback: FailoverTextToSpeech( 3166): Speak call for talkback_25 returned 0
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_START utteranceId=talkback_25
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=6568
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+V/talkback: A11yEventProcessor( 3166): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: ProcessorEventQueue( 3166): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_TEXT  time=130768  class="android.widget.TextView"  package="com.android.systemui"  description="11:39 AM"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3166): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_TEXT  contentChangeType=CONTENT_CHANGE_TYPE_TEXT, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166): windowContentChanged: (63401) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3166):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsClearQueueGroup=5  ttsSkipDuplicate  
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+V/talkback: A11yEventProcessor( 3166): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: ProcessorEventQueue( 3166): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  time=130869  class="android.widget.TextView"  package="com.android.systemui"  description="11:40 AM"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor( 3166): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION  contentChangeType=CONTENT_CHANGE_TYPE_CONTENT_DESCRIPTION, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule( 3166): windowContentChanged: (63401) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider( 3166):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsClearQueueGroup=5  ttsSkipDuplicate  
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=7926
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=5040
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=8192
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_25 bytes=924
+I/talkback: FailoverTextToSpeech( 3166): REDSQUARE_ENGINE_DONE utteranceId=talkback_25
+V/talkback: SpeechControllerImpl( 3166): No next item, stopping speech queue
+D/talkback: Pipeline( 3166): execute() feedback=Feedback{eventId=null, failovers=[Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text=""Swipe up" or "Swipe down" to adjust, Actions available, use Action + Ctrl + M to view"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY,FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE    hint= null  hintSpeakOptions= null    ]}

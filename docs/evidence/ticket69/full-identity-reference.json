@@ -82,7 +82,7 @@
     "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
     "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
   },
-  "executingState": "Draft collector/catalog, no full execution dispatched.",
+  "executingState": "Prospectively frozen catalog and collectors; full execution not yet dispatched.",
   "activitySpeechTiming": {
     "path": "docs/evidence/ticket66/activity-speech-timing.json",
     "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
@@ -93,7 +93,7 @@
       "android17": 15000
     }
   },
-  "viewerCheckSha256": "0bdda8d9fa1b8654c5983ac138c005acc697f5b57949d70ee86b97e388bd5c66",
+  "viewerCheckSha256": "d2db848e79545442a518758d76199443cfac1f14ac92bfc5aaa081b885bab48e",
   "viewerSpeechTiming": {
     "imageContextCompletionMillis": 15000,
     "existingCallersCompletionMillis": 10000,

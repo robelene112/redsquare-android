@@ -2,100 +2,61 @@
 
 ## Active: issue69 only, then STOP
 
-Owner authorized one more issue on2026-10-25. Selected69, accessible fullscreen
+Owner authorized one further issue on2026-10-25. Selected69, accessible fullscreen
 images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
 No other issue is authorized. Protected untracked research file remains unread
-and untouched. Public beta66 is unchanged; signed candidate has not been built.
+and untouched. Public beta66 is unchanged; signed67 has not been reserved/built.
 
-Current production source0d9e7ca6f restores the attachment only after the real
-parent window regains focus and permits programmatic focus during touch exploration.
-Previous de64 fixed actual TalkBack image/zoom naming by using one unmerged
-semantic control. All current source-level review findings are resolved; native
-return focus is still pending. Uncommitted TalkBack test adds a5s native idle
-observation after Next before explicitly focusing the new image, because the
-Android17 service can automatically focus it during replacement. Original callers
-and all completed-speech/assertion requirements are preserved.
+Production: zoom/reset/pan alternatives, single/multiple image context, inset-aware
+responsive chrome,160ms image/credit fades respecting zero motion, original
+loading/retry/GIF attribution, modal keyboard confinement and origin restoration.
+Latest production change0d9 waits for the parent window to regain focus and permits
+programmatic thumbnail focus in touch mode. No later production changes.
 
-Focused viewer runs40186130296/40186131893 at711d02c4a both succeeded,
-including keyboard, native48dp viewport cells and normal/zero motion.
-TalkBack runs40186377832/40186379374 at0d9 both failed and are retained:
-10 restored Wallet despite actual input focus on the visible original thumbnail;
-17 initial automatic Wallet focus interrupted the direct origin focus/speech.
-Pinned TalkBack source explains that window restoration uses its own action history,
-not arbitrary external ACTION_ACCESSIBILITY_FOCUS events. The next scoped probe
-uses actual TalkBack Alt+Right navigation from completed initial Wallet speech to
-the attachment, retains that navigation log, then keeps every original completed
-speech and exact return-focus assertion. After Next, native idle bounds the
-automatic image focus transition. No production workaround or tool change added.
-Raw downloads are `/mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN`;
-require observer-result downloadExitCode0 before collection. Retain with
-`/tmp/redsquare69-retain-focused.py RUN LABEL` (refuses overwriting packets).
-Both56e TalkBack probes40187385983/40187388479 failed before opening the
-viewer: standard UiAutomation key injection skips Android's accessibility input
-filter (explicit AOSP UiAutomation documentation). API29 lacks the newer filter
-TestApi. The next test-only correction uses the guarded disposable emulator's
-virtual keyboard, selected by actual KEY_RIGHT/KEY_LEFTALT capabilities, via
-sendevent. An EXIT trap releases both keys even on failure.
-The47e probes40187963272/40187965283 discovered the keyboard correctly but
-failed at command dispatch: UiAutomation uses Runtime.exec and does not parse
-shell quotes. The corrected test writes an owned script (the same established
-seam as NativeMotionEvidence), retains each command output and runs it directly. Native service focus,
-completed speech and exact return-focus assertions remain required.
+All focused viewer observations are green:
+- Keyboard/viewport/motion10:40186130296 at711d02c4a.
+- Keyboard/viewport/motion17:40186131893 at711d02c4a.
+- TalkBack10:40189402929 at7a2f213c9e95e57166dce632a74956216e58b7ed.
+- TalkBack17:40189404755 at the same7a2 source.
+Each original packet is under docs/evidence/ticket69; all hashes verified.
+Viewport covers six320dp portrait light/dark100/130/200% cells and two actual
+landscape200% cells, with seven disjoint native targets at least48dp. Rendered
+portraits/landscapes inspected; normal motion has intermediate frames and system
+zero-motion has none. Actual pinch and pan-menu actions pass. TalkBack completes
+image-position/zoom speech and returns to the exact original thumbnail. Android17
+returned-focus.png independently inspected, green outline on Image1of2.
 
-The29c probes40188440066/40188441954 successfully delivered actual hardware
-Alt/Right down/up events to TalkBack (retained service log), but no navigation.
-Pinned FeatureFlagReader.enableNewKeymap is true and NewKeyComboModel uses Meta,
-not the legacy DefaultKeyComboModel's Alt. The observer now sends Meta+Right and
-retains actual public tool preferences. No service configuration or source changed.
+The TalkBack return diagnosis exposed observer issues, not missing app history:
+external ACTION_ACCESSIBILITY_FOCUS bypasses TalkBack's own focus-history record.
+UiAutomation key injection also skips the accessibility input filter. The new
+viewer test uses actual guarded emulator keyboard events, through an owned shell
+script with independent key-release cleanup. Pinned TalkBack's enhanced keymap
+uses Meta+Right. It records actual service-owned navigation and completed speech,
+then opens the viewer. captureFocusedSpeech extracts the unchanged observer half
+of focusAndHear to record existing speech without duplicate refocus. All existing
+callers keep identical actions/assertions/deadlines. No TalkBack/tool patch changed.
+Failed diagnostic runs remain explicitly retained, never assembled as acceptance.
 
-Thefb8 probe10 reached the exact attachment through service-owned logical
-navigation and completed its spoken label. A redundant direct focusAndHear then
-requested the same label again; the service suppressed duplicate feedback. The
-shared observer now exposes its existing focus/speech/capture half separately,
-so origin observation records actual already-completed navigation speech without
-artificial refocus. Existing focusAndHear callers delegate with identical waits,
-assertions and evidence output. Exact close-return acceptance is unchanged.
+Draft full catalog:536/537 identities,170/171 normal completions,131 archives,
+unchanged35 intentional interruptions/34 continuity records, and the sole inherited
+API29 Profile assumption. All previous66 gates/tool pins are retained. Viewer
+validator additionally requires actual origin service navigation and completed
+speech. Draft validator passes both SDK focused observations diagnostically;
+these differing focused sources do not constitute complete acceptance.
 
-No full execution has been dispatched; no signed version has been reserved.
+Next: finish paired pre-freeze review, freeze catalog/collectors prospectively,
+record freezecommit, then dispatch complete Android10/17 at the same final source.
+No full execution dispatched yet. Collect only whole successful3-partition runs
+with frozen full-collector.py. Inspect original renders and finish paired reviews.
+Then canonical signed in-place beta67 (counter66), public preservation checks,
+close69/check only69 on55 and STOP. No other issue or owner/provider/store work.
 
-Issue69 source includes compact zoom/reset/movement controls, bounded transforms,
-image-position context, keyboard focus restoration, responsive inset-aware chrome
-and160ms image/credit fades. Android10 targeted acceptance covers keyboard,
-all6 portrait theme/font cells plus2 real landscape cells, actual48dp disjoint
-native targets, pinch/menu movement and native normal/zero motion. Original
-font200 dark portrait and light landscape images inspected and readable.
-
-Retained predecessors describe actual outcomes:
-- RED40183253293 proves missing Zoom out.
-- 2e4 viewer40184158249/40184160059: incorrect global Compose focus uniqueness;
-  fixed exact Dialog focus plus native parent-window focus exclusion.
-- 2e4 TalkBack40184161840: helper focused descriptive child beneath SeekBar.
-- 09a viewer40185016086/40185017930: all app assertions passed, screenshot
-  predicate incorrectly sought text instead of content description; fixed.
-- 09a TalkBack40185020237: actual adjustable parent lacked image-position name;
-  de64 fixes semantics. Full completed speech remains mandatory.
-- 9f viewer40185580828/40185582513: keyboard and native motion PASS, viewport
-  measured painted40dp instead of native48dp. Corrected native geometry observer
-  retains threshold and adds disjointness/display bounds. Both failures retained.
-- de64 TalkBack1040185754450: completed contextual speech, then wrong return
-  focus on Wallet. Current0d9 corrects touch-mode/native-window return.
-- de64 TalkBack1740185756246: second image was automatically focused and speaking
-  correct context while explicit focus action returned false. Bounded idle fix
-  is prepared for the new observation; do not weaken speech/focus acceptance.
-
-Four additive native methods are in the draft ticket69 catalog: expected536/537
-identities,170/171 completions,131 archives, unchanged35 interruptions and34
-continuity records. Collector and viewer-check preserve all accepted66 gates.
-Both reviewers approved the draft, but catalogFreezeCommit remains PENDING.
-After focused evidence inspection: freeze catalog/validators prospectively, then
-run complete Android10/17, validate both whole executions and inspect originals.
-
-Finish with paired source/native review, canonical signed in-place beta67 (next
-version counter currently66) and public verification; close69/check child69 on55,
-commit/push final handoff and STOP. External review-worktree is clean atoldcdd.
-Helpers prepared `/tmp/redsquare69-prepare67.py`, `/tmp/redsquare69-public-check.py`
-and `/tmp/redsquare69-retain-public.py`; no release code reserved yet. Verify actual
-version/source before use. They preserve26 previous resources and withheld61.
+Raw downloads: /mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN.
+Helpers /tmp/redsquare69-watch.py and /tmp/redsquare69-retain-focused.py retain
+terminal whole artifacts and refuse overwrite. Publication helpers:
+/tmp/redsquare69-prepare67.py, /tmp/redsquare69-public-check.py,
+/tmp/redsquare69-retain-public.py. Verify source/version before use. Preserve26
+historical public resources and withheld61 URLs. review-worktree is clean, counter66.
 
 ## Issue66 delivered: STOP until a new owner request
 
