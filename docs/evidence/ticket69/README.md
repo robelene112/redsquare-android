@@ -31,3 +31,10 @@ capture predicate: it looked for image-position text instead of the attachment's
 content description. The capture now verifies that native description; no
 application assertion or deadline changes. The three new viewer classes retain
 independent results even if one fails; any failure still rejects the whole run.
+
+TalkBack09a exposed a genuine native naming split: the adjustable parent spoke
+only "Zoom 150 percent, Slider", while Compose exposed the image position as a
+separate descriptive child. The viewer now uses one unmerged semantic control
+for image context, zoom state and actions. The actual completed-speech requirement
+still demands both position and zoom. Returning zoom to1 also resets offset
+exactly to zero. Neither correction changes network/media decoding behavior.

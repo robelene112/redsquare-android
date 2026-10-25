@@ -69,7 +69,7 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                         }
                         fun zoom(value: Float) {
                             scale = value.coerceIn(1f, 5f)
-                            move(Offset.Zero)
+                            if (scale == 1f) offset = Offset.Zero else move(Offset.Zero)
                         }
                         fun reset() { scale = 1f; offset = Offset.Zero }
                         val transform = rememberTransformableState { factor, pan, _ -> zoom(scale * factor); move(pan) }
@@ -92,7 +92,7 @@ internal fun ImageViewer(images: List<String>, initialIndex: Int, backend: Saito
                         Box(Modifier.weight(1f).fillMaxWidth().clipToBounds()
                             .onSizeChanged { size = it; move(Offset.Zero) }
                             .then(if (focused) Modifier.border(2.dp, MaterialTheme.colorScheme.primary) else Modifier)
-                            .semantics(mergeDescendants = true) {
+                            .semantics {
                                 contentDescription = description
                                 stateDescription = zoomDescription
                                 role = Role.Image

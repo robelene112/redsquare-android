@@ -191,6 +191,10 @@ PREFS
     adb shell settings put secure enabled_accessibility_services \
         com.android.talkback/com.google.android.marvin.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
+    if [[ "${TEST_SCOPE:-full}" == status-talkback-viewer* ]]; then
+        verify_group_chat_native TalkBackImageViewerPreviewTest 180 image-viewer-talkback image-viewer-talkback-evidence
+        exit
+    fi
     status_exit=0
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.TalkBackStatusPreviewTest \

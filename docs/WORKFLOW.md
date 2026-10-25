@@ -134,7 +134,10 @@ complete first-release scope and the established production boundaries.
    and focus return. ImageViewerMotionTest adds real pinch/menu movement and
    actual display recordings under normal/zero motion, also180s in full Social.
    TalkBackImageViewerPreviewTest extends pinned actual speech
-   observation in Chat with its own180s bound; new long image descriptions allow
+   observation in Chat with its own180s bound; `status-talkback-viewer` and its
+   Android17 variant isolate only that new class during iteration, with the same
+   pinned service setup and restoration. Full Chat retains every original class.
+   New long image descriptions allow
    15s completed speech, while prior callers retain their original bounds.
    Search65 adds SearchEntryPreviewTest to the existing `search` and Android17
    scopes, with its own180second class bound after the unchanged original Search
