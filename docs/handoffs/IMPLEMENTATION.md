@@ -1,5 +1,14 @@
 # Implementation handoff
 
+## Active: issue69 only, then STOP
+
+Owner authorized one more issue on2026-10-25. Selected69, accessible fullscreen
+images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
+Use existing native UI/controlled media and actual TalkBack seams. Preserve all
+existing accepted identities, recovery and timing. Protected research file stays
+unread/untouched. Public beta66 stays unchanged until reviewed delivery.
+
+
 ## Issue66 delivered: STOP until a new owner request
 
 The owner authorized exactly one issue. Issue66 is complete and beta66 is
