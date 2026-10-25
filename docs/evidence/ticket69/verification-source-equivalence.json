@@ -262,8 +262,12 @@
     }
   ],
   "productionUnchanged": true,
-  "verificationPending": true,
+  "verificationPending": false,
   "preparedVersion": 67,
   "preparedSha256": "64f2b6d1934e5cc8c8c9b59423a5a6933ee4980171846da402346c0ef3ad0d7c",
-  "basis": "Only instrumentation observation and documentation changed. Keep original APK provenance. WORKFLOW permits outstanding SDK full rerun when the other SDK passed and production is unchanged."
+  "basis": "Only instrumentation observation and documentation changed. Keep original APK provenance. WORKFLOW permits outstanding SDK full rerun when the other SDK passed and production is unchanged.",
+  "acceptedFullRuns": {
+    "android10": 40189989884,
+    "android17": 40194163662
+  }
 }

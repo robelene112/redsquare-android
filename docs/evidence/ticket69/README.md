@@ -1,8 +1,9 @@
 # Accessible fullscreen images69
 
 Review base: b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
-Full executing source:57a6a27bfab543a26cb53cf563a28ee1536353a2.
-Complete regression and signed delivery are pending. Public beta66 is unchanged.
+Signed production source:57a6a27bfab543a26cb53cf563a28ee1536353a2.
+Complete regression is accepted on Android10 and17. Signed beta67 is publicly
+available at https://davidengelen.nl/redsquare/ as an in-place update.
 
 The viewer adds zoom in/out/reset and a movement menu, semantic adjustment
 and pan actions, meaningful image-position/zoom context, responsive themed chrome
@@ -67,8 +68,37 @@ All accepted66 identities, public reads, recovery checks and tool pins remain.
 The viewer validator additionally checks service-owned origin navigation and
 completed speech. It was exercised against focused captures before full dispatch.
 
-Complete runs40189989884/40189991513 are pending at the same57a source. All three
-partitions on each SDK must succeed before full acceptance. Signed67 is building
-at that exact source and must pass release/public preservation checks before use.
+Complete Android10 run40189989884 at57a succeeds with535 passes and the sole
+inherited Profile assumption,536 exact identities,170 normal completions and
+2538 packet hashes. Complete Android17 replacement run40194163662 at8ae succeeds
+with537 passes/no assumptions,537 exact identities,171 normal completions and
+2606 packet hashes. Both have131 archives,35 intentional interruptions and34
+continuity records. Every partition succeeded and both unchanged frozen collectors
+pass. All packet hashes were independently checked. Original light/dark portrait
+and landscape200% renders, plus actual TalkBack return outlines, were inspected.
+
+Initial full17 run40189991513 remains failed and is excluded from acceptance.
+Its new second-image observer cleared an already-started automatic utterance's
+request/START, retaining only AUDIO/DONE. Correction8ae clears before Next and
+observes fresh automatic speech if the exact image already holds accessibility
+focus; otherwise it makes the original explicit request. All existing assertions
+and15s completion remain. Corrected focused runs40193626428/40193627883 succeeded
+before the complete Android17 replacement. No failed partitions are combined.
+
+WORKFLOW permits rerunning only the outstanding SDK after a fixture correction.
+`verification-source-equivalence.json` records identical production/build inputs
+between57a and8ae. Immutable signed67 keeps its truthful57a provenance and hash;
+only the verification commit differs. Prepared APK is38332627 bytes with SHA256
+64f2b6d1934e5cc8c8c9b59423a5a6933ee4980171846da402346c0ef3ad0d7c and the established
+signing certificate. Canonical publication completed successfully. Independent
+HTTPS before/after checks verify the exact APK, package, certificate and manifest.
+All26 protected historical resources remain byte-identical and both withheld61
+URLs remain404. See signed67-prepared and signed67-public; the public packet has
+42 independently checked hashes. No APK or signing material is committed.
+
+Paired final native reviews report Spec0 and Standards0 findings. Reviewers
+independently checked both full packets, frozen references and production/source
+equivalence. Public delivery review is recorded in the completion ticket comment.
+
 Owner prerequisites remain parked in issue36 and OWNER_INPUTS.md; this delivery
 does not claim provider configuration, store acceptance or physical-device proof.

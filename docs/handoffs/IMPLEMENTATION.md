@@ -1,92 +1,51 @@
 # Implementation handoff
 
-## Active: issue69 only, then STOP
+## Issue69 delivered as beta67: STOP
 
-Owner authorized one further issue on2026-10-25. Selected69, accessible fullscreen
-images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
-No other issue is authorized. Protected untracked research file remains unread
-and untouched. Public beta66 is unchanged; signed67 is built and verified at exact57a full source; not published.
+The owner authorized exactly one issue on 2026-10-25. Issue69 is implemented,
+verified and delivered as signed beta67. Do not start another issue without a new
+owner request. Protected untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md`
+remains unread and untouched. Review base: b7ec3c979e4187b7ab3a690a64962c9a0d7fa222.
 
-Production: zoom/reset/pan alternatives, single/multiple image context, inset-aware
-responsive chrome,160ms image/credit fades respecting zero motion, original
-loading/retry/GIF attribution, modal keyboard confinement and origin restoration.
-Latest production change0d9 waits for the parent window to regain focus and permits
-programmatic thumbnail focus in touch mode. No later production changes.
+Fullscreen images now provide accessible zoom/reset and movement controls,
+image-position/zoom context, themed inset-aware portrait/landscape chrome,
+large-text reachability and keyboard/TalkBack return to the original attachment.
+Pinch/pan, decoding/retry and GIF attribution remain. Motion respects system scale.
 
-All focused viewer observations are green:
-- Keyboard/viewport/motion10:40186130296 at711d02c4a.
-- Keyboard/viewport/motion17:40186131893 at711d02c4a.
-- TalkBack10:40189402929 at7a2f213c9e95e57166dce632a74956216e58b7ed.
-- TalkBack17:40189404755 at the same7a2 source.
-Each original packet is under docs/evidence/ticket69; all hashes verified.
-Viewport covers six320dp portrait light/dark100/130/200% cells and two actual
-landscape200% cells, with seven disjoint native targets at least48dp. Rendered
-portraits/landscapes inspected; normal motion has intermediate frames and system
-zero-motion has none. Actual pinch and pan-menu actions pass. TalkBack completes
-image-position/zoom speech and returns to the exact original thumbnail. Android17
-returned-focus.png independently inspected, green outline on Image1of2.
+Complete Android10 run40189989884 at57a6a27bf succeeded:535 passes plus the sole
+inherited Profile assumption,536 identities,170 normal completions. Complete
+Android17 replacement40194163662 at8ae47328a succeeded:537 passes/no assumptions,
+537 identities,171 normal completions. Each has three successful partitions,
+131 archives,35 intentional interruptions and34 continuity records. Both unchanged
+collectors from prospective freeze39aa5793 pass; all2538/2606 packet hashes checked.
+Original large-text portrait/landscape and actual TalkBack return captures inspected.
+Paired final native review: Spec0, Standards0, no unresolved findings.
 
-The TalkBack return diagnosis exposed observer issues, not missing app history:
-external ACTION_ACCESSIBILITY_FOCUS bypasses TalkBack's own focus-history record.
-UiAutomation key injection also skips the accessibility input filter. The new
-viewer test uses actual guarded emulator keyboard events, through an owned shell
-script with independent key-release cleanup. Pinned TalkBack's enhanced keymap
-uses Meta+Right. It records actual service-owned navigation and completed speech,
-then opens the viewer. captureFocusedSpeech extracts the unchanged observer half
-of focusAndHear to record existing speech without duplicate refocus. All existing
-callers keep identical actions/assertions/deadlines. No TalkBack/tool patch changed.
-Failed diagnostic runs remain explicitly retained, never assembled as acceptance.
+The failed Android17 predecessor40189991513 remains recorded as failed. Correction
+8ae only preserves fresh automatic second-image speech in the instrumentation
+observer. It changes no app code, acceptance assertion or deadline. WORKFLOW's
+fixture-only rerun rule preserves the complete Android10 result. Recorded production/
+build-input equivalence supports the existing immutable beta67 APK with truthful
+57a6a27bfab543a26cb53cf563a28ee1536353a2 provenance. No failed partitions were mixed.
 
-Draft full catalog:536/537 identities,170/171 normal completions,131 archives,
-unchanged35 intentional interruptions/34 continuity records, and the sole inherited
-API29 Profile assumption. All previous66 gates/tool pins are retained. Viewer
-validator additionally requires actual origin service navigation and completed
-speech. Draft validator passes both SDK focused observations diagnostically;
-these differing focused sources do not constitute complete acceptance.
+Beta67 is live at https://davidengelen.nl/redsquare/ as an in-place update.
+APK:38332627 bytes; SHA256
+64f2b6d1934e5cc8c8c9b59423a5a6933ee4980171846da402346c0ef3ad0d7c.
+The established certificate, package, min29/target36 and nondebug release settings
+are verified. Canonical publication exited0. Independent public before/after checks
+match the held APK and preserve26 historical resources plus withheld61 URLs404.
+Publication packet has42 verified hashes; no APK or signing material is committed.
+Version67 is reserved and published: never rebuild or replace it.
 
-Paired pre-freeze review: Spec0, Standards0. Catalog/collectors frozen in
-39aa5793ecdaaa29059e9aed4f340ffac89926ed before full execution.
-Full source57a6a27bfab543a26cb53cf563a28ee1536353a2:
-- Android10 run40189989884, label full10-57a.
-- Android17 run40189991513, label full17-57a.
-Watcher session83459 retains each whole terminal download. Android17 failed
-only in new second-image TalkBack observation; social/wallet passed. Raw full run
-and scoped native originals retained as full17-57a-40189991513, not accepted.
-The log was cleared after automatic image2 speech had started, leaving AUDIO/DONE
-without its request/START. New test-only correction clears before Next and captures
-fresh automatic speech when the exact native control is already focused; otherwise
-it retains explicit focusAndHear. Same15s/zoom/return assertions. Full10 completed SUCCESS40189989884 at57a, all3 partitions. Frozen collection
-is running. WORKFLOW.md:307 explicitly permits fixture-only correction to rerun
-only the outstanding SDK when production is unchanged. Reviewers agree; recorded
-source equivalence proves only test/docs differ, preserving immutable signed67.
-New focused runs40193626428/40193627883 at8ae47328ad92a499a99b1af44d46cbe150e1becc
-both completed SUCCESS, retained packets and actual completed speech preserved.
-Full17 replacement40194163662 now runs at8ae (watcher88660). Full10 frozen collector passed535+1,536 identities,170 normal
-completions,35 interruptions,34 continuity records,131 archives. All2538 packet
-hashes checked; independent Spec review0 findings. Prepared67/public BEFORE pass.
-No further implementation changes are pending; await full17 then collect/review,
-publish held beta67, verify public preservation, close69/check only69 on55 and STOP.
-Next: focused confirmation, then fresh complete runs at the same corrected source.
-Frozen collector/catalog unchanged. Prepared67 app/build inputs are unchanged;
-paired review is assessing retention through explicit source-tree equivalence.
-Signed67 built successfully in4m45s in clean review-worktree at57a, log
-/mnt/storage/redsquare-android-artifacts/viewer69-signed67-build.log.
-Prepared APK checks pass: version67,38332627 bytes,
-SHA25664f2b6d1934e5cc8c8c9b59423a5a6933ee4980171846da402346c0ef3ad0d7c,
-established certificate, min29/target36, nondebug/nonprofile, backup disabled.
-Review=true; provider flags remain unconfigured. Public BEFORE check passed
-(session71489), immutable version67 reserved. Do not rebuild it or publish until
-whole full acceptance and paired review. Collect only whole successful3-partition runs
-with frozen full-collector.py. Inspect original renders and finish paired reviews.
-Then verify/publish canonical signed in-place beta67, public preservation checks,
-close69/check only69 on55 and STOP. No other issue or owner/provider/store work.
+Evidence and diagnosis: docs/evidence/ticket69/README.md, full10-57a-40189989884,
+full17-8ae-40194163662, verification-source-equivalence.json, signed67-prepared
+and signed67-public. Actual builds/downloads remain under
+/mnt/storage/redsquare-android-artifacts. Owner/provider/physical/store prerequisites
+remain in OWNER_INPUTS.md and issue36; no new setup is required for issue69.
 
-Raw downloads: /mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN.
-Helpers /tmp/redsquare69-watch.py and /tmp/redsquare69-retain-focused.py retain
-terminal whole artifacts and refuse overwrite. Publication helpers:
-/tmp/redsquare69-prepare67.py, /tmp/redsquare69-public-check.py,
-/tmp/redsquare69-retain-public.py. Verify source/version before use. Preserve26
-historical public resources and withheld61 URLs. review-worktree is detached at57a;67 is reserved, never reuse or rebuild that version.
+GitHub issue69 is CLOSED and only its child checkbox in55 is checked.
+Parents55/1 and release36 remain open. Final publication reviews: Spec0 and
+Standards0. Stop now. No next issue is authorized.
 
 ## Issue66 delivered: STOP until a new owner request
 
