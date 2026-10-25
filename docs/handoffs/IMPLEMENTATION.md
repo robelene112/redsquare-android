@@ -42,6 +42,12 @@ shell quotes. The corrected test writes an owned script (the same established
 seam as NativeMotionEvidence), retains each command output and runs it directly. Native service focus,
 completed speech and exact return-focus assertions remain required.
 
+The29c probes40188440066/40188441954 successfully delivered actual hardware
+Alt/Right down/up events to TalkBack (retained service log), but no navigation.
+Pinned FeatureFlagReader.enableNewKeymap is true and NewKeyComboModel uses Meta,
+not the legacy DefaultKeyComboModel's Alt. The observer now sends Meta+Right and
+retains actual public tool preferences. No service configuration or source changed.
+
 No full execution has been dispatched; no signed version has been reserved.
 
 Issue69 source includes compact zoom/reset/movement controls, bounded transforms,

@@ -24,20 +24,22 @@ class TalkBackImageViewerPreviewTest {
                 click(automation, "Later")
                 // TalkBack restores its own navigation history when a modal window closes.
                 // Direct ACTION_ACCESSIBILITY_FOCUS bypasses that history. Reach the
-                // attachment with the pinned service's actual Alt+Right navigation.
+                // attachment with the pinned service's actual Meta+Right navigation (NewKeyComboModel).
                 waitFor(10_000) { focusedText(automation) == "Wallet" && completedFragments(device, "Wallet").isNotEmpty() }
                 device.executeShellCommand("logcat -c")
                 // UiAutomation key injection skips Android's accessibility input filter.
                 // Feed the disposable emulator's real virtual keyboard instead; the
                 // observation guard excludes physical devices and the ordinary app.
+                File(folder, "keyboard-tool-preferences.xml").writeText(device.executeShellCommand(
+                    "run-as com.android.talkback cat /data/user_de/0/com.android.talkback/shared_prefs/com.android.talkback_preferences.xml"))
                 val inputDevices = device.executeShellCommand("su 0 getevent -lp")
                 File(folder, "keyboard-devices.txt").writeText(inputDevices)
                 val keyboard = inputDevices.split(Regex("(?=add device )")).first {
-                    it.contains("KEY_RIGHT") && it.contains("KEY_LEFTALT")
+                    it.contains("KEY_RIGHT") && it.contains("KEY_LEFTMETA")
                 }.let { requireNotNull(Regex("add device [0-9]+: (/dev/input/event[0-9]+)").find(it)).groupValues[1] }
-                val next = listOf("1 56 1", "0 0 0", "1 106 1", "0 0 0", "1 106 0", "0 0 0", "1 56 0", "0 0 0")
+                val next = listOf("1 125 1", "0 0 0", "1 106 1", "0 0 0", "1 106 0", "0 0 0", "1 125 0", "0 0 0")
                     .joinToString(" && ") { "sendevent $keyboard $it" }
-                val release = "sendevent $keyboard 1 106 0; sendevent $keyboard 1 56 0; sendevent $keyboard 0 0 0"
+                val release = "sendevent $keyboard 1 106 0; sendevent $keyboard 1 125 0; sendevent $keyboard 0 0 0"
                 val script = File(folder, "keyboard-next.sh").apply {
                     // UiAutomation starts a process directly; it does not parse shell quotes.
                     writeText("exec 2>&1\ntrap '$release' EXIT\n$next && echo sent\n")
