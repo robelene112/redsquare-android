@@ -7,28 +7,55 @@ images; blocker58 is closed. Review base b7ec3c979e4187b7ab3a690a64962c9a0d7fa22
 No other issue is authorized. Protected untracked research file remains unread
 and untouched. Public beta66 is unchanged; signed candidate has not been built.
 
-Source09a2ebf8f535a091290926b0126bb511400c7222 adds coherent zoom/reset/movement,
-image position, bounded transforms, keyboard return focus, inset-aware responsive
-chrome, 160ms image/credit fade and preserved media/GIF pipeline. Paired source
-review0/0 after fixing absent replacement motion and duplicated movement data.
+Current production source0d9e7ca6f restores the attachment only after the real
+parent window regains focus and permits programmatic focus during touch exploration.
+Previous de64 fixed actual TalkBack image/zoom naming by using one unmerged
+semantic control. All current source-level review findings are resolved; native
+return focus is still pending. Uncommitted TalkBack test adds a5s native idle
+observation after Next before explicitly focusing the new image, because the
+Android17 service can automatically focus it during replacement. Original callers
+and all completed-speech/assertion requirements are preserved.
 
-Focused replacements at09a are running:
-- Android10 viewer40185016086
-- Android17 viewer40185017930
-- Actual pinned TalkBack1040185020237
-Watcher session73150 runs `/tmp/redsquare69-watch.py`, downloads each terminal
-run to `/mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN` and records
-downloadExitCode. Retain with `/tmp/redsquare69-retain-focused.py RUN LABEL`.
-Labels: focused10-09a, focused17-09a, talkback10-09a. Review original artifacts.
+Focused viewer runs40186130296/40186131893 at711d02c4a both succeeded,
+including keyboard, native48dp viewport cells and normal/zero motion.
+TalkBack runs40186377832/40186379374 at0d9 both failed and are retained:
+10 restored Wallet despite actual input focus on the visible original thumbnail;
+17 initial automatic Wallet focus interrupted the direct origin focus/speech.
+Pinned TalkBack source explains that window restoration uses its own action history,
+not arbitrary external ACTION_ACCESSIBILITY_FOCUS events. The next scoped probe
+uses actual TalkBack Alt+Right navigation from completed initial Wallet speech to
+the attachment, retains that navigation log, then keeps every original completed
+speech and exact return-focus assertion. After Next, native idle bounds the
+automatic image focus transition. No production workaround or tool change added.
+Raw downloads are `/mnt/storage/redsquare-android-artifacts/viewer69-LABEL-RUN`;
+require observer-result downloadExitCode0 before collection. Retain with
+`/tmp/redsquare69-retain-focused.py RUN LABEL` (refuses overwriting packets).
+No full execution has been dispatched; no signed version has been reserved.
 
-Native RED40183253293 proved missing Zoom out. Prior2e4 focused10/17 failed a
-new global Compose focus uniqueness assertion, which counted the inactive parent
-thumbnail as well as the modal control. The replacement requires exactlyone
-focused Dialog node and actual parent window without keyboard focus. Prior2e4
-TalkBack completed labels/48dp bounds but targeted the fake descriptive child
-below the SeekBar; the new non-clickable path now selects the native focusable
-parent while preserving every original caller's defaults. Failure packets retained.
-No full execution accepted or dispatched yet.
+Issue69 source includes compact zoom/reset/movement controls, bounded transforms,
+image-position context, keyboard focus restoration, responsive inset-aware chrome
+and160ms image/credit fades. Android10 targeted acceptance covers keyboard,
+all6 portrait theme/font cells plus2 real landscape cells, actual48dp disjoint
+native targets, pinch/menu movement and native normal/zero motion. Original
+font200 dark portrait and light landscape images inspected and readable.
+
+Retained predecessors describe actual outcomes:
+- RED40183253293 proves missing Zoom out.
+- 2e4 viewer40184158249/40184160059: incorrect global Compose focus uniqueness;
+  fixed exact Dialog focus plus native parent-window focus exclusion.
+- 2e4 TalkBack40184161840: helper focused descriptive child beneath SeekBar.
+- 09a viewer40185016086/40185017930: all app assertions passed, screenshot
+  predicate incorrectly sought text instead of content description; fixed.
+- 09a TalkBack40185020237: actual adjustable parent lacked image-position name;
+  de64 fixes semantics. Full completed speech remains mandatory.
+- 9f viewer40185580828/40185582513: keyboard and native motion PASS, viewport
+  measured painted40dp instead of native48dp. Corrected native geometry observer
+  retains threshold and adds disjointness/display bounds. Both failures retained.
+- de64 TalkBack1040185754450: completed contextual speech, then wrong return
+  focus on Wallet. Current0d9 corrects touch-mode/native-window return.
+- de64 TalkBack1740185756246: second image was automatically focused and speaking
+  correct context while explicit focus action returned false. Bounded idle fix
+  is prepared for the new observation; do not weaken speech/focus acceptance.
 
 Four additive native methods are in the draft ticket69 catalog: expected536/537
 identities,170/171 completions,131 archives, unchanged35 interruptions and34

@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.graphics.Rect
+import android.view.KeyEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
@@ -22,6 +23,30 @@ class TalkBackImageViewerPreviewTest {
             withAppFrameFixture("viewer-talkback", "image-viewer-talkback-evidence", "[${fixture.getAsJsonObject("ordinary")}]") {
                 check(device.wait(Until.hasObject(By.text("Later")), 15_000))
                 click(automation, "Later")
+                // TalkBack restores its own navigation history when a modal window closes.
+                // Direct ACTION_ACCESSIBILITY_FOCUS bypasses that history. Reach the
+                // attachment with the pinned service's actual Alt+Right navigation.
+                waitFor(10_000) { focusedText(automation) == "Wallet" && completedFragments(device, "Wallet").isNotEmpty() }
+                device.executeShellCommand("logcat -c")
+                var reachedOrigin = false
+                for (step in 0 until 16) {
+                    val previous = appRoots(automation).firstNotNullOfOrNull {
+                        it.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)
+                    }
+                    check(device.pressKeyCode(KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.META_ALT_ON))
+                    waitFor(5_000) {
+                        appRoots(automation).any { root ->
+                            root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.let { it != previous } == true
+                        }
+                    }
+                    reachedOrigin = appRoots(automation).any { root ->
+                        root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.contentDescription?.toString() == "Image 1 of 2"
+                    }
+                    if (reachedOrigin) break
+                }
+                assertTrue("TalkBack navigation reaches the original attachment", reachedOrigin)
+                waitFor(10_000) { completedFragments(device, "Image 1 of 2").isNotEmpty() }
+                File(folder, "origin-navigation-speech.txt").writeText(speechLog(device))
                 focusAndHear("origin", "Image 1 of 2", folder)
                 assertTrue(actionNode("Image 1 of 2").performAction(AccessibilityNodeInfo.ACTION_CLICK))
                 check(device.wait(Until.hasObject(By.text("Close image")), 10_000))
@@ -43,6 +68,9 @@ class TalkBackImageViewerPreviewTest {
                 check(device.wait(Until.hasObject(By.text("100%")), 5_000))
                 click(automation, "Next image")
                 check(device.wait(Until.hasObject(By.text("Image 2 of 2")), 5_000))
+                // Let the platform finish its automatic focus transfer before an explicit
+                // focus-and-speech observation of the newly created image control.
+                device.waitForIdle(5_000)
                 focusAndHear("second-image", "Full screen image 2 of 2", folder,
                     completionTimeoutMillis = 15_000, requireClickAction = false)
                 assertTrue(completedFragments(device, "Zoom 100 percent").isNotEmpty())
