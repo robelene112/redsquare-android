@@ -14,7 +14,9 @@ that sequence. Use a fresh session per ticket when practical. Ralph is not used.
 On2026-10-22 the owner paused development to limit token usage and then
 explicitly resumed #65. Each authorization now covers ONE issue only:
 finish that issue and stop before starting the next. #65 is completed and delivered as beta65. On2026-10-23 the owner authorized
-choosing and completing exactly one more issue. #66 is selected; finish it and stop.
+choosing and completing exactly one more issue. #66 is complete as beta66.
+On2026-10-25 the owner authorized one further issue; #69 is selected. Finish69
+and stop. No other issue is authorized by this request.
 This supersedes the earlier authorization to churn the entire backlog unattended.
 
 ## Load the real skills
@@ -125,6 +127,13 @@ complete first-release scope and the established production boundaries.
    unless the owner requests another; preserve unrelated changes.
 3. Implement the ticket at its agreed testing boundaries using `tdd`. Run focused
    checks during development and the relevant full suite at completion.
+   Viewer69 adds ImageViewerPreviewTest and ImageViewerViewportTest to the
+   `image-viewer`/Android17 focused scopes and full Social, each with its own180s
+   class bound. The existing native UI/controlled signed-media seam exercises
+   physical keyboard focus, zoom/navigation/reset, themes/large text/landscape
+   and focus return. TalkBackImageViewerPreviewTest extends pinned actual speech
+   observation in Chat with its own180s bound; new long image descriptions allow
+   15s completed speech, while prior callers retain their original bounds.
    Search65 adds SearchEntryPreviewTest to the existing `search` and Android17
    scopes, with its own180second class bound after the unchanged original Search
    class. Complete Social retains both. The existing native UI/controlled-peer

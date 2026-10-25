@@ -206,6 +206,7 @@ PREFS
     verify_group_chat_native TalkBackPostPreviewTest 180 post-talkback post-talkback-evidence
     verify_group_chat_native TalkBackProfilePreviewTest 180 profile-talkback profile-talkback-evidence
     verify_group_chat_native TalkBackActivityPreviewTest 180 activity-talkback activity-talkback-evidence
+    verify_group_chat_native TalkBackImageViewerPreviewTest 180 image-viewer-talkback image-viewer-talkback-evidence
 )
 verify_status_ui() {
     local kind=$1 class_name bound status_exit=0
@@ -1109,6 +1110,7 @@ if [[ "${TEST_SCOPE:-full}" == gifs* ]]; then
 fi
 verify_image_viewer() {
     verify_group_chat_native ImageViewerPreviewTest 180 image-viewer image-viewer-evidence
+    verify_group_chat_native ImageViewerViewportTest 180 image-viewer-viewport image-viewer-viewport-evidence
 }
 if [[ "${TEST_SCOPE:-full}" == image-viewer* ]]; then
     verify_image_viewer

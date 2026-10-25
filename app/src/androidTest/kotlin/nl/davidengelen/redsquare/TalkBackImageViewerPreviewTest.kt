@@ -1,0 +1,67 @@
+package nl.davidengelen.redsquare
+
+import android.graphics.Rect
+import android.view.accessibility.AccessibilityNodeInfo
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import java.io.File
+import org.junit.Assert.*
+import org.junit.Test
+
+/** Real pinned TalkBack speech and modal focus through viewer controls and return. */
+class TalkBackImageViewerPreviewTest {
+    @Test fun imagePositionZoomControlsAndCloseHaveCompletedSpeechAndReturnFocus() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val folder = File(context.cacheDir, "image-viewer-talkback-evidence").apply { mkdirs() }
+        val fixture = JsonParser.parseReader(instrumentation.context.assets.open("native-images-reference.json").reader()).asJsonObject
+        NativeTalkBackObservation(folder).observe {
+            withAppFrameFixture("viewer-talkback", "image-viewer-talkback-evidence", "[${fixture.getAsJsonObject("ordinary")}]") {
+                check(device.wait(Until.hasObject(By.text("Later")), 15_000))
+                click(automation, "Later")
+                focusAndHear("origin", "Image 1 of 2", folder)
+                assertTrue(actionNode("Image 1 of 2").performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                check(device.wait(Until.hasObject(By.text("Close image")), 10_000))
+                val bounds = JsonObject()
+                for ((label, name) in listOf("zoom-in" to "Zoom in", "next" to "Next image", "close" to "Close image")) {
+                    focusAndHear(label, name, folder, textLabel = true)
+                    val rectangle = Rect().also { actionNode(name, textLabel = true).getBoundsInScreen(it) }
+                    val minimum = 48 * context.resources.displayMetrics.density
+                    assertTrue(rectangle.width() >= minimum && rectangle.height() >= minimum)
+                    bounds.addProperty(label, rectangle.flattenToString())
+                }
+                click(automation, "Zoom in")
+                check(device.wait(Until.hasObject(By.text("150%")), 5_000))
+                focusAndHear("zoomed-image", "Full screen image 1 of 2", folder,
+                    completionTimeoutMillis = 15_000, requireClickAction = false)
+                assertTrue(completedFragments(device, "Zoom 150 percent").isNotEmpty())
+                focusAndHear("reset", "Reset zoom", folder, textLabel = true)
+                click(automation, "Reset zoom")
+                check(device.wait(Until.hasObject(By.text("100%")), 5_000))
+                click(automation, "Next image")
+                check(device.wait(Until.hasObject(By.text("Image 2 of 2")), 5_000))
+                focusAndHear("second-image", "Full screen image 2 of 2", folder,
+                    completionTimeoutMillis = 15_000, requireClickAction = false)
+                assertTrue(completedFragments(device, "Zoom 100 percent").isNotEmpty())
+                click(automation, "Close image")
+                check(device.wait(Until.gone(By.text("Close image")), 10_000))
+                waitFor(10_000) {
+                    appRoots(automation).any { root ->
+                        root.findFocus(AccessibilityNodeInfo.FOCUS_ACCESSIBILITY)?.contentDescription?.toString() == "Image 1 of 2"
+                    }
+                }
+                capture(automation, File(folder, "returned-focus.png"))
+                device.dumpWindowHierarchy(File(folder, "returned-focus.xml"))
+                File(folder, "result.json").writeText(JsonObject().apply {
+                    addProperty("returnedToOrigin", true)
+                    addProperty("serviceProcess", serviceProcess)
+                    add("controls", bounds)
+                    addProperty("physicalAudibility", false)
+                }.toString())
+            }
+        }
+    }
+}

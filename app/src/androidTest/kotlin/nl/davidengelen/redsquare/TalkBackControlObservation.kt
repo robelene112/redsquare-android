@@ -7,8 +7,8 @@ import org.junit.Assert.*
 
 /** Shared actual focus and completed contextual speech observation for native controls. */
 internal fun NativeTalkBackObservation.focusAndHear(label: String, description: String,
-    folder: File, clickLabel: Boolean = false, completionTimeoutMillis: Long = 10_000) {
-    val target = actionNode(description, clickLabel)
+    folder: File, clickLabel: Boolean = false, completionTimeoutMillis: Long = 10_000, textLabel: Boolean = false, requireClickAction: Boolean = true) {
+    val target = actionNode(description, clickLabel, textLabel, requireClickAction)
     target.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
     device.executeShellCommand("logcat -c")
     assertTrue("Actual focus action for $description",
@@ -31,9 +31,9 @@ internal fun NativeTalkBackObservation.focusAndHear(label: String, description: 
 }
 
 internal fun NativeTalkBackObservation.actionNode(description: String,
-    clickLabel: Boolean = false): AccessibilityNodeInfo {
+    clickLabel: Boolean = false, textLabel: Boolean = false, requireClickAction: Boolean = true): AccessibilityNodeInfo {
     fun find(root: AccessibilityNodeInfo): AccessibilityNodeInfo? {
-        if (root.isVisibleToUser && if (clickLabel) root.actionList.any {
+        if (root.isVisibleToUser && if (textLabel) root.text?.toString() == description else if (clickLabel) root.actionList.any {
                 it.id == AccessibilityNodeInfo.ACTION_CLICK && it.label?.toString() == description
             } else root.contentDescription?.toString() == description) return root
         return (0 until root.childCount).firstNotNullOfOrNull { index -> root.getChild(index)?.let(::find) }
@@ -41,7 +41,7 @@ internal fun NativeTalkBackObservation.actionNode(description: String,
     var found: AccessibilityNodeInfo? = null
     waitFor(5_000) { found = appRoots(automation).firstNotNullOfOrNull(::find); found != null }
     var target = requireNotNull(found)
-    while (!target.isClickable) target = requireNotNull(target.parent)
+    while (requireClickAction && !target.isClickable) target = requireNotNull(target.parent)
     check(target.isVisibleToUser && target.isEnabled)
     return target
 }
