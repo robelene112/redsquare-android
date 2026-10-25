@@ -19,16 +19,26 @@ def validate_viewer_evidence(target, validate_png):
     originals = social / 'status-originals'
     captures(originals / 'image-viewer-evidence', ['keyboard-zoom', 'keyboard-return'])
     folder = originals / 'image-viewer-viewport-evidence'
+    def targets(label):
+        record = json.loads((folder / (label + '-targets.json')).read_text())
+        assert record['disjoint'] is True and record['minimumPixels'] >= 48
+        assert set(record['targets']) == {'Close image', 'Previous image', 'Next image', 'Zoom in', 'Zoom out', 'Reset zoom', 'Move image'}
+        rectangles = [list(map(int, value.split())) for value in record['targets'].values()]
+        for index, (left, top, right, bottom) in enumerate(rectangles):
+            assert right - left >= record['minimumPixels'] and bottom - top >= record['minimumPixels']
+            assert all(right <= other[0] or other[2] <= left or bottom <= other[1] or other[3] <= top for other in rectangles[index + 1:])
     for scale in [100, 130, 200]:
         for theme in ['light', 'dark']:
             label = f'viewer-320-font{scale}-{theme}'
             config = json.loads((folder / (label + '-configuration.json')).read_text())
             assert config['widthDp'] == 320 and abs(config['fontScale'] - scale / 100) < .01
             captures(folder, [label + '-fit', label + '-zoom'])
+            targets(label)
             if scale == 200:
                 config = json.loads((folder / (label + '-landscape-configuration.json')).read_text())
                 assert config['orientation'] == 2 and config['widthDp'] > 320 and abs(config['fontScale'] - 2) < .01
                 captures(folder, [label + '-landscape-fit', label + '-landscape-zoom'])
+                targets(label + '-landscape')
     restored = json.loads((folder / 'viewer-font-restored.json').read_text())
     assert abs(restored['expected'] - restored['observed']) < .01 and restored['expected'] == restored['originalScale']
     folder = originals / 'image-viewer-motion-evidence'

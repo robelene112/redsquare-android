@@ -67,9 +67,25 @@ class ImageViewerViewportTest {
         ui.onNode(hasScrollToIndexAction()).performScrollToNode(attachment)
         ui.onNode(attachment).performClick()
         ui.waitUntil(10_000) { ui.onNode(hasText("Close image") and hasClickAction()).isDisplayed() }
-        for (name in listOf("Close image", "Previous image", "Next image", "Zoom in", "Zoom out", "Reset zoom")) {
-            ui.onNode(hasText(name) and hasClickAction()).assertIsDisplayed().assertWidthIsAtLeast(48.dp).assertHeightIsAtLeast(48.dp)
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val device = UiDevice.getInstance(instrumentation)
+        val minimum = 48 * instrumentation.targetContext.resources.displayMetrics.density
+        val targets = JsonObject()
+        val rectangles = mutableListOf<android.graphics.Rect>()
+        for (name in listOf("Close image", "Previous image", "Next image", "Zoom in", "Zoom out", "Reset zoom", "Move image")) {
+            ui.onNode(hasText(name) and hasClickAction()).assertIsDisplayed()
+            // Material paints40dp inside its48dp native interaction target.
+            val native = requireNotNull(device.findObject(androidx.test.uiautomator.By.text(name).clickable(true)))
+            val bounds = native.visibleBounds
+            assertTrue("$name must retain a48dp target", bounds.width() >= minimum && bounds.height() >= minimum)
+            assertTrue(bounds.left >= 0 && bounds.top >= 0 && bounds.right <= device.displayWidth && bounds.bottom <= device.displayHeight)
+            assertTrue("Viewer targets must not overlap", rectangles.none { android.graphics.Rect.intersects(it, bounds) })
+            rectangles += bounds
+            targets.addProperty(name, bounds.flattenToString())
         }
+        File(folder, "$label-targets.json").writeText(JsonObject().apply {
+            addProperty("minimumPixels", minimum); addProperty("disjoint", true); add("targets", targets)
+        }.toString())
         ui.onNodeWithContentDescription("Full screen image 1 of 2").assertIsDisplayed().assertHeightIsAtLeast(48.dp)
         captureNativeScreen(File(folder, "$label-fit.png"), "Image 1 of 2")
         ui.onNode(hasText("Zoom in") and hasClickAction()).performClick()

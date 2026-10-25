@@ -38,3 +38,11 @@ separate descriptive child. The viewer now uses one unmerged semantic control
 for image context, zoom state and actions. The actual completed-speech requirement
 still demands both position and zoom. Returning zoom to1 also resets offset
 exactly to zero. Neither correction changes network/media decoding behavior.
+
+Focused10 run40185580828 passes keyboard behavior and actual native motion/pinch.
+Its viewport case rejects the painted40dp icon bounds; the actual native TalkBack
+bounds are48dp. The viewport observer now checks all seven native clickable
+rectangles for48dp minimum, disjointness and display reachability, retaining the
+original threshold. Native motion recorded22 normal frames with3 intermediate
+blue fade frames, and6 zero-motion frames with no intermediate fade. The whole
+run remains failed and is retained as such; it is not complete acceptance.
