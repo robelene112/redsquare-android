@@ -53,6 +53,9 @@ class NavigationKeyboardTest {
                     val caption = listOf("Home", "Search", "Activity", "Chat", "Profile")[index]
                     ui.onNode(hasText(name) and tab).performTouchInput { longClick() }
                     ui.waitUntil(5_000) { ui.onNode(hasText(caption) and !hasClickAction()).isDisplayed() }
+                    for (other in listOf("Home", "Search", "Activity", "Chat", "Profile").filter { it != caption }) {
+                        ui.onNode(hasText(other) and !hasClickAction()).assertDoesNotExist()
+                    }
                     captureNativeScreen(File(folder, "$label-name-$index.png"))
                     // The nonmodal caption expires without changing navigation or stealing focus.
                     ui.waitUntil(5_000) { !ui.onNode(hasText(caption) and !hasClickAction()).isDisplayed() }

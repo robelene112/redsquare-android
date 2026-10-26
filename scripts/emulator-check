@@ -388,6 +388,11 @@ if [[ "${TEST_SCOPE:-full}" == composer || "${TEST_SCOPE:-full}" == composer-and
     printf '%s\n' 'Focused native composer writing, IME, local storage and publishing journeys only; full app acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "${TEST_SCOPE:-full}" == navigation-keyboard* ]]; then
+    verify_group_chat_native NavigationKeyboardTest 180 navigation-keyboard navigation-keyboard-evidence
+    printf '%s\n' 'Focused native navigation keyboard and tooltip journey; not full acceptance.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
     navigation_failed=0
     verify_group_chat_native NavigationPreviewTest 180 navigation navigation-evidence || navigation_failed=1
