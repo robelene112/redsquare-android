@@ -2,6 +2,19 @@
 
 ## Active: issue70 only
 
+Signed68 is PREPARED, not published. Canonical build at505dcd3a7 completed0 in5m28s.
+Prepared packet docs/evidence/ticket70/signed68-prepared; exactAPK38365395bytes,
+SHA256 d468ffba977ee10d3c97a5d19d59b2eba4f8d4461799782c521bb6b1248e4266.
+ActualDEX: DEBUGfalse,REVIEW_BUILDtrue,PUSH_CONFIGUREDfalse,bothGiphykeysabsent.
+Establishedcertificate/package/nondebug/nonprofileable/min29/target36 verified.
+Do not rebuild/reuse68. Public remains67. Before-publication read-only check is
+running with /tmp/redsquare70-public-check.py ordinary68 before505dcd3a7 (arguments
+are separate words); raw navigation70-publication-68 on additionaldisk.
+Fullobserver session89494 watches40292826571:full10-505 and40293131622:full17-505,
+downloads entire terminal artifacts to navigation70-<label>-<run>. No full acceptance.
+Spec reviewer confirms actual single-tooltip fix in both corrected10/17 originals.
+
+
 Final focused40fea1af2 runs40291952046(Android10) and40291955814(Android17)
 are both SUCCESS, all5newmethods, and both pass the strengthened frozen navigation
 validator including exactlyone tooltip and actual native selection. Spec reviewer
