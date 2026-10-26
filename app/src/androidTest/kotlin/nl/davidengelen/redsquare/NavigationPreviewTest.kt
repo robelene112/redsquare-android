@@ -38,9 +38,15 @@ class NavigationPreviewTest {
                 ui.onNodeWithText("Following", useUnmergedTree = true)
                     .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { check(it(layouts)) }
                 val layout = layouts.single()
-                File(folder, "$label-layout.txt").writeText("size=${layout.size} widthOverflow=${layout.didOverflowWidth} heightOverflow=${layout.didOverflowHeight} exceeded=${layout.multiParagraph.didExceedMaxLines} paragraphWidth=${layout.multiParagraph.width} paragraphHeight=${layout.multiParagraph.height} lineRight=${layout.getLineRight(0)} constraints=${layout.layoutInput.constraints} lineHeight=${layout.layoutInput.style.lineHeight}\n")
+                File(folder, "$label-layout.txt").writeText("size=${layout.size} widthOverflow=${layout.didOverflowWidth} heightOverflow=${layout.didOverflowHeight} exceeded=${layout.multiParagraph.didExceedMaxLines} paragraphWidth=${layout.multiParagraph.width} paragraphHeight=${layout.multiParagraph.height} lineLeft=${layout.getLineLeft(0)} lineRight=${layout.getLineRight(0)} lineEnd=${layout.getLineEnd(0, visibleEnd = true)} ellipsized=${layout.isLineEllipsized(0)} constraints=${layout.layoutInput.constraints} lineHeight=${layout.layoutInput.style.lineHeight}\n")
                 assertEquals("Following must be a complete readable word", 1, layouts.single().lineCount)
-                assertFalse("The full label must fit", layouts.single().hasVisualOverflow)
+                // GetTextLayoutResult reports the paragraph's allocated width even when Text
+                // paints a narrower intrinsic line. Verify the actual visible line, not that allocation.
+                assertEquals("Following", layout.layoutInput.text.text)
+                assertEquals("All nine letters must be visible", 9, layout.getLineEnd(0, visibleEnd = true))
+                assertFalse("The label must not be ellipsized", layout.isLineEllipsized(0))
+                assertTrue("The full label must fit", layout.getLineLeft(0) >= 0 &&
+                    layout.getLineRight(0) <= layout.size.width && !layout.didOverflowHeight)
                 ui.onNode(hasText("Following") and hasClickAction()).performClick()
                 ui.onNode(hasText("Following") and isSelected()).assertIsDisplayed()
                 ui.onNodeWithText("Native Red Square reference post").assertDoesNotExist()
