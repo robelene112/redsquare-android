@@ -45,3 +45,11 @@ Frozen complete checks b75617661 preserve all accepted69 identities/pins and add
 five methods:541/542 identities,173/174 normal completions,35 deliberate interruptions,
 34 continuity records and134 archives. Original motion frames show a short caption
 crossfade normally and immediate replacement at zero scale. No full run accepted yet.
+
+Visual review found retained keyboardChat tooltip overlapping other long-pressed
+captions in both green packets. Strict native RED40291131065 at3c9c confirms it.
+Production40fea1af2 coordinates navigation tooltip states, accepting request priority
+before dismissing peers and delegating native presentation. Both source reviewers
+approve. New complete evidence freeze40fea1af2 strengthens caption presence to
+exactly one visible caption; old packets correctly fail it. Both focused versions
+40291952046/40291955814 now run that corrected production. Full acceptance pending.

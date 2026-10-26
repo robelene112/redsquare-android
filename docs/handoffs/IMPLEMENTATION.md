@@ -2,6 +2,19 @@
 
 ## Active: issue70 only
 
+Latest production40fea1af2 fixes the visually confirmed overlapping navigation
+tooltips. Focused RED40291131065 at3c9c explicitly rejects lingeringChat caption.
+Private NavigationTooltipState accepts priority with a sharedMutatorMutex, dismisses
+peerstates, then delegates Material show. Two-axis source review Spec0/Standards0.
+Both new focused runs40291952046/40291955814 execute40 and are pending.
+The stronger independent evidence check now requires exactly one tooltip caption;
+all previous catalog/collector goals remain. New prospective freeze40fea1af2;
+full-identity-reference names it. Full runs not yet dispatched. No APK reserved.
+Do not accept old focuseds as completed70: earlier tests passed but visual review
+found overlapping tooltips. Native selected-state capture correctiona4 itself is
+confirmed by40290600094 passing the prior validator.
+
+
 On2026-10-26 the owner authorized one more issue. Selected70, deliberate large-text
 navigation, follows completed69. Blocker59 is closed; numerical scheduling is not
 a technical blocker. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
