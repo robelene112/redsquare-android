@@ -12,8 +12,8 @@ import java.io.File
 
 /** Real fixed-width/theme/font journeys, restoring platform state after the Activity closes. */
 internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainActivity>, folder: File,
-    prefix: String, scales: List<Float> = listOf(1f, 1.3f, 2f), cell: (String, String) -> Unit) {
-    require(scales.isNotEmpty())
+    prefix: String, scales: List<Float> = listOf(1f, 1.3f, 2f), widthDp: Int = 320, cell: (String, String) -> Unit) {
+    require(scales.isNotEmpty() && widthDp in listOf(320, 412))
     val context = InstrumentationRegistry.getInstrumentation().targetContext
     val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     val font = EmulatorFontScale(context, folder, prefix)
@@ -52,14 +52,14 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
     try {
         recordLifecycle("before-display-configuration")
         device.executeShellCommand("wm density 160")
-        device.executeShellCommand("wm size 320x640")
+        device.executeShellCommand("wm size ${widthDp}x${if (widthDp == 320) 640 else 915}")
         for (scale in scales) {
             font.apply(scale)
             recordLifecycle("before-explicit-recreation")
-            recreateHomeViewport(activity, 320, scale)
+            recreateHomeViewport(activity, widthDp, scale)
             recordLifecycle("after-explicit-recreation")
             for (theme in listOf("Light", "Dark")) {
-                val label = "$prefix-320-font${(scale * 100).toInt()}-${theme.lowercase()}"
+                val label = "$prefix-$widthDp-font${(scale * 100).toInt()}-${theme.lowercase()}"
                 withFailureCapture({ captureNativeScreen(File(folder, "$label-failure.png")) }) {
                     onNode(hasText("Settings") and hasClickAction()).performClick()
                     onNodeWithText(theme).performScrollTo().performClick()
@@ -70,7 +70,7 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
                         activity.onActivity { focused = it.window.decorView.hasWindowFocus() }
                         focused && onNode(hasText("Home") and isSelected()).isDisplayed()
                     }
-                    check(context.resources.configuration.screenWidthDp == 320)
+                    check(context.resources.configuration.screenWidthDp == widthDp)
                     File(folder, "$label-configuration.json").writeText(JsonObject().apply {
                         addProperty("widthPixels", device.displayWidth)
                         addProperty("widthDp", context.resources.configuration.screenWidthDp)

@@ -389,7 +389,11 @@ if [[ "${TEST_SCOPE:-full}" == composer || "${TEST_SCOPE:-full}" == composer-and
     exit 0
 fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
-    verify_group_chat_native NavigationPreviewTest 180 navigation navigation-evidence
+    navigation_failed=0
+    verify_group_chat_native NavigationPreviewTest 180 navigation navigation-evidence || navigation_failed=1
+    verify_group_chat_native NavigationKeyboardTest 180 navigation-keyboard navigation-keyboard-evidence || navigation_failed=1
+    verify_group_chat_native NavigationMotionTest 180 navigation-motion navigation-motion-evidence || navigation_failed=1
+    [[ "$navigation_failed" == 0 ]] || exit 1
     if [[ "${TEST_SCOPE:-full}" == navigation* ]]; then
         printf '%s\n' 'Focused native adaptive navigation; not full acceptance.' > "$evidence/scope.txt"
         exit 0

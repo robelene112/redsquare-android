@@ -48,16 +48,16 @@ internal fun FeedToolbar(followingView: Boolean, onFollowing: (Boolean) -> Unit,
 @Composable
 private fun FeedActions(refresh: String, enabled: Boolean, onRefresh: () -> Unit,
     maintenanceEnabled: Boolean, onQueue: () -> Unit, onChanges: () -> Unit) {
-    TextButton(onClick = onRefresh, enabled = enabled) { Text(refresh, maxLines = 1, softWrap = false) }
+    TextButton(onClick = onRefresh, enabled = enabled) { Text(refresh, maxLines = 1) }
     FeedMoreActions(maintenanceEnabled, onQueue, onChanges)
 }
 
 @Composable
 private fun RowScope.FeedTab(label: String, selected: Boolean, onClick: () -> Unit) {
     Column(Modifier.weight(1f)) {
-        Tab(selected = selected, onClick = onClick) {
+        Tab(selected = selected, onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(label, Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
-                style = MaterialTheme.typography.labelMedium, maxLines = 1, softWrap = false)
+                style = MaterialTheme.typography.labelMedium, maxLines = 1)
         }
         Box(Modifier.fillMaxWidth().height(2.dp).background(
             if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))

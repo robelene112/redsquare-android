@@ -114,34 +114,39 @@ internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSel
     val style = MaterialTheme.typography.labelSmall
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val density = LocalDensity.current
-        // NavigationBarItem reserves12dp on either side of its caption.
-        val labelWidth = constraints.maxWidth / PrimaryDestination.entries.size - with(density) { 24.dp.roundToPx() }
+        // Material's bar separates items by8dp. Leave another8dp for caption breathing room.
+        val gap = with(density) { AppSpacing.small.roundToPx() }
+        val labelWidth = (constraints.maxWidth - gap * (PrimaryDestination.entries.size - 1)) /
+            PrimaryDestination.entries.size - gap
         val compact = captions.any { measurer.measure(it, style, softWrap = false).size.width > labelWidth }
         Column {
             if (compact) Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
                 modifier = Modifier.fillMaxWidth().clearAndSetSemantics { }, label = "Navigation caption") { destination ->
                 Box(Modifier.fillMaxWidth().padding(top = 4.dp), contentAlignment = Alignment.Center) {
                     Text(stringResource(destination.caption), style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1, softWrap = false)
+                        maxLines = 1)
                 }
             }
             NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
                 containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
                 PrimaryDestination.entries.forEach { destination ->
                     val name = stringResource(destination.label)
-                    TooltipBox(modifier = Modifier.weight(1f),
-                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
-                        tooltip = { PlainTooltip { Text(stringResource(destination.caption)) } },
-                        state = rememberTooltipState()) {
-                        Row(Modifier.fillMaxWidth()) {
-                            NavigationBarItem(selected = selected == destination, enabled = enabled,
-                                modifier = Modifier.semantics { text = AnnotatedString(name) },
-                                onClick = { onSelect(destination) },
-                                icon = { Icon(painterResource(destination.icon), contentDescription = null) },
-                                label = if (compact) null else { {
-                                    Text(stringResource(destination.caption), Modifier.clearAndSetSemantics { },
-                                        style = style, maxLines = 1, softWrap = false)
-                                } })
+                    // TooltipBox applies its modifier to an inner anchor. Give the outer
+                    // navigation row a real weighted child so all five items share its width.
+                    Box(Modifier.weight(1f)) {
+                        TooltipBox(positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                            tooltip = { PlainTooltip { Text(stringResource(destination.caption)) } },
+                            state = rememberTooltipState()) {
+                            Row(Modifier.fillMaxWidth()) {
+                                NavigationBarItem(selected = selected == destination, enabled = enabled,
+                                    modifier = Modifier.semantics { text = AnnotatedString(name) },
+                                    onClick = { onSelect(destination) },
+                                    icon = { Icon(painterResource(destination.icon), contentDescription = null) },
+                                    label = if (compact) null else { {
+                                        Text(stringResource(destination.caption), Modifier.clearAndSetSemantics { },
+                                            style = style, maxLines = 1)
+                                    } })
+                            }
                         }
                     }
                 }
