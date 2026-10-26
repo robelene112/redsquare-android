@@ -2,6 +2,24 @@
 
 ## Active: issue70 only
 
+Final focused40fea1af2 runs40291952046(Android10) and40291955814(Android17)
+are both SUCCESS, all5newmethods, and both pass the strengthened frozen navigation
+validator including exactlyone tooltip and actual native selection. Spec reviewer
+confirmed the visualoverlap fixed on10;17 review and completeproof pending.
+Complete runs at505dcd3a7a6b56655fac6910c4686ffe6d8f594b (docs-onlyafter40):
+- Android10:40292826571, allthreepartitions active.
+- Android17:40293131622, allthreepartitions active.
+Catalog/collector freeze40fea1af2, refs now bind exactsources/runIDs. Run unchanged
+`python3 docs/evidence/ticket70/full-collector.py <10|17> <rawdir> <label> <run>`
+only after entire SUCCESS. Expected541/542identities,173/174normal,
+35interruptions,34continuity,134archives. No partial assembly.
+Signed beta68 is building in externalreview-worktree at exact505dcd3a7; session48020,
+log /mnt/storage/redsquare-android-artifacts/navigation70-signed68-build.log.
+Never rebuild/reuse68. Public remains67 until completeverification/reviews.
+Prepared/public checker scripts /tmp/redsquare70-{prepare68,public-check,retain-public}.py.
+Root's protected untracked group-contract file remains unread/untouched. Stop after70.
+
+
 Latest production40fea1af2 fixes the visually confirmed overlapping navigation
 tooltips. Focused RED40291131065 at3c9c explicitly rejects lingeringChat caption.
 Private NavigationTooltipState accepts priority with a sharedMutatorMutex, dismisses

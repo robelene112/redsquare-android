@@ -53,3 +53,10 @@ before dismissing peers and delegating native presentation. Both source reviewer
 approve. New complete evidence freeze40fea1af2 strengthens caption presence to
 exactly one visible caption; old packets correctly fail it. Both focused versions
 40291952046/40291955814 now run that corrected production. Full acceptance pending.
+
+Fresh corrected focused runs40291952046(Android10) and40291955814(Android17)
+are whole SUCCESS and pass the stronger frozen navigation evidence check. All five
+new methods pass. Original captions now show one complete popup. Two-axis source
+review has no unresolved findings. Complete505dcd3a7 executions40292826571/40293131622
+are active; no full acceptance yet. Signed68 is preparing at that same source and
+will stay withheld until complete checks and final review pass.

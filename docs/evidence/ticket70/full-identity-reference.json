@@ -112,5 +112,13 @@
   },
   "navigationCheckSha256": "37e4ff9d7c07f4c7675057075074f334dd3ed597240cca1ded847738c5da972a",
   "catalogFreezeCommit": "40fea1af2ce37f9f907ed3473186c54748939e0d",
-  "executingState": "Full checks not dispatched. Stronger single-tooltip criterion frozen before execution."
+  "executingState": "Both complete runs active; not accepted.",
+  "executingSources": {
+    "android10": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b",
+    "android17": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b"
+  },
+  "executingRuns": {
+    "android10": 40292826571,
+    "android17": 40293131622
+  }
 }
