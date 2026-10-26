@@ -1,6 +1,6 @@
 # Issue70: deliberate navigation for large text
 
-Status: implementation and focused native verification in progress, not accepted.
+Status: implementation and complete verification passed; signed publication pending.
 Review base7711a0c05368eefc4facea93d3d14428c1d4ada7. Only issue70 is authorized.
 
 The native regression at824d89794, run40286952560, fails because Following occupies
@@ -77,3 +77,11 @@ frozen collector passes542 identities/passes, zero assumptions,174 normal
 completions,35 deliberate interruptions,34 continuity records and134 archives.
 No missing/extra identities or partial assembly. Final bounded evidence review
 is underway. Replacement10 remains active; prepared68 remains withheld.
+
+Replacement whole Android10 run40296506207 atb2a523f15 succeeds. Frozen collector
+passes541 exact identities,540 passes plus the sole inherited API29 Profile
+assumption,173 normal completions,35 deliberate interruptions,34 continuity
+records and134 archives. Original failed40292826571 remains rejected. No code,
+fixture or assertion changes were needed for the successful full repeat. Actual
+inputs for505/b2a are identical, recorded in verification-source-equivalence.json.
+Android17 final evidence review: Spec0, Standards0. Android10 final review pending.
