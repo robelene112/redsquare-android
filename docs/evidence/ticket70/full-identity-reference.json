@@ -1,0 +1,114 @@
+{
+  "recordedBeforeFullExecution": true,
+  "basis": "Accepted complete69 literal catalogs plus five additive navigation methods. All previous assertions, identities, deadlines, recovery, public-read gates and tool pins remain mandatory.",
+  "references": [
+    {
+      "sdk": "10",
+      "path": "docs/evidence/ticket69/full10-57a-40189989884/identities.json",
+      "sha256": "0c5cdef93f86d05e21a0ffff77bd7f5b621ed3706f556c76cbc94f7157b610fa",
+      "previousIdentities": 536,
+      "additional": [
+        {
+          "path": "navigation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationPreviewTest",
+          "test": "largeTextKeepsTheFullFollowingLabelOnOneLine",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationPreviewTest",
+          "test": "pixelWidthKeepsNavigationReadableAtEveryTextSize",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-keyboard-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationKeyboardTest",
+          "test": "largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationMotionTest",
+          "test": "adaptiveCaptionUsesNormalSystemMotion",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationMotionTest",
+          "test": "adaptiveCaptionRespectsDisabledSystemMotion",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 173,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 134
+    },
+    {
+      "sdk": "17",
+      "path": "docs/evidence/ticket69/full17-8ae-40194163662/identities.json",
+      "sha256": "01b19cca1453a52545acc76960997ff9b3e914c47d879c09201077bddf86d4ea",
+      "previousIdentities": 537,
+      "additional": [
+        {
+          "path": "navigation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationPreviewTest",
+          "test": "largeTextKeepsTheFullFollowingLabelOnOneLine",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationPreviewTest",
+          "test": "pixelWidthKeepsNavigationReadableAtEveryTextSize",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-keyboard-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationKeyboardTest",
+          "test": "largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationMotionTest",
+          "test": "adaptiveCaptionUsesNormalSystemMotion",
+          "occurrences": 1
+        },
+        {
+          "path": "navigation-motion-ui.txt",
+          "testClass": "nl.davidengelen.redsquare.NavigationMotionTest",
+          "test": "adaptiveCaptionRespectsDisabledSystemMotion",
+          "occurrences": 1
+        }
+      ],
+      "expectedNormalCompletions": 174,
+      "expectedDeliberateInterruptions": 35,
+      "expectedContinuityRecords": 34,
+      "expectedArchives": 134
+    }
+  ],
+  "collectorSha256": "16a37b8c56ee282ee072987918df1d3254d9bfbd9b0723223492baf12a2831d7",
+  "toolSource": {
+    "talkback": "229212fdf5842191d0a93fc95d9ca1423b346866",
+    "toolPatchSha256": "42bc3770e119f2ccff532fb4a18dc68790bb7b31bb41c54fa65c82d4c8654117",
+    "espeakSha256": "741b46abf84d843f9b0cce80136f60ffee9b9fe591601b9701aa2a9ff99c9ddf"
+  },
+  "activitySpeechTiming": {
+    "path": "docs/evidence/ticket66/activity-speech-timing.json",
+    "sha256": "67d00e8352060e7b3e28a6bd9631f9d05fb67631b15be474652a8d5ae9e612df",
+    "freezeCommit": "918a4868f4fbb711582791f70b4ee93434758860",
+    "existingTestsCompletionMillis": 10000,
+    "newActivityEventCompletionMillis": {
+      "android10": 15000,
+      "android17": 15000
+    }
+  },
+  "viewerCheckSha256": "d2db848e79545442a518758d76199443cfac1f14ac92bfc5aaa081b885bab48e",
+  "viewerSpeechTiming": {
+    "imageContextCompletionMillis": 15000,
+    "existingCallersCompletionMillis": 10000,
+    "focusMillis": 5000,
+    "classSeconds": 180
+  },
+  "navigationCheckSha256": "c979ba2aac08bd68f4784563f2fbf786ffe65e2948e4e6e06554d92cf29975de"
+}

@@ -1,0 +1,191 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NavigationPreviewTest:
+INSTRUMENTATION_STATUS: test=pixelWidthKeepsNavigationReadableAtEveryTextSize
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationPreviewTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.pixelWidthKeepsNavigationReadableAtEveryTextSize(NavigationPreviewTest.kt:24)
+
+INSTRUMENTATION_STATUS: stream=
+Error in pixelWidthKeepsNavigationReadableAtEveryTextSize(nl.davidengelen.redsquare.NavigationPreviewTest):
+java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.pixelWidthKeepsNavigationReadableAtEveryTextSize(NavigationPreviewTest.kt:24)
+
+INSTRUMENTATION_STATUS: test=pixelWidthKeepsNavigationReadableAtEveryTextSize
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=largeTextKeepsTheFullFollowingLabelOnOneLine
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationPreviewTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.largeTextKeepsTheFullFollowingLabelOnOneLine(NavigationPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largeTextKeepsTheFullFollowingLabelOnOneLine(nl.davidengelen.redsquare.NavigationPreviewTest):
+java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.largeTextKeepsTheFullFollowingLabelOnOneLine(NavigationPreviewTest.kt:23)
+
+INSTRUMENTATION_STATUS: test=largeTextKeepsTheFullFollowingLabelOnOneLine
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 19.54
+There were 2 failures:
+1) pixelWidthKeepsNavigationReadableAtEveryTextSize(nl.davidengelen.redsquare.NavigationPreviewTest)
+java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.pixelWidthKeepsNavigationReadableAtEveryTextSize(NavigationPreviewTest.kt:24)
+2) largeTextKeepsTheFullFollowingLabelOnOneLine(nl.davidengelen.redsquare.NavigationPreviewTest)
+java.lang.AssertionError: The full label must fit
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8$lambda$7(NavigationPreviewTest.kt:43)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$hfdeAzG5KbSWjz6dvQkPuXgITPo(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda6.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(PostViewportFixture.kt:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport$lambda$8(NavigationPreviewTest.kt:32)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.$r8$lambda$widEmfUHgfjnRd0Nw1c4HF3scLE(NavigationPreviewTest.kt:0)
+	at nl.davidengelen.redsquare.NavigationPreviewTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(AppFrameFixture.kt:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.verifyViewport(NavigationPreviewTest.kt:29)
+	at nl.davidengelen.redsquare.NavigationPreviewTest.largeTextKeepsTheFullFollowingLabelOnOneLine(NavigationPreviewTest.kt:23)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1
