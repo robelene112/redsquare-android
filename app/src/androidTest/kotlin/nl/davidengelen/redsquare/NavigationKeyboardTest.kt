@@ -8,6 +8,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
 import java.io.File
 import org.junit.Rule
 import org.junit.Test
@@ -61,7 +62,8 @@ class NavigationKeyboardTest {
                     ui.waitUntil(15_000) {
                         if (ui.onNodeWithText("Not now").isDisplayed()) ui.onNodeWithText("Not now").performClick()
                         ui.onNode(hasText(name) and tab and isSelected()).isDisplayed() &&
-                            !ui.onNodeWithText("Not now").isDisplayed()
+                            !ui.onNodeWithText("Not now").isDisplayed() &&
+                            device.hasObject(By.text(name).selected(true))
                     }
                     captureNativeScreen(File(folder, "$label-selected-${index + 1}.png"))
                 }
