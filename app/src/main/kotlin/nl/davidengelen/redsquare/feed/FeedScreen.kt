@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Tab
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Icon
@@ -53,7 +52,6 @@ import nl.davidengelen.redsquare.ui.preserveReadingAnchor
 import nl.davidengelen.redsquare.ui.AppNavigation
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.PrimaryDestination
-import nl.davidengelen.redsquare.ui.FeedMoreActions
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
@@ -427,14 +425,10 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 else -> emptyList()
             }, actionLabel = if (failed && !noInternet) stringResource(R.string.retry) else null,
                 actionEnabled = !loading, onAction = { refresh++ })
-            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                FeedTab(R.string.feed_title, !followingView) { followingView = false }
-                FeedTab(R.string.following_title, followingView) { followingView = true }
-                TextButton(onClick = { refresh++ }, enabled = wallet != null && !loading && internet.available) {
-                    Text(stringResource(R.string.feed_refresh))
-                }
-                FeedMoreActions(wallet != null, onQueue = { reviewingQueue = true }, onChanges = { reviewingChanges = true })
-            }
+            FeedToolbar(followingView = followingView, onFollowing = { followingView = it },
+                refreshEnabled = wallet != null && !loading && internet.available, onRefresh = { refresh++ },
+                maintenanceEnabled = wallet != null, onQueue = { reviewingQueue = true },
+                onChanges = { reviewingChanges = true })
             val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
                 (!followingView || post.author in following?.accounts.orEmpty()) }
             val visiblePostIds = visiblePosts.map { it.id }.toSet()
@@ -539,18 +533,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 }
             })
         }
-    }
-}
-
-@Composable
-private fun RowScope.FeedTab(label: Int, selected: Boolean, onClick: () -> Unit) {
-    Column(Modifier.weight(1f)) {
-        Tab(selected = selected, onClick = onClick) {
-            Text(stringResource(label), Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
-                style = MaterialTheme.typography.labelMedium, maxLines = 2)
-        }
-        Box(Modifier.fillMaxWidth().height(2.dp).background(
-            if (selected) MaterialTheme.colorScheme.primary else Color.Transparent))
     }
 }
 

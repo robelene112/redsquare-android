@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare.ui
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -19,6 +20,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
 
@@ -103,18 +105,47 @@ private fun BackupNoticeAction(label: Int, enabled: Boolean, onClick: () -> Unit
     }
 }
 
+/** Keep captions intact; an adaptive legend and tooltips name the icon-only layout. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSelect: (PrimaryDestination) -> Unit) {
-    NavigationBar(containerColor = MaterialTheme.colorScheme.surface,
-        windowInsets = WindowInsets(0, 0, 0, 0)) {
-        PrimaryDestination.entries.forEach { destination ->
-            val name = stringResource(destination.label)
-            NavigationBarItem(selected = selected == destination, enabled = enabled,
-                modifier = Modifier.semantics { text = AnnotatedString(name) },
-                onClick = { onSelect(destination) },
-                icon = { Icon(painterResource(destination.icon), contentDescription = null) },
-                label = { Text(stringResource(destination.caption), Modifier.clearAndSetSemantics { },
-                    style = MaterialTheme.typography.labelSmall, maxLines = 2) })
+    val measurer = rememberTextMeasurer()
+    val captions = PrimaryDestination.entries.map { stringResource(it.caption) }
+    val style = MaterialTheme.typography.labelSmall
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val density = LocalDensity.current
+        // NavigationBarItem reserves12dp on either side of its caption.
+        val labelWidth = constraints.maxWidth / PrimaryDestination.entries.size - with(density) { 24.dp.roundToPx() }
+        val compact = captions.any { measurer.measure(it, style, softWrap = false).size.width > labelWidth }
+        Column {
+            if (compact) Crossfade(selected, animationSpec = tween(AppSpacing.transitionMillis),
+                modifier = Modifier.fillMaxWidth().clearAndSetSemantics { }, label = "Navigation caption") { destination ->
+                Box(Modifier.fillMaxWidth().padding(top = 4.dp), contentAlignment = Alignment.Center) {
+                    Text(stringResource(destination.caption), style = MaterialTheme.typography.labelLarge,
+                        maxLines = 1, softWrap = false)
+                }
+            }
+            NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
+                containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
+                PrimaryDestination.entries.forEach { destination ->
+                    val name = stringResource(destination.label)
+                    TooltipBox(modifier = Modifier.weight(1f),
+                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                        tooltip = { PlainTooltip { Text(stringResource(destination.caption)) } },
+                        state = rememberTooltipState()) {
+                        Row(Modifier.fillMaxWidth()) {
+                            NavigationBarItem(selected = selected == destination, enabled = enabled,
+                                modifier = Modifier.semantics { text = AnnotatedString(name) },
+                                onClick = { onSelect(destination) },
+                                icon = { Icon(painterResource(destination.icon), contentDescription = null) },
+                                label = if (compact) null else { {
+                                    Text(stringResource(destination.caption), Modifier.clearAndSetSemantics { },
+                                        style = style, maxLines = 1, softWrap = false)
+                                } })
+                        }
+                    }
+                }
+            }
         }
     }
 }
