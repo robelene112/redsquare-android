@@ -42,7 +42,8 @@ def validate(target,png):
    assert any(n.get('text')==name and n.get('selected')=='true'for n in tree.iter('node'))
   for i,name in enumerate(['Home','Search','Activity','Chat','Profile']):
    tree=ET.parse(keyboard/f'{label}-name-{i}.xml')
-   assert any(n.get('text')==name and n.get('clickable')=='false' and n.get('selected')!='true'for n in tree.iter('node'))
+   captions=[n.get('text') for n in tree.iter('node') if n.get('text') in ['Home','Search','Activity','Chat','Profile'] and n.get('clickable')=='false' and n.get('selected')!='true']
+   assert captions==[name], (name,captions)
  motion=base/'navigation-motion-evidence'
  for scale in [1,0]:
   label=f'navigation-{scale}'

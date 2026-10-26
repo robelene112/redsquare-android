@@ -1,0 +1,110 @@
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationKeyboardTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+nl.davidengelen.redsquare.NavigationKeyboardTest:
+INSTRUMENTATION_STATUS: test=largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=nl.davidengelen.redsquare.NavigationKeyboardTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: ((Text + InputText + EditableText contains 'Chat' (ignoreCase: false)) && (NOT (OnClick is defined)))
+Node found:
+Node #395 at (l=8.0, t=4.0, r=58.0, b=32.0)px
+Text = '[Chat]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17$lambda$16(NavigationKeyboardTest.kt:57)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$m99bLinZSLISGatJxgn2QkDOpsU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17(NavigationKeyboardTest.kt:28)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$zX3k80fiN8jpepkAj7fSAgdBxs0(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames(NavigationKeyboardTest.kt:25)
+
+INSTRUMENTATION_STATUS: stream=
+Error in largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames(nl.davidengelen.redsquare.NavigationKeyboardTest):
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: ((Text + InputText + EditableText contains 'Chat' (ignoreCase: false)) && (NOT (OnClick is defined)))
+Node found:
+Node #395 at (l=8.0, t=4.0, r=58.0, b=32.0)px
+Text = '[Chat]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17$lambda$16(NavigationKeyboardTest.kt:57)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$m99bLinZSLISGatJxgn2QkDOpsU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17(NavigationKeyboardTest.kt:28)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$zX3k80fiN8jpepkAj7fSAgdBxs0(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames(NavigationKeyboardTest.kt:25)
+
+INSTRUMENTATION_STATUS: test=largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.564
+There was 1 failure:
+1) largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames(nl.davidengelen.redsquare.NavigationKeyboardTest)
+java.lang.AssertionError: Failed: assertDoesNotExist.
+Reason: Did not expect any node but found '1' node that satisfies: ((Text + InputText + EditableText contains 'Chat' (ignoreCase: false)) && (NOT (OnClick is defined)))
+Node found:
+Node #395 at (l=8.0, t=4.0, r=58.0, b=32.0)px
+Text = '[Chat]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.assertDoesNotExist(SemanticsNodeInteraction.kt:101)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17$lambda$16(NavigationKeyboardTest.kt:57)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$m99bLinZSLISGatJxgn2QkDOpsU(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda7.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$lambda$10(PostViewportFixture.kt:80)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.$r8$lambda$l2Zt0XyCR_ZYVoJUVq7Phny6YsQ(Unknown Source:0)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt$$ExternalSyntheticLambda5.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports(PostViewportFixture.kt:63)
+	at nl.davidengelen.redsquare.PostViewportFixtureKt.withPostViewports$default(PostViewportFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames$lambda$17(NavigationKeyboardTest.kt:28)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.$r8$lambda$zX3k80fiN8jpepkAj7fSAgdBxs0(Unknown Source:0)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$lambda$6$lambda$5$lambda$4(AppFrameFixture.kt:46)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.$r8$lambda$Jnedbg-6sTGpJqibbBdhRhpfG78(Unknown Source:0)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt$$ExternalSyntheticLambda3.invoke(D8$$SyntheticClass:0)
+	at nl.davidengelen.redsquare.NativeScreenEvidenceKt.withFailureCapture(NativeScreenEvidence.kt:19)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture(AppFrameFixture.kt:45)
+	at nl.davidengelen.redsquare.AppFrameFixtureKt.withAppFrameFixture$default(AppFrameFixture.kt:14)
+	at nl.davidengelen.redsquare.NavigationKeyboardTest.largeTextDestinationsKeepKeyboardFocusSelectionAndDiscoverableNames(NavigationKeyboardTest.kt:25)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

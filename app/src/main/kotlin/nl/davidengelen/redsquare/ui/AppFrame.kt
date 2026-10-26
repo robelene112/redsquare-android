@@ -6,6 +6,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.MutatePriority
+import androidx.compose.foundation.MutatorMutex
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -111,6 +113,11 @@ private fun BackupNoticeAction(label: Int, enabled: Boolean, onClick: () -> Unit
 internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSelect: (PrimaryDestination) -> Unit) {
     val measurer = rememberTextMeasurer()
     val captions = PrimaryDestination.entries.map { stringResource(it.caption) }
+    val tooltipStates = PrimaryDestination.entries.map { rememberTooltipState() }
+    val tooltipMutex = remember { MutatorMutex() }
+    val tooltips = remember(tooltipStates, tooltipMutex) {
+        tooltipStates.map { NavigationTooltipState(it, tooltipStates, tooltipMutex) }
+    }
     val style = MaterialTheme.typography.labelSmall
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val density = LocalDensity.current
@@ -129,14 +136,14 @@ internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSel
             }
             NavigationBar(modifier = if (compact) Modifier.height(64.dp) else Modifier,
                 containerColor = MaterialTheme.colorScheme.surface, windowInsets = WindowInsets(0, 0, 0, 0)) {
-                PrimaryDestination.entries.forEach { destination ->
+                PrimaryDestination.entries.forEachIndexed { index, destination ->
                     val name = stringResource(destination.label)
                     // TooltipBox applies its modifier to an inner anchor. Give the outer
                     // navigation row a real weighted child so all five items share its width.
                     Box(Modifier.weight(1f)) {
                         TooltipBox(positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
                             tooltip = { PlainTooltip { Text(stringResource(destination.caption)) } },
-                            state = rememberTooltipState()) {
+                            state = tooltips[index]) {
                             Row(Modifier.fillMaxWidth()) {
                                 NavigationBarItem(selected = selected == destination, enabled = enabled,
                                     modifier = Modifier.semantics { text = AnnotatedString(name) },
@@ -151,6 +158,19 @@ internal fun AppNavigation(selected: PrimaryDestination, enabled: Boolean, onSel
                     }
                 }
             }
+        }
+    }
+}
+
+/** Keyboard-focus tooltips can outlive Material's cancelled show job. Dismiss the previous
+ * navigation caption explicitly when another actual anchor is used, retaining normal motion. */
+@OptIn(ExperimentalMaterial3Api::class)
+private class NavigationTooltipState(private val current: TooltipState, private val group: List<TooltipState>,
+    private val mutex: MutatorMutex) : TooltipState by current {
+    override suspend fun show(mutatePriority: MutatePriority) {
+        mutex.mutate(mutatePriority) {
+            group.forEach { if (it !== current) it.dismiss() }
+            current.show(mutatePriority)
         }
     }
 }
