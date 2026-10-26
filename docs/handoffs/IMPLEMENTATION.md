@@ -5,6 +5,18 @@
 On2026-10-26 the owner authorized one more issue. Selected70, deliberate large-text
 navigation, follows completed69. Blocker59 is closed; numerical scheduling is not
 a technical blocker. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
+Implementation ff480635e has initial/follow-up Spec0 and Standards0 source reviews.
+Original red40286952560 proves Following wraps at320dp/200%. Tracer40287533766
+and diagnostic40288267873 remain failed: TooltipBox applied weight to its inner
+anchor (only Home filled320px); nowrap Text reported width overflow with size104.
+An outer weighted Box now distributes five items, and measured single-line Text
+uses ordinary wrapping constraints. Native overflow assertion stays unchanged.
+Focused navigation10run40288794152, navigation17run40288797577 and existing
+frame10run40289020964 are pending atff480635e. New classes cover12viewport cells,
+five native disjoint48dp targets plus feed modes, actual keyboard/tooltips/selected
+destinations and real normal/zero window motion. Full acceptance/publication pending.
+Temporary observers/collector preparation are /tmp/redsquare70-*. No new APK reserved.
+
 Use existing native UI/controlled-peer seams for typography, native targets,
 focus, feed scope and recovery. Preserve existing full checks and deadlines.
 Stop after reviewed signed delivery of this issue. Protected untracked
