@@ -2,80 +2,40 @@
 
 ## Active: issue70 only
 
-Signed68 is PREPARED, not published. Canonical build at505dcd3a7 completed0 in5m28s.
-Prepared packet docs/evidence/ticket70/signed68-prepared; exactAPK38365395bytes,
-SHA256 d468ffba977ee10d3c97a5d19d59b2eba4f8d4461799782c521bb6b1248e4266.
-ActualDEX: DEBUGfalse,REVIEW_BUILDtrue,PUSH_CONFIGUREDfalse,bothGiphykeysabsent.
-Establishedcertificate/package/nondebug/nonprofileable/min29/target36 verified.
-Do not rebuild/reuse68. Public remains67. Before-publication read-only check is
-running with /tmp/redsquare70-public-check.py ordinary68 before505dcd3a7 (arguments
-are separate words); raw navigation70-publication-68 on additionaldisk.
-Fullobserver session89494 watches40292826571:full10-505 and40293131622:full17-505,
-downloads entire terminal artifacts to navigation70-<label>-<run>. No full acceptance.
-Spec reviewer confirms actual single-tooltip fix in both corrected10/17 originals.
+Owner authorized exactly one issue. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
+Production40fea1af2: measured adaptive navigation/feed labels, native full names,
+coordinated non-overlapping tooltips. Source reviews Spec0/Standards0. Final focused
+Android10/17 runs40291952046/40291955814 pass all five methods and the stronger
+frozen evidence validator. Reviewers inspected originals. Full acceptance pending.
 
+Complete Android10 predecessor40292826571 failed the existing group invitation
+recovery test at200% dark: target moved outside viewport after readiness. No code
+or test changes. Isolated unchanged40295628598 atb2a523f15 passes. Failed evidence
+is retained; no definite cause claimed. Replacement whole Android10 run40296506207
+atb2a523f15 is active. Original Android17 run40293131622 at505dcd3a7 is active.
+Both sources have identical app/test/harness/workflow/build inputs. Never assemble
+partial successes. Freeze40fea1af2 preserves all previous criteria and adds five
+navigation methods:541/542 identities,173/174 normal completions,35 deliberate
+interruptions,34 continuity records,134 archives. Use unchanged full-collector.py
+only after entire success; full-identity-reference.json binds runs and sources.
 
-Final focused40fea1af2 runs40291952046(Android10) and40291955814(Android17)
-are both SUCCESS, all5newmethods, and both pass the strengthened frozen navigation
-validator including exactlyone tooltip and actual native selection. Spec reviewer
-confirmed the visualoverlap fixed on10;17 review and completeproof pending.
-Complete runs at505dcd3a7a6b56655fac6910c4686ffe6d8f594b (docs-onlyafter40):
-- Android10:40292826571, allthreepartitions active.
-- Android17:40293131622, allthreepartitions active.
-Catalog/collector freeze40fea1af2, refs now bind exactsources/runIDs. Run unchanged
-`python3 docs/evidence/ticket70/full-collector.py <10|17> <rawdir> <label> <run>`
-only after entire SUCCESS. Expected541/542identities,173/174normal,
-35interruptions,34continuity,134archives. No partial assembly.
-Signed beta68 is building in externalreview-worktree at exact505dcd3a7; session48020,
-log /mnt/storage/redsquare-android-artifacts/navigation70-signed68-build.log.
-Never rebuild/reuse68. Public remains67 until completeverification/reviews.
-Prepared/public checker scripts /tmp/redsquare70-{prepare68,public-check,retain-public}.py.
-Root's protected untracked group-contract file remains unread/untouched. Stop after70.
+Signed68 PREPARED, not published, at exact505dcd3a7a6b56655fac6910c4686ffe6d8f594b.
+Packet docs/evidence/ticket70/signed68-prepared. APK38365395bytes, SHA256
+ d468ffba977ee10d3c97a5d19d59b2eba4f8d4461799782c521bb6b1248e4266.
+ActualDEX: DEBUGfalse, REVIEW_BUILDtrue, PUSH_CONFIGUREDfalse, both Giphy keys absent.
+Established package/certificate, min29/target36, nondebug/nonprofileable verified.
+Never rebuild/reuse68. External review-worktree holds canonical prepared package.
+Public remains67. Before-publication checker passed and protects28 historical
+resources plus withheld61 URLs404. After complete verification/final reviews use
+canonical review-publish, then /tmp/redsquare70-public-check.py ordinary 68 after
+505dcd3a7a6b56655fac6910c4686ffe6d8f594b and /tmp/redsquare70-retain-public.py.
+Record publication.log and publication-result.json in external navigation70-publication-68.
 
-
-Latest production40fea1af2 fixes the visually confirmed overlapping navigation
-tooltips. Focused RED40291131065 at3c9c explicitly rejects lingeringChat caption.
-Private NavigationTooltipState accepts priority with a sharedMutatorMutex, dismisses
-peerstates, then delegates Material show. Two-axis source review Spec0/Standards0.
-Both new focused runs40291952046/40291955814 execute40 and are pending.
-The stronger independent evidence check now requires exactly one tooltip caption;
-all previous catalog/collector goals remain. New prospective freeze40fea1af2;
-full-identity-reference names it. Full runs not yet dispatched. No APK reserved.
-Do not accept old focuseds as completed70: earlier tests passed but visual review
-found overlapping tooltips. Native selected-state capture correctiona4 itself is
-confirmed by40290600094 passing the prior validator.
-
-
-On2026-10-26 the owner authorized one more issue. Selected70, deliberate large-text
-navigation, follows completed69. Blocker59 is closed; numerical scheduling is not
-a technical blocker. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
-Latest source a4eabaebc: all production remains ff480635e; native selection wait
-now confirms device.hasObject(By.text(name).selected(true)) within original15s.
-Both f369 focused runs40289614296/40289618121 pass5methods, but frozen evidence
-validator rejects stale native selection XML in each. Preserve that distinction.
-Updated focused10run40290600094 pending. Existing frame10whole40289020964 passes7.
-Exact one-line/full-word assertion now checks glyph extents and nine visible letters,
-not allocated paragraph width; independent Spec/Standards both approved.
-Full catalog/collector/navigation-check frozen b75617661 (541/542identities,
-173/174normal,35interruptions,34continuity,134archives), refs not yet dispatched.
-Prepared temporary beta68 scripts in /tmp/redsquare70-*; no reservation yet.
-
-Implementation ff480635e has initial/follow-up Spec0 and Standards0 source reviews.
-Original red40286952560 proves Following wraps at320dp/200%. Tracer40287533766
-and diagnostic40288267873 remain failed: TooltipBox applied weight to its inner
-anchor (only Home filled320px); nowrap Text reported width overflow with size104.
-An outer weighted Box now distributes five items, and measured single-line Text
-uses ordinary wrapping constraints. Native overflow assertion stays unchanged.
-Focused navigation10run40288794152, navigation17run40288797577 and existing
-frame10run40289020964 are pending atff480635e. New classes cover12viewport cells,
-five native disjoint48dp targets plus feed modes, actual keyboard/tooltips/selected
-destinations and real normal/zero window motion. Full acceptance/publication pending.
-Temporary observers/collector preparation are /tmp/redsquare70-*. No new APK reserved.
-
-Use existing native UI/controlled-peer seams for typography, native targets,
-focus, feed scope and recovery. Preserve existing full checks and deadlines.
-Stop after reviewed signed delivery of this issue. Protected untracked
-`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` stays unread and untouched.
+Evidence: docs/evidence/ticket70/README.md. Watchers89494(original17) and86073
+(replacement10) download terminal artifacts under /mnt/storage/redsquare-android-artifacts.
+Temporary helpers /tmp/redsquare70-*. Both reviewers await full/publication packets.
+Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains unread and
+untouched. Owner prerequisites remain parked. Stop after issue70 signed delivery.
 
 ## Issue69 delivered as beta67: STOP
 

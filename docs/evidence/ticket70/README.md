@@ -60,3 +60,14 @@ new methods pass. Original captions now show one complete popup. Two-axis source
 review has no unresolved findings. Complete505dcd3a7 executions40292826571/40293131622
 are active; no full acceptance yet. Signed68 is preparing at that same source and
 will stay withheld until complete checks and final review pass.
+
+Complete Android10 predecessor40292826571 is rejected: wallet passed, chat failed
+at the inherited group-invitation recovery scroll target, social was cancelled.
+Original target bounds were483..537 before moving to555..609 outside459..537.
+No application or fixture change was made. Unchanged isolated recovery run
+40295628598 atb2a523f15 succeeds. This does not erase the failure or establish its
+cause. Replacement whole Android10 run40296506207 repeats all three partitions;
+Android17 run40293131622 remains active. No partial runs will be assembled.
+All app/test/harness/workflow/build inputs are identical between505dcd3a7 andb2a523f15.
+Signed68 is prepared and withheld; before-publication checks preserve28 historical
+resources and confirm withheld61 resources remain404.
