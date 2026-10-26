@@ -1,6 +1,6 @@
 # Issue70: deliberate navigation for large text
 
-Status: implementation and complete verification passed; signed publication pending.
+Status: complete native verification passed; signed beta68 published.
 Review base7711a0c05368eefc4facea93d3d14428c1d4ada7. Only issue70 is authorized.
 
 The native regression at824d89794, run40286952560, fails because Following occupies
@@ -37,7 +37,7 @@ Text size53/lineRight53/visible native width53, paragraph allocation75 or121.
 The original one-line check remains. The corrected check also requires exact
 Following text, all nine visible characters, no ellipsis, line edges inside the
 rendered size and no height overflow. Both independent reviewers approved this
-as a faithful full-label check, not weaker acceptance. Production remains ff480635e.
+as a faithful full-label check, not weaker acceptance. Production at that stage remained ff480635e.
 
 Existing frame10run40289020964 passes all seven original methods, including
 first-use dominance, profile drafts, one-pixel reading recovery and system motion.
@@ -85,3 +85,17 @@ records and134 archives. Original failed40292826571 remains rejected. No code,
 fixture or assertion changes were needed for the successful full repeat. Actual
 inputs for505/b2a are identical, recorded in verification-source-equivalence.json.
 Android17 final evidence review: Spec0, Standards0. Android10 final review pending.
+
+Both final native evidence reviews report Spec0/Standards0. Root also inspected
+actual final10 large-text Home and single Activity tooltip originals. Signed68
+was canonically published with exit0. Independent HTTPS before/after verification
+passes: held APK38365395bytes, SHA256
+ d468ffba977ee10d3c97a5d19d59b2eba4f8d4461799782c521bb6b1248e4266,
+truthful source505dcd3a7a6b56655fac6910c4686ffe6d8f594b, established identity and
+nondebug/nonprofileable manifest. All28 historical resources remain identical;
+withheld61 URLs remain404. Public packet has44 hashes. No APK/signing material is
+committed. Physical Pixel/provider/store acceptance remains parked under36.
+Only70 is completed; stop before further implementation.
+
+Final independent publication reviews: Spec0, Standards0. Both reviewers verified
+the actual public APK and all28 historical resources against original bytes.

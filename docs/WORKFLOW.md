@@ -15,9 +15,9 @@ On2026-10-22 the owner paused development to limit token usage and then
 explicitly resumed #65. Each authorization now covers ONE issue only:
 finish that issue and stop before starting the next. #65 is completed and delivered as beta65. On2026-10-23 the owner authorized
 choosing and completing exactly one more issue. #66 is complete as beta66.
-On2026-10-25 the owner authorized one further issue. #69 is complete and delivered
-as beta67. On2026-10-26 a new request authorizes exactly one further issue:70.
-Finish its verification, reviewed delivery and commit, then stop.
+On2026-10-26 the owner authorized exactly one further issue:70. It is complete
+and delivered as beta68, following69/beta67. Stop now. A new owner request is
+required before implementing another issue.
 This supersedes the earlier authorization to churn the entire backlog unattended.
 
 ## Load the real skills

@@ -1,0 +1,10 @@
+{
+  "exit": 0,
+  "command": [
+    "scripts/review-publish",
+    ".scratch/review-builds/68",
+    "--notes",
+    "Readable navigation at larger text sizes, full feed labels and clearer destination tooltips."
+  ],
+  "source": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b"
+}

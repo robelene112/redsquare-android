@@ -1,43 +1,53 @@
 # Implementation handoff
 
-## Active: issue70 only
+## Issue70 delivered as beta68: STOP
 
-Owner authorized exactly one issue. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
-Production40fea1af2: measured adaptive navigation/feed labels, native full names,
-coordinated non-overlapping tooltips. Source reviews Spec0/Standards0. Final focused
-Android10/17 runs40291952046/40291955814 pass all five methods and the stronger
-frozen evidence validator. Reviewers inspected originals. Full acceptance pending.
+The owner authorized exactly one issue on2026-10-26. Issue70 is implemented,
+verified and delivered as signed beta68. Do not start another issue without a new
+owner request. Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md
+remains unread and untouched. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
 
-Complete Android10 predecessor40292826571 failed the existing group invitation
-recovery test at200% dark: target moved outside viewport after readiness. No code
-or test changes. Isolated unchanged40295628598 atb2a523f15 passes. Failed evidence
-is retained; no definite cause claimed. Replacement whole Android10 run40296506207
-atb2a523f15 is active. Original Android17 run40293131622 at505dcd3a7 is whole SUCCESS. Its unchanged
-collector passes542 identities/passes, no assumptions,174 completions,35 deliberate
-interruptions,34 continuity records,134 archives. Final evidence review is underway.
-Both sources have identical app/test/harness/workflow/build inputs. Never assemble
-partial successes. Freeze40fea1af2 preserves all previous criteria and adds five
-navigation methods:541/542 identities,173/174 normal completions,35 deliberate
-interruptions,34 continuity records,134 archives. Use unchanged full-collector.py
-only after entire success; full-identity-reference.json binds runs and sources.
+Navigation now measures caption fit at the user's actual text size. When needed,
+five accessible icons share one full active-destination caption, with native
+keyboard/long-press names. Feed modes/actions separate only when necessary.
+No font shrink, changed feed scope, wallet/node behavior or weakened safeguards.
+A coordinated tooltip state prevents lingering keyboard captions overlapping the
+next long-pressed destination. Final production commit40fea1af2.
 
-Signed68 PREPARED, not published, at exact505dcd3a7a6b56655fac6910c4686ffe6d8f594b.
-Packet docs/evidence/ticket70/signed68-prepared. APK38365395bytes, SHA256
+Complete Android10 replacement40296506207 atb2a523f15 succeeds:541 exact identities,
+540 passes plus the sole inherited API29 Profile assumption,173 normal completions.
+Complete Android17 run40293131622 at505dcd3a7 succeeds:542 identities/passes,
+no assumptions,174 normal completions. Each has three successful partitions,
+134 archives,35 deliberate interruptions and34 continuity records. Unchanged frozen
+collectors pass; all2757/2824 retained hashes independently verified. Native final
+reviews: Spec0, Standards0. Actual light/dark/100/130/200% originals, keyboard,
+selection, single tooltips and normal/zero motion were inspected on both versions.
+
+Failed Android10 predecessor40292826571 remains rejected. A group invitation
+recovery target moved below its viewport after readiness. Unchanged focused repeat
+40295628598 and unchanged complete replacement passed; no definitive cause claimed,
+no assertions or deadlines changed, no partial successes assembled. All13 recorded
+app/test/harness/workflow/build input objects match505..b2a. This supports immutable
+beta68's truthful source505dcd3a7a6b56655fac6910c4686ffe6d8f594b.
+
+Beta68 is live at https://davidengelen.nl/redsquare/ as an in-place update.
+APK38365395bytes, SHA256
  d468ffba977ee10d3c97a5d19d59b2eba4f8d4461799782c521bb6b1248e4266.
-ActualDEX: DEBUGfalse, REVIEW_BUILDtrue, PUSH_CONFIGUREDfalse, both Giphy keys absent.
 Established package/certificate, min29/target36, nondebug/nonprofileable verified.
-Never rebuild/reuse68. External review-worktree holds canonical prepared package.
-Public remains67. Before-publication checker passed and protects28 historical
-resources plus withheld61 URLs404. After complete verification/final reviews use
-canonical review-publish, then /tmp/redsquare70-public-check.py ordinary 68 after
-505dcd3a7a6b56655fac6910c4686ffe6d8f594b and /tmp/redsquare70-retain-public.py.
-Record publication.log and publication-result.json in external navigation70-publication-68.
+ActualDEX: DEBUGfalse, REVIEW_BUILDtrue, PUSH_CONFIGUREDfalse, both Giphy keys absent.
+Canonical publication exited0. Independent HTTPS before/after verification matches
+the held APK and preserves28 historical resources plus withheld61 URLs404.
+Public packet contains44 hashes. Never rebuild or replace version68.
+No APK or signing material is committed. Physical Pixel/provider/store acceptance
+remains parked under OWNER_INPUTS.md and36; no such acceptance is implied here.
 
-Evidence: docs/evidence/ticket70/README.md. Watchers89494(original17) and86073
-(replacement10) download terminal artifacts under /mnt/storage/redsquare-android-artifacts.
-Temporary helpers /tmp/redsquare70-*. Both reviewers await full/publication packets.
-Protected untracked docs/research/NATIVE_GROUP_CHAT_CONTRACT.md remains unread and
-untouched. Owner prerequisites remain parked. Stop after issue70 signed delivery.
+Evidence: docs/evidence/ticket70/README.md, full10-b2a-40296506207,
+full17-505-40293131622, verification-source-equivalence.json, signed68-prepared,
+signed68-public. Actual build/downloads remain under /mnt/storage/redsquare-android-artifacts.
+Final publication reviews: Spec0, Standards0. GitHub closure is the remaining
+administrative step: close70 and only its child checkbox in55; parents55/1 and
+release36 remain open.
+Stop after this issue. No further implementation is authorized.
 
 ## Issue69 delivered as beta67: STOP
 
