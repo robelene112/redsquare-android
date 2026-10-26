@@ -25,6 +25,8 @@ class NavigationPreviewTest {
                 val layouts = mutableListOf<TextLayoutResult>()
                 ui.onNodeWithText("Following", useUnmergedTree = true)
                     .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { check(it(layouts)) }
+                val layout = layouts.single()
+                File(folder, "$label-layout.txt").writeText("size=${layout.size} widthOverflow=${layout.didOverflowWidth} heightOverflow=${layout.didOverflowHeight} exceeded=${layout.multiParagraph.didExceedMaxLines} paragraphHeight=${layout.multiParagraph.height} constraints=${layout.layoutInput.constraints} lineHeight=${layout.layoutInput.style.lineHeight}\n")
                 assertEquals("Following must be a complete readable word", 1, layouts.single().lineCount)
                 assertFalse("The full label must fit", layouts.single().hasVisualOverflow)
                 ui.onNode(hasText("Following") and hasClickAction()).performClick()
