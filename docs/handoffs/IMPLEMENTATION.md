@@ -44,9 +44,8 @@ remains parked under OWNER_INPUTS.md and36; no such acceptance is implied here.
 Evidence: docs/evidence/ticket70/README.md, full10-b2a-40296506207,
 full17-505-40293131622, verification-source-equivalence.json, signed68-prepared,
 signed68-public. Actual build/downloads remain under /mnt/storage/redsquare-android-artifacts.
-Final publication reviews: Spec0, Standards0. GitHub closure is the remaining
-administrative step: close70 and only its child checkbox in55; parents55/1 and
-release36 remain open.
+Final publication reviews: Spec0, Standards0. GitHub issue70 is CLOSED and only
+its child checkbox in55 is checked. Parents55/1 and release36 remain open.
 Stop after this issue. No further implementation is authorized.
 
 ## Issue69 delivered as beta67: STOP
