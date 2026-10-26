@@ -388,6 +388,13 @@ if [[ "${TEST_SCOPE:-full}" == composer || "${TEST_SCOPE:-full}" == composer-and
     printf '%s\n' 'Focused native composer writing, IME, local storage and publishing journeys only; full app acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
+if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == navigation* ]]; then
+    verify_group_chat_native NavigationPreviewTest 180 navigation navigation-evidence
+    if [[ "${TEST_SCOPE:-full}" == navigation* ]]; then
+        printf '%s\n' 'Focused native adaptive navigation; not full acceptance.' > "$evidence/scope.txt"
+        exit 0
+    fi
+fi
 if [[ "$full_chat" == true || "${TEST_SCOPE:-full}" == app-frame* ]]; then
     if [[ "${TEST_SCOPE:-full}" == app-frame-reading* ]]; then
         verify_group_chat_native AppFrameReadingPreviewTest 180 app-frame-reading app-frame-reading-evidence

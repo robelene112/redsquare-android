@@ -1,5 +1,15 @@
 # Implementation handoff
 
+## Active: issue70 only
+
+On2026-10-26 the owner authorized one more issue. Selected70, deliberate large-text
+navigation, follows completed69. Blocker59 is closed; numerical scheduling is not
+a technical blocker. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
+Use existing native UI/controlled-peer seams for typography, native targets,
+focus, feed scope and recovery. Preserve existing full checks and deadlines.
+Stop after reviewed signed delivery of this issue. Protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` stays unread and untouched.
+
 ## Issue69 delivered as beta67: STOP
 
 The owner authorized exactly one issue on 2026-10-25. Issue69 is implemented,
