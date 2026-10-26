@@ -1,0 +1,77 @@
+{
+  "signedSource": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b",
+  "android17Source": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b",
+  "android10Source": "b2a523f15c71531de3fad2fe74dc24f6b547282d",
+  "productionAndVerificationInputsIdentical": true,
+  "objects": [
+    {
+      "path": "app",
+      "signedAndAndroid17Object": "9d95fb394dc833c2ddc4a11823081a6ddfe80540",
+      "android10Object": "9d95fb394dc833c2ddc4a11823081a6ddfe80540"
+    },
+    {
+      "path": "core",
+      "signedAndAndroid17Object": "aa3628d1a7a1d677acd5d394cfe293132e11c2b1",
+      "android10Object": "aa3628d1a7a1d677acd5d394cfe293132e11c2b1"
+    },
+    {
+      "path": "push-gateway",
+      "signedAndAndroid17Object": "33751de752ce65df36e2b9b412ce95439bf7e566",
+      "android10Object": "33751de752ce65df36e2b9b412ce95439bf7e566"
+    },
+    {
+      "path": "test-fixtures",
+      "signedAndAndroid17Object": "fcd54e3ad2ad4045803b074dbd657fcf0b708607",
+      "android10Object": "fcd54e3ad2ad4045803b074dbd657fcf0b708607"
+    },
+    {
+      "path": "scripts",
+      "signedAndAndroid17Object": "77cbaaca68704c3f4cbda0c144e306cce0f1cba7",
+      "android10Object": "77cbaaca68704c3f4cbda0c144e306cce0f1cba7"
+    },
+    {
+      "path": ".github",
+      "signedAndAndroid17Object": "642d3b43f4f2a24a00d64142b72d6cc74c8e60fb",
+      "android10Object": "642d3b43f4f2a24a00d64142b72d6cc74c8e60fb"
+    },
+    {
+      "path": "build-support",
+      "signedAndAndroid17Object": "d4e9d93da0aa0ecff553a7562080b63521a8be34",
+      "android10Object": "d4e9d93da0aa0ecff553a7562080b63521a8be34"
+    },
+    {
+      "path": "gradle",
+      "signedAndAndroid17Object": "4167f4ea961fcf6b4ae64c287eee7d16241e967e",
+      "android10Object": "4167f4ea961fcf6b4ae64c287eee7d16241e967e"
+    },
+    {
+      "path": "gradlew",
+      "signedAndAndroid17Object": "f5feea6d6b116baaca5a2642d4d9fa1f47d574a7",
+      "android10Object": "f5feea6d6b116baaca5a2642d4d9fa1f47d574a7"
+    },
+    {
+      "path": "gradlew.bat",
+      "signedAndAndroid17Object": "9b42019c7915b971238526075306ffba3b666dd5",
+      "android10Object": "9b42019c7915b971238526075306ffba3b666dd5"
+    },
+    {
+      "path": "build.gradle.kts",
+      "signedAndAndroid17Object": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8",
+      "android10Object": "f3fc17c4fa2c66d6f11cc3545bf3b86bed466fb8"
+    },
+    {
+      "path": "settings.gradle.kts",
+      "signedAndAndroid17Object": "0095b7ade761bc539b703724c717ece3a9d1879b",
+      "android10Object": "0095b7ade761bc539b703724c717ece3a9d1879b"
+    },
+    {
+      "path": "gradle.properties",
+      "signedAndAndroid17Object": "412c76af0b073a46f92cae8d5a3fcc8202b9612c",
+      "android10Object": "412c76af0b073a46f92cae8d5a3fcc8202b9612c"
+    }
+  ],
+  "changesOnly": "Documentation and retained verification evidence",
+  "changedPathCount": 444,
+  "apkRebuilt": false,
+  "fullRunsAccepted": false
+}

@@ -1,0 +1,946 @@
+--------- beginning of main
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912782 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912782; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912782 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912782; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912782 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912782; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912742  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (48861) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912770  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (48861) , ttsOutput= {}, eventSrcRole=ROLE_VIEW_GROUP, nodeRole=ROLE_VIEW_GROUP, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912781  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+E/talkback: EventTypeWindowContentChangedFeedbackRule(17705):     windowContentChanged: error, node is null
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61478) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61292) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61230) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61385) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61261) , ttsOutput= {}, eventSrcRole=ROLE_SCROLL_VIEW, nodeRole=ROLE_SCROLL_VIEW, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61199) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912782  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (49822) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter(17705): START interpret() event type=TYPE_WINDOW_STATE_CHANGED time=2912770 allowEvent=true
+V/talkback: WindowEventInterpreter(17705):  interpret() windowRoles=a:1802:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1801:Application icon
+V/talkback: WindowEventInterpreter(17705):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={1801={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev"  }, 1802={ title="Red Square"  titleFromWindowChange="Red Square"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="nl.davidengelen.redsquare.dev"  }}
+V/talkback: WindowEventInterpreter(17705):    updateWindowTitles() windowIdToData={1801={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev"  }, 1802={ title="Red Square"  titleFromWindowChange="Red Square"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="nl.davidengelen.redsquare.dev"  }}
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=550  sourceBoundsInScreen= Rect(188, 211 - 304, 371)  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= 
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter(17705):   PicInPic= 
+V/talkback: WindowEventInterpreter(17705):   inputMethod= 
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705):  interpret() delayMs=200, interpretation=WindowIdFromEvent=1803  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOW_STATE_CHANGED  maxDelayMs=200  sourceBoundsInScreen= Rect(188, 211 - 304, 371)  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(17705):    sourceBoundsInScreen=null
+V/talkback: Mappers(17705):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(17705): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912770 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter(17705): START interpret() event type=TYPE_WINDOWS_CHANGED time=2912804 allowEvent=true
+V/talkback: WindowEventInterpreter(17705):  interpret() windowRoles=a:1802:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1801:Application icon
+V/talkback: WindowEventInterpreter(17705):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={1801={ title="Application icon"  titleFromWindowChange="Application icon"  eventSourceRole="ROLE_NONE"  eventPackageName="nl.davidengelen.redsquare.dev"  }, 1802={ title="Red Square"  titleFromWindowChange="Red Square"  eventSourceRole="ROLE_VIEW_GROUP"  eventPackageName="nl.davidengelen.redsquare.dev"  }}
+V/talkback: WindowEventInterpreter(17705):      windowId=1803 { title="Pop-Up Window"  titleFromWindowChange="Pop-Up Window"  eventSourceRole="ROLE_NONE"  }
+V/talkback: WindowEventInterpreter(17705):    updateWindowTitles() windowIdToData={1803={ title="Pop-Up Window"  titleFromWindowChange="Pop-Up Window"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1802  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= 
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter(17705):   PicInPic= 
+V/talkback: WindowEventInterpreter(17705):   inputMethod= 
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1802, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1802:null
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705):  interpret() delayMs=200, interpretation=WindowIdFromEvent=1802  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1802  TitleForFeedback="untitled"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(17705):    sourceBoundsInScreen=null
+V/talkback: Mappers(17705):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(17705): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter(17705): START interpret() event type=TYPE_WINDOWS_CHANGED time=2912804 allowEvent=true
+V/talkback: WindowEventInterpreter(17705):  interpret() windowRoles=a:1802:Red Square b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1801:Application icon
+V/talkback: WindowEventInterpreter(17705):    updateFirstTimeInterpretationWhenWakeUp() windowIdToData={1803={ title="Pop-Up Window"  titleFromWindowChange="Pop-Up Window"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(17705):      windowId=1803 { title="Pop-Up Window"  titleFromWindowChange="Pop-Up Window"  eventSourceRole="ROLE_NONE"  }
+V/talkback: WindowEventInterpreter(17705):    updateWindowTitles() windowIdToData={1803={ title="Pop-Up Window"  titleFromWindowChange="Pop-Up Window"  eventSourceRole="ROLE_NONE"  }}
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=550  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= 
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= 
+V/talkback: WindowEventInterpreter(17705):   PicInPic= 
+V/talkback: WindowEventInterpreter(17705):   inputMethod= 
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705):  interpret() delayMs=200, interpretation=WindowIdFromEvent=1803  MainWindowsChanged  OriginalEvent  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  maxDelayMs=200  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(17705):    sourceBoundsInScreen=null
+V/talkback: Mappers(17705):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(17705): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912807  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912807 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912807; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.ViewGroup; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+V/A11yInputMethod(17705): startInput(): editor=android.view.inputmethod.EditorInfo@914a0c
+V/A11yInputMethod(17705): CALL: onStartInput
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters,ScreenFeedbackManager
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912807, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_STATE_CHANGED displayId:0 time:2912807 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: WindowEventInterpreter(17705): Dropping window state changed event EventType: TYPE_WINDOW_STATE_CHANGED; EventTime: 2912807; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.ViewGroup; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 if the windowIdToData was handled before.
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=2912770  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule(17705):  ttsOutputRule= windowStateChangedState,   role="ROLE_VIEW_GROUP"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils(17705): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_REMOVED  time=2912804  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ADDED  time=2912804  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912807  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (49822) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_STATE_CHANGED  time=2912807  class="android.view.ViewGroup"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_STATE_CHANGED  
+V/talkback: EventTypeWindowStateChangedFeedbackRule(17705):  ttsOutputRule= windowStateChangedState,   role="ROLE_VIEW_GROUP"  ttsOutput=""  
+W/talkback: AccessibilityInterpretationUtils(17705): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_STATE_CHANGED:  ttsOutput=     ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  
+V/talkback: A11yEventProcessor(17705): Event listeners: UiChangeEventInterpreter,Pipeline,ProcessorEventQueue,ProcessorPhoneticLetters
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716 event=EventType: TYPE_VIEW_CLICKED; EventTime: 2912716; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 16; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(17705):    toFeedback()()
+V/talkback: Mappers(17705):      eventType=1
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=10  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_VIEW_CLICKED  time=2912716  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=16  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_VIEW_CLICKED  
+V/talkback: EventTypeViewClickedFeedbackRule(17705): source node is null
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_VIEW_CLICKED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfSsbActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  haptic=2130903106  earcon=2131820567  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716, failovers=[Part= speech= action=SPEAK  text=""  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_NO_SPEECH  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716 part=Part= speech= action=SPEAK  text=""  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_NO_SPEECH  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: FeedbackController(17705): playAuditory() resId=2131820567 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716
+V/talkback: FeedbackController(17705): playHaptic() resId=2130903106 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_CLICKED displayId:0 time:2912716
+V/talkback: Pipeline(17705): execute() success=true for part=Part= speech= action=SPEAK  text=""  options= earcons=[2131820567]  haptics=[2130903106]  queueMode=QUEUE  flags=FLAG_NO_SPEECH  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912883  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912883 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912883; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912884  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912884 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912884; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912885  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912885 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912885; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912883  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61230) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912884  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61199) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912885  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (49822) , ttsOutput= {}, eventSrcRole=ROLE_NONE, nodeRole=ROLE_NONE, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=20  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=30  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=40  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: A11yEventProcessor(17705): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+W/talkback: DirectionNavigationInterpreter(17705): Accessibility focus is not assigned by TalkBack. Unable to find source action info for event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2912921  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2912921; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(17705):    toFeedback()()
+V/talkback: Mappers(17705):      eventType=32768
+V/talkback: Mappers(17705):      forceFeedbackEvenIfAudioPlaybackActive=false
+V/talkback: Mappers(17705):      forceFeedbackEvenIfMicrophoneActive=false
+V/talkback: ClickableHint(17705):  clickableHint={Double-tap to activate}
+D/talkback: AccessibilityFocusMonitor(17705): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(17705): Failed to get the editing node.
+V/talkback: SpannableUtils(17705): text(null) isEmptyOrNotSpannableStringType
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=1870519241  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  content="Edit post by Anon-kVh9bv"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=61447  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Edit"  enabled  visible      
+V/talkback: SpannableUtils(17705): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableTraversalUtils(17705): Root has content description, skipping searching the children nodes.
+V/talkback: SpannableUtils(17705): text(Edit) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: AccessibilityFocusHint(17705):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(17705):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(17705):     nodeRoleHint={Double-tap to activate}
+V/talkback: AccessibilityFocusHint(17705):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(17705):     isLongClickable: false
+V/talkback: HintFeedbackRule(17705):   speakHintText: (61385) , hint={Double-tap to activate}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(17705):  EVENT_SPEAK_HINT:  ttsOutput= Double-tap to activate    queueMode=0  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921, failovers=[Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to activate  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to activate  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to activate  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2912921; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(17705):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue,ScreenFeedbackManager
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=50  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2912921  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+W/talkback: SelectorController(17705): newItemFocused Return. FocusActionInfo is null
+D/talkback: TouchInteractionMonitor(17705): setSupportLiftToType/focused on Lift-to-type node:FALSE
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2912921; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=AccessibilityFocused{  }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@efc9; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(188, 267 - 304, 315); boundsInWindow: Rect(0, 0 - 0, 0); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_NEXT_AT_MOVEMENT_GRANULARITY, ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_CLICK, ACTION_SET_SELECTION]
+V/talkback: Mappers(17705):    needsCaption=false
+V/talkback: Compositor(17705): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+W/talkback: AccessibilityInterpretationUtils(17705): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=1870519241  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  content="Edit post by Anon-kVh9bv"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=61447  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Edit"  enabled  visible      
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (1870519241), role=ROLE_NONE, isContentDescriptionEmpty=false, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (1870519241)    accessibilityNodeError=""  , treeDescription={Edit post by Anon-kVh9bv} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (61447), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (61447)    accessibilityNodeError=""  , treeDescription={Edit} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (61385), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705):         childNode:(1870519241), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Edit post by Anon-kVh9bv}
+V/talkback: TreeNodesDescription(17705):         childNode:(61447), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Edit}
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (61385)    accessibilityNodeError=""  , treeDescription={Edit post by Anon-kVh9bv, Edit} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):   treeDescriptionWithLabel: , appendedTreeDescription={Edit post by Anon-kVh9bv, Edit}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705): aggregateNodeTreeDescription:  (61385), treeDescriptionWithLabel={Edit post by Anon-kVh9bv, Edit}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705): windowTransitionState: isWindowIdChanged=true, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):     nodeTreeDescription={Edit post by Anon-kVh9bv, Edit}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):  viewAccessibilityFocused: (61385) , ttsOutput={Edit post by Anon-kVh9bv, Edit}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Edit post by Anon-kVh9bv, Edit    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921, failovers=[Part= speech= action=SPEAK  text="Edit post by Anon-kVh9bv, Edit"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921 part=Part= speech= action=SPEAK  text="Edit post by Anon-kVh9bv, Edit"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from current chunk= sourceTextBegin=26  sourceTextEnd=30  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(17705): Request Audio Focus.
+V/talkback: FeedbackFragmentsIterator(17705): next --currentFeedbackFragment text = Edit post by Anon-kVh9bv, Edit.
+V/talkback: FeedbackController(17705): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921
+V/talkback: FeedbackController(17705): playHaptic() resId=2130903105 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921
+V/talkback: SpeechControllerImpl(17705): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17705): Speaking fragment text="Edit post by Anon-kVh9bv, Edit", utteranceId=talkback_26, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2912921
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeech done
+D/talkback: SpeechCacheManager(17705): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_26, text=Edit post by Anon-kVh9bv, Edit, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(17705): tts.speak, utteranceId =talkback_26
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_START utteranceId=talkback_26
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+D/talkback: FailoverTextToSpeech(17705): Speak call for talkback_26 returned 0
+V/talkback: Pipeline(17705): execute() success=true for part=Part= speech= action=SPEAK  text="Edit post by Anon-kVh9bv, Edit"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2912921  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= EVENT_UNKNOWN  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOWS_CHANGED  WindowChangeTypes=WINDOWS_CHANGE_ACCESSIBILITY_FOCUSED  time=2912921  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= EVENT_UNKNOWN  
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=60  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=70  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+V/talkback: A11yEventProcessor(17705): Event listeners: Pipeline,ProcessorEventQueue
+D/talkback: AutoScrollInterpreter(17705): onScrollEvent, event = AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912987  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOW_CONTENT_CHANGED displayId:0 time:2912987 event=EventType: TYPE_WINDOW_CONTENT_CHANGED; EventTime: 2912987; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 0; ContentChangeTypes: [CONTENT_CHANGE_TYPE_SUBTREE]; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=ScrollEventInterpretation{userAction=ACTION_UNKNOWN, scrollDirection=SEARCH_FOCUS_UNKNOWN, hasValidIndex=false, isDuplicateEvent=false, isFromScrollable=false, isMediaPlayerAutoScroll=false, scrollInstanceId=-1} eventSourceNode=null
+V/talkback: Mappers(17705):    isMediaPlayerAutoScroll=false
+V/talkback: Mappers(17705):    isFromScrollable=false
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_WINDOW_CONTENT_CHANGED  ContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  time=2912987  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Compositor(17705): eventInterpretation= TYPE_WINDOW_CONTENT_CHANGED  
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705):   computeWindowContentChangedStateText:   eventContentChangeTypes=CONTENT_CHANGE_TYPE_SUBTREE  contentChangeType=CONTENT_CHANGE_TYPE_SUBTREE, isSelfOrAncestorFocused=false
+V/talkback: EventTypeWindowContentChangedFeedbackRule(17705): windowContentChanged: (61261) , ttsOutput= {}, eventSrcRole=ROLE_SCROLL_VIEW, nodeRole=ROLE_SCROLL_VIEW, nodeLiveRegion=0, nodeNotFrequentAnnounced=true
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_WINDOW_CONTENT_CHANGED:  ttsOutput=     queueMode=0  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfPhoneCallActive  ttsSkipDuplicate  
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=80  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=90  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=100  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=110  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=120  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=130  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=140  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=150  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=160  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=170  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=180  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=190  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  delayedInterpret()
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=200  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() fromWindow : id=1803, 
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() otherWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() applicationWindows.size()=1
+V/talkback: WindowEventInterpreter(17705):    updateWindowRoles() One application window case
+V/talkback: WindowEventInterpreter(17705):    detectWindowChanges()=true roles=a:1803:Pop-Up Window b:-1:null otherActive:-1:null picInPic:-1:null inputMethod:-1:null eventSource:1803:Pop-Up Window
+V/talkback: WindowEventInterpreter(17705):    detectInputMethodChanged()=false
+V/talkback: WindowEventInterpreter(17705): END delayedInterpret() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=200  
+V/talkback: WindowEventInterpreter(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: WindowEventInterpreter(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: WindowEventInterpreter(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: WindowEventInterpreter(17705):   AnchorNodeRole= 0
+V/talkback: WindowEventInterpreter(17705):   
+V/talkback: WindowEventInterpreter(17705):  Assumes windows are stable, delay=200
+V/talkback: ScreenFeedbackManager(17705): composeFeedback() interpretation=WindowIdFromEvent=1803  MainWindowsChanged  WindowsStable  allowAnnounce  EventType=TYPE_WINDOWS_CHANGED  eventStartTime=2912770  maxDelayMs=200  totalDelayMs=200  
+V/talkback: ScreenFeedbackManager(17705):   eventSourceWindow= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1801  OldTitle="Application icon"  
+V/talkback: ScreenFeedbackManager(17705):   WindowA= ID=1803  Title="Pop-Up Window"  TitleForFeedback="Pop-Up Window"  OldID=1802  OldTitle="Red Square"  
+V/talkback: ScreenFeedbackManager(17705):   WindowB= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(17705):   OtherActiveWindow= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(17705):   PicInPic= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(17705):   inputMethod= TitleForFeedback="untitled"  
+V/talkback: ScreenFeedbackManager(17705):   AnchorNodeRole= 0
+V/talkback: ScreenFeedbackManager(17705):   
+V/talkback: ScreenFeedbackManager(17705): composeFeedback() single window mode
+V/talkback: ScreenFeedbackManager(17705): feedback=["Pop-Up Window"  forceFeedbackEvenIfAudioPlaybackActive   forceFeedbackEvenIfMicrophoneActive  ] 
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= interruptGroup=0  interruptLevel=2  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= interruptGroup=0  interruptLevel=2  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= speech= action=SPEAK  text="Pop-Up Window"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= speech= action=SPEAK  text="Pop-Up Window"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from current chunk= diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: SpeechControllerImpl(17705): Queued speech item, waiting for "talkback_26"
+V/talkback: FeedbackController(17705): playAuditory() resId=2131820575 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804
+V/talkback: FeedbackController(17705): playHaptic() resId=2130903110 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804
+V/talkback: Pipeline(17705): execute() success=true for part=Part= speech= action=SPEAK  text="Pop-Up Window"  options= queueMode=QUEUE/UNINTERRUPTIBLE  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE    hint= null  hintSpeakOptions= null    sound= Sound{resourceId=2131820575, rate=1.0, volume=1.0, ignoreVolumeAdjustment=false, separationMillisec=0}  vibration= Vibration{resourceId=2130903110}  
+D/talkback: FocusProcessor-ScreenStateChange(17705): Screen state changed : Duration=378, From: activeWindow= AccessibilityWindowInfo[title=Pop-Up Window, displayId=0, id=1803, taskId=366, type=TYPE_APPLICATION, layer=0, region=SkRegion((188,211,304,371)), bounds=Rect(188, 211 - 304, 371), focused=true, active=true, pictureInPicture=false, transitionTime=2912804, hasParent=false, isAnchored=false, hasChildren=false]  screenTransitionStartTime=2912770  
+V/talkback: InputFocusInterpreter(17705): initLastEditableFocusForGlobalVariables() : currentInputFocus: null
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 event=null interpretation=UiChange{sourceBoundsInScreen=null, uiChangeType=WHOLE_SCREEN_UI_CHANGED} eventSourceNode=null
+V/talkback: Mappers(17705):    sourceBoundsInScreen=null
+V/talkback: Mappers(17705):    uiChangeType=WHOLE_SCREEN_UI_CHANGED
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+V/talkback: Pipeline(17705): execute() success=false for part=Part= uiChange= UiChange{action=CLEAR_SCREEN_CACHE, sourceBoundsInScreen=null}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804, failovers=[Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804 part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= universalSearch= UniversalSearch{action=HANDLE_SCREEN_STATE, config=null}  
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+D/talkback: FocusProcessor-ScreenStateChange(17705): Delayed screen state changed with result=FAIL_HAS_VALID_FOCUS, delayTime=172
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=7970
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_26 bytes=3402
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_DONE utteranceId=talkback_26
+V/talkback: FeedbackFragmentsIterator(17705): next --currentFeedbackFragment text = Pop-Up Window.
+V/talkback: SpeechControllerImpl(17705): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17705): Speaking fragment text="Pop-Up Window", utteranceId=talkback_27, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_WINDOWS_CHANGED displayId:0 time:2912804
+D/talkback: FailoverTextToSpeech(17705): tts.speak, utteranceId =talkback_27
+D/talkback: FailoverTextToSpeech(17705): Speak call for talkback_27 returned 0
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_START utteranceId=talkback_27
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_27 bytes=1570
+D/talkback: A11yEventProcessor(17705): Processor idle state.
+V/talkback: Mappers(17705):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(17705):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(17705): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(17705): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(17705): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    

@@ -12,7 +12,9 @@ Complete Android10 predecessor40292826571 failed the existing group invitation
 recovery test at200% dark: target moved outside viewport after readiness. No code
 or test changes. Isolated unchanged40295628598 atb2a523f15 passes. Failed evidence
 is retained; no definite cause claimed. Replacement whole Android10 run40296506207
-atb2a523f15 is active. Original Android17 run40293131622 at505dcd3a7 is active.
+atb2a523f15 is active. Original Android17 run40293131622 at505dcd3a7 is whole SUCCESS. Its unchanged
+collector passes542 identities/passes, no assumptions,174 completions,35 deliberate
+interruptions,34 continuity records,134 archives. Final evidence review is underway.
 Both sources have identical app/test/harness/workflow/build inputs. Never assemble
 partial successes. Freeze40fea1af2 preserves all previous criteria and adds five
 navigation methods:541/542 identities,173/174 normal completions,35 deliberate

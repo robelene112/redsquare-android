@@ -71,3 +71,9 @@ Android17 run40293131622 remains active. No partial runs will be assembled.
 All app/test/harness/workflow/build inputs are identical between505dcd3a7 andb2a523f15.
 Signed68 is prepared and withheld; before-publication checks preserve28 historical
 resources and confirm withheld61 resources remain404.
+
+Complete Android17 run40293131622 at505dcd3a7 is whole SUCCESS. The unchanged
+frozen collector passes542 identities/passes, zero assumptions,174 normal
+completions,35 deliberate interruptions,34 continuity records and134 archives.
+No missing/extra identities or partial assembly. Final bounded evidence review
+is underway. Replacement10 remains active; prepared68 remains withheld.

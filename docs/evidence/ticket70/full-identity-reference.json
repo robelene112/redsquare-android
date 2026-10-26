@@ -112,7 +112,7 @@
   },
   "navigationCheckSha256": "37e4ff9d7c07f4c7675057075074f334dd3ed597240cca1ded847738c5da972a",
   "catalogFreezeCommit": "40fea1af2ce37f9f907ed3473186c54748939e0d",
-  "executingState": "Replacement complete Android10 and original complete Android17 active; neither accepted. Failed Android10 predecessor40292826571 remains rejected.",
+  "executingState": "Complete Android17 accepted by unchanged collector:542 passes, no assumptions. Replacement complete Android10 active. Failed predecessor remains rejected.",
   "executingSources": {
     "android10": "b2a523f15c71531de3fad2fe74dc24f6b547282d",
     "android17": "505dcd3a7a6b56655fac6910c4686ffe6d8f594b"

@@ -1,0 +1,215 @@
+--------- beginning of main
+V/talkback: A11yEventProcessor(17705): Event listeners: CustomLabelManager,DirectionNavigationInterpreter,ProcessorMagnification,Pipeline,KeyComboManager,ProcessorEventQueue,ProcessorPhoneticLetters
+W/talkback: DirectionNavigationInterpreter(17705): Accessibility focus is not assigned by TalkBack. Unable to find source action info for event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2967444  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2967444; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=HintableEvent{  }   eventSourceNode=null
+V/talkback: ProcessorAccessibilityHints(17705):    toFeedback()()
+V/talkback: Mappers(17705):      eventType=32768
+V/talkback: Mappers(17705):      forceFeedbackEvenIfAudioPlaybackActive=false
+V/talkback: Mappers(17705):      forceFeedbackEvenIfMicrophoneActive=false
+V/talkback: ClickableHint(17705):  actionClickHint={Double-tap to Open activity from Anon-pncSjs}
+D/talkback: AccessibilityFocusMonitor(17705): Failed to get the editing node.
+D/talkback: AccessibilityFocusMonitor(17705): Failed to get the editing node.
+V/talkback: SpannableUtils(17705): text(null) isEmptyOrNotSpannableStringType
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=1870499378  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  content="Open activity from Anon-pncSjs"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41615  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Liked your post"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41646  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Native Red Square reference post"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41739  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="11/14/23 10:13 PM"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41770  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Read"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935270450  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: SpannableUtils(17705): text(null) isEmptyOrNotSpannableStringType
+V/talkback: SpannableTraversalUtils(17705): Root has content description, skipping searching the children nodes.
+V/talkback: SpannableUtils(17705): text(Liked your post) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(17705): text(Native Red Square reference post) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(17705): text(11/14/23 10:13 PM) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(17705): text(Read) has null or empty parcelableSpans[[class android.text.style.ClickableSpan]]
+V/talkback: SpannableUtils(17705): text(null) isEmptyOrNotSpannableStringType
+V/talkback: AccessibilityFocusHint(17705):     getHint: enableUsageHint=true, isEnabled=true, isAccessibilityFocused=true
+V/talkback: AccessibilityFocusHint(17705):     hintForAdjustableChild={}
+V/talkback: AccessibilityFocusHint(17705):     nodeRoleHint={Double-tap to Open activity from Anon-pncSjs}
+V/talkback: AccessibilityFocusHint(17705):     nodeActionsHintHighVerbosity={}
+V/talkback: AccessibilityFocusHint(17705):     isLongClickable: false
+V/talkback: HintFeedbackRule(17705):   speakHintText: (41522) , hint={Double-tap to Open activity from Anon-pncSjs}, hintType=1,
+V/talkback: TalkBackFeedbackProvider(17705):  EVENT_SPEAK_HINT:  ttsOutput= Double-tap to Open activity from Anon-pncSjs    queueMode=0  forceFeedbackEvenIfPhoneCallActive  refreshSourceNode  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444, failovers=[Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open activity from Anon-pncSjs  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open activity from Anon-pncSjs  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=2  speech= action=SPEAK  hint= Double-tap to Open activity from Anon-pncSjs  hintSpeakOptions= queueMode=QUEUE  flags=FLAG_NO_HISTORY      
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2967444; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=CONTINUOUS_READ_IGNORE eventSourceNode=null
+V/talkback: Mappers(17705):    interpretationID=CONTINUOUS_READ_IGNORE
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444, failovers=[Part= continuousRead= ContinuousRead{action=IGNORE}  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= continuousRead= ContinuousRead{action=IGNORE}  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444, failovers=[Part= interruptGroup=0  interruptLevel=1  ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 part=Part= interruptGroup=0  interruptLevel=1  
+V/talkback: Pipeline(17705): execute() success=true for part=Part= interruptGroup=0  interruptLevel=1  
+D/talkback: ProcessorEventQueue(17705): Processing event: AccessibilityEvent  TYPE_VIEW_ACCESSIBILITY_FOCUSED  time=2967444  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  action=64  enabled  ScrollX=0  ScrollY=0  scrollDelta=-1,-1  MaxScrollX=0  MaxScrollY=0      
+W/talkback: SelectorController(17705): newItemFocused Return. FocusActionInfo is null
+D/talkback: TouchInteractionMonitor(17705): setSupportLiftToType/focused on Lift-to-type node:FALSE
+V/talkback: Mappers(17705):  mapToFeedback() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 event=EventType: TYPE_VIEW_ACCESSIBILITY_FOCUSED; EventTime: 2967444; PackageName: nl.davidengelen.redsquare.dev; MovementGranularity: 0; Action: 64; ContentChangeTypes: []; WindowChangeTypes: []; TextChangeTypes: [] [ ClassName: android.view.View; Text: []; ContentDescription: null; ItemCount: -1; CurrentItemIndex: -1; Enabled: true; Password: false; Checked: false; FullScreen: false; Scrollable: false; ImportantForAccessibility: true; AccessibilityDataSensitive: false; BeforeText: null; FromIndex: -1; ToIndex: -1; ScrollX: 0; ScrollY: 0; MaxScrollX: 0; MaxScrollY: 0; ScrollDeltaX: -1; ScrollDeltaY: -1; AddedCount: -1; RemovedCount: -1; ParcelableData: null; DisplayId: 0 ]; recordCount: 0 interpretation=AccessibilityFocused{  }   eventSourceNode=androidx.core.view.accessibility.AccessibilityNodeInfoCompat@a232; boundsInParent: Rect(0, 0 - 0, 0); boundsInScreen: Rect(24, 245 - 296, 308); boundsInWindow: Rect(0, 0 - 0, 0); packageName: nl.davidengelen.redsquare.dev; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; supplementalDescription: null; tooltipText: null; viewIdResName: null; uniqueId: null; checkable: false; checked: FALSE; fieldRequired: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; expandedState: UNDEFINED; enabled: true; password: false; scrollable: false; containerTitle: null; granularScrollingSupported: false; importantForAccessibility: true; visible: true; isTextSelectable: false; accessibilityDataSensitive: false; [ACTION_FOCUS, ACTION_NEXT_AT_MOVEMENT_GRANULARITY, ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY, ACTION_CLEAR_ACCESSIBILITY_FOCUS, ACTION_CLICK, ACTION_SET_SELECTION]
+V/talkback: Mappers(17705):    needsCaption=false
+V/talkback: Compositor(17705): eventInterpretation= TYPE_VIEW_ACCESSIBILITY_FOCUSED  
+W/talkback: AccessibilityInterpretationUtils(17705): Falling back to safe AccessibilityFocusEventInterpretation
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=1870499378  class="android.view.View"  package="nl.davidengelen.redsquare.dev"  content="Open activity from Anon-pncSjs"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41615  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Liked your post"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41646  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Native Red Square reference post"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41739  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="11/14/23 10:13 PM"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=41770  class="android.widget.TextView"  package="nl.davidengelen.redsquare.dev"  text="Read"  enabled  visible      
+D/talkback: AccessibilityNodeInfoUtils(17705): checkChildren=false and isAccessibilityFocusable=true
+V/talkback: AccessibilityNodeInfoUtils(17705): Don't focus, failed all focusability tests:  AccessibilityNodeInfoCompat  id=935270450  class="android.widget.Button"  package="nl.davidengelen.redsquare.dev"  enabled  visible      
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (1870499378), role=ROLE_NONE, isContentDescriptionEmpty=false, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (1870499378)    accessibilityNodeError=""  , treeDescription={Open activity from Anon-pncSjs} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (41615), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (41615)    accessibilityNodeError=""  , treeDescription={Liked your post} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (41646), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (41646)    accessibilityNodeError=""  , treeDescription={Native Red Square reference post} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (41739), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (41739)    accessibilityNodeError=""  , treeDescription={11/14/23 10:13 PM} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_NONE, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_NONE"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (41770), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (41770)    accessibilityNodeError=""  , treeDescription={Read} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       nodeStatusDescription: role=ROLE_BUTTON, collapsedOrExpandedState=, stateDescriptionIsEmpty=true, srcIsCheckable=false, srcIsChecked=false, collectionSelectionMode=0
+V/talkback: AccessibilityNodeFeedbackUtils(17705):  getUnlabelledNodeDescription,   role="ROLE_BUTTON"  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (935270450), role=ROLE_BUTTON, isContentDescriptionEmpty=true, shouldAppendChildNode=false, hasNoNextChildNode
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (935270450)    accessibilityNodeError=""  , treeDescription={Button} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):       treeNodesDescription:   (41522), role=ROLE_NONE, isContentDescriptionEmpty=true, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705):         childNode:(1870499378), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Open activity from Anon-pncSjs}
+V/talkback: TreeNodesDescription(17705):         childNode:(41615), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Liked your post}
+V/talkback: TreeNodesDescription(17705):         childNode:(41646), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Native Red Square reference post}
+V/talkback: TreeNodesDescription(17705):         childNode:(41739), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {11/14/23 10:13 PM}
+V/talkback: TreeNodesDescription(17705):         childNode:(41770), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Read}
+V/talkback: TreeNodesDescription(17705):         childNode:(935270450), isVisible=true, isAccessibilityFocusable=false
+V/talkback: TreeNodesDescription(17705):         > appendChildNodeDescription= {Button}
+V/talkback: TreeNodesDescription(17705):     getAppendedTreeDescription: (41522)    accessibilityNodeError=""  , treeDescription={Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button} ,  tooltip=""  
+V/talkback: TreeNodesDescription(17705):   treeDescriptionWithLabel: , appendedTreeDescription={Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button}, labelDescription=, shouldAppendChildNode=false
+V/talkback: TreeNodesDescription(17705): aggregateNodeTreeDescription:  (41522), treeDescriptionWithLabel={Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button}, disabledStateOrReadOnlyState=, selectedState=, descriptionOrder=1
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705): windowTransitionState: isWindowIdChanged=false, isSplitScreenMode=false, isEventNavigateByUser=false
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705): viewAccessibilityFocusedDescription: 
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):     nodeTreeDescription={Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):     phoneticExample={Optional.empty}
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):  Verbosity speakCollectionInfo=true, speakRoles=true
+V/talkback: EventTypeViewAccessibilityFocusedFeedbackRule(17705):  viewAccessibilityFocused: (41522) , ttsOutput={Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button}, isInitialFocus=false, isEventNavigateByUser=false, isDeviceScreenNoTouch=false,
+V/talkback: TalkBackFeedbackProvider(17705):  TYPE_VIEW_ACCESSIBILITY_FOCUSED:  ttsOutput= Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button    queueMode=9  ttsAddToHistory  forceFeedbackEvenIfAudioPlaybackActive  forceFeedbackEvenIfMicrophoneActive  forceFeedbackEvenIfPhoneCallActive  advanceContinuousReading  preventDeviceSleep  haptic=2130903105  earcon=2131820557  
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444, failovers=[Part= speech= action=SPEAK  text="Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    ]}
+D/talkback: Actors(17705): act() eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444 part=Part= speech= action=SPEAK  text="Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from previous chunk= diffInfos=[]  selfInfos=[]   with inlineFeedbackHistory= null
+V/talkback: TextFormattingInfo(17705): TextFormattingInfo from current chunk= sourceTextBegin=32  sourceTextEnd=106  diffInfos=[]  selfInfos=[]   with previousInfos= []
+V/talkback: FeedbackFragmentsIterator(17705): next --currentFeedbackFragment text = Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button.
+V/talkback: FeedbackController(17705): playAuditory() resId=2131820557 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444
+V/talkback: FeedbackController(17705): playHaptic() resId=2130903105 eventId=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444
+V/talkback: SpeechControllerImpl(17705): Bundle contains the following sub application identifier: TALKBACK
+V/talkback: SpeechControllerImpl(17705): Speaking fragment text="Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button", utteranceId=talkback_54, TtsSpan=null, locale=null, event=type:EVENT_TYPE_ACCESSIBILITY subtype:TYPE_VIEW_ACCESSIBILITY_FOCUSED displayId:0 time:2967444
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeech
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeechInternal queue size=0
+D/talkback: AudioTrackSpeechCachePlayer(17705): stopSpeech done
+D/talkback: SpeechCacheManager(17705): speakWithSpeechCachePlayer:speechInfo=SpeechInfo{utteranceId=talkback_54, text=Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button, pitch=100, rate=100, volume=1.0, locale=en_US'}
+D/talkback: FailoverTextToSpeech(17705): tts.speak, utteranceId =talkback_54
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+D/talkback: FailoverTextToSpeech(17705): Speak call for talkback_54 returned 0
+V/talkback: Pipeline(17705): execute() success=true for part=Part= speech= action=SPEAK  text="Open activity from Anon-pncSjs, Liked your post, Native Red Square reference post, 11/14/23 10:13 PM, Read, Button"  options= earcons=[2131820557]  haptics=[2130903105]  queueMode=INTERRUPT/FLUSH_ALL  flags=FLAG_FORCE_FEEDBACK_EVEN_IF_AUDIO_PLAYBACK_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_MICROPHONE_ACTIVE,FLAG_FORCE_FEEDBACK_EVEN_IF_PHONE_CALL_ACTIVE,FLAG_ADVANCE_CONTINUOUS_READING,FLAG_NO_DEVICE_SLEEP  speechParams=Bundle[{pitch=1.0}]  nonSpeechParams=Bundle[{}]    hint= null  hintSpeakOptions= null    
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_STOP utteranceId=talkback_53 interrupted=true
+W/talkback: FeedbackFragmentsIterator(17705): onFragmentCompleted -- utteranceId = talkback_53,feedBackItemUtteranceId =  talkback_54
+V/talkback: SpeechControllerImpl(17705): Interrupted 53 with talkback_54
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_START utteranceId=talkback_54
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=2392
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=7078
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+D/talkback: A11yEventProcessor(17705): Processor idle state.
+V/talkback: Mappers(17705):  mapToFeedback() eventId=null event=null interpretation=ACCESSIBILITY_EVENT_IDLE eventSourceNode=null
+V/talkback: Mappers(17705):    interpretationID=ACCESSIBILITY_EVENT_IDLE
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=null, failovers=[Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    ]}
+D/talkback: Actors(17705): act() eventId=null part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+D/talkback: FocusManagerInternal(17705): EnsureOnScreen: Return, accessibility focus is already there.
+V/talkback: Pipeline(17705): execute() success=true for part=Part= focus= action=ENSURE_ACCESSIBILITY_FOCUS_ON_SCREEN  start= null  target= null  stealNextWindowTarget= null    
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=4936
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=6986
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=1844
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=8192
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=5040
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_AUDIO utteranceId=talkback_54 bytes=4704
+I/talkback: FailoverTextToSpeech(17705): REDSQUARE_ENGINE_DONE utteranceId=talkback_54
+V/talkback: SpeechControllerImpl(17705): No next item, stopping speech queue
+D/talkback: Pipeline(17705): execute() feedback=Feedback{eventId=null, failovers=[Part= delayMs=400  interruptGroup=0  interruptLevel=2  senderName="Pipeline"  speech= action=SPEAK  text="Double-tap to Open activity from Anon-pncSjs"  options= queueMode=QUEUE  flags=FLAG_NO_HISTORY    hint= null  hintSpeakOptions= null    ]}
