@@ -5,6 +5,17 @@
 On2026-10-26 the owner authorized one more issue. Selected70, deliberate large-text
 navigation, follows completed69. Blocker59 is closed; numerical scheduling is not
 a technical blocker. Review base7711a0c05368eefc4facea93d3d14428c1d4ada7.
+Latest source a4eabaebc: all production remains ff480635e; native selection wait
+now confirms device.hasObject(By.text(name).selected(true)) within original15s.
+Both f369 focused runs40289614296/40289618121 pass5methods, but frozen evidence
+validator rejects stale native selection XML in each. Preserve that distinction.
+Updated focused10run40290600094 pending. Existing frame10whole40289020964 passes7.
+Exact one-line/full-word assertion now checks glyph extents and nine visible letters,
+not allocated paragraph width; independent Spec/Standards both approved.
+Full catalog/collector/navigation-check frozen b75617661 (541/542identities,
+173/174normal,35interruptions,34continuity,134archives), refs not yet dispatched.
+Prepared temporary beta68 scripts in /tmp/redsquare70-*; no reservation yet.
+
 Implementation ff480635e has initial/follow-up Spec0 and Standards0 source reviews.
 Original red40286952560 proves Following wraps at320dp/200%. Tracer40287533766
 and diagnostic40288267873 remain failed: TooltipBox applied weight to its inner
