@@ -58,7 +58,9 @@ class AppearancePreviewTest {
             JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow")
         }
         val peer = ControlledFeedPeer("[$root]")
+        val font = EmulatorFontScale(context, File(context.cacheDir, "appearance-evidence"), "settings-130")
         try {
+            font.apply(1.3f)
             night("yes")
             peer.start().use { server ->
                 ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -77,6 +79,11 @@ class AppearancePreviewTest {
                         }
                         fun choose(label: String) {
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
+                            ui.onNodeWithText("Node").assertIsDisplayed()
+                            ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
+                            ui.onNodeWithText("Appearance").assertIsDisplayed()
+                            capture("settings-overview-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Appearance").performScrollTo().performClick()
                             ui.waitUntil(5_000) { ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(label).performScrollTo().performClick()
@@ -112,6 +119,7 @@ class AppearancePreviewTest {
                 }
             }
         } finally {
+            font.restore()
             night(originalNight, awaitConfiguration = false)
         }
     }

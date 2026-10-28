@@ -58,7 +58,6 @@ class PublisherRoutesPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performClick()
-                        ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Contact publisher", action = true)
                         fun openSupport() {
                             ui.onNodeWithText("Contact publisher").performScrollTo().performClick()
