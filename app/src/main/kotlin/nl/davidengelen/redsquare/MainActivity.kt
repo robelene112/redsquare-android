@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -389,6 +391,11 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.settings)) },
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
+                                Text(stringResource(R.string.settings), style = MaterialTheme.typography.titleMedium)
+                                Text(stringResource(R.string.settings_preferences_summary),
+                                    style = MaterialTheme.typography.bodySmall)
+                                Spacer(Modifier.height(12.dp))
+                                Text(stringResource(R.string.settings_privacy_safety), style = MaterialTheme.typography.titleSmall)
                                 TextButton(enabled = !savingBackend, onClick = {
                                     settingsOpen = false
                                     policiesOpen = true
@@ -406,6 +413,8 @@ class MainActivity : ComponentActivity() {
                                         } finally { savingBackend = false }
                                     }
                                 }) { Text(stringResource(R.string.username_settings)) }
+                                Spacer(Modifier.height(12.dp))
+                                Text(stringResource(R.string.settings_notifications_privacy), style = MaterialTheme.typography.titleSmall)
                                 wallet?.publicKey?.let { owner ->
                                     nl.davidengelen.redsquare.notifications.SocialAlertChoice(owner) {
                                         postNavigation.navigate {
@@ -420,13 +429,15 @@ class MainActivity : ComponentActivity() {
                                     nl.davidengelen.redsquare.notifications.ChatPushChoice(owner, backend)
                                     nl.davidengelen.redsquare.chat.ChatAlertPreviewChoice(owner)
                                 }
-                                Text(stringResource(R.string.server_choice))
+                                Spacer(Modifier.height(12.dp))
+                                Text(stringResource(R.string.server_choice), style = MaterialTheme.typography.titleSmall)
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
                                 if (backendSaveError) Text(stringResource(R.string.backend_save_error))
+                                Column(Modifier.selectableGroup()) {
                                 SaitoBackend.entries.forEach { choice ->
-                                    Row {
-                                        RadioButton(selected = backend == choice, onClick = null)
-                                        TextButton(enabled = !savingBackend, onClick = {
+                                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).selectable(
+                                        selected = backend == choice, role = Role.RadioButton,
+                                        enabled = !savingBackend, onClick = {
                                             savingBackend = true
                                             backendSaveError = false
                                             scope.launch {
@@ -446,9 +457,15 @@ class MainActivity : ComponentActivity() {
                                                     }
                                                 } finally { savingBackend = false }
                                             }
-                                        }) { Text(choice.domain) }
+                                        }), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                        RadioButton(selected = backend == choice, onClick = null, enabled = !savingBackend)
+                                        Text(choice.domain, Modifier.padding(start = 8.dp))
+                                        if (backend == choice) Text(stringResource(R.string.settings_selected), Modifier.padding(start = 8.dp),
+                                            style = MaterialTheme.typography.bodySmall)
                                     }
                                 }
+                                }
+                                Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
                                 if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
                                 Column(Modifier.selectableGroup()) {
@@ -473,6 +490,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 }
+                                Spacer(Modifier.height(12.dp))
+                                Text(stringResource(R.string.settings_about), style = MaterialTheme.typography.titleSmall)
                                 nl.davidengelen.redsquare.ui.AboutApp()
                             }
                         },

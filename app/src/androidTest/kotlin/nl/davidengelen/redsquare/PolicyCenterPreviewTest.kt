@@ -42,6 +42,10 @@ class PolicyCenterPreviewTest {
                     fun center() {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
+                        ui.onNodeWithText("Node").assertIsDisplayed()
+                        ui.onNodeWithText(SaitoBackend.OWNER.domain).assertIsSelected()
+                        ui.onNodeWithText(SaitoBackend.OFFICIAL.domain).assertIsNotSelected()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         waitFor("Draft policies")
                     }
