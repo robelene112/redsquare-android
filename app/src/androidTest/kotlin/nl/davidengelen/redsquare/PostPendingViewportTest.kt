@@ -10,6 +10,7 @@ import com.google.gson.JsonParser
 import java.io.File
 import java.util.Base64
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -40,6 +41,7 @@ class PostPendingViewportTest {
         val indexed = ConcurrentHashMap<String, JsonObject>()
         val broadcastAttempts = ConcurrentHashMap<String, AtomicInteger>()
         val visibleAfterRead = ConcurrentHashMap<String, Int>()
+        val actionIndexed = AtomicBoolean(false)
         // The peer accepts the signed action first, then exposes its archive row
         // only after the retry's preflight and immediate post-submit readback.
         val likeArchiveReads = AtomicInteger()
@@ -62,17 +64,22 @@ class PostPendingViewportTest {
                 criteria.get("field1").asString == "RedSquareLike" -> {
                     val read = likeArchiveReads.incrementAndGet()
                     val signature = criteria.get("sig").asString
-                    if (read >= (visibleAfterRead[signature] ?: Int.MAX_VALUE))
-                        indexed[signature]?.let { "[$it]" } ?: "[]"
-                    else "[]"
+                    if (read >= (visibleAfterRead[signature] ?: Int.MAX_VALUE)) {
+                        indexed[signature]?.let {
+                            actionIndexed.set(true)
+                            "[$it]"
+                        } ?: "[]"
+                    } else "[]"
                 }
                 criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> {
                     // Exact action readback implies the node has incorporated it into the target count.
-                    val refreshed = row.deepCopy()
-                    val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
-                    refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
-                    refreshed.addProperty("tx", refreshedEnvelope.toString())
-                    "[$refreshed]"
+                    if (actionIndexed.get()) {
+                        val refreshed = row.deepCopy()
+                        val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
+                        refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
+                        refreshed.addProperty("tx", refreshedEnvelope.toString())
+                        "[$refreshed]"
+                    } else "[$row]"
                 }
                 criteria.has("sig") -> "[]"
                 else -> "[$row]"
