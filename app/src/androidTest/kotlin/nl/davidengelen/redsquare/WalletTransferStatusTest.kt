@@ -145,8 +145,14 @@ class WalletTransferStatusTest {
     }
 
     private fun closeTransferAndWallet() {
-        ui.onNode(hasText("Cancel") and hasAnyAncestor(isDialog() and
-            hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
+        val scopedToTransfer = hasAnyAncestor(isDialog() and
+            hasAnyDescendant(hasText("Available to send: 0 SAITO")))
+        val close = ui.onAllNodes(hasText("Close") and scopedToTransfer)
+        if (close.fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()) {
+            close.onFirst().performClick()
+        } else {
+            ui.onNode(hasText("Cancel") and scopedToTransfer).performClick()
+        }
         ui.onNodeWithText("Done").performClick()
     }
 
