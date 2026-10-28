@@ -38,6 +38,8 @@ class PostPendingViewportTest {
         envelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":4}".toByteArray()))
         row.addProperty("tx", envelope.toString())
         val indexed = ConcurrentHashMap<String, JsonObject>()
+        val broadcastAttempts = ConcurrentHashMap<String, AtomicInteger>()
+        val visibleAfterRead = ConcurrentHashMap<String, Int>()
         // The peer accepts the signed action first, then exposes its archive row
         // only after the retry's preflight and immediate post-submit readback.
         val likeArchiveReads = AtomicInteger()
@@ -53,12 +55,17 @@ class PostPendingViewportTest {
                 addProperty("field1", "RedSquareLike"); addProperty("field2", action.author)
                 addProperty("field4", action.target); addProperty("tx", candidate.envelope())
             }
+            if (broadcastAttempts.computeIfAbsent(action.id) { AtomicInteger() }.incrementAndGet() >= 2)
+                visibleAfterRead[action.id] = likeArchiveReads.get() + 2
         }, archiveResponse = { criteria ->
             when {
-                criteria.get("field1").asString == "RedSquareLike" ->
-                    if (likeArchiveReads.incrementAndGet() >= 5)
-                        indexed[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]"
+                criteria.get("field1").asString == "RedSquareLike" -> {
+                    val read = likeArchiveReads.incrementAndGet()
+                    val signature = criteria.get("sig").asString
+                    if (read >= (visibleAfterRead[signature] ?: Int.MAX_VALUE))
+                        indexed[signature]?.let { "[$it]" } ?: "[]"
                     else "[]"
+                }
                 criteria.has("sig") -> "[]" // Actual missing target readback, after the signed action settles.
                 else -> "[$row]"
             }
@@ -111,10 +118,11 @@ class PostPendingViewportTest {
                         ui.onNodeWithText("Done").performClick()
                     }
                     val transactionIds = peer.transactions.map { postingTransaction(it).id }
-                    assertEquals("One exact retry plus one new deliberate action per theme", 3, transactionIds.size)
+                    assertEquals("Each theme retries its exact action, then permits a new deliberate action", 4, transactionIds.size)
                     assertEquals("The retry must not create another signed action", 2, transactionIds.distinct().size)
                     assertEquals("Retry reuses the first signed candidate", transactionIds[0], transactionIds[1])
                     assertNotEquals("A later deliberate Like gets a fresh signed candidate", transactionIds[0], transactionIds[2])
+                    assertEquals("The second theme retry also reuses its exact candidate", transactionIds[2], transactionIds[3])
                     assertEquals(2, indexed.size)
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",
