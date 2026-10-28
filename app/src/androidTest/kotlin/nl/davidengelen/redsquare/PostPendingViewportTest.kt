@@ -10,7 +10,6 @@ import com.google.gson.JsonParser
 import java.io.File
 import java.util.Base64
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
@@ -41,7 +40,7 @@ class PostPendingViewportTest {
         val indexed = ConcurrentHashMap<String, JsonObject>()
         val broadcastAttempts = ConcurrentHashMap<String, AtomicInteger>()
         val visibleAfterRead = ConcurrentHashMap<String, Int>()
-        val actionIndexed = AtomicBoolean(false)
+        val indexedActions = ConcurrentHashMap.newKeySet<String>()
         // The peer accepts the signed action first, then exposes its archive row
         // only after the retry's preflight and immediate post-submit readback.
         val likeArchiveReads = AtomicInteger()
@@ -66,17 +65,18 @@ class PostPendingViewportTest {
                     val signature = criteria.get("sig").asString
                     if (read >= (visibleAfterRead[signature] ?: Int.MAX_VALUE)) {
                         indexed[signature]?.let {
-                            actionIndexed.set(true)
+                            indexedActions.add(signature)
                             "[$it]"
                         } ?: "[]"
                     } else "[]"
                 }
                 criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> {
                     // Exact action readback implies the node has incorporated it into the target count.
-                    if (actionIndexed.get()) {
+                    if (indexedActions.isNotEmpty()) {
                         val refreshed = row.deepCopy()
                         val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
-                        refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
+                        val likes = 4 + indexedActions.size
+                        refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":$likes}".toByteArray()))
                         refreshed.addProperty("tx", refreshedEnvelope.toString())
                         "[$refreshed]"
                     } else "[$row]"
@@ -97,6 +97,7 @@ class PostPendingViewportTest {
                     val folder = File(context.cacheDir, "post-pending-evidence").apply { mkdirs() }
                     ui.waitUntil(20_000) { ui.onNodeWithText("Pending action viewport preview").isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
+                    var settledLikeCount = 4
                     ui.withPostViewports(activity, folder, "pending", scales = listOf(1f)) { label, _ ->
                         val like = hasContentDescription("Like post by $name") and hasClickAction()
                         ui.waitUntil(15_000) { ui.onAllNodes(like and isEnabled()).fetchSemanticsNodes().size == 1 }
@@ -106,7 +107,7 @@ class PostPendingViewportTest {
                         ui.waitUntil(20_000) { ui.onNode(pending).isDisplayed() }
                         assertEquals(before + 1, peer.transactions.size)
                         val candidate = postingTransaction(peer.transactions.last()).id
-                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertIsDisplayed()
+                        ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertIsDisplayed()
                         captureNativeScreen(File(folder, "$label-pending.png"))
                         ui.onNode(pending).performClick()
                         ui.onNodeWithText("Pending. Availability on this node has not been verified.")
@@ -117,10 +118,12 @@ class PostPendingViewportTest {
                         ui.onNode(retry).assertIsEnabled().performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Liked").isDisplayed() }
                         ui.onNodeWithText("Liked").assertIsDisplayed()
+                        val refreshedLikeCount = settledLikeCount + 1
                         ui.waitUntil(20_000) {
-                            ui.onNodeWithText("5 likes", useUnmergedTree = true).isDisplayed()
+                            ui.onNodeWithText("$refreshedLikeCount likes", useUnmergedTree = true).isDisplayed()
                         }
-                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertDoesNotExist()
+                        ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertDoesNotExist()
+                        settledLikeCount = refreshedLikeCount
                         val attempts = peer.transactions.drop(before).map { postingTransaction(it).id }
                         assertTrue("Retry must reuse the same signed action", attempts.isNotEmpty() && attempts.all { it == candidate })
                         assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
