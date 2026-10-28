@@ -95,7 +95,7 @@ if [[ "${TEST_SCOPE:-full}" == feed-typography* ]]; then
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/conversation-typography-ui.txt" || typography_exit=$?
     printf '%s\n' "$typography_exit" > "$evidence/conversation-typography-ui-exit.txt"
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - conversation-typography-evidence \
+    timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - conversation-typography-evidence \
         > "$evidence/conversation-typography-evidence.tar" || true
     if [[ "$typography_exit" == 124 ]]; then
         timeout 10 adb exec-out screencap -p > "$evidence/conversation-typography-timeout.png" || true
@@ -1679,16 +1679,24 @@ if [[ "${TEST_SCOPE:-full}" == update-android17 ]]; then
     printf '%s\n' 'Focused update-notice check only; full feed/wallet/signed-update acceptance not run.' > "$evidence/scope.txt"
     exit 0
 fi
-adb shell am instrument -w -r \
+feed_ui_exit=0
+timeout 600 adb shell am instrument -w -r \
     -e class nl.davidengelen.redsquare.FeedPreviewTest,nl.davidengelen.redsquare.BackendPreviewTest,nl.davidengelen.redsquare.FeedReadinessPreviewTest \
     nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
-    > "$evidence/feed-ui.txt"
-adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-readiness-evidence > "$evidence/feed-readiness-evidence.tar" || true
-adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/backend-ui-evidence/screen.png > "$evidence/backend-ui-screen.png" || true
-adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - backend-ui-evidence > "$evidence/backend-ui-evidence.tar" || true
-if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/feed-ui.txt"; then
-    adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/feed-ui-failure.png > "$evidence/feed-ui-failure.png" || true
-    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures > "$evidence/feed-ui-failures.tar" || true
+    > "$evidence/feed-ui.txt" || feed_ui_exit=$?
+printf '%s\n' "$feed_ui_exit" > "$evidence/feed-ui-exit.txt"
+if [[ "$feed_ui_exit" == 124 ]]; then
+    timeout 10 adb exec-out screencap -p > "$evidence/feed-ui-timeout.png" || true
+    timeout 15 adb shell uiautomator dump /sdcard/feed-ui-timeout.xml \
+        > "$evidence/feed-ui-timeout-dump.txt" 2>&1 &&
+        timeout 10 adb pull /sdcard/feed-ui-timeout.xml "$evidence/feed-ui-timeout.xml" >/dev/null || true
+fi
+timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-readiness-evidence > "$evidence/feed-readiness-evidence.tar" || true
+timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/backend-ui-evidence/screen.png > "$evidence/backend-ui-screen.png" || true
+timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - backend-ui-evidence > "$evidence/backend-ui-evidence.tar" || true
+if [[ "$feed_ui_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/feed-ui.txt"; then
+    timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/feed-ui-failure.png > "$evidence/feed-ui-failure.png" || true
+    timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures > "$evidence/feed-ui-failures.tar" || true
     exit 1
 fi
 python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"
