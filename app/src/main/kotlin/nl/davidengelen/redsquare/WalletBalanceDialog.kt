@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -68,7 +69,9 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
                 Card {
                     Column(Modifier.padding(16.dp), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
                         Text(label, style = MaterialTheme.typography.labelLarge)
-                        Text(publicKey, Modifier.semantics { contentDescription = label })
+                        SelectionContainer {
+                            Text(publicKey, Modifier.semantics { contentDescription = label })
+                        }
                         TextButton(onClick = {
                             copyStatus = try {
                                 (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
