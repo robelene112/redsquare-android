@@ -1,5 +1,22 @@
 # Implementation handoff
 
+## Issue55 app-wide review packet ready; owner acceptance pending
+
+The owner resumed work on issue55. All child issues56–70 are closed and their
+implementation/evidence is linked from
+`docs/evidence/ticket55/README.md`. The signed beta71 is available for an
+in-place update at https://davidengelen.nl/redsquare/ with SHA256
+`51fcc0e2beca12c052976cf74190d9079ff85bf80268a7de478556d9954fe2d9`.
+
+Issue55 remains open. Its final acceptance requires the owner's app-wide review
+of the signed beta. The review packet records the device and full-suite limits;
+do not describe the app-wide polish as accepted or close issue55 before the
+owner confirms acceptance. No new app source change or beta rebuild was needed
+for this review packet.
+
+The protected untracked `docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` remains
+untouched.
+
 ## Issue67 delivered as beta71: STOP AFTER THIS ISSUE
 
 The owner requested one more issue. Issue67 is implemented, verified and
