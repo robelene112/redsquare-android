@@ -123,7 +123,6 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         }
         PullToRefreshBox(
             isRefreshing = pullRefreshing,
-            enabled = wallet != null,
             onRefresh = {
                 if (wallet != null) { pullRefreshing = true; refresh++ }
             },

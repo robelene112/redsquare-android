@@ -475,7 +475,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             // Keep a restored list position until the asynchronous cache read has finished.
             if (cacheReady && personal?.ready == true) PullToRefreshBox(
                 isRefreshing = pullRefreshing,
-                enabled = wallet != null,
                 onRefresh = {
                     if (wallet != null) { pullRefreshing = true; refresh++ }
                 },
