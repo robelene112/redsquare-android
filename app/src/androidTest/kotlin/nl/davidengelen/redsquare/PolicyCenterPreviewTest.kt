@@ -177,6 +177,7 @@ class PolicyCenterPreviewTest {
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
+                        val ownerNodeUtterances = completedFragments(device, SaitoBackend.OWNER.domain).size
                         officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
                         device.executeShellCommand("logcat -c")
                         assertTrue("TalkBack can focus the official node radio",
@@ -187,7 +188,7 @@ class PolicyCenterPreviewTest {
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
                             addProperty("selected", selectedOwnerRow.isChecked)
-                            addProperty("completedNodeUtterances", completedFragments(device, SaitoBackend.OWNER.domain).size)
+                            addProperty("completedNodeUtterances", ownerNodeUtterances)
                             addProperty("officialNode", SaitoBackend.OFFICIAL.domain)
                             addProperty("officialNodeRadioUtterances", completedFragments(device, SaitoBackend.OFFICIAL.domain).size)
                             addProperty("physicalAudibility", false)
