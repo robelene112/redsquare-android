@@ -69,7 +69,7 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithContentDescription("Receiving address").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithContentDescription("Receiving address QR code").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Your wallet").assertDoesNotExist()
-                captureNativeScreen(File(folder, "$label-receive-address.png"), "Receiving address")
+                captureNativeScreen(File(folder, "$label-receive-address.png"))
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
                 ui.onNodeWithText("Done").performClick()
