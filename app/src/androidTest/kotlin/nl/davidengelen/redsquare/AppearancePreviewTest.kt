@@ -83,16 +83,22 @@ class AppearancePreviewTest {
                             ui.onNodeWithText("Node").assertIsDisplayed()
                             ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
                             ui.onNodeWithText("Appearance").assertIsDisplayed()
-                            capture("settings-overview-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Appearance").performScrollTo().performClick()
                             ui.waitUntil(5_000) { ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty() }
-                            capture("appearance-detail-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText(label).performScrollTo().performClick()
                             ui.waitUntil(5_000) {
                                 ui.onAllNodes(hasText(label) and isSelected()).fetchSemanticsNodes().isNotEmpty()
                             }
                             ui.onNodeWithText(label).assertIsSelected()
                             capture("appearance-selected-${label.lowercase().replace(' ', '-')}.png")
+                            ui.onNodeWithText("Back to Settings").performClick()
+                            capture("settings-overview-${label.lowercase().replace(' ', '-')}.png")
+                            ui.onNodeWithText("Appearance").performClick()
+                            ui.waitUntil(5_000) {
+                                ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty()
+                            }
+                            capture("appearance-detail-${label.lowercase().replace(' ', '-')}.png")
+                            ui.onNodeWithText(label).assertIsSelected()
                             ui.onNodeWithText("Back to Settings").performClick()
 
                             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
