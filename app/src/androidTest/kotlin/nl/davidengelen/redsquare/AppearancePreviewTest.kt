@@ -110,7 +110,9 @@ class AppearancePreviewTest {
                             val blockedSelection = File(context.noBackupFilesDir, "backend.pending")
                             assertFalse("No unresolved selection should exist before the controlled failure", blockedSelection.exists())
                             assertTrue("Create an isolated backend-store failure", blockedSelection.mkdir())
-                            try {
+                            withImageFixtureCleanup({
+                                check(blockedSelection.delete()) { "Remove the isolated backend-store failure" }
+                            }) {
                                 ui.onNodeWithText(SaitoBackend.OFFICIAL.domain).performScrollTo().performClick()
                                 ui.waitUntil(10_000) {
                                     ui.onAllNodesWithText("Your node selection could not be saved. Try again.")
@@ -118,8 +120,6 @@ class AppearancePreviewTest {
                                 }
                                 ui.onNode(hasText(SaitoBackend.OWNER.domain) and isSelected()).assertIsDisplayed()
                                 capture("node-save-error-${label.lowercase().replace(' ', '-')}.png")
-                            } finally {
-                                assertTrue("Remove the isolated backend-store failure", blockedSelection.delete())
                             }
                             unchanged()
                             ui.onNodeWithText("Back to Settings").performClick()
