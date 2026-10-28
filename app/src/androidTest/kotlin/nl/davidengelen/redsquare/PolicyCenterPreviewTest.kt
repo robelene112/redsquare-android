@@ -58,7 +58,7 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
                         ui.onNode(hasText("Privacy and safety") and hasClickAction()).performClick()
                         ui.onNodeWithText("Muted and blocked accounts").assertIsDisplayed()
-                        ui.onNode(hasText("Privacy and safety") and hasClickAction()).performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Draft policies")
                     }
                     fun unchanged() {
