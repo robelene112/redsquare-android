@@ -269,7 +269,7 @@ class FeedPreviewTest {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNodeWithTag("post-body-text").performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
                     assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
                     check(appearance.edit().putString("mode", "DARK").commit())
@@ -278,7 +278,7 @@ class FeedPreviewTest {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    ui.onNodeWithTag("post-body-text").performScrollTo().assertIsDisplayed()
+                    ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
                     assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
                     peer.assertHealthy()
@@ -302,7 +302,7 @@ class FeedPreviewTest {
 
     private fun firstPostBodyLayout(): TextLayoutResult {
         val layouts = mutableListOf<TextLayoutResult>()
-        ui.onNodeWithTag("post-body-text").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+        ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
             check(it(layouts))
         }
         return requireNotNull(layouts.firstOrNull())
