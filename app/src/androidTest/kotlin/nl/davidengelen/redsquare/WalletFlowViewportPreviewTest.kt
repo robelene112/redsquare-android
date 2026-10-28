@@ -93,7 +93,7 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithContentDescription("Fee in SAITO").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Review transfer").assertIsDisplayed()
                 ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
-                ui.onNodeWithText("Cancel").performScrollTo().performClick()
+                ui.onNodeWithText("Cancel").assertIsDisplayed().performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNode(hasText("Home") and isSelected()).isDisplayed() }
