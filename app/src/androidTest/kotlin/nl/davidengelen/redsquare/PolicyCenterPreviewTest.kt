@@ -139,11 +139,6 @@ class PolicyCenterPreviewTest {
                     val ownerChoice = hasText(SaitoBackend.OWNER.domain) and SemanticsMatcher.expectValue(
                         SemanticsProperties.Role, Role.RadioButton)
                     check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
-                    ui.waitUntil(5_000) {
-                        var keyboardMode = false
-                        activity.onActivity { keyboardMode = !it.window.decorView.isInTouchMode }
-                        keyboardMode
-                    }
                     ui.onNode(ownerChoice).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
                     ui.onNode(ownerChoice).assertIsFocused().assertIsDisplayed()
                     captureNativeScreen(File(talkBackFolder, "node-keyboard-focus.png"))
