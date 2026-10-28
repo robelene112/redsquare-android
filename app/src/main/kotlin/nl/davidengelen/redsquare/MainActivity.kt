@@ -683,7 +683,7 @@ class MainActivity : ComponentActivity() {
                             if (walletImport.preview != null) TextButton(
                                 enabled = !walletImport.activating,
                                 onClick = { walletExport.cancel(); walletImport.cancel(); walletOpen = false },
-                            ) { Text(stringResource(R.string.cancel)) }
+                            ) { Text(stringResource(R.string.wallet_import_cancel)) }
                         },
                     )
                     if (walletBalanceOpen && address != null) WalletBalanceDialog(address!!, backend, balances) {
