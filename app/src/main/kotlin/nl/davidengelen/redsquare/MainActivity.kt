@@ -153,6 +153,7 @@ class MainActivity : ComponentActivity() {
             var backend by remember { mutableStateOf<SaitoBackend?>(null) }
             var backendReady by remember { mutableStateOf(false) }
             var settingsOpen by remember { mutableStateOf(false) }
+            var settingsCategory by rememberSaveable { mutableStateOf<String?>(null) }
             var homeVisible by remember { mutableStateOf(true) }
             var policiesOpen by rememberSaveable { mutableStateOf(false) }
             var personalControlsOpen by remember { mutableStateOf(false) }
@@ -388,13 +389,26 @@ class MainActivity : ComponentActivity() {
                     }
                     if (settingsOpen) AlertDialog(
                         onDismissRequest = { if (!savingBackend) settingsOpen = false },
-                        title = { Text(stringResource(R.string.settings)) },
+                        title = {
+                            if (settingsCategory == null) Text(stringResource(R.string.settings))
+                            else TextButton(onClick = { settingsCategory = null }) { Text(stringResource(R.string.settings_back)) }
+                        },
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
-                                Text(stringResource(R.string.settings), style = MaterialTheme.typography.titleMedium)
-                                Text(stringResource(R.string.settings_preferences_summary),
-                                    style = MaterialTheme.typography.bodySmall)
-                                Spacer(Modifier.height(12.dp))
+                                if (settingsCategory == null) {
+                                    Text(stringResource(R.string.settings_preferences_summary), style = MaterialTheme.typography.bodySmall)
+                                    SettingsCategoryRow(stringResource(R.string.settings_privacy_safety),
+                                        stringResource(R.string.settings_personal_summary)) { settingsCategory = "privacy" }
+                                    SettingsCategoryRow(stringResource(R.string.settings_notifications_privacy),
+                                        stringResource(R.string.settings_notifications_summary)) { settingsCategory = "notifications" }
+                                    SettingsCategoryRow(stringResource(R.string.server_choice),
+                                        backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
+                                    SettingsCategoryRow(stringResource(R.string.appearance),
+                                        stringResource(appearance.label)) { settingsCategory = "appearance" }
+                                    SettingsCategoryRow(stringResource(R.string.settings_about),
+                                        stringResource(R.string.settings_about_summary)) { settingsCategory = "about" }
+                                }
+                                if (settingsCategory == "privacy") {
                                 Text(stringResource(R.string.settings_privacy_safety), style = MaterialTheme.typography.titleSmall)
                                 TextButton(enabled = !savingBackend, onClick = {
                                     settingsOpen = false
@@ -413,6 +427,8 @@ class MainActivity : ComponentActivity() {
                                         } finally { savingBackend = false }
                                     }
                                 }) { Text(stringResource(R.string.username_settings)) }
+                                }
+                                if (settingsCategory == "notifications") {
                                 Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.settings_notifications_privacy), style = MaterialTheme.typography.titleSmall)
                                 wallet?.publicKey?.let { owner ->
@@ -429,6 +445,8 @@ class MainActivity : ComponentActivity() {
                                     nl.davidengelen.redsquare.notifications.ChatPushChoice(owner, backend)
                                     nl.davidengelen.redsquare.chat.ChatAlertPreviewChoice(owner)
                                 }
+                                }
+                                if (settingsCategory == "node") {
                                 Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.server_choice), style = MaterialTheme.typography.titleSmall)
                                 Text(stringResource(R.string.server_history_hint), style = MaterialTheme.typography.bodySmall)
@@ -465,6 +483,8 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 }
+                                }
+                                if (settingsCategory == "appearance") {
                                 Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.appearance), style = MaterialTheme.typography.titleSmall)
                                 if (appearanceSaveError) Text(stringResource(R.string.appearance_save_error))
@@ -490,9 +510,12 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                                 }
+                                }
+                                if (settingsCategory == "about") {
                                 Spacer(Modifier.height(12.dp))
                                 Text(stringResource(R.string.settings_about), style = MaterialTheme.typography.titleSmall)
                                 nl.davidengelen.redsquare.ui.AboutApp()
+                                }
                             }
                         },
                         confirmButton = {
@@ -616,6 +639,16 @@ class MainActivity : ComponentActivity() {
                 }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SettingsCategoryRow(title: String, summary: String, onClick: () -> Unit) {
+    OutlinedCard(onClick = onClick, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(summary, style = MaterialTheme.typography.bodySmall)
         }
     }
 }

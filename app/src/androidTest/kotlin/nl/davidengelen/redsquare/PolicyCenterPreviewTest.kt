@@ -47,6 +47,7 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText(SaitoBackend.OWNER.domain).assertIsSelected()
                         ui.onNodeWithText(SaitoBackend.OFFICIAL.domain).assertIsNotSelected()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Draft policies")
                     }
                     fun unchanged() {
@@ -61,6 +62,7 @@ class PolicyCenterPreviewTest {
                     for (theme in listOf("Light", "Dark")) {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Appearance").performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.onNodeWithText("Done").performClick()
                         if (theme == "Dark") {
