@@ -82,7 +82,7 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithContentDescription("Amount in SAITO").performScrollTo().performClick()
                 ui.onNodeWithContentDescription("Amount in SAITO").performTextInput("1.25")
                 ui.waitUntil(5_000) { focusedWindowShowsIme() }
-                ui.onNodeWithText("Send SAITO").assertIsDisplayed()
+                ui.onNodeWithContentDescription("Amount in SAITO").assertIsDisplayed()
                 ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()
                 ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-payment-details-ime.png"), "Amount in SAITO")
