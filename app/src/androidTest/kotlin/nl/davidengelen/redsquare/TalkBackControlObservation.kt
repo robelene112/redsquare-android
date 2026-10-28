@@ -47,6 +47,10 @@ internal fun NativeTalkBackObservation.actionNode(description: String,
     var found: AccessibilityNodeInfo? = null
     waitFor(5_000) { found = appRoots(automation).firstNotNullOfOrNull(::find); found != null }
     var target = requireNotNull(found)
+    if (textLabel && !requireClickAction) {
+        check(target.isEnabled)
+        return target
+    }
     // Compose can expose a descriptive child beneath the actual adjustable native control.
     // Focus that control, as ordinary screen-reader traversal does, not its text-only child.
     while (if (requireClickAction) !target.isClickable else !target.isFocusable) target = requireNotNull(target.parent)
