@@ -93,6 +93,8 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
     var pullRefreshing by remember { mutableStateOf(false) }
+    var manualPullPending by remember { mutableStateOf(false) }
+    var pullRefreshSucceeded by remember { mutableStateOf(false) }
     var composing by rememberSaveable { mutableStateOf(false) }
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
@@ -254,13 +256,14 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView, following?.accounts, following?.ready) {
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
-        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; return@LaunchedEffect }
-        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; return@LaunchedEffect }
+        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; manualPullPending = false; return@LaunchedEffect }
+        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; manualPullPending = false; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 if (!internet.available) {
                     loading = false
                     pullRefreshing = false
+                    manualPullPending = false
                     hadOutage = true
                     recovered = false
                     delay(1000)
@@ -315,15 +318,17 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                         }
                     }
                     failed = false
+                    if (manualPullPending) { manualPullPending = false; pullRefreshSucceeded = true }
                     if (hadOutage) { recovered = true; hadOutage = false }
                 } catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { failed = true; hadOutage = true; recovered = false }
+                catch (_: Exception) { manualPullPending = false; failed = true; hadOutage = true; recovered = false }
                 finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }
         }
     }
     LaunchedEffect(recovered) { if (recovered) { delay(3_000); recovered = false } }
+    LaunchedEffect(pullRefreshSucceeded) { if (pullRefreshSucceeded) { delay(2_500); pullRefreshSucceeded = false } }
     val home = !reviewingChat && !reviewingQueue && !reviewingChanges && !composing && navigation.isEmpty()
     val primary = when {
         reviewingChat -> PrimaryDestination.CHAT
@@ -465,6 +470,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                 unreadablePage -> R.string.feed_unreadable
                 else -> null
             }
+            InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.feed_refresh_success) else null, StatusTone.SUCCESS)
             InlineStatus(feedNotice?.let { stringResource(it) }, when (feedNotice) {
                 R.string.feed_loading -> StatusTone.WORKING
                 R.string.feed_unreadable -> StatusTone.WARNING
@@ -476,7 +482,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             if (cacheReady && personal?.ready == true) PullToRefreshBox(
                 isRefreshing = pullRefreshing,
                 onRefresh = {
-                    if (wallet != null) { pullRefreshing = true; refresh++ }
+                    if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
                 },
                 modifier = Modifier.weight(1f).fillMaxWidth()
             ) {

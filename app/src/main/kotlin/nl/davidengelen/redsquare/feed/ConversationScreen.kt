@@ -28,6 +28,8 @@ import nl.davidengelen.redsquare.saito.RedSquareFeed
 import nl.davidengelen.redsquare.saito.SaitoPeer
 import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
+import nl.davidengelen.redsquare.ui.InlineStatus
+import nl.davidengelen.redsquare.ui.StatusTone
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,6 +47,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
     var pullRefreshing by remember(selected.id) { mutableStateOf(false) }
+    var manualPullPending by remember(selected.id) { mutableStateOf(false) }
+    var pullRefreshSucceeded by remember(selected.id) { mutableStateOf(false) }
     val position = rememberLazyListState()
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
     if (replying && wallet != null) {
@@ -53,7 +57,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, selected.id, refresh) {
-        if (wallet == null) { loading = false; pullRefreshing = false; return@LaunchedEffect }
+        if (wallet == null) { loading = false; pullRefreshing = false; manualPullPending = false; return@LaunchedEffect }
         loading = true
         val saved = withContext(Dispatchers.IO) { cache.load() }
         val cached = withContext(Dispatchers.IO) { revisions.apply(RedSquareFeed.newest(posts + saved.posts)) }
@@ -88,6 +92,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             }
             unreadable = page.ignored > 0
             failed = false
+            if (manualPullPending) { manualPullPending = false; pullRefreshSucceeded = true }
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
         finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
@@ -95,6 +100,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (selected.parentId.isNotEmpty() && posts.none { it.id == selected.parentId })
             quotes?.load(selected.parentId, refresh = refresh > 0)
     }
+    LaunchedEffect(pullRefreshSucceeded) { if (pullRefreshSucceeded) { kotlinx.coroutines.delay(2_500); pullRefreshSucceeded = false } }
     val parent = quotes?.originals?.get(selected.parentId)
     val available = RedSquareFeed.newest(posts + listOfNotNull(parent?.post)).sortedBy { it.createdAt }
     val parentMissing = selected.parentId.isNotEmpty() && available.none { it.id == selected.parentId }
@@ -112,6 +118,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         if (personal?.ready == true && personal.hidesPosts(selected.author))
             Text(stringResource(R.string.personal_post_hidden), style = MaterialTheme.typography.bodySmall)
         Text(stringResource(R.string.conversation_history), style = MaterialTheme.typography.bodySmall)
+        InlineStatus(if (pullRefreshSucceeded) stringResource(R.string.conversation_refresh_success) else null, StatusTone.SUCCESS)
         if (loading) Text(stringResource(R.string.conversation_loading))
         if (failed) Text(stringResource(R.string.conversation_error))
         if (unreadable) Text(stringResource(R.string.conversation_unreadable))
@@ -124,7 +131,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         PullToRefreshBox(
             isRefreshing = pullRefreshing,
             onRefresh = {
-                if (wallet != null) { pullRefreshing = true; refresh++ }
+                if (wallet != null) { pullRefreshing = true; manualPullPending = true; pullRefreshSucceeded = false; refresh++ }
             },
             modifier = Modifier.weight(1f).fillMaxWidth()
         ) {

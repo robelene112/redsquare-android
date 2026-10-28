@@ -100,6 +100,7 @@ class FeedPreviewTest {
                     ui.pullToRefresh("feed-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() >= before + 2 }
                     waitForText("Native Red Square reference post")
+                    ui.onNodeWithText("Feed updated.").assertIsDisplayed()
                     peer.assertHealthy()
                 }
             }
@@ -208,6 +209,7 @@ class FeedPreviewTest {
                     val firstRequestCount = peer.requests.get()
                     ui.pullToRefresh("conversation-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() > firstRequestCount }
+                    ui.onNodeWithText("Conversation updated.").assertIsDisplayed()
                     ui.waitUntil(15_000) { ui.onNodeWithText(postText).isDisplayed() }
 
                     server.close()

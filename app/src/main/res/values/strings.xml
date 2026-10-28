@@ -51,6 +51,7 @@
     <string name="conversation_history">Only available history is shown. Older replies may be missing.</string>
     <string name="conversation_loading">Loading replies</string>
     <string name="conversation_error">Replies could not be refreshed. Available posts remain visible.</string>
+    <string name="conversation_refresh_success">Conversation updated.</string>
     <string name="conversation_unreadable">Some conversation entries could not be read.</string>
     <string name="app_name">Red Square</string>
     <string name="wallet">Wallet</string>
@@ -79,6 +80,7 @@
     <string name="feed_refresh">Refresh</string>
     <string name="feed_loading">Loading posts…</string>
     <string name="feed_error">Posts could not be refreshed. Try again.</string>
+    <string name="feed_refresh_success">Feed updated.</string>
     <string name="feed_empty">No posts are available from this node yet.</string>
     <string name="no_internet">No internet connection</string>
     <string name="server_unavailable">Node unavailable</string>
