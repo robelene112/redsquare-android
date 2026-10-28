@@ -1,0 +1,36 @@
+{
+  "signedBuildCommit": "5352e0018ea3c16aed095002a60d1dd6e6f89347",
+  "verifiedCommit": "a3fd585fa66a9e945252a4467cace9e79583ca42",
+  "releaseInputsCompared": [
+    "app/src/main",
+    "app/src/release",
+    "app/build.gradle.kts",
+    "core/src/main",
+    "core/build.gradle.kts",
+    "push-gateway/src/main",
+    "push-gateway/build.gradle.kts",
+    "build.gradle.kts",
+    "settings.gradle.kts",
+    "gradle.properties",
+    "gradle",
+    "gradlew",
+    "build-support"
+  ],
+  "releaseInputsIdentical": true,
+  "changedPathsSinceSignedBuild": [
+    ".github/workflows/android-proof.yml",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/AppearancePreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PolicyCenterPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublisherAvailabilityPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublisherRoutesPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/PublisherViewportPreviewTest.kt",
+    "app/src/androidTest/kotlin/nl/davidengelen/redsquare/SocialPushTapPreviewTest.kt",
+    "scripts/emulator-check"
+  ],
+  "onlyAndroidTestsWorkflowAndHarnessChanged": true,
+  "apkRebuilt": false,
+  "versionCode": 70,
+  "versionName": "0.1.70",
+  "applicationId": "nl.davidengelen.redsquare",
+  "sha256": "ce36ee0bd66f4067f4c7d509987794edc4ac931da93beec7d9ac8e95b0cd66ac"
+}

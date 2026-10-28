@@ -1,6 +1,48 @@
 # Implementation handoff
 
-## Issue70 delivered as beta68: STOP
+## Issue68 delivered as beta70: STOP AFTER THIS ISSUE
+
+The owner resumed work one issue at a time and selected #68. Issue68 is now
+implemented, reviewed, verified and closed. Do not start another issue until the
+owner requests it. The protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` remains untouched.
+
+Settings now has clear Privacy and safety, Notifications and privacy, Node,
+Appearance, and About destinations. Node choices are full-row radio controls
+with visible keyboard focus and verified TalkBack speech for both named nodes.
+Wallet identity, drafts, saved selection, error recovery, policy drafts,
+notification preferences and username IME behavior are covered by focused
+Android10 and Android17 runs. Screenshots and full test references are in
+`docs/evidence/ticket68/README.md`.
+
+The signed beta70 is live at https://davidengelen.nl/redsquare/ as an in-place
+update. APK SHA256:
+`ce36ee0bd66f4067f4c7d509987794edc4ac931da93beec7d9ac8e95b0cd66ac`.
+The exact public HTTPS APK was downloaded and its package, version and signing
+certificate independently verified. Beta70 was built from `5352e0018`; the
+verified head is `a3fd585fa`. All release inputs are identical between those
+commits. Since the signed build, only Android instrumentation tests, the proof
+workflow and its emulator harness changed. The comparison is recorded in
+`docs/evidence/ticket68/verification-source-equivalence.json`.
+
+Appearance/category tests pass on Android10 (`40717921085`) and Android17
+(`40718662692`). Policy/TalkBack tests pass on Android10 (`40718669494`) and
+Android17 (`40718675688`). Notification tests pass 32/32 on each SDK
+(`40720053227`, `40720058835`). Username/IME tests pass 16/16 on each SDK
+(`40720064079`, `40720071978`). Publisher routes (`40705575918`) and social
+notification navigation (`40711689617`) also pass on Android10 and Android17.
+Paired final review: Spec0, Standards0.
+
+The full Android10 suite `40712878733` failed in the separate
+`GroupInvitationRecoveryPreviewTest` while waiting for the group invitation
+flow's “Paste invitation” screen at 200% text. The issue-specific Settings,
+policy, notification, publisher and username checks passed independently. This
+handoff does not claim the unrelated full suite passed. Android emulator evidence
+does not establish a physical Pixel7 walkthrough. Parent55 and release36 remain
+open, and app-wide visual acceptance remains with the owner. Issue68 is closed;
+only its child checkbox in55 is checked.
+
+## Historical issue70 status: delivered as beta68
 
 The owner authorized exactly one issue on2026-10-26. Issue70 is implemented,
 verified and delivered as signed beta68. Do not start another issue without a new

@@ -1,0 +1,18 @@
+{
+  "latestHttpsStatus": 200,
+  "latestUrl": "https://davidengelen.nl/redsquare/latest.json",
+  "releaseManifestHttpsStatus": 200,
+  "apkHttpsStatus": 200,
+  "apkUrl": "https://davidengelen.nl/redsquare/releases/70/redsquare.apk",
+  "apkBytes": 38385875,
+  "apkSha256": "ce36ee0bd66f4067f4c7d509987794edc4ac931da93beec7d9ac8e95b0cd66ac",
+  "versionCode": 70,
+  "versionName": "0.1.70",
+  "certificateSha256": "6ca1209bcbba661943f7b683d48b2f58493f13851c760c8d80d1521ac0ee79a2",
+  "previousRelease68ManifestHttpsStatus": 200,
+  "notes": "Organized Settings categories, accessible whole-row node choices, and clearer notification and privacy paths.",
+  "signatureVerifiedWithApksigner": true,
+  "aaptVerifiedPackage": "nl.davidengelen.redsquare",
+  "aaptVerifiedVersionCode": 70,
+  "aaptVerifiedVersionName": "0.1.70"
+}
