@@ -66,6 +66,7 @@ class PublisherAvailabilityPreviewTest {
                             waitFor("Settings", action = true)
                             ui.onNodeWithText("Settings").performClick()
                             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                            ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                             for ((entry, explanation) in entries) {
                                 ui.waitUntil(20_000) {
                                     ui.onAllNodes(hasText(entry) and hasClickAction() and isEnabled())
