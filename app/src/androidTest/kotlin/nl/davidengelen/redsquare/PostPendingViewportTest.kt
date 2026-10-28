@@ -72,14 +72,17 @@ class PostPendingViewportTest {
                 }
                 criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> {
                     // Exact action readback implies the node has incorporated it into the target count.
-                    if (indexedActions.isNotEmpty()) {
-                        val refreshed = row.deepCopy()
-                        val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
-                        val likes = 4 + indexedActions.size
-                        refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":$likes}".toByteArray()))
-                        refreshed.addProperty("tx", refreshedEnvelope.toString())
-                        "[$refreshed]"
-                    } else "[$row]"
+                    when (indexedActions.size) {
+                        0 -> "[$row]"
+                        1 -> {
+                            val refreshed = row.deepCopy()
+                            val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
+                            refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
+                            refreshed.addProperty("tx", refreshedEnvelope.toString())
+                            "[$refreshed]"
+                        }
+                        else -> "[]" // The later accepted Like has unavailable count readback.
+                    }
                 }
                 criteria.has("sig") -> "[]"
                 else -> "[$row]"
@@ -118,16 +121,30 @@ class PostPendingViewportTest {
                         ui.onNode(retry).assertIsEnabled().performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Liked").isDisplayed() }
                         ui.onNodeWithText("Liked").assertIsDisplayed()
-                        val refreshedLikeCount = settledLikeCount + 1
-                        ui.waitUntil(20_000) {
-                            ui.onNodeWithText("$refreshedLikeCount likes", useUnmergedTree = true).isDisplayed()
+                        val countsUnavailable = hasContentDescription("Details: Like counts unavailable") and hasClickAction()
+                        if (label.endsWith("-light")) {
+                            val refreshedLikeCount = settledLikeCount + 1
+                            ui.waitUntil(20_000) {
+                                ui.onNodeWithText("$refreshedLikeCount likes", useUnmergedTree = true).isDisplayed()
+                            }
+                            ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertDoesNotExist()
+                            settledLikeCount = refreshedLikeCount
+                            captureNativeScreen(File(folder, "$label-liked-count-refreshed.png"))
+                        } else {
+                            ui.waitUntil(20_000) { ui.onNode(countsUnavailable).isDisplayed() }
+                            ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertIsDisplayed()
+                            ui.onNodeWithText("${settledLikeCount + 1} likes", useUnmergedTree = true).assertDoesNotExist()
+                            captureNativeScreen(File(folder, "$label-liked-count-unavailable.png"))
+                            ui.onNode(countsUnavailable).performClick()
+                            ui.onNodeWithText("Like post by $name").assertIsDisplayed()
+                            ui.onNodeWithText("Could not refresh counts. Refresh this view to try again.")
+                                .performScrollTo().assertIsDisplayed()
+                            captureNativeScreen(File(folder, "$label-counts-details.png"))
+                            ui.onNodeWithText("Done").performClick()
                         }
-                        ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertDoesNotExist()
-                        settledLikeCount = refreshedLikeCount
                         val attempts = peer.transactions.drop(before).map { postingTransaction(it).id }
                         assertTrue("Retry must reuse the same signed action", attempts.isNotEmpty() && attempts.all { it == candidate })
                         assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
-                        captureNativeScreen(File(folder, "$label-liked-count-refreshed.png"))
                     }
                     val transactionIds = peer.transactions.map { postingTransaction(it).id }
                     assertEquals("Each theme retries its exact action, then permits a new deliberate action", 4, transactionIds.size)
