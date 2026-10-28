@@ -132,6 +132,7 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText("Settings").performClick()
                         waitFor("Node")
                         ui.onNodeWithText("Node").performClick()
+                        waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
 
                         val ownerNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
                         assertTrue("The current node remains selected", ownerNode.isSelected)
