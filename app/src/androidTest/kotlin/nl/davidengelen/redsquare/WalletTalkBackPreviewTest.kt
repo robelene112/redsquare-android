@@ -27,6 +27,7 @@ class WalletTalkBackPreviewTest {
                     ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Wallet").performClick()
                     val address = displayedWalletAddress(ui)
+                    ui.onNodeWithText("Send SAITO").performScrollTo()
                     val sendAction = actionNode("Send SAITO", textLabel = true)
                     assertTrue("TalkBack must expose an actionable send control",
                         sendAction.performAction(AccessibilityNodeInfo.ACTION_CLICK))
