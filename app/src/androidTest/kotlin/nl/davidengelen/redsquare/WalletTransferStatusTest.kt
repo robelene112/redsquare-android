@@ -145,7 +145,7 @@ class WalletTransferStatusTest {
     }
 
     private fun closeTransferAndWallet() {
-        ui.onNode(hasText("Close") and hasAnyAncestor(isDialog() and
+        ui.onNode(hasText("Cancel") and hasAnyAncestor(isDialog() and
             hasAnyDescendant(hasText("Available to send: 0 SAITO")))).performClick()
         ui.onNodeWithText("Done").performClick()
     }
