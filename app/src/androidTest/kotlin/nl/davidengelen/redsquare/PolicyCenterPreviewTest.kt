@@ -2,8 +2,12 @@ package nl.davidengelen.redsquare
 
 import android.graphics.Rect
 import android.content.Intent
+import android.view.KeyEvent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -153,9 +157,16 @@ class PolicyCenterPreviewTest {
                         assertNotNull("The owner node label belongs to one focusable radio row", ownerRow)
                         val selectedOwnerRow = requireNotNull(ownerRow)
                         assertTrue("The current node remains selected", selectedOwnerRow.isChecked)
-                        assertTrue("The complete node row accepts keyboard focus",
-                            selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_FOCUS))
-                        assertTrue("Keyboard focus remains visible on the selected node row", selectedOwnerRow.isFocused)
+                        check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
+                        ui.waitUntil(5_000) {
+                            var keyboardMode = false
+                            activity.onActivity { keyboardMode = !it.window.decorView.isInTouchMode }
+                            keyboardMode
+                        }
+                        val ownerChoice = hasText(SaitoBackend.OWNER.domain) and SemanticsMatcher.expectValue(
+                            SemanticsProperties.Role, Role.RadioButton)
+                        ui.onNode(ownerChoice).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
+                        ui.onNode(ownerChoice).assertIsFocused().assertIsDisplayed()
                         capture(automation, File(talkBackFolder, "node-keyboard-focus.png"))
                         selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
                         device.executeShellCommand("logcat -c")
