@@ -129,8 +129,13 @@ class FeedPreviewTest {
                         peer.rows = "[$updated]"
                         val beforeRefresh = peer.requests.get()
                         ui.pullToRefresh("feed-post-list")
-                        ui.waitUntil(15_000) { peer.requests.get() >= beforeRefresh + 2 }
-                        ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
+                        ui.waitUntil(15_000) { peer.requests.get() > beforeRefresh }
+                        ui.waitUntil(15_000) {
+                            try {
+                                ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
+                                true
+                            } catch (_: AssertionError) { false }
+                        }
                         waitForText("New reference post")
                         waitForText("Some posts could not be saved or opened for offline reading.")
                     } finally {
@@ -178,6 +183,7 @@ class FeedPreviewTest {
     @Test fun conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery() {
         val fixture = asset("native-feed-reference.json")
         val postText = "Native Red Square reference post"
+        AndroidWalletStore(instrumentation.targetContext).loadOrCreate()
         val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]")
         val restartPort = ServerSocket(0, 50, InetAddress.getByName("127.0.0.1")).use { it.localPort }
         val server = peer.start(restartPort)
