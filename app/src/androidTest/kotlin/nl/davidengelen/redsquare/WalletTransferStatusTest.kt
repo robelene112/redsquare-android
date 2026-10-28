@@ -81,6 +81,7 @@ class WalletTransferStatusTest {
                                 if (index == 2) scenario.recreate()
                                 else if (index > 0) {
                                     ui.onNodeWithText("Settings").performClick()
+                                    ui.onNodeWithText("Node").performScrollTo().performClick()
                                     ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                                 }
                                 ui.waitUntil(15_000) { ui.onNodeWithText("Node: ${backend.domain}").isDisplayed() }

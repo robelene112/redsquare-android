@@ -392,6 +392,7 @@ class WalletImportPreviewTest {
                     captureFeedEvidence("wallet-import-evidence/activated-wallet-recreated.png")
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Node").performScrollTo().performClick()
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.io")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                     ui.onNodeWithText("Wallet").performClick()
@@ -413,6 +414,7 @@ class WalletImportPreviewTest {
                     assertEquals(originalAddress, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Node").performScrollTo().performClick()
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     ui.waitUntil(10_000) { ui.onAllNodes(hasText("Node: saito.davidengelen.nl")).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
                 }

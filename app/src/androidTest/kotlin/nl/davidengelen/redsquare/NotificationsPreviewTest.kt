@@ -516,6 +516,7 @@ class NotificationsPreviewTest {
                 captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                     "notification-evidence/personal-${confirmation.lowercase()}-recreated.png"), "No unread activity")
                 ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                 waitFor("Muted and blocked accounts")
                 ui.onNodeWithText("Muted and blocked accounts").performClick()
                 waitFor(removal)
@@ -576,6 +577,7 @@ class NotificationsPreviewTest {
 
     private fun switchNotificationBackend(domain: String, returningToNotifications: Boolean = false) {
         ui.onNodeWithText("Settings").performClick()
+        ui.onNodeWithText("Node").performScrollTo().performClick()
         waitFor(domain)
         ui.onNodeWithText(domain).performScrollTo().performClick()
         waitFor("Node: $domain")

@@ -108,6 +108,7 @@ internal class CachedPrivateConversationFixture(private val ui: ComposeTestRule)
         captureNativeScreen(File(folder, "$label-older-before-filtering.png"))
         for (block in listOf(true, false)) {
             ui.onNodeWithText("Settings").performClick()
+            ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
             val personal = hasText("Muted and blocked accounts") and hasClickAction() and isEnabled()
             ui.waitUntil(15_000) { ui.onAllNodes(personal).fetchSemanticsNodes().size == 1 }
             ui.onNode(personal).performScrollTo().assertIsDisplayed().performClick()

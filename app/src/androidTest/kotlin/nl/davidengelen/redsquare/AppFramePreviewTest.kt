@@ -114,6 +114,7 @@ class AppFramePreviewTest {
                     ui.recreateHomeViewport(activity, width, scale)
                     for (theme in listOf("Light", "Dark")) {
                         ui.onNode(hasText("Settings") and hasClickAction()).assertIsDisplayed().performClick()
+                        ui.onNodeWithText("Appearance").performScrollTo().performClick()
                         ui.onNodeWithText(theme).performScrollTo().performClick()
                         ui.waitUntil(10_000) { ui.onNode(hasText(theme) and isSelected()).isDisplayed() }
                         ui.onNodeWithText("Done").performClick()

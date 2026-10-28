@@ -166,6 +166,7 @@ class PersonalControlsProcessRecoveryTest {
     }
     private fun openManagement() {
         ui.onNodeWithText("Settings").performClick()
+        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
         waitFor("Muted and blocked accounts")
         ui.onNodeWithText("Muted and blocked accounts").performClick()
     }

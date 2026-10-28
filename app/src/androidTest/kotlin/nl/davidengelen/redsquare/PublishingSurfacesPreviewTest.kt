@@ -218,6 +218,7 @@ class PublishingSurfacesPreviewTest {
                         waitForEnabled("Settings")
                         if (ui.onNodeWithText("Later").isDisplayed()) ui.onNodeWithText("Later").performClick()
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performScrollTo().performClick()
                         waitForEnabled("Check name")
                         ui.onNode(hasSetTextAction()).performTextReplacement("ConsentCase1")

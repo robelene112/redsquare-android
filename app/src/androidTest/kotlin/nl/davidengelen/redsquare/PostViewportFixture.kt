@@ -62,6 +62,7 @@ internal fun ComposeTestRule.withPostViewports(activity: ActivityScenario<MainAc
                 val label = "$prefix-$widthDp-font${(scale * 100).toInt()}-${theme.lowercase()}"
                 withFailureCapture({ captureNativeScreen(File(folder, "$label-failure.png")) }) {
                     onNode(hasText("Settings") and hasClickAction()).performClick()
+                    ui.onNodeWithText("Appearance").performScrollTo().performClick()
                     onNodeWithText(theme).performScrollTo().performClick()
                     waitUntil(10_000) { onNode(hasText(theme) and isSelected()).isDisplayed() }
                     onNodeWithText("Done").performClick()

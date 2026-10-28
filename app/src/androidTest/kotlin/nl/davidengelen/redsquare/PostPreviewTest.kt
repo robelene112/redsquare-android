@@ -181,6 +181,7 @@ class PostPreviewTest {
                     ui.onNode(hasSetTextAction()).assertTextEquals("Unfinished owner draft")
                     assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
@@ -192,6 +193,7 @@ class PostPreviewTest {
                     ui.onNodeWithText("Save draft").performClick()
                     waitFor("New post")
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.davidengelen.nl")
                     ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                     waitFor("Node: saito.davidengelen.nl")
@@ -307,6 +309,7 @@ class PostPreviewTest {
                             } finally { androidx.test.espresso.intent.Intents.release() }
                         }
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Node").performScrollTo().performClick()
                         ui.onNodeWithText("saito.io").performScrollTo().performClick()
                         waitFor("Could not load or confirm the saved draft. Your current text remains here. Try again.")
                         ui.waitUntil(10_000) { ui.onNodeWithText("Node: saito.davidengelen.nl").isDisplayed() }
@@ -321,10 +324,12 @@ class PostPreviewTest {
                     }
                 }
                 ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Node").performScrollTo().performClick()
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 waitFor("Node: saito.io")
                 waitFor("New post")
                 ui.onNodeWithText("Settings").performClick()
+                ui.onNodeWithText("Node").performScrollTo().performClick()
                 ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                 ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and hasText("Retain work when saving fails")).fetchSemanticsNodes().isNotEmpty() }
                 scenario.recreate()

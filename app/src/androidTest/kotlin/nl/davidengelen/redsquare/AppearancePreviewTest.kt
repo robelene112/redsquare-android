@@ -77,6 +77,7 @@ class AppearancePreviewTest {
                         }
                         fun choose(label: String) {
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Appearance").performScrollTo().performClick()
                             ui.waitUntil(5_000) { ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty() }
                             ui.onNodeWithText(label).performScrollTo().performClick()
                             ui.waitUntil(5_000) {

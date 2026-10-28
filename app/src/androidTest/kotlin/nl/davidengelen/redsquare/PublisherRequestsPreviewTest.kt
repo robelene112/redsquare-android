@@ -63,6 +63,7 @@ class PublisherRequestsPreviewTest {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
                         fun openPage() {
                             ui.waitUntil(20_000) {
                                 ui.onAllNodes(hasText("Data requests") and hasClickAction() and isEnabled())

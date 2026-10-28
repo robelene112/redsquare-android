@@ -53,6 +53,7 @@ class FeedReadinessPreviewTest {
                             it.fullyDrawnReporter.isFullyDrawnReported) }
 
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         waitFor("Muted and blocked accounts")
                         ui.onNodeWithText("Muted and blocked accounts").performClick()
                         waitFor("Unmute account")

@@ -406,6 +406,7 @@ class SocialPreviewTest {
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
@@ -419,6 +420,7 @@ class SocialPreviewTest {
                     assertTrue(owner.transactions.isEmpty())
                     owner.start(originalPort).use {
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Node").performScrollTo().performClick()
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                         waitFor("Node: saito.davidengelen.nl")

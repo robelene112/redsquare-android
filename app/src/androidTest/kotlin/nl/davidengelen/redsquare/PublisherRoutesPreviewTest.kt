@@ -57,6 +57,8 @@ class PublisherRoutesPreviewTest {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Contact publisher", action = true)
                         fun openSupport() {
                             ui.onNodeWithText("Contact publisher").performScrollTo().performClick()
@@ -147,6 +149,7 @@ class PublisherRoutesPreviewTest {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performClick()
                         val cases = listOf(
                             ContactCase("Safety concerns", "Publisher safety", "safety@publisher.example",
                                 "Red Square safety concern", "A safety concern for the publisher"),

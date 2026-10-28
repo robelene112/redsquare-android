@@ -115,6 +115,7 @@ class UsernamePreviewTest {
                     waitForEnabled("Settings")
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                     ui.onNodeWithText("Saito username").performClick()
                     if (fallbackFirst) {
                         ui.waitUntil(20_000) { peer.registryFallbackPairsSent.get() > 0 }
@@ -184,6 +185,7 @@ class UsernamePreviewTest {
                         fun discoverInSettings() {
                             waitForEnabled("Settings")
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                             ui.onNodeWithText("Saito username").performClick()
                             waitForText("This username is registered to your wallet.")
                             ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
@@ -401,6 +403,7 @@ class UsernamePreviewTest {
                         waitForEnabled("Settings")
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         waitForEnabled("Check name")
                         check(!obstruction.exists() && obstruction.mkdir())
@@ -457,6 +460,7 @@ class UsernamePreviewTest {
                         ui.onNodeWithText("Later").performClick()
                     }
                     ui.onNodeWithText("Settings").performClick()
+                    ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                     ui.onNodeWithText("Saito username").assertIsEnabled().performClick()
                     waitForEnabled("Check name")
                     ui.onNodeWithText("Choose a Saito username").assertIsDisplayed()
@@ -623,6 +627,7 @@ class UsernamePreviewTest {
                     fun reopenTaken() {
                         waitForEnabled("Settings")
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         waitForText(taken)
                         ui.onNodeWithText("Retry registration").assertIsNotEnabled()
@@ -680,6 +685,7 @@ class UsernamePreviewTest {
                         scenario.recreate()
                         waitForEnabled("Settings")
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Saito username").performClick()
                         val unreadable = "Saved username request could not be opened. Try again."
                         waitForText(unreadable)
@@ -723,6 +729,7 @@ class UsernamePreviewTest {
             waitForEnabled("Settings")
             if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
             ui.onNodeWithText("Settings").performClick()
+            ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
             ui.onNodeWithText("Saito username").performClick()
         }
         try {
@@ -1022,6 +1029,7 @@ class UsernamePreviewTest {
                             assertEquals(listOf(SaitoRegistry.REGISTRAR, fixture.publicKey), signed.recipients)
                             assertEquals("NativeCase7@saito", signed.body.get("identifier").asString)
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Node: saito.io")
                             assertEquals(SaitoBackend.OFFICIAL, AndroidBackendStore(context).load())
@@ -1049,6 +1057,7 @@ class UsernamePreviewTest {
                                     it.get("identifier")?.asString == "NativeCase7@saito"
                             }
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                             waitForText("Node: saito.davidengelen.nl")
                             openUsername()
@@ -1086,6 +1095,7 @@ class UsernamePreviewTest {
                             ui.onNode(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
                                 .assertIsEnabled()
                             ui.onNodeWithText("Settings").performClick()
+                            ui.onNodeWithText("Node").performScrollTo().performClick()
                             ui.onNodeWithText("saito.io").performScrollTo().performClick()
                             waitForText("Node: saito.io")
                             waitForEnabled("Check name")
@@ -1174,6 +1184,7 @@ class UsernamePreviewTest {
         waitForEnabled("New post")
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         ui.onNodeWithText("Settings").performClick()
+        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
         ui.onNodeWithText("Saito username").assertIsEnabled().performClick()
         waitForEnabled("Back")
         ui.waitUntil(20_000) {
