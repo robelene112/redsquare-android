@@ -1,9 +1,6 @@
 package nl.davidengelen.redsquare
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -77,6 +74,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
             Column(
                 Modifier
                     .fillMaxWidth()
+                    .animateContentSize(tween(180))
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
@@ -87,19 +85,14 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     else if (transfers.message == R.string.transfer_cancelled) StatusTone.INFO
                     else StatusTone.ERROR,
                 )
-                AnimatedContent(
-                    targetState = reviewed,
-                    transitionSpec = { fadeIn(tween(180)) togetherWith fadeOut(tween(120)) },
-                    label = "payment-review-step",
-                ) { payment ->
-                if (payment != null) {
+                if (reviewed != null) {
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            TransferReviewValue(R.string.transfer_recipient_review, payment.recipient)
-                            TransferReviewValue(R.string.transfer_amount_review, WalletTransfers.display(payment.amount))
-                            TransferReviewValue(R.string.transfer_fee_review, WalletTransfers.display(payment.fee))
+                            TransferReviewValue(R.string.transfer_recipient_review, reviewed.recipient)
+                            TransferReviewValue(R.string.transfer_amount_review, WalletTransfers.display(reviewed.amount))
+                            TransferReviewValue(R.string.transfer_fee_review, WalletTransfers.display(reviewed.fee))
                             TransferReviewValue(R.string.transfer_backend_review, transfers.backendLabel)
-                            if (payment.memo.isNotEmpty()) TransferReviewValue(R.string.transfer_memo_review, payment.memo)
+                            if (reviewed.memo.isNotEmpty()) TransferReviewValue(R.string.transfer_memo_review, reviewed.memo)
                         }
                     }
                     Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
@@ -138,7 +131,6 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         TransferField(R.string.transfer_memo, memo, KeyboardType.Text, ImeAction.Done) { memo = it }
                         Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
                     }
-                }
                 }
             }
         },

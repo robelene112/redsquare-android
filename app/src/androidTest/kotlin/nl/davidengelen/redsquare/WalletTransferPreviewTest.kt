@@ -65,7 +65,7 @@ class WalletTransferPreviewTest {
             ui.onNodeWithText("Done").assertDoesNotExist()
             ui.onNodeWithText("Cancel").assertIsDisplayed()
             ui.onNodeWithContentDescription("Amount in SAITO").performClick().performTextInput("1,25")
-            ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("1.25")
+            ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("Amount in SAITO", "1.25")
             ui.onNodeWithText("Send SAITO").assertIsDisplayed()
             ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()
             ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
@@ -99,8 +99,8 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
                         ui.onNodeWithText("Back").performClick()
-                        ui.onNodeWithContentDescription("Recipient address").assertTextEquals(recipient)
-                        ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("6.25")
+                        ui.onNodeWithContentDescription("Recipient address").assertTextEquals("Recipient address", recipient)
+                        ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("Amount in SAITO", "6.25")
                         ui.onNodeWithText("Review transfer").performClick()
                         ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
                         ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
@@ -201,7 +201,8 @@ class WalletTransferPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-cancelled.png"),
                             "Transfer cancelled before sending.")
                         device.pressBack() // Close the reviewed transfer and return to the Wallet.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Send SAITO").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
@@ -252,7 +253,8 @@ class WalletTransferPreviewTest {
                         assertEquals(context.packageName, device.currentPackageName)
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/auth-setup.png"), setup)
                         device.pressBack() // Dismiss the positively observed app dialog, with no system credential screen.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Send SAITO").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Available to send: 7.5 SAITO").isDisplayed() }
@@ -325,7 +327,8 @@ class WalletTransferPreviewTest {
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/funding-lost.png"), failure)
                         assertEquals(context.packageName, device.currentPackageName)
                         device.pressBack() // The observed failure is in the app, after the credential prompt finished.
-                        ui.waitUntil(5_000) { ui.onNodeWithText("Send SAITO").isDisplayed() }
+                        ui.waitUntil(5_000) { ui.onNodeWithText("Your wallet").isDisplayed() }
+                        ui.onNodeWithText("Send SAITO").performScrollTo().assertIsDisplayed()
                         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(author)
                         lostFunding.set(false)
                         ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
@@ -535,7 +538,9 @@ class WalletTransferPreviewTest {
                             ui.onNodeWithText("Wallet").performClick()
                             ui.onNodeWithContentDescription("Wallet address").assertTextEquals(address)
                             ui.onNodeWithText("Balance and receive").performScrollTo().performClick()
-                            ui.waitUntil(15_000) { ui.onNodeWithText("Balance unavailable").isDisplayed() }
+                            ui.waitUntil(15_000) { ui.onAllNodesWithText("Balance unavailable")
+                                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                            ui.onNodeWithText("Balance unavailable").performScrollTo().assertIsDisplayed()
                             assertTrue("The receiving view must tolerate an actual failed balance request",
                                 unavailableBalanceReads.get() > opening)
                             ui.onNodeWithContentDescription("Receiving address").assertTextEquals(address)
