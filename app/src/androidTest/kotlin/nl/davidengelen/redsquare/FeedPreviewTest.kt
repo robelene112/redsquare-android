@@ -258,26 +258,34 @@ class FeedPreviewTest {
         val server = peer.start()
         var primary: Throwable? = null
         try {
+            recordConversationTypographyStage("fixture-ready")
             check(appearance.edit().putString("mode", "LIGHT").commit())
             ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
                 captureFailure {
                     waitForText(postText)
+                    recordConversationTypographyStage("feed-visible")
                     font.apply(1.3f)
+                    recordConversationTypographyStage("font-scale-applied")
                     ui.waitUntil(10_000) { ui.onNodeWithText(postText).isDisplayed() }
+                    recordConversationTypographyStage("scaled-post-visible")
                     ui.onNode(hasText(postText) and hasClickAction()).performClick()
+                    recordConversationTypographyStage("post-click-complete")
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
+                    recordConversationTypographyStage("conversation-open")
                     ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
                     assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
                     check(appearance.edit().putString("mode", "DARK").commit())
                     activity.recreate()
+                    recordConversationTypographyStage("dark-recreated")
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
+                    recordConversationTypographyStage("dark-conversation-open")
                     ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
                     assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
@@ -292,6 +300,13 @@ class FeedPreviewTest {
                 { check(appearance.edit().apply {
                     if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance)
                 }.commit()) })
+        }
+    }
+
+    private fun recordConversationTypographyStage(stage: String) {
+        java.io.File(instrumentation.targetContext.cacheDir, "conversation-typography-evidence").apply {
+            mkdirs()
+            java.io.File(this, "stage.txt").writeText(stage)
         }
     }
 

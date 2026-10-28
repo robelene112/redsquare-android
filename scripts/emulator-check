@@ -88,6 +88,25 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == feed-typography* ]]; then
+    typography_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class 'nl.davidengelen.redsquare.FeedPreviewTest#conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes' \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/conversation-typography-ui.txt" || typography_exit=$?
+    printf '%s\n' "$typography_exit" > "$evidence/conversation-typography-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - conversation-typography-evidence \
+        > "$evidence/conversation-typography-evidence.tar" || true
+    if [[ "$typography_exit" == 124 ]]; then
+        timeout 10 adb exec-out screencap -p > "$evidence/conversation-typography-timeout.png" || true
+        timeout 15 adb shell uiautomator dump /sdcard/conversation-typography-timeout.xml \
+            > "$evidence/conversation-typography-timeout-dump.txt" 2>&1 &&
+            timeout 10 adb pull /sdcard/conversation-typography-timeout.xml \
+                "$evidence/conversation-typography-timeout.xml" >/dev/null || true
+    fi
+    [[ "$typography_exit" == 0 ]] && grep -q 'OK (1 test)' "$evidence/conversation-typography-ui.txt"
+    exit $?
+fi
 verify_group_chat_native() {
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     local test_class=$1 seconds=$2 prefix=$3 capture=$4 native_exit=0
