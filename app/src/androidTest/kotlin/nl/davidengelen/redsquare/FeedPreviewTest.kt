@@ -100,7 +100,7 @@ class FeedPreviewTest {
                     ui.pullToRefresh("feed-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() >= before + 2 }
                     waitForText("Native Red Square reference post")
-                    ui.onNodeWithText("Feed updated.").assertIsDisplayed()
+                    waitForText("Feed updated.")
                     peer.assertHealthy()
                 }
             }
