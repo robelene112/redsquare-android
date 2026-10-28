@@ -26,6 +26,7 @@ class PolicyCenterPreviewTest {
     @Test fun draftPoliciesAreReadableAndReopenWithoutPublishingOrLosingSavedWork() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
+        val device = UiDevice.getInstance(instrumentation)
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
@@ -131,6 +132,21 @@ class PolicyCenterPreviewTest {
                     waitFor("Settings", action = true)
                     unchanged()
                     val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
+                    ui.onNodeWithText("Settings").performClick()
+                    waitFor("Node")
+                    ui.onNodeWithText("Node").performClick()
+                    waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
+                    val ownerChoice = hasText(SaitoBackend.OWNER.domain) and SemanticsMatcher.expectValue(
+                        SemanticsProperties.Role, Role.RadioButton)
+                    check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
+                    ui.waitUntil(5_000) {
+                        var keyboardMode = false
+                        activity.onActivity { keyboardMode = !it.window.decorView.isInTouchMode }
+                        keyboardMode
+                    }
+                    ui.onNode(ownerChoice).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
+                    ui.onNode(ownerChoice).assertIsFocused().assertIsDisplayed()
+                    captureNativeScreen(File(talkBackFolder, "node-keyboard-focus.png"))
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
                         waitFor("Settings", action = true)
@@ -157,17 +173,6 @@ class PolicyCenterPreviewTest {
                         assertNotNull("The owner node label belongs to one focusable radio row", ownerRow)
                         val selectedOwnerRow = requireNotNull(ownerRow)
                         assertTrue("The current node remains selected", selectedOwnerRow.isChecked)
-                        check(device.pressKeyCode(KeyEvent.KEYCODE_TAB))
-                        ui.waitUntil(5_000) {
-                            var keyboardMode = false
-                            activity.onActivity { keyboardMode = !it.window.decorView.isInTouchMode }
-                            keyboardMode
-                        }
-                        val ownerChoice = hasText(SaitoBackend.OWNER.domain) and SemanticsMatcher.expectValue(
-                            SemanticsProperties.Role, Role.RadioButton)
-                        ui.onNode(ownerChoice).performSemanticsAction(SemanticsActions.RequestFocus) { check(it()) }
-                        ui.onNode(ownerChoice).assertIsFocused().assertIsDisplayed()
-                        capture(automation, File(talkBackFolder, "node-keyboard-focus.png"))
                         selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
                         device.executeShellCommand("logcat -c")
                         assertTrue("TalkBack can focus the selected node radio",
