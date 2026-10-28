@@ -127,7 +127,9 @@ class FeedPreviewTest {
                     val obstruction = java.io.File(blocked, "obstruction").apply { writeText("public fixture") }
                     try {
                         peer.rows = "[$updated]"
+                        val beforeRefresh = peer.requests.get()
                         ui.pullToRefresh("feed-post-list")
+                        ui.waitUntil(15_000) { peer.requests.get() >= beforeRefresh + 2 }
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
                         waitForText("New reference post")
                         waitForText("Some posts could not be saved or opened for offline reading.")
@@ -184,10 +186,15 @@ class FeedPreviewTest {
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 captureFailure {
                     waitForText(postText)
+                    val feedRequestCount = peer.requests.get()
                     ui.onNode(hasText(postText) and hasClickAction()).performClick()
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    ui.waitUntil(15_000) {
+                        peer.requests.get() > feedRequestCount &&
+                            ui.onAllNodesWithText("Loading replies").fetchSemanticsNodes().isEmpty()
                     }
                     ui.onNodeWithText("Refresh").assertDoesNotExist()
                     ui.onNodeWithText(postText).assertIsDisplayed()
