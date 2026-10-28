@@ -191,6 +191,10 @@ PREFS
     adb shell settings put secure enabled_accessibility_services \
         com.android.talkback/com.google.android.marvin.talkback.TalkBackService
     adb shell settings put secure accessibility_enabled 1
+    if [[ "${1:-}" == "wallet-only" ]]; then
+        verify_group_chat_native WalletTalkBackPreviewTest 180 wallet-talkback wallet-talkback-evidence
+        exit
+    fi
     if [[ "${1:-}" == "policy-center" ]]; then
         verify_group_chat_native PolicyCenterPreviewTest 180 policies policy-evidence
         exit
@@ -234,6 +238,7 @@ verify_status_ui() {
     [[ "$status_exit" == 0 ]] && grep -q 'OK (2 tests)' "$evidence/status-$kind.txt"
 }
 case "${TEST_SCOPE:-full}" in
+    wallet-talkback*) verify_status_talkback wallet-only; exit ;;
     status-talkback*) verify_status_talkback; exit ;;
     status-motion*) verify_status_ui motion; exit ;;
     status-recovery*) verify_status_ui recovery; exit ;;
