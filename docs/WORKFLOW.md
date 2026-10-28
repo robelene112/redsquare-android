@@ -347,7 +347,9 @@ complete first-release scope and the established production boundaries.
    focused transfer cases. It visits import risk, receive address/QR and payment
    entry at 130% and 200% on a 320dp viewport in both themes, observes the actual
    IME in the focused dialog window, and confirms IME actions never send. Full
-   Social retains this class; private keys are never included in its captures.
+   Social retains this class. The pinned TalkBack scope also reads the reviewed
+   recipient, amount, fee and selected node through the real speech engine;
+   private keys are never included in either class's captures.
    Complete full scopes automatically enable their existing public-read gates;
    focused scopes keep their explicit opt-in. If a completed full dispatch omitted
    that option before this guard existed, the only permitted deficit is exactly

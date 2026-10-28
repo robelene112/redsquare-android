@@ -1,11 +1,17 @@
 package nl.davidengelen.redsquare
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
@@ -30,10 +36,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardActions
-import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.animation.core.tween
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
@@ -82,14 +87,20 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     else if (transfers.message == R.string.transfer_cancelled) StatusTone.INFO
                     else StatusTone.ERROR,
                 )
-                if (reviewed != null) {
+                AnimatedContent(
+                    targetState = reviewStep,
+                    transitionSpec = { fadeIn(tween(180)) togetherWith fadeOut(tween(120)) },
+                    label = "payment-review-step",
+                ) { showReview ->
+                if (showReview) {
+                    val payment = requireNotNull(reviewed)
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                            TransferReviewValue(R.string.transfer_recipient_review, reviewed.recipient)
-                            TransferReviewValue(R.string.transfer_amount_review, WalletTransfers.display(reviewed.amount))
-                            TransferReviewValue(R.string.transfer_fee_review, WalletTransfers.display(reviewed.fee))
+                            TransferReviewValue(R.string.transfer_recipient_review, payment.recipient)
+                            TransferReviewValue(R.string.transfer_amount_review, WalletTransfers.display(payment.amount))
+                            TransferReviewValue(R.string.transfer_fee_review, WalletTransfers.display(payment.fee))
                             TransferReviewValue(R.string.transfer_backend_review, transfers.backendLabel)
-                            if (reviewed.memo.isNotEmpty()) TransferReviewValue(R.string.transfer_memo_review, reviewed.memo)
+                            if (payment.memo.isNotEmpty()) TransferReviewValue(R.string.transfer_memo_review, payment.memo)
                         }
                     }
                     Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
@@ -129,6 +140,7 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                         Text(stringResource(R.string.transfer_public_warning), style = MaterialTheme.typography.bodySmall)
                     }
                 }
+                }
             }
         },
         confirmButton = {
@@ -155,12 +167,16 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
 @Composable
 private fun TransferReviewValue(labelId: Int, value: String) {
     val formatted = stringResource(labelId, value)
-    val label = formatted.removeSuffix(value)
+    val valueStart = formatted.indexOf(value)
+    check(valueStart >= 0)
+    val prefix = formatted.substring(0, valueStart)
+    val suffix = formatted.substring(valueStart + value.length)
     val valueStyle = if (labelId == R.string.transfer_amount_review || labelId == R.string.transfer_fee_review)
         MaterialTheme.typography.titleMedium else MaterialTheme.typography.bodyLarge
     Text(buildAnnotatedString {
-        withStyle(MaterialTheme.typography.labelLarge.toSpanStyle()) { append(label) }
+        withStyle(MaterialTheme.typography.labelLarge.toSpanStyle()) { append(prefix) }
         withStyle(valueStyle.toSpanStyle()) { append(value) }
+        withStyle(MaterialTheme.typography.labelLarge.toSpanStyle()) { append(suffix) }
     })
 }
 
