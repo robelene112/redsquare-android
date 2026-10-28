@@ -41,7 +41,7 @@ internal fun chooseTestBackup(device: UiDevice, name: String) {
         operateSystemControl(device, By.desc("Show roots")) { click() }
     }
     val rootsDrawer = By.res(Pattern.compile(".*:id/roots_list"))
-    val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
+    val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title").hasAncestor(rootsDrawer)
     operateSystemControl(device, root) { click() }
     // The selected provider remains in the toolbar after the drawer closes.
     check(device.wait(Until.gone(rootsDrawer), 10_000))
