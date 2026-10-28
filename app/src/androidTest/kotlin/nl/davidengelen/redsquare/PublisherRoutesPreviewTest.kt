@@ -239,6 +239,7 @@ class PublisherRoutesPreviewTest {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                         waitFor("Draft policies")
                         ui.waitUntil(20_000) {
                             ui.onAllNodes(hasText("Contact publisher") and hasClickAction())
