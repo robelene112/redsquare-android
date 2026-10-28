@@ -106,7 +106,7 @@ class PolicyCenterPreviewTest {
                                 capture("${theme.lowercase()}-deletion-restored.png")
                             }
                             ui.onNodeWithContentDescription("Back to privacy and safety").performClick()
-                            ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
+                            ui.onNodeWithText("Policy Center").assertIsDisplayed()
                             unchanged()
                         }
                         // Android Back closes the center without losing the underlying feed.
