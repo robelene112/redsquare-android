@@ -217,6 +217,7 @@ class WalletImportPreviewTest {
                 assertEquals(address, displayedWalletAddress(ui))
                 captureFeedEvidence("wallet-import-evidence/fresh-candidate-backup.png")
                 // Selecting again invalidates proof even when the file's identity is the same.
+                ui.onNodeWithText("Back").performClick()
                 ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                 selectImportRoot(device)
                 selectVisibleFile(device, "reference-import.json")
@@ -289,6 +290,7 @@ class WalletImportPreviewTest {
                     }
                     assertEquals(address, displayedWalletAddress(ui))
                     captureFeedEvidence("wallet-import-evidence/balance-$responseKind.png")
+                    ui.onNodeWithText("Back").performClick()
                 }
             }
         } finally { server.close() }
