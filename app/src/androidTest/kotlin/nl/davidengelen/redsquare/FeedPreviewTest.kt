@@ -86,6 +86,26 @@ class FeedPreviewTest {
         }
     }
 
+    @Test fun pullRefreshWorksWhenTheFeedIsEmpty() {
+        val fixture = asset("native-feed-reference.json")
+        val peer = ControlledFeedPeer("[]")
+        peer.start().use { server ->
+            ActivityScenario.launch<MainActivity>(intent(server.port)).use {
+                captureFailure {
+                    waitForText("No posts are available from this node yet.")
+                    ui.onNodeWithText("Refresh").assertDoesNotExist()
+                    ui.onNode(hasTestTag("feed-post-list")).assertIsDisplayed()
+                    peer.rows = "[${fixture.get("archiveRow")}]"
+                    val before = peer.requests.get()
+                    ui.pullToRefresh("feed-post-list")
+                    ui.waitUntil(15_000) { peer.requests.get() >= before + 2 }
+                    waitForText("Native Red Square reference post")
+                    peer.assertHealthy()
+                }
+            }
+        }
+    }
+
     @Test fun unavailableCacheWarnsWithoutHidingLivePostsAndCanRecover() {
         val original = asset("native-feed-reference.json")
         val updated = asset("native-feed-scroll-reference.json").getAsJsonArray("refreshedRows")[0]
@@ -166,8 +186,8 @@ class FeedPreviewTest {
                     waitForText(postText)
                     ui.onNode(hasText(postText) and hasClickAction()).performClick()
                     ui.waitUntil(15_000) {
-                        ui.onNodeWithText("Conversation").isDisplayed() &&
-                            ui.onNode(hasTestTag("conversation-post-list")).isDisplayed()
+                        ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
                     ui.onNodeWithText("Refresh").assertDoesNotExist()
                     ui.onNodeWithText(postText).assertIsDisplayed()
