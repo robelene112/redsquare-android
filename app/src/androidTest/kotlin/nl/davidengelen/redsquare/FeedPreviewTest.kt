@@ -184,7 +184,8 @@ class FeedPreviewTest {
         val fixture = asset("native-feed-reference.json")
         val postText = "Native Red Square reference post"
         AndroidWalletStore(instrumentation.targetContext).loadOrCreate()
-        val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]")
+        val archiveRow = fixture.get("archiveRow").toString()
+        val peer = ControlledFeedPeer("[$archiveRow]", archiveResponse = { "[$archiveRow]" })
         val restartPort = ServerSocket(0, 50, InetAddress.getByName("127.0.0.1")).use { it.localPort }
         val server = peer.start(restartPort)
         var replacement: MockWebServer? = null
