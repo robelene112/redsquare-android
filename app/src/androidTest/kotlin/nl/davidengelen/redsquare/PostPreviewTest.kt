@@ -792,6 +792,7 @@ class PostPreviewTest {
                 for (backend in SaitoBackend.entries) {
                     if (backend == SaitoBackend.OFFICIAL) {
                         ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Node").performScrollTo().performClick()
                         ui.onNodeWithText(backend.domain).performScrollTo().performClick()
                         waitFor("Node: ${backend.domain}")
                     }

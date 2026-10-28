@@ -91,6 +91,8 @@ class AppearancePreviewTest {
                                 ui.onAllNodes(hasText(label) and isSelected()).fetchSemanticsNodes().isNotEmpty()
                             }
                             ui.onNodeWithText(label).assertIsSelected()
+                            ui.onNodeWithText("Back to Settings").performClick()
+                            ui.onNodeWithText("About").performClick()
                             ui.onNodeWithText("A native Android client for RedSquare on Saito.")
                                 .performScrollTo()
                             ui.onNodeWithText("Independently developed by Angels’ Foundry.").performScrollTo()

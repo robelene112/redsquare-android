@@ -391,7 +391,12 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     if (settingsOpen) AlertDialog(
-                        onDismissRequest = { if (!savingBackend) { settingsOpen = false; settingsCategory = null } },
+                        onDismissRequest = {
+                            if (!savingBackend) {
+                                if (settingsCategory != null) settingsCategory = null
+                                else { settingsOpen = false; settingsCategory = null }
+                            }
+                        },
                         title = {
                             if (settingsCategory == null) Text(stringResource(R.string.settings))
                             else TextButton(onClick = { settingsCategory = null }) { Text(stringResource(R.string.settings_back)) }
