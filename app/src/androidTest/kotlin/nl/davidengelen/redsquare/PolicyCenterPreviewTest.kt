@@ -5,7 +5,9 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.Until
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -54,8 +56,7 @@ class PolicyCenterPreviewTest {
                             .assertIsNotSelected()
                         UiDevice.getInstance(instrumentation).pressBack()
                         ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
-                        ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
-                        ui.onNodeWithText("Policy Center").performClick()
+                        ui.onNode(hasText("Privacy and safety") and hasClickAction()).performClick()
                         waitFor("Draft policies")
                     }
                     fun unchanged() {
@@ -120,6 +121,38 @@ class PolicyCenterPreviewTest {
                     ui.onNode(hasSetTextAction()).performTextReplacement("")
                     ui.onNodeWithText("Save draft").performClick()
                     unchanged()
+                }
+            }
+            val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
+            NativeTalkBackObservation(talkBackFolder).observe {
+                withAppFrameFixture("settings-node-talkback", "policy-evidence/settings-talkback", "[]") {
+                    check(device.wait(Until.hasObject(By.text("Later")), 15_000))
+                    click(automation, "Later")
+                    click(automation, "Settings")
+                    check(device.wait(Until.hasObject(By.text("Node")), 10_000))
+                    click(automation, "Node")
+
+                    val ownerNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
+                    assertTrue("The current node remains selected", ownerNode.isSelected)
+                    assertTrue("The complete node row accepts keyboard focus",
+                        ownerNode.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_FOCUS))
+                    val inputFocusedNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
+                    assertTrue("Keyboard focus remains visible on the selected node row", inputFocusedNode.isFocused)
+                    capture(automation, File(talkBackFolder, "node-keyboard-focus.png"))
+                    focusAndHear("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, textLabel = true)
+                    waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
+                    assertTrue("TalkBack announces the selected radio state",
+                        Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
+                    File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
+                        addProperty("selectedNode", SaitoBackend.OWNER.domain)
+                        addProperty("selected", ownerNode.isSelected)
+                        addProperty("actualAccessibilityFocus", focusedText(automation) == SaitoBackend.OWNER.domain)
+                        addProperty("completedNodeUtterances", completedFragments(device, SaitoBackend.OWNER.domain).size)
+                        addProperty("physicalAudibility", false)
+                        addProperty("serviceProcess", serviceProcess)
+                    }.toString())
+                    assertEquals("TalkBack focus remains on the selected node", SaitoBackend.OWNER.domain,
+                        focusedText(automation))
                 }
             }
         }
