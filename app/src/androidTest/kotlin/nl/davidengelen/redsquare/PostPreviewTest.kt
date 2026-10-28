@@ -318,6 +318,10 @@ class PostPreviewTest {
                         if (withImage) ui.assertSyntheticRedImage()
                         assertTrue(owner.transactions.isEmpty() && official.transactions.isEmpty())
                         captureFeedEvidence("posting-evidence/failed-save-keeps-server-and-text.png")
+                        ui.onNodeWithText("Settings").performClick()
+                        ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
+                        ui.onNodeWithText("Appearance").assertIsDisplayed()
+                        ui.onNodeWithText("Done").performClick()
                     } catch (failure: Throwable) {
                         captureFeedEvidence("posting-evidence/failed-save-navigation-failure.png")
                         throw failure

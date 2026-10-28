@@ -475,6 +475,7 @@ class MainActivity : ComponentActivity() {
                                                 try {
                                                     if (!postNavigation.save()) {
                                                         settingsOpen = false
+                                                        settingsCategory = null
                                                         return@launch
                                                     }
                                                     val outcome = withContext(Dispatchers.IO) {
