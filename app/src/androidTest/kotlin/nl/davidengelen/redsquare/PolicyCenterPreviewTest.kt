@@ -126,12 +126,13 @@ class PolicyCenterPreviewTest {
                 }
             }
             val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
+            val talkBackRows = instrumentation.context.assets.open("native-feed-scroll-reference.json").reader().use {
+                JsonParser.parseReader(it).asJsonObject.get("initialRows").toString()
+            }
             NativeTalkBackObservation(talkBackFolder).observe {
-                withAppFrameFixture("settings-node-talkback", "policy-evidence/settings-talkback", "[]") {
-                    check(device.wait(Until.hasObject(By.text("New post")), 20_000)) {
-                        "Wait for the app frame to finish loading before opening Settings"
-                    }
-                    if (device.hasObject(By.text("Later"))) click(automation, "Later")
+                withAppFrameFixture("settings-node-talkback", "policy-evidence/settings-talkback", talkBackRows) {
+                    check(device.wait(Until.hasObject(By.text("Reference post 20")), 15_000))
+                    click(automation, "Later")
                     click(automation, "Settings")
                     check(device.wait(Until.hasObject(By.text("Node")), 10_000))
                     click(automation, "Node")
