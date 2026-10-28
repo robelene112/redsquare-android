@@ -139,6 +139,13 @@ class WalletTransfers(
         }
     }
 
+    /** Return from payment review without discarding the user's entered details. */
+    fun returnToDetails() {
+        if (busy) return
+        review = null
+        message = null
+    }
+
     private fun retained(id: String): SaitoPayment = store.pending().single {
         it.backend == backend && it.payment.transaction.id == id
     }.payment

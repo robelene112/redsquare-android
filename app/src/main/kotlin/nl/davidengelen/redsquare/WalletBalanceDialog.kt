@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,6 +38,7 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
     var observation by remember(publicKey, backend) { mutableStateOf<SaitoBalanceSnapshot?>(null) }
     var loading by remember(publicKey, backend) { mutableStateOf(true) }
     var refresh by remember { mutableIntStateOf(0) }
+    var copyStatus by remember(publicKey) { mutableIntStateOf(0) }
     val context = LocalContext.current
     LaunchedEffect(publicKey, backend, refresh) {
         loading = true
@@ -47,23 +49,40 @@ fun WalletBalanceDialog(publicKey: String, backend: SaitoBackend?, balances: Wal
     AlertDialog(onDismissRequest = onClose,
         title = { Text(stringResource(R.string.wallet_balance_receive)) },
         text = {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(stringResource(R.string.wallet_balance_reported), style = MaterialTheme.typography.labelLarge)
-                Text(when {
-                    loading -> stringResource(R.string.wallet_balance_loading)
-                    observation != null -> stringResource(R.string.wallet_balance_amount, observation!!.saito)
-                    else -> stringResource(R.string.wallet_balance_unavailable)
-                }, style = MaterialTheme.typography.headlineSmall)
-                backend?.let { Text(stringResource(R.string.wallet_balance_source, it.domain)) }
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp)) {
+                Card {
+                    Column(Modifier.padding(16.dp), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(6.dp)) {
+                        Text(stringResource(R.string.wallet_balance_reported), style = MaterialTheme.typography.labelLarge)
+                        Text(when {
+                            loading -> stringResource(R.string.wallet_balance_loading)
+                            observation != null -> stringResource(R.string.wallet_balance_amount, observation!!.saito)
+                            else -> stringResource(R.string.wallet_balance_unavailable)
+                        }, style = MaterialTheme.typography.headlineSmall)
+                        backend?.let { Text(stringResource(R.string.wallet_balance_source, it.domain)) }
+                    }
+                }
                 Text(stringResource(R.string.wallet_balance_observation), style = MaterialTheme.typography.bodySmall)
                 TextButton(enabled = !loading, onClick = { refresh++ }) { Text(stringResource(R.string.feed_refresh)) }
                 val label = stringResource(R.string.wallet_receiving_address)
-                Text(label, style = MaterialTheme.typography.labelLarge)
-                Text(publicKey, Modifier.semantics { contentDescription = label })
-                TextButton(onClick = {
-                    (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
-                        .setPrimaryClip(ClipData.newPlainText(label, publicKey))
-                }) { Text(stringResource(R.string.wallet_copy_address)) }
+                Card {
+                    Column(Modifier.padding(16.dp), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
+                        Text(label, style = MaterialTheme.typography.labelLarge)
+                        Text(publicKey, Modifier.semantics { contentDescription = label })
+                        TextButton(onClick = {
+                            copyStatus = try {
+                                (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager)
+                                    .setPrimaryClip(ClipData.newPlainText(label, publicKey))
+                                1
+                            } catch (_: Exception) { 2 }
+                        }) {
+                            Text(stringResource(when (copyStatus) {
+                                1 -> R.string.wallet_address_copied
+                                2 -> R.string.wallet_address_copy_failed
+                                else -> R.string.wallet_copy_address
+                            }))
+                        }
+                    }
+                }
                 ReceivingAddressQr(publicKey)
             }
         },

@@ -66,6 +66,8 @@
     <string name="wallet_balance_observation">Reported by this node. Some holdings may not be available to spend.</string>
     <string name="wallet_receiving_address">Receiving address</string>
     <string name="wallet_copy_address">Copy address</string>
+    <string name="wallet_address_copied">Address copied.</string>
+    <string name="wallet_address_copy_failed">Could not copy address. Select and copy it above.</string>
     <string name="wallet_opening">Opening your wallet…</string>
     <string name="wallet_recovery_error">Your wallet could not be opened. The app has not replaced it. Try again, or restore a wallet backup. Keep this app installed while recovering your wallet.</string>
     <string name="wallet_unavailable">Wallet unavailable. Close this window and try again.</string>
@@ -106,6 +108,7 @@
     <string name="wallet_auth_title">Export wallet</string>
     <string name="wallet_auth_subtitle">Confirm it is you to save your private wallet backup.</string>
     <string name="wallet_export_saved">Wallet backup saved</string>
+    <string name="wallet_export_in_progress">Saving and verifying your wallet backup...</string>
     <string name="wallet_export_failed">Your wallet backup could not be saved and verified. Try again with another save location.</string>
     <string name="wallet_export_cancelled">Wallet export canceled. Your wallet is unchanged.</string>
     <string name="wallet_backup_reminder">Back up your wallet</string>
@@ -113,6 +116,16 @@
     <string name="wallet_back_up">Back up</string>
     <string name="later">Later</string>
     <string name="wallet_backup_private">Your backup contains private keys. Choose a save location you trust and never share the file.</string>
+    <string name="wallet_identity_heading">Active wallet</string>
+    <string name="wallet_backup_section">Back up or restore</string>
+    <string name="wallet_backup_section_detail">Keep a private backup somewhere you control. Import a backup to restore or replace this wallet.</string>
+    <string name="wallet_payments_section">Receive or send</string>
+    <string name="wallet_payments_section_detail">Review the selected node and payment details before you authenticate a transfer.</string>
+    <string name="wallet_recovery_section">Recovery guidance</string>
+    <string name="wallet_recovery_section_detail">Learn what a wallet backup contains and which local data it does not include.</string>
+    <string name="wallet_import_step">Step 2 of 2: review import</string>
+    <string name="wallet_import_continue_after_backup">To continue, complete a verified backup of this wallet and acknowledge the recovery limits below.</string>
+    <string name="wallet_import_continue_after_acknowledgement">To continue, acknowledge the recovery limits below.</string>
     <string name="wallet_recovery_guide">Recovery guide</string>
     <string name="wallet_close_guide">Close guide</string>
     <string name="wallet_recovery_private">Anyone with your backup can control your wallet. The saved JSON file is not encrypted. Android authentication protects the export step, not the saved file. Keep a safe copy and never share it.</string>
@@ -122,6 +135,7 @@
     <string name="wallet_import_existing">Import an existing wallet</string>
     <string name="wallet_import_invalid">That file is not a valid Saito wallet backup. Your wallet is unchanged.</string>
     <string name="wallet_import_open_failed">Your wallet backup could not be opened. Try again with another file.</string>
+    <string name="wallet_import_in_progress">Opening and checking the selected wallet backup...</string>
     <string name="wallet_import_work_save_failed">Could not save your local work. Import has not started.</string>
     <string name="wallet_import_cancelled">Wallet import canceled. Your wallet is unchanged.</string>
     <string name="wallet_import_restore">Restore this wallet</string>
@@ -374,6 +388,11 @@
     <string name="report_receipt_save_error">Report details could not be saved on this phone. Reopening may show delivery unknown.</string>
     <string name="transfer_send">Send SAITO</string>
     <string name="transfer_confirm">Confirm SAITO transfer</string>
+    <string name="transfer_step_details">Step 1 of 2: enter payment details</string>
+    <string name="transfer_step_review">Step 2 of 2: check before sending</string>
+    <string name="transfer_back">Back</string>
+    <string name="transfer_cancel">Cancel</string>
+    <string name="transfer_close">Close</string>
     <string name="transfer_recipient">Recipient address</string>
     <string name="transfer_amount">Amount in SAITO</string>
     <string name="transfer_fee">Fee in SAITO</string>

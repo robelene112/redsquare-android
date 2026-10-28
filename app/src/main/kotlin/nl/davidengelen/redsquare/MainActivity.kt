@@ -17,6 +17,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -31,6 +32,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Checkbox
@@ -548,75 +550,121 @@ class MainActivity : ComponentActivity() {
                         title = { Text(stringResource(R.string.your_wallet)) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
-                            Column(Modifier.verticalScroll(rememberScrollState())) {
-                                when {
-                                    address != null -> Text(address!!, Modifier.semantics { contentDescription = addressLabel })
-                                    failed -> Text(stringResource(R.string.wallet_unavailable))
-                                    else -> Text(stringResource(R.string.wallet_opening))
+                            Column(
+                                Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                                verticalArrangement = Arrangement.spacedBy(12.dp),
+                            ) {
+                                Card(Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Text(stringResource(R.string.wallet_identity_heading), style = MaterialTheme.typography.titleSmall)
+                                        when {
+                                            address != null -> Text(address!!, Modifier.semantics { contentDescription = addressLabel })
+                                            failed -> Text(stringResource(R.string.wallet_unavailable))
+                                            else -> Text(stringResource(R.string.wallet_opening))
+                                        }
+                                    }
                                 }
+                                if (walletExport.busy) Text(stringResource(R.string.wallet_export_in_progress))
+                                if (walletImport.busy) Text(stringResource(R.string.wallet_import_in_progress))
                                 walletExport.message?.let { Text(stringResource(it)) }
                                 walletImport.message?.let { Text(stringResource(it)) }
                                 walletImport.preview?.let { preview ->
-                                    Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore else R.string.wallet_import_replace),
-                                        style = MaterialTheme.typography.titleMedium)
-                                    val selectedAddressLabel = stringResource(R.string.wallet_import_address)
-                                    Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
-                                    Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
-                                    if (!preview.sameIdentity) {
-                                        Text(stringResource(R.string.wallet_import_local_posts))
-                                        if (preview.risks?.otherAssetsUnknown == true) Text(stringResource(R.string.wallet_import_other_assets))
-                                        preview.risks?.savedName?.let { Text(stringResource(R.string.wallet_import_saved_name, it)) }
-                                        if (preview.risks?.pendingWork == true) Text(stringResource(R.string.wallet_import_pending_work))
-                                        Text(stringResource(when (preview.balance) {
-                                            null -> R.string.wallet_import_balance_checking
-                                            ImportBalance.ZERO -> R.string.wallet_import_balance_zero
-                                            ImportBalance.POSITIVE -> R.string.wallet_import_balance_positive
-                                            ImportBalance.UNKNOWN -> R.string.wallet_import_balance_unknown
-                                        }))
-                                        Text(stringResource(when {
-                                            preview.backupVerified -> R.string.wallet_import_backup_verified
-                                            preview.backupSkipped -> R.string.wallet_import_backup_skipped
-                                            preview.balance == ImportBalance.ZERO -> R.string.wallet_import_backup_recommended
-                                            else -> R.string.wallet_import_backup_required
-                                        }))
-                                        if (preview.balance == ImportBalance.ZERO && !preview.backupVerified && !preview.backupSkipped) {
-                                            TextButton(enabled = !walletExport.busy && !walletImport.busy, onClick = walletImport::skipBackup) {
-                                                Text(stringResource(R.string.wallet_import_skip_backup))
+                                    Card(Modifier.fillMaxWidth()) {
+                                        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                                            Text(stringResource(R.string.wallet_import_step), style = MaterialTheme.typography.labelLarge,
+                                                color = MaterialTheme.colorScheme.primary)
+                                            Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore else R.string.wallet_import_replace),
+                                                style = MaterialTheme.typography.titleMedium)
+                                            val selectedAddressLabel = stringResource(R.string.wallet_import_address)
+                                            Text(preview.publicKey, Modifier.semantics { contentDescription = selectedAddressLabel })
+                                            Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_detail else R.string.wallet_import_replace_detail))
+                                            if (!preview.sameIdentity) {
+                                                Text(stringResource(R.string.wallet_import_local_posts))
+                                                if (preview.risks?.otherAssetsUnknown == true) Text(stringResource(R.string.wallet_import_other_assets))
+                                                preview.risks?.savedName?.let { Text(stringResource(R.string.wallet_import_saved_name, it)) }
+                                                if (preview.risks?.pendingWork == true) Text(stringResource(R.string.wallet_import_pending_work))
+                                                Text(stringResource(when (preview.balance) {
+                                                    null -> R.string.wallet_import_balance_checking
+                                                    ImportBalance.ZERO -> R.string.wallet_import_balance_zero
+                                                    ImportBalance.POSITIVE -> R.string.wallet_import_balance_positive
+                                                    ImportBalance.UNKNOWN -> R.string.wallet_import_balance_unknown
+                                                }))
+                                                Text(stringResource(when {
+                                                    preview.backupVerified -> R.string.wallet_import_backup_verified
+                                                    preview.backupSkipped -> R.string.wallet_import_backup_skipped
+                                                    preview.balance == ImportBalance.ZERO -> R.string.wallet_import_backup_recommended
+                                                    else -> R.string.wallet_import_backup_required
+                                                }))
+                                                if (preview.balance == ImportBalance.ZERO && !preview.backupVerified && !preview.backupSkipped) {
+                                                    TextButton(enabled = !walletExport.busy && !walletImport.busy, onClick = walletImport::skipBackup) {
+                                                        Text(stringResource(R.string.wallet_import_skip_backup))
+                                                    }
+                                                }
+                                                TextButton(enabled = !walletExport.busy && !walletImport.busy,
+                                                    onClick = { walletImport.backUpCurrentWallet { verified -> walletExport.start(verified) } }) {
+                                                    Text(stringResource(R.string.wallet_import_backup))
+                                                }
+                                            }
+                                            Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_warning else R.string.wallet_import_work_warning))
+                                            val backupRequirementUnmet = !preview.sameIdentity && !preview.backupVerified &&
+                                                !(preview.balance == ImportBalance.ZERO && preview.backupSkipped)
+                                            if (!preview.acknowledged || backupRequirementUnmet) {
+                                                Text(stringResource(when {
+                                                    backupRequirementUnmet -> R.string.wallet_import_continue_after_backup
+                                                    else -> R.string.wallet_import_continue_after_acknowledgement
+                                                }), style = MaterialTheme.typography.bodySmall)
+                                            }
+                                            val riskLabel = stringResource(R.string.wallet_import_ack_label)
+                                            Row(Modifier.heightIn(min = 48.dp), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                                                Checkbox(checked = preview.acknowledged, onCheckedChange = walletImport::acknowledge,
+                                                    enabled = !walletImport.busy && !walletExport.busy,
+                                                    modifier = Modifier.semantics { contentDescription = riskLabel })
+                                                Text(stringResource(R.string.wallet_import_acknowledge))
+                                            }
+                                            TextButton(enabled = !walletExport.busy && !walletImport.busy && preview.acknowledged &&
+                                                (preview.sameIdentity || preview.backupVerified ||
+                                                    (preview.balance == ImportBalance.ZERO && preview.backupSkipped)), onClick = walletImport::confirm) {
+                                                Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_confirm_restore else R.string.wallet_import_confirm_replace))
                                             }
                                         }
-                                        TextButton(enabled = !walletExport.busy && !walletImport.busy,
-                                            onClick = { walletImport.backUpCurrentWallet { verified -> walletExport.start(verified) } }) {
-                                            Text(stringResource(R.string.wallet_import_backup))
+                                    }
+                                }
+                                Card(Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Text(stringResource(R.string.wallet_backup_section), style = MaterialTheme.typography.titleSmall)
+                                        Text(stringResource(R.string.wallet_backup_section_detail), style = MaterialTheme.typography.bodySmall)
+                                        TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
+                                            onClick = { walletExport.start() }) { Text(stringResource(R.string.wallet_export)) }
+                                        TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
+                                            onClick = { walletExport.clearMessage(); walletImport.start() }) {
+                                            Text(stringResource(R.string.wallet_import))
+                                        }
+                                        Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
+                                    }
+                                }
+                                Card(Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Text(stringResource(R.string.wallet_payments_section), style = MaterialTheme.typography.titleSmall)
+                                        Text(stringResource(R.string.wallet_payments_section_detail), style = MaterialTheme.typography.bodySmall)
+                                        TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
+                                            onClick = { walletBalanceOpen = true; walletOpen = false }) {
+                                            Text(stringResource(R.string.wallet_balance_receive))
+                                        }
+                                        TextButton(enabled = wallet != null && backend != null && !walletExport.busy && !walletImport.busy,
+                                            onClick = { walletTransferOpen = true; walletOpen = false }) {
+                                            Text(stringResource(R.string.transfer_send))
                                         }
                                     }
-                                    Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_restore_warning else R.string.wallet_import_work_warning))
-                                    val riskLabel = stringResource(R.string.wallet_import_ack_label)
-                                    Row {
-                                        Checkbox(checked = preview.acknowledged, onCheckedChange = walletImport::acknowledge,
-                                            enabled = !walletImport.busy && !walletExport.busy,
-                                            modifier = Modifier.semantics { contentDescription = riskLabel })
-                                        Text(stringResource(R.string.wallet_import_acknowledge))
-                                    }
-                                    TextButton(enabled = !walletExport.busy && !walletImport.busy && preview.acknowledged &&
-                                        (preview.sameIdentity || preview.backupVerified ||
-                                            (preview.balance == ImportBalance.ZERO && preview.backupSkipped)), onClick = walletImport::confirm) {
-                                        Text(stringResource(if (preview.sameIdentity) R.string.wallet_import_confirm_restore else R.string.wallet_import_confirm_replace))
+                                }
+                                Card(Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        Text(stringResource(R.string.wallet_recovery_section), style = MaterialTheme.typography.titleSmall)
+                                        Text(stringResource(R.string.wallet_recovery_section_detail), style = MaterialTheme.typography.bodySmall)
+                                        TextButton(onClick = { recoveryGuideOpen = true; walletOpen = false }) {
+                                            Text(stringResource(R.string.wallet_recovery_guide))
+                                        }
                                     }
                                 }
-                                TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = { walletExport.start() }) { Text(stringResource(R.string.wallet_export)) }
-                                TextButton(enabled = wallet != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = { walletExport.clearMessage(); walletImport.start() }) {
-                                    Text(stringResource(R.string.wallet_import))
-                                }
-                                Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
-                                TextButton(enabled = address != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = { walletBalanceOpen = true }) {
-                                    Text(stringResource(R.string.wallet_balance_receive))
-                                }
-                                TextButton(enabled = wallet != null && backend != null && !walletExport.busy && !walletImport.busy,
-                                    onClick = { walletTransferOpen = true }) { Text(stringResource(R.string.transfer_send)) }
-                                TextButton(onClick = { recoveryGuideOpen = true }) { Text(stringResource(R.string.wallet_recovery_guide)) }
                             }
                         },
                         confirmButton = { TextButton(enabled = !walletImport.activating,
@@ -626,16 +674,20 @@ class MainActivity : ComponentActivity() {
                     )
                     if (walletBalanceOpen && address != null) WalletBalanceDialog(address!!, backend, balances) {
                         walletBalanceOpen = false
+                        walletOpen = true
                     }
                     if (walletTransferOpen && wallet != null && backend != null) {
                         val transfers = remember(wallet, backend) {
                             WalletTransfers(this@MainActivity, wallet!!, backend!!, { wallet }, { backend }, balances,
                                 FeedEndpoints.fromIntent(intent, backend!!))
                         }
-                        WalletTransferDialog(transfers) { walletTransferOpen = false }
+                        WalletTransferDialog(transfers) {
+                            walletTransferOpen = false
+                            walletOpen = true
+                        }
                     }
                     if (recoveryGuideOpen) AlertDialog(
-                        onDismissRequest = { recoveryGuideOpen = false },
+                        onDismissRequest = { recoveryGuideOpen = false; walletOpen = true },
                         title = { Text(stringResource(R.string.wallet_recovery_guide)) },
                         text = {
                             Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -644,7 +696,7 @@ class MainActivity : ComponentActivity() {
                                 Text(stringResource(R.string.wallet_recovery_history), Modifier.padding(top = 12.dp))
                             }
                         },
-                        confirmButton = { TextButton(onClick = { recoveryGuideOpen = false }) {
+                        confirmButton = { TextButton(onClick = { recoveryGuideOpen = false; walletOpen = true }) {
                             Text(stringResource(R.string.wallet_close_guide))
                         } }
                     )

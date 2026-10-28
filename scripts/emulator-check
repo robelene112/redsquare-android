@@ -1400,6 +1400,17 @@ verify_transfers() {
         adb exec-out screencap -p > "$evidence/transfers-system-screen.png" || true
         return 1
     fi
+    # Exercise the visible wallet and send stages at 130%/200% in both themes.
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.WalletFlowViewportPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/wallet-flow-viewport-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-flow-viewport-evidence \
+        > "$evidence/wallet-flow-viewport-evidence.tar" || true
+    if ! grep -q 'OK (1 test)' "$evidence/wallet-flow-viewport-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/wallet-flow-viewport-system-screen.png" || true
+        return 1
+    fi
     python3 "$repo_dir/scripts/transfer-process-check" --evidence "$evidence/transfer-process"
 }
 if [[ "${TEST_SCOPE:-full}" == transfers* ]]; then

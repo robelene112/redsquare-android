@@ -49,6 +49,29 @@ class WalletTransferPreviewTest {
             ?.forEach { check(it.delete()) }
     }
 
+    @Test fun openingSendUsesOneFocusedTaskWithoutTheWalletDoneAction() {
+        ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+            .putExtra("feedDisabled", true)).use {
+            ui.onNodeWithText("Wallet").performClick()
+            ui.waitUntil(10_000) { ui.onAllNodes(hasContentDescription("Wallet address"))
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+            ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+
+            ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()
+            ui.onNodeWithContentDescription("Recipient address").assertIsDisplayed()
+            ui.onNodeWithContentDescription("Amount in SAITO").assertIsDisplayed()
+            ui.onNodeWithContentDescription("Fee in SAITO").assertIsDisplayed()
+            ui.onNodeWithText("Your wallet").assertDoesNotExist()
+            ui.onNodeWithText("Done").assertDoesNotExist()
+            ui.onNodeWithText("Cancel").assertIsDisplayed()
+            ui.onNodeWithContentDescription("Amount in SAITO").performClick().performTextInput("1,25").performImeAction()
+            ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("1.25")
+            ui.onNodeWithText("Send SAITO").assertIsDisplayed()
+            ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()
+            ui.onNodeWithText("Authenticate and send").assertDoesNotExist()
+        }
+    }
+
     @Test fun pendingPaymentReopensWithoutSendingAndExactRetryRequiresFreshReviewedDeviceAuthentication() = withDevicePin { device ->
         val peer = ControlledFeedPeer("[]")
         val server = fundedTransferServer()
@@ -74,6 +97,13 @@ class WalletTransferPreviewTest {
                         ui.onNodeWithText("Amount: 6.25 SAITO").assertIsDisplayed()
                         ui.onNodeWithText("Fee: 0.1 SAITO").assertIsDisplayed()
                         ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
+                        assertTrue(peer.transactions.isEmpty())
+                        ui.onNodeWithText("Back").performClick()
+                        ui.onNodeWithContentDescription("Recipient address").assertTextEquals(recipient)
+                        ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("6.25")
+                        ui.onNodeWithText("Review transfer").performClick()
+                        ui.waitUntil(20_000) { ui.onNodeWithText("Authenticate and send").isDisplayed() }
+                        ui.onNodeWithText("Recipient: $recipient").assertIsDisplayed()
                         assertTrue(peer.transactions.isEmpty())
                         captureNativeScreen(File(context.cacheDir, "transfer-evidence/reviewed-payment.png"), "Confirm SAITO transfer")
                         ui.onNodeWithText("Authenticate and send").performClick()

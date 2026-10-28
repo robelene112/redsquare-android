@@ -343,6 +343,11 @@ complete first-release scope and the established production boundaries.
    match that catalog exactly; changing artifact location does not exclude a goal. This follows an actual75minute Android17 timeout with
    missing wallet/tail gates, not an application acceptance failure. Application
    assertions, class/request deadlines and production are unchanged.
+   Wallet-flow verification also runs `WalletFlowViewportPreviewTest` after the
+   focused transfer cases. It visits import risk, receive address/QR and payment
+   entry at 130% and 200% on a 320dp viewport in both themes, observes the actual
+   IME in the focused dialog window, and confirms IME actions never send. Full
+   Social retains this class; private keys are never included in its captures.
    Complete full scopes automatically enable their existing public-read gates;
    focused scopes keep their explicit opt-in. If a completed full dispatch omitted
    that option before this guard existed, the only permitted deficit is exactly
