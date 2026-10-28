@@ -96,7 +96,7 @@ class AppearancePreviewTest {
                             ui.onNodeWithText("Back to Settings").performClick()
 
                             ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
-                            ui.onNodeWithText("Personal controls").assertIsDisplayed()
+                            ui.onNodeWithText("Muted and blocked accounts").assertIsDisplayed()
                             ui.onNodeWithText("Saito username").assertIsDisplayed()
                             capture("privacy-detail-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Back to Settings").performClick()
