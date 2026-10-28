@@ -40,10 +40,11 @@ internal fun chooseTestBackup(device: UiDevice, name: String) {
     if (device.findObject(By.desc("Show roots")) != null) {
         operateSystemControl(device, By.desc("Show roots")) { click() }
     }
-    // The selected root also appears in the toolbar. Select its drawer row.
+    val rootsDrawer = By.res(Pattern.compile(".*:id/roots_list"))
     val root = By.text(ExportTestDocumentsProvider.TITLE).res("android", "title")
     operateSystemControl(device, root) { click() }
-    check(device.wait(Until.gone(root), 10_000))
+    // The selected provider remains in the toolbar after the drawer closes.
+    check(device.wait(Until.gone(rootsDrawer), 10_000))
     operateSystemControl(device, By.res("android", "title").clazz("android.widget.EditText")) { text = name }
     operateSystemControl(device, By.res("android", "button1")
         .pkg(Pattern.compile("com\\.(?:android|google\\.android)\\.documentsui")).enabled(true)) { click() }
