@@ -122,6 +122,10 @@ class PolicyCenterPreviewTest {
                     capture("saved-draft-restored.png")
                     ui.onNode(hasSetTextAction()).performTextReplacement("")
                     ui.onNodeWithText("Save draft").performClick()
+                    if (ui.onAllNodes(hasText("Back") and hasClickAction()).fetchSemanticsNodes().isNotEmpty()) {
+                        ui.onNode(hasText("Back") and hasClickAction()).performClick()
+                    }
+                    waitFor("Settings", action = true)
                     unchanged()
                     val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
                     NativeTalkBackObservation(talkBackFolder).observe {
