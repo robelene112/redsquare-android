@@ -142,17 +142,17 @@ jobs:
             ./gradlew --no-daemon --console=plain :core:test :push-gateway:test :core:writeHostPeerClasspath :app:assembleDebug :app:assembleDebugAndroidTest
           fi
       - name: Restore pinned TalkBack tool
-        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'all')))
+        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'wallet' || matrix.partition == 'all')))
         id: talkback-tool
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: .scratch/talkback-tool/artifacts
           key: talkback-x86_64-229212f-${{ hashFiles('scripts/ci-talkback-setup') }}
       - name: Build or verify pinned TalkBack tool
-        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'all')))
+        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'wallet' || matrix.partition == 'all')))
         run: scripts/ci-talkback-setup
       - name: Retain pinned TalkBack tool
-        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'all'))) && steps.talkback-tool.outputs.cache-hit != 'true'
+        if: (startsWith(inputs.scope, 'status-talkback') || startsWith(inputs.scope, 'policies') || startsWith(inputs.scope, 'publisher-routes') || (startsWith(inputs.scope, 'full') && (matrix.partition == 'chat' || matrix.partition == 'wallet' || matrix.partition == 'all'))) && steps.talkback-tool.outputs.cache-hit != 'true'
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           path: .scratch/talkback-tool/artifacts
