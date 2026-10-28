@@ -156,16 +156,20 @@ class PolicyCenterPreviewTest {
                             mutableListOf<android.view.accessibility.AccessibilityNodeInfo>().also { collectRadioRows(root, it) }
                         }
                         assertEquals("The node settings expose exactly two focusable radio choices", 2, radioRows.size)
-                        val ownerLabel = node(automation, SaitoBackend.OWNER.domain)
-                        val ownerBounds = Rect().also(ownerLabel::getBoundsInScreen)
-                        val ownerRow = radioRows.singleOrNull { row ->
-                            val bounds = Rect().also(row::getBoundsInScreen)
-                            bounds.contains(ownerBounds.centerX(), ownerBounds.centerY())
+                        fun rowFor(domain: String) = radioRows.singleOrNull { row ->
+                            val label = node(automation, domain)
+                            val labelBounds = Rect().also(label::getBoundsInScreen)
+                            val rowBounds = Rect().also(row::getBoundsInScreen)
+                            rowBounds.contains(labelBounds.centerX(), labelBounds.centerY())
                         }
-                        assertNotNull("The owner node label belongs to one focusable radio row", ownerRow)
-                        val selectedOwnerRow = requireNotNull(ownerRow)
-                        assertTrue("The current node remains selected", selectedOwnerRow.isChecked)
-                        selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                        val selectedOwnerRow = requireNotNull(rowFor(SaitoBackend.OWNER.domain)) {
+                            "The owner node label belongs to one focusable radio row"
+                        }
+                        val officialRow = requireNotNull(rowFor(SaitoBackend.OFFICIAL.domain)) {
+                            "The official node label belongs to one focusable radio row"
+                        }
+                        assertTrue("The current owner node remains selected", selectedOwnerRow.isChecked)
+                        assertFalse("The other official node is not selected", officialRow.isChecked)
                         device.executeShellCommand("logcat -c")
                         assertTrue("TalkBack can focus the selected node radio",
                             selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
@@ -173,10 +177,19 @@ class PolicyCenterPreviewTest {
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
+                        officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                        device.executeShellCommand("logcat -c")
+                        assertTrue("TalkBack can focus the official node radio",
+                            officialRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                        captureFocusedSpeech("official-node", SaitoBackend.OFFICIAL.domain, talkBackFolder, officialRow)
+                        assertTrue("TalkBack identifies the official node as a radio choice",
+                            Regex("\\bradio button\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
                             addProperty("selected", selectedOwnerRow.isChecked)
                             addProperty("completedNodeUtterances", completedFragments(device, SaitoBackend.OWNER.domain).size)
+                            addProperty("officialNode", SaitoBackend.OFFICIAL.domain)
+                            addProperty("officialNodeRadioUtterances", completedFragments(device, SaitoBackend.OFFICIAL.domain).size)
                             addProperty("physicalAudibility", false)
                             addProperty("serviceProcess", serviceProcess)
                         }.toString())
