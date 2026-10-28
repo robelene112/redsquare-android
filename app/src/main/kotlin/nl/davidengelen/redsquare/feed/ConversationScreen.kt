@@ -137,7 +137,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
         ) {
             LazyColumn(Modifier.fillMaxSize().testTag("conversation-post-list"), state = position) {
                 items(visiblePosts, key = { it.id }) { post ->
-                    PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
+                    PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions,
+                        bodyTextStyle = MaterialTheme.typography.bodyMedium, bodyVerticalPadding = 4.dp)
                     HorizontalDivider()
                 }
             }

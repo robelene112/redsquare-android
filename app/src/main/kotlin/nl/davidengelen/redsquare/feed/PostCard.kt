@@ -18,8 +18,11 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.testTag
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.saito.FeedPost
@@ -36,7 +39,8 @@ internal class PostAuthorActions(val owner: String, val open: (FeedPost, AuthorA
 /** One post hierarchy, with secondary actions owned outside the transient popup. */
 @Composable
 internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String) -> Unit,
-    onPost: (FeedPost) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
+    onPost: (FeedPost) -> Unit, social: SocialState?, quotes: QuoteState?, onQuote: ((FeedPost) -> Unit)? = null,
+    authorActions: PostAuthorActions? = null, bodyTextStyle: TextStyle? = null, bodyVerticalPadding: Dp? = null) {
     val author = registeredIdentity(post.author).name
     val timestamp = remember(post.createdAt) {
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH).format(Date(post.createdAt))
@@ -59,7 +63,8 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
             }
             PostMoreActions(post, author, timestamp, social?.reports, authorActions)
         }
-        Text(post.text, Modifier.padding(vertical = AppSpacing.small), style = MaterialTheme.typography.bodyLarge)
+        Text(post.text, Modifier.padding(vertical = bodyVerticalPadding ?: AppSpacing.small).testTag("post-body-text"),
+            style = bodyTextStyle ?: MaterialTheme.typography.bodyLarge)
         PostImages(post.images, backend)
         PostVideo(post, backend)
         QuoteContent(post, quotes, backend)

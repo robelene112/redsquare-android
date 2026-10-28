@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -194,6 +196,7 @@ class FeedPreviewTest {
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 captureFailure {
                     waitForText(postText)
+                    val feedBodyHeight = firstPostBodyLineHeight()
                     val feedRequestCount = peer.requests.get()
                     ui.onNode(hasText(postText) and hasClickAction()).performClick()
                     ui.waitUntil(15_000) {
@@ -206,6 +209,9 @@ class FeedPreviewTest {
                     }
                     ui.onNodeWithText("Refresh").assertDoesNotExist()
                     ui.onNodeWithText(postText).assertIsDisplayed()
+                    check(firstPostBodyLineHeight() < feedBodyHeight) {
+                        "Conversation body should use a tighter line height than the main feed"
+                    }
                     val firstRequestCount = peer.requests.get()
                     ui.pullToRefresh("conversation-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() > firstRequestCount }
@@ -233,6 +239,59 @@ class FeedPreviewTest {
             server.close()
             replacement?.close()
         }
+    }
+
+    @Test fun conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes() {
+        val context = instrumentation.targetContext
+        val appearance = context.getSharedPreferences("appearance", 0)
+        val originalAppearance = appearance.getString("mode", null)
+        val evidence = java.io.File(context.cacheDir, "conversation-typography-evidence")
+        val font = EmulatorFontScale(context, evidence, "conversation")
+        val fixture = asset("native-feed-reference.json")
+        val postText = "Native Red Square reference post"
+        val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]", archiveResponse = { "[${fixture.get("archiveRow")}]" })
+        val server = peer.start()
+        try {
+            check(appearance.edit().putString("mode", "LIGHT").commit())
+            ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
+                captureFailure {
+                    waitForText(postText)
+                    font.apply(1.3f)
+                    ui.waitUntil(10_000) { ui.onNodeWithText(postText).isDisplayed() }
+                    ui.onNode(hasText(postText) and hasClickAction()).performClick()
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    waitForText(postText)
+                    ui.onNodeWithText("Reply").assertIsDisplayed()
+                    check(appearance.edit().putString("mode", "DARK").commit())
+                    activity.recreate()
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
+                            ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
+                    }
+                    waitForText(postText)
+                    ui.onNodeWithText("Reply").assertIsDisplayed()
+                    peer.assertHealthy()
+                }
+            }
+        } finally {
+            server.close()
+            font.restore()
+            check(appearance.edit().apply {
+                if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance)
+            }.commit())
+        }
+    }
+
+    private fun firstPostBodyLineHeight(): Float {
+        val layouts = mutableListOf<TextLayoutResult>()
+        ui.onNodeWithTag("post-body-text").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
+            check(it(layouts))
+        }
+        val layout = requireNotNull(layouts.firstOrNull())
+        return layout.getLineBottom(0) - layout.getLineTop(0)
     }
 
     private fun asset(name: String) = JsonParser.parseReader(instrumentation.context.assets.open(name).reader()).asJsonObject
