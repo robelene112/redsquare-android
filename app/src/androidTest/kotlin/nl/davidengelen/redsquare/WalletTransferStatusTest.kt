@@ -168,7 +168,7 @@ class WalletTransferStatusTest {
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
         ui.onNodeWithContentDescription("Replacement risks acknowledged").performScrollTo().performClick()
         ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsEnabled().performClick()
-        ui.waitUntil(15_000) { ui.onNodeWithText("Wallet imported").isDisplayed() }
+        ui.waitUntil(15_000) { AndroidWalletStore(context).loadExisting().publicKey == incoming.publicKey }
         ui.onNodeWithContentDescription("Wallet address").assertTextEquals(incoming.publicKey)
     }
 
@@ -354,7 +354,7 @@ class WalletTransferStatusTest {
                                 ui.onNodeWithText("Send through saito.davidengelen.nl").assertIsDisplayed()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                                 captureNativeScreen(File(context.cacheDir, "transfer-evidence/change-reviewed.png"), "Confirm SAITO transfer")
-                                ui.onNode(hasText("Done") and hasAnyAncestor(isDialog() and
+                                ui.onNode(hasText("Close") and hasAnyAncestor(isDialog() and
                                     hasAnyDescendant(hasText("Confirm SAITO transfer")))).performClick()
                                 peer.assertHealthy(); assertTrue(peer.transactions.isEmpty())
                             }

@@ -54,6 +54,8 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Receive or send").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-import-risk.png"), context.getString(R.string.wallet_import_work_warning))
                 ui.onNodeWithText("Back").performClick()
+                ui.onNodeWithText("Your wallet").assertIsDisplayed()
+                ui.onNodeWithContentDescription("Wallet address").assertIsDisplayed()
                 ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm replacement").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()

@@ -207,6 +207,10 @@ class MainActivity : ComponentActivity() {
                     nl.davidengelen.redsquare.notifications.PushRegistration.request(applicationContext)
                     result
                 }, chooseDocument = { openWalletDocument.launch(arrayOf("*/*")) }) }
+            val walletScrollState = rememberScrollState()
+            LaunchedEffect(walletOpen, walletImport.preview) {
+                if (walletOpen && walletImport.preview == null) walletScrollState.scrollTo(0)
+            }
             DisposableEffect(walletExport) {
                 walletExports = walletExport
                 onDispose { walletExport.cancel(); if (walletExports === walletExport) walletExports = null }
@@ -553,7 +557,7 @@ class MainActivity : ComponentActivity() {
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
                             Column(
-                                Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+                                Modifier.fillMaxWidth().verticalScroll(walletScrollState),
                                 verticalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
                                 Card(Modifier.fillMaxWidth()) {
