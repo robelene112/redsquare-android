@@ -162,6 +162,9 @@ class MainActivity : ComponentActivity() {
             var backendSaveError by remember { mutableStateOf(false) }
             val backendStates = rememberSaveableStateHolder()
             val scope = rememberCoroutineScope()
+            androidx.activity.compose.BackHandler(settingsOpen && settingsCategory != null) {
+                settingsCategory = null
+            }
             val postNavigation = remember { PostNavigation() }
             LaunchedEffect(Unit) {
                 backend = withContext(Dispatchers.IO) {
@@ -388,7 +391,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                     if (settingsOpen) AlertDialog(
-                        onDismissRequest = { if (!savingBackend) settingsOpen = false },
+                        onDismissRequest = { if (!savingBackend) { settingsOpen = false; settingsCategory = null } },
                         title = {
                             if (settingsCategory == null) Text(stringResource(R.string.settings))
                             else TextButton(onClick = { settingsCategory = null }) { Text(stringResource(R.string.settings_back)) }
@@ -400,7 +403,9 @@ class MainActivity : ComponentActivity() {
                                     SettingsCategoryRow(stringResource(R.string.settings_privacy_safety),
                                         stringResource(R.string.settings_personal_summary)) { settingsCategory = "privacy" }
                                     SettingsCategoryRow(stringResource(R.string.settings_notifications_privacy),
-                                        stringResource(R.string.settings_notifications_summary)) { settingsCategory = "notifications" }
+                                        stringResource(if (androidx.core.app.NotificationManagerCompat.from(applicationContext)
+                                            .areNotificationsEnabled()) R.string.settings_notifications_allowed
+                                            else R.string.settings_notifications_blocked)) { settingsCategory = "notifications" }
                                     SettingsCategoryRow(stringResource(R.string.server_choice),
                                         backend?.domain ?: stringResource(R.string.feed_loading)) { settingsCategory = "node" }
                                     SettingsCategoryRow(stringResource(R.string.appearance),
@@ -411,14 +416,17 @@ class MainActivity : ComponentActivity() {
                                 if (settingsCategory == "privacy") {
                                 Text(stringResource(R.string.settings_privacy_safety), style = MaterialTheme.typography.titleSmall)
                                 TextButton(enabled = !savingBackend, onClick = {
+                                    settingsCategory = null
                                     settingsOpen = false
                                     policiesOpen = true
                                 }) { Text(stringResource(R.string.policy_center)) }
                                 TextButton(enabled = wallet != null, onClick = {
+                                    settingsCategory = null
                                     settingsOpen = false
                                     personalControlsOpen = true
                                 }) { Text(stringResource(R.string.personal_title)) }
                                 TextButton(enabled = wallet != null && backend != null && !savingBackend, onClick = {
+                                    settingsCategory = null
                                     savingBackend = true
                                     scope.launch {
                                         try {
@@ -468,7 +476,7 @@ class MainActivity : ComponentActivity() {
                                                         try { backendStore.save(choice); Result.success(Unit) }
                                                         catch (failure: Exception) { Result.failure(failure) }
                                                     }
-                                                    if (outcome.isSuccess) { backend = choice; settingsOpen = false }
+                                                    if (outcome.isSuccess) { backend = choice; settingsOpen = false; settingsCategory = null }
                                                     else {
                                                         if (outcome.exceptionOrNull() is AndroidBackendStore.UncertainCommit) backend = null
                                                         backendSaveError = true
@@ -519,7 +527,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         confirmButton = {
-                            TextButton(enabled = !savingBackend, onClick = { settingsOpen = false }) {
+                                TextButton(enabled = !savingBackend, onClick = { settingsOpen = false; settingsCategory = null }) {
                                 Text(stringResource(R.string.done))
                             }
                         }
