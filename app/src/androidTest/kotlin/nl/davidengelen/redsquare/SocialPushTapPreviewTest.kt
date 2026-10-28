@@ -420,6 +420,7 @@ class SocialPushTapPreviewTest {
 
     private fun visitAndroidCategories(device: UiDevice, appPackage: String, cache: File, verifySavedWork: () -> Unit) {
         openSettings()
+        ui.onNodeWithText("Notifications and privacy").performScrollTo().performClick()
         val shortcut = hasText("Android notification settings") and hasClickAction() and isEnabled()
         waitFor(shortcut)
         ui.onNode(shortcut).performScrollTo().performClick()
