@@ -209,7 +209,7 @@ class FeedPreviewTest {
                     val firstRequestCount = peer.requests.get()
                     ui.pullToRefresh("conversation-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() > firstRequestCount }
-                    ui.onNodeWithText("Conversation updated.").assertIsDisplayed()
+                    ui.waitUntil(5_000) { ui.onNodeWithText("Conversation updated.").isDisplayed() }
                     ui.waitUntil(15_000) { ui.onNodeWithText(postText).isDisplayed() }
 
                     server.close()
