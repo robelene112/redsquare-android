@@ -1380,16 +1380,24 @@ if [[ "${TEST_SCOPE:-full}" == reports* ]]; then
     exit 0
 fi
 if [[ "$full_social" == true ]]; then verify_reports; fi
-verify_transfers() {
-    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+write_transfer_import_fixtures() {
     # Public unsafe scalar1/2 backups belong to the standalone DocumentsProvider UID.
     adb shell run-as nl.davidengelen.redsquare.dev.test mkdir -p files/wallet-test-documents
     printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"jesTu2BpszP8DKSoi1R5G6ggjHrsrVnboLdx6V47vkoR","privateKey":"0000000000000000000000000000000000000000000000000000000000000001"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-transfer-import-1.json > /dev/null
     printf '%s' '{"wallet":{"version":5.677,"balance":"0","preferred_crypto":"SAITO","preferred_txs":[],"default_fee":"0","slips":[],"publicKey":"pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU","privateKey":"0000000000000000000000000000000000000000000000000000000000000002"}}' | \
         adb shell run-as nl.davidengelen.redsquare.dev.test tee files/wallet-test-documents/00-transfer-import-2.json > /dev/null
+}
+record_transfer_import_fixture_sizes() {
+    local output_file="$1"
     adb shell run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/00-transfer-import-1.json files/wallet-test-documents/00-transfer-import-2.json \
-        > "$evidence/transfers-import-fixtures.txt"
+        > "$output_file"
+    awk 'NF != 1 || $1 !~ /^[1-9][0-9]*$/ { exit 1 } END { if (NR != 2) exit 1 }' "$output_file"
+}
+verify_transfers() {
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    write_transfer_import_fixtures
+    record_transfer_import_fixture_sizes "$evidence/transfers-import-fixtures.txt"
     # Include the bounded two-import/backend-isolation journey alongside real-PIN cases.
     timeout 240 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.WalletTransferPreviewTest,nl.davidengelen.redsquare.WalletTransferStatusTest \
@@ -1402,12 +1410,18 @@ verify_transfers() {
         return 1
     fi
     # Exercise the visible wallet and send stages at 130%/200% in both themes.
+    # The transfer status tests deliberately remove their private test documents.
+    # Provision these same public fixtures again for the following viewport run.
+    write_transfer_import_fixtures
+    record_transfer_import_fixture_sizes "$evidence/wallet-flow-viewport-import-fixtures.txt"
     timeout 180 adb shell am instrument -w -r \
         -e class nl.davidengelen.redsquare.WalletFlowViewportPreviewTest \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/wallet-flow-viewport-ui.txt" || true
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - wallet-flow-viewport-evidence \
         > "$evidence/wallet-flow-viewport-evidence.tar" || true
+    adb shell run-as nl.davidengelen.redsquare.dev.test rm -f \
+        files/wallet-test-documents/00-transfer-import-1.json files/wallet-test-documents/00-transfer-import-2.json
     if ! grep -q 'OK (1 test)' "$evidence/wallet-flow-viewport-ui.txt"; then
         adb exec-out screencap -p > "$evidence/wallet-flow-viewport-system-screen.png" || true
         return 1
