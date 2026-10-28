@@ -1,5 +1,6 @@
 package nl.davidengelen.redsquare
 
+import android.graphics.Rect
 import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
@@ -134,28 +135,49 @@ class PolicyCenterPreviewTest {
                         ui.onNodeWithText("Node").performClick()
                         waitFor("Each node has its own available history and moderation. Your wallet stays the same.")
 
-                        val ownerNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
-                        assertTrue("The current node remains selected", ownerNode.isSelected)
+                        fun collectRadioRows(node: android.view.accessibility.AccessibilityNodeInfo,
+                            rows: MutableList<android.view.accessibility.AccessibilityNodeInfo>) {
+                            if (node.isVisibleToUser && node.isFocusable && node.isCheckable) rows += node
+                            for (index in 0 until node.childCount) node.getChild(index)?.let { collectRadioRows(it, rows) }
+                        }
+                        val radioRows = appRoots(automation).flatMap { root ->
+                            mutableListOf<android.view.accessibility.AccessibilityNodeInfo>().also { collectRadioRows(root, it) }
+                        }
+                        assertEquals("The node settings expose exactly two focusable radio choices", 2, radioRows.size)
+                        val ownerLabel = node(automation, SaitoBackend.OWNER.domain)
+                        val ownerBounds = Rect().also(ownerLabel::getBoundsInScreen)
+                        val ownerRow = radioRows.singleOrNull { row ->
+                            val bounds = Rect().also(row::getBoundsInScreen)
+                            bounds.contains(ownerBounds.centerX(), ownerBounds.centerY())
+                        }
+                        assertNotNull("The owner node label belongs to one focusable radio row", ownerRow)
+                        val selectedOwnerRow = requireNotNull(ownerRow)
+                        assertTrue("The current node remains selected", selectedOwnerRow.isChecked)
                         assertTrue("The complete node row accepts keyboard focus",
-                            ownerNode.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_FOCUS))
-                        val inputFocusedNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
-                        assertTrue("Keyboard focus remains visible on the selected node row", inputFocusedNode.isFocused)
+                            selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_FOCUS))
+                        assertTrue("Keyboard focus remains visible on the selected node row", selectedOwnerRow.isFocused)
                         capture(automation, File(talkBackFolder, "node-keyboard-focus.png"))
-                        focusAndHear("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, textLabel = true)
+                        selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
+                        device.executeShellCommand("logcat -c")
+                        assertTrue("TalkBack can focus the selected node radio",
+                            selectedOwnerRow.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_ACCESSIBILITY_FOCUS))
+                        captureFocusedSpeech("owner-node", SaitoBackend.OWNER.domain, talkBackFolder, selectedOwnerRow)
                         waitFor(10_000) { completedFragments(device, SaitoBackend.OWNER.domain).isNotEmpty() }
                         assertTrue("TalkBack announces the selected radio state",
                             Regex("\\bselected\\b", RegexOption.IGNORE_CASE).containsMatchIn(speechLog(device)))
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
-                            addProperty("selected", ownerNode.isSelected)
-                            addProperty("actualAccessibilityFocus", focusedText(automation) == SaitoBackend.OWNER.domain)
+                            addProperty("selected", selectedOwnerRow.isChecked)
+                            addProperty("actualAccessibilityFocus", appRoots(automation).any {
+                                it.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == selectedOwnerRow
+                            })
                             addProperty("completedNodeUtterances", completedFragments(device, SaitoBackend.OWNER.domain).size)
                             addProperty("physicalAudibility", false)
                             addProperty("serviceProcess", serviceProcess)
                         }.toString())
-                        assertEquals("TalkBack focus remains on the selected node", SaitoBackend.OWNER.domain,
-                            focusedText(automation))
-                        click(automation, "Done")
+                        assertTrue("TalkBack focus remains on the selected radio row",
+                            appRoots(automation).any { it.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == selectedOwnerRow })
+                        ui.onNodeWithText("Done").performClick()
                         unchanged()
                     }
                 }
