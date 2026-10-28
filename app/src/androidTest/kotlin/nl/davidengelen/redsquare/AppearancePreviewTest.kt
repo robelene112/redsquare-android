@@ -86,12 +86,49 @@ class AppearancePreviewTest {
                             capture("settings-overview-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Appearance").performScrollTo().performClick()
                             ui.waitUntil(5_000) { ui.onAllNodesWithText("Appearance").fetchSemanticsNodes().isNotEmpty() }
+                            capture("appearance-detail-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText(label).performScrollTo().performClick()
                             ui.waitUntil(5_000) {
                                 ui.onAllNodes(hasText(label) and isSelected()).fetchSemanticsNodes().isNotEmpty()
                             }
                             ui.onNodeWithText(label).assertIsSelected()
+                            capture("appearance-selected-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Back to Settings").performClick()
+
+                            ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                            ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
+                            ui.onNodeWithText("Personal controls").assertIsDisplayed()
+                            ui.onNodeWithText("Saito username").assertIsDisplayed()
+                            capture("privacy-detail-${label.lowercase().replace(' ', '-')}.png")
+                            ui.onNodeWithText("Back to Settings").performClick()
+
+                            ui.onNodeWithText("Node").performScrollTo().performClick()
+                            ui.onNodeWithText("Each node has its own available history and moderation. Your wallet stays the same.")
+                                .performScrollTo().assertIsDisplayed()
+                            ui.onNode(hasText(SaitoBackend.OWNER.domain) and isSelected()).assertIsDisplayed()
+                            capture("node-detail-${label.lowercase().replace(' ', '-')}.png")
+                            val blockedSelection = File(context.noBackupFilesDir, "backend.pending")
+                            assertFalse("No unresolved selection should exist before the controlled failure", blockedSelection.exists())
+                            assertTrue("Create an isolated backend-store failure", blockedSelection.mkdir())
+                            try {
+                                ui.onNodeWithText(SaitoBackend.OFFICIAL.domain).performScrollTo().performClick()
+                                ui.waitUntil(10_000) {
+                                    ui.onAllNodesWithText("Your node selection could not be saved. Try again.")
+                                        .fetchSemanticsNodes().isNotEmpty()
+                                }
+                                ui.onNode(hasText(SaitoBackend.OWNER.domain) and isSelected()).assertIsDisplayed()
+                                capture("node-save-error-${label.lowercase().replace(' ', '-')}.png")
+                            } finally {
+                                assertTrue("Remove the isolated backend-store failure", blockedSelection.delete())
+                            }
+                            unchanged()
+                            ui.onNodeWithText("Back to Settings").performClick()
+
+                            ui.onNodeWithText("Notifications and privacy").performScrollTo().performClick()
+                            ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
+                            capture("notifications-detail-${label.lowercase().replace(' ', '-')}.png")
+                            ui.onNodeWithText("Back to Settings").performClick()
+
                             ui.onNodeWithText("About").performClick()
                             ui.onNodeWithText("A native Android client for RedSquare on Saito.")
                                 .performScrollTo()
