@@ -8,7 +8,9 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.policy.PublishingPolicies
@@ -100,6 +102,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                     return@launch
                 }
                 candidate = saved?.candidate?.takeIf { !saved.available } ?: retry
+                val reconcilingPendingCandidate = candidate != null
                 if (candidate == null && !beforePublishing()) return@launch
                 if (candidate == null) {
                     candidate = withContext(Dispatchers.IO) {
@@ -139,15 +142,18 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                                 .toString(Charsets.UTF_8), wallet.publicKey, kind)
                             return found.any { it.id == original.id && it.target == post.id }
                         }
-                        if (!observed()) {
+                        val alreadyAvailable = observed()
+                        if (!alreadyAvailable) {
                             if (!withContext(Dispatchers.Main.immediate) { beforePublishing() }) return@use
                             peer.submit(original) {
                                 PublishingPolicies.requireAllowed(context)
                                 check(AndroidBackendStore(context).load() == backend &&
                                     nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             }
+                            val settled = if (reconcilingPendingCandidate) waitForExactReadback { observed() }
+                                else observed()
+                            if (!settled) error("Interaction availability unknown")
                         }
-                        if (!observed()) error("Interaction availability unknown")
                         withContext(NonCancellable) { journal(key).settle(original) }
                         withContext(Dispatchers.Main.immediate) {
                             if (generations[key] === token) actions[key] = ActionStatus(original, available = true, ready = true)
@@ -193,4 +199,16 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             addProperty("request", "load"); addProperty("field1", kind); addProperty("sig", signature)
         })
     }
+
+    /** A retry may reach the node before its archive has indexed the signed candidate. */
+    private suspend fun waitForExactReadback(observed: suspend () -> Boolean): Boolean =
+        withTimeoutOrNull(10_000) {
+            var pauseMillis = 250L
+            repeat(6) {
+                delay(pauseMillis)
+                if (observed()) return@withTimeoutOrNull true
+                pauseMillis = (pauseMillis * 2).coerceAtMost(2_000)
+            }
+            false
+        } ?: false
 }
