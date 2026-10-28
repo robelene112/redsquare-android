@@ -16,11 +16,11 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-/** Real signed pending actions settle by exact readback, while unavailable counts stay truthful. */
+/** Real signed pending actions settle by exact readback and refresh their observed count. */
 class PostPendingViewportTest {
     @get:Rule val ui = createEmptyComposeRule()
 
-    @Test fun pendingRetryAndAvailableActionWithFailedCountRefreshStayExplicitInBothThemes() {
+    @Test fun pendingRetrySettlesAndRefreshesAvailableCountInBothThemes() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         check(context.packageName == "nl.davidengelen.redsquare.dev" &&
             android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
@@ -66,7 +66,15 @@ class PostPendingViewportTest {
                         indexed[signature]?.let { "[$it]" } ?: "[]"
                     else "[]"
                 }
-                criteria.has("sig") -> "[]" // Actual missing target readback, after the signed action settles.
+                criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> {
+                    // Exact action readback implies the node has incorporated it into the target count.
+                    val refreshed = row.deepCopy()
+                    val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
+                    refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
+                    refreshed.addProperty("tx", refreshedEnvelope.toString())
+                    "[$refreshed]"
+                }
+                criteria.has("sig") -> "[]"
                 else -> "[$row]"
             }
         })
@@ -101,21 +109,15 @@ class PostPendingViewportTest {
                         val retry = hasContentDescription("Retry: Like post by $name") and hasClickAction()
                         ui.onNode(retry).assertIsEnabled().performClick()
                         ui.waitUntil(15_000) { ui.onNodeWithText("Liked").isDisplayed() }
-                        val counts = hasContentDescription("Details: Like counts unavailable") and hasClickAction()
-                        ui.waitUntil(20_000) { ui.onNode(counts).isDisplayed() }
                         ui.onNodeWithText("Liked").assertIsDisplayed()
-                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertIsDisplayed()
-                        ui.onNodeWithText("5 likes").assertDoesNotExist()
+                        ui.waitUntil(20_000) {
+                            ui.onNodeWithText("5 likes", useUnmergedTree = true).isDisplayed()
+                        }
+                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertDoesNotExist()
                         val attempts = peer.transactions.drop(before).map { postingTransaction(it).id }
                         assertTrue("Retry must reuse the same signed action", attempts.isNotEmpty() && attempts.all { it == candidate })
                         assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
-                        captureNativeScreen(File(folder, "$label-available-counts-unavailable.png"))
-                        ui.onNode(counts).performClick()
-                        ui.onNodeWithText("Like post by $name").assertIsDisplayed()
-                        ui.onNodeWithText("Could not refresh counts. Refresh this view to try again.")
-                            .performScrollTo().assertIsDisplayed()
-                        captureNativeScreen(File(folder, "$label-counts-details.png"))
-                        ui.onNodeWithText("Done").performClick()
+                        captureNativeScreen(File(folder, "$label-liked-count-refreshed.png"))
                     }
                     val transactionIds = peer.transactions.map { postingTransaction(it).id }
                     assertEquals("Each theme retries its exact action, then permits a new deliberate action", 4, transactionIds.size)
