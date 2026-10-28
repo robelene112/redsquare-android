@@ -1,11 +1,13 @@
 package nl.davidengelen.redsquare
 
+import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.net.InetAddress
 import com.google.gson.JsonObject
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
@@ -25,7 +27,13 @@ class WalletTalkBackPreviewTest {
                     ui.onNodeWithText("Later").performClick()
                     ui.onNodeWithText("Wallet").performClick()
                     val address = displayedWalletAddress(ui)
-                    ui.onNodeWithText("Send SAITO").performScrollTo().performClick()
+                    val sendAction = actionNode("Send SAITO", textLabel = true)
+                    assertTrue("TalkBack must expose an actionable send control",
+                        sendAction.performAction(AccessibilityNodeInfo.ACTION_CLICK))
+                    ui.waitUntil(10_000) {
+                        ui.onAllNodesWithContentDescription("Recipient address")
+                            .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+                    }
                     focusAndHear("recipient-field", "Recipient address", folder)
 
                     val recipient = "pncSjsftdmspedXgmCkkHLRCeak12ex2WVrne2qdefSU"
