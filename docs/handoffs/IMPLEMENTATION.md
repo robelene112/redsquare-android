@@ -1,5 +1,56 @@
 # Implementation handoff
 
+## Issue67 delivered as beta71: STOP AFTER THIS ISSUE
+
+The owner requested one more issue. Issue67 is implemented, verified and
+closed; stop here until the owner asks to continue. The protected untracked
+`docs/research/NATIVE_GROUP_CHAT_CONTRACT.md` remains untouched.
+
+Wallet backup, import, receive and payment now use focused review steps with
+clear cancellation and recovery. Import replacement leaves the current wallet
+active until confirmation. Backup guidance explains that exported JSON is not
+encrypted and that cached chat history is not restored. Captures and exact
+verification runs are in `docs/evidence/ticket67/README.md`.
+
+The signed beta71 is live as an in-place update at
+https://davidengelen.nl/redsquare/. APK SHA256:
+`51fcc0e2beca12c052976cf74190d9079ff85bf80268a7de478556d9954fe2d9`.
+The downloaded HTTPS APK matches the signed artifact, package, version and
+certificate. Beta71 was built from `4ba78407f`; wallet implementation source
+matches `03157fc05`. Since the wallet implementation commit, only the Android
+proof workflow and instrumentation harness changed. The comparison is recorded
+in `docs/evidence/ticket67/verification-source-equivalence.json`.
+
+Focused payment and viewport suites passed on Android10 (`40759555267`) and
+Android17 (`40759555718`), 11 tests per version. Export and backup recovery
+passed on Android10 (`40760874463`) and Android17 (`40760874336`), 6 tests per
+version. Import, risk and storage recovery passed on Android10 (`40762168558`)
+and Android17 (`40762168595`), 9 tests per version. Final native reviews:
+Spec0, Standards0.
+
+Wallet payment values and selected node were spoken by the real TalkBack
+service on Android10 (`40767894689`) and Android17 (`40767894882`), 1 test per
+version. The synthetic transfer was cancelled; zero outgoing transactions were
+recorded and the wallet identity remained unchanged. Physical audibility is not
+claimed.
+
+The complete Android10 run `40752023116` failed in separate chat/social tests
+and two wallet import tests that used an obsolete flow while import review was
+open. The import tests were corrected and the final focused suites pass. The
+complete Android17 run `40752022535` failed in publisher, chat and social
+tests. Neither complete suite was rerun; this handoff does not claim a full
+suite pass. Emulator results do not establish physical Pixel7 or Play Store
+acceptance.
+
+The combined TalkBack Android10 run `40763940576` stopped at a separate profile
+speech test before reaching the wallet test. Android17 run `40763940636` reached
+the wallet test but used a Compose test click that did not open the send flow.
+The final isolated TalkBack runs invoke the native accessibility click and pass.
+
+Issue67 is closed and only its child checkbox in55 is checked. Parent55 and
+release36 remain open. No APK or signing material is committed. Stop after this
+issue.
+
 ## Issue68 delivered as beta70: STOP AFTER THIS ISSUE
 
 The owner resumed work one issue at a time and selected #68. Issue68 is now
