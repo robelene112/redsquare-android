@@ -92,6 +92,14 @@ class AppearancePreviewTest {
                             ui.onNodeWithText(label).assertIsSelected()
                             capture("appearance-selected-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Back to Settings").performClick()
+                            ui.waitUntil(5_000) {
+                                listOf("Notifications and privacy", "Privacy and safety", "Node", "Appearance")
+                                    .all { category -> ui.onAllNodesWithText(category).fetchSemanticsNodes().isNotEmpty() }
+                            }
+                            ui.onNodeWithText("Notifications and privacy").assertIsDisplayed()
+                            ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
+                            ui.onNodeWithText("Node").assertIsDisplayed()
+                            ui.onNodeWithText("Appearance").assertIsDisplayed()
                             capture("settings-overview-${label.lowercase().replace(' ', '-')}.png")
                             ui.onNodeWithText("Appearance").performClick()
                             ui.waitUntil(5_000) {
