@@ -46,7 +46,7 @@ class WalletFlowViewportPreviewTest {
                 val incomingFile = if (incomingAddress == firstImportAddress) "00-transfer-import-1.json" else "00-transfer-import-2.json"
                 ui.onNodeWithText("Import wallet").performScrollTo().performClick()
                 chooseWalletImport(ui, incomingFile, incomingAddress)
-                ui.onNodeWithText("Replace your wallet").assertIsDisplayed()
+                ui.onNodeWithText("Replace your wallet").performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.wallet_import_work_warning)).performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                 ui.onNodeWithText("Review wallet import").assertIsDisplayed()
