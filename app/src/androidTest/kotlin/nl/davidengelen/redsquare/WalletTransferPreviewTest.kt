@@ -64,7 +64,7 @@ class WalletTransferPreviewTest {
             ui.onNodeWithText("Your wallet").assertDoesNotExist()
             ui.onNodeWithText("Done").assertDoesNotExist()
             ui.onNodeWithText("Cancel").assertIsDisplayed()
-            ui.onNodeWithContentDescription("Amount in SAITO").performClick().performTextInput("1,25").performImeAction()
+            ui.onNodeWithContentDescription("Amount in SAITO").performClick().performTextInput("1,25")
             ui.onNodeWithContentDescription("Amount in SAITO").assertTextEquals("1.25")
             ui.onNodeWithText("Send SAITO").assertIsDisplayed()
             ui.onNodeWithText("Confirm SAITO transfer").assertDoesNotExist()

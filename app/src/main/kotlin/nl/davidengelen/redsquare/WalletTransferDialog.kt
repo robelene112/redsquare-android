@@ -88,12 +88,11 @@ fun WalletTransferDialog(transfers: WalletTransfers, onClose: () -> Unit) {
                     else StatusTone.ERROR,
                 )
                 AnimatedContent(
-                    targetState = reviewStep,
+                    targetState = reviewed,
                     transitionSpec = { fadeIn(tween(180)) togetherWith fadeOut(tween(120)) },
                     label = "payment-review-step",
-                ) { showReview ->
-                if (showReview) {
-                    val payment = requireNotNull(reviewed)
+                ) { payment ->
+                if (payment != null) {
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                             TransferReviewValue(R.string.transfer_recipient_review, payment.recipient)

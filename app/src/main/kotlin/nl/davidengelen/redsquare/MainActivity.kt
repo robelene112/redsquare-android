@@ -547,7 +547,9 @@ class MainActivity : ComponentActivity() {
                         onDismissRequest = { if (!walletImport.activating) {
                             walletExport.cancel(); walletImport.cancel(); walletOpen = false
                         } },
-                        title = { Text(stringResource(R.string.your_wallet)) },
+                        title = { Text(stringResource(
+                            if (walletImport.preview != null) R.string.wallet_import_review_title else R.string.your_wallet,
+                        )) },
                         text = {
                             val addressLabel = stringResource(R.string.wallet_address)
                             Column(
@@ -629,7 +631,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                Card(Modifier.fillMaxWidth()) {
+                                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
                                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(stringResource(R.string.wallet_backup_section), style = MaterialTheme.typography.titleSmall)
                                         Text(stringResource(R.string.wallet_backup_section_detail), style = MaterialTheme.typography.bodySmall)
@@ -642,7 +644,7 @@ class MainActivity : ComponentActivity() {
                                         Text(stringResource(R.string.wallet_backup_private), style = MaterialTheme.typography.bodySmall)
                                     }
                                 }
-                                Card(Modifier.fillMaxWidth()) {
+                                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
                                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(stringResource(R.string.wallet_payments_section), style = MaterialTheme.typography.titleSmall)
                                         Text(stringResource(R.string.wallet_payments_section_detail), style = MaterialTheme.typography.bodySmall)
@@ -656,7 +658,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
-                                Card(Modifier.fillMaxWidth()) {
+                                if (walletImport.preview == null) Card(Modifier.fillMaxWidth()) {
                                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(stringResource(R.string.wallet_recovery_section), style = MaterialTheme.typography.titleSmall)
                                         Text(stringResource(R.string.wallet_recovery_section_detail), style = MaterialTheme.typography.bodySmall)
@@ -667,10 +669,22 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         },
-                        confirmButton = { TextButton(enabled = !walletImport.activating,
-                            onClick = { walletExport.cancel(); walletImport.cancel(); walletOpen = false }) {
-                            Text(stringResource(R.string.done))
-                        } }
+                        confirmButton = {
+                            if (walletImport.preview != null) TextButton(
+                                enabled = !walletImport.activating,
+                                onClick = walletImport::cancel,
+                            ) { Text(stringResource(R.string.wallet_import_back)) }
+                            else TextButton(enabled = !walletImport.activating,
+                                onClick = { walletExport.cancel(); walletImport.cancel(); walletOpen = false }) {
+                                Text(stringResource(R.string.done))
+                            }
+                        },
+                        dismissButton = {
+                            if (walletImport.preview != null) TextButton(
+                                enabled = !walletImport.activating,
+                                onClick = { walletExport.cancel(); walletImport.cancel(); walletOpen = false },
+                            ) { Text(stringResource(R.string.cancel)) }
+                        },
                     )
                     if (walletBalanceOpen && address != null) WalletBalanceDialog(address!!, backend, balances) {
                         walletBalanceOpen = false

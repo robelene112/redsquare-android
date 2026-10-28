@@ -49,7 +49,13 @@ class WalletFlowViewportPreviewTest {
                 ui.onNodeWithText("Replace your wallet").assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.wallet_import_work_warning)).performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
+                ui.onNodeWithText("Review wallet import").assertIsDisplayed()
+                ui.onNodeWithText("Back up or restore").assertDoesNotExist()
+                ui.onNodeWithText("Receive or send").assertDoesNotExist()
                 captureNativeScreen(File(folder, "$label-import-risk.png"), context.getString(R.string.wallet_import_work_warning))
+                ui.onNodeWithText("Back").performClick()
+                ui.onNodeWithText("Back up or restore").performScrollTo().assertIsDisplayed()
+                ui.onNodeWithText("Confirm replacement").assertDoesNotExist()
                 ui.onNodeWithText("Done").performClick()
                 ui.waitUntil(10_000) { ui.onNodeWithText("Wallet").isDisplayed() }
                 ui.onNodeWithText("Wallet").performClick()
