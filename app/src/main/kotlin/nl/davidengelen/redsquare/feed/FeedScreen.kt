@@ -17,9 +17,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Icon
+import androidx.compose.material3.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -28,6 +30,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -56,7 +59,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.*
 
 @Composable
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoint: String, backend: SaitoBackend,
     lifecycle: Lifecycle, modifier: Modifier, canReportDrawn: Boolean,
     notificationRoutes: NotificationRoutes? = null, allowPushRoute: Boolean = true,
@@ -89,6 +92,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     var recovered by remember { mutableStateOf(false) }
     var hadOutage by rememberSaveable { mutableStateOf(false) }
     var refresh by remember { mutableIntStateOf(0) }
+    var pullRefreshing by remember { mutableStateOf(false) }
     var composing by rememberSaveable { mutableStateOf(false) }
     var reviewingQueue by rememberSaveable { mutableStateOf(false) }
     var reviewingChanges by rememberSaveable { mutableStateOf(false) }
@@ -250,12 +254,13 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
     LaunchedEffect(wallet, cacheReady, refresh, internet, followingView, following?.accounts, following?.ready) {
         if (!internet.available) { hadOutage = true; recovered = false }
         if (wallet == null || !cacheReady) return@LaunchedEffect
-        if (followingView && following?.ready != true) { loading = false; return@LaunchedEffect }
-        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; return@LaunchedEffect }
+        if (followingView && following?.ready != true) { loading = false; pullRefreshing = false; return@LaunchedEffect }
+        if (followingView && following?.accounts?.isEmpty() == true) { loading = false; pullRefreshing = false; return@LaunchedEffect }
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (currentCoroutineContext().isActive) {
                 if (!internet.available) {
                     loading = false
+                    pullRefreshing = false
                     hadOutage = true
                     recovered = false
                     delay(1000)
@@ -313,7 +318,7 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
                     if (hadOutage) { recovered = true; hadOutage = false }
                 } catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { failed = true; hadOutage = true; recovered = false }
-                finally { if (currentCoroutineContext().isActive) loading = false }
+                finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
                 delay(if (failed) 5_000 else 30_000)
             }
         }
@@ -426,7 +431,6 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             }, actionLabel = if (failed && !noInternet) stringResource(R.string.retry) else null,
                 actionEnabled = !loading, onAction = { refresh++ })
             FeedToolbar(followingView = followingView, onFollowing = { followingView = it },
-                refreshEnabled = wallet != null && !loading && internet.available, onRefresh = { refresh++ },
                 maintenanceEnabled = wallet != null, onQueue = { reviewingQueue = true },
                 onChanges = { reviewingChanges = true })
             val visiblePosts = posts.filter { post -> personal?.hidesPosts(post.author) == false &&
@@ -469,13 +473,22 @@ internal fun FeedScreen(wallet: SaitoWallet?, walletUnavailable: Boolean, endpoi
             if (feedNotice == null && !failed && posts.isEmpty() && !loading && wallet != null)
                 Text(stringResource(R.string.feed_empty))
             // Keep a restored list position until the asynchronous cache read has finished.
-            if (cacheReady && personal?.ready == true) LazyColumn(Modifier.weight(1f).fillMaxWidth().preserveReadingAnchor(position), state = position,
-                contentPadding = PaddingValues(bottom = 88.dp)) {
-                items(visiblePosts, key = { it.id }) { post ->
-                    PostCard(post, backend, onIdentity = { openProfile(it) },
-                        onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,
-                        onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
-                    HorizontalDivider()
+            if (cacheReady && personal?.ready == true) PullToRefreshBox(
+                isRefreshing = pullRefreshing,
+                enabled = wallet != null,
+                onRefresh = {
+                    if (wallet != null) { pullRefreshing = true; refresh++ }
+                },
+                modifier = Modifier.weight(1f).fillMaxWidth()
+            ) {
+                LazyColumn(Modifier.fillMaxSize().testTag("feed-post-list").preserveReadingAnchor(position), state = position,
+                    contentPadding = PaddingValues(bottom = 88.dp)) {
+                    items(visiblePosts, key = { it.id }) { post ->
+                        PostCard(post, backend, onIdentity = { openProfile(it) },
+                            onPost = { navigation.add(BrowseDestination.Conversation(it)) }, social = social, quotes = quotes,
+                            onQuote = { navigation.add(BrowseDestination.Quote(it)) }, authorActions = authorActions)
+                        HorizontalDivider()
+                    }
                 }
             }
             else Spacer(Modifier.weight(1f))

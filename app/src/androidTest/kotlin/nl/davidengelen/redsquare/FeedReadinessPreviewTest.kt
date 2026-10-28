@@ -43,7 +43,7 @@ class FeedReadinessPreviewTest {
                 ActivityScenario.launch<MainActivity>(intent).use { activity ->
                     withFailureCapture({ captureNativeScreen(File(context.cacheDir, "feed-readiness-evidence/failure.png")) }) {
                         ui.waitUntil(15_000) {
-                            peer.requests.get() >= 2 && ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            peer.requests.get() >= 2 && ui.onNode(hasTestTag("feed-post-list")).isDisplayed()
                         }
                         ui.waitForIdle()
                         peer.assertHealthy()
@@ -68,7 +68,8 @@ class FeedReadinessPreviewTest {
                         }
                         ui.onNodeWithText("Done").performClick()
                         waitFor("Native Red Square reference post")
-                        ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled()
+                        ui.onNodeWithText("Refresh").assertDoesNotExist()
+                        ui.onNode(hasTestTag("feed-post-list")).assertIsDisplayed()
                         ui.onNode(hasScrollAction()).assertIsDisplayed().performScrollToIndex(0)
                         ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                         ui.waitUntil(5_000) {

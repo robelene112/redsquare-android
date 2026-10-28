@@ -6,16 +6,20 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.FeedPost
@@ -25,6 +29,7 @@ import nl.davidengelen.redsquare.saito.SaitoWallet
 import nl.davidengelen.redsquare.saito.SaitoBackend
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend: SaitoBackend, selected: FeedPost,
     modifier: Modifier, onBack: () -> Unit, onIdentity: (String) -> Unit, onPost: (FeedPost) -> Unit,
     social: SocialState? = null, quotes: QuoteState? = null, onQuote: ((FeedPost) -> Unit)? = null, authorActions: PostAuthorActions? = null) {
@@ -38,6 +43,8 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     var unreadable by remember(selected.id) { mutableStateOf(false) }
     var cacheWarning by remember(selected.id) { mutableStateOf(false) }
     var refresh by remember(selected.id) { mutableIntStateOf(0) }
+    var pullRefreshing by remember(selected.id) { mutableStateOf(false) }
+    val position = rememberLazyListState()
     var replying by rememberSaveable(selected.id) { mutableStateOf(false) }
     if (replying && wallet != null) {
         PostComposerScreen(wallet, endpoint, backend, modifier, selected) { replying = false; refresh++ }
@@ -45,7 +52,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
     }
     BackHandler(onBack = onBack)
     LaunchedEffect(wallet, endpoint, selected.id, refresh) {
-        if (wallet == null) { loading = false; return@LaunchedEffect }
+        if (wallet == null) { loading = false; pullRefreshing = false; return@LaunchedEffect }
         loading = true
         val saved = withContext(Dispatchers.IO) { cache.load() }
         val cached = withContext(Dispatchers.IO) { revisions.apply(RedSquareFeed.newest(posts + saved.posts)) }
@@ -82,7 +89,7 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             failed = false
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { failed = true }
-        finally { loading = false }
+        finally { if (currentCoroutineContext().isActive) { loading = false; pullRefreshing = false } }
         // Thread failure must not prevent recovery from the separately verified parent cache.
         if (selected.parentId.isNotEmpty() && posts.none { it.id == selected.parentId })
             quotes?.load(selected.parentId, refresh = refresh > 0)
@@ -96,9 +103,6 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             TextButton(onClick = onBack) { Text(stringResource(R.string.browse_back)) }
             Text(stringResource(R.string.conversation_title), Modifier.weight(1f).padding(vertical = 12.dp),
                 style = MaterialTheme.typography.titleLarge)
-            TextButton(enabled = wallet != null && !loading, onClick = { refresh++ }) {
-                Text(stringResource(R.string.feed_refresh))
-            }
         }
         Row {
             TextButton(enabled = wallet != null && posts.any { it.id == selected.id }, onClick = { replying = true }) { Text(stringResource(R.string.post_reply)) }
@@ -116,10 +120,19 @@ internal fun ConversationScreen(wallet: SaitoWallet?, endpoint: String, backend:
             else if (!loading) Text(stringResource(if (failed || parent?.failed == true)
                 R.string.conversation_parent_error else R.string.conversation_parent_unavailable))
         }
-        LazyColumn(Modifier.fillMaxSize()) {
-            items(visiblePosts, key = { it.id }) { post ->
-                PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
-                HorizontalDivider()
+        PullToRefreshBox(
+            isRefreshing = pullRefreshing,
+            enabled = wallet != null,
+            onRefresh = {
+                if (wallet != null) { pullRefreshing = true; refresh++ }
+            },
+            modifier = Modifier.weight(1f).fillMaxWidth()
+        ) {
+            LazyColumn(Modifier.fillMaxSize().testTag("conversation-post-list"), state = position) {
+                items(visiblePosts, key = { it.id }) { post ->
+                    PostCard(post, backend, onIdentity, onPost, social, quotes, onQuote, authorActions)
+                    HorizontalDivider()
+                }
             }
         }
     }

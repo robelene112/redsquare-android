@@ -40,13 +40,14 @@ class FeedPreviewTest {
                 captureFailure {
                     waitForText("Native Red Square reference post")
                     ui.onNodeWithText("Anon-jesTu2").assertIsDisplayed()
+                    ui.onNodeWithText("Refresh").assertDoesNotExist()
                     peer.assertRequestObserved()
                     server.close()
                     activity.recreate()
                     waitForText("Native Red Square reference post")
                     waitForText("Node unavailable")
                     replacement = peer.start(port)
-                    ui.onNodeWithText("Refresh").performClick()
+                    ui.pullToRefresh("feed-post-list")
                     waitForText("Back online")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     ui.waitUntil(6_000) { ui.onAllNodes(hasText("Back online")).fetchSemanticsNodes().isEmpty() }
@@ -66,18 +67,17 @@ class FeedPreviewTest {
                     waitForText("Reference post 20")
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Reference post 05"))
                     ui.onNodeWithText("Reference post 05").assertIsDisplayed()
+                    ui.onNode(hasScrollAction()).performScrollToIndex(0)
+                    ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     peer.rows = fixture.get("refreshedRows").toString()
                     val before = peer.requests.get()
-                    ui.onNodeWithText("Refresh").performClick()
-                    ui.waitUntil(15_000) { peer.requests.get() > before }
-                    ui.waitUntil(15_000) {
-                        ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
-                    }
+                    ui.pullToRefresh("feed-post-list")
+                    ui.waitUntil(15_000) { peer.requests.get() >= before + 2 }
                     ui.waitForIdle()
-                    ui.onNodeWithText("Reference post 05").assertIsDisplayed()
+                    ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     activity.recreate()
-                    waitForText("Reference post 05")
-                    ui.onNodeWithText("Reference post 05").assertIsDisplayed()
+                    waitForText("Reference post 20")
+                    ui.onNodeWithText("Reference post 20").assertIsDisplayed()
                     ui.onNode(hasScrollAction()).performScrollToIndex(0)
                     waitForText("New reference post")
                     peer.assertHealthy()
@@ -97,7 +97,7 @@ class FeedPreviewTest {
                 captureFailure {
                     ui.waitUntil(15_000) {
                         peer.requests.get() > 0 &&
-                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            ui.onNode(hasTestTag("feed-post-list")).isDisplayed()
                     }
                     peer.assertHealthy()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText("Native Red Square reference post"))
@@ -107,10 +107,7 @@ class FeedPreviewTest {
                     val obstruction = java.io.File(blocked, "obstruction").apply { writeText("public fixture") }
                     try {
                         peer.rows = "[$updated]"
-                        ui.onNodeWithText("Refresh").performClick()
-                        ui.waitUntil(15_000) {
-                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
-                        }
+                        ui.pullToRefresh("feed-post-list")
                         ui.onNode(hasScrollAction()).performScrollToNode(hasText("New reference post"))
                         waitForText("New reference post")
                         waitForText("Some posts could not be saved or opened for offline reading.")
@@ -119,7 +116,7 @@ class FeedPreviewTest {
                         check(blocked.delete())
                         check(preserved.renameTo(blocked))
                     }
-                    ui.onNodeWithText("Refresh").performClick()
+                    ui.pullToRefresh("feed-post-list")
                     ui.waitUntil(15_000) {
                         ui.onAllNodes(hasText("Some posts could not be saved or opened for offline reading.")).fetchSemanticsNodes().isEmpty()
                     }
@@ -141,18 +138,64 @@ class FeedPreviewTest {
                     // Observe a completed load before asking the UI to refresh it.
                     ui.waitUntil(15_000) {
                         peer.requests.get() >= 2 &&
-                            ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+                            ui.onNode(hasTestTag("feed-post-list")).isDisplayed()
                     }
                     val invalid = fixture.getAsJsonObject("archiveRow").deepCopy().apply { addProperty("tx", "{}") }
                     peer.rows = "[$invalid]"
                     val before = peer.requests.get()
-                    ui.onNodeWithText("Refresh").assertIsDisplayed().assertIsEnabled().performClick()
+                    ui.pullToRefresh("feed-post-list")
                     ui.waitUntil(15_000) { peer.requests.get() > before }
                     waitForText("The node returned posts this app could not read.")
                     ui.onNodeWithText("Native Red Square reference post").assertIsDisplayed()
                     peer.assertHealthy()
                 }
             }
+        }
+    }
+
+    @Test fun conversationPullRefreshKeepsTheSelectedPostAndReportsOfflineRecovery() {
+        val fixture = asset("native-feed-reference.json")
+        val postText = "Native Red Square reference post"
+        val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]")
+        val restartPort = ServerSocket(0, 50, InetAddress.getByName("127.0.0.1")).use { it.localPort }
+        val server = peer.start(restartPort)
+        var replacement: MockWebServer? = null
+        try {
+            ActivityScenario.launch<MainActivity>(intent(server.port)).use {
+                captureFailure {
+                    waitForText(postText)
+                    ui.onNode(hasText(postText) and hasClickAction()).performClick()
+                    ui.waitUntil(15_000) {
+                        ui.onNodeWithText("Conversation").isDisplayed() &&
+                            ui.onNode(hasTestTag("conversation-post-list")).isDisplayed()
+                    }
+                    ui.onNodeWithText("Refresh").assertDoesNotExist()
+                    ui.onNodeWithText(postText).assertIsDisplayed()
+                    val firstRequestCount = peer.requests.get()
+                    ui.pullToRefresh("conversation-post-list")
+                    ui.waitUntil(15_000) { peer.requests.get() > firstRequestCount }
+                    ui.waitUntil(15_000) { ui.onNodeWithText(postText).isDisplayed() }
+
+                    server.close()
+                    ui.pullToRefresh("conversation-post-list")
+                    waitForText("Replies could not be refreshed. Available posts remain visible.")
+                    ui.onNodeWithText(postText).assertIsDisplayed()
+
+                    replacement = peer.start(restartPort)
+                    val recoveryRequestCount = peer.requests.get()
+                    ui.pullToRefresh("conversation-post-list")
+                    ui.waitUntil(15_000) { peer.requests.get() > recoveryRequestCount }
+                    ui.waitUntil(15_000) {
+                        ui.onAllNodes(hasText("Replies could not be refreshed. Available posts remain visible."))
+                            .fetchSemanticsNodes().isEmpty()
+                    }
+                    ui.onNodeWithText(postText).assertIsDisplayed()
+                    peer.assertHealthy()
+                }
+            }
+        } finally {
+            server.close()
+            replacement?.close()
         }
     }
 
