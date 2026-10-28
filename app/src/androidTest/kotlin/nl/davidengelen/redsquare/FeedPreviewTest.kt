@@ -8,6 +8,9 @@ import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.gson.JsonParser
+import nl.davidengelen.redsquare.saito.RedSquarePosts
+import nl.davidengelen.redsquare.saito.SaitoTransaction
+import nl.davidengelen.redsquare.saito.SaitoWallet
 import mockwebserver3.MockWebServer
 import org.junit.Rule
 import org.junit.Test
@@ -247,10 +250,13 @@ class FeedPreviewTest {
         val originalAppearance = appearance.getString("mode", null)
         val evidence = java.io.File(context.cacheDir, "conversation-typography-evidence")
         val font = EmulatorFontScale(context, evidence, "conversation")
-        val fixture = asset("native-feed-reference.json")
-        val postText = "Native Red Square reference post"
-        val peer = ControlledFeedPeer("[${fixture.get("archiveRow")}]", archiveResponse = { "[${fixture.get("archiveRow")}]" })
+        val author = SaitoWallet.create()
+        val postText = ("A long conversation body wraps across many lines at larger text sizes. ").repeat(10) +
+            "The final sentence stays available after scrolling."
+        val row = postingArchiveRow(SaitoTransaction.create(author, RedSquarePosts.message(postText), 1_700_000_000_000))
+        val peer = ControlledFeedPeer("[$row]", archiveResponse = { "[$row]" })
         val server = peer.start()
+        var primary: Throwable? = null
         try {
             check(appearance.edit().putString("mode", "LIGHT").commit())
             ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
@@ -263,7 +269,8 @@ class FeedPreviewTest {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    waitForText(postText)
+                    ui.onNodeWithTag("post-body-text").performScrollTo().assertIsDisplayed()
+                    assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
                     check(appearance.edit().putString("mode", "DARK").commit())
                     activity.recreate()
@@ -271,27 +278,42 @@ class FeedPreviewTest {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
                             ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
                     }
-                    waitForText(postText)
+                    ui.onNodeWithTag("post-body-text").performScrollTo().assertIsDisplayed()
+                    assertLongPostLayout(postText)
                     ui.onNodeWithText("Reply").assertIsDisplayed()
                     peer.assertHealthy()
                 }
             }
-        } finally {
-            server.close()
-            font.restore()
-            check(appearance.edit().apply {
-                if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance)
-            }.commit())
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary,
+                { server.close() },
+                { font.restore() },
+                { check(appearance.edit().apply {
+                    if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance)
+                }.commit()) })
         }
     }
 
     private fun firstPostBodyLineHeight(): Float {
+        val layout = firstPostBodyLayout()
+        return layout.getLineBottom(0) - layout.getLineTop(0)
+    }
+
+    private fun firstPostBodyLayout(): TextLayoutResult {
         val layouts = mutableListOf<TextLayoutResult>()
         ui.onNodeWithTag("post-body-text").performSemanticsAction(SemanticsActions.GetTextLayoutResult) {
             check(it(layouts))
         }
-        val layout = requireNotNull(layouts.firstOrNull())
-        return layout.getLineBottom(0) - layout.getLineTop(0)
+        return requireNotNull(layouts.firstOrNull())
+    }
+
+    private fun assertLongPostLayout(postText: String) {
+        val layout = firstPostBodyLayout()
+        check(layout.lineCount > 5) { "Long conversation text should wrap at the larger supported size" }
+        check(layout.getLineEnd(layout.lineCount - 1) == postText.length) {
+            "Conversation text should keep its complete final line at the larger supported size"
+        }
     }
 
     private fun asset(name: String) = JsonParser.parseReader(instrumentation.context.assets.open(name).reader()).asJsonObject
