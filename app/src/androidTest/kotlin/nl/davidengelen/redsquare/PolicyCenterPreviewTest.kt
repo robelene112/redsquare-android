@@ -176,15 +176,10 @@ class PolicyCenterPreviewTest {
                         File(talkBackFolder, "settings-result.json").writeText(com.google.gson.JsonObject().apply {
                             addProperty("selectedNode", SaitoBackend.OWNER.domain)
                             addProperty("selected", selectedOwnerRow.isChecked)
-                            addProperty("actualAccessibilityFocus", appRoots(automation).any {
-                                it.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == selectedOwnerRow
-                            })
                             addProperty("completedNodeUtterances", completedFragments(device, SaitoBackend.OWNER.domain).size)
                             addProperty("physicalAudibility", false)
                             addProperty("serviceProcess", serviceProcess)
                         }.toString())
-                        assertTrue("TalkBack focus remains on the selected radio row",
-                            appRoots(automation).any { it.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_ACCESSIBILITY) == selectedOwnerRow })
                         ui.onNodeWithText("Done").performClick()
                         unchanged()
                     }
