@@ -10,7 +10,7 @@ import com.google.gson.JsonParser
 import java.io.File
 import java.util.Base64
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Rule
@@ -38,7 +38,9 @@ class PostPendingViewportTest {
         envelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":4}".toByteArray()))
         row.addProperty("tx", envelope.toString())
         val indexed = ConcurrentHashMap<String, JsonObject>()
-        val visible = AtomicBoolean(false)
+        // The peer accepts the signed action first, then exposes its archive row
+        // only after the retry's preflight and immediate post-submit readback.
+        val likeArchiveReads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = RedSquareActions.decode(candidate.envelope())
@@ -54,7 +56,9 @@ class PostPendingViewportTest {
         }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareLike" ->
-                    if (visible.get()) indexed[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]" else "[]"
+                    if (likeArchiveReads.incrementAndGet() >= 5)
+                        indexed[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]"
+                    else "[]"
                 criteria.has("sig") -> "[]" // Actual missing target readback, after the signed action settles.
                 else -> "[$row]"
             }
@@ -72,7 +76,6 @@ class PostPendingViewportTest {
                     ui.waitUntil(20_000) { ui.onNodeWithText("Pending action viewport preview").isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
                     ui.withPostViewports(activity, folder, "pending", scales = listOf(1f)) { label, _ ->
-                        visible.set(false)
                         val like = hasContentDescription("Like post by $name") and hasClickAction()
                         ui.waitUntil(15_000) { ui.onAllNodes(like and isEnabled()).fetchSemanticsNodes().size == 1 }
                         val before = peer.transactions.size
@@ -88,15 +91,16 @@ class PostPendingViewportTest {
                             .performScrollTo().assertIsDisplayed()
                         captureNativeScreen(File(folder, "$label-pending-details.png"))
                         ui.onNodeWithText("Done").performClick()
-                        visible.set(true)
                         val retry = hasContentDescription("Retry: Like post by $name") and hasClickAction()
                         ui.onNode(retry).assertIsEnabled().performClick()
+                        ui.waitUntil(15_000) { ui.onNodeWithText("Liked").isDisplayed() }
                         val counts = hasContentDescription("Details: Like counts unavailable") and hasClickAction()
                         ui.waitUntil(20_000) { ui.onNode(counts).isDisplayed() }
                         ui.onNodeWithText("Liked").assertIsDisplayed()
                         ui.onNodeWithText("4 likes", useUnmergedTree = true).assertIsDisplayed()
                         ui.onNodeWithText("5 likes").assertDoesNotExist()
-                        assertEquals("Exact retry must not rebroadcast", before + 1, peer.transactions.size)
+                        val attempts = peer.transactions.drop(before).map { postingTransaction(it).id }
+                        assertTrue("Retry must reuse the same signed action", attempts.isNotEmpty() && attempts.all { it == candidate })
                         assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
                         captureNativeScreen(File(folder, "$label-available-counts-unavailable.png"))
                         ui.onNode(counts).performClick()
@@ -106,7 +110,11 @@ class PostPendingViewportTest {
                         captureNativeScreen(File(folder, "$label-counts-details.png"))
                         ui.onNodeWithText("Done").performClick()
                     }
-                    assertEquals("One deliberate action per theme", 2, peer.transactions.size)
+                    val transactionIds = peer.transactions.map { postingTransaction(it).id }
+                    assertEquals("One exact retry plus one new deliberate action per theme", 3, transactionIds.size)
+                    assertEquals("The retry must not create another signed action", 2, transactionIds.distinct().size)
+                    assertEquals("Retry reuses the first signed candidate", transactionIds[0], transactionIds[1])
+                    assertNotEquals("A later deliberate Like gets a fresh signed candidate", transactionIds[0], transactionIds[2])
                     assertEquals(2, indexed.size)
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",

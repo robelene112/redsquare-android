@@ -1017,6 +1017,16 @@ verify_repeat_likes() {
     [[ "$repeat_exit" == 0 ]]
     grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/repeat-like-ui.txt"
     verify_like_isolation
+    local pending_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.PostPendingViewportTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/post-pending-ui.txt" || pending_exit=$?
+    printf '%s\n' "$pending_exit" > "$evidence/post-pending-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - post-pending-evidence \
+        > "$evidence/post-pending-evidence.tar" || true
+    [[ "$pending_exit" == 0 ]]
+    grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/post-pending-ui.txt"
 }
 
 if [[ "${TEST_SCOPE:-full}" == social-repeat-process* ]]; then
