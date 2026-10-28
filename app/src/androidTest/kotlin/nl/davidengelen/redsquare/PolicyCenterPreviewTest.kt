@@ -5,9 +5,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.Until
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
@@ -130,10 +128,10 @@ class PolicyCenterPreviewTest {
                     val talkBackFolder = File(context.cacheDir, "policy-evidence/settings-talkback").apply { mkdirs() }
                     NativeTalkBackObservation(talkBackFolder).observe {
                         device.waitForIdle(5_000)
-                        check(device.wait(Until.hasObject(By.text("Settings")), 10_000))
-                        click(automation, "Settings")
-                        check(device.wait(Until.hasObject(By.text("Node")), 10_000))
-                        click(automation, "Node")
+                        waitFor("Settings", action = true)
+                        ui.onNodeWithText("Settings").performClick()
+                        waitFor("Node")
+                        ui.onNodeWithText("Node").performClick()
 
                         val ownerNode = actionNode(SaitoBackend.OWNER.domain, textLabel = true)
                         assertTrue("The current node remains selected", ownerNode.isSelected)
