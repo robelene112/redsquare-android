@@ -450,6 +450,7 @@ class SocialPushTapPreviewTest {
 
     private fun openAlertChoice(): SemanticsNodeInteraction {
         openSettings()
+        ui.onNodeWithText("Notifications and privacy").performScrollTo().performClick()
         waitFor(alertChoice() and isEnabled())
         return ui.onNode(alertChoice()).performScrollTo()
     }
