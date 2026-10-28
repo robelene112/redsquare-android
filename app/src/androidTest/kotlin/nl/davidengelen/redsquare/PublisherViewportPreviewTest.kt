@@ -91,6 +91,7 @@ class PublisherViewportPreviewTest {
                         waitFor("Settings", action = true)
                         ui.onNodeWithText("Settings").performClick()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
+                        ui.onNodeWithText("Policy Center").performScrollTo().performClick()
                         fun openSupport() {
                             entry("Contact publisher")
                             ui.waitUntil(20_000) {
