@@ -53,7 +53,7 @@ class PolicyCenterPreviewTest {
                             androidx.compose.ui.semantics.Role.RadioButton))
                             .assertIsNotSelected()
                         UiDevice.getInstance(instrumentation).pressBack()
-                        ui.onNodeWithText("Settings").assertIsDisplayed()
+                        ui.onNodeWithText("Privacy and safety").assertIsDisplayed()
                         ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                         ui.onNodeWithText("Policy Center").performClick()
                         waitFor("Draft policies")
