@@ -208,7 +208,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             while (true) {
                 delay(pauseMillis)
                 if (observed()) return@withTimeoutOrNull true
-                val maxPause = if (timeoutMillis > 10_000) 5_000 else 2_000
+                val maxPause = if (timeoutMillis > 10_000) 5_000L else 2_000L
                 pauseMillis = (pauseMillis * 2).coerceAtMost(maxPause)
             }
             false
