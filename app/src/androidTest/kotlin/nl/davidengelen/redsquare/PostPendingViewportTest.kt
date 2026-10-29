@@ -99,8 +99,10 @@ class PostPendingViewportTest {
                     val folder = File(context.cacheDir, "post-pending-evidence").apply { mkdirs() }
                     ui.waitUntil(20_000) { ui.onNodeWithText("Pending action viewport preview").isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
-                    var settledLikeCount = 4
                     ui.withPostViewports(activity, folder, "pending", scales = listOf(1f)) { label, _ ->
+                        // Each viewport starts from the feed's cached fixture row. A prior theme's
+                        // successful count refresh must not be assumed to rewrite that cached row.
+                        var settledLikeCount = 4
                         val like = hasContentDescription("Like post by $name") and hasClickAction()
                         ui.waitUntil(15_000) { ui.onAllNodes(like and isEnabled()).fetchSemanticsNodes().size == 1 }
                         val before = peer.transactions.size
