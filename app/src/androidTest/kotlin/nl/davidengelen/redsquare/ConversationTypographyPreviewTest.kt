@@ -10,9 +10,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import nl.davidengelen.redsquare.saito.RedSquarePosts
 import nl.davidengelen.redsquare.saito.SaitoTransaction
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.Before
 import org.junit.rules.TestName
 
 class ConversationTypographyPreviewTest {
@@ -21,6 +22,14 @@ class ConversationTypographyPreviewTest {
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
 
     @Before fun clearPublicFeedCache() {
+        deletePublicFeedCache()
+    }
+
+    @After fun removeTypographyFixtureFromPublicFeedCache() {
+        deletePublicFeedCache()
+    }
+
+    private fun deletePublicFeedCache() {
         listOf("feed.owner.v1", "feed.owner.v1.bak", "feed.owner.v1.new").forEach {
             java.io.File(instrumentation.targetContext.noBackupFilesDir, it).delete()
         }
