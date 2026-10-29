@@ -102,6 +102,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                     return@launch
                 }
                 candidate = saved?.candidate?.takeIf { !saved.available } ?: retry
+                val retryingPendingCandidate = candidate != null
                 if (candidate == null && !beforePublishing()) return@launch
                 if (candidate == null) {
                     candidate = withContext(Dispatchers.IO) {
@@ -149,7 +150,9 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                                 check(AndroidBackendStore(context).load() == backend &&
                                     nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             }
-                            val settled = waitForExactReadback { observed() }
+                            val settled = waitForExactReadback(
+                                timeoutMillis = if (retryingPendingCandidate) 45_000 else 10_000,
+                                observed = { observed() })
                             if (!settled) error("Interaction availability unknown")
                         }
                         withContext(NonCancellable) { journal(key).settle(original) }
@@ -199,13 +202,14 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     }
 
     /** A signed action may reach the node before its archive has indexed the candidate. */
-    private suspend fun waitForExactReadback(observed: suspend () -> Boolean): Boolean =
-        withTimeoutOrNull(10_000) {
+    private suspend fun waitForExactReadback(timeoutMillis: Long, observed: suspend () -> Boolean): Boolean =
+        withTimeoutOrNull(timeoutMillis) {
             var pauseMillis = 250L
-            repeat(6) {
+            while (true) {
                 delay(pauseMillis)
                 if (observed()) return@withTimeoutOrNull true
-                pauseMillis = (pauseMillis * 2).coerceAtMost(2_000)
+                val maxPause = if (timeoutMillis > 10_000) 5_000 else 2_000
+                pauseMillis = (pauseMillis * 2).coerceAtMost(maxPause)
             }
             false
         } ?: false

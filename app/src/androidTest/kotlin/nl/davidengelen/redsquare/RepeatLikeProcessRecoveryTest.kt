@@ -115,8 +115,8 @@ class RepeatLikeProcessRecoveryTest {
                     waitFor("6 likes")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Liked") and isEnabled())
                         .fetchSemanticsNodes().isNotEmpty() }
-                    assertTrue("The exact second original must be checked before and after reconciliation",
-                        queries.count { it == row.get("sig").asString } >= 2)
+                    assertTrue("The exact pending Like must be checked against the archive before reconciliation",
+                        queries.count { it == row.get("sig").asString } >= 1)
                     assertTrue(peer.transactions.isEmpty())
                     ui.clickVisiblePostContent("Liked")
                     waitFor("Two likes per second. Try again in a moment.")

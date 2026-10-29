@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -39,11 +40,10 @@ class PostPendingViewportTest {
         row.addProperty("tx", envelope.toString())
         val indexed = ConcurrentHashMap<String, JsonObject>()
         val broadcastAttempts = ConcurrentHashMap<String, AtomicInteger>()
-        val visibleAfterRead = ConcurrentHashMap<String, Int>()
+        val visibleAfterMillis = ConcurrentHashMap<String, Long>()
         val indexedActions = ConcurrentHashMap.newKeySet<String>()
-        // The peer accepts the signed action first, then exposes its archive row
-        // only after the retry's preflight and immediate post-submit readback.
-        val likeArchiveReads = AtomicInteger()
+        // The peer accepts the signed action first, then delays retry readback
+        // beyond the former timeout to model block confirmation latency.
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = RedSquareActions.decode(candidate.envelope())
@@ -57,13 +57,12 @@ class PostPendingViewportTest {
                 addProperty("field4", action.target); addProperty("tx", candidate.envelope())
             }
             if (broadcastAttempts.computeIfAbsent(action.id) { AtomicInteger() }.incrementAndGet() >= 2)
-                visibleAfterRead[action.id] = likeArchiveReads.get() + 2
+                visibleAfterMillis[action.id] = SystemClock.elapsedRealtime() + 12_000
         }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareLike" -> {
-                    val read = likeArchiveReads.incrementAndGet()
                     val signature = criteria.get("sig").asString
-                    if (read >= (visibleAfterRead[signature] ?: Int.MAX_VALUE)) {
+                    if (SystemClock.elapsedRealtime() >= (visibleAfterMillis[signature] ?: Long.MAX_VALUE)) {
                         indexed[signature]?.let {
                             indexedActions.add(signature)
                             "[$it]"
@@ -119,8 +118,10 @@ class PostPendingViewportTest {
                         ui.onNodeWithText("Done").performClick()
                         val retry = hasContentDescription("Retry: Like post by $name") and hasClickAction()
                         ui.onNode(retry).assertIsEnabled().performClick()
-                        ui.waitUntil(15_000) { ui.onNodeWithText("Liked").isDisplayed() }
+                        ui.waitUntil(35_000) { ui.onNodeWithText("Liked").isDisplayed() }
                         ui.onNodeWithText("Liked").assertIsDisplayed()
+                        assertTrue("Retry must keep polling past the old timeout",
+                            SystemClock.elapsedRealtime() >= requireNotNull(visibleAfterMillis[candidate]))
                         val countsUnavailable = hasContentDescription("Details: Like counts unavailable") and hasClickAction()
                         if (label.endsWith("-light")) {
                             val refreshedLikeCount = settledLikeCount + 1
