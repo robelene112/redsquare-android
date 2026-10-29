@@ -1699,6 +1699,7 @@ if [[ "$feed_ui_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$eviden
     timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures > "$evidence/feed-ui-failures.tar" || true
     exit 1
 fi
+python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"
 if [[ "${TEST_SCOPE:-full}" == feed* || "${TEST_SCOPE:-full}" == full ]]; then
     typography_exit=0
     timeout 180 adb shell am instrument -w -r \
@@ -1722,7 +1723,6 @@ if [[ "${TEST_SCOPE:-full}" == feed* || "${TEST_SCOPE:-full}" == full ]]; then
         exit 1
     fi
 fi
-python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"
 if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then
     [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
     for backend in owner official; do
