@@ -17,6 +17,7 @@ import org.junit.Test
 import java.util.Base64
 import java.net.InetAddress
 import java.net.ServerSocket
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
 class SocialPreviewTest {
@@ -43,6 +44,8 @@ class SocialPreviewTest {
         }
         val served = AtomicReference(countedRoot(4))
         val liked = AtomicReference<JsonObject?>()
+        val likeArchiveReads = AtomicInteger()
+        val visibleAfterRead = AtomicInteger(Int.MAX_VALUE)
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = SaitoEnvelope.decode(candidate.envelope())
@@ -55,10 +58,13 @@ class SocialPreviewTest {
                 addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
                 addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
             })
+            visibleAfterRead.set(likeArchiveReads.get() + 3)
             served.set(countedRoot(5))
         }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") {
-                liked.get()?.takeIf { !criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString }
+                val archiveRead = likeArchiveReads.incrementAndGet()
+                liked.get()?.takeIf { archiveRead >= visibleAfterRead.get() &&
+                    (!criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString) }
                     ?.let { "[$it]" } ?: "[]"
             } else "[${served.get()}]"
         })
@@ -73,6 +79,8 @@ class SocialPreviewTest {
                     waitFor("Liked")
                     waitFor("5 likes")
                     assertEquals(1, peer.transactions.size)
+                    assertTrue("The first Like must wait for delayed exact archive readback",
+                        likeArchiveReads.get() >= visibleAfterRead.get())
                     ui.clickVisiblePostContent("Native Red Square reference post")
                     waitFor("Conversation")
                     ui.onNodeWithText("Liked").assertIsDisplayed()

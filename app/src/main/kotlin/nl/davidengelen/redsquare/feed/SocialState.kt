@@ -102,7 +102,6 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                     return@launch
                 }
                 candidate = saved?.candidate?.takeIf { !saved.available } ?: retry
-                val reconcilingPendingCandidate = candidate != null
                 if (candidate == null && !beforePublishing()) return@launch
                 if (candidate == null) {
                     candidate = withContext(Dispatchers.IO) {
@@ -150,8 +149,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                                 check(AndroidBackendStore(context).load() == backend &&
                                     nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             }
-                            val settled = if (reconcilingPendingCandidate) waitForExactReadback { observed() }
-                                else observed()
+                            val settled = waitForExactReadback { observed() }
                             if (!settled) error("Interaction availability unknown")
                         }
                         withContext(NonCancellable) { journal(key).settle(original) }
@@ -200,7 +198,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         })
     }
 
-    /** A retry may reach the node before its archive has indexed the signed candidate. */
+    /** A signed action may reach the node before its archive has indexed the candidate. */
     private suspend fun waitForExactReadback(observed: suspend () -> Boolean): Boolean =
         withTimeoutOrNull(10_000) {
             var pauseMillis = 250L
