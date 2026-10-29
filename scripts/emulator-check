@@ -91,7 +91,7 @@ adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-andr
 if [[ "${TEST_SCOPE:-full}" == feed-typography* ]]; then
     typography_exit=0
     timeout 180 adb shell am instrument -w -r \
-        -e class 'nl.davidengelen.redsquare.FeedPreviewTest#conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes' \
+        -e class 'nl.davidengelen.redsquare.ConversationTypographyPreviewTest#conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes' \
         nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
         > "$evidence/conversation-typography-ui.txt" || typography_exit=$?
     printf '%s\n' "$typography_exit" > "$evidence/conversation-typography-ui-exit.txt"
@@ -1698,6 +1698,29 @@ if [[ "$feed_ui_exit" != 0 ]] || ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$eviden
     timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat cache/feed-ui-failure.png > "$evidence/feed-ui-failure.png" || true
     timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - feed-ui-failures > "$evidence/feed-ui-failures.tar" || true
     exit 1
+fi
+if [[ "${TEST_SCOPE:-full}" == feed* || "${TEST_SCOPE:-full}" == full ]]; then
+    typography_exit=0
+    timeout 180 adb shell am instrument -w -r \
+        -e class 'nl.davidengelen.redsquare.ConversationTypographyPreviewTest#conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes' \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/conversation-typography-ui.txt" || typography_exit=$?
+    printf '%s\n' "$typography_exit" > "$evidence/conversation-typography-ui-exit.txt"
+    timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - conversation-typography-evidence \
+        > "$evidence/conversation-typography-evidence.tar" || true
+    if [[ "$typography_exit" == 124 ]]; then
+        timeout 10 adb exec-out screencap -p > "$evidence/conversation-typography-timeout.png" || true
+        timeout 15 adb shell uiautomator dump /sdcard/conversation-typography-timeout.xml \
+            > "$evidence/conversation-typography-timeout-dump.txt" 2>&1 &&
+            timeout 10 adb pull /sdcard/conversation-typography-timeout.xml \
+                "$evidence/conversation-typography-timeout.xml" >/dev/null || true
+    fi
+    if [[ "$typography_exit" != 0 ]] || ! grep -q 'OK (1 test)' "$evidence/conversation-typography-ui.txt"; then
+        timeout 15 adb exec-out run-as nl.davidengelen.redsquare.dev cat \
+            cache/conversation-typography-evidence/conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes-failure.png \
+            > "$evidence/conversation-typography-failure.png" || true
+        exit 1
+    fi
 fi
 python3 "$repo_dir/scripts/feed-device-check" --evidence "$evidence/feed-cold-launch"
 if [[ "${TEST_PUBLIC_FEED_READ:-0}" == 1 ]]; then

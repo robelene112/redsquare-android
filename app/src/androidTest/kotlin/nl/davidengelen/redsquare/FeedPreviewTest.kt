@@ -244,73 +244,6 @@ class FeedPreviewTest {
         }
     }
 
-    @Test fun conversationBodyStaysVisibleAtLargerTextScaleInLightAndDarkThemes() {
-        val context = instrumentation.targetContext
-        val appearance = context.getSharedPreferences("appearance", 0)
-        val originalAppearance = appearance.getString("mode", null)
-        val evidence = java.io.File(context.cacheDir, "conversation-typography-evidence")
-        val font = EmulatorFontScale(context, evidence, "conversation")
-        val author = SaitoWallet.create()
-        val postText = ("A long conversation body wraps across many lines at larger text sizes. ").repeat(10) +
-            "The final sentence stays available after scrolling."
-        val row = postingArchiveRow(SaitoTransaction.create(author, RedSquarePosts.message(postText), 1_700_000_000_000))
-        val postTag = "post-card-${row.get("sig").asString.take(12)}"
-        val peer = ControlledFeedPeer("[$row]", archiveResponse = { "[$row]" })
-        val server = peer.start()
-        var primary: Throwable? = null
-        try {
-            recordConversationTypographyStage("fixture-ready")
-            check(appearance.edit().putString("mode", "LIGHT").commit())
-            ActivityScenario.launch<MainActivity>(intent(server.port)).use { activity ->
-                captureFailure {
-                    waitForText(postText)
-                    recordConversationTypographyStage("feed-visible")
-                    font.apply(1.3f)
-                    recordConversationTypographyStage("font-scale-applied")
-                    ui.waitUntil(10_000) { ui.onNodeWithText(postText).isDisplayed() }
-                    recordConversationTypographyStage("scaled-post-visible")
-                    ui.onNodeWithTag(postTag).performClick()
-                    recordConversationTypographyStage("post-click-complete")
-                    ui.waitUntil(15_000) {
-                        ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
-                            ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
-                    }
-                    recordConversationTypographyStage("conversation-open")
-                    ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
-                    assertLongPostLayout(postText)
-                    ui.onNodeWithText("Reply").assertIsDisplayed()
-                    check(appearance.edit().putString("mode", "DARK").commit())
-                    activity.recreate()
-                    recordConversationTypographyStage("dark-recreated")
-                    ui.waitUntil(15_000) {
-                        ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&
-                            ui.onAllNodes(hasTestTag("conversation-post-list")).fetchSemanticsNodes().isNotEmpty()
-                    }
-                    recordConversationTypographyStage("dark-conversation-open")
-                    ui.onNodeWithTag("post-body-text", useUnmergedTree = true).performScrollTo().assertIsDisplayed()
-                    assertLongPostLayout(postText)
-                    ui.onNodeWithText("Reply").assertIsDisplayed()
-                    peer.assertHealthy()
-                }
-            }
-        } catch (failure: Throwable) { primary = failure; throw failure }
-        finally {
-            cleanupAfterTest(primary,
-                { server.close() },
-                { font.restore() },
-                { check(appearance.edit().apply {
-                    if (originalAppearance == null) remove("mode") else putString("mode", originalAppearance)
-                }.commit()) })
-        }
-    }
-
-    private fun recordConversationTypographyStage(stage: String) {
-        java.io.File(instrumentation.targetContext.cacheDir, "conversation-typography-evidence").apply {
-            mkdirs()
-            java.io.File(this, "stage.txt").writeText(stage)
-        }
-    }
-
     private fun firstPostBodyLineHeight(): Float {
         val layout = firstPostBodyLayout()
         return layout.getLineBottom(0) - layout.getLineTop(0)
@@ -322,14 +255,6 @@ class FeedPreviewTest {
             check(it(layouts))
         }
         return requireNotNull(layouts.firstOrNull())
-    }
-
-    private fun assertLongPostLayout(postText: String) {
-        val layout = firstPostBodyLayout()
-        check(layout.lineCount > 5) { "Long conversation text should wrap at the larger supported size" }
-        check(layout.getLineEnd(layout.lineCount - 1) == postText.length) {
-            "Conversation text should keep its complete final line at the larger supported size"
-        }
     }
 
     private fun asset(name: String) = JsonParser.parseReader(instrumentation.context.assets.open(name).reader()).asJsonObject
