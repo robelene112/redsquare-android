@@ -254,6 +254,7 @@ class FeedPreviewTest {
         val postText = ("A long conversation body wraps across many lines at larger text sizes. ").repeat(10) +
             "The final sentence stays available after scrolling."
         val row = postingArchiveRow(SaitoTransaction.create(author, RedSquarePosts.message(postText), 1_700_000_000_000))
+        val postTag = "post-card-${row.get("sig").asString.take(12)}"
         val peer = ControlledFeedPeer("[$row]", archiveResponse = { "[$row]" })
         val server = peer.start()
         var primary: Throwable? = null
@@ -268,7 +269,7 @@ class FeedPreviewTest {
                     recordConversationTypographyStage("font-scale-applied")
                     ui.waitUntil(10_000) { ui.onNodeWithText(postText).isDisplayed() }
                     recordConversationTypographyStage("scaled-post-visible")
-                    ui.onNode(hasText(postText) and hasClickAction()).performClick()
+                    ui.onNodeWithTag(postTag).performClick()
                     recordConversationTypographyStage("post-click-complete")
                     ui.waitUntil(15_000) {
                         ui.onAllNodesWithText("Conversation").fetchSemanticsNodes().isNotEmpty() &&

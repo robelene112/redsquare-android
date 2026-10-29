@@ -45,9 +45,11 @@ internal fun PostCard(post: FeedPost, backend: SaitoBackend, onIdentity: (String
     val timestamp = remember(post.createdAt) {
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.ENGLISH).format(Date(post.createdAt))
     }
+    val cardTag = "post-card-${post.id.take(12)}"
     val profileLabel = stringResource(R.string.post_profile_for, author)
     val threadLabel = stringResource(R.string.post_thread_for, author)
     Column(Modifier.fillMaxWidth().clickable(role = Role.Button, onClickLabel = threadLabel) { onPost(post) }
+        .testTag(cardTag)
         .padding(vertical = AppSpacing.gap)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Row(Modifier.weight(1f).heightIn(min = 48.dp)
