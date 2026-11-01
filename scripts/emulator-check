@@ -1327,6 +1327,17 @@ verify_usernames() {
         adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/username-runtime.txt" || true
         return 1
     fi
+    timeout 180 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ChatIdentityPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/chat-identity-ui.txt" || true
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - chat-identity-evidence \
+        > "$evidence/chat-identity-evidence.tar" || true
+    if ! grep -Eq 'OK \([1-9][0-9]* tests?\)' "$evidence/chat-identity-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/chat-identity-system-screen.png" || true
+        adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' > "$evidence/chat-identity-runtime.txt" || true
+        return 1
+    fi
     python3 "$repo_dir/scripts/username-process-check" --evidence "$evidence/username-process"
 }
 if [[ "${TEST_SCOPE:-full}" == usernames* ]]; then
