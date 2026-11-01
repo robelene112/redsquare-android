@@ -10,11 +10,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.policy.PublishingPolicies
+import java.io.IOException
 
 internal data class PostActionKey(val target: String, val kind: RedSquareActionKind)
 
@@ -190,7 +193,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                     } catch (failure: Exception) {
                         peer?.close()
                         peer = null
-                        Log.w(LIKE_LOG_TAG, "socket_enqueue_failed node=${backend.domain} error=${failure.javaClass.simpleName}")
+                        Log.w(LIKE_LOG_TAG, "like_attempt_failed node=${backend.domain} error=${failure.javaClass.simpleName}")
                     }
                 }
             } finally {
@@ -207,47 +210,53 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         val savedAtStart = withContext(Dispatchers.IO) { snapshot(key) }
         var saved = savedAtStart
         var candidate: SaitoTransaction? = null
+        withContext(Dispatchers.IO) {
+            val pending = saved?.takeIf { !it.submitted }?.candidate
+            if (pending != null) {
+                enqueueLike(peer, pending)
+                saved = withContext(NonCancellable) { journal(key).markSubmitted(pending) }
+            }
+            candidate = synchronized(SaitoLocalState.lock) {
+                requireSelectedWalletAndBackend()
+                val latest = SaitoBackend.entries.mapNotNull { journal(key, it).load()?.candidate }
+                    .maxOfOrNull { SaitoEnvelope.decode(it.envelope()).createdAt } ?: -1L
+                val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(latest, 1))
+                val body = JsonObject().apply {
+                    addProperty("module", "RedSquare")
+                    addProperty("request", RedSquareActionKind.LIKE.request)
+                    add("data", JsonObject().apply { addProperty("signature", post.id) })
+                }
+                SaitoTransaction.create(wallet, body, timestamp,
+                    (listOf(post.author) + post.recipients).distinct())
+            }
+            val fresh = requireNotNull(candidate)
+            val prepared = withContext(NonCancellable + Dispatchers.IO) {
+                journal(key).prepare(fresh, saved)
+            }
+            saved = prepared
+            enqueueLike(peer, fresh)
+            saved = withContext(NonCancellable) { journal(key).markSubmitted(fresh) }
+        }
+        withContext(Dispatchers.Main.immediate) {
+            if (generations.containsKey(key)) actions[key]?.let { actions[key] = it.copy(candidate = candidate ?: it.candidate,
+                available = false, ready = true, failed = false, countsUnavailable = false) }
+        }
+    }
+
+    private suspend fun enqueueLike(peer: SaitoPeer, transaction: SaitoTransaction) {
         try {
-            withContext(Dispatchers.IO) {
-                    val pending = saved?.takeIf { !it.submitted }?.candidate
-                    if (pending != null) {
-                        peer.submit(pending) { requireSelectedWalletAndBackend() }
-                        Log.i(LIKE_LOG_TAG, "socket_enqueued node=${backend.domain} signature=${pending.id}")
-                        saved = withContext(NonCancellable) { journal(key).markSubmitted(pending) }
-                    }
-                    candidate = synchronized(SaitoLocalState.lock) {
-                        requireSelectedWalletAndBackend()
-                        val latest = SaitoBackend.entries.mapNotNull { journal(key, it).load()?.candidate }
-                            .maxOfOrNull { SaitoEnvelope.decode(it.envelope()).createdAt } ?: -1L
-                        val timestamp = maxOf(System.currentTimeMillis(), Math.addExact(latest, 1))
-                        val body = JsonObject().apply {
-                            addProperty("module", "RedSquare")
-                            addProperty("request", RedSquareActionKind.LIKE.request)
-                            add("data", JsonObject().apply { addProperty("signature", post.id) })
-                        }
-                        SaitoTransaction.create(wallet, body, timestamp,
-                            (listOf(post.author) + post.recipients).distinct())
-                    }
-                    val fresh = requireNotNull(candidate)
-                    val prepared = withContext(NonCancellable + Dispatchers.IO) {
-                        journal(key).prepare(fresh, saved)
-                    }
-                    saved = prepared
-                    peer.submit(fresh) { requireSelectedWalletAndBackend() }
-                    Log.i(LIKE_LOG_TAG, "socket_enqueued node=${backend.domain} signature=${fresh.id}")
-                    saved = withContext(NonCancellable) { journal(key).markSubmitted(fresh) }
-            }
-            withContext(Dispatchers.Main.immediate) {
-                if (generations.containsKey(key)) actions[key]?.let { actions[key] = it.copy(candidate = candidate ?: it.candidate,
-                    available = false, ready = true, failed = false, countsUnavailable = false) }
-            }
+            peer.submit(transaction) { requireSelectedWalletAndBackend() }
+        } catch (cancelled: CancellationException) {
+            currentCoroutineContext().ensureActive()
+            Log.w(LIKE_LOG_TAG,
+                "socket_enqueue_failed node=${backend.domain} signature=${transaction.id} error=${cancelled.javaClass.simpleName}")
+            throw IOException("Peer did not accept the Like frame for local enqueue", cancelled)
         } catch (failure: Exception) {
-            val failedCandidate = candidate ?: saved?.candidate
-            failedCandidate?.let {
-                Log.w(LIKE_LOG_TAG, "socket_enqueue_failed node=${backend.domain} signature=${it.id} error=${failure.javaClass.simpleName}")
-            }
+            Log.w(LIKE_LOG_TAG,
+                "socket_enqueue_failed node=${backend.domain} signature=${transaction.id} error=${failure.javaClass.simpleName}")
             throw failure
         }
+        Log.i(LIKE_LOG_TAG, "socket_enqueued node=${backend.domain} signature=${transaction.id}")
     }
 
     private fun requireSelectedWalletAndBackend() {

@@ -81,7 +81,7 @@ internal class SocialActionJournal(private val context: Context, private val own
     }
 
     companion object {
-        /** Pending/unreadable social work is identity-wide; rate receipts alone are not work. */
+        /** Unsubmitted social work is identity-wide; locally enqueued actions are complete here. */
         fun hasWork(context: Context, owner: String): Boolean = synchronized(SaitoLocalState.lock) {
             require(SaitoWallet.isPublicKey(owner))
             if (SocialActionOperations.hasWork(owner)) return@synchronized true
