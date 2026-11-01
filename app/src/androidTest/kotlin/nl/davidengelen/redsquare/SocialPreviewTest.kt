@@ -1,6 +1,7 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
+import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -18,6 +19,7 @@ import java.util.Base64
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 
 class SocialPreviewTest {
@@ -46,6 +48,7 @@ class SocialPreviewTest {
         val liked = AtomicReference<JsonObject?>()
         val likeArchiveReads = AtomicInteger()
         val visibleAfterRead = AtomicInteger(Int.MAX_VALUE)
+        val visibleAfterElapsedMillis = AtomicLong(Long.MAX_VALUE)
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = SaitoEnvelope.decode(candidate.envelope())
@@ -59,11 +62,13 @@ class SocialPreviewTest {
                 addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
             })
             visibleAfterRead.set(likeArchiveReads.get() + 3)
+            visibleAfterElapsedMillis.set(SystemClock.elapsedRealtime() + 12_000L)
             served.set(countedRoot(5))
         }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") {
                 val archiveRead = likeArchiveReads.incrementAndGet()
                 liked.get()?.takeIf { archiveRead >= visibleAfterRead.get() &&
+                    SystemClock.elapsedRealtime() >= visibleAfterElapsedMillis.get() &&
                     (!criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString) }
                     ?.let { "[$it]" } ?: "[]"
             } else "[${served.get()}]"
@@ -79,6 +84,8 @@ class SocialPreviewTest {
                     waitFor("Liked")
                     waitFor("5 likes")
                     assertEquals(1, peer.transactions.size)
+                    assertTrue("A first Like must keep checking through delayed block confirmation",
+                        SystemClock.elapsedRealtime() >= visibleAfterElapsedMillis.get())
                     assertTrue("The first Like must wait for delayed exact archive readback",
                         likeArchiveReads.get() >= visibleAfterRead.get())
                     ui.clickVisiblePostContent("Native Red Square reference post")
