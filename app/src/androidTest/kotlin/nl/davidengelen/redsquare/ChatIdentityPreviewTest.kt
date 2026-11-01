@@ -209,6 +209,7 @@ class ChatIdentityPreviewTest {
                         ui.waitUntil(20_000) { ui.onAllNodes(groupRow, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(groupRow, useUnmergedTree = true).performClick()
                         waitForText("Verified cached group identity preview")
+                        waitForText(displayName)
                         ui.onNodeWithText(displayName).assertIsDisplayed()
                         ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
