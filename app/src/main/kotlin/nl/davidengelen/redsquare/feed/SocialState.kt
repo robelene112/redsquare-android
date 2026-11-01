@@ -55,6 +55,13 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         val overlay = optimisticLikeCounts[postId] ?: return served
         return maxOf(served ?: overlay.baseline, saturatingAdd(overlay.baseline, overlay.taps))
     }
+
+    private fun recordOptimisticLikeTap(post: FeedPost) {
+        val current = optimisticLikeCounts[post.id]
+        val baseline = current?.baseline ?: servedCount(observedPosts[post.id] ?: post, "num_likes") ?: return
+        optimisticLikeCounts[post.id] = LikeCountOverlay(baseline,
+            saturatingAdd(current?.taps ?: 0, 1))
+    }
     private fun journal(key: PostActionKey, node: SaitoBackend = backend) =
         SocialActionJournal(context, wallet.publicKey, node, key)
 
@@ -189,13 +196,6 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         val shouldStart = SocialActionOperations.enqueueLike(wallet.publicKey, backend, key, token)
         val previous = actions[key] ?: ActionStatus()
         val sequence = ++feedbackSequence
-        val currentOverlay = optimisticLikeCounts[post.id]
-        val countBaseline = currentOverlay?.baseline
-            ?: servedCount(observedPosts[post.id] ?: post, "num_likes")
-        if (countBaseline != null) {
-            optimisticLikeCounts[post.id] = LikeCountOverlay(countBaseline,
-                saturatingAdd(currentOverlay?.taps ?: 0, 1))
-        }
         actions[key] = previous.copy(ready = true, busy = true, failed = false, tapFeedback = sequence)
         if (!shouldStart) return
         generations[key] = token
@@ -205,6 +205,7 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             try {
                 while (SocialActionOperations.takeLike(wallet.publicKey, backend, key, token)) {
                     if (!beforePublishing()) break
+                    withContext(Dispatchers.Main.immediate) { recordOptimisticLikeTap(post) }
                     try {
                         if (peer == null) peer = withContext(Dispatchers.IO) { SaitoPeer(wallet, endpoint) }
                         submittedSignatures += submitLike(post, key, requireNotNull(peer))
