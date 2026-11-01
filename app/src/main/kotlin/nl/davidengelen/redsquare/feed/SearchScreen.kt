@@ -27,6 +27,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import nl.davidengelen.redsquare.ui.AppSpacing
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import androidx.compose.ui.unit.dp
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CancellationException
@@ -422,6 +423,6 @@ internal fun SearchScreen(wallet: SaitoWallet?, endpoint: String, backend: Saito
             }
         }
     }
-    identityDetails?.let { ProfileIdentityDialog(it) { identityDetails = null } }
+    identityDetails?.let { IdentityDetailsDialog(it) { identityDetails = null } }
     if (coverageDetails) SearchCoverageDialog { coverageDetails = false }
 }

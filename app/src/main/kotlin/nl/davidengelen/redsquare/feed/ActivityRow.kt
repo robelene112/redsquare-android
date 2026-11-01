@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.registry.registeredIdentity
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.saito.FeedPost
@@ -113,5 +114,5 @@ internal fun ActivityRow(author: String, createdAt: Long, caption: Int, post: Fe
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
-    if (identity) ProfileIdentityDialog(author) { identity = false }
+    if (identity) IdentityDetailsDialog(author) { identity = false }
 }

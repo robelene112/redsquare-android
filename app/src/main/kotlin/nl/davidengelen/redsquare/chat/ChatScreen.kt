@@ -37,7 +37,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
-import nl.davidengelen.redsquare.feed.ProfileIdentityDialog
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.saito.*
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
@@ -479,7 +479,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     if (addingContact && counterparty == null) ChatPublicKeyDialog(wallet.publicKey, ChatKeyPurpose.PRIVATE, savingContact, contactFailed,
         onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onConfirm = ::openContact)
-    identityAuthor?.let { author -> ProfileIdentityDialog(author) { identityAuthor = null } }
+    identityAuthor?.let { author -> IdentityDetailsDialog(author) { identityAuthor = null } }
 }
 
 private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,

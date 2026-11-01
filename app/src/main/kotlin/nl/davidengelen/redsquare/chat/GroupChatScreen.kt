@@ -35,7 +35,7 @@ import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
-import nl.davidengelen.redsquare.feed.ProfileIdentityDialog
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 
 private enum class GroupStatusSection { HISTORY, MANAGEMENT }
 
@@ -733,7 +733,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }
         GroupInvitationDialog(invitation, onDismiss = { inviting = false })
     }
-    identityAuthor?.let { author -> ProfileIdentityDialog(author) { identityAuthor = null } }
+    identityAuthor?.let { author -> IdentityDetailsDialog(author) { identityAuthor = null } }
 }
 
 @Composable

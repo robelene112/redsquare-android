@@ -31,6 +31,7 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.FrameIconButton
 import nl.davidengelen.redsquare.saito.*
@@ -286,7 +287,7 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
         confirmButton = { TextButton(onClick = { actionsOpen = false }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.done))
         } })
-    if (identityOpen) ProfileIdentityDialog(author) { identityOpen = false }
+    if (identityOpen) IdentityDetailsDialog(author) { identityOpen = false }
     view.publisherReport?.let { report ->
         PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
     }

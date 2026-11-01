@@ -27,6 +27,7 @@ import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import nl.davidengelen.redsquare.R
+import nl.davidengelen.redsquare.identity.IdentityDetailsDialog
 import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.policy.LocalPublishingAgreement
 import nl.davidengelen.redsquare.ui.AppSpacing
@@ -423,7 +424,7 @@ internal fun ProfileEditorScreen(wallet: SaitoWallet, backend: SaitoBackend, end
                 confirmingNewEdit = false; startNew(profile)
             }) { Text(stringResource(R.string.profile_discard_start)) } }
         )
-        if (identityOpen) ProfileIdentityDialog(owner) { identityOpen = false }
+        if (identityOpen) IdentityDetailsDialog(owner) { identityOpen = false }
         Column(modifier.imePadding(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 FrameIconButton(R.drawable.ic_back, stringResource(R.string.browse_back), !busy) { close(onClose) }
