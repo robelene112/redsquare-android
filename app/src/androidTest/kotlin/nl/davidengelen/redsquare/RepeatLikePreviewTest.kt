@@ -36,6 +36,7 @@ class RepeatLikePreviewTest {
         withLikes(likeNode) { peer, intent ->
             withLikeActivity(intent, "deliberate") {
                 waitFor("4 likes")
+                ui.onNodeWithText("Like", useUnmergedTree = true).assertDoesNotExist()
                 ui.clickVisiblePostContent("Like")
                 ui.clickVisiblePostContent("Like")
                 ui.clickVisiblePostContent("Like")

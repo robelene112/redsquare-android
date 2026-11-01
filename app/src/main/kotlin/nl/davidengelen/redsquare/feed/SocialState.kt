@@ -193,19 +193,27 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     private fun enqueueLike(post: FeedPost, beforePublishing: suspend () -> Boolean) {
         val key = PostActionKey(post.id, RedSquareActionKind.LIKE)
         val token = Any()
-        val shouldStart = SocialActionOperations.enqueueLike(wallet.publicKey, backend, key, token)
+        val enqueue = SocialActionOperations.enqueueLike(wallet.publicKey, backend, key, token)
+        if (enqueue.publishingAuthorized) recordOptimisticLikeTap(post)
         val previous = actions[key] ?: ActionStatus()
         val sequence = ++feedbackSequence
         actions[key] = previous.copy(ready = true, busy = true, failed = false, tapFeedback = sequence)
-        if (!shouldStart) return
+        if (!enqueue.shouldStart) return
         generations[key] = token
         scope.launch(start = CoroutineStart.UNDISPATCHED) {
             var peer: SaitoPeer? = null
             val submittedSignatures = mutableListOf<String>()
             try {
-                while (SocialActionOperations.takeLike(wallet.publicKey, backend, key, token)) {
-                    if (!beforePublishing()) break
-                    withContext(Dispatchers.Main.immediate) { recordOptimisticLikeTap(post) }
+                var publishingAuthorized = false
+                while (true) {
+                    if (!publishingAuthorized) {
+                        if (!beforePublishing()) break
+                        val alreadyQueued = SocialActionOperations.authorizeQueuedLikes(
+                            wallet.publicKey, backend, key, token)
+                        repeat(alreadyQueued) { recordOptimisticLikeTap(post) }
+                        publishingAuthorized = true
+                    }
+                    if (!SocialActionOperations.takeLike(wallet.publicKey, backend, key, token)) break
                     try {
                         if (peer == null) peer = withContext(Dispatchers.IO) { SaitoPeer(wallet, endpoint) }
                         submittedSignatures += submitLike(post, key, requireNotNull(peer))

@@ -79,7 +79,6 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     LaunchedEffect(feedback) {
         if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
             heartFilled = true
-            heartScale.snapTo(0.78f)
             heartScale.animateTo(1.38f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
             heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.58f, stiffness = 430f))
             heartFilled = false
@@ -93,8 +92,7 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val count = if (like) state?.displayLikeCount(post.id, served) ?: served else served
     val enabled = if (like) state != null else status?.ready == true && !status.busy && !globallyBusy &&
         !status.available
-    val label = stringResource(when {
-        like -> R.string.social_like
+    val label = if (like) "" else stringResource(when {
         status?.available == true -> R.string.social_reposted
         status?.candidate != null -> R.string.social_retry_repost
         else -> R.string.social_repost
@@ -165,7 +163,7 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Icon(painterResource(icon), contentDescription = null, tint = color,
                     modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
-                Text(label, style = MaterialTheme.typography.labelMedium)
+                if (label.isNotEmpty()) Text(label, style = MaterialTheme.typography.labelMedium)
             }
             Box(Modifier.heightIn(min = countHeight)) {
                 if (count != null) AnimatedContent(targetState = count,

@@ -110,7 +110,8 @@ internal class SocialActionJournal(private val context: Context, private val own
 /** One in-flight operation per wallet/post/kind, including other mounted node views. */
 internal object SocialActionOperations {
     private data class Key(val owner: String, val backend: SaitoBackend, val post: PostActionKey)
-    private data class Active(val token: Any, var queuedLikes: Int = 0)
+    private data class Active(val token: Any, var queuedLikes: Int = 0, var likePublishingAuthorized: Boolean = false)
+    data class LikeEnqueueResult(val shouldStart: Boolean, val publishingAuthorized: Boolean)
     private val active = mutableStateMapOf<Key, Active>()
 
     fun hasWork(owner: String): Boolean = synchronized(SaitoLocalState.lock) {
@@ -124,16 +125,21 @@ internal object SocialActionOperations {
         if (active.containsKey(full)) false else { active[full] = Active(token); true }
     }
     /** Every tap joins the existing worker or starts one, so a slow socket never drops Like input. */
-    fun enqueueLike(owner: String, backend: SaitoBackend, key: PostActionKey, token: Any): Boolean = synchronized(SaitoLocalState.lock) {
+    fun enqueueLike(owner: String, backend: SaitoBackend, key: PostActionKey, token: Any): LikeEnqueueResult = synchronized(SaitoLocalState.lock) {
         val full = Key(owner, backend, key)
         val current = active[full]
         if (current == null) {
             active[full] = Active(token, queuedLikes = 1)
-            true
+            LikeEnqueueResult(shouldStart = true, publishingAuthorized = false)
         } else {
             current.queuedLikes = Math.addExact(current.queuedLikes, 1)
-            false
+            LikeEnqueueResult(shouldStart = false, publishingAuthorized = current.likePublishingAuthorized)
         }
+    }
+    fun authorizeQueuedLikes(owner: String, backend: SaitoBackend, key: PostActionKey, token: Any): Int = synchronized(SaitoLocalState.lock) {
+        val current = active[Key(owner, backend, key)]?.takeIf { it.token === token } ?: return@synchronized 0
+        current.likePublishingAuthorized = true
+        current.queuedLikes
     }
     fun takeLike(owner: String, backend: SaitoBackend, key: PostActionKey, token: Any): Boolean = synchronized(SaitoLocalState.lock) {
         val full = Key(owner, backend, key)
