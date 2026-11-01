@@ -40,10 +40,11 @@ class PostPendingViewportTest {
         val receivedLikes = ConcurrentHashMap.newKeySet<String>()
         val indexedLikes = ConcurrentHashMap<String, JsonObject>()
         val likeArchiveReads = AtomicInteger()
+        val servedLikeCount = AtomicInteger(4)
         fun countedRow(): JsonObject = row.deepCopy().apply {
             val tx = JsonParser.parseString(get("tx").asString).asJsonObject
             tx.addProperty("opt", Base64.getEncoder().encodeToString(
-                "{\"num_likes\":${4 + indexedLikes.size}}".toByteArray()))
+                "{\"num_likes\":${servedLikeCount.get()}}".toByteArray()))
             addProperty("tx", tx.toString())
         }
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
@@ -59,6 +60,7 @@ class PostPendingViewportTest {
                 addProperty("field2", action.author); addProperty("field4", action.target)
                 addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
             }
+            if (indexedLikes.size >= 2) servedLikeCount.set(8)
         }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareLike" -> {
@@ -107,7 +109,10 @@ class PostPendingViewportTest {
                     assertEquals(2, receivedLikes.size)
                     ui.waitUntil(20_000) { likeArchiveReads.get() >= 2 }
                     assertEquals("Each Like receipt is checked after dispatch", 2, likeArchiveReads.get())
-                    ui.onNodeWithText("6 likes", useUnmergedTree = true).assertIsDisplayed()
+                    ui.waitUntil(20_000) {
+                        ui.onNodeWithText("8 likes", useUnmergedTree = true).isDisplayed()
+                    }
+                    ui.onNodeWithText("8 likes", useUnmergedTree = true).assertIsDisplayed()
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",
                         wallet.exportJson() == wallets.loadExisting().exportJson())
