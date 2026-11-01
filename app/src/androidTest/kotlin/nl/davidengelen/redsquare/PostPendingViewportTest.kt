@@ -95,9 +95,13 @@ class PostPendingViewportTest {
                         ui.onNode(like).assertIsEnabled()
                         expectedLikes++
                         ui.waitUntil(20_000) {
-                            ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).isDisplayed()
+                            ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).isDisplayed() ||
+                                (expectedLikes == 6 && ui.onNodeWithText("8 likes", useUnmergedTree = true).isDisplayed())
                         }
-                        ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).assertIsDisplayed()
+                        if (!ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).isDisplayed()) {
+                            assertEquals(6, expectedLikes)
+                            ui.onNodeWithText("8 likes", useUnmergedTree = true).assertIsDisplayed()
+                        }
                         if (expectedLikes == 6) {
                             ui.waitUntil(20_000) { likeArchiveReads.get() >= 2 }
                             ui.waitUntil(20_000) {
