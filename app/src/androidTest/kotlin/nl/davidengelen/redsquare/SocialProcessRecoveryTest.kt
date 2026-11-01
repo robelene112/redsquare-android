@@ -73,11 +73,11 @@ class SocialProcessRecoveryTest {
                     }.toString())
                 }) {
                 waitFor("Native Red Square reference post")
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Like"))
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNodeWithText("Like").assertIsDisplayed().performClick()
+                ui.onNode(hasScrollAction()).performScrollToNode(likePostAction())
+                ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.onNode(likePostAction()).assertIsDisplayed().performClick()
                 ui.waitUntil(20_000) { peer.transactions.size == 1 }
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
@@ -106,13 +106,13 @@ class SocialProcessRecoveryTest {
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 waitFor("Native Red Square reference post")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertTrue(peer.transactions.isEmpty())
                 ui.clickVisiblePostContent("Like")
                 ui.waitUntil(20_000) { peer.transactions.size == 1 }
                 val next = postingTransaction(peer.transactions.single()).id
                 assertNotEquals(row.get("sig").asString, next)
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
                 ui.onNodeWithText("Like pending").assertDoesNotExist()
                 File(context.cacheDir, "social-process-evidence/next-like-id.txt").apply {
                     parentFile?.mkdirs()

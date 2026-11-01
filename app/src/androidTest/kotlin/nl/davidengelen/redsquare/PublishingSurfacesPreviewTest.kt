@@ -372,7 +372,7 @@ class PublishingSurfacesPreviewTest {
                         ui.clickVisiblePostContent("Like")
                         ui.waitUntil(20_000) { peer.transactions.size == 1 }
                         assertEquals(1, peer.transactions.size)
-                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNode(likePostAction()).assertIsEnabled()
                         ui.onNodeWithText("Liked").assertDoesNotExist()
                         assertTrue(originalWallet == AndroidWalletStore(context).loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())

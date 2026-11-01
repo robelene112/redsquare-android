@@ -80,7 +80,7 @@ class SocialPreviewTest {
                     assertEquals(3, sent.map { it.id }.distinct().size)
                     assertTrue(sent.all { SaitoEnvelope.decode(it.envelope()).body.getAsJsonObject("data")
                         .get("signature").asString == root.get("sig").asString })
-                    ui.onNodeWithText("Like").assertIsDisplayed().assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsDisplayed().assertIsEnabled()
                     waitFor("7 likes")
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
                     ui.onNodeWithText("Liked").assertDoesNotExist()
@@ -173,11 +173,11 @@ class SocialPreviewTest {
             var firstAction: SaitoTransaction? = null
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.clickVisiblePostContent("Like")
                 ui.waitUntil(20_000) { peer.transactions.size == 1 }
                 firstAction = postingTransaction(peer.transactions.single())
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
             }
             val original = store.loadExisting()
             val replacement = nl.davidengelen.redsquare.saito.SaitoWallet.create()
@@ -185,7 +185,7 @@ class SocialPreviewTest {
                 store.replace(original, replacement)
                 ActivityScenario.launch<MainActivity>(intent).use {
                     waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(replacement.publicKey, displayedWalletAddress(ui))
@@ -194,13 +194,13 @@ class SocialPreviewTest {
                 store.replace(store.loadExisting(), original)
                 ActivityScenario.launch<MainActivity>(intent).use {
                     waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { peer.transactions.size == 2 }
                     val secondAction = postingTransaction(peer.transactions.last())
                     assertNotEquals("A new tap uses a new signed action", requireNotNull(firstAction).id, secondAction.id)
                     assertEquals(original.publicKey, indexed.get()!!.get("field2").asString)
-                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     peer.assertHealthy()
                     captureFeedEvidence("social-evidence/restored-wallet-can-like-again.png")
                 }
@@ -293,7 +293,7 @@ class SocialPreviewTest {
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
                 waitFor("Native Red Square reference post")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Wallet").performClick()
                 val author = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
@@ -305,7 +305,7 @@ class SocialPreviewTest {
                         ui.clickVisiblePostContent("Like")
                         SystemClock.sleep(500)
                         assertTrue(peer.transactions.isEmpty())
-                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNode(likePostAction()).assertIsEnabled()
                         ui.onNodeWithText("Like pending").assertDoesNotExist()
                         ui.onNodeWithText("Like unavailable").assertDoesNotExist()
                     }
@@ -347,12 +347,12 @@ class SocialPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:$originalPort/wsopen")
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")).use {
                     waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     firstOwner.close()
                     ui.clickVisiblePostContent("Like")
                     SystemClock.sleep(500)
                     assertTrue(owner.transactions.isEmpty())
-                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
@@ -362,7 +362,7 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { official.transactions.size == 1 }
-                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     assertEquals(1, official.transactions.size)
                     assertTrue(owner.transactions.isEmpty())
@@ -378,7 +378,7 @@ class SocialPreviewTest {
                         assertEquals(1, official.transactions.size)
                         val ownerIds = owner.transactions.map(::postingTransaction).map { it.id }
                         assertEquals(2, ownerIds.distinct().size)
-                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNode(likePostAction()).assertIsEnabled()
                         ui.onNodeWithText("Like pending").assertDoesNotExist()
                         owner.assertHealthy(); official.assertHealthy()
                         captureFeedEvidence("social-evidence/backend-like-attempts-stay-local.png")

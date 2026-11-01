@@ -9,9 +9,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 
 /** Tap the uniquely named post control itself, rather than an offscreen semantic node. */
 internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
-    val targetSelector = if (text == "Like") SemanticsMatcher("Like post action") { node ->
-        node.config.getOrNull(SemanticsProperties.ContentDescription)?.any { it.startsWith("Like post by ") } == true
-    } and hasClickAction() else hasText(text)
+    val targetSelector = if (text == "Like") likePostAction() else hasText(text)
     waitUntil(20_000) {
         onAllNodes(targetSelector and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
@@ -33,6 +31,10 @@ internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
     }
     onNode(targetSelector).assertIsDisplayed().assertIsEnabled().performClick()
 }
+
+internal fun likePostAction() = SemanticsMatcher("Like post action") { node ->
+    node.config.getOrNull(SemanticsProperties.ContentDescription)?.any { it.startsWith("Like post by ") } == true
+} and hasClickAction()
 
 /** Tap the rendered body itself, since a merged media card's center may be its image. */
 internal fun ComposeTestRule.clickVisiblePostBody(text: String) {

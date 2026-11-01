@@ -2,8 +2,6 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -50,7 +48,7 @@ class RepeatLikePreviewTest {
                     originals.map { it.id }.toSet(), likeNode.likeQueries.toSet())
                 ui.onNodeWithText("Unlike").assertDoesNotExist()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
-                ui.onNode(likeAction()).assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
                 waitFor("7 likes")
                 ui.onNodeWithText("7 likes").assertIsDisplayed()
                 peer.assertHealthy()
@@ -72,7 +70,7 @@ class RepeatLikePreviewTest {
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(2_000) { ui.onNodeWithText("7 likes").isDisplayed() }
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
-                    ui.onNode(likeAction()).assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
                 } finally {
                     peer.releaseWithheldHandshakeReplies()
@@ -114,8 +112,4 @@ class RepeatLikePreviewTest {
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 
-    private fun likeAction() = SemanticsMatcher("Like post action") { node ->
-        node.config.getOrNull(SemanticsProperties.ContentDescription)
-            ?.any { it.startsWith("Like post by ") } == true
-    } and hasClickAction()
 }

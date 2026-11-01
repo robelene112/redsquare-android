@@ -77,7 +77,7 @@ class LikeWalletImportPreviewTest {
                             ui.clickVisiblePostContent("Like")
                             if (pending) {
                                 Thread.sleep(500)
-                                ui.onNodeWithText("Like").assertIsEnabled()
+                                ui.onNode(likePostAction()).assertIsEnabled()
                                 ui.onNodeWithText("Like pending").assertDoesNotExist()
                                 assertTrue(peer.transactions.isEmpty())
                                 peer.rejectNewConnections = false

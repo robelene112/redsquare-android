@@ -41,7 +41,7 @@ class LikeIsolationPreviewTest {
                 ui.clickVisiblePostContent("Like")
                 ui.clickVisiblePostContent("Like")
                 ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
                 waitFor("6 likes")
                 ui.onNodeWithText("6 likes").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
@@ -110,7 +110,7 @@ class LikeIsolationPreviewTest {
                 ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
                 val ids = node.peer.transactions.map(::postingTransaction).map { it.id }
                 assertEquals(2, ids.distinct().size)
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likePostAction()).assertIsEnabled()
                 waitFor("6 likes")
                 ui.onNodeWithText("6 likes").assertIsDisplayed()
                 ui.onNodeWithText("Liked").assertDoesNotExist()

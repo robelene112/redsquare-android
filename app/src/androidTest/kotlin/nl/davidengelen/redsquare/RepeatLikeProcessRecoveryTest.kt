@@ -46,7 +46,7 @@ class RepeatLikeProcessRecoveryTest {
                     ui.waitUntil(20_000) { node.peer.transactions.size == 1 }
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
-                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     ui.onNodeWithText("Liked").assertDoesNotExist()
                     assertEquals(2, node.peer.transactions.size)
                     val first = postingTransaction(node.peer.transactions[0])
@@ -91,7 +91,7 @@ class RepeatLikeProcessRecoveryTest {
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled())
+                    ui.waitUntil(20_000) { ui.onAllNodes(likePostAction() and isEnabled())
                         .fetchSemanticsNodes().isNotEmpty() }
                     assertTrue(peer.transactions.isEmpty())
                     ui.clickVisiblePostContent("Like")
@@ -99,7 +99,7 @@ class RepeatLikeProcessRecoveryTest {
                     val recovered = postingTransaction(peer.transactions.single()).id
                     assertNotEquals("A new deliberate tap creates a fresh transaction", row.get("sig").asString, recovered)
                     assertNotEquals("A new tap does not replay the earlier Like", row.get("previousSig").asString, recovered)
-                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNode(likePostAction()).assertIsEnabled()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
                     peer.assertHealthy()
