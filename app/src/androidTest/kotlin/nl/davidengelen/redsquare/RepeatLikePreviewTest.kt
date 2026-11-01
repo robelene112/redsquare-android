@@ -50,7 +50,7 @@ class RepeatLikePreviewTest {
                     originals.map { it.id }.toSet(), likeNode.likeQueries.toSet())
                 ui.onNodeWithText("Unlike").assertDoesNotExist()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
-                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNode(likeAction()).assertIsEnabled()
                 waitFor("7 likes")
                 ui.onNodeWithText("7 likes").assertIsDisplayed()
                 peer.assertHealthy()
@@ -72,11 +72,7 @@ class RepeatLikePreviewTest {
                     ui.clickVisiblePostContent("Like")
                     ui.waitUntil(2_000) { ui.onNodeWithText("7 likes").isDisplayed() }
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
-                    val likeAction = SemanticsMatcher("Like post action") { node ->
-                        node.config.getOrNull(SemanticsProperties.ContentDescription)
-                            ?.any { it.startsWith("Like post by ") } == true
-                    } and hasClickAction()
-                    ui.onNode(likeAction).assertIsEnabled()
+                    ui.onNode(likeAction()).assertIsEnabled()
                     assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
                 } finally {
                     peer.releaseWithheldHandshakeReplies()
@@ -117,4 +113,9 @@ class RepeatLikePreviewTest {
         ui.waitUntil(20_000) { ui.onAllNodes(hasText(text))
             .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
+
+    private fun likeAction() = SemanticsMatcher("Like post action") { node ->
+        node.config.getOrNull(SemanticsProperties.ContentDescription)
+            ?.any { it.startsWith("Like post by ") } == true
+    } and hasClickAction()
 }
