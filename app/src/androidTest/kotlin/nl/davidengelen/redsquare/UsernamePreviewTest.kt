@@ -102,20 +102,19 @@ class UsernamePreviewTest {
         SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
     ) { reader ->
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe identity fixture only.
+        val displayName = "NativeLongVerifiedDisplayNameForChat@saito"
         val message = PrivateChat.create(sender, reader.publicKey, "Verified private identity preview", 1700000123456)
         val conversation = PrivateChat.conversationId(reader.publicKey, sender.publicKey)
-        val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
-            .use { JsonParser.parseReader(it).asJsonObject }
-        val rows = registry.getAsJsonArray("rows").toString()
+        val rows = signedRegistryRows(displayName, sender.publicKey)
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||",
             registryResponse = { criteria ->
                 when (criteria.get("request").asString) {
                     "registry query" -> JsonObject().apply {
                         val keys = criteria.getAsJsonArray("keys").map { it.asString }
-                        if (sender.publicKey in keys) addProperty(sender.publicKey, "NativeCase7@saito")
+                        if (sender.publicKey in keys) addProperty(sender.publicKey, displayName)
                     }.toString()
                     "registry namecheck" -> {
-                        assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+                        assertEquals(displayName, criteria.get("identifier").asString)
                         rows
                     }
                     else -> error("Unexpected Registry request")
@@ -142,29 +141,29 @@ class UsernamePreviewTest {
                         waitForEnabled("Chat")
                         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                         ui.onNodeWithText("Chat").performClick()
-                        waitForText("NativeCase7@saito")
-                        ui.onNodeWithText("NativeCase7@saito").performClick()
+                        waitForText(displayName)
+                        ui.onNodeWithText(displayName).performClick()
                         waitForText("Verified private identity preview")
-                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText("Identity details").assertIsDisplayed()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
                         ui.onNodeWithText("Done").performClick()
                         assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
                             it.getAsJsonArray("keys").any { key -> key.asString == sender.publicKey } })
                         assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
-                        capture("username-private-chat-online.png", "NativeCase7@saito")
+                        capture("username-private-chat-online.png", displayName)
 
                         // A new Activity must use the verified local name and cached message without a node.
                         peer.rejectNewConnections = true
                         scenario.recreate()
                         waitForEnabled("Chat")
                         ui.onNodeWithText("Chat").performClick()
-                        waitForText("NativeCase7@saito")
-                        ui.onNodeWithText("NativeCase7@saito").performClick()
+                        waitForText(displayName)
+                        ui.onNodeWithText(displayName).performClick()
                         waitForText("Verified private identity preview")
-                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
-                        capture("username-private-chat-offline.png", "NativeCase7@saito")
+                        capture("username-private-chat-offline.png", displayName)
                         check(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                         peer.assertHealthy()
                     }
@@ -182,22 +181,21 @@ class UsernamePreviewTest {
         val reader = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe identity fixture only.
         val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1")
         val groupKey = SaitoWallet.fromPrivateKey("0".repeat(63) + "3")
+        val displayName = "NativeLongVerifiedDisplayNameForChat@saito"
         val groupName = "Verified identity group"
         val creation = GroupChat.create(sender, groupKey.publicKey, groupName, listOf(reader.publicKey), 1700000123455)
         val group = GroupChat.readCreation(creation.envelope())
         val message = GroupChat.message(sender, group, "Verified cached group identity preview", 1700000123456)
-        val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
-            .use { JsonParser.parseReader(it).asJsonObject }
-        val rows = registry.getAsJsonArray("rows").toString()
+        val rows = signedRegistryRows(displayName, sender.publicKey)
         val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||",
             registryResponse = { criteria ->
                 when (criteria.get("request").asString) {
                     "registry query" -> JsonObject().apply {
                         val keys = criteria.getAsJsonArray("keys").map { it.asString }
-                        if (sender.publicKey in keys) addProperty(sender.publicKey, "NativeCase7@saito")
+                        if (sender.publicKey in keys) addProperty(sender.publicKey, displayName)
                     }.toString()
                     "registry namecheck" -> {
-                        assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+                        assertEquals(displayName, criteria.get("identifier").asString)
                         rows
                     }
                     else -> error("Unexpected Registry request")
@@ -231,8 +229,8 @@ class UsernamePreviewTest {
                         ui.waitUntil(20_000) { ui.onAllNodes(groupRow, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(groupRow, useUnmergedTree = true).performClick()
                         waitForText("Verified cached group identity preview")
-                        waitForText("NativeCase7@saito")
-                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        waitForText(displayName)
+                        ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText("Identity details").assertIsDisplayed()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
                         ui.onNodeWithText("Done").performClick()
@@ -251,10 +249,10 @@ class UsernamePreviewTest {
                         ui.waitUntil(20_000) { ui.onAllNodes(groupRow, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
                         ui.onNode(groupRow, useUnmergedTree = true).performClick()
                         waitForText("Verified cached group identity preview")
-                        ui.onNodeWithText("NativeCase7@saito").assertIsDisplayed()
-                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        ui.onNodeWithText(displayName).assertIsDisplayed()
+                        ui.onNodeWithContentDescription("View identity details for $displayName").performClick()
                         ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
-                        capture("username-group-chat-offline.png", "NativeCase7@saito")
+                        capture("username-group-chat-offline.png", displayName)
                         check(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
                         peer.assertHealthy()
                     }
@@ -1336,6 +1334,24 @@ class UsernamePreviewTest {
         registryResponse = nameDiscoveryResponse(publicKey, proof), archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquare" && !criteria.has("field2")) rows else "[]"
         })
+
+    private fun signedRegistryRows(identifier: String, owner: String): String {
+        val registrar = SaitoWallet.fromPrivateKey("0".repeat(63) + "2") // Public unsafe fixture only.
+        val bid = 17L
+        val blockHash = "a".repeat(64)
+        val signature = registrar.sign((identifier + owner + bid + blockHash).toByteArray(Charsets.UTF_8))
+        return com.google.gson.JsonArray().apply {
+            add(JsonObject().apply {
+                addProperty("identifier", identifier)
+                addProperty("publickey", owner)
+                addProperty("bid", bid)
+                addProperty("bsh", blockHash)
+                addProperty("signer", registrar.publicKey)
+                addProperty("lc", 1)
+                addProperty("sig", signature)
+            })
+        }.toString()
+    }
 
     private fun withRegistryWallet(fixture: SaitoWallet = SaitoWallet.fromPrivateKey("0".repeat(63) + "1"), block: (SaitoWallet) -> Unit) {
         val walletStore = AndroidWalletStore(context)
