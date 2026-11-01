@@ -1,5 +1,15 @@
 # Implementation handoff
 
+## Issue74 delivered as beta78
+
+Issue74, verified conversation display names, is implemented, reviewed, and
+closed. Its signed in-place beta78 is live at https://davidengelen.nl/redsquare/.
+Android29 and Android37 focused proofs each pass all3 private/group identity
+tests. The APK checksum, exact source commit, CI runs, and scope limits are
+recorded in `docs/evidence/ticket74/README.md`. Parent issue55 remains open for
+the owner's app-wide beta review; closing74 does not indicate app-wide visual
+acceptance or a physical Pixel7 review.
+
 ## Issue55 app-wide review packet ready; owner acceptance pending
 
 The owner resumed work on issue55. All child issues56–70 are closed and their
