@@ -9,6 +9,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.chat.GroupChatStore
+import nl.davidengelen.redsquare.registry.REGISTERED_NAME_FRESHNESS_MILLIS
+import nl.davidengelen.redsquare.registry.RegisteredNameStore
+import nl.davidengelen.redsquare.registry.registeredNameIsCurrent
 import nl.davidengelen.redsquare.saito.*
 import org.junit.Assert.*
 import org.junit.Before
@@ -29,6 +32,25 @@ class ChatIdentityPreviewTest {
             it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
         }?.forEach { check(it.delete()) { "Could not reset chat identity fixtures" } }
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
+    }
+
+    @Test fun cachedNamesMustBeFreshAndCheckedByTheSelectedBackend() {
+        val registrar = SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+        val owner = SaitoWallet.fromPrivateKey("0".repeat(63) + "1").publicKey
+        val displayName = "FreshIdentity@saito"
+        val name = requireNotNull(SaitoRegistry.readNamecheck(
+            signedRegistryRows(displayName, owner), displayName, registrar.publicKey))
+        val now = System.currentTimeMillis()
+        val current = RegisteredNameStore.Saved(name, SaitoBackend.OWNER, now)
+
+        assertTrue(registeredNameIsCurrent(current, SaitoBackend.OWNER, now))
+        assertTrue(registeredNameIsCurrent(current.copy(checkedAt = now - REGISTERED_NAME_FRESHNESS_MILLIS),
+            SaitoBackend.OWNER, now))
+        assertFalse(registeredNameIsCurrent(current.copy(checkedAt = now - REGISTERED_NAME_FRESHNESS_MILLIS - 1),
+            SaitoBackend.OWNER, now))
+        assertFalse(registeredNameIsCurrent(current.copy(backend = SaitoBackend.entries.single { it != SaitoBackend.OWNER }),
+            SaitoBackend.OWNER, now))
+        assertFalse(registeredNameIsCurrent(current.copy(checkedAt = now + 1), SaitoBackend.OWNER, now))
     }
 
     @Test fun privateChatShowsLongVerifiedNameAndExactIdentityAfterGoingOffline() = withRegistryWallet(

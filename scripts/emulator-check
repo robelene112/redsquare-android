@@ -98,7 +98,7 @@ if [[ "${TEST_SCOPE:-full}" == chat-identities* ]]; then
     printf '%s\n' "$identity_exit" > "$evidence/chat-identities-ui-exit.txt"
     adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - chat-identity-evidence \
         > "$evidence/chat-identity-evidence.tar" || true
-    if [[ "$identity_exit" != 0 ]] || ! grep -q 'OK (2 tests)' "$evidence/chat-identities-ui.txt"; then
+    if [[ "$identity_exit" != 0 ]] || ! grep -q 'OK (3 tests)' "$evidence/chat-identities-ui.txt"; then
         adb exec-out screencap -p > "$evidence/chat-identities-system-screen.png" || true
         timeout 15 adb shell uiautomator dump /sdcard/chat-identities.xml \
             > "$evidence/chat-identities-dump.txt" 2>&1 &&

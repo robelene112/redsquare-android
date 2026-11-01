@@ -12,6 +12,12 @@ import nl.davidengelen.redsquare.saito.*
 internal val LocalRegistryAuthority = staticCompositionLocalOf { SaitoRegistry.REGISTRAR }
 internal data class RegisteredIdentityLabel(val name: String, val saveError: Boolean = false)
 private val LocalIdentities = staticCompositionLocalOf<RegisteredIdentities?> { null }
+/** Cached names only remain display identities for one day after the selected backend confirmed them. */
+internal const val REGISTERED_NAME_FRESHNESS_MILLIS = 24 * 60 * 60 * 1000L
+
+internal fun registeredNameIsCurrent(saved: RegisteredNameStore.Saved, backend: SaitoBackend, nowMillis: Long): Boolean =
+    saved.backend == backend && saved.checkedAt <= nowMillis &&
+        nowMillis - saved.checkedAt <= REGISTERED_NAME_FRESHNESS_MILLIS
 
 /** One wallet/backend scope shares labels across navigation and batches visible authors. */
 @Composable
@@ -58,7 +64,10 @@ private class RegisteredIdentities(
         val missing = publicKeys.filter { it !in labels }
         val saved = withContext(Dispatchers.IO) {
             missing.mapNotNull { key ->
-                try { cache(key).load()?.name?.identifier?.let { key to RegisteredIdentityLabel(it) } }
+                try {
+                    cache(key).load()?.takeIf { registeredNameIsCurrent(it, backend, System.currentTimeMillis()) }
+                        ?.name?.identifier?.let { key to RegisteredIdentityLabel(it) }
+                }
                 catch (cancelled: CancellationException) { throw cancelled }
                 catch (_: Exception) { null }
             }
@@ -71,7 +80,12 @@ private class RegisteredIdentities(
         // A newly mounted view can retry a failed save. Other repeated rows share one result.
         if (labels[publicKey]?.saveError == false || !inFlight.add(publicKey)) return
         scope.launch {
-            val cached = try { withContext(Dispatchers.IO) { cache(publicKey).load()?.name?.identifier } }
+            val cached = try {
+                withContext(Dispatchers.IO) {
+                    cache(publicKey).load()?.takeIf { registeredNameIsCurrent(it, backend, System.currentTimeMillis()) }
+                        ?.name?.identifier
+                }
+            }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) { null }
             if (cached != null) {
