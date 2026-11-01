@@ -10,6 +10,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -169,8 +170,10 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             Box(Modifier.heightIn(min = countHeight)) {
                 if (count != null) AnimatedContent(targetState = count,
                     transitionSpec = {
-                        (slideInVertically { it / 2 } + fadeIn()) togetherWith
-                            (slideOutVertically { -it / 2 } + fadeOut())
+                        (slideInVertically(animationSpec = tween(AppSpacing.transitionMillis)) { it / 2 } +
+                            fadeIn(animationSpec = tween(AppSpacing.transitionMillis))) togetherWith
+                            (slideOutVertically(animationSpec = tween(AppSpacing.transitionMillis)) { -it / 2 } +
+                                fadeOut(animationSpec = tween(AppSpacing.transitionMillis)))
                     }, label = "socialCount") { animatedCount ->
                     Text(animatedCount, style = countStyle)
                 }
