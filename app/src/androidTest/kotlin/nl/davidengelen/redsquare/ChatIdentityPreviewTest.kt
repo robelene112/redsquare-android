@@ -13,6 +13,7 @@ import nl.davidengelen.redsquare.registry.REGISTERED_NAME_FRESHNESS_MILLIS
 import nl.davidengelen.redsquare.registry.RegisteredNameStore
 import nl.davidengelen.redsquare.registry.registeredNameIsCurrent
 import nl.davidengelen.redsquare.saito.*
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -24,14 +25,18 @@ class ChatIdentityPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
+    private var originalBackend: SaitoBackend? = null
 
     @Before fun prepare() {
         check(context.packageName == "nl.davidengelen.redsquare.dev")
         check(android.os.Build.HARDWARE in listOf("ranchu", "goldfish"))
-        context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("namerequest.") || it.name.startsWith("namemap.")
-        }?.forEach { check(it.delete()) { "Could not reset chat identity fixtures" } }
-        AndroidBackendStore(context).save(SaitoBackend.OWNER)
+        val backend = AndroidBackendStore(context)
+        originalBackend = backend.load()
+        backend.save(SaitoBackend.OWNER)
+    }
+
+    @After fun restoreBackend() {
+        originalBackend?.let { AndroidBackendStore(context).save(it) }
     }
 
     @Test fun cachedNamesMustBeFreshAndCheckedByTheSelectedBackend() {
