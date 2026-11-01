@@ -88,6 +88,28 @@ for setting in window_animation_scale transition_animation_scale animator_durati
 done
 adb install -r "$artifact"
 adb install -r "$repo_dir/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+if [[ "${TEST_SCOPE:-full}" == chat-identities* ]]; then
+    [[ "$(adb get-serialno)" == emulator-* ]] || { echo 'An isolated emulator is required' >&2; exit 1; }
+    identity_exit=0
+    timeout 240 adb shell am instrument -w -r \
+        -e class nl.davidengelen.redsquare.ChatIdentityPreviewTest \
+        nl.davidengelen.redsquare.dev.test/androidx.test.runner.AndroidJUnitRunner \
+        > "$evidence/chat-identities-ui.txt" || identity_exit=$?
+    printf '%s\n' "$identity_exit" > "$evidence/chat-identities-ui-exit.txt"
+    adb exec-out run-as nl.davidengelen.redsquare.dev tar -C cache -cf - chat-identity-evidence \
+        > "$evidence/chat-identity-evidence.tar" || true
+    if [[ "$identity_exit" != 0 ]] || ! grep -q 'OK (2 tests)' "$evidence/chat-identities-ui.txt"; then
+        adb exec-out screencap -p > "$evidence/chat-identities-system-screen.png" || true
+        timeout 15 adb shell uiautomator dump /sdcard/chat-identities.xml \
+            > "$evidence/chat-identities-dump.txt" 2>&1 &&
+            timeout 10 adb pull /sdcard/chat-identities.xml "$evidence/chat-identities-dump.xml" >/dev/null || true
+        timeout 15 adb logcat -d -v brief AndroidRuntime:E RedSquarePeer:W '*:S' \
+            > "$evidence/chat-identities-runtime.txt" || true
+        exit 1
+    fi
+    printf '%s\n' 'Focused private/group chat identity proof only; full acceptance not run.' > "$evidence/scope.txt"
+    exit 0
+fi
 if [[ "${TEST_SCOPE:-full}" == feed-typography* ]]; then
     typography_exit=0
     timeout 180 adb shell am instrument -w -r \
