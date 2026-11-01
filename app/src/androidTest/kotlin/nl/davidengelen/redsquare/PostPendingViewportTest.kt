@@ -98,6 +98,13 @@ class PostPendingViewportTest {
                             ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).isDisplayed()
                         }
                         ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).assertIsDisplayed()
+                        if (expectedLikes == 6) {
+                            ui.waitUntil(20_000) { likeArchiveReads.get() >= 2 }
+                            ui.waitUntil(20_000) {
+                                ui.onNodeWithText("8 likes", useUnmergedTree = true).isDisplayed()
+                            }
+                            ui.onNodeWithText("8 likes", useUnmergedTree = true).assertIsDisplayed()
+                        }
                         ui.onNodeWithText("Liked").assertDoesNotExist()
                         ui.onNodeWithText("Like pending").assertDoesNotExist()
                         ui.onNodeWithText("Retry like").assertDoesNotExist()
@@ -109,10 +116,6 @@ class PostPendingViewportTest {
                     assertEquals(2, receivedLikes.size)
                     ui.waitUntil(20_000) { likeArchiveReads.get() >= 2 }
                     assertEquals("Each Like receipt is checked after dispatch", 2, likeArchiveReads.get())
-                    ui.waitUntil(20_000) {
-                        ui.onNodeWithText("8 likes", useUnmergedTree = true).isDisplayed()
-                    }
-                    ui.onNodeWithText("8 likes", useUnmergedTree = true).assertIsDisplayed()
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",
                         wallet.exportJson() == wallets.loadExisting().exportJson())
