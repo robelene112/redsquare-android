@@ -168,10 +168,11 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             Box(Modifier.heightIn(min = countHeight)) {
                 if (count != null) AnimatedContent(targetState = count,
                     transitionSpec = {
-                        (slideInVertically(animationSpec = tween(AppSpacing.transitionMillis)) { it / 2 } +
-                            fadeIn(animationSpec = tween(AppSpacing.transitionMillis))) togetherWith
-                            (slideOutVertically(animationSpec = tween(AppSpacing.transitionMillis)) { -it / 2 } +
-                                fadeOut(animationSpec = tween(AppSpacing.transitionMillis)))
+                        val duration = AppSpacing.transitionMillis / 2
+                        (slideInVertically(animationSpec = tween(duration)) { it / 2 } +
+                            fadeIn(animationSpec = tween(duration))) togetherWith
+                            (slideOutVertically(animationSpec = tween(duration)) { -it / 2 } +
+                                fadeOut(animationSpec = tween(duration)))
                     }, label = "socialCount") { animatedCount ->
                     Text(animatedCount, style = countStyle)
                 }
