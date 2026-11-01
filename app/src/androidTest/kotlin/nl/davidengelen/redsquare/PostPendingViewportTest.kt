@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -17,7 +16,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
-/** Real signed pending actions settle by exact readback and refresh their observed count. */
+/** Like taps dispatch without waiting for readback and leave counts to the selected node. */
 class PostPendingViewportTest {
     @get:Rule val ui = createEmptyComposeRule()
 
@@ -38,12 +37,8 @@ class PostPendingViewportTest {
         val envelope = JsonParser.parseString(row.get("tx").asString).asJsonObject
         envelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":4}".toByteArray()))
         row.addProperty("tx", envelope.toString())
-        val indexed = ConcurrentHashMap<String, JsonObject>()
-        val broadcastAttempts = ConcurrentHashMap<String, AtomicInteger>()
-        val visibleAfterMillis = ConcurrentHashMap<String, Long>()
-        val indexedActions = ConcurrentHashMap.newKeySet<String>()
-        // The peer accepts the signed action first, then delays retry readback
-        // beyond the former timeout to model block confirmation latency.
+        val receivedLikes = ConcurrentHashMap.newKeySet<String>()
+        val likeArchiveReads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = RedSquareActions.decode(candidate.envelope())
@@ -51,38 +46,14 @@ class PostPendingViewportTest {
             assertEquals(row.get("sig").asString, action.target)
             assertEquals(RedSquareActionKind.LIKE, action.kind)
             assertEquals(listOf(wallet.publicKey, author.publicKey).distinct(), action.recipients)
-            indexed[action.id] = JsonObject().apply {
-                addProperty("sig", action.id); addProperty("created_at", action.createdAt)
-                addProperty("field1", "RedSquareLike"); addProperty("field2", action.author)
-                addProperty("field4", action.target); addProperty("tx", candidate.envelope())
-            }
-            if (broadcastAttempts.computeIfAbsent(action.id) { AtomicInteger() }.incrementAndGet() >= 2)
-                visibleAfterMillis[action.id] = SystemClock.elapsedRealtime() + 12_000
+            receivedLikes += action.id
         }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareLike" -> {
-                    val signature = criteria.get("sig").asString
-                    if (SystemClock.elapsedRealtime() >= (visibleAfterMillis[signature] ?: Long.MAX_VALUE)) {
-                        indexed[signature]?.let {
-                            indexedActions.add(signature)
-                            "[$it]"
-                        } ?: "[]"
-                    } else "[]"
+                    likeArchiveReads.incrementAndGet()
+                    "[]"
                 }
-                criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> {
-                    // Exact action readback implies the node has incorporated it into the target count.
-                    when (indexedActions.size) {
-                        0 -> "[$row]"
-                        1 -> {
-                            val refreshed = row.deepCopy()
-                            val refreshedEnvelope = JsonParser.parseString(refreshed.get("tx").asString).asJsonObject
-                            refreshedEnvelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":5}".toByteArray()))
-                            refreshed.addProperty("tx", refreshedEnvelope.toString())
-                            "[$refreshed]"
-                        }
-                        else -> "[]" // The later accepted Like has unavailable count readback.
-                    }
-                }
+                criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> "[$row]"
                 criteria.has("sig") -> "[]"
                 else -> "[$row]"
             }
@@ -99,63 +70,25 @@ class PostPendingViewportTest {
                     val folder = File(context.cacheDir, "post-pending-evidence").apply { mkdirs() }
                     ui.waitUntil(20_000) { ui.onNodeWithText("Pending action viewport preview").isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
-                    ui.withPostViewports(activity, folder, "pending", scales = listOf(1f)) { label, _ ->
-                        // Each viewport starts from the feed's cached fixture row. A prior theme's
-                        // successful count refresh must not be assumed to rewrite that cached row.
-                        var settledLikeCount = 4
+                    ui.withPostViewports(activity, folder, "immediate-like", scales = listOf(1f)) { label, _ ->
                         val like = hasContentDescription("Like post by $name") and hasClickAction()
                         ui.waitUntil(15_000) { ui.onAllNodes(like and isEnabled()).fetchSemanticsNodes().size == 1 }
                         val before = peer.transactions.size
                         ui.onNode(like).performClick()
-                        val pending = hasContentDescription("Details: Like pending") and hasClickAction()
-                        ui.waitUntil(50_000) { ui.onNode(pending).isDisplayed() }
+                        ui.waitUntil(20_000) { peer.transactions.size == before + 1 }
                         assertEquals(before + 1, peer.transactions.size)
-                        val candidate = postingTransaction(peer.transactions.last()).id
-                        ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertIsDisplayed()
-                        captureNativeScreen(File(folder, "$label-pending.png"))
-                        ui.onNode(pending).performClick()
-                        ui.onNodeWithText("Pending. Availability on this node has not been verified.")
-                            .performScrollTo().assertIsDisplayed()
-                        captureNativeScreen(File(folder, "$label-pending-details.png"))
-                        ui.onNodeWithText("Done").performClick()
-                        val retry = hasContentDescription("Retry: Like post by $name") and hasClickAction()
-                        ui.onNode(retry).assertIsEnabled().performClick()
-                        ui.waitUntil(35_000) { ui.onNodeWithText("Liked").isDisplayed() }
-                        ui.onNodeWithText("Liked").assertIsDisplayed()
-                        assertTrue("Retry must keep polling past the old timeout",
-                            SystemClock.elapsedRealtime() >= requireNotNull(visibleAfterMillis[candidate]))
-                        val countsUnavailable = hasContentDescription("Details: Like counts unavailable") and hasClickAction()
-                        if (label.endsWith("-light")) {
-                            val refreshedLikeCount = settledLikeCount + 1
-                            ui.waitUntil(20_000) {
-                                ui.onNodeWithText("$refreshedLikeCount likes", useUnmergedTree = true).isDisplayed()
-                            }
-                            ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertDoesNotExist()
-                            settledLikeCount = refreshedLikeCount
-                            captureNativeScreen(File(folder, "$label-liked-count-refreshed.png"))
-                        } else {
-                            ui.waitUntil(20_000) { ui.onNode(countsUnavailable).isDisplayed() }
-                            ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertIsDisplayed()
-                            ui.onNodeWithText("${settledLikeCount + 1} likes", useUnmergedTree = true).assertDoesNotExist()
-                            captureNativeScreen(File(folder, "$label-liked-count-unavailable.png"))
-                            ui.onNode(countsUnavailable).performClick()
-                            ui.onNodeWithText("Like post by $name").assertIsDisplayed()
-                            ui.onNodeWithText("Could not refresh counts. Refresh this view to try again.")
-                                .performScrollTo().assertIsDisplayed()
-                            captureNativeScreen(File(folder, "$label-counts-details.png"))
-                            ui.onNodeWithText("Done").performClick()
-                        }
-                        val attempts = peer.transactions.drop(before).map { postingTransaction(it).id }
-                        assertTrue("Retry must reuse the same signed action", attempts.isNotEmpty() && attempts.all { it == candidate })
-                        assertEquals(candidate, postingTransaction(peer.transactions.last()).id)
+                        ui.onNode(like).assertIsEnabled()
+                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertIsDisplayed()
+                        ui.onNodeWithText("Liked").assertDoesNotExist()
+                        ui.onNodeWithText("Like pending").assertDoesNotExist()
+                        ui.onNodeWithText("Retry like").assertDoesNotExist()
+                        captureNativeScreen(File(folder, "$label-like-sent-without-confirmation.png"))
                     }
                     val transactionIds = peer.transactions.map { postingTransaction(it).id }
-                    assertEquals("Each theme retries its exact action, then permits a new deliberate action", 4, transactionIds.size)
-                    assertEquals("The retry must not create another signed action", 2, transactionIds.distinct().size)
-                    assertEquals("Retry reuses the first signed candidate", transactionIds[0], transactionIds[1])
-                    assertNotEquals("A later deliberate Like gets a fresh signed candidate", transactionIds[0], transactionIds[2])
-                    assertEquals("The second theme retry also reuses its exact candidate", transactionIds[2], transactionIds[3])
-                    assertEquals(2, indexed.size)
+                    assertEquals("Each theme sends one distinct intentional Like", 2, transactionIds.size)
+                    assertEquals(2, transactionIds.distinct().size)
+                    assertEquals(2, receivedLikes.size)
+                    assertEquals("Like does not poll for archive confirmation", 0, likeArchiveReads.get())
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",
                         wallet.exportJson() == wallets.loadExisting().exportJson())

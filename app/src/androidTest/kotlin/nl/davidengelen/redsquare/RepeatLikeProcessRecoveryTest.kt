@@ -17,9 +17,8 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.Base64
-import java.util.concurrent.ConcurrentLinkedQueue
 
-/** The host proves actual process death between these phases. Captures contain public data only. */
+/** The host proves immediate repeated Like dispatch and in-place behavior after process death. */
 class RepeatLikeProcessRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -32,25 +31,23 @@ class RepeatLikeProcessRecoveryTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    @Test fun terminateAfterASettledThenUncertainSecondLike() {
+    @Test fun terminateAfterTwoSentLikes() {
         prepare()
         context.noBackupFilesDir.listFiles()?.filter {
-            it.name.startsWith("social.") || it.name.startsWith("socialrate.") ||
+            it.name.startsWith("social.") ||
                 it.name.startsWith("feed.") || it.name.startsWith("conversation.") || it.name.startsWith("profile.")
         }?.forEach { check(it.delete()) }
-        lateinit var node: PostLikePeer
-        node = PostLikePeer(afterLike = { count -> if (count == 2) node.peer.disconnectAfterTransaction = true })
+        val node = PostLikePeer()
         node.peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 withFailureCapture({ captureFeedEvidence("repeat-social-process-evidence/prepare-failure.png") }) {
                     waitFor("4 likes")
                     ui.clickVisiblePostContent("Like")
-                    waitFor("5 likes")
-                    ui.clickVisiblePostContent("Liked")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled())
-                        .fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNode(hasScrollAction()).performScrollToNode(hasText("Retry like"))
-                    ui.onNodeWithText("Retry like").assertIsDisplayed()
+                    ui.waitUntil(20_000) { node.peer.transactions.size == 1 }
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
+                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNodeWithText("Liked").assertDoesNotExist()
                     assertEquals(2, node.peer.transactions.size)
                     val first = postingTransaction(node.peer.transactions[0])
                     val second = postingTransaction(node.peer.transactions[1])
@@ -58,7 +55,7 @@ class RepeatLikeProcessRecoveryTest {
                     val action = SaitoEnvelope.decode(second.envelope())
                     assertEquals(SaitoEnvelope.decode(first.envelope()).author, action.author)
                     node.peer.assertHealthy()
-                    captureFeedEvidence("repeat-social-process-evidence/second-like-uncertain.png")
+                    captureFeedEvidence("repeat-social-process-evidence/second-like-sent.png")
                     evidence.mkdirs()
                     node.peer.transactions.forEachIndexed { index, frame ->
                         File(evidence, "native-like-$index.base64").writeText(Base64.getEncoder().encodeToString(frame))
@@ -81,25 +78,11 @@ class RepeatLikeProcessRecoveryTest {
         }
     }
 
-    @Test fun coldStartupReconcilesSecondLikeWithoutCreatingThird() {
+    @Test fun coldStartupAllowsAnotherLikeWithoutWaitingForTheEarlierConfirmation() {
         prepare()
         val row = JsonParser.parseString(checkpoint.readText()).asJsonObject
-        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
-        val served = root.deepCopy().apply {
-            val envelope = JsonParser.parseString(get("tx").asString).asJsonObject
-            envelope.addProperty("opt", Base64.getEncoder().encodeToString(
-                "{\"num_likes\":6,\"num_retweets\":2}".toByteArray()))
-            addProperty("tx", envelope.toString())
-        }
-        val queries = ConcurrentLinkedQueue<String>()
-        val peer = ControlledFeedPeer("[$served]", archiveResponse = { criteria ->
-            if (criteria.get("field1").asString == "RedSquareLike") {
-                val sig = criteria.get("sig").asString
-                queries.add(sig)
-                if (sig == row.get("sig").asString) "[$row]" else "[]"
-            } else "[$served]"
-        })
+        val node = PostLikePeer()
+        val peer = node.peer
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(intent(server.port)).use {
                 withFailureCapture({ captureFeedEvidence("repeat-social-process-evidence/recovery-failure.png") }) {
@@ -108,22 +91,21 @@ class RepeatLikeProcessRecoveryTest {
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled())
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled())
                         .fetchSemanticsNodes().isNotEmpty() }
                     assertTrue(peer.transactions.isEmpty())
-                    ui.clickVisiblePostContent("Retry like")
-                    waitFor("6 likes")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Liked") and isEnabled())
-                        .fetchSemanticsNodes().isNotEmpty() }
-                    assertTrue("The exact pending Like must be checked against the archive before reconciliation",
-                        queries.count { it == row.get("sig").asString } >= 1)
-                    assertTrue(peer.transactions.isEmpty())
-                    ui.clickVisiblePostContent("Liked")
-                    waitFor("Two likes per second. Try again in a moment.")
-                    assertTrue("Cold restart must not open a new wallet rate window", peer.transactions.isEmpty())
-                    ui.onNodeWithText("6 likes").assertExists()
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                    val recovered = postingTransaction(peer.transactions.single()).id
+                    assertNotEquals("A new deliberate tap creates a fresh transaction", row.get("sig").asString, recovered)
+                    assertNotEquals("A new tap does not replay the earlier Like", row.get("previousSig").asString, recovered)
+                    assertTrue("Likes do not poll for archive confirmation", node.likeQueries.isEmpty())
+                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
+                    ui.onNodeWithText("Retry like").assertDoesNotExist()
                     peer.assertHealthy()
-                    captureFeedEvidence("repeat-social-process-evidence/reconciled-without-rebroadcast.png")
+                    captureFeedEvidence("repeat-social-process-evidence/new-like-after-restart.png")
+                    File(evidence, "recovery-like-id.txt").writeText(recovered)
                     File(evidence, "recovery-pid.txt").writeText(Process.myPid().toString())
                 }
             }
@@ -132,7 +114,6 @@ class RepeatLikeProcessRecoveryTest {
 
     private fun intent(port: Int) = Intent(context, MainActivity::class.java)
         .putExtra("feedPeerUrl", "ws://127.0.0.1:$port/wsopen")
-        .putExtra("socialLikeElapsedMillis", 10_000L)
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
         ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()

@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
@@ -52,9 +55,8 @@ internal fun SocialActions(post: FeedPost, state: SocialState?, author: String, 
             if (onQuote != null) SocialControl(stringResource(R.string.social_quote), R.drawable.ic_quote,
                 stringResource(R.string.post_quote_for, author), enabled = state != null, onClick = { onQuote(post) })
         }
-        RedSquareActionKind.entries.forEach { kind -> SocialActionStatus(post, state, kind, author) }
-        val feedback = state?.actions?.get(PostActionKey(post.id, RedSquareActionKind.LIKE))?.rateFeedback ?: 0L
-        InlineStatus(if (feedback != 0L) stringResource(R.string.social_like_rate) else null, StatusTone.WARNING)
+        RedSquareActionKind.entries.filter { it != RedSquareActionKind.LIKE }
+            .forEach { kind -> SocialActionStatus(post, state, kind, author) }
     }
 }
 
@@ -64,37 +66,42 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val globallyBusy = state?.busy(post, kind) == true
     LaunchedEffect(state, post.id, kind, globallyBusy) { state?.load(post, kind, refresh = !globallyBusy) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
-    val feedback = status?.rateFeedback ?: 0L
+    val feedback = status?.tapFeedback ?: 0L
+    var tapPulse by remember(post.id, kind) { mutableStateOf(false) }
     LaunchedEffect(state, post.id, kind, feedback) {
         if (feedback != 0L) {
-            delay(2000)
-            state?.clearRateFeedback(post, kind, feedback)
+            tapPulse = true
+            delay(130)
+            tapPulse = false
         }
     }
+    val iconScale = animateFloatAsState(if (tapPulse && kind == RedSquareActionKind.LIKE) 1.28f else 1f,
+        animationSpec = tween(130), label = "likeTapPulse")
     val observed = state?.observedPosts?.get(post.id) ?: post
     val count = remember(observed.envelope, kind) {
         servedCount(observed, if (kind == RedSquareActionKind.LIKE) "num_likes" else "num_retweets")
     }
-    val labels = if (kind == RedSquareActionKind.LIKE)
-        listOf(R.string.social_like, R.string.social_liked, R.string.social_retry_like, R.plurals.social_like_count)
-    else listOf(R.string.social_repost, R.string.social_reposted, R.string.social_retry_repost, R.plurals.social_repost_count)
-    val enabled = status?.ready == true && !status.busy && !globallyBusy && status.blockedBy == null &&
-        (!status.available || kind == RedSquareActionKind.LIKE)
-    val likeAgain = if (enabled && kind == RedSquareActionKind.LIKE && status?.available == true)
-        stringResource(R.string.social_like_again_description) else null
+    val like = kind == RedSquareActionKind.LIKE
+    val enabled = if (like) state != null else status?.ready == true && !status.busy && !globallyBusy &&
+        !status.available
     val label = stringResource(when {
-        status?.available == true -> labels[1]
-        status?.candidate != null -> labels[2]
-        else -> labels[0]
+        like -> R.string.social_like
+        status?.available == true -> R.string.social_reposted
+        status?.candidate != null -> R.string.social_retry_repost
+        else -> R.string.social_repost
     })
-    val countLabel = count?.let { pluralStringResource(labels[3], if (it == 1L) 1 else 2, it) }
+    val countLabel = count?.let {
+        pluralStringResource(if (like) R.plurals.social_like_count else R.plurals.social_repost_count,
+            if (it == 1L) 1 else 2, it)
+    }
     val description = stringResource(if (kind == RedSquareActionKind.LIKE)
         R.string.post_like_for else R.string.post_repost_for, author)
-    val retrying = status?.candidate != null && !status.available
+    val retrying = !like && status?.candidate != null && !status.available
     SocialControl(label, if (kind == RedSquareActionKind.LIKE) R.drawable.ic_like else R.drawable.ic_repost,
         if (retrying) stringResource(R.string.post_retry_action, description) else description,
-        countLabel, enabled, status?.available == true,
-        listOfNotNull(if (status?.available == true) label else null, likeAgain).joinToString(". ").ifEmpty { null }) {
+        countLabel, enabled, available = !like && status?.available == true,
+        stateHint = if (like) null else status?.let { if (it.available) label else null },
+        iconScale = iconScale.value) {
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
@@ -103,11 +110,9 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
 @Composable
 private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSquareActionKind, author: String) {
     val status = state?.actions?.get(PostActionKey(post.id, kind))
-    val action = stringResource(if (kind == RedSquareActionKind.LIKE) R.string.social_like else R.string.social_repost)
-    val blocked = status?.blockedBy
+    val action = stringResource(R.string.social_repost)
     val pending = status?.candidate != null && !status.available
     val summary = when {
-        blocked != null -> stringResource(R.string.social_pending_elsewhere, blocked.domain)
         status?.busy == true -> stringResource(R.string.social_in_progress, action)
         pending -> stringResource(R.string.social_action_pending, action)
         status?.countsUnavailable == true -> stringResource(R.string.social_action_counts_unavailable, action)
@@ -115,8 +120,7 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
         else -> null
     }
     val details = buildList {
-        add(stringResource(if (kind == RedSquareActionKind.LIKE) R.string.post_like_for else R.string.post_repost_for, author))
-        if (blocked != null) add(stringResource(R.string.social_like_other_node, blocked.domain))
+        add(stringResource(R.string.post_repost_for, author))
         if (pending) add(stringResource(R.string.social_pending))
         if (status?.countsUnavailable == true) add(stringResource(R.string.social_counts_unavailable))
         if (status?.failed == true) add(stringResource(R.string.social_error))
@@ -133,7 +137,8 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 /** The count shares its action's visual target and accessibility state. Missing counts stay absent. */
 @Composable
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
-    enabled: Boolean, available: Boolean = false, stateHint: String? = null, onClick: () -> Unit) {
+    enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
+    onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
     val color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
@@ -146,7 +151,10 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Icon(painterResource(icon), contentDescription = null, modifier = Modifier.size(20.dp))
+                Icon(painterResource(icon), contentDescription = null, modifier = Modifier.size(20.dp).graphicsLayer {
+                    scaleX = iconScale
+                    scaleY = iconScale
+                })
                 Text(label, style = MaterialTheme.typography.labelMedium)
             }
             Box(Modifier.heightIn(min = countHeight)) {

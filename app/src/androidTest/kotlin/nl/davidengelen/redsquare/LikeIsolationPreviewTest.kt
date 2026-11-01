@@ -13,9 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.Base64
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
 
 class LikeIsolationPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -30,7 +27,7 @@ class LikeIsolationPreviewTest {
             it.name.startsWith("conversation.") || it.name.startsWith("profile.") }?.forEach { check(it.delete()) }
     }
 
-    @Test fun capCoversDifferentPostsButEachWalletKeepsItsOwnWindow() {
+    @Test fun repeatedTapsAcrossPostsAndWalletsEachSendToTheSelectedNode() {
         val extra = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-scroll-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonArray("initialRows")[0].asJsonObject }
         val extraText = RedSquareFeed.readTarget("[$extra]", extra.get("sig").asString).posts.single().text
@@ -38,22 +35,21 @@ class LikeIsolationPreviewTest {
         node.peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                .putExtra("socialLikeElapsedMillis", 10_000L)
-            withActivity(intent, "wallet-window-initial") {
+            withActivity(intent, "repeat-posts-and-wallets") {
                 ui.clickVisiblePostContent("Native Red Square reference post")
                 waitFor("Conversation")
                 ui.clickVisiblePostContent("Like")
-                waitFor("5 likes")
-                ui.clickVisiblePostContent("Liked")
-                waitFor("6 likes")
+                ui.clickVisiblePostContent("Like")
+                ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
+                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNodeWithText("4 likes").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
                 waitFor("New post")
                 ui.clickVisiblePostContent(extraText)
                 waitFor("Conversation")
                 ui.clickVisiblePostContent("Like")
-                waitFor("Two likes per second. Try again in a moment.")
-                assertEquals(2, node.peer.transactions.size)
-                captureFeedEvidence("like-isolation-evidence/another-post-shares-cap.png")
+                ui.waitUntil(20_000) { node.peer.transactions.size == 3 }
+                captureFeedEvidence("like-isolation-evidence/repeated-post-actions.png")
             }
             val wallets = AndroidWalletStore(context)
             val original = wallets.loadExisting()
@@ -61,30 +57,31 @@ class LikeIsolationPreviewTest {
             var primary: Throwable? = null
             try {
                 wallets.replace(original, other)
-                withActivity(intent, "other-wallet-has-own-window") {
+                withActivity(intent, "other-wallet-like") {
                     ui.clickVisiblePostContent("Native Red Square reference post")
                     waitFor("Conversation")
                     ui.clickVisiblePostContent("Like")
-                    waitFor("7 likes")
-                    assertEquals(3, node.peer.transactions.size)
+                    ui.waitUntil(20_000) { node.peer.transactions.size == 4 }
                     captureFeedEvidence("like-isolation-evidence/other-wallet-new-like.png")
                 }
                 wallets.replace(wallets.loadExisting(), original)
-                withActivity(intent, "original-window-retained") {
+                withActivity(intent, "original-wallet-like") {
                     ui.clickVisiblePostContent("Native Red Square reference post")
                     waitFor("Conversation")
-                    ui.clickVisiblePostContent("Liked")
-                    waitFor("Two likes per second. Try again in a moment.")
-                    assertEquals(3, node.peer.transactions.size)
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { node.peer.transactions.size == 5 }
                     val actions = node.peer.transactions.map(::postingTransaction).map { SaitoEnvelope.decode(it.envelope()) }
-                    assertEquals(listOf(original.publicKey, original.publicKey, other.publicKey), actions.map { it.author })
-                    assertEquals(3, actions.map { it.id }.toSet().size)
+                    assertEquals(listOf(original.publicKey, original.publicKey, original.publicKey,
+                        other.publicKey, original.publicKey), actions.map { it.author })
+                    assertEquals(5, actions.map { it.id }.toSet().size)
+                    assertEquals(listOf(rootSignature(), rootSignature(), extra.get("sig").asString,
+                        rootSignature(), rootSignature()), actions.map { it.body.getAsJsonObject("data").get("signature").asString })
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(original.publicKey, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
                     node.peer.assertHealthy()
-                    captureFeedEvidence("like-isolation-evidence/original-wallet-still-capped.png")
-                    retainFrames(node.peer, "wallet-window")
+                    captureFeedEvidence("like-isolation-evidence/original-wallet-remains-unlimited.png")
+                    retainFrames(node.peer, "repeated-wallet-posts")
                 }
             } catch (failure: Throwable) { primary = failure; throw failure }
             finally {
@@ -92,52 +89,40 @@ class LikeIsolationPreviewTest {
                     val current = wallets.loadExisting()
                     check(current.publicKey in setOf(original.publicKey, other.publicKey))
                     if (current.exportJson() != original.exportJson()) wallets.replace(current, original)
-                    assertTrue("Like rate fixture must restore its captured wallet",
+                    assertTrue("Like fixture must restore its captured wallet",
                         wallets.loadExisting().exportJson() == original.exportJson())
                 })
             }
         }
     }
 
-    @Test fun olderCountFailureCannotReplaceTheNewerUncertainCandidate() {
-        val firstCount = AtomicBoolean(true)
-        val secondSeen = CountDownLatch(1)
-        lateinit var node: PostLikePeer
-        node = PostLikePeer(afterLike = { count ->
-            if (count == 2) { node.peer.disconnectAfterTransaction = true; secondSeen.countDown() }
-        }, countsResponse = { response ->
-            if (firstCount.compareAndSet(true, false)) {
-                check(secondSeen.await(5, TimeUnit.SECONDS)) { "Second deliberate like did not arrive" }
-                "not an archive response"
-            } else response
-        })
+    @Test fun aNewTapSendsAnotherDistinctLikeWithoutWaitingForTheFirstReadback() {
+        val node = PostLikePeer()
         node.peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
-                .putExtra("socialLikeElapsedMillis", 10_000L)
-            withActivity(intent, "late-count-failure") {
+            withActivity(intent, "repeat-with-unavailable-confirmation") {
                 waitFor("4 likes")
                 ui.clickVisiblePostContent("Like")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Liked") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                ui.clickVisiblePostContent("Liked")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled())
-                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
+                ui.waitUntil(20_000) { node.peer.transactions.size == 1 }
+                ui.clickVisiblePostContent("Like")
+                ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
+                val ids = node.peer.transactions.map(::postingTransaction).map { it.id }
+                assertEquals(2, ids.distinct().size)
+                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNodeWithText("4 likes").assertIsDisplayed()
+                ui.onNodeWithText("Liked").assertDoesNotExist()
+                ui.onNodeWithText("Like pending").assertDoesNotExist()
                 assertEquals(2, node.peer.transactions.size)
-                val second = postingTransaction(node.peer.transactions[1]).id
-                captureFeedEvidence("like-isolation-evidence/newer-pending-after-old-count-failure.png")
-                node.peer.disconnectAfterTransaction = false
-                ui.clickVisiblePostContent("Retry like")
-                waitFor("6 likes")
-                ui.onNodeWithText("Retry like").assertDoesNotExist()
-                assertEquals(2, node.peer.transactions.size)
-                assertTrue("Retry must check the newer original candidate", node.likeQueries.count { it == second } >= 2)
                 node.peer.assertHealthy()
-                captureFeedEvidence("like-isolation-evidence/newer-original-reconciled-without-rebroadcast.png")
-                retainFrames(node.peer, "late-count")
+                captureFeedEvidence("like-isolation-evidence/repeated-like-before-confirmation.png")
+                retainFrames(node.peer, "repeated-before-confirmation")
             }
         }
     }
+
+    private fun rootSignature() = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
+        .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow").get("sig").asString }
 
     private fun withActivity(intent: Intent, journey: String, block: () -> Unit) {
         ActivityScenario.launch<MainActivity>(intent).use {

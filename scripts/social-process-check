@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kill a real uncertain send and verify cold reconciliation without a new like."""
+"""Kill the app after Like sends and verify another tap works after cold restart."""
 import argparse
 import json
 from pathlib import Path
@@ -8,13 +8,13 @@ import subprocess
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--evidence", type=Path, required=True)
-parser.add_argument("--repeat", action="store_true", help="Recover the uncertain second deliberate like")
+parser.add_argument("--repeat", action="store_true", help="Verify repeated Likes across process death")
 args = parser.parse_args()
 package = "nl.davidengelen.redsquare.dev"
 runner = package + ".test/androidx.test.runner.AndroidJUnitRunner"
 test_class = "nl.davidengelen.redsquare." + ("RepeatLikeProcessRecoveryTest" if args.repeat else "SocialProcessRecoveryTest")
-prepare_method = "terminateAfterASettledThenUncertainSecondLike" if args.repeat else "terminateAfterAnUncertainLike"
-recover_method = "coldStartupReconcilesSecondLikeWithoutCreatingThird" if args.repeat else "coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting"
+prepare_method = "terminateAfterTwoSentLikes" if args.repeat else "terminateAfterSentLike"
+recover_method = "coldStartupAllowsAnotherLikeWithoutWaitingForTheEarlierConfirmation" if args.repeat else "coldStartupAllowsAnotherLikeWithoutConfirmationUi"
 evidence_folder = "repeat-social-process-evidence" if args.repeat else "social-process-evidence"
 
 
@@ -51,10 +51,19 @@ try:
     (args.evidence / "recovered-instrumentation.txt").write_text(recovered.stdout)
     if "OK (1 test)" not in recovered.stdout:
         raise AssertionError("Cold social action reconciliation did not pass")
-    with (args.evidence / "reconciled-without-rebroadcast.png").open("wb") as output:
+    image_name = "new-like-after-restart.png" if args.repeat else "another-like-after-restart.png"
+    with (args.evidence / image_name).open("wb") as output:
         subprocess.run(["adb", "exec-out", "run-as", package, "cat",
-                        "cache/" + evidence_folder + "/reconciled-without-rebroadcast.png"],
+                        "cache/" + evidence_folder + "/" + image_name],
                        stdout=output, check=True, timeout=60)
+    new_like_filename = "recovery-like-id.txt" if args.repeat else "next-like-id.txt"
+    new_like_id = adb("exec-out", "run-as", package, "cat",
+                      "cache/" + evidence_folder + "/" + new_like_filename).stdout.strip()
+    earlier_ids = {row["sig"]}
+    if args.repeat:
+        earlier_ids.add(row["previousSig"])
+    if not re.fullmatch(r"[0-9a-f]{128}", new_like_id) or new_like_id in earlier_ids:
+        raise AssertionError("A post-restart tap must send a new distinct Like")
     if args.repeat:
         recovered_pid = int(adb("exec-out", "run-as", package, "cat",
                                 "cache/" + evidence_folder + "/recovery-pid.txt").stdout.strip())
@@ -62,12 +71,13 @@ try:
             raise AssertionError("Repeat reconciliation must run in a distinct actual process")
         (args.evidence / "process-identities.json").write_text(json.dumps({
             "interruptedPid": row["pid"], "recoveredPid": recovered_pid,
-            "previousSig": row["previousSig"], "reconciledSig": row["sig"]}, indent=2) + "\n")
+            "previousSig": row["previousSig"], "lastBeforeRestart": row["sig"],
+            "firstAfterRestart": new_like_id}, indent=2) + "\n")
     (args.evidence / "continuity.txt").write_text(
-        "PASS: process death after uncertain send; cold app startup retains the original "
-        "signed candidate, checks exact verified availability, and does not rebroadcast.\n"
-        + row["field2"] + "\n" + row["sig"] + "\n")
-    print("PASS: social action process interruption and cold reconciliation")
+        "PASS: process death after immediate Like dispatch; cold startup keeps the same wallet "
+        "and accepts another distinct Like without waiting for archive confirmation.\n"
+        + row["field2"] + "\n" + row["sig"] + "\n" + new_like_id + "\n")
+    print("PASS: immediate repeated Like behavior across process interruption")
 finally:
     # Diagnostic capture must preserve any failed preparation/reconciliation assertion.
     try:

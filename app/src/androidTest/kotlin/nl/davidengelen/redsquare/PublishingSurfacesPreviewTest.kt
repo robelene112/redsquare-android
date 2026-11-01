@@ -370,8 +370,10 @@ class PublishingSurfacesPreviewTest {
                         waitFor("Agreement saved. New content stays unsent. Queued messages may resume.")
                         assertTrue("Agreement is separate from Like", peer.transactions.isEmpty())
                         ui.clickVisiblePostContent("Like")
-                        waitFor("Liked")
+                        ui.waitUntil(20_000) { peer.transactions.size == 1 }
                         assertEquals(1, peer.transactions.size)
+                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNodeWithText("Liked").assertDoesNotExist()
                         assertTrue(originalWallet == AndroidWalletStore(context).loadExisting().exportJson())
                         assertEquals(SaitoBackend.OWNER, AndroidBackendStore(context).load())
                         capture("like-deliberately-published-after-agreement.png")

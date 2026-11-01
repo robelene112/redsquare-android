@@ -281,10 +281,11 @@ consolidated from three independent whole-app audits, plus the requested
 [Node wording56](https://github.com/robelene112/redsquare-android/issues/56) and
 [repeat-like behavior57](https://github.com/robelene112/redsquare-android/issues/57).
 The owner authorized implementing the complete backlog without routine stops.
-The chosen local rate for57 is two new intentional likes per rolling second per
-active wallet, shared across post surfaces and node choices. This is app input
-policy, not a protocol rule. An uncertain like retries/reconciles its retained
-candidate before a later fresh like can be created; see the decision comment in57.
+On2026-11-01 the owner superseded57's local two-Likes-per-second cap. Like
+controls now accept repeated taps immediately, without waiting for archive
+confirmation or showing Like pending/failure UI. Each tap sends a distinct
+signed action to the selected backend; node-served counts remain authoritative.
+Issue71 owns this updated behavior and its controlled-peer verification.
 Use the linked child issues and genuine tracker dependencies for sequential work.
 The shared content-first frame58 is the first major UI slice. Rendered walkthroughs,
 accessibility/motion checks and owner review of the signed result are required

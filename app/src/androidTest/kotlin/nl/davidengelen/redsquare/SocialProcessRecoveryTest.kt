@@ -12,13 +12,14 @@ import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
 import java.util.concurrent.atomic.AtomicReference
 
-/** The host runs these phases in separate processes. All captured data is public. */
+/** The host proves Like send feedback and repeat input across separate processes. */
 class SocialProcessRecoveryTest {
     @get:Rule val ui = createEmptyComposeRule()
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -39,7 +40,7 @@ class SocialProcessRecoveryTest {
         ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()
     }
 
-    @Test fun terminateAfterAnUncertainLike() {
+    @Test fun terminateAfterSentLike() {
         prepare()
         context.noBackupFilesDir.listFiles()?.filter {
             it.name.startsWith("social.") || it.name.startsWith("socialrate.") || it.name.startsWith("feed.") ||
@@ -75,9 +76,9 @@ class SocialProcessRecoveryTest {
                 ui.onNode(hasScrollAction()).performScrollToNode(hasText("Like"))
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNodeWithText("Like").assertIsDisplayed().performClick()
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Retry like"))
-                ui.onNodeWithText("Retry like").assertIsDisplayed()
+                ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNodeWithText("Liked").assertDoesNotExist()
                 assertEquals(1, peer.transactions.size)
                 peer.assertHealthy()
                 checkpoint.outputStream().use { output ->
@@ -92,14 +93,11 @@ class SocialProcessRecoveryTest {
         }
     }
 
-    @Test fun coldStartupReconcilesTheOriginalLikeWithoutRebroadcasting() {
+    @Test fun coldStartupAllowsAnotherLikeWithoutConfirmationUi() {
         prepare()
         val row = JsonParser.parseString(checkpoint.readText()).asJsonObject
-        val peer = ControlledFeedPeer("[${root()}]", archiveResponse = { criteria ->
-            if (criteria.get("field1").asString == "RedSquareLike") {
-                if (criteria.get("sig").asString == row.get("sig").asString) "[$row]" else "[]"
-            } else "[${root()}]"
-        })
+        val node = PostLikePeer()
+        val peer = node.peer
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
@@ -108,14 +106,21 @@ class SocialProcessRecoveryTest {
                 assertEquals(row.get("field2").asString, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
                 waitFor("Native Red Square reference post")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 assertTrue(peer.transactions.isEmpty())
-                ui.onNode(hasScrollAction()).performScrollToNode(hasText("Retry like"))
-                ui.onNodeWithText("Retry like").assertIsDisplayed().performClick()
-                waitFor("Liked")
-                assertTrue(peer.transactions.isEmpty())
+                ui.clickVisiblePostContent("Like")
+                ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                val next = postingTransaction(peer.transactions.single()).id
+                assertNotEquals(row.get("sig").asString, next)
+                assertTrue("Like does not poll for archive confirmation", node.likeQueries.isEmpty())
+                ui.onNodeWithText("Like").assertIsEnabled()
+                ui.onNodeWithText("Like pending").assertDoesNotExist()
+                File(context.cacheDir, "social-process-evidence/next-like-id.txt").apply {
+                    parentFile?.mkdirs()
+                    writeText(next)
+                }
                 peer.assertHealthy()
-                captureFeedEvidence("social-process-evidence/reconciled-without-rebroadcast.png")
+                captureFeedEvidence("social-process-evidence/another-like-after-restart.png")
             }
         }
     }

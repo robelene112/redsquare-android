@@ -30,11 +30,11 @@ class LikeWalletImportPreviewTest {
         AndroidBackendStore(context).save(SaitoBackend.OWNER)
     }
 
-    @Test fun uncertainSocialLikeIsDisclosedBeforeReplacingItsWallet() {
+    @Test fun unsentSocialLikeIsDisclosedBeforeReplacingItsWallet() {
         previewLike(pending = true)
     }
 
-    @Test fun settledLikeAndRateReceiptsAloneDoNotInventPendingWork() {
+    @Test fun sentLikeAloneDoesNotInventPendingWork() {
         previewLike(pending = false)
     }
 
@@ -55,7 +55,7 @@ class LikeWalletImportPreviewTest {
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         check(device.executeShellCommand("run-as nl.davidengelen.redsquare.dev.test stat -c %s files/wallet-test-documents/$filename")
             .trim().toLongOrNull()?.let { it > 0 } == true) { "Social import fixture was not provisioned" }
-        val peer = PostLikePeer().peer.apply { disconnectAfterTransaction = pending }
+        val peer = PostLikePeer().peer
         var primaryFailure: Throwable? = null
         try {
             store.replace(original, isolated)
@@ -73,12 +73,18 @@ class LikeWalletImportPreviewTest {
                             waitFor("4 likes")
                             ui.clickVisiblePostContent("Native Red Square reference post")
                             waitFor("Conversation")
+                            if (pending) peer.rejectNewConnections = true
                             ui.clickVisiblePostContent("Like")
                             if (pending) {
-                                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled())
-                                    .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
-                            } else waitFor("5 likes")
-                            assertEquals(1, peer.transactions.size)
+                                Thread.sleep(500)
+                                ui.onNodeWithText("Like").assertIsEnabled()
+                                ui.onNodeWithText("Like pending").assertDoesNotExist()
+                                assertTrue(peer.transactions.isEmpty())
+                                peer.rejectNewConnections = false
+                            } else {
+                                ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                                assertEquals(1, peer.transactions.size)
+                            }
                             ui.onNodeWithText("Wallet").performClick()
                             assertEquals(isolated.publicKey, displayedWalletAddress(ui))
                             ui.onNodeWithText("Import wallet").performScrollTo().performClick()

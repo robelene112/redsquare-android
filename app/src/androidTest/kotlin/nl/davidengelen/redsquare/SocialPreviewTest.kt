@@ -11,6 +11,7 @@ import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
+import nl.davidengelen.redsquare.saito.SaitoTransaction
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,7 +20,6 @@ import java.util.Base64
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.atomic.AtomicReference
 
 class SocialPreviewTest {
@@ -140,57 +140,11 @@ class SocialPreviewTest {
         }
     }
 
-    @Test fun uncertainLikeRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast() {
-        recoverUncertainAction("like tweet", "RedSquareLike", "Like", "Retry like", "Liked")
-    }
-
-    @Test fun unavailableFreshCountsDoNotTurnAVerifiedLikeIntoAnImpossibleRetry() {
-        val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
-            .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
-        val indexed = AtomicReference<JsonObject?>()
-        val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
-            val candidate = postingTransaction(frame)
-            val action = SaitoEnvelope.decode(candidate.envelope())
-            indexed.set(JsonObject().apply {
-                addProperty("sig", action.id); addProperty("field1", "RedSquareLike")
-                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
-                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
-            })
-        }, archiveResponse = { criteria ->
-            when {
-                criteria.get("field1").asString == "RedSquareLike" -> indexed.get()?.let { "[$it]" } ?: "[]"
-                criteria.has("sig") -> "not an archive response"
-                else -> "[$root]"
-            }
-        })
-        peer.start().use { server ->
-            ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
-                .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")).use {
-                try {
-                    waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.clickVisiblePostContent("Like")
-                    waitFor("Liked")
-                    waitFor("Like counts unavailable")
-                    assertActionDetails("Like counts unavailable", "Could not refresh counts. Refresh this view to try again.")
-                    ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.").assertDoesNotExist()
-                    ui.onNodeWithText("Liked").assertIsEnabled()
-                    assertEquals(1, peer.transactions.size)
-                    peer.assertHealthy()
-                    captureFeedEvidence("social-evidence/verified-like-count-refresh-warning.png")
-                } catch (failure: Throwable) {
-                    captureFeedEvidence("social-evidence/count-refresh-failure.png")
-                    throw failure
-                }
-            }
-        }
-    }
-
     @Test fun uncertainRepostRetryAfterReopeningChecksTheOriginalActionWithoutRebroadcast() {
         recoverUncertainAction("retweet", "RedSquareRetweet", "Repost", "Retry repost", "Reposted")
     }
 
-    @Test fun replacingTheWalletHidesItsPendingLikeAndRestoringItRecoversTheOriginal() {
+    @Test fun replacingTheWalletKeepsSentLikeIdentityIsolatedAndAllowsANewTapAfterRestore() {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val indexed = AtomicReference<JsonObject?>()
@@ -204,25 +158,27 @@ class SocialPreviewTest {
             })
         }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") indexed.get()?.let { "[$it]" } ?: "[]" else "[$root]"
-        }).apply { disconnectAfterTransaction = true }
+        })
         peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java).putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             val store = AndroidWalletStore(context)
+            var firstAction: SaitoTransaction? = null
             ActivityScenario.launch<MainActivity>(intent).use {
                 waitFor("Native Red Square reference post")
                 ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                 ui.clickVisiblePostContent("Like")
-                ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                ui.waitUntil(20_000) { peer.transactions.size == 1 }
+                firstAction = postingTransaction(peer.transactions.single())
+                ui.onNodeWithText("Like").assertIsEnabled()
             }
             val original = store.loadExisting()
             val replacement = nl.davidengelen.redsquare.saito.SaitoWallet.create()
             try {
                 store.replace(original, replacement)
-                peer.disconnectAfterTransaction = false
                 ActivityScenario.launch<MainActivity>(intent).use {
                     waitFor("Native Red Square reference post")
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Retry like").assertDoesNotExist()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(replacement.publicKey, displayedWalletAddress(ui))
                     assertEquals(1, peer.transactions.size)
@@ -230,13 +186,15 @@ class SocialPreviewTest {
                 store.replace(store.loadExisting(), original)
                 ActivityScenario.launch<MainActivity>(intent).use {
                     waitFor("Native Red Square reference post")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.clickVisiblePostContent("Retry like")
-                    waitFor("Liked")
-                    assertEquals(1, peer.transactions.size)
+                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { peer.transactions.size == 2 }
+                    val secondAction = postingTransaction(peer.transactions.last())
+                    assertNotEquals("A new tap uses a new signed action", requireNotNull(firstAction).id, secondAction.id)
                     assertEquals(original.publicKey, indexed.get()!!.get("field2").asString)
+                    ui.onNodeWithText("Like").assertIsEnabled()
                     peer.assertHealthy()
-                    captureFeedEvidence("social-evidence/restored-wallet-original-like.png")
+                    captureFeedEvidence("social-evidence/restored-wallet-can-like-again.png")
                 }
             } finally {
                 val current = store.loadExisting()
@@ -308,7 +266,7 @@ class SocialPreviewTest {
         }
     }
 
-    @Test fun failedSavingPreventsTransmissionAndRepairedRetryKeepsTheOriginalWallet() {
+    @Test fun failedSavingStaysOutOfTheUiAndTheNextTapSendsAfterStorageIsRepaired() {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val indexed = AtomicReference<JsonObject?>()
@@ -337,25 +295,15 @@ class SocialPreviewTest {
                 try {
                     withFailureCapture({ captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-failure.png")) }) {
                         ui.clickVisiblePostContent("Like")
-                        waitFor("Like unavailable")
+                        SystemClock.sleep(500)
                         assertTrue(peer.transactions.isEmpty())
-                        captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-summary.png"))
-                        val details = hasContentDescription("Details: Like unavailable") and hasClickAction()
-                        ui.onNode(hasScrollAction()).performScrollToNode(details)
-                        ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
-                        ui.onNodeWithText("Like post by Anon-jesTu2").assertIsDisplayed()
-                        ui.onNodeWithText("Could not finish this action. Retry checks the original action before sending it again.")
-                            .assertIsDisplayed()
-                        assertTrue("Opening action details must not transmit", peer.transactions.isEmpty())
-                        captureNativeScreen(java.io.File(context.cacheDir, "social-evidence/action-status-details.png"))
-                        ui.onNodeWithText("Done").performClick()
+                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNodeWithText("Like pending").assertDoesNotExist()
+                        ui.onNodeWithText("Like unavailable").assertDoesNotExist()
                     }
                 } finally { check(obstacle.delete()); check(blocked.delete()) }
-                // Authoritative unreadable storage prevents signing before any save attempt.
-                // Reload after repair rather than assuming an absent prior operation.
-                ui.clickVisiblePostContent("Retry")
                 ui.clickVisiblePostContent("Like")
-                waitFor("Liked")
+                ui.waitUntil(20_000) { peer.transactions.size == 1 }
                 assertEquals(1, peer.transactions.size)
                 val action = SaitoEnvelope.decode(postingTransaction(peer.transactions.single()).envelope())
                 assertEquals(author, action.author)
@@ -366,7 +314,7 @@ class SocialPreviewTest {
         }
     }
 
-    @Test fun pendingLikeStaysOnItsOriginalBackendAndDoesNotFollowAServerSwitch() {
+    @Test fun likesUseTheSelectedBackendAndAnUnsentCandidateStaysWithItsOrigin() {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         val indexed = AtomicReference<JsonObject?>()
@@ -394,19 +342,21 @@ class SocialPreviewTest {
                     ui.waitUntil(20_000) { ui.onAllNodes(hasText("Like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
                     firstOwner.close()
                     ui.clickVisiblePostContent("Like")
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
+                    SystemClock.sleep(500)
+                    assertTrue(owner.transactions.isEmpty())
+                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("Node").performScrollTo().performClick()
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
                     waitFor("Native Red Square reference post")
-                    waitFor("Like pending on saito.davidengelen.nl")
-                    assertActionDetails("Like pending on saito.davidengelen.nl",
-                        "A like is pending on saito.davidengelen.nl. Switch nodes in Settings to retry.")
-                    ui.onNodeWithText("Like").assertIsNotEnabled()
-                    ui.onNodeWithText("Retry like").assertDoesNotExist()
-                    assertTrue(official.transactions.isEmpty())
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { official.transactions.size == 1 }
+                    ui.onNodeWithText("Like").assertIsEnabled()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
+                    assertEquals(1, official.transactions.size)
                     assertTrue(owner.transactions.isEmpty())
                     owner.start(originalPort).use {
                         ui.onNodeWithText("Settings").performClick()
@@ -414,23 +364,24 @@ class SocialPreviewTest {
                         waitFor("saito.davidengelen.nl")
                         ui.onNodeWithText("saito.davidengelen.nl").performScrollTo().performClick()
                         waitFor("Node: saito.davidengelen.nl")
-                        ui.waitUntil(20_000) { ui.onAllNodes(hasText("Retry like") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                        ui.clickVisiblePostContent("Retry like")
-                        waitFor("Liked")
-                        assertEquals(1, owner.transactions.size)
-                        assertTrue(official.transactions.isEmpty())
+                        waitFor("Native Red Square reference post")
+                        ui.clickVisiblePostContent("Like")
+                        ui.waitUntil(20_000) { owner.transactions.size == 2 }
+                        assertEquals(1, official.transactions.size)
+                        val ownerIds = owner.transactions.map(::postingTransaction).map { it.id }
+                        assertEquals(2, ownerIds.distinct().size)
+                        ui.onNodeWithText("Like").assertIsEnabled()
+                        ui.onNodeWithText("Like pending").assertDoesNotExist()
                         owner.assertHealthy(); official.assertHealthy()
-                        captureFeedEvidence("social-evidence/pending-like-retains-original-backend.png")
+                        captureFeedEvidence("social-evidence/backend-like-attempts-stay-local.png")
                     }
                 }
             }
         } finally { firstOwner.close() }
     }
 
-    private fun assertVisibleProfileLike(count: String) {
-        ui.onNode(hasScrollAction()).performScrollToNode(hasText("Liked"))
-        ui.onNodeWithText("Liked").assertIsDisplayed()
-        ui.onNodeWithText(count).assertIsDisplayed()
+    private fun waitFor(text: String) {
+        ui.waitUntil(20_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 
     private fun assertActionDetails(summary: String, explanation: String) {
@@ -439,9 +390,5 @@ class SocialPreviewTest {
         ui.onNode(details).assertIsDisplayed().assertIsEnabled().performClick()
         ui.onNodeWithText(explanation).assertIsDisplayed()
         ui.onNodeWithText("Done").performClick()
-    }
-
-    private fun waitFor(text: String) {
-        ui.waitUntil(20_000) { ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }
     }
 }
