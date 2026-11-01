@@ -1,7 +1,6 @@
 package nl.davidengelen.redsquare
 
 import android.content.Intent
-import android.os.SystemClock
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
@@ -66,7 +65,7 @@ class RepeatLikePreviewTest {
                 waitFor("4 likes")
                 peer.withholdHandshakeReplies = true
                 try {
-                    val startedAt = SystemClock.elapsedRealtime()
+                    val startedAt = ui.mainClock.currentTime
                     ui.onNode(likePostAction()).performTouchInput {
                         repeat(3) {
                             click()
@@ -75,7 +74,7 @@ class RepeatLikePreviewTest {
                     }
                     ui.waitUntil(500) { ui.onNodeWithText("7 likes").isDisplayed() }
                     assertTrue("Three rapid Likes update the visible count within 500 ms",
-                        SystemClock.elapsedRealtime() - startedAt <= 500)
+                        ui.mainClock.currentTime - startedAt <= 500)
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
                     ui.onNode(likePostAction()).assertIsEnabled()
                     assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
