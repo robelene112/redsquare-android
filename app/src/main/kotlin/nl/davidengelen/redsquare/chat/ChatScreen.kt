@@ -37,6 +37,7 @@ import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.feed.ProfileIdentityDialog
 import nl.davidengelen.redsquare.saito.*
 
 /** Private Chat has its own navigation and verified history, sharing only the active Saito foundation. */
@@ -71,6 +72,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     var contactsFailed by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var contactsReady by remember(wallet.publicKey, backend) { mutableStateOf(false) }
     var counterparty by remember(wallet.publicKey, backend) { mutableStateOf(initialContact) }
+    var identityAuthor by remember(wallet.publicKey, backend) { mutableStateOf<String?>(null) }
     fun openContact(address: String) {
         if (savingContact || personal?.ready != true || navigation.transitioning) return
         savingContact = true
@@ -451,16 +453,16 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
                                 val likedBy = reactions.saved.likedBy(message)
                                 ChatMessageBubble(message.author, message.text, message.createdAt, outgoing, backend=backend,
                                     actions = {
-                                    ChatMessageActions(wallet.publicKey in likedBy,
-                                        canLike = personal?.ready == true && reactions.editable,
-                                        canReply = replies.replyTo != null && replyPrefix != null,
-                                        onLike = { reactions.toggle(message, publishing::beforePublishing) },
-                                        onReply = { replies.replyTo?.invoke(message) },
-                                        onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
-                                }) { reference ->
+                                        ChatMessageActions(wallet.publicKey in likedBy,
+                                            canLike = personal?.ready == true && reactions.editable,
+                                            canReply = replies.replyTo != null && replyPrefix != null,
+                                            onLike = { reactions.toggle(message, publishing::beforePublishing) },
+                                            onReply = { replies.replyTo?.invoke(message) },
+                                            onCopy = { copyFailed = !copyPrivateMessage(context, message.text) })
+                                    }, onQuote = { reference ->
                                     val index = visible.indexOfFirst { it.author + it.createdAt == reference }
                                     if (index >= 0) showMessage(index)
-                                }
+                                }, onIdentity = { identityAuthor = it })
                                 if (likedBy.isNotEmpty()) Text(pluralStringResource(R.plurals.chat_likes, likedBy.size, likedBy.size))
                                 if (copyFailed) Text(stringResource(R.string.chat_copy_error))
                             }
@@ -477,6 +479,7 @@ internal fun ChatScreen(wallet: SaitoWallet, endpoint: String, backend: SaitoBac
     }
     if (addingContact && counterparty == null) ChatPublicKeyDialog(wallet.publicKey, ChatKeyPurpose.PRIVATE, savingContact, contactFailed,
         onDismiss = { if (!savingContact) { addingContact = false; contactFailed = false } }, onConfirm = ::openContact)
+    identityAuthor?.let { author -> ProfileIdentityDialog(author) { identityAuthor = null } }
 }
 
 private data class PrivateHistoryPage(val messages: List<ReceivedPrivateChat>,

@@ -11,10 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import nl.davidengelen.redsquare.feed.GeneratedProfilePicture
@@ -29,7 +31,7 @@ import java.util.Locale
 @Composable
 internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, outgoing: Boolean,
     backend: SaitoBackend, selectable: Boolean = false, actions: (@Composable () -> Unit)? = null,
-    onQuote: (String) -> Unit) {
+    onQuote: (String) -> Unit, onIdentity: ((String) -> Unit)? = null) {
     Surface(Modifier.fillMaxWidth(0.94f), shape = RoundedCornerShape(
         topStart = 16.dp, topEnd = 16.dp,
         bottomStart = if (outgoing) 16.dp else 4.dp,
@@ -38,7 +40,15 @@ internal fun ChatMessageBubble(author: String, text: String, createdAt: Long, ou
         contentColor = if (outgoing) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(registeredIdentity(author).name, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium)
+                val identity = registeredIdentity(author).name
+                if (onIdentity == null) {
+                    Text(identity, Modifier.weight(1f), style = MaterialTheme.typography.labelMedium)
+                } else {
+                    val label = stringResource(R.string.chat_message_identity_for, identity)
+                    Text(identity, Modifier.weight(1f).heightIn(min = 48.dp)
+                        .clickable(role = Role.Button, onClickLabel = label) { onIdentity(author) }
+                        .semantics { contentDescription = label }, style = MaterialTheme.typography.labelMedium)
+                }
                 actions?.invoke()
             }
             if (selectable) SelectionContainer { PrivateMessageText(text, backend, onQuote) }
