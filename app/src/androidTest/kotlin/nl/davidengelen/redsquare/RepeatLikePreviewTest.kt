@@ -29,8 +29,9 @@ class RepeatLikePreviewTest {
             it.name.startsWith("profile.") }?.forEach { check(it.delete()) }
     }
 
-    @Test fun rapidLikesDispatchIndependentlyWithoutConfirmationOrLocalCountChanges() {
-        withLikes { peer, intent ->
+    @Test fun rapidLikesDispatchIndependentlyAndUpdateTheCountImmediately() {
+        val likeNode = PostLikePeer()
+        withLikes(likeNode) { peer, intent ->
             withLikeActivity(intent, "deliberate") {
                 waitFor("4 likes")
                 ui.clickVisiblePostContent("Like")
@@ -41,10 +42,14 @@ class RepeatLikePreviewTest {
                 val originals = peer.transactions.map(::postingTransaction)
                 assertEquals(3, originals.map { it.id }.distinct().size)
                 assertEquals(1, originals.map { SaitoEnvelope.decode(it.envelope()).author }.distinct().size)
+                ui.waitUntil(20_000) { likeNode.likeQueries.size >= 3 }
+                assertEquals("The backend fixture observes each exact Like signature",
+                    originals.map { it.id }.toSet(), likeNode.likeQueries.toSet())
                 ui.onNodeWithText("Unlike").assertDoesNotExist()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
                 ui.onNodeWithText("Like").assertIsEnabled()
-                ui.onNodeWithText("4 likes").assertIsDisplayed()
+                waitFor("7 likes")
+                ui.onNodeWithText("7 likes").assertIsDisplayed()
                 peer.assertHealthy()
                 captureFeedEvidence("repeat-like-evidence/three-sent-likes-no-confirmation.png")
                 retainFrames(peer, "deliberate")
@@ -61,8 +66,8 @@ class RepeatLikePreviewTest {
         }
     }
 
-    private fun withLikes(block: (ControlledFeedPeer, Intent) -> Unit) {
-        val peer = PostLikePeer().peer
+    private fun withLikes(likeNode: PostLikePeer = PostLikePeer(), block: (ControlledFeedPeer, Intent) -> Unit) {
+        val peer = likeNode.peer
         peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")

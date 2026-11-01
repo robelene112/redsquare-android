@@ -21,6 +21,7 @@ import java.net.InetAddress
 import java.net.ServerSocket
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.ConcurrentHashMap
 
 class SocialPreviewTest {
     @get:Rule val ui = createEmptyComposeRule()
@@ -44,7 +45,7 @@ class SocialPreviewTest {
             envelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":$count,\"num_retweets\":2}".toByteArray()))
             addProperty("tx", envelope.toString())
         }
-        val served = AtomicReference(countedRoot(4))
+        val indexedLikes = ConcurrentHashMap<String, JsonObject>()
         val likeArchiveReads = AtomicInteger()
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
@@ -53,11 +54,16 @@ class SocialPreviewTest {
             assertEquals("like tweet", action.body.get("request").asString)
             assertEquals(root.get("sig").asString, action.body.getAsJsonObject("data").get("signature").asString)
             assertEquals(listOf(action.author, root.get("field2").asString).distinct(), action.recipients)
+            indexedLikes[candidate.id] = JsonObject().apply {
+                addProperty("sig", candidate.id); addProperty("field1", "RedSquareLike")
+                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
+                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
+            }
         }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") {
                 likeArchiveReads.incrementAndGet()
-                "[]"
-            } else "[${served.get()}]"
+                indexedLikes[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]"
+            } else "[${countedRoot(4 + indexedLikes.size)}]"
         })
         peer.start().use { server ->
             ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
@@ -75,11 +81,13 @@ class SocialPreviewTest {
                     assertTrue(sent.all { SaitoEnvelope.decode(it.envelope()).body.getAsJsonObject("data")
                         .get("signature").asString == root.get("sig").asString })
                     ui.onNodeWithText("Like").assertIsDisplayed().assertIsEnabled()
-                    ui.onNodeWithText("4 likes").assertIsDisplayed()
+                    waitFor("7 likes")
+                    ui.onNodeWithText("7 likes").assertIsDisplayed()
                     ui.onNodeWithText("Liked").assertDoesNotExist()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
-                    assertEquals("Like dispatch must not poll for archive confirmation", 0, likeArchiveReads.get())
+                    ui.waitUntil(20_000) { likeArchiveReads.get() >= 3 }
+                    assertEquals("Each exact Like receipt is checked in the background", 3, likeArchiveReads.get())
                     peer.assertHealthy()
                     captureNativeScreen(java.io.File(context.cacheDir,
                         "social-evidence/repeated-like-without-confirmation.png"), "Like")

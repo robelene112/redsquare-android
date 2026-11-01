@@ -38,7 +38,14 @@ class PostPendingViewportTest {
         envelope.addProperty("opt", Base64.getEncoder().encodeToString("{\"num_likes\":4}".toByteArray()))
         row.addProperty("tx", envelope.toString())
         val receivedLikes = ConcurrentHashMap.newKeySet<String>()
+        val indexedLikes = ConcurrentHashMap<String, JsonObject>()
         val likeArchiveReads = AtomicInteger()
+        fun countedRow(): JsonObject = row.deepCopy().apply {
+            val tx = JsonParser.parseString(get("tx").asString).asJsonObject
+            tx.addProperty("opt", Base64.getEncoder().encodeToString(
+                "{\"num_likes\":${4 + indexedLikes.size}}".toByteArray()))
+            addProperty("tx", tx.toString())
+        }
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = RedSquareActions.decode(candidate.envelope())
@@ -47,15 +54,20 @@ class PostPendingViewportTest {
             assertEquals(RedSquareActionKind.LIKE, action.kind)
             assertEquals(listOf(wallet.publicKey, author.publicKey).distinct(), action.recipients)
             receivedLikes += action.id
+            indexedLikes[candidate.id] = JsonObject().apply {
+                addProperty("sig", candidate.id); addProperty("field1", "RedSquareLike")
+                addProperty("field2", action.author); addProperty("field4", action.target)
+                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
+            }
         }, archiveResponse = { criteria ->
             when {
                 criteria.get("field1").asString == "RedSquareLike" -> {
                     likeArchiveReads.incrementAndGet()
-                    "[]"
+                    indexedLikes[criteria.get("sig").asString]?.let { "[$it]" } ?: "[]"
                 }
-                criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> "[$row]"
+                criteria.has("sig") && criteria.get("sig").asString == row.get("sig").asString -> "[${countedRow()}]"
                 criteria.has("sig") -> "[]"
-                else -> "[$row]"
+                else -> "[${countedRow()}]"
             }
         })
         var primary: Throwable? = null
@@ -70,6 +82,7 @@ class PostPendingViewportTest {
                     val folder = File(context.cacheDir, "post-pending-evidence").apply { mkdirs() }
                     ui.waitUntil(20_000) { ui.onNodeWithText("Pending action viewport preview").isDisplayed() }
                     ui.onNodeWithText("Later").performClick()
+                    var expectedLikes = 4
                     ui.withPostViewports(activity, folder, "immediate-like", scales = listOf(1f)) { label, _ ->
                         val like = hasContentDescription("Like post by $name") and hasClickAction()
                         ui.waitUntil(15_000) { ui.onAllNodes(like and isEnabled()).fetchSemanticsNodes().size == 1 }
@@ -78,7 +91,11 @@ class PostPendingViewportTest {
                         ui.waitUntil(20_000) { peer.transactions.size == before + 1 }
                         assertEquals(before + 1, peer.transactions.size)
                         ui.onNode(like).assertIsEnabled()
-                        ui.onNodeWithText("4 likes", useUnmergedTree = true).assertIsDisplayed()
+                        expectedLikes++
+                        ui.waitUntil(20_000) {
+                            ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).isDisplayed()
+                        }
+                        ui.onNodeWithText("$expectedLikes likes", useUnmergedTree = true).assertIsDisplayed()
                         ui.onNodeWithText("Liked").assertDoesNotExist()
                         ui.onNodeWithText("Like pending").assertDoesNotExist()
                         ui.onNodeWithText("Retry like").assertDoesNotExist()
@@ -88,7 +105,9 @@ class PostPendingViewportTest {
                     assertEquals("Each theme sends one distinct intentional Like", 2, transactionIds.size)
                     assertEquals(2, transactionIds.distinct().size)
                     assertEquals(2, receivedLikes.size)
-                    assertEquals("Like does not poll for archive confirmation", 0, likeArchiveReads.get())
+                    ui.waitUntil(20_000) { likeArchiveReads.get() >= 2 }
+                    assertEquals("Each Like receipt is checked after dispatch", 2, likeArchiveReads.get())
+                    ui.onNodeWithText("6 likes", useUnmergedTree = true).assertIsDisplayed()
                     assertTrue(peer.reports.isEmpty())
                     assertTrue("The complete wallet and portable options must remain unchanged",
                         wallet.exportJson() == wallets.loadExisting().exportJson())

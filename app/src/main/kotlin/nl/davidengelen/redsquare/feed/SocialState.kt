@@ -32,16 +32,28 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     val reports = ReportState(context, wallet, backend, endpoint, scope)
     val actions = mutableStateMapOf<PostActionKey, ActionStatus>()
     val observedPosts = mutableStateMapOf<String, FeedPost>()
+    private data class LikeCountOverlay(val baseline: Long, val taps: Long)
+    private val optimisticLikeCounts = mutableStateMapOf<String, LikeCountOverlay>()
     private val generations = mutableMapOf<PostActionKey, Any>()
     private var feedbackSequence = 0L
     /** Called only for fresh node responses, never when reopening older cached views. */
     fun observe(posts: List<FeedPost>) {
         posts.forEach { post ->
             observedPosts[post.id] = post
+            optimisticLikeCounts[post.id]?.let { overlay ->
+                val servedLikes = servedCount(post, "num_likes")
+                val expected = saturatingAdd(overlay.baseline, overlay.taps)
+                if (servedLikes != null && servedLikes >= expected) optimisticLikeCounts.remove(post.id)
+            }
             actions.keys.filter { it.target == post.id }.forEach { key ->
                 actions[key]?.let { actions[key] = it.copy(countsUnavailable = false) }
             }
         }
+    }
+
+    fun displayLikeCount(postId: String, served: Long?): Long? {
+        val overlay = optimisticLikeCounts[postId] ?: return served
+        return maxOf(served ?: overlay.baseline, saturatingAdd(overlay.baseline, overlay.taps))
     }
     private fun journal(key: PostActionKey, node: SaitoBackend = backend) =
         SocialActionJournal(context, wallet.publicKey, node, key)
@@ -177,17 +189,25 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         val shouldStart = SocialActionOperations.enqueueLike(wallet.publicKey, backend, key, token)
         val previous = actions[key] ?: ActionStatus()
         val sequence = ++feedbackSequence
+        val currentOverlay = optimisticLikeCounts[post.id]
+        val countBaseline = currentOverlay?.baseline
+            ?: servedCount(observedPosts[post.id] ?: post, "num_likes")
+        if (countBaseline != null) {
+            optimisticLikeCounts[post.id] = LikeCountOverlay(countBaseline,
+                saturatingAdd(currentOverlay?.taps ?: 0, 1))
+        }
         actions[key] = previous.copy(ready = true, busy = true, failed = false, tapFeedback = sequence)
         if (!shouldStart) return
         generations[key] = token
         scope.launch(start = CoroutineStart.UNDISPATCHED) {
             var peer: SaitoPeer? = null
+            val submittedSignatures = mutableListOf<String>()
             try {
                 while (SocialActionOperations.takeLike(wallet.publicKey, backend, key, token)) {
                     if (!beforePublishing()) break
                     try {
                         if (peer == null) peer = withContext(Dispatchers.IO) { SaitoPeer(wallet, endpoint) }
-                        submitLike(post, key, requireNotNull(peer))
+                        submittedSignatures += submitLike(post, key, requireNotNull(peer))
                     } catch (cancelled: CancellationException) {
                         throw cancelled
                     } catch (failure: Exception) {
@@ -195,6 +215,9 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                         peer = null
                         Log.w(LIKE_LOG_TAG, "like_attempt_failed node=${backend.domain} error=${failure.javaClass.simpleName}")
                     }
+                }
+                if (submittedSignatures.isNotEmpty()) {
+                    scope.launch { reconcileLikeReceipts(post, submittedSignatures.toList()) }
                 }
             } finally {
                 peer?.close()
@@ -206,14 +229,16 @@ internal class SocialState(private val context: Context, private val wallet: Sai
     }
 
     /** A tap completes at local peer-socket enqueue. Archive visibility is informational only. */
-    private suspend fun submitLike(post: FeedPost, key: PostActionKey, peer: SaitoPeer) {
+    private suspend fun submitLike(post: FeedPost, key: PostActionKey, peer: SaitoPeer): List<String> {
         val savedAtStart = withContext(Dispatchers.IO) { snapshot(key) }
         var saved = savedAtStart
         var candidate: SaitoTransaction? = null
+        val submitted = mutableListOf<String>()
         withContext(Dispatchers.IO) {
             val pending = saved?.takeIf { !it.submitted }?.candidate
             if (pending != null) {
                 enqueueLike(peer, pending)
+                submitted += pending.id
                 saved = withContext(NonCancellable) { journal(key).markSubmitted(pending) }
             }
             candidate = synchronized(SaitoLocalState.lock) {
@@ -235,11 +260,66 @@ internal class SocialState(private val context: Context, private val wallet: Sai
             }
             saved = prepared
             enqueueLike(peer, fresh)
+            submitted += fresh.id
             saved = withContext(NonCancellable) { journal(key).markSubmitted(fresh) }
         }
         withContext(Dispatchers.Main.immediate) {
             if (generations.containsKey(key)) actions[key]?.let { actions[key] = it.copy(candidate = candidate ?: it.candidate,
                 available = false, ready = true, failed = false, countsUnavailable = false) }
+        }
+        return submitted
+    }
+
+    /** Exact backend receipt and the refreshed target count are observed away from the tap queue. */
+    private suspend fun reconcileLikeReceipts(post: FeedPost, signatures: List<String>) {
+        val remaining = signatures.toMutableSet()
+        try {
+            withContext(Dispatchers.IO) {
+                SaitoPeer(wallet, endpoint).use { peer ->
+                    repeat(5) { attempt ->
+                        remaining.toList().forEach { signature ->
+                            try {
+                                val query = archiveQuery("RedSquareLike", signature)
+                                val found = RedSquareActions.readArchive(
+                                    peer.request(query.toString().toByteArray(Charsets.UTF_8))
+                                        .toString(Charsets.UTF_8), wallet.publicKey, RedSquareActionKind.LIKE
+                                ).any { it.id == signature && it.target == post.id }
+                                if (found) {
+                                    remaining.remove(signature)
+                                    Log.i(LIKE_LOG_TAG,
+                                        "backend_received node=${backend.domain} signature=$signature")
+                                }
+                            } catch (cancelled: CancellationException) { throw cancelled }
+                            catch (failure: Exception) {
+                                Log.w(LIKE_LOG_TAG,
+                                    "receipt_check_failed node=${backend.domain} signature=$signature error=${failure.javaClass.simpleName}")
+                            }
+                        }
+                        if (remaining.isNotEmpty() && attempt < 4) delay(1_500L * (attempt + 1))
+                    }
+                    remaining.forEach { signature ->
+                        Log.w(LIKE_LOG_TAG,
+                            "backend_not_observed node=${backend.domain} signature=$signature checks=5")
+                    }
+                    try {
+                        val query = archiveQuery("RedSquare", post.id).apply {
+                            getAsJsonObject("data").addProperty("flagged_ne", 1)
+                        }
+                        val served = RedSquareFeed.readTarget(
+                            peer.request(query.toString().toByteArray(Charsets.UTF_8)).toString(Charsets.UTF_8), post.id
+                        ).posts.singleOrNull()
+                        if (served != null) withContext(Dispatchers.Main.immediate) { observe(listOf(served)) }
+                    } catch (cancelled: CancellationException) { throw cancelled }
+                    catch (failure: Exception) {
+                        Log.w(LIKE_LOG_TAG,
+                            "count_refresh_failed node=${backend.domain} post=${post.id} error=${failure.javaClass.simpleName}")
+                    }
+                }
+            }
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (failure: Exception) {
+            Log.w(LIKE_LOG_TAG,
+                "receipt_reconciliation_failed node=${backend.domain} error=${failure.javaClass.simpleName}")
         }
     }
 
@@ -264,6 +344,9 @@ internal class SocialState(private val context: Context, private val wallet: Sai
         check(AndroidBackendStore(context).load() == backend &&
             nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
     }
+
+    private fun saturatingAdd(left: Long, right: Long): Long =
+        if (Long.MAX_VALUE - left < right) Long.MAX_VALUE else left + right
 
     private fun archiveQuery(kind: String, signature: String) = JsonObject().apply {
         addProperty("request", "archive")

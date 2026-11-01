@@ -1,8 +1,15 @@
 package nl.davidengelen.redsquare.feed
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.spring
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +27,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
-import kotlinx.coroutines.delay
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.Strictness
@@ -33,8 +39,8 @@ import nl.davidengelen.redsquare.ui.AppSpacing
 import nl.davidengelen.redsquare.ui.InlineStatus
 import nl.davidengelen.redsquare.ui.StatusTone
 
-/** Counts are unsigned observations supplied with a verified post, never local increments. */
-private fun servedCount(post: FeedPost, field: String): Long? = try {
+/** Parses unsigned Like/repost counts supplied with a verified post. */
+internal fun servedCount(post: FeedPost, field: String): Long? = try {
     val gson = GsonBuilder().setStrictness(Strictness.STRICT).create()
     val outer = gson.fromJson(post.envelope, JsonObject::class.java)
     val encoded = outer.get("opt").asString
@@ -67,21 +73,23 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     LaunchedEffect(state, post.id, kind, globallyBusy) { state?.load(post, kind, refresh = !globallyBusy) }
     val status = state?.actions?.get(PostActionKey(post.id, kind))
     val feedback = status?.tapFeedback ?: 0L
-    var tapPulse by remember(post.id, kind) { mutableStateOf(false) }
-    LaunchedEffect(state, post.id, kind, feedback) {
-        if (feedback != 0L) {
-            tapPulse = true
-            delay(130)
-            tapPulse = false
+    val heartScale = remember(post.id, kind) { Animatable(1f) }
+    var heartFilled by remember(post.id, kind) { mutableStateOf(false) }
+    LaunchedEffect(feedback) {
+        if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
+            heartFilled = true
+            heartScale.snapTo(0.78f)
+            heartScale.animateTo(1.38f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
+            heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.58f, stiffness = 430f))
+            heartFilled = false
         }
     }
-    val iconScale = animateFloatAsState(if (tapPulse && kind == RedSquareActionKind.LIKE) 1.28f else 1f,
-        animationSpec = tween(130), label = "likeTapPulse")
     val observed = state?.observedPosts?.get(post.id) ?: post
-    val count = remember(observed.envelope, kind) {
+    val served = remember(observed.envelope, kind) {
         servedCount(observed, if (kind == RedSquareActionKind.LIKE) "num_likes" else "num_retweets")
     }
     val like = kind == RedSquareActionKind.LIKE
+    val count = if (like) state?.displayLikeCount(post.id, served) ?: served else served
     val enabled = if (like) state != null else status?.ready == true && !status.busy && !globallyBusy &&
         !status.available
     val label = stringResource(when {
@@ -97,11 +105,12 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     val description = stringResource(if (kind == RedSquareActionKind.LIKE)
         R.string.post_like_for else R.string.post_repost_for, author)
     val retrying = !like && status?.candidate != null && !status.available
-    SocialControl(label, if (kind == RedSquareActionKind.LIKE) R.drawable.ic_like else R.drawable.ic_repost,
+    SocialControl(label, if (like && heartFilled) R.drawable.ic_like_filled else
+        if (like) R.drawable.ic_like else R.drawable.ic_repost,
         if (retrying) stringResource(R.string.post_retry_action, description) else description,
         countLabel, enabled, available = !like && status?.available == true,
         stateHint = if (like) null else status?.let { if (it.available) label else null },
-        iconScale = iconScale.value) {
+        iconScale = heartScale.value, feedbackActive = like && heartFilled) {
         state?.send(post, kind, publishing::beforePublishing)
     }
 }
@@ -136,12 +145,14 @@ private fun SocialActionStatus(post: FeedPost, state: SocialState?, kind: RedSqu
 
 /** The count shares its action's visual target and accessibility state. Missing counts stay absent. */
 @Composable
+@OptIn(ExperimentalAnimationApi::class)
 private fun SocialControl(label: String, icon: Int, description: String, count: String? = null,
     enabled: Boolean, available: Boolean = false, stateHint: String? = null, iconScale: Float = 1f,
+    feedbackActive: Boolean = false,
     onClick: () -> Unit) {
     val countStyle = MaterialTheme.typography.labelSmall
     val countHeight = with(LocalDensity.current) { countStyle.lineHeight.toDp() }
-    val color = if (available) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+    val color = if (available || feedbackActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
     TextButton(onClick = onClick, enabled = enabled,
         modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics {
             contentDescription = description
@@ -151,14 +162,18 @@ private fun SocialControl(label: String, icon: Int, description: String, count: 
             disabledContentColor = if (available) color else color.copy(alpha = 0.38f))) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Icon(painterResource(icon), contentDescription = null, modifier = Modifier.size(20.dp).graphicsLayer {
-                    scaleX = iconScale
-                    scaleY = iconScale
-                })
+                Icon(painterResource(icon), contentDescription = null, tint = color,
+                    modifier = Modifier.size(20.dp).graphicsLayer { scaleX = iconScale; scaleY = iconScale })
                 Text(label, style = MaterialTheme.typography.labelMedium)
             }
             Box(Modifier.heightIn(min = countHeight)) {
-                if (count != null) Text(count, style = countStyle)
+                if (count != null) AnimatedContent(targetState = count,
+                    transitionSpec = {
+                        (slideInVertically { it / 2 } + fadeIn()) togetherWith
+                            (slideOutVertically { -it / 2 } + fadeOut())
+                    }, label = "socialCount") { animatedCount ->
+                    Text(animatedCount, style = countStyle)
+                }
             }
         }
     }

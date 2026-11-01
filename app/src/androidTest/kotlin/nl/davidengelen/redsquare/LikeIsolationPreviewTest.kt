@@ -42,7 +42,8 @@ class LikeIsolationPreviewTest {
                 ui.clickVisiblePostContent("Like")
                 ui.waitUntil(20_000) { node.peer.transactions.size == 2 }
                 ui.onNodeWithText("Like").assertIsEnabled()
-                ui.onNodeWithText("4 likes").assertIsDisplayed()
+                waitFor("6 likes")
+                ui.onNodeWithText("6 likes").assertIsDisplayed()
                 ui.onNodeWithText("Back").performClick()
                 waitFor("New post")
                 ui.clickVisiblePostContent(extraText)
@@ -96,7 +97,7 @@ class LikeIsolationPreviewTest {
         }
     }
 
-    @Test fun aNewTapSendsAnotherDistinctLikeWithoutWaitingForTheFirstReadback() {
+    @Test fun aNewTapSendsAnotherDistinctLikeWithoutWaitingForTheFirstReceipt() {
         val node = PostLikePeer()
         node.peer.start().use { server ->
             val intent = Intent(context, MainActivity::class.java)
@@ -110,7 +111,8 @@ class LikeIsolationPreviewTest {
                 val ids = node.peer.transactions.map(::postingTransaction).map { it.id }
                 assertEquals(2, ids.distinct().size)
                 ui.onNodeWithText("Like").assertIsEnabled()
-                ui.onNodeWithText("4 likes").assertIsDisplayed()
+                waitFor("6 likes")
+                ui.onNodeWithText("6 likes").assertIsDisplayed()
                 ui.onNodeWithText("Liked").assertDoesNotExist()
                 ui.onNodeWithText("Like pending").assertDoesNotExist()
                 assertEquals(2, node.peer.transactions.size)

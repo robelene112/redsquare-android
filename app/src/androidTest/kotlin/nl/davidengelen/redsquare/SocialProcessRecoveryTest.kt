@@ -112,7 +112,6 @@ class SocialProcessRecoveryTest {
                 ui.waitUntil(20_000) { peer.transactions.size == 1 }
                 val next = postingTransaction(peer.transactions.single()).id
                 assertNotEquals(row.get("sig").asString, next)
-                assertTrue("Like does not poll for archive confirmation", node.likeQueries.isEmpty())
                 ui.onNodeWithText("Like").assertIsEnabled()
                 ui.onNodeWithText("Like pending").assertDoesNotExist()
                 File(context.cacheDir, "social-process-evidence/next-like-id.txt").apply {

@@ -99,7 +99,6 @@ class RepeatLikeProcessRecoveryTest {
                     val recovered = postingTransaction(peer.transactions.single()).id
                     assertNotEquals("A new deliberate tap creates a fresh transaction", row.get("sig").asString, recovered)
                     assertNotEquals("A new tap does not replay the earlier Like", row.get("previousSig").asString, recovered)
-                    assertTrue("Likes do not poll for archive confirmation", node.likeQueries.isEmpty())
                     ui.onNodeWithText("Like").assertIsEnabled()
                     ui.onNodeWithText("Like pending").assertDoesNotExist()
                     ui.onNodeWithText("Retry like").assertDoesNotExist()
