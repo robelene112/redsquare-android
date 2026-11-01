@@ -2,6 +2,7 @@ package nl.davidengelen.redsquare
 
 import android.content.Intent
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
@@ -53,6 +54,33 @@ class RepeatLikePreviewTest {
                 peer.assertHealthy()
                 captureFeedEvidence("repeat-like-evidence/three-sent-likes-no-confirmation.png")
                 retainFrames(peer, "deliberate")
+            }
+        }
+    }
+
+    @Test fun rapidLikesAdvanceTheCountWhilePeerAuthenticationIsDelayed() {
+        val likeNode = PostLikePeer()
+        withLikes(likeNode) { peer, intent ->
+            withLikeActivity(intent, "slow-peer") {
+                waitFor("4 likes")
+                peer.withholdHandshakeReplies = true
+                try {
+                    ui.clickVisiblePostContent("Like")
+                    ui.clickVisiblePostContent("Like")
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(2_000) { ui.onNodeWithText("7 likes").isDisplayed() }
+                    ui.onNodeWithText("7 likes").assertIsDisplayed()
+                    val likeAction = SemanticsMatcher("Like post action") { node ->
+                        node.config.getOrNull(SemanticsProperties.ContentDescription)
+                            ?.any { it.startsWith("Like post by ") } == true
+                    } and hasClickAction()
+                    ui.onNode(likeAction).assertIsEnabled()
+                    assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
+                } finally {
+                    peer.releaseWithheldHandshakeReplies()
+                }
+                ui.waitUntil(20_000) { peer.transactions.size == 3 }
+                assertEquals(3, peer.transactions.size)
             }
         }
     }

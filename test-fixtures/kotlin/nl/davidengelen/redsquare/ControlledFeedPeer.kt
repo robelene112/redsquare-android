@@ -32,6 +32,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdArchiveReply = false
     @Volatile var reportReplyIsError = false
     @Volatile var rejectNewConnections = false
+    @Volatile var withholdHandshakeReplies = false
+    private val releaseHandshakeReplies = CountDownLatch(1)
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
     private val counter = ByteArray(32) { 7 }
     private val received = CountDownLatch(1)
@@ -68,6 +70,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         sockets.forEach{it.close(1001,"Controlled reception interruption")}
         return interrupted
     }
+
+    fun releaseWithheldHandshakeReplies() { releaseHandshakeReplies.countDown() }
 
     fun start(port: Int = 0): MockWebServer {
         val server = MockWebServer()
@@ -107,6 +111,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                     }
                     1 -> {
                         require(frame.size == 33)
+                        if (withholdHandshakeReplies) check(releaseHandshakeReplies.await(15, TimeUnit.SECONDS))
                         val key = "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798".chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         val signature = peer.sign(frame.copyOfRange(1, 33)).chunked(2).map { it.toInt(16).toByte() }.toByteArray()
                         if (webSocket.send((byteArrayOf(2) + key + signature + counter).toByteString())) {

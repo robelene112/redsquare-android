@@ -3,30 +3,34 @@ package nl.davidengelen.redsquare
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.platform.app.InstrumentationRegistry
 
 /** Tap the uniquely named post control itself, rather than an offscreen semantic node. */
 internal fun ComposeTestRule.clickVisiblePostContent(text: String) {
+    val targetSelector = if (text == "Like") SemanticsMatcher("Like post action") { node ->
+        node.config.getOrNull(SemanticsProperties.ContentDescription)?.any { it.startsWith("Like post by ") } == true
+    } and hasClickAction() else hasText(text)
     waitUntil(20_000) {
-        onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+        onAllNodes(targetSelector and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
-    onNode(hasScrollAction()).performScrollToNode(hasText(text))
+    onNode(hasScrollAction()).performScrollToNode(targetSelector)
     val composer = onAllNodes(hasText("New post") and hasClickAction()).fetchSemanticsNodes()
         .singleOrNull()?.touchBoundsInRoot
     if (composer != null) {
-        val target = onNodeWithText(text).fetchSemanticsNode().touchBoundsInRoot
+        val target = onNode(targetSelector).fetchSemanticsNode().touchBoundsInRoot
         if (target.overlaps(composer)) {
             val clearance = 8 * InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
             onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { scroll ->
                 check(scroll(0f, target.bottom - composer.top + clearance))
             }
             waitForIdle()
-            check(!onNodeWithText(text).fetchSemanticsNode().touchBoundsInRoot.overlaps(composer)) {
+            check(!onNode(targetSelector).fetchSemanticsNode().touchBoundsInRoot.overlaps(composer)) {
                 "Post control remains obscured by the floating composer"
             }
         }
     }
-    onNodeWithText(text).assertIsDisplayed().assertIsEnabled().performClick()
+    onNode(targetSelector).assertIsDisplayed().assertIsEnabled().performClick()
 }
 
 /** Tap the rendered body itself, since a merged media card's center may be its image. */
