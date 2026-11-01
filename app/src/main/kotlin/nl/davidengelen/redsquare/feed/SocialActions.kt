@@ -9,7 +9,8 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -79,8 +80,11 @@ private fun SocialAction(post: FeedPost, state: SocialState?, kind: RedSquareAct
     LaunchedEffect(feedback) {
         if (feedback != 0L && kind == RedSquareActionKind.LIKE) {
             heartFilled = true
-            heartScale.animateTo(1.38f, animationSpec = spring(dampingRatio = 0.42f, stiffness = 700f))
-            heartScale.animateTo(1f, animationSpec = spring(dampingRatio = 0.58f, stiffness = 430f))
+            heartScale.animateTo(1f, animationSpec = keyframes {
+                durationMillis = 180
+                1.32f at 60 using FastOutSlowInEasing
+                1.12f at 110 using FastOutSlowInEasing
+            })
             heartFilled = false
         }
     }
