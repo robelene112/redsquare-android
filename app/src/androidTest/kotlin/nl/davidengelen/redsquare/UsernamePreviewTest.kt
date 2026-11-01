@@ -8,11 +8,13 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.*
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import nl.davidengelen.redsquare.saito.SaitoEnvelope
 import nl.davidengelen.redsquare.saito.SaitoRegistry
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.saito.PrivateChat
 import nl.davidengelen.redsquare.saito.AndroidBackendStore
 import nl.davidengelen.redsquare.saito.SaitoBackend
 import org.junit.Assert.*
@@ -92,6 +94,86 @@ class UsernamePreviewTest {
                     peer.assertHealthy()
                 }
             }
+        }
+    }
+
+    @Test fun privateChatShowsVerifiedNameAndExactIdentityAfterGoingOffline() = withRegistryWallet(
+        SaitoWallet.fromPrivateKey("0".repeat(63) + "2")
+    ) { reader ->
+        val sender = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public unsafe identity fixture only.
+        val message = PrivateChat.create(sender, reader.publicKey, "Verified private identity preview", 1700000123456)
+        val conversation = PrivateChat.conversationId(reader.publicKey, sender.publicKey)
+        val registry = instrumentation.context.assets.open("native-registry-reference.json").bufferedReader()
+            .use { JsonParser.parseReader(it).asJsonObject }
+        val rows = registry.getAsJsonArray("rows").toString()
+        val peer = ControlledFeedPeer("[]", advertisedServices = "archive||;relay||",
+            registryResponse = { criteria ->
+                when (criteria.get("request").asString) {
+                    "registry query" -> JsonObject().apply {
+                        val keys = criteria.getAsJsonArray("keys").map { it.asString }
+                        if (sender.publicKey in keys) addProperty(sender.publicKey, "NativeCase7@saito")
+                    }.toString()
+                    "registry namecheck" -> {
+                        assertEquals("NativeCase7@saito", criteria.get("identifier").asString)
+                        rows
+                    }
+                    else -> error("Unexpected Registry request")
+                }
+            }, archiveResponse = { criteria ->
+                if (criteria.get("field3")?.asString == conversation)
+                    JsonArray().apply { add(JsonObject().apply { addProperty("tx", message.envelope()) }) }.toString()
+                else "[]"
+            })
+        val walletStore = AndroidWalletStore(context)
+        val before = walletStore.loadExisting()
+        val fixtureState = ChatFixtureState(context, listOf(
+            "chat.${SaitoBackend.OWNER.id}.${reader.publicKey}.$conversation.",
+            "namemap.${sender.publicKey}.", "namerequest.${sender.publicKey}."), reader.publicKey)
+        var primary: Throwable? = null
+        try {
+            fixtureState.prepare()
+            walletStore.replace(reader, reader.withChatContact(sender.publicKey))
+            peer.start().use { server ->
+                ActivityScenario.launch<MainActivity>(Intent(context, MainActivity::class.java)
+                    .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
+                    .putExtra("usernameFixtureRegistrar", true)).use { scenario ->
+                    withFailureCapture({ capture("username-private-chat-failure.png") }) {
+                        waitForEnabled("Chat")
+                        if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
+                        ui.onNodeWithText("Chat").performClick()
+                        waitForText("NativeCase7@saito")
+                        ui.onNodeWithText("NativeCase7@saito").performClick()
+                        waitForText("Verified private identity preview")
+                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        ui.onNodeWithText("Identity details").assertIsDisplayed()
+                        ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
+                        ui.onNodeWithText("Done").performClick()
+                        assertTrue(peer.registryQueries.any { it.get("request").asString == "registry query" &&
+                            it.getAsJsonArray("keys").any { key -> key.asString == sender.publicKey } })
+                        assertTrue(peer.registryQueries.any { it.get("request").asString == "registry namecheck" })
+                        capture("username-private-chat-online.png", "NativeCase7@saito")
+
+                        // A new Activity must use the verified local name and cached message without a node.
+                        peer.rejectNewConnections = true
+                        scenario.recreate()
+                        waitForEnabled("Chat")
+                        ui.onNodeWithText("Chat").performClick()
+                        waitForText("NativeCase7@saito")
+                        ui.onNodeWithText("NativeCase7@saito").performClick()
+                        waitForText("Verified private identity preview")
+                        ui.onNodeWithContentDescription("View identity details for NativeCase7@saito").performClick()
+                        ui.onNodeWithText(sender.publicKey).assertIsDisplayed()
+                        capture("username-private-chat-offline.png", "NativeCase7@saito")
+                        check(peer.transactions.isEmpty() && peer.reports.isEmpty() && peer.relayedMessages.isEmpty())
+                        peer.assertHealthy()
+                    }
+                }
+            }
+        } catch (failure: Throwable) { primary = failure; throw failure }
+        finally {
+            cleanupAfterTest(primary,
+                { fixtureState.restoreFiles() }, { fixtureState.restorePreferences() },
+                { walletStore.replace(walletStore.loadExisting(), before); check(walletStore.loadExisting().exportJson() == before.exportJson()) })
         }
     }
 

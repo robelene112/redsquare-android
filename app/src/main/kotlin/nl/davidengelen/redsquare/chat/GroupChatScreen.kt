@@ -35,6 +35,7 @@ import nl.davidengelen.redsquare.saito.*
 import nl.davidengelen.redsquare.moderation.LocalPersonalControls
 import nl.davidengelen.redsquare.moderation.PersonalControlsStatus
 import nl.davidengelen.redsquare.registry.registeredIdentity
+import nl.davidengelen.redsquare.feed.ProfileIdentityDialog
 
 private enum class GroupStatusSection { HISTORY, MANAGEMENT }
 
@@ -53,6 +54,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
     val store = remember(wallet,backend) { GroupChatStore(context,wallet,backend) }
     var entries by remember(wallet.publicKey,backend) { mutableStateOf<List<GroupChatStore.Entry>>(emptyList()) }
     var selected by remember(wallet.publicKey,backend) { mutableStateOf(initialGroup) }
+    var identityAuthor by remember(wallet.publicKey,backend) { mutableStateOf<String?>(null) }
     var loaded by remember(store) { mutableStateOf(false) }
     val publication = remember(wallet.publicKey,backend) { Mutex() }
     var readFailed by remember(wallet.publicKey,backend) { mutableStateOf(false) }
@@ -536,20 +538,20 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
                                 val likedBy=entry.likedBy(item)
                                 ChatMessageBubble(item.author,item.text,item.createdAt,outgoing,backend=backend,selectable=true,
                                     actions = {
-                                    ChatMessageActions(wallet.publicKey in likedBy, permitted, permitted && replyPrefix != null,
-                                        onLike = {
-                                    act {
-                                        val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
-                                        withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
-                                        sendPrepared(entry.group.id,candidate,wallet)
-                                    }
-                                }, onReply = {
-                                    if(!navigation.transitioning)replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
-                                }, onCopy = {copyFailed=!copyPrivateMessage(context,item.text)})
-                                }) { reference ->
+                                        ChatMessageActions(wallet.publicKey in likedBy, permitted, permitted && replyPrefix != null,
+                                            onLike = {
+                                                act {
+                                                    val candidate=withContext(Dispatchers.IO){GroupChat.like(wallet,entry.group,item,System.currentTimeMillis())}
+                                                    withContext(NonCancellable){publish{store.prepareReaction(candidate);store.entries()}}
+                                                    sendPrepared(entry.group.id,candidate,wallet)
+                                                }
+                                            }, onReply = {
+                                                if(!navigation.transitioning)replyPrefix?.let{changeMessage(it+privateMessageBody(message))}
+                                            }, onCopy = {copyFailed=!copyPrivateMessage(context,item.text)})
+                                    }, onQuote = { reference ->
                                     val index=visible.indexOfFirst{it.author+it.createdAt==reference}
                                     if(index>=0)showMessage(index)
-                                }
+                                }, onIdentity = { identityAuthor = it })
                                 if(likedBy.isNotEmpty())Text(pluralStringResource(R.plurals.chat_likes,likedBy.size,likedBy.size))
                                 if(copyFailed)Text(stringResource(R.string.chat_copy_error))
                             }
@@ -731,6 +733,7 @@ internal fun GroupChatScreen(wallet: SaitoWallet, endpoint: String, backend: Sai
         val invitation = remember(entry.group,backend) { GroupInvitation.fromGroup(entry.group,wallet.publicKey).link(backend) }
         GroupInvitationDialog(invitation, onDismiss = { inviting = false })
     }
+    identityAuthor?.let { author -> ProfileIdentityDialog(author) { identityAuthor = null } }
 }
 
 @Composable
