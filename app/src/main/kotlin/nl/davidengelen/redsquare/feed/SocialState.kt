@@ -151,7 +151,8 @@ internal class SocialState(private val context: Context, private val wallet: Sai
                                     nl.davidengelen.redsquare.AndroidWalletStore(context).loadExisting().publicKey == wallet.publicKey)
                             }
                             val settled = waitForExactReadback(
-                                timeoutMillis = if (retryingPendingCandidate) 45_000L else 10_000L,
+                                timeoutMillis = if (kind == RedSquareActionKind.LIKE || retryingPendingCandidate)
+                                    45_000L else 10_000L,
                                 observed = { observed() })
                             if (!settled) error("Interaction availability unknown")
                         }

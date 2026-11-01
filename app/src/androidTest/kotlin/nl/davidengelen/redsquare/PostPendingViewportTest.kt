@@ -108,7 +108,7 @@ class PostPendingViewportTest {
                         val before = peer.transactions.size
                         ui.onNode(like).performClick()
                         val pending = hasContentDescription("Details: Like pending") and hasClickAction()
-                        ui.waitUntil(20_000) { ui.onNode(pending).isDisplayed() }
+                        ui.waitUntil(50_000) { ui.onNode(pending).isDisplayed() }
                         assertEquals(before + 1, peer.transactions.size)
                         val candidate = postingTransaction(peer.transactions.last()).id
                         ui.onNodeWithText("$settledLikeCount likes", useUnmergedTree = true).assertIsDisplayed()
