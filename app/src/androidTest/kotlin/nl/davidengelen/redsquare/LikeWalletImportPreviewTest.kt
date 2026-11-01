@@ -95,7 +95,7 @@ class LikeWalletImportPreviewTest {
                             else ui.onNodeWithText(warning).assertDoesNotExist()
                             ui.onNodeWithText("Confirm replacement").performScrollTo().assertIsNotEnabled()
                             assertEquals(isolated.publicKey, displayedWalletAddress(ui))
-                            assertEquals(1, peer.transactions.size)
+                            assertEquals(if (pending) 0 else 1, peer.transactions.size)
                             peer.assertHealthy()
                             captureFeedEvidence("like-wallet-evidence/${if (pending) "pending-work-disclosed" else "settled-receipts-not-pending"}.png")
                         }
