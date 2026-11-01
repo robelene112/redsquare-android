@@ -36,7 +36,7 @@ class SocialPreviewTest {
         }?.forEach { check(it.delete()) }
     }
 
-    @Test fun aVerifiedLikeAndServedCountStayCoherentAcrossFeedThreadAndProfile() {
+    @Test fun repeatedLikesSendImmediatelyWithoutArchiveConfirmationOrPendingUi() {
         val root = InstrumentationRegistry.getInstrumentation().context.assets.open("native-feed-reference.json")
             .bufferedReader().use { JsonParser.parseReader(it).asJsonObject.getAsJsonObject("archiveRow") }
         fun countedRoot(count: Int): JsonObject = root.deepCopy().apply {
@@ -45,10 +45,7 @@ class SocialPreviewTest {
             addProperty("tx", envelope.toString())
         }
         val served = AtomicReference(countedRoot(4))
-        val liked = AtomicReference<JsonObject?>()
         val likeArchiveReads = AtomicInteger()
-        val visibleAfterRead = AtomicInteger(Int.MAX_VALUE)
-        val visibleAfterElapsedMillis = AtomicLong(Long.MAX_VALUE)
         val peer = ControlledFeedPeer("[]", onTransaction = { frame ->
             val candidate = postingTransaction(frame)
             val action = SaitoEnvelope.decode(candidate.envelope())
@@ -56,21 +53,10 @@ class SocialPreviewTest {
             assertEquals("like tweet", action.body.get("request").asString)
             assertEquals(root.get("sig").asString, action.body.getAsJsonObject("data").get("signature").asString)
             assertEquals(listOf(action.author, root.get("field2").asString).distinct(), action.recipients)
-            liked.set(JsonObject().apply {
-                addProperty("sig", action.id); addProperty("field1", "RedSquareLike")
-                addProperty("field2", action.author); addProperty("field4", root.get("sig").asString)
-                addProperty("created_at", action.createdAt); addProperty("tx", candidate.envelope())
-            })
-            visibleAfterRead.set(likeArchiveReads.get() + 3)
-            visibleAfterElapsedMillis.set(SystemClock.elapsedRealtime() + 12_000L)
-            served.set(countedRoot(5))
         }, archiveResponse = { criteria ->
             if (criteria.get("field1").asString == "RedSquareLike") {
-                val archiveRead = likeArchiveReads.incrementAndGet()
-                liked.get()?.takeIf { archiveRead >= visibleAfterRead.get() &&
-                    SystemClock.elapsedRealtime() >= visibleAfterElapsedMillis.get() &&
-                    (!criteria.has("sig") || criteria.get("sig").asString == it.get("sig").asString) }
-                    ?.let { "[$it]" } ?: "[]"
+                likeArchiveReads.incrementAndGet()
+                "[]"
             } else "[${served.get()}]"
         })
         peer.start().use { server ->
@@ -81,33 +67,22 @@ class SocialPreviewTest {
                     waitFor("Native Red Square reference post")
                     waitFor("4 likes")
                     ui.clickVisiblePostContent("Like")
-                    waitFor("Liked")
-                    waitFor("5 likes")
-                    assertEquals(1, peer.transactions.size)
-                    assertTrue("A first Like must keep checking through delayed block confirmation",
-                        SystemClock.elapsedRealtime() >= visibleAfterElapsedMillis.get())
-                    assertTrue("The first Like must wait for delayed exact archive readback",
-                        likeArchiveReads.get() >= visibleAfterRead.get())
-                    ui.clickVisiblePostContent("Native Red Square reference post")
-                    waitFor("Conversation")
-                    ui.onNodeWithText("Liked").assertIsDisplayed()
-                    ui.onNodeWithText("5 likes").assertIsDisplayed()
-                    ui.onNodeWithText("Back").performClick()
-                    waitFor("New post")
-                    ui.clickVisiblePostProfile("Anon-${root.get("field2").asString.take(6)}")
-                    waitFor("Profile")
-                    ui.revealProfileHistoryItem("Liked", timeoutMillis = 20_000)
-                    assertVisibleProfileLike("5 likes")
-                    assertEquals(1, peer.transactions.size)
-                    served.set(countedRoot(9))
-                    ui.waitUntil(20_000) { ui.onAllNodes(hasText("Refresh") and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
-                    ui.onNodeWithText("Refresh").performClick()
-                    waitFor("9 likes")
-                    assertVisibleProfileLike("9 likes")
-                    assertEquals(1, peer.transactions.size)
+                    ui.clickVisiblePostContent("Like")
+                    ui.clickVisiblePostContent("Like")
+                    ui.waitUntil(20_000) { peer.transactions.size == 3 }
+                    val sent = peer.transactions.map { postingTransaction(it) }
+                    assertEquals(3, sent.map { it.id }.distinct().size)
+                    assertTrue(sent.all { SaitoEnvelope.decode(it.envelope()).body.getAsJsonObject("data")
+                        .get("signature").asString == root.get("sig").asString })
+                    ui.onNodeWithText("Like").assertIsDisplayed().assertIsEnabled()
+                    ui.onNodeWithText("4 likes").assertIsDisplayed()
+                    ui.onNodeWithText("Liked").assertDoesNotExist()
+                    ui.onNodeWithText("Like pending").assertDoesNotExist()
+                    ui.onNodeWithText("Retry like").assertDoesNotExist()
+                    assertEquals("Like dispatch must not poll for archive confirmation", 0, likeArchiveReads.get())
                     peer.assertHealthy()
                     captureNativeScreen(java.io.File(context.cacheDir,
-                        "social-evidence/verified-like-across-views.png"), "Liked")
+                        "social-evidence/repeated-like-without-confirmation.png"), "Like")
                 }
             }
         }
