@@ -67,14 +67,18 @@ class RepeatLikePreviewTest {
                 try {
                     val startedAt = ui.mainClock.currentTime
                     ui.onNode(likePostAction()).performTouchInput {
+                        val target = center
                         repeat(3) {
-                            click()
-                            advanceEventTime(40)
+                            down(target)
+                            advanceEventTime(16)
+                            up()
+                            advanceEventTime(24)
                         }
                     }
                     ui.waitUntil(500) { ui.onNodeWithText("7 likes").isDisplayed() }
-                    assertTrue("Three rapid Likes update the visible count within 500 ms",
-                        ui.mainClock.currentTime - startedAt <= 500)
+                    val responseTime = ui.mainClock.currentTime - startedAt
+                    assertTrue("Three rapid Likes update the visible count within 500 ms, actual ${responseTime} ms",
+                        responseTime <= 500)
                     ui.onNodeWithText("7 likes").assertIsDisplayed()
                     ui.onNode(likePostAction()).assertIsEnabled()
                     assertTrue("A slow peer handshake has not received Likes yet", peer.transactions.isEmpty())
