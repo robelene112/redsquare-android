@@ -324,7 +324,7 @@ class NotificationsPreviewTest {
             waitFor("The parent post is not available here. Try Refresh.")
             captureNativeScreen(File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir,
                 "notification-evidence/missing-reply-parent.png"), "The parent post is not available here. Try Refresh.")
-            ui.onNodeWithText("Refresh").assertIsEnabled().performClick()
+            ui.refreshVisibleView()
             waitFor("Original recovered after retry")
             ui.onNode(hasScrollToIndexAction()).performScrollToNode(hasText("Original recovered after retry"))
             ui.onNodeWithText("Original recovered after retry").assertIsDisplayed()

@@ -18,6 +18,14 @@ internal fun ComposeTestRule.refreshableContentReady(): Boolean {
     return controls.fetchSemanticsNodes(atLeastOneRootRequired = false).indices.any { controls[it].isDisplayed() }
 }
 
+/** Preserve each caller's original readiness budget and the actual Chat details control. */
+internal fun ComposeTestRule.waitForRefreshableContent(timeoutMillis: Long) {
+    val check = { waitUntil(timeoutMillis) { refreshableContentReady() } }
+    if (!refreshableContentReady() && onNodeWithContentDescription("Conversation details").isDisplayed())
+        withConversationControl("Refresh") { check() }
+    else check()
+}
+
 /** Real pull at list start, or the genuine explicit control on other current destinations. */
 internal fun ComposeTestRule.refreshVisibleView() {
     val tag = listOf("feed-post-list", "conversation-post-list").firstOrNull { onNodeWithTag(it).isDisplayed() }

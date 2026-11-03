@@ -206,7 +206,7 @@ class PrivateChatProcessRecoveryTest {
             withFailureCapture({ capture("first-failure.png") }, journey)
         }
     }
-    private fun openChat() { waitForEnabled("Refresh"); ui.onNodeWithText("Chat").performClick(); waitFor("New chat") }
+    private fun openChat() { ui.waitForRefreshableContent(15_000); ui.onNodeWithText("Chat").performClick(); waitFor("New chat") }
     private fun openContact(key: String) { waitFor(key); ui.onNodeWithText(key).performClick(); waitFor("Message") }
     private fun capture(name: String, text: String? = null) = captureNativeScreen(File(context.cacheDir,
         "private-chat-process-evidence/$name"), text)
@@ -223,9 +223,9 @@ class PrivateChatProcessRecoveryTest {
         ui.onNode(message).assertIsDisplayed()
     }
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 }

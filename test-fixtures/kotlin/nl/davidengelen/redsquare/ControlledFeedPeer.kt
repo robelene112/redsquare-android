@@ -32,6 +32,7 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
     @Volatile var withholdArchiveReply = false
     @Volatile var reportReplyIsError = false
     @Volatile var rejectNewConnections = false
+    @Volatile var rejectionDelayMillis = 0L
     @Volatile var withholdHandshakeReplies = false
     private val releaseHandshakeReplies = CountDownLatch(1)
     private val peer = SaitoWallet.fromPrivateKey("0".repeat(63) + "1") // Public test material only.
@@ -78,7 +79,8 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
         server.dispatcher = object : mockwebserver3.Dispatcher() {
             override fun dispatch(request: mockwebserver3.RecordedRequest): MockResponse {
                 connectionAttempts.incrementAndGet()
-                return if (rejectNewConnections) MockResponse.Builder().code(503).build() else response()
+                return if (rejectNewConnections) MockResponse.Builder().code(503)
+                    .headersDelay(rejectionDelayMillis, TimeUnit.MILLISECONDS).build() else response()
             }
         }
         server.start(java.net.InetAddress.getByName("127.0.0.1"), port)

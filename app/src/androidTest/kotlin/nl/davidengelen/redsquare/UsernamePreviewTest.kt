@@ -58,7 +58,7 @@ class UsernamePreviewTest {
                 withFailureCapture({ capture("username-shared-name-failure.png") }) {
                     waitForEnabled("New post")
                     peer.assertRequestObserved()
-                    waitForEnabled("Refresh") // Archive observation precedes signed post parsing and publication.
+                    ui.waitForRefreshableContent(20_000) // Archive observation precedes signed post parsing and publication.
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNode(hasScrollAction()).performScrollToNode(hasText(text))
                     val targetAuthor = hasText("NativeCase7@saito") and hasContentDescription("View profile for NativeCase7@saito") and
@@ -253,7 +253,7 @@ class UsernamePreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                 .putExtra("usernameFixtureRegistrar", true)).use {
                 withFailureCapture({ capture("username-quoted-name-failure.png") }) {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(20_000)
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
                     ui.onNode(hasScrollAction(), useUnmergedTree = true)
                         .performScrollToNode(hasText("Current commentary retweet"))
@@ -453,7 +453,7 @@ class UsernamePreviewTest {
             ActivityScenario.launch<MainActivity>(intent).use {
                 withFailureCapture({ capture("username-unavailable-failure.png") }) {
                     waitForEnabled("New post")
-                    waitForEnabled("Refresh") // Wallet readiness alone does not finish the initial feed load.
+                    ui.waitForRefreshableContent(20_000) // Wallet readiness alone does not finish the initial feed load.
                     peer.assertRequestObserved()
                     val original = peer.clientKeys.first()
                     if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) {
@@ -1194,11 +1194,11 @@ class UsernamePreviewTest {
     }
 
     private fun waitForText(text: String) {
-        ui.waitUntil(20_000) { (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty()) }
+        ui.waitUntil(20_000) { ui.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
     }
 
     private fun waitForEnabled(text: String) {
-        ui.waitUntil(20_000) { (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty()) }
+        ui.waitUntil(20_000) { ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes().isNotEmpty() }
     }
 
     private fun capture(name: String, expectedText: String? = null) =

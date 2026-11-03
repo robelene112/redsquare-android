@@ -33,11 +33,11 @@ class AuthorProcessRecoveryTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(20_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 
     private fun enabled(text: String) = ui.waitUntil(20_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 
     @Test fun terminateAfterAnUncertainAuthorChange() {
@@ -86,7 +86,7 @@ class AuthorProcessRecoveryTest {
                 waitFor("Available on this node.")
                 enabled("Back")
                 ui.onNodeWithText("Back").performClick()
-                enabled("Refresh")
+                ui.waitForRefreshableContent(20_000)
                 ui.waitUntil(20_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes().isNotEmpty() }
                 ui.onNode(hasScrollAction()).performScrollToNode(hasText(originalText))
                 ui.onNodeWithText(originalText).performClick()

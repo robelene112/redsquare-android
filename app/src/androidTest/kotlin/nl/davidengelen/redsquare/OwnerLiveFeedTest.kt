@@ -68,7 +68,7 @@ class OwnerLiveFeedTest {
                 ui.waitUntil(10_000) {
                     ui.refreshableContentReady()
                 }
-                ui.onNodeWithText("Refresh").assertIsEnabled()
+                assertTrue("Feed Refresh action is available", ui.refreshableContentReady())
                 ui.waitForIdle()
                 instrumentation.waitForIdleSync()
                 val feedImage = ui.onRoot().captureToImage().asAndroidBitmap()

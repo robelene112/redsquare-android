@@ -336,7 +336,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                         if (reactionStorage) {
                             val warning = "Could not restore or save reactions on this device. Messages remain readable."
                             waitFor(warning)
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             ui.onNodeWithText(text).assertIsDisplayed()
                             ui.onNodeWithText(warning).assertIsDisplayed()
                             ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
@@ -372,7 +372,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             check(reactionCacheFile.list()!!.isEmpty() && reactionCacheFile.delete())
                             reactionCacheFile.writeBytes(savedReaction)
                             val messageOnlyReads = historyReads.get()
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             ui.withConversationControl("Refresh") { performClick() }
                             ui.waitUntil(15_000) { historyReads.get() > messageOnlyReads &&
                                 ui.onAllNodesWithText(context.getString(R.string.chat_reaction_error))
@@ -411,7 +411,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.waitUntil(15_000) { historyReads.get() > readsBeforeRefresh &&
                                 ui.onAllNodesWithText(context.getString(R.string.chat_load_error))
                                     .fetchSemanticsNodes(atLeastOneRootRequired = false).isEmpty() }
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             ui.onAllNodesWithText(context.getString(R.string.chat_load_error)).assertCountEquals(0)
                             ui.onNodeWithText("1 like").assertIsDisplayed()
                             ui.onAllNodesWithText(context.getString(R.string.chat_incomplete)).assertCountEquals(0)
@@ -621,7 +621,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                                 return SaitoWire.applicationRequest(counterpart, relay.toString().toByteArray(Charsets.UTF_8),
                                     1, 1700000080100L + index).drop(5).toByteArray()
                             }
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             waitForEnabled("Like")
                             peer.sendIncoming(packet(0))
                             waitFor("1 like")
@@ -635,7 +635,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             ui.onNodeWithText(counterpart).performClick()
                             waitFor(context.getString(R.string.chat_load_error))
                             waitFor("1 like")
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             val acknowledgements = peer.incomingAcknowledgements.size
                             peer.sendIncoming(packet(0))
                             ui.waitUntil(5_000) { peer.incomingAcknowledgements.size > acknowledgements }
@@ -791,7 +791,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             File(context.cacheDir, "private-chat-evidence/${if (zeroReply) "native-sent-zero-reply-envelope" else "native-sent-reply-envelope"}.json").writeText(received.envelope)
                             // A public native-generated spacer makes the quoted original genuinely offscreen.
                             // Independent reply crypto/metadata remains anchored to the original web corpus.
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             val spacerText = (1..24).joinToString("\n") { "Public layout spacer line $it" }
                             val spacer = PrivateChat.create(recipientWallet, wallet.publicKey,
                                 spacerText, received.message.createdAt - 1)
@@ -838,7 +838,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
                             return@withFailureCapture
                         }
                         if (replyCase) {
-                            waitForEnabled("Refresh")
+                            ui.waitForRefreshableContent(15_000)
                             if (case == HistoryCase.QUOTED_REPLY) ui.onNodeWithText(
                                 fixture.getAsJsonObject("replyFormat").get("quotedText").asString).assertIsDisplayed()
                             captureNativeScreen(File(context.cacheDir,
@@ -1214,7 +1214,7 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
 
     fun waitForEnabled(text: String) {
         val check = { ui.waitUntil(15_000) {
-            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+            ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         } }
         when (text) {
             "Like", "Unlike", "Reply", "Copy" -> ui.withMessageAction(text) { check() }
@@ -1224,6 +1224,6 @@ internal class PrivateChatHistoryFixture(private val ui: ComposeTestRule) {
     }
 
     fun waitFor(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 }

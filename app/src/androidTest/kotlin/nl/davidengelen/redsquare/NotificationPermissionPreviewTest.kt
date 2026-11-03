@@ -75,20 +75,20 @@ class NotificationPermissionPreviewTest {
                             device.pressBack()
                         }
                         ui.waitUntil(15_000) { preferences.getBoolean("offered", false) }
-                        waitForEnabled("Refresh")
+                        ui.waitForRefreshableContent(15_000)
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
                         ui.waitUntil(15_000) { reads.get() > 0 }
                         val beforeRefresh = reads.get()
                         ui.refreshVisibleView()
                         ui.waitUntil(15_000) { reads.get() > beforeRefresh }
-                        waitForEnabled("Refresh")
+                        ui.waitForRefreshableContent(15_000)
                         ui.onAllNodesWithText(context.getString(R.string.notifications_read_error)).assertCountEquals(0)
                         captureNativeScreen(File(context.cacheDir,
                             "notification-permission-evidence/${if (allow) "allow" else "deny"}-reading.png"), "Notifications")
                         val beforeReopening = reads.get()
                         scenario.recreate()
                         ui.waitUntil(15_000) { reads.get() > beforeReopening }
-                        waitForEnabled("Refresh")
+                        ui.waitForRefreshableContent(15_000)
                         ui.onAllNodesWithText(context.getString(R.string.notifications_read_error)).assertCountEquals(0)
                         ui.onAllNodesWithText("Not now").assertCountEquals(0)
                         ui.onNodeWithText("Back").performClick()
@@ -111,9 +111,9 @@ class NotificationPermissionPreviewTest {
     }
 
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 }

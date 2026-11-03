@@ -53,7 +53,7 @@ class NotificationProcessRecoveryTest {
         peer.start().use { server ->
             launch(server.port) {
                 openNotifications()
-                waitFor("1 unread"); waitForEnabled("Refresh")
+                waitFor("1 unread"); ui.waitForRefreshableContent(15_000)
                 ui.onNodeWithText("Liked a post").assertIsDisplayed()
                 ui.onNodeWithContentDescription("View profile for Anon-${actor.publicKey.take(6)}").assertIsDisplayed()
                 capture("activity-before-death.png", "1 unread")
@@ -85,7 +85,7 @@ class NotificationProcessRecoveryTest {
             launch(server.port) {
                 openNotifications()
                 waitFor(context.getString(R.string.notifications_read_error))
-                waitFor("No unread activity"); waitForEnabled("Refresh")
+                waitFor("No unread activity"); ui.waitForRefreshableContent(15_000)
                 ui.onNodeWithText("Liked a post").assertIsDisplayed()
                 ui.onNodeWithContentDescription("View profile for Anon-${actor.publicKey.take(6)}").assertIsDisplayed()
                 ui.onNodeWithText("Mark all as read").assertIsNotEnabled()
@@ -117,7 +117,7 @@ class NotificationProcessRecoveryTest {
         }
     }
     private fun openNotifications() {
-        waitForEnabled("Refresh")
+        ui.waitForRefreshableContent(15_000)
         if (ui.onAllNodesWithText("Later").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Later").performClick()
         ui.onNodeWithText("Notifications").performClick()
         if (ui.onAllNodesWithText("Not now").fetchSemanticsNodes().isNotEmpty()) ui.onNodeWithText("Not now").performClick()
@@ -125,9 +125,9 @@ class NotificationProcessRecoveryTest {
     private fun capture(name: String, sentinel: String? = null) = captureNativeScreen(
         File(context.cacheDir, "notification-process-evidence/$name"), sentinel)
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
 }

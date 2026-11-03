@@ -71,7 +71,7 @@ class FollowingPreviewTest {
                         openFeedProfile(author)
                         waitFor("Unfollow")
                         ui.onNodeWithText("Back").performClick()
-                        waitFor("Refresh")
+                        ui.waitForRefreshableContent(20_000)
                         ui.waitUntil(10_000) { ui.refreshableContentReady() }
                         owner.assertHealthy()
                         official.assertHealthy()
@@ -509,7 +509,7 @@ class FollowingPreviewTest {
         }
         progress("Checking public fixture text: $text")
         ui.waitUntil(15_000) {
-            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+            ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 }

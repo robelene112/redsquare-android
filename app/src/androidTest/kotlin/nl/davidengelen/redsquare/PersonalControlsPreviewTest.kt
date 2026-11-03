@@ -68,7 +68,7 @@ class PersonalControlsPreviewTest {
                     .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${officialServer.port}/wsopen")
                 var address = ""
                 withOpenApp(intent, "mute-first-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Native Red Square reference post")
                     ui.onNodeWithText("Wallet").performClick()
                     address = displayedWalletAddress(ui)
@@ -86,7 +86,7 @@ class PersonalControlsPreviewTest {
                     waitFor("saito.io")
                     ui.onNodeWithText("saito.io").performScrollTo().performClick()
                     waitFor("Node: saito.io")
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Another account reference post")
                     assertPostAbsent("Profile newer post 20", "Another account reference post")
                     captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/muted-official.png"), "Another account reference post")
@@ -143,7 +143,7 @@ class PersonalControlsPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "anonymous-seed-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Native Red Square reference post")
                 ui.onNodeWithText("Wallet").performClick()
                 address = displayedWalletAddress(ui)
@@ -162,7 +162,7 @@ class PersonalControlsPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                     activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
                     ui.onNodeWithText("Retry").performClick()
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(address, displayedWalletAddress(ui))
                     ui.onNodeWithText("Done").performClick()
@@ -182,7 +182,7 @@ class PersonalControlsPreviewTest {
                     captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/unknown-owner-policy-gate.png"))
                     activity.onActivity { it.intent.removeExtra("walletCommitSyncUnavailable") }
                     ui.onNodeWithText("Retry").performClick()
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Another account reference post")
                     assertPostAbsent("Native Red Square reference post", "Another account reference post")
                     ui.onNodeWithText("Wallet").performClick()
@@ -217,7 +217,7 @@ class PersonalControlsPreviewTest {
                 .putExtra("feedOfficialPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "independent-block-first-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Native Red Square reference post")
                 ui.onNodeWithText("Wallet").performClick()
                 address = displayedWalletAddress(ui)
@@ -252,7 +252,7 @@ class PersonalControlsPreviewTest {
                 waitFor("saito.io")
                 ui.onNodeWithText("saito.io").performScrollTo().performClick()
                 waitFor("Node: saito.io")
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Another account reference post")
                 assertPostAbsent("Native Red Square reference post", "Another account reference post")
             }
@@ -326,7 +326,7 @@ class PersonalControlsPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "mounted-views-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 ui.onNodeWithText("Wallet").performClick()
                 address = displayedWalletAddress(ui)
                 ui.onNodeWithText("Done").performClick()
@@ -341,7 +341,7 @@ class PersonalControlsPreviewTest {
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/quote-original-before-mute.png"), "Native Red Square reference post")
                 showStandalonePost("Native Red Square reference post").performClick()
                 waitFor("Conversation")
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Independent Saito reply")
                 showPost("Native Red Square reference post")
                 val authorLink = hasContentDescription("View profile for Anon-${author.take(6)}") and
@@ -443,7 +443,7 @@ class PersonalControlsPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "failed-save-seed-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Native Red Square reference post")
                 ui.onNodeWithText("Wallet").performClick()
                 address = displayedWalletAddress(ui)
@@ -460,7 +460,7 @@ class PersonalControlsPreviewTest {
             // Fault the OS directory sync after AtomicFile finishes the active write.
             // Reading, wallet storage and later recovery use the ordinary filesystem.
             withOpenApp(Intent(intent).putExtra("personalCommitSyncUnavailable", true), "late-save-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Another account reference post")
                 assertPostAbsent("Native Red Square reference post", "Another account reference post")
                 ui.onNodeWithText("Settings").performClick()
@@ -473,7 +473,7 @@ class PersonalControlsPreviewTest {
                 captureNativeScreen(File(context.cacheDir, "personal-controls-evidence/late-save-retained-mute.png"), "Your change could not be saved. Try again.")
             }
             withOpenApp(intent, "late-save-reopening-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Another account reference post")
                 assertPostAbsent("Native Red Square reference post", "Another account reference post")
                 ui.onNodeWithText("Settings").performClick()
@@ -517,7 +517,7 @@ class PersonalControlsPreviewTest {
             var primary: Throwable? = null
             try {
                 withOpenApp(intent, "removal-seed-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Native Red Square reference post")
                     ui.onNodeWithText("Wallet").performClick()
                     address = displayedWalletAddress(ui)
@@ -532,7 +532,7 @@ class PersonalControlsPreviewTest {
                     assertPostAbsent("Native Red Square reference post", "Another account reference post")
                 }
                 withOpenApp(Intent(intent).putExtra("personalRecoverySyncUnavailable", true), "removal-uncertain-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     ui.onNodeWithText("Settings").performClick()
                     ui.onNodeWithText("Privacy and safety").performScrollTo().performClick()
                     ui.onNodeWithText("Muted and blocked accounts").performClick()
@@ -550,7 +550,7 @@ class PersonalControlsPreviewTest {
                 // Repair only the controlled recovery-path obstruction, never active policy or wallet bytes.
                 repairPersonalObstruction(address)
                 withOpenApp(intent, "removal-reopening-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Another account reference post")
                     assertPostAbsent("Native Red Square reference post", "Another account reference post")
                     ui.onNodeWithText("Settings").performClick()
@@ -592,7 +592,7 @@ class PersonalControlsPreviewTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var address = ""
             withOpenApp(intent, "corrupt-policy-preparation-failure") {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost("Native Red Square reference post")
                 ui.onNodeWithText("Wallet").performClick()
                 address = displayedWalletAddress(ui)
@@ -707,7 +707,7 @@ class PersonalControlsPreviewTest {
                     .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
                     .putExtra("balanceApiUrl", "http://127.0.0.1:${balanceServer.port}/balance/")
                 withOpenApp(intent, "personal-identity-replacement-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Native Red Square reference post")
                     ui.clickVisiblePostProfile("Anon-${author.take(6)}")
                     waitFor("Profile")
@@ -766,7 +766,7 @@ class PersonalControlsPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                 }
                 withOpenApp(intent, "personal-identity-restoration-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Native Red Square reference post")
                     ui.onNodeWithText("Wallet").performClick()
                     assertEquals(incoming.publicKey, displayedWalletAddress(ui))
@@ -795,7 +795,7 @@ class PersonalControlsPreviewTest {
                     ui.onNodeWithText("Done").performClick()
                 }
                 withOpenApp(intent, "personal-identity-final-reopen-failure") {
-                    waitForEnabled("Refresh")
+                    ui.waitForRefreshableContent(15_000)
                     showPost("Another account reference post")
                     assertPostAbsent("Native Red Square reference post", "Another account reference post")
                     ui.onNodeWithText("Wallet").performClick()
@@ -870,13 +870,13 @@ class PersonalControlsPreviewTest {
 
     private fun waitFor(text: String) {
         ui.waitUntil(15_000) {
-            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+            ui.onAllNodes(hasText(text)).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 
     private fun waitForEnabled(text: String) {
         ui.waitUntil(15_000) {
-            (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+            ui.onAllNodes((if (text == "Search history") hasContentDescription(text) else hasText(text)) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 

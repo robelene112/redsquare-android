@@ -50,17 +50,19 @@ class AppFrameReadingPreviewTest {
             ui.onNodeWithTag("feed-post-list").performScrollToIndex(0)
             ui.onNodeWithText("Reference post 20").assertIsDisplayed()
             ui.waitUntil(5_000) { ui.refreshableContentReady() }
-            // Hold the real read so the manual indicator is observable. Automatic outage
+            // Delay the actual connection rejection so manual feedback is observable. Automatic outage
             // polling never activates the pull indicator, and cannot satisfy this assertion.
-            peer.rejectNewConnections = false
-            peer.withholdArchiveReply = true
-            val reads = peer.requests.get()
+            peer.rejectionDelayMillis = 2_000
+            val pullAnchor = ui.onNodeWithText("Reference post 20").fetchSemanticsNode().boundsInRoot.top
+            val attempts = peer.connectionAttempts.get()
             val spinner = SemanticsMatcher.expectValue(SemanticsProperties.ProgressBarRangeInfo, ProgressBarRangeInfo.Indeterminate)
             ui.onAllNodes(spinner).assertCountEquals(0)
             ui.pullToRefresh("feed-post-list")
             ui.waitUntil(5_000) { ui.onNode(spinner).isDisplayed() }
-            ui.waitUntil(20_000) { peer.requests.get() > reads }
-            ui.onNodeWithText("Reference post 20").assertIsDisplayed()
+            ui.waitUntil(20_000) { peer.connectionAttempts.get() > attempts && ui.refreshableContentReady() }
+            assertOutageDetails()
+            assertEquals("Physical pull keeps the user-selected top reading anchor after connection rejection", pullAnchor,
+                ui.onNodeWithText("Reference post 20").assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top, 1f)
             capture("physical-pull-after-retained-reading.png")
         }
     }

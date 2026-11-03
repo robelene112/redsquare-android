@@ -45,7 +45,7 @@ class PersonalControlsProcessRecoveryTest {
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")
             var owner = ""
             launch(intent) {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 showPost(rootText)
                 ui.onNodeWithText("Wallet").performClick()
                 owner = displayedWalletAddress(ui)
@@ -71,7 +71,7 @@ class PersonalControlsProcessRecoveryTest {
                 ui.onNodeWithText("Back").performClick()
             }
             launch(Intent(intent).putExtra("personalCommitTerminate", true)) {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 openManagement()
                 waitForEnabled("Unmute account")
                 waitForEnabled("Unblock account")
@@ -106,7 +106,7 @@ class PersonalControlsProcessRecoveryTest {
         peer.start().use { server ->
             launch(Intent(context, MainActivity::class.java)
                 .putExtra("feedPeerUrl", "ws://127.0.0.1:${server.port}/wsopen")) {
-                waitForEnabled("Refresh")
+                ui.waitForRefreshableContent(15_000)
                 ui.onNodeWithText("Wallet").performClick()
                 assertEquals(owner, displayedWalletAddress(ui))
                 ui.onNodeWithText("Done").performClick()
@@ -171,10 +171,10 @@ class PersonalControlsProcessRecoveryTest {
         ui.onNodeWithText("Muted and blocked accounts").performClick()
     }
     private fun waitFor(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodesWithText(text).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun waitForEnabled(text: String) = ui.waitUntil(15_000) {
-        (if (text == "Refresh") ui.refreshableContentReady() else ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty())
+        ui.onAllNodes(hasText(text) and isEnabled()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
     }
     private fun showPost(text: String) {
         ui.waitUntil(15_000) { ui.onAllNodes(hasScrollAction()).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty() }

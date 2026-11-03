@@ -1376,8 +1376,8 @@ if [[ "${TEST_SCOPE:-full}" == ui-regression* ]]; then
     verify_post_presentation
     verify_image_viewer
     verify_profiles
-    verify_group_chat_native StatusRecoveryPreviewTest 180 status-recovery status-recovery-evidence
-    verify_group_chat_native StatusMotionPreviewTest 180 status-motion status-motion-evidence
+    verify_status_ui recovery
+    verify_status_ui motion
     printf '%s\n' 'Current native control regression scopes only; not complete application acceptance.' > "$evidence/scope.txt"
     exit 0
 fi
