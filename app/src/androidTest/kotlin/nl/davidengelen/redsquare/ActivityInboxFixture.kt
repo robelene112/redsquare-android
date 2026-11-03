@@ -60,7 +60,8 @@ internal fun withActivityInbox(name: String, eventNames: List<String> = listOf("
         when (criteria.get("field1").asString) {
             // ControlledFeedPeer routes exact quote lookups through archiveResponse too.
             "RedSquareRetweet" -> original("RedSquareRetweet", criteria.get("sig").asString)
-            "RedSquareLike" -> if (criteria.has("field3")) rows("RedSquareLike") else "[]"
+            "RedSquareLike" -> if (criteria.get("field3")?.asString == wallet.publicKey ||
+                criteria.get("field2")?.asString == actor) rows("RedSquareLike") else "[]"
             "RedSquare" -> when {
                 criteria.has("sig") -> original("RedSquare", criteria.get("sig").asString)
                 criteria.get("field3")?.asString == wallet.publicKey ||

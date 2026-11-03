@@ -225,7 +225,17 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("limit").asInt in 1..100)
                             quoteArchiveResponse?.invoke(criteria) ?: "[]"
                         } else if (criteria.get("field1")?.asString == "RedSquareLike") {
-                            require(criteria.get("sig").asString.matches(Regex("[0-9a-f]{128}")))
+                            if (criteria.has("sig")) {
+                                // Receipt queries intentionally contain no history limit/cursor.
+                                require(criteria.get("sig").asString.matches(Regex("[0-9a-f]{128}")))
+                            } else {
+                                require(criteria.has("field2") xor criteria.has("field3"))
+                                val identity = criteria.get(if (criteria.has("field2")) "field2" else "field3").asString
+                                require(identity.matches(Regex("[1-9A-HJ-NP-Za-km-z]{43,45}")))
+                                require(criteria.get("limit").asInt in 1..100)
+                                require(criteria.get("created_earlier_than").asLong >= 0)
+                                if (criteria.has("field3") || criteria.has("flagged_ne")) require(criteria.get("flagged_ne").asInt == 1)
+                            }
                             archiveResponse?.invoke(criteria) ?: "[]"
                         } else archiveResponse?.invoke(criteria) ?: run {
                             require(criteria.get("field1").asString == "RedSquare") {
