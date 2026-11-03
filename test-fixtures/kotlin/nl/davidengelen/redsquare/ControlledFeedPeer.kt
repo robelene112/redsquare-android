@@ -224,6 +224,9 @@ internal class ControlledFeedPeer(@Volatile var rows: String,
                             require(criteria.get("flagged_ne").asInt == 1)
                             require(criteria.get("limit").asInt in 1..100)
                             quoteArchiveResponse?.invoke(criteria) ?: "[]"
+                        } else if (criteria.get("field1")?.asString == "RedSquareLike") {
+                            require(criteria.get("sig").asString.matches(Regex("[0-9a-f]{128}")))
+                            archiveResponse?.invoke(criteria) ?: "[]"
                         } else archiveResponse?.invoke(criteria) ?: run {
                             require(criteria.get("field1").asString == "RedSquare") {
                                 "Unexpected archive request: $criteria"
