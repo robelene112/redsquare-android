@@ -89,8 +89,7 @@ class ProfileHierarchyPreviewTest {
                 ui.onNodeWithText(context.getString(R.string.personal_mute_detail)).performScrollTo().assertIsDisplayed()
                 ui.onNodeWithText(context.getString(R.string.personal_block_detail)).performScrollTo().assertIsDisplayed()
                 capture(folder, "$label-profile-actions.png")
-                waitFor("Mute account")
-                ui.onNodeWithText("Mute").performClick()
+                ui.onNodeWithText("Mute").performScrollTo().performClick()
                 ui.waitUntil(15_000) {
                     ui.onAllNodesWithText(context.getString(R.string.personal_mute_detail))
                         .fetchSemanticsNodes().size == 2
