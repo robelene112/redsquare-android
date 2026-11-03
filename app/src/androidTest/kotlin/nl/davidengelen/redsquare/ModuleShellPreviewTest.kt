@@ -57,7 +57,10 @@ class ModuleShellPreviewTest {
             ui.waitUntil(15_000) { ui.onNode(hasText("Edit profile") and hasClickAction()).isDisplayed() }
             ui.onNode(hasText("Edit profile") and hasClickAction()).performScrollTo().performClick()
             val draft = "My real unsent profile draft survives switching apps"
-            ui.waitUntil(10_000) { ui.onNode(hasSetTextAction() and isEnabled()).isDisplayed() }
+            val editorDeadline = android.os.SystemClock.elapsedRealtime() + 10_000
+            ui.waitUntil(10_000) { ui.onAllNodes(hasSetTextAction() and isEnabled()).fetchSemanticsNodes().size == 1 }
+            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
+            check(android.os.SystemClock.elapsedRealtime() <= editorDeadline) { "Editor reachability must meet its original10s budget" }
             ui.onNode(hasSetTextAction()).performTextReplacement(draft)
             ui.onNode(hasSetTextAction()).performClick()
             fun keyboardVisible(): Boolean {
@@ -74,8 +77,10 @@ class ModuleShellPreviewTest {
             ui.onNodeWithText("Article preview").assertIsDisplayed()
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed()
             switchApp("Stack", "Red Square")
-            ui.waitUntil(15_000) { ui.onNode(hasSetTextAction() and hasText(draft)).isDisplayed() }
-            ui.onNode(hasSetTextAction()).assertTextEquals(draft)
+            val returnDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
+            ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and hasText(draft)).fetchSemanticsNodes().size == 1 }
+            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assertTextEquals(draft)
+            check(android.os.SystemClock.elapsedRealtime() <= returnDeadline) { "Returning work must meet its original15s budget" }
             activity.recreate()
             ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and hasText(draft)).fetchSemanticsNodes().size == 1 }
             ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assertTextEquals(draft)
