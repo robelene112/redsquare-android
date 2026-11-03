@@ -13,6 +13,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -272,17 +273,54 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     // Selecting a confirmation must never dispose the state that owns it.
     if (actionsOpen) AlertDialog(onDismissRequest = { actionsOpen = false },
         title = { Text(stringResource(R.string.profile_actions)) },
-        text = { Column(Modifier.verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
-            TextButton(onClick = { actionsOpen = false; identityOpen = true }, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.post_public_identity))
+        text = { Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.gap)) {
+            ProfileActionSection(stringResource(R.string.profile_actions_identity_section)) {
+                TextButton(onClick = { actionsOpen = false; identityOpen = true },
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+                    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(stringResource(R.string.post_public_identity), style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.profile_actions_identity_detail),
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
             }
-            if (own) follow()
-            AccountControls(author)
-            if (wallet != null && !own) TextButton(onClick = {
-                actionsOpen = false
-                view.publisherReport = PublisherUserReport(author, backend)
-            }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.publisher_report_user_action)) }
+            if (!own) {
+                ProfileActionSection(stringResource(R.string.profile_actions_connection_section)) {
+                    Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+                        val followStatus = when {
+                            following?.ready == true -> stringResource(
+                                if (author in following.accounts) R.string.profile_actions_following
+                                else R.string.profile_actions_not_following)
+                            following?.loading == true -> stringResource(R.string.profile_actions_follow_loading)
+                            else -> stringResource(R.string.profile_actions_follow_unavailable)
+                        }
+                        Text(followStatus, style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.profile_actions_follow_detail),
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) { follow() }
+                        FollowingStatus(following)
+                    }
+                }
+                ProfileActionSection(stringResource(R.string.profile_actions_safety_section)) {
+                    AccountControls(author)
+                    if (wallet != null) {
+                        HorizontalDivider()
+                        TextButton(onClick = {
+                            actionsOpen = false
+                            view.publisherReport = PublisherUserReport(author, backend)
+                        }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+                            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                Text(stringResource(R.string.publisher_report_user_action),
+                                    style = MaterialTheme.typography.bodyLarge)
+                                Text(stringResource(R.string.profile_actions_report_detail),
+                                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
+                    }
+                }
+            }
         } },
         confirmButton = { TextButton(onClick = { actionsOpen = false }, modifier = Modifier.heightIn(min = 48.dp)) {
             Text(stringResource(R.string.done))
@@ -290,5 +328,17 @@ internal fun ProfileScreen(wallet: SaitoWallet?, endpoint: String, backend: Sait
     if (identityOpen) IdentityDetailsDialog(author) { identityOpen = false }
     view.publisherReport?.let { report ->
         PublisherEmailDialog(PublisherContactPurpose.SAFETY, report) { view.publisherReport = null }
+    }
+}
+
+@Composable
+private fun ProfileActionSection(title: String, content: @Composable ColumnScope.() -> Unit) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(title, Modifier.padding(horizontal = 12.dp), style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary)
+        Surface(shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+            Column(Modifier.fillMaxWidth().padding(4.dp),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.small), content = content)
+        }
     }
 }

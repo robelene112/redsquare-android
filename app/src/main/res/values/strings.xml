@@ -356,6 +356,8 @@
     <string name="personal_block_account">Block account</string>
     <string name="personal_unblock_account">Unblock account</string>
     <string name="personal_block">Block</string>
+    <string name="personal_muted_status">Muted</string>
+    <string name="personal_blocked_status">Blocked</string>
     <string name="personal_block_detail">Block hides this account\'s posts, social notifications and incoming Chat messages.</string>
     <string name="personal_cancel">Cancel</string>
     <string name="personal_mute_detail">Mute hides this account\'s posts and social notifications. Chat messages remain available.</string>
@@ -705,6 +707,16 @@
     <string name="profile_identity_copied">Public key copied.</string>
     <string name="profile_identity_copy_failed">The public key could not be copied. You can select the full key above.</string>
     <string name="profile_actions">Profile actions</string>
+    <string name="profile_actions_identity_section">Identity</string>
+    <string name="profile_actions_identity_detail">View this account\'s public name and key.</string>
+    <string name="profile_actions_connection_section">Connection</string>
+    <string name="profile_actions_following">Following</string>
+    <string name="profile_actions_not_following">Not following</string>
+    <string name="profile_actions_follow_loading">Checking follow status</string>
+    <string name="profile_actions_follow_unavailable">Follow status is unavailable</string>
+    <string name="profile_actions_follow_detail">Posts from accounts you follow appear in the Following feed.</string>
+    <string name="profile_actions_safety_section">Privacy and safety</string>
+    <string name="profile_actions_report_detail">Send a report about this account to the selected node\'s publisher.</string>
     <string name="image_zoom_in">Zoom in</string>
     <string name="image_zoom_out">Zoom out</string>
     <string name="image_zoom_reset">Reset zoom</string>

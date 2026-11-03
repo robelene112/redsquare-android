@@ -90,7 +90,7 @@ class ProfileHierarchyPreviewTest {
                 ui.onNodeWithText(context.getString(R.string.personal_block_detail)).performScrollTo().assertIsDisplayed()
                 capture(folder, "$label-profile-actions.png")
                 waitFor("Mute account")
-                ui.onNodeWithText("Mute account").performClick()
+                ui.onNodeWithText("Mute").performClick()
                 waitFor(context.getString(R.string.personal_mute_detail))
                 capture(folder, "$label-mute-confirmation.png")
                 ui.onNodeWithText("Cancel").performClick()

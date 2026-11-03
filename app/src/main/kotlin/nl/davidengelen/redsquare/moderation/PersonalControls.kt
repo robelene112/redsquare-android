@@ -8,12 +8,18 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.Alignment
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,6 +31,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import nl.davidengelen.redsquare.R
 import nl.davidengelen.redsquare.saito.SaitoWallet
+import nl.davidengelen.redsquare.ui.AppSpacing
 
 /** Shared semantics for social content/notifications and the later incoming Chat flow. */
 internal data class PersonalPolicy(val muted: Set<String> = emptySet(), val blocked: Set<String> = emptySet(),
@@ -142,18 +149,23 @@ internal fun PersonalControlsStatus(controls: PersonalControls?) {
 @Composable
 internal fun AccountControls(author: String) {
     val controls = LocalPersonalControls.current ?: return
-    PersonalControlsStatus(controls)
-    AccountControlButtons(controls, author)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(AppSpacing.small)) {
+        PersonalControlsStatus(controls)
+        AccountControlButtons(controls, author, showEffects = true)
+    }
 }
 
-private enum class Control(val activeLabel: Int, val inactiveLabel: Int, val detail: Int, val confirmation: Int) {
-    MUTE(R.string.personal_unmute_account, R.string.personal_mute_account, R.string.personal_mute_detail, R.string.personal_mute),
-    BLOCK(R.string.personal_unblock_account, R.string.personal_block_account, R.string.personal_block_detail, R.string.personal_block)
+private enum class Control(val activeLabel: Int, val inactiveLabel: Int, val detail: Int,
+    val confirmation: Int, val activeStatus: Int) {
+    MUTE(R.string.personal_unmute_account, R.string.personal_mute_account, R.string.personal_mute_detail,
+        R.string.personal_mute, R.string.personal_muted_status),
+    BLOCK(R.string.personal_unblock_account, R.string.personal_block_account, R.string.personal_block_detail,
+        R.string.personal_block, R.string.personal_blocked_status)
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun AccountControlButtons(controls: PersonalControls, author: String) {
+private fun AccountControlButtons(controls: PersonalControls, author: String, showEffects: Boolean = false) {
     var confirming by remember(author) { mutableStateOf<Control?>(null) }
     fun change(control: Control, enabled: Boolean) {
         when (control) {
@@ -161,12 +173,37 @@ private fun AccountControlButtons(controls: PersonalControls, author: String) {
             Control.BLOCK -> controls.setBlocked(author, enabled)
         }
     }
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Control.entries.forEach { control ->
-            val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
-            TextButton(modifier = Modifier.heightIn(min = 48.dp), enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
-                if (selected) change(control, false) else confirming = control
-            }) { Text(stringResource(if (selected) control.activeLabel else control.inactiveLabel)) }
+    if (showEffects) {
+        Column(Modifier.fillMaxWidth()) {
+            Control.entries.forEachIndexed { index, control ->
+                val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
+                Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(stringResource(control.inactiveLabel), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(control.detail), style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        if (selected) Text(stringResource(control.activeStatus), style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.primary)
+                    }
+                    TextButton(modifier = Modifier.heightIn(min = 48.dp),
+                        enabled = controls.ownerAvailable && controls.ready && !controls.saving,
+                        onClick = { if (selected) change(control, false) else confirming = control }) {
+                        Text(stringResource(if (selected) control.activeLabel else control.confirmation))
+                    }
+                }
+                if (index < Control.entries.lastIndex) HorizontalDivider(Modifier.padding(horizontal = 12.dp))
+            }
+        }
+    } else {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Control.entries.forEach { control ->
+                val selected = author in if (control == Control.MUTE) controls.muted else controls.blocked
+                TextButton(modifier = Modifier.heightIn(min = 48.dp),
+                    enabled = controls.ownerAvailable && controls.ready && !controls.saving, onClick = {
+                        if (selected) change(control, false) else confirming = control
+                    }) { Text(stringResource(if (selected) control.activeLabel else control.inactiveLabel)) }
+            }
         }
     }
     confirming?.let { control -> AlertDialog(
