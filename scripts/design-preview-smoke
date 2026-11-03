@@ -86,7 +86,9 @@ try:
     tap('Apps',True);tap('Red Square Live 2')
     # Module switching preserves the old feed anchor; deliberately reveal the new post above it.
     size=list(map(int,re.findall(r'\d+',adb('shell','wm','size').splitlines()[-1])));width,height=size[-2:]
-    for _ in range(2):adb('shell','input','swipe',str(width//2),str(int(height*.35)),str(width//2),str(int(height*.80)),'300')
+    for _ in range(8):
+        if any(x.get('text')=='A new story, shared on Stack.' for x in tree().iter('node')):break
+        adb('shell','input','swipe',str(int(width*.90)),str(int(height*.35)),str(int(width*.90)),str(int(height*.80)),'350')
     wait('A new story, shared on Stack.');capture('optional-article-post-created')
     start('compose');wait('New post')
     edit=next(x for x in tree().iter('node') if x.get('class')=='android.widget.EditText')
