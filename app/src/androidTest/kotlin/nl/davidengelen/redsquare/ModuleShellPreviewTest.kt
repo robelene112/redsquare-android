@@ -1,6 +1,8 @@
 package nl.davidengelen.redsquare
 
 import androidx.compose.ui.test.*
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
@@ -72,18 +74,18 @@ class ModuleShellPreviewTest {
             ui.waitUntil(10_000) { keyboardVisible() }
             androidx.test.uiautomator.UiDevice.getInstance(instrumentation).pressBack()
             ui.waitUntil(10_000) { !keyboardVisible() }
-            ui.onNode(hasSetTextAction()).assertTextEquals(draft)
+            ui.onNode(hasSetTextAction()).assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
             switchApp("Red Square", "Stack")
             ui.onNodeWithText("Article preview").assertIsDisplayed()
             ui.onNodeWithText("A Node in a Browser Tab").assertIsDisplayed()
             switchApp("Stack", "Red Square")
             val returnDeadline = android.os.SystemClock.elapsedRealtime() + 15_000
             ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and hasText(draft)).fetchSemanticsNodes().size == 1 }
-            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assertTextEquals(draft)
+            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
             check(android.os.SystemClock.elapsedRealtime() <= returnDeadline) { "Returning work must meet its original15s budget" }
             activity.recreate()
             ui.waitUntil(15_000) { ui.onAllNodes(hasSetTextAction() and hasText(draft)).fetchSemanticsNodes().size == 1 }
-            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assertTextEquals(draft)
+            ui.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed().assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(draft)))
             captureNativeScreen(File(instrumentation.targetContext.cacheDir,
                 "module-shell-evidence/retained-real-profile-draft.png"))
         }
